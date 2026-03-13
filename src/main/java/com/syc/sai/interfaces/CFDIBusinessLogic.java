@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.crypto.SecretKey;
-import javax.xml.bind.DatatypeConverter;
 import com.syc.cfdi.core.FacturaManager;
 import com.syc.cfdi.security.TripleDesEncryption;
 import com.syc.crud.dsmngr.DataSourceManager;
@@ -27,6 +26,7 @@ import com.syc.gestion.custom.FolioGeneratorInterface;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import jakarta.xml.bind.DatatypeConverter;
 
 public class CFDIBusinessLogic extends DataSourceManager {
 
