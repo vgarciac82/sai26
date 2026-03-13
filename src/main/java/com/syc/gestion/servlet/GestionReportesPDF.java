@@ -1,14 +1,15 @@
 package com.syc.gestion.servlet;
 
-import javax.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.annotation.WebServlet;
+
 /*
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 */
-public class GestionReportesPDF extends HttpServlet implements GestionInterface {
-	/*private DataSource ds = null;
+/*private DataSource ds = null;
 
 	public static final long serialVersionUID = 1L;
 
@@ -163,4 +164,6 @@ public class GestionReportesPDF extends HttpServlet implements GestionInterface 
 		op.flush();
 		op.close();
 	}*/
+@WebServlet(name = "GestionReportesPDF", urlPatterns = { "/reportespdf" })
+public class GestionReportesPDF extends HttpServlet implements GestionInterface {
 }

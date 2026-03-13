@@ -1,89 +1,82 @@
 package com.axtel.contratos.controller;
 
-
 import java.io.IOException;
 import java.util.List;
-
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
-
 import com.axtel.contratos.entities.FuelContractAccount;
 import com.axtel.contratos.services.FuelContractService;
 import com.axtel.contratos.services.implementation.FuelContractServiceImplementation;
 import com.syc.gestion.util.Util;
+import jakarta.servlet.annotation.WebServlet;
 
-
+@WebServlet(name = "FuelContractAccountController", urlPatterns = { "/SICOVE/FuelContract/addAccount", "/SICOVE/FuelContract/getAccounts" })
 public class FuelContractAccountController extends HttpServlet implements GenericFuelContract {
 
-	private static final long	serialVersionUID	= 2355019797040910400L;
-	private static final Logger	log					= LogManager.getLogger( FuelContractAccountController.class );
-	private String				jniName;
-	private FuelContractService	fuelContractService;
-	private final ObjectMapper mapper = new ObjectMapper();
-	
-	@Override
-	protected void doGet( HttpServletRequest req, HttpServletResponse resp ) throws ServletException, IOException {
-		String action = req.getRequestURI().substring( req.getRequestURI().lastIndexOf( "/" ) + 1 );
+    private static final long serialVersionUID = 2355019797040910400L;
 
-		if ( GET_ACCOUNTS.equals( action ) ) {
-			List<FuelContractAccount> accounts = null;
-			try {
-				int unitId = Integer.parseInt( req.getParameter( "unitId" ) );
-				accounts = fuelContractService.getAccounts( unitId );
-				Util.sendJSON( resp, accounts );
-			} catch ( Exception e ) {
-				log.error( e, e );
-				Util.sendJSONError( resp, e );
-			}
-		}
-		log.info( "Accion a ejecutar: " + action );
-	}
+    private static final Logger log = LogManager.getLogger(FuelContractAccountController.class);
 
-	
+    private String jniName;
 
-	@Override
-	protected void doPost( HttpServletRequest req, HttpServletResponse resp ) throws ServletException, IOException {
+    private FuelContractService fuelContractService;
 
-		FuelContractAccount fuelContractAccount = mapper.readValue( req.getInputStream(), FuelContractAccount.class );
-		log.info( fuelContractAccount );
-		try {
-			fuelContractAccount = fuelContractService.createContractAccount( fuelContractAccount );
-			log.info( fuelContractAccount );
-			Util.sendJSON( resp, fuelContractAccount );
+    private final ObjectMapper mapper = new ObjectMapper();
 
-		} catch ( Exception e ) {
-			log.error( e, e );
-			Util.sendJSONError( resp, e );
-		}
-	}
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getRequestURI().substring(req.getRequestURI().lastIndexOf("/") + 1);
+        if (GET_ACCOUNTS.equals(action)) {
+            List<FuelContractAccount> accounts = null;
+            try {
+                int unitId = Integer.parseInt(req.getParameter("unitId"));
+                accounts = fuelContractService.getAccounts(unitId);
+                Util.sendJSON(resp, accounts);
+            } catch (Exception e) {
+                log.error(e, e);
+                Util.sendJSONError(resp, e);
+            }
+        }
+        log.info("Accion a ejecutar: " + action);
+    }
 
-	@Override
-	public void init( ServletConfig config ) throws ServletException {
-		super.init( config );
-		try {
-			InitialContext ic = new InitialContext();
-			jniName = ( String ) ic.lookup( "java:comp/env/dataSourceRefName" );
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        FuelContractAccount fuelContractAccount = mapper.readValue(req.getInputStream(), FuelContractAccount.class);
+        log.info(fuelContractAccount);
+        try {
+            fuelContractAccount = fuelContractService.createContractAccount(fuelContractAccount);
+            log.info(fuelContractAccount);
+            Util.sendJSON(resp, fuelContractAccount);
+        } catch (Exception e) {
+            log.error(e, e);
+            Util.sendJSONError(resp, e);
+        }
+    }
 
-			if ( jniName == null ) {
-				jniName = "jdbc/gestion";
-				log.info( "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"" );
-			} else
-				log.info( "dataSourceRefName=" + jniName );
-		} catch ( NamingException exc ) {
-			jniName = "jdbc/gestion";
-			log.info( "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"" );
-		}
-
-		fuelContractService = new FuelContractServiceImplementation( jniName );
-
-	}
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        try {
+            InitialContext ic = new InitialContext();
+            jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
+            if (jniName == null) {
+                jniName = "jdbc/gestion";
+                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+            } else
+                log.info("dataSourceRefName=" + jniName);
+        } catch (NamingException exc) {
+            jniName = "jdbc/gestion";
+            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+        }
+        fuelContractService = new FuelContractServiceImplementation(jniName);
+    }
 }

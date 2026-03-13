@@ -1,23 +1,19 @@
 package com.axtel.sai.sicove.controllers;
 
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
-
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-
 import com.axtel.contratos.exception.ContratoException;
 import com.axtel.sai.sicove.SICOVE;
 import com.axtel.sai.sicove.entities.VehicleFuelRequest;
@@ -37,193 +33,175 @@ import com.axtel.sai.sicove.services.impl.JBCFuelingRequestService;
 import com.axtel.sai.sicove.services.impl.MailFuelingNotificatorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.syc.gestion.util.Util;
+import jakarta.servlet.annotation.WebServlet;
 
-
+@WebServlet(name = "FuelingRequestController", urlPatterns = { "/SICOVE/FuelProvisioningWallet", "/SICOVE/FuelProvisioningWallet/nextStatus", "/SICOVE/FuelProvisioningWallet/authRequest", "/SICOVE/FuelProvisioningWallet/finishRequest", "/SICOVE/FuelProvisioningWallet/discardRequest", "/SICOVE/FuelProvisioningWallet/rejectRequest", "/SICOVE/FuelProvisioningWallet/validatingVerification" })
 public class FuelingRequestController extends HttpServlet {
 
-	public static final TimeZone						GMT_MINUS_6			= TimeZone.getTimeZone( "GMT-06:00" );
-	private static final long							serialVersionUID	= 1039657416626590670L;
-	private static final Logger							log					= LogManager.getLogger( FuelingRequestController.class );
-	private com.fasterxml.jackson.databind.ObjectMapper	objectMapper;
-	private String										jniName;
+    public static final TimeZone GMT_MINUS_6 = TimeZone.getTimeZone("GMT-06:00");
 
-	private FuelingRequestService						fuelingRequestService;
-	private FuelingNotificatorService					fuelingNotificatorService;
+    private static final long serialVersionUID = 1039657416626590670L;
 
-	private FuelingRequestRepository					fuelingRequestRepository;
-	private FuelingJustificationRepository				fuelingJustificationRepository;
-	private FuelingNotificatorRepository				fuelingNotificatorRepository;
+    private static final Logger log = LogManager.getLogger(FuelingRequestController.class);
 
-	private JDBCVehicleRepository						vehicleRepository;
-	private JDBCEmployeeRepository						employeeRepository;
+    private com.fasterxml.jackson.databind.ObjectMapper objectMapper;
 
-	@Override
-	public void init( ServletConfig config ) throws ServletException {
+    private String jniName;
 
-		super.init( config );
-		try {
-			InitialContext ic = new InitialContext();
-			jniName = ( String ) ic.lookup( "java:comp/env/dataSourceRefName" );
+    private FuelingRequestService fuelingRequestService;
 
-			if ( jniName == null ) {
-				jniName = "jdbc/gestion";
-				log.info( "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"" );
-			} else
-				log.info( "dataSourceRefName=" + jniName );
-		} catch ( NamingException exc ) {
-			jniName = "jdbc/gestion";
-			log.info( "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"" );
-		}
+    private FuelingNotificatorService fuelingNotificatorService;
 
-		fuelingNotificatorRepository = new JDBCFuelingNotificatorRepository();
-		fuelingJustificationRepository = new JDBCFuelingJustificationRepository();
-		fuelingRequestRepository = new JDBCFuelingRequestRepository();
-		vehicleRepository = new JDBCVehicleRepository();
-		employeeRepository = new JDBCEmployeeRepository();
+    private FuelingRequestRepository fuelingRequestRepository;
 
-		fuelingRequestService = new JBCFuelingRequestService( jniName, fuelingRequestRepository, fuelingJustificationRepository, vehicleRepository, employeeRepository );
-		fuelingNotificatorService = new MailFuelingNotificatorService( jniName, "REQFUELWALLET", fuelingNotificatorRepository );
+    private FuelingJustificationRepository fuelingJustificationRepository;
 
-		objectMapper = new ObjectMapper();
+    private FuelingNotificatorRepository fuelingNotificatorRepository;
 
-		objectMapper.setTimeZone( GMT_MINUS_6 );
-	}
+    private JDBCVehicleRepository vehicleRepository;
 
-	@Override
-	protected void doPost( HttpServletRequest request, HttpServletResponse response ) throws IOException {
-		VehicleFuelRequest fuelRequest = objectMapper.readValue( request.getInputStream(), VehicleFuelRequest.class );
+    private JDBCEmployeeRepository employeeRepository;
 
-		try {
-			fuelRequest = fuelingRequestService.saveFuelRequest( fuelRequest );
-			sendFuelrequest( response, fuelRequest );
-		} catch ( ContratoException e ) {
-			log.error( e, e );
-			Util.sendJSONError( response, e );
-		}
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        try {
+            InitialContext ic = new InitialContext();
+            jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
+            if (jniName == null) {
+                jniName = "jdbc/gestion";
+                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+            } else
+                log.info("dataSourceRefName=" + jniName);
+        } catch (NamingException exc) {
+            jniName = "jdbc/gestion";
+            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+        }
+        fuelingNotificatorRepository = new JDBCFuelingNotificatorRepository();
+        fuelingJustificationRepository = new JDBCFuelingJustificationRepository();
+        fuelingRequestRepository = new JDBCFuelingRequestRepository();
+        vehicleRepository = new JDBCVehicleRepository();
+        employeeRepository = new JDBCEmployeeRepository();
+        fuelingRequestService = new JBCFuelingRequestService(jniName, fuelingRequestRepository, fuelingJustificationRepository, vehicleRepository, employeeRepository);
+        fuelingNotificatorService = new MailFuelingNotificatorService(jniName, "REQFUELWALLET", fuelingNotificatorRepository);
+        objectMapper = new ObjectMapper();
+        objectMapper.setTimeZone(GMT_MINUS_6);
+    }
 
-	}
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        VehicleFuelRequest fuelRequest = objectMapper.readValue(request.getInputStream(), VehicleFuelRequest.class);
+        try {
+            fuelRequest = fuelingRequestService.saveFuelRequest(fuelRequest);
+            sendFuelrequest(response, fuelRequest);
+        } catch (ContratoException e) {
+            log.error(e, e);
+            Util.sendJSONError(response, e);
+        }
+    }
 
-	@Override
-	protected void doGet( HttpServletRequest request, HttpServletResponse response ) throws IOException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        boolean fullResponse = false;
+        try {
+            int fuelRequestId = Integer.parseInt(request.getParameter(SICOVE.PARAM_REQUEST_FOLIO));
+            fullResponse = "true".equals(StringUtils.trimToEmpty(request.getParameter(SICOVE.PARAM_FULL_REQUEST)));
+            if (fullResponse) {
+                VehicleFuelRequestDAO fullFuelRequest = fuelingRequestService.getFullFuelRequest(fuelRequestId);
+                sendFullFuelrequest(response, fullFuelRequest);
+            } else {
+                VehicleFuelRequest fuelRequest = fuelingRequestService.getFuelRequest(fuelRequestId);
+                sendFuelrequest(response, fuelRequest);
+            }
+        } catch (Exception e) {
+            log.error(e, e);
+            Util.sendJSONError(response, e);
+        }
+    }
 
-		boolean fullResponse = false;
-		try {
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String action = request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1);
+        VehicleFuelRequest fuelRequest;
+        log.debug("Action: " + action);
+        try {
+            if ("validatingVerification".equals(action)) {
+                fuelRequest = objectMapper.readValue(request.getInputStream(), VehicleFuelRequest.class);
+                fuelingRequestService.updateFuelRequestStatus(fuelRequest.getFuelingRequestId(), fuelRequest.getIdStatus());
+                if (fuelRequest.getIdStatus() == SICOVE.CAPTURE_VERIFICATION)
+                    fuelingNotificatorService.sendCaptureVerifNotification(fuelRequest);
+                else if (fuelRequest.getIdStatus() == SICOVE.VERIFIED_FUELING_REQUEST)
+                    fuelingNotificatorService.sendAprovedVerifNotification(fuelRequest);
+                else
+                    fuelingNotificatorService.sendValidateVerifNotification(fuelRequest);
+                fuelRequest = fuelingRequestService.getFuelRequest(fuelRequest.getFuelingRequestId());
+            } else if ("finishRequest".equals(action)) {
+                fuelRequest = objectMapper.readValue(request.getInputStream(), VehicleFuelRequest.class);
+                VehicleFuelRequest savedRequest = fuelingRequestService.getFuelRequest(fuelRequest.getFuelingRequestId());
+                if (savedRequest.getIdStatus() == SICOVE.FUELING_REQUEST_AUTHORIZED)
+                    fuelRequest = savedRequest;
+                else {
+                    fuelingRequestService.finishRequest(fuelRequest);
+                    fuelingNotificatorService.sendAuthNotification(fuelRequest);
+                    fuelRequest = fuelingRequestService.getFuelRequest(fuelRequest.getFuelingRequestId());
+                }
+            } else if ("authRequest".equals(action)) {
+                fuelRequest = objectMapper.readValue(request.getInputStream(), VehicleFuelRequest.class);
+                fuelingRequestService.authRequestStatus(fuelRequest);
+                fuelRequest = fuelingRequestService.getFuelRequest(fuelRequest.getFuelingRequestId());
+            } else if ("nextStatus".equals(action)) {
+                int fuelRequestId = Integer.parseInt(request.getParameter(SICOVE.PARAM_REQUEST_FOLIO));
+                int status = Integer.parseInt(request.getParameter(SICOVE.PARAM_REQUEST_STATUS));
+                fuelingRequestService.updateFuelRequestStatus(fuelRequestId, status);
+                fuelRequest = fuelingRequestService.getFuelRequest(fuelRequestId);
+                fuelingNotificatorService.sendPendingAuthNotification(fuelRequest);
+            } else {
+                fuelRequest = objectMapper.readValue(request.getInputStream(), VehicleFuelRequest.class);
+                fuelRequest = fuelingRequestService.updateFuelRequest(fuelRequest);
+            }
+            sendFuelrequest(response, fuelRequest);
+        } catch (SicoveException e) {
+            log.error(e, e);
+            Util.sendJSONError(response, e);
+        }
+    }
 
-			int fuelRequestId = Integer.parseInt( request.getParameter( SICOVE.PARAM_REQUEST_FOLIO ) );
-			fullResponse = "true".equals( StringUtils.trimToEmpty( request.getParameter( SICOVE.PARAM_FULL_REQUEST ) ) );
+    private void sendFullFuelrequest(HttpServletResponse response, VehicleFuelRequestDAO fuelRequest) throws IOException {
+        String jsonResponse = objectMapper.writeValueAsString(fuelRequest);
+        response.setContentType("application/json; charset=UTF-8");
+        response.getWriter().write(jsonResponse);
+        response.setStatus(HttpServletResponse.SC_OK);
+    }
 
-			if ( fullResponse ) {
-				VehicleFuelRequestDAO fullFuelRequest = fuelingRequestService.getFullFuelRequest( fuelRequestId );
-				sendFullFuelrequest( response, fullFuelRequest );
-			} else {
-				VehicleFuelRequest fuelRequest = fuelingRequestService.getFuelRequest( fuelRequestId );
-				sendFuelrequest( response, fuelRequest );
-			}
-		} catch ( Exception e ) {
-			log.error( e, e );
-			Util.sendJSONError( response, e );
-		}
+    private void sendFuelrequest(HttpServletResponse response, VehicleFuelRequest fuelRequest) throws IOException {
+        String jsonResponse = objectMapper.writeValueAsString(fuelRequest);
+        response.setContentType("application/json; charset=UTF-8");
+        response.getWriter().write(jsonResponse);
+        response.setStatus(HttpServletResponse.SC_OK);
+    }
 
-	}
-
-	@Override
-	protected void doPut( HttpServletRequest request, HttpServletResponse response ) throws IOException {
-
-		String action = request.getRequestURI().substring( request.getRequestURI().lastIndexOf( "/" ) + 1 );
-		VehicleFuelRequest fuelRequest;
-		log.debug( "Action: " + action );
-		try {
-
-			if ( "validatingVerification".equals( action ) ) {
-
-				fuelRequest = objectMapper.readValue( request.getInputStream(), VehicleFuelRequest.class );
-
-				fuelingRequestService.updateFuelRequestStatus( fuelRequest.getFuelingRequestId(), fuelRequest.getIdStatus() );
-				if ( fuelRequest.getIdStatus() == SICOVE.CAPTURE_VERIFICATION )
-					fuelingNotificatorService.sendCaptureVerifNotification( fuelRequest );
-				else if ( fuelRequest.getIdStatus() == SICOVE.VERIFIED_FUELING_REQUEST )
-					fuelingNotificatorService.sendAprovedVerifNotification( fuelRequest );
-				else
-					fuelingNotificatorService.sendValidateVerifNotification( fuelRequest );
-				fuelRequest = fuelingRequestService.getFuelRequest( fuelRequest.getFuelingRequestId() );
-
-			} else if ( "finishRequest".equals( action ) ) {
-				fuelRequest = objectMapper.readValue( request.getInputStream(), VehicleFuelRequest.class );
-				VehicleFuelRequest savedRequest = fuelingRequestService.getFuelRequest( fuelRequest.getFuelingRequestId() );
-				if ( savedRequest.getIdStatus() == SICOVE.FUELING_REQUEST_AUTHORIZED )
-					fuelRequest = savedRequest;
-				else {
-					fuelingRequestService.finishRequest( fuelRequest );
-					fuelingNotificatorService.sendAuthNotification( fuelRequest );
-					fuelRequest = fuelingRequestService.getFuelRequest( fuelRequest.getFuelingRequestId() );
-				}
-
-			} else if ( "authRequest".equals( action ) ) {
-
-				fuelRequest = objectMapper.readValue( request.getInputStream(), VehicleFuelRequest.class );
-				fuelingRequestService.authRequestStatus( fuelRequest );
-				fuelRequest = fuelingRequestService.getFuelRequest( fuelRequest.getFuelingRequestId() );
-
-			} else if ( "nextStatus".equals( action ) ) {
-				int fuelRequestId = Integer.parseInt( request.getParameter( SICOVE.PARAM_REQUEST_FOLIO ) );
-				int status = Integer.parseInt( request.getParameter( SICOVE.PARAM_REQUEST_STATUS ) );
-
-				fuelingRequestService.updateFuelRequestStatus( fuelRequestId, status );
-				fuelRequest = fuelingRequestService.getFuelRequest( fuelRequestId );
-				fuelingNotificatorService.sendPendingAuthNotification( fuelRequest );
-
-			} else {
-				fuelRequest = objectMapper.readValue( request.getInputStream(), VehicleFuelRequest.class );
-				fuelRequest = fuelingRequestService.updateFuelRequest( fuelRequest );
-			}
-			sendFuelrequest( response, fuelRequest );
-		} catch ( SicoveException e ) {
-			log.error( e, e );
-			Util.sendJSONError( response, e );
-		}
-
-	}
-
-	private void sendFullFuelrequest( HttpServletResponse response, VehicleFuelRequestDAO fuelRequest ) throws IOException {
-		String jsonResponse = objectMapper.writeValueAsString( fuelRequest );
-		response.setContentType( "application/json; charset=UTF-8" );
-		response.getWriter().write( jsonResponse );
-		response.setStatus( HttpServletResponse.SC_OK );
-	}
-
-	private void sendFuelrequest( HttpServletResponse response, VehicleFuelRequest fuelRequest ) throws IOException {
-		String jsonResponse = objectMapper.writeValueAsString( fuelRequest );
-		response.setContentType( "application/json; charset=UTF-8" );
-		response.getWriter().write( jsonResponse );
-		response.setStatus( HttpServletResponse.SC_OK );
-	}
-
-	@Override
-	protected void doDelete( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-
-		String action = request.getRequestURI().substring( request.getRequestURI().lastIndexOf( "/" ) + 1 );
-		VehicleFuelRequest fuelRequest;
-		log.debug( "Action: " + action );
-		try {
-			Map<String, String> result = new HashMap<>();
-			result.put( "success", "true" );
-			if ( "rejectRequest".equals( action ) ) {
-
-				fuelRequest = objectMapper.readValue( request.getInputStream(), VehicleFuelRequest.class );
-				fuelingRequestService.rejectRequest( fuelRequest );
-				fuelingNotificatorService.notifyRejection( fuelRequest );
-				result.put( "message", "Tramite descartado exitosmente" );
-
-			} else if ( "discardRequest".equals( action ) ) {
-				fuelRequest = objectMapper.readValue( request.getInputStream(), VehicleFuelRequest.class );
-				fuelingRequestService.discardRequest( fuelRequest );
-				result.put( "message", "Tramite rechazado" );
-			}
-			Util.sendJSON( response, result );
-		} catch ( SicoveException e ) {
-			log.error( e, e );
-			Util.sendJSONError( response, e );
-		}
-	}
-
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1);
+        VehicleFuelRequest fuelRequest;
+        log.debug("Action: " + action);
+        try {
+            Map<String, String> result = new HashMap<>();
+            result.put("success", "true");
+            if ("rejectRequest".equals(action)) {
+                fuelRequest = objectMapper.readValue(request.getInputStream(), VehicleFuelRequest.class);
+                fuelingRequestService.rejectRequest(fuelRequest);
+                fuelingNotificatorService.notifyRejection(fuelRequest);
+                result.put("message", "Tramite descartado exitosmente");
+            } else if ("discardRequest".equals(action)) {
+                fuelRequest = objectMapper.readValue(request.getInputStream(), VehicleFuelRequest.class);
+                fuelingRequestService.discardRequest(fuelRequest);
+                result.put("message", "Tramite rechazado");
+            }
+            Util.sendJSON(response, result);
+        } catch (SicoveException e) {
+            log.error(e, e);
+            Util.sendJSONError(response, e);
+        }
+    }
 }

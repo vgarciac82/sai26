@@ -12,190 +12,156 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.syc.gestion.servlet.GestionInterface;
+import jakarta.servlet.annotation.WebServlet;
 
-
+@WebServlet(name = "LayoutGeneral", urlPatterns = { "/gstnmngr/LayoutGeneral" })
 public class LayoutGeneral extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 1L;
 
-	public LayoutGeneral() {
-		super();
-	}
+    public LayoutGeneral() {
+        super();
+    }
 
-	/**
-	 * Destruction of the servlet. <br>
-	 */
-	public void destroy() {
-		super.destroy(); // Just puts "destroy" string in log
-		// Put your code here
-	}
+    /**
+     * Destruction of the servlet. <br>
+     */
+    public void destroy() {
+        // Just puts "destroy" string in log
+        super.destroy();
+        // Put your code here
+    }
 
-	/**
-	 * The doGet method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to get.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
-	 */
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    /**
+     * The doGet method of the servlet. <br>
+     *
+     * This method is called when a form has its tag value method equals to get.
+     *
+     * @param request the request send by the client to the server
+     * @param response the response send by the server to the client
+     * @throws ServletException if an error occurred
+     * @throws IOException if an error occurred
+     */
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+        out.println("<HTML>");
+        out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+        out.println("  <BODY>");
+        out.print("    This is ");
+        out.print(this.getClass());
+        out.println(", using the GET method");
+        out.println("  </BODY>");
+        out.println("</HTML>");
+        out.flush();
+        out.close();
+    }
 
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out
-				.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the GET method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
-	}
-
-	/**
-	 * The doPost method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to post.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
-	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-
-		ArrayList<String> arrListDoc = null;
-		LayoutGeneralBussinessLogic layout = new LayoutGeneralBussinessLogic(GestionInterface.ATT_CONEXION);
-				
-		try{
-			
-			String layoutGeneral = null;
-			String layoutGeneralZip = null;
-			String tipoConsulta = request.getParameter("tipoConsulta");
-			
-			
-			if(tipoConsulta.equals("consultaSaldosCompromisoCapituloMil")){
-				
-				String compromiso = request.getParameter("compromiso");
-				layoutGeneral = "consultaSaldosCompromisoCapituloMil.csv";
-				layoutGeneralZip = "consultaSaldosCompromisoCapituloMil.zip";
-				String estatusTxt = request.getParameter("estatusTxt");
-				arrListDoc = layout.consultaSaldosCompromisoCapituloMil(compromiso, estatusTxt);
-				
-			}else if(tipoConsulta.equals("consultaSaldosCapituloMil")){
-				
-				String caNoContrarrecibo = request.getParameter("caNoRecibo");
-				String conceptoFiltro = request.getParameter("conceptoFiltro");
-				String movimientoFiltro = request.getParameter("movimientoFiltro");
-				String estatusTxt = request.getParameter("estatusTxt");
-				
-				layoutGeneral = "consultaSaldosCapituloMil.csv";
-				layoutGeneralZip = "consultaSaldosCapituloMil.zip";
-				arrListDoc = layout.consultaSaldosCapituloMil(caNoContrarrecibo, conceptoFiltro, movimientoFiltro, estatusTxt);
-				
-			}else if(tipoConsulta.equals("ConsultaIngresosEgreso")){
-				
-				String sWhereCla = request.getParameter("szTemp");
-				
-				layoutGeneral = "consultaIngresoEgreso.csv";
-				layoutGeneralZip = "consultaIngresoEgreso.csv.zip";
-				arrListDoc = layout.ConsultaIngresosEgreso(sWhereCla);
-				
-			}
-			
-			BufferedWriter out = new BufferedWriter( new FileWriter(layoutGeneral)); 
-			StringBuffer archivoPago = new StringBuffer();
-			
-			for(int i=0; i <arrListDoc.size(); i++)
-			{
-				archivoPago.append(arrListDoc.get(i));
-			}			
-			String outTextPago = archivoPago.toString();  
-			out.write(outTextPago);  
-			out.close();
-			
-			byte[] bufPag = new byte[2048]; 	
-			
-			try {	
-	        	
-	            ZipOutputStream outPag = new ZipOutputStream(new FileOutputStream(layoutGeneralZip)); 
-	            FileInputStream inPag = new FileInputStream(layoutGeneral);
-	            outPag.putNextEntry(new ZipEntry(layoutGeneral));
-	            
-	            int lenPag;
+    /**
+     * The doPost method of the servlet. <br>
+     *
+     * This method is called when a form has its tag value method equals to post.
+     *
+     * @param request the request send by the client to the server
+     * @param response the response send by the server to the client
+     * @throws ServletException if an error occurred
+     * @throws IOException if an error occurred
+     */
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<String> arrListDoc = null;
+        LayoutGeneralBussinessLogic layout = new LayoutGeneralBussinessLogic(GestionInterface.ATT_CONEXION);
+        try {
+            String layoutGeneral = null;
+            String layoutGeneralZip = null;
+            String tipoConsulta = request.getParameter("tipoConsulta");
+            if (tipoConsulta.equals("consultaSaldosCompromisoCapituloMil")) {
+                String compromiso = request.getParameter("compromiso");
+                layoutGeneral = "consultaSaldosCompromisoCapituloMil.csv";
+                layoutGeneralZip = "consultaSaldosCompromisoCapituloMil.zip";
+                String estatusTxt = request.getParameter("estatusTxt");
+                arrListDoc = layout.consultaSaldosCompromisoCapituloMil(compromiso, estatusTxt);
+            } else if (tipoConsulta.equals("consultaSaldosCapituloMil")) {
+                String caNoContrarrecibo = request.getParameter("caNoRecibo");
+                String conceptoFiltro = request.getParameter("conceptoFiltro");
+                String movimientoFiltro = request.getParameter("movimientoFiltro");
+                String estatusTxt = request.getParameter("estatusTxt");
+                layoutGeneral = "consultaSaldosCapituloMil.csv";
+                layoutGeneralZip = "consultaSaldosCapituloMil.zip";
+                arrListDoc = layout.consultaSaldosCapituloMil(caNoContrarrecibo, conceptoFiltro, movimientoFiltro, estatusTxt);
+            } else if (tipoConsulta.equals("ConsultaIngresosEgreso")) {
+                String sWhereCla = request.getParameter("szTemp");
+                layoutGeneral = "consultaIngresoEgreso.csv";
+                layoutGeneralZip = "consultaIngresoEgreso.csv.zip";
+                arrListDoc = layout.ConsultaIngresosEgreso(sWhereCla);
+            }
+            BufferedWriter out = new BufferedWriter(new FileWriter(layoutGeneral));
+            StringBuffer archivoPago = new StringBuffer();
+            for (int i = 0; i < arrListDoc.size(); i++) {
+                archivoPago.append(arrListDoc.get(i));
+            }
+            String outTextPago = archivoPago.toString();
+            out.write(outTextPago);
+            out.close();
+            byte[] bufPag = new byte[2048];
+            try {
+                ZipOutputStream outPag = new ZipOutputStream(new FileOutputStream(layoutGeneralZip));
+                FileInputStream inPag = new FileInputStream(layoutGeneral);
+                outPag.putNextEntry(new ZipEntry(layoutGeneral));
+                int lenPag;
                 while ((lenPag = inPag.read(bufPag)) > 0) {
-                	outPag.write(bufPag, 0, lenPag);
-                } 
-
+                    outPag.write(bufPag, 0, lenPag);
+                }
                 outPag.closeEntry();
                 inPag.close();
                 outPag.close();
-	        
-			}catch (IOException e) {
-		        
-	        }	
-	        doDownload(response, layoutGeneral, layoutGeneral );
-	        
-	        File ficheroPag = new File(layoutGeneral);	ficheroPag.delete();
+            } catch (IOException e) {
+            }
+            doDownload(response, layoutGeneral, layoutGeneral);
+            File ficheroPag = new File(layoutGeneral);
+            ficheroPag.delete();
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-		}catch (FileNotFoundException ex) {
-    		ex.printStackTrace();
-    		
-    	}catch(Exception e){
-			e.printStackTrace();
-			
-		}
-	}		
-		
-		private void doDownload(HttpServletResponse resp, String filename, String original_filename) throws IOException {
+    private void doDownload(HttpServletResponse resp, String filename, String original_filename) throws IOException {
+        int length = 0;
+        File f = new File(filename);
+        ServletOutputStream out = resp.getOutputStream();
+        ServletContext context = getServletConfig().getServletContext();
+        String mimetype = context.getMimeType(original_filename);
+        resp.setContentType((mimetype != null) ? mimetype : "application/octet-stream");
+        resp.setContentLength((int) f.length());
+        //resp.addHeader("Content-Disposition", "attachment; filename=\"" + original_filename + "\";");
+        //resp.addHeader("Content-Disposition", "attachement; filename=\"" + original_filename + "\";");
+        resp.addHeader("Content-Disposition", "inline; filename=\"" + original_filename + "\";");
+        // 5K buffer
+        byte[] bbuf = new byte[5 * 1024];
+        DataInputStream in = new DataInputStream(new FileInputStream(f));
+        while ((in != null) && ((length = in.read(bbuf)) != -1)) {
+            out.write(bbuf, 0, length);
+        }
+        in.close();
+        out.flush();
+        out.close();
+    }
 
-			int length = 0;
-			File f = new File(filename);
-			ServletOutputStream out = resp.getOutputStream();
-			ServletContext context = getServletConfig().getServletContext();
-			String mimetype = context.getMimeType(original_filename);
-
-			resp.setContentType((mimetype != null) ? mimetype : "application/octet-stream");
-			resp.setContentLength((int) f.length());
-			//resp.addHeader("Content-Disposition", "attachment; filename=\"" + original_filename + "\";");
-			//resp.addHeader("Content-Disposition", "attachement; filename=\"" + original_filename + "\";");
-			resp.addHeader("Content-Disposition", "inline; filename=\"" + original_filename + "\";");
-			byte[] bbuf = new byte[5 * 1024]; // 5K buffer
-			DataInputStream in = new DataInputStream(new FileInputStream(f));
-			while ((in != null) && ((length = in.read(bbuf)) != -1)) {
-				out.write(bbuf, 0, length);
-			}
-
-			in.close();
-			out.flush();
-			out.close();
-
-		}
-		
-
-	/**
-	 * Initialization of the servlet. <br>
-	 *
-	 * @throws ServletException if an error occurs
-	 */
-	public void init() throws ServletException {
-		// Put your code here
-	}
-
+    /**
+     * Initialization of the servlet. <br>
+     *
+     * @throws ServletException if an error occurs
+     */
+    public void init() throws ServletException {
+        // Put your code here
+    }
 }

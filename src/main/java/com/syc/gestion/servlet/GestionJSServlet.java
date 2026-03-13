@@ -4,15 +4,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Map;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
-
 import com.syc.gestion.core.Caso;
 import com.syc.gestion.core.CasoDato;
 import com.syc.gestion.core.Grupo;
@@ -20,517 +17,458 @@ import com.syc.gestion.core.GrupoPropiedades;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.core.UsuarioPropiedades;
 import com.syc.gestion.util.Util;
+import jakarta.servlet.annotation.WebServlet;
 
+@WebServlet(name = "GestionJSServlet", urlPatterns = { "/js/gestion.js" })
 public class GestionJSServlet extends HttpServlet implements GestionInterface {
 
-	public static final long serialVersionUID = 1L;
+    public static final long serialVersionUID = 1L;
 
-	private static Logger log = Logger.getLogger(GestionJSServlet.class);
+    private static Logger log = Logger.getLogger(GestionJSServlet.class);
 
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession(false);
+        if (session == null) {
+            log.error("No hay sesion");
+            throw new ServletException("No hay sesion");
+        }
+        Usuario u = (Usuario) session.getAttribute(ATT_USER);
+        if (u == null) {
+            log.error("No hay Usuario en la sesion");
+            throw new ServletException("No hay Usuario en la sesion");
+        }
+        Caso c = (Caso) session.getAttribute(ATT_CASE);
+        if (c == null) {
+            log.error("No hay Caso en la sesion");
+            throw new ServletException("No hay Caso en la sesion");
+        }
+        PrintWriter out = resp.getWriter();
+        try {
+            resp.setContentType("text/javascript");
+            resp.addHeader("Cache-Control", "no-cache");
+            resp.addHeader("Pragma", "no-cache");
+            resp.addHeader("Expires", "-1");
+            out.println("function cgObject() {");
+            out.println("var es_ie = navigator.userAgent.indexOf(\"MSIE\") > -1 ; ");
+            printToolsFunctions(out);
+            StringBuffer defVariables = new StringBuffer();
+            StringBuffer inputTags = new StringBuffer();
+            StringBuffer htmlHeaders = new StringBuffer();
+            StringBuffer getsAndSets = new StringBuffer();
+            String tokenComa = "\t\t\t";
+            for (Iterator iter = c.getCasoDato().keySet().iterator(); iter.hasNext(); ) {
+                String name = (String) iter.next();
+                CasoDato cd = c.getCasoDato(name);
+                String t = "", defalut = "";
+                switch(cd.getTipoCasoVariable().getTipo()) {
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 7:
+                        t = "";
+                        defalut = "-1";
+                        break;
+                    case 8:
+                    case 10:
+                    case 12:
+                        t = "'";
+                        defalut = "";
+                        break;
+                }
+                defVariables.append("\n\t").append(cd.getTipoCasoVariable().getNombreJS()).append(" : ").append(t).append((cd.getValor() == null ? defalut : Util.encodeJS(cd.getValor()))).append(t).append(",");
+                inputTags.append(tokenComa).append("d.input({type:\"hidden\",name:\"").append(cd.getTipoCasoVariable().getNombreJS()).append("\",value: Caso.").append(cd.getTipoCasoVariable().getNombreJS()).append("})");
+                htmlHeaders.append(tokenComa).append("{name:\"").append(cd.getTipoCasoVariable().getNombre()).append("\",value:Caso.").append(cd.getTipoCasoVariable().getNombreJS()).append("}");
+                tokenComa = ",\n\t\t\t";
+                getsAndSets.append("\nthis.get").append(Util.firstUpper(cd.getTipoCasoVariable().getNombreJS())).append(" = function () { return Caso.").append(cd.getTipoCasoVariable().getNombreJS()).append("; };");
+                getsAndSets.append("\nthis.set").append(Util.firstUpper(cd.getTipoCasoVariable().getNombreJS())).append(" = function (" + cd.getTipoCasoVariable().getNombreJS()).append(") { Caso.").append(cd.getTipoCasoVariable().getNombreJS()).append(" = ").append(cd.getTipoCasoVariable().getNombreJS()).append("; };");
+            }
+            out.println("var Caso = {");
+            out.print("	idCaso : \"" + (c.getFolio() == null ? "" : c.getFolio()) + "\",");
+            out.println(defVariables);
+            out.println("	setInputHidden : function () {");
+            out.println("		var d = Dom.init(null, true);");
+            out.println("		var div = d.div(");
+            out.println(inputTags);
+            out.println("		);");
+            out.println("		document.getElementById(\"frmSend\").appendChild(div);");
+            out.println("	},");
+            out.println("	getHeaders : function () {");
+            out.println("		return [");
+            out.println(htmlHeaders);
+            out.println("		];");
+            out.println("	}");
+            out.println("};");
+            out.println();
+            out.println("this.getIdCaso = function () { return Caso.idCaso; };");
+            out.println(getsAndSets);
+            out.println("var User = {");
+            out.println("	login : \"" + u.getLogin() + "\",");
+            out.println("	name : \"" + u.getNombre() + "\",");
+            Map m = u.getPropiedades();
+            String token = " ";
+            out.println("	usrProp : {");
+            for (Iterator iter = m.keySet().iterator(); iter.hasNext(); ) {
+                String name = (String) iter.next();
+                UsuarioPropiedades up = (UsuarioPropiedades) m.get(name);
+                out.println("		" + token + name + ": \"" + up.getValor() + "\"");
+                token = ",";
+            }
+            out.println("	},");
+            StringBuffer sbGrupos = new StringBuffer("	grupos : {");
+            token = " ";
+            m = u.getGrupos();
+            // out.println("	grupos : {");
+            for (Iterator iter = m.keySet().iterator(); iter.hasNext(); ) {
+                String name = (String) iter.next();
+                Grupo g = (Grupo) m.get(name);
+                String grpToken = " ";
+                Map mp = g.getPropiedades();
+                // out.println("		" + token + name + " : {");
+                sbGrupos.append(token).append(name).append(" : {");
+                for (Iterator itr = mp.keySet().iterator(); itr.hasNext(); ) {
+                    GrupoPropiedades gp = (GrupoPropiedades) itr.next();
+                    // out.println("			" + grpToken + name + ": \"" + gp.getValor() + "\"");
+                    sbGrupos.append(grpToken).append(name).append(": \"").append(gp.getValor()).append("\"");
+                    grpToken = ",";
+                }
+                // out.println("		}");
+                sbGrupos.append("		}");
+                token = ",";
+            }
+            // out.println("	},");
+            sbGrupos.append("	},");
+            out.print(sbGrupos);
+            out.println("	desc : \"" + u.getDescripcion() + "\"");
+            out.println("};");
+            out.println();
+            out.println("this.getUser = function () { return User.login; };");
+            out.println("this.getUserName = function () { return User.name; };");
+            out.println("this.getUserDesc = function () { return User.desc; };");
+            out.println("this.getUserProp = function (prop) { return User.usrProp[prop]; };");
+            out.println("this.getUserGrupoProp = function(grp, prop) { return User.grupos[grp,prop]; };");
+            out.println("};");
+            out.println("var gestion=new cgObject();");
+        } finally {
+            if (out != null) {
+                out.flush();
+                out.close();
+            }
+            out = null;
+        }
+        if (log.isDebugEnabled())
+            log.debug("JavaScript enviado");
+    }
 
-		HttpSession session = req.getSession(false);
-		if (session == null) {
-			log.error("No hay sesion");
-			throw new ServletException("No hay sesion");
-		}
-
-		Usuario u = (Usuario) session.getAttribute(ATT_USER);
-		if (u == null) {
-			log.error("No hay Usuario en la sesion");
-			throw new ServletException("No hay Usuario en la sesion");
-		}
-
-		Caso c = (Caso) session.getAttribute(ATT_CASE);
-		if (c == null) {
-			log.error("No hay Caso en la sesion");
-			throw new ServletException("No hay Caso en la sesion");
-		}
-
-		PrintWriter out = resp.getWriter();
-
-		try {
-			resp.setContentType("text/javascript");
-			resp.addHeader("Cache-Control", "no-cache");
-			resp.addHeader("Pragma", "no-cache");
-			resp.addHeader("Expires", "-1");
-
-			out.println("function cgObject() {");
-			out.println("var es_ie = navigator.userAgent.indexOf(\"MSIE\") > -1 ; ");
-			printToolsFunctions(out);
-
-			StringBuffer defVariables = new StringBuffer();
-			StringBuffer inputTags = new StringBuffer();
-			StringBuffer htmlHeaders = new StringBuffer();
-			StringBuffer getsAndSets = new StringBuffer();
-			String tokenComa = "\t\t\t";
-
-			for (Iterator iter = c.getCasoDato().keySet().iterator(); iter.hasNext();) {
-
-				String name = (String) iter.next();
-				CasoDato cd = c.getCasoDato(name);
-				String t = "", defalut = "";
-
-				switch (cd.getTipoCasoVariable().getTipo()) {
-					case 3:
-					case 4:
-					case 5:
-					case 7:
-						t = "";
-						defalut = "-1";
-						break;
-					case 8:
-					case 10:
-					case 12:
-						t = "'";
-						defalut = "";
-						break;
-				}
-
-				defVariables.append("\n\t").append(cd.getTipoCasoVariable().getNombreJS()).append(" : ").append(t)
-					.append((cd.getValor() == null ? defalut : Util.encodeJS(cd.getValor()))).append(t).append(",");
-
-				inputTags.append(tokenComa).append("d.input({type:\"hidden\",name:\"")
-					.append(cd.getTipoCasoVariable().getNombreJS()).append("\",value: Caso.")
-					.append(cd.getTipoCasoVariable().getNombreJS()).append("})");
-
-				htmlHeaders.append(tokenComa).append("{name:\"").append(cd.getTipoCasoVariable().getNombre())
-					.append("\",value:Caso.").append(cd.getTipoCasoVariable().getNombreJS()).append("}");
-
-				tokenComa = ",\n\t\t\t";
-
-				getsAndSets.append("\nthis.get").append(Util.firstUpper(cd.getTipoCasoVariable().getNombreJS()))
-					.append(" = function () { return Caso.").append(cd.getTipoCasoVariable().getNombreJS()).append("; };");
-				getsAndSets.append("\nthis.set").append(Util.firstUpper(cd.getTipoCasoVariable().getNombreJS()))
-					.append(" = function (" + cd.getTipoCasoVariable().getNombreJS()).append(") { Caso.")
-					.append(cd.getTipoCasoVariable().getNombreJS()).append(" = ").append(cd.getTipoCasoVariable().getNombreJS())
-					.append("; };");
-			}
-
-			out.println("var Caso = {");
-			out.print("	idCaso : \"" + (c.getFolio() == null ? "" : c.getFolio()) + "\",");
-			out.println(defVariables);
-			out.println("	setInputHidden : function () {");
-			out.println("		var d = Dom.init(null, true);");
-			out.println("		var div = d.div(");
-			out.println(inputTags);
-			out.println("		);");
-			out.println("		document.getElementById(\"frmSend\").appendChild(div);");
-			out.println("	},");
-
-			out.println("	getHeaders : function () {");
-			out.println("		return [");
-			out.println(htmlHeaders);
-			out.println("		];");
-			out.println("	}");
-			out.println("};");
-			out.println();
-			out.println("this.getIdCaso = function () { return Caso.idCaso; };");
-			out.println(getsAndSets);
-
-			out.println("var User = {");
-			out.println("	login : \"" + u.getLogin() + "\",");
-			out.println("	name : \"" + u.getNombre() + "\",");
-
-			Map m = u.getPropiedades();
-			String token = " ";
-			out.println("	usrProp : {");
-			for (Iterator iter = m.keySet().iterator(); iter.hasNext();) {
-
-				String name = (String) iter.next();
-				UsuarioPropiedades up = (UsuarioPropiedades) m.get(name);
-				out.println("		" + token + name + ": \"" + up.getValor() + "\"");
-				token = ",";
-			}
-			out.println("	},");
-
-			StringBuffer sbGrupos = new StringBuffer("	grupos : {");
-			token = " ";
-			m = u.getGrupos();
-			// out.println("	grupos : {");
-			for (Iterator iter = m.keySet().iterator(); iter.hasNext();) {
-
-				String name = (String) iter.next();
-				Grupo g = (Grupo) m.get(name);
-
-				String grpToken = " ";
-				Map mp = g.getPropiedades();
-				// out.println("		" + token + name + " : {");
-				sbGrupos.append(token).append(name).append(" : {");
-				for (Iterator itr = mp.keySet().iterator(); itr.hasNext();) {
-
-					GrupoPropiedades gp = (GrupoPropiedades) itr.next();
-					// out.println("			" + grpToken + name + ": \"" + gp.getValor() + "\"");
-					sbGrupos.append(grpToken).append(name).append(": \"").append(gp.getValor()).append("\"");
-					grpToken = ",";
-				}
-				// out.println("		}");
-				sbGrupos.append("		}");
-				token = ",";
-			}
-			// out.println("	},");
-			sbGrupos.append("	},");
-
-			out.print(sbGrupos);
-
-			out.println("	desc : \"" + u.getDescripcion() + "\"");
-			out.println("};");
-			out.println();
-			out.println("this.getUser = function () { return User.login; };");
-			out.println("this.getUserName = function () { return User.name; };");
-			out.println("this.getUserDesc = function () { return User.desc; };");
-			out.println("this.getUserProp = function (prop) { return User.usrProp[prop]; };");
-			out.println("this.getUserGrupoProp = function(grp, prop) { return User.grupos[grp,prop]; };");
-
-			out.println("};");
-			out.println("var gestion=new cgObject();");
-		} finally {
-			if (out != null) {
-				out.flush();
-				out.close();
-			}
-
-			out = null;
-		}
-
-		if (log.isDebugEnabled())
-			log.debug("JavaScript enviado");
-	}
-
-	protected void printToolsFunctions(PrintWriter out) {
-		out.println("var currentXml = { document: undefined };");
-
-		out.println("var Util = {");
-		out.println("	whitespace : \" \\t\\n\\r\",");
-		out.println("	isEmpty : function(s) { return ((s == null) || (s.length == 0)) },");
-		out.println("	isWhitespace : function(str) {");
-		out.println("		var s = \"\" + str;");
-		out.println("		if (Util.isEmpty(s)) { return true; }");
-		out.println("		for (var i = 0; i < s.length; i++) {");
-		out.println("			var c = s.charAt(i);");
-		out.println("			if (Util.whitespace.indexOf(c) == -1) { return false; }");
-		out.println("		}");
-		out.println("		return true;");
-		out.println("	}");
-		out.println("};");
-
-		out.println("var Dom = {");
-		out.println("	IE_TRANSLATIONS : {");
-		out.println("		\"class\" : \"className\",");
-		out.println("		\"for\" : \"htmlFor\"");
-		out.println("	},");
-
-		out.println("	ieAttrSet : function(a, i, el) {");
-		out.println("		var trans;");
-		out.println("		if ((trans = this.IE_TRANSLATIONS[i])) { el[trans] = a[i]; }");
-		out.println("		else if (i == \"style\") { el.style.cssText = a[i]; }");
-		out.println("		else if (i.match(/^on/)) { el[i] = new Function(a[i]); }");
-		out.println("		else {");
-		out.println("			if (i == \"value\" && (/input|textarea/i.test(el.nodeName))) { el.defaultValue = a[i]; }");
-		out.println("			el.setAttribute(i, a[i]);");
-		out.println("		}");
-		out.println("	},");
-
-		out.println("	init : function(o, lowerCase) {");
-		out.println("		var els = (\"gestion|plantilla|data|value|div|input\").split(\"|\");");
-		out.println("		var el, i = 0;");
-		out.println("		if (!o || o === null) { o = {}; }");
-		out.println("		var caseType = lowerCase === true ? \"toLowerCase\" : \"toUpperCase\";");
-		out.println("		while ((el = els[i++])) { o[el[caseType]()] = Dom.tagFunc(el); }");
-		out.println("		return o;");
-		out.println("	},");
-
-		out.println("	tagFunc : function(tag) {");
-		out.println("		return function() {");
-		out.println("			var a = arguments, at, ch;");
-		out.println("			a.slice = [].slice;");
-		out.println("			if (a.length) {");
-		out.println("				if (a[0].nodeName || typeof a[0] == \"string\") { ch = a; }");
-		out.println("				else { at = a[0]; ch = a.slice(1); }");
-		out.println("			}");
-		out.println("			return Dom.elem(tag, at, ch);");
-		out.println("		};");
-		out.println("	},");
-
-		out.println("	elem : function(e, a, c) {");
-		out.println("		a = a || {}; c = c || [];");
-		out.println("		var isIE = navigator.userAgent.match(/MSIE/);");
-		out.println("		if (isIE) {");
-		out.println("			e = \"<\"+ e;");
-		out.println("			if (a.name) { e += \" name=\\\"\" + a.name + \"\\\"\"; }");
-		out.println("			if (a.type && (/input/i.test(e))) { e += \" type=\\\"\" + a.type + \"\\\"\"; }");
-		out.println("			e += \">\";");
-		out.println("		}");
-		out.println("		var el = document.createElement(e);");
-		out.println("		for (var i = 0; i < c.length; i++) {");
-		out.println("			if (typeof c[i] == \"string\") { c[i] = document.createTextNode(c[i]); }");
-		out.println("			el.appendChild(c[i]);");
-		out.println("		}");
-		out.println("		for (var idx in a) {");
-		out.println("			if (typeof a[idx] != \"function\") {");
-		out.println("				if (isIE) { Dom.ieAttrSet(a, idx, el); }");
-		out.println("				else { el.setAttribute(idx, a[idx]); }");
-		out.println("			}");
-		out.println("		}");
-		out.println("		return el;");
-		out.println("	},");
-
-		out.println("	readHtmlFormData : function () {");
-		out.println("		var els = \"input|select|textarea\".split(\"|\"), data = { index: [] };");
-		out.println("		for (var i = 0; i < els.length; i++) {");
-		out.println("			var e = window.frames['datawork'].document.getElementsByTagName(els[i]);");
-		out.println("			for (var j = 0; j < e.length; j++) {");
-		out.println("				if (e[j].name === \"\") { continue; }");
-		out.println("				if (!data[e[j].name]) {");
-		out.println("					data.index[data.index.length] = e[j].name;");
-		out.println("					data[e[j].name] = { values: [] };");
-		out.println("				}");
-		out.println("				var type = e[j].type.toLowerCase();");
-		out.println("				if (((type == \"radio\") || (type == \"checkbox\")) && (!e[j].checked)) { continue; }");
-		out.println("				data[e[j].name].values[data[e[j].name].values.length] = e[j].value;");
-		out.println("			}");
-		out.println("		}");
-		out.println("		return data;");
-		out.println("	},");
-
-		out.println("	writeHtmlFormData : function (s) {");
-		out.println("		if (s.parseError.errorCode !== 0) {");
-		//Ethiel, se comenta porque sale indiscriminadamente este mensaje y de cualquier forma deja avanzar el caso
-		//y guarda bien las calificaciones en BD, de modo que solo resulta molesto para el usuario ver el mensaje
-		//out.println("			window.alert(\"Error: Cargando archivo fromservlet \\\"\" + s.parseError.url + "
-		//		+ "\"\\\"\\nRazon: \" + s.parseError.reason);");
-		out.println("			return;");
-		out.println("		}");
-		out.println("		var e = s.getElementsByTagName(\"data\");");
-		out.println("		for (var i = 0; i < e.length; i++) {");
-		out.println("			var h = window.frames['datawork'].document.getElementsByName(e[i].getAttribute(\"id\")), idx = 0;");
-		out.println("			if (h.length === 0) { continue; }");
-		out.println("			for (var j = 0; j < e[i].childNodes.length; j++) {");
-		out.println("				if (!h[idx]) { break; }");
-		out.println("				if (h[idx].type) {");
-		out.println("					var type = h[idx].type.toLowerCase();");
-		out.println("					if ((type == \"radio\") || (type == \"checkbox\")) {");
-		out.println("						for (var k = 0; k < h.length; k++) {");
-		out.println("							h[k].checked = (h[k].value == e[i].childNodes[j].text);");
-		out.println("						}");
-		out.println("						idx++;");
-		out.println("						continue;");
-		out.println("					}");
-		out.println("				}");
-		out.println("				h[idx].value = e[i].childNodes[j].text;");
-		out.println("				idx++;");
-		out.println("			}");
-		out.println("		}");
-		out.println("		currentXml.document = s;");
-		out.println("	},");
-
-		out.println("	createXMLElements:  function (dom, data) {");
-		out.println("		var g = dom.gestion();");
-		out.println("		var p = dom.plantilla();");
-		out.println("		for (var i = 0; i < data.index.length; i++) {");
-		out.println("			var d, n = data.index[i], v = data[n].values;");
-		out.println("			d =	dom.data({id: \"'\" + n});");
-		out.println("			for (var j = 0; j < v.length; j++) {");
-		out.println("				d.appendChild((v[j] === undefined) ? dom.value({}): dom.value({}, v[j]));");
-		out.println("			}");
-		out.println("			p.appendChild(d);");
-		out.println("		}");
-		out.println("		g.appendChild(p);");
-		out.println("		return g;");
-		out.println("	},");
-
-		out.println("	mergeDocuments: function (strPrimary, strSecondary, strMatch) {");
-		out.println("		var objPrimary;");
-		out.println("		var objSecondary;");
-		out.println("		if (document.implementation && document.implementation.createDocument) {");
-		out.println("			objPrimary = document.implementation.createDocument(\"\", \"\", null);");
-		out.println("			objSecondary = document.implementation.createDocument(\"\", \"\", null);");
-		out.println("		} else if (window.ActiveXObject) {");
-		out.println("			objPrimary = new ActiveXObject(\"Microsoft.XMLDOM\");");
-		out.println("			objSecondary = new ActiveXObject(\"Microsoft.XMLDOM\");");
-		out.println("		} else {");
-		out.println("			alert(\"Su browser no puede ejecutar este script\");");
-		out.println("		}");
-		out.println("		var objRoot = objPrimary.createElement(\"gestion\");");
-		out.println("		var objXML = objPrimary.createElement(\"plantilla\");");
-		out.println("		var objWork, objNode;");
-		out.println("		objPrimary.async = false;");
-		out.println("		objSecondary.async = false;");
-		out.println("		objPrimary.loadXML(strPrimary);");
-		out.println("		if(objPrimary.parseError.errorCode === 0) {");
-		out.println("			objSecondary.loadXML(strSecondary);");
-		out.println("			if(objSecondary.parseError.errorCode === 0) {");
-		out.println("				for(var i = 0; i < objPrimary.getElementsByTagName(strMatch).length; i++) {");
-		out.println("					objWork = objPrimary.createElement('tmp');");
-		out.println("					objNode = objSecondary.selectSingleNode(\""
-				+ "/gestion/plantilla/data[@id='\" + objPrimary.getElementsByTagName(strMatch).item(i)"
-				+ ".getAttribute(\"id\") + \"']\");");
-		out.println("					if (objNode !== null) {");
-		out.println("						if (objNode.text !== objPrimary.getElementsByTagName(strMatch).item(i).text) {");
-		out.println("							objWork.appendChild(objPrimary.getElementsByTagName(strMatch).item(i).cloneNode(true));");
-		out.println("						} else {");
-		out.println("							objWork.appendChild(objNode.cloneNode(true));");
-		out.println("						}");
-		out.println("					} else {");
-		out.println("						objWork.appendChild(objPrimary.getElementsByTagName(strMatch).item(i).cloneNode(true));");
-		out.println("					}");
-		out.println("					if (objWork.childNodes.length > 0) {");
-		out.println("						objXML.appendChild(objWork.firstChild);");
-		out.println("					}");
-		out.println("				}");
-		out.println("				var isAdded = false;");
-		out.println("				objWork = objPrimary.createElement(\"tmp\");");
-		out.println("				for(var j = 0; j < objSecondary.getElementsByTagName(strMatch).length; j++) {");
-		out.println("					objNode = objPrimary.selectSingleNode(\""
-				+ "/gestion/plantilla/data[@id='\" + objSecondary.getElementsByTagName(strMatch).item(j)"
-				+ ".getAttribute(\"id\") + \"']\");");
-		out.println("					if (objNode === null) {");
-		out.println("						isAdded = true;");
-		out.println("						objWork.appendChild(objSecondary.getElementsByTagName(strMatch).item(j).cloneNode(true));");
-		out.println("					}");
-		out.println("				}");
-		out.println("				");
-		out.println("				if (isAdded) {");
-		out.println("					objXML.appendChild(objWork.firstChild);");
-		out.println("				}");
-		out.println("			}");
-		out.println("		}");
-		out.println("		objRoot.appendChild(objXML);");
-		out.println("		return objRoot;");
-		out.println("	}");
-		out.println("};");
-
-		out.println("var XmlHttp = {");
-		out.println("	getXmlHttpObject : function () {");
-		out.println("		var xmlhttp = false;");
-		out.println("		if (!xmlhttp && typeof XMLHttpRequest != \"undefined\") { xmlhttp = new XMLHttpRequest(); }");
-		out.println("		else {");
-		out.println("			try {");
-		out.println("				xmlhttp = new ActiveXObject(\"MSXML2.XMLHTTP.4.0\");");
-		out.println("			} catch (exc) {");
-		out.println("				try {");
-		out.println("					xmlhttp = new ActiveXObject(\"Microsoft.XMLHTTP\");");
-		out.println("				} catch (sExc) {");
-		out.println("					xmlhttp = false;");
-		out.println("				}");
-		out.println("			}");
-		out.println("		}");
-		out.println("		return xmlhttp;");
-		out.println("	},");
-		out.println("	sendXmlHttpRequest : function (httpRequest, method, url, data, headers, responseHandler) {");
-		out.println("		var handlerFunction = XmlHttp.getReadyStateHandler(httpRequest, responseHandler);");
-		out.println("		httpRequest.onreadystatechange = handlerFunction;");
-		out.println("		httpRequest.open(method, url, false);");
-		out.println("		XmlHttp.setHTMLHeaders(httpRequest, headers);");
-		out.println("		if ((window.XMLHttpRequest != null) && (httpRequest.setRequestHeader != null)) {");
-		out.println("			httpRequest.setRequestHeader(\"Content-Type\", \"text/xml\");");
-		out.println("		}");
-		out.println("		httpRequest.send(data);");
-		out.println("	},");
-		out.println("	getReadyStateHandler : function (req, responseXmlHandler) {");
-		out.println("		return function () {");
-		out.println("			if (req.readyState == 4) {");
-		out.println("				var doc = req.responseXML;");
-		out.println("				switch (req.status) {");
-		out.println("					case 200:");
-		out.println("						try {");
-		out.println("							if (doc.getElementsByTagName(\"status\")[0] == null) {");
-		out.println("								window.alert(\"ERROR: \" + req.responseText);");
-		out.println("								//window.alert(\"ERROR: El No de Oficio ya existe y no puede ser duplicado\");");
-		out.println("								return;");
-		out.println("							}");
-		out.println("							var status = doc.getElementsByTagName(\"status\")[0].firstChild.data;");
-		out.println("							switch (status) {");
-		out.println("								case \"ok\":");
-		//out.println("									window.alert(\"Operacion exitosa\");alert(responseXmlHandler);");
-		out.println("									responseXmlHandler(doc);");
-		out.println("									break;");
-		out.println("								case \"error\":");
-		out.println("									var errors = doc.getElementsByTagName(\"errors\");");
-		out.println("									var msg = \"Advertencia: \" + errors[0].childNodes[0].text + \"\\n\\n\";");
-		out.println("									for (var i = 1; i < errors[0].childNodes.length; i++) {");
-		out.println("										msg += errors[0].childNodes[i].text + \"\\n\";");
-		out.println("									}");
-		out.println("									window.alert(msg + \"\\nNotifique al Administrador del Sistema\");");
-		out.println("									break;");
-		out.println("								default:");
-		out.println("									responseXmlHandler(doc);");
-		out.println("							}");
-		out.println("						} catch (e) {");
-		out.println("							window.alert(\"Error al procesar la respuesta\\nNumero: \" + "
-				+ "e.number + \"\\nNombre: \" + e.name + \"\\nMensaje: \" + e.message + \"\\nDescripcion: \" + "
-				+ "e.description);");
-		out.println("						}");
-		out.println("						break;");
-		out.println("					case 404:");
-		out.println("						window.alert(\"Documento no encontrado\");");
-		out.println("						break;");
-		out.println("					default:");
-		out.println("						window.alert(\"Estatus HTTP: \" + req.status + \" \" + req.statusText);");
-		out.println("				}");
-		out.println("			}");
-		out.println("		}");
-		out.println("	},");
-		out.println("	setHTMLHeaders : function (req, headers) {");
-		out.println("		for (var i = 0; i < headers.length; i++) {");
-		out.println("			if (!Util.isWhitespace(headers[i].value)) {");
-		out.println("				req.setRequestHeader(headers[i].name, encodeURIComponent(headers[i].value));");
-		out.println("			}");
-		out.println("		}");
-		out.println("	},");
-		out.println("	loadXMLDom : function (url, responseHandler, async) {");
-		out.println("		if(es_ie){");
-		out.println("			var xmlDom, bAsync = (arguments.length == 2) ? true: async;");
-		out.println("			if (document.implementation && document.implementation.createDocument) {");
-		out.println("				xmlDom = document.implementation.createDocument(\"\", \"\", null);");
-		out.println("				xmlDom.onload = function () {");
-		out.println("					responseHandler(xmlDom);");
-		out.println("				};");
-		out.println("			} else if (window.ActiveXObject) {");
-		out.println("				xmlDom = new ActiveXObject(\"Microsoft.XMLDOM\");");
-		out.println("				xmlDom.onreadystatechange = function () {");
-		out.println("					if (xmlDom.readyState == 4) {");
-		
-		out.println("						responseHandler(xmlDom);");
-		out.println("					}");
-		out.println("				};");
-		out.println("			} else {");
-		out.println("				alert(\"Su browser no puede ejecutar este script\");");
-		out.println("			}");
-		out.println("			xmlDom.async = bAsync;");
-		out.println("			xmlDom.load(url);");
-		out.println("		}");			 
-		out.println("	}");
-		out.println("};");
-
-		out.println("this.setGestionData = function () { Caso.setInputHidden(); };");
-
-		out.println("this.requestXMLGestion = function() { XmlHttp.loadXMLDom(\"../xml/gestion.xml\", "
-				+ "Dom.writeHtmlFormData, false); };");
-
-		out.println("this.sendFormData = function (responseHandler) {");
-		out.println("	if (arguments.length === 0) {");
-		out.println("		window.alert(\"No se especifico la funcion callback de respuesta.\\n\\t"
-				+ "[sendFormData(responseHandler)]\");");
-		out.println("		return;");
-		out.println("	}");
-		out.println("	var fXml = Dom.createXMLElements(Dom.init(null, true), Dom.readHtmlFormData());");
-		out.println("	var cXml = currentXml.document;");
-		out.println("	if (cXml !== undefined) {");
-		out.println("		fXml = fXml.outerHTML.replace(/'/g,\"\");");
-		out.println("		var sXml = Dom.mergeDocuments(fXml, cXml.xml, \"data\");");
-		out.println("		if (sXml !== undefined) {");
-		out.println("			var xmlReq = XmlHttp.getXmlHttpObject(), headers = Caso.getHeaders();");
-		out.println("			XmlHttp.sendXmlHttpRequest(xmlReq, \"POST\", \"../xml/receiver\", "+ "sXml.xml, headers, responseHandler);");
-		out.println("		} else {");
-		out.println("			responseHandler(false);");
-		out.println("		}");
-		out.println("	} else {");
-		out.println("			var xmlReq = XmlHttp.getXmlHttpObject(), headers = Caso.getHeaders();");
-		out.println("			XmlHttp.sendXmlHttpRequest(xmlReq, \"POST\", \"../xml/receiver\", \"\", headers, responseHandler);");
-		out.println("		}");
-		out.println("};");
-
-		out.println("this.getCurrentXML = function () { return currentXml.document; };");
-	}
+    protected void printToolsFunctions(PrintWriter out) {
+        out.println("var currentXml = { document: undefined };");
+        out.println("var Util = {");
+        out.println("	whitespace : \" \\t\\n\\r\",");
+        out.println("	isEmpty : function(s) { return ((s == null) || (s.length == 0)) },");
+        out.println("	isWhitespace : function(str) {");
+        out.println("		var s = \"\" + str;");
+        out.println("		if (Util.isEmpty(s)) { return true; }");
+        out.println("		for (var i = 0; i < s.length; i++) {");
+        out.println("			var c = s.charAt(i);");
+        out.println("			if (Util.whitespace.indexOf(c) == -1) { return false; }");
+        out.println("		}");
+        out.println("		return true;");
+        out.println("	}");
+        out.println("};");
+        out.println("var Dom = {");
+        out.println("	IE_TRANSLATIONS : {");
+        out.println("		\"class\" : \"className\",");
+        out.println("		\"for\" : \"htmlFor\"");
+        out.println("	},");
+        out.println("	ieAttrSet : function(a, i, el) {");
+        out.println("		var trans;");
+        out.println("		if ((trans = this.IE_TRANSLATIONS[i])) { el[trans] = a[i]; }");
+        out.println("		else if (i == \"style\") { el.style.cssText = a[i]; }");
+        out.println("		else if (i.match(/^on/)) { el[i] = new Function(a[i]); }");
+        out.println("		else {");
+        out.println("			if (i == \"value\" && (/input|textarea/i.test(el.nodeName))) { el.defaultValue = a[i]; }");
+        out.println("			el.setAttribute(i, a[i]);");
+        out.println("		}");
+        out.println("	},");
+        out.println("	init : function(o, lowerCase) {");
+        out.println("		var els = (\"gestion|plantilla|data|value|div|input\").split(\"|\");");
+        out.println("		var el, i = 0;");
+        out.println("		if (!o || o === null) { o = {}; }");
+        out.println("		var caseType = lowerCase === true ? \"toLowerCase\" : \"toUpperCase\";");
+        out.println("		while ((el = els[i++])) { o[el[caseType]()] = Dom.tagFunc(el); }");
+        out.println("		return o;");
+        out.println("	},");
+        out.println("	tagFunc : function(tag) {");
+        out.println("		return function() {");
+        out.println("			var a = arguments, at, ch;");
+        out.println("			a.slice = [].slice;");
+        out.println("			if (a.length) {");
+        out.println("				if (a[0].nodeName || typeof a[0] == \"string\") { ch = a; }");
+        out.println("				else { at = a[0]; ch = a.slice(1); }");
+        out.println("			}");
+        out.println("			return Dom.elem(tag, at, ch);");
+        out.println("		};");
+        out.println("	},");
+        out.println("	elem : function(e, a, c) {");
+        out.println("		a = a || {}; c = c || [];");
+        out.println("		var isIE = navigator.userAgent.match(/MSIE/);");
+        out.println("		if (isIE) {");
+        out.println("			e = \"<\"+ e;");
+        out.println("			if (a.name) { e += \" name=\\\"\" + a.name + \"\\\"\"; }");
+        out.println("			if (a.type && (/input/i.test(e))) { e += \" type=\\\"\" + a.type + \"\\\"\"; }");
+        out.println("			e += \">\";");
+        out.println("		}");
+        out.println("		var el = document.createElement(e);");
+        out.println("		for (var i = 0; i < c.length; i++) {");
+        out.println("			if (typeof c[i] == \"string\") { c[i] = document.createTextNode(c[i]); }");
+        out.println("			el.appendChild(c[i]);");
+        out.println("		}");
+        out.println("		for (var idx in a) {");
+        out.println("			if (typeof a[idx] != \"function\") {");
+        out.println("				if (isIE) { Dom.ieAttrSet(a, idx, el); }");
+        out.println("				else { el.setAttribute(idx, a[idx]); }");
+        out.println("			}");
+        out.println("		}");
+        out.println("		return el;");
+        out.println("	},");
+        out.println("	readHtmlFormData : function () {");
+        out.println("		var els = \"input|select|textarea\".split(\"|\"), data = { index: [] };");
+        out.println("		for (var i = 0; i < els.length; i++) {");
+        out.println("			var e = window.frames['datawork'].document.getElementsByTagName(els[i]);");
+        out.println("			for (var j = 0; j < e.length; j++) {");
+        out.println("				if (e[j].name === \"\") { continue; }");
+        out.println("				if (!data[e[j].name]) {");
+        out.println("					data.index[data.index.length] = e[j].name;");
+        out.println("					data[e[j].name] = { values: [] };");
+        out.println("				}");
+        out.println("				var type = e[j].type.toLowerCase();");
+        out.println("				if (((type == \"radio\") || (type == \"checkbox\")) && (!e[j].checked)) { continue; }");
+        out.println("				data[e[j].name].values[data[e[j].name].values.length] = e[j].value;");
+        out.println("			}");
+        out.println("		}");
+        out.println("		return data;");
+        out.println("	},");
+        out.println("	writeHtmlFormData : function (s) {");
+        out.println("		if (s.parseError.errorCode !== 0) {");
+        //Ethiel, se comenta porque sale indiscriminadamente este mensaje y de cualquier forma deja avanzar el caso
+        //y guarda bien las calificaciones en BD, de modo que solo resulta molesto para el usuario ver el mensaje
+        //out.println("			window.alert(\"Error: Cargando archivo fromservlet \\\"\" + s.parseError.url + "
+        //		+ "\"\\\"\\nRazon: \" + s.parseError.reason);");
+        out.println("			return;");
+        out.println("		}");
+        out.println("		var e = s.getElementsByTagName(\"data\");");
+        out.println("		for (var i = 0; i < e.length; i++) {");
+        out.println("			var h = window.frames['datawork'].document.getElementsByName(e[i].getAttribute(\"id\")), idx = 0;");
+        out.println("			if (h.length === 0) { continue; }");
+        out.println("			for (var j = 0; j < e[i].childNodes.length; j++) {");
+        out.println("				if (!h[idx]) { break; }");
+        out.println("				if (h[idx].type) {");
+        out.println("					var type = h[idx].type.toLowerCase();");
+        out.println("					if ((type == \"radio\") || (type == \"checkbox\")) {");
+        out.println("						for (var k = 0; k < h.length; k++) {");
+        out.println("							h[k].checked = (h[k].value == e[i].childNodes[j].text);");
+        out.println("						}");
+        out.println("						idx++;");
+        out.println("						continue;");
+        out.println("					}");
+        out.println("				}");
+        out.println("				h[idx].value = e[i].childNodes[j].text;");
+        out.println("				idx++;");
+        out.println("			}");
+        out.println("		}");
+        out.println("		currentXml.document = s;");
+        out.println("	},");
+        out.println("	createXMLElements:  function (dom, data) {");
+        out.println("		var g = dom.gestion();");
+        out.println("		var p = dom.plantilla();");
+        out.println("		for (var i = 0; i < data.index.length; i++) {");
+        out.println("			var d, n = data.index[i], v = data[n].values;");
+        out.println("			d =	dom.data({id: \"'\" + n});");
+        out.println("			for (var j = 0; j < v.length; j++) {");
+        out.println("				d.appendChild((v[j] === undefined) ? dom.value({}): dom.value({}, v[j]));");
+        out.println("			}");
+        out.println("			p.appendChild(d);");
+        out.println("		}");
+        out.println("		g.appendChild(p);");
+        out.println("		return g;");
+        out.println("	},");
+        out.println("	mergeDocuments: function (strPrimary, strSecondary, strMatch) {");
+        out.println("		var objPrimary;");
+        out.println("		var objSecondary;");
+        out.println("		if (document.implementation && document.implementation.createDocument) {");
+        out.println("			objPrimary = document.implementation.createDocument(\"\", \"\", null);");
+        out.println("			objSecondary = document.implementation.createDocument(\"\", \"\", null);");
+        out.println("		} else if (window.ActiveXObject) {");
+        out.println("			objPrimary = new ActiveXObject(\"Microsoft.XMLDOM\");");
+        out.println("			objSecondary = new ActiveXObject(\"Microsoft.XMLDOM\");");
+        out.println("		} else {");
+        out.println("			alert(\"Su browser no puede ejecutar este script\");");
+        out.println("		}");
+        out.println("		var objRoot = objPrimary.createElement(\"gestion\");");
+        out.println("		var objXML = objPrimary.createElement(\"plantilla\");");
+        out.println("		var objWork, objNode;");
+        out.println("		objPrimary.async = false;");
+        out.println("		objSecondary.async = false;");
+        out.println("		objPrimary.loadXML(strPrimary);");
+        out.println("		if(objPrimary.parseError.errorCode === 0) {");
+        out.println("			objSecondary.loadXML(strSecondary);");
+        out.println("			if(objSecondary.parseError.errorCode === 0) {");
+        out.println("				for(var i = 0; i < objPrimary.getElementsByTagName(strMatch).length; i++) {");
+        out.println("					objWork = objPrimary.createElement('tmp');");
+        out.println("					objNode = objSecondary.selectSingleNode(\"" + "/gestion/plantilla/data[@id='\" + objPrimary.getElementsByTagName(strMatch).item(i)" + ".getAttribute(\"id\") + \"']\");");
+        out.println("					if (objNode !== null) {");
+        out.println("						if (objNode.text !== objPrimary.getElementsByTagName(strMatch).item(i).text) {");
+        out.println("							objWork.appendChild(objPrimary.getElementsByTagName(strMatch).item(i).cloneNode(true));");
+        out.println("						} else {");
+        out.println("							objWork.appendChild(objNode.cloneNode(true));");
+        out.println("						}");
+        out.println("					} else {");
+        out.println("						objWork.appendChild(objPrimary.getElementsByTagName(strMatch).item(i).cloneNode(true));");
+        out.println("					}");
+        out.println("					if (objWork.childNodes.length > 0) {");
+        out.println("						objXML.appendChild(objWork.firstChild);");
+        out.println("					}");
+        out.println("				}");
+        out.println("				var isAdded = false;");
+        out.println("				objWork = objPrimary.createElement(\"tmp\");");
+        out.println("				for(var j = 0; j < objSecondary.getElementsByTagName(strMatch).length; j++) {");
+        out.println("					objNode = objPrimary.selectSingleNode(\"" + "/gestion/plantilla/data[@id='\" + objSecondary.getElementsByTagName(strMatch).item(j)" + ".getAttribute(\"id\") + \"']\");");
+        out.println("					if (objNode === null) {");
+        out.println("						isAdded = true;");
+        out.println("						objWork.appendChild(objSecondary.getElementsByTagName(strMatch).item(j).cloneNode(true));");
+        out.println("					}");
+        out.println("				}");
+        out.println("				");
+        out.println("				if (isAdded) {");
+        out.println("					objXML.appendChild(objWork.firstChild);");
+        out.println("				}");
+        out.println("			}");
+        out.println("		}");
+        out.println("		objRoot.appendChild(objXML);");
+        out.println("		return objRoot;");
+        out.println("	}");
+        out.println("};");
+        out.println("var XmlHttp = {");
+        out.println("	getXmlHttpObject : function () {");
+        out.println("		var xmlhttp = false;");
+        out.println("		if (!xmlhttp && typeof XMLHttpRequest != \"undefined\") { xmlhttp = new XMLHttpRequest(); }");
+        out.println("		else {");
+        out.println("			try {");
+        out.println("				xmlhttp = new ActiveXObject(\"MSXML2.XMLHTTP.4.0\");");
+        out.println("			} catch (exc) {");
+        out.println("				try {");
+        out.println("					xmlhttp = new ActiveXObject(\"Microsoft.XMLHTTP\");");
+        out.println("				} catch (sExc) {");
+        out.println("					xmlhttp = false;");
+        out.println("				}");
+        out.println("			}");
+        out.println("		}");
+        out.println("		return xmlhttp;");
+        out.println("	},");
+        out.println("	sendXmlHttpRequest : function (httpRequest, method, url, data, headers, responseHandler) {");
+        out.println("		var handlerFunction = XmlHttp.getReadyStateHandler(httpRequest, responseHandler);");
+        out.println("		httpRequest.onreadystatechange = handlerFunction;");
+        out.println("		httpRequest.open(method, url, false);");
+        out.println("		XmlHttp.setHTMLHeaders(httpRequest, headers);");
+        out.println("		if ((window.XMLHttpRequest != null) && (httpRequest.setRequestHeader != null)) {");
+        out.println("			httpRequest.setRequestHeader(\"Content-Type\", \"text/xml\");");
+        out.println("		}");
+        out.println("		httpRequest.send(data);");
+        out.println("	},");
+        out.println("	getReadyStateHandler : function (req, responseXmlHandler) {");
+        out.println("		return function () {");
+        out.println("			if (req.readyState == 4) {");
+        out.println("				var doc = req.responseXML;");
+        out.println("				switch (req.status) {");
+        out.println("					case 200:");
+        out.println("						try {");
+        out.println("							if (doc.getElementsByTagName(\"status\")[0] == null) {");
+        out.println("								window.alert(\"ERROR: \" + req.responseText);");
+        out.println("								//window.alert(\"ERROR: El No de Oficio ya existe y no puede ser duplicado\");");
+        out.println("								return;");
+        out.println("							}");
+        out.println("							var status = doc.getElementsByTagName(\"status\")[0].firstChild.data;");
+        out.println("							switch (status) {");
+        out.println("								case \"ok\":");
+        //out.println("									window.alert(\"Operacion exitosa\");alert(responseXmlHandler);");
+        out.println("									responseXmlHandler(doc);");
+        out.println("									break;");
+        out.println("								case \"error\":");
+        out.println("									var errors = doc.getElementsByTagName(\"errors\");");
+        out.println("									var msg = \"Advertencia: \" + errors[0].childNodes[0].text + \"\\n\\n\";");
+        out.println("									for (var i = 1; i < errors[0].childNodes.length; i++) {");
+        out.println("										msg += errors[0].childNodes[i].text + \"\\n\";");
+        out.println("									}");
+        out.println("									window.alert(msg + \"\\nNotifique al Administrador del Sistema\");");
+        out.println("									break;");
+        out.println("								default:");
+        out.println("									responseXmlHandler(doc);");
+        out.println("							}");
+        out.println("						} catch (e) {");
+        out.println("							window.alert(\"Error al procesar la respuesta\\nNumero: \" + " + "e.number + \"\\nNombre: \" + e.name + \"\\nMensaje: \" + e.message + \"\\nDescripcion: \" + " + "e.description);");
+        out.println("						}");
+        out.println("						break;");
+        out.println("					case 404:");
+        out.println("						window.alert(\"Documento no encontrado\");");
+        out.println("						break;");
+        out.println("					default:");
+        out.println("						window.alert(\"Estatus HTTP: \" + req.status + \" \" + req.statusText);");
+        out.println("				}");
+        out.println("			}");
+        out.println("		}");
+        out.println("	},");
+        out.println("	setHTMLHeaders : function (req, headers) {");
+        out.println("		for (var i = 0; i < headers.length; i++) {");
+        out.println("			if (!Util.isWhitespace(headers[i].value)) {");
+        out.println("				req.setRequestHeader(headers[i].name, encodeURIComponent(headers[i].value));");
+        out.println("			}");
+        out.println("		}");
+        out.println("	},");
+        out.println("	loadXMLDom : function (url, responseHandler, async) {");
+        out.println("		if(es_ie){");
+        out.println("			var xmlDom, bAsync = (arguments.length == 2) ? true: async;");
+        out.println("			if (document.implementation && document.implementation.createDocument) {");
+        out.println("				xmlDom = document.implementation.createDocument(\"\", \"\", null);");
+        out.println("				xmlDom.onload = function () {");
+        out.println("					responseHandler(xmlDom);");
+        out.println("				};");
+        out.println("			} else if (window.ActiveXObject) {");
+        out.println("				xmlDom = new ActiveXObject(\"Microsoft.XMLDOM\");");
+        out.println("				xmlDom.onreadystatechange = function () {");
+        out.println("					if (xmlDom.readyState == 4) {");
+        out.println("						responseHandler(xmlDom);");
+        out.println("					}");
+        out.println("				};");
+        out.println("			} else {");
+        out.println("				alert(\"Su browser no puede ejecutar este script\");");
+        out.println("			}");
+        out.println("			xmlDom.async = bAsync;");
+        out.println("			xmlDom.load(url);");
+        out.println("		}");
+        out.println("	}");
+        out.println("};");
+        out.println("this.setGestionData = function () { Caso.setInputHidden(); };");
+        out.println("this.requestXMLGestion = function() { XmlHttp.loadXMLDom(\"../xml/gestion.xml\", " + "Dom.writeHtmlFormData, false); };");
+        out.println("this.sendFormData = function (responseHandler) {");
+        out.println("	if (arguments.length === 0) {");
+        out.println("		window.alert(\"No se especifico la funcion callback de respuesta.\\n\\t" + "[sendFormData(responseHandler)]\");");
+        out.println("		return;");
+        out.println("	}");
+        out.println("	var fXml = Dom.createXMLElements(Dom.init(null, true), Dom.readHtmlFormData());");
+        out.println("	var cXml = currentXml.document;");
+        out.println("	if (cXml !== undefined) {");
+        out.println("		fXml = fXml.outerHTML.replace(/'/g,\"\");");
+        out.println("		var sXml = Dom.mergeDocuments(fXml, cXml.xml, \"data\");");
+        out.println("		if (sXml !== undefined) {");
+        out.println("			var xmlReq = XmlHttp.getXmlHttpObject(), headers = Caso.getHeaders();");
+        out.println("			XmlHttp.sendXmlHttpRequest(xmlReq, \"POST\", \"../xml/receiver\", " + "sXml.xml, headers, responseHandler);");
+        out.println("		} else {");
+        out.println("			responseHandler(false);");
+        out.println("		}");
+        out.println("	} else {");
+        out.println("			var xmlReq = XmlHttp.getXmlHttpObject(), headers = Caso.getHeaders();");
+        out.println("			XmlHttp.sendXmlHttpRequest(xmlReq, \"POST\", \"../xml/receiver\", \"\", headers, responseHandler);");
+        out.println("		}");
+        out.println("};");
+        out.println("this.getCurrentXML = function () { return currentXml.document; };");
+    }
 }
