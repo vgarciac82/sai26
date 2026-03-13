@@ -21,7 +21,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -30,11 +29,13 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CargaExcelComparaSaiSicopServlet", urlPatterns = { "/gstnmngr/ComparaSaiSicop/CargaArchivo", "/gstnmngr/ComparaSaiSicop/Consulta" })
 public class CargaExcelComparaSaiSicopServlet extends HttpServlet implements GestionInterface {
 
-    private static final Logger log = Logger.getLogger(CargaExcelComparaSaiSicopServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(CargaExcelComparaSaiSicopServlet.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -97,7 +98,7 @@ public class CargaExcelComparaSaiSicopServlet extends HttpServlet implements Ges
                     break;
                 }
             } catch (Exception exc) {
-                log.error(exc, exc);
+                log.error(exc.getMessage(), exc);
                 mensajeRetorno = "No se pudo procesar el excel debido al siguiente error:\\n" + exc;
             } finally {
                 if (archivoCargaStream != null)
@@ -131,7 +132,7 @@ public class CargaExcelComparaSaiSicopServlet extends HttpServlet implements Ges
                     arrDiferencias = cssBL.consultaReporte(listadoMomentos);
                     session.setAttribute("DIFERENCIAS", arrDiferencias);
                 } catch (Exception exc) {
-                    log.error(exc, exc);
+                    log.error(exc.getMessage(), exc);
                     mensajeRetorno = "No fue posible realizar la exportación" + exc;
                 }
             } else if ("ExportaExcel".equals(operacion)) {
@@ -139,7 +140,7 @@ public class CargaExcelComparaSaiSicopServlet extends HttpServlet implements Ges
                     exportaReporteExcel(req, resp);
                     return;
                 } catch (Exception exc) {
-                    log.error(exc, exc);
+                    log.error(exc.getMessage(), exc);
                     mensajeRetorno = "No fue posible realizar la exportación" + exc;
                 }
             }

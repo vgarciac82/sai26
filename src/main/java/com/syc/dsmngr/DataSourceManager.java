@@ -2,97 +2,89 @@ package com.syc.dsmngr;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
-import org.apache.log4j.Logger;
-
 import com.syc.gestion.util.Util;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class DataSourceManager {
 
-	private static Logger log = Logger.getLogger(DataSourceManager.class);
-	private static DataSource ds = null;
-	private static DataSourceManager dsm = null;
-	private static String jniName = null;
-	
-	static boolean logIsolationType = false;
+    private static Logger log = LoggerFactory.getLogger(DataSourceManager.class);
 
-	public void init(String jniName) {
-		
-		
-		if ( ds != null && jniName.equalsIgnoreCase( DataSourceManager.jniName ) )
-			return;
-		
-		Context initContext;
+    private static DataSource ds = null;
 
-		try {
-			DataSourceManager.jniName = jniName;
-			initContext = new InitialContext();
-			Context envContext = (Context) initContext.lookup("java:/comp/env");
-			ds = (DataSource) envContext.lookup(jniName);
-		} catch (NamingException ne) {
-			try {
-				initContext = new InitialContext();
-				Context envContext = (Context) initContext.lookup("java:comp/env");
-				ds = (DataSource) envContext.lookup(jniName);
-			} catch (NamingException nexc) {
-				try {
-					initContext = new InitialContext();
-					ds = (DataSource) initContext.lookup(jniName);
-				} catch (NamingException exc) {
-					ne.printStackTrace();
-					exc.printStackTrace();
-					throw new RuntimeException("No se encontro la fuente '" + jniName + "'");
-				}
-			}
-		} catch(Exception e){
-			log.error(e,e);
-			throw new RuntimeException("No se encontro la fuente '" + jniName + "'",e);
-		}
-	}
+    private static DataSourceManager dsm = null;
 
-	public void init() {
-		if (ds != null)
-			return;
+    private static String jniName = null;
 
-		String jndiName;
+    static boolean logIsolationType = false;
 
-		try {
-			InitialContext ic = new InitialContext();
-			jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
+    public void init(String jniName) {
+        if (ds != null && jniName.equalsIgnoreCase(DataSourceManager.jniName))
+            return;
+        Context initContext;
+        try {
+            DataSourceManager.jniName = jniName;
+            initContext = new InitialContext();
+            Context envContext = (Context) initContext.lookup("java:/comp/env");
+            ds = (DataSource) envContext.lookup(jniName);
+        } catch (NamingException ne) {
+            try {
+                initContext = new InitialContext();
+                Context envContext = (Context) initContext.lookup("java:comp/env");
+                ds = (DataSource) envContext.lookup(jniName);
+            } catch (NamingException nexc) {
+                try {
+                    initContext = new InitialContext();
+                    ds = (DataSource) initContext.lookup(jniName);
+                } catch (NamingException exc) {
+                    ne.printStackTrace();
+                    exc.printStackTrace();
+                    throw new RuntimeException("No se encontro la fuente '" + jniName + "'");
+                }
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            throw new RuntimeException("No se encontro la fuente '" + jniName + "'", e);
+        }
+    }
 
-			if (jndiName == null) {
-				jndiName = "jdbc/gestion";
-				log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
-			} else
-				log.info("dataSourceRefName=" + jndiName);
-		} catch (NamingException exc) {
-			jndiName = "jdbc/gestion";
-			log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
-		}
+    public void init() {
+        if (ds != null)
+            return;
+        String jndiName;
+        try {
+            InitialContext ic = new InitialContext();
+            jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
+            if (jndiName == null) {
+                jndiName = "jdbc/gestion";
+                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+            } else
+                log.info("dataSourceRefName=" + jndiName);
+        } catch (NamingException exc) {
+            jndiName = "jdbc/gestion";
+            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+        }
+        init(jndiName);
+    }
 
-		init(jndiName);
-	}
+    public boolean getLogIsolationType() {
+        return logIsolationType;
+    }
 
-	public boolean getLogIsolationType() {
-		return logIsolationType;
-	}
+    public void setLogIsolationType(boolean logIsolationType) {
+        DataSourceManager.logIsolationType = logIsolationType;
+    }
 
-	public void setLogIsolationType(boolean logIsolationType) {
-		DataSourceManager.logIsolationType = logIsolationType;
-	}
-
-	public Connection getConnection() throws SQLException {
-
-		//boolean changed = false;
-		Connection conn = ds.getConnection();
-		log.trace( "Getting DB Connection for " + jniName + " DataSources @ " + Util.getTodayWithTime() );
-		// EJRV Esto se configura en el pool de conecciones
-		/*
+    public Connection getConnection() throws SQLException {
+        //boolean changed = false;
+        Connection conn = ds.getConnection();
+        log.trace("Getting DB Connection for " + jniName + " DataSources @ " + Util.getTodayWithTime());
+        // EJRV Esto se configura en el pool de conecciones
+        /*
 		if (logIsolationType)
 			log.debug("Defaults: Autocommit = " + conn.getAutoCommit() + ", TransactionIsolation = " + transactionIsolationToString(conn.getTransactionIsolation()));
 
@@ -115,24 +107,21 @@ public abstract class DataSourceManager {
 		if (logIsolationType && changed)
 			log.debug("Gestion: Autocommit = " + conn.getAutoCommit() + ", TransactionIsolation = " + transactionIsolationToString(conn.getTransactionIsolation()));
 		*/
+        //return new SyCConnection(conn);
+        return conn;
+    }
 
-		//return new SyCConnection(conn);
-		return conn;
-	}
+    public static Connection getConnection(String jniName) throws SQLException {
+        log.trace("Getting DB Connection for " + jniName + " DataSources @ " + Util.getTodayWithTime());
+        if (dsm == null)
+            dsm = new DataSourceManager() {
+            };
+        if (ds == null)
+            dsm.init(jniName);
+        return dsm.getConnection();
+    }
 
-	public static Connection getConnection(String jniName) throws SQLException {
-		log.trace( "Getting DB Connection for " + jniName + " DataSources @ " + Util.getTodayWithTime() );
-		if (dsm == null)
-			dsm = new DataSourceManager() {
-			};
-
-		if (ds == null)
-			dsm.init(jniName);
-
-		return dsm.getConnection();
-	}
-
-	/*
+    /*
 	private String transactionIsolationToString(int transactionType) {
 
 		String s = "TRANSACTION_UNKNOW";
@@ -158,8 +147,7 @@ public abstract class DataSourceManager {
 		return s;
 	}
 	*/
-
-	/*
+    /*
 	abstract class SyCConnection implements Connection {
 
 		private Connection conn;
@@ -429,9 +417,7 @@ public abstract class DataSourceManager {
 		* /
 	}
 	*/
-	
-	public static void release(){
-		ds = null;
-	}
-	
+    public static void release() {
+        ds = null;
+    }
 }

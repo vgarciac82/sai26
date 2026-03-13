@@ -17,7 +17,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,13 +38,15 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ContratacionFormalizadaServlet", urlPatterns = { "/ContratacionFormalizadaServlet" })
 public class ContratacionFormalizadaServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(ContratacionFormalizadaServlet.class);
+    private static Logger log = LoggerFactory.getLogger(ContratacionFormalizadaServlet.class);
 
     private static String jndiName = null;
 

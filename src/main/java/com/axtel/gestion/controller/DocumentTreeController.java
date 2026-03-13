@@ -9,13 +9,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import com.axtel.gestion.core.DocumentTreeOper;
 import com.axtel.gestion.exception.DocumentTreeException;
 import com.axtel.gestion.services.DocumentTreeService;
 import com.axtel.gestion.services.implementation.DocumentTreeServiceImpl;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Servlet implementation class TreeController

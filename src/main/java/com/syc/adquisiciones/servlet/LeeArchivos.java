@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,6 +27,8 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import java.net.URLDecoder;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "LeeArchivos", urlPatterns = { "/servlet/LeeArchivos" })
 public class LeeArchivos extends HttpServlet {
@@ -48,7 +49,7 @@ public class LeeArchivos extends HttpServlet {
 
     private static String prefixPath = null;
 
-    private static Logger log = Logger.getLogger(LeeArchivos.class);
+    private static Logger log = LoggerFactory.getLogger(LeeArchivos.class);
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
@@ -197,7 +198,7 @@ public class LeeArchivos extends HttpServlet {
                     log.warn("Operación desconocida en la carga de archivos.");
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             msg = (e.getMessage() == null || e.getMessage().length() <= 1 ? "Error de carga" : e.getMessage());
             isCorrect = false;
             e.printStackTrace();

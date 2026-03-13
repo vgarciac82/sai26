@@ -9,7 +9,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.output.XMLOutputter;
@@ -17,13 +16,15 @@ import org.json.JSONObject;
 import com.syc.js.core.QueryBussinesLogic;
 import com.syc.js.core.QueryException;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "QueryServlet", urlPatterns = { "/query" })
 public class QueryServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(QueryServlet.class);
+    private static Logger log = LoggerFactory.getLogger(QueryServlet.class);
 
     private String jniName = null;
 

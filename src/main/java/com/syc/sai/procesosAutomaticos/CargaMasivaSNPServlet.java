@@ -18,19 +18,20 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.contable.caja.CargaMasivaSNPBusinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CargaMasivaSNPServlet", urlPatterns = { "/CargaMasivaSNP", "/ExportaExpedientesPendientes" })
 public class CargaMasivaSNPServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 8024939888422492922L;
 
-    private static final Logger log = Logger.getLogger(CargaMasivaSNPServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(CargaMasivaSNPServlet.class);
 
     private static String jniName = "jdbc/gestion";
 
@@ -86,7 +87,7 @@ public class CargaMasivaSNPServlet extends HttpServlet implements GestionInterfa
                 out.close();
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             ServletOutputStream out = resp.getOutputStream();
             out.println("Ocurrio el siguiente error mientras se generaba el expediente. " + e);
             out.println("Intente nuevamente. Si persiste el problema reporte al administrador del sistema");
@@ -146,7 +147,7 @@ public class CargaMasivaSNPServlet extends HttpServlet implements GestionInterfa
             CargaMasivaSNPBusinessLogic cmsnpbl = new CargaMasivaSNPBusinessLogic(jniName);
             List<String> log = cmsnpbl.procesaArchivoMasivo(nombreDestino, u);
         } catch (Exception exc) {
-            log.error(exc, exc);
+            log.error(exc.getMessage(), exc);
             mensajeRetorno = "No se pudo procesar el excel debido al siguiente error:\\n" + exc;
         } finally {
             if (archivoCargaStream != null)

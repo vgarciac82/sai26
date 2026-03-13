@@ -30,7 +30,6 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,6 +53,8 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.custom.FolioGeneratorInterface;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ProcedimientoServlet", urlPatterns = { "/servlet/ProcedimientoServlet" })
 public class ProcedimientoServlet extends HttpServlet implements GestionInterface {
@@ -68,7 +69,7 @@ public class ProcedimientoServlet extends HttpServlet implements GestionInterfac
 
     private String folioGenerator = null;
 
-    private static Logger log = Logger.getLogger(ProcedimientoServlet.class);
+    private static Logger log = LoggerFactory.getLogger(ProcedimientoServlet.class);
 
     private String tempDir = null;
 

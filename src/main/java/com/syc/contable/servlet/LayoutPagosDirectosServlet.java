@@ -17,11 +17,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.contable.PagosDirectosBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "LayoutPagosDirectosServlet", urlPatterns = { "/gstnmngr/generaLayoutPagosDirectos" })
 public class LayoutPagosDirectosServlet extends HttpServlet {
@@ -30,7 +31,7 @@ public class LayoutPagosDirectosServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger log = Logger.getLogger(LayoutPagosDirectosServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(LayoutPagosDirectosServlet.class);
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         cualArchivo = (request.getParameter("archivo") != null) ? request.getParameter("archivo").trim() : "";
@@ -124,7 +125,7 @@ public class LayoutPagosDirectosServlet extends HttpServlet {
             ex.printStackTrace();
             throw ex;
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             msgRetorno = "Ocurrio el siguiente error al generar el layout: " + e.getMessage();
         }
         session.setAttribute("RESULT", msgRetorno);

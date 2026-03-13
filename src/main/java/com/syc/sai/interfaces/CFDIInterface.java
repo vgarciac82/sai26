@@ -10,13 +10,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.gestion.UsuarioBusinessLogic;
 import com.syc.gestion.core.Caso;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.custom.FolioGeneratorInterface;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CFDIInterface", urlPatterns = { "/interface/SolicitudCFDI" })
 public class CFDIInterface extends HttpServlet implements GestionInterface {
@@ -29,7 +30,7 @@ public class CFDIInterface extends HttpServlet implements GestionInterface {
 
     String folioGenerator = "";
 
-    private static final Logger log = Logger.getLogger(CFDIInterface.class);
+    private static final Logger log = LoggerFactory.getLogger(CFDIInterface.class);
 
     public static final String EGRESO = "E";
 
@@ -116,7 +117,7 @@ public class CFDIInterface extends HttpServlet implements GestionInterface {
             out.flush();
             out.close();
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             ServletOutputStream out = resp.getOutputStream();
             out.println("<html>");
             out.println("<body>");

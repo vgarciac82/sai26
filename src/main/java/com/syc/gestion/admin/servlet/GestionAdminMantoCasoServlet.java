@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.gestion.admin.GestionAdminException;
 import com.syc.gestion.admin.TipoCasoBusinessLogic;
 import com.syc.gestion.core.Operacion;
@@ -20,13 +19,15 @@ import com.syc.gestion.core.TipoCasoVariable;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "GestionAdminMantoCasoServlet", urlPatterns = { "/admin/mantoCaso" })
 public class GestionAdminMantoCasoServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(GestionAdminMantoCasoServlet.class);
+    private static Logger log = LoggerFactory.getLogger(GestionAdminMantoCasoServlet.class);
 
     private final String TIPO_CASO = "c";
 

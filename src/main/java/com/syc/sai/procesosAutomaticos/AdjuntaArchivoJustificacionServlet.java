@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.syc.gestion.CasoBusinessLogic;
 import com.syc.gestion.core.Caso;
@@ -23,6 +22,8 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Propietario
@@ -37,7 +38,7 @@ public class AdjuntaArchivoJustificacionServlet extends HttpServlet implements G
 
     private static final long serialVersionUID = -1825759453227353947L;
 
-    private static final Logger log = Logger.getLogger(AdjuntaArchivoJustificacionServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(AdjuntaArchivoJustificacionServlet.class);
 
     private String jniName;
 
@@ -101,7 +102,7 @@ public class AdjuntaArchivoJustificacionServlet extends HttpServlet implements G
             resp.sendRedirect("Generador/UploadJustificacionIva6.jsp");
             return;
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             String msg = "Ocurrio el siguiente error al cargar el archivo: " + e;
             session.setAttribute("MSG", msg);
             resp.sendRedirect("Generador/UploadJustificacionIva6.jsp");

@@ -14,7 +14,6 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.bouncycastle.crypto.RuntimeCryptoException;
 import com.axtel.user.entities.Employee;
 import com.axtel.web.clients.EmployeeClient;
@@ -27,13 +26,15 @@ import com.syc.gestion.core.Usuario;
 import com.syc.implementacion.tesoreria.EgresosInterface;
 import com.syc.obrapublica.ConfiguraAplicativoBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "GestionLoginServlet", urlPatterns = { "/gstnmngr/login" })
 public class GestionLoginServlet extends HttpServlet implements GestionInterface, Servlet {
 
     public static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(GestionLoginServlet.class);
+    private static Logger log = LoggerFactory.getLogger(GestionLoginServlet.class);
 
     private String jniName = null;
 
@@ -79,7 +80,7 @@ public class GestionLoginServlet extends HttpServlet implements GestionInterface
             employeeClient = new EmployeeClient(systemConfig.getSystemSetting("HR_EMPLOYEE_URL"), systemConfig.getSystemSetting("HR_EMPLOYEE_USER"), systemConfig.getSystemSetting("HR_EMPLOYEE_CODE"));
             ebl = new EmpleadoBusinessLogic(jniName);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             throw new ServletException("Error iniciando configuracion de sistema: " + e.toString());
         }
     }

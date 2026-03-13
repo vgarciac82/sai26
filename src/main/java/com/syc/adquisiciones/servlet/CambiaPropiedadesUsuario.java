@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +23,8 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.core.UsuarioPropiedades;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CambiaPropiedadesUsuario", urlPatterns = { "/servlet/CambiaPropiedadesUsuario" })
 public class CambiaPropiedadesUsuario extends HttpServlet {
@@ -31,7 +32,7 @@ public class CambiaPropiedadesUsuario extends HttpServlet {
     /**
      * Humberto Rene Farias Rojas.
      */
-    private static Logger log = Logger.getLogger(CambiaPropiedadesUsuario.class);
+    private static Logger log = LoggerFactory.getLogger(CambiaPropiedadesUsuario.class);
 
     private static final long serialVersionUID = 1L;
 

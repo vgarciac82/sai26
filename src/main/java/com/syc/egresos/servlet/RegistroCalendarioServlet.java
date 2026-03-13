@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.egresos.DetallePago;
 import com.syc.egresos.PagoCalendarioBussinessLogic;
 import com.syc.gestion.core.Caso;
@@ -18,11 +17,13 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "RegistroCalendarioServlet", urlPatterns = { "/egresos/GeneraCalendario" })
 public class RegistroCalendarioServlet extends HttpServlet implements GestionInterface {
 
-    private static final Logger log = Logger.getLogger(RegistroCalendarioServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(RegistroCalendarioServlet.class);
 
     private static final long serialVersionUID = -2666876165571640076L;
 
@@ -64,7 +65,7 @@ public class RegistroCalendarioServlet extends HttpServlet implements GestionInt
             int insertados = pcbl.insertaCalendarioPagoCompromiso(renglon);
             ResponseSender.sendClientSimpleMessage(resp, true, String.valueOf(insertados));
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             ResponseSender.sendClientSimpleMessage(resp, false, e.toString());
         }
     }

@@ -17,12 +17,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import com.syc.contable.CargaAdecuacionBusinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Janise Diaz Sanchez
@@ -37,7 +38,7 @@ public class CargaArchivosAdecuacionesServlet extends HttpServlet implements Ges
 
     private static final long serialVersionUID = -1825759453227353947L;
 
-    private static final Logger log = Logger.getLogger(CargaArchivosAdecuacionesServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(CargaArchivosAdecuacionesServlet.class);
 
     private String jniName;
 
@@ -112,7 +113,7 @@ public class CargaArchivosAdecuacionesServlet extends HttpServlet implements Ges
                 }
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             session.setAttribute("RESULT", "Ocurrio el siguiente error: " + e.getMessage() + " intente nuevamente.");
         } finally {
             if (nombreDestino != null) {

@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import com.axtel.sai.sicove.entities.FuelAsignationVerification;
 import com.axtel.sai.sicove.entities.WalletFuelRequestVerificationDetail;
 import com.axtel.sai.sicove.repositories.impl.JDBCFuelAsignationVerificationRepository;
@@ -18,6 +17,8 @@ import com.axtel.sai.sicove.services.impl.JDBCFuelAsignationVerificationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "FuelVerificationController", urlPatterns = { "/SICOVE/FuelVerification/getByAsignationId", "/SICOVE/FuelVerification", "/SICOVE/FuelVerification/getVerificationList" })
 public class FuelAsignationVerificationController extends HttpServlet {
@@ -60,7 +61,7 @@ public class FuelAsignationVerificationController extends HttpServlet {
             }
             Util.sendJSON(resp, fuelAsignationVerification);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             Util.sendJSONError(resp, e);
         }
     }
@@ -74,7 +75,7 @@ public class FuelAsignationVerificationController extends HttpServlet {
             log.info(fuelAsignationVerification);
             Util.sendJSON(resp, fuelAsignationVerification);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             Util.sendJSONError(resp, e);
         }
     }
@@ -93,7 +94,7 @@ public class FuelAsignationVerificationController extends HttpServlet {
             log.info(fuelAsignationVerification);
             Util.sendJSON(resp, fuelAsignationVerification);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             Util.sendJSONError(resp, e);
         }
     }

@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,13 +24,15 @@ import com.syc.gestion.CasoBusinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ProcesoEnteraSatisfaccion", urlPatterns = { "/ProcesoEnteraSatisfaccion" })
 public class ProcesoEnteraSatisfaccion extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(PenaltiesServlet.class);
+    private static Logger log = LoggerFactory.getLogger(PenaltiesServlet.class);
 
     private static String jndiName = null;
 

@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.contable.AdecuacionBusinessLogic;
 import com.syc.ejercido.pagado.CLCAttachmentBusinessLogic;
 import com.syc.gestion.core.Usuario;
@@ -25,6 +24,8 @@ import com.syc.gestion.util.Util;
 import com.syc.sai.procesosAutomaticos.core.ProcesoAdjunta;
 import com.syc.sai.procesosAutomaticos.core.ProcesoAdjuntaBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "AdjuntaFacturaServlet", urlPatterns = { "/AdjuntaFacturaServlet" })
 public class AdjuntaFacturaServlet extends HttpServlet implements GestionInterface, Runnable {
@@ -33,7 +34,7 @@ public class AdjuntaFacturaServlet extends HttpServlet implements GestionInterfa
 
     private static String jniName = "jdbc/gestion";
 
-    private static Logger log = Logger.getLogger(AdjuntaFacturaServlet.class);
+    private static Logger log = LoggerFactory.getLogger(AdjuntaFacturaServlet.class);
 
     private static String TEMP_DIR = null;
 
@@ -110,7 +111,7 @@ public class AdjuntaFacturaServlet extends HttpServlet implements GestionInterfa
                     log.warn("Error actualizando proceso: " + e2);
                 }
             }
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             String msg = "No fue posible ejecutar el proceso.\nOcurrio el siguiente error al cargar el archivo: " + e;
             session.setAttribute("MSG", msg);
             resp.sendRedirect("procesos/AdjuntaCLCResponse.jsp");

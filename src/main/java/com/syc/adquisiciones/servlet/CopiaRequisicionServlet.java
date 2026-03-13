@@ -13,12 +13,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.syc.dsmngr.DataSourceManager;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CopiaRequisicionServlet", urlPatterns = { "/servlet/CopiaRequisicionServlet" })
 public class CopiaRequisicionServlet extends HttpServlet {
@@ -30,7 +31,7 @@ public class CopiaRequisicionServlet extends HttpServlet {
 
     private String jndiName = null;
 
-    private static Logger log = Logger.getLogger(CopiaRequisicionServlet.class);
+    private static Logger log = LoggerFactory.getLogger(CopiaRequisicionServlet.class);
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);

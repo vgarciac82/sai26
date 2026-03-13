@@ -13,9 +13,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
 import com.syc.crud.dsmngr.DataSourceManager;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ObtienePrecioUnitarioPAA", urlPatterns = { "/servlet/ObtienePrecioUnitarioPAA" })
 public class ObtienePrecioUnitarioPAA extends HttpServlet {
@@ -26,7 +27,7 @@ public class ObtienePrecioUnitarioPAA extends HttpServlet {
 
     private static String jndiName = null;
 
-    private static Logger log = Logger.getLogger(ObtienePrecioUnitarioPAA.class);
+    private static Logger log = LoggerFactory.getLogger(ObtienePrecioUnitarioPAA.class);
 
     private Connection conn = null;
 

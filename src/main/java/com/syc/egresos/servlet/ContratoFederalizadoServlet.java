@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.contable.ProgFederalizadosBussinessLogic;
 import com.syc.gestion.core.Caso;
 import com.syc.gestion.core.Usuario;
@@ -20,6 +19,8 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import com.syc.sai.contratos.core.ContratoFederalizadoBean;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ContratoFederalizadoServlet", urlPatterns = { "/contratosFederalizados/RegistraDetalle", "/contratosFederalizados/CreaCompromiso" })
 public class ContratoFederalizadoServlet extends HttpServlet implements GestionInterface {
@@ -28,7 +29,7 @@ public class ContratoFederalizadoServlet extends HttpServlet implements GestionI
      */
     private static final long serialVersionUID = -6230531682608221553L;
 
-    private static final Logger log = Logger.getLogger(ContratoFederalizadoServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ContratoFederalizadoServlet.class);
 
     private String jniName;
 
@@ -73,7 +74,7 @@ public class ContratoFederalizadoServlet extends HttpServlet implements GestionI
                 return;
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             ResponseSender.sendClientSimpleMessage(resp, false, "Ocurrio el siguiente error al guardar el detalle: " + e);
         }
     }
@@ -98,7 +99,7 @@ public class ContratoFederalizadoServlet extends HttpServlet implements GestionI
             Class<?> clase = cl.loadClass("com.syc.gestion.custom.DefaultFolioGenerator");
             fg = (FolioGeneratorInterface) clase.newInstance();
         } catch (Exception exc) {
-            log.error(exc, exc);
+            log.error(exc.getMessage(), exc);
             throw new ServletException(exc);
         }
     }

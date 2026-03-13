@@ -20,10 +20,11 @@ import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
 import com.syc.adquisiciones.businessLogic.ReportesBusinesLogic;
 import com.syc.crud.dsmngr.DataSourceManager;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CatalogosCSV", urlPatterns = { "/servlet/CatalogosCSV" })
 public class CatalogosCSV extends HttpServlet {
@@ -32,7 +33,7 @@ public class CatalogosCSV extends HttpServlet {
 
     private static String jndiName = null;
 
-    private static Logger log = Logger.getLogger(CatalogosCSV.class);
+    private static Logger log = LoggerFactory.getLogger(CatalogosCSV.class);
 
     private String folioGenerator = null;
 

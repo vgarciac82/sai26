@@ -10,20 +10,21 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.syc.gestion.CasoBusinessLogic;
 import com.syc.gestion.core.Caso;
 import com.syc.gestion.core.GestionException;
 import com.syc.viewer.servlet.ViewerParametersInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "GestionDelPageDocumentServlet", urlPatterns = { "/imgmng/delpagekeeper" })
 public class GestionDelPageDocumentServlet extends HttpServlet implements GestionInterface, ViewerParametersInterface {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(GestionDelPageDocumentServlet.class);
+    private static Logger log = LoggerFactory.getLogger(GestionDelPageDocumentServlet.class);
 
     private String jniName = null;
 

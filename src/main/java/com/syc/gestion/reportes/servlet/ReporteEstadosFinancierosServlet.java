@@ -11,12 +11,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
 import com.syc.gestion.reportes.reportesBussinesObject;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import com.syc.reportes.ReportePolizasBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ReporteEstadosFinancieros", urlPatterns = { "/reportes/ReporteEstadosFinancieros" })
 public class ReporteEstadosFinancierosServlet extends HttpServlet implements GestionInterface {
@@ -29,7 +30,7 @@ public class ReporteEstadosFinancierosServlet extends HttpServlet implements Ges
 
     String jniName3;
 
-    private static final Logger log = Logger.getLogger(ReporteEstadosFinancierosServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ReporteEstadosFinancierosServlet.class);
 
     private static Map<String, String> plantillas = null;
 
@@ -41,7 +42,7 @@ public class ReporteEstadosFinancierosServlet extends HttpServlet implements Ges
             reporte.actualizarSaldos(mes);
             Util.sendJSONResponse(resp, "success");
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             try {
                 Util.sendHTMLErrorMsg(resp, e);
             } catch (Exception e2) {
@@ -82,7 +83,7 @@ public class ReporteEstadosFinancierosServlet extends HttpServlet implements Ges
                 objReporte.reporteEstadosFinancieros(req, resp, reportPath, reporte, subreporte, reporteDetalle, false);
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             try {
                 Util.sendHTMLErrorMsg(resp, e);
             } catch (Exception e2) {

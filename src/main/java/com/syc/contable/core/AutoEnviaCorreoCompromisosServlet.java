@@ -5,9 +5,10 @@ import javax.naming.NamingException;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
-import org.apache.log4j.Logger;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "AutoEnviaCorreoCompromisos", urlPatterns = {})
 public class AutoEnviaCorreoCompromisosServlet extends HttpServlet implements GestionInterface, Runnable {
@@ -20,7 +21,7 @@ public class AutoEnviaCorreoCompromisosServlet extends HttpServlet implements Ge
 
     private volatile Thread verificaTiempoLimiteCompromiso;
 
-    private static Logger log = Logger.getLogger(AutoEnviaCorreoCompromisosServlet.class);
+    private static Logger log = LoggerFactory.getLogger(AutoEnviaCorreoCompromisosServlet.class);
 
     private String jniName;
 

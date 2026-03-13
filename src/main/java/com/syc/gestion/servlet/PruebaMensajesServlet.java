@@ -12,16 +12,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-import org.apache.log4j.Logger;
 import com.syc.gestion.core.AlarmaManager;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "PruebaMensajesServlet", urlPatterns = { "/test/mensajes" })
 public class PruebaMensajesServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(PruebaMensajesServlet.class);
+    private static Logger log = LoggerFactory.getLogger(PruebaMensajesServlet.class);
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String jniName = "jdbc/gestion";

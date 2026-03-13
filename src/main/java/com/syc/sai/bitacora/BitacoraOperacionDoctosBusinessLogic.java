@@ -1,90 +1,90 @@
 package com.syc.sai.bitacora;
 
 import java.sql.Connection;
-import org.apache.log4j.Logger;
 import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.sai.bitacora.core.BitacoraOperacionDoctosManager;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BitacoraOperacionDoctosBusinessLogic extends DataSourceManager {
 
-	private static final Logger	log	= Logger.getLogger(BitacoraOperacionDoctosBusinessLogic.class);
+    private static final Logger log = LoggerFactory.getLogger(BitacoraOperacionDoctosBusinessLogic.class);
 
-	private String				uLogin;
-	private String				modulo;
-	private int					idTC;
-	private int					nFolio;
+    private String uLogin;
 
-	public BitacoraOperacionDoctosBusinessLogic(String jniName) {
-		super.init(jniName);
-	}
+    private String modulo;
 
-	public BitacoraOperacionDoctosBusinessLogic(String jniName, String uLogin, String modulo, int idTC, int nFolio) {
-		super.init(jniName);
-		setuLogin(uLogin);
-		setModulo(modulo);
-		setIdTC(idTC);
-		setnFolio(nFolio);
-	}
+    private int idTC;
 
-	public String getuLogin() {
-		return uLogin;
-	}
+    private int nFolio;
 
-	public void setuLogin(String uLogin) {
-		this.uLogin = uLogin;
-	}
+    public BitacoraOperacionDoctosBusinessLogic(String jniName) {
+        super.init(jniName);
+    }
 
-	public String getModulo() {
-		return modulo;
-	}
+    public BitacoraOperacionDoctosBusinessLogic(String jniName, String uLogin, String modulo, int idTC, int nFolio) {
+        super.init(jniName);
+        setuLogin(uLogin);
+        setModulo(modulo);
+        setIdTC(idTC);
+        setnFolio(nFolio);
+    }
 
-	public void setModulo(String modulo) {
-		this.modulo = modulo;
-	}
+    public String getuLogin() {
+        return uLogin;
+    }
 
-	public int getIdTC() {
-		return idTC;
-	}
+    public void setuLogin(String uLogin) {
+        this.uLogin = uLogin;
+    }
 
-	public void setIdTC(int idTC) {
-		this.idTC = idTC;
-	}
+    public String getModulo() {
+        return modulo;
+    }
 
-	public int getnFolio() {
-		return nFolio;
-	}
+    public void setModulo(String modulo) {
+        this.modulo = modulo;
+    }
 
-	public void setnFolio(int nFolio) {
-		this.nFolio = nFolio;
-	}
+    public int getIdTC() {
+        return idTC;
+    }
 
-	public boolean insertaBitacora(int idOpercion, String cLog) throws Exception {
-		return insertaBitacora(getuLogin(), getModulo(), getIdTC(), getnFolio(), idOpercion, cLog);
-	}
+    public void setIdTC(int idTC) {
+        this.idTC = idTC;
+    }
 
-	public boolean insertaBitacora(String uLogin, String cModulo, int idTc, int nFolio, int idOperacion, String cLog) throws Exception {
-		boolean insertado = false;
-		Connection conn = null;
+    public int getnFolio() {
+        return nFolio;
+    }
 
-		try {
-			conn = getConnection();
-			insertado = BitacoraOperacionDoctosManager.insertaBitacora(conn, uLogin, cModulo, idTc, nFolio, idOperacion, cLog);
-			conn.commit();
-			return insertado;
-		} catch (Exception e) {
-			if (conn != null)
-				try {
-					conn.rollback();
-				} catch (Exception e2) {
-					log.warn(e2, e2);
-				}
-			throw e;
-		} finally {
+    public void setnFolio(int nFolio) {
+        this.nFolio = nFolio;
+    }
 
-			CloseObject.closeObject(conn, false);
-		}
+    public boolean insertaBitacora(int idOpercion, String cLog) throws Exception {
+        return insertaBitacora(getuLogin(), getModulo(), getIdTC(), getnFolio(), idOpercion, cLog);
+    }
 
-	}
-
+    public boolean insertaBitacora(String uLogin, String cModulo, int idTc, int nFolio, int idOperacion, String cLog) throws Exception {
+        boolean insertado = false;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            insertado = BitacoraOperacionDoctosManager.insertaBitacora(conn, uLogin, cModulo, idTc, nFolio, idOperacion, cLog);
+            conn.commit();
+            return insertado;
+        } catch (Exception e) {
+            if (conn != null)
+                try {
+                    conn.rollback();
+                } catch (Exception e2) {
+                    log.warn(e2.getMessage(), e2);
+                }
+            throw e;
+        } finally {
+            CloseObject.closeObject(conn, false);
+        }
+    }
 }

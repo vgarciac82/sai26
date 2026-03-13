@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
@@ -31,13 +30,15 @@ import com.syc.gestion.reportes.core.ReporteConf;
 import com.syc.gestion.servlet.ActualizaAplicacionServlet;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ReporteExportServlet", urlPatterns = { "/reportes/reporte_export.jsp" })
 public class ReporteExportServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(ActualizaAplicacionServlet.class);
+    private static Logger log = LoggerFactory.getLogger(ActualizaAplicacionServlet.class);
 
     private String tempDir = null;
 
@@ -685,7 +686,9 @@ public class ReporteExportServlet extends HttpServlet implements GestionInterfac
                 ctaAnchoGrafica = 0;
             }
         }
-        JFreeChart chart = // Show legend
+        // Show legend
+        JFreeChart // Show legend
+        chart = // Show legend
         ChartFactory.// Show legend
         createBarChart3D(// Show legend
         titulo_rpt, // Show legend
@@ -694,8 +697,7 @@ public class ReporteExportServlet extends HttpServlet implements GestionInterfac
         dataset, // Show legend
         PlotOrientation.VERTICAL, // Show legend
         true, // Show legend
-        true, // Show legend
-        true);
+        true, true);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         CategoryAxis domainAxis = plot.getDomainAxis();
         domainAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 3.0));

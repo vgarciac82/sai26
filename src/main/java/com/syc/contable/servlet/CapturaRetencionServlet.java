@@ -10,20 +10,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.contable.RetencionBusinessLogic;
 import com.syc.contable.core.RetencionDetalle;
 import com.syc.contable.core.RetencionEncabezado;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CapturaRetencionServlet", urlPatterns = { "/gstnmngr/CapturaRetencion" })
 public class CapturaRetencionServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(RetencionBusinessLogic.class);
+    private static Logger log = LoggerFactory.getLogger(RetencionBusinessLogic.class);
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");

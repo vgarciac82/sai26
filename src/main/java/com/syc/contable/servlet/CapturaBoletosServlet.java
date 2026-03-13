@@ -8,19 +8,20 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.contable.ReintegrosBusinessLogic;
 import com.syc.contable.core.ReintegroBoletos;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CapturaBoletos", urlPatterns = { "/gstnmngr/CapturaBoletos" })
 public class CapturaBoletosServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(ReintegrosBusinessLogic.class);
+    private static Logger log = LoggerFactory.getLogger(ReintegrosBusinessLogic.class);
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");

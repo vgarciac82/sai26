@@ -17,7 +17,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.syc.cfdi.ComponentesFactura;
 import com.syc.cfdi.FacturaBusinessLogic;
@@ -32,6 +31,8 @@ import com.syc.obrapublica.ConfiguraAplicativoBusinessLogic;
 import com.syc.obrapublica.EjercicioFiscalBusinessLogic;
 import com.syc.obrapublica.ObraPublicaContractBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "UploadFacturasContratoServlet", urlPatterns = { "/uploadFacturasContrato" })
 public class UploadFacturasContratoServlet extends HttpServlet implements GestionInterface {
@@ -40,7 +41,7 @@ public class UploadFacturasContratoServlet extends HttpServlet implements Gestio
 
     private static String jniName = "jdbc/gestion";
 
-    private static final Logger log = Logger.getLogger(UploadFacturasContratoServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(UploadFacturasContratoServlet.class);
 
     private static final String TEMP_DIR = System.getProperty("java.io.tmpdir");
 
@@ -186,7 +187,7 @@ public class UploadFacturasContratoServlet extends HttpServlet implements Gestio
                 session.setAttribute("tree.model", tree);
                 msgRetorno = "Archivo cargado exitosamente";
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 msgRetorno = "Ocurrio el siguiente error al cargar el archivo: <br>" + e.getMessage();
             } finally {
                 if (archivoCargaStream != null)

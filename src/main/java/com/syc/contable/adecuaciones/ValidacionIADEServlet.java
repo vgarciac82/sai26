@@ -11,20 +11,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.contable.AdecuacionBusinessLogic;
 import com.syc.ejercido.pagado.ActualizaFechaAplicacionServlet;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ValidacionIADEServlet", urlPatterns = { "/ValidacionIADEServlet" })
 public class ValidacionIADEServlet extends HttpServlet implements GestionInterface {
 
     private static String jniName;
 
-    private static final Logger log = Logger.getLogger(ActualizaFechaAplicacionServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ActualizaFechaAplicacionServlet.class);
 
     private static final long serialVersionUID = -7321972009382438157L;
 
@@ -54,7 +55,7 @@ public class ValidacionIADEServlet extends HttpServlet implements GestionInterfa
                 ResponseSender.sendClientSimpleMessage(resp, true, "");
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             ResponseSender.sendClientSimpleMessage(resp, false, e.toString().replaceAll("\"", ""));
         }
     }

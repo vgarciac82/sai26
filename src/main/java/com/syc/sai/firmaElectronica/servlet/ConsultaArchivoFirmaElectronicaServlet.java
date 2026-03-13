@@ -13,7 +13,6 @@ import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
 import com.syc.fortimax.core.Documento;
 import com.syc.fortimax.core.DocumentoBussinessLogic;
 import com.syc.fortimax.core.Fortimax;
@@ -23,6 +22,8 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import com.syc.obrapublica.EjercicioFiscalBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ConsultaArchivoFirmaElectronicaServlet", urlPatterns = { "/muestraDocumento" })
 public class ConsultaArchivoFirmaElectronicaServlet extends HttpServlet implements GestionInterface {
@@ -33,7 +34,7 @@ public class ConsultaArchivoFirmaElectronicaServlet extends HttpServlet implemen
 
     private String jniName;
 
-    private static final Logger log = Logger.getLogger(ConsultaArchivoFirmaElectronicaServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ConsultaArchivoFirmaElectronicaServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -62,7 +63,7 @@ public class ConsultaArchivoFirmaElectronicaServlet extends HttpServlet implemen
             String pathDocumento = d.getPaginaDocumento(0).getFullPathFileName();
             doDownload(resp, pathDocumento, d.getNombreDocumento() + "." + d.getExtension());
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             try {
                 Util.sendHTMLErrorMsg(resp, e);
             } catch (Exception e2) {

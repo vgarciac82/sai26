@@ -21,7 +21,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.cfdi.utils.FacturaUtils;
 import com.syc.egresos.DetallePago;
 import com.syc.egresos.PagoCalendarioBussinessLogic;
@@ -32,6 +31,8 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ViaticosServlet", urlPatterns = { "/viaticos/guardarAgenda", "/viaticos/eliminarAgenda", "/viaticos/guardarTransporte", "/viaticos/eliminarTransporte", "/viaticos/guardarTramite", "/viaticos/resumenViaticos", "/viaticos/avanzaFirmante", "/viaticos/generaSolicitud", "/viaticos/iniciaCasoRG", "/viaticos/actualizarAgenda", "/viaticos/agregaBoletoAvion", "/viaticos/eliminarBoletoAvion", "/viaticos/borrarTodo", "/viaticos/autorizarViaticos", "/viaticos/rechazarViaticos", "/viaticos/rechazarAgenda", "/viaticos/actualizaNombreComision", "/viaticos/adjuntaJustificacion", "/viaticos/adjuntaBoletos", "/viaticos/actualizarJustificacion", "/viaticos/actualizarOtraJustif", "/viaticos/actualizarJustTickets", "/viaticos/actualizarJustGasolina", "/viaticos/agregaRetenciones", "/viaticos/finalizaTramite", "/viaticos/guardaCalendario", "/viaticos/actualizarTransporte", "/viaticos/enviarFirmarAgenda", "/viaticos/enviarFirmar", "/viaticos/cancelaComision", "/viaticos/validaPartidasViatico", "/viaticos/agregaDetalle" })
 public class ViaticosServlet extends HttpServlet implements GestionInterface {
@@ -98,7 +99,7 @@ public class ViaticosServlet extends HttpServlet implements GestionInterface {
 
     private static final String VALIDAR_PARTIDAS = "validaPartidasViatico";
 
-    public static final Logger log = Logger.getLogger(ViaticosServlet.class);
+    public static final Logger log = LoggerFactory.getLogger(ViaticosServlet.class);
 
     private String jniName = "";
 

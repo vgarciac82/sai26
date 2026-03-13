@@ -10,17 +10,18 @@ import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
 import com.syc.fortimax.core.ExpedientExporterBusinessLogic;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ExpedientExportServlet", urlPatterns = { "/export/expedienteCasos" })
 public class ExpedientExportServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6518385836826324575L;
 
-    private static Logger log = Logger.getLogger(ExpedientExportServlet.class);
+    private static Logger log = LoggerFactory.getLogger(ExpedientExportServlet.class);
 
     private String jniName = "";
 
@@ -33,7 +34,7 @@ public class ExpedientExportServlet extends HttpServlet {
             File f = new File(fileResult);
             Util.doDownload(resp, fileResult, f.getName(), "");
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             ServletOutputStream out = resp.getOutputStream();
             out.println("<br/>");
             out.println("<h1>No fue posible generar el archivo de descarga</h1>");

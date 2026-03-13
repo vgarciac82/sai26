@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.axtel.contratos.ActionsFIEL;
 import com.axtel.contratos.QuestionnaireBussinessLogic;
 import com.axtel.contratos.core.ImplementsActionsFIEL_ENSA;
@@ -30,6 +29,8 @@ import com.syc.sai.firmaElectronica.FirmaElectronicaBusinessLogic;
 import com.syc.sai.firmaElectronica.core.RecepcionMaterialFIEL;
 import com.syc.sai.firmaElectronica.interfaces.SolicitudFirmaElectronica;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CancelaReporteFIELServlet", urlPatterns = { "/firma/RechazaReporte", "/firma/rechazaTramite", "/firma/rechazaRM", "/firma/rechazaEstimacion", "/firma/rechazaENSA", "/firma/avanzaProcesoENSA" })
 public class CancelaReporteFIELServlet extends HttpServlet implements GestionInterface {
@@ -40,7 +41,7 @@ public class CancelaReporteFIELServlet extends HttpServlet implements GestionInt
 
     private static String jniName = "jdbc/gestion";
 
-    private static final Logger log = Logger.getLogger(CancelaReporteFIELServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(CancelaReporteFIELServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -132,7 +133,7 @@ public class CancelaReporteFIELServlet extends HttpServlet implements GestionInt
                     logFirma = febl.rechazaReporte((EstadosFinancierosFirma) fer);
                 msgRetorno = Util.listToHTMLTable(logFirma);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 List<String> logException = new ArrayList<String>();
                 logException.add("Ocurrio el siguiente error al cargar el archivo: <br>" + e.getMessage());
                 msgRetorno = Util.listToHTMLTable(logException);

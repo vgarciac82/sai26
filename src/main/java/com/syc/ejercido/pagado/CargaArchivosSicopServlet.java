@@ -19,7 +19,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import com.syc.contable.CompromisoBussinessLogic;
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.gestion.core.Usuario;
@@ -27,6 +26,8 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Propietario
@@ -41,7 +42,7 @@ public class CargaArchivosSicopServlet extends HttpServlet implements GestionInt
 
     private static final long serialVersionUID = -1825759453227353947L;
 
-    private static final Logger log = Logger.getLogger(CargaArchivosSicopServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(CargaArchivosSicopServlet.class);
 
     private String jniName;
 
@@ -96,7 +97,7 @@ public class CargaArchivosSicopServlet extends HttpServlet implements GestionInt
             String msg = "Archivo cargado exitosamente.";
             session.setAttribute("RESULT", msg);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             e.printStackTrace();
             String msg = "Notifique al Administrador. Ocurrio el siguiente error al cargar el archivo: " + e;
             session.setAttribute("RESULT", msg);

@@ -14,11 +14,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.gestion.reportes.reporteSIIWebDisFinancierasBussinesLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("unused")
 @WebServlet(name = "ReporteSIIWebDisFinancierasServlet", urlPatterns = { "/reportes/ReporteSIIWebDisFinancieras" })
@@ -32,7 +33,7 @@ public class ReporteSIIWebDisFinancierasServlet extends HttpServlet implements G
 
     String jniName3;
 
-    private static final Logger log = Logger.getLogger(ReporteSIIWebDisFinancierasServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ReporteSIIWebDisFinancierasServlet.class);
 
     private static Map<String, String> plantillas = null;
 
@@ -63,7 +64,7 @@ public class ReporteSIIWebDisFinancierasServlet extends HttpServlet implements G
                 objReporte.generaPlantillaExcel(req, resp, plantillas);
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             throw new ServletException(e);
         }
     }

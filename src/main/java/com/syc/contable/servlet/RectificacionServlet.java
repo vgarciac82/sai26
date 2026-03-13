@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.contable.AdecuacionBusinessLogic;
 import com.syc.contable.RectificacionPresupuestariaBusinessLogic;
 import com.syc.gestion.core.Caso;
@@ -17,6 +16,8 @@ import com.syc.gestion.core.CasoDatoManager;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "RectificacionServlet", urlPatterns = { "/gstnmngr/RectificacionServlet" })
 public class RectificacionServlet extends HttpServlet {
@@ -25,7 +26,7 @@ public class RectificacionServlet extends HttpServlet {
      */
     private static final long serialVersionUID = 8140857888553424437L;
 
-    private static final Logger log = Logger.getLogger(RectificacionServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(RectificacionServlet.class);
 
     public RectificacionServlet() {
         super();

@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.contable.AdecuacionBusinessLogic;
 import com.syc.contable.IAnteProyectoBusinessLogic;
 import com.syc.contable.core.IAnteproyectoEncabezado;
@@ -27,6 +26,8 @@ import com.syc.gestion.custom.FolioGeneratorInterface;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "EnviarAnteproyectoServlet", urlPatterns = { "/anteproyecto/enviaUN" })
 public class EnviaAnteProyectoUN extends HttpServlet implements GestionInterface {
@@ -35,7 +36,7 @@ public class EnviaAnteProyectoUN extends HttpServlet implements GestionInterface
 
     String jniName = "";
 
-    Logger log = Logger.getLogger(EnviaAnteProyectoUN.class);
+    Logger log = LoggerFactory.getLogger(EnviaAnteProyectoUN.class);
 
     String folioGenerator = null;
 

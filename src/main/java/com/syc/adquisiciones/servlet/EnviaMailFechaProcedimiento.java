@@ -27,8 +27,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "EnviaMailFechaProcedimiento", urlPatterns = { "/servlet/EnviaMailFechaProcedimiento" })
 public class EnviaMailFechaProcedimiento extends HttpServlet {
@@ -37,7 +38,7 @@ public class EnviaMailFechaProcedimiento extends HttpServlet {
 
     private HiloVerificacionFechasProcedimiento hvfp;
 
-    private static Logger log = Logger.getLogger(EnviaMailFechaProcedimiento.class);
+    private static Logger log = LoggerFactory.getLogger(EnviaMailFechaProcedimiento.class);
 
     public EnviaMailFechaProcedimiento() {
         super();

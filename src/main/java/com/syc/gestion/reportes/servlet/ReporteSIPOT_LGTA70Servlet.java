@@ -12,11 +12,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.reportes.ReporteSIPOT_LGTA70BussinesLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ReporteSIPOT_LGTA70Servlet", urlPatterns = { "/reportes/ReporteSIPOT_LGTA70" })
 public class ReporteSIPOT_LGTA70Servlet extends HttpServlet implements GestionInterface {
@@ -25,7 +26,7 @@ public class ReporteSIPOT_LGTA70Servlet extends HttpServlet implements GestionIn
 
     private static String jniName = "jdbc/gestion";
 
-    private static final Logger log = Logger.getLogger(ReporteSIPOT_LGTA70Servlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ReporteSIPOT_LGTA70Servlet.class);
 
     private static Map<String, String> plantillas = null;
 
@@ -41,7 +42,7 @@ public class ReporteSIPOT_LGTA70Servlet extends HttpServlet implements GestionIn
         try {
             objReporte.generaPlantillaExcel(req, resp, plantillas);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             //throw new ServletException(e);
         }
     }

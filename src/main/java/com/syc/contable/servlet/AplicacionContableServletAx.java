@@ -2,7 +2,6 @@ package com.syc.contable.servlet;
 
 import java.io.File;
 import java.io.IOException;
-import org.apache.log4j.Logger;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -25,6 +24,8 @@ import com.syc.gestion.core.CasoManager;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "AplicacionContableServletAx", urlPatterns = { "/gstnmngr/AppContAx" })
 public class AplicacionContableServletAx extends HttpServlet {
@@ -33,7 +34,7 @@ public class AplicacionContableServletAx extends HttpServlet {
      */
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(AplicacionContable.class);
+    private static Logger log = LoggerFactory.getLogger(AplicacionContable.class);
 
     /**
      * Constructor of the object.

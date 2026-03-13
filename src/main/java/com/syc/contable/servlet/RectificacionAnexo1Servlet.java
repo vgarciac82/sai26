@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -22,13 +21,15 @@ import com.syc.gestion.core.CasoDatoManager;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "RectificacionAnexo1Servlet", urlPatterns = { "/gstnmngr/RectificacionAnexo1" })
 public class RectificacionAnexo1Servlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(RectificacionAnexo1Servlet.class);
+    private static Logger log = LoggerFactory.getLogger(RectificacionAnexo1Servlet.class);
 
     String mensaje = "";
 

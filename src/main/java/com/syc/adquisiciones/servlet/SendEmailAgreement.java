@@ -6,14 +6,15 @@ import javax.naming.NamingException;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
-import org.apache.log4j.Logger;
 import com.syc.adquisiciones.businessLogic.ProcessAgreement;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "SendEmailAgreement", urlPatterns = { "/SendEmailAgreement" })
 public class SendEmailAgreement extends HttpServlet implements Runnable {
 
-    private static Logger log = Logger.getLogger(SendEmailAgreement.class);
+    private static Logger log = LoggerFactory.getLogger(SendEmailAgreement.class);
 
     private static final long serialVersionUID = 1L;
 

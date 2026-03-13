@@ -12,12 +12,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import com.syc.contable.CompromisoBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Martha Aurora Sánchez Valdivieso para SYC Constructores de Sistemas
@@ -28,7 +29,7 @@ public class RespuestaCompromisosServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(RespuestaCompromisosServlet.class);
+    private static Logger log = LoggerFactory.getLogger(RespuestaCompromisosServlet.class);
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
@@ -82,7 +83,7 @@ public class RespuestaCompromisosServlet extends HttpServlet {
             else
                 session.setAttribute("msg", "El archivo cargo con errores.\n" + Util.join(errores, '\n'));
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             session.setAttribute("msg", "Ocurrio el siguiente error: " + e.getMessage());
         }
         response.sendRedirect("../Generador/CompromisosDevueltos.jsp");

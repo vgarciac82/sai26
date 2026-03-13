@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
@@ -19,6 +18,8 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ConsultaSaldosServlet", urlPatterns = { "/reportes/ConsultaSaldo" })
 public class ConsultaSaldosServlet extends HttpServlet implements GestionInterface {
@@ -27,7 +28,7 @@ public class ConsultaSaldosServlet extends HttpServlet implements GestionInterfa
 
     private static String jndiName = null;
 
-    private static Logger log = Logger.getLogger(ConsultaSaldosServlet.class);
+    private static Logger log = LoggerFactory.getLogger(ConsultaSaldosServlet.class);
 
     private Connection conn = null;
 
@@ -57,7 +58,7 @@ public class ConsultaSaldosServlet extends HttpServlet implements GestionInterfa
         try {
             consultaSaldos(request, response);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
         }
     }
 

@@ -11,11 +11,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import com.syc.gestion.core.UnidadEjecutoraBusinessLogic;
 import com.syc.gestion.core.Usuario;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CambiaUnidadServlet", urlPatterns = { "/usuarios/CambiaUnidad" })
 public class CambiaURUsuarioServlet extends HttpServlet implements GestionInterface {
@@ -24,7 +25,7 @@ public class CambiaURUsuarioServlet extends HttpServlet implements GestionInterf
      */
     private static final long serialVersionUID = 1052294261504907936L;
 
-    public static final Logger log = Logger.getLogger(CambiaURUsuarioServlet.class);
+    public static final Logger log = LoggerFactory.getLogger(CambiaURUsuarioServlet.class);
 
     private String jniName;
 
@@ -61,7 +62,7 @@ public class CambiaURUsuarioServlet extends HttpServlet implements GestionInterf
                 }
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             msg = e.toString();
         }
         try {
@@ -75,7 +76,7 @@ public class CambiaURUsuarioServlet extends HttpServlet implements GestionInterf
             out.flush();
             out.close();
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             throw new ServletException(e);
         }
     }

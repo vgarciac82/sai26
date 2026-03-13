@@ -12,18 +12,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.contable.CompromisoBussinessLogic;
 import com.syc.contable.RelacionGastosBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "LayoutRelacionGastosCompromisoServlet", urlPatterns = { "/gstnmngr/generaLayoutRelacionGastosCompromiso" })
 public class LayoutRelacionGastosCompromisoServlet extends HttpServlet implements GestionInterface {
 
-    private static final Logger log = Logger.getLogger(LayoutRelacionGastosCompromisoServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(LayoutRelacionGastosCompromisoServlet.class);
 
     /**
      */
@@ -57,7 +58,7 @@ public class LayoutRelacionGastosCompromisoServlet extends HttpServlet implement
                 cbl.descargaLayout(resp, layout);
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
         }
     }
 
@@ -120,7 +121,7 @@ public class LayoutRelacionGastosCompromisoServlet extends HttpServlet implement
                 }
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             throw new ServletException(e);
         }
     }

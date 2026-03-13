@@ -17,7 +17,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.cfdi.ComponentesFactura;
 import com.syc.cfdi.FacturaBusinessLogic;
 import com.syc.cfdi.core.ExtraccionFacturas;
@@ -27,6 +26,8 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import com.syc.obrapublica.ConfiguraAplicativoBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "UploadREPPagoZipServlet", urlPatterns = { "/AdjuntaREPPago" })
 public class UploadREPPagoZipServlet extends HttpServlet implements GestionInterface {
@@ -35,7 +36,7 @@ public class UploadREPPagoZipServlet extends HttpServlet implements GestionInter
 
     private String jniName = "";
 
-    private static final Logger log = Logger.getLogger(UploadREPPagoZipServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(UploadREPPagoZipServlet.class);
 
     private static final String TEMP_DIR = System.getProperty("java.io.tmpdir");
 
@@ -104,7 +105,7 @@ public class UploadREPPagoZipServlet extends HttpServlet implements GestionInter
                 }
                 msgRetorno = "Archivo cargado exitosamente";
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 msgRetorno = "Ocurrio el siguiente error al cargar el archivo:" + e.getMessage();
             } finally {
                 if (archivoCargaStream != null)

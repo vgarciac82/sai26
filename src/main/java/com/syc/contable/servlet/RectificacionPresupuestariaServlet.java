@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -29,13 +28,15 @@ import com.syc.gestion.core.CasoDatoManager;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "RectificacionPresupuestariaServlet", urlPatterns = { "/gstnmngr/RectificacionPresupuestaria" })
 public class RectificacionPresupuestariaServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(RectificacionPresupuestariaServlet.class);
+    private static Logger log = LoggerFactory.getLogger(RectificacionPresupuestariaServlet.class);
 
     String mensaje = "";
 
@@ -176,10 +177,10 @@ public class RectificacionPresupuestariaServlet extends HttpServlet {
                 }
                 session.setAttribute("mensaje", mensaje);
             } catch (SQLException e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 mensaje = e.toString();
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 mensaje = e.toString();
             } finally {
                 if (busqueda)

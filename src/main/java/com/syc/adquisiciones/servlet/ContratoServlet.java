@@ -17,7 +17,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -44,6 +43,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ContratoServlet", urlPatterns = { "/servlet/ContratoServlet" })
 public class ContratoServlet extends HttpServlet implements GestionInterface {
@@ -52,7 +53,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
 
     private static String jndiName = null;
 
-    private static Logger log = Logger.getLogger(ContratoServlet.class);
+    private static Logger log = LoggerFactory.getLogger(ContratoServlet.class);
 
     private Connection conn = null;
 

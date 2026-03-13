@@ -15,9 +15,10 @@ import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 //import com.syc.zip.ZipEntry;
 //import com.syc.zip.ZipOutputStream;
@@ -32,7 +33,7 @@ public class LayoutCompromisosNOMServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(LayoutCompromisosNOMServlet.class);
+    private static Logger log = LoggerFactory.getLogger(LayoutCompromisosNOMServlet.class);
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CompromisoNOMBussinessLogic cmpbl = new CompromisoNOMBussinessLogic(GestionInterface.ATT_CONEXION);

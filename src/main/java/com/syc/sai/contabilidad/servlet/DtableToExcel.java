@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellType;
@@ -38,11 +37,13 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "GeneraExcelTable", urlPatterns = { "/reports/GeneraExcelTable" })
 public class DtableToExcel extends HttpServlet implements GestionInterface {
 
-    private static final Logger log = Logger.getLogger(DtableToExcel.class);
+    private static final Logger log = LoggerFactory.getLogger(DtableToExcel.class);
 
     private static final long serialVersionUID = -5034769853645642993L;
 
@@ -98,7 +99,7 @@ public class DtableToExcel extends HttpServlet implements GestionInterface {
         try {
             generarExcel(response, request);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
         }
     }
 
@@ -106,7 +107,7 @@ public class DtableToExcel extends HttpServlet implements GestionInterface {
         try {
             this.numHojas = Integer.parseInt(hojas);
         } catch (NumberFormatException e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
         }
     }
 
@@ -121,7 +122,7 @@ public class DtableToExcel extends HttpServlet implements GestionInterface {
                 this.numColsxTabla[i] = Integer.parseInt(numCols[i]);
             }
         } catch (NumberFormatException e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
         }
     }
 
@@ -294,7 +295,7 @@ public class DtableToExcel extends HttpServlet implements GestionInterface {
                 for (in = 0; in < numColsxTabla[HojaActual]; in++) try {
                     hoja[HojaActual].autoSizeColumn(in);
                 } catch (Exception e) {
-                    log.error(e, e);
+                    log.error(e.getMessage(), e);
                 }
                 try {
                     FileInputStream archivo;
@@ -314,7 +315,7 @@ public class DtableToExcel extends HttpServlet implements GestionInterface {
                     // pict.getPreferredSize().getRow1();
                     archivo.close();
                 } catch (IOException e) {
-                    log.error(e, e);
+                    log.error(e.getMessage(), e);
                 }
                 HojaActual++;
             }
@@ -328,7 +329,7 @@ public class DtableToExcel extends HttpServlet implements GestionInterface {
                 Util.doDownload(response, file, "ReportExportCSV.csv", "text/csv");
                 return;
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
             }
         }
         try {
@@ -338,7 +339,7 @@ public class DtableToExcel extends HttpServlet implements GestionInterface {
             response.getOutputStream().flush();
             response.getOutputStream().close();
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
         } finally {
             Todo = null;
             numColsxTabla = null;

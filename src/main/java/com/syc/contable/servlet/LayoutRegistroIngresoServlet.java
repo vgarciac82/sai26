@@ -22,13 +22,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 //import com.syc.gestion.core.Caso;
 //import com.syc.gestion.core.CasoDatoManager;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.registroingresos.RegistroIngresosBussinesLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "LayoutRegistroIngresoServlet", urlPatterns = { "/gstnmngr/generaLayoutRegistroIngreso" })
 public class LayoutRegistroIngresoServlet extends HttpServlet {
@@ -39,7 +40,7 @@ public class LayoutRegistroIngresoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger log = Logger.getLogger(LayoutRegistroIngresoServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(LayoutRegistroIngresoServlet.class);
 
     public LayoutRegistroIngresoServlet() {
         super();
@@ -124,9 +125,9 @@ public class LayoutRegistroIngresoServlet extends HttpServlet {
                     // Create the ZIP file
                     ZipOutputStream outZIP = new ZipOutputStream(ouputStream);
                     for (// Compress the files
+                    // Compress the files
                     int i = 0; // Compress the files
-                    i < filenames.length; // Compress the files
-                    i++) {
+                    i < filenames.length; i++) {
                         FileInputStream in = new FileInputStream(filenames[i]);
                         // Add ZIP entry to output stream.
                         outZIP.putNextEntry(new ZipEntry(filenames[i].getName()));

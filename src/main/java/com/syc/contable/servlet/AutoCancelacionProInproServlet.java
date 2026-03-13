@@ -5,10 +5,11 @@ import javax.naming.NamingException;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
-import org.apache.log4j.Logger;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.procesos.ProinproApartadoBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "AutoCancelacionPreprod", urlPatterns = {})
 public class AutoCancelacionProInproServlet extends HttpServlet implements GestionInterface, Runnable {
@@ -21,7 +22,7 @@ public class AutoCancelacionProInproServlet extends HttpServlet implements Gesti
 
     private volatile Thread verificaTiempoLimiteApartado;
 
-    private static Logger log = Logger.getLogger(AutoCancelacionProInproServlet.class);
+    private static Logger log = LoggerFactory.getLogger(AutoCancelacionProInproServlet.class);
 
     private String jniName;
 

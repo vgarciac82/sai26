@@ -11,19 +11,19 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-//import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.reportes.ReporteNotasBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ReporteNotasServlet", urlPatterns = { "/reportes/ReporteNotas" })
 public class ReporteNotasServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 6723127616859732249L;
 
-    private static final Logger log = Logger.getLogger(ReporteNotasServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ReporteNotasServlet.class);
 
     private static String jniName = "jdbc/gestion";
 
@@ -65,7 +65,7 @@ public class ReporteNotasServlet extends HttpServlet implements GestionInterface
                 }
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             try {
                 resp.setContentType("text/html");
                 ServletOutputStream out = resp.getOutputStream();

@@ -21,7 +21,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.syc.contable.AccountingEngine;
 import com.syc.contable.AdecuacionBusinessLogic;
@@ -36,13 +35,15 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.custom.FolioGeneratorInterface;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ReintegrosContablesServlet", urlPatterns = { "/servlet/ReintegrosContablesServlet" })
 public class ReintegrosContablesServlet extends HttpServlet {
 
     private static final long serialVersionUID = 3830246252504144684L;
 
-    private static final Logger log = Logger.getLogger(ReintegrosServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ReintegrosServlet.class);
 
     private String jniName = null;
 

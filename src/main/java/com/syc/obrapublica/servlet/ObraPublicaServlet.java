@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.syc.gestion.CasoBusinessLogic;
 import com.syc.gestion.core.Caso;
@@ -27,6 +26,8 @@ import com.syc.obrapublica.ObraPublicaBusinessLogic;
 import com.syc.obrapublica.ObraPublicaContractBusinessLogic;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ObraPublicaServlet", urlPatterns = { "/AplicaContableObraPublica", "/GeneraInformacionContrato", "/ConvenioModificatorio", "/CapturaEstimacion", "/NoContratoGenerador", "/NoConvenioGenerador" })
 public class ObraPublicaServlet extends HttpServlet implements GestionInterface {
@@ -35,7 +36,7 @@ public class ObraPublicaServlet extends HttpServlet implements GestionInterface 
 
     private String jniName = null;
 
-    private static final Logger log = Logger.getLogger(ObraPublicaServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ObraPublicaServlet.class);
 
     private static String folioGenerator = null;
 
@@ -66,7 +67,7 @@ public class ObraPublicaServlet extends HttpServlet implements GestionInterface 
                 msg = opbl.ApplyCompromiso(folioSAI, aEjercicioFiscal, folioGenerator, u);
                 sendFinishMessage(resp, "true".equalsIgnoreCase(msg[0]), "DOCUMENTO " + ("true".equalsIgnoreCase(msg[0]) ? "" : "NO") + " APLICADO", msg[1]);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendFinishMessage(resp, false, "DOCUMENTO NO APLICADO" + (msg != null ? "<br>" + msg[1] : ""), "Causa del error: " + e.toString());
             }
         } else if ("CONVENIO_MODIFICATORIO".equals(accion)) {
@@ -80,7 +81,7 @@ public class ObraPublicaServlet extends HttpServlet implements GestionInterface 
                 session.setAttribute(ATT_CASE, c);
                 resp.sendRedirect("caso/exec-container.jsp");
             } catch (GestionException e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendError(resp, e.toString());
             }
         } else if ("PAGO_PASIVO".equals(accion)) {
@@ -112,7 +113,7 @@ public class ObraPublicaServlet extends HttpServlet implements GestionInterface 
                 session.setAttribute(ATT_CASE, c);
                 resp.sendRedirect("caso/exec-container.jsp");
             } catch (GestionException e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendError(resp, e.toString());
             } catch (ClassNotFoundException e) {
                 // TODO Auto-generated catch block
@@ -153,7 +154,7 @@ public class ObraPublicaServlet extends HttpServlet implements GestionInterface 
                 session.setAttribute(ATT_CASE, c);
                 resp.sendRedirect("caso/exec-container.jsp");
             } catch (GestionException e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendError(resp, e.toString());
             } catch (ClassNotFoundException e) {
                 // TODO Auto-generated catch block
@@ -181,7 +182,7 @@ public class ObraPublicaServlet extends HttpServlet implements GestionInterface 
                 msg = opbl.applyConvenioModificatorioCompromiso(u, folioGenerator, nFolioOPConvHeader, folioSAI, aEjercicioFiscal, cContable, cveContrato, noConvenio, fInicio, fFin, montoModificado);
                 sendFinishMessage(resp, "true".equalsIgnoreCase(msg[0]), "DOCUMENTO " + ("true".equalsIgnoreCase(msg[0]) ? "" : "NO") + " APLICADO", msg[1]);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendFinishMessage(resp, false, "DOCUMENTO NO APLICADO" + (msg != null ? "<br>" + msg[1] : ""), "Causa del error: " + e.toString());
             }
         } else if ("APPLY_PAGOPASIVO_PRECOMP".equals(accion)) {
@@ -208,7 +209,7 @@ public class ObraPublicaServlet extends HttpServlet implements GestionInterface 
                 msg = opbl.applyPagoPasivo(u, folioGenerator, nfoliooppagpasheader, folioSAI, aEjercicioFiscal, cContable, cveContrato, noConvenio, fInicio, fFin, montoModificado);
                 sendFinishMessage(resp, "true".equalsIgnoreCase(msg[0]), "DOCUMENTO " + ("true".equalsIgnoreCase(msg[0]) ? "" : "NO") + " APLICADO", msg[1]);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendFinishMessage(resp, false, "DOCUMENTO NO APLICADO" + (msg != null ? "<br>" + msg[1] : ""), "Causa del error: " + e.toString());
             }
         } else if ("APPLY_PLURIANUAL_PRECOMP".equals(accion)) {
@@ -231,7 +232,7 @@ public class ObraPublicaServlet extends HttpServlet implements GestionInterface 
                 msg = opbl.applyPlurianual(u, folioGenerator, nfolioopplurianualheader, folioSAI, aEjercicioFiscal, cContable, cveContrato, noConvenio, fInicio, fFin, montoModificado);
                 sendFinishMessage(resp, "true".equalsIgnoreCase(msg[0]), "DOCUMENTO " + ("true".equalsIgnoreCase(msg[0]) ? "" : "NO") + " APLICADO", msg[1]);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendFinishMessage(resp, false, "DOCUMENTO NO APLICADO" + (msg != null ? "<br>" + msg[1] : ""), "Causa del error: " + e.toString());
             }
         } else if ("GEN_FOLIO".equals(accion)) {
@@ -272,7 +273,7 @@ public class ObraPublicaServlet extends HttpServlet implements GestionInterface 
                 session.setAttribute("OP_CAPTURA_ESTIMACION", "true");
                 resp.sendRedirect("caso/exec-container.jsp");
             } catch (GestionException e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendError(resp, e.toString());
             }
         } else if ("ACTUALIZACION_DATOS".equals(accion)) {
@@ -289,7 +290,7 @@ public class ObraPublicaServlet extends HttpServlet implements GestionInterface 
                 session.setAttribute("OP_ACTUALIZACION_DATOS", "true");
                 resp.sendRedirect("caso/exec-container.jsp");
             } catch (GestionException e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendError(resp, e.toString());
             }
         } else if ("APLICA_APARTADO".equals(accion)) {
@@ -300,7 +301,7 @@ public class ObraPublicaServlet extends HttpServlet implements GestionInterface 
                 msg = opbl.ApplyApartado(folioSAI);
                 sendFinishMessage(resp, "true".equalsIgnoreCase(msg[0]), "DOCUMENTO " + ("true".equalsIgnoreCase(msg[0]) ? "" : "NO") + " APLICADO", msg[1]);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendFinishMessage(resp, false, "DOCUMENTO NO APLICADO" + (msg != null ? "<br>" + msg[1] : ""), "Causa del error: " + e.toString());
             }
         } else if ("APLICA_PRECOMPROMISO".equals(accion)) {
@@ -311,7 +312,7 @@ public class ObraPublicaServlet extends HttpServlet implements GestionInterface 
                 msg = opbl.ApplyPreCompr(folioSAI);
                 sendFinishMessage(resp, "true".equalsIgnoreCase(msg[0]), "DOCUMENTO " + ("true".equalsIgnoreCase(msg[0]) ? "" : "NO") + " APLICADO", msg[1]);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendFinishMessage(resp, false, "DOCUMENTO NO APLICADO" + (msg != null ? "<br>" + msg[1] : ""), "Causa del error: " + e.toString());
             }
         } else if ("APLICA_CONVENIO_PRECOMP".equals(accion)) {
@@ -322,7 +323,7 @@ public class ObraPublicaServlet extends HttpServlet implements GestionInterface 
                 msg = opbl.applyConvenioModificatorioPrecompromiso(nFolioOPConvHeader);
                 sendFinishMessage(resp, "true".equalsIgnoreCase(msg[0]), "DOCUMENTO " + ("true".equalsIgnoreCase(msg[0]) ? "" : "NO") + " APLICADO", msg[1]);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendFinishMessage(resp, false, "DOCUMENTO NO APLICADO" + (msg != null ? "<br>" + msg[1] : ""), "Causa del error: " + e.toString());
             }
         } else if ("APLICA_PAGO_PASIVO_PRECOMP".equals(accion)) {
@@ -339,7 +340,7 @@ public class ObraPublicaServlet extends HttpServlet implements GestionInterface 
                 msg = opbl.applyPagoPasivoPrecompromiso(nFolioOPPagPasHeader);
                 sendFinishMessage(resp, "true".equalsIgnoreCase(msg[0]), "DOCUMENTO " + ("true".equalsIgnoreCase(msg[0]) ? "" : "NO") + " APLICADO", msg[1]);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendFinishMessage(resp, false, "DOCUMENTO NO APLICADO" + (msg != null ? "<br>" + msg[1] : ""), "Causa del error: " + e.toString());
             }
         } else if ("APLICA_PLURIANUAL_PRECOMP".equals(accion)) {
@@ -356,7 +357,7 @@ public class ObraPublicaServlet extends HttpServlet implements GestionInterface 
                 msg = opbl.applyPlurianualPrecompromiso(nfolioopplurianualheader);
                 sendFinishMessage(resp, "true".equalsIgnoreCase(msg[0]), "DOCUMENTO " + ("true".equalsIgnoreCase(msg[0]) ? "" : "NO") + " APLICADO", msg[1]);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendFinishMessage(resp, false, "DOCUMENTO NO APLICADO" + (msg != null ? "<br>" + msg[1] : ""), "Causa del error: " + e.toString());
             }
         } else if ("ACTUALIZA_CM".equals(accion)) {
@@ -443,7 +444,7 @@ public class ObraPublicaServlet extends HttpServlet implements GestionInterface 
                 int cfdiCapurados = opbl.getTotalCFDICapturdos(c, (null == req.getParameter("foliosai") ? "" : req.getParameter("foliosai")), nTipoFacturaGlobal);
                 ResponseSender.sendClientSimpleMessage(resp, true, String.valueOf(cfdiCapurados));
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendClientSimpleMessage(resp, false, e.toString());
             }
         }

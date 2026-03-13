@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.axtel.egresos.entities.GreenMex;
 import com.axtel.egresos.services.impl.JDBCGreenMexService;
 import com.axtel.egresos.repositories.impl.JDBCGreenMexRepository;
@@ -18,13 +17,15 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "GreenMexController", urlPatterns = { "/GREENMEX/greenmex" })
 public class GreenMexController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger log = Logger.getLogger(GreenMexController.class);
+    private static final Logger log = LoggerFactory.getLogger(GreenMexController.class);
 
     private String jniName;
 
@@ -69,7 +70,7 @@ public class GreenMexController extends HttpServlet {
             log.info(GreenMex);
             Util.sendJSON(response, GreenMex);
         } catch (Exception ex) {
-            log.error(ex, ex);
+            log.error(ex.getMessage(), ex);
             Util.sendJSONError(response, ex);
         }
     }

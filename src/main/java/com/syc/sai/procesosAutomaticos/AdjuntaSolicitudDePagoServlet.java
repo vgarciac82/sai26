@@ -9,10 +9,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
 import com.syc.ejercido.pagado.CLCAttachmentBusinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "AdjuntaSolicitudDePagoServlet", urlPatterns = { "/AdjuntaSolPago" })
 public class AdjuntaSolicitudDePagoServlet extends HttpServlet implements GestionInterface, Runnable {
@@ -21,7 +22,7 @@ public class AdjuntaSolicitudDePagoServlet extends HttpServlet implements Gestio
 
     private static String jniName = "jdbc/gestion";
 
-    private static Logger log = Logger.getLogger(AdjuntaCLCServlet.class);
+    private static Logger log = LoggerFactory.getLogger(AdjuntaCLCServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,7 +34,7 @@ public class AdjuntaSolicitudDePagoServlet extends HttpServlet implements Gestio
             out.flush();
             out.close();
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
         }
     }
 

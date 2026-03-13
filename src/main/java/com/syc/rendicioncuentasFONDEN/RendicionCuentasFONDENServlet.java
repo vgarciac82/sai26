@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONObject;
 import com.syc.gestion.core.Usuario;
@@ -21,13 +20,15 @@ import com.syc.obrapublica.ConfiguraAplicativoBusinessLogic;
 import com.syc.ws.fonden.PolizaAutomatica;
 import com.syc.ws.inventario.GenericConnectionWS;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "RendicionCuentasFONDENServlet", urlPatterns = { "/rendicioncuentasFONDEN/RendicionCuentasFONDEN" })
 public class RendicionCuentasFONDENServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 6723127616859732249L;
 
-    private static final Logger log = Logger.getLogger(RendicionCuentasFONDENServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(RendicionCuentasFONDENServlet.class);
 
     private static String jniName = "jdbc/gestion";
 
@@ -46,7 +47,7 @@ public class RendicionCuentasFONDENServlet extends HttpServlet implements Gestio
             // vista previa
             rrs.generaCedula(req, resp, plantillas);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             throw new ServletException(e);
         }
     }
@@ -88,7 +89,7 @@ public class RendicionCuentasFONDENServlet extends HttpServlet implements Gestio
             session.setAttribute("RESULT", msg);
             session.setAttribute("success", "true");
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             msg = "Ocurrio el siguiente error: " + e.getMessage();
             session.setAttribute("success", "false");
             session.setAttribute("RESULT", msg);

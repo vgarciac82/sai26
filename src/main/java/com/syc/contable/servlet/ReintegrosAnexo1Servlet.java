@@ -19,7 +19,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -41,13 +40,15 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.custom.FolioGeneratorInterface;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ReintegrosAnexo1Servlet", urlPatterns = { "/servlet/ReintegrosAnexo1Servlet" })
 public class ReintegrosAnexo1Servlet extends HttpServlet {
 
     private static final long serialVersionUID = 3830246252504144684L;
 
-    private static final Logger log = Logger.getLogger(ReintegrosAnexo1Servlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ReintegrosAnexo1Servlet.class);
 
     private String jniName = null;
 

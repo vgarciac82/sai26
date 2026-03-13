@@ -22,7 +22,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -36,6 +35,8 @@ import com.syc.gestion.servlet.GestionFileReceiverServlet;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.obrapublica.ConfiguraAplicativoBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ImportaLayoutServlet", urlPatterns = { "/gstnmngr/ImportaLayoutServlet" })
 public class ImportaLayoutServlet extends HttpServlet {
@@ -195,7 +196,7 @@ public class ImportaLayoutServlet extends HttpServlet {
         // Put your code here
     }
 
-    private static Logger log = Logger.getLogger(GestionFileReceiverServlet.class);
+    private static Logger log = LoggerFactory.getLogger(GestionFileReceiverServlet.class);
 
     private String jniName = null;
 

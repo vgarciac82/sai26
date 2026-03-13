@@ -32,11 +32,12 @@ import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.log4j.Logger;
 import com.syc.gestion.reportes.core.InformeSemestralBean;
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.gestion.servlet.GestionFileReceiverServlet;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // fin del metodo
 @WebServlet(name = "InfoSemestralServlet", urlPatterns = { "/gstnmngr/InformeSemestral" })
@@ -56,7 +57,7 @@ public class InformeSemestralServlet extends HttpServlet {
         doPost(request, response);
     }
 
-    private static Logger log = Logger.getLogger(GestionFileReceiverServlet.class);
+    private static Logger log = LoggerFactory.getLogger(GestionFileReceiverServlet.class);
 
     private String jniName = null;
 
@@ -141,7 +142,7 @@ public class InformeSemestralServlet extends HttpServlet {
         try {
             //doDownload(response,cFileExcel,"InformeSemestral.xls");
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
         }
     }
 
@@ -259,9 +260,9 @@ public class InformeSemestralServlet extends HttpServlet {
             //------------------------
             log.info("Escribiendo en la plantilla...");
             for (// for para controlar filas
+            // for para controlar filas
             int i = 0; // for para controlar filas
-            i < nFil; // for para controlar filas
-            i++) {
+            i < nFil; i++) {
                 // for para controlar columnas
                 for (int j = 0; j <= 3; j++) ;
                 {

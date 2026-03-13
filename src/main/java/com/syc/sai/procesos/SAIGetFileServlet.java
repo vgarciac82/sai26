@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.jenkov.prizetags.tree.itf.ITreeNode;
 import com.syc.fortimax.core.Fortimax;
@@ -25,13 +24,15 @@ import com.syc.gestion.core.NodeInformation;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "SAIGetFileServlet", urlPatterns = { "/SAIFilestore" })
 public class SAIGetFileServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(SAIGetFileServlet.class);
+    private static Logger log = LoggerFactory.getLogger(SAIGetFileServlet.class);
 
     private String jniName = null;
 

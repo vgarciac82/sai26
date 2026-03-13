@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import com.axtel.contratos.entities.FuelProvisioningRequest;
 import com.axtel.contratos.repositories.JDBCFuelProvisioningRequestRepository;
 import com.axtel.contratos.services.FuelProvisioningRequestService;
@@ -24,6 +23,8 @@ import com.axtel.sai.sicove.services.impl.MailFuelAccountNotificatorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "FuelAccountRequestController", urlPatterns = { "/SICOVE/FuelProvisioningAccount", "/SICOVE/FuelProvisioningAccount/sendRequest", "/SICOVE/FuelProvisioningAccount/auth", "/SICOVE/FuelProvisioningAccount/rejectRequest" })
 public class FuelAccountRequestController extends HttpServlet {
@@ -67,7 +68,7 @@ public class FuelAccountRequestController extends HttpServlet {
                 Util.sendJSON(resp, fuelProvisioningRequest);
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             Util.sendJSONError(resp, e);
         }
     }
@@ -81,7 +82,7 @@ public class FuelAccountRequestController extends HttpServlet {
             log.info(fuelProvisioningRequest);
             Util.sendJSON(resp, fuelProvisioningRequest);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             Util.sendJSONError(resp, e);
         }
     }
@@ -97,7 +98,7 @@ public class FuelAccountRequestController extends HttpServlet {
             log.debug("Found: " + fuelProvisioningRequest);
             Util.sendJSON(resp, fuelProvisioningRequest);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             Util.sendJSONError(resp, e);
         }
     }
@@ -115,7 +116,7 @@ public class FuelAccountRequestController extends HttpServlet {
                 result.put("success", String.valueOf(true));
                 result.put("message", "Solicitud rechazada exitosamente.");
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 Util.sendJSONError(resp, e);
             }
         } else {
@@ -130,7 +131,7 @@ public class FuelAccountRequestController extends HttpServlet {
                 result.put("message", "Solicitud " + idStr + " eliminada exitosamente.");
                 Util.sendJSON(resp, result);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 Util.sendJSONError(resp, e);
             }
         }

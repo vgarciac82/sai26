@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import com.axtel.web.exceptions.SessionExpiredException;
 import com.syc.gestion.core.Usuario;
@@ -18,6 +17,8 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.obrapublica.FirmaAutorizacionObraInterface;
 import com.syc.obrapublica.businessLogic.FirmaAutEstObraBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Servlet implementation class FirmaAutEstimacionObraServlet
@@ -78,7 +79,7 @@ public class FirmaAutEstimacionObraServlet extends HttpServlet implements Gestio
             response.getWriter();
             success = true;
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             msg = e.getMessage();
         } finally {
             u = null;

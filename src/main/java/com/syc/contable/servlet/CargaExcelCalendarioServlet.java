@@ -15,12 +15,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import com.syc.contable.anteproyecto.CargaProyectoBusinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Servlet que recibe, valida y guarda el archivo excel de proyecto
@@ -31,7 +32,7 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet(name = "CargaExcelCalendario", urlPatterns = { "/Anteproyecto/CargaCalendario" })
 public class CargaExcelCalendarioServlet extends HttpServlet implements GestionInterface {
 
-    private static final Logger log = Logger.getLogger(CargaExcelProyectoServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(CargaExcelProyectoServlet.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -91,7 +92,7 @@ public class CargaExcelCalendarioServlet extends HttpServlet implements GestionI
                 break;
             }
         } catch (Exception exc) {
-            log.error(exc, exc);
+            log.error(exc.getMessage(), exc);
             mensajeRetorno = "No se pudo procesar el excel debido al siguiente error:\n" + exc;
         } finally {
             if (archivoCargaStream != null)

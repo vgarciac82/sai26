@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.contable.core.SolicitudCajaFirmaElectronica;
 import com.syc.egresos.core.RelacionGastosMasivaBussinessLogic;
 import com.syc.gestion.core.Usuario;
@@ -19,6 +18,8 @@ import com.syc.sai.contabilidad.servlet.ResponseSender;
 import com.syc.sai.firmaElectronica.FirmaElectronicaBusinessLogic;
 import com.syc.sai.firmaElectronica.interfaces.SolicitudFirmaElectronica;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "FirmaElectronicaIntegracionServlet", urlPatterns = { "/egresos/cancelaIntegracion" })
 public class FirmaElectronicaIntegracionServlet extends HttpServlet implements GestionInterface {
@@ -29,7 +30,7 @@ public class FirmaElectronicaIntegracionServlet extends HttpServlet implements G
 
     public static final String CANCELA_INTEGRACION = "cancelaIntegracion";
 
-    private static final Logger log = Logger.getLogger(FirmaElectronicaIntegracionServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(FirmaElectronicaIntegracionServlet.class);
 
     private String jniName;
 
@@ -64,7 +65,7 @@ public class FirmaElectronicaIntegracionServlet extends HttpServlet implements G
                 rgmbl.notificaCancelacion(folioMasivo, sfe);
                 ResponseSender.sendClientSimpleMessage(resp, true, "Cancelado exitosamente");
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendClientSimpleMessage(resp, false, e.toString());
             }
         }

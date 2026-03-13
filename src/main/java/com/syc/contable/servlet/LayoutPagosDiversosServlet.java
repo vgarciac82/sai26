@@ -17,11 +17,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.contable.PagosDiversosBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "LayoutPagosDiversosServlet", urlPatterns = { "/gstnmngr/generaLayoutPagosDiversos" })
 public class LayoutPagosDiversosServlet extends HttpServlet {
@@ -32,7 +33,7 @@ public class LayoutPagosDiversosServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger log = Logger.getLogger(LayoutPagosDiversosServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(LayoutPagosDiversosServlet.class);
 
     /**
      * Constructor of the object.
@@ -116,9 +117,9 @@ public class LayoutPagosDiversosServlet extends HttpServlet {
                 // Create the ZIP file
                 ZipOutputStream outZIP = new ZipOutputStream(ouputStream);
                 for (// Compress the files
+                // Compress the files
                 int i = 0; // Compress the files
-                i < filenames.length; // Compress the files
-                i++) {
+                i < filenames.length; i++) {
                     FileInputStream in = new FileInputStream(filenames[i]);
                     // Add ZIP entry to output stream.
                     outZIP.putNextEntry(new ZipEntry(filenames[i].getName()));

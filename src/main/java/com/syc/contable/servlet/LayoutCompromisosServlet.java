@@ -15,10 +15,11 @@ import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
 import com.syc.contable.CompromisoBussinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Martha Aurora Sánchez Valdivieso para SYC Constructores de Sistemas
@@ -29,7 +30,7 @@ public class LayoutCompromisosServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(LayoutCompromisosServlet.class);
+    private static Logger log = LoggerFactory.getLogger(LayoutCompromisosServlet.class);
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CompromisoBussinessLogic cmpbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);

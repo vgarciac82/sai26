@@ -8,13 +8,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import com.syc.contable.OperacionAjenaBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "OperacionesAjenasServlet", urlPatterns = { "/egresos/BuscaRetenciones" })
 public class OperacionesAjenasServlet extends HttpServlet implements GestionInterface {
@@ -23,7 +24,7 @@ public class OperacionesAjenasServlet extends HttpServlet implements GestionInte
      */
     private static final long serialVersionUID = 3273304253562873899L;
 
-    private static final Logger log = Logger.getLogger(OperacionesAjenasServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(OperacionesAjenasServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -73,7 +74,7 @@ public class OperacionesAjenasServlet extends HttpServlet implements GestionInte
                 resp.setContentType("text/x-json; charset=ISO-8859-1");
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             try {
                 respuesta.put("success", "false");
                 respuesta.put("message", e.toString());

@@ -20,7 +20,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.output.XMLOutputter;
 import com.jenkov.prizetags.tree.itf.ITree;
@@ -46,6 +45,8 @@ import com.syc.gestion.custom.GenericInterface;
 import com.syc.gestion.custom.XmlGeneratorInterface;
 import com.syc.itam.GeneraLlaves;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "GestionServlet", urlPatterns = { "/gstnmngr/gestion" })
 public class GestionServlet extends HttpServlet implements GestionInterface {
@@ -56,7 +57,7 @@ public class GestionServlet extends HttpServlet implements GestionInterface {
 
     public static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(GestionServlet.class);
+    private static Logger log = LoggerFactory.getLogger(GestionServlet.class);
 
     private String jniName = null;
 

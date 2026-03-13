@@ -14,7 +14,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.syc.gestion.CasoBusinessLogic;
 import com.syc.gestion.core.Caso;
@@ -22,13 +21,15 @@ import com.syc.gestion.core.CasoDatoManager;
 import com.syc.gestion.core.GestionException;
 import com.syc.gestion.core.Usuario;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "GestionXMLReceiverServlet", urlPatterns = { "/xml/receiver" })
 public class GestionXMLReceiverServlet extends HttpServlet implements GestionInterface {
 
     public static final long serialVersionUID = 1l;
 
-    private static Logger log = Logger.getLogger(GestionXMLReceiverServlet.class.getName());
+    private static Logger log = LoggerFactory.getLogger(GestionXMLReceiverServlet.class.getName());
 
     private String jniName = null;
 

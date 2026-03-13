@@ -17,7 +17,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -49,6 +48,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ContratoPlurianualidadServlet", urlPatterns = { "/servlet/ContratoPlurianualidadServlet" })
 public class ContratoPlurianualidadServlet extends HttpServlet implements GestionInterface {
@@ -57,7 +58,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
 
     private static String jndiName = null;
 
-    private static Logger log = Logger.getLogger(ContratoPlurianualidadServlet.class);
+    private static Logger log = LoggerFactory.getLogger(ContratoPlurianualidadServlet.class);
 
     private Connection conn = null;
 

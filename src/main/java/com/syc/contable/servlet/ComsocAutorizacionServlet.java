@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.contable.AdecuacionBusinessLogic;
 import com.syc.contable.ComsocAutorizacionBussinesLogic;
 import com.syc.gestion.CasoBusinessLogic;
@@ -28,6 +27,8 @@ import com.syc.gestion.custom.FolioGeneratorInterface;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ComsocAutorizacionServlet", urlPatterns = { "/servlet/ComsocAutorizacionServlet" })
 public class ComsocAutorizacionServlet extends HttpServlet implements GestionInterface {
@@ -36,7 +37,7 @@ public class ComsocAutorizacionServlet extends HttpServlet implements GestionInt
 
     private String jniName = null;
 
-    private static final Logger log = Logger.getLogger(ComsocAutorizacionServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ComsocAutorizacionServlet.class);
 
     private static String folioGenerator = null;
 

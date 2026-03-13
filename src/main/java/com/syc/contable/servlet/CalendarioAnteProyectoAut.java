@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -35,6 +34,8 @@ import com.syc.gestion.core.Caso;
 import com.syc.gestion.core.GestionException;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CalendarioAnteProyectoAut", urlPatterns = { "/gstnmngr/CalendarioAP" })
 public class CalendarioAnteProyectoAut extends HttpServlet {
@@ -43,7 +44,7 @@ public class CalendarioAnteProyectoAut extends HttpServlet {
      */
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(CalendarioAnteProyectoAut.class);
+    private static Logger log = LoggerFactory.getLogger(CalendarioAnteProyectoAut.class);
 
     /**
      * Constructor of the object.

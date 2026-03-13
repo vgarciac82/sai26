@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -32,13 +31,15 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ReportesGRM", urlPatterns = { "/servlet/ReportesGRM" })
 public class ReportesGRM extends HttpServlet {
 
     private static final long serialVersionUID = 6084656926088640772L;
 
-    private static Logger log = Logger.getLogger(ReportesGRM.class);
+    private static Logger log = LoggerFactory.getLogger(ReportesGRM.class);
 
     private static File tempDir;
 

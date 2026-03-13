@@ -17,12 +17,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import javax.sql.DataSource;
-import org.apache.log4j.Logger;
 import com.syc.adquisiciones.vo.ConexionesBD;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.core.UsuarioManager;
 import com.syc.gestion.documental.CatalogosManager;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * ********************************************************************************************
@@ -36,7 +37,7 @@ public class ResetPasswordsResultServlet extends HttpServlet {
 
     private String jniName = null;
 
-    private static Logger log = Logger.getLogger(GestionServlet.class);
+    private static Logger log = LoggerFactory.getLogger(GestionServlet.class);
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);

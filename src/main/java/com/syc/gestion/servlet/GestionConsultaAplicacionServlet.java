@@ -13,20 +13,21 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.fortimax.core.Descripcion;
 import com.syc.fortimax.core.Fortimax;
 import com.syc.gestion.FortimaxBusinessLogic;
 import com.syc.gestion.core.GestionException;
 import com.syc.gestion.core.Usuario;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "GestionActualizaAplicacionServlet", urlPatterns = { "/createexpedient" })
 public class GestionConsultaAplicacionServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(GestionConsultaAplicacionServlet.class);
+    private static Logger log = LoggerFactory.getLogger(GestionConsultaAplicacionServlet.class);
 
     private String jniName = null;
 

@@ -6,10 +6,11 @@ import javax.naming.NamingException;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
-import org.apache.log4j.Logger;
 import com.syc.gestion.CorreosPendientesBusinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "AutoCancelacionApartadoOP", urlPatterns = {})
 public class AutoCancelacionApartadoObraPublicaServlet extends HttpServlet implements GestionInterface, Runnable {
@@ -22,7 +23,7 @@ public class AutoCancelacionApartadoObraPublicaServlet extends HttpServlet imple
 
     private volatile Thread verificaTiempoLimiteApartado;
 
-    private static Logger log = Logger.getLogger(AutoCancelacionApartadoObraPublicaServlet.class);
+    private static Logger log = LoggerFactory.getLogger(AutoCancelacionApartadoObraPublicaServlet.class);
 
     private String jniName;
 
@@ -81,7 +82,7 @@ public class AutoCancelacionApartadoObraPublicaServlet extends HttpServlet imple
                 cpbl.setprefixPath(prefixPath);
                 cpbl.reenviaAlertasPendientes();
             } catch (Exception e) {
-                log.warn(e, e);
+                log.warn(e.getMessage(), e);
             }
         }
         verificaTiempoLimiteApartado = null;

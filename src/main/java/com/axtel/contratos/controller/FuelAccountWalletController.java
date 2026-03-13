@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import com.axtel.contratos.entities.FuelAccountWallet;
 import com.axtel.contratos.repositories.JDBCFuelAccountWalletRepository;
 import com.axtel.contratos.services.FuelAccountWalletService;
@@ -17,6 +16,8 @@ import com.axtel.contratos.services.implementation.JDBCFuelAccountWalletService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "FuelAccountWalletController", urlPatterns = { "/SICOVE/FuelAccountWallet" })
 public class FuelAccountWalletController extends HttpServlet {
@@ -40,7 +41,7 @@ public class FuelAccountWalletController extends HttpServlet {
             log.info(fuelAccountWallet);
             Util.sendJSON(resp, fuelAccountWallet);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             Util.sendJSONError(resp, e);
         }
     }
@@ -54,7 +55,7 @@ public class FuelAccountWalletController extends HttpServlet {
             log.info("After update: " + fuelAccountWallet);
             Util.sendJSON(resp, fuelAccountWallet);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             Util.sendJSONError(resp, e);
         }
     }

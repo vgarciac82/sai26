@@ -9,9 +9,10 @@ import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
 import com.syc.gestion.reportes.ReporteBussinesLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ConsultaPolizas", urlPatterns = { "/CuentaContable/ConsultaPoliza" })
 public class ConsultaPolizasServlet extends HttpServlet {
@@ -20,7 +21,7 @@ public class ConsultaPolizasServlet extends HttpServlet {
 
     private String jniName = null;
 
-    private static final Logger log = Logger.getLogger(ConsultaPolizasServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ConsultaPolizasServlet.class);
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -71,8 +72,23 @@ public class ConsultaPolizasServlet extends HttpServlet {
             out.close();
         } else {
             ReporteBussinesLogic rbl = new ReporteBussinesLogic(jniName);
-            String json = rbl.ConsultaPolizasResultadoJSON(PolCtroContable, PolEjercicioFiscal, PolStatus, PolFechCapturaIni, PolFechCapturaFin, PolTipo, PolFechAplicacionIni, PolFechAplicacionFin, PolAutorizo, PolNumeroIni, PolNumeroFin, PolMontoIni, PolMontoFin, PolOrigen, //,PolIdOper);
-            PolAutomatica);
+            String json = //,PolIdOper);
+            rbl.//,PolIdOper);
+            ConsultaPolizasResultadoJSON(//,PolIdOper);
+            PolCtroContable, //,PolIdOper);
+            PolEjercicioFiscal, //,PolIdOper);
+            PolStatus, //,PolIdOper);
+            PolFechCapturaIni, //,PolIdOper);
+            PolFechCapturaFin, //,PolIdOper);
+            PolTipo, //,PolIdOper);
+            PolFechAplicacionIni, //,PolIdOper);
+            PolFechAplicacionFin, //,PolIdOper);
+            PolAutorizo, //,PolIdOper);
+            PolNumeroIni, //,PolIdOper);
+            PolNumeroFin, //,PolIdOper);
+            PolMontoIni, //,PolIdOper);
+            PolMontoFin, //,PolIdOper);
+            PolOrigen, PolAutomatica);
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             ServletOutputStream out = resp.getOutputStream();

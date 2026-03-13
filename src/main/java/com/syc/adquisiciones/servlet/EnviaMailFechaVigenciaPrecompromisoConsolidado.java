@@ -36,17 +36,17 @@ import javax.naming.NamingException;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
-//import javax.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "EnviaMailFechaVigenciaPrecompromisoConsolidado", urlPatterns = { "/servlet/EnviaMailFechaVigenciaPrecompromisoConsolidado" })
 public class EnviaMailFechaVigenciaPrecompromisoConsolidado extends HttpServlet implements Runnable {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(EnviaMailFechaVigenciaPrecompromisoConsolidado.class);
+    private static Logger log = LoggerFactory.getLogger(EnviaMailFechaVigenciaPrecompromisoConsolidado.class);
 
     private List<CCorreo> listCorreo;
 

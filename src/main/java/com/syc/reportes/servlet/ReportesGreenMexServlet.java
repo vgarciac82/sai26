@@ -12,18 +12,19 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.reportes.ReportesGreenMexBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ReportesGreenMexServlet", urlPatterns = { "/reportes/ReportesGreenMex" })
 public class ReportesGreenMexServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 6723127616859732249L;
 
-    private static final Logger log = Logger.getLogger(ReportesGreenMexServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ReportesGreenMexServlet.class);
 
     private static String jniName = "jdbc/gestion";
 
@@ -45,7 +46,7 @@ public class ReportesGreenMexServlet extends HttpServlet implements GestionInter
                 rrs.generaReporte(req, resp, plantillas);
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             msg = e.toString();
         }
         session.setAttribute("msg", msg);

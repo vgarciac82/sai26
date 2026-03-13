@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import com.axtel.egresos.core.MasiveOperation;
 import com.syc.contable.RelacionGastosBussinessLogic;
 import com.syc.contable.core.SolicitudPagoFirmaElectronica;
@@ -19,6 +18,8 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.firmaElectronica.FirmaElectronicaBusinessLogic;
 import com.syc.sai.firmaElectronica.interfaces.SolicitudFirmaElectronica;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "generateMasiveDocs", urlPatterns = { "/fiel/generateMasiveDocs" })
 public class GeneraDocumentosFIELMasivaServlet extends HttpServlet implements GestionInterface {
@@ -78,7 +79,7 @@ public class GeneraDocumentosFIELMasivaServlet extends HttpServlet implements Ge
             febl.generaArchivosFirmaMasiva(folioIntegracion, solicitudPagoPrinter, rgMasivaList, "Solicitud de Pago Firmada");
             msg = "Archivos para firma electronica generados exitosamente.";
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             msg = "Error generando archivos para firma electronica: " + e.toString();
         }
         session.setAttribute("msg", msg);

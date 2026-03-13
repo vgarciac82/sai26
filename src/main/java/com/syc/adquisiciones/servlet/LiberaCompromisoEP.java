@@ -17,7 +17,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,6 +40,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "LiberaCompromisoEP", urlPatterns = { "/servlet/LiberaCompromisoEP" })
 public class LiberaCompromisoEP extends HttpServlet {
@@ -49,7 +50,7 @@ public class LiberaCompromisoEP extends HttpServlet {
 
     private static String jndiName = null;
 
-    private static Logger log = Logger.getLogger(PedidoServlet.class);
+    private static Logger log = LoggerFactory.getLogger(PedidoServlet.class);
 
     private Connection conn = null;
 

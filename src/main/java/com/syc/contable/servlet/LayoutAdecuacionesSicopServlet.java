@@ -27,7 +27,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -54,6 +53,8 @@ import com.syc.gestion.util.Util;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "LayoutAdecuacionesSicopServlet", urlPatterns = { "/gstnmngr/AdecuacionesLayoutSicop" })
 public class LayoutAdecuacionesSicopServlet extends HttpServlet {
@@ -148,7 +149,7 @@ public class LayoutAdecuacionesSicopServlet extends HttpServlet {
                 try {
                     printError(response, e);
                 } catch (Exception writeExc) {
-                    log.warn(writeExc, writeExc);
+                    log.warn(writeExc.getMessage(), writeExc);
                     throw new ServletException(e);
                 }
             }
@@ -164,7 +165,7 @@ public class LayoutAdecuacionesSicopServlet extends HttpServlet {
      * @throws ServletException
      *             if an error occurs
      */
-    private static Logger log = Logger.getLogger(GestionFileReceiverServlet.class);
+    private static Logger log = LoggerFactory.getLogger(GestionFileReceiverServlet.class);
 
     private String jniName = null;
 
@@ -211,7 +212,7 @@ public class LayoutAdecuacionesSicopServlet extends HttpServlet {
         try {
             adecuacion = adecua.cargaAdecuacionProyecto(nFolioAdecuacion);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             throw new ServletException(e);
         }
         String variable = String.valueOf(adecuacion.getEncabezado().getnFolioAdecuacion());
@@ -547,7 +548,7 @@ public class LayoutAdecuacionesSicopServlet extends HttpServlet {
                     saldoA.add(renglon);
                 }
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 throw e;
             }
         }

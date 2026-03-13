@@ -18,19 +18,20 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import org.jfree.util.Log;
 import com.syc.contable.CargaNominaBussinessLogic;
 import com.syc.contable.SaldosBussinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "SaldosInicialesServlet", urlPatterns = { "/gstnmngr/SaldosInicialesServlet" })
 public class SaldosInicialesServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(RespuestaCompromisosServlet.class);
+    private static Logger log = LoggerFactory.getLogger(RespuestaCompromisosServlet.class);
 
     private static String mensaje = "";
 

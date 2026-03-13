@@ -10,18 +10,19 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.gestion.TablasBusinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "JsonTxt", urlPatterns = { "/export/GeneraJsonTxt" })
 public class JsonTxt extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = -5034769853645642993L;
 
-    private static final Logger log = Logger.getLogger(JsonTxt.class);
+    private static final Logger log = LoggerFactory.getLogger(JsonTxt.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

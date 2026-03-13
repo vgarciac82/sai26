@@ -22,9 +22,10 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
-import org.apache.log4j.Logger;
 import com.syc.crud.dsmngr.DataSourceManager;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "catalogoCategoriaProcedimiento", urlPatterns = { "/servlet/catalogoCategoriaProcedimiento" })
 public class catalogoCategoriaProcedimiento extends HttpServlet {
@@ -33,7 +34,7 @@ public class catalogoCategoriaProcedimiento extends HttpServlet {
 
     private static String jniName = null;
 
-    private static Logger log = Logger.getLogger(catalogoCategoriaProcedimiento.class);
+    private static Logger log = LoggerFactory.getLogger(catalogoCategoriaProcedimiento.class);
 
     private String tempDir = null;
 

@@ -6,10 +6,11 @@ import javax.naming.NamingException;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
-import org.apache.log4j.Logger;
 import com.syc.contable.AdecuacionBusinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "EnviaCorreosVigenciaAdecuaciones", urlPatterns = { "/servlet/VigenciaAdecuaciones" })
 public class EnviaCorreosVigenciaAdecuaciones extends HttpServlet implements GestionInterface, Runnable {
@@ -20,7 +21,7 @@ public class EnviaCorreosVigenciaAdecuaciones extends HttpServlet implements Ges
 
     private volatile Thread verificaTiempoLimiteApartado;
 
-    Logger log = Logger.getLogger(EnviaCorreosVigenciaAdecuaciones.class);
+    Logger log = LoggerFactory.getLogger(EnviaCorreosVigenciaAdecuaciones.class);
 
     private String jniName;
 

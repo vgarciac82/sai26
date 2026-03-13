@@ -10,19 +10,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.gestion.UsuarioBusinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.implementacion.tesoreria.EgresosInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "LoginAutorizaPagosServlet", urlPatterns = { "/egresos/VoBoPago", "/egresos/VoBoPagoMasivo", "/egresos/AutPagoMasivo", "/egresos/AutPago", "/reportes/FirmaReporte", "/egresos/AutRM", "/egresos/AutENSA", "/egresos/AutEst", "/egresos/AutRequisicion", "/egresos/RVoBoPago", "/egresos/RAutPago", "/egresos/AutViaticos", "/egresos/CompruebaViaticos", "/sicove/AutFueling", "/sicove/ValidateFueling", "/sicove/AutAccountFueling" })
 public class LoginAutorizaPagosServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 519575280028911727L;
 
-    public static final Logger log = Logger.getLogger(LoginAutorizaPagosServlet.class);
+    public static final Logger log = LoggerFactory.getLogger(LoginAutorizaPagosServlet.class);
 
     private String jniName;
 
@@ -52,7 +53,7 @@ public class LoginAutorizaPagosServlet extends HttpServlet implements GestionInt
             } else
                 throw new Exception("No se encontro usuario en el sistema para el empleado con numero: " + employNum + ". Por favor solicite el alta de usuario con el administrador");
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             session.setAttribute("login.aviso", "No puede ingresar al sistema debido a:\n" + e.toString());
         }
         session.setAttribute(ATT_CMD_AUT, action);

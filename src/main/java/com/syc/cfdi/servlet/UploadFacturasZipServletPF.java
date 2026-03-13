@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.syc.cfdi.ComponentesFactura;
 import com.syc.cfdi.FacturaBusinessLogic;
@@ -31,6 +30,8 @@ import com.syc.gestion.util.Util;
 import com.syc.obrapublica.ConfiguraAplicativoBusinessLogic;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "UploadFacturasServletPF", urlPatterns = { "/uploadFacturasPF" })
 public class UploadFacturasZipServletPF extends HttpServlet implements GestionInterface {
@@ -39,7 +40,7 @@ public class UploadFacturasZipServletPF extends HttpServlet implements GestionIn
 
     private static String jniName = "jdbc/gestion";
 
-    private static final Logger log = Logger.getLogger(UploadFacturasZipServletPF.class);
+    private static final Logger log = LoggerFactory.getLogger(UploadFacturasZipServletPF.class);
 
     private static String TEMP_DIR = "";
 
@@ -158,7 +159,7 @@ public class UploadFacturasZipServletPF extends HttpServlet implements GestionIn
                 session.setAttribute("tree.model", tree);
                 msgRetorno = "Archivo cargado exitosamente";
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 msgRetorno = "Ocurrio el siguiente error al cargar el archivo: <br>" + e.getMessage();
             } finally {
                 if (archivoCargaStream != null)

@@ -18,7 +18,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.jenkov.prizetags.tree.itf.ITreeNode;
 import com.syc.fortimax.core.Fortimax;
@@ -30,13 +29,15 @@ import com.syc.gestion.core.Usuario;
 import com.syc.jar.JarEntry;
 import com.syc.jar.JarOutputStream;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "GestionSendFolderServlet", urlPatterns = { "/filedownload" })
 public class GestionSendFolderServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger log = Logger.getLogger(GestionSendFolderServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(GestionSendFolderServlet.class);
 
     private String jniName = null;
 

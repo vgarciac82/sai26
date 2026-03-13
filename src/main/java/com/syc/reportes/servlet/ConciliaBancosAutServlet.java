@@ -10,13 +10,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ConciliaAutomaticaServlet", urlPatterns = { "/servlet/ConciliaAutomaticaServlet" })
 public class ConciliaBancosAutServlet extends HttpServlet {
@@ -25,7 +26,7 @@ public class ConciliaBancosAutServlet extends HttpServlet {
 
     private static String jndiName = null;
 
-    private static Logger log = Logger.getLogger(ConciliaBancosAutServlet.class);
+    private static Logger log = LoggerFactory.getLogger(ConciliaBancosAutServlet.class);
 
     private Connection conn = null;
 
@@ -48,12 +49,12 @@ public class ConciliaBancosAutServlet extends HttpServlet {
             }
             ConciliaAut(request, response, session);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             session.setAttribute(GestionInterface.ATT_MSG, e.toString());
             try {
                 response.sendRedirect("../Generador/ConciliaBancos.jsp?error=SI");
             } catch (IOException e1) {
-                log.error(e1, e1);
+                log.error(e1.getMessage(), e1);
             }
         }
     }

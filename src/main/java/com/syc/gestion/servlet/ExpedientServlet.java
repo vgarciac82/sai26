@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import com.syc.fortimax.core.ExpedientBussinessLogic;
@@ -22,6 +21,8 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ExpedientManager", urlPatterns = { "/fortimax/documents" })
 public class ExpedientServlet extends HttpServlet implements GestionInterface {
@@ -30,7 +31,7 @@ public class ExpedientServlet extends HttpServlet implements GestionInterface {
      */
     private static final long serialVersionUID = -1934704829306609107L;
 
-    private static final Logger log = Logger.getLogger(ExpedientServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ExpedientServlet.class);
 
     private static final String SEND_TREE = "send_tree";
 
@@ -88,7 +89,7 @@ public class ExpedientServlet extends HttpServlet implements GestionInterface {
                 out.close();
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             ResponseSender.sendError(resp, e);
         }
     }

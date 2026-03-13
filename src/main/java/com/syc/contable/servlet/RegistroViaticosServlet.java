@@ -10,19 +10,20 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import com.syc.solicitudviaticos.SolicitudViaticosBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "RegistroViaticos", urlPatterns = { "/viaticos/CreaViatico", "/viaticos/CreaViaticoTransporte", "/viaticos/CreaViaticoAgenda", "/viaticos/CreaFirmantes", "/viaticos/IngresoAutorizacion", "/viaticos/RegistraAutorizacion" })
 public class RegistroViaticosServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 7293212240749888023L;
 
-    private static final Logger log = Logger.getLogger(RegistroViaticosServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(RegistroViaticosServlet.class);
 
     private String jniName;
 
@@ -41,7 +42,7 @@ public class RegistroViaticosServlet extends HttpServlet implements GestionInter
                 svbl.registraAutorizacion(req, resp);
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             try {
                 HttpSession session = req.getSession(false);
                 if (session == null)
@@ -80,7 +81,7 @@ public class RegistroViaticosServlet extends HttpServlet implements GestionInter
                 ResponseSender.sendClientSimpleMessage(resp, true, "Registro insertado exitosamente");
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             ResponseSender.sendClientSimpleMessage(resp, false, e.toString());
         }
     }

@@ -2,53 +2,48 @@ package com.syc.gestion.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StandAloneConnection {
-	
-	private static final Logger	log				= Logger.getLogger(StandAloneConnection.class);
-	private Connection			conn			= null;
-	private DBConfigurator		dbConfigurator	= null;
 
-	public StandAloneConnection() throws Exception {
-		dbConfigurator = DBConfigurator.instance(Util.dbPropertiesFilePath);
-		Class.forName(dbConfigurator.getDriverClassName());
-	}
+    private static final Logger log = LoggerFactory.getLogger(StandAloneConnection.class);
 
-	public Connection getStandAloneConnection() throws Exception {
+    private Connection conn = null;
 
-		return getConnection(dbConfigurator, false);
-	}
+    private DBConfigurator dbConfigurator = null;
 
-	public synchronized Connection getConnection(DBConfigurator dbConfigurator, boolean autoCommit) throws Exception {
+    public StandAloneConnection() throws Exception {
+        dbConfigurator = DBConfigurator.instance(Util.dbPropertiesFilePath);
+        Class.forName(dbConfigurator.getDriverClassName());
+    }
 
-		if (conn == null || (conn != null && conn.isClosed()))
-			conn = DriverManager.getConnection(dbConfigurator.getUrl(), dbConfigurator.getUserName(), dbConfigurator.getPassword());
+    public Connection getStandAloneConnection() throws Exception {
+        return getConnection(dbConfigurator, false);
+    }
 
-		conn.setAutoCommit(autoCommit);
+    public synchronized Connection getConnection(DBConfigurator dbConfigurator, boolean autoCommit) throws Exception {
+        if (conn == null || (conn != null && conn.isClosed()))
+            conn = DriverManager.getConnection(dbConfigurator.getUrl(), dbConfigurator.getUserName(), dbConfigurator.getPassword());
+        conn.setAutoCommit(autoCommit);
+        return conn;
+    }
 
-		return conn;
+    public static synchronized Connection getConnection(DBConfigurator dbConfigurator) throws Exception {
+        Class.forName(dbConfigurator.getDriverClassName());
+        Connection conn = DriverManager.getConnection(dbConfigurator.getUrl(), dbConfigurator.getUserName(), dbConfigurator.getPassword());
+        conn.setAutoCommit(false);
+        return conn;
+    }
 
-	}
-
-	public static synchronized Connection getConnection(DBConfigurator dbConfigurator) throws Exception {
-
-		Class.forName(dbConfigurator.getDriverClassName());
-		Connection	conn = DriverManager.getConnection(dbConfigurator.getUrl(), dbConfigurator.getUserName(), dbConfigurator.getPassword());
-		conn.setAutoCommit(false);
-		return conn;
-
-	}
-	
-	public synchronized void closeConnection() {
-		try {
-			if (conn != null)
-				conn.close();
-		} catch (Exception e) {
-			log.warn("Problemas cerrando DB Connection: " + e);
-		} finally {
-			conn = null;
-		}
-	}
+    public synchronized void closeConnection() {
+        try {
+            if (conn != null)
+                conn.close();
+        } catch (Exception e) {
+            log.warn("Problemas cerrando DB Connection: " + e);
+        } finally {
+            conn = null;
+        }
+    }
 }

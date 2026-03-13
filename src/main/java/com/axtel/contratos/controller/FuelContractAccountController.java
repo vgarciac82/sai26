@@ -10,13 +10,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import com.axtel.contratos.entities.FuelContractAccount;
 import com.axtel.contratos.services.FuelContractService;
 import com.axtel.contratos.services.implementation.FuelContractServiceImplementation;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "FuelContractAccountController", urlPatterns = { "/SICOVE/FuelContract/addAccount", "/SICOVE/FuelContract/getAccounts" })
 public class FuelContractAccountController extends HttpServlet implements GenericFuelContract {
@@ -41,7 +42,7 @@ public class FuelContractAccountController extends HttpServlet implements Generi
                 accounts = fuelContractService.getAccounts(unitId);
                 Util.sendJSON(resp, accounts);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 Util.sendJSONError(resp, e);
             }
         }
@@ -57,7 +58,7 @@ public class FuelContractAccountController extends HttpServlet implements Generi
             log.info(fuelContractAccount);
             Util.sendJSON(resp, fuelContractAccount);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             Util.sendJSONError(resp, e);
         }
     }

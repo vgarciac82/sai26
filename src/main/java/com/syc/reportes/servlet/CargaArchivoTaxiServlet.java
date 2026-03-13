@@ -12,20 +12,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import com.syc.reportes.CargaArchivoBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CargaArchivoTaxiServlet", urlPatterns = { "/reportes/CargaArchivoTaxiServlet" })
 public class CargaArchivoTaxiServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(CargaArchivoTaxiServlet.class);
+    private static Logger log = LoggerFactory.getLogger(CargaArchivoTaxiServlet.class);
 
     private void cargaArchivo(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
         List<?> fileItems = null;
@@ -58,7 +59,7 @@ public class CargaArchivoTaxiServlet extends HttpServlet {
             else
                 session.setAttribute("msg", "Atencion. El archivo no se cargo completo.\n" + Util.join(errores, '\n'));
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             session.setAttribute("msg", "Ocurrio el siguiente error: " + e.getMessage() + " intente nuevamente.");
         }
     }
@@ -79,12 +80,12 @@ public class CargaArchivoTaxiServlet extends HttpServlet {
             cargaArchivo(request, response, session);
             response.sendRedirect("../Generador/CargaArchivoTaxis.jsp");
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             session.setAttribute(GestionInterface.ATT_MSG, e.toString());
             try {
                 response.sendRedirect("../Generador/CargaArchivoTaxis.jsp?error=SI");
             } catch (IOException e1) {
-                log.error(e1, e1);
+                log.error(e1.getMessage(), e1);
             }
         }
     }

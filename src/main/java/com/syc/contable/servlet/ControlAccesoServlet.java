@@ -8,19 +8,20 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import org.omg.PortableServer.ID_UNIQUENESS_POLICY_ID;
 import com.syc.contable.ControlAccesoBusinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ControlAccesoServlet", urlPatterns = { "/gstnmngr/ControlAcceso" })
 public class ControlAccesoServlet extends HttpServlet {
 
     private static final long serialVersionUID = -2132300865011700319L;
 
-    private static final Logger log = Logger.getLogger(ControlAccesoServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ControlAccesoServlet.class);
 
     public ControlAccesoServlet() {
         super();

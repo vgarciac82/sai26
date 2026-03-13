@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.syc.contable.AdecuacionBusinessLogic;
 import com.syc.gestion.CasoBusinessLogic;
@@ -19,13 +18,15 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CasoExpedienteServlet", urlPatterns = { "/expediente/CreaExpediente" })
 public class CasoExpedienteServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 2627255063057086011L;
 
-    private static final Logger log = Logger.getLogger(CasoExpedienteServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(CasoExpedienteServlet.class);
 
     private static String jniName = "";
 
@@ -59,7 +60,7 @@ public class CasoExpedienteServlet extends HttpServlet implements GestionInterfa
                         session.setAttribute("tree.model", tree);
                     }
                 } catch (Exception e) {
-                    log.error(e, e);
+                    log.error(e.getMessage(), e);
                     msgRetorno = "Ocurrio el siguiente error al cargar el archivo: <br>" + e.getMessage();
                 }
             }

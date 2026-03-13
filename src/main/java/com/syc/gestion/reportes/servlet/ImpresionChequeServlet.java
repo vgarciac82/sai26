@@ -9,13 +9,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
 import com.syc.ejercido.pagado.manual.ImpresionChequeBusinessLogic;
 import com.syc.gestion.reportes.reportesBussinesObject;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ImpresionCheque", urlPatterns = { "/reportes/ImpresionCheque" })
 public class ImpresionChequeServlet extends HttpServlet implements GestionInterface {
@@ -24,7 +25,7 @@ public class ImpresionChequeServlet extends HttpServlet implements GestionInterf
 
     String jniName;
 
-    private static final Logger log = Logger.getLogger(ImpresionChequeServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ImpresionChequeServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -46,14 +47,14 @@ public class ImpresionChequeServlet extends HttpServlet implements GestionInterf
                     int nvoFolio = icbl.reemplazaCheque(Integer.parseInt(CXP, 10));
                     ResponseSender.sendClientSimpleMessage(resp, true, String.valueOf(nvoFolio));
                 } catch (Exception e) {
-                    log.error(e, e);
+                    log.error(e.getMessage(), e);
                     ResponseSender.sendClientSimpleMessage(resp, false, ("Ocurrio el siguiente error mientras se reemplazaba el cheque:\n" + e).replaceAll("\n", "\\\\n"));
                 }
             } else {
                 objReporte.reporteChequeManual(req, resp, reportPath, ruta, CXP, tipo, usuario, beneficiario_temp);
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             try {
                 Util.sendHTMLErrorMsg(resp, e);
             } catch (Exception e2) {

@@ -14,19 +14,20 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.gestion.CasoBusinessLogic;
 import com.syc.gestion.core.Caso;
 import com.syc.gestion.core.GestionException;
 import com.syc.gestion.core.Usuario;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "GestionXMLServlet", urlPatterns = { "/xml/gestion.xml" })
 public class GestionXMLServlet extends HttpServlet implements GestionInterface {
 
     public static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(GestionXMLServlet.class.getName());
+    private static Logger log = LoggerFactory.getLogger(GestionXMLServlet.class.getName());
 
     private String jniName = null;
 

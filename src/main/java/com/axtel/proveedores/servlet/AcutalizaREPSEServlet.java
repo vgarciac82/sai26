@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import com.axtel.proveedores.ProveedorService;
 import com.axtel.proveedores.model.Proveedor;
 import com.axtel.request.MultipartObject;
@@ -19,6 +18,8 @@ import com.axtel.request.utils.RequestUtils;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author vicente.garcia
@@ -56,7 +57,7 @@ public class AcutalizaREPSEServlet extends HttpServlet implements GestionInterfa
                 msg = "Proveedor actualizado con exito!";
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             msg = "Error insertando evidencia del proveedor. " + e;
         } finally {
             if (mo != null && mo.getFiles() != null) {

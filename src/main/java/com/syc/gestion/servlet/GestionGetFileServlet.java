@@ -15,19 +15,20 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.jenkov.prizetags.tree.itf.ITreeNode;
 import com.syc.gestion.core.NodeInformation;
 import com.syc.gestion.core.Usuario;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "GestionGetFileServlet", urlPatterns = { "/filestore" })
 public class GestionGetFileServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(GestionGetFileServlet.class);
+    private static Logger log = LoggerFactory.getLogger(GestionGetFileServlet.class);
 
     private String jniName = null;
 

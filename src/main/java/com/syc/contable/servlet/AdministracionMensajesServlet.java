@@ -7,18 +7,19 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.contable.AdministracionMensajesBusinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "AdministracionMensajesServlet", urlPatterns = { "/gstnmngr/AdministracionMensajes" })
 public class AdministracionMensajesServlet extends HttpServlet {
 
     private static final long serialVersionUID = -2132300865011700319L;
 
-    private static final Logger log = Logger.getLogger(AdministracionMensajesServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(AdministracionMensajesServlet.class);
 
     public AdministracionMensajesServlet() {
         super();

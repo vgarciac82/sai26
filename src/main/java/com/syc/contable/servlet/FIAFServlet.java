@@ -29,7 +29,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -53,11 +52,13 @@ import com.syc.gestion.util.Util;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "FIAFServlet", urlPatterns = { "/gstnmngr/FIAFServlet" })
 public class FIAFServlet extends HttpServlet {
 
-    private static final Logger log = Logger.getLogger(FIAFServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(FIAFServlet.class);
 
     //para obtener el ejercicio fiscal en diferentes funciones
     AdecuacionBusinessLogic adecProy = new AdecuacionBusinessLogic(GestionInterface.ATT_CONEXION);

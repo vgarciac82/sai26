@@ -9,20 +9,21 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.google.gson.Gson;
 import com.syc.contable.CompromisoBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CompromisoServlet", urlPatterns = { "/compromiso/guardarCalendarioServlet", "/compromiso/guardarCompromiso", "/compromiso/eliminarRenglon" })
 public class CompromisoCalendarioServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(CompromisoCalendarioServlet.class);
+    private static Logger log = LoggerFactory.getLogger(CompromisoCalendarioServlet.class);
 
     private static final String GUARDAR_CALENDARIO = "guardarCalendarioServlet";
 
@@ -72,7 +73,7 @@ public class CompromisoCalendarioServlet extends HttpServlet implements GestionI
                 ResponseSender.sendClientSimpleMessage(resp, true, "Datos guardados correctamente.");
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             msgRetorno = "Ocurrio el siguiente error al generar el layout: " + e.getMessage();
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             // Configura el tipo de contenido como JSON

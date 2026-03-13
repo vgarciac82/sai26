@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import com.axtel.contratos.core.ConvenioColaboracion;
 import com.axtel.contratos.core.ConvenioColaboracionBussinessLogic;
 import com.syc.contable.PagosDiversosBussinessLogic;
@@ -23,13 +22,15 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CargaMasivaPagosDiversosServlet", urlPatterns = { "/CargaMasivaPagosDiversos", "/CargaMasivaCompromisosDiversos" })
 public class CargaMasivaPagosDiversosServlet extends HttpServlet implements GestionInterface {
 
     private static String jniName = "jdbc/gestion";
 
-    private static final Logger log = Logger.getLogger(CargaMasivaPagosDiversosServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(CargaMasivaPagosDiversosServlet.class);
 
     /**
      */

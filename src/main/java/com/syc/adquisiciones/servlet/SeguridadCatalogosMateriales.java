@@ -48,7 +48,6 @@ import net.sf.jasperreports.engine.util.SimpleFileResolver;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.export.SimpleJsonReportConfiguration;
 import net.sf.jasperreports.engine.JRParameter;
-import org.apache.log4j.Logger;
 import com.syc.admin.servlet.Reportes;
 import com.syc.admin.servlet.ReportsException;
 import com.syc.adquisiciones.core.APTEJRDataSource;
@@ -66,6 +65,8 @@ import com.syc.utils.Formatter;
 import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRDocxExporterParameter;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "SeguridadCatalogosMateriales", urlPatterns = { "/servlet/SeguridadCatalogosMateriales" })
 public class SeguridadCatalogosMateriales extends HttpServlet {
@@ -74,7 +75,7 @@ public class SeguridadCatalogosMateriales extends HttpServlet {
 
     private String jniName = null;
 
-    private static Logger log = Logger.getLogger(SeguridadCatalogosMateriales.class);
+    private static Logger log = LoggerFactory.getLogger(SeguridadCatalogosMateriales.class);
 
     public SeguridadCatalogosMateriales() {
         super();

@@ -9,12 +9,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import com.axtel.contratos.entities.FuelContract;
 import com.axtel.contratos.services.FuelContractService;
 import com.axtel.contratos.services.implementation.FuelContractServiceImplementation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "FuelContractController", urlPatterns = { "/SICOVE/FuelContract" })
 public class FuelContractController extends HttpServlet {
@@ -45,7 +46,7 @@ public class FuelContractController extends HttpServlet {
             log.debug("Writting response: " + fuelContractJson);
             resp.getWriter().write(fuelContractJson);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             String errorJson = mapper.writeValueAsString(e.getMessage());
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");

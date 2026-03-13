@@ -32,7 +32,6 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,6 +51,8 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import com.syc.obrapublica.core.ConfiguraAplicativoManager;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ProgramaAnualServlet", urlPatterns = { "/servlet/ProgramaAnualServlet" })
 public class ProgramaAnualServlet extends HttpServlet {
@@ -60,7 +61,7 @@ public class ProgramaAnualServlet extends HttpServlet {
 
     private static String jndiName = null;
 
-    private static Logger log = Logger.getLogger(ProgramaAnualServlet.class);
+    private static Logger log = LoggerFactory.getLogger(ProgramaAnualServlet.class);
 
     private Connection conn = null;
 

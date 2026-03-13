@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -27,6 +26,8 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionFileReceiverServlet;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "AnteProyectoLayoutServlet", urlPatterns = { "/gstnmngr/AnteProyectoLayoutServlet" })
 public class LayoutAnteProyectoServlet extends HttpServlet {
@@ -83,7 +84,7 @@ public class LayoutAnteProyectoServlet extends HttpServlet {
      *
      * @throws ServletException if an error occurs
      */
-    private static Logger log = Logger.getLogger(GestionFileReceiverServlet.class);
+    private static Logger log = LoggerFactory.getLogger(GestionFileReceiverServlet.class);
 
     private String jniName = null;
 

@@ -10,12 +10,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.MesContableBusinessLogic;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ActualizaFechaAplicacionServlet", urlPatterns = { "/ActualizaFechaAplicacion" })
 public class ActualizaFechaAplicacionServlet extends HttpServlet implements GestionInterface {
@@ -24,7 +25,7 @@ public class ActualizaFechaAplicacionServlet extends HttpServlet implements Gest
 
     private static String jniName;
 
-    private static final Logger log = Logger.getLogger(ActualizaFechaAplicacionServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ActualizaFechaAplicacionServlet.class);
 
     @Override
     public void init(ServletConfig config) throws ServletException {

@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import com.axtel.egresos.viaticos.Agenda;
 import com.syc.gestion.core.Usuario;
@@ -19,6 +18,8 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.servlet.GestionServlet;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "AgendaServlet", urlPatterns = { "/viaticos/consultaAgenda", "/viaticos/guardarDatos", "/viaticos/actualizarDatosChecador" })
 public class ViaticosServlet extends HttpServlet implements GestionInterface {
@@ -98,7 +99,7 @@ public class ViaticosServlet extends HttpServlet implements GestionInterface {
                 out.close();
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             Map<String, String> errorObj = new HashMap<>();
             errorObj.put("causa", e.toString());

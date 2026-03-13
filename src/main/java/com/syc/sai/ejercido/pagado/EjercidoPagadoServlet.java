@@ -1,40 +1,37 @@
 package com.syc.sai.ejercido.pagado;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.log4j.Logger;
-
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class EjercidoPagadoServlet extends HttpServlet implements GestionInterface{
-	private static final long	serialVersionUID	= 1L;
-	private static Logger log = Logger.getLogger(EjercidoPagadoServlet.class);
-	private String				jniName				= null;
-	
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session = req.getSession(false);
-		if (session == null) {
-			ResponseSender.sendError(resp, "Sin session. Por favor reingrese al sistema.");
-			return;
-		}
+public class EjercidoPagadoServlet extends HttpServlet implements GestionInterface {
 
-		Usuario u = (Usuario) session.getAttribute(ATT_USER);
+    private static final long serialVersionUID = 1L;
 
-		if (u == null) {
-			ResponseSender.sendError(resp, "Sin usuario en session. Por favor reingrese al sistema.");
-			return;
-		}
+    private static Logger log = LoggerFactory.getLogger(EjercidoPagadoServlet.class);
 
-		String accion = req.getParameter("accion");
-		//if ("".equals(accion)) 
-	}
+    private String jniName = null;
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession(false);
+        if (session == null) {
+            ResponseSender.sendError(resp, "Sin session. Por favor reingrese al sistema.");
+            return;
+        }
+        Usuario u = (Usuario) session.getAttribute(ATT_USER);
+        if (u == null) {
+            ResponseSender.sendError(resp, "Sin usuario en session. Por favor reingrese al sistema.");
+            return;
+        }
+        String accion = req.getParameter("accion");
+        //if ("".equals(accion))
+    }
 }
-

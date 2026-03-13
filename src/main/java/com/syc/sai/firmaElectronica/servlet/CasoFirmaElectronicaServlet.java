@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.gestion.TipoCasoInterface;
 import com.syc.gestion.core.Caso;
 import com.syc.gestion.core.Usuario;
@@ -20,6 +19,8 @@ import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import com.syc.sai.firmaElectronica.FirmaElectronicaBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CasoFirmaElectronicaServlet", urlPatterns = { "/FIEL/solicitaFirmaElectronica", "/FIEL/validaUsuarioAutorizador" })
 public class CasoFirmaElectronicaServlet extends HttpServlet implements GestionInterface {
@@ -29,7 +30,7 @@ public class CasoFirmaElectronicaServlet extends HttpServlet implements GestionI
      */
     private static final long serialVersionUID = -4043730852663737703L;
 
-    private static final Logger log = Logger.getLogger(CasoFirmaElectronicaServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(CasoFirmaElectronicaServlet.class);
 
     private static final String VALIDA_USUARIO_AUTORIZADOR = "validaUsuarioAutorizador";
 
@@ -66,7 +67,7 @@ public class CasoFirmaElectronicaServlet extends HttpServlet implements GestionI
                 throw new Exception("No se puede realizar el tramite debido al siguiente error: " + msg);
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             ResponseSender.sendClientSimpleMessage(resp, false, e.toString());
         }
     }
@@ -89,7 +90,7 @@ public class CasoFirmaElectronicaServlet extends HttpServlet implements GestionI
                 ResponseSender.sendClientSimpleMessage(resp, true, String.valueOf(puedeAutorizar));
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             ResponseSender.sendClientSimpleMessage(resp, false, "No se puede realizar la operacion debido al siguiente error: " + e.toString());
         }
     }

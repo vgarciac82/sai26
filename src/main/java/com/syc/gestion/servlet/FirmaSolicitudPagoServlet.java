@@ -18,7 +18,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.cfdi.utils.FacturaUtils;
 import com.syc.egresos.core.RelacionGastosMasivaBussinessLogic;
 import com.syc.gestion.core.Usuario;
@@ -28,6 +27,8 @@ import com.syc.sai.firmaElectronica.FirmaElectronicaBusinessLogic;
 import com.syc.sai.firmaElectronica.core.FIELChecker;
 import com.syc.sai.firmaElectronica.interfaces.SolicitudFirmaElectronica;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "FirmaSolicitudPagoServlet", urlPatterns = { "/firmaSolicitudPago" })
 public class FirmaSolicitudPagoServlet extends HttpServlet implements GestionInterface {
@@ -38,7 +39,7 @@ public class FirmaSolicitudPagoServlet extends HttpServlet implements GestionInt
 
     private static String jniName = "jdbc/gestion";
 
-    private static final Logger log = Logger.getLogger(FirmaSolicitudPagoServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(FirmaSolicitudPagoServlet.class);
 
     private ConfiguraAplicativoBusinessLogic settings = null;
 
@@ -145,7 +146,7 @@ public class FirmaSolicitudPagoServlet extends HttpServlet implements GestionInt
                 List<String> logFirma = febl.firmaDocumento(sfe, cerFileName, keyFileName);
                 msgRetorno = Util.listToHTMLTable(logFirma);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 List<String> logException = new ArrayList<String>();
                 logException.add("Ocurrio el siguiente error al cargar el archivo: <br>" + e.getMessage());
                 msgRetorno = Util.listToHTMLTable(logException);

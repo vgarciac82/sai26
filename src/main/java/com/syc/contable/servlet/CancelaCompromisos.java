@@ -10,17 +10,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.contable.CompromisoBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CancelaCompromisos", urlPatterns = { "/gstnmngr/CancelaCompromisos" })
 public class CancelaCompromisos extends HttpServlet {
 
-    private static final Logger log = Logger.getLogger(CancelaCompromisos.class);
+    private static final Logger log = LoggerFactory.getLogger(CancelaCompromisos.class);
 
     /**
      */
@@ -95,9 +96,9 @@ public class CancelaCompromisos extends HttpServlet {
             msg = "Se regreso el estatus a captura de " + i + " compromisos ";
         } catch (SQLException e) {
             error = true;
-            log.error(e, e);
+            log.error(e.getMessage(), e);
         } catch (Exception ex) {
-            log.error(ex, ex);
+            log.error(ex.getMessage(), ex);
             error = true;
         }
         if (error)

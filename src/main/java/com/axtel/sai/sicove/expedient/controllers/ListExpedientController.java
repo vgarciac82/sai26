@@ -17,7 +17,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import com.axtel.sai.sicove.SICOVE;
 import com.axtel.sai.sicove.expedient.entities.DocumentFortimax;
 import com.axtel.sai.sicove.expedient.repositories.ExpedientRepository;
@@ -27,6 +26,8 @@ import com.axtel.sai.sicove.expedient.services.impl.JDBCExpedientService;
 import com.syc.fortimax.core.Fortimax;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @MultipartConfig
 @WebServlet(name = "ListExpedientController", urlPatterns = { "/SICOVE/Expedient", "/SICOVE/CapturedExpedient" })
@@ -56,7 +57,7 @@ public class ListExpedientController extends HttpServlet {
             }
             Util.sendJSON(response, documents);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             Util.sendJSONError(response, e);
         }
     }
@@ -71,7 +72,7 @@ public class ListExpedientController extends HttpServlet {
             map.put("success", "true");
             Util.sendJSON(response, map);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             Util.sendJSONError(response, e);
         }
     }
@@ -91,7 +92,7 @@ public class ListExpedientController extends HttpServlet {
             result.put("message", "El archivo se adjuntó correctamente.");
             Util.sendJSON(response, result);
         } catch (Exception ex) {
-            log.error(ex, ex);
+            log.error(ex.getMessage(), ex);
             Util.sendJSONResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ex.toString());
         }
     }

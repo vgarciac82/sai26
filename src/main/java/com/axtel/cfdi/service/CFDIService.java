@@ -1,17 +1,13 @@
 package com.axtel.cfdi.service;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
 import com.axtel.cfdi.CFDI;
 import com.axtel.cfdi.CFDIDetalle;
 import com.axtel.cfdi.CFDIEncabezado;
@@ -37,363 +33,317 @@ import com.syc.gestion.core.CFSequenceManager;
 import com.syc.gestion.util.Util;
 import com.syc.obrapublica.core.ConfiguraAplicativoManager;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
-
 import mx.com.sw.services.stamp.Stamp;
 import mx.com.sw.services.stamp.responses.StampResponseV2;
 import mx.grupocorasa.sat.cfd._40.Comprobante;
 import mx.grupocorasa.sat.cfdi.v4.CFDv40;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CFDIService extends DataSourceManager {
 
-	private static final Logger				log	= LogManager.getLogger( CFDIService.class );
-	private DriveRepositoryInterface		driveRepository;
-	private VirtualFileRepositoryInterface	virtualFileRepository;
-	private VolumenRepositoryInterface		volumenRepository;
-	private VolumenServiceInterface			volumenService;
-	private InvoicePDFService				pdfService;
+    private static final Logger log = LogManager.getLogger(CFDIService.class);
 
-	public CFDIService( String jniName, File reporthPath ) {
-		super.init( jniName );
-		virtualFileRepository = new VirtualFileRepository();
-		volumenRepository = new VolumenRepository();
-		driveRepository = new DriveRepository();
-		volumenService = new VolumenService();
-		pdfService = new InvoicePDFService( reporthPath );
+    private DriveRepositoryInterface driveRepository;
 
-		( ( VolumenService ) volumenService ).setDriveRepository( driveRepository );
-		( ( VolumenService ) volumenService ).setVolumenRepository( volumenRepository );
-	}
+    private VirtualFileRepositoryInterface virtualFileRepository;
 
-	public CFDI autoriza( int idInvoice ) {
-		Connection conn = null;
-		try {
-			conn = getConnection();
-			CFDI invoice = getCFDI( idInvoice );
-			if ( StringUtils.trimToNull( invoice.getEncabezado().getFolio() ) != null )
-				return invoice;
+    private VolumenRepositoryInterface volumenRepository;
 
-			int nextVal = CFSequenceManager.getInstance().nextVal( conn, invoice.getEncabezado().getSerie().getSerie() );
-			invoice.getEncabezado().setEstatusId( CFDI.AUTORIZADO );
-			invoice.getEncabezado().setFolio( String.valueOf( nextVal ) );
-			CFDIEncabezadoManager.actualizarCFDIEncabezado( conn, invoice.getEncabezado() );
-			conn.commit();
+    private VolumenServiceInterface volumenService;
 
-			return getCFDI( idInvoice );
-		} catch ( Exception e ) {
-			log.error( e, e );
-			Util.rollback( conn );
-			throw new RuntimeException( "Error autorizando cfdi con folio: " + idInvoice + " Causa: " + e.toString(), e );
-		} finally {
-			CloseObject.closeObject( conn );
-		}
-	}
+    private InvoicePDFService pdfService;
 
-	public void deleteDetailRow( int idDetalle ) {
-		Connection conn = null;
-		try {
-			conn = getConnection();
-			CFDIDetalleManager.eliminarCFDIDetalle( conn, idDetalle );
-			conn.commit();
-		} catch ( Exception e ) {
-			log.error( e, e );
-			Util.rollback( conn );
-			throw new RuntimeException( "Error eliminando renglon: " + idDetalle + " Causa: " + e.toString(), e );
-		} finally {
-			CloseObject.closeObject( conn );
-		}
-	}
+    public CFDIService(String jniName, File reporthPath) {
+        super.init(jniName);
+        virtualFileRepository = new VirtualFileRepository();
+        volumenRepository = new VolumenRepository();
+        driveRepository = new DriveRepository();
+        volumenService = new VolumenService();
+        pdfService = new InvoicePDFService(reporthPath);
+        ((VolumenService) volumenService).setDriveRepository(driveRepository);
+        ((VolumenService) volumenService).setVolumenRepository(volumenRepository);
+    }
 
-	public StampResponseV2 firmaCFDI( Connection conn, CFDv40 cfdi ) throws Exception {
-		Stamp sdk = null;
-		StampResponseV2 response = null;
+    public CFDI autoriza(int idInvoice) {
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            CFDI invoice = getCFDI(idInvoice);
+            if (StringUtils.trimToNull(invoice.getEncabezado().getFolio()) != null)
+                return invoice;
+            int nextVal = CFSequenceManager.getInstance().nextVal(conn, invoice.getEncabezado().getSerie().getSerie());
+            invoice.getEncabezado().setEstatusId(CFDI.AUTORIZADO);
+            invoice.getEncabezado().setFolio(String.valueOf(nextVal));
+            CFDIEncabezadoManager.actualizarCFDIEncabezado(conn, invoice.getEncabezado());
+            conn.commit();
+            return getCFDI(idInvoice);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            Util.rollback(conn);
+            throw new RuntimeException("Error autorizando cfdi con folio: " + idInvoice + " Causa: " + e.toString(), e);
+        } finally {
+            CloseObject.closeObject(conn);
+        }
+    }
 
-		OutputStream byteOS = new ByteArrayOutputStream( 2048 );
-		cfdi.guardar( byteOS, true );
-		String xml = ( ( ByteArrayOutputStream ) byteOS ).toString( "UTF-8" );
-		byteOS.flush();
-		log.info( "XML GENERADO:\n===================================\n" + xml + "\n===================================" );
-		PacInfo pacInfo = new PacInfo( conn );
+    public void deleteDetailRow(int idDetalle) {
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            CFDIDetalleManager.eliminarCFDIDetalle(conn, idDetalle);
+            conn.commit();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            Util.rollback(conn);
+            throw new RuntimeException("Error eliminando renglon: " + idDetalle + " Causa: " + e.toString(), e);
+        } finally {
+            CloseObject.closeObject(conn);
+        }
+    }
 
-		String usuario = UtilSecurity.decrypt( pacInfo.getUser() );
-		String password = UtilSecurity.decrypt( pacInfo.getPassword() );
+    public StampResponseV2 firmaCFDI(Connection conn, CFDv40 cfdi) throws Exception {
+        Stamp sdk = null;
+        StampResponseV2 response = null;
+        OutputStream byteOS = new ByteArrayOutputStream(2048);
+        cfdi.guardar(byteOS, true);
+        String xml = ((ByteArrayOutputStream) byteOS).toString("UTF-8");
+        byteOS.flush();
+        log.info("XML GENERADO:\n===================================\n" + xml + "\n===================================");
+        PacInfo pacInfo = new PacInfo(conn);
+        String usuario = UtilSecurity.decrypt(pacInfo.getUser());
+        String password = UtilSecurity.decrypt(pacInfo.getPassword());
+        log.info(pacInfo.getUrl());
+        sdk = new Stamp(pacInfo.getUrl(), usuario, password, null, 0);
+        response = (StampResponseV2) sdk.timbrarV2(xml, false);
+        log.debug(response.getStatus());
+        return response;
+    }
 
-		log.info( pacInfo.getUrl() );
+    public CFDI generateInvoiceFiles(CFDI invoice) {
+        Connection filesConnection = null;
+        VirtualFile filePDF = null;
+        VirtualFile fileXML = null;
+        try {
+            filesConnection = getConnection();
+            filePDF = virtualFileRepository.select(filesConnection, invoice.getEncabezado().getCfdiId(), "PDF");
+            fileXML = virtualFileRepository.select(filesConnection, invoice.getEncabezado().getCfdiId(), "XML");
+            if (filePDF != null) {
+                filePDF = generatePDF(filesConnection, invoice);
+                filePDF.setCfdiId(invoice.getEncabezado().getCfdiId());
+                filePDF = virtualFileRepository.insert(filesConnection, filePDF);
+            }
+            if (fileXML != null) {
+                fileXML = generateXML(filesConnection, invoice.getXmlInvoice());
+                fileXML.setFileName(invoice.getEncabezado().getUuid() + ".xml");
+                fileXML.setFileType("XML");
+                fileXML.setCfdiId(invoice.getEncabezado().getCfdiId());
+                fileXML = virtualFileRepository.insert(filesConnection, fileXML);
+            }
+            filesConnection.commit();
+            invoice.setFilePDF(filePDF);
+            invoice.setFileXML(fileXML);
+            return invoice;
+        } catch (Exception e) {
+            Util.rollback(filesConnection);
+            log.error("Error generando archivos: " + e.toString(), e);
+            throw new RuntimeException(e);
+        } finally {
+            CloseObject.closeObject(filesConnection);
+        }
+    }
 
-		sdk = new Stamp( pacInfo.getUrl(), usuario, password, null, 0 );
-		response = ( StampResponseV2 ) sdk.timbrarV2( xml, false );
-		log.debug( response.getStatus() );
+    public VirtualFile generateXML(Connection conn, String cfdiXml) throws FileManagmentException {
+        try {
+            VirtualFile volumenFile = volumenService.generateFileLocation(conn, "xml");
+            log.debug("Escribiendo : =======================================================\n\n" + cfdiXml + "\n\n===================================================================");
+            File f = volumenFile.getFilePath().toFile();
+            boolean created = f.createNewFile();
+            log.info("Archivo " + (created ? "creado" : "no se pudo crear") + " en " + f.getAbsolutePath());
+            FileUtils.writeStringToFile(f, cfdiXml, StandardCharsets.UTF_8);
+            return volumenFile;
+        } catch (Exception e) {
+            throw new FileManagmentException(e.toString(), e.getCause());
+        }
+    }
 
-		return response;
+    private VirtualFile generatePDF(Connection conn, CFDI cfdi) throws Exception {
+        VirtualFile volumenFile = volumenService.generateFileLocation(conn, "pdf");
+        volumenFile.setFileName(cfdi.getEncabezado().getUuid() + ".pdf");
+        volumenFile.setFileType("PDF");
+        pdfService.generateInvoicePDF(cfdi, volumenFile.getFilePath().toFile().getAbsolutePath());
+        return volumenFile;
+    }
 
-	}
+    public CFDI getCFDI(Connection conn, int cfdiId) {
+        try {
+            log.info("Fetching CFDI with ID: " + cfdiId);
+            CFDI cfdi = new CFDI();
+            cfdi.setEncabezado(CFDIEncabezadoManager.obtenerCFDIEncabezado(conn, cfdiId));
+            cfdi.setDetalles(CFDIDetalleManager.obtenerTodosCFDIDetalles(conn, cfdiId));
+            return cfdi;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-	public CFDI generateInvoiceFiles( CFDI invoice ) {
-		Connection filesConnection = null;
-		VirtualFile filePDF = null;
-		VirtualFile fileXML = null;
+    public CFDI getCFDI(int cfdiId) {
+        Connection conn = null;
+        try {
+            log.info("Fetching CFDI with ID: " + cfdiId);
+            conn = getConnection();
+            return getCFDI(conn, cfdiId);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            CloseObject.closeObject(conn);
+        }
+    }
 
-		try {
+    public CFDI insertCFDI(CFDI cfdi) {
+        Connection conn = null;
+        try {
+            log.info("Creating CFDI: " + cfdi);
+            conn = getConnection();
+            CFDIEncabezado encabezado = CFDIEncabezadoManager.guardarCFDIEncabezado(conn, cfdi.getEncabezado());
+            cfdi.setEncabezado(encabezado);
+            for (CFDIDetalle detalle : cfdi.getDetalles()) {
+                detalle.setCfdiId(encabezado.getCfdiId());
+                CFDIDetalleManager.guardarCFDIDetalle(conn, detalle);
+            }
+            conn.commit();
+            return cfdi;
+        } catch (Exception e) {
+            Util.rollback(conn);
+            throw new RuntimeException(e);
+        } finally {
+            CloseObject.closeObject(conn);
+        }
+    }
 
-			filesConnection = getConnection();
-			filePDF = virtualFileRepository.select( filesConnection, invoice.getEncabezado().getCfdiId(), "PDF" );
-			fileXML = virtualFileRepository.select( filesConnection, invoice.getEncabezado().getCfdiId(), "XML" );
+    public CFDIDetalle insertCFDIDetail(CFDIDetalle detailRow) {
+        Connection conn = null;
+        try {
+            log.info("Creating CFDI Detail: " + detailRow);
+            conn = getConnection();
+            detailRow = CFDIDetalleManager.guardarCFDIDetalle(conn, detailRow);
+            CFDIEncabezadoManager.actualizaMonto(conn, detailRow.getCfdiId());
+            conn.commit();
+            return detailRow;
+        } catch (Exception e) {
+            Util.rollback(conn);
+            throw new RuntimeException(e);
+        } finally {
+            CloseObject.closeObject(conn);
+        }
+    }
 
-			if ( filePDF != null ) {
-				filePDF = generatePDF( filesConnection, invoice );
-				filePDF.setCfdiId( invoice.getEncabezado().getCfdiId() );
-				filePDF = virtualFileRepository.insert( filesConnection, filePDF );
-			}
+    public CFDIEncabezado insertCFDIHeader(CFDIEncabezado header) {
+        Connection conn = null;
+        try {
+            log.info("Creating CFDI: " + header);
+            conn = getConnection();
+            header = CFDIEncabezadoManager.guardarCFDIEncabezado(conn, header);
+            conn.commit();
+            return header;
+        } catch (Exception e) {
+            Util.rollback(conn);
+            throw new RuntimeException(e);
+        } finally {
+            CloseObject.closeObject(conn);
+        }
+    }
 
-			if ( fileXML != null ) {
-				fileXML = generateXML( filesConnection, invoice.getXmlInvoice() );
-				fileXML.setFileName( invoice.getEncabezado().getUuid() + ".xml" );
-				fileXML.setFileType( "XML" );
-				fileXML.setCfdiId( invoice.getEncabezado().getCfdiId() );
-				fileXML = virtualFileRepository.insert( filesConnection, fileXML );
-			}
+    public CFDI stampInvoice(CFDI invoice, DigitalSignature digitalSignature) {
+        Connection conn = null;
+        String xml = null;
+        try {
+            conn = getConnection();
+            CFDv40 toStamp = StampInvoiceRepository.instanceFromDB(conn, invoice.getEncabezado().getCfdiId());
+            Comprobante comprobante = (Comprobante) toStamp.getComprobanteDocument();
+            if (comprobante.getReceptor().getRegimenFiscalReceptor() == null)
+                throw new RuntimeException("El receptor: " + comprobante.getReceptor().getRfc() + " No tiene registrado regimen fiscal.");
+            if (comprobante.getReceptor().getDomicilioFiscalReceptor() == null)
+                throw new RuntimeException("El receptor: " + comprobante.getReceptor().getRfc() + " No tiene registrado Domiciclio FIscal (CP)");
+            comprobante.getReceptor().setNombre(CFDIUtils.plainName(comprobante.getReceptor().getNombre()));
+            toStamp.sellar(digitalSignature.getKey(), digitalSignature.getCert());
+            StampResponseV2 response = firmaCFDI(conn, toStamp);
+            if ("success".equals(String.valueOf(response.getStatus()))) {
+                log.debug(response.getData().getTFD());
+                log.debug(response.getData().getCFDI());
+                xml = response.getMessageDetail();
+            } else {
+                log.debug(response.getMessage());
+                log.debug(response.getMessageDetail());
+                if ("307. El comprobante contiene un timbre previo.".equalsIgnoreCase(response.getMessage())) {
+                    xml = response.getData().getCFDI();
+                } else {
+                    Exception e = new Exception(response.getMessage() + " / " + response.getMessageDetail());
+                    throw e;
+                }
+            }
+            invoice.setXmlInvoice(xml);
+            CFDIEncabezadoManager.saveStampedInvoice(conn, invoice);
+            invoice = getCFDI(conn, invoice.getEncabezado().getCfdiId());
+            invoice.setXmlInvoice(xml);
+            conn.commit();
+            return invoice;
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            Util.rollback(conn);
+            throw new RuntimeException("No fue posible timbrar el CFDI debido al error: " + e, e);
+        } finally {
+            CloseObject.closeObject(conn);
+        }
+    }
 
-			filesConnection.commit();
+    public CFDI updateCFDI(CFDI cfdi) {
+        Connection conn = null;
+        try {
+            log.info("Updating CFDI: " + cfdi);
+            conn = getConnection();
+            CFDIEncabezadoManager.actualizarCFDIEncabezado(conn, cfdi.getEncabezado());
+            cfdi.setEncabezado(CFDIEncabezadoManager.obtenerCFDIEncabezado(conn, cfdi.getEncabezado().getCfdiId()));
+            conn.commit();
+            return cfdi;
+        } catch (Exception e) {
+            Util.rollback(conn);
+            throw new RuntimeException(e);
+        } finally {
+            CloseObject.closeObject(conn);
+        }
+    }
 
-			invoice.setFilePDF( filePDF );
-			invoice.setFileXML( fileXML );
+    public CFDI finaliza(CFDI invoice) {
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            invoice.getEncabezado().setEstatusId(6);
+            CFDIEncabezadoManager.actualizarCFDIEncabezado(conn, invoice.getEncabezado());
+            invoice.setEncabezado(CFDIEncabezadoManager.obtenerCFDIEncabezado(conn, invoice.getEncabezado().getCfdiId()));
+            conn.commit();
+            return invoice;
+        } catch (Exception e) {
+            Util.rollback(conn);
+            throw new RuntimeException("Error finalizando emision de CFDI: " + e.toString(), e);
+        } finally {
+            CloseObject.closeObject(conn);
+        }
+    }
 
-			return invoice;
-
-		} catch ( Exception e ) {
-			Util.rollback( filesConnection );
-			log.error( "Error generando archivos: " + e.toString(), e );
-			throw new RuntimeException( e );
-		} finally {
-			CloseObject.closeObject( filesConnection );
-		}
-
-	}
-
-	public VirtualFile generateXML( Connection conn, String cfdiXml ) throws FileManagmentException {
-		try {
-			VirtualFile volumenFile = volumenService.generateFileLocation( conn, "xml" );
-			log.debug( "Escribiendo : =======================================================\n\n" + cfdiXml + "\n\n===================================================================" );
-
-			File f = volumenFile.getFilePath().toFile();
-			boolean created = f.createNewFile();
-			log.info( "Archivo " + ( created ? "creado" : "no se pudo crear" ) + " en " + f.getAbsolutePath() );
-			FileUtils.writeStringToFile( f, cfdiXml, StandardCharsets.UTF_8 );
-
-			return volumenFile;
-
-		} catch ( Exception e ) {
-			throw new FileManagmentException( e.toString(), e.getCause() );
-		}
-	}
-
-	private VirtualFile generatePDF( Connection conn, CFDI cfdi ) throws Exception {
-		VirtualFile volumenFile = volumenService.generateFileLocation( conn, "pdf" );
-		volumenFile.setFileName( cfdi.getEncabezado().getUuid() + ".pdf" );
-		volumenFile.setFileType( "PDF" );
-		pdfService.generateInvoicePDF( cfdi, volumenFile.getFilePath().toFile().getAbsolutePath() );
-		return volumenFile;
-	}
-
-	public CFDI getCFDI( Connection conn, int cfdiId ) {
-		try {
-			log.info( "Fetching CFDI with ID: " + cfdiId );
-			CFDI cfdi = new CFDI();
-			cfdi.setEncabezado( CFDIEncabezadoManager.obtenerCFDIEncabezado( conn, cfdiId ) );
-			cfdi.setDetalles( CFDIDetalleManager.obtenerTodosCFDIDetalles( conn, cfdiId ) );
-			return cfdi;
-		} catch ( Exception e ) {
-			throw new RuntimeException( e );
-		}
-	}
-
-	public CFDI getCFDI( int cfdiId ) {
-		Connection conn = null;
-		try {
-			log.info( "Fetching CFDI with ID: " + cfdiId );
-			conn = getConnection();
-			return getCFDI( conn, cfdiId );
-		} catch ( Exception e ) {
-			throw new RuntimeException( e );
-		} finally {
-			CloseObject.closeObject( conn );
-		}
-	}
-
-	public CFDI insertCFDI( CFDI cfdi ) {
-		Connection conn = null;
-		try {
-			log.info( "Creating CFDI: " + cfdi );
-			conn = getConnection();
-
-			CFDIEncabezado encabezado = CFDIEncabezadoManager.guardarCFDIEncabezado( conn, cfdi.getEncabezado() );
-			cfdi.setEncabezado( encabezado );
-
-			for ( CFDIDetalle detalle : cfdi.getDetalles() ) {
-				detalle.setCfdiId( encabezado.getCfdiId() );
-				CFDIDetalleManager.guardarCFDIDetalle( conn, detalle );
-			}
-
-			conn.commit();
-			return cfdi;
-		} catch ( Exception e ) {
-			Util.rollback( conn );
-			throw new RuntimeException( e );
-		} finally {
-			CloseObject.closeObject( conn );
-		}
-	}
-
-	public CFDIDetalle insertCFDIDetail( CFDIDetalle detailRow ) {
-
-		Connection conn = null;
-
-		try {
-			log.info( "Creating CFDI Detail: " + detailRow );
-			conn = getConnection();
-
-			detailRow = CFDIDetalleManager.guardarCFDIDetalle( conn, detailRow );
-			CFDIEncabezadoManager.actualizaMonto( conn, detailRow.getCfdiId());
-			conn.commit();
-			return detailRow;
-		} catch ( Exception e ) {
-			Util.rollback( conn );
-			throw new RuntimeException( e );
-		} finally {
-			CloseObject.closeObject( conn );
-		}
-	}
-
-	public CFDIEncabezado insertCFDIHeader( CFDIEncabezado header ) {
-		Connection conn = null;
-		try {
-			log.info( "Creating CFDI: " + header );
-			conn = getConnection();
-
-			header = CFDIEncabezadoManager.guardarCFDIEncabezado( conn, header );
-
-			conn.commit();
-			return header;
-		} catch ( Exception e ) {
-			Util.rollback( conn );
-			throw new RuntimeException( e );
-		} finally {
-			CloseObject.closeObject( conn );
-		}
-	}
-
-	public CFDI stampInvoice( CFDI invoice, DigitalSignature digitalSignature ) {
-		Connection conn = null;
-		String xml = null;
-		try {
-			conn = getConnection();
-
-			CFDv40 toStamp = StampInvoiceRepository.instanceFromDB( conn, invoice.getEncabezado().getCfdiId() );
-
-			Comprobante comprobante = ( Comprobante ) toStamp.getComprobanteDocument();
-
-			if ( comprobante.getReceptor().getRegimenFiscalReceptor() == null )
-				throw new RuntimeException( "El receptor: " + comprobante.getReceptor().getRfc() + " No tiene registrado regimen fiscal." );
-
-			if ( comprobante.getReceptor().getDomicilioFiscalReceptor() == null )
-				throw new RuntimeException( "El receptor: " + comprobante.getReceptor().getRfc() + " No tiene registrado Domiciclio FIscal (CP)" );
-
-			comprobante.getReceptor().setNombre( CFDIUtils.plainName( comprobante.getReceptor().getNombre() ) );
-
-			toStamp.sellar( digitalSignature.getKey(), digitalSignature.getCert() );
-
-			StampResponseV2 response = firmaCFDI( conn, toStamp );
-
-			if ( "success".equals( String.valueOf( response.getStatus() ) ) ) {
-				log.debug( response.getData().getTFD() );
-				log.debug( response.getData().getCFDI() );
-				xml = response.getMessageDetail();
-			} else {
-				log.debug( response.getMessage() );
-				log.debug( response.getMessageDetail() );
-
-				if ( "307. El comprobante contiene un timbre previo.".equalsIgnoreCase( response.getMessage() ) ) {
-					xml = response.getData().getCFDI();
-				} else {
-					Exception e = new Exception( response.getMessage() + " / " + response.getMessageDetail() );
-					throw e;
-				}
-			}
-
-			invoice.setXmlInvoice( xml );
-
-			CFDIEncabezadoManager.saveStampedInvoice( conn, invoice );
-
-			invoice = getCFDI( conn, invoice.getEncabezado().getCfdiId() );
-			invoice.setXmlInvoice( xml );
-
-			conn.commit();
-			return invoice;
-		} catch ( Exception e ) {
-			log.error( e, e );
-			Util.rollback( conn );
-			throw new RuntimeException( "No fue posible timbrar el CFDI debido al error: " + e, e );
-		} finally {
-			CloseObject.closeObject( conn );
-		}
-	}
-
-	public CFDI updateCFDI( CFDI cfdi ) {
-		Connection conn = null;
-		try {
-			log.info( "Updating CFDI: " + cfdi );
-			conn = getConnection();
-			CFDIEncabezadoManager.actualizarCFDIEncabezado( conn, cfdi.getEncabezado() );
-			cfdi.setEncabezado( CFDIEncabezadoManager.obtenerCFDIEncabezado( conn, cfdi.getEncabezado().getCfdiId() ) );
-			conn.commit();
-			return cfdi;
-		} catch ( Exception e ) {
-			Util.rollback( conn );
-			throw new RuntimeException( e );
-		} finally {
-			CloseObject.closeObject( conn );
-		}
-	}
-
-	public CFDI finaliza( CFDI invoice ) {
-		
-		Connection conn = null;
-		try {
-			conn = getConnection();
-			invoice.getEncabezado().setEstatusId( 6 );
-			CFDIEncabezadoManager.actualizarCFDIEncabezado( conn, invoice.getEncabezado() );
-			invoice.setEncabezado( CFDIEncabezadoManager.obtenerCFDIEncabezado( conn, invoice.getEncabezado().getCfdiId() ) );
-			conn.commit();
-			return invoice;
-		} catch ( Exception e ) {
-			
-			Util.rollback( conn );
-			throw new RuntimeException( "Error finalizando emision de CFDI: " + e.toString(), e );
-			
-		} finally {
-			CloseObject.closeObject( conn );
-		}
-
-	}
-
-	public void sendInvoice( CFDI invoice ) {
-		Connection conn = null;
-		try {
-			String ccInvoice = ConfiguraAplicativoManager.getSystemSetting( conn, "MAIL_CC_INVOICE" );
-			invoice.getEncabezado().getReceptor().getEmail();
-			
-			
-			
-		} catch ( Exception e ) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			CloseObject.closeObject( conn );
-		}
-
-	}
-
-	/*
+    public void sendInvoice(CFDI invoice) {
+        Connection conn = null;
+        try {
+            String ccInvoice = ConfiguraAplicativoManager.getSystemSetting(conn, "MAIL_CC_INVOICE");
+            invoice.getEncabezado().getReceptor().getEmail();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            CloseObject.closeObject(conn);
+        }
+    }
+    /*
 	 * public void deleteCFDI( int cfdiId ) { Connection conn = null; try {
 	 * log.info( "Deleting CFDI with ID: " + cfdiId ); conn = getConnection();
 	 * CFDIManager.eliminarCFDI( conn, cfdiId ); conn.commit(); } catch (

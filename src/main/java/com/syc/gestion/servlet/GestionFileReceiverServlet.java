@@ -18,7 +18,6 @@ import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.fileupload.FileUploadException;
-import org.apache.log4j.Logger;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.jenkov.prizetags.tree.itf.ITreeNode;
 import com.syc.fortimax.core.Fortimax;
@@ -28,13 +27,15 @@ import com.syc.gestion.core.GestionException;
 import com.syc.gestion.core.Usuario;
 import com.syc.viewer.servlet.ViewerParametersInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "GestionFileReceiverServlet", urlPatterns = { "/upload" })
 public class GestionFileReceiverServlet extends HttpServlet implements GestionInterface, ViewerParametersInterface {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(GestionFileReceiverServlet.class);
+    private static Logger log = LoggerFactory.getLogger(GestionFileReceiverServlet.class);
 
     private int count = 0;
 

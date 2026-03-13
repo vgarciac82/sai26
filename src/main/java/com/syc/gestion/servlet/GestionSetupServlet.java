@@ -10,11 +10,12 @@ import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import com.syc.gestion.CasoBusinessLogic;
 import com.syc.gestion.CasoOperacionBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "GestionSetupServlet", urlPatterns = {})
 public class GestionSetupServlet extends HttpServlet implements GestionInterface, Runnable {
@@ -102,7 +103,7 @@ public class GestionSetupServlet extends HttpServlet implements GestionInterface
             props.load(is);
             is.close();
             PropertyConfigurator.configure(props);
-            log = Logger.getLogger(GestionSetupServlet.class);
+            log = LoggerFactory.getLogger(GestionSetupServlet.class);
             if (baseLevel != null) {
                 if (baseLevel.equalsIgnoreCase("debug"))
                     log.setLevel(Level.DEBUG);

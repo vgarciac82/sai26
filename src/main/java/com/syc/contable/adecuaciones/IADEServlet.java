@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.contable.AdecuacionBusinessLogic;
 import com.syc.contable.PresupuestoBusinessLogic;
 import com.syc.contable.core.AdecuacionManager;
@@ -20,6 +19,8 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "IADEServlet", urlPatterns = { "/adecuaciones/IADE" })
 public class IADEServlet extends HttpServlet implements GestionInterface {
@@ -28,7 +29,7 @@ public class IADEServlet extends HttpServlet implements GestionInterface {
 
     private static String jniName = "";
 
-    private static final Logger log = Logger.getLogger(IADEServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(IADEServlet.class);
 
     @SuppressWarnings("unchecked")
     @Override

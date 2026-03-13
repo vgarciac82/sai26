@@ -12,13 +12,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.contable.AdecuacionBusinessLogic;
 import com.syc.contable.anteproyecto.CargaProyectoBusinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Servlet que descarga el PEF tomando en cuenta la unidad ejecutora del
@@ -29,7 +30,7 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet(name = "DescargaExcelProyecto", urlPatterns = { "/Anteproyecto/DescargaProyecto" })
 public class DescargaExcelProyectoServlet extends HttpServlet implements GestionInterface {
 
-    private static final Logger log = Logger.getLogger(DescargaExcelProyectoServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(DescargaExcelProyectoServlet.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -108,7 +109,7 @@ public class DescargaExcelProyectoServlet extends HttpServlet implements Gestion
                         out = resp.getOutputStream();
                     out.print("Ocurrio el siguiente error al intentar descargar el archivo de proyecto: " + e);
                 } catch (Exception e2) {
-                    log.fatal("Ocurrio un error al intentar notificar al usuario: " + e2, e2);
+                    log.error("Ocurrio un error al intentar notificar al usuario: " + e2, e2);
                 }
             } finally {
                 out.flush();
@@ -147,7 +148,7 @@ public class DescargaExcelProyectoServlet extends HttpServlet implements Gestion
                         out = resp.getOutputStream();
                     out.print("Ocurrio el siguiente error al intentar descargar el archivo de proyecto: " + e);
                 } catch (Exception e2) {
-                    log.fatal("Ocurrio un error al intentar notificar al usuario: " + e2, e2);
+                    log.error("Ocurrio un error al intentar notificar al usuario: " + e2, e2);
                 }
             } finally {
                 out.flush();

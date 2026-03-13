@@ -11,19 +11,20 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.reportes.ReporteConciliacion11225BusinessLogic;
 import com.syc.reportes.servlet.ReportePolizasServlet;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "Conciliacion11225", urlPatterns = { "/reportes/conciliacion11225" })
 public class Conciliacion11225 extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 6723127616859732249L;
 
-    private static final Logger log = Logger.getLogger(ReportePolizasServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ReportePolizasServlet.class);
 
     private static String jniName = "jdbc/gestion";
 
@@ -46,7 +47,7 @@ public class Conciliacion11225 extends HttpServlet implements GestionInterface {
             try {
                 rc11225.generaReporteConciliacion(req, res, plantillas);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 throw new ServletException(e);
             }
         } catch (Exception e) {

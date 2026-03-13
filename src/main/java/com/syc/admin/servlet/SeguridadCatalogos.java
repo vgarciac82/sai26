@@ -24,7 +24,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.adquisiciones.core.IntercalarPedidoPDF;
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.gestion.core.GestionException;
@@ -45,6 +44,8 @@ import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRDocxExporterParameter;
 import net.sf.jasperreports.engine.util.JRLoader;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "SeguridadCatalogos", urlPatterns = { "/admin/SeguridadCatalogos" })
 public class SeguridadCatalogos extends HttpServlet {
@@ -53,7 +54,7 @@ public class SeguridadCatalogos extends HttpServlet {
 
     private String jniName = null;
 
-    private static Logger log = Logger.getLogger(GestionServlet.class);
+    private static Logger log = LoggerFactory.getLogger(GestionServlet.class);
 
     private static final File TEMP_DIR = new File(System.getProperty("java.io.tmpdir"));
 
@@ -1211,11 +1212,11 @@ public class SeguridadCatalogos extends HttpServlet {
                 }
             }
         } catch (Exception ex) {
-            log.error(ex, ex);
+            log.error(ex.getMessage(), ex);
             try {
                 Util.sendHTMLErrorMsg(resp, ex);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 throw new ServletException(ex);
             }
         } finally {
@@ -1227,7 +1228,7 @@ public class SeguridadCatalogos extends HttpServlet {
                 if (out != null)
                     out.close();
             } catch (SQLException e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 e.printStackTrace();
             }
             conn = null;

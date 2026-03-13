@@ -6,20 +6,21 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.obrapublica.ObraPublicaBusinessLogic;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import com.syc.ws.obrapublica.core.EstimacionObra;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "EstimacionObraServlet", urlPatterns = { "/EstimacionObra" })
 public class EstimacionObraServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 960968562779591000L;
 
-    private static final Logger log = Logger.getLogger(ObraPublicaServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ObraPublicaServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -48,7 +49,7 @@ public class EstimacionObraServlet extends HttpServlet implements GestionInterfa
                 Obra.registraEstimacionObra(estimacion, u);
                 ResponseSender.sendClientSimpleMessage(resp, true, "Estimacion registrada exitosamente.");
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendClientSimpleMessage(resp, false, "Ocurrio el siguiente error al insertar la estimacion de obra: " + e);
             }
             return;

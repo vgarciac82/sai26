@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import com.syc.egresos.core.impl.EgresoPAGODIVERSOEncabezado;
 import com.syc.ejercido.pagado.CierrePresupuestal;
@@ -20,6 +19,8 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.firmaElectronica.FirmaElectronicaBusinessLogic;
 import com.syc.sai.firmaElectronica.interfaces.SolicitudFirmaElectronica;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "AvanzaCasoSICOPServlet", urlPatterns = { "/FIEL/autorizaEnvioSICOP" })
 public class AvanzaCasoSICOPServlet extends HttpServlet implements GestionInterface {
@@ -29,7 +30,7 @@ public class AvanzaCasoSICOPServlet extends HttpServlet implements GestionInterf
      */
     private static final long serialVersionUID = -4043730852663737703L;
 
-    private static final Logger log = Logger.getLogger(AvanzaCasoSICOPServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(AvanzaCasoSICOPServlet.class);
 
     private String jniName;
 
@@ -113,7 +114,7 @@ public class AvanzaCasoSICOPServlet extends HttpServlet implements GestionInterf
                 throw new Exception(msg);
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             session.setAttribute("MSG", "No se puede logro continuar con el proceso debido al siguiente error: " + e);
         }
         resp.sendRedirect(urlDirect);

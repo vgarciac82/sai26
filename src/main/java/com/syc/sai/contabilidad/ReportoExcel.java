@@ -11,17 +11,18 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.reportes.ReporteBussinesLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ReportetoExcel", urlPatterns = { "/reports/ReportetoExcel" })
 public class ReportoExcel extends DtableToExcel {
 
     private static final long serialVersionUID = -5034769853645642993L;
 
-    private static final Logger log = Logger.getLogger(ReportoExcel.class);
+    private static final Logger log = LoggerFactory.getLogger(ReportoExcel.class);
 
     public String getValor(String data) {
         return (data == null ? "" : data);
@@ -65,7 +66,7 @@ public class ReportoExcel extends DtableToExcel {
         try {
             generarExcel(response, request);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
         }
     }
 

@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -31,6 +30,8 @@ import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import com.syc.obrapublica.core.ConfiguraAplicativoManager;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ConciliaBancosFFMServlet", urlPatterns = { "/servlet/ConciliaBancosFFMServlet" })
 public class ConciliaBancosFFMServlet extends HttpServlet {
@@ -39,7 +40,7 @@ public class ConciliaBancosFFMServlet extends HttpServlet {
 
     private static String jndiName = null;
 
-    private static Logger log = Logger.getLogger(ConciliaBancosFFMServlet.class);
+    private static Logger log = LoggerFactory.getLogger(ConciliaBancosFFMServlet.class);
 
     private Connection conn = null;
 
@@ -105,12 +106,12 @@ public class ConciliaBancosFFMServlet extends HttpServlet {
             String resp = layoutBanco(request, response, session);
             response.sendRedirect("../Generador/ConciliaBancosFFM.jsp" + resp);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             session.setAttribute(GestionInterface.ATT_MSG, e.toString());
             try {
                 response.sendRedirect("../Generador/ConciliaBancosFFM.jsp?error=SI");
             } catch (IOException e1) {
-                log.error(e1, e1);
+                log.error(e1.getMessage(), e1);
             }
         }
     }

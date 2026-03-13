@@ -9,17 +9,18 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
 import com.syc.ejercido.pagado.Anexo1BusinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "LayoutAnexo1ConLayoutServlet", urlPatterns = { "/gstnmngr/Anexo1ConLayoutServlet" })
 public class LayoutAnexo1ConLayoutServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger log = Logger.getLogger(LayoutAnexo1ConLayoutServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(LayoutAnexo1ConLayoutServlet.class);
 
     private String folioGenerator;
 

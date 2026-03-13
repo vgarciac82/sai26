@@ -17,18 +17,19 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.viewer.GifEncoder;
 import com.syc.viewer.ImageManagerJAI;
 import com.syc.viewer.custom.ImageViewerInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "GetImageServlet", urlPatterns = { "/imagestore/*" })
 public class GetImageServlet extends HttpServlet implements ViewerParametersInterface {
 
     public static final long serialVersionUID = 1L;
 
-    private static final Logger log = Logger.getLogger(GetImageServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(GetImageServlet.class);
 
     private String jniName = null;
 

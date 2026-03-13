@@ -5,11 +5,12 @@ import javax.naming.NamingException;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
-import org.apache.log4j.Logger;
 import com.syc.gestion.CorreosPendientesBusinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.obrapublica.ConfiguraAplicativoBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ReenviaAlertasServlet", urlPatterns = {})
 public class ReenviaAlertasServlet extends HttpServlet implements GestionInterface, Runnable {
@@ -18,7 +19,7 @@ public class ReenviaAlertasServlet extends HttpServlet implements GestionInterfa
      */
     private static final long serialVersionUID = 1465222012852864177L;
 
-    private static final Logger log = Logger.getLogger(ReenviaAlertasServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ReenviaAlertasServlet.class);
 
     private String jniName;
 
@@ -68,7 +69,7 @@ public class ReenviaAlertasServlet extends HttpServlet implements GestionInterfa
                         log.info("Termino el reenvio de " + reenviados + " alertas en " + ((stop - start) / 1000));
                         Thread.sleep(ReenviaAlertasServlet.tiempoEsperaAlertas);
                     } catch (Exception e) {
-                        log.error(e, e);
+                        log.error(e.getMessage(), e);
                     }
                 ReenviaAlertasServlet.activarReenvioAlertas = "S".equalsIgnoreCase(cabl.getSystemSetting("ACTIVA_REENVIO_ALERTAS"));
                 ReenviaAlertasServlet.tiempoEsperaAlertas = Long.parseLong(cabl.getSystemSetting("TIEMPO_REENVIO_ALERTAS"));

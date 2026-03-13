@@ -1,4 +1,5 @@
 package com.syc.xml;
+
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.gestion.core.BitacoraCaso;
 import com.syc.gestion.core.BitacoraTotal;
@@ -7,153 +8,115 @@ import com.syc.gestion.core.CasoManager;
 import com.syc.gestion.core.GestionException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class SearchXmlBusinessLogic extends DataSourceManager
-{
+public class SearchXmlBusinessLogic extends DataSourceManager {
 
-    private static Logger log = Logger.getLogger(SearchXmlBusinessLogic.class);
+    private static Logger log = LoggerFactory.getLogger(SearchXmlBusinessLogic.class);
+
     private String jniNameSearchXml;
 
-    public SearchXmlBusinessLogic(String jniName)
-    {
+    public SearchXmlBusinessLogic(String jniName) {
         jniNameSearchXml = jniName;
         super.init(jniName);
     }
 
-    public String find(String AttrName, int idCaso)
-    throws GestionException
-    {
+    public String find(String AttrName, int idCaso) throws GestionException {
         Caso c = new Caso();
         Connection conn = null;
-        try
-        {
-	        conn = getConnection();
-	        c.setIdCaso(idCaso);
-	    	c = CasoManager.select(conn, c);
-        }
-	    catch(SQLException exc)
-	    {
-            try
-            {
+        try {
+            conn = getConnection();
+            c.setIdCaso(idCaso);
+            c = CasoManager.select(conn, c);
+        } catch (SQLException exc) {
+            try {
                 conn.rollback();
-            }
-            catch(SQLException ex)
-            {
+            } catch (SQLException ex) {
                 log.warn("Error en rollback", ex);
             }
             log.error("Actualizando caso", exc);
             throw new GestionException(exc);
-	    }
-	    return find(AttrName, c);
+        }
+        return find(AttrName, c);
     }
-    
-    public String find(String AttrName, Caso c)
-        throws GestionException
-    {
+
+    public String find(String AttrName, Caso c) throws GestionException {
         Connection conn = null;
         String Valor = null;
         String PathFile = null;
-        
-        try
-        {
-            if(c != null)
-            {
+        try {
+            if (c != null) {
                 conn = getConnection();
                 BitacoraTotal b = c.getBitacora();
                 BitacoraCaso bc = b.getCaso();
                 PathFile = XmlFileSearchManager.select(conn, bc.getTituloAplicacion(), c.getIdGabinete());
-                if(PathFile != null)
-                {
+                if (PathFile != null) {
                     Valor = XmlFileManager.getAttributeValue(AttrName, PathFile, 1);
                 }
                 conn.commit();
-            } else
-            {
+            } else {
                 log.error("No se hay información del caso ");
             }
-        }
-        catch(SQLException exc)
-        {
-            try
-            {
+        } catch (SQLException exc) {
+            try {
                 conn.rollback();
-            }
-            catch(SQLException ex)
-            {
+            } catch (SQLException ex) {
                 log.warn("Error en rollback", ex);
             }
             log.error("Actualizando caso", exc);
             throw new GestionException(exc);
-        }
-        catch(JDOMException jdome)
-        {
+        } catch (JDOMException jdome) {
             log.error("Obteniendo valor del atributo", jdome);
             throw new GestionException(jdome);
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             log.error("Obteniendo valor del atributo", e);
             throw new GestionException(e);
         }
-        
-        try
-        {
-            if(conn != null)
-            {
+        try {
+            if (conn != null) {
                 conn.close();
             }
-        }
-        catch(SQLException exc)
-        {
+        } catch (SQLException exc) {
             log.warn("Cerrando conexion a base de datos", exc);
         }
         conn = null;
-
         return Valor;
     }
 
-    public String find(String AttrName, String tituloAplicacion, int id_gabinete)
-        throws GestionException
-    {
+    public String find(String AttrName, String tituloAplicacion, int id_gabinete) throws GestionException {
         Connection conn = null;
         String Valor = null;
         String PathFile = null;
-        
         try {
             conn = getConnection();
             PathFile = XmlFileSearchManager.select(conn, tituloAplicacion, id_gabinete);
             Valor = XmlFileManager.getAttributeValue(AttrName, PathFile, 1);
             conn.commit();
-        } catch(SQLException exc) {
+        } catch (SQLException exc) {
             try {
                 conn.rollback();
-            } catch(SQLException ex) {
+            } catch (SQLException ex) {
                 log.warn("Error en rollback", ex);
             }
             log.error("Actualizando caso", exc);
             throw new GestionException(exc);
-        } catch(JDOMException jdome) {
+        } catch (JDOMException jdome) {
             log.error("Obteniendo valor del atributo", jdome);
             throw new GestionException(jdome);
-        } catch(Exception e) {
+        } catch (Exception e) {
             log.error("Obteniendo valor del atributo", e);
             throw new GestionException(e);
-        } finally{
-        
-	        try {
-	        	
-	            if(conn != null)
-	                 conn.close();
-	            
-	        } catch(SQLException exc) {
-	            log.warn("Cerrando conexion a base de datos", exc);
-	        }
-	        conn = null;
+        } finally {
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException exc) {
+                log.warn("Cerrando conexion a base de datos", exc);
+            }
+            conn = null;
         }
-        
         return Valor;
     }
-
 }

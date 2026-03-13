@@ -2,121 +2,113 @@ package com.axtel.contratos.core;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Representa la respuesta al cuestionario de contratacion.
- * 
- * @author vicente.garcia
  *
+ * @author vicente.garcia
  */
 public class QuestionnaireAnswer {
 
-	private static final Logger log = LogManager.getLogger(QuestionnaireAnswer.class);
+    private static final Logger log = LogManager.getLogger(QuestionnaireAnswer.class);
 
-	/**
-	 * Numero de pregunta
-	 */
-	private int questionId;
-	/**
-	 * Respuesta.
-	 */
-	private String answer;
+    /**
+     * Numero de pregunta
+     */
+    private int questionId;
 
-	/**
-	 * Texto de la pregunta.
-	 */
-	private String question;
+    /**
+     * Respuesta.
+     */
+    private String answer;
 
-	/**
-	 * @return the questionId
-	 */
-	public int getQuestionId() {
-		return questionId;
-	}
+    /**
+     * Texto de la pregunta.
+     */
+    private String question;
 
-	/**
-	 * @param questionId the questionId to set
-	 */
-	public void setQuestionId(int questionId) {
-		this.questionId = questionId;
-	}
+    /**
+     * @return the questionId
+     */
+    public int getQuestionId() {
+        return questionId;
+    }
 
-	/**
-	 * @return the answer
-	 */
-	public String getAnswer() {
-		return answer;
-	}
+    /**
+     * @param questionId the questionId to set
+     */
+    public void setQuestionId(int questionId) {
+        this.questionId = questionId;
+    }
 
-	/**
-	 * @param answer the answer to set
-	 */
-	public void setAnswer(String answer) {
-		this.answer = answer;
-	}
+    /**
+     * @return the answer
+     */
+    public String getAnswer() {
+        return answer;
+    }
 
-	@Override
-	public String toString() {
-		return "QuestionnaireAnswer [questionId=" + questionId + ", answer=" + answer + "]";
-	}
+    /**
+     * @param answer the answer to set
+     */
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
 
-	/**
-	 * Crea una nueva lista de repuestas al cuestionario.
-	 * 
-	 * @param answersArr
-	 * @return
-	 */
-	public static List<QuestionnaireAnswer> instanceList(String[] answersArr) {
+    @Override
+    public String toString() {
+        return "QuestionnaireAnswer [questionId=" + questionId + ", answer=" + answer + "]";
+    }
 
-		List<QuestionnaireAnswer> answersList = new ArrayList<QuestionnaireAnswer>();
+    /**
+     * Crea una nueva lista de repuestas al cuestionario.
+     *
+     * @param answersArr
+     * @return
+     */
+    public static List<QuestionnaireAnswer> instanceList(String[] answersArr) {
+        List<QuestionnaireAnswer> answersList = new ArrayList<QuestionnaireAnswer>();
+        for (String answerStr : answersArr) {
+            String[] answerParts = answerStr.split("_");
+            QuestionnaireAnswer answer = new QuestionnaireAnswer();
+            answer.setQuestionId(Integer.parseInt(answerParts[0]));
+            answer.setAnswer(answerParts[1]);
+            log.trace("Se obtuvo la respuesta: " + answer);
+            answersList.add(answer);
+        }
+        return answersList;
+    }
 
-		for (String answerStr : answersArr) {
-			String answerParts[] = answerStr.split("_");
+    /**
+     * @param questionId
+     * @param answer
+     */
+    public QuestionnaireAnswer(int questionId, String answer) {
+        super();
+        this.questionId = questionId;
+        this.answer = answer;
+    }
 
-			QuestionnaireAnswer answer = new QuestionnaireAnswer();
-			answer.setQuestionId(Integer.parseInt(answerParts[0]));
-			answer.setAnswer(answerParts[1]);
+    /**
+     */
+    public QuestionnaireAnswer() {
+        super();
+    }
 
-			log.trace("Se obtuvo la respuesta: " + answer);
+    /**
+     * @return the question
+     */
+    public String getQuestion() {
+        return question;
+    }
 
-			answersList.add(answer);
-		}
-
-		return answersList;
-	}
-
-	/**
-	 * @param questionId
-	 * @param answer
-	 */
-	public QuestionnaireAnswer(int questionId, String answer) {
-		super();
-		this.questionId = questionId;
-		this.answer = answer;
-	}
-
-	/**
-	 * 
-	 */
-	public QuestionnaireAnswer() {
-		super();
-	}
-
-	/**
-	 * @return the question
-	 */
-	public String getQuestion() {
-		return question;
-	}
-
-	/**
-	 * @param question the question to set
-	 */
-	public void setQuestion(String question) {
-		this.question = question;
-	}
-
+    /**
+     * @param question the question to set
+     */
+    public void setQuestion(String question) {
+        this.question = question;
+    }
 }

@@ -10,17 +10,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.CuentaPublicaBusinessLogic;
 import com.syc.sai.contabilidad.CuentaPublicaCuerpoReportes;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CuentaPublica", urlPatterns = { "/reports/CuentaPublica" })
 public class ReportesCuentaPublicaServlet extends HttpServlet implements GestionInterface {
 
-    private static final Logger log = Logger.getLogger(ReportesCuentaPublicaServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ReportesCuentaPublicaServlet.class);
 
     private static final long serialVersionUID = -5034769853645642993L;
 
@@ -96,7 +97,7 @@ public class ReportesCuentaPublicaServlet extends HttpServlet implements Gestion
                 sendExcel(resp, reportResult, reportName);
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             sendError(resp, e.toString());
         }
     }

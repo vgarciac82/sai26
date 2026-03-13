@@ -15,17 +15,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.contable.CompromisoBussinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "LayoutSuficienciaServlet", urlPatterns = { "/gstnmngr/generaLayoutSuficiencia", "/compromiso/cancelaSuficiencia" })
 public class LayoutSuficienciaServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(LayoutSuficienciaServlet.class);
+    private static Logger log = LoggerFactory.getLogger(LayoutSuficienciaServlet.class);
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
@@ -105,13 +106,13 @@ public class LayoutSuficienciaServlet extends HttpServlet {
                 }
                 outputStream.flush();
             } catch (IOException e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 throw e;
             }
             filename.delete();
             return;
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             msgRetorno = "Ocurrio el siguiente error al generar el layout: " + e.getMessage();
         }
         if (msgRetorno != null) {
@@ -132,7 +133,7 @@ public class LayoutSuficienciaServlet extends HttpServlet {
                 cmpbl.aplicarCompromisoDirecto(folio, folioSICOP);
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             String msgRetorno = "Ocurrió un error al cancelar la suficiencia: " + e.getMessage();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.setContentType("text/plain");

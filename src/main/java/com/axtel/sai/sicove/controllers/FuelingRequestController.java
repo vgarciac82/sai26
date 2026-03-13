@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import com.axtel.contratos.exception.ContratoException;
 import com.axtel.sai.sicove.SICOVE;
 import com.axtel.sai.sicove.entities.VehicleFuelRequest;
@@ -34,6 +33,8 @@ import com.axtel.sai.sicove.services.impl.MailFuelingNotificatorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "FuelingRequestController", urlPatterns = { "/SICOVE/FuelProvisioningWallet", "/SICOVE/FuelProvisioningWallet/nextStatus", "/SICOVE/FuelProvisioningWallet/authRequest", "/SICOVE/FuelProvisioningWallet/finishRequest", "/SICOVE/FuelProvisioningWallet/discardRequest", "/SICOVE/FuelProvisioningWallet/rejectRequest", "/SICOVE/FuelProvisioningWallet/validatingVerification" })
 public class FuelingRequestController extends HttpServlet {
@@ -95,7 +96,7 @@ public class FuelingRequestController extends HttpServlet {
             fuelRequest = fuelingRequestService.saveFuelRequest(fuelRequest);
             sendFuelrequest(response, fuelRequest);
         } catch (ContratoException e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             Util.sendJSONError(response, e);
         }
     }
@@ -114,7 +115,7 @@ public class FuelingRequestController extends HttpServlet {
                 sendFuelrequest(response, fuelRequest);
             }
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             Util.sendJSONError(response, e);
         }
     }
@@ -161,7 +162,7 @@ public class FuelingRequestController extends HttpServlet {
             }
             sendFuelrequest(response, fuelRequest);
         } catch (SicoveException e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             Util.sendJSONError(response, e);
         }
     }
@@ -200,7 +201,7 @@ public class FuelingRequestController extends HttpServlet {
             }
             Util.sendJSON(response, result);
         } catch (SicoveException e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             Util.sendJSONError(response, e);
         }
     }

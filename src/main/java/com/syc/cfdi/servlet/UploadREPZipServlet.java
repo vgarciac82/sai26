@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import com.syc.cfdi.ComponentesFactura;
 import com.syc.cfdi.FacturaBusinessLogic;
 import com.syc.cfdi.core.ExtraccionFacturas;
@@ -25,6 +24,8 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import com.syc.obrapublica.ConfiguraAplicativoBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "UploadREPZipServlet", urlPatterns = { "/AdjuntaREP" })
 public class UploadREPZipServlet extends HttpServlet implements GestionInterface {
@@ -33,7 +34,7 @@ public class UploadREPZipServlet extends HttpServlet implements GestionInterface
 
     private String jniName = "";
 
-    private static final Logger log = Logger.getLogger(UploadREPZipServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(UploadREPZipServlet.class);
 
     private static String TEMP_DIR = "";
 
@@ -103,7 +104,7 @@ public class UploadREPZipServlet extends HttpServlet implements GestionInterface
                     throw new Exception(msgRetorno);
                 }
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 msgRetorno = "Ocurrio el siguiente error al cargar el archivo:" + e.getMessage();
             } finally {
                 if (archivoCargaStream != null)

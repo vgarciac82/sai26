@@ -20,11 +20,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.contable.PagosDiversosRGBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "LayoutPagosDiversosRGServlet", urlPatterns = { "/gstnmngr/generaLayoutPagosDiversosRG" })
 public class LayoutPagosDiversosRGServlet extends HttpServlet {
@@ -35,7 +36,7 @@ public class LayoutPagosDiversosRGServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger log = Logger.getLogger(LayoutPagosDiversosRGServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(LayoutPagosDiversosRGServlet.class);
 
     public LayoutPagosDiversosRGServlet() {
         super();
@@ -146,7 +147,7 @@ public class LayoutPagosDiversosRGServlet extends HttpServlet {
             throw ex;
         } catch (Exception e) {
             e.printStackTrace();
-            log.error(e, e);
+            log.error(e.getMessage(), e);
         }
     }
 

@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import com.axtel.contratos.QuestionnaireBussinessLogic;
 import com.syc.gestion.core.Usuario;
@@ -21,6 +20,8 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import com.syc.sai.firmaElectronica.interfaces.SolicitudFirmaElectronica;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CuestionarioContrato", urlPatterns = { "/contratos/RegistraCuestionario" })
 public class CuestionarioContratoServlet extends HttpServlet implements GestionInterface {
@@ -59,7 +60,7 @@ public class CuestionarioContratoServlet extends HttpServlet implements GestionI
             contractBL.reSendEmail();
             success = true;
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             result.put("errorMsg", e.toString());
         } finally {
             questionnaire = null;
@@ -75,7 +76,7 @@ public class CuestionarioContratoServlet extends HttpServlet implements GestionI
             out.flush();
             out.close();
         } catch (Exception e) {
-            log.warn(e, e);
+            log.warn(e.getMessage(), e);
             throw new ServletException(e);
         }
     }
@@ -122,7 +123,7 @@ public class CuestionarioContratoServlet extends HttpServlet implements GestionI
             contractBL.sendQuestionnaireSign();
             success = true;
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             result.put("errorMsg", e.toString());
         } finally {
             contractBL = null;
@@ -138,7 +139,7 @@ public class CuestionarioContratoServlet extends HttpServlet implements GestionI
             out.flush();
             out.close();
         } catch (Exception e) {
-            log.warn(e, e);
+            log.warn(e.getMessage(), e);
             throw new ServletException(e);
         }
     }

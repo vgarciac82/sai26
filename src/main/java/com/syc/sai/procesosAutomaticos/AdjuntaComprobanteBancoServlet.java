@@ -17,13 +17,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.contable.AdecuacionBusinessLogic;
 import com.syc.ejercido.pagado.CLCAttachmentBusinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "AdjuntaComprobanteBancoServlet", urlPatterns = { "/AdjuntaComprobanteBanco" })
 public class AdjuntaComprobanteBancoServlet extends HttpServlet implements GestionInterface {
@@ -32,7 +33,7 @@ public class AdjuntaComprobanteBancoServlet extends HttpServlet implements Gesti
 
     private static String jniName = "jdbc/gestion";
 
-    private static Logger log = Logger.getLogger(AdjuntaComprobanteBancoServlet.class);
+    private static Logger log = LoggerFactory.getLogger(AdjuntaComprobanteBancoServlet.class);
 
     private static String TEMP_DIR = null;
 
@@ -105,7 +106,7 @@ public class AdjuntaComprobanteBancoServlet extends HttpServlet implements Gesti
             session.setAttribute("ATT_RESPUESTA", result);
             resp.sendRedirect("Generador/respuestaAdjuntaCB.jsp");
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             PrintWriter out = null;
             out = resp.getWriter();
             if (out != null) {

@@ -21,7 +21,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import com.syc.contable.AdecuacionBusinessLogic;
 import com.syc.contable.IAnteProyectoBusinessLogic;
 import com.syc.contable.core.IAnteproyectoEncabezado;
@@ -38,11 +37,13 @@ import com.syc.gestion.custom.FolioGeneratorInterface;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "IAnteproyectoServlet", urlPatterns = { "/gstnmngr/IAnteproyecto", "/gstnmngr/IAnteproyecto/CargaAnteProyecto", "/gstnmngr/IntegraAnteproyecto" })
 public class IAnteproyectoServlet extends HttpServlet implements GestionInterface {
 
-    private static final Logger log = Logger.getLogger(IAnteproyectoServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(IAnteproyectoServlet.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -255,7 +256,7 @@ public class IAnteproyectoServlet extends HttpServlet implements GestionInterfac
                     }
                 }
             } catch (Exception exc) {
-                log.error(exc, exc);
+                log.error(exc.getMessage(), exc);
                 mensajeRetorno = "No se pudo procesar el excel debido al siguiente error:\\n" + exc;
             } finally {
                 if (archivoCargaStream != null)

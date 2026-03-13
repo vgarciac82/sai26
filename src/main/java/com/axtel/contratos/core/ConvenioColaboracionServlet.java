@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import com.axtel.web.exceptions.SessionExpiredException;
 import com.syc.gestion.core.Caso;
@@ -20,6 +19,8 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Servicio para operaciones con convenios de colaboracion.
@@ -63,11 +64,11 @@ public class ConvenioColaboracionServlet extends HttpServlet implements GestionI
             msg = "Se inserto correctamente el convenio de colaboracion";
             success = true;
         } catch (SessionExpiredException e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             session = req.getSession(true);
             msg = e.getMessage();
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             msg = e.toString();
         }
         Map<String, Object> result = new HashMap<String, Object>();

@@ -11,11 +11,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.reportes.ReporteAvanceFinancieroBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("unused")
 @WebServlet(name = "ReporteAvanceFinancieroServlet", urlPatterns = { "/reportes/ReporteAvanceFinanciero" })
@@ -23,7 +24,7 @@ public class ReporteAvanceFinancieroServlet extends HttpServlet implements Gesti
 
     private static final long serialVersionUID = 6723127616859732249L;
 
-    private static final Logger log = Logger.getLogger(ReporteAvanceFinancieroServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ReporteAvanceFinancieroServlet.class);
 
     private static String jniName = "jdbc/gestion";
 
@@ -42,7 +43,7 @@ public class ReporteAvanceFinancieroServlet extends HttpServlet implements Gesti
         try {
             rrs.generaReporte(req, resp, plantillas);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             throw new ServletException(e);
         }
     }

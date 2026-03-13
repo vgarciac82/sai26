@@ -18,7 +18,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import com.axtel.contratos.core.QuestionnaireAnswer;
 import com.axtel.egresos.entities.EgresoExcedeUMA;
@@ -38,6 +37,8 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "EgresosServlet", urlPatterns = { "/egresos/validaPAAS", "/egresos/saveHeader", "/egresos/avanzaEstatus", "/egresos/updateHeader", "/egresos/resumenConcepto", "/egresos/resumenRetenciones", "/egresos/generaRetenciones", "/egresos/eliminaRetencion", "/egresos/actualizaRetencion", "/egresos/updateMontoRetenciones", "/egresos/guardaCalendario", "/egresos/resumenCalendario", "/egresos/resumenFinalPago", "/egresos/generaContrarecibo", "/egresos/RechazaPago", "/egresos/AutorizaPago", "/egresos/ConsultaFirmante", "/egresos/imprimeSolPago", "/egresos/apartadoPago", "/egresos/guardarPago", "/egresos/saveQuestionnaire", "/egresos/validaREPSE", "/egresos/validaMontoTotalizado" })
 public class EgresosServlet extends HttpServlet implements GestionInterface {
@@ -70,7 +71,7 @@ public class EgresosServlet extends HttpServlet implements GestionInterface {
 
     private static final String SAVE_QUESTIONNAIRE = "saveQuestionnaire";
 
-    public static final Logger log = Logger.getLogger(EgresosServlet.class);
+    public static final Logger log = LoggerFactory.getLogger(EgresosServlet.class);
 
     private static final String RECHAZO_PAGO = "RechazaPago";
 
@@ -211,7 +212,7 @@ public class EgresosServlet extends HttpServlet implements GestionInterface {
                     String mimeType = getServletContext().getMimeType(solPagoFile.getName());
                     Util.doDownload(resp, solPagoFile.getAbsolutePath(), "Solicitud de Pago" + "." + Util.getFileExtencion(solPagoFile.getAbsolutePath()), mimeType);
                 } catch (Exception e) {
-                    log.error(e, e);
+                    log.error(e.getMessage(), e);
                     notificaError(resp, e);
                 }
             } else if (VALIDA_FOLIO_REPSE.equals(accion)) {
@@ -224,7 +225,7 @@ public class EgresosServlet extends HttpServlet implements GestionInterface {
                     ResponseJSON responseJSON = new ResponseJSON(true, null, Arrays.asList((new String[] { String.valueOf(numeroREPSECapturado) })));
                     sendJSONResponse(resp, responseJSON);
                 } catch (Exception e) {
-                    log.error(e, e);
+                    log.error(e.getMessage(), e);
                     notificaError(resp, e);
                 }
             } else if (VALIDA_MONTO_TOTALIZADO.equals(accion)) {
@@ -244,7 +245,7 @@ public class EgresosServlet extends HttpServlet implements GestionInterface {
                     obj.add("partidasExcenden", arr);
                     sendGoogleJSONResponse(resp, obj);
                 } catch (Exception e) {
-                    log.error(e, e);
+                    log.error(e.getMessage(), e);
                     notificaError(resp, e);
                 }
             }

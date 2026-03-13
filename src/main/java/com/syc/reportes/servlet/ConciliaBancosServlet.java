@@ -19,7 +19,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import com.syc.contable.core.AdecuacionManager;
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.egresos.ResponseJSON;
@@ -29,6 +28,8 @@ import com.syc.gestion.util.Util;
 import com.syc.obrapublica.core.ConfiguraAplicativoManager;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ConciliaBancosServlet", urlPatterns = { "/servlet/ConciliaBancosServlet" })
 public class ConciliaBancosServlet extends HttpServlet {
@@ -37,7 +38,7 @@ public class ConciliaBancosServlet extends HttpServlet {
 
     private static String jndiName = null;
 
-    private static Logger log = Logger.getLogger(ConciliaBancosServlet.class);
+    private static Logger log = LoggerFactory.getLogger(ConciliaBancosServlet.class);
 
     private Connection conn = null;
 

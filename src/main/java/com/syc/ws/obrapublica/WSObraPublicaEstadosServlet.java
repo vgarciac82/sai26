@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import com.syc.contable.AdecuacionBusinessLogic;
@@ -21,13 +20,15 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import com.syc.ws.obrapublica.core.EstimacionObra;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "WSObraPublicaEstadosServlet", urlPatterns = { "/obrapublica/WSObraPublicaEstadosServlet", "/obrapublica/CreaEstimacionObra" })
 public class WSObraPublicaEstadosServlet extends HttpServlet {
 
     private static final long serialVersionUID = 3830246252504144684L;
 
-    private static final Logger log = Logger.getLogger(WSObraPublicaEstadosServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(WSObraPublicaEstadosServlet.class);
 
     private String jniName = null;
 
@@ -56,7 +57,7 @@ public class WSObraPublicaEstadosServlet extends HttpServlet {
                 WSObra.registraEstimacionObra(estimacion, u);
                 ResponseSender.sendClientSimpleMessage(response, true, "Estimacion registrada exitosamente.");
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendClientSimpleMessage(response, false, "Ocurrio el siguiente error al insertar la estimacion de obra: " + e);
             }
             return;

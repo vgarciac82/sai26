@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,6 +27,8 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "UploadDocBancarioServlet", urlPatterns = { "/UploadDocBancario" })
 public class UploadDocBancarioServlet extends HttpServlet implements GestionInterface {
@@ -36,7 +37,7 @@ public class UploadDocBancarioServlet extends HttpServlet implements GestionInte
 
     private static String jniName = "jdbc/gestion";
 
-    private static final Logger log = Logger.getLogger(UploadDocBancarioServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(UploadDocBancarioServlet.class);
 
     private static String TEMP_DIR = "";
 
@@ -117,7 +118,7 @@ public class UploadDocBancarioServlet extends HttpServlet implements GestionInte
             session.setAttribute("tree.model", tree);
             msgRetorno = "Archivo cargado exitosamente";
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             msgRetorno = "Ocurrio el siguiente error al cargar el archivo: <br>" + e.getMessage();
         } finally {
             if (archivoCargaStream != null)

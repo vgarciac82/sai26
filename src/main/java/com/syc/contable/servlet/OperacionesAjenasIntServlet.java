@@ -21,7 +21,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.contable.OperacionAjenaBussinessLogic;
 import com.syc.contable.core.OperacionesAjenasIntDetalle;
 import com.syc.contable.core.OperacionesAjenasIntEncabezado;
@@ -29,6 +28,8 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "IntegracionOAServlet", urlPatterns = { "/OperacionesAjenas/crear" })
 public class OperacionesAjenasIntServlet extends HttpServlet implements GestionInterface {
@@ -37,7 +38,7 @@ public class OperacionesAjenasIntServlet extends HttpServlet implements GestionI
      */
     private static final long serialVersionUID = -6209553370385667777L;
 
-    private static final Logger log = Logger.getLogger(OperacionesAjenasIntServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(OperacionesAjenasIntServlet.class);
 
     private String jniName;
 
@@ -70,7 +71,7 @@ public class OperacionesAjenasIntServlet extends HttpServlet implements GestionI
                     int r = oaintBl.insert();
                     ResponseSender.sendClientSimpleMessage(resp, true, String.valueOf(r));
                 } catch (Exception e) {
-                    log.error(e, e);
+                    log.error(e.getMessage(), e);
                     ResponseSender.sendClientSimpleMessage(resp, false, "Ocurrio el siguiente error insertando la informacion: " + e);
                 }
                 break;

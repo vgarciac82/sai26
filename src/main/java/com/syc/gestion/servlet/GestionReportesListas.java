@@ -12,12 +12,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
-import org.apache.log4j.Logger;
 import com.syc.gestion.core.Grupo;
 import com.syc.gestion.core.GrupoManager;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.core.UsuarioManager;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "GestionReportesListas", urlPatterns = { "/reporteslistas" })
 public class GestionReportesListas extends HttpServlet {
@@ -26,7 +27,7 @@ public class GestionReportesListas extends HttpServlet {
 
     public static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(GestionServlet.class);
+    private static Logger log = LoggerFactory.getLogger(GestionServlet.class);
 
     private String jniName = null;
 

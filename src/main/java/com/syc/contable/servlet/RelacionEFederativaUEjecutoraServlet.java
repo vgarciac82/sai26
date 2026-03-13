@@ -15,17 +15,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import com.syc.contable.anteproyecto.RelacionEFederativaUEjecutoraBusinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "RelacionEFederativaUEjecutoraServlet", urlPatterns = { "/gstnmngr/RelacionEFederativaUEjecutora/CargaMasiva" })
 public class RelacionEFederativaUEjecutoraServlet extends HttpServlet implements GestionInterface {
 
-    private static final Logger log = Logger.getLogger(RelacionEFederativaUEjecutoraServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(RelacionEFederativaUEjecutoraServlet.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -92,7 +93,7 @@ public class RelacionEFederativaUEjecutoraServlet extends HttpServlet implements
                     break;
                 }
             } catch (Exception exc) {
-                log.error(exc, exc);
+                log.error(exc.getMessage(), exc);
                 mensajeRetorno = "No se pudo procesar el excel debido al siguiente error:\\n" + exc;
             } finally {
                 if (archivoCargaStream != null)

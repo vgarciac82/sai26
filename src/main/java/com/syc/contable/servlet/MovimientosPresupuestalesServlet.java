@@ -1,7 +1,6 @@
 package com.syc.contable.servlet;
 
 import java.io.IOException;
-import org.apache.log4j.Logger;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +13,8 @@ import org.apache.log4j.Logger;
 import com.syc.contable.MovimientosPresupuestalesBussinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Martha Aurora Sánchez Valdivieso para SYC Constructores de Sistemas SA de CV
@@ -24,7 +25,7 @@ public class MovimientosPresupuestalesServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(MovimientosPresupuestalesServlet.class);
+    private static Logger log = LoggerFactory.getLogger(MovimientosPresupuestalesServlet.class);
 
     String mensaje = "";
 

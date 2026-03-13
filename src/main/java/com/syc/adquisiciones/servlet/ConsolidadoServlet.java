@@ -30,7 +30,6 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,6 +51,8 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.custom.FolioGeneratorInterface;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ConsolidadoServlet", urlPatterns = { "/servlet/ConsolidadoServlet" })
 public class ConsolidadoServlet extends HttpServlet implements GestionInterface {
@@ -64,7 +65,7 @@ public class ConsolidadoServlet extends HttpServlet implements GestionInterface 
 
     private static String jndiName = null;
 
-    private static Logger log = Logger.getLogger(ConsolidadoServlet.class);
+    private static Logger log = LoggerFactory.getLogger(ConsolidadoServlet.class);
 
     private Connection conn = null;
 

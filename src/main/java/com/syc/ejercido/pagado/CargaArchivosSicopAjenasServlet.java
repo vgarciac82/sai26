@@ -15,12 +15,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import com.syc.contable.OperacionAjenaBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Propietario
@@ -35,7 +36,7 @@ public class CargaArchivosSicopAjenasServlet extends HttpServlet implements Gest
 
     private static final long serialVersionUID = -1825759453227353947L;
 
-    private static final Logger log = Logger.getLogger(CargaArchivosSicopAjenasServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(CargaArchivosSicopAjenasServlet.class);
 
     private String jniName;
 
@@ -89,7 +90,7 @@ public class CargaArchivosSicopAjenasServlet extends HttpServlet implements Gest
             else
                 session.setAttribute("RESULT", "El archivo cargo con errores.\n" + Util.join(errores, '\n'));
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             session.setAttribute("RESULT", "Ocurrio el siguiente error: " + e.getMessage());
         }
         response.sendRedirect("Generador/SubirArchivoSicop.jsp");

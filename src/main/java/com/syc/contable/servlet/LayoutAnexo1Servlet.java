@@ -21,11 +21,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.ejercido.pagado.Anexo1BusinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "LayoutAnexo1Servlet", urlPatterns = { "/gstnmngr/generaLayoutAnexo1" })
 public class LayoutAnexo1Servlet extends HttpServlet {
@@ -36,7 +37,7 @@ public class LayoutAnexo1Servlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger log = Logger.getLogger(LayoutAnexo1Servlet.class);
+    private static final Logger log = LoggerFactory.getLogger(LayoutAnexo1Servlet.class);
 
     public LayoutAnexo1Servlet() {
         super();

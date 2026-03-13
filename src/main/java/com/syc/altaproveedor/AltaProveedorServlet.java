@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.syc.gestion.CasoBusinessLogic;
 import com.syc.gestion.core.Caso;
@@ -18,13 +17,15 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "AltaProveedorServlet", urlPatterns = { "/ModificaProveedor" })
 public class AltaProveedorServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(AltaProveedorServlet.class);
+    private static Logger log = LoggerFactory.getLogger(AltaProveedorServlet.class);
 
     private String jniName = null;
 
@@ -52,7 +53,7 @@ public class AltaProveedorServlet extends HttpServlet implements GestionInterfac
                 session.setAttribute("OP_CAPTURA_ESTIMACION", "true");
                 resp.sendRedirect("caso/exec-container.jsp");
             } catch (GestionException e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendError(resp, e.toString());
             }
         } else if ("CtasBancarias".equals(accion)) {
@@ -67,7 +68,7 @@ public class AltaProveedorServlet extends HttpServlet implements GestionInterfac
                 session.setAttribute("OP_CAPTURA_ESTIMACION", "true");
                 resp.sendRedirect("caso/exec-container.jsp");
             } catch (GestionException e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendError(resp, e.toString());
             }
         } else if ("ModificaTipoPersona".equals(accion)) {
@@ -82,7 +83,7 @@ public class AltaProveedorServlet extends HttpServlet implements GestionInterfac
                 session.setAttribute("OP_CAPTURA_ESTIMACION", "true");
                 resp.sendRedirect("caso/exec-container.jsp");
             } catch (GestionException e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendError(resp, e.toString());
             }
         }

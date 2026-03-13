@@ -9,12 +9,13 @@ import jakarta.servlet.http.HttpSession;
 import com.syc.gestion.core.Caso;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
-import org.apache.log4j.Logger;
 import com.axtel.contabilidad.reintegrosCaja.servlet.ReintegrosCajaServlet;
 import com.axtel.contabilidad.reintegrosCaja.ReintegrosCajaBusinessLogic;
 import com.axtel.contabilidad.reintegrosCaja.core.ReintegrosCajaDetalle;
 import com.axtel.contabilidad.reintegrosCaja.core.ReintegrosCajaEncabezado;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Ana
@@ -26,7 +27,7 @@ public class ReintegrosCajaServlet extends HttpServlet {
      */
     private static final long serialVersionUID = 8140857888553424437L;
 
-    private static final Logger log = Logger.getLogger(ReintegrosCajaServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ReintegrosCajaServlet.class);
 
     public ReintegrosCajaServlet() {
         super();

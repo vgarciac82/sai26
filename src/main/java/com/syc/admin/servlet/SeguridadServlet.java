@@ -7,7 +7,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
 import com.syc.gestion.SeguridadBusinessLogic;
 import com.syc.gestion.core.Empleado;
 import com.syc.gestion.core.EmpleadoArea;
@@ -21,6 +20,8 @@ import com.syc.gestion.core.UsuarioPropiedades;
 import com.syc.gestion.core.UsuarioRole;
 import com.syc.gestion.servlet.GestionServlet;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "SeguridadServlet", urlPatterns = { "/admin/SeguridadAdmin" })
 public class SeguridadServlet extends HttpServlet {
@@ -29,7 +30,7 @@ public class SeguridadServlet extends HttpServlet {
 
     private String jniName = null;
 
-    private static Logger log = Logger.getLogger(GestionServlet.class);
+    private static Logger log = LoggerFactory.getLogger(GestionServlet.class);
 
     public SeguridadServlet() {
         super();

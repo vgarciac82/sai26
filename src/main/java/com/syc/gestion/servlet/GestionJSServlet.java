@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.gestion.core.Caso;
 import com.syc.gestion.core.CasoDato;
 import com.syc.gestion.core.Grupo;
@@ -18,13 +17,15 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.core.UsuarioPropiedades;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "GestionJSServlet", urlPatterns = { "/js/gestion.js" })
 public class GestionJSServlet extends HttpServlet implements GestionInterface {
 
     public static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(GestionJSServlet.class);
+    private static Logger log = LoggerFactory.getLogger(GestionJSServlet.class);
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);

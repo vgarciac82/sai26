@@ -5,16 +5,17 @@ import javax.naming.NamingException;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
-import org.apache.log4j.Logger;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "AlertasCasosVencidos", urlPatterns = {})
 public class AlertaServlet extends HttpServlet implements GestionInterface, Runnable {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(AlertaServlet.class);
+    private static Logger log = LoggerFactory.getLogger(AlertaServlet.class);
 
     private String jniName = null;
 
@@ -70,7 +71,7 @@ public class AlertaServlet extends HttpServlet implements GestionInterface, Runn
             }
             verificaTiempoLimiteAlerta = null;
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
         }
     }
 }

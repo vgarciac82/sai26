@@ -10,11 +10,12 @@ import javax.naming.NamingException;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
-import org.apache.log4j.Logger;
 import com.syc.contable.servlet.EnviaCorreosVigenciaAdecuaciones;
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "EjercidoPagadoVariosServlet", urlPatterns = { "/servlet/EjercidoPagadoVariosServlet" })
 public class EjercidoPagadoVariosServlet extends HttpServlet implements GestionInterface, Runnable {
@@ -25,7 +26,7 @@ public class EjercidoPagadoVariosServlet extends HttpServlet implements GestionI
 
     private volatile Thread verificaTiempoLimiteApartado;
 
-    Logger log = Logger.getLogger(EnviaCorreosVigenciaAdecuaciones.class);
+    Logger log = LoggerFactory.getLogger(EnviaCorreosVigenciaAdecuaciones.class);
 
     private String jniName;
 

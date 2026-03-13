@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 //import org.json.JSONArray;
 //import org.json.JSONObject;
 import com.syc.contable.AdecuacionBusinessLogic;
@@ -26,13 +25,15 @@ import com.syc.gestion.core.GestionException;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "RegistroIngresosServlet", urlPatterns = { "/servlet/RegistroIngresosServlet" })
 public class RegistroIngresosServlet extends HttpServlet {
 
     private static final long serialVersionUID = 3830246252504144684L;
 
-    private static final Logger log = Logger.getLogger(RegistroIngresosServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(RegistroIngresosServlet.class);
 
     private String jniName = null;
 

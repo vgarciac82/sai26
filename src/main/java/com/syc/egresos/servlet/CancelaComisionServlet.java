@@ -10,12 +10,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.egresos.core.ComisionSinViaticosBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CancelaComisionServlet", urlPatterns = { "/comisiones/CancelaComision" })
 public class CancelaComisionServlet extends HttpServlet implements GestionInterface {
@@ -24,7 +25,7 @@ public class CancelaComisionServlet extends HttpServlet implements GestionInterf
 
     private String jniName;
 
-    private static final Logger log = Logger.getLogger(CancelaComisionServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(CancelaComisionServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -50,7 +51,7 @@ public class CancelaComisionServlet extends HttpServlet implements GestionInterf
             }
             success = true;
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             msg += e.toString();
         }
         if ("REDIRECT".equalsIgnoreCase(responseType)) {

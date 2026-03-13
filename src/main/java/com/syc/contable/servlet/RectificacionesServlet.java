@@ -7,16 +7,17 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
 import com.syc.contable.AccountingEngine;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "RectificacionesServlet", urlPatterns = { "/servlet/RectificacionesServlet" })
 public class RectificacionesServlet extends HttpServlet {
 
     private static final long serialVersionUID = 3830246252504144684L;
 
-    private static final Logger log = Logger.getLogger(RectificacionesServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(RectificacionesServlet.class);
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);

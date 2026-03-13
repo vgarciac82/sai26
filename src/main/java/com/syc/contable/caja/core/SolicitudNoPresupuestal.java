@@ -1,72 +1,70 @@
 /**
- * 
  */
 package com.syc.contable.caja.core;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Propietario
- * 
  */
 public class SolicitudNoPresupuestal {
 
-	private static final Logger						log			= Logger.getLogger(SolicitudNoPresupuestal.class);
-	private List<SolicitudNoPresupuestalDetalle>	detalle		= null;
-	private SolicitudNoPresupuestalEncabezado		encabezado	= null;
+    private static final Logger log = LoggerFactory.getLogger(SolicitudNoPresupuestal.class);
 
-	/**
-	 * 
-	 */
-	public SolicitudNoPresupuestal() {
-		log.trace("Nueva instancia creada");
-		encabezado = new SolicitudNoPresupuestalEncabezado();
-		detalle = new ArrayList<SolicitudNoPresupuestalDetalle>();
-	}
+    private List<SolicitudNoPresupuestalDetalle> detalle = null;
 
-	public SolicitudNoPresupuestal(SolicitudNoPresupuestalEncabezado encabezado, List<SolicitudNoPresupuestalDetalle> detalle) {
-		super();
-		this.encabezado = encabezado;
-		this.detalle = detalle;
-		log.trace("Instancia creada con los objetos: Encabezado[" + encabezado + "] Detalle[" + detalle + "]");
-	}
+    private SolicitudNoPresupuestalEncabezado encabezado = null;
 
-	public List<SolicitudNoPresupuestalDetalle> getDetalle() {
-		return detalle;
-	}
+    /**
+     */
+    public SolicitudNoPresupuestal() {
+        log.trace("Nueva instancia creada");
+        encabezado = new SolicitudNoPresupuestalEncabezado();
+        detalle = new ArrayList<SolicitudNoPresupuestalDetalle>();
+    }
 
-	public SolicitudNoPresupuestalDetalle getDetalle(int index) {
-		return detalle.get(index);
-	}
+    public SolicitudNoPresupuestal(SolicitudNoPresupuestalEncabezado encabezado, List<SolicitudNoPresupuestalDetalle> detalle) {
+        super();
+        this.encabezado = encabezado;
+        this.detalle = detalle;
+        log.trace("Instancia creada con los objetos: Encabezado[" + encabezado + "] Detalle[" + detalle + "]");
+    }
 
-	public SolicitudNoPresupuestalEncabezado getEncabezado() {
-		return encabezado;
-	}
+    public List<SolicitudNoPresupuestalDetalle> getDetalle() {
+        return detalle;
+    }
 
-	public void setDetalle(List<SolicitudNoPresupuestalDetalle> detalle) {
-		this.detalle = detalle;
-	}
+    public SolicitudNoPresupuestalDetalle getDetalle(int index) {
+        return detalle.get(index);
+    }
 
-	public void setDetalle(SolicitudNoPresupuestalDetalle detalle) {
-		this.detalle.add(detalle);
-	}
+    public SolicitudNoPresupuestalEncabezado getEncabezado() {
+        return encabezado;
+    }
 
-	public void setEncabezado(SolicitudNoPresupuestalEncabezado encabezado) {
-		this.encabezado = encabezado;
-	}
+    public void setDetalle(List<SolicitudNoPresupuestalDetalle> detalle) {
+        this.detalle = detalle;
+    }
 
-	@Override
-	public String toString() {
-		return "SolicitudNoPresupuestal [detalle=" + detalle + ", encabezado=" + encabezado + "]";
-	}
+    public void setDetalle(SolicitudNoPresupuestalDetalle detalle) {
+        this.detalle.add(detalle);
+    }
 
-	public void setFolioSNP( int nFolioCaja ) {
-		getEncabezado().setFolioCaja( nFolioCaja );
-		if( getDetalle() != null )
-			for( int i = 0; i<getDetalle().size(); i++)
-				getDetalle().get( i ).setFoliocaja( nFolioCaja );
-	}
+    public void setEncabezado(SolicitudNoPresupuestalEncabezado encabezado) {
+        this.encabezado = encabezado;
+    }
+
+    @Override
+    public String toString() {
+        return "SolicitudNoPresupuestal [detalle=" + detalle + ", encabezado=" + encabezado + "]";
+    }
+
+    public void setFolioSNP(int nFolioCaja) {
+        getEncabezado().setFolioCaja(nFolioCaja);
+        if (getDetalle() != null)
+            for (int i = 0; i < getDetalle().size(); i++) getDetalle().get(i).setFoliocaja(nFolioCaja);
+    }
 }

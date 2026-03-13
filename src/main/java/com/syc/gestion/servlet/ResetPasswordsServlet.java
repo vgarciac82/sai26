@@ -16,8 +16,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import com.syc.gestion.core.Usuario;
-import org.apache.log4j.Logger;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ResetPasswordsServlet", urlPatterns = { "/gstnmngr/ReinciarContra" })
 public class ResetPasswordsServlet extends HttpServlet {
@@ -28,7 +29,7 @@ public class ResetPasswordsServlet extends HttpServlet {
 
     private String jniName = null;
 
-    private static Logger log = Logger.getLogger(GestionServlet.class);
+    private static Logger log = LoggerFactory.getLogger(GestionServlet.class);
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);

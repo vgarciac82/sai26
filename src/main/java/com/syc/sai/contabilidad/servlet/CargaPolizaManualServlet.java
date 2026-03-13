@@ -15,17 +15,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.CargaPolizaManualBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CargaMasPolizaManualServlet", urlPatterns = { "/gstnmngr/CargaPoliza/CargaMasiva" })
 public class CargaPolizaManualServlet extends HttpServlet {
 
-    private static final Logger log = Logger.getLogger(CargaPolizaManualServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(CargaPolizaManualServlet.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -106,7 +107,7 @@ public class CargaPolizaManualServlet extends HttpServlet {
                     break;
                 }
             } catch (Exception exc) {
-                log.error(exc, exc);
+                log.error(exc.getMessage(), exc);
                 mensajeRetorno = "No se pudo procesar el excel debido al siguiente error:\\n" + exc;
             } finally {
                 if (archivoCargaStream != null)

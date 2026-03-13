@@ -11,19 +11,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.gestion.core.Caso;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.reportes.FormatoAltaProveedorBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "FormatoAltaProveedorServlet", urlPatterns = { "/reportes/FormatoAltaProveedor", "/servlet/FormatoAltaProveedorServlet" })
 public class FormatoAltaProveedorServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 6723127616859732249L;
 
-    private static final Logger log = Logger.getLogger(FormatoAltaProveedorServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(FormatoAltaProveedorServlet.class);
 
     private static String jniName = "jdbc/gestion";
 
@@ -43,7 +44,7 @@ public class FormatoAltaProveedorServlet extends HttpServlet implements GestionI
             Boolean altaRapida = Boolean.parseBoolean(StringUtils.trimToEmpty(req.getParameter("altaRapida")));
             rpt.generaReporteFormatoAltaProveedor(req, resp, plantillas, folio, altaRapida);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             throw new ServletException(e);
         }
     }

@@ -14,8 +14,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-//import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.axtel.egresos.viaticos.ViaticosServlet;
 import com.syc.egresos.ResponseJSON;
 import com.syc.gestion.core.Usuario;
@@ -23,13 +21,15 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import com.syc.reportes.repConciliacionBancoBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ReporteConciliacionBancoServlet", urlPatterns = { "/reportes/RepConciliaBancosServlet" })
 public class repConciliacionBancoServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 6723127616859732249L;
 
-    private static final Logger log = Logger.getLogger(repConciliacionBancoServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(repConciliacionBancoServlet.class);
 
     private static String jniName = "jdbc/gestion";
 

@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import com.syc.contable.RectificacionPresupuestariaBusinessLogic;
 import com.syc.contable.ReintegrosBusinessLogic;
 import com.syc.contable.core.RectificacionDetalle;
@@ -18,13 +17,15 @@ import com.syc.contable.core.RectificacionEncabezado;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CapturaRectificacionPresupuestariaServlet", urlPatterns = { "/gstnmngr/CapturaRectificacionPresupuestaria" })
 public class CapturaRectificacionPresupuestariaServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(ReintegrosBusinessLogic.class);
+    private static Logger log = LoggerFactory.getLogger(ReintegrosBusinessLogic.class);
 
     /**
      * The doPost method of the servlet. <br>

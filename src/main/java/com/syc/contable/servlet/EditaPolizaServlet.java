@@ -8,17 +8,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.contable.PolizaBussinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "EditaPolizaServlet", urlPatterns = { "/poliza/EditaPoliza" })
 public class EditaPolizaServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = -2826694655683478567L;
 
-    public static final Logger log = Logger.getLogger(EditaPolizaServlet.class);
+    public static final Logger log = LoggerFactory.getLogger(EditaPolizaServlet.class);
 
     private String[] htmlResp = { " <!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"> " + " <HTML> " + "   <HEAD><TITLE>A Servlet</TITLE></HEAD> " + " <script type=\"text/javascript\" for=\"window\" event=\"onunload\"> " + " 	if (!bClicBtn) { " + " 		regresar(); " + " 	} " + " </script> " + " <SCRIPT languaje=\"javascript\"> " + " 	var bClicBtn = false; " + "   		   function regresar(){ " + "   					opener.parent.document.getElementById(\"pb_send\").disabled = false; " + "   					opener.comprobacionPoliza(); " + "   					opener.parent.document.getElementById(\"pb_send\").click(); " + "   				window.close(); " + "   		   } " + " </SCRIPT> " + "   <BODY> ", "", "</BODY> " + " </HTML>" };
 
@@ -48,7 +49,7 @@ public class EditaPolizaServlet extends HttpServlet implements GestionInterface 
                 dispatch.forward(req, resp);
                 // resp.sendRedirect("../gstnmngr/gestion?cmd=1");
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
             }
         } else if ("ACTUALIZAR".equals(action)) {
             PolizaBussinessLogic pbl = new PolizaBussinessLogic();
@@ -64,7 +65,7 @@ public class EditaPolizaServlet extends HttpServlet implements GestionInterface 
                 out.flush();
                 out.close();
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
             }
         } else if (("CAMBIA_ESTATUS").equals(action)) {
             PolizaBussinessLogic pbl = new PolizaBussinessLogic();
@@ -82,7 +83,7 @@ public class EditaPolizaServlet extends HttpServlet implements GestionInterface 
                 out.flush();
                 out.close();
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
             }
         } else if ("ACTUALIZA_DETALLE".equals(action)) {
             PolizaBussinessLogic pbl = new PolizaBussinessLogic();
@@ -99,7 +100,7 @@ public class EditaPolizaServlet extends HttpServlet implements GestionInterface 
                 out.flush();
                 out.close();
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
             }
         }
     }

@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import com.axtel.web.exceptions.SessionExpiredException;
 import com.syc.adquisiciones.core.DatosRecepcionFIEL;
@@ -22,6 +21,8 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.firmaElectronica.core.RecepcionMaterialFIEL;
 import com.syc.sai.firmaElectronica.interfaces.SolicitudFirmaElectronica;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author vicente.garcia
@@ -69,7 +70,7 @@ public class FirmaAutorizacionRMServlet extends HttpServlet implements GestionIn
             resp.getWriter();
             success = true;
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             msg = e.getMessage();
         }
         try {

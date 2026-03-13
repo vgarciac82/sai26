@@ -10,17 +10,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.contable.CompromisoBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "LayoutPagoDirectoCompromisoServlet", urlPatterns = { "/gstnmngr/generaLayoutPDCompromiso" })
 public class LayoutPagoDirectoCompromisoServlet extends HttpServlet implements GestionInterface {
 
-    private static final Logger log = Logger.getLogger(LayoutPagoDirectoCompromisoServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(LayoutPagoDirectoCompromisoServlet.class);
 
     /**
      */
@@ -51,7 +52,7 @@ public class LayoutPagoDirectoCompromisoServlet extends HttpServlet implements G
             ArrayList<String> layout = cbl.buscaCompromisos("'" + canocompromiso + "'", null, true);
             cbl.descargaLayout(resp, layout);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
         }
     }
 
@@ -76,7 +77,7 @@ public class LayoutPagoDirectoCompromisoServlet extends HttpServlet implements G
             cbl.descargaLayout(resp, layout);
             return;
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             throw new ServletException(e);
         }
     }

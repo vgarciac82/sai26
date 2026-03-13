@@ -26,7 +26,6 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.ssl.PKCS8Key;
-import org.apache.log4j.Logger;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfSignatureAppearance;
@@ -36,13 +35,15 @@ import com.syc.gestion.CasoBusinessLogic;
 import com.syc.gestion.core.Caso;
 import com.syc.gestion.core.Usuario;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "GestionSignFileReceiverServlet", urlPatterns = { "/caso/firmardoc" })
 public class GestionSignFileReceiverServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(GestionSignFileReceiverServlet.class);
+    private static Logger log = LoggerFactory.getLogger(GestionSignFileReceiverServlet.class);
 
     private String jniName = null;
 
@@ -224,7 +225,7 @@ public class GestionSignFileReceiverServlet extends HttpServlet implements Gesti
                 nombre_documento = cbl.getDocumentosDeCarpeta(c.getTipoCaso().getGavetaAsociada(), c.getIdGabinete(), carpeta).get(0).getNombreDocumento();
                 cbl.borraDocumento(select + "D1");
             } catch (Exception exb) {
-                log.error(exb, exb);
+                log.error(exb.getMessage(), exb);
             }
             ;
             cbl.creaDocumento(usuario, fimx, nombre_documento, "", false);
@@ -247,7 +248,7 @@ public class GestionSignFileReceiverServlet extends HttpServlet implements Gesti
             if (c.getIdTC() == 27)
                 resp.sendRedirect("../plantillasCasos/rectificacionPresupuestalMil.jsp?leeExcel=1");
         } catch (Exception exc) {
-            log.error(exc, exc);
+            log.error(exc.getMessage(), exc);
             if (id_tc == 2)
                 resp.sendRedirect("../plantillasCasos/cargaPresupuestal.jsp?msg=" + exc.getMessage());
             if (id_tc == 3)

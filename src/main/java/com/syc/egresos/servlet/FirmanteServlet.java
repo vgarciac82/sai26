@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.egresos.ResponseJSON;
 import com.syc.egresos.firmante.FirmanteBussinessLogic;
 import com.syc.egresos.firmante.servlet.Firmante;
@@ -21,13 +20,15 @@ import com.syc.gestion.core.Caso;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "FirmanteServlet", urlPatterns = { "/firmante/save" })
 public class FirmanteServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = -1182925380152047296L;
 
-    private static final Logger log = Logger.getLogger(FirmanteServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(FirmanteServlet.class);
 
     private String jniName;
 

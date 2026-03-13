@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,13 +22,15 @@ import com.syc.altaproveedor.DatosProveedorIncumplido;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "AltaProveedoresServlet", urlPatterns = { "/servlet/AltaProveedoresServlet" })
 public class AltaProveedoresServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 6559267648468839026L;
 
-    private static Logger log = Logger.getLogger(AltaProveedoresServlet.class);
+    private static Logger log = LoggerFactory.getLogger(AltaProveedoresServlet.class);
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");

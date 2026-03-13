@@ -20,15 +20,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import org.jfree.util.Log;
 import com.syc.contable.core.AplicacionContable;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "FacturaDesemServlet", urlPatterns = { "/gstnmngr/FacturaDesemServlet" })
 public class FacturaDesemServlet extends HttpServlet {
 
-    private static Logger log = Logger.getLogger(AplicacionContable.class);
+    private static Logger log = LoggerFactory.getLogger(AplicacionContable.class);
 
     /**
      * Constructor of the object.

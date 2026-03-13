@@ -15,9 +15,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.log4j.Logger;
 import com.syc.contable.core.AplicacionContable;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "LayoutReportePasivosServlet", urlPatterns = { "/gstnmngr/LayoutReportePasivosServlet" })
 public class LayoutReportePasivosServlet extends HttpServlet {
@@ -26,7 +27,7 @@ public class LayoutReportePasivosServlet extends HttpServlet {
      */
     private static final long serialVersionUID = -2544499444970670159L;
 
-    private static Logger log = Logger.getLogger(AplicacionContable.class);
+    private static Logger log = LoggerFactory.getLogger(AplicacionContable.class);
 
     /**
      * Constructor of the object.

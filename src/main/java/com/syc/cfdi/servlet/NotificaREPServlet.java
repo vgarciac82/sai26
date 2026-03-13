@@ -9,18 +9,19 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.interfaces.CFDIBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "NotificaREPFaltantes", urlPatterns = { "/notificaREPFaltante" })
 public class NotificaREPServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 715260361207686246L;
 
-    private static final Logger log = Logger.getLogger(NotificaREPServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(NotificaREPServlet.class);
 
     private String jniName;
 
@@ -49,7 +50,7 @@ public class NotificaREPServlet extends HttpServlet implements GestionInterface 
             CFDIBusinessLogic cfdibl = new CFDIBusinessLogic(jniName);
             cfdibl.notificaREPFaltantes(u, unidadEjecutora, RFCBeneficiario);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             mensaje = "Ocurrio el siguiente error mientras se enviaban las notificaciones: " + e;
         }
         session.setAttribute("MSG", mensaje);

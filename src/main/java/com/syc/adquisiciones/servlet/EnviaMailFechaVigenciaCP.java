@@ -24,19 +24,20 @@ import javax.naming.NamingException;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
-import org.apache.log4j.Logger;
 import com.syc.adquisiciones.core.CCorreo;
 import com.syc.contable.AccountingEngine;
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "EnviaMailFechaVigenciaCP", urlPatterns = { "/servlet/EnviaMailFechaVigenciaCP" })
 public class EnviaMailFechaVigenciaCP extends HttpServlet implements Runnable {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = Logger.getLogger(EnviaMailFechaVigenciaCP.class);
+    private static Logger log = LoggerFactory.getLogger(EnviaMailFechaVigenciaCP.class);
 
     private List<CCorreo> listCorreo;
 
