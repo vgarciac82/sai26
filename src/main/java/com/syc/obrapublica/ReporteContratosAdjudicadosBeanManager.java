@@ -1,0 +1,68 @@
+package com.syc.obrapublica;
+
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+
+public class ReporteContratosAdjudicadosBeanManager {
+	private static final Logger	log	= Logger.getLogger(ReporteContratosAdjudicadosBeanManager.class);
+
+	public static ReporteContratosAdjudicadosBean instanceFromRS(ResultSet rs) throws Exception {
+		ReporteContratosAdjudicadosBean bean = new ReporteContratosAdjudicadosBean();
+		ResultSetMetaData metaData = rs.getMetaData();
+
+		String[] beanInfo = new String[metaData.getColumnCount()];
+		Map<String, Double> totales = new HashMap<String, Double>();
+
+		bean.setUR(rs.getString("cu_ur"));
+		bean.setIdArea(rs.getString("id_area"));
+
+		for (int i = 0; i < beanInfo.length; i++) {
+			log.trace("Procesando columna " + metaData.getColumnName(i + 1));
+			String val = rs.getString(metaData.getColumnName(i + 1));
+
+			if (i == 9 || i == 13 || i == 14) {
+
+				if (totales.get(metaData.getColumnName(i + 1)) == null)
+					totales.put(metaData.getColumnName(i + 1), 0.0d);
+
+				totales.put(metaData.getColumnName(i + 1), totales.get(metaData.getColumnName(i + 1)) + (val == null || "".equals(val) ? 0.0d : Double.parseDouble(val)));
+			}
+
+			beanInfo[i] = val;
+		}
+
+		bean.setInfo(beanInfo);
+		bean.setTotales(totales);
+		return bean;
+	}
+
+	public static ReporteContratosAdjudicadosBean updateInstanceFromRS(ResultSet rs, ReporteContratosAdjudicadosBean ccBean) throws Exception {
+		ResultSetMetaData metaData = rs.getMetaData();
+
+		String[] beanInfo = new String[metaData.getColumnCount()];
+		Map<String, Double> totales = ccBean.getTotales();
+
+		for (int i = 0; i < beanInfo.length; i++) {
+			log.trace("Procesando columna " + metaData.getColumnName(i + 1));
+			String val = rs.getString(metaData.getColumnName(i + 1));
+
+			if (i == 9 || i == 13 || i == 14) {
+				if (totales.get(metaData.getColumnName(i + 1)) == null)
+					totales.put(metaData.getColumnName(i + 1), 0.0d);
+
+				totales.put(metaData.getColumnName(i + 1), totales.get(metaData.getColumnName(i + 1)) + (val == null || "".equals(val) ? 0.0d : Double.parseDouble(val)));
+			}
+			beanInfo[i] = val;
+		}
+
+		ccBean.setInfo(beanInfo);
+		ccBean.setTotales(totales);
+		return ccBean;
+
+	}
+}

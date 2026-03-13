@@ -1,0 +1,184 @@
+package com.syc.ejercido.pagado;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.fileupload.DiskFileUpload;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.log4j.Logger;
+
+import com.syc.contable.core.AplicacionContable;
+
+public class SubirArchivoRelacionGastosServlet extends HttpServlet {
+	/**
+	 * 
+	 */
+	private static final long	serialVersionUID	= -2544499444970670159L;
+	private static Logger log = Logger.getLogger(AplicacionContable.class);
+	/**
+	 * Constructor of the object.
+	 */
+	public SubirArchivoRelacionGastosServlet() {
+		super();
+	}
+
+	/**
+	 * Destruction of the servlet. <br>
+	 */
+	public void destroy() {
+		super.destroy(); // Just puts "destroy" string in log
+		// Put your code here
+	}
+
+	/**
+	 * The doGet method of the servlet. <br>
+	 *
+	 * This method is called when a form has its tag value method equals to get.
+	 * 
+	 * @param request the request send by the client to the server
+	 * @param response the response send by the server to the client
+	 * @throws ServletException if an error occurred
+	 * @throws IOException if an error occurred
+	 */
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+		out.println("<HTML>");
+		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+		out.println("  <BODY>");
+		out.print("    This is ");
+		out.print(this.getClass());
+		out.println(", using the GET method");
+		out.println("  </BODY>");
+		out.println("</HTML>");
+		out.flush();
+		out.close();
+	}
+
+	/**
+	 * The doPost method of the servlet. <br>
+	 *
+	 * This method is called when a form has its tag value method equals to post.
+	 * 
+	 * @param request the request send by the client to the server
+	 * @param response the response send by the server to the client
+	 * @throws ServletException if an error occurred
+	 * @throws IOException if an error occurred
+	 */
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			response.sendRedirect("index.jsp");
+			return;
+		}
+		
+		List<FileItem> fileItems = new ArrayList<FileItem>();
+		Map<String, String> fieldMap = new Hashtable<String, String>();
+		List<FileItem> fileList = new ArrayList<FileItem>();
+		PrintWriter out = response.getWriter(); 
+		String pathUrl = request.getContextPath();
+		String pathBase = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + pathUrl + "/";
+		
+		String valor = "";
+		
+		try{
+			
+			CargaArchivosCapituloMil guardaInformacion = new CargaArchivosCapituloMil();
+			
+			fileItems = procesaArchivos(request);
+			
+			for (FileItem item : fileItems) {
+				if (item.isFormField()) {
+					fieldMap.put(item.getFieldName(), item.getString());
+				} else {
+					fileList.add(item);
+				}
+			}
+			
+			//String fe = request.getParameter("fAplicacion");
+			String f = fieldMap.get("fAplicacion");
+			String [] fA = f.split("/");
+			String fAplicacion = fA[0]+"/"+fA[1]+"/"+fA[2];
+			String mes = fA[1];
+			
+			String ur = fieldMap.get("cUnidadResponsable");
+			String cEjecicicioFiscal = fieldMap.get("aEjercicioFiscal");
+			String login = fieldMap.get("login");
+			String cc = fieldMap.get("cCentroContable");
+			
+			String sTipoCarga = fieldMap.get("tipoCarga"); // 1=Becas, 2=Alimentacion a Brigadistas, 3=Certificado de Transito.
+			
+			InputStream in = fileList.get(0).getInputStream();
+			valor = guardaInformacion.validarInformacion(in, fAplicacion, ur, cEjecicicioFiscal, login, mes, cc, sTipoCarga);
+			
+			
+		}catch(Exception e){
+			
+			log.error("Error: no se cargo archivo");
+			valor = "Error";
+			
+			
+		}
+		
+		log.info(valor);
+		//out.println(valor);
+		response.sendRedirect(pathBase+ "Generador/cargaRelacionGastos.jsp?mensaje=" + valor);
+		
+		
+	}
+
+	/**
+	 * Initialization of the servlet. <br>
+	 *
+	 * @throws ServletException if an error occurs
+	 */
+	public void init() throws ServletException {
+		// Put your code here
+	}
+
+	public List<FileItem> procesaArchivos(HttpServletRequest request) {
+
+		String szPath;
+		List<FileItem> fileItems = new ArrayList<FileItem>();
+		try {
+			// Se construye un objeto para que parsee la petición
+			DiskFileUpload fu = new DiskFileUpload();
+
+			// Tamaño máximo que aceptará el archivo
+			fu.setSizeMax(-1); // El tamaño no importa
+			fu.setSizeThreshold(1048576); // Si excede el 1 Gb en memoria lo
+			// escribe a disco
+			szPath = getServletContext().getRealPath("/upload/ejercidoPagado");
+			File file = new File(szPath);
+
+			if (!file.exists()) {
+				file.mkdirs();
+			}
+
+			fu.setRepositoryPath(szPath);
+			fileItems = fu.parseRequest(request);
+		} catch (Exception e) {
+			log.error("Error: " + e);
+			System.out.println("Error de Aplicación " + e.getMessage());
+		}
+		return fileItems;
+	}
+	
+	
+	
+}

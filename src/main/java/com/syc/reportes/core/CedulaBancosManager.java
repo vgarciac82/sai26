@@ -1,0 +1,244 @@
+package com.syc.reportes.core;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormat;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+
+import com.syc.gestion.util.Util;
+import com.syc.sai.contabilidad.utils.db.CloseObject;
+
+public class CedulaBancosManager {
+
+	public static String generaCedulaBancos(Connection conn, Integer mes, Integer anio, Map<String, String> plantillas) throws Exception {
+
+		CallableStatement cs = null;
+		ResultSet rs  = null;
+		
+		String fileName = "";
+		String query  = "{call sp_l_CedulaBancos( ? )}";
+		
+		try {
+			cs  = conn.prepareCall(query);
+			
+			cs.setInt(1, mes);
+			rs = cs.executeQuery();
+						
+			fileName = generaCedula(rs, mes, anio, plantillas.get("CEDBANCO"));
+	
+			return fileName;
+		} finally {
+			CloseObject.closeObject(rs, false);
+			CloseObject.closeObject(cs, false);
+			
+		}
+	}
+
+	private static String generaCedula(ResultSet rs, Integer mes, Integer anio, String plantillaPath) throws Exception {
+		File cFileExcelPlantilla = new File(plantillaPath);
+		String file_name =  System.getProperty( "java.io.tmpdir" ) + File.separatorChar + "CedulaBancos" + "_" + System.currentTimeMillis() + "_" + String.valueOf((int) (Math.random() * 100)) + ".xls";
+
+		InputStream fs = new FileInputStream(cFileExcelPlantilla);
+		Util.copiaArchivo(fs, file_name);
+		fs.close();
+
+		InputStream fsArchivo = new FileInputStream(cFileExcelPlantilla);
+		Workbook workbook = new HSSFWorkbook(fsArchivo);
+		fsArchivo.close();
+
+		Sheet sheet0 = workbook.getSheetAt(0);
+
+		int columnaInicio = 1;
+		
+		int conciliaciones = 0;
+		int esFinal = 0;
+		
+		double saldoBanco = 0;
+		double ac = 0;
+		double cc = 0;
+		double ab = 0;
+		double cb = 0;
+		double saldoConta = 0;
+		double diferencia = 0;
+		
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		Date date = new Date();
+		String fecha = dateFormat.format(date);
+		
+		Row rwfecha = (sheet0.getRow(24) == null ? sheet0.createRow(24) : sheet0.getRow(24));
+		Cell celda = (rwfecha.getCell(0) == null? rwfecha.createCell(0): rwfecha.getCell(0) );
+		celda.setCellValue("Elaborado: "+fecha);
+					
+		Font font = workbook.createFont();
+		font.setColor(IndexedColors.WHITE.getIndex());
+		font.setFontHeightInPoints((short)9);
+		font.setFontName("Arial");
+		
+		CellStyle estiloTabla = workbook.createCellStyle();
+		estiloTabla.setBorderRight(BorderStyle.HAIR);
+		estiloTabla.setBorderLeft(BorderStyle.HAIR);
+		estiloTabla.setBorderTop(BorderStyle.HAIR);
+		estiloTabla.setBorderBottom(BorderStyle.HAIR);
+		estiloTabla.setFont(font);
+		estiloTabla.setFillForegroundColor(IndexedColors.GREY_80_PERCENT.getIndex());
+		estiloTabla.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		estiloTabla.setAlignment(HorizontalAlignment.CENTER);
+		
+		Row rwanio = (sheet0.getRow(1) == null ? sheet0.createRow(1) : sheet0.getRow(1));
+		Cell cellanio = (rwanio.getCell(1) == null ? rwanio.createCell(1) : rwanio.getCell(1));
+		cellanio.setCellStyle(estiloTabla);
+		cellanio.setCellValue(anio);
+		
+		Row rwmes = (sheet0.getRow(2) == null ? sheet0.createRow(2) : sheet0.getRow(2));
+		Cell cellmes = (rwmes.getCell(1) == null ? rwmes.createCell(1) : rwmes.getCell(1));
+		cellmes.setCellStyle(estiloTabla);
+		cellmes.setCellValue(mes);
+		
+		Font fontM = workbook.createFont();
+		fontM.setFontHeightInPoints((short)9);
+		fontM.setFontName("Arial");
+		
+		DataFormat df=workbook.createDataFormat();
+		CellStyle estiloMoneda = workbook.createCellStyle();
+		estiloMoneda.setFont(fontM);
+		estiloMoneda.setDataFormat(df.getFormat("#,###,##0.00"));
+		
+		Font fontT = workbook.createFont();
+		fontT.setFontHeightInPoints((short)9);
+		fontT.setFontName("Arial");
+		fontT.setBold(true);
+		
+		CellStyle estiloMonedaT = workbook.createCellStyle();
+		estiloMonedaT.setFont(fontT);
+		estiloMonedaT.setDataFormat(df.getFormat("#,###,##0.00"));
+				
+		Font fontN = workbook.createFont();
+		fontN.setColor(IndexedColors.WHITE.getIndex());
+		fontN.setFontHeightInPoints((short)9);
+		fontN.setFontName("Arial");
+		fontN.setBold(true);
+		
+		CellStyle estiloMonedaN = workbook.createCellStyle();
+		estiloMonedaN.setFont(fontN);
+		estiloMonedaN.setBorderRight(BorderStyle.HAIR);
+		estiloMonedaN.setBorderLeft(BorderStyle.HAIR);
+		estiloMonedaN.setBorderTop(BorderStyle.HAIR);
+		estiloMonedaN.setBorderBottom(BorderStyle.HAIR);
+		estiloMonedaN.setDataFormat(df.getFormat("#"));
+		estiloMonedaN.setFillForegroundColor(IndexedColors.GREY_80_PERCENT.getIndex());
+		estiloMonedaN.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		estiloMonedaN.setAlignment(HorizontalAlignment.CENTER);
+				
+		while (rs.next()) {
+						
+			String banco = rs.getString("cNomInstitucion");
+			Row rwbanco = (sheet0.getRow(4) == null ? sheet0.createRow(4) : sheet0.getRow(4));
+			Cell cellbanco = (rwbanco.getCell(columnaInicio) == null ? rwbanco.createCell(columnaInicio) : rwbanco.getCell(columnaInicio));
+			cellbanco.setCellStyle(estiloTabla);
+			cellbanco.setCellValue(banco);
+			
+			String cta = rs.getString("cCLABE");
+			Row rwcta = (sheet0.getRow(5) == null ? sheet0.createRow(5) : sheet0.getRow(5));
+			Cell cellcta = (rwcta.getCell(columnaInicio) == null ? rwcta.createCell(columnaInicio) : rwcta.getCell(columnaInicio));
+			cellcta.setCellStyle(estiloTabla);
+			cellcta.setCellValue(cta);
+			
+			String nombre = rs.getString("Descripcion");
+			Row rwnombre = (sheet0.getRow(6) == null ? sheet0.createRow(6) : sheet0.getRow(6));
+			Cell cellnombre = (rwnombre.getCell(columnaInicio) == null ? rwnombre.createCell(columnaInicio) : rwnombre.getCell(columnaInicio));
+			cellnombre.setCellStyle(estiloTabla);
+			cellnombre.setCellValue(nombre);
+			
+			saldoBanco = Double.parseDouble(rs.getString("mSaldoBanco"));
+			Row rwSB = (sheet0.getRow(8) == null ? sheet0.createRow(8) : sheet0.getRow(8));
+			Cell cellSB = (rwSB.getCell(columnaInicio) == null ? rwSB.createCell(columnaInicio) : rwSB.getCell(columnaInicio));
+			cellSB.setCellStyle(estiloMonedaT);
+			cellSB.setCellValue(saldoBanco);
+			
+			ac = Double.parseDouble(rs.getString("AC"));
+			Row rwAC = (sheet0.getRow(10) == null ? sheet0.createRow(10) : sheet0.getRow(10));
+			Cell cellAC = (rwAC.getCell(columnaInicio) == null ? rwAC.createCell(columnaInicio) : rwAC.getCell(columnaInicio));
+			cellAC.setCellStyle(estiloMoneda);
+			cellAC.setCellValue(ac);
+			
+			cc = Double.parseDouble(rs.getString("CC"));
+			Row rwCC = (sheet0.getRow(12) == null ? sheet0.createRow(12) : sheet0.getRow(12));
+			Cell cellCC = (rwCC.getCell(columnaInicio) == null ? rwCC.createCell(columnaInicio) : rwCC.getCell(columnaInicio));
+			cellCC.setCellStyle(estiloMoneda);
+			cellCC.setCellValue(cc);
+			
+			ab = Double.parseDouble(rs.getString("AB"));
+			Row rwAB = (sheet0.getRow(14) == null ? sheet0.createRow(14) : sheet0.getRow(14));
+			Cell cellAB = (rwAB.getCell(columnaInicio) == null ? rwAB.createCell(columnaInicio) : rwAB.getCell(columnaInicio));
+			cellAB.setCellStyle(estiloMoneda);
+			cellAB.setCellValue(ab);
+			
+			cb = Double.parseDouble(rs.getString("CB"));
+			Row rwCB = (sheet0.getRow(16) == null ? sheet0.createRow(16) : sheet0.getRow(16));
+			Cell cellCB = (rwCB.getCell(columnaInicio) == null ? rwCB.createCell(columnaInicio) : rwCB.getCell(columnaInicio));
+			cellCB.setCellStyle(estiloMoneda);
+			cellCB.setCellValue(cb);
+			
+			saldoConta = Double.parseDouble(rs.getString("mSaldoLibros"));
+			Row rwSC = (sheet0.getRow(18) == null ? sheet0.createRow(18) : sheet0.getRow(18));
+			Cell cellSC = (rwSC.getCell(columnaInicio) == null ? rwSC.createCell(columnaInicio) : rwSC.getCell(columnaInicio));
+			cellSC.setCellStyle(estiloMonedaT);
+			cellSC.setCellValue(saldoConta);
+			
+			diferencia = saldoBanco - ac + cc - ab + cb - saldoConta;
+			Row rwDIF = (sheet0.getRow(19) == null ? sheet0.createRow(19) : sheet0.getRow(19));
+			Cell cellDIF = (rwDIF.getCell(columnaInicio) == null ? rwDIF.createCell(columnaInicio) : rwDIF.getCell(columnaInicio));
+			cellDIF.setCellStyle(estiloMoneda);
+			cellDIF.setCellValue(diferencia);
+			
+			conciliaciones = rs.getInt("nCount");
+			Row rwNC = (sheet0.getRow(21) == null ? sheet0.createRow(21) : sheet0.getRow(21));
+			Cell cellNC = (rwNC.getCell(columnaInicio) == null ? rwNC.createCell(columnaInicio) : rwNC.getCell(columnaInicio));
+			cellNC.setCellStyle(estiloMonedaN);
+			cellNC.setCellValue(conciliaciones);
+			
+			esFinal = rs.getInt("Final");
+			Row rwF = (sheet0.getRow(22) == null ? sheet0.createRow(22) : sheet0.getRow(22));
+			Cell cellF = (rwF.getCell(columnaInicio) == null ? rwF.createCell(columnaInicio) : rwF.getCell(columnaInicio));
+			cellF.setCellStyle(estiloMonedaN);
+			cellF.setCellValue(esFinal);
+						
+			columnaInicio++;
+		}
+		
+		
+		File fsalida = new File(file_name);
+
+		FileOutputStream fos = new FileOutputStream(fsalida);
+		BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
+		workbook.write(bos);
+		workbook.close();
+		
+		/* Cierra Flujos */
+		bos.flush();
+		bos.close();
+		fos.close();
+		return file_name;
+	}
+}

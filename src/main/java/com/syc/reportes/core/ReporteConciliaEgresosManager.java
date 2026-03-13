@@ -1,0 +1,971 @@
+package com.syc.reportes.core;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.text.DecimalFormat;
+import java.util.Map;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormat;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+
+import com.syc.gestion.util.Util;
+import com.syc.sai.contabilidad.utils.db.CloseObject;
+
+public class ReporteConciliaEgresosManager {
+
+	public static String generaReporteConciliaEgresos(Connection conn, int mesFin, String fechaFin, Map<String, String> plantillas) throws Exception {
+		
+		CallableStatement cs = null;		
+		ResultSet rs = null;	
+		
+		String anio = "";
+		anio = fechaFin.substring(6,10);
+		String query = "{call sp_ConciliaEgresosContaPptal( ?, ? )}";
+		String fileName = "";
+		
+		try {
+			cs = conn.prepareCall(query);
+			cs.setInt(1, mesFin);				
+			cs.setString(2, anio);
+			rs = cs.executeQuery();							
+			fileName = generaReporteExcelEgresos(conn, rs, plantillas.get("CONCILIAEGRESOS"), mesFin, fechaFin);			
+
+			return fileName;
+		} finally {
+			CloseObject.closeObject(rs, false);
+			CloseObject.closeObject(cs, false);
+		}
+	}
+	
+	
+	public static String generaReporteExcelEgresos(Connection conn, ResultSet rs, String plantillaPath, int mesFin, String fechaFin) throws Exception {
+		File cFileExcelPlantilla = new File(plantillaPath);
+		String file_name = System.getProperty( "java.io.tmpdir" ) + File.separatorChar +"EgresoPresupConta" + "_" + System.currentTimeMillis() + "_" + String.valueOf((int) (Math.random() * 100)) + ".xls";
+		int mes = 0;
+		String anio = "";
+
+		InputStream fs = new FileInputStream(cFileExcelPlantilla);
+		Util.copiaArchivo(fs, file_name);
+		fs.close();
+
+		InputStream fsArchivo = new FileInputStream(cFileExcelPlantilla);
+		Workbook workbook = new HSSFWorkbook(fsArchivo);
+		fsArchivo.close();
+
+		ResultSetMetaData rsMetadata = rs.getMetaData();
+		Sheet sheet0 = workbook.getSheetAt(0);
+		
+		mes = Integer.parseInt(fechaFin.substring(3,5));
+		anio = fechaFin.substring(6,10);
+		
+		String tipo = "";
+		String periodo = "MES DE: " + Util.NOMBRE_MESES_MX[mes-1] + " " + anio;
+		
+		Row rwEnc = (sheet0.getRow(3) == null ? sheet0.createRow(3) : sheet0.getRow(3));
+		Cell cell = (rwEnc.getCell(0) == null? rwEnc.createCell(0): rwEnc.getCell(0) );
+		cell.setCellValue(periodo);
+		
+		double c1241 = 0, c1242 = 0, c1243 = 0, c1244 = 0;
+		double c1246 = 0, c1132 = 0, c1247 = 0, c1248 = 0;
+		double sum1246 = 0, saldoBM = 0;
+		double saldoEgresoPresupNoCont = 0;
+		double c12332 = 0, c1236 = 0, c1134 = 0;
+		double saldoObra = 0, saldoFFM = 0, obrasAA = 0;
+		double almacen = 0, c1131 = 0, anticipoBienes = 0;
+		double fondo = 0, materiales = 0, amortizacion = 0;
+		double rendicionCuentas = 0, materialSuministro = 0;
+		double sOtrosGastosNoPptal = 0, materiaprima= 0;
+		double saldoDI = 0, saldoEstimaciones = 0;
+		double saldoGastosContablesNoPptal = 0;
+		double saldoOE= 0, saldo8271 = 0, saldoGasto = 0;
+		
+		int corte1 = 10;
+		int corte2 = 13;
+		int corte3 = 16;
+		int corte4 = 19;
+		int corte5 = 22;
+		int corte6 = 25;
+		int corte7 = 29;		
+		int corte8 = 31;
+		int corte9 = 33;
+		int corte10 = 36;
+		int corte11 = 40;
+		int corte12 = 44;
+		int corte13 = 47;
+		int corte14 = 51;
+		int corte15 = 55;
+		int corte16 = 58;
+		int corte17 = 61;
+		int corte18 = 64;
+		int corte19 = 70;
+		int corte20 = 74;
+		int corte21 = 78;
+		int corte22 = 81;
+		int corte23 = 84;
+		int corte24 = 87;
+									
+		CellStyle estiloTabla = workbook.createCellStyle();
+		estiloTabla.setBorderRight(BorderStyle.HAIR);
+		estiloTabla.setBorderLeft(BorderStyle.HAIR);
+		estiloTabla.setBorderTop(BorderStyle.HAIR);
+		estiloTabla.setBorderBottom(BorderStyle.HAIR);
+		
+		DataFormat df=workbook.createDataFormat();
+		CellStyle estiloMoneda = workbook.createCellStyle();
+		CellStyle estiloFecha = workbook.createCellStyle();
+		estiloMoneda.setBorderRight(BorderStyle.HAIR);
+		estiloMoneda.setBorderLeft(BorderStyle.HAIR);
+		estiloMoneda.setBorderTop(BorderStyle.HAIR);
+		estiloMoneda.setBorderBottom(BorderStyle.HAIR);
+		estiloMoneda.setDataFormat(df.getFormat("#,###,##0.00"));
+		
+		estiloFecha.setBorderRight(BorderStyle.HAIR);
+		estiloFecha.setBorderLeft(BorderStyle.HAIR);
+		estiloFecha.setBorderTop(BorderStyle.HAIR);
+		estiloFecha.setBorderBottom(BorderStyle.HAIR);
+		estiloFecha.setDataFormat(df.getFormat("dd/mm/yyyy"));
+		
+		DecimalFormat formateador = new DecimalFormat("#,###,###.00");
+		
+		while (rs.next()) {
+			tipo = rs.getString(1);
+			 if ("materiaPrima".equals(tipo)) {
+					Row rw = (sheet0.getRow(corte1) == null ? sheet0.createRow(corte1) : sheet0.getRow(corte1));
+					Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+					Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+					Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+					Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+					Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+					Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+					Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+					sheet0.shiftRows( corte1 + 1, corte24 + 1, 1,true,true);
+					materiaprima += rs.getDouble("importe");
+					corte1 ++;
+					corte2 ++;
+					corte3 ++;
+					corte4 ++;
+					corte5 ++;
+					corte6 ++;
+					corte7 ++;
+					corte8 ++;	
+					corte9 ++;
+					corte10 ++;
+					corte11 ++;
+					corte12 ++;
+					corte13 ++;
+					corte14 ++;
+					corte15 ++;
+					corte16 ++;
+					corte17 ++;
+					corte18 ++;
+					corte19 ++;
+					corte20 ++;
+					corte21 ++;
+					corte22 ++;
+					corte23 ++;
+					corte24 ++;
+					
+				} else if ("materialSuministro".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte2) == null ? sheet0.createRow(corte2) : sheet0.getRow(corte2));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte2 + 1, corte24 + 1, 1,true,true);
+				materialSuministro += rs.getDouble("importe");
+				corte2 ++;
+				corte3 ++;
+				corte4 ++;
+				corte5 ++;
+				corte6 ++;
+				corte7 ++;
+				corte8 ++;	
+				corte9 ++;
+				corte10 ++;
+				corte11 ++;
+				corte12 ++;
+				corte13 ++;
+				corte14 ++;
+				corte15 ++;
+				corte16 ++;
+				corte17 ++;
+				corte18 ++;
+				corte19 ++;
+				corte20 ++;
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+				
+			}else if ("1241".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte3) == null ? sheet0.createRow(corte3) : sheet0.getRow(corte3));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte3 + 1, corte24 + 1, 1,true,true);
+				c1241 += rs.getDouble("Importe");
+				corte3 ++;
+				corte4 ++;
+				corte5 ++;
+				corte6 ++;
+				corte7 ++;
+				corte8 ++;	
+				corte9 ++;
+				corte10 ++;
+				corte11 ++;
+				corte12 ++;
+				corte13 ++;
+				corte14 ++;
+				corte15 ++;
+				corte16 ++;
+				corte17 ++;
+				corte18 ++;
+				corte19 ++;
+				corte20 ++;
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			} else if ("1242".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte4) == null ? sheet0.createRow(corte4) : sheet0.getRow(corte4));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte4 + 1, corte24 + 1, 1,true,true);
+				c1242 += rs.getDouble("importe");
+				corte4 ++;
+				corte5 ++;
+				corte6 ++;
+				corte7 ++;
+				corte8 ++;	
+				corte9 ++;
+				corte10 ++;
+				corte11 ++;
+				corte12 ++;
+				corte13 ++;
+				corte14 ++;
+				corte15 ++;
+				corte16 ++;
+				corte17 ++;
+				corte18 ++;
+				corte19 ++;
+				corte20 ++;
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			}
+			else if ("1243".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte5) == null ? sheet0.createRow(corte5) : sheet0.getRow(corte5));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte5 + 1, corte24 + 1, 1,true,true);
+				c1243 += rs.getDouble("importe");
+				corte5 ++;
+				corte6 ++;
+				corte7 ++;
+				corte8 ++;	
+				corte9 ++;
+				corte10 ++;
+				corte11 ++;
+				corte12 ++;
+				corte13 ++;
+				corte14 ++;
+				corte15 ++;
+				corte16 ++;
+				corte17 ++;
+				corte18 ++;
+				corte19 ++;
+				corte20 ++;
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			}
+			
+			else if ("1244".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte6) == null ? sheet0.createRow(corte6) : sheet0.getRow(corte6));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte6 + 1, corte24 + 1, 1,true,true);
+				c1244 += rs.getDouble("importe");
+				corte6 ++;
+				corte7 ++;
+				corte8 ++;	
+				corte9 ++;
+				corte10 ++;
+				corte11 ++;
+				corte12 ++;
+				corte13 ++;
+				corte14 ++;
+				corte15 ++;
+				corte16 ++;
+				corte17 ++;
+				corte18 ++;
+				corte19 ++;
+				corte20 ++;
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			}
+			else if ("1246".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte7) == null ? sheet0.createRow(corte7) : sheet0.getRow(corte7));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte7 + 1, corte24 + 1, 1,true,true);
+				c1246 += rs.getDouble("importe");
+				corte7 ++;
+				corte8 ++;	
+				corte9 ++;
+				corte10 ++;
+				corte11 ++;
+				corte12 ++;
+				corte13 ++;
+				corte14 ++;
+				corte15 ++;
+				corte16 ++;
+				corte17 ++;
+				corte18 ++;
+				corte19 ++;
+				corte20 ++;
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			}	
+			else if ("1132".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte8) == null ? sheet0.createRow(corte8) : sheet0.getRow(corte8));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte8 + 1, corte24 + 1, 1,true,true);
+				c1132 += rs.getDouble("importe");
+				corte8 ++;	
+				corte9 ++;
+				corte10 ++;
+				corte11 ++;
+				corte12 ++;
+				corte13 ++;
+				corte14 ++;
+				corte15 ++;
+				corte16 ++;
+				corte17 ++;
+				corte18 ++;
+				corte19 ++;
+				corte20 ++;
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			}		
+			
+			else if ("1247".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte9) == null ? sheet0.createRow(corte9) : sheet0.getRow(corte9));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte9 + 1, corte24 + 1, 1,true,true);
+				c1247 += rs.getDouble("importe");
+				corte9 ++;
+				corte10 ++;
+				corte11 ++;
+				corte12 ++;
+				corte13 ++;
+				corte14 ++;
+				corte15 ++;
+				corte16 ++;
+				corte17 ++;
+				corte18 ++;
+				corte19 ++;
+				corte20 ++;
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			}
+
+			else if ("1248".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte10) == null ? sheet0.createRow(corte10) : sheet0.getRow(corte10));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte10 + 1, corte24 + 1, 1,true,true);
+				c1248 += rs.getDouble("importe");
+				corte10 ++;
+				corte11 ++;
+				corte12 ++;
+				corte13 ++;
+				corte14 ++;
+				corte15 ++;
+				corte16 ++;
+				corte17 ++;
+				corte18 ++;
+				corte19 ++;
+				corte20 ++;
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			}
+			else if ("1233".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte11) == null ? sheet0.createRow(corte11) : sheet0.getRow(corte11));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte11 + 1, corte24 + 1, 1,true,true);
+				c12332 += rs.getDouble("importe");
+				corte11 ++;
+				corte12 ++;
+				corte13 ++;
+				corte14 ++;
+				corte15 ++;
+				corte16 ++;
+				corte17 ++;
+				corte18 ++;
+				corte19 ++;
+				corte20 ++;
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			}
+			else if ("1236".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte12) == null ? sheet0.createRow(corte12) : sheet0.getRow(corte12));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte12 + 1, corte24 + 1, 1,true,true);
+				c1236 += rs.getDouble("importe");
+				corte12 ++;
+				corte13 ++;
+				corte14 ++;
+				corte15 ++;
+				corte16 ++;
+				corte17 ++;
+				corte18 ++;
+				corte19 ++;
+				corte20 ++;
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			}
+			else if ("1134".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte13) == null ? sheet0.createRow(corte13) : sheet0.getRow(corte13));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte13 + 1, corte24 + 1, 1,true,true);
+				c1134 += rs.getDouble("importe");
+				corte13 ++;
+				corte14 ++;
+				corte15 ++;
+				corte16 ++;
+				corte17 ++;
+				corte18 ++;
+				corte19 ++;
+				corte20 ++;
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			}
+			else if ("FFM".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte14) == null ? sheet0.createRow(corte14) : sheet0.getRow(corte14));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte14 + 1, corte24 + 1, 1,true,true);
+				saldoFFM += rs.getDouble("importe");
+				corte14 ++;
+				corte15 ++;
+				corte16 ++;
+				corte17 ++;
+				corte18 ++;
+				corte19 ++;
+				corte20 ++;
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			}
+			else if ("Almacen".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte15) == null ? sheet0.createRow(corte15) : sheet0.getRow(corte15));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte15 + 1, corte24 + 1, 1,true,true);
+				almacen += rs.getDouble("importe");
+				corte15 ++;
+				corte16 ++;
+				corte17 ++;
+				corte18 ++;
+				corte19 ++;
+				corte20 ++;
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			}
+			else if ("1131".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte16) == null ? sheet0.createRow(corte16) : sheet0.getRow(corte16));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte16 + 1, corte24 + 1, 1,true,true);
+				c1131 += rs.getDouble("importe");
+				corte16 ++;
+				corte17 ++;
+				corte18 ++;
+				corte19 ++;
+				corte20 ++;
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			}
+			else if ("AnticipoBienes".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte17) == null ? sheet0.createRow(corte17) : sheet0.getRow(corte17));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte17 + 1, corte24 + 1, 1,true,true);
+				anticipoBienes += rs.getDouble("importe");
+				corte17 ++;
+				corte18 ++;
+				corte19 ++;
+				corte20 ++;
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			}
+			else if ("Fondo".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte18) == null ? sheet0.createRow(corte18) : sheet0.getRow(corte18));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte18 + 1, corte24 + 1, 1,true,true);
+				fondo += rs.getDouble("importe");
+				corte18 ++;
+				corte19 ++;
+				corte20 ++;
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			}
+			else if ("551".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte19) == null ? sheet0.createRow(corte19) : sheet0.getRow(corte19));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte19 + 1, corte24 + 1, 1,true,true);
+				saldoEstimaciones += rs.getDouble("importe");
+				corte19 ++;
+				corte20 ++;
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			}
+			else if ("Materiales".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte20) == null ? sheet0.createRow(corte20) : sheet0.getRow(corte20));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte20 + 1, corte24 + 1, 1,true,true);
+				materiales += rs.getDouble("importe");
+				corte20 ++;
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			}
+			else if ("Amortización".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte21) == null ? sheet0.createRow(corte21) : sheet0.getRow(corte21));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte21 + 1, corte24 + 1, 1,true,true);
+				amortizacion += rs.getDouble("importe");
+				corte21 ++;
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			}
+			else if ("ObrasPAA".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte22) == null ? sheet0.createRow(corte22) : sheet0.getRow(corte22));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte22 + 1, corte24 + 1, 1,true,true);
+				obrasAA += rs.getDouble("importe");
+				corte22 ++;
+				corte23 ++;
+				corte24 ++;
+			}
+			else if ("5599".equals(tipo)) {
+				Row rw = (sheet0.getRow(corte23) == null ? sheet0.createRow(corte23) : sheet0.getRow(corte23));
+				Util.createExcelCellRep(0, rw, rs, rsMetadata.getColumnName(2), rsMetadata.getColumnType(2), estiloFecha);
+				Util.createExcelCellRep(1, rw, rs, rsMetadata.getColumnName(3), rsMetadata.getColumnType(3), estiloTabla);
+				Util.createExcelCellRep(2, rw, rs, rsMetadata.getColumnName(4), rsMetadata.getColumnType(4), estiloTabla);
+				Util.createExcelCellRep(3, rw, rs, rsMetadata.getColumnName(5), rsMetadata.getColumnType(5), estiloTabla);
+				Util.createExcelCellRep(4, rw, rs, rsMetadata.getColumnName(6), rsMetadata.getColumnType(6), estiloTabla);
+				Util.createExcelCellRep(5, rw, rs, rsMetadata.getColumnName(7), rsMetadata.getColumnType(7), estiloTabla);
+				Util.createExcelCellRep(6, rw, rs, rsMetadata.getColumnName(8), rsMetadata.getColumnType(8), estiloMoneda);
+				sheet0.shiftRows( corte23 + 1, corte24 + 1, 1,true,true);
+				rendicionCuentas += rs.getDouble("importe");
+				corte23 ++;
+				corte24 ++;
+			}
+		}
+		
+		
+		
+		PreparedStatement pstm_8271 = null, pstm_5 = null; //, pstm_reint = null, pstm_551 = null, pstm_559 = null;
+		ResultSet nSI = null, n5 = null; //, nSIR = null, n551 = null, n559 = null ;
+		
+		StringBuilder query = new StringBuilder();
+		query.append(" SELECT SUM(mMovimiento) cargo FROM dbo.tMovimiento WITH (NOLOCK)" );     
+		query.append(" WHERE SUBSTRING(nCuenta,1,4) IN('8251') AND MONTH(fMovimiento) BETWEEN 1 AND " + mes   );
+		query.append(" AND YEAR(fMovimiento) = " + anio + " AND cTipoMovimiento = 'C'" );
+		query.append(" GROUP BY SUBSTRING(nCuenta,1,4), cTipoMovimiento "  );
+		query.append(" UNION " );
+		query.append(" SELECT SUM(-mMovimiento) * 2 AS cargo FROM dbo.tMovimiento WITH (NOLOCK)" );    
+		query.append(" WHERE SUBSTRING(nCuenta,1,4) IN('8271') AND MONTH(fMovimiento) BETWEEN 1 AND " + mes  ); 
+		query.append("		 AND YEAR(fMovimiento) = " + anio +" AND cTipoMovimiento = 'A'" );
+		query.append(" GROUP BY SUBSTRING(nCuenta,1,4), cTipoMovimiento ");
+		query.append(" UNION " );
+		query.append(" SELECT SUM(rdet.mImporteNegativo)  *  2 ");
+		query.append(" FROM tReintegroEncabezado REINTEGRO WITH (NOLOCK) ");
+		query.append(" INNER JOIN tReintegroDetalle RDET  WITH (NOLOCK) ");
+		query.append(" ON REINTEGRO.nFolioReintegro = RDET.nFolioReintegro ");
+		query.append(" WHERE cDocumentoHaplicado = 'S' ");
+		query.append(" AND MONTH(FAPLICACION ) <=  " + mes );
+		query.append(" AND ID_TIPOREINTEGRO = 0  ");
+		query.append(" AND RDET.nFolioReintegro NOT IN (SELECT nFolioReintegroaut FROM tReintegroAutEncabezado WITH (NOLOCK) "); 
+		query.append("			WHERE nFolioReintegroaut = RDET.nFolioReintegro AND MONTH(FAPLICACION ) <=  " + mes + ") ");
+		
+		pstm_8271 = conn.prepareStatement(query.toString());
+		nSI = pstm_8271.executeQuery(); 
+
+		while (nSI.next()){
+			saldo8271 = saldo8271 + nSI.getDouble("cargo");
+		}
+		
+		pstm_5 = conn.prepareStatement("SELECT CASE cTipoMovimiento WHEN 'C' THEN SUM(mMovimiento) ELSE SUM(-mMovimiento) END AS importe " +
+											" FROM dbo.tMovimiento WITH (NOLOCK) " +  
+											" WHERE SUBSTRING(nCuenta,1,1) IN('5') " + 
+													" AND MONTH(fMovimiento) BETWEEN 1 AND " +  mes +
+													" AND YEAR(fMovimiento) = " + anio +		
+											" GROUP BY SUBSTRING(nCuenta,1,4), cTipoMovimiento");
+		
+
+		n5 = pstm_5.executeQuery();
+		while (n5.next()){
+			saldoGasto = saldoGasto + n5.getDouble("importe");
+		}
+		
+		formateador.format (c1241);
+		formateador.format (c1242);
+		formateador.format (c1243);
+		formateador.format (c1244);
+		formateador.format (c1246);
+		formateador.format (c1247);
+		formateador.format (c1248);
+		sum1246 = c1246 + c1132;
+		formateador.format (sum1246);
+		saldoBM = c1241 + c1242 + c1243 +c1244 + sum1246 + c1247 + c1248;
+		formateador.format(saldoBM);
+		formateador.format( materiaprima );
+		formateador.format(c1236);
+		formateador.format (c1134);
+		saldoObra = c1236 + c1134;
+		formateador.format (saldoObra);
+		formateador.format( materialSuministro );
+		formateador.format(saldoFFM);
+		formateador.format (almacen);	
+		formateador.format (c1131);	
+		formateador.format(anticipoBienes);
+		formateador.format (fondo);
+		saldoOE = almacen + c1131 + anticipoBienes + fondo;
+		formateador.format(saldoOE);
+		saldoEgresoPresupNoCont = saldoBM+ saldoObra + saldoFFM + saldoOE + c12332 + materialSuministro + materiaprima;
+		formateador.format(saldoEgresoPresupNoCont);
+			
+		formateador.format(materiales);
+		formateador.format (amortizacion);
+		formateador.format (rendicionCuentas);
+		formateador.format(obrasAA);
+		saldoGastosContablesNoPptal = saldoEstimaciones + materiales + amortizacion + rendicionCuentas + obrasAA;
+		formateador.format (saldoGastosContablesNoPptal);
+		
+		sOtrosGastosNoPptal = amortizacion + rendicionCuentas + obrasAA;
+	    formateador.format(sOtrosGastosNoPptal);
+	    
+	    formateador.format(saldoEstimaciones);
+	    saldoDI = materiales;
+	    formateador.format(saldoDI);
+	    
+		
+		Row rwEnc1 = (sheet0.getRow(4) == null ? sheet0.createRow(4) : sheet0.getRow(4));
+		Cell cell1 = (rwEnc1.getCell(8) == null ? rwEnc1.createCell(8) : rwEnc1.getCell(8));
+		cell1.setCellValue(saldo8271);
+		
+		Row rwEnc2 = (sheet0.getRow(6) == null ? sheet0.createRow(6) : sheet0.getRow(6));
+		Cell cell2 = (rwEnc2.getCell(8) == null ? rwEnc2.createCell(8) : rwEnc2.getCell(8));
+		cell2.setCellValue(saldoEgresoPresupNoCont);
+		
+		Row rwEnc10 = (sheet0.getRow(9) == null ? sheet0.createRow(9) : sheet0.getRow(9));
+		Cell cell10 = (rwEnc10.getCell(7) == null ? rwEnc10.createCell(7) : rwEnc10.getCell(7));
+		cell10.setCellValue(0);
+		
+		Row rwEnc3 = (sheet0.getRow(corte1 + 2) == null ? sheet0.createRow(corte1 + 2) : sheet0.getRow(corte1 + 2));
+		Cell cell3 = (rwEnc3.getCell(7) == null ? rwEnc3.createCell(7) : rwEnc3.getCell(7));
+		cell3.setCellValue(materialSuministro);
+		
+		Row rwEnc21 = (sheet0.getRow(corte2 + 2) == null ? sheet0.createRow(corte2 + 2) : sheet0.getRow(corte2 + 2));
+		Cell cell21 = (rwEnc21.getCell(7) == null ? rwEnc21.createCell(7) : rwEnc21.getCell(7));
+		cell21.setCellValue(c1241);	
+		
+		Row rwEnc4 = (sheet0.getRow(corte3 + 2) == null ? sheet0.createRow(corte3 + 2) : sheet0.getRow(corte3 + 2));
+		Cell cell4 = (rwEnc4.getCell(7) == null ? rwEnc4.createCell(7) : rwEnc4.getCell(7));
+		cell4.setCellValue(c1242);	
+		
+		Row rwEnc22 = (sheet0.getRow(corte4 + 2) == null ? sheet0.createRow(corte4 + 2) : sheet0.getRow(corte4 + 2));
+		Cell cell22 = (rwEnc22.getCell(7) == null ? rwEnc22.createCell(7) : rwEnc22.getCell(7));
+		cell22.setCellValue(c1243);
+		
+		Row rwEnc5 = (sheet0.getRow(corte5 + 2) == null ? sheet0.createRow(corte5 + 2) : sheet0.getRow(corte5 + 2));
+		Cell cell5 = (rwEnc5.getCell(7) == null ? rwEnc5.createCell(7) : rwEnc5.getCell(7));
+		cell5.setCellValue(c1244);
+		
+		Row rwEnc7 = (sheet0.getRow(corte6 + 2) == null ? sheet0.createRow(corte6 + 2) : sheet0.getRow(corte6 + 2));
+		Cell cell7 = (rwEnc7.getCell(7) == null ? rwEnc7.createCell(7) : rwEnc7.getCell(7));
+		cell7.setCellValue(sum1246);
+		
+		Row rwEnc6 = (sheet0.getRow(corte6 + 3) == null ? sheet0.createRow(corte6 + 3) : sheet0.getRow(corte6 + 3));
+		Cell cell6 = (rwEnc6.getCell(6) == null ? rwEnc6.createCell(6) : rwEnc6.getCell(6));
+		cell6.setCellValue(c1246);
+		
+		Row rwEnc8 = (sheet0.getRow(corte7 + 1) == null ? sheet0.createRow(corte7 + 1) : sheet0.getRow(corte7 + 1));
+		Cell cell8 = (rwEnc8.getCell(6) == null ? rwEnc8.createCell(6) : rwEnc8.getCell(6));
+		cell8.setCellValue(c1132);
+		
+		Row rwEnc9 = (sheet0.getRow(corte8 + 1) == null ? sheet0.createRow(corte8 + 1) : sheet0.getRow(corte8 + 1));
+		Cell cell9 = (rwEnc9.getCell(7) == null ? rwEnc9.createCell(7) : rwEnc9.getCell(7));
+		cell9.setCellValue(c1247);
+		
+		Row rwEnc26 = (sheet0.getRow(corte9 + 2) == null ? sheet0.createRow(corte9 + 2) : sheet0.getRow(corte9 + 2));
+		Cell cell26 = (rwEnc26.getCell(7) == null ? rwEnc26.createCell(7) : rwEnc26.getCell(7));
+		cell26.setCellValue(c1248);
+		
+		Row rwEnc33 = (sheet0.getRow(corte10 + 3) == null ? sheet0.createRow(corte10 + 3) : sheet0.getRow(corte10 + 3));
+		Cell cell33 = (rwEnc33.getCell(6) == null ? rwEnc33.createCell(6) : rwEnc33.getCell(6));
+		cell33.setCellValue(c12332);
+		
+		Row rwEnc12 = (sheet0.getRow(corte10 + 2) == null ? sheet0.createRow(corte10 + 2) : sheet0.getRow(corte10 + 2));
+		Cell cell12 = (rwEnc12.getCell(7) == null ? rwEnc12.createCell(7) : rwEnc12.getCell(7));
+		cell12.setCellValue(c12332);
+		
+		Row rwEnc13 = (sheet0.getRow(corte11 + 3) == null ? sheet0.createRow(corte11 + 3) : sheet0.getRow(corte11 + 3));
+		Cell cell13 = (rwEnc13.getCell(6) == null ? rwEnc13.createCell(6) : rwEnc13.getCell(6));
+		cell13.setCellValue(c1236);
+		
+		Row rwEnc23 = (sheet0.getRow(corte11 + 2) == null ? sheet0.createRow(corte11 + 2) : sheet0.getRow(corte11 + 2));
+		Cell cell23 = (rwEnc23.getCell(7) == null ? rwEnc23.createCell(7) : rwEnc23.getCell(7));
+		cell23.setCellValue(saldoObra);
+		
+		Row rwEnc14 = (sheet0.getRow(corte12 + 2) == null ? sheet0.createRow(corte12 + 2) : sheet0.getRow(corte12 + 2));
+		Cell cell14 = (rwEnc14.getCell(6) == null ? rwEnc14.createCell(6) : rwEnc14.getCell(6));
+		cell14.setCellValue(c1134);
+		
+		Row rwEnc15 = (sheet0.getRow(corte13 + 2) == null ? sheet0.createRow(corte13 + 2) : sheet0.getRow(corte13 + 2));
+		Cell cell15 = (rwEnc15.getCell(7) == null ? rwEnc15.createCell(7) : rwEnc15.getCell(7));
+		cell15.setCellValue(saldoFFM);
+		
+		Row rwEnc16 = (sheet0.getRow(corte13 + 3) == null ? sheet0.createRow(corte13 + 3) : sheet0.getRow(corte13 + 3));
+		Cell cell16 = (rwEnc16.getCell(6) == null ? rwEnc16.createCell(6) : rwEnc16.getCell(6));
+		cell16.setCellValue(saldoFFM);
+		
+		Row rwEnc17 = (sheet0.getRow(corte14 + 2) == null ? sheet0.createRow(corte14 + 2) : sheet0.getRow(corte14 + 2));
+		Cell cell17 = (rwEnc17.getCell(7) == null ? rwEnc17.createCell(7) : rwEnc17.getCell(7));
+		cell17.setCellValue(saldoOE);
+
+		Row rwEnc24 = (sheet0.getRow(corte14 + 3) == null ? sheet0.createRow(corte14 + 3) : sheet0.getRow(corte14 + 3));
+		Cell cell24 = (rwEnc24.getCell(6) == null ? rwEnc24.createCell(6) : rwEnc24.getCell(6));
+		cell24.setCellValue(almacen);
+		
+		Row rwEnc18 = (sheet0.getRow(corte15 + 2) == null ? sheet0.createRow(corte15 + 2) : sheet0.getRow(corte15 + 2));
+		Cell cell18 = (rwEnc18.getCell(6) == null ? rwEnc18.createCell(6) : rwEnc18.getCell(6));
+		cell18.setCellValue(c1131);
+		
+		Row rwEnc19 = (sheet0.getRow(corte16 + 2) == null ? sheet0.createRow(corte16 + 2) : sheet0.getRow(corte16 + 2));
+		Cell cell19 = (rwEnc19.getCell(6) == null ? rwEnc19.createCell(6) : rwEnc19.getCell(6));
+		cell19.setCellValue(anticipoBienes);
+	
+		Row rwEnc20 = (sheet0.getRow(corte17 + 2) == null ? sheet0.createRow(corte17 + 2) : sheet0.getRow(corte17 + 2));
+		Cell cell20 = (rwEnc20.getCell(6) == null ? rwEnc20.createCell(6) : rwEnc20.getCell(6));
+		cell20.setCellValue(fondo);
+		
+		Row rwEnc25 = (sheet0.getRow(corte18 + 2) == null ? sheet0.createRow(corte18 + 2) : sheet0.getRow(corte18 + 2));
+		Cell cell25 = (rwEnc25.getCell(8) == null ? rwEnc25.createCell(8) : rwEnc25.getCell(8));
+		cell25.setCellValue(saldoGastosContablesNoPptal);
+		
+		Row rwEnc35 = (sheet0.getRow(corte18 + 5) == null ? sheet0.createRow(corte18 + 5 ) : sheet0.getRow(corte18 + 5));
+		Cell cell35 = (rwEnc35.getCell(6) == null ? rwEnc35.createCell(6) : rwEnc35.getCell(6));
+		cell35.setCellValue(saldoEstimaciones);
+		
+		Row rwEnc36 = (sheet0.getRow(corte18 + 4) == null ? sheet0.createRow(corte18 + 4 ) : sheet0.getRow(corte18 + 4));
+		Cell cell36 = (rwEnc36.getCell(7) == null ? rwEnc36.createCell(7) : rwEnc36.getCell(7));
+		cell36.setCellValue(saldoEstimaciones);
+		
+		Row rwEnc27 = (sheet0.getRow(corte19 + 2) == null ? sheet0.createRow(corte19 + 2) : sheet0.getRow(corte19 + 2));
+		Cell cell27 = (rwEnc27.getCell(7) == null ? rwEnc27.createCell(7) : rwEnc27.getCell(7));
+		cell27.setCellValue(saldoDI);
+		
+		Row rwEnc28 = (sheet0.getRow(corte19 + 3) == null ? sheet0.createRow(corte19 +3) : sheet0.getRow(corte19 + 3));
+		Cell cell28 = (rwEnc28.getCell(6) == null ? rwEnc28.createCell(6) : rwEnc28.getCell(6));
+		cell28.setCellValue(materiales);
+
+		Row rwEnc31 = (sheet0.getRow(corte20 + 2) == null ? sheet0.createRow(corte20 + 2) : sheet0.getRow(corte20 + 2));
+		Cell cell31 = (rwEnc31.getCell(7) == null ? rwEnc31.createCell(7) : rwEnc31.getCell(7));
+		cell31.setCellValue(sOtrosGastosNoPptal);
+		
+		Row rwEnc29 = (sheet0.getRow(corte20 + 3) == null ? sheet0.createRow(corte20 + 3) : sheet0.getRow(corte20 + 3));
+		Cell cell29 = (rwEnc29.getCell(6) == null ? rwEnc29.createCell(6) : rwEnc29.getCell(6));
+		cell29.setCellValue(amortizacion);
+		
+		Row rwEnc292 = (sheet0.getRow(corte22 + 2) == null ? sheet0.createRow(corte22 + 2) : sheet0.getRow(corte22 + 2));
+		Cell cell292 = (rwEnc292.getCell(6) == null ? rwEnc292.createCell(6) : rwEnc292.getCell(6));
+		cell292.setCellValue(rendicionCuentas);
+		
+		Row rwEnc30 = (sheet0.getRow(corte21 + 2) == null ? sheet0.createRow(corte21 + 2) : sheet0.getRow(corte21 + 2));
+		Cell cell30 = (rwEnc30.getCell(6) == null ? rwEnc30.createCell(6) : rwEnc30.getCell(6));
+		cell30.setCellValue(obrasAA);
+		
+		Row rwEnc32 = (sheet0.getRow(corte24) == null ? sheet0.createRow(corte24) : sheet0.getRow(corte24));
+		Cell cell32 = (rwEnc32.getCell(8) == null ? rwEnc32.createCell(8) : rwEnc32.getCell(8));
+		cell32.setCellValue(saldoGasto);
+		
+		Row rwEnc34= (sheet0.getRow(corte24 - 1) == null ? sheet0.createRow(corte24 - 1) : sheet0.getRow(corte24 - 1));
+		Cell cell34 = (rwEnc34.getCell(8) == null ? rwEnc34.createCell(8) : rwEnc34.getCell(8));
+		cell34.setCellValue(saldo8271 - saldoEgresoPresupNoCont + saldoGastosContablesNoPptal);
+
+		File fsalida = new File(file_name);
+
+		FileOutputStream fos = new FileOutputStream(fsalida);
+		BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
+		workbook.write(bos);
+		workbook.close();
+		
+		/* Cierra Flujos */
+		bos.flush();
+		bos.close();
+		fos.close();
+		return file_name;
+	
+}
+}

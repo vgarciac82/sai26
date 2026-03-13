@@ -1,0 +1,384 @@
+package com.syc.contable.core;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+
+public class CadenasPManager_PrototipoReporteExcel {
+
+	public CadenasPManager_PrototipoReporteExcel() {
+		super();
+	}
+
+	public static ArrayList<String> BuscaCompromisos(Connection conn,String Proveedor, String Estatus, String CentroCon,String DigitoIde ,String fEmision ,String fEmisionf ,String sUsuario)throws Exception{
+		ArrayList<String> arrListaComp = new ArrayList<String>();
+		PreparedStatement pstmntH = null;
+		//PreparedStatement pstmntHLayout = null;
+		//PreparedStatement pstmntHLayoutDet = null;
+		//PreparedStatement pstmntD = null;
+		ResultSet rs = null;
+		//ResultSet rs2 = null;
+		//ResultSet rsLayout = null;
+
+		//String[] arrFolios = listaIds.split(",");
+		//String[] arrCuentasBancarias = listaCuentaBancaria.split(",");
+		//String[] arrFechas = listaFechas.split(",");
+		//String[] arrLeyendas = listaLeyendas.split(",");
+		//int intIndice = -1;
+		//PSC
+		String Sql = " exec sp_ReporteCadenasProductivas '" + Proveedor + "','" + Estatus + "','" + CentroCon + "','" + DigitoIde + "','" + fEmision + "','" + fEmisionf + "'  ";  
+		System.out.println(Sql);		
+
+		pstmntH = conn.prepareStatement(Sql);
+		//System.out.println(Sql);
+
+		//pstmntH.setString(1, listaIds);
+		rs = pstmntH.executeQuery();
+
+		while (rs.next()){
+
+			//System.out.println(arrFolios[0].trim());
+			//System.out.println(arrFolios[1].trim());
+
+		/*	String nFolio, nFolioCompromiso = rs.getString(1);
+			for (int i = 0; i < arrFolios.length; i++) {
+				nFolio = arrFolios[i].trim();
+
+				if (nFolio.equals(nFolioCompromiso))
+				{
+					intIndice = i;
+					break;
+				}
+			}*/
+
+//			String vreferencia = rs.getString(22).trim();
+//			vreferencia = vreferencia.replaceAll(",", " ");
+//			vreferencia = vreferencia.replaceAll(":", "");
+//			vreferencia = vreferencia.replaceAll(";", "");
+//			vreferencia = vreferencia.replaceAll("\\(", "");
+//			vreferencia = vreferencia.replaceAll("/", "");
+//			vreferencia = vreferencia.replaceAll("\\)", "");
+//			vreferencia = vreferencia.replaceAll("%", "");
+			
+			String encabezado = rs.getString(1)+","+rs.getString(2).trim()+","+
+							rs.getString(3).trim()+","+rs.getString(4).trim()+","+rs.getString(5).trim()+","+rs.getString(6).trim()+","+rs.getString(7).trim()+","+
+							rs.getString(8).trim()+","+rs.getString(9).trim();
+			
+			encabezado = encabezado + "\r\n";
+			arrListaComp.add(encabezado);
+
+			//int retval;
+
+			//Aqui grabamos dentro de layouts creados encabezado
+			/*String SqlLayoutGrabado = " INSERT INTO [tLayoutsCreadosOperAjenaHeader] SELECT distinct getdate(),  tCE.nFolioOperAjenas, 'H' AS Header, CONVERT(nvarchar(10), tCE.faplicacion,103), '" + arrFechas[intIndice].trim() + "' ,tCE.cRamo,tCE.cRamo,tCE.cRamo, 'B00' UnidadResponsable,'B00' UnidadResponsable,'B00' UnidadResponsable, 'N' ID_TIPO_MOVIMIENTO, '1' AS OrigenPpto,'3' AS TipoSol, 'MXN' TipoMoneda , '1' TipoCambio, '1' TIPO_PAGO, '" + arrLeyendas[intIndice].trim().trim() + "', B.CBEN, '" + arrCuentasBancarias[intIndice].trim().trim() + "', rtrim(tCE.cIdRFC), 'FAC', '' FechaReferencia, '' Referencia1, '' Referencia2, tCE.cConcepto, '' NotasReverso, '' AMF, rtrim(caNoContrarrecibo) NO_ACMI, rtrim(caNoContrarrecibo) AuxiliarComodin, '' CTR , '' FolioDC, '0', '0', '0', '0', '0', '0', '0', '0', '0' IVAANT, 0 ID_DESTINO_GASTO, '" +  sUsuario + "' " +
+			" FROM tOperAjenasEncabezado tCE " +
+			" LEFT JOIN tBeneficiario B ON tce.cIdRFC = B.dRFC " +
+			" INNER JOIN tBeneficiarioCuentasBancarias BCB ON tCE.cIdRFC =	BCB.dRFC " +
+			" LEFT JOIN pCatalogoTipoDocumento CTD ON tCE.cIdTipoDocumento =	CTD.cIdTipoDocumento " +
+			" WHERE tCE.nFolioOperAjenas  in (" + rs.getString(1) + ")";
+
+			pstmntHLayout = conn.prepareStatement(SqlLayoutGrabado);
+			//System.out.println(Sql);
+
+			//pstmntH.setString(1, listaIds);
+
+			retval = pstmntHLayout.executeUpdate();
+			conn.commit();
+
+
+			String Sql2 = " SELECT  '619' ID_EVENTO, " +
+						  " '24.0.001' EVENTO, " +
+						  " ltrim(TCEP.cRamo) ID_RAMO_ML, " +
+						  " 'B00', " +  
+						  " TCEP.aEjercicioFiscal, " +
+						  " TCEP.cGrupoFuncional, " +
+						  " tCEP.cFuncion,	" +
+						  " tCEP.cSubFuncion, " +
+						  " tCEP.cProgramaGeneral, " + 
+						  " tCEP.cActividadInstitucional, " +
+						  " tCEP.cProgramaPresupuestario, " +
+						  "	ltrim(substring(cpartida,1,1)) CCAP_157, " + 
+						  " substring(cpartida,2,1) CCON_158, " +
+						  " substring(cpartida,3,1) CPARG_300," +
+						  " substring(cpartida,4,2) CPAR_159, " + 
+						  " tCEP.cTipoGasto," +
+						  " tCEP.cFuenteFinanciamiento," +
+						  " tCEP.cEntidadFederativa," +
+						  " tCEP.cCartera," +
+						  " ltrim('0000000' + tCEP.cUnidadEjecutora), " + 
+						  " substring(TCEP.cUnidadNorativa,2,2) CCOP_163," +
+						  " '000' PL, " +
+						  " '000' OFI," +
+						  " '00000' AUX1," +
+						  " '00000' AUX2," +
+						  " '0000000000' AUX3, " + 
+						  " sum(CONVERT(decimal(17, 2), TPDD.mTotal)) mImporteNeto, " +
+						  " MONTH(GETDATE()) MES_149, " +
+						  " '0' NRES, " + 
+						  " '' numcompromiso, " +
+						  " ltrim('PN') TIPO_CONTRATO, " +
+						  " '000' CONC_MOV," +
+						  " isnull(TEE.solicitudPago, 0) nFolioSICOP," +
+						  " '' " +
+						  "	FROM tOperAjenasDetalle TPDD with(nolock), tOperAjenasEncabezado TPDE with(nolock), " +
+						  "		 tEjercidoEncabezado TEE with(nolock), tCatalogoEP TCEP  with(nolock) " +
+						  "	where TPDD.canocontrarrecibo = TEE.canocontrarrecibo  and " +
+						  "		  TPDD.nFolioOperAjenas  = TPDE.nFolioOperAjenas and" +
+						  "		  rtrim(TPDD.EP) = rtrim(TCEP.EP) and" +
+						  " 	  TPDD.nFolioOperAjenas  in (" + rs.getString(1) + ") " +
+						  " group by TCEP.cRamo, " + 
+						  "		TCEP.aEjercicioFiscal," + 
+						  "		TCEP.cGrupoFuncional, " +
+						  "		tCEP.cFuncion, " +
+						  "		tCEP.cSubFuncion, " +
+						  "		tCEP.cProgramaGeneral," + 
+						  "		tCEP.cActividadInstitucional," + 
+						  "		tCEP.cProgramaPresupuestario, " +
+						  "		cpartida, " +
+						  "		tCEP.cTipoGasto, " + 
+						  "		tCEP.cFuenteFinanciamiento, " + 
+						  "		tCEP.cEntidadFederativa, " +
+						  "		tCEP.cCartera, " +
+						  "		tCEP.cUnidadEjecutora, " + 
+						  "		substring(TCEP.cUnidadNorativa,2,2), " +
+						  "     TEE.solicitudPago";
+			
+			pstmntD = conn.prepareStatement(Sql2);
+			rs2 = pstmntD.executeQuery();
+
+				while (rs2.next()){
+					String token = new String();
+					StringBuffer detalle = new StringBuffer();
+					for (int i = 1; i < 35; i++) {
+						detalle.append(token).append(rs2.getString(i).trim().replaceAll("[\r\n]{2,}", " "));
+						token = ",";
+					}
+					token = "";
+					detalle.append("\r\n");
+					arrListaComp.add(detalle.toString());
+				}
+
+			if(rs2 != null){
+				rs2.close();
+			}
+			if(pstmntD != null){
+				pstmntD.close();
+			}
+
+			//Aqui grabamos dentro de layouts creados detalle
+			//String SqlLayoutGrabadoDet = " INSERT INTO tLayoutsCreadosDetalle SELECT DISTINCT " + nFolioCompromiso + ", '1' ID_EVENTO,'24.0.001' EVENTO,ltrim(TCEP.cRamo) ID_RAMO_ML, rtrim(TPDE.cUnidadResponsable), TCEP.aEjercicioFiscal, TCEP.cGrupoFuncional, tCEP.cFuncion, tCEP.cSubFuncion, tCEP.cProgramaGeneral, tCEP.cActividadInstitucional, tCEP.cProgramaPresupuestario, ltrim(substring(cpartida,1,1)) CCAP_157, substring(cpartida,2,1) CCON_158, substring(cpartida,3,1) CPARG_300, substring(cpartida,4,2) CPAR_159, tCEP.cTipoGasto, tCEP.cFuenteFinanciamiento, tCEP.cEntidadFederativa, tCEP.cCartera,ltrim('0000000' + tCEP.cUnidadEjecutora), substring(TCEP.cUnidadNorativa,2,2) CCOP_163, '000' PL, '000' OFI, '00000' AUX1, '00000' AUX2, '0000000000' AUX3, TPDE.mImporteNeto, MONTH(GETDATE()) MES_149, '0' NRES,ltrim('PN') TIPO_CONTRATO, '000' CONC_MOV, CONVERT(decimal(17, 2),DC.DCD_ISR), CONVERT(decimal(17, 2),DCD_IVA), CONVERT(decimal(17, 2),DC.DCD_MIL5), CONVERT(decimal(17, 2),DCD_MIL2), CONVERT(decimal(17, 2),DC.DCD_CONTRIBUCION), CONVERT(decimal(17, 2),DC.DCD_OTRAS_RET), CONVERT(decimal(17, 2),DC.DCD_PENALIZACION), '' id_ctr_intdet " +
+			String SqlLayoutGrabadoDet = " INSERT INTO tLayoutsCreadosOperAjenaDetalle SELECT DISTINCT " + nFolioCompromiso + ", '1' ID_EVENTO,'24.0.001' EVENTO,ltrim(TCEP.cRamo) ID_RAMO_ML, 'B00', TCEP.aEjercicioFiscal, TCEP.cGrupoFuncional, tCEP.cFuncion, tCEP.cSubFuncion, tCEP.cProgramaGeneral, tCEP.cActividadInstitucional, tCEP.cProgramaPresupuestario, ltrim(substring(cpartida,1,1)) CCAP_157, substring(cpartida,2,1) CCON_158, substring(cpartida,3,1) CPARG_300, substring(cpartida,4,2) CPAR_159, tCEP.cTipoGasto, tCEP.cFuenteFinanciamiento, tCEP.cEntidadFederativa, tCEP.cCartera,ltrim('0000000' + tCEP.cUnidadEjecutora), substring(TCEP.cUnidadNorativa,2,2) CCOP_163, '000' PL, '000' OFI, '00000' AUX1, '00000' AUX2, '0000000000' AUX3, TPDD.mTotal, MONTH(GETDATE()) MES_149, '0' NRES,ltrim('PN') TIPO_CONTRATO, '000' CONC_MOV, 0, 0, 0, 0, 0, 0, 0, '' id_ctr_intdet " +
+			" FROM tOperAjenasDetalle TPDD inner join tOperAjenasEncabezado TPDE " +
+			" on TPDD.nFolioOperAjenas  = TPDE.nFolioOperAjenas  " +
+			" inner join tCatalogoEP TCEP on TPDD.EP = TCEP.EP " +
+			" where TPDD.nFolioOperAjenas in (" + listaIds + ") ";
+
+
+			pstmntHLayoutDet = conn.prepareStatement(SqlLayoutGrabadoDet);
+			//System.out.println(Sql);
+
+			//pstmntH.setString(1, listaIds);
+
+			retval = pstmntHLayoutDet.executeUpdate();
+			conn.commit();*/
+
+			//PSC Aqui termina el grabado dentro de layouts creados detalle
+
+		}
+		if(rs != null){
+			rs.close();
+		}
+		if(pstmntH != null){
+			pstmntH.close();
+		}
+		return arrListaComp;
+	}
+
+	/*public static ArrayList<String> CreaDocumentacionComprobatoria(Connection conn,String listaIds)throws Exception{
+		ArrayList<String> arrListaComp = new ArrayList<String>();
+		PreparedStatement pstmntH = null;
+		PreparedStatement pstmntD = null;
+		ResultSet rs = null;
+		ResultSet rs2 = null;
+
+		
+		String Sql = " SELECT " +
+				"		nFolioOperAjenas , 'H' H, cRamo, 'B00', '' SOL_PAGO, " +
+				"		0 cIdTipoPagoDirecto, caNoContrarrecibo FOLIO_INTERNO, caNoContrarrecibo COMODIN " +
+				"	FROM  dbo.tOperAjenasEncabezado " +
+				"	WHERE nFolioOperAjenas  in (" + listaIds + " ) ";
+
+
+		pstmntH = conn.prepareStatement(Sql);
+		System.out.println(Sql);
+
+		//pstmntH.setString(1, listaIds);
+		rs = pstmntH.executeQuery();
+
+		while (rs.next()){
+			String nFolioCompromiso = rs.getString(1);
+			String encabezado = rs.getString(2).trim()+","+rs.getString(3).trim()+","+rs.getString(4).trim()+","+rs.getString(5).trim()+","+
+							rs.getString(6).trim()+","+rs.getString(7).trim()+","+rs.getString(8).trim();
+			encabezado = encabezado + "\r\n";
+			arrListaComp.add(encabezado);
+			
+			//aqui es donde se modifica documentación comprobatoria
+			
+			String Sql2 = " SELECT DISTINCT PDE.cRamo, DCD.DCD_FACTURA,	CONVERT(nvarchar(10), DCD.fAplicacion,103), " + 
+			" CONVERT(nvarchar(10), DCD.fRecepcion,103) + ' 12:00:00 a.m.', DCD.DCD_CBEN,	" +
+			" case when B.cExtranjero = 1 then '05' else '04' end 'TipoBen'," +
+			" DCD.DCD_TIPO_OPE, DCD.DCD_TIVA 'TIVA', " +
+			" CONVERT(decimal(17, 2), DCD.DCD_VALOR), " +
+			" CONVERT(decimal(17, 2), DCD.DCD_IMP_BRUTO) BRUTO, " +
+			" CONVERT(decimal(17, 2), DCD.DCD_IVADES) IVA, " +
+			" CONVERT(decimal(17, 2), DCD.DCD_IVA) RETIVA, " +
+			" CONVERT(decimal(17, 2), DCD.DCD_ISR) ISR, " +
+			" CONVERT(decimal(17, 2), DCD.DCD_MIL5) R5MILLAR, " +
+			" CONVERT(decimal(17, 2), DCD.DCD_MIL2) R2MILLAS, " +
+			" CONVERT(decimal(17, 2), DCD.DCD_OTRAS_RET) OTRASRET, " +
+			" CONVERT(decimal(17, 2), DCD.DCD_PENALIZACION) PENALIZA, " +
+			" CONVERT(decimal(17, 2), DCD.DCD_CONTRIBUCION) CONTRIB, " +
+			" DCD.DCD_CTOEXT, " +
+			" PDE.cIdDocumento, " +
+			" DCD.cConcepto " +
+			" from dbo.tOperAjenasEncabezado PDE inner join dbo.v_pagosDocComprobatoria DCD " +
+			" on PDE.caNoContrarrecibo = DCD.caNoContrarrecibo " +
+			" inner join [dbo].[tBeneficiario] B on PDE.cIdRFC = B.dRFC " +
+			" inner join [dbo].[CAT_TIPO_IVA] TI on TI.TIVA = DCD.DCD_TIVA " +
+			" where PDE.nFolioOperAjenas  = " + nFolioCompromiso ;
+			
+			pstmntD = conn.prepareStatement(Sql2);
+			System.out.println(Sql2);
+			rs2 = pstmntD.executeQuery();
+
+				while (rs2.next()){
+					String token = new String();
+					StringBuffer detalle = new StringBuffer();
+					for (int i = 1; i < 21; i++) {
+						detalle.append(token).append(rs2.getString(i).trim().replaceAll("[\r\n]{2,}", " "));
+						token = ",";
+					}
+					token = "";
+					detalle.append("\r\n");
+					arrListaComp.add(detalle.toString());
+				}
+
+			if(rs2 != null){
+				rs2.close();
+			}
+			if(pstmntD != null){
+				pstmntD.close();
+			}
+		}
+		if(rs != null){
+			rs.close();
+		}
+		if(pstmntH != null){
+			pstmntH.close();
+		}
+		return arrListaComp;
+	}*/
+
+
+	/*public static int updateHeaderCompromisos(Connection conn,String listaIds) throws SQLException{
+		PreparedStatement pstmnt = null;
+		int retval;
+		try
+		{
+			pstmnt = conn.prepareStatement("UPDATE tOperAjenasEncabezado SET nEnviadoSICOP = 1 WHERE nFolioOperAjenas  in (" + listaIds + ")");
+			retval = pstmnt.executeUpdate();
+			conn.commit();
+
+		} finally {
+			if (pstmnt != null){
+				pstmnt.close();
+			}
+
+			pstmnt = null;
+		}
+
+		return retval;
+	}*/
+
+	/*public static int UpdateStatus(Connection conn,String listaIds) throws SQLException{
+		PreparedStatement pstmnt = null;
+		int retval;
+		try
+		{
+			pstmnt = conn.prepareStatement("UPDATE tOperAjenasEncabezado SET nEnviadoSICOP = 0 WHERE nFolioOperAjenas in (" + listaIds + ")");
+			retval = pstmnt.executeUpdate();
+			conn.commit();
+
+		} finally {
+			if (pstmnt != null){
+				pstmnt.close();
+			}
+
+			pstmnt = null;
+		}
+
+		return retval;
+	}/*
+
+	/*public static boolean updateHeaderCompromisosRealimentacion(Connection conn, Integer nEnviadoSICOP, String caNoCompromiso) throws SQLException{
+		PreparedStatement pstmntL = null;
+		String queryUpdateEstatus = "UPDATE tOperAjenasEncabezado SET nEnviadoSICOP = " + nEnviadoSICOP +
+        "                             WHERE caNoCompromiso = '" + caNoCompromiso + "'";
+		try
+		{
+			pstmntL = conn.prepareStatement(queryUpdateEstatus);
+			pstmntL.executeUpdate();
+			conn.commit();
+			return true;
+
+		} finally {
+			if (pstmntL != null){
+				pstmntL.close();
+			}
+			pstmntL = null;
+
+		}
+
+	}*/
+
+	/*public static boolean insertRegisterLayout(Connection conn, String clave, String cRamo,String cUnidadResponsable, String folioSICOP, String idProceso, String cCentroContable, java.sql.Date fExpedicion, float total, String cTipoPoliza, String nFolioPoliza, String nPolizaCancelacion, String tipoMovimiento, String origenPresupuesto, String cuentaBancaria, String noSolicitud, String tCambio, String tMoneda, String tSolicitud, String volante, String rfc, String caNoCompromiso, String codSemarnat2, String estatus, java.sql.Date fAplicacion, String documento, String nDocumento, String descripcion) throws SQLException{
+		PreparedStatement pstmnt = null;
+		boolean insertReg;
+		String queryInsert = "INSERT INTO tLayoutCompromisos(" +
+				"                                               cClave,cRamo,cUnidadCreadora,cFolioCompromisoSICOP,cIdProceso," +
+				"                                               cCentroContable,fExpedicion,mImporte,cIdTipoPoliza,nPolizaSICOP," +
+				"                                               nPolizaCancelacionSICOP,cIdTipoMovimiento,nOrigenPresupuesto,nCuentaBancaria,cNoSolicitud," +
+				"                                               cTipoCambio,cMoneda,cTipoSolicitud,cVolante,dRFC," +
+				"                                               caNoCompromiso,caNoSemarnat2,cEstatus,fAplicacionSICOP,tDocumento," +
+				"                                               nDocumento,cDescripcion)" +
+				"             VALUES(" +
+				""                     + "'" + clave + "','" + cRamo + "','" + cUnidadResponsable + "','" + folioSICOP + "','" + idProceso + "'," +
+				""                     + "'" + cCentroContable + "','" + fExpedicion + "'," + total + ",'" + cTipoPoliza + "','" + nFolioPoliza + "'," +
+				""                     + "'" + nPolizaCancelacion + "','" + tipoMovimiento + "','" + origenPresupuesto + "','" + cuentaBancaria + "','" + noSolicitud + "'," +
+				""                     + "'" + tCambio  + "','" + tMoneda + "','" + tSolicitud + "','" + volante + "','" + rfc + "'," +
+				""                     + "'" +caNoCompromiso + "','" + codSemarnat2 + "','" + estatus + "','" + fAplicacion + "','" + documento + "'," +
+				""                     + "'" + nDocumento + "','" + descripcion + "')";
+
+
+			try{
+				pstmnt = conn.prepareStatement(queryInsert);
+				int reg = pstmnt.executeUpdate();
+				if(reg == 1){
+				 insertReg = true;
+				} else{
+					insertReg = false;
+				}
+			conn.commit();
+		} finally {
+			if (pstmnt != null){
+				pstmnt.close();
+			}
+
+			pstmnt = null;
+		}
+		return insertReg;
+	}*/
+
+}

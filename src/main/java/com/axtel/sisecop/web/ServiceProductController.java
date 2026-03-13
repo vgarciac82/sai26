@@ -1,0 +1,101 @@
+package com.axtel.sisecop.web;
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+
+import com.axtel.sisecop.dto.ProductDTO;
+import com.axtel.sisecop.entities.ProyectoProducto;
+import com.axtel.sisecop.services.ProductService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.syc.gestion.util.Util;
+
+
+@WebServlet( "/SISECOP/products" )
+public class ServiceProductController extends HttpServlet {
+
+	private static final long			serialVersionUID	= 3064440578302135421L;
+	private static final ObjectMapper	objectMapper		= new ObjectMapper();
+	private static final Logger			log					= Logger.getLogger( ServiceProductController.class );
+	private ProductService				productService		= null;
+
+	@Override
+	public void init( ServletConfig config ) throws ServletException {
+		super.init( config );
+		productService = new ProductService();
+	}
+
+	@Override
+	protected void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+		ProductDTO product = readServicioProducto( request );
+		log.trace( "JSON recibido correctamente y mapeado a objeto ServicioProductoDTO. " + product );
+
+		try {
+			log.debug( "Saving servicioProducto: " + product );
+			ProyectoProducto createdProduct = productService.create( product );
+			log.info( "ServicioProducto saved: " + createdProduct );
+			Util.sendJSONResponse( response, createdProduct );
+		} catch ( Exception e ) {
+			log.error( "Error saving servicioProducto: " + e.toString(), e );
+			Util.sendJSONError( response, e );
+		}
+	}
+
+	@Override
+	protected void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+
+		try {
+			int projectID = Integer.parseInt( request.getParameter( "servicioId" ) );
+
+			log.debug( "Looking for products in project: " + projectID );
+			List<ProyectoProducto> products = productService.readByProjectID( projectID );
+			Util.sendJSONResponse( response, products );
+		} catch ( Exception e ) {
+			log.error( "Error saving servicioProducto: " + e.toString(), e );
+			Util.sendJSONError( response, e );
+		}
+	}
+
+	@Override
+	protected void doDelete( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+		try {
+			int servicioProductoId = Integer.parseInt( request.getParameter( "servicioProductoId" ) );
+			log.info( "Trying to delete servicioProducto " + servicioProductoId );
+			productService.deleteServicioProducto( servicioProductoId );
+			log.info( "ServicioProducto " + servicioProductoId + " deleted" );
+			Map<String, String> result = new HashMap<>();
+			result.put( "deleted", "true" );
+			result.put( "success", "true" );
+			Util.sendJSONResponse( response, result );
+		} catch ( Exception e ) {
+			log.error( "Error deleting servicioProducto: " + e.toString(), e );
+			Util.sendJSONError( response, e );
+		}
+	}
+
+	private ProductDTO readServicioProducto( HttpServletRequest request ) throws IOException {
+		final StringBuilder jsonRequest = new StringBuilder();
+		try ( BufferedReader reader = new BufferedReader( new InputStreamReader( request.getInputStream(), StandardCharsets.UTF_8 ) ) ) {
+			String line;
+			while ( ( line = reader.readLine() ) != null ) {
+				jsonRequest.append( line );
+			}
+		}
+		return objectMapper.readValue( jsonRequest.toString(), ProductDTO.class );
+
+	}
+}

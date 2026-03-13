@@ -1,0 +1,84 @@
+package com.axtel.cfdi.stamp.controller;
+
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+
+
+@WebServlet( "/invoice/generateQRCode" )
+public class QRCodeServlet extends HttpServlet {
+ 
+	private static final long serialVersionUID = 9191361535677960155L;
+
+	private static final Logger log = Logger.getLogger(QRCodeServlet.class.getName());
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    String uuid = request.getParameter("uuid");
+	    String rfcEmisor = request.getParameter("rfcEmisor");
+	    String rfcReceptor = request.getParameter("rfcReceptor");
+	    String totalParam = request.getParameter("total");
+	    String sello = request.getParameter("sello");
+
+	    log.info("Received request to generate QR code with parameters: ");
+	    log.info("UUID: " + uuid);
+	    log.info("RFC Emisor: " + rfcEmisor);
+	    log.info("RFC Receptor: " + rfcReceptor);
+	    log.info("Total: " + totalParam);
+	    log.info("Sello: " + sello);
+
+	    try {
+	        BigDecimal total = new BigDecimal(totalParam);
+	        String qrContent = generateQRContent(uuid, rfcEmisor, rfcReceptor, total, sello);
+	        
+	        log.info("Generated QR content: " + qrContent);
+
+	        BitMatrix qrCodeMatrix = generateQRCodeMatrix(qrContent);
+	        
+	        log.info("QR code matrix generated successfully.");
+
+	        response.setContentType("image/png");
+	        try (ServletOutputStream outputStream = response.getOutputStream()) {
+	            MatrixToImageWriter.writeToStream(qrCodeMatrix, "PNG", outputStream);
+	            log.info("QR code image written to response output stream successfully.");
+	        }
+	    } catch (Exception e) {
+	        log.error("Error generating QR code: " + e.getMessage());
+	        throw new ServletException("Error generating QR code", e);
+	    }
+	}
+
+
+	private String generateQRContent( String uuid, String rfcEmisor, String rfcReceptor, BigDecimal total, String sello ) {
+		String totalFormatted = String.format( "%.2f", total );
+		String selloFormatted = sello.length() > 8 ? sello.substring( 0, 8 ) : sello;
+		return String.format( "https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=%s&re=%s&rr=%s&tt=%s&fe=%s", uuid, rfcEmisor, rfcReceptor, totalFormatted, selloFormatted );
+	}
+
+	private BitMatrix generateQRCodeMatrix( String qrContent ) throws Exception {
+		int width = 250;
+		int height = 250;
+		Map<EncodeHintType, ErrorCorrectionLevel> hints = new HashMap<>();
+		hints.put( EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L );
+
+		QRCodeWriter qrCodeWriter = new QRCodeWriter();
+		return qrCodeWriter.encode( qrContent, BarcodeFormat.QR_CODE, width, height, hints );
+	}
+}

@@ -1,0 +1,95 @@
+package com.axtel.egresos.controllers;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
+
+import com.axtel.egresos.entities.GreenMex;
+import com.axtel.egresos.services.impl.JDBCGreenMexService;
+import com.axtel.egresos.repositories.impl.JDBCGreenMexRepository;
+import com.syc.gestion.core.Usuario;
+import com.syc.gestion.servlet.GestionInterface;
+import com.syc.gestion.util.Util;
+
+
+public class GreenMexController extends HttpServlet {
+
+	private static final long					serialVersionUID	= 1L;
+	private static final Logger					log					= Logger.getLogger( GreenMexController.class );
+	private String								jniName;
+	private JDBCGreenMexService					GreenMexService;
+
+	@Override
+	public void init( ServletConfig config ) throws ServletException {
+		super.init( config );
+		try {
+			InitialContext ic = new InitialContext();
+			jniName = ( String ) ic.lookup( "java:comp/env/dataSourceRefName" );
+
+			if ( jniName == null ) {
+				jniName = "jdbc/gestion";
+				log.info( "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"" );
+			} else
+				log.info( "dataSourceRefName=" + jniName );
+		} catch ( NamingException exc ) {
+			jniName = "jdbc/gestion";
+			log.info( "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"" );
+		}
+
+		GreenMexService = new JDBCGreenMexService( jniName, new JDBCGreenMexRepository() );		
+
+	}
+
+	@Override
+	protected void doPost( HttpServletRequest request, HttpServletResponse response ) throws IOException {
+
+		log.info( "Inicia registro de comprobacion de ingreso." );
+		GreenMex GreenMex = null;
+		
+		try {
+			HttpSession session = request.getSession( false );
+			if ( session == null )
+				response.sendRedirect( "../../index.jsp" );
+
+			Usuario user = ( Usuario ) session.getAttribute( GestionInterface.ATT_USER );
+			if ( user == null )
+				response.sendRedirect( "../../index.jsp" );
+			
+			int folioComprobacion = Integer.parseInt( request.getParameter( "folioRG" ) );
+			BigDecimal impEjercer = new BigDecimal(request.getParameter( "impEjercer" ));
+			String folioING = (request.getParameter("folioING")!= null)? request.getParameter("folioING").trim(): "";
+			String remanenteING = (request.getParameter("remanenteING")!= null)? request.getParameter("remanenteING").trim(): "";						
+			String fecha = request.getParameter( "fecha" );
+			boolean retorno = false;
+			
+			retorno = GreenMexService.insertaComprobacion( folioComprobacion, impEjercer, folioING, remanenteING, fecha );
+			
+			log.info( GreenMex );
+			Util.sendJSON( response, GreenMex );
+			
+		} catch ( Exception ex ) {
+			log.error( ex, ex );
+			Util.sendJSONError( response, ex );
+		}
+	}
+
+	@Override
+	protected void doPut( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+	
+	}
+
+	@Override
+	protected void doDelete( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+
+	}
+
+}

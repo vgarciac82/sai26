@@ -1,0 +1,80 @@
+package com.axtel.web.clients;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Base64;
+
+import org.apache.log4j.Logger;
+
+import com.axtel.user.entities.Employee;
+import com.google.gson.Gson;
+
+public class EmployeeClient {
+
+	private static final Logger log = Logger.getLogger(EmployeeClient.class);
+
+	private final String basicAuth;
+	private String password;
+	private String serviceURL;
+	private String userName;
+
+	public EmployeeClient(String url, String userName, String code) throws UnsupportedEncodingException {
+		this.serviceURL = url;
+		this.userName = userName;
+		this.password = code;
+		basicAuth = "Basic " + Base64.getEncoder().encodeToString((getUserName() + ":" + getPassword()).getBytes("UTF-8"));
+		log.info("EmployeeClient inicializado con URL: " + url);
+	}
+
+	public Employee fetchEmployee(int employeeId) throws Exception {
+		log.trace("Iniciando fetchEmployee con id: " + employeeId);
+		URL url = new URL(getServiceURL() + employeeId);
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		
+		connection.setRequestMethod("GET");
+		connection.setRequestProperty("Authorization", basicAuth);
+		connection.setRequestProperty("Accept", "application/json");
+
+		int responseCode = connection.getResponseCode();
+		log.debug("Código de respuesta HTTP: " + responseCode);
+
+		if (responseCode == 200) {
+			try (BufferedReader reader = new BufferedReader(
+					new InputStreamReader(connection.getInputStream(), "UTF-8"))) {
+
+				StringBuilder response = new StringBuilder();
+				String line;
+
+				while ((line = reader.readLine()) != null) {
+					response.append(line);
+				}
+
+				String json = response.toString();
+				log.trace("JSON recibido: " + json);
+
+				Gson gson = new Gson();
+				Employee employee = gson.fromJson(json, Employee.class);
+				log.info("Empleado recibido: " + employee.getName() + " " + employee.getFirstSurname());
+				return employee;
+			}
+		} else {
+			log.error("Error HTTP al obtener empleado. Código: " + responseCode);
+			throw new RuntimeException("Failed : HTTP error code : " + responseCode);
+		}
+	}
+
+	private String getPassword() {
+		return password;
+	}
+
+	private String getServiceURL() {
+		return serviceURL;
+	}
+
+	private String getUserName() {
+		return userName;
+	}
+}
