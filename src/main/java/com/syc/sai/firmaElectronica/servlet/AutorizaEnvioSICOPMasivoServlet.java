@@ -26,6 +26,7 @@ import com.syc.sai.firmaElectronica.interfaces.SolicitudFirmaElectronica;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(urlPatterns = { "/FIEL/autorizaEnvioSICOPMasivo", "/FIEL/revisaEnvioSICOPMasivo" })
 public final class AutorizaEnvioSICOPMasivoServlet extends HttpServlet {
@@ -118,7 +119,7 @@ public final class AutorizaEnvioSICOPMasivoServlet extends HttpServlet {
                 log.debug("Object: {}", "Enviando respuesta JSON: " + jsonResponse);
                 resp.setContentType("application/json");
                 resp.setCharacterEncoding("UTF-8");
-                resp.getWriter().write(jsonResponse);
+                resp.getWriter().write(jsonResponse.toPath());
             } else {
                 log.warn("Object: {}", "Sesión inválida: " + msg);
                 throw new Exception(msg);
@@ -128,7 +129,7 @@ public final class AutorizaEnvioSICOPMasivoServlet extends HttpServlet {
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().write("{\"error\": \"Ocurrió un error al procesar la solicitud. " + e.toString() + "\"}");
+            resp.getWriter().write("{\"error\": \"Ocurrió un error al procesar la solicitud. " + e.toString() + "\"}".toPath());
         }
     }
 

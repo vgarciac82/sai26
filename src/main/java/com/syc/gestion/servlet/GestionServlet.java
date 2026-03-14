@@ -48,6 +48,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "GestionServlet", urlPatterns = { "/gstnmngr/gestion" })
 public class GestionServlet extends HttpServlet implements GestionInterface {
@@ -488,7 +489,7 @@ public class GestionServlet extends HttpServlet implements GestionInterface {
                     resp.setContentLength(objeto.length);
                     resp.setHeader("Content-Disposition", "attachment; filename=" + (isKey ? "llaveprivada" : "certificadopublico") + "cgitam" + u.getLogin() + ".key");
                     ServletOutputStream sos = resp.getOutputStream();
-                    sos.write(objeto);
+                    sos.write(objeto.toPath());
                     sos.flush();
                     sos.close();
                 } else {

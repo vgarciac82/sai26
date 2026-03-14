@@ -26,6 +26,7 @@ import com.syc.gestion.util.Util;
 import com.syc.obrapublica.ConfiguraAplicativoBusinessLogic;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class ReporteSipotManager {
 
@@ -148,7 +149,7 @@ public class ReporteSipotManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         /* Cierra Flujos */
         workbook.close();
         bos.flush();
@@ -214,7 +215,7 @@ public class ReporteSipotManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -265,7 +266,7 @@ public class ReporteSipotManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -331,7 +332,7 @@ public class ReporteSipotManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -415,7 +416,7 @@ public class ReporteSipotManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -511,7 +512,7 @@ public class ReporteSipotManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -622,7 +623,7 @@ public class ReporteSipotManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -767,7 +768,7 @@ public class ReporteSipotManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -863,7 +864,7 @@ public class ReporteSipotManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -1017,7 +1018,7 @@ public class ReporteSipotManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -1089,7 +1090,7 @@ public class ReporteSipotManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -1176,7 +1177,7 @@ public class ReporteSipotManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -1249,7 +1250,7 @@ public class ReporteSipotManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -1322,7 +1323,7 @@ public class ReporteSipotManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         workbook.close();
         /* Cierra Flujos */
         bos.flush();

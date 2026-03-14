@@ -23,6 +23,7 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 /**
  * @author Propietario
@@ -79,7 +80,7 @@ public class LayoutPagoDiversoAmbientalServlet extends HttpServlet implements Ge
                 archivoBanorte.append(LayoutBanorte.get(i));
             }
             String outTextBanorte = archivoBanorte.toString();
-            out.write(outTextBanorte);
+            out.write(outTextBanorte.toPath());
             // fin Layout BANORTE
             out.close();
             // Guarda el layout SPEI
@@ -89,7 +90,7 @@ public class LayoutPagoDiversoAmbientalServlet extends HttpServlet implements Ge
                 archivoSpei.append(LayoutSpei.get(i));
             }
             String outTextSpei = archivoSpei.toString();
-            outSpei.write(outTextSpei);
+            outSpei.write(outTextSpei.toPath());
             // fin Layout SPEI
             outSpei.close();
             // Guarda el layout BANORTE IP
@@ -99,7 +100,7 @@ public class LayoutPagoDiversoAmbientalServlet extends HttpServlet implements Ge
                 archivoBanorteIP.append(LayoutBanorteIP.get(i));
             }
             String outTextBanorteIP = archivoBanorteIP.toString();
-            outIP.write(outTextBanorteIP);
+            outIP.write(outTextBanorteIP.toPath());
             // fin Layout BANORTE
             outIP.close();
             // Guarda el layout SPEI IP
@@ -109,7 +110,7 @@ public class LayoutPagoDiversoAmbientalServlet extends HttpServlet implements Ge
                 archivoSpeiIP.append(LayoutSpeiIP.get(i));
             }
             String outTextSpeiIP = archivoSpeiIP.toString();
-            outSpeiIP.write(outTextSpeiIP);
+            outSpeiIP.write(outTextSpeiIP.toPath());
             // fin Layout SPEI
             outSpeiIP.close();
             // These are the files to include in the ZIP file

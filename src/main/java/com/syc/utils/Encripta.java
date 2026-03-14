@@ -98,7 +98,7 @@ public class Encripta {
             Cipher ecipher = Cipher.getInstance(algorithm);
             ecipher.init(Cipher.ENCRYPT_MODE, key);
             byte[] enc = ecipher.doFinal(utf8);
-            return new BASE64Encoder().encode(enc);
+            return Base64.getEncoder().encodeToString(enc);
         } catch (NoSuchPaddingException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -117,7 +117,7 @@ public class Encripta {
 
     public static String decrypt(SecretKey key, String str) {
         try {
-            byte[] dec = new BASE64Decoder().decode(str);
+            byte[] dec = Base64.getDecoder().decode(str);
             Cipher dcipher = Cipher.getInstance(algorithm);
             dcipher.init(Cipher.DECRYPT_MODE, key);
             byte[] utf8 = dcipher.doFinal(dec);
@@ -150,12 +150,12 @@ public class Encripta {
     }
 
     public static String secretKeyToString(SecretKey k) {
-        return new BASE64Encoder().encode(k.getEncoded());
+        return Base64.getEncoder().encodeToString(k.getEncoded());
     }
 
     public static SecretKey stringToSecretKey(String str) {
         try {
-            return new SecretKeySpec(new BASE64Decoder().decode(str), algorithm);
+            return new SecretKeySpec(Base64.getDecoder().decode(str), algorithm);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -15,6 +15,7 @@ import com.syc.fortimax.core.ExportLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class ListExpedientExport {
 
@@ -38,7 +39,7 @@ public class ListExpedientExport {
             bw = new BufferedWriter(fw);
             for (Iterator<ExportLog> i = exportLog.iterator(); i.hasNext(); ) {
                 ExportLog renglon = i.next();
-                bw.write(renglon.toCSV() + "\n");
+                bw.write(renglon.toCSV() + "\n".toPath());
             }
             bw.flush();
             bw.close();

@@ -23,6 +23,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "SeguridadServlet", urlPatterns = { "/admin/SeguridadAdmin" })
 public class SeguridadServlet extends HttpServlet {
@@ -334,7 +335,7 @@ public class SeguridadServlet extends HttpServlet {
         StringBuffer xmlResp = getRespuesta("status");
         response.setContentType("text/xml");
         response.setHeader("Cache-Control", "no-cache");
-        response.getWriter().write(xmlResp.toString());
+        response.getWriter().write(xmlResp.toString().toPath());
         System.out.println(xmlResp.toString());
     }
 

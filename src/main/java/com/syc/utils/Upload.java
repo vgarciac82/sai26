@@ -13,6 +13,7 @@ import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
 import org.apache.commons.fileupload2.core.FileItem;
 import java.util.Base64;
 import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import java.nio.file.Paths;
 
 @SuppressWarnings("serial")
 public class Upload extends HttpServlet {
@@ -71,8 +72,7 @@ public class Upload extends HttpServlet {
     @SuppressWarnings({ "unchecked", "deprecation" })
     public void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
         try {
-            DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(path));
+            DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
             //Se construye un objeto para que parsee la petición
             JakartaServletFileUpload fu = new JakartaServletFileUpload(factory);
             //tamaño máximo que aceptará el archivo
@@ -92,7 +92,7 @@ public class Upload extends HttpServlet {
                 actual = (FileItem) i.next();
                 String fileName = actual.getName();
                 File archivo = new File(fu.getRepositoryPath() + "\\" + fileName);
-                actual.write(archivo);
+                actual.write(archivo.toPath());
             }
         } catch (Exception e) {
             // TODO: handle exception

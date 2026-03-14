@@ -43,6 +43,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "ReintegrosFiscalesServlet", urlPatterns = { "/servlet/ReintegrosFiscalesServlet" })
 public class ReintegrosFiscalesServlet extends HttpServlet {
@@ -400,7 +401,7 @@ public class ReintegrosFiscalesServlet extends HttpServlet {
             celda = fila.createCell(6);
             celda.setCellValue(valuesCXP[i].trim());
         }
-        wb.write(response.getOutputStream());
+        wb.write(response.getOutputStream().toPath());
         wb.close();
     }
 
@@ -506,7 +507,7 @@ public class ReintegrosFiscalesServlet extends HttpServlet {
             if ("3".equals(tipoTramite))
                 celda.setCellValue(valuesTipoMovimiento[i].trim());
         }
-        wb.write(response.getOutputStream());
+        wb.write(response.getOutputStream().toPath());
         wb.close();
     }
 

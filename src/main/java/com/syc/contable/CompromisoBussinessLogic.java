@@ -56,6 +56,7 @@ import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class CompromisoBussinessLogic extends DataSourceManager {
 
@@ -356,7 +357,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
             archivoPago.append(cvsDataSQL.get(i));
         }
         String outTextPago = archivoPago.toString();
-        out.write(outTextPago);
+        out.write(outTextPago.toPath());
         out.flush();
         out.close();
         /* fin de guarda pago */
@@ -905,7 +906,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
                 row.createCell(11).setCellValue(dto.getDisponible());
             }
             try (FileOutputStream fos = new FileOutputStream(templateFile)) {
-                workbook.write(fos);
+                workbook.write(fos.toPath());
             }
         }
     }

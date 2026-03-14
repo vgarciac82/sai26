@@ -25,6 +25,7 @@ import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class ReporteNafinManager {
 
@@ -359,7 +360,7 @@ public class ReporteNafinManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         workbook.close();
         /* Cierra Flujos */
         bos.flush();

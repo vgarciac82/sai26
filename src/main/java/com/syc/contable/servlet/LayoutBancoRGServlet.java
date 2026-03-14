@@ -26,6 +26,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "LayoutBancoRGServlet", urlPatterns = { "/gstnmngr/generaLayoutBancoRG" })
 public class LayoutBancoRGServlet extends HttpServlet {
@@ -85,7 +86,7 @@ public class LayoutBancoRGServlet extends HttpServlet {
                 archivoBanorte.append(LayoutBanorte.get(i));
             }
             String outTextBanorte = archivoBanorte.toString();
-            out.write(outTextBanorte);
+            out.write(outTextBanorte.toPath());
             // fin Layout BANORTE
             out.close();
             // Guarda el layout SPEI
@@ -95,7 +96,7 @@ public class LayoutBancoRGServlet extends HttpServlet {
                 archivoSpei.append(LayoutSpei.get(i));
             }
             String outTextSpei = archivoSpei.toString();
-            outSpei.write(outTextSpei);
+            outSpei.write(outTextSpei.toPath());
             // fin Layout SPEI
             outSpei.close();
             // These are the files to include in the ZIP file

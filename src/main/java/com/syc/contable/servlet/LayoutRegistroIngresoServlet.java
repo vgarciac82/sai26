@@ -31,6 +31,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "LayoutRegistroIngresoServlet", urlPatterns = { "/gstnmngr/generaLayoutRegistroIngreso" })
 public class LayoutRegistroIngresoServlet extends HttpServlet {
@@ -102,7 +103,7 @@ public class LayoutRegistroIngresoServlet extends HttpServlet {
                     archivoPago.append(arrListPago.get(i));
                 }
                 String outTextPago = archivoPago.toString();
-                out.write(outTextPago);
+                out.write(outTextPago.toPath());
                 // fin de guarda pago
                 out.close();
                 // Guarda el documento
@@ -112,7 +113,7 @@ public class LayoutRegistroIngresoServlet extends HttpServlet {
                     archivoDocu.append(arrListDocu.get(i));
                 }
                 String outTextDocu = archivoDocu.toString();
-                outDocu.write(outTextDocu);
+                outDocu.write(outTextDocu.toPath());
                 // fin de guarda documento
                 outDocu.close();
                 // These are the files to include in the ZIP file

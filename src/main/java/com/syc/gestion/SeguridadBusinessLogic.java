@@ -56,6 +56,7 @@ import com.syc.zip.ZipOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class SeguridadBusinessLogic extends DataSourceManager {
 
@@ -1237,7 +1238,7 @@ public class SeguridadBusinessLogic extends DataSourceManager {
         CharsetEncoder encoder = Charset.forName(charEnc).newEncoder();
         try {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(originalXMLFile), encoder));
-            bw.write(sbOut.toString());
+            bw.write(sbOut.toString().toPath());
             bw.flush();
             bw.close();
             bw = null;

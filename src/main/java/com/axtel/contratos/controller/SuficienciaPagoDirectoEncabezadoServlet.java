@@ -21,6 +21,7 @@ import com.syc.gestion.servlet.GestionInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet("/api/suficiencia")
 public class SuficienciaPagoDirectoEncabezadoServlet extends HttpServlet {
@@ -104,7 +105,7 @@ public class SuficienciaPagoDirectoEncabezadoServlet extends HttpServlet {
             logic.deleteByFolio(folio);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("{\"mensaje\":\"Eliminado correctamente\"}");
+            response.getWriter().write("{\"mensaje\":\"Eliminado correctamente\"}".toPath());
         } catch (Exception ex) {
             log.error("Error al eliminar encabezado", ex);
             enviarError(response, "Error al eliminar encabezado.");
@@ -131,6 +132,6 @@ public class SuficienciaPagoDirectoEncabezadoServlet extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"error\": \"" + mensaje + "\"}");
+        response.getWriter().write("{\"error\": \"" + mensaje + "\"}".toPath());
     }
 }

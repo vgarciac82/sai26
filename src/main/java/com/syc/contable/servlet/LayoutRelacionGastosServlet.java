@@ -27,6 +27,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "LayoutRelacionGastosServlet", urlPatterns = { "/gstnmngr/generaLayoutRelacionGastos" })
 public class LayoutRelacionGastosServlet extends HttpServlet {
@@ -119,7 +120,7 @@ public class LayoutRelacionGastosServlet extends HttpServlet {
                     archivoPago.append(arrListPago.get(i));
                 }
                 String outTextPago = archivoPago.toString();
-                out.write(outTextPago);
+                out.write(outTextPago.toPath());
                 // fin de guarda pago
                 out.close();
                 BufferedWriter outDocu = new BufferedWriter(new FileWriter(layoutDocu));
@@ -128,7 +129,7 @@ public class LayoutRelacionGastosServlet extends HttpServlet {
                     archivoDocu.append(arrListDocu.get(i));
                 }
                 String outTextDocu = archivoDocu.toString();
-                outDocu.write(outTextDocu);
+                outDocu.write(outTextDocu.toPath());
                 // fin de guarda documento
                 outDocu.close();
                 File[] filenames = new File[] { layoutPago, layoutDocu };

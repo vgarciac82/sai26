@@ -31,6 +31,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "ReintegrosLayoutSicop", urlPatterns = { "/gstnmngr/ReintegrosLayoutSicop" })
 public class LayoutReintegrosSicopServlet extends HttpServlet {
@@ -341,7 +342,7 @@ public class LayoutReintegrosSicopServlet extends HttpServlet {
                 //AP
                 archivo += "," + reintegroDetalleB.getSuficiencia();
             }
-            bw.write(archivo);
+            bw.write(archivo.toPath());
             bw.flush();
             bw.close();
         } catch (Exception ex) {
@@ -546,7 +547,7 @@ public class LayoutReintegrosSicopServlet extends HttpServlet {
                 //AQ
                 archivo += "," + reintegroDetalleB.getSuficiencia();
             }
-            bw.write(archivo);
+            bw.write(archivo.toPath());
             bw.flush();
             bw.close();
         } catch (Exception ex) {
@@ -750,7 +751,7 @@ public class LayoutReintegrosSicopServlet extends HttpServlet {
                 //AQ
                 archivo += "," + reintegroDetalleB.getSuficiencia();
             }
-            bw.write(archivo);
+            bw.write(archivo.toPath());
             bw.flush();
             bw.close();
         } catch (Exception ex) {
@@ -787,7 +788,7 @@ public class LayoutReintegrosSicopServlet extends HttpServlet {
             archivo = decrementoEncabezado;
             ;
             archivo += decrementoDetalle;
-            bw.write(archivo);
+            bw.write(archivo.toPath());
             bw.flush();
             bw.close();
         } catch (Exception ex) {

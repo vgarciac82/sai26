@@ -16,6 +16,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "FuelContractController", urlPatterns = { "/SICOVE/FuelContract" })
 public class FuelContractController extends HttpServlet {
@@ -44,14 +45,14 @@ public class FuelContractController extends HttpServlet {
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             log.debug("Object: {}", "Writting response: " + fuelContractJson);
-            resp.getWriter().write(fuelContractJson);
+            resp.getWriter().write(fuelContractJson.toPath());
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             String errorJson = mapper.writeValueAsString(e.getMessage());
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().write(errorJson);
+            resp.getWriter().write(errorJson.toPath());
         }
     }
 

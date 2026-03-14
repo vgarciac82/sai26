@@ -20,6 +20,7 @@ import com.syc.contable.ReportePasivosBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class LayoutReportePasivosServlet extends HttpServlet {
 
@@ -125,7 +126,7 @@ public class LayoutReportePasivosServlet extends HttpServlet {
                 archivoPago.append(arrListPago.get(i));
             }
             String outTextPago = archivoPago.toString();
-            out.write(outTextPago);
+            out.write(outTextPago.toPath());
             // fin de guarda pago
             out.close();
             // envío de archivo CSV

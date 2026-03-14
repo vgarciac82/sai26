@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.annotation.WebServlet;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 /**
  * @author Vicente
@@ -42,7 +43,7 @@ public class SetSessionServlet extends HttpServlet {
         resp.setContentType("text/x-json;charset=UTF-8");
         resp.setHeader("Cache-Control", "no-cache");
         PrintWriter out = resp.getWriter();
-        out.write(jSon);
+        out.write(jSon.toPath());
         out.flush();
         out.close();
     }
@@ -56,7 +57,7 @@ public class SetSessionServlet extends HttpServlet {
         resp.setContentType("application/json");
         resp.setHeader("Cache-Control", "no-cache");
         PrintWriter out = resp.getWriter();
-        out.write(jSon);
+        out.write(jSon.toPath());
         out.flush();
         out.close();
     }
@@ -69,7 +70,7 @@ public class SetSessionServlet extends HttpServlet {
         resp.setContentType("text/x-json;charset=UTF-8");
         resp.setHeader("Cache-Control", "no-cache");
         PrintWriter out = resp.getWriter();
-        out.write(jSon);
+        out.write(jSon.toPath());
         out.flush();
         out.close();
     }

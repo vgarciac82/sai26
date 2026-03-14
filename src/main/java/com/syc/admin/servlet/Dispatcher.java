@@ -13,6 +13,7 @@ import com.syc.admin.core.Usuario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class Dispatcher extends javax.servlet.http.HttpServlet {
 
@@ -76,7 +77,7 @@ public class Dispatcher extends javax.servlet.http.HttpServlet {
         StringBuffer xmlResp = getRespuesta("status");
         response.setContentType("text/xml");
         response.setHeader("Cache-Control", "no-cache");
-        response.getWriter().write(xmlResp.toString());
+        response.getWriter().write(xmlResp.toString().toPath());
         System.out.println(xmlResp.toString());
     }
 

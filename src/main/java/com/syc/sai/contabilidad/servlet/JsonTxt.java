@@ -17,6 +17,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "JsonTxt", urlPatterns = { "/export/GeneraJsonTxt" })
 public class JsonTxt extends HttpServlet implements GestionInterface {
@@ -76,7 +77,7 @@ public class JsonTxt extends HttpServlet implements GestionInterface {
             response.setCharacterEncoding("UTF-8");
             out = response.getWriter();
             int rows = data.size() / 16;
-            out.write("{ \"aaData\": [");
+            out.write("{ \"aaData\": [".toPath());
             int puntero = -1;
             String coma = ",";
             for (int i = 0; i < rows; i++) log.trace("Object: {}", "[\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + formato.format(Double.parseDouble(data.get(++puntero))) + "\",\"" + formato.format(Double.parseDouble(data.get(++puntero))) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\"]");
@@ -84,9 +85,9 @@ public class JsonTxt extends HttpServlet implements GestionInterface {
             for (int i = 0; i < rows; i++) {
                 if (i + 1 == rows)
                     coma = "";
-                out.write("[\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + formato.format(Double.parseDouble(data.get(++puntero))) + "\",\"" + formato.format(Double.parseDouble(data.get(++puntero))) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\"]" + coma + "");
+                out.write("[\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + formato.format(Double.parseDouble(data.get(++puntero))) + "\",\"" + formato.format(Double.parseDouble(data.get(++puntero))) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\"]" + coma + "".toPath());
             }
-            out.write("] }");
+            out.write("] }".toPath());
         } finally {
             out.flush();
             out.close();
@@ -102,7 +103,7 @@ public class JsonTxt extends HttpServlet implements GestionInterface {
             response.setCharacterEncoding("UTF-8");
             out = response.getWriter();
             String Array = data[0] + "//" + formato.format(Double.parseDouble(data[1])) + "//" + formato.format(Double.parseDouble(data[2])) + "//" + data[3] + "//" + data[4] + "//" + data[5] + "//" + data[6] + "//" + data[7] + "//" + data[8] + "//" + data[9] + "//" + data[10] + "//" + data[11] + "//" + data[12] + "";
-            out.write(Array);
+            out.write(Array.toPath());
         } finally {
             out.flush();
             out.close();

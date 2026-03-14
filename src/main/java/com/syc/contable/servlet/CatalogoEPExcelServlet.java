@@ -36,6 +36,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
 import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import java.nio.file.Paths;
 
 @WebServlet(name = "CatalogoEPExcelServlet", urlPatterns = { "/gstnmngr/CatalogoEPExcel" })
 public class CatalogoEPExcelServlet extends HttpServlet {
@@ -98,8 +99,7 @@ public class CatalogoEPExcelServlet extends HttpServlet {
             String pathURL = request.getContextPath();
             String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + pathURL + "/";
             String path = "";
-            DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(path));
+            DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
             JakartaServletFileUpload fu = new JakartaServletFileUpload(factory);
             fu.setFileSizeMax(-1);
             Long date = System.currentTimeMillis();
@@ -132,7 +132,7 @@ public class CatalogoEPExcelServlet extends HttpServlet {
                     actual = (FileItem) i.next();
                     String fileName = "CatalogoEP.xls";
                     File archivo = new File(fu.getRepositoryPath() + "\\" + fileName);
-                    actual.write(archivo);
+                    actual.write(archivo.toPath());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -211,8 +211,7 @@ public class CatalogoEPExcelServlet extends HttpServlet {
     }
 
     public ArrayList<String> cargaExcel(String archivo, String tipo) throws Exception {
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(tempDir));
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         String cFileExcel = upload.getRepositoryPath() + "/CatalogoEP.xls";
         ArrayList<String> validaEP = new ArrayList<String>();
@@ -270,8 +269,7 @@ public class CatalogoEPExcelServlet extends HttpServlet {
         String szPath;
         List<FileItem> fileItems = new ArrayList<FileItem>();
         try {
-            DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(szPath));
+            DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
             // Se construye un objeto para que parsee la petición
             JakartaServletFileUpload fu = new JakartaServletFileUpload(factory);
             // Tamaño máximo que aceptará el archivo

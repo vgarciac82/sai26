@@ -14,6 +14,7 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexWriter;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public final class OCRIndex extends Thread {
 
@@ -108,7 +109,7 @@ public final class OCRIndex extends Thread {
             try {
                 tempProc.waitFor();
             } catch (InterruptedException ie) {
-                myLogFileWriter.write("[" + new Date() + "] INTERRUPTEDEXCEPTION: Error esperando al thread... " + printLuceneData() + "\n");
+                myLogFileWriter.write("[" + new Date() + "] INTERRUPTEDEXCEPTION: Error esperando al thread... " + printLuceneData() + "\n".toPath());
                 tempProc.destroy();
                 tempProc = null;
                 //ie.printStackTrace();
@@ -120,11 +121,11 @@ public final class OCRIndex extends Thread {
                     execString.append(OCRExecParams[i]);
                     execString.append(" ");
                 }
-                myLogFileWriter.write("[" + new Date() + "] OCR ERROR: retVal=[" + retVal + "], " + printLuceneData() + ", execString=[" + execString.toString() + "]\n");
+                myLogFileWriter.write("[" + new Date() + "] OCR ERROR: retVal=[" + retVal + "], " + printLuceneData() + ", execString=[" + execString.toString() + "]\n".toPath());
             }
         } catch (IOException ioe) {
             try {
-                myLogFileWriter.write("[" + new Date() + "] I/O EXCEPTION: retVal=[" + retVal + "], " + printLuceneData() + "\n");
+                myLogFileWriter.write("[" + new Date() + "] I/O EXCEPTION: retVal=[" + retVal + "], " + printLuceneData() + "\n".toPath());
             } catch (IOException ioe2) {
                 //ignore
             }
@@ -141,7 +142,7 @@ public final class OCRIndex extends Thread {
             myDoc = this.createDocument(txtFile);
         } catch (FileNotFoundException fnf) {
             try {
-                myLogFileWriter.write("[" + new Date() + "] FILENOTFOUNDEXCEPTION: No encontro el archivo=[" + txtFile.getPath() + "]\n");
+                myLogFileWriter.write("[" + new Date() + "] FILENOTFOUNDEXCEPTION: No encontro el archivo=[" + txtFile.getPath() + "]\n".toPath());
             } catch (IOException ioe) {
                 //ignore
             }
@@ -153,19 +154,19 @@ public final class OCRIndex extends Thread {
                 retVal = 0;
             } catch (CorruptIndexException cie) {
                 try {
-                    myLogFileWriter.write("[" + new Date() + "] CorruptIndexException: Al procesar el archivo=[" + txtFile.getPath() + "]\n");
+                    myLogFileWriter.write("[" + new Date() + "] CorruptIndexException: Al procesar el archivo=[" + txtFile.getPath() + "]\n".toPath());
                 } catch (IOException ioe) {
                     //ignore
                 }
             } catch (IOException ioe) {
                 try {
-                    myLogFileWriter.write("[" + new Date() + "] IOException: Al procesar el archivo=[" + txtFile.getPath() + "]\n");
+                    myLogFileWriter.write("[" + new Date() + "] IOException: Al procesar el archivo=[" + txtFile.getPath() + "]\n".toPath());
                 } catch (IOException ioe2) {
                     //ignore
                 }
             } catch (NullPointerException npe) {
                 try {
-                    myLogFileWriter.write("Se pachequeo con el docto=[" + numDocto + "]\n");
+                    myLogFileWriter.write("Se pachequeo con el docto=[" + numDocto + "]\n".toPath());
                 } catch (IOException ioe) {
                     //ignore
                 }
@@ -194,7 +195,7 @@ public final class OCRIndex extends Thread {
             }
         } catch (SQLException sqle) {
             try {
-                myLogFileWriter.write("[" + new Date() + "] SQLException: Al ejecutar el query=[" + query + "]\n");
+                myLogFileWriter.write("[" + new Date() + "] SQLException: Al ejecutar el query=[" + query + "]\n".toPath());
             } catch (IOException ioe) {
                 //ignore
             }

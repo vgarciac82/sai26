@@ -21,6 +21,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "LayoutSuficienciaServlet", urlPatterns = { "/gstnmngr/generaLayoutSuficiencia", "/compromiso/cancelaSuficiencia" })
 public class LayoutSuficienciaServlet extends HttpServlet {
@@ -94,7 +95,7 @@ public class LayoutSuficienciaServlet extends HttpServlet {
                 archivoPago.append(arrListPago.get(i));
             }
             String outTextPago = archivoPago.toString();
-            out.write(outTextPago);
+            out.write(outTextPago.toPath());
             out.close();
             try (ServletOutputStream outputStream = response.getOutputStream();
                 FileInputStream fileInputStream = new FileInputStream(filename)) {
@@ -138,7 +139,7 @@ public class LayoutSuficienciaServlet extends HttpServlet {
             String msgRetorno = "Ocurrió un error al cancelar la suficiencia: " + e.getMessage();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.setContentType("text/plain");
-            response.getWriter().write(msgRetorno);
+            response.getWriter().write(msgRetorno.toPath());
         }
     }
 }

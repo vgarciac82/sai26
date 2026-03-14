@@ -19,6 +19,7 @@ import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet("/CFDIManagment/stamp")
 public class CFDIStampController extends HttpServlet {
@@ -45,11 +46,11 @@ public class CFDIStampController extends HttpServlet {
             List<InvoiceRespond> result = stampService.stamp(cfdiIds);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(gson.toJson(result));
+            response.getWriter().write(gson.toJson(result).toPath());
         } catch (Exception e) {
             log.error("Error al timbrar los CFDIs: ", e);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("{\"error\": \"Error al timbrar los CFDIs. Por favor intente nuevamente.\"}");
+            response.getWriter().write("{\"error\": \"Error al timbrar los CFDIs. Por favor intente nuevamente.\"}".toPath());
         }
     }
 
@@ -64,11 +65,11 @@ public class CFDIStampController extends HttpServlet {
             // Por ejemplo: cfdiService.cancelCFDIs(cfdiIds);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("{\"message\":\"CFDIs cancelados correctamente.\"}");
+            response.getWriter().write("{\"message\":\"CFDIs cancelados correctamente.\"}".toPath());
         } catch (Exception e) {
             log.error("Error al cancelar los CFDIs: ", e);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("{\"error\": \"Error al cancelar los CFDIs. Por favor intente nuevamente.\"}");
+            response.getWriter().write("{\"error\": \"Error al cancelar los CFDIs. Por favor intente nuevamente.\"}".toPath());
         }
     }
 

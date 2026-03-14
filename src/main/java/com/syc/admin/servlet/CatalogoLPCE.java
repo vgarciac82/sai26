@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
 import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import java.nio.file.Paths;
 
 @WebServlet(name = "CatalogoLPCE", urlPatterns = { "/servlet/CatalogoLPCE" })
 public class CatalogoLPCE extends HttpServlet {
@@ -69,8 +70,7 @@ public class CatalogoLPCE extends HttpServlet {
     }
 
     private List parseRequest(HttpServletRequest req) throws ServletException {
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(tempDir));
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         // Si el archivo excede este tama?o, ocurre un excepcion FileUploadException
         //con -1 le indicamos que acepte archivos de cualquier tamaño
@@ -132,7 +132,7 @@ public class CatalogoLPCE extends HttpServlet {
                 //ficheroAjax = new  File("C:\\upload\\"+CarpetaAjax+"\\"+name);
                 ficheroAjax = new File(RutaContex + CarpetaAjax.toLowerCase() + "\\" + name);
                 // escribimos el fichero colgando del nuevo path
-                actualAjax.write(ficheroAjax);
+                actualAjax.write(ficheroAjax.toPath());
                 return;
             } else //****************
             {
@@ -205,7 +205,7 @@ public class CatalogoLPCE extends HttpServlet {
                         //fichero = new  File("C:\\upload"+"\\"+obtienenombreCarpeta+"\\"+NombreArchivo);
                         fichero = new File(RutaContex + "\\" + obtienenombreCarpeta.toLowerCase() + "\\" + NombreArchivo);
                         // escribimos el fichero colgando del nuevo path
-                        actual.write(fichero);
+                        actual.write(fichero.toPath());
                         response.sendRedirect("../Generador/SAICYS/mCatalogoLicitacionPublicaCreditoExterno.jsp?tab=1&accion=2");
                         return;
                     } else {

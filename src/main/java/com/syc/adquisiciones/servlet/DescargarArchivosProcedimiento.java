@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "DescargarArchivosProcedimiento", urlPatterns = { "/servlet/DescargarArchivosProcedimiento" })
 public class DescargarArchivosProcedimiento extends HttpServlet {
@@ -71,7 +72,7 @@ public class DescargarArchivosProcedimiento extends HttpServlet {
             response.setContentType("application/octet-stream");
             response.setHeader("Content-Disposition", "attachment;filename=" + session.getAttribute(GestionInterface.ATT_ProTipoProcedimiento) + "-" + session.getAttribute(GestionInterface.ATT_ProUnidadEjecutora) + "-" + session.getAttribute(GestionInterface.ATT_ProConsecutivo) + "-" + session.getAttribute(GestionInterface.ATT_ProEjercicio) + ".doc");
             ServletOutputStream ouputStream = response.getOutputStream();
-            ouputStream.write(datos);
+            ouputStream.write(datos.toPath());
             ouputStream.flush();
             ouputStream.close();
             response.sendRedirect("../Generador/SAICYS/ArchivosProcedimiento.jsp?cIdProcedimientoArchivo=" + session.getAttribute(GestionInterface.ATT_ProTipoProcedimiento) + "-" + session.getAttribute(GestionInterface.ATT_ProUnidadEjecutora) + "-" + session.getAttribute(GestionInterface.ATT_ProConsecutivo) + "&cEjercicioArchivo=" + session.getAttribute(GestionInterface.ATT_ProEjercicio) + "&cIdConsolidadoArchivo=" + cIdConsolidado + "&cTipoArchivo=" + session.getAttribute(GestionInterface.ATT_ProcTipoArchivo).toString() + "&cMensaje=");

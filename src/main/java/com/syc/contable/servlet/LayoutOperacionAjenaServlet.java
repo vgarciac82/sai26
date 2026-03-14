@@ -21,6 +21,7 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "LayoutOperacionAjenaServlet", urlPatterns = { "/gstnmngr/generaLayoutOperacionAjena" })
 public class LayoutOperacionAjenaServlet extends HttpServlet {
@@ -139,7 +140,7 @@ public class LayoutOperacionAjenaServlet extends HttpServlet {
                 archivoPago.append(arrListPago.get(i));
             }
             String outTextPago = archivoPago.toString();
-            out.write(outTextPago);
+            out.write(outTextPago.toPath());
             // fin de guarda pago
             out.close();
             // envío de archivo CSV

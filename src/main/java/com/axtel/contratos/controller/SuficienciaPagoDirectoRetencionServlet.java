@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet("/api/suficiencia/retencion")
 public class SuficienciaPagoDirectoRetencionServlet extends HttpServlet {
@@ -84,7 +85,7 @@ public class SuficienciaPagoDirectoRetencionServlet extends HttpServlet {
             logic.deleteByFolio(folio, idRetencion);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("{\"mensaje\":\"Eliminadas correctamente\"}");
+            response.getWriter().write("{\"mensaje\":\"Eliminadas correctamente\"}".toPath());
         } catch (Exception ex) {
             log.error("Error al eliminar Retenciones", ex);
             enviarError(response, "Error al eliminar Retenciones.");
@@ -109,6 +110,6 @@ public class SuficienciaPagoDirectoRetencionServlet extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"error\": \"" + mensaje + "\"}");
+        response.getWriter().write("{\"error\": \"" + mensaje + "\"}".toPath());
     }
 }

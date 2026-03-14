@@ -31,6 +31,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "RectificacionPresupuestariaServlet", urlPatterns = { "/gstnmngr/RectificacionPresupuestaria" })
 public class RectificacionPresupuestariaServlet extends HttpServlet {
@@ -296,7 +297,7 @@ public class RectificacionPresupuestariaServlet extends HttpServlet {
 			 * System.out.println("");
 			 */
         }
-        wb.write(response.getOutputStream());
+        wb.write(response.getOutputStream().toPath());
     }
 
     public void creaExcelRectificacionCargaMil(String folio, HttpServletResponse response, HttpServletRequest request) throws IOException, SQLException {
@@ -450,6 +451,6 @@ public class RectificacionPresupuestariaServlet extends HttpServlet {
             celda = fila.createCell(6);
             celda.setCellValue("N/A");
         }
-        wb.write(response.getOutputStream());
+        wb.write(response.getOutputStream().toPath());
     }
 }

@@ -17,6 +17,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "GetAcumuladoxInboxServlet", urlPatterns = {})
 public class GetAcumuladoxInboxServlet extends HttpServlet {
@@ -71,7 +72,7 @@ public class GetAcumuladoxInboxServlet extends HttpServlet {
             sb.append("<respuestas>" + inbox.getTotalRespuestas() + "</respuestas>");
             sb.append("<prorrogas>" + inbox.getTotalProrrogas() + "</prorrogas>");
             sb.append("</acumulado>");
-            res.getWriter().write(sb.toString());
+            res.getWriter().write(sb.toString().toPath());
         } catch (GestionException e) {
             log.warn("Error al consultar acumulados, usuario [ " + u.getLogin() + " ] ", e);
         }

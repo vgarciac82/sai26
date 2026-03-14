@@ -128,8 +128,7 @@ public class InformeSemestralServlet extends HttpServlet {
     }
 
     public void datosPlantilla(HttpServletRequest request, HttpServletResponse response, String tReporte) throws ServletException, IOException, SQLException, ClassNotFoundException, ParseException {
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(tempDir));
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         cFileExcel = upload.getRepositoryPath() + "\\" + "InformeSemestral.xls";
         if (tReporte.equals("1")) {

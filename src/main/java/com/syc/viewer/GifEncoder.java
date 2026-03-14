@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Enumeration;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class GifEncoder extends ImageEncoder {
 
@@ -104,7 +105,7 @@ public class GifEncoder extends ImageEncoder {
 
     static void writeString(OutputStream out, String str) throws IOException {
         byte[] buf = str.getBytes();
-        out.write(buf);
+        out.write(buf.toPath());
     }
 
     int Width, Height;
@@ -230,7 +231,7 @@ public class GifEncoder extends ImageEncoder {
     }
 
     void Putbyte(byte b, OutputStream outs) throws IOException {
-        outs.write(b);
+        outs.write(b.toPath());
     }
 
     static final int BITS = 12;
@@ -386,7 +387,7 @@ public class GifEncoder extends ImageEncoder {
 
     void flush_char(OutputStream outs) throws IOException {
         if (a_count > 0) {
-            outs.write(a_count);
+            outs.write(a_count.toPath());
             outs.write(accum, 0, a_count);
             a_count = 0;
         }

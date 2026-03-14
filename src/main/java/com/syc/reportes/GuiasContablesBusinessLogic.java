@@ -13,6 +13,7 @@ import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.reportes.core.GuiasContablesManager;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class GuiasContablesBusinessLogic extends DataSourceManager {
 
@@ -156,7 +157,7 @@ public class GuiasContablesBusinessLogic extends DataSourceManager {
             OutputStream responseOutputStream = resp.getOutputStream();
             int bytes;
             while ((bytes = fileInputStream.read()) != -1) {
-                responseOutputStream.write(bytes);
+                responseOutputStream.write(bytes.toPath());
             }
         } finally {
             CloseObject.closeObject(conn, false);

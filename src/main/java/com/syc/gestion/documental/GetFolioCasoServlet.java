@@ -15,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "GetFolioCasoServlet", urlPatterns = {})
 public class GetFolioCasoServlet extends HttpServlet {
@@ -50,7 +51,7 @@ public class GetFolioCasoServlet extends HttpServlet {
             log.info("Object: {}", "[GetFolioCasoServlet] folio=" + c.getFolio());
             res.setContentType("text/xml");
             res.setHeader("Cache-Control", "no-cache");
-            res.getWriter().write("<folio>" + c.getFolio() + "</folio>");
+            res.getWriter().write("<folio>" + c.getFolio() + "</folio>".toPath());
         } catch (GestionException e) {
             log.warn("Error al leer folio para id=" + sid, e);
         }

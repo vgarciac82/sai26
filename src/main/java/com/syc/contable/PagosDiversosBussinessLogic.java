@@ -61,6 +61,7 @@ import com.syc.sai.procesos.CambiaEPRelacionGastos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class PagosDiversosBussinessLogic extends DataSourceManager {
 
@@ -249,7 +250,7 @@ public class PagosDiversosBussinessLogic extends DataSourceManager {
             response.setHeader("Content-Type", "application/vnd.ms-excel");
             response.addHeader("Content-Disposition", "inline; filename=\"layout.xls\"");
             ServletOutputStream out = response.getOutputStream();
-            workbook.write(out);
+            workbook.write(out.toPath());
             out.flush();
             out.close();
             workbook.close();

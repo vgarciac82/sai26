@@ -57,6 +57,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
 import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import java.nio.file.Paths;
 
 @WebServlet(name = "LayoutAdecuacionesSicopServlet", urlPatterns = { "/gstnmngr/AdecuacionesLayoutSicop" })
 public class LayoutAdecuacionesSicopServlet extends HttpServlet {
@@ -485,8 +486,7 @@ public class LayoutAdecuacionesSicopServlet extends HttpServlet {
     public void creaFap(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, Exception {
         AdecuacionBusinessLogic adecua = new AdecuacionBusinessLogic(GestionInterface.ATT_CONEXION);
         HttpSession session = request.getSession(false);
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(tempDir));
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         String responsableCompleto = request.getParameter("responsableC");
         String responsable = "Responsable del Area";
@@ -576,7 +576,7 @@ public class LayoutAdecuacionesSicopServlet extends HttpServlet {
         // numfilas - 24, estiloBordeDerecho);
         // imprimeSumas(sheet, numfilas + 3, sumaA, estiloBordeDerecho);
         // imprimeResponsable(sheet, numfilas + 8, responsable, area);
-        wb.write(response.getOutputStream());
+        wb.write(response.getOutputStream().toPath());
     }
 
     public void creaFap02(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -585,8 +585,7 @@ public class LayoutAdecuacionesSicopServlet extends HttpServlet {
         ArrayList<ArrayList> arrAdecAmpliacion = new ArrayList();
         ArrayList<ArrayList> arrAdecReduccion = new ArrayList();
         String[] arrFirmantePuesto = new String[] { "Ingrese el nombre", "Ingrese el puesto" };
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(tempDir));
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         Caso c = (Caso) session.getAttribute(GestionInterface.ATT_CASE);
         int nFolio = new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue();
@@ -730,7 +729,7 @@ public class LayoutAdecuacionesSicopServlet extends HttpServlet {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -1007,8 +1006,7 @@ public class LayoutAdecuacionesSicopServlet extends HttpServlet {
     public void creaFapAdec(HttpServletRequest request, HttpServletResponse response) throws Exception {
         AdecuacionBusinessLogic adecua = new AdecuacionBusinessLogic(GestionInterface.ATT_CONEXION);
         HttpSession session = request.getSession(false);
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(tempDir));
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         String responsableCompleto = request.getParameter("responsable");
         String responsable = "Responsable del Area";
@@ -1110,7 +1108,7 @@ public class LayoutAdecuacionesSicopServlet extends HttpServlet {
         fecha, c.getFolio());
         imprimeMETA(wb, arrActividadInstitucional);
         // imprimeResponsable(sheet, numfilas + 8, responsable, area);
-        wb.write(response.getOutputStream());
+        wb.write(response.getOutputStream().toPath());
     }
 
     public void imprimeFAP02(Workbook wb, String fiscal, ArrayList<ArrayList> arrAdecAmpliacion, /*, ArrayList<ArrayList> arrAdecReduccion*/

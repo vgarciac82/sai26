@@ -22,6 +22,7 @@ import com.syc.gestion.util.Util;
 import com.syc.obrapublica.core.ConfiguraAplicativoManager;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 /**
  * @author Janise Diaz Sanchez
@@ -138,7 +139,7 @@ public class CargaAdecuacionManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         /* Cierra Flujos */
         workbook.close();
         bos.flush();

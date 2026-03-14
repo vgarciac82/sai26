@@ -16,6 +16,7 @@ import java.util.zip.CRC32;
 import java.util.zip.Deflater;
 import java.util.zip.ZipException;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 /**
  * This class implements an output stream filter for writing files in the

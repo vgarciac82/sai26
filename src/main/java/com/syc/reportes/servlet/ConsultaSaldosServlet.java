@@ -21,6 +21,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "ConsultaSaldosServlet", urlPatterns = { "/reportes/ConsultaSaldo" })
 public class ConsultaSaldosServlet extends HttpServlet implements GestionInterface {
@@ -143,7 +144,7 @@ public class ConsultaSaldosServlet extends HttpServlet implements GestionInterfa
             CloseObject.closeObject(rs);
             CloseObject.closeObject(pstmt);
             CloseObject.closeObject(conn);
-            out.write(jsonObj.toString());
+            out.write(jsonObj.toString().toPath());
             out.flush();
             out.close();
             out = null;

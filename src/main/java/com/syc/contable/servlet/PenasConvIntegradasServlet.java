@@ -30,6 +30,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "PenasConvIntegradasServlet", urlPatterns = { "/PenasConvencionalesInt/crear" })
 public class PenasConvIntegradasServlet extends HttpServlet implements GestionInterface {
@@ -109,7 +110,7 @@ public class PenasConvIntegradasServlet extends HttpServlet implements GestionIn
                             archivoPago.append(arrListDocu.get(i));
                         }
                         String outTextPago = archivoPago.toString();
-                        out.write(outTextPago);
+                        out.write(outTextPago.toPath());
                         // fin de guarda pago
                         out.close();
                         File[] filenames = new File[] { layoutDoc };

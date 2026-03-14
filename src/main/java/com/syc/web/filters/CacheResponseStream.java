@@ -4,6 +4,7 @@ import java.io.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class CacheResponseStream extends ServletOutputStream {
 
@@ -41,7 +42,7 @@ public class CacheResponseStream extends ServletOutputStream {
         if (closed) {
             throw new IOException("No se puede escribir en un output stream cerrado");
         }
-        cache.write((byte) b);
+        cache.write((byte) b.toPath());
     }
 
     public void write(byte[] b) throws IOException {

@@ -24,6 +24,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "GestionXMLReceiverServlet", urlPatterns = { "/xml/receiver" })
 public class GestionXMLReceiverServlet extends HttpServlet implements GestionInterface {
@@ -82,7 +83,7 @@ public class GestionXMLReceiverServlet extends HttpServlet implements GestionInt
                     sb.append("<error>" + msg + "</error>");
                 }
                 sb.append("</errors></resp-gestion>");
-                out.write(sb.toString());
+                out.write(sb.toString().toPath());
                 return;
             }
             c = cbl.actualizaCasoDato(c, data);
@@ -93,7 +94,7 @@ public class GestionXMLReceiverServlet extends HttpServlet implements GestionInt
             session.setAttribute(ATT_CASE, c);
             session.setAttribute("tree.model", tree);
             sb.append("<status>ok</status></resp-gestion>");
-            out.write(sb.toString());
+            out.write(sb.toString().toPath());
         } catch (GestionException exc) {
             exc.printStackTrace(System.out);
             resp.setContentType("text/xml");
@@ -101,7 +102,7 @@ public class GestionXMLReceiverServlet extends HttpServlet implements GestionInt
             sb.append("<error>" + exc.getMessage() + "</error>");
             sb.append("<error>" + exc.getCause().getMessage() + "</error>");
             sb.append("</errors></resp-gestion>");
-            out.write(sb.toString());
+            out.write(sb.toString().toPath());
             //log.error("No se logro recibir el archivo gestion.xml", exc);
         } catch (Exception exc) {
             exc.printStackTrace(System.out);

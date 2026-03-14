@@ -270,8 +270,7 @@ public class GestionLoginServlet extends HttpServlet implements GestionInterface
     }
 
     protected List<?> parseRequest(HttpServletRequest req) throws ServletException {
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(tempDir));
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         // archivos
         // Si el archivo excede este tamaño, ocurre un excepcion

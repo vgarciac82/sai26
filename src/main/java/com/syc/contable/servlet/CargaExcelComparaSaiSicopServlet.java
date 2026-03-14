@@ -32,6 +32,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "CargaExcelComparaSaiSicopServlet", urlPatterns = { "/gstnmngr/ComparaSaiSicop/CargaArchivo", "/gstnmngr/ComparaSaiSicop/Consulta" })
 public class CargaExcelComparaSaiSicopServlet extends HttpServlet implements GestionInterface {
@@ -202,7 +203,7 @@ public class CargaExcelComparaSaiSicopServlet extends HttpServlet implements Ges
         response.addHeader("Content-Disposition", "inline; filename=\"" + file_name + "\"; ");
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         /* Cierra Flujos */
         workbook.close();
         bos.flush();

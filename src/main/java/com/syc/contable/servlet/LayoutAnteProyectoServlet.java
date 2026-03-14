@@ -30,6 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
 import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import java.nio.file.Paths;
 
 @WebServlet(name = "AnteProyectoLayoutServlet", urlPatterns = { "/gstnmngr/AnteProyectoLayoutServlet" })
 public class LayoutAnteProyectoServlet extends HttpServlet {
@@ -144,8 +145,7 @@ public class LayoutAnteProyectoServlet extends HttpServlet {
             arrAnteProyecto = antProy.RecuperaAnteProyecto(cUnidadResponsable, c);
         } finally {
         }
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(tempDir));
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         //determina el directorio temporal
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         //
@@ -266,7 +266,7 @@ public class LayoutAnteProyectoServlet extends HttpServlet {
                 celdaiRechazoSai.setCellValue(String.valueOf(cRechazo));
             }
         }
-        wb.write(response.getOutputStream());
+        wb.write(response.getOutputStream().toPath());
         wb.close();
         antProy.marcaAutoImport(c);
     }

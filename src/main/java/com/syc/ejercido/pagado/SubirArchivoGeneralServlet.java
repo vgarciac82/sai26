@@ -135,8 +135,7 @@ public class SubirArchivoGeneralServlet extends HttpServlet {
         String szPath;
         List<FileItem> fileItems = new ArrayList<FileItem>();
         try {
-            DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(szPath));
+            DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
             // Se construye un objeto para que parsee la petición
             JakartaServletFileUpload fu = new JakartaServletFileUpload(factory);
             // Tamaño máximo que aceptará el archivo

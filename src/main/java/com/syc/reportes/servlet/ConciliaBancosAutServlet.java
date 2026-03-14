@@ -19,6 +19,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "ConciliaAutomaticaServlet", urlPatterns = { "/servlet/ConciliaAutomaticaServlet" })
 public class ConciliaBancosAutServlet extends HttpServlet {
@@ -91,7 +92,7 @@ public class ConciliaBancosAutServlet extends HttpServlet {
                 }
             throw e;
         } finally {
-            out.write(jsonObj.toString());
+            out.write(jsonObj.toString().toPath());
             out.flush();
             out.close();
             out = null;

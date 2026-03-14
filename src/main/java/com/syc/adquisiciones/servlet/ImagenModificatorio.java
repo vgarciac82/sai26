@@ -24,6 +24,7 @@ import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
 import java.util.Base64;
 import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import java.nio.file.Paths;
 
 @WebServlet(name = "imagenModificatorio", urlPatterns = { "/servlet/imagenModificatorio" })
 public class ImagenModificatorio extends HttpServlet {
@@ -71,7 +72,7 @@ public class ImagenModificatorio extends HttpServlet {
                     String fileName = actual.getName();
                     String ext = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
                     File file = new File(ruta + ext);
-                    actual.write(file);
+                    actual.write(file.toPath());
                     String query = "update mPedidoModificado set cExtImagen = ? where cIdPedidoDefinitivo = ? and nConsecutivoModificacion = ?";
                     pstm = conn.prepareStatement(query);
                     pstm.setString(1, ext.replace(".", ""));
@@ -111,8 +112,7 @@ public class ImagenModificatorio extends HttpServlet {
 
     @SuppressWarnings("unchecked")
     private List parseRequest(HttpServletRequest req) throws ServletException {
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(tempDir));
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         // Si el archivo excede este tama?o, ocurre un excepcion FileUploadException
         //con -1 le indicamos que acepte archivos de cualquier tamaño

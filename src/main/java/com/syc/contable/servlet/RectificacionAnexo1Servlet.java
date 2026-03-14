@@ -24,6 +24,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "RectificacionAnexo1Servlet", urlPatterns = { "/gstnmngr/RectificacionAnexo1" })
 public class RectificacionAnexo1Servlet extends HttpServlet {
@@ -177,7 +178,7 @@ public class RectificacionAnexo1Servlet extends HttpServlet {
             celda = fila.createCell(4);
             celda.setCellValue(valuesImporte[i]);
         }
-        wb.write(response.getOutputStream());
+        wb.write(response.getOutputStream().toPath());
         wb.close();
     }
 }

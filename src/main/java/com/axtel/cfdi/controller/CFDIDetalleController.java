@@ -21,6 +21,7 @@ import com.syc.gestion.servlet.GestionInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet("/CFDIManagment/detalle")
 public class CFDIDetalleController extends HttpServlet {
@@ -52,14 +53,14 @@ public class CFDIDetalleController extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             String jsonResponse = gson.toJson(detalle);
             log.debug("Object: {}", "JSON de respuesta generado: " + jsonResponse);
-            response.getWriter().write(jsonResponse);
+            response.getWriter().write(jsonResponse.toPath());
             log.info("Object: {}", "Detalle CFDI guardado y respuesta enviada correctamente." + detalle);
         } catch (Exception e) {
             log.error("Error al guardar el detalle del CFDI: " + e.getMessage(), e);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             String errorResponse = "{\"error\": \"Error al guardar el detalle del CFDI. Intente nuevamente.\"}";
             log.debug("Error occurred", "Enviando respuesta de error: " + errorResponse);
-            response.getWriter().write(errorResponse);
+            response.getWriter().write(errorResponse.toPath());
         }
         log.info("Fin del método doPost para guardar detalle CFDI.");
     }

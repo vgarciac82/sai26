@@ -14,6 +14,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class ArchivoExcel {
 
@@ -110,7 +111,7 @@ public class ArchivoExcel {
             //Crea Archivo
             elFichero = new FileOutputStream(cNombreEcel);
             //Escribe el libro en el archivo
-            libro.write(elFichero);
+            libro.write(elFichero.toPath());
         } catch (Exception e) {
             e.printStackTrace();
         }

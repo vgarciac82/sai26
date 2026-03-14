@@ -16,6 +16,7 @@ import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 /**
  * Logica de negocio para la generacion de reportes.
@@ -107,7 +108,7 @@ public class ReporteTomaDeDesicionBusinessLogic extends DataSourceManager {
             ReporteTomaDeDesicionManager.generaCuerpoReporteEstructuraEconomica(conn, wb, hs, mesCorte, capitulos, momentosPresupuestales, ejercicioFiscal, rows);
             FileOutputStream fos = new FileOutputStream(salida);
             BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-            wb.write(bos);
+            wb.write(bos.toPath());
             hs.autoSizeColumn(0);
             bos.flush();
             bos.close();
@@ -147,7 +148,7 @@ public class ReporteTomaDeDesicionBusinessLogic extends DataSourceManager {
             ReporteTomaDeDesicionManager.generaCuerpoReporteSubfuncion(conn, wb, hs, mesCorte, capitulos, momentosPresupuestales, ejercicioFiscal, rows);
             FileOutputStream fos = new FileOutputStream(salida);
             BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-            wb.write(bos);
+            wb.write(bos.toPath());
             hs.autoSizeColumn(0);
             bos.flush();
             bos.close();
@@ -187,7 +188,7 @@ public class ReporteTomaDeDesicionBusinessLogic extends DataSourceManager {
             ReporteTomaDeDesicionManager.generaCuerpoReporteUE(conn, wb, hs, mesCorte, capitulos, momentosPresupuestales, ejercicioFiscal, rows);
             FileOutputStream fos = new FileOutputStream(salida);
             BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-            wb.write(bos);
+            wb.write(bos.toPath());
             hs.autoSizeColumn(0);
             bos.flush();
             bos.close();
@@ -227,7 +228,7 @@ public class ReporteTomaDeDesicionBusinessLogic extends DataSourceManager {
             ReporteTomaDeDesicionManager.generaCuerpoReporteUN(conn, wb, hs, mesCorte, capitulos, momentosPresupuestales, ejercicioFiscal, rows);
             FileOutputStream fos = new FileOutputStream(salida);
             BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-            wb.write(bos);
+            wb.write(bos.toPath());
             hs.autoSizeColumn(0);
             bos.flush();
             bos.close();
@@ -267,7 +268,7 @@ public class ReporteTomaDeDesicionBusinessLogic extends DataSourceManager {
             ReporteTomaDeDesicionManager.generaCuerpoReporteEntidadFederativa(conn, wb, hs, mesCorte, capitulos, momentosPresupuestales, ejercicioFiscal, rows);
             FileOutputStream fos = new FileOutputStream(salida);
             BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-            wb.write(bos);
+            wb.write(bos.toPath());
             hs.autoSizeColumn(0);
             bos.flush();
             bos.close();

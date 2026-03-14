@@ -22,6 +22,7 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "LayoutPagosProgFederalizadosServlet", urlPatterns = { "/gstnmngr/generaLayoutPagosProgFederalizados" })
 public class LayoutPagosProgFederalizadosServlet extends HttpServlet {
@@ -120,7 +121,7 @@ public class LayoutPagosProgFederalizadosServlet extends HttpServlet {
                 archivoPago.append(arrListPago.get(i));
             }
             String outTextPago = archivoPago.toString();
-            out.write(outTextPago);
+            out.write(outTextPago.toPath());
             // fin de guarda pago
             out.close();
             // Guarda el documento
@@ -130,7 +131,7 @@ public class LayoutPagosProgFederalizadosServlet extends HttpServlet {
                 archivoDocu.append(arrListDocu.get(i));
             }
             String outTextDocu = archivoDocu.toString();
-            outDocu.write(outTextDocu);
+            outDocu.write(outTextDocu.toPath());
             // fin de guarda documento
             outDocu.close();
             // These are the files to include in the ZIP file
@@ -144,8 +145,8 @@ public class LayoutPagosProgFederalizadosServlet extends HttpServlet {
                 ZipOutputStream outZIP = new ZipOutputStream(ouputStream);
                 for (// Compress the files
                 // Compress the files
-                int i = 0; // Compress the files
-                i < filenames.length; i++) {
+                // Compress the files
+                int i = 0; i < filenames.length; i++) {
                     FileInputStream in = new FileInputStream(filenames[i]);
                     // Add ZIP entry to output stream.
                     outZIP.putNextEntry(new ZipEntry(filenames[i].getName()));

@@ -23,6 +23,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "RectificacionIngresoFiscal", urlPatterns = { "/gstnmngr/RectificacionIngresoFiscalServlet" })
 public class RectificacionIngresoFiscalServlet extends HttpServlet {
@@ -174,7 +175,7 @@ public class RectificacionIngresoFiscalServlet extends HttpServlet {
             celda = fila.createCell(4);
             celda.setCellValue(valuesImporte[i]);
         }
-        wb.write(response.getOutputStream());
+        wb.write(response.getOutputStream().toPath());
         wb.close();
     }
 }

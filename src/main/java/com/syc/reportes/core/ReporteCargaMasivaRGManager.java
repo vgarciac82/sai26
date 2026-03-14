@@ -19,6 +19,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import com.syc.gestion.util.Util;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class ReporteCargaMasivaRGManager {
 
@@ -100,7 +101,7 @@ public class ReporteCargaMasivaRGManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         /* Cierra Flujos */
         workbook.close();
         bos.flush();

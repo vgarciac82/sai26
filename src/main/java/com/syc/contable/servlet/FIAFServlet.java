@@ -56,6 +56,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
 import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import java.nio.file.Paths;
 
 @WebServlet(name = "FIAFServlet", urlPatterns = { "/gstnmngr/FIAFServlet" })
 public class FIAFServlet extends HttpServlet {
@@ -543,8 +544,7 @@ public class FIAFServlet extends HttpServlet {
         AdecuacionBusinessLogic adecua = new AdecuacionBusinessLogic(GestionInterface.ATT_CONEXION);
         HttpSession session = request.getSession(false);
         ArrayList arrIntegradas = new ArrayList();
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(tempDir));
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         int nConsecutivoSICOP = 0;
         Caso c = (Caso) session.getAttribute(GestionInterface.ATT_CASE);
@@ -640,7 +640,7 @@ public class FIAFServlet extends HttpServlet {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -668,8 +668,7 @@ public class FIAFServlet extends HttpServlet {
         ArrayList arrAdecAmpliacion = new ArrayList();
         ArrayList arrAdecReduccion = new ArrayList();
         String[] arrFirmantePuesto = new String[2];
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(tempDir));
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         Caso c = (Caso) session.getAttribute(GestionInterface.ATT_CASE);
         int nFolio = new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue();
@@ -808,7 +807,7 @@ public class FIAFServlet extends HttpServlet {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -828,8 +827,7 @@ public class FIAFServlet extends HttpServlet {
     public void creaFap(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         AdecuacionBusinessLogic adecua = new AdecuacionBusinessLogic(GestionInterface.ATT_CONEXION);
         HttpSession session = request.getSession(false);
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(tempDir));
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         Caso c = (Caso) session.getAttribute(GestionInterface.ATT_CASE);
         Usuario usuario = (Usuario) session.getAttribute(GestionInterface.ATT_USER);
@@ -906,7 +904,7 @@ public class FIAFServlet extends HttpServlet {
         numfilas = imprimeSaldos(sheet, saldoA, sumaA, numfilas, 'A', numfilas - 24, estiloBordeDerecho);
         imprimeSumas(sheet, numfilas + 3, sumaA, estiloBordeDerecho);
         imprimeResponsable(sheet, numfilas + 8, responsable, area);
-        wb.write(response.getOutputStream());
+        wb.write(response.getOutputStream().toPath());
     }
 
     public int imprimeSaldos(Sheet sheet, ArrayList<Saldo> saldo, double[] suma, int numfila, char tipo, int secuencia, CellStyle estiloBordeDerecho) {

@@ -20,6 +20,7 @@ import com.syc.gestion.servlet.GestionInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet("/cfdi/receptor-search")
 public class ReceptorSearchController extends HttpServlet {
@@ -68,10 +69,10 @@ public class ReceptorSearchController extends HttpServlet {
             String json = gson.toJson(receptores);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(json);
+            response.getWriter().write(json.toPath());
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("{\"error\": \"Error al buscar los receptores\"}");
+            response.getWriter().write("{\"error\": \"Error al buscar los receptores\"}".toPath());
         }
     }
 }

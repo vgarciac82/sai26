@@ -19,6 +19,7 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class CacheFilter implements Filter {
 
@@ -58,7 +59,7 @@ public class CacheFilter implements Filter {
             Enumeration locales = request.getLocales();
             while (locales.hasMoreElements()) {
                 Locale locale = (Locale) locales.nextElement();
-                ldata.write(locale.getISO3Language());
+                ldata.write(locale.getISO3Language().toPath());
             }
             id = id + ldata.toString();
         }
@@ -99,7 +100,7 @@ public class CacheFilter implements Filter {
         response.setContentType(mt);
         ServletOutputStream sos = res.getOutputStream();
         for (int i = fis.read(); i != -1; i = fis.read()) {
-            sos.write((byte) i);
+            sos.write((byte) i.toPath());
         }
         fis.close();
     }

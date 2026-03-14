@@ -22,6 +22,7 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "generaAdefaServlet", urlPatterns = { "/gstnmngr/generaAdefa" })
 public class generaAdefaServlet extends HttpServlet {
@@ -103,7 +104,7 @@ public class generaAdefaServlet extends HttpServlet {
                 archivoPago.append(arrListPago.get(i));
             }
             String outTextPago = archivoPago.toString();
-            out.write(outTextPago);
+            out.write(outTextPago.toPath());
             out.close();
             // envío de archivo CSV
             ServletOutputStream outS = null;

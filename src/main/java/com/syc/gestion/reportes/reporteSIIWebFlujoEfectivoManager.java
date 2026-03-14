@@ -29,6 +29,7 @@ import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import net.sf.jasperreports.engine.JasperRunManager;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @SuppressWarnings("unused")
 public class reporteSIIWebFlujoEfectivoManager implements Serializable {
@@ -234,7 +235,7 @@ public class reporteSIIWebFlujoEfectivoManager implements Serializable {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -351,7 +352,7 @@ public class reporteSIIWebFlujoEfectivoManager implements Serializable {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -400,7 +401,7 @@ public class reporteSIIWebFlujoEfectivoManager implements Serializable {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -478,7 +479,7 @@ public class reporteSIIWebFlujoEfectivoManager implements Serializable {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         /* Cierra Flujos */
         workbook.close();
         bos.flush();
@@ -606,7 +607,7 @@ public class reporteSIIWebFlujoEfectivoManager implements Serializable {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -646,7 +647,7 @@ public class reporteSIIWebFlujoEfectivoManager implements Serializable {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         /* Cierra Flujos */
         bos.flush();
         bos.close();

@@ -15,6 +15,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class RSToTable {
 
@@ -135,42 +136,42 @@ public class RSToTable {
                 // de
                 // Trabajo
                 // Variaciones
-                "APLICADO".equals(column_name) || "REINTEGRO".equals(column_name) || "EJERCIDO".equals(column_name) || "Cargos".equals(column_name) || "Abonos".equals(column_name) || "mMovimiento".equals(column_name) || "Total".equals(column_name) || "SaldoInicialDeudor".equals(column_name) || "SaldoInicialAcreedor".equals(column_name) || "MovimientosAcumuladosDebe".equals(column_name) || "MovimientosAcumuladosHaber".equals(column_name) || "SaldoAntesAjusteDeudor".equals(column_name) || "SaldoAntesAjusteAcreedor".equals(column_name) || "AjustePrevDeudor".equals(column_name) || "AjustePrevAcreedor".equals(column_name) || "SaldoPreviosDeudor".equals(column_name) || "SaldoPreviosAcreedor".equals(column_name) || "AjustePresupDeudor".equals(column_name) || "AjustePresupAcreedor".equals(column_name) || "SaldoAjustadosDeudor".equals(column_name) || "SaldoAjustadosAcreedor".equals(column_name) || "AjusteResulDeudor".equals(column_name) || "AjusteResulAcreedor".equals(column_name) || "SaldoFinalDeudor".equals(column_name) || "SaldoFinalAcreedor".equals(column_name) || "DeudorAnterior".equals(column_name) || "AcreedorAnterior".equals(column_name) || "DeudorActual".equals(column_name) || // Cuentas
-                "AcreedorActual".equals(column_name) || // Enlace
-                "variaciondeudor".equals(column_name) || // Rectificaciones
-                "variacionacreedor".equals(column_name) || // al
-                "ImporteDeudor".equals(column_name) || // Ejercicio
+                // Cuentas
+                "APLICADO".equals(column_name) || "REINTEGRO".equals(column_name) || "EJERCIDO".equals(column_name) || "Cargos".equals(column_name) || "Abonos".equals(column_name) || "mMovimiento".equals(column_name) || "Total".equals(column_name) || "SaldoInicialDeudor".equals(column_name) || "SaldoInicialAcreedor".equals(column_name) || "MovimientosAcumuladosDebe".equals(column_name) || "MovimientosAcumuladosHaber".equals(column_name) || "SaldoAntesAjusteDeudor".equals(column_name) || "SaldoAntesAjusteAcreedor".equals(column_name) || "AjustePrevDeudor".equals(column_name) || "AjustePrevAcreedor".equals(column_name) || "SaldoPreviosDeudor".equals(column_name) || "SaldoPreviosAcreedor".equals(column_name) || "AjustePresupDeudor".equals(column_name) || "AjustePresupAcreedor".equals(column_name) || "SaldoAjustadosDeudor".equals(column_name) || "SaldoAjustadosAcreedor".equals(column_name) || "AjusteResulDeudor".equals(column_name) || "AjusteResulAcreedor".equals(column_name) || "SaldoFinalDeudor".equals(column_name) || "SaldoFinalAcreedor".equals(column_name) || "DeudorAnterior".equals(column_name) || "AcreedorAnterior".equals(column_name) || "DeudorActual".equals(column_name) || // Enlace
+                "AcreedorActual".equals(column_name) || // Rectificaciones
+                "variaciondeudor".equals(column_name) || // al
+                "variacionacreedor".equals(column_name) || // Ejercicio
+                "ImporteDeudor".equals(column_name) || // Afectaciones
                 "ImporteAcreedor".equals(column_name) || // Afectaciones
-                "MovimientoDeudor".equals(column_name) || // Afectaciones
-                "MovimientoAcreedor".// a
-                equals(// cuentas
+                "MovimientoDeudor".equals(column_name) || // a
+                "MovimientoAcreedor".// cuentas
+                equals(// Analisis
                 column_name) || // Analisis
-                "MovimientoDebe".equals(column_name) || // Analisis
-                "MovimientoHaber".// de
-                equals(// la
-                column_name) || // Incidencia
-                "TG1_Gasto_Corriente".equals(column_name) || "TG2_Gasto_de_Inversión".equals(column_name) || "TG3_Gasto_de_Obra_Pública".equals(column_name) || "TG4".equals(column_name) || "TG5".equals(column_name) || "TG6".equals(column_name) || "TG7_Otro_Corriente".equals(column_name) || "TG8_Otro_Inversión".equals(column_name) || "TG9_Gasto_de_Inversión_a_Fideicomi".equals(column_name) || "TG0_Gasto_Corriente_a_Fideicomisos".equals(column_name) || "Corriente".equals(column_name) || // Integracion
-                "Inversion".equals(column_name) || // del
-                "ObraPublica".equals(column_name) || // Costo
+                "MovimientoDebe".equals(column_name) || // de
+                "MovimientoHaber".// la
+                equals(// Incidencia
+                column_name) || "TG1_Gasto_Corriente".equals(column_name) || "TG2_Gasto_de_Inversión".equals(column_name) || "TG3_Gasto_de_Obra_Pública".equals(column_name) || "TG4".equals(column_name) || "TG5".equals(column_name) || "TG6".equals(column_name) || "TG7_Otro_Corriente".equals(column_name) || "TG8_Otro_Inversión".equals(column_name) || "TG9_Gasto_de_Inversión_a_Fideicomi".equals(column_name) || "TG0_Gasto_Corriente_a_Fideicomisos".equals(column_name) || // Integracion
+                "Corriente".equals(column_name) || // del
+                "Inversion".equals(column_name) || // Costo
+                "ObraPublica".equals(column_name) || // Presupuestal
                 "Cuentas".equals(column_name) || // Presupuestal
-                "ImportePresupuestarios".equals(column_name) || // Presupuestal
-                "ImporteNoPresupuestarios".equals(column_name) || "Original".equals(column_name) || "AmplPresupLiquidas".equals(column_name) || "ReduPresupLiquidas".equals(column_name) || "AmplReduCompensadas".equals(column_name) || "ModifAutorizado".equals(column_name) || "Devengado".equals(column_name) || "Ejercido".equals(column_name) || // Analisis
-                "DevengadoEjercido".equals(column_name) || // del
-                "Pagado".equals(column_name) || // gasto
-                "Economias".equals(column_name) || // por
-                "TotalDevengadoEjercidoAnterior".equals(column_name) || // Funcion
-                "OriginalAutorizado".equals(column_name) || "TotalDevengadoEjercido".equals(column_name) || "DiferenciaCB".equals(column_name) || // Analisis
-                "DiferenciaCA".equals(column_name) || // del
-                "ReferenciaCB".equals(column_name) || // Gatso
-                "ReferenciaCA".equals(column_name) || // Federalizado
+                "ImportePresupuestarios".equals(column_name) || "ImporteNoPresupuestarios".equals(column_name) || "Original".equals(column_name) || "AmplPresupLiquidas".equals(column_name) || "ReduPresupLiquidas".equals(column_name) || "AmplReduCompensadas".equals(column_name) || "ModifAutorizado".equals(column_name) || "Devengado".equals(column_name) || // Analisis
+                "Ejercido".equals(column_name) || // del
+                "DevengadoEjercido".equals(column_name) || // gasto
+                "Pagado".equals(column_name) || // por
+                "Economias".equals(column_name) || // Funcion
+                "TotalDevengadoEjercidoAnterior".equals(column_name) || "OriginalAutorizado".equals(column_name) || "TotalDevengadoEjercido".equals(column_name) || // Analisis
+                "DiferenciaCB".equals(column_name) || // del
+                "DiferenciaCA".equals(column_name) || // Gatso
+                "ReferenciaCB".equals(column_name) || // Federalizado
+                "ReferenciaCA".equals(column_name) || // Gasto
                 "Diferencia".equals(column_name) || // Gasto
-                // Gasto
-                "Referencia".// por
-                equals(// Entidad
-                column_name) || // Federativa
-                "ServPersonalesOTG".equals(column_name) || "ServPersonalesTG3".equals(column_name) || "MatSuministrosOTG".equals(column_name) || "MatSuministrosTG3".equals(column_name) || "ServGeneralesOTG".equals(column_name) || "ServGeneralesTG3".equals(column_name) || "TransfAsigSubsiOtrsAyudasOTG".equals(column_name) || "TransfAsigSubsiOtrsAyudasTG3".equals(column_name) || "BienMueInmueIntanOTG".equals(column_name) || "BienMueInmueIntanTG3".equals(column_name) || "InverPúblicaOTG".equals(column_name) || "InverFinaOtrasProvOTG".equals(column_name) || // Recursos
-                "InverFinaOtrasProvTG3".equals(column_name) || // Federal
-                "PartAportacionesOTG".equals(column_name) || "PartAportacionesTG3".equals(column_name) || "OriginalGastoCorriente".equals(column_name) || "OriginalGastoCapital".equals(column_name) || "OriginalTotal".equals(column_name) || "DevengadoEjercidoGastoCorriente".equals(column_name) || "DevengadoEjercidoGastoCapital".equals(column_name) || "DevengadoEjercidoTotal".equals(column_name)) {
+                // por
+                "Referencia".// Entidad
+                equals(// Federativa
+                column_name) || "ServPersonalesOTG".equals(column_name) || "ServPersonalesTG3".equals(column_name) || "MatSuministrosOTG".equals(column_name) || "MatSuministrosTG3".equals(column_name) || "ServGeneralesOTG".equals(column_name) || "ServGeneralesTG3".equals(column_name) || "TransfAsigSubsiOtrsAyudasOTG".equals(column_name) || "TransfAsigSubsiOtrsAyudasTG3".equals(column_name) || "BienMueInmueIntanOTG".equals(column_name) || "BienMueInmueIntanTG3".equals(column_name) || "InverPúblicaOTG".equals(column_name) || // Recursos
+                "InverFinaOtrasProvOTG".equals(column_name) || // Federal
+                "InverFinaOtrasProvTG3".equals(column_name) || "PartAportacionesOTG".equals(column_name) || "PartAportacionesTG3".equals(column_name) || "OriginalGastoCorriente".equals(column_name) || "OriginalGastoCapital".equals(column_name) || "OriginalTotal".equals(column_name) || "DevengadoEjercidoGastoCorriente".equals(column_name) || "DevengadoEjercidoGastoCapital".equals(column_name) || "DevengadoEjercidoTotal".equals(column_name)) {
                     td = td.replaceAll("left", "right");
                     td = td + " style='mso-number-format:\"Standard\"' ";
                 }
@@ -336,44 +337,44 @@ public class RSToTable {
         String ultimaColumna = "N";
         try {
             if (tipoEtiqueta != 2) {
-                out.write(etiqueta[2]);
-                out.write(etiqueta[6]);
+                out.write(etiqueta[2].toPath());
+                out.write(etiqueta[6].toPath());
                 for (int i = 1; i <= numColumns; i++) {
-                    out.write(etiqueta[3]);
+                    out.write(etiqueta[3].toPath());
                     String column_name = rsmd.getColumnName(i);
-                    out.write(column_name);
-                    out.write(etiqueta[4]);
+                    out.write(column_name.toPath());
+                    out.write(etiqueta[4].toPath());
                 }
-                out.write(etiqueta[7]);
+                out.write(etiqueta[7].toPath());
             }
             DecimalFormat formato = new DecimalFormat("###,###,##0.00");
             String val;
             while (rs.next()) {
-                out.write(etiqueta[6]);
+                out.write(etiqueta[6].toPath());
                 for (int i = 1; i <= numColumns; i++) {
                     val = rs.getString(i);
                     if (val == null) {
-                        out.write(etiqueta[3]);
+                        out.write(etiqueta[3].toPath());
                         val = " ";
                     } else if (tipoReporte == 0 && (i == 32 || i == 33 || i == 34)) {
-                        out.write(etiqueta[3]);
+                        out.write(etiqueta[3].toPath());
                         val = formato.format(Double.parseDouble(val));
-                        out.write("\"".concat(val).concat("\""));
+                        out.write("\"".concat(val).concat("\"").toPath());
                     } else if (tipoReporte == 1 && (i == 9)) {
-                        out.write(etiqueta[8]);
-                        out.write(val);
+                        out.write(etiqueta[8].toPath());
+                        out.write(val.toPath());
                     } else if (tipoReporte == 2 && (i == 31 || i == 32 || i == 33)) {
-                        out.write(etiqueta[8]);
-                        out.write(val);
+                        out.write(etiqueta[8].toPath());
+                        out.write(val.toPath());
                     } else if (tipoReporte == 3 && (i == 10 || i == 11 || i == 15)) {
-                        out.write(etiqueta[8]);
-                        out.write(val);
+                        out.write(etiqueta[8].toPath());
+                        out.write(val.toPath());
                     } else if (tipoReporte == 5 && (i == 12)) {
-                        out.write(etiqueta[8]);
-                        out.write(val);
+                        out.write(etiqueta[8].toPath());
+                        out.write(val.toPath());
                     } else if (tipoReporte == 4 && ((i == 22) || (i == 23))) {
-                        out.write(etiqueta[3]);
-                        out.write(val.replace(".00", ""));
+                        out.write(etiqueta[3].toPath());
+                        out.write(val.replace(".00", "").toPath());
                     } else {
                         if (tipoReporte == 4 && i == 1) {
                             System.out.println("Primer col " + i);
@@ -381,24 +382,24 @@ public class RSToTable {
                         } else if (tipoReporte == 4 && i == numColumns) {
                             System.out.println("Ultima col " + numColumns);
                             ultimaColumna = "S";
-                            out.write(etiqueta[3]);
+                            out.write(etiqueta[3].toPath());
                         } else
-                            out.write(etiqueta[3]);
+                            out.write(etiqueta[3].toPath());
                         if (tipoReporte == 0)
-                            out.write("\"".concat(val).concat("\""));
+                            out.write("\"".concat(val).concat("\"").toPath());
                         else
-                            out.write(val);
+                            out.write(val.toPath());
                     }
-                    out.write(etiqueta[4]);
+                    out.write(etiqueta[4].toPath());
                 }
                 // for
                 if (tipoReporte == 4 && "S".equals(ultimaColumna))
-                    out.write(etiqueta[8]);
+                    out.write(etiqueta[8].toPath());
                 else
-                    out.write(etiqueta[7]);
+                    out.write(etiqueta[7].toPath());
             }
             // while
-            out.write(etiqueta[5]);
+            out.write(etiqueta[5].toPath());
         } catch (Exception e) {
             System.out.println(e);
         } finally {

@@ -142,6 +142,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
 import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import java.nio.file.Paths;
 
 public class Util {
 
@@ -354,7 +355,7 @@ public class Util {
             Cipher ecipher = Cipher.getInstance(algorithm);
             ecipher.init(Cipher.ENCRYPT_MODE, key);
             byte[] enc = ecipher.doFinal(utf8);
-            return new BASE64Encoder().encode(enc);
+            return Base64.getEncoder().encodeToString(enc);
         } catch (NoSuchPaddingException e) {
             log.error(e.getMessage(), e);
         } catch (NoSuchAlgorithmException e) {
@@ -373,7 +374,7 @@ public class Util {
 
     public static String decrypt(SecretKey key, String str) {
         try {
-            byte[] dec = new BASE64Decoder().decode(str);
+            byte[] dec = Base64.getDecoder().decode(str);
             Cipher dcipher = Cipher.getInstance(algorithm);
             dcipher.init(Cipher.DECRYPT_MODE, key);
             byte[] utf8 = dcipher.doFinal(dec);
@@ -406,12 +407,12 @@ public class Util {
     }
 
     public static String secretKeyToString(SecretKey k) {
-        return new BASE64Encoder().encode(k.getEncoded());
+        return Base64.getEncoder().encodeToString(k.getEncoded());
     }
 
     public static SecretKey stringToSecretKey(String str) {
         try {
-            return new SecretKeySpec(new BASE64Decoder().decode(str), algorithm);
+            return new SecretKeySpec(Base64.getDecoder().decode(str), algorithm);
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }
@@ -456,8 +457,7 @@ public class Util {
      *             si ocurre un error en la extraccion.
      */
     public static List<?> parseRequest(HttpServletRequest req, String tempDir, long maxFileSize) throws ServletException {
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(tempDir));
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         upload.setFileSizeMax(maxFileSize);
         try {
@@ -722,7 +722,7 @@ public class Util {
             f.createNewFile();
         FileOutputStream fos = new FileOutputStream(f);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        wb.write(bos);
+        wb.write(bos.toPath());
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -947,7 +947,7 @@ public class Util {
             linea = linea + token + rsmd.getColumnName(i + 1);
             token = ",";
         }
-        fw.write(linea + "\n");
+        fw.write(linea + "\n".toPath());
         linea = "";
         token = "";
         /* Ingresa las columnas como resultado */
@@ -956,7 +956,7 @@ public class Util {
                 linea = linea + token + rs.getString(encabezados[i]);
                 token = ",";
             }
-            fw.write(linea + "\n");
+            fw.write(linea + "\n".toPath());
             token = "";
             linea = "";
         }
@@ -1808,7 +1808,7 @@ public class Util {
             linea = linea + token + encabezados.get(i);
             token = ",";
         }
-        fw.write(linea + "\n");
+        fw.write(linea + "\n".toPath());
         token = "";
         linea = "";
         /* Ingresa las columnas como resultado */
@@ -1816,7 +1816,7 @@ public class Util {
             linea = linea + token + (datos.get(i) == null ? "" : datos.get(i).replaceAll("[,]", "").replaceAll("\r\n", " ").replaceAll("\n\r", " ").replaceAll("\n", " ").replaceAll("\r", " ").trim());
             token = ",";
             if ((i + 1) % cambioLinea == 0) {
-                fw.write(linea + "\n");
+                fw.write(linea + "\n".toPath());
                 token = "";
                 linea = "";
             }
@@ -1975,7 +1975,7 @@ public class Util {
             linea = linea + token + rsmd.getColumnName(i + 1);
             token = "|";
         }
-        fw.write(linea + "\n");
+        fw.write(linea + "\n".toPath());
         linea = "";
         token = "";
         // }
@@ -1996,7 +1996,7 @@ public class Util {
                     token = "|";
                 }
             }
-            fw.write(linea + "\n");
+            fw.write(linea + "\n".toPath());
             token = "";
             linea = "";
         }
@@ -2165,7 +2165,7 @@ public class Util {
             }
         }
         if (incluirEncabezado) {
-            fw.write(linea + "\n");
+            fw.write(linea + "\n".toPath());
             linea = "";
             token = "";
         }
@@ -2187,7 +2187,7 @@ public class Util {
                     token = "|";
                 }
             }
-            fw.write(linea + "\n");
+            fw.write(linea + "\n".toPath());
             token = "";
             linea = "";
         }
@@ -2522,7 +2522,7 @@ public class Util {
         BufferedWriter writer = null;
         try {
             writer = new BufferedWriter(new FileWriter(file));
-            writer.write(stringBuilder.toString());
+            writer.write(stringBuilder.toString().toPath());
         } finally {
             if (writer != null)
                 writer.close();
@@ -2789,7 +2789,7 @@ public class Util {
     public static void writToFile(String fileName, List<String> lines) throws IOException {
         FileWriter writer = new FileWriter(fileName);
         for (String str : lines) {
-            writer.write(str + System.lineSeparator());
+            writer.write(str + System.lineSeparator().toPath());
         }
         writer.flush();
         writer.close();
@@ -2800,14 +2800,14 @@ public class Util {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        resp.getWriter().write(errorJson);
+        resp.getWriter().write(errorJson.toPath());
     }
 
     public static void sendJSON(HttpServletResponse resp, Object obj) throws IOException {
         String jsonString = mapper.writeValueAsString(obj);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
-        resp.getWriter().write(jsonString);
+        resp.getWriter().write(jsonString.toPath());
     }
 
     public static String getTodayWithTime() {

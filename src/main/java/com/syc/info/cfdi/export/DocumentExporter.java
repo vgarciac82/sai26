@@ -17,6 +17,7 @@ import com.syc.fortimax.core.Documento;
 import com.syc.fortimax.core.DocumentoManager;
 import com.syc.fortimax.core.Fortimax;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class DocumentExporter {
 
@@ -103,7 +104,7 @@ public class DocumentExporter {
             fw = new FileWriter(pathExport);
             bw = new BufferedWriter(fw);
             for (Iterator<String> i = exportLog.iterator(); i.hasNext(); ) {
-                bw.write(i.next() + "\n");
+                bw.write(i.next() + "\n".toPath());
             }
             bw.flush();
             bw.close();

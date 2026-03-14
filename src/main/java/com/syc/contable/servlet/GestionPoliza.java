@@ -21,6 +21,7 @@ import com.syc.contable.CancelaDocumento;
 import com.syc.contable.PolizaManager;
 import jakarta.servlet.annotation.WebServlet;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "GestionPoliza", urlPatterns = { "/gstn/GestionPoliza" })
 public class GestionPoliza extends HttpServlet {
@@ -495,7 +496,7 @@ public class GestionPoliza extends HttpServlet {
         PrintWriter out = null;
         response.setCharacterEncoding("UTF-8");
         out = response.getWriter();
-        out.write(ESTATUS + "//" + mensaje);
+        out.write(ESTATUS + "//" + mensaje.toPath());
         out.flush();
         out.close();
         System.out.println("Mensaje del sistema: " + mensaje);

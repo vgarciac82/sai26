@@ -26,6 +26,7 @@ import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class ReportePolizasManager {
 
@@ -95,7 +96,7 @@ public class ReportePolizasManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -152,7 +153,7 @@ public class ReportePolizasManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -233,7 +234,7 @@ public class ReportePolizasManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -298,8 +299,8 @@ public class ReportePolizasManager {
                         // reemplaza con espacio
                         // colapsa múltiples espacios
                         // colapsa múltiples espacios
-                        valor = // colapsa múltiples espacios
-                        valor.replaceAll("[\\r\\n\\u00A0\\u2028\\u2029\\u200B\\t]", " ").replaceAll(" +", " ").trim();
+                        // colapsa múltiples espacios
+                        valor = valor.replaceAll("[\\r\\n\\u00A0\\u2028\\u2029\\u200B\\t]", " ").replaceAll(" +", " ").trim();
                     }
                     // PreparedStatement es 1-based
                     ps.setString(i + 1, valor);

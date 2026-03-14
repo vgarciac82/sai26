@@ -24,6 +24,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class cedulasSIIWEBManager {
 
@@ -147,7 +148,7 @@ public class cedulasSIIWEBManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         /* CierraFlujos */
         workbook.close();
         bos.flush();
@@ -415,7 +416,7 @@ public class cedulasSIIWEBManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         /* CierraFlujos */
         bos.flush();
         bos.close();

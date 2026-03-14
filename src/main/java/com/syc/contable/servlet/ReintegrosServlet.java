@@ -45,6 +45,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "ReintegrosServlet", urlPatterns = { "/servlet/ReintegrosServlet" })
 public class ReintegrosServlet extends HttpServlet {
@@ -580,7 +581,7 @@ public class ReintegrosServlet extends HttpServlet {
 			System.out.print(" impore: " +valuesImporte[i]);
 			System.out.println("");*/
         }
-        wb.write(response.getOutputStream());
+        wb.write(response.getOutputStream().toPath());
         wb.close();
     }
 
@@ -746,7 +747,7 @@ public class ReintegrosServlet extends HttpServlet {
 			System.out.print(" impore: " +valuesImporte[i]);
 			System.out.println("");*/
         }
-        wb.write(response.getOutputStream());
+        wb.write(response.getOutputStream().toPath());
         wb.close();
     }
 
@@ -851,7 +852,7 @@ public class ReintegrosServlet extends HttpServlet {
             if ("3".equals(tipoTramite))
                 celda.setCellValue(valuesTipoMovimiento[i].trim());
         }
-        wb.write(response.getOutputStream());
+        wb.write(response.getOutputStream().toPath());
         wb.close();
     }
 

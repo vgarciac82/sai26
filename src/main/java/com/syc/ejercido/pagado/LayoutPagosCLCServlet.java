@@ -25,6 +25,7 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "LayoutPagosCLCServlet", urlPatterns = { "/gstnmngr/LayoutPagosCLCServlet" })
 public class LayoutPagosCLCServlet extends HttpServlet {
@@ -105,7 +106,7 @@ public class LayoutPagosCLCServlet extends HttpServlet {
                 archivoPago.append(arrListDocu.get(i));
             }
             String outTextPago = archivoPago.toString();
-            out.write(outTextPago);
+            out.write(outTextPago.toPath());
             // fin de guarda pago
             out.close();
             // Guarda el Doc Zip

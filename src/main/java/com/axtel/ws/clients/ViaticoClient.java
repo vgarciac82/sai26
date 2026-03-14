@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class ViaticoClient {
 
@@ -48,7 +49,7 @@ public class ViaticoClient {
         conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
         conn.setDoOutput(true);
         try (DataOutputStream wr = new DataOutputStream(conn.getOutputStream())) {
-            wr.write(jsonInput.getBytes("UTF-8"));
+            wr.write(jsonInput.getBytes("UTF-8").toPath());
             wr.flush();
         }
         int responseCode = conn.getResponseCode();

@@ -21,6 +21,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "LayoutEjercidoComparativoServlet", urlPatterns = { "/gstnmngr/LayoutEjercidoComparativoServlet" })
 public class LayoutEjercidoComparativoServlet extends HttpServlet {
@@ -99,7 +100,7 @@ public class LayoutEjercidoComparativoServlet extends HttpServlet {
                 archivoPago.append(arrListDocu.get(i));
             }
             String outTextPago = archivoPago.toString();
-            out.write(outTextPago);
+            out.write(outTextPago.toPath());
             out.close();
             byte[] bufPag = new byte[2048];
             try {

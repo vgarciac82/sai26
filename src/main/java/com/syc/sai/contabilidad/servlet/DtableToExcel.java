@@ -40,6 +40,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "GeneraExcelTable", urlPatterns = { "/reports/GeneraExcelTable" })
 public class DtableToExcel extends HttpServlet implements GestionInterface {
@@ -336,7 +337,7 @@ public class DtableToExcel extends HttpServlet implements GestionInterface {
         try {
             response.setContentType("application/vnd.ms-excel");
             response.addHeader("Content-Disposition", "attachment; filename=\"reporte" + "rpt" + "_" + System.currentTimeMillis() + ".xls\";");
-            wb.write(response.getOutputStream());
+            wb.write(response.getOutputStream().toPath());
             response.getOutputStream().flush();
             response.getOutputStream().close();
         } catch (Exception e) {

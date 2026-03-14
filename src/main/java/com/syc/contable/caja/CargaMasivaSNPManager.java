@@ -18,6 +18,7 @@ import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class CargaMasivaSNPManager {
 
@@ -57,7 +58,7 @@ public class CargaMasivaSNPManager {
             File fsalida = new File(plantillaPath);
             FileOutputStream fos = new FileOutputStream(fsalida);
             BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos);
+            workbook.write(bos.toPath());
             workbook.close();
             bos.flush();
             bos.close();

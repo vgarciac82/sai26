@@ -22,6 +22,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "ConciliaAutomaticaFFMServlet", urlPatterns = { "/servlet/ConciliaAutomaticaFFMServlet" })
 public class ConciliaBancosAutFFMServlet extends HttpServlet {
@@ -111,7 +112,7 @@ public class ConciliaBancosAutFFMServlet extends HttpServlet {
             CloseObject.closeObject(rs);
             CloseObject.closeObject(cs);
             CloseObject.closeObject(conn);
-            out.write(jsonObj.toString());
+            out.write(jsonObj.toString().toPath());
             out.flush();
             out.close();
             out = null;

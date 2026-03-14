@@ -27,6 +27,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "AplicacionContableServletAx", urlPatterns = { "/gstnmngr/AppContAx" })
 public class AplicacionContableServletAx extends HttpServlet {
@@ -122,7 +123,7 @@ public class AplicacionContableServletAx extends HttpServlet {
         try {
             response.setCharacterEncoding("UTF-8");
             out = response.getWriter();
-            out.write(ok + "//" + msj);
+            out.write(ok + "//" + msj.toPath());
             System.out.println("Msj escrito: " + msj);
         } catch (Exception e) {
         } finally {

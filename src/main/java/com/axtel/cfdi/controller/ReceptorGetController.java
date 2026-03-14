@@ -19,6 +19,7 @@ import com.syc.gestion.servlet.GestionInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet("/cfdi/receptor")
 public class ReceptorGetController extends HttpServlet {
@@ -70,17 +71,17 @@ public class ReceptorGetController extends HttpServlet {
             Receptor receptor = receptorService.obtenerReceptorPorRfc(rfc);
             if (receptor == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                response.getWriter().write("{\"error\": \"Receptor no encontrado\"}");
+                response.getWriter().write("{\"error\": \"Receptor no encontrado\"}".toPath());
             } else {
                 String json = gson.toJson(receptor);
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(json);
+                response.getWriter().write(json.toPath());
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("{\"error\": \"Error al obtener el receptor\"}");
+            response.getWriter().write("{\"error\": \"Error al obtener el receptor\"}".toPath());
         }
     }
 }

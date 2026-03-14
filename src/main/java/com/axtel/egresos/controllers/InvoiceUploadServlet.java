@@ -29,6 +29,7 @@ import com.syc.gestion.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet("/payments/masivePayment")
 @MultipartConfig
@@ -102,13 +103,13 @@ public class InvoiceUploadServlet extends HttpServlet {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().write(objectMapper.writeValueAsString(logResults));
+            response.getWriter().write(objectMapper.writeValueAsString(logResults).toPath());
         } catch (Exception e) {
             log.error("Error procesando la solicitud", e);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("{\"error\": \"Error procesando la solicitud: " + e.getMessage() + "\"}");
+            response.getWriter().write("{\"error\": \"Error procesando la solicitud: " + e.getMessage() + "\"}".toPath());
         }
     }
 

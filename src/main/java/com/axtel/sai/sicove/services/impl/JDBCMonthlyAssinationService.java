@@ -13,6 +13,7 @@ import com.syc.cfdi.db.CloseObject;
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.gestion.util.Util;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class JDBCMonthlyAssinationService extends DataSourceManager implements MonthlyAssinationService {
 
@@ -59,7 +60,7 @@ public class JDBCMonthlyAssinationService extends DataSourceManager implements M
             monthlyAssinationRepository.getMonthlyFuellingSheet(conn, workBook.getSheetAt(1), account, month);
             monthlyAssinationRepository.getMonthlyVerificationSheet(conn, workBook.getSheetAt(2), account, month);
             monthlyAssinationRepository.getMonthlySummarySheet(conn, workBook.getSheetAt(3), account, month);
-            workBook.write(workBookSource);
+            workBook.write(workBookSource.toPath());
         } catch (Exception e) {
             throw new SicoveException(e);
         } finally {

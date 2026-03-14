@@ -61,8 +61,7 @@ public class cargaNominaServlet extends HttpServlet {
     public InputStream cargarArchivoSCV(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String szPath = "";
         try {
-            DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(szPath));
+            DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
             // Se construye un objeto para que parsee la petición
             JakartaServletFileUpload fu = new JakartaServletFileUpload(factory);
             // Tamaño máximo que aceptará el archivo

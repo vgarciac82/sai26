@@ -22,6 +22,7 @@ import com.syc.dsmngr.DataSourceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class ReporteEjercicioAnteriorBussinessLogic extends DataSourceManager {
 
@@ -193,7 +194,7 @@ public class ReporteEjercicioAnteriorBussinessLogic extends DataSourceManager {
                 fila = hs.createRow(++valorMaximo);
             }
         }
-        wb.write(response.getOutputStream());
+        wb.write(response.getOutputStream().toPath());
         wb.close();
     }
 }

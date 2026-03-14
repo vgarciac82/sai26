@@ -21,6 +21,7 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "LayoutRectificacionesSicopServlet", urlPatterns = { "/gstnmngr/RectificacionesSicop" })
 public class LayoutRectificacionesSicopServlet extends HttpServlet {
@@ -140,7 +141,7 @@ public class LayoutRectificacionesSicopServlet extends HttpServlet {
         }
         archivo.append(detalles.toString().replace(" ", ""));
         try {
-            bw.write(archivo.toString());
+            bw.write(archivo.toString().toPath());
             bw.flush();
             bw.close();
         } catch (Exception ex) {

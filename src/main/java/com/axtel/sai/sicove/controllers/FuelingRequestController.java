@@ -35,6 +35,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "FuelingRequestController", urlPatterns = { "/SICOVE/FuelProvisioningWallet", "/SICOVE/FuelProvisioningWallet/nextStatus", "/SICOVE/FuelProvisioningWallet/authRequest", "/SICOVE/FuelProvisioningWallet/finishRequest", "/SICOVE/FuelProvisioningWallet/discardRequest", "/SICOVE/FuelProvisioningWallet/rejectRequest", "/SICOVE/FuelProvisioningWallet/validatingVerification" })
 public class FuelingRequestController extends HttpServlet {
@@ -170,14 +171,14 @@ public class FuelingRequestController extends HttpServlet {
     private void sendFullFuelrequest(HttpServletResponse response, VehicleFuelRequestDAO fuelRequest) throws IOException {
         String jsonResponse = objectMapper.writeValueAsString(fuelRequest);
         response.setContentType("application/json; charset=UTF-8");
-        response.getWriter().write(jsonResponse);
+        response.getWriter().write(jsonResponse.toPath());
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
     private void sendFuelrequest(HttpServletResponse response, VehicleFuelRequest fuelRequest) throws IOException {
         String jsonResponse = objectMapper.writeValueAsString(fuelRequest);
         response.setContentType("application/json; charset=UTF-8");
-        response.getWriter().write(jsonResponse);
+        response.getWriter().write(jsonResponse.toPath());
         response.setStatus(HttpServletResponse.SC_OK);
     }
 

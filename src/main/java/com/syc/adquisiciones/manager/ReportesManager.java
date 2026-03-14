@@ -24,6 +24,7 @@ import com.syc.gestion.servlet.GestionInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class ReportesManager implements GestionInterface {
 
@@ -121,7 +122,7 @@ public class ReportesManager implements GestionInterface {
             File fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos);
+            workbook.write(bos.toPath());
             bos.flush();
         } catch (Exception e) {
             // TODO: handle exception

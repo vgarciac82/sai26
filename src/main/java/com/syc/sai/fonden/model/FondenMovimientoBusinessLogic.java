@@ -31,6 +31,7 @@ import com.syc.sai.fonden.FondenMovimientoEngineException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class FondenMovimientoBusinessLogic extends DataSourceManager {
 
@@ -168,7 +169,7 @@ public class FondenMovimientoBusinessLogic extends DataSourceManager {
                 archivoCSV.append("\n");
             }
             String outTextPago = archivoCSV.toString();
-            out.write(outTextPago);
+            out.write(outTextPago.toPath());
             out.close();
             byte[] bufPag = new byte[2048];
             try {

@@ -18,6 +18,7 @@ import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class ReporteNotasBusinessLogic extends DataSourceManager {
 
@@ -123,7 +124,7 @@ public class ReporteNotasBusinessLogic extends DataSourceManager {
             ReporteNotasManager.generaReporteNotasWord(conn, fechaFin, miles, document, efectivo, derechos, derAnt, almacen, cxp, otrascxp, pasivo, pasivo2, eventos, eventos2, eventos3, fechaAut);
             fGenerado = File.createTempFile("Notas_Estados_Financieros", ".docx", new File(System.getProperty("java.io.tmpdir")));
             FileOutputStream word = new FileOutputStream(fGenerado);
-            document.write(word);
+            document.write(word.toPath());
             word.close();
             Util.doDownload(resp, fGenerado.getAbsolutePath(), "Notas_Estados_Financieros.docx", "application/vnd.openxmlformats-");
         } catch (FileNotFoundException ex) {

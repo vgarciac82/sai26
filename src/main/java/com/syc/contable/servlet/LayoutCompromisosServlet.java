@@ -21,6 +21,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 /**
  * @author Martha Aurora Sánchez Valdivieso para SYC Constructores de Sistemas
@@ -55,7 +56,7 @@ public class LayoutCompromisosServlet extends HttpServlet {
                 archivoPago.append(cvsDataSQL.get(i));
             }
             String outTextPago = archivoPago.toString();
-            out.write(outTextPago);
+            out.write(outTextPago.toPath());
             out.flush();
             // fin de guarda pago
             out.close();

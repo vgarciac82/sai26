@@ -20,6 +20,7 @@ import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 /**
  * @author Martha Aurora Sánchez Valdivieso para SYC Constructores de Sistemas
@@ -211,7 +212,7 @@ public class RetencionBusinessLogic extends DataSourceManager {
                 token = "\n";
             }
             String outTextArchivo = archivoSICOP.toString();
-            out.write(outTextArchivo);
+            out.write(outTextArchivo.toPath());
             out.flush();
             out.close();
             return strlayoutSicop;
@@ -242,7 +243,7 @@ public class RetencionBusinessLogic extends DataSourceManager {
                 token = "\n";
             }
             String outTextArchivo = archivoSICOP.toString();
-            out.write(outTextArchivo);
+            out.write(outTextArchivo.toPath());
             out.flush();
             out.close();
             //Se regresa el archivo

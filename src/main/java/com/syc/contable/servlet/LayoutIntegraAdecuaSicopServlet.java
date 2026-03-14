@@ -57,6 +57,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
 import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import java.nio.file.Paths;
 
 @WebServlet(name = "LayoutIntegraAdecuaSicopServlet", urlPatterns = { "/gstnmngr/IntegraAdecuaLayoutSicop" })
 public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
@@ -424,8 +425,7 @@ public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
     public void creaFap(HttpServletRequest request, HttpServletResponse response) throws Exception {
         AdecuacionBusinessLogic adecua = new AdecuacionBusinessLogic(GestionInterface.ATT_CONEXION);
         HttpSession session = request.getSession(false);
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(tempDir));
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         String responsableCompleto = request.getParameter("responsable");
         String responsable = "Responsable del Area";
@@ -541,7 +541,7 @@ public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
         imprimeFAP02(wb, fiscal, arrAdecAmpliacion, arrAdecReduccion, fecha, c.getFolio());
         imprimeMETA(wb, arrActividadInstitucional);
         //imprimeResponsable(sheet, numfilas + 8, responsable, area);
-        wb.write(response.getOutputStream());
+        wb.write(response.getOutputStream().toPath());
     }
 
     public int imprimeSaldos(Sheet sheet, List<Fap01> saldoR, double[] suma, int numfila, char tipo, int secuencia, CellStyle estiloBordeDerecho) {
@@ -693,8 +693,7 @@ public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
         AdecuacionBusinessLogic adecua = new AdecuacionBusinessLogic(GestionInterface.ATT_CONEXION);
         HttpSession session = request.getSession(false);
         ArrayList arrIntegradas = new ArrayList();
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(tempDir));
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         //String responsableCompleto = request.getParameter("responsable");
         String hTitulo1 = "COMISIÓN NACIONAL DEL AGUA.";
@@ -844,7 +843,7 @@ public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
         cellPieR4.setCellValue(mTotalAmpliaciones);
         cellPieR5.setCellValue(mTotalReducciones);
         cellPieR6.setCellValue(mTotalAmpliaciones - mTotalReducciones);
-        wb.write(response.getOutputStream());
+        wb.write(response.getOutputStream().toPath());
         wb.close();
     }
 
@@ -854,8 +853,7 @@ public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
         AdecuacionBusinessLogic adecua = new AdecuacionBusinessLogic(GestionInterface.ATT_CONEXION);
         HttpSession session = request.getSession(false);
         ArrayList arrIntegradas = new ArrayList();
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(tempDir));
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         int nConsecutivoSICOP = 0;
         Caso c = (Caso) session.getAttribute(GestionInterface.ATT_CASE);
@@ -1020,7 +1018,7 @@ public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         /* Cierra Flujos */
         workbook.close();
         bos.flush();
@@ -1046,8 +1044,7 @@ public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
         ArrayList<Object> arrAdecAmpliacion = new ArrayList();
         ArrayList<ArrayList> arrAdecReduccion = new ArrayList<ArrayList>();
         String[] arrFirmantePuesto = new String[] { "Ingrese el nombre", "Ingrese el puesto" };
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(tempDir));
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         Caso c = (Caso) session.getAttribute(GestionInterface.ATT_CASE);
         int nFolio = new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue();
@@ -1158,7 +1155,7 @@ public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         workbook.close();
         /* Cierra Flujos */
         bos.flush();

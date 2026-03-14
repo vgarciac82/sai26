@@ -18,6 +18,7 @@ import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class ReporteNafinBusinessLogic extends DataSourceManager {
 
@@ -67,7 +68,7 @@ public class ReporteNafinBusinessLogic extends DataSourceManager {
                     archivoBuffer.append(file.get(i));
                 }
                 String outTextNafin = archivoBuffer.toString();
-                salida.write(outTextNafin);
+                salida.write(outTextNafin.toPath());
                 salida.flush();
                 salida.close();
                 log.info("Se envia el archivo al doDownload");

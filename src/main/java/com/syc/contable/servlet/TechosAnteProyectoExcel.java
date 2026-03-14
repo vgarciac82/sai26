@@ -36,6 +36,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
 import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import java.nio.file.Paths;
 
 @WebServlet(name = "TechosAnteProyectoExcel", urlPatterns = { "/gstnmngr/TechosExcel" })
 public class TechosAnteProyectoExcel extends HttpServlet {
@@ -102,8 +103,7 @@ public class TechosAnteProyectoExcel extends HttpServlet {
             String pathURL = request.getContextPath();
             String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + pathURL + "/";
             String path = "";
-            DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(path));
+            DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
             JakartaServletFileUpload fu = new JakartaServletFileUpload(factory);
             // tamaño máximo que aceptará el archivo
             fu.setFileSizeMax(-1);
@@ -139,7 +139,7 @@ public class TechosAnteProyectoExcel extends HttpServlet {
                     actual = (FileItem) i.next();
                     String fileName = "TechosAnteProyecto.xls";
                     File archivo = new File(fu.getRepositoryPath() + "\\" + fileName);
-                    actual.write(archivo);
+                    actual.write(archivo.toPath());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -355,8 +355,7 @@ public class TechosAnteProyectoExcel extends HttpServlet {
     }
 
     public ArrayList<String> cargaExcel(String archivo, String tipo) throws SQLException {
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(tempDir));
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         String cFileExcel = upload.getRepositoryPath() + "/TechosAnteProyecto.xls";
         ArrayList<String> un = new ArrayList<String>();
@@ -621,8 +620,7 @@ public class TechosAnteProyectoExcel extends HttpServlet {
         String szPath;
         List<FileItem> fileItems = new ArrayList<FileItem>();
         try {
-            DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(szPath));
+            DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
             // Se construye un objeto para que parsee la petición
             JakartaServletFileUpload fu = new JakartaServletFileUpload(factory);
             // Tamaño máximo que aceptará el archivo

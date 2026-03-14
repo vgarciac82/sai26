@@ -17,6 +17,7 @@ import com.syc.gestion.core.Usuario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "FacturaValidacionesPreAutorizaRG", urlPatterns = { "/cfdi/validacionesPreAutorizaRelacionGastos" })
 public class FacturaValidacionesPreAutorizaRGServlet extends HttpServlet {
@@ -85,7 +86,7 @@ public class FacturaValidacionesPreAutorizaRGServlet extends HttpServlet {
             List<String> resultados = fbl.validacionesPreAutorizaRelacionGastos(folio);
             String json = toJsonArray(resultados);
             PrintWriter out = resp.getWriter();
-            out.write(json);
+            out.write(json.toPath());
             out.flush();
             log.info("Object: {}", "Respuesta enviada OK para folio=" + folio + " (cantidad=" + (resultados == null ? 0 : resultados.size()) + ")");
         } catch (Exception e) {
@@ -98,7 +99,7 @@ public class FacturaValidacionesPreAutorizaRGServlet extends HttpServlet {
         String safe = sanitize(msg);
         String json = "{\"error\":\"" + safe + "\"}";
         PrintWriter out = resp.getWriter();
-        out.write(json);
+        out.write(json.toPath());
         out.flush();
     }
 

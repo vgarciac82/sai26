@@ -64,6 +64,7 @@ import com.syc.sai.procesosAutomaticos.AdjuntaArchivoMasivoManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class LeeArchivosBusinessLogic extends DataSourceManager {
 
@@ -161,7 +162,7 @@ public class LeeArchivosBusinessLogic extends DataSourceManager {
             fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos);
+            workbook.write(bos.toPath());
             bos.flush();
         } finally {
             if (fos != null) {
@@ -967,7 +968,7 @@ public class LeeArchivosBusinessLogic extends DataSourceManager {
             fsalida = new File(fileName);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos);
+            workbook.write(bos.toPath());
             bos.flush();
             body = "<B>Atenci\u00f3n.</b></br>" + "Se notifica que fue cargado el layout de contrataciones del CAAS en el sistema SAI.<br><br>" + "Por lo anterior es necesario que se revisen las observaciones de cada registro del layout. <br><br>" + "Gracias y reciban un cordial saludo.<br> ";
             AlarmaManager.procesaAlarmaAttachmentCNF(conn, "", null, null, "Observaciones layout CAAS", usuario.getU_email() + ";" + cEmailJefeAdq + ";" + cEmailSubAdqCont + ";", body, fsalida, true);

@@ -34,6 +34,7 @@ import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 @WebServlet(name = "ReportesGRM", urlPatterns = { "/servlet/ReportesGRM" })
 public class ReportesGRM extends HttpServlet {
@@ -582,7 +583,7 @@ public class ReportesGRM extends HttpServlet {
         }
         FileOutputStream fileOut = new FileOutputStream(excelFileName);
         // write this workbook to an Outputstream.
-        wb.write(fileOut);
+        wb.write(fileOut.toPath());
         if (wb != null) {
             wb.close();
         }

@@ -27,6 +27,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class CedulaBancosManager {
 
@@ -189,7 +190,7 @@ public class CedulaBancosManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos);
+        workbook.write(bos.toPath());
         workbook.close();
         /* Cierra Flujos */
         bos.flush();

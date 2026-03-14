@@ -32,6 +32,7 @@ import com.syc.fortimax.retrieval.SpanishAnalyzer;
 import com.syc.gestion.core.Caso;
 import com.syc.utils.ToolBox;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class PaginaIndexManager {
 
@@ -150,8 +151,8 @@ public class PaginaIndexManager {
         int retVal = -1;
         String osName = System.getProperty("os.name").toLowerCase();
         if (osName.indexOf("win") >= 0) {
-            execCmd = this.OCR_PROGRAM_PATH + " " + this.OCR_IN_FILENAME + " " + this.OCR_PARAMETER1 + " " + //+ this.OCR_PARAMETER2 + " "
-            this.OCR_OUT_FILENAME;
+            execCmd = //+ this.OCR_PARAMETER2 + " "
+            this.OCR_PROGRAM_PATH + " " + this.OCR_IN_FILENAME + " " + this.OCR_PARAMETER1 + " " + this.OCR_OUT_FILENAME;
         } else if (osName.indexOf("nix") >= 0 || osName.indexOf("nux") >= 0) {
             execCmd = this.OCR_PROGRAM_PATH + " " + this.OCR_IN_FILENAME + " " + this.OCR_OUT_FILENAME.substring(0, this.OCR_OUT_FILENAME.length() - 4) + " " + this.OCR_PARAMETER1;
         }
@@ -188,7 +189,7 @@ public class PaginaIndexManager {
             new AutoDetectParser().parse(fis, handler, metadata);
             //AQUI LO ESCRIBIMOS A UN ARCHIVO
             FileWriter fw = new FileWriter(outFileName, false);
-            fw.write(writer.toString());
+            fw.write(writer.toString().toPath());
             fw.flush();
             fw.close();
             //System.out.println("Stop!");

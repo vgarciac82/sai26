@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import java.nio.file.Paths;
 
 public class GenericConnectionWS {
 
@@ -68,7 +69,7 @@ public class GenericConnectionWS {
             String input = inputJson.toString();
             log.info("Object: {}", "Datos enviados:\n" + input);
             OutputStream os = conn.getOutputStream();
-            os.write(input.getBytes("UTF-8"));
+            os.write(input.getBytes("UTF-8").toPath());
             os.flush();
             BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
             log.info("Output from Server ....");

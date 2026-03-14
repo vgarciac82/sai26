@@ -172,8 +172,7 @@ public class GestionFileReceiverServlet extends HttpServlet implements GestionIn
     }
 
     private List parseRequest(HttpServletRequest req) throws ServletException {
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
-        factory.setRepository(new File(tempDir));
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         // Directorio temporal de carga de archivos
         // -1 sin limite
