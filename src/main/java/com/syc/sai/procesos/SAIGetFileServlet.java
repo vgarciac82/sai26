@@ -43,12 +43,12 @@ public class SAIGetFileServlet extends HttpServlet implements GestionInterface {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 
@@ -89,7 +89,7 @@ public class SAIGetFileServlet extends HttpServlet implements GestionInterface {
         }
         ITreeNode node = tree.findNode(select);
         if (node == null) {
-            log.error("No se encontro nodo (" + select + ")");
+            log.error("Object: {}", "No se encontro nodo (" + select + ")");
             throw new ServletException("No se encontro nodo (" + select + ")");
         }
         NodeInformation nodeInf = (NodeInformation) node.getObject();

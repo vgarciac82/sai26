@@ -39,12 +39,12 @@ public class GreenMexController extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         GreenMexService = new JDBCGreenMexService(jniName, new JDBCGreenMexRepository());
     }
@@ -67,7 +67,7 @@ public class GreenMexController extends HttpServlet {
             String fecha = request.getParameter("fecha");
             boolean retorno = false;
             retorno = GreenMexService.insertaComprobacion(folioComprobacion, impEjercer, folioING, remanenteING, fecha);
-            log.info(GreenMex);
+            log.info("Object: {}", String.valueOf(GreenMex));
             Util.sendJSON(response, GreenMex);
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);

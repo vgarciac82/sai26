@@ -15,13 +15,14 @@ import com.syc.sai.contabilidad.polizamanual.CatalogoCabms;
 import com.syc.sai.contabilidad.polizamanual.EventoRelacion;
 import com.syc.sai.contabilidad.polizamanual.GrupoEvento;
 import com.syc.sai.contabilidad.polizamanual.SubGrupoEvento;
-import common.Logger;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "CuentaContableServlet", urlPatterns = { "/CuentaContable/AutoCompletaCuenta", "/CuentaContable/OperacionesCuenta", "/CuentaContable/VerificaBloqueo", "/CuentaContable/autoCompletaGrupoEvento", "/CuentaContable/autoCompletaSubGrupoEvento", "/CuentaContable/selected", "/CuentaContable/autoCompletaEventoRelacion", "/CuentaContable/autoCompletaCABMS", "/CuentaContable/selectCAMBS" })
 public class CuentaContableServlet extends HttpServlet {
 
-    private static final Logger log = Logger.getLogger(CuentaContableServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(CuentaContableServlet.class);
 
     private static final long serialVersionUID = -2302925421291178822L;
 
@@ -56,7 +57,7 @@ public class CuentaContableServlet extends HttpServlet {
             token = ",";
         }
         arr = "[" + arr + "]";
-        log.debug(arr);
+        log.debug("Object: {}", arr);
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);
@@ -78,7 +79,7 @@ public class CuentaContableServlet extends HttpServlet {
             token = ",";
         }
         arr = "[" + arr + "]";
-        log.debug(arr);
+        log.debug("Object: {}", arr);
         req.getSession().setAttribute("nGrupo", term);
         req.getSession().removeAttribute("nSubGrupo");
         req.getSession().removeAttribute("nEvento");
@@ -107,7 +108,7 @@ public class CuentaContableServlet extends HttpServlet {
             arr += token + String.format(json, "0", "Debe seleccionar un grupo", "Debe seleccionar un grupo");
         }
         arr = "[" + arr + "]";
-        log.debug(arr);
+        log.debug("Object: {}", arr);
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         arr = new String(arr.getBytes("UTF-8"), "ISO-8859-1");
@@ -139,7 +140,7 @@ public class CuentaContableServlet extends HttpServlet {
             arr += token + String.format(json, "0", "Debe seleccionar un grupo", "Debe seleccionar un grupo");
         }
         arr = "[" + arr + "]";
-        log.debug(arr);
+        log.debug("Object: {}", arr);
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         arr = new String(arr.getBytes("UTF-8"), "ISO-8859-1");
@@ -176,7 +177,7 @@ public class CuentaContableServlet extends HttpServlet {
         } else {
             arr += token + String.format(json, "0", "Debe seleccionar un grupo", "Debe seleccionar un grupo");
         }
-        log.debug(arr);
+        log.debug("Object: {}", arr);
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);
@@ -197,7 +198,7 @@ public class CuentaContableServlet extends HttpServlet {
             token = ",";
         }
         arr = "[" + arr + "]";
-        log.debug(arr);
+        log.debug("Object: {}", arr);
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);
@@ -230,7 +231,7 @@ public class CuentaContableServlet extends HttpServlet {
             try {
                 accion = req.getRequestURI().substring(req.getRequestURI().lastIndexOf("/") + 1);
             } catch (Exception e) {
-                log.warn("Error obteniendo substring " + e);
+                log.warn("Error occurred", "Error obteniendo substring " + e);
             }
             if ("".equals(accion) || null == accion) {
                 ResponseSender.sendError(resp, "No se recibio el parametro \"accion\" reporte al administrador");
@@ -248,7 +249,7 @@ public class CuentaContableServlet extends HttpServlet {
                 cBloqueada = ccbl.cuentaBloqueada(nCuenta, Integer.parseInt(nMes), cCentroContable, operacion);
                 ResponseSender.sendResult(resp, String.valueOf(cBloqueada));
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendError(resp, "Error mientras se verificaba la cuenta " + nCuenta + "\n" + e.toString());
             }
         } else if ("VerificaCuentas".equals(accion)) {
@@ -261,7 +262,7 @@ public class CuentaContableServlet extends HttpServlet {
                 cuentasBloqueadas = ccbl.cuentasBloqueadas(cuentasCargo, cuentasAbono, cCentroContable, Integer.parseInt(nMes));
                 ResponseSender.sendResult(resp, cuentasBloqueadas, "cuenta");
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendError(resp, "Error mientras se verificaban las cuentas \n" + e.toString());
             }
         } else if ("AltaCuentas".equals(accion)) {
@@ -269,14 +270,14 @@ public class CuentaContableServlet extends HttpServlet {
                 String msg = altaCuenta(req, resp);
                 ResponseSender.sendArrayMessages(resp, true, new String[] { "Atenci&oacute;n", msg }, "msg");
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendError(resp, "Error mientras se agregaba la cuenta \n" + e.toString());
             }
         } else if ("BuscaCuentas".equals(accion)) {
             try {
                 buscaCuentas(req, resp);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendError(resp, e.toString());
             }
         } else if ("ActualizaCuentas".equals(accion)) {
@@ -284,7 +285,7 @@ public class CuentaContableServlet extends HttpServlet {
                 String msg = actualizaCuentas(req, resp);
                 ResponseSender.sendArrayMessages(resp, true, new String[] { "Atenci&oacute;n", msg }, "msg");
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendError(resp, e.toString());
             }
         } else if ("EliminaCuenta".equals(accion)) {
@@ -292,7 +293,7 @@ public class CuentaContableServlet extends HttpServlet {
                 String msg = eliminaCuentas(req, resp);
                 ResponseSender.sendArrayMessages(resp, true, new String[] { "Atenci&oacute;n", msg }, "msg");
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendArrayMessages(resp, true, new String[] { "Atenci&oacute;n", e.toString() }, "msg");
             }
         } else if ("AutoCompletaCuenta".equals(accion)) {
@@ -301,7 +302,7 @@ public class CuentaContableServlet extends HttpServlet {
                 try {
                     autoCompletaCuentas(toFind, req, resp);
                 } catch (Exception e) {
-                    log.error(e, e);
+                    log.error(e.getMessage(), e);
                 }
             }
             //*********************** Polizas Eventos Manuales 2014 *********************
@@ -312,7 +313,7 @@ public class CuentaContableServlet extends HttpServlet {
                 try {
                     autoCompletaGrupoEvento(toFind, req, resp);
                 } catch (Exception e) {
-                    log.error(e, e);
+                    log.error(e.getMessage(), e);
                 }
             }
         } else if ("autoCompletaSubGrupoEvento".equals(accion)) {
@@ -321,7 +322,7 @@ public class CuentaContableServlet extends HttpServlet {
                 try {
                     autoCompletaSubGrupoEvento(toFind, req, resp);
                 } catch (Exception e) {
-                    log.error(e, e);
+                    log.error(e.getMessage(), e);
                 }
             }
         } else if ("autoCompletaEventoRelacion".equals(accion)) {
@@ -330,7 +331,7 @@ public class CuentaContableServlet extends HttpServlet {
                 try {
                     autoCompletaEventoRelacion(toFind, req, resp);
                 } catch (Exception e) {
-                    log.error(e, e);
+                    log.error(e.getMessage(), e);
                 }
             }
         } else if ("autoCompletaCABMS".equals(accion)) {
@@ -339,7 +340,7 @@ public class CuentaContableServlet extends HttpServlet {
                 try {
                     autoCompletaCABMS(toFind, req, resp);
                 } catch (Exception e) {
-                    log.error(e, e);
+                    log.error(e.getMessage(), e);
                 }
             }
         } else if ("selectCAMBS".equals(accion)) {
@@ -350,7 +351,7 @@ public class CuentaContableServlet extends HttpServlet {
                 try {
                     selectCABMS(key, value, req, resp);
                 } catch (Exception e) {
-                    log.error(e, e);
+                    log.error(e.getMessage(), e);
                 }
             }
         } else if ("selected".equals(accion)) {

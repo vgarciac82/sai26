@@ -9,8 +9,6 @@ import javax.naming.NamingException;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
-import org.apache.log4j.Level;
-import org.apache.log4j.PropertyConfigurator;
 import com.syc.gestion.CasoBusinessLogic;
 import com.syc.gestion.CasoOperacionBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
@@ -42,22 +40,22 @@ public class GestionSetupServlet extends HttpServlet implements GestionInterface
         interval = Long.parseLong(strInterval);
         if (interval == -1L) {
             interval = 1000L * 60;
-            log.info("Init Parameter \"sleepIntervalProcess\" nulo usando default \"" + interval + "\"");
+            log.info("Object: {}", "Init Parameter \"sleepIntervalProcess\" nulo usando default \"" + interval + "\"");
         } else
-            log.info("sleepIntervalProcess=" + interval);
+            log.info("Object: {}", "sleepIntervalProcess=" + interval);
         try {
             InitialContext ic = new InitialContext();
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
-        log.info("runIntervalProcess=" + "true".equalsIgnoreCase(strRunIntervalProcess));
+        log.info("Object: {}", "runIntervalProcess=" + "true".equalsIgnoreCase(strRunIntervalProcess));
         if ("true".equalsIgnoreCase(strRunIntervalProcess)) {
             log.info("Iniciando Background Process");
             verifyLimitTimeCaso = new Thread(this);
@@ -116,8 +114,8 @@ public class GestionSetupServlet extends HttpServlet implements GestionInterface
                 else if (baseLevel.equalsIgnoreCase("fatal"))
                     log.setLevel(Level.FATAL);
                 if (log.isDebugEnabled()) {
-                    log.debug("log_base_level=" + log.getLevel());
-                    log.debug("log-directory=" + logDirectory);
+                    log.debug("Object: {}", "log_base_level=" + log.getLevel());
+                    log.debug("Object: {}", "log-directory=" + logDirectory);
                 }
             }
         } catch (IOException exc) {

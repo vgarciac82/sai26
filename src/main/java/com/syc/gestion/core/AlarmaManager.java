@@ -6,19 +6,19 @@ import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
-import javax.mail.Authenticator;
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.NoSuchProviderException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import jakarta.mail.Authenticator;
+import jakarta.mail.BodyPart;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
+import jakarta.mail.NoSuchProviderException;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
 import org.apache.commons.lang.StringUtils;
 import com.syc.gestion.BitacoraCorreosBusinessLogic;
 import com.syc.gestion.CorreosPendientesBusinessLogic;
@@ -49,7 +49,7 @@ public class AlarmaManager {
         String from = cabl.getSystemSetting("MAIL;FROM");
         boolean esAmbienteDesarrollo = "TRUE".equalsIgnoreCase(cabl.getSystemSetting("AMBIENTE_DESARROLLO"));
         String correosDesarrollo = cabl.getSystemSetting("CORREO_ALERTAS_DESARROLLO");
-        log.debug("Cofiguracion de alerta: PROTOCOL[" + protocol + "] HOST[" + host + "] PORT[" + port + "] LOCALHOST[" + localhost + "] FROM[" + from + "]");
+        log.debug("Object: {}", "Cofiguracion de alerta: PROTOCOL[" + protocol + "] HOST[" + host + "] PORT[" + port + "] LOCALHOST[" + localhost + "] FROM[" + from + "]");
         try {
             if (esAmbienteDesarrollo) {
                 to = correosDesarrollo;
@@ -168,7 +168,7 @@ public class AlarmaManager {
             cc = "";
             bcc = "";
         }
-        log.debug("Cofiguracion de alerta: PROTOCOL[" + protocol + "] HOST[" + host + "] PORT[" + port + "] LOCALHOST[" + localhost + "] FROM[" + from + "]");
+        log.debug("Object: {}", "Cofiguracion de alerta: PROTOCOL[" + protocol + "] HOST[" + host + "] PORT[" + port + "] LOCALHOST[" + localhost + "] FROM[" + from + "]");
         Session session;
         String errorMsg = "";
         boolean correoEnviado = false;
@@ -264,7 +264,7 @@ public class AlarmaManager {
             try {
                 bcbl.insertaBitacoraCorreo(bitacoraCorreo);
             } catch (Exception e) {
-                log.warn("Error ingresando bitacora: " + e);
+                log.warn("Error occurred", "Error ingresando bitacora: " + e);
             }
         }
     }

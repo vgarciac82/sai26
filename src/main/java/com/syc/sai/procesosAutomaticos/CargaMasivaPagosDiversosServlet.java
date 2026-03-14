@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.core.FileItem;
 import com.axtel.contratos.core.ConvenioColaboracion;
 import com.axtel.contratos.core.ConvenioColaboracionBussinessLogic;
 import com.syc.contable.PagosDiversosBussinessLogic;
@@ -71,10 +71,10 @@ public class CargaMasivaPagosDiversosServlet extends HttpServlet implements Gest
                 archivoCargaStream = new DataInputStream(archivoCargaIS);
                 nombreArchivo = item.getName();
                 nombreDestino = TEMP_DIR + "CARGA_ARCHIVO_" + System.currentTimeMillis() + "." + extension;
-                log.info("Copiando archivo :" + nombreArchivo);
+                log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                 Util.copiaArchivo(archivoCargaStream, nombreDestino);
                 item.delete();
-                log.debug("Procesando archivo:" + nombreArchivo);
+                log.debug("Object: {}", "Procesando archivo:" + nombreArchivo);
             }
             String accion = req.getRequestURI().substring(req.getRequestURI().lastIndexOf("/") + 1);
             if ("CargaMasivaCompromisosDiversos".equals(accion)) {
@@ -85,7 +85,7 @@ public class CargaMasivaPagosDiversosServlet extends HttpServlet implements Gest
             } else {
                 PagosDiversosBussinessLogic pdbl = new PagosDiversosBussinessLogic();
                 int insertados = pdbl.procesaPagosMasivo(new File(nombreDestino), u, reportDir);
-                log.trace("Terminado el llamado:\n" + insertados);
+                log.trace("Object: {}", "Terminado el llamado:\n" + insertados);
                 session.setAttribute("msg", "Se insertaron " + insertados + " pagos diversos. Por favor realizar el proceso de firma.");
                 resp.sendRedirect("CargaLayouts/CargarPagosDiversosMasivo.jsp?showResult=true");
             }
@@ -97,13 +97,13 @@ public class CargaMasivaPagosDiversosServlet extends HttpServlet implements Gest
                 try {
                     archivoCargaStream.close();
                 } catch (Exception e) {
-                    log.error("Error cerrando flujo DataInputStream" + e);
+                    log.error("Error occurred", "Error cerrando flujo DataInputStream" + e);
                 }
             if (archivoCargaIS != null)
                 try {
                     archivoCargaIS.close();
                 } catch (Exception e) {
-                    log.error("Error cerrando flujo InputStream" + e);
+                    log.error("Error occurred", "Error cerrando flujo InputStream" + e);
                 }
             archivoCargaIS = null;
             archivoCargaStream = null;
@@ -124,19 +124,19 @@ public class CargaMasivaPagosDiversosServlet extends HttpServlet implements Gest
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         try {
             File f = new File(TEMP_DIR);
             if (!f.exists())
                 f.mkdir();
         } catch (Exception e) {
-            log.error("No se logro crear el directorio temporal: " + TEMP_DIR + " Causa:" + e);
+            log.error("Object: {}", "No se logro crear el directorio temporal: " + TEMP_DIR + " Causa:" + e);
         }
     }
 }

@@ -37,17 +37,17 @@ public class FormatoAltaProveedorManager {
             ps = conn.prepareStatement(query);
             ps.setString(1, folio);
             rst = ps.executeQuery();
-            log.debug(ps);
+            log.debug("Object: {}", ps.toString());
             String query2 = "" + "SELECT dcuentabancaria as cuenta, " + "       subcuentabancaria as clabe, " + "       dbanco as banco, " + "       CASE " + "         WHEN alt.crazonsocial = '' THEN " + "         alt.capellidopaterno + ' ' " + "         + alt.capellidomaterno + ' ' + alt.cnombre " + "         ELSE alt.crazonsocial " + "       END AS nombre " + "FROM   tbeneficiariocuentasbancarias banc WITH (nolock) " + "       INNER JOIN taltaproveedor alt  WITH (nolock) " + "               ON Replace (alt.cidrfc, '-', '') = banc.drfc " + "WHERE  alt.cfolio = ?";
             ps = conn.prepareStatement(query2);
             ps.setString(1, folio);
             rst2 = ps.executeQuery();
-            log.debug(ps);
+            log.debug("Object: {}", ps.toString());
             String query3 = "" + "SELECT dcuentabancaria as cuenta, " + "       cBanco+cPlaza+dCuentaBancaria+dDigitoVerificador as clabe, " + "       dbanco as banco, " + "       CASE " + "         WHEN alt.crazonsocial = '' THEN " + "         alt.capellidopaterno + ' ' " + "         + alt.capellidomaterno + ' ' + alt.cnombre " + "         ELSE alt.crazonsocial " + "       END AS nombre " + "FROM   tBeneficiarioCuentasBancariasTmp banc WITH (nolock) " + "       INNER JOIN taltaproveedor alt  WITH (nolock) " + "               ON Replace (alt.cidrfc, '-', '') = banc.drfc " + "WHERE  alt.cfolio = ?";
             ps = conn.prepareStatement(query3);
             ps.setString(1, folio);
             rst3 = ps.executeQuery();
-            log.debug(ps);
+            log.debug("Object: {}", ps.toString());
             String query4 = "";
             if (altaRapida)
                 query4 = "SELECT ccben AS CBEN " + "FROM   tcbenaltaempleado cben WITH(NOLOCK) " + "       INNER JOIN taltaproveedor prov WITH(NOLOCK) " + "               ON Replace(cben.crfc, '-', '') = Replace(prov.cidrfc, '-', '') " + "WHERE  prov.cfolio = ? " + "       AND cben.ntipocben = " + AltaProveedorBusinessLogic.CBEN_PROVEEDOR;
@@ -56,7 +56,7 @@ public class FormatoAltaProveedorManager {
             ps = conn.prepareStatement(query4);
             ps.setString(1, folio);
             rst4 = ps.executeQuery();
-            log.debug(ps);
+            log.debug("Object: {}", ps.toString());
             String fileName = generaReporteFormatoAltaProveedor(rst, rst2, rst3, rst4, plantillas.get("FmtoAltaProveedor"));
             return fileName;
         } finally {

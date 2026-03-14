@@ -118,11 +118,11 @@ public class ContratoModificadoManager {
                 pstm.setString(1, contMod.getcIdContratoDefinitivo());
                 pstm.setInt(2, contMod.getnConsecutivoModificacion());
             }
-            log.info(query.toString());
-            log.info("Parametro 1.- " + contMod.getcEjercicio());
-            log.info("Parametro 2.- " + contMod.getcIdContrato());
-            log.info("Parametro 3.- " + contMod.getcIdContratoDefinitivo());
-            log.info("Parametro 4.- " + contMod.getnConsecutivoModificacion());
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", "Parametro 1.- " + contMod.getcEjercicio());
+            log.info("Object: {}", "Parametro 2.- " + contMod.getcIdContrato());
+            log.info("Object: {}", "Parametro 3.- " + contMod.getcIdContratoDefinitivo());
+            log.info("Object: {}", "Parametro 4.- " + contMod.getnConsecutivoModificacion());
             return pstm.executeUpdate() > 0;
         } finally {
             if (pstm != null) {
@@ -163,11 +163,11 @@ public class ContratoModificadoManager {
                 pstm.setString(1, contMod.getcIdContratoDefinitivo());
                 pstm.setInt(2, contMod.getnConsecutivoModificacion());
             }
-            log.info(query.toString());
-            log.info("Parametro 1.- " + contMod.getcEjercicio());
-            log.info("Parametro 2.- " + contMod.getcIdContrato());
-            log.info("Parametro 3.- " + contMod.getcIdContratoDefinitivo());
-            log.info("Parametro 4.- " + contMod.getnConsecutivoModificacion());
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", "Parametro 1.- " + contMod.getcEjercicio());
+            log.info("Object: {}", "Parametro 2.- " + contMod.getcIdContrato());
+            log.info("Object: {}", "Parametro 3.- " + contMod.getcIdContratoDefinitivo());
+            log.info("Object: {}", "Parametro 4.- " + contMod.getnConsecutivoModificacion());
             return pstm.executeUpdate() > 0;
         } finally {
             if (pstm != null) {
@@ -188,10 +188,10 @@ public class ContratoModificadoManager {
             pstm.setString(1, contMod.getcIdContratoDefinitivo());
             pstm.setInt(2, contMod.getnConsecutivoModificacion());
             pstm.setInt(3, lineaConsolidado);
-            log.info(query.toString());
-            log.info("Parametro 1.- " + contMod.getcIdContratoDefinitivo());
-            log.info("Parametro 2.- " + contMod.getnConsecutivoModificacion());
-            log.info("Parametro 3.- " + lineaConsolidado);
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", "Parametro 1.- " + contMod.getcIdContratoDefinitivo());
+            log.info("Object: {}", "Parametro 2.- " + contMod.getnConsecutivoModificacion());
+            log.info("Object: {}", "Parametro 3.- " + lineaConsolidado);
             return pstm.executeUpdate() > 0;
         } finally {
             if (pstm != null) {
@@ -211,9 +211,9 @@ public class ContratoModificadoManager {
             pstm = conn.prepareStatement(query.toString());
             pstm.setString(1, contMod.getcIdContratoDefinitivo());
             pstm.setInt(2, contMod.getnConsecutivoModificacion());
-            log.info(query.toString());
-            log.info("Parametro 1.- " + contMod.getcIdContratoDefinitivo());
-            log.info("Parametro 2.- " + contMod.getnConsecutivoModificacion());
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", "Parametro 1.- " + contMod.getcIdContratoDefinitivo());
+            log.info("Object: {}", "Parametro 2.- " + contMod.getnConsecutivoModificacion());
             return pstm.executeUpdate() > 0;
         } finally {
             if (pstm != null) {
@@ -250,10 +250,10 @@ public class ContratoModificadoManager {
             pstm.setString(1, contMod.getcIdContratoDefinitivo());
             pstm.setInt(2, contMod.getnConsecutivoModificacion());
             pstm.setInt(3, Integer.parseInt((fila.get(0))));
-            log.info(query.toString());
-            log.info("Parametro 1.- " + contMod.getcIdContratoDefinitivo());
-            log.info("Parametro 2.- " + contMod.getnConsecutivoModificacion());
-            log.info("Parametro 3.- " + fila.get(0));
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", "Parametro 1.- " + contMod.getcIdContratoDefinitivo());
+            log.info("Object: {}", "Parametro 2.- " + contMod.getnConsecutivoModificacion());
+            log.info("Object: {}", "Parametro 3.- " + fila.get(0));
             return pstm.executeUpdate() > 0;
         } finally {
             if (pstm != null) {
@@ -274,9 +274,9 @@ public class ContratoModificadoManager {
             pstm = conn.prepareStatement(query.toString());
             pstm.setString(1, contMod.getcIdContratoDefinitivo());
             pstm.setInt(2, contMod.getnConsecutivoModificacion());
-            log.info(query.toString());
-            log.info("Parametro 1.- " + contMod.getcIdContratoDefinitivo());
-            log.info("Parametro 2.- " + contMod.getnConsecutivoModificacion());
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", "Parametro 1.- " + contMod.getcIdContratoDefinitivo());
+            log.info("Object: {}", "Parametro 2.- " + contMod.getnConsecutivoModificacion());
             return pstm.executeUpdate() > 0;
         } finally {
             if (pstm != null) {
@@ -297,9 +297,9 @@ public class ContratoModificadoManager {
             pstm = conn.prepareStatement(query.toString());
             pstm.setString(1, contMod.getcIdContratoDefinitivo());
             pstm.setInt(2, contMod.getnConsecutivoModificacion());
-            log.info(query.toString());
-            log.info("Parametro 1.- " + contMod.getcIdContratoDefinitivo());
-            log.info("Parametro 2.- " + contMod.getnConsecutivoModificacion());
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", "Parametro 1.- " + contMod.getcIdContratoDefinitivo());
+            log.info("Object: {}", "Parametro 2.- " + contMod.getnConsecutivoModificacion());
             return pstm.executeUpdate() > 0;
         } finally {
             if (pstm != null) {
@@ -322,14 +322,14 @@ public class ContratoModificadoManager {
             pstm.setString(1, contMod.getcIdContratoDefinitivo());
             pstm.setInt(2, contMod.getnConsecutivoModificacion());
             pstm.setInt(3, nidlineaConsolidado);
-            log.info(query.toString());
-            log.info("Parametro 1.- " + contMod.getcIdContratoDefinitivo());
-            log.info("Parametro 2.- " + contMod.getnConsecutivoModificacion());
-            log.info("Parametro 3.- " + nidlineaConsolidado);
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", "Parametro 1.- " + contMod.getcIdContratoDefinitivo());
+            log.info("Object: {}", "Parametro 2.- " + contMod.getnConsecutivoModificacion());
+            log.info("Object: {}", "Parametro 3.- " + nidlineaConsolidado);
             rs = pstm.executeQuery();
             if (rs.next()) {
                 resp = rs.getDouble("totalMod");
-                log.info("Monto Modificado Total=" + resp);
+                log.info("Object: {}", "Monto Modificado Total=" + resp);
             }
             return resp;
         } finally {
@@ -355,10 +355,10 @@ public class ContratoModificadoManager {
             pstm.setInt(1, contMod.getnEstado());
             pstm.setString(2, contMod.getcIdContratoDefinitivo());
             pstm.setInt(3, contMod.getnConsecutivoModificacion());
-            log.info(query.toString());
-            log.info("Parametro 1.- " + contMod.getnEstado());
-            log.info("Parametro 2.- " + contMod.getcIdContratoDefinitivo());
-            log.info("Parametro 3.- " + contMod.getnConsecutivoModificacion());
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", "Parametro 1.- " + contMod.getnEstado());
+            log.info("Object: {}", "Parametro 2.- " + contMod.getcIdContratoDefinitivo());
+            log.info("Object: {}", "Parametro 3.- " + contMod.getnConsecutivoModificacion());
             return pstm.executeUpdate() > 0;
         } finally {
             if (pstm != null) {
@@ -389,11 +389,11 @@ public class ContratoModificadoManager {
             pstm.setInt(2, contMod.getnConsecutivoModificacion());
             pstm.setString(3, cIdClaveEgresos);
             pstm.setString(4, cClaveInterna);
-            log.info(queryParam.toString() + " " + queryValue.toString());
-            log.info("Parametro 1.- " + contMod.getcIdContratoDefinitivo());
-            log.info("Parametro 2.- " + contMod.getnConsecutivoModificacion());
-            log.info("Parametro 3.- " + cIdClaveEgresos);
-            log.info("Parametro 4.- " + cClaveInterna);
+            log.info("Object: {}", queryParam.toString() + " " + queryValue.toString());
+            log.info("Object: {}", "Parametro 1.- " + contMod.getcIdContratoDefinitivo());
+            log.info("Object: {}", "Parametro 2.- " + contMod.getnConsecutivoModificacion());
+            log.info("Object: {}", "Parametro 3.- " + cIdClaveEgresos);
+            log.info("Object: {}", "Parametro 4.- " + cClaveInterna);
             return pstm.executeUpdate() > 0;
         } finally {
             if (pstm != null) {
@@ -414,9 +414,9 @@ public class ContratoModificadoManager {
             pstm = conn.prepareStatement(query.toString());
             pstm.setString(1, contMod.getcIdContratoDefinitivo());
             pstm.setInt(2, contMod.getnConsecutivoModificacion());
-            log.info(query.toString());
-            log.info("Parametro 1.- " + contMod.getcIdContratoDefinitivo());
-            log.info("Parametro 2.- " + contMod.getnConsecutivoModificacion());
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", "Parametro 1.- " + contMod.getcIdContratoDefinitivo());
+            log.info("Object: {}", "Parametro 2.- " + contMod.getnConsecutivoModificacion());
             return pstm.executeUpdate() > 0;
         } finally {
             if (pstm != null) {
@@ -450,9 +450,9 @@ public class ContratoModificadoManager {
             pstm = conn.prepareStatement(query.toString());
             pstm.setString(1, contMod.getcIdContratoDefinitivo());
             pstm.setInt(2, contMod.getnConsecutivoModificacion());
-            log.info(query.toString());
-            log.info("Parametro 1.- " + contMod.getcIdContratoDefinitivo());
-            log.info("Parametro 2.- " + contMod.getnConsecutivoModificacion());
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", "Parametro 1.- " + contMod.getcIdContratoDefinitivo());
+            log.info("Object: {}", "Parametro 2.- " + contMod.getnConsecutivoModificacion());
             rs = pstm.executeQuery();
             datos = new HashMap<String, String>();
             registros = new ArrayList<Map<String, String>>();
@@ -516,9 +516,9 @@ public class ContratoModificadoManager {
             pstm = conn.prepareStatement(queryEnc.toString());
             pstm.setString(1, contMod.getcIdContratoDefinitivo());
             pstm.setString(2, contMod.getcUnidadEjecutoraLinea());
-            log.info(queryEnc.toString());
-            log.info("Parametro 1.- " + contMod.getcIdContratoDefinitivo());
-            log.info("Parametro 2.- " + contMod.getcUnidadEjecutoraLinea());
+            log.info("Object: {}", queryEnc.toString());
+            log.info("Object: {}", "Parametro 1.- " + contMod.getcIdContratoDefinitivo());
+            log.info("Object: {}", "Parametro 2.- " + contMod.getcUnidadEjecutoraLinea());
             return pstm.executeUpdate() > 0;
         } finally {
             if (pstm != null) {
@@ -553,9 +553,9 @@ public class ContratoModificadoManager {
             pstm = conn.prepareStatement(queryDet.toString());
             pstm.setString(1, contMod.getcIdContratoDefinitivo());
             pstm.setString(2, contMod.getcUnidadEjecutoraLinea());
-            log.info(queryDet.toString());
-            log.info("Parametro 1.- " + contMod.getcIdContratoDefinitivo());
-            log.info("Parametro 2.- " + contMod.getcUnidadEjecutoraLinea());
+            log.info("Object: {}", queryDet.toString());
+            log.info("Object: {}", "Parametro 1.- " + contMod.getcIdContratoDefinitivo());
+            log.info("Object: {}", "Parametro 2.- " + contMod.getcUnidadEjecutoraLinea());
             return pstm.executeUpdate() > 0;
         } finally {
             if (pstm != null) {
@@ -583,9 +583,9 @@ public class ContratoModificadoManager {
             pstm = conn.prepareStatement(queryEnc.toString());
             pstm.setString(1, contMod.getcIdContratoDefinitivo());
             pstm.setString(2, contMod.getcUnidadEjecutoraLinea());
-            log.info(queryEnc.toString());
-            log.info("Parametro 1.- " + contMod.getcIdContratoDefinitivo());
-            log.info("Parametro 2.- " + contMod.getcUnidadEjecutoraLinea());
+            log.info("Object: {}", queryEnc.toString());
+            log.info("Object: {}", "Parametro 1.- " + contMod.getcIdContratoDefinitivo());
+            log.info("Object: {}", "Parametro 2.- " + contMod.getcUnidadEjecutoraLinea());
             return pstm.executeUpdate() > 0;
         } finally {
             if (pstm != null) {
@@ -620,9 +620,9 @@ public class ContratoModificadoManager {
             pstm = conn.prepareStatement(queryDet.toString());
             pstm.setString(1, contMod.getcIdContratoDefinitivo());
             pstm.setString(2, contMod.getcUnidadEjecutoraLinea());
-            log.info(queryDet.toString());
-            log.info("Parametro 1.- " + contMod.getcIdContratoDefinitivo());
-            log.info("Parametro 2.- " + contMod.getcUnidadEjecutoraLinea());
+            log.info("Object: {}", queryDet.toString());
+            log.info("Object: {}", "Parametro 1.- " + contMod.getcIdContratoDefinitivo());
+            log.info("Object: {}", "Parametro 2.- " + contMod.getcUnidadEjecutoraLinea());
             return pstm.executeUpdate() > 0;
         } finally {
             if (pstm != null) {
@@ -649,11 +649,11 @@ public class ContratoModificadoManager {
             cmst.setString(5, contMod.getcIdContratoDefinitivo());
             cmst.execute();
             outputValue = cmst.getInt(1);
-            log.info(query.toString());
-            log.info("Parametro 2.- " + contMod.getfFechaFormalizacion());
-            log.info("Parametro 3.- " + contMod.getfFechaInicio());
-            log.info("Parametro 4.- " + contMod.getfFechaFin());
-            log.info("Parametro 5.- " + contMod.getcIdContratoDefinitivo());
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", "Parametro 2.- " + contMod.getfFechaFormalizacion());
+            log.info("Object: {}", "Parametro 3.- " + contMod.getfFechaInicio());
+            log.info("Object: {}", "Parametro 4.- " + contMod.getfFechaFin());
+            log.info("Object: {}", "Parametro 5.- " + contMod.getcIdContratoDefinitivo());
             if (outputValue != 0) {
                 if (outputValue == 1) {
                     throw new Exception("La fecha fin no puede ser menor a la fecha inicio.");
@@ -686,14 +686,14 @@ public class ContratoModificadoManager {
             pstm.setString(5, contMod.getcIdContratoDefinitivo());
             pstm.setInt(6, contMod.getnConsecutivoModificacion());
             pstm.setString(7, contMod.getcIdContratoDefinitivo() + "#M" + contMod.getnConsecutivoModificacion());
-            log.info(query.toString());
-            log.info("Parametro 1.- " + contMod.getfFechaInicio());
-            log.info("Parametro 2.- " + contMod.getfFechaFin());
-            log.info("Parametro 3.- " + contMod.getfFechaFormalizacion());
-            log.info("Parametro 4.- " + contMod.getfFechaFormalizacion());
-            log.info("Parametro 5.- " + contMod.getcIdContratoDefinitivo());
-            log.info("Parametro 6.- " + contMod.getnConsecutivoModificacion());
-            log.info("Parametro 7.- " + contMod.getcIdContratoDefinitivo() + "#M" + contMod.getnConsecutivoModificacion());
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", "Parametro 1.- " + contMod.getfFechaInicio());
+            log.info("Object: {}", "Parametro 2.- " + contMod.getfFechaFin());
+            log.info("Object: {}", "Parametro 3.- " + contMod.getfFechaFormalizacion());
+            log.info("Object: {}", "Parametro 4.- " + contMod.getfFechaFormalizacion());
+            log.info("Object: {}", "Parametro 5.- " + contMod.getcIdContratoDefinitivo());
+            log.info("Object: {}", "Parametro 6.- " + contMod.getnConsecutivoModificacion());
+            log.info("Object: {}", "Parametro 7.- " + contMod.getcIdContratoDefinitivo() + "#M" + contMod.getnConsecutivoModificacion());
             return pstm.executeUpdate() > 0;
         } finally {
             if (pstm != null) {
@@ -715,11 +715,11 @@ public class ContratoModificadoManager {
             pstm.setString(2, contMod.getcObjetoConv());
             pstm.setString(3, contMod.getcIdContratoDefinitivo());
             pstm.setInt(4, contMod.getnConsecutivoModificacion());
-            log.info(query.toString());
-            log.info("Parametro 1.- " + contMod.getcNoConvenio());
-            log.info("Parametro 2.- " + contMod.getcObjetoConv());
-            log.info("Parametro 3.- " + contMod.getcIdContratoDefinitivo());
-            log.info("Parametro 4.- " + contMod.getnConsecutivoModificacion());
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", "Parametro 1.- " + contMod.getcNoConvenio());
+            log.info("Object: {}", "Parametro 2.- " + contMod.getcObjetoConv());
+            log.info("Object: {}", "Parametro 3.- " + contMod.getcIdContratoDefinitivo());
+            log.info("Object: {}", "Parametro 4.- " + contMod.getnConsecutivoModificacion());
             return pstm.executeUpdate() > 0;
         } finally {
             if (pstm != null) {

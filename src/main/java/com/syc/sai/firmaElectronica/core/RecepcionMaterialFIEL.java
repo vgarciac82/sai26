@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.LogManager;
 import com.syc.adquisiciones.core.DatosRecepcionFIEL;
 import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.fortimax.core.Aplicacion;
@@ -39,7 +38,7 @@ import org.slf4j.LoggerFactory;
 
 public class RecepcionMaterialFIEL extends SolicitudFirmaElectronica {
 
-    private static final Logger log = LogManager.getLogger(RecepcionMaterialFIEL.class);
+    private static final Logger log = LoggerFactory.getLogger(RecepcionMaterialFIEL.class);
 
     private DataSourceManager ds = null;
 
@@ -137,7 +136,7 @@ public class RecepcionMaterialFIEL extends SolicitudFirmaElectronica {
         try {
             filename = generaArchivoFirma(conn, vol, folder, parametrosReporte, "FIEL", "rptNotaMateriales.jasper", isSignedCopy);
         } catch (NotEmptyDocumentException nede) {
-            log.warn("El documento no esta vacio. Se ignora" + nede);
+            log.warn("Object: {}", "El documento no esta vacio. Se ignora" + nede);
         } catch (Exception e) {
             throw new FirmaElectronicaException(e);
         }
@@ -204,7 +203,7 @@ public class RecepcionMaterialFIEL extends SolicitudFirmaElectronica {
 		 */
         parametrosReales = new StringBuilder("?");
         parametrosReales.append("fortimax=").append(fortimaxNode);
-        log.debug("Cadena generada: " + parametrosReales.toString());
+        log.debug("Object: {}", "Cadena generada: " + parametrosReales.toString());
         return parametrosReales.toString();
     }
 
@@ -1014,7 +1013,7 @@ public class RecepcionMaterialFIEL extends SolicitudFirmaElectronica {
                     try {
                         conn.rollback();
                     } catch (Exception e2) {
-                        log.warn("Problemas en rollback: " + e2);
+                        log.warn("Object: {}", "Problemas en rollback: " + e2);
                     }
             }
             CloseObject.closeObject(conn);
@@ -1043,7 +1042,7 @@ public class RecepcionMaterialFIEL extends SolicitudFirmaElectronica {
                     try {
                         conn.rollback();
                     } catch (Exception e2) {
-                        log.warn("Problemas en rollback: " + e2);
+                        log.warn("Object: {}", "Problemas en rollback: " + e2);
                     }
             }
             CloseObject.closeObject(conn);
@@ -1106,7 +1105,7 @@ public class RecepcionMaterialFIEL extends SolicitudFirmaElectronica {
         String voLegend = VO_BO_LEGEND_PREFIX.concat(" Firmado por: ").concat(nombre).concat(" | ").concat(puesto);
         if (tieneDelegatorioVoBO(conn)) {
             voLegend = VO_BO_LEGEND_PREFIX + " Firma " + getTipoSuplencia() + " de " + getNombreEmpleadoSuplido() + " con fundamento en el oficio: " + getFolioOficioVoBo() + " de fecha: " + getFechaOficioVoBo();
-            log.info(voLegend);
+            log.info("Object: {}", voLegend);
         }
         return voLegend;
     }
@@ -1117,7 +1116,7 @@ public class RecepcionMaterialFIEL extends SolicitudFirmaElectronica {
             String autLegend = AUT_LEGEND_PREFIX.concat(" Firmado por: ").concat(nombre).concat(" | ").concat(puesto);
             if (tieneDelegatorioAut(conn)) {
                 autLegend = AUT_LEGEND_PREFIX + ". Firma " + getTipoSuplenciaAut() + " de " + getNombreEmpleadoSuplidoAut() + " con fundamento en el oficio: " + getFolioOficioAut() + " de fecha: " + getFechaOficioAut();
-                log.info(autLegend);
+                log.info("Object: {}", autLegend);
             }
             return autLegend;
         } catch (Exception e) {

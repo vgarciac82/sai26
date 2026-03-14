@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -41,8 +41,8 @@ public class PolizaCierreManager {
             if (rsEF.next()) {
                 ejercicioFiscal = rsEF.getString(1);
             }
-            log.debug("Ejecutando [" + queryEF + "]");
-            log.debug("Ejercicio Fiscal: " + ejercicioFiscal);
+            log.debug("Object: {}", "Ejecutando [" + queryEF + "]");
+            log.debug("Object: {}", "Ejercicio Fiscal: " + ejercicioFiscal);
             cs1 = conn.prepareCall(query1);
             cs1.setString(1, ejercicioFiscal);
             cs1.setInt(2, id_documento);
@@ -50,20 +50,20 @@ public class PolizaCierreManager {
             cs1.setString(4, ur);
             cs1.setString(5, cc);
             rs1 = cs1.executeQuery();
-            log.debug(query1);
-            log.debug("Ejercicio Fiscal: " + ejercicioFiscal);
-            log.debug("Id poliza de cierre: " + id_documento);
-            log.debug("Usuario en sesion: " + usuario);
-            log.debug("Unidad Responsable: " + ur);
-            log.debug("Centro Contable: " + cc);
+            log.debug("Object: {}", query1.toString());
+            log.debug("Object: {}", "Ejercicio Fiscal: " + ejercicioFiscal);
+            log.debug("Object: {}", "Id poliza de cierre: " + id_documento);
+            log.debug("Object: {}", "Usuario en sesion: " + usuario);
+            log.debug("Object: {}", "Unidad Responsable: " + ur);
+            log.debug("Object: {}", "Centro Contable: " + cc);
             psC = conn.prepareStatement(queryC);
             psC.setInt(1, id_documento);
             rsC = psC.executeQuery();
             while (rsC.next()) {
                 dif = (rsC.getFloat(1));
             }
-            log.debug("Ejecutando [" + queryC + "]");
-            log.info("Diferencia entre cargos y abonos es: " + dif);
+            log.debug("Object: {}", "Ejecutando [" + queryC + "]");
+            log.info("Object: {}", "Diferencia entre cargos y abonos es: " + dif);
             return dif;
         } finally {
             CloseObject.closeObject(rs1, false);
@@ -93,11 +93,11 @@ public class PolizaCierreManager {
             String query = "{call sp_polizaCierre_Consulta (?)}";
             cs = conn.prepareCall(query);
             cs.setString(1, ejercicioFiscal);
-            log.debug("Ejecutando[" + query + "]");
-            log.debug("Ejercicio Fiscal: " + ejercicioFiscal);
+            log.debug("Object: {}", "Ejecutando[" + query + "]");
+            log.debug("Object: {}", "Ejercicio Fiscal: " + ejercicioFiscal);
             rs = cs.executeQuery();
             long stopQueries = System.currentTimeMillis();
-            log.info(String.format("Ejecucion de consultas terminado en [%2d] segundos", (stopQueries - startQueries) / 1000));
+            log.info("Object: {}", String.format("Ejecucion de consultas terminado en [%2d] segundos", (stopQueries - startQueries) / 1000));
             fileName = generaExcel(rs, plantillas.get("CIERRE"));
             return fileName;
         } finally {
@@ -147,8 +147,8 @@ public class PolizaCierreManager {
             if (rsV.next()) {
                 idVersion_sig = rsV.getInt(1);
             }
-            log.debug(queryV);
-            log.debug("Id poliza de cierre " + idVersion_sig);
+            log.debug("Object: {}", queryV.toString());
+            log.debug("Object: {}", "Id poliza de cierre " + idVersion_sig);
             return idVersion_sig;
         } finally {
             CloseObject.closeObject(rsV, false);

@@ -35,21 +35,21 @@ public class CalculaImpuestosRetencionesServlet extends HttpServlet implements G
         if (session == null) {
             log.debug("Sesión inválida: session == null");
             ResponseSender.sendClientSimpleMessage(resp, false, "Su sesion a caducado. Por favor reingrese al sistema.");
-            log.trace("doPost(): fin (sesión nula) en " + (System.currentTimeMillis() - t0) + " ms");
+            log.trace("Object: {}", "doPost(): fin (sesión nula) en " + (System.currentTimeMillis() - t0) + " ms");
             return;
         }
         Usuario u = (Usuario) session.getAttribute(ATT_USER);
         if (u == null) {
             log.debug("Sesión inválida: usuario == null");
             ResponseSender.sendClientSimpleMessage(resp, false, "Su sesion a caducado. Por favor reingrese al sistema.");
-            log.trace("doPost(): fin (usuario nulo) en " + (System.currentTimeMillis() - t0) + " ms");
+            log.trace("Object: {}", "doPost(): fin (usuario nulo) en " + (System.currentTimeMillis() - t0) + " ms");
             return;
         }
         Caso c = (Caso) session.getAttribute(ATT_CASE);
         if (c == null) {
             log.debug("Sesión inválida: caso == null");
             ResponseSender.sendClientSimpleMessage(resp, false, "Su sesion a caducado. Por favor reingrese al sistema.");
-            log.trace("doPost(): fin (caso nulo) en " + (System.currentTimeMillis() - t0) + " ms");
+            log.trace("Object: {}", "doPost(): fin (caso nulo) en " + (System.currentTimeMillis() - t0) + " ms");
             return;
         }
         try {
@@ -57,18 +57,18 @@ public class CalculaImpuestosRetencionesServlet extends HttpServlet implements G
             String folio = c.getFolio();
             String tipoPago = c.getTipoCaso().getGavetaAsociada();
             int nFolioPago = Integer.parseInt(folio.substring(9));
-            log.debug("Parámetros de recálculo: tipoPago=" + tipoPago + ", nFolioPago=" + nFolioPago + ", folioCompleto=" + folio);
+            log.debug("Object: {}", "Parámetros de recálculo: tipoPago=" + tipoPago + ", nFolioPago=" + nFolioPago + ", folioCompleto=" + folio);
             CalculaImpuestosRetencionesBusinessLogic cirBL = new CalculaImpuestosRetencionesBusinessLogic(jniName);
             log.trace("Invocando recalculaMontoImpuestos()");
             int afectados = cirBL.recalculaMontoImpuestos(tipoPago, nFolioPago);
-            log.info("Recalculo de impuestos/retenciones completado. Registros afectados=" + afectados);
+            log.info("Object: {}", "Recalculo de impuestos/retenciones completado. Registros afectados=" + afectados);
             ResponseSender.sendClientSimpleMessage(resp, true, String.valueOf(afectados));
-            log.trace("doPost(): fin OK en " + (System.currentTimeMillis() - t0) + " ms");
+            log.trace("Object: {}", "doPost(): fin OK en " + (System.currentTimeMillis() - t0) + " ms");
             return;
         } catch (Exception e) {
             log.error("Error en doPost(): " + e, e);
             ResponseSender.sendClientSimpleMessage(resp, false, e.toString());
-            log.trace("doPost(): fin con error en " + (System.currentTimeMillis() - t0) + " ms");
+            log.trace("Error occurred", "doPost(): fin con error en " + (System.currentTimeMillis() - t0) + " ms");
         }
     }
 
@@ -80,12 +80,12 @@ public class CalculaImpuestosRetencionesServlet extends HttpServlet implements G
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 }

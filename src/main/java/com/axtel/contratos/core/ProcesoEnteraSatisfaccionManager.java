@@ -27,7 +27,7 @@ public class ProcesoEnteraSatisfaccionManager {
             query.append(",nCentroTrabajo ,nNumEmpFirmante  ,nServPrestEnteraSatisfaccion ,cUsuarioCaptura	,fFechaCaptura ");
             query.append(",cUsuarioValida	,fFechaValida ,nIdEstatus ,cIdRFC	,cObservacionesTramite) ");
             query.append(" values(?, ?, ?, ?, ?,   ?, ?, ?, ?, convert(date,getdate()), null, null, 1, ?,  null  )");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, dat.getcFolio());
             ps.setString(2, dat.getcIdContratoDefinitivo());
@@ -59,7 +59,7 @@ public class ProcesoEnteraSatisfaccionManager {
             query.append("update mServicioEnteraSatisfacccion set cIdContratoDefinitivo=?,cNoContratoCNET=?	,nIdLinea=? 	,nIdPeriodoPago=? ");
             query.append(",nCentroTrabajo=? ,nNumEmpFirmante=?  ,nServPrestEnteraSatisfaccion=? ,cUsuarioCaptura=?	,fFechaCaptura=convert(date,GETDATE()) ");
             query.append(",nIdEstatus=1 ,cIdRFC=? where cFolio=? ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, dat.getcIdContratoDefinitivo());
             ps.setString(2, dat.getcNoContratoCNET());
@@ -90,7 +90,7 @@ public class ProcesoEnteraSatisfaccionManager {
             query = new StringBuilder();
             query.append("insert into mAnexo1A (cFolio,nDiaformalizacion	,cMesFormalizacion	,cAnioFormalizacion	,cDeclaraccion	,cDescripcionServicio	,cInmueble	,cEjercicioPago )");
             query.append("values(?, ?, ?,   ?, ?, ?,  ?,?) ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, dat.getcFolio());
             ps.setInt(2, dat.getAnexo().getnDiaformalizacion());
@@ -118,7 +118,7 @@ public class ProcesoEnteraSatisfaccionManager {
         try {
             query = new StringBuilder();
             query.append("update mAnexo1A set nDiaformalizacion=?	,cMesFormalizacion=?	,cAnioFormalizacion=?	,cDeclaraccion=?	,cDescripcionServicio=?	,cInmueble=?	,cEjercicioPago=?	 where cFolio=? ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, dat.getAnexo().getnDiaformalizacion());
             ps.setString(2, dat.getAnexo().getcMesFormalizacion());
@@ -148,7 +148,7 @@ public class ProcesoEnteraSatisfaccionManager {
             query.append("insert into mActaCircunstanciadaHechos (cFolio 	,cDescripcion1 ,cDescripcion2, cPuestoFirmante,cFolioFirmante ,nNumEmpTestigo1,cPuestoTestigo1 ,cFolioTestigo1 ,nNumEmpTestigo2 ,cPuestoTestigo2");
             query.append(" ,cFolioTestigo2 ,cLugarAdscripcion,cDescripcionHechos,cDescripCierreHechos) ");
             query.append(" values(?,?,?,    ?,?,?,?,   ?,?,?,?, ?,?,? ) ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, dat.getcFolio());
             ps.setString(2, dat.getActaHechos().getcDescripcion1());
@@ -183,7 +183,7 @@ public class ProcesoEnteraSatisfaccionManager {
             query = new StringBuilder();
             query.append("update mActaCircunstanciadaHechos set cDescripcion1=? ,cDescripcion2=? ,nNumEmpTestigo1=? ,cFolioTestigo1=? ,nNumEmpTestigo2 =? ");
             query.append(",cFolioTestigo2=? ,cLugarAdscripcion=?,cDescripcionHechos=?,cDescripCierreHechos=?,cFolioFirmante=?	where cFolio=? ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, dat.getActaHechos().getcDescripcion1());
             ps.setString(2, dat.getActaHechos().getcDescripcion2());
@@ -215,7 +215,7 @@ public class ProcesoEnteraSatisfaccionManager {
         try {
             query = new StringBuilder();
             query.append(" select *from mServicioEnteraSatisfacccion with(Nolock) where cFolio=?");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cFolio);
             rs = ps.executeQuery();
@@ -240,7 +240,7 @@ public class ProcesoEnteraSatisfaccionManager {
         try {
             query = new StringBuilder();
             query.append("delete mActaCircunstanciadaHechos where cFolio=? ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cFolio);
             success = ps.executeUpdate() > 0;
@@ -262,7 +262,7 @@ public class ProcesoEnteraSatisfaccionManager {
             query = new StringBuilder();
             query.append("update mServicioEnteraSatisfacccion set cUsuarioValida=?,fFechaValida=convert(date,GETDATE()),nIdEstatus=?,cObservacionesTramite= ?");
             query.append(" where cFolio=? ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, dat.getcUsuarioValida());
             ps.setInt(2, dat.getnIdEstatus());
@@ -287,7 +287,7 @@ public class ProcesoEnteraSatisfaccionManager {
             query = new StringBuilder();
             query.append("update mServicioEnteraSatisfacccion set nIdEstatus=? ");
             query.append(" where cFolio=? ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, dat.getnIdEstatus());
             ps.setString(2, dat.getcFolio());
@@ -310,7 +310,7 @@ public class ProcesoEnteraSatisfaccionManager {
             query = new StringBuilder();
             query.append("update mServicioEnteraSatisfacccion set cObservacionesTramite=? ");
             query.append(" where cFolio=? ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, dat.getcObservacionesTramite());
             ps.setString(2, dat.getcFolio());
@@ -334,7 +334,7 @@ public class ProcesoEnteraSatisfaccionManager {
             query = new StringBuilder();
             query.append(" select *from fn_procesoEnteraSatisfaccion(?)");
             datUser = new HashMap<>();
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cFolio);
             rs = ps.executeQuery();
@@ -415,7 +415,7 @@ public class ProcesoEnteraSatisfaccionManager {
         try {
             query = new StringBuilder();
             query.append("update CG_CASO_OPERACION set CO_RESPONSABLE=? where ID_TC=? and ID_CASO=? ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, name);
             ps.setInt(2, idTC);

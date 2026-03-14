@@ -61,7 +61,7 @@ public class ProcesoAdjuntaBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn(e2);
+                    log.warn(e2.getMessage(), e2);
                 }
             throw e;
         } finally {
@@ -100,7 +100,7 @@ public class ProcesoAdjuntaBusinessLogic extends DataSourceManager {
             int idProc = generaID();
             ProcesoAdjunta pa = new ProcesoAdjunta(new Date(), 0, UR + "CLC" + "/" + idProc, "", uLogin, UR);
             ProcesoAdjuntaManager.insertaProceso(conn, pa);
-            log.trace("Se genero correctamente el proceso: " + pa);
+            log.trace("Object: {}", "Se genero correctamente el proceso: " + pa);
             conn.commit();
             return pa;
         } catch (Exception e) {
@@ -108,7 +108,7 @@ public class ProcesoAdjuntaBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn(e2);
+                    log.warn(e2.getMessage(), e2);
                 }
             throw e;
         } finally {

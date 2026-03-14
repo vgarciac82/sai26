@@ -53,12 +53,12 @@ public class ReporteExportServlet extends HttpServlet implements GestionInterfac
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         tempDir = config.getInitParameter("tempDir");
         if (tempDir == null) {
@@ -578,7 +578,7 @@ public class ReporteExportServlet extends HttpServlet implements GestionInterfac
                     try {
                         nameRpt = GeneraGrafica(req, resp, session.getId());
                     } catch (GestionException e) {
-                        log.error(e);
+                        log.error(e.getMessage(), e);
                         throw new ServletException(e);
                     }
                     out.println("	<table border=\"0\">");
@@ -688,6 +688,8 @@ public class ReporteExportServlet extends HttpServlet implements GestionInterfac
         }
         // Show legend
         JFreeChart // Show legend
+        // Show legend
+        // Show legend
         chart = // Show legend
         ChartFactory.// Show legend
         createBarChart3D(// Show legend
@@ -695,9 +697,7 @@ public class ReporteExportServlet extends HttpServlet implements GestionInterfac
         "\u00e1reas", // Show legend
         "N\u00famero de Asuntos", // Show legend
         dataset, // Show legend
-        PlotOrientation.VERTICAL, // Show legend
-        true, // Show legend
-        true, true);
+        PlotOrientation.VERTICAL, true, true, true);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         CategoryAxis domainAxis = plot.getDomainAxis();
         domainAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 3.0));

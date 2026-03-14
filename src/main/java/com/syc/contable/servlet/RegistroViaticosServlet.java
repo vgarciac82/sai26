@@ -51,7 +51,7 @@ public class RegistroViaticosServlet extends HttpServlet implements GestionInter
                 session.setAttribute("mensaje", "No se pudo completar la operacion debido al siguiente error:\n" + e + "\n Notifique al administrador del sistema.");
                 resp.sendRedirect("../Generador/RespuestaViaticos.jsp");
             } catch (Exception e3) {
-                log.warn("Problemas enviando respuesta " + e3);
+                log.warn("Object: {}", "Problemas enviando respuesta " + e3);
             }
         }
     }
@@ -101,12 +101,12 @@ public class RegistroViaticosServlet extends HttpServlet implements GestionInter
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 }

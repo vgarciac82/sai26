@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.apache.log4j.LogManager;
 import com.axtel.contratos.exception.ContratoException;
 import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
@@ -16,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 public class ContratoDiversoManager {
 
-    private static final Logger log = LogManager.getLogger(ContratoDiversoManager.class);
+    private static final Logger log = LoggerFactory.getLogger(ContratoDiversoManager.class);
 
     public static void deleteWithholding(Connection conn, String contractId, Integer withholdingId) throws SQLException {
         StringBuilder queryDelete = new StringBuilder("DELETE FROM pContratoDiversoRetencion WHERE cIdContrato = ? AND cIdTipoRetencion= ?");
@@ -86,7 +85,7 @@ public class ContratoDiversoManager {
             ps.setDouble(10, anticipo.getPorcAsignacion());
             ps.setBigDecimal(11, anticipo.getImporteAmortizado());
             insertados += ps.executeUpdate();
-            log.debug("Registros insertados (Anticipo Convenio) " + insertados);
+            log.debug("Object: {}", "Registros insertados (Anticipo Convenio) " + insertados);
             return insertados;
         } catch (SQLException e) {
             throw new ContratoException("No fue posible insertar renglon debido al error: " + e.toString());
@@ -99,10 +98,10 @@ public class ContratoDiversoManager {
         StringBuilder query = new StringBuilder();
         query.append("INSERT INTO PCONTRATODIVERSO (cEjercicio  , cIdEntidadContable  , cIdContrato  , cIdTipoDocumento  , cIdTipoMontoDesembolso  , cIdRFC  " + ", cIdTipoContratoDiverso  , cPlazo  , cIdUnidadAdministrativa  , cIdGRegional  , cIdGEstatal  , cIdDistritoRiego  , cIdTipoFondo  , cConceptoContrato  " + ", fDocumento  , cIdTipoAdjudicacion  , fAdjudicacion  , fContratoIni  , fContratoFin  , cIdTipoMoneda  , fVigenciaIVA  , nPorcIVAAplicable  , mImporteContrato  " + ", mImporteHonorarios  , mImporteViaticos  , mImporteBruto  , mImporteIVA  , mImporteTotal  , mContratoMN  , mContratoME  , lRequiereAnticipo  , lRenunciaAnticipo  " + ", cNoOficioRenunciaAnticipo  , cIdUsuarioResponsable  , lHaySaldoAnticipo  , fFirmaContrato  , nPorcImpuestoCedular  , lAplicaImpuestoCedular  , cIdSistemaOrigen  " + ", cIdTipoLimiteDlls  , caNoCompromiso  , cFolioCompromisoSICOP  , id_caso  , lEsPlurianual  , CamInst  , cOrigenRM  , fContratoSolicitud  , fContratoPropuestas  " + ", IEsPasivo  , IEsAbierto  , id_precio  , mOtrosImpuestos  , nEsDescentralizado  , isRadicado  , isConvEjercicioAnt  , cNoProcedimientoCNET  , nCodContratoCNET  " + ", cAprobacionPLU  , nCodExpedienteCNET  , bTieneAnticipo  , lEliminaRetencion6IVA )");
         query.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?" + ", ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        log.trace("Insertando Contrato Diverso. Query: " + query);
+        log.trace("Object: {}", "Insertando Contrato Diverso. Query: " + query);
         PreparedStatement ps = null;
         try {
-            log.debug("Insertando objeto: " + contrato);
+            log.debug("Object: {}", "Insertando objeto: " + contrato);
             ps = conn.prepareStatement(query.toString());
             int param = 1;
             ps.setString(param++, contrato.getEjercicioFiscal());
@@ -196,17 +195,17 @@ public class ContratoDiversoManager {
             for (ContratoEP renglon : detalle) {
                 if (existeContratoEP(conn, renglon))
                     continue;
-                log.info("Se ejecutara: [" + query + "]\n" + renglon);
+                log.info("Object: {}", "Se ejecutara: [" + query + "]\n" + renglon);
                 ps.setString(1, renglon.getEjercicio());
                 ps.setString(2, renglon.getIdContrato());
                 ps.setString(3, renglon.getTipoContrato());
                 ps.setString(4, renglon.getEp());
                 ps.setString(5, renglon.getCentroContable());
                 insertados += ps.executeUpdate();
-                log.debug("Se inserto renglon! " + renglon);
+                log.debug("Object: {}", "Se inserto renglon! " + renglon);
                 ps.clearParameters();
             }
-            log.debug("Registros insertados (contratoep) " + insertados);
+            log.debug("Object: {}", "Registros insertados (contratoep) " + insertados);
             return insertados;
         } catch (SQLException e) {
             throw new ContratoException("No fue posible insertar renglon debido al error: " + e.toString());
@@ -226,7 +225,7 @@ public class ContratoDiversoManager {
             ps.setString(2, withholding.getCentroContable());
             ps.setString(3, withholding.getIdContrato());
             ps.setInt(4, withholding.getIdTipoRetencion());
-            log.info("Ejecutando [" + query.toString() + "]\n" + withholding);
+            log.info("Object: {}", "Ejecutando [" + query.toString() + "]\n" + withholding);
             ps.executeUpdate();
             ps.clearParameters();
             return 1;
@@ -243,7 +242,7 @@ public class ContratoDiversoManager {
                     insertaContratoRetencion(conn, retencion);
                     insertados++;
                 }
-                log.debug("Registros insertados (Retenciones) " + insertados);
+                log.debug("Object: {}", "Registros insertados (Retenciones) " + insertados);
                 return insertados;
             } catch (SQLException e) {
                 throw new ContratoException("No fue posible insertar renglon debido al error: " + e.toString());
@@ -340,7 +339,7 @@ public class ContratoDiversoManager {
     }
 
     public static void saveWithholdingEliminated(Connection conn, String contractId, String login, int idWithholdingEliminated, String justification) throws SQLException {
-        log.info("Registering deleted withholding: [" + contractId + "," + login + "," + idWithholdingEliminated + "," + justification + "]");
+        log.info("Object: {}", "Registering deleted withholding: [" + contractId + "," + login + "," + idWithholdingEliminated + "," + justification + "]");
         StringBuilder queryInsert = new StringBuilder();
         queryInsert.append(" INSERT INTO tlog_withholding_eliminated( ");
         queryInsert.append(" 			contract_id ");
@@ -353,7 +352,7 @@ public class ContratoDiversoManager {
         queryInsert.append("            ?, ");
         queryInsert.append("            ? ");
         queryInsert.append(" 		   ) ");
-        log.trace("Query: [" + queryInsert + "]");
+        log.trace("Object: {}", "Query: [" + queryInsert + "]");
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement(queryInsert.toString());
@@ -362,7 +361,7 @@ public class ContratoDiversoManager {
             ps.setString(3, justification);
             ps.setString(4, login);
             int inserted = ps.executeUpdate();
-            log.debug("Inserted " + inserted + " withholding deleted");
+            log.debug("Object: {}", "Inserted " + inserted + " withholding deleted");
         } finally {
             CloseObject.closeObject(ps);
         }
@@ -372,7 +371,7 @@ public class ContratoDiversoManager {
         String query = "SELECT * FROM PCONTRATODIVERSO WITH(NOLOCK) WHERE cIdContrato = ?";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setString(1, contractId);
-            log.trace("Looking for diverse contract. \n[" + query + "]\n[" + contractId + "]");
+            log.trace("Object: {}", "Looking for diverse contract. \n[" + query + "]\n[" + contractId + "]");
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return mapToContratoDiverso(conn, rs);
@@ -393,7 +392,7 @@ public class ContratoDiversoManager {
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, rfcEmisor);
-            log.trace("Executing query for supplier RFC: " + rfcEmisor);
+            log.trace("Object: {}", "Executing query for supplier RFC: " + rfcEmisor);
             rs = ps.executeQuery();
             while (rs.next()) {
                 contratos.add(mapToContratoDiverso(conn, rs));

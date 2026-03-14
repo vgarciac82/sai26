@@ -115,7 +115,7 @@ public class AdministracionMensajesBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas realizando Rollback: " + e2);
+                    log.warn("Object: {}", "Problemas realizando Rollback: " + e2);
                 }
             throw e;
         } finally {

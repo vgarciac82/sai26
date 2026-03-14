@@ -58,7 +58,7 @@ public class RelacionProgramaClasifEconomicaBusinessLogic extends DataSourceMana
                 try {
                     stream.close();
                 } catch (Exception e2) {
-                    log.warn("No se pudo cerrar el archivo de carga." + e2);
+                    log.warn("Object: {}", "No se pudo cerrar el archivo de carga." + e2);
                 }
             stream = null;
         }
@@ -90,7 +90,7 @@ public class RelacionProgramaClasifEconomicaBusinessLogic extends DataSourceMana
                 Cell CellcTipoGasto = row.getCell(2);
                 Cell CellcFuenteFinanciamiento = row.getCell(3);
                 if (CellcProgramaPresupuestario != null) {
-                    log.debug("Procesando renglon " + (renglon));
+                    log.debug("Object: {}", "Procesando renglon " + (renglon));
                     try {
                         String cProgramaPresupuestario = CellcProgramaPresupuestario.getStringCellValue();
                         String cPartida = CellcPartida.getStringCellValue();
@@ -101,7 +101,7 @@ public class RelacionProgramaClasifEconomicaBusinessLogic extends DataSourceMana
                         renglonMap.put("cPartida", cPartida);
                         renglonMap.put("cTipoGasto", cTipoGasto);
                         renglonMap.put("cFuenteFinanciamiento", cFuenteFinanciamiento);
-                        log.debug("cProgramaPresupuestario[" + cProgramaPresupuestario + "] cPartida[" + cPartida + "]cSubFuncion[" + cTipoGasto + "]cTipoGasto[" + cFuenteFinanciamiento + "]cFuenteFinanciamiento[");
+                        log.debug("Object: {}", "cProgramaPresupuestario[" + cProgramaPresupuestario + "] cPartida[" + cPartida + "]cSubFuncion[" + cTipoGasto + "]cTipoGasto[" + cFuenteFinanciamiento + "]cFuenteFinanciamiento[");
                         RelacionProgramaClasifEconomicaManager.insertaRenglonProgramaClasifEconomica(conn, renglonMap);
                     } catch (Exception e) {
                         renglonInsertada = false;
@@ -121,7 +121,7 @@ public class RelacionProgramaClasifEconomicaBusinessLogic extends DataSourceMana
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("No se pudo realizar rollback en conexion" + e2);
+                    log.warn("Object: {}", "No se pudo realizar rollback en conexion" + e2);
                 }
             throw e;
         } finally {

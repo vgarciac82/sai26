@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import com.syc.contable.CompromisoBussinessLogic;
 import com.syc.contable.ContableInterface;
 import com.syc.contable.core.AplicacionContable;
@@ -172,13 +172,13 @@ public class TablasBusinessLogic extends DataSourceManager {
         c.setIdTC(41);
         c.getTipoCaso().setGavetaAsociada("DOCPOLIZACANCEL");
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
         try {
             String[] Querys = new String[3];
             Querys[0] = " insert into tdocpolizaCancelEncabezado select nFolioDocPoliza,fCarga,fAplicacion,cCentroContable,cRamo,cUnidadResponsable," + " cDocumentoHaplicado,nFolioPoliza,'XX' cTipoPoliza,nMes,cRevisado,aEjercicioFiscal,cUnidadResponsableContable,nFolioPolizaCancelacion" + " ,fCancelacion,cDescripcionPoliza,cConcepto,cIdUsuarioCaptura,cIdUsuarioRevision,cIdUsuarioAprobacion,cidOrigen,mTotalCargos*(-1)" + " mTotalCargos,mTotalAbonos*(-1)mTotalAbonos,cTipoDocumento,cComentarios,nCambio,nIdCasoOrigen,Periodo13,ADEFAS,nTipoAjuste," + " nFormatoPoliza from tDocPolizaEncabezado with(nolock) where nFolioDocPoliza=" + nFolioDocPoliza;
             Querys[1] = "insert into tDocPolizaCancelDetalle  select nFolioDocPoliza,nDocRenglon,nCuenta,nSubCuenta,cEvento,mImporte *(-1) mImporte,cCentroContable," + " 'XX' cTipoPoliza,aEjercicioFiscal,cConcepto,nIdCasoOrigen,Periodo13,ADEFAS,nTipoAjuste,parcial,cCABMS,cCUCOP,cPartida,nIdGrupoEvento," + " nIdSubGrupoEvento,cIdEventoManual,nNumeroEvento from tDocPolizaDetalle with(nolock) where nFolioDocPoliza=" + nFolioDocPoliza;
-            Querys[2] = "insert into tPoliza select nFolioPoliza,fCreacion,cDescripcionPoliza,mTotalCargo,mTotalAbono,nMes,nCuenta,fAplicacion,nPolizaAutomatica," + " cCentroContable,aEjercicioFiscal,'XX' cTipoPoliza,'DOCPOLIZACANCEL' cTipoDocumento,nFolioDocumento,DocHAplicado,cUsuarioAutorizo" + " from tPoliza with(nolock) where 'DOCPOLIZA'=cTipoDocumento and nFolioDocumento=" + nFolioDocPoliza + " and not exists(select * from tPoliza with(nolock) " + " where 'DOCPOLIZACANCEL'=cTipoDocumento and nFolioDocumento=" + nFolioDocPoliza + //and cCentroContable='10'
-            "  )";
+            //and cCentroContable='10'
+            Querys[2] = "insert into tPoliza select nFolioPoliza,fCreacion,cDescripcionPoliza,mTotalCargo,mTotalAbono,nMes,nCuenta,fAplicacion,nPolizaAutomatica," + " cCentroContable,aEjercicioFiscal,'XX' cTipoPoliza,'DOCPOLIZACANCEL' cTipoDocumento,nFolioDocumento,DocHAplicado,cUsuarioAutorizo" + " from tPoliza with(nolock) where 'DOCPOLIZA'=cTipoDocumento and nFolioDocumento=" + nFolioDocPoliza + " and not exists(select * from tPoliza with(nolock) " + " where 'DOCPOLIZACANCEL'=cTipoDocumento and nFolioDocumento=" + nFolioDocPoliza + "  )";
             boolean error = false;
             // log.debug("++++++++++++++++++++++++COPIANDO POLIZAS++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             for (int i = 0; i < Querys.length; i++) {
@@ -230,9 +230,9 @@ public class TablasBusinessLogic extends DataSourceManager {
             Caso sc = new Caso();
             sc.setIdCaso(c.getIdCaso());
             c = CasoManager.select(conn, sc);
-            log.debug(c.getCasoDato("APLICADO_CONT").getValor());
+            log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
         } catch (Exception e) {
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
         } finally {
             try {
                 if (conn != null)
@@ -254,7 +254,7 @@ public class TablasBusinessLogic extends DataSourceManager {
         } catch (Exception exc) {
             log.error("Actualizando Mensaje", exc);
         } finally {
-            log.debug("***************Obtenido el folio del documento " + nFolioDocPoliza + " con Folio de Poliza:" + nFolioPoliza + " , centro contable:" + cCentroContable + " y tipo de Poliza:" + cTipoPoliza + " ");
+            log.debug("Object: {}", "***************Obtenido el folio del documento " + nFolioDocPoliza + " con Folio de Poliza:" + nFolioPoliza + " , centro contable:" + cCentroContable + " y tipo de Poliza:" + cTipoPoliza + " ");
             try {
                 if (conn != null)
                     conn.close();

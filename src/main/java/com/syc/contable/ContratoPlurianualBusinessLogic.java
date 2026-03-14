@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -335,7 +335,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
                         MatrizAnual[iExiste][4] = MatrizAnual[iExiste][4] + dSuper;
                     }
                     if (errores.size() == 0) {
-                        log.debug("Procesando renglon " + String.valueOf(renglon++) + " Año:" + String.valueOf((int) cel_CICLO.getNumericCellValue()));
+                        log.debug("Object: {}", "Procesando renglon " + String.valueOf(renglon++) + " Año:" + String.valueOf((int) cel_CICLO.getNumericCellValue()));
                         ContratoPlurianualesManager.insertaRenglon(conn, epMap, "tContratoPlurianual_EP");
                     }
                 }
@@ -370,7 +370,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
             return errores;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            log.debug("Error: problemas al leer archivo funcion: ContratoPlurianualBussinesLogic.cargaExcelPlurianual_EP :" + e);
+            log.debug("Error occurred", "Error: problemas al leer archivo funcion: ContratoPlurianualBussinesLogic.cargaExcelPlurianual_EP :" + e);
             throw e;
         } finally {
             CloseObject.closeObject(conn, false);
@@ -493,7 +493,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
             //return dTotal = fn_FromatoDec(dTotal,2);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            log.debug("Error: problemas ContratoPlurianualBussinesLogic.fn_VerificaSaldoMes:" + e);
+            log.debug("Error occurred", "Error: problemas ContratoPlurianualBussinesLogic.fn_VerificaSaldoMes:" + e);
             throw e;
         } finally {
             CloseObject.closeObject(conn, false);
@@ -508,7 +508,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
             conn = getConnection();
             return iConsecutivo = ContratoPlurianualesManager.ConsultaConsecutivo(conn, sFolio);
         } catch (Exception e) {
-            log.debug("Error: problemas ContratoPlurianualBussinesLogic.fn_ObtenConsecutivo :" + e);
+            log.debug("Error occurred", "Error: problemas ContratoPlurianualBussinesLogic.fn_ObtenConsecutivo :" + e);
             throw e;
         } finally {
             CloseObject.closeObject(conn, false);
@@ -525,7 +525,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
         try {
             return ContratoPlurianualesManager.InsertContratoPlurianualApartado(conn, sFolio, iConsecutivo, sEP, String.valueOf(iAnio), sEvento, String.valueOf(nImporte), String.valueOf(dImpoNeg), sCC, sMes, String.valueOf(dImporteMod));
         } catch (Exception e) {
-            log.debug("Error: problemas ContratoPlurianualBussinesLogic.fn_InsertaPluirianualApartado :" + e);
+            log.debug("Error occurred", "Error: problemas ContratoPlurianualBussinesLogic.fn_InsertaPluirianualApartado :" + e);
             throw e;
         }
     }
@@ -534,7 +534,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
         try {
             return ContratoPlurianualesManager.fn_updateEp(conn, sFolio, sEP, nConst, nSup);
         } catch (Exception e) {
-            log.debug("Error: problemas ContratoPlurianualBussinesLogic.fn_updateEp :" + e);
+            log.debug("Error occurred", "Error: problemas ContratoPlurianualBussinesLogic.fn_updateEp :" + e);
             throw e;
         }
     }
@@ -582,7 +582,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
             ContratoPlurianualesManager.AbrirCerrar(conn, pluriNormalBool, pluriEspecialBool, usuario);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
         } finally {
             if (conn != null)
@@ -599,7 +599,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
             mensaje = ContratoPlurianualesManager.CancelacionMasiva(conn, usuario, request);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             mensaje = exc.getMessage();
         } finally {
@@ -618,7 +618,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
             ContratoPlurianualesManager CPM = new ContratoPlurianualesManager();
             nModificaciones = CPM.ConsultaModificaciones(conn, sFolio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
         } finally {
             if (conn != null)
                 conn.close();
@@ -635,7 +635,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
             ContratoPlurianualesManager CPM = new ContratoPlurianualesManager();
             año = CPM.ConsultaAñoFinal(conn, sFolio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
         } finally {
             if (conn != null)
                 conn.close();
@@ -652,7 +652,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
             ContratoPlurianualesManager CPM = new ContratoPlurianualesManager();
             año = CPM.ConsultaAñoInicio(conn, sFolio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
         } finally {
             if (conn != null)
                 conn.close();
@@ -669,7 +669,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
             ContratoPlurianualesManager CPM = new ContratoPlurianualesManager();
             bloqueo = CPM.ConsultaPluBloqueados(conn, tipo);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
         } finally {
             if (conn != null)
                 conn.close();
@@ -692,7 +692,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
                 respuesta = "El monto total de la modificación no puede ser menor al monto total original";
             }
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
         } finally {
             if (conn != null)
                 conn.close();
@@ -813,7 +813,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            log.debug("Error: problemas al leer archivo funcion: ContratoPlurianualBussinesLogic.cargaExcelPlurianual_EP :" + e);
+            log.debug("Error occurred", "Error: problemas al leer archivo funcion: ContratoPlurianualBussinesLogic.cargaExcelPlurianual_EP :" + e);
             throw e;
         } finally {
             CloseObject.closeObject(conn, false);
@@ -868,7 +868,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
             ContratoPlurianualesManager CPM = new ContratoPlurianualesManager();
             lstEps = CPM.getEPByModificiacion(conn, nModificacion, nfolio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
         } finally {
             if (conn != null)
                 conn.close();
@@ -885,7 +885,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
             ContratoPlurianualesManager CPM = new ContratoPlurianualesManager();
             lstEps = CPM.getEPByModificiacion(conn, nModificacion, nfolio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
         } finally {
             if (conn != null)
                 conn.close();
@@ -902,7 +902,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
             ContratoPlurianualesManager CPM = new ContratoPlurianualesManager();
             tipo = CPM.getValidarContra(conn, nModificacion, nfolio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
         } finally {
             if (conn != null)
                 conn.close();
@@ -919,7 +919,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
             ContratoPlurianualesManager CPM = new ContratoPlurianualesManager();
             monto = CPM.getMontoModificacion(conn, nfolio, montoMinimo, nCosecutivo);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
         } finally {
             if (conn != null)
                 conn.close();
@@ -936,7 +936,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
             ContratoPlurianualesManager CPM = new ContratoPlurianualesManager();
             isMimimo = CPM.isValMinimo(conn, nfolio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
         } finally {
             if (conn != null)
                 conn.close();
@@ -953,7 +953,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
             ContratoPlurianualesManager CPM = new ContratoPlurianualesManager();
             tipo = CPM.getTipoGasto(conn, nfolio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
         } finally {
             if (conn != null)
                 conn.close();
@@ -986,7 +986,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
             ContratoPlurianualesManager CPM = new ContratoPlurianualesManager();
             tipo = CPM.getTotalInicial(conn, nFolio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
         } finally {
             if (conn != null)
                 conn.close();
@@ -1003,7 +1003,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
             ContratoPlurianualesManager CPM = new ContratoPlurianualesManager();
             lstDiferencia = CPM.getDiferenciaMontos(conn, nFolio, ejercicio, nModificacion);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
         } finally {
             if (conn != null)
                 conn.close();

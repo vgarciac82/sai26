@@ -46,7 +46,7 @@ public class ReportesINAIManager {
         try {
             ps = conn.prepareStatement(query);
             rst = ps.executeQuery();
-            log.debug(ps);
+            log.debug("Object: {}", ps.toString());
             String fileName = generaReportesINAI(rst, plantillas.get("INAI"), tipoReporte, conn);
             return fileName;
         } finally {
@@ -94,7 +94,7 @@ public class ReportesINAIManager {
                 } else {
                     query = queryConveniosModificatorios(plantillas.get("fInicio"), plantillas.get("fFin"));
                 }
-                log.info(query);
+                log.info("Object: {}", query.toString());
                 ps = conn.prepareStatement(query);
                 rst = ps.executeQuery();
                 rsMetadata = rst.getMetaData();
@@ -711,7 +711,7 @@ public class ReportesINAIManager {
             } else {
                 query = queryFormatoV2Backup(Integer.parseInt(plantillas.get("cMes")));
             }
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rst = ps.executeQuery();
             rsMetadata = rst.getMetaData();
@@ -798,7 +798,7 @@ public class ReportesINAIManager {
         FileOutputStream fos = null;
         try {
             query = queryProveedores(plantillas.get("fInicio"), plantillas.get("fFin"));
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rst = ps.executeQuery();
             rsMetadata = rst.getMetaData();
@@ -878,7 +878,7 @@ public class ReportesINAIManager {
                 } else {
                     query = queryConveniosADJ(plantillas.get("fInicio"), plantillas.get("fFin"));
                 }
-                log.info(query);
+                log.info("Object: {}", query.toString());
                 ps = conn.prepareStatement(query);
                 rst = ps.executeQuery();
                 rsMetadata = rst.getMetaData();
@@ -982,17 +982,17 @@ public class ReportesINAIManager {
                     query = "SELECT vconv.cidprocedimiento,cnombre,capellidopaterno,capellidomaterno,crazonsocial,cmonto " + " FROM mCotizacionesProcedimiento proce with (nolock) " + " inner join v_Reporte_INAI_Adj_Directa vconv " + " on vconv.cIdProcedimiento=proce.cIdProcedimiento " + " order by cidprocedimiento ";
                     ps2 = conn.prepareStatement(query);
                     rst2 = ps2.executeQuery();
-                    log.debug(ps2);
+                    log.debug("Object: {}", ps2.toString());
                     escribeExcel(4, workbook, 3, rst2, 5);
                     query = "select vista.cben, " + "case  " + "when cIdTipoPersonaRFC=1 " + "	then ''  " + "when cIdTipoPersonaRFC=2 " + "	then dNombre " + "end as Nombre, " + "case  " + "when cIdTipoPersonaRFC=1 " + "	then ''  " + "when cIdTipoPersonaRFC=2 " + "	then dApellidoPaterno " + "end as Paterno, " + "case  " + "	when cIdTipoPersonaRFC=1 " + "		then ''  " + "	when cIdTipoPersonaRFC=2 " + "		then dApellidoMaterno " + "	end as Materno, " + "case  " + "	when cIdTipoPersonaRFC=1 " + "		then dNombre  " + "	when cIdTipoPersonaRFC=2 " + "		then '' " + "	end as RazonSocial " + "from tBeneficiario ben with (nolock) " + "inner join v_Reporte_INAI_Adj_Directa vista with (nolock) " + "on ben.CBEN=vista.cben";
                     ps2 = conn.prepareStatement(query);
                     rst2 = ps2.executeQuery();
-                    log.debug(ps2);
+                    log.debug("Object: {}", ps2.toString());
                     escribeExcel(5, workbook, 3, rst2, 4);
                     query = "select	" + "modi.cIdContratoDefinitivo, " + "cNoConvenio, " + "cObjetoConvenio, " + "conv.fFirmaContrato, " + "isnull(doc.cHipDocConv,'') as HiperVinculo  " + "from mContratoModificado modi with (nolock) " + "inner join pContratoDiversoConvenio conv with (nolock) " + "on modi.cIdContratoDefinitivo=conv.cIdContrato " + "inner join v_Reporte_INAI_Adj_Directa vconv " + "on vconv.idconv=modi.cContratoDefinitivo " + "left join mDocumentacionConvenio doc with (nolock) " + "on modi.cContratoDefinitivo=doc.cContratoDefinitivo";
                     ps2 = conn.prepareStatement(query);
                     rst2 = ps2.executeQuery();
-                    log.debug(ps2);
+                    log.debug("Object: {}", ps2.toString());
                     escribeExcel(7, workbook, 3, rst2, 4);
                     break;
             }

@@ -31,7 +31,7 @@ public class WSControlInventariosBusinessLogic extends DataSourceManager {
             iResultado = WSControlInventariosManager.sendCtrlInventory(conn, iMonth, iYear, iType);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {

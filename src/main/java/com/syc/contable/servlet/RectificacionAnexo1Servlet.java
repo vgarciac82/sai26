@@ -73,7 +73,7 @@ public class RectificacionAnexo1Servlet extends HttpServlet {
             out.println(rectificaAnexo1BL.aplicaRectificacion(folioR, usuario, adecProy.obtenEjercicioFiscal(), usuario.getU_Ramo(), usuario.getU_UR(), c, usuario.getPropiedad("CCENTROCONTABLE").getValor(), c.getCasoDato("FECHA_AP_CONT").getValor(), m, prefixPath, usuario.getLogin()));
         } catch (Exception ex) {
             ex.printStackTrace();
-            log.warn(ex);
+            log.warn(ex.getMessage(), ex);
         }
     }
 

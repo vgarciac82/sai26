@@ -28,7 +28,7 @@ public class CarteraVigenteManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(ps, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             } finally {
                 rs = null;
                 ps = null;
@@ -53,7 +53,7 @@ public class CarteraVigenteManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(ps, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             } finally {
                 rs = null;
                 ps = null;
@@ -78,7 +78,7 @@ public class CarteraVigenteManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(ps, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             } finally {
                 rs = null;
                 ps = null;
@@ -103,7 +103,7 @@ public class CarteraVigenteManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(ps, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             } finally {
                 rs = null;
                 ps = null;

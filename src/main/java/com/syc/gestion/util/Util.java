@@ -62,15 +62,15 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import javax.xml.datatype.XMLGregorianCalendar;
-import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.core.FileUploadException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -193,14 +193,14 @@ public class Util {
             return ALRM_UNKNOW;
         }
         if (str.startsWith("end")) {
-            log.debug(str);
+            log.debug("Object: {}", str);
             return ALRM_END;
         }
         if (str.startsWith("mail")) {
-            log.debug(str);
+            log.debug("Object: {}", str);
             return ALRM_MAIL;
         }
-        log.debug("No implementado: " + str);
+        log.debug("Object: {}", "No implementado: " + str);
         return ALRM_UNKNOW;
     }
 
@@ -253,10 +253,10 @@ public class Util {
                 s = "html";
                 break;
             default:
-                log.error("Tipo de Archivo desconocido (" + id_tca + ")");
+                log.error("Object: {}", "Tipo de Archivo desconocido (" + id_tca + ")");
                 throw new RuntimeException("Tipo de Archivo desconocido (" + id_tca + ")");
         }
-        log.debug(id_tca + " = " + s);
+        log.debug("Object: {}", id_tca + " = " + s);
         return s;
     }
 
@@ -285,10 +285,10 @@ public class Util {
                 s = "Long String";
                 break;
             default:
-                log.error("Tipo de Dato desconocido (" + tcv_tipo + ")");
+                log.error("Object: {}", "Tipo de Dato desconocido (" + tcv_tipo + ")");
                 throw new RuntimeException("Tipo de Dato desconocido (" + tcv_tipo + ")");
         }
-        log.debug(tcv_tipo + " = " + s);
+        log.debug("Object: {}", tcv_tipo + " = " + s);
         return s;
     }
 
@@ -357,17 +357,17 @@ public class Util {
             byte[] enc = ecipher.doFinal(utf8);
             return new BASE64Encoder().encode(enc);
         } catch (NoSuchPaddingException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         } catch (NoSuchAlgorithmException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         } catch (InvalidKeyException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         } catch (BadPaddingException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         } catch (IllegalBlockSizeException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         } catch (UnsupportedEncodingException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         }
         return null;
     }
@@ -380,19 +380,19 @@ public class Util {
             byte[] utf8 = dcipher.doFinal(dec);
             return new String(utf8, charsetName);
         } catch (NoSuchPaddingException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         } catch (NoSuchAlgorithmException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         } catch (InvalidKeyException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         } catch (BadPaddingException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         } catch (IllegalBlockSizeException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         } catch (UnsupportedEncodingException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         } catch (IOException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         }
         return null;
     }
@@ -401,7 +401,7 @@ public class Util {
         try {
             return KeyGenerator.getInstance(algorithm).generateKey();
         } catch (NoSuchAlgorithmException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         }
         return null;
     }
@@ -414,7 +414,7 @@ public class Util {
         try {
             return new SecretKeySpec(new BASE64Decoder().decodeBuffer(str), algorithm);
         } catch (IOException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         }
         return null;
     }
@@ -457,7 +457,7 @@ public class Util {
      *             si ocurre un error en la extraccion.
      */
     public static List<?> parseRequest(HttpServletRequest req, String tempDir, long maxFileSize) throws ServletException {
-        DiskFileUpload upload = new DiskFileUpload();
+        ServletFileUpload upload = new ServletFileUpload();
         upload.setRepositoryPath(tempDir);
         upload.setSizeMax(maxFileSize);
         try {
@@ -517,13 +517,13 @@ public class Util {
         byte[] buffer = new byte[1024 * 1024 * 2];
         int length;
         long fSize = 0l;
-        log.debug("Copiando archivo  desde stream: " + archivoCargaStream + " a " + nombreArchivoDestino);
+        log.debug("Object: {}", "Copiando archivo  desde stream: " + archivoCargaStream + " a " + nombreArchivoDestino);
         while ((length = archivoCargaStream.read(buffer)) > 0) {
-            log.trace("Escribiendo buffer " + length);
+            log.trace("Object: {}", "Escribiendo buffer " + length);
             outStream.write(buffer, 0, length);
             fSize = fSize + length;
         }
-        log.debug("Se copiaron: " + fSize + " Kbytes");
+        log.debug("Object: {}", "Se copiaron: " + fSize + " Kbytes");
         outStream.flush();
         outStream.close();
         return true;
@@ -568,7 +568,7 @@ public class Util {
                 try {
                     inputStream.close();
                 } catch (Exception e) {
-                    log.warn("Problemas cerrando flujo de entrada: " + e);
+                    log.warn("Object: {}", "Problemas cerrando flujo de entrada: " + e);
                 }
         }
     }
@@ -748,15 +748,15 @@ public class Util {
      */
     public static void doDownload(HttpServletResponse resp, String filename, String original_filename, String mimetype) throws Exception {
         log.debug("doDownload - Start");
-        log.info("doDownload - Requested file: " + filename);
-        log.info("doDownload - Original filename: " + original_filename);
-        log.info("doDownload - MIME type: " + mimetype);
+        log.info("Object: {}", "doDownload - Requested file: " + filename);
+        log.info("Object: {}", "doDownload - Original filename: " + original_filename);
+        log.info("Object: {}", "doDownload - MIME type: " + mimetype);
         File f = new File(filename);
         if (!f.exists()) {
-            log.error("doDownload - File not found: " + filename);
+            log.error("Object: {}", "doDownload - File not found: " + filename);
             throw new Exception("El archivo " + filename + " no existe");
         }
-        log.info("doDownload - File found: " + filename + ", Size: " + f.length() + " bytes");
+        log.info("Object: {}", "doDownload - File found: " + filename + ", Size: " + f.length() + " bytes");
         ServletOutputStream out = resp.getOutputStream();
         resp.setContentType((mimetype != null) ? mimetype : "application/octet-stream");
         resp.setContentLength((int) f.length());
@@ -1760,7 +1760,7 @@ public class Util {
                 try {
                     fos.close();
                 } catch (Exception e) {
-                    log.warn("Problemas cerrando flujo de entrada: " + e);
+                    log.warn("Object: {}", "Problemas cerrando flujo de entrada: " + e);
                 }
             fos = null;
             zos = null;
@@ -2485,7 +2485,7 @@ public class Util {
                 if (!f.delete())
                     f.deleteOnExit();
         } catch (Exception e) {
-            log.warn("Problemas eliminando archivo: " + path + ". Casua: " + e);
+            log.warn("Object: {}", "Problemas eliminando archivo: " + path + ". Casua: " + e);
         }
     }
 
@@ -2832,12 +2832,12 @@ public class Util {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         return jniName;
     }

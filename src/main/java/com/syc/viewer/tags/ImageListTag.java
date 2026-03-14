@@ -4,11 +4,11 @@ import java.io.File;
 import java.net.URLEncoder;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.tagext.TagSupport;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.JspWriter;
+import jakarta.servlet.jsp.tagext.TagSupport;
 import com.syc.viewer.custom.ImageViewerInterface;
 import com.syc.viewer.servlet.ViewerParametersInterface;
 import org.slf4j.Logger;
@@ -80,12 +80,12 @@ public class ImageListTag extends TagSupport implements ViewerParametersInterfac
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         String imageviewer = null;
         try {
@@ -96,7 +96,7 @@ public class ImageListTag extends TagSupport implements ViewerParametersInterfac
         } catch (NamingException exc) {
             imageviewer = "com.syc.custom.imageViewerDefault";
         }
-        log.info("ImageViewerInterface=" + imageviewer);
+        log.info("Object: {}", "ImageViewerInterface=" + imageviewer);
         ImageViewerInterface imgview = null;
         try {
             ClassLoader cl = getClass().getClassLoader();
@@ -154,7 +154,7 @@ public class ImageListTag extends TagSupport implements ViewerParametersInterfac
             }
             out.println("\t\t\t\t</table>");
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         }
         return EVAL_PAGE;
     }

@@ -35,12 +35,12 @@ public class GestionFortimaxServlet extends HttpServlet implements GestionInterf
             frtimxCtx = (String) ic.lookup("java:comp/env/FortImaxUrl");
             if (frtimxCtx == null) {
                 frtimxCtx = "/fortimax";
-                log.info("Environment Entry \"FortImaxUrl\" nula usando default \"" + frtimxCtx + "\"");
+                log.info("Object: {}", "Environment Entry \"FortImaxUrl\" nula usando default \"" + frtimxCtx + "\"");
             } else
-                log.info("FortImaxUrl: Usando \"" + frtimxCtx + "\", como prefijo de URL a FortImax");
+                log.info("Object: {}", "FortImaxUrl: Usando \"" + frtimxCtx + "\", como prefijo de URL a FortImax");
         } catch (NamingException exc) {
             frtimxCtx = "/fortimax";
-            log.info("Environment Entry \"FortImaxUrl\" no definida usando default \"" + frtimxCtx + "\"");
+            log.info("Object: {}", "Environment Entry \"FortImaxUrl\" no definida usando default \"" + frtimxCtx + "\"");
         }
         frtimxCtx = frtimxCtx.trim();
         frtimxCtx += frtimxCtx.lastIndexOf('/') != frtimxCtx.length() ? "/" : "";
@@ -49,12 +49,12 @@ public class GestionFortimaxServlet extends HttpServlet implements GestionInterf
             frtimxUsr = (String) ic.lookup("java:comp/env/FortImaxUser");
             if (frtimxUsr == null) {
                 frtimxUsr = "gestion";
-                log.info("Environment Entry \"FortImaxUser\" nula usando default \"" + frtimxUsr + "\"");
+                log.info("Object: {}", "Environment Entry \"FortImaxUser\" nula usando default \"" + frtimxUsr + "\"");
             } else
-                log.info("FortImaxUser: Usando \"" + frtimxUsr + "\", como usuario de FortImax");
+                log.info("Object: {}", "FortImaxUser: Usando \"" + frtimxUsr + "\", como usuario de FortImax");
         } catch (NamingException exc) {
             frtimxUsr = "gestion";
-            log.info("Environment Entry \"FortImaxUser\" no definida usando default \"" + frtimxUsr + "\"");
+            log.info("Object: {}", "Environment Entry \"FortImaxUser\" no definida usando default \"" + frtimxUsr + "\"");
         }
         frtimxUsr = frtimxUsr.trim();
         try {

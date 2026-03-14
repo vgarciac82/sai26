@@ -25,7 +25,7 @@ public class WSConnectionControlInventarios {
             conn.setRequestMethod(metodo);
             conn.setRequestProperty("Content-Type", tipoRespuesta);
             String input = inputJson.toString();
-            log.info("Datos enviados:\n" + input);
+            log.info("Object: {}", "Datos enviados:\n" + input);
             BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
             log.info("Output from Server ....");
             while ((output = br.readLine()) != null) {
@@ -45,11 +45,11 @@ public class WSConnectionControlInventarios {
                 //log.info(output+"\n");
             }
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                log.error("Failed : HTTP error code : " + conn.getResponseCode());
+                log.error("Error occurred", "Failed : HTTP error code : " + conn.getResponseCode());
                 throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
             }
         } catch (Exception e) {
-            log.error("Error en la conexión del Web Service: " + e);
+            log.error("Error occurred", "Error en la conexión del Web Service: " + e);
         } finally {
             if (conn != null) {
                 conn.disconnect();

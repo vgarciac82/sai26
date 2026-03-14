@@ -134,13 +134,13 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                 valorReturn = ErrorEPs;
             }
         } catch (Exception se) {
-            log.error("Error: " + se);
+            log.error("Error occurred", "Error: " + se);
             se.printStackTrace();
             valorReturn = "Error";
             try {
                 conn.rollback();
             } catch (Exception exc) {
-                log.warn("Error: cerrando rollback enviaRuta " + exc);
+                log.warn("Error occurred", "Error: cerrando rollback enviaRuta " + exc);
             }
         } finally {
             try {
@@ -173,7 +173,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
             }
             respuesta = "guardado";
         } catch (Exception e) {
-            log.error("Error Guardar Compromiso Encabezado: " + e);
+            log.error("Error occurred", "Error Guardar Compromiso Encabezado: " + e);
         } finally {
             try {
                 CloseObject.closeObject(ps);
@@ -181,7 +181,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                 CloseObject.closeObject(psInserta);
                 CloseObject.closeObject(rs);
             } catch (Exception ef) {
-                log.warn("Error: cerrando statement: " + ef);
+                log.warn("Error occurred", "Error: cerrando statement: " + ef);
             }
         }
         return respuesta;
@@ -204,7 +204,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                 respuesta = "error";
             }
         } catch (Exception e) {
-            log.error("Error Guardar tCompromisoNominaDetalle: " + e);
+            log.error("Error occurred", "Error Guardar tCompromisoNominaDetalle: " + e);
         } finally {
             CloseObject.closeObject(ps);
         }
@@ -270,7 +270,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                 respuesta = "guardado";
             }
         } catch (Exception e) {
-            log.warn("Error: tNominaEncabezado: " + e);
+            log.warn("Error occurred", "Error: tNominaEncabezado: " + e);
         } finally {
             try {
                 CloseObject.closeObject(ps);
@@ -302,7 +302,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                 conn.commit();
             }
         } catch (Exception e) {
-            log.warn("Error: tNominaEncabezado: " + e);
+            log.warn("Error occurred", "Error: tNominaEncabezado: " + e);
             conn.rollback();
         } finally {
             CloseObject.closeObject(ps);
@@ -459,7 +459,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                 }
             }
         } catch (Exception e) {
-            log.warn("Error: tNominaEncabezadoCarga: " + e);
+            log.warn("Error occurred", "Error: tNominaEncabezadoCarga: " + e);
         } finally {
             CloseObject.closeObject(ps);
             CloseObject.closeObject(pssel);
@@ -553,7 +553,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                 respuesta = "sinAplicar";
             }
         } catch (Exception e) {
-            log.warn("Error: Buscar Compromiso Aplicado: " + e);
+            log.warn("Error occurred", "Error: Buscar Compromiso Aplicado: " + e);
         } finally {
             CloseObject.closeObject(ps);
             CloseObject.closeObject(rs);
@@ -576,7 +576,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                 respuesta = "existe";
             }
         } catch (Exception e) {
-            log.warn("Error: Buscar Compromiso Aplicado: " + e);
+            log.warn("Error occurred", "Error: Buscar Compromiso Aplicado: " + e);
         } finally {
             CloseObject.closeObject(ps);
             CloseObject.closeObject(rs);
@@ -681,7 +681,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                 rfc = "";
                 valorCTAB = "";
                 // Log de la línea completa (para rastrear layout)
-                log.debug("validarInformacion - linea[" + nLinea + "]: " + sCadena);
+                log.debug("Object: {}", "validarInformacion - linea[" + nLinea + "]: " + sCadena);
                 String[] celdas = sCadena.split(",");
                 if (celdas.length > 0) {
                     celdas[0] = celdas[0].replace("\uFEFF", "").trim();
@@ -695,30 +695,30 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                     importeTotal = new BigDecimal(0.00f).setScale(2, RoundingMode.HALF_UP);
                     // Lee campos (con logs por columna)
                     cIRelacion = (celdas.length > 1 ? celdas[1].trim() : "");
-                    log.debug("H linea[" + nLinea + "] col[2] Relacion=[" + cIRelacion + "]");
+                    log.debug("Object: {}", "H linea[" + nLinea + "] col[2] Relacion=[" + cIRelacion + "]");
                     rfc = (celdas.length > 2 ? celdas[2].trim() : "");
-                    log.debug("H linea[" + nLinea + "] col[3] RFC=[" + rfc + "]");
+                    log.debug("Object: {}", "H linea[" + nLinea + "] col[3] RFC=[" + rfc + "]");
                     concepto = (celdas.length > 3 ? celdas[3].trim() : "");
-                    log.debug("H linea[" + nLinea + "] col[4] Concepto=[" + concepto + "]");
+                    log.debug("Object: {}", "H linea[" + nLinea + "] col[4] Concepto=[" + concepto + "]");
                     String mImporteNetoEnct = (celdas.length > 4 ? celdas[4].trim() : "");
-                    log.debug("H linea[" + nLinea + "] col[5] ImporteEnc=[" + mImporteNetoEnct + "]");
+                    log.debug("Object: {}", "H linea[" + nLinea + "] col[5] ImporteEnc=[" + mImporteNetoEnct + "]");
                     destinoGasto = (celdas.length > 5 ? celdas[5].trim() : "");
-                    log.debug("H linea[" + nLinea + "] col[6] Destino=[" + destinoGasto + "]");
+                    log.debug("Object: {}", "H linea[" + nLinea + "] col[6] Destino=[" + destinoGasto + "]");
                     estatus = (celdas.length > 6 ? celdas[6].trim() : "") + " : ";
-                    log.debug("H linea[" + nLinea + "] col[7] EstatusBase=[" + (celdas.length > 6 ? celdas[6].trim() : "") + "]");
+                    log.debug("Object: {}", "H linea[" + nLinea + "] col[7] EstatusBase=[" + (celdas.length > 6 ? celdas[6].trim() : "") + "]");
                     CTAB = (celdas.length > 7 ? celdas[7].trim() : "");
-                    log.debug("H linea[" + nLinea + "] col[8] CTAB=[" + CTAB + "]");
+                    log.debug("Object: {}", "H linea[" + nLinea + "] col[8] CTAB=[" + CTAB + "]");
                     // Valida RFC
                     valorRfc = validaRfc(conn, ps, rs, rfc);
-                    log.debug("H linea[" + nLinea + "] validaRfc RFC=[" + rfc + "] => [" + valorRfc + "]");
+                    log.debug("Object: {}", "H linea[" + nLinea + "] validaRfc RFC=[" + rfc + "] => [" + valorRfc + "]");
                     // Valida CTAB (con log y mensaje con datos)
                     if ("LAUD000000000".equals(rfc)) {
                         valorCTAB = "existe";
-                        log.debug("H linea[" + nLinea + "] RFC es LAUD000000000 => CTAB se marca existe (col[8])");
+                        log.debug("Object: {}", "H linea[" + nLinea + "] RFC es LAUD000000000 => CTAB se marca existe (col[8])");
                     } else {
-                        log.debug("H linea[" + nLinea + "] validaCTAB buscando RFC=[" + rfc + "] CTAB=[" + CTAB + "] (col[3], col[8])");
+                        log.debug("Object: {}", "H linea[" + nLinea + "] validaCTAB buscando RFC=[" + rfc + "] CTAB=[" + CTAB + "] (col[3], col[8])");
                         valorCTAB = validaCTAB(conn, ps, rs, rfc, CTAB);
-                        log.debug("H linea[" + nLinea + "] validaCTAB RFC=[" + rfc + "] CTAB=[" + CTAB + "] => [" + valorCTAB + "]");
+                        log.debug("Object: {}", "H linea[" + nLinea + "] validaCTAB RFC=[" + rfc + "] CTAB=[" + CTAB + "] => [" + valorCTAB + "]");
                     }
                     // Validaciones de campos vacíos con columna
                     if ("".equals(cIRelacion)) {
@@ -739,13 +739,13 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                     if ("3".equals(sTipoCarga)) {
                         sIdComision = (celdas.length > 8 ? celdas[8].trim() : "");
                         valorComision = (celdas.length > 9 ? celdas[9].trim() : "");
-                        log.debug("H linea[" + nLinea + "] col[9] IdComision=[" + sIdComision + "], col[10] InformeComision=[" + valorComision + "]");
+                        log.debug("Object: {}", "H linea[" + nLinea + "] col[9] IdComision=[" + sIdComision + "], col[10] InformeComision=[" + valorComision + "]");
                         if ("".equals(sIdComision)) {
                             estatus = estatus + " Campo Comision[COL 9] esta vacio - ";
                             descripcion = "Detalle";
                         } else {
                             String tmp = validaComision(conn, ps, rs, sIdComision);
-                            log.debug("H linea[" + nLinea + "] validaComision nIdComision=[" + sIdComision + "] => [" + tmp + "]");
+                            log.debug("Object: {}", "H linea[" + nLinea + "] validaComision nIdComision=[" + sIdComision + "] => [" + tmp + "]");
                             sIdComision = tmp;
                         }
                         if ("".equals(valorComision)) {
@@ -755,7 +755,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                     } else if (RelacionGastosManager.CARGA_MASIVA_LAUDOS.equals(sTipoCarga)) {
                         // Folio caja col 9
                         String rawFolioCaja = (celdas.length > 8 ? StringUtils.trimToEmpty(celdas[8]) : "");
-                        log.debug("H linea[" + nLinea + "] col[9] FolioCaja(raw)=[" + rawFolioCaja + "]");
+                        log.debug("Object: {}", "H linea[" + nLinea + "] col[9] FolioCaja(raw)=[" + rawFolioCaja + "]");
                         try {
                             nFolioCaja = Integer.parseInt(rawFolioCaja);
                         } catch (Exception e) {
@@ -764,7 +764,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                         }
                         if (!"CECE".equals(destinoGasto)) {
                             String rawRet = (celdas.length > 9 ? StringUtils.trimToEmpty(celdas[9]) : "");
-                            log.debug("H linea[" + nLinea + "] col[10] Retenciones(raw)=[" + rawRet + "]");
+                            log.debug("Object: {}", "H linea[" + nLinea + "] col[10] Retenciones(raw)=[" + rawRet + "]");
                             try {
                                 importeRetenciones = new BigDecimal(rawRet).setScale(2, RoundingMode.HALF_UP);
                             } catch (Exception e) {
@@ -774,7 +774,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                         }
                     } else if ("6".equals(sTipoCarga) && !"CSGE".equals(destinoGasto)) {
                         String rawRet = (celdas.length > 9 ? StringUtils.trimToEmpty(celdas[9]) : "");
-                        log.debug("H linea[" + nLinea + "] col[10] Retenciones(raw)=[" + rawRet + "]");
+                        log.debug("Object: {}", "H linea[" + nLinea + "] col[10] Retenciones(raw)=[" + rawRet + "]");
                         try {
                             importeRetenciones = new BigDecimal(rawRet).setScale(2, RoundingMode.HALF_UP);
                         } catch (Exception e) {
@@ -800,7 +800,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                         descripcion = "Detalle";
                     } else if (!"CECE".equals(destinoGasto)) {
                         if ("noExiste".equals(valorCTAB)) {
-                            log.warn("H linea[" + nLinea + "] CUENTA BANCARIA NO EXISTE buscando RFC=[" + rfc + "] CTAB=[" + CTAB + "]");
+                            log.warn("Object: {}", "H linea[" + nLinea + "] CUENTA BANCARIA NO EXISTE buscando RFC=[" + rfc + "] CTAB=[" + CTAB + "]");
                             estatus = estatus + " CUENTA BANCARIA No Existe (RFC[" + rfc + "] CTAB[" + CTAB + "]) - (COL 3,8) - ";
                             descripcion = "Detalle";
                         }
@@ -832,16 +832,16 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                     // =========================
                     int l = celdas.length;
                     ep = (l > 0 ? celdas[0].trim() : "");
-                    log.debug("D linea[" + nLinea + "] col[1] EP=[" + ep + "]");
+                    log.debug("Object: {}", "D linea[" + nLinea + "] col[1] EP=[" + ep + "]");
                     String rawImporteDet = (l > 1 ? celdas[1].trim() : "");
-                    log.debug("D linea[" + nLinea + "] col[2] ImporteDet=[" + rawImporteDet + "]");
+                    log.debug("Object: {}", "D linea[" + nLinea + "] col[2] ImporteDet=[" + rawImporteDet + "]");
                     tipoMovimiento = (l > 2 ? celdas[2].trim() : "");
-                    log.debug("D linea[" + nLinea + "] col[3] TipoMovimiento=[" + tipoMovimiento + "]");
+                    log.debug("Object: {}", "D linea[" + nLinea + "] col[3] TipoMovimiento=[" + tipoMovimiento + "]");
                     tipoConcepto = (l > 3 ? celdas[3].trim() : "");
-                    log.debug("D linea[" + nLinea + "] col[4] TipoConcepto=[" + tipoConcepto + "]");
+                    log.debug("Object: {}", "D linea[" + nLinea + "] col[4] TipoConcepto=[" + tipoConcepto + "]");
                     String nFolioSolicitudRadicado = (l > 4 ? celdas[4].trim() : "");
                     if (StringUtils.isNotBlank(nFolioSolicitudRadicado)) {
-                        log.debug("D linea[" + nLinea + "] col[5] FolioRadicado=[" + nFolioSolicitudRadicado + "]");
+                        log.debug("Object: {}", "D linea[" + nLinea + "] col[5] FolioRadicado=[" + nFolioSolicitudRadicado + "]");
                     }
                     // ISR / Retenciones
                     importeRetenciones = new BigDecimal(0.00f).setScale(2, RoundingMode.HALF_UP);
@@ -850,7 +850,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                         String rawIsr = (l > 5 ? celdas[5].trim() : "");
                         String rawRet = (l > 6 ? celdas[6].trim() : "");
                         if (StringUtils.isNotBlank(rawIsr)) {
-                            log.debug("D linea[" + nLinea + "] col[6] ISR/Otros=[" + rawIsr + "]");
+                            log.debug("Object: {}", "D linea[" + nLinea + "] col[6] ISR/Otros=[" + rawIsr + "]");
                             try {
                                 importeISROtros = new BigDecimal(rawIsr).setScale(2, RoundingMode.HALF_UP);
                             } catch (Exception ex) {
@@ -858,7 +858,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                                 descripcion = "Detalle";
                             }
                         } else if (StringUtils.isNotBlank(rawRet)) {
-                            log.debug("D linea[" + nLinea + "] col[7] Retenciones=[" + rawRet + "]");
+                            log.debug("Object: {}", "D linea[" + nLinea + "] col[7] Retenciones=[" + rawRet + "]");
                             try {
                                 importeRetenciones = new BigDecimal(rawRet).setScale(2, RoundingMode.HALF_UP);
                             } catch (Exception ex) {
@@ -884,7 +884,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                     }
                     // Validar EP (con log)
                     validaEP = validarEP(conn, psE, rsE, ep);
-                    log.debug("D linea[" + nLinea + "] validarEP EP=[" + ep + "] => [" + validaEP + "]");
+                    log.debug("Object: {}", "D linea[" + nLinea + "] validarEP EP=[" + ep + "] => [" + validaEP + "]");
                     if ("noExiste".equals(validaEP)) {
                         estatus = estatus + " No Existe EP[" + ep + "] - (COL 1) - ";
                         descripcion = "Detalle";
@@ -892,7 +892,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                         // validaEPPG
                         String[] parts = ep.split(separador);
                         String PG = (parts.length > 6 ? parts[6] : "");
-                        log.debug("D linea[" + nLinea + "] validaEPPG PG=[" + PG + "] (derivado de EP col[1])");
+                        log.debug("Object: {}", "D linea[" + nLinea + "] validaEPPG PG=[" + PG + "] (derivado de EP col[1])");
                         if (!"04".equals(PG)) {
                             validaEPPG = "noExiste";
                             estatus = estatus + "La EP[" + ep + "] no contiene Programa Generar 04 (PG=[" + PG + "]) - (COL 1) - ";
@@ -900,9 +900,9 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                         }
                     }
                     // Buscar evento: log + mensaje con datos buscados
-                    log.debug("D linea[" + nLinea + "] validaEvento buscando Destino=[" + destinoGasto + "](col H6) Concepto=[" + tipoConcepto + "](col D4) EP=[" + ep + "](col D1) OBGT=[" + obgt + "] CTGA(substring38,1)=[" + ep.substring(37, 38) + "] FF(substring40,1)=[" + ep.substring(39, 40) + "]");
+                    log.debug("Object: {}", "D linea[" + nLinea + "] validaEvento buscando Destino=[" + destinoGasto + "](col H6) Concepto=[" + tipoConcepto + "](col D4) EP=[" + ep + "](col D1) OBGT=[" + obgt + "] CTGA(substring38,1)=[" + ep.substring(37, 38) + "] FF(substring40,1)=[" + ep.substring(39, 40) + "]");
                     String validaEvento = validaEvento(conn, psEv, rsEv, tipoConcepto, destinoGasto, ep);
-                    log.debug("D linea[" + nLinea + "] validaEvento => [" + validaEvento + "]");
+                    log.debug("Object: {}", "D linea[" + nLinea + "] validaEvento => [" + validaEvento + "]");
                     if ("noExiste".equals(validaEvento)) {
                         estatus = estatus + " No Existe Evento (Destino[" + destinoGasto + "] Concepto[" + tipoConcepto + "] EP[" + ep + "]) - (COL H6, D4, D1) - ";
                         descripcion = "Detalle";
@@ -1002,7 +1002,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
             try {
                 conn.rollback();
             } catch (Exception e) {
-                log.error("Error al hacer Rollback: " + se);
+                log.error("Error occurred", "Error al hacer Rollback: " + se);
             }
         } finally {
             CloseObject.closeObject(ps);
@@ -1068,7 +1068,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                 }
             }
         } catch (Exception e) {
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
             valor = "Error:Archivo";
         }
         return valor;
@@ -1085,7 +1085,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                 folio = Integer.parseInt(rs.getString("seq_value"), 10);
             }
         } catch (Exception e) {
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
             e.printStackTrace();
             folio = 0;
         }
@@ -1102,7 +1102,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                 valor = "existe";
             }
         } catch (Exception e) {
-            log.error("Error al Validar RFC : " + e);
+            log.error("Error occurred", "Error al Validar RFC : " + e);
         }
         return valor;
     }
@@ -1116,7 +1116,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, ep);
-            log.debug(query + "[" + ep + "]");
+            log.debug("Object: {}", query + "[" + ep + "]");
             rs = ps.executeQuery();
             while (rs.next()) {
                 int mes = rs.getInt("Mes");
@@ -1138,8 +1138,8 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
             ps.setInt(1, nFolioSolicitud);
             ps.setString(2, ep);
             ps.setString(3, mes);
-            log.debug(ps);
-            log.debug("[" + nFolioSolicitud + "," + ep + "," + mes + "]");
+            log.debug("Object: {}", ps.toString());
+            log.debug("Object: {}", "[" + nFolioSolicitud + "," + ep + "," + mes + "]");
             rs = ps.executeQuery();
             if (rs.next())
                 saldoEPMes = rs.getDouble(1);
@@ -1155,15 +1155,15 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
         try {
             ps = conn.prepareStatement("UPDATE tRELACIONGASTOSEncabezado_temp " + "SET    cRadicado = 'S'  " + "WHERE  folioTempGral = ?  ");
             ps.setInt(1, fTempGral);
-            log.debug(ps);
-            log.debug("[" + fTempGral + "]");
+            log.debug("Object: {}", ps.toString());
+            log.debug("Object: {}", "[" + fTempGral + "]");
             ps.executeUpdate();
             ps = conn.prepareStatement("UPDATE tRELACIONGASTOSDetalle_temp " + "SET    nFolioSolicitud = ? " + "WHERE  folioTempGral = ? " + "       AND nMes = ? " + "       AND EP =?");
             ps.setInt(1, nFolioSolicitud);
             ps.setInt(2, fTempGral);
             ps.setString(3, mes);
             ps.setString(4, ep);
-            log.debug(ps.executeUpdate());
+            log.debug("Object: {}", ps.executeUpdate());
         } finally {
             CloseObject.closeObject(ps);
         }
@@ -1195,8 +1195,8 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
             ps.setInt(1, nFolioSolicitud);
             ps.setString(2, mes);
             ps.setString(3, ep);
-            log.debug(ps);
-            log.debug("[" + nFolioSolicitud + "," + ep + "," + mes + "]");
+            log.debug("Object: {}", ps.toString());
+            log.debug("Object: {}", "[" + nFolioSolicitud + "," + ep + "," + mes + "]");
             rs = ps.executeQuery();
             if (rs.next())
                 nmes = rs.getString(1);
@@ -1219,7 +1219,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                 valor = "existe";
             }
         } catch (Exception e) {
-            log.error("Error al Validar EP " + e);
+            log.error("Error occurred", "Error al Validar EP " + e);
         }
         return valor;
     }
@@ -1238,7 +1238,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                 valor = "APD_" + rsEv.getString("cEvento");
             }
         } catch (Exception e) {
-            log.error("Error al Validar EP " + e);
+            log.error("Error occurred", "Error al Validar EP " + e);
         }
         return valor;
     }
@@ -1251,7 +1251,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
             psUp.executeUpdate();
             valor = "actualizado";
         } catch (Exception e) {
-            log.error("Error al Actualizar Estatus " + e);
+            log.error("Error occurred", "Error al Actualizar Estatus " + e);
         }
         return valor;
     }
@@ -1286,7 +1286,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
             psEnc.executeUpdate();
             valor = "guardado";
         } catch (Exception e) {
-            log.error("Error Al Guardar Encabezado Relacion Gastos " + e);
+            log.error("Error occurred", "Error Al Guardar Encabezado Relacion Gastos " + e);
         }
         return valor;
     }
@@ -1332,7 +1332,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
             psEnc.setInt(cnt++, fTempGral);
             psEnc.setBigDecimal(cnt++, mimporteISROtros);
             psEnc.setBigDecimal(cnt++, mimporteISRLaudos);
-            log.debug(String.format(query + "[%d],[%d],[%d],[%s],[%s],[%s],[%s],[%s],[%s],[%s],[%s],[%s],[%d],[%s],[%s],[%s],[%s],[%d],[%s],[%d],[%s],[%s]", fTemp, nDocRenglon, mes, cEjercicioFiscal, cIdRelacion, EP, sumImporteNetoDet, tipoMovimiento, tipoConcepto, cEvento, cEjercicioFiscal, cContable, mes, rfc, Util.formatNumber(importeNetoDet), Util.formatNumber(sumImporteNetoDet), Util.formatNumber(sumImporteNetoDet), nCapitulo, obgt, fTempGral, Util.formatNumber(mimporteISROtros), Util.formatNumber(mimporteISRLaudos)));
+            log.debug("Object: {}", String.format(query + "[%d],[%d],[%d],[%s],[%s],[%s],[%s],[%s],[%s],[%s],[%s],[%s],[%d],[%s],[%s],[%s],[%s],[%d],[%s],[%d],[%s],[%s]", fTemp, nDocRenglon, mes, cEjercicioFiscal, cIdRelacion, EP, sumImporteNetoDet, tipoMovimiento, tipoConcepto, cEvento, cEjercicioFiscal, cContable, mes, rfc, Util.formatNumber(importeNetoDet), Util.formatNumber(sumImporteNetoDet), Util.formatNumber(sumImporteNetoDet), nCapitulo, obgt, fTempGral, Util.formatNumber(mimporteISROtros), Util.formatNumber(mimporteISRLaudos)));
             psEnc.executeUpdate();
             valor = "guardado";
         } catch (Exception e) {
@@ -1361,7 +1361,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
         double mImporteCompromiso = 0.00;
         double mImporteRemanente = 0.00;
         try {
-            log.debug("Comienza a validar remanente del compromiso " + compromisoAmpliado + " a reducir.");
+            log.debug("Object: {}", "Comienza a validar remanente del compromiso " + compromisoAmpliado + " a reducir.");
             psCompromiso = conn.prepareStatement("SELECT EP, mImporte, cMes FROM tCompromisoNominaDetalle WITH(NOLOCK) WHERE nFolioCompromisoNomina = ?");
             psCompromiso.setString(1, nFolioCompromisoNomina);
             rsCompromiso = psCompromiso.executeQuery();
@@ -1379,10 +1379,10 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                     valorReturn = "No hay suficiente remanente en la ep " + ep + "; " + mImporteRemanente + " - " + mImporteCompromiso;
             }
             if (!"aplicado".equals(valorReturn))
-                log.debug(valorReturn);
+                log.debug("Object: {}", valorReturn);
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("Error al validar la reduccion al compromiso " + compromisoAmpliado + ". " + e);
+            log.error("Error occurred", "Error al validar la reduccion al compromiso " + compromisoAmpliado + ". " + e);
         } finally {
             CloseObject.closeObject(psCompromiso);
             CloseObject.closeObject(psRemanente);
@@ -1403,7 +1403,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                 valor = "existe";
             }
         } catch (Exception e) {
-            log.error("Error al Validar CUENTA BANCARIA : " + e);
+            log.error("Error occurred", "Error al Validar CUENTA BANCARIA : " + e);
         }
         return valor;
     }
@@ -1418,7 +1418,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                 valor = rs.getString("nIdComision");
             }
         } catch (Exception e) {
-            log.error("Error al Validar la Comisión : " + e);
+            log.error("Error occurred", "Error al Validar la Comisión : " + e);
         }
         return valor;
     }

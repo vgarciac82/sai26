@@ -14,8 +14,8 @@ import java.sql.ResultSetMetaData;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -210,7 +210,7 @@ public class ReporteAcreedoresDeudoresManager {
     }
 
     public static String ReporteDeudoresManager(Connection conn, String fechaInicio, String fechaFin, String centroContable, String tipoCedula, Map<String, String> plantillas) throws Exception {
-        log.info(String.format("Iniciando reporte Deudores con los parametros[%S][%S][%S]", fechaInicio, fechaFin, centroContable));
+        log.info("Object: {}", String.format("Iniciando reporte Deudores con los parametros[%S][%S][%S]", fechaInicio, fechaFin, centroContable));
         long startQueries = System.currentTimeMillis();
         CallableStatement cs = null;
         PreparedStatement ps = null;
@@ -218,8 +218,8 @@ public class ReporteAcreedoresDeudoresManager {
         ResultSet rs2 = null;
         String query = "{call sp_a_Deudores( ?, ?, ? )}";
         String query2 = "SELECT cDescripcion FROM tCatalogoCentroContable (NOLOCK) WHERE cCentroContable = ?";
-        log.trace("Call[" + query + "]");
-        log.trace("Select[" + query2 + "]");
+        log.trace("Object: {}", "Call[" + query + "]");
+        log.trace("Object: {}", "Select[" + query2 + "]");
         String fileName = "";
         String mensaje = "";
         try {
@@ -227,17 +227,17 @@ public class ReporteAcreedoresDeudoresManager {
             cs.setString(1, fechaInicio);
             cs.setString(2, fechaFin);
             cs.setString(3, centroContable);
-            log.debug(String.format("Ejecutando[" + query + "]%S, %S, %S", fechaInicio, fechaFin, centroContable));
+            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S, %S, %S", fechaInicio, fechaFin, centroContable));
             rs = cs.executeQuery();
             ps = conn.prepareStatement(query2);
             ps.setString(1, centroContable);
-            log.debug(String.format("Ejecutando[%S] %S", query2, centroContable));
+            log.debug("Object: {}", String.format("Ejecutando[%S] %S", query2, centroContable));
             rs2 = ps.executeQuery();
             if (rs2.next()) {
                 mensaje = rs2.getString("cDescripcion");
             }
             long stopQueries = System.currentTimeMillis();
-            log.info(String.format("Ejecucion de consultas terminado en [%2d] segundos", (stopQueries - startQueries) / 1000));
+            log.info("Object: {}", String.format("Ejecucion de consultas terminado en [%2d] segundos", (stopQueries - startQueries) / 1000));
             fileName = generaReporteDeudores(rs, plantillas.get("DEUDORES"), fechaInicio, fechaFin, centroContable, mensaje);
             return fileName;
         } finally {
@@ -363,7 +363,7 @@ public class ReporteAcreedoresDeudoresManager {
     }
 
     public static String ReporteDeudoresConComision(Connection conn, String fechaInicio, String fechaFin, String centroContable, String tipoCedula, Map<String, String> plantillas) throws Exception {
-        log.info(String.format("Iniciando reporte Deudores con los parametros[%S][%S][%S]", fechaInicio, fechaFin, centroContable));
+        log.info("Object: {}", String.format("Iniciando reporte Deudores con los parametros[%S][%S][%S]", fechaInicio, fechaFin, centroContable));
         long startQueries = System.currentTimeMillis();
         CallableStatement cs = null;
         PreparedStatement ps = null;
@@ -371,8 +371,8 @@ public class ReporteAcreedoresDeudoresManager {
         ResultSet rs2 = null;
         String query = "{call sp_a_DeudoresComision( ?, ?, ? )}";
         String query2 = "SELECT cDescripcion FROM tCatalogoCentroContable (NOLOCK) WHERE cCentroContable = ?";
-        log.trace("Call[" + query + "]");
-        log.trace("Select[" + query2 + "]");
+        log.trace("Object: {}", "Call[" + query + "]");
+        log.trace("Object: {}", "Select[" + query2 + "]");
         String fileName = "";
         String mensaje = "";
         try {
@@ -380,17 +380,17 @@ public class ReporteAcreedoresDeudoresManager {
             cs.setString(1, fechaInicio);
             cs.setString(2, fechaFin);
             cs.setString(3, centroContable);
-            log.debug(String.format("Ejecutando[" + query + "]%S, %S, %S", fechaInicio, fechaFin, centroContable));
+            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S, %S, %S", fechaInicio, fechaFin, centroContable));
             rs = cs.executeQuery();
             ps = conn.prepareStatement(query2);
             ps.setString(1, centroContable);
-            log.debug(String.format("Ejecutando[%S] %S", query2, centroContable));
+            log.debug("Object: {}", String.format("Ejecutando[%S] %S", query2, centroContable));
             rs2 = ps.executeQuery();
             if (rs2.next()) {
                 mensaje = rs2.getString("cDescripcion");
             }
             long stopQueries = System.currentTimeMillis();
-            log.info(String.format("Ejecucion de consultas terminado en [%2d] segundos", (stopQueries - startQueries) / 1000));
+            log.info("Object: {}", String.format("Ejecucion de consultas terminado en [%2d] segundos", (stopQueries - startQueries) / 1000));
             fileName = generaReporteDeudoresComision(rs, plantillas.get("DEUDORES_COMISION"), fechaInicio, fechaFin, centroContable, mensaje);
             return fileName;
         } finally {
@@ -550,7 +550,7 @@ public class ReporteAcreedoresDeudoresManager {
     }
 
     public static String ReporteAcreedoresConUnidad(Connection conn, String fechaInicio, String fechaFin, String centroContable, String tipoCedula, Map<String, String> plantillas) throws Exception {
-        log.info(String.format("Iniciando reporte Acreedores con los parametros[%S][%S][%S]", fechaInicio, fechaFin, centroContable));
+        log.info("Object: {}", String.format("Iniciando reporte Acreedores con los parametros[%S][%S][%S]", fechaInicio, fechaFin, centroContable));
         long startQueries = System.currentTimeMillis();
         CallableStatement cs = null;
         PreparedStatement ps = null;
@@ -558,8 +558,8 @@ public class ReporteAcreedoresDeudoresManager {
         ResultSet rs2 = null;
         String query = "{call sp_a_AcreedoresUnidad( ?, ?, ? )}";
         String query2 = "SELECT cDescripcion FROM tCatalogoCentroContable (NOLOCK) WHERE cCentroContable = ?";
-        log.trace("Call[" + query + "]");
-        log.trace("Select[" + query2 + "]");
+        log.trace("Object: {}", "Call[" + query + "]");
+        log.trace("Object: {}", "Select[" + query2 + "]");
         String fileName = "";
         String mensaje = "";
         try {
@@ -567,17 +567,17 @@ public class ReporteAcreedoresDeudoresManager {
             cs.setString(1, fechaInicio);
             cs.setString(2, fechaFin);
             cs.setString(3, centroContable);
-            log.debug(String.format("Ejecutando[" + query + "]%S, %S, %S", fechaInicio, fechaFin, centroContable));
+            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S, %S, %S", fechaInicio, fechaFin, centroContable));
             rs = cs.executeQuery();
             ps = conn.prepareStatement(query2);
             ps.setString(1, centroContable);
-            log.debug(String.format("Ejecutando[%S] %S", query2, centroContable));
+            log.debug("Object: {}", String.format("Ejecutando[%S] %S", query2, centroContable));
             rs2 = ps.executeQuery();
             if (rs2.next()) {
                 mensaje = rs2.getString("cDescripcion");
             }
             long stopQueries = System.currentTimeMillis();
-            log.info(String.format("Ejecucion de consultas terminado en [%2d] segundos", (stopQueries - startQueries) / 1000));
+            log.info("Object: {}", String.format("Ejecucion de consultas terminado en [%2d] segundos", (stopQueries - startQueries) / 1000));
             fileName = generaReporteAcreedoresUnidad(rs, plantillas.get("ACREEDORES_UNIDAD"), fechaInicio, fechaFin, centroContable, mensaje);
             return fileName;
         } finally {

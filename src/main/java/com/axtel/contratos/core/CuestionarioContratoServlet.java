@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.LogManager;
 import org.json.JSONObject;
 import com.axtel.contratos.QuestionnaireBussinessLogic;
 import com.syc.gestion.core.Usuario;
@@ -30,7 +29,7 @@ public class CuestionarioContratoServlet extends HttpServlet implements GestionI
      */
     private static final long serialVersionUID = 312507485274882929L;
 
-    private static final Logger log = LogManager.getLogger(CuestionarioContratoServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(CuestionarioContratoServlet.class);
 
     private String jniName;
 
@@ -152,13 +151,13 @@ public class CuestionarioContratoServlet extends HttpServlet implements GestionI
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
             reportPath = getServletContext().getRealPath("Reportes");
         } catch (Exception exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 }

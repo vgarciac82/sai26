@@ -3,9 +3,9 @@ package com.syc.reportes;
 import java.io.File;
 import java.sql.Connection;
 import java.util.Map;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.gestion.reportes.reportesBussinesObject;
 import com.syc.gestion.util.Util;
@@ -56,7 +56,7 @@ public class ReportePptalBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {

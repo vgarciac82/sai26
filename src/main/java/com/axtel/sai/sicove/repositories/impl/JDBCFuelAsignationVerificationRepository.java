@@ -9,7 +9,6 @@ import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
-import org.apache.log4j.LogManager;
 import com.axtel.sai.sicove.entities.FuelAsignationVerification;
 import com.axtel.sai.sicove.entities.WalletFuelRequestVerificationDetail;
 import com.axtel.sai.sicove.exceptions.SicoveException;
@@ -19,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 public class JDBCFuelAsignationVerificationRepository implements FuelAsignationVerificationRepository {
 
-    private static final Logger log = LogManager.getLogger(JDBCFuelAsignationVerificationRepository.class);
+    private static final Logger log = LoggerFactory.getLogger(JDBCFuelAsignationVerificationRepository.class);
 
     private final QueryRunner runner = new QueryRunner();
 
@@ -78,7 +77,7 @@ public class JDBCFuelAsignationVerificationRepository implements FuelAsignationV
         query.append("			,? ");
         query.append("			,? ");
         query.append("		) ");
-        log.info("Saving: " + fuelAsignationVerification);
+        log.info("Object: {}", "Saving: " + fuelAsignationVerification);
         if (fuelAsignationVerification.getIdVerification() > 0)
             throw new RuntimeException("La comprobacion ya cuenta con ID. No puede guardarse");
         BigDecimal newId;
@@ -95,8 +94,8 @@ public class JDBCFuelAsignationVerificationRepository implements FuelAsignationV
     public FuelAsignationVerification readFuelingVerification(Connection conn, int idVerification) throws SicoveException {
         StringBuilder query = new StringBuilder(querySelectHeader);
         query.append(" WHERE	id_verification = ? ");
-        log.debug("Looking for asignation verification with id " + idVerification);
-        log.trace("Executing: \n" + query + "\n[" + idVerification + "]");
+        log.debug("Object: {}", "Looking for asignation verification with id " + idVerification);
+        log.trace("Object: {}", "Executing: \n" + query + "\n[" + idVerification + "]");
         try {
             FuelAsignationVerification fuelAsignationVerification = runner.query(conn, query.toString(), resultHandler, idVerification);
             return fuelAsignationVerification;
@@ -117,7 +116,7 @@ public class JDBCFuelAsignationVerificationRepository implements FuelAsignationV
         query.append("		,verification_authorized  = ? ");
         query.append("		,verification_rejected  = ? ");
         query.append(" WHERE	id_verification = ? ");
-        log.info("Updating: " + fuelAsignationVerification);
+        log.info("Object: {}", "Updating: " + fuelAsignationVerification);
         try {
             runner.update(conn, query.toString(), fuelAsignationVerification.getCurrentWalletBalance(), fuelAsignationVerification.getInitialVehicleKilometers(), fuelAsignationVerification.getCurrentVehicleKilometers(), fuelAsignationVerification.getValidationAmount(), fuelAsignationVerification.getVerificationAuthorized(), fuelAsignationVerification.getVerificationRejected(), fuelAsignationVerification.getIdVerification());
         } catch (SQLException e) {
@@ -130,8 +129,8 @@ public class JDBCFuelAsignationVerificationRepository implements FuelAsignationV
     @Override
     public int readFuelingVerificationIdByAsignation(Connection conn, int idAsignation) throws SicoveException {
         StringBuilder query = new StringBuilder("SELECT id_verification FROM wallet_fuel_request_verification WITH(NOLOCK)  WHERE fueling_request_id = ? ");
-        log.debug("Looking for verification by id asignation " + idAsignation);
-        log.trace("Executing: \n" + query + "\n[" + idAsignation + "]");
+        log.debug("Object: {}", "Looking for verification by id asignation " + idAsignation);
+        log.trace("Object: {}", "Executing: \n" + query + "\n[" + idAsignation + "]");
         try {
             Integer idVerification = runner.query(conn, query.toString(), new ScalarHandler<Integer>(), idAsignation);
             if (idVerification == null)
@@ -160,7 +159,7 @@ public class JDBCFuelAsignationVerificationRepository implements FuelAsignationV
         query.append("           ,? ");
         query.append("           ,? ");
         query.append("		   )");
-        log.info("Saving Detail: " + verificationDetail);
+        log.info("Object: {}", "Saving Detail: " + verificationDetail);
         if (verificationDetail.getIdDetail() > 0)
             throw new RuntimeException("El detalle de comprobacion ya cuenta con ID. No puede guardarse");
         BigDecimal newId;
@@ -177,8 +176,8 @@ public class JDBCFuelAsignationVerificationRepository implements FuelAsignationV
     public WalletFuelRequestVerificationDetail readVerificationDetail(Connection conn, int idDetail) throws SicoveException {
         StringBuilder query = new StringBuilder(verificationDetailHeader.toString());
         query.append("WHERE id_detail = ? ");
-        log.debug("Looking for verification detail with id " + idDetail);
-        log.trace("Executing: \n" + query + "\n[" + idDetail + "]");
+        log.debug("Object: {}", "Looking for verification detail with id " + idDetail);
+        log.trace("Object: {}", "Executing: \n" + query + "\n[" + idDetail + "]");
         try {
             WalletFuelRequestVerificationDetail walletFuelRequestVerificationDetail = runner.query(conn, query.toString(), resultHandlerDetail, idDetail);
             return walletFuelRequestVerificationDetail;
@@ -192,8 +191,8 @@ public class JDBCFuelAsignationVerificationRepository implements FuelAsignationV
     public List<WalletFuelRequestVerificationDetail> readFuelingVerificationDetailList(Connection conn, int idVerification) throws SicoveException {
         StringBuilder query = new StringBuilder(verificationDetailHeader.toString());
         query.append("WHERE id_verification = ? ");
-        log.debug("Looking for verification detail list with id " + idVerification);
-        log.trace("Executing: \n" + query + "\n[" + idVerification + "]");
+        log.debug("Object: {}", "Looking for verification detail list with id " + idVerification);
+        log.trace("Object: {}", "Executing: \n" + query + "\n[" + idVerification + "]");
         try {
             List<WalletFuelRequestVerificationDetail> verificationDetailList = runner.query(conn, query.toString(), resultHandlerDetailLst, idVerification);
             return verificationDetailList;
@@ -239,7 +238,7 @@ public class JDBCFuelAsignationVerificationRepository implements FuelAsignationV
         query.append("SET  validation_amount = validation_amount - ? ");
         query.append(" WHERE id_verification = ? ");
         try {
-            log.trace("Executing: \n" + query + "\n[" + verificationDetail.getTicketAmount() + "][" + verificationDetail.getIdVerification() + "]");
+            log.trace("Object: {}", "Executing: \n" + query + "\n[" + verificationDetail.getTicketAmount() + "][" + verificationDetail.getIdVerification() + "]");
             runner.update(conn, query.toString(), verificationDetail.getTicketAmount(), verificationDetail.getIdVerification());
         } catch (Exception e) {
             log.error(e.getMessage(), e);

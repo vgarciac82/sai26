@@ -59,7 +59,7 @@ public class CatalogoEPAnteproyectoPlurianualesBusinessLogic extends DataSourceM
                 try {
                     stream.close();
                 } catch (Exception e2) {
-                    log.warn("No se pudo cerrar el archivo de carga." + e2);
+                    log.warn("Object: {}", "No se pudo cerrar el archivo de carga." + e2);
                 }
             stream = null;
         }
@@ -89,14 +89,14 @@ public class CatalogoEPAnteproyectoPlurianualesBusinessLogic extends DataSourceM
                 Cell CellEP = row.getCell(0);
                 Cell CellMonto = row.getCell(1);
                 if (CellEP != null) {
-                    log.debug("Procesando renglon " + (renglon));
+                    log.debug("Object: {}", "Procesando renglon " + (renglon));
                     try {
                         String EP = CellEP.getStringCellValue();
                         Double Monto = CellMonto.getNumericCellValue();
                         renglonMap = new HashMap<String, String>();
                         renglonMap.put("EP", EP);
                         renglonMap.put("Monto", String.valueOf(Monto));
-                        log.debug("EP[" + EP + "] Monto[" + Monto);
+                        log.debug("Object: {}", "EP[" + EP + "] Monto[" + Monto);
                         CatalogoEPAnteproyectoPlurianualesManager.insertaRenglonEPAnteproyectoPlurianuales(conn, renglonMap);
                     } catch (Exception e) {
                         renglonInsertada = false;
@@ -117,7 +117,7 @@ public class CatalogoEPAnteproyectoPlurianualesBusinessLogic extends DataSourceM
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("No se pudo realizar rollback en conexion" + e2);
+                    log.warn("Object: {}", "No se pudo realizar rollback en conexion" + e2);
                 }
             throw e;
         } finally {

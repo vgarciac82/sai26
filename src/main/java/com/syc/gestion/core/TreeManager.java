@@ -121,7 +121,7 @@ public class TreeManager implements Serializable, IResultSetProcessor, ITreeFilt
             nombreUsusario = result.getString("nombre_usuario");
             node.setToolTip(node.getName());
         } catch (SQLException exc) {
-            log.warn(exc);
+            log.warn(exc.getMessage(), exc);
         }
         if (nodesToView.getNames().contains(node.getName()) || nodesToView.getNames().contains("all")) {
             NodeInformation nd = new NodeInformation(nodesToView.getPermisos(), node.getName(), unidad, base, dir, fisicalFilename, logicFilename, nombreUsusario);

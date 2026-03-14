@@ -21,7 +21,7 @@ public class ReporteF10BeanManager {
         bean.setUR(rs.getString("cu_ur"));
         bean.setCC(rs.getString("cu_cc"));
         for (int i = 0; i < beanInfo.length; i++) {
-            log.trace("Procesando columna " + metaData.getColumnName(i + 1));
+            log.trace("Object: {}", "Procesando columna " + metaData.getColumnName(i + 1));
             String val = rs.getString(metaData.getColumnName(i + 1));
             if ((i > 0 && i < 5) || (i >= 10 && i <= 20) || (i == 24)) {
                 if (totales.get(metaData.getColumnName(i + 1)) == null)
@@ -55,7 +55,7 @@ public class ReporteF10BeanManager {
         Map<String, Double> totales = ccBean.getTotales();
         double[][] resumen = ccBean.getResumen();
         for (int i = 0; i < beanInfo.length; i++) {
-            log.trace("Procesando columna " + metaData.getColumnName(i + 1));
+            log.trace("Object: {}", "Procesando columna " + metaData.getColumnName(i + 1));
             String val = rs.getString(metaData.getColumnName(i + 1));
             if ((i > 0 && i < 5) || (i >= 10 && i <= 20) || (i == 24)) {
                 if (totales.get(metaData.getColumnName(i + 1)) == null)

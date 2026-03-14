@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.LogManager;
 import com.axtel.egresos.core.MasiveOperation;
 import com.syc.contable.RelacionGastosBussinessLogic;
 import com.syc.contable.core.SolicitudPagoFirmaElectronica;
@@ -26,7 +25,7 @@ public class GeneraDocumentosFIELMasivaServlet extends HttpServlet implements Ge
 
     private static final long serialVersionUID = 8530867307056513367L;
 
-    private static final Logger log = LogManager.getLogger(GeneraDocumentosFIELMasivaServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(GeneraDocumentosFIELMasivaServlet.class);
 
     private String reportPath;
 

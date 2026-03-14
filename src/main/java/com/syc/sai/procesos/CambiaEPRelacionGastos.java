@@ -64,9 +64,9 @@ public class CambiaEPRelacionGastos {
             try {
                 conn = Util.getStandAloneConnection();
                 log.info("===========================================================================================");
-                log.info("Procesando Folio: " + folio);
+                log.info("Object: {}", "Procesando Folio: " + folio);
                 if (esRelacionReemplazada(conn, folio)) {
-                    log.info("La relacion de gastos con folio: " + folio + " ya ha sido reemplazada.");
+                    log.info("Object: {}", "La relacion de gastos con folio: " + folio + " ya ha sido reemplazada.");
                     continue;
                 }
                 RelacionGastosEncabezado encabezado = RelacionGastosManager.clonaRelacionGastos(conn, folio);
@@ -90,18 +90,18 @@ public class CambiaEPRelacionGastos {
                 actualizaFolioRGDet(detalleNuevo, nFolioRelacionGastos);
                 int insertados = RelacionGastosManager.insertRelacionGastosEncabezado(conn, encabezado);
                 insertados += RelacionGastosManager.insertaRelacionGastosDetalle(conn, detalleNuevo);
-                log.info("Insertados " + insertados + " registros");
+                log.info("Object: {}", "Insertados " + insertados + " registros");
                 int nFolioPagoApartado = RelacionGastosManager.insertaPagoApartado(conn, encabezado);
                 int facturas = copiaFacturas(conn, folio, nFolioRelacionGastos);
-                log.info("Se recuperaron " + facturas + " elementos de CFDI (Facturas, Retenciones e impuestos) ");
+                log.info("Object: {}", "Se recuperaron " + facturas + " elementos de CFDI (Facturas, Retenciones e impuestos) ");
                 int facturasBorradas = limpiaFacturasOrigen(conn, folio);
-                log.info("Se borraron " + facturasBorradas + " elementos de CFDI (Facturas, Retenciones e impuestos) ");
+                log.info("Object: {}", "Se borraron " + facturasBorradas + " elementos de CFDI (Facturas, Retenciones e impuestos) ");
                 int vuelosActualizados = actualizaVuelos(conn, folio, nFolioRelacionGastos);
-                log.info("Se actualizaron " + vuelosActualizados + " vuelos) ");
+                log.info("Object: {}", "Se actualizaron " + vuelosActualizados + " vuelos) ");
                 int contrarreciboInsertado = insertaContrarrecibo(conn, original.getCaNoContrarrecibo(), contrarecibo);
-                log.info("Se insertaron " + contrarreciboInsertado + " contrarecibo ");
+                log.info("Object: {}", "Se insertaron " + contrarreciboInsertado + " contrarecibo ");
                 int insertaDocComp = insertaDocComp(conn, original.getCaNoContrarrecibo(), contrarecibo);
-                log.info("Se insertaron " + insertaDocComp + " documentacion comprobatoria ");
+                log.info("Object: {}", "Se insertaron " + insertaDocComp + " documentacion comprobatoria ");
                 aplicaApartado(conn, nFolioPagoApartado);
                 avanzaCasoAutorizacion(conn, casoNuevo, u);
                 aplicaDevengado(conn, encabezado);
@@ -118,7 +118,7 @@ public class CambiaEPRelacionGastos {
                     try {
                         conn.rollback();
                     } catch (Exception e2) {
-                        log.warn("Error en rollback: " + e2);
+                        log.warn("Error occurred", "Error en rollback: " + e2);
                     }
                 log.error(e.getMessage(), e);
             } finally {
@@ -185,7 +185,7 @@ public class CambiaEPRelacionGastos {
         insertados += insertaOrgCarpetas(conn, idGabineteOrigen, idGabineteDestino);
         insertados += insertaDocumentos(conn, idGabineteOrigen, idGabineteDestino);
         insertados += insertaPaginas(conn, idGabineteOrigen, idGabineteDestino);
-        log.info("Se insertaron " + insertados + " elementos en expediente");
+        log.info("Object: {}", "Se insertaron " + insertados + " elementos en expediente");
     }
 
     private static Usuario cargaUsuario(Connection conn, String u_LOGIN) throws Exception {
@@ -199,7 +199,7 @@ public class CambiaEPRelacionGastos {
         String query = "INSERT INTO imx_pagina(TITULO_APLICACION, ID_CARPETA_PADRE, ID_DOCUMENTO, NUMERO_PAGINA, VOLUMEN, TIPO_VOLUMEN, NOM_ARCHIVO_VOL, NOM_ARCHIVO_ORG, TIPO_PAGINA, ANOTACIONES, ESTADO_PAGINA, TAMANO_BYTES, ID_GABINETE, FECHA_CREACION, HORA_CREACION, ROWID)" + " SELECT	pagina.TITULO_APLICACION ," + "         pagina.ID_CARPETA_PADRE ," + "         pagina.ID_DOCUMENTO ," + "         pagina.NUMERO_PAGINA ," + "         pagina.VOLUMEN ," + "         pagina.TIPO_VOLUMEN ," + "         pagina.NOM_ARCHIVO_VOL ," + "         pagina.NOM_ARCHIVO_ORG ," + "         pagina.TIPO_PAGINA ," + "         pagina.ANOTACIONES ," + "         pagina.ESTADO_PAGINA ," + "         pagina.TAMANO_BYTES ," + "         " + idGabineteDestino + " AS ID_GABINETE ," + "         pagina.FECHA_CREACION ," + "         pagina.HORA_CREACION ," + "         pagina.ROWID" + "  FROM	imx_pagina pagina WITH(NOLOCK) " + "		INNER JOIN " + "		IMX_DOCUMENTO documento WITH(NOLOCK)" + "		ON pagina.TITULO_APLICACION = documento.TITULO_APLICACION " + "		AND pagina.ID_GABINETE = documento.ID_GABINETE " + "		AND pagina.ID_CARPETA_PADRE = documento.ID_CARPETA_PADRE " + "		AND pagina.ID_DOCUMENTO = documento.ID_DOCUMENTO" + "		INNER JOIN " + "		IMX_CARPETA carpeta" + "		ON documento.TITULO_APLICACION = carpeta.TITULO_APLICACION " + "		AND documento.ID_GABINETE = carpeta.ID_GABINETE " + "		AND documento.ID_CARPETA_PADRE = carpeta.ID_CARPETA" + "		INNER JOIN dbo.IMX_ORG_CARPETA orgCarpeta" + "		ON carpeta.TITULO_APLICACION = orgCarpeta.TITULO_APLICACION " + "		AND carpeta.ID_GABINETE = orgCarpeta.ID_GABINETE " + "		AND carpeta.ID_CARPETA = orgCarpeta.ID_CARPETA_HIJA" + " WHERE	pagina.TITULO_APLICACION = 'RELACIONGASTOS' " + "   AND	pagina.ID_GABINETE = " + idGabineteOrigen + "   AND	documento.ID_CARPETA_PADRE <> 0" + "   AND NOMBRE_CARPETA <> 'SOLICITUD DE PAGO'";
         PreparedStatement ps = null;
         try {
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             int afectados = ps.executeUpdate();
             return afectados;
@@ -280,7 +280,7 @@ public class CambiaEPRelacionGastos {
         for (RelacionGastosDetalle renglon : detalle) {
             // Cambia la fuente de financiamiento
             String epNueva = renglon.getEP().substring(0, 39) + "4.14" + renglon.getEP().substring(43);
-            log.debug("Se cambia la EP original [" + renglon.getEP() + "] por la EP [" + epNueva + "]");
+            log.debug("Object: {}", "Se cambia la EP original [" + renglon.getEP() + "] por la EP [" + epNueva + "]");
             if (montos.get(epNueva) == null)
                 montos.put(epNueva, renglon.getmImporteMasIva());
             else
@@ -356,7 +356,7 @@ public class CambiaEPRelacionGastos {
         String query = "INSERT INTO imx_carpeta(TITULO_APLICACION, ID_GABINETE, ID_CARPETA, NOMBRE_CARPETA, NOMBRE_USUARIO, BANDERA_RAIZ, FH_CREACION, FH_MODIFICACION, NUMERO_ACCESOS, NUMERO_CARPETAS, NUMERO_DOCUMENTOS, DESCRIPCION, PASSWORD)" + "SELECT	DISTINCT carpeta.TITULO_APLICACION ," + "        " + idGabineteDestino + " AS  ID_GABINETE ," + "        carpeta.ID_CARPETA ," + "        carpeta.NOMBRE_CARPETA ," + "        carpeta.NOMBRE_USUARIO ," + "        carpeta.BANDERA_RAIZ ," + "        carpeta.FH_CREACION ," + "        carpeta.FH_MODIFICACION ," + "        carpeta.NUMERO_ACCESOS ," + "        carpeta.NUMERO_CARPETAS ," + "        carpeta.NUMERO_DOCUMENTOS ," + "        carpeta.DESCRIPCION ," + "        carpeta.PASSWORD " + "  FROM	imx_pagina pagina WITH(NOLOCK) " + "		INNER JOIN " + "		IMX_DOCUMENTO documento WITH(NOLOCK) " + "		ON pagina.TITULO_APLICACION = documento.TITULO_APLICACION " + "		AND pagina.ID_GABINETE = documento.ID_GABINETE " + "		AND pagina.ID_CARPETA_PADRE = documento.ID_CARPETA_PADRE " + "		AND pagina.ID_DOCUMENTO = documento.ID_DOCUMENTO " + "		INNER JOIN " + "		IMX_CARPETA carpeta" + "		ON documento.TITULO_APLICACION = carpeta.TITULO_APLICACION " + "		AND documento.ID_GABINETE = carpeta.ID_GABINETE " + "		AND documento.ID_CARPETA_PADRE = carpeta.ID_CARPETA " + "		INNER JOIN dbo.IMX_ORG_CARPETA orgCarpeta " + "		ON carpeta.TITULO_APLICACION = orgCarpeta.TITULO_APLICACION " + "		AND carpeta.ID_GABINETE = orgCarpeta.ID_GABINETE " + "		AND carpeta.ID_CARPETA = orgCarpeta.ID_CARPETA_HIJA " + " WHERE	pagina.TITULO_APLICACION = 'RELACIONGASTOS' " + "   AND	pagina.ID_GABINETE =  " + idGabineteOrigen + "   AND	documento.ID_CARPETA_PADRE <> 0 " + "   AND NOMBRE_CARPETA <> 'SOLICITUD DE PAGO' " + "   AND carpeta.NOMBRE_CARPETA NOT IN ( " + "   		SELECT NOMBRE_CARPETA FROM IMX_CARPETA WHERE TITULO_APLICACION = 'RELACIONGASTOS' AND ID_GABINETE = " + idGabineteDestino + ")";
         PreparedStatement ps = null;
         try {
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             int afectados = ps.executeUpdate();
             return afectados;
@@ -369,7 +369,7 @@ public class CambiaEPRelacionGastos {
         String query = "INSERT INTO dbo.IMX_DOCUMENTO (TITULO_APLICACION, ID_GABINETE, ID_CARPETA_PADRE, ID_DOCUMENTO, NOMBRE_DOCUMENTO, NOMBRE_USUARIO, PRIORIDAD, ID_TIPO_DOCTO, FH_CREACION, FH_MODIFICACION, NUMERO_ACCESOS, NUMERO_PAGINAS, TITULO, AUTOR, MATERIA, DESCRIPCION, CLASE_DOCUMENTO, ESTADO_DOCUMENTO, TAMANO_BYTES, COMPARTIR, TOKEN_COMPARTIR, FH_VIGENCIA, iEsVersion)" + " SELECT	DISTINCT documento.TITULO_APLICACION ," + "        " + idGabineteDestino + " AS ID_GABINETE ," + "        documento.ID_CARPETA_PADRE ," + "        documento.ID_DOCUMENTO ," + "        documento.NOMBRE_DOCUMENTO ," + "        documento.NOMBRE_USUARIO ," + "        documento.PRIORIDAD ," + "        documento.ID_TIPO_DOCTO ," + "        documento.FH_CREACION ," + "        documento.FH_MODIFICACION ," + "        documento.NUMERO_ACCESOS ," + "        documento.NUMERO_PAGINAS ," + "        documento.TITULO ," + "        documento.AUTOR ," + "        documento.MATERIA ," + "        documento.DESCRIPCION ," + "        documento.CLASE_DOCUMENTO ," + "        documento.ESTADO_DOCUMENTO ," + "        documento.TAMANO_BYTES ," + "        documento.COMPARTIR ," + "        documento.TOKEN_COMPARTIR ," + "        documento.FH_VIGENCIA ," + "        documento.iEsVersion" + "  FROM	imx_pagina pagina WITH(NOLOCK) " + "		INNER JOIN " + "		IMX_DOCUMENTO documento WITH(NOLOCK)" + "		ON pagina.TITULO_APLICACION = documento.TITULO_APLICACION " + "		AND pagina.ID_GABINETE = documento.ID_GABINETE " + "		AND pagina.ID_CARPETA_PADRE = documento.ID_CARPETA_PADRE " + "		AND pagina.ID_DOCUMENTO = documento.ID_DOCUMENTO" + "		INNER JOIN " + "		IMX_CARPETA carpeta" + "		ON documento.TITULO_APLICACION = carpeta.TITULO_APLICACION " + "		AND documento.ID_GABINETE = carpeta.ID_GABINETE " + "		AND documento.ID_CARPETA_PADRE = carpeta.ID_CARPETA" + "		INNER JOIN dbo.IMX_ORG_CARPETA orgCarpeta" + "		ON carpeta.TITULO_APLICACION = orgCarpeta.TITULO_APLICACION " + "		AND carpeta.ID_GABINETE = orgCarpeta.ID_GABINETE " + "		AND carpeta.ID_CARPETA = orgCarpeta.ID_CARPETA_HIJA" + " WHERE	pagina.TITULO_APLICACION = 'RELACIONGASTOS' " + "   AND	pagina.ID_GABINETE = " + idGabineteOrigen + "   AND	documento.ID_CARPETA_PADRE <> 0" + "   AND NOMBRE_CARPETA <> 'SOLICITUD DE PAGO' " + "   AND documento.NOMBRE_DOCUMENTO NOT IN( SELECT NOMBRE_DOCUMENTO FROM imx_documento d " + "                                           WHERE d.TITULO_APLICACION = 'RELACIONGASTOS' " + "                                             AND d.ID_GABINETE = " + idGabineteDestino + "                                             AND d.ID_CARPETA_PADRE = documento.ID_CARPETA_PADRE)";
         PreparedStatement ps = null;
         try {
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             int afectados = ps.executeUpdate();
             return afectados;
@@ -396,7 +396,7 @@ public class CambiaEPRelacionGastos {
         Caso rco = null;
         boolean delete = true;
         if (resp.length != oper.length) {
-            log.error("Las dimensiones no coinciden rep[" + resp.length + "] vs oper[" + oper.length + "]");
+            log.error("Object: {}", "Las dimensiones no coinciden rep[" + resp.length + "] vs oper[" + oper.length + "]");
             throw new GestionException("Las dimensiones no coinciden rep[" + resp.length + "] vs oper[" + oper.length + "]");
         }
         int[] idCasoOperSgte = new int[resp.length];
@@ -424,7 +424,7 @@ public class CambiaEPRelacionGastos {
             o.setNombre(oper[i].trim());
             o = OperacionManager.select(conn, o);
             if (o == null) {
-                log.error("No se localizo la Operacion \"" + oper[i] + "\"");
+                log.error("Object: {}", "No se localizo la Operacion \"" + oper[i] + "\"");
                 throw new GestionException("No se localizo la Operación \"" + oper[i] + "\"");
             }
             CasoOperacion co = CasoOperacionManager.nuevoCasoOperacion(conn, resp[i].trim(), observ, c, o);
@@ -699,9 +699,9 @@ public class CambiaEPRelacionGastos {
                     psDeleteInfoVuelos = conn.prepareStatement(sDeleteInfoVuelos);
                     psDeleteInfoVuelos.setInt(1, folio);
                     int updateVuelos = psUpdateLayoutVuelos.executeUpdate();
-                    log.info("Se Actualizaron: " + updateVuelos + " Vuelos.");
+                    log.info("Object: {}", "Se Actualizaron: " + updateVuelos + " Vuelos.");
                     int deleteVuelos = psDeleteInfoVuelos.executeUpdate();
-                    log.info("Se eliminaron: " + deleteVuelos + " Vuelos.");
+                    log.info("Object: {}", "Se eliminaron: " + deleteVuelos + " Vuelos.");
                 }
             }
         } finally {

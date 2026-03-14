@@ -4,13 +4,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.apache.log4j.LogManager;
 import com.axtel.notifications.CorreoNotificacion;
 import com.axtel.presupuesto.AdecuacionCancelacion;
 import com.axtel.presupuesto.AdecuacionDetalleResumen;
@@ -29,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 public class NotificaAdecuacionMetasCliente extends WSClient {
 
-    private static final Logger log = LogManager.getLogger(NotificaAdecuacionMetasCliente.class);
+    private static final Logger log = LoggerFactory.getLogger(NotificaAdecuacionMetasCliente.class);
 
     private static String MAIL_TEMPLATE;
 
@@ -37,7 +36,7 @@ public class NotificaAdecuacionMetasCliente extends WSClient {
 
     public NotificaAdecuacionMetasCliente(String urlService) {
         super();
-        log.info("Creado cliente para servicio de notificacion de adecuaciones. URL[" + urlService + "]");
+        log.info("Object: {}", "Creado cliente para servicio de notificacion de adecuaciones. URL[" + urlService + "]");
         setUrlService(urlService);
         loadMailTemplates();
     }
@@ -62,11 +61,11 @@ public class NotificaAdecuacionMetasCliente extends WSClient {
     }
 
     public AdecuacionRespuesta enviaNotificacionCancelacion(Connection conn, AdecuacionCancelacion adecuacionCancelacion) throws WSException {
-        log.debug("Iniciando envio de cancelacion de adecuacion: " + adecuacionCancelacion.getFolio());
+        log.debug("Object: {}", "Iniciando envio de cancelacion de adecuacion: " + adecuacionCancelacion.getFolio());
         WebTarget target = getClient().target(getUrlService());
         Builder requestBuilder = target.request(MediaType.APPLICATION_JSON);
         Entity<AdecuacionCancelacion> msgJSON = Entity.json(adecuacionCancelacion);
-        log.trace("Enviando: " + msgJSON);
+        log.trace("Object: {}", "Enviando: " + msgJSON);
         Response rsp = requestBuilder.post(msgJSON);
         AdecuacionRespuesta adecuacionRespuesta = null;
         if (rsp.getStatus() != HttpServletResponse.SC_OK) {
@@ -80,17 +79,17 @@ public class NotificaAdecuacionMetasCliente extends WSClient {
             throw new WSException("Problemas en request a endpoint[] Status: " + rsp.getStatus() + " - " + motivoError);
         }
         adecuacionRespuesta = rsp.readEntity(AdecuacionRespuesta.class);
-        log.info("Registro de adecuacion terminado. Resultado:" + rsp);
+        log.info("Object: {}", "Registro de adecuacion terminado. Resultado:" + rsp);
         return adecuacionRespuesta;
     }
 
     public AdecuacionRespuesta enviaNotificacion(Connection conn, AdecuacionResumen adecuacionNotificar) throws WSException {
-        log.debug("Iniciando envio de registro de adecuacion: " + adecuacionNotificar.getEncabezado().getFolio());
-        log.info("Se consumira servicio en: " + getUrlService());
+        log.debug("Object: {}", "Iniciando envio de registro de adecuacion: " + adecuacionNotificar.getEncabezado().getFolio());
+        log.info("Object: {}", "Se consumira servicio en: " + getUrlService());
         WebTarget target = getClient().target(getUrlService());
         Builder requestBuilder = target.request(MediaType.APPLICATION_JSON);
         Entity<AdecuacionResumen> msgJSON = Entity.json(adecuacionNotificar);
-        log.trace("Enviando: " + msgJSON);
+        log.trace("Object: {}", "Enviando: " + msgJSON);
         Response rsp = requestBuilder.post(msgJSON);
         AdecuacionRespuesta adecuacionRespuesta = null;
         if (rsp.getStatus() != HttpServletResponse.SC_OK) {
@@ -104,7 +103,7 @@ public class NotificaAdecuacionMetasCliente extends WSClient {
             throw new WSException("Problemas en request a endpoint[] Status: " + rsp.getStatus() + " - " + motivoError);
         }
         adecuacionRespuesta = rsp.readEntity(AdecuacionRespuesta.class);
-        log.info("Registro de adecuacion terminado. Resultado:" + rsp);
+        log.info("Object: {}", "Registro de adecuacion terminado. Resultado:" + rsp);
         return adecuacionRespuesta;
     }
 
@@ -123,7 +122,7 @@ public class NotificaAdecuacionMetasCliente extends WSClient {
     }
 
     private List<CorreoNotificacion> generateMail(Connection conn, AdecuacionResumen adecuacionNotificar, List<UsuarioNotificado> usuarios, String mailTemplate) throws Exception {
-        log.trace(mailTemplate);
+        log.trace("Object: {}", mailTemplate);
         List<CorreoNotificacion> correos = new ArrayList<>();
         StringBuilder datosEncabezadoAdecuacion = new StringBuilder("<tr>").append("<td>").append(adecuacionNotificar.getEncabezado().getFolio()).append("</td>").append("<td>").append(adecuacionNotificar.getEncabezado().getJustificacion()).append("</td>").append("</tr>");
         StringBuilder datosDetalleAdecuacion = new StringBuilder("<tbody>");

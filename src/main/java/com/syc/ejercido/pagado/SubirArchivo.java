@@ -123,11 +123,11 @@ public class SubirArchivo extends DataSourceManager {
             inp.close();
             json.put("estatus", "correcto");
         } catch (Exception ex) {
-            log.warn("Error: Cerrando Conexion " + ex);
+            log.warn("Error occurred", "Error: Cerrando Conexion " + ex);
             try {
                 json.put("estatus", "incorrecto");
             } catch (Exception e) {
-                log.warn("Error: Cerrando Conexion " + e);
+                log.warn("Error occurred", "Error: Cerrando Conexion " + e);
             }
         }
         return json;

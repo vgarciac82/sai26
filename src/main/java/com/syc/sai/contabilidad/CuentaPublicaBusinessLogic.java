@@ -2,7 +2,7 @@ package com.syc.sai.contabilidad;
 
 import java.sql.Connection;
 import java.util.List;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import com.syc.admin.servlet.ReportsException;
 import com.syc.crud.dsmngr.DataSourceManager;
 import org.slf4j.Logger;
@@ -32,7 +32,7 @@ public class CuentaPublicaBusinessLogic extends DataSourceManager {
                 try {
                     conn.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando la conexion a la base de datos: " + e2);
+                    log.warn("Object: {}", "Problemas cerrando la conexion a la base de datos: " + e2);
                 }
             conn = null;
         }
@@ -52,7 +52,7 @@ public class CuentaPublicaBusinessLogic extends DataSourceManager {
                 try {
                     conn.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando la conexion a la base de datos: " + e2);
+                    log.warn("Object: {}", "Problemas cerrando la conexion a la base de datos: " + e2);
                 }
             conn = null;
         }
@@ -72,7 +72,7 @@ public class CuentaPublicaBusinessLogic extends DataSourceManager {
                 try {
                     conn.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando la conexion a la base de datos: " + e2);
+                    log.warn("Object: {}", "Problemas cerrando la conexion a la base de datos: " + e2);
                 }
             conn = null;
         }
@@ -92,7 +92,7 @@ public class CuentaPublicaBusinessLogic extends DataSourceManager {
                 try {
                     conn.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando la conexion a la base de datos: " + e2);
+                    log.warn("Object: {}", "Problemas cerrando la conexion a la base de datos: " + e2);
                 }
             conn = null;
         }
@@ -120,7 +120,7 @@ public class CuentaPublicaBusinessLogic extends DataSourceManager {
                 try {
                     conn.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando la conexion a la base de datos: " + e2);
+                    log.warn("Object: {}", "Problemas cerrando la conexion a la base de datos: " + e2);
                 }
             conn = null;
         }
@@ -162,7 +162,7 @@ public class CuentaPublicaBusinessLogic extends DataSourceManager {
                 try {
                     conn.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando la conexion a la base de datos: " + e2);
+                    log.warn("Object: {}", "Problemas cerrando la conexion a la base de datos: " + e2);
                 }
             conn = null;
         }

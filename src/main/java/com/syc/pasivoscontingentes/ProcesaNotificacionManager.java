@@ -40,7 +40,7 @@ public class ProcesaNotificacionManager {
         ResultSet rs2 = null;
         PreparedStatement ps2 = null;
         String subject = "Notificacion de Cheque de LAUDOS";
-        log.info("Correo: " + subject);
+        log.info("Object: {}", "Correo: " + subject);
         try {
             ConfiguraAplicativoBusinessLogic cabl = new ConfiguraAplicativoBusinessLogic(GestionInterface.ATT_CONEXION);
             String body = getCuerpoCorreo(conn);

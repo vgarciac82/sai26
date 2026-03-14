@@ -142,7 +142,7 @@ public class PenaltiesServlet extends HttpServlet {
                     break;
             }
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             jsonObj = new JSONObject();
             try {
                 jsonObj.put("MENSAJE", e.getMessage());
@@ -203,7 +203,7 @@ public class PenaltiesServlet extends HttpServlet {
         PenaltyItems items = null;
         log.debug("Armando el array de partidas");
         String cadenaPartidas = request.getParameter("penaltyItems");
-        log.info("Cadena : " + cadenaPartidas);
+        log.info("Object: {}", "Cadena : " + cadenaPartidas);
         String[] arrayTupla = cadenaPartidas.split(",");
         String[] arrayValores = null;
         for (int i = 0; i < arrayTupla.length; i++) {
@@ -248,7 +248,7 @@ public class PenaltiesServlet extends HttpServlet {
         DeductionItems items = null;
         log.debug("Armando el array de partidas");
         String cadenaPartidas = request.getParameter("deductionItems");
-        log.info("Cadena : " + cadenaPartidas);
+        log.info("Object: {}", "Cadena : " + cadenaPartidas);
         String[] arrayTupla = cadenaPartidas.split(",");
         String[] arrayValores = null;
         for (int i = 0; i < arrayTupla.length; i++) {

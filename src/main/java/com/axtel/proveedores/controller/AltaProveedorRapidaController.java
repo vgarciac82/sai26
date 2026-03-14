@@ -5,14 +5,14 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.syc.altaproveedor.AltaProveedorBusinessLogic;
 import com.syc.altaproveedor.DatosProveedor;
@@ -51,12 +51,12 @@ public class AltaProveedorRapidaController extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         apbl = new AltaProveedorBusinessLogic(jniName);
         cbl = new CasoBusinessLogic(jniName);
@@ -174,7 +174,7 @@ public class AltaProveedorRapidaController extends HttpServlet {
                     throw new RuntimeException("No hay session. Ingrese nuevamente al sistema");
                 String clabeEliminar = request.getParameter("clabeEliminar");
                 String folio = request.getParameter("folio");
-                log.info("Eliminando Cuenta: " + clabeEliminar);
+                log.info("Object: {}", "Eliminando Cuenta: " + clabeEliminar);
                 dbbl.eliminaCtaBancaria(folio, clabeEliminar);
                 ITree tree = cbl.getArbolCaso(c);
                 session.setAttribute(GestionInterface.ATT_CASE, c);

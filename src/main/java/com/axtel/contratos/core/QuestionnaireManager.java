@@ -11,7 +11,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.apache.log4j.LogManager;
 import com.syc.cfdi.db.CloseObject;
 import com.syc.egresos.core.EgresoEncabezado;
 import com.syc.gestion.core.Usuario;
@@ -24,7 +23,7 @@ public class QuestionnaireManager {
 
     private static final String REQUEST_APPLICATION = "APARTADO";
 
-    private static final Logger log = LogManager.getLogger(QuestionnaireManager.class);
+    private static final Logger log = LoggerFactory.getLogger(QuestionnaireManager.class);
 
     /**
      * Lee las respuestas ingresadas al cuestionario de pago.
@@ -42,7 +41,7 @@ public class QuestionnaireManager {
         query.append("  FROM vquestionnairepayments ");
         query.append(" WHERE ctipopago = ? ");
         query.append("   AND nfoliopago = ?   ");
-        log.debug("Buscando respuestas al cuestionario: " + header.getTipoPago() + ", " + header.getFolioPago());
+        log.debug("Object: {}", "Buscando respuestas al cuestionario: " + header.getTipoPago() + ", " + header.getFolioPago());
         QueryRunner run = new QueryRunner();
         ResultSetHandler<List<QuestionnaireAnswer>> h = new BeanListHandler<QuestionnaireAnswer>(QuestionnaireAnswer.class);
         List<QuestionnaireAnswer> answers = run.query(conn, query.toString(), h, header.getTipoPago(), header.getFolioPago());
@@ -249,7 +248,7 @@ public class QuestionnaireManager {
         try {
             query = new StringBuilder();
             query.append("delete tCuestionarioRequisicionFIEL where cIdSolicitud=?");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cIdRequest);
             afectados += ps.executeUpdate();
@@ -267,7 +266,7 @@ public class QuestionnaireManager {
         try {
             query = new StringBuilder();
             query.append("delete tCuestionarioRequisicion where cIdSolicitud=?");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cIdRequest);
             afectados += ps.executeUpdate();
@@ -285,7 +284,7 @@ public class QuestionnaireManager {
         try {
             query = new StringBuilder();
             query.append("delete from IMX_PAGINA where TITULO_APLICACION = 'APARTADO' and ID_GABINETE = ? and ID_CARPETA_PADRE =  2  and ID_DOCUMENTO IN (1,	2) ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, nCabinetId);
             afectados += ps.executeUpdate();

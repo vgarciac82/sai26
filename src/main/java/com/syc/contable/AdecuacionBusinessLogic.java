@@ -378,13 +378,13 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
 			 */
             int xnEpInsertadas = AdecuacionManager.insertaEpsNuevas(conn, folioAdecuacion);
             conn.commit();
-            log.debug("Se insertaron " + xnInsertados + " elementos de la adecuacion");
-            log.debug("Se insertaron " + xnEpInsertadas + " EP's al catalogo");
+            log.debug("Object: {}", "Se insertaron " + xnInsertados + " elementos de la adecuacion");
+            log.debug("Object: {}", "Se insertaron " + xnEpInsertadas + " EP's al catalogo");
         } catch (Exception e) {
             try {
                 conn.rollback();
             } catch (Exception eRB) {
-                log.warn("Problemas realizando el rollback: " + eRB);
+                log.warn("Object: {}", "Problemas realizando el rollback: " + eRB);
             }
             log.error(e.getMessage(), e);
             mensajesValidacion.add(e.toString());
@@ -441,7 +441,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             }
             if (nIdCaso > 0) {
                 AplicacionContable conInt = new AplicacionContable();
-                log.debug("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
+                log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
                 if ("NO".equals(cSuperReduccion) && ("SI".equals(cSRInterna))) {
                     cSuperReduccion = "SI";
                 }
@@ -450,7 +450,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                     acr = conInt.aplicarContableNuevo(conn, c, "", "", "", 0, "", m, prefixPath, UserID, cSuperReduccion);
                 }
                 arrLResult = (ArrayList<String>) acr.getMessageList();
-                log.debug("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
+                log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
                 Caso cReloaded = new Caso();
                 cReloaded.setIdCaso(c.getIdCaso());
                 cReloaded = CasoManager.select(conn, cReloaded);
@@ -504,7 +504,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             conn = getConnection();
             arrmMontosCalendario = AdecuacionManager.seleccionaAdecuacion(conn, id_adecuacion);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -542,13 +542,13 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             conn = cbl.getConnection();
             AdecuacionManager.autorizaAdecuacion(conn, c, nNumSicop, fSicop, nNumMAP, fMAP, cSuperReduccion, prefixPath, usuario.getLogin(), cCentroContable);
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             if (!"SI".equals(cSuperReduccion) && "SI".equals(cSRInterna)) {
                 cSuperReduccion = "SI";
             }
             AplicarContableReturn acr = conInt.aplicarContableNuevo(conn, c, "tADECUACIONAUTEncabezado", "tADECUACIONAUTDetalle", "nFolioAdecuacionaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "ADECUACIONAUT", m, prefixPath, usuario.getLogin(), cSuperReduccion);
             arrLResult = (ArrayList<String>) acr.getMessageList();
-            log.debug("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             Caso cReloaded = new Caso();
             cReloaded.setIdCaso(c.getIdCaso());
             cReloaded = CasoManager.select(conn, cReloaded);
@@ -569,7 +569,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                         AlarmaManager.procesaAlarmaCNF(conn, prefixPath, c.getCasoOperacion(0), c, "", to, body);
                     }
                 } catch (Exception exmail) {
-                    log.error("No se logro enviar el correo de autorizacion de adecuacion: " + exmail);
+                    log.error("Object: {}", "No se logro enviar el correo de autorizacion de adecuacion: " + exmail);
                 }
                 conn.commit();
                 // avanzaCaso tiene su propia connection, en caso de fallar de
@@ -578,9 +578,9 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             } else {
                 conn.rollback();
                 to = usuario.getLogin();
-                body = (!correoProduccion ? "CORREO DE PRUEBA <br>" : "") + (!correoProduccion ? "este correo le hubiera llegado a: " + to + "<br> <br>" : "") + "Para su conocimiento y efectos correspondientes, se le informa que el folio siguiente:<br><b>" + c.getTipoCaso().getDescripcion() + "</b> No. SAI: <b>" + c.getFolio() + (nNumSicop != null ? "</b> con folio SICOP: <b>" + nNumSicop : "") + (nNumMAP != null ? "</b> con folio MAP: <b>" + nNumMAP : "") + "</b><br>" + // "Mismo que ya cuenta con estatus de autorizado en el
-                // SAI.<br>"+
-                "<b>NO PUDO SER AUTORIZADO</b>, debido a:<br>" + arrLResult;
+                // "Mismo que ya cuenta con estatus de autorizado en el
+                body = // SAI.<br>"+
+                (!correoProduccion ? "CORREO DE PRUEBA <br>" : "") + (!correoProduccion ? "este correo le hubiera llegado a: " + to + "<br> <br>" : "") + "Para su conocimiento y efectos correspondientes, se le informa que el folio siguiente:<br><b>" + c.getTipoCaso().getDescripcion() + "</b> No. SAI: <b>" + c.getFolio() + (nNumSicop != null ? "</b> con folio SICOP: <b>" + nNumSicop : "") + (nNumMAP != null ? "</b> con folio MAP: <b>" + nNumMAP : "") + "</b><br>" + "<b>NO PUDO SER AUTORIZADO</b>, debido a:<br>" + arrLResult;
                 try {
                     if (!correoProduccion)
                         to = "" + usuario.getU_email();
@@ -588,7 +588,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                         AlarmaManager.procesaAlarmaCNF(conn, prefixPath, c.getCasoOperacion(0), c, "", to, body);
                     }
                 } catch (Exception exmail) {
-                    log.error("No se logro enviar el correo de mensaje de error en autorizacion de adecuacion: " + exmail);
+                    log.error("Error occurred", "No se logro enviar el correo de mensaje de error en autorizacion de adecuacion: " + exmail);
                 }
                 // avanzaCaso tiene su propia connection, en caso de fallar de
                 // todos modos se conserva la app cont
@@ -603,7 +603,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             }
         } catch (Exception exc) {
             // conn.rollback();
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             arrLResult.add(exc.getLocalizedMessage());
             try {
                 conn.rollback();
@@ -627,12 +627,12 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             conn = getConnection();
             AdecuacionManager.autorizaAdecuacion(conn, c, nNumSicop, fSicop, nNumMAP, fMAP, cSuperReduccion, prefixPath, uLogin, cCentroContable);
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Inicia Autorización aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " para Folio: " + nIdCaso);
+            log.debug("Object: {}", "Inicia Autorización aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " para Folio: " + nIdCaso);
             // el
             arrLResult.addAll(conInt.aplicarContable(conn, c, "tADECUACIONAUTEncabezado", "tADECUACIONAUTDetalle", "nFolioAdecuacionaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "ADECUACIONAUTE", m, prefixPath, uLogin));
-            log.debug("Termina Autorización Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Termina Autorización Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -677,7 +677,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                     log.error("No se logro notificar la cancelacion: " + e, e);
                     throw e;
                 } catch (Exception exmail) {
-                    log.error("No se logro enviar el correo: " + exmail);
+                    log.error("Object: {}", "No se logro enviar el correo: " + exmail);
                 }
                 conn.commit();
                 cbl.avanzaCaso(cReloaded, objUsuario.getLogin(), "", new String[] { "CONSULTA_ADECUACION" }, new String[] { "consulta_adecuacion" }, m, prefixPath);
@@ -692,7 +692,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                         AlarmaManager.procesaAlarmaCNF(conn, prefixPath, c.getCasoOperacion(0), c, "", to, body);
                     }
                 } catch (Exception exmail) {
-                    log.error("No se logro enviar el correo: " + exmail);
+                    log.error("Object: {}", "No se logro enviar el correo: " + exmail);
                 }
                 if (acr.getMessageList().get(0).contains("sido aplicado") || acr.getMessageList().get(0).contains("sido cancelado"))
                     cbl.avanzaCaso(cReloaded, objUsuario.getLogin(), "", new String[] { "CONSULTA_ADECUACION" }, new String[] { "consulta_adecuacion" }, m, prefixPath);
@@ -701,7 +701,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             }
             retVal = acr.getMessageList().get(acr.getMessageList().size() - 1);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw exc;
         } finally {
@@ -720,7 +720,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             conn = getConnection();
             retVal = ci.cancelarAppContable(conn, c, "", "", "", 0, "", m, prefixPath, uLogin, cFecha);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -790,7 +790,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             AdecuacionManager.modificaAdecuacion(conn, nFolio, cFolioSICOP, CFolioMAP);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -856,7 +856,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                 respuesta = true;
             }
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new SQLException(exc);
         } finally {
             if (conn != null)
@@ -879,7 +879,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                 tiene = true;
             }
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new SQLException(exc);
         } finally {
             if (conn != null)
@@ -924,7 +924,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             }
             respuesta = AdecuacionManager.obtenClavesSicop(conn, clave);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new SQLException(exc);
         } finally {
             if (conn != null)
@@ -943,7 +943,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             retVal = AdecuacionManager.obtenFolioSicop(conn, aumenta);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new SQLException(exc);
         } finally {
             CloseObject.closeObject(conn);
@@ -959,7 +959,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             retVal = AdecuacionManager.actualizaFolioSicopEncabezado(conn, folioSicop, folioAdecuacion);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new SQLException(exc);
         } finally {
@@ -985,7 +985,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             conn = getConnection();
             responsables = AdecuacionManager.getResponsableArea(conn, login);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new SQLException(exc);
         } finally {
             if (conn != null)
@@ -1002,7 +1002,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             conn = getConnection();
             responsables = AdecuacionManager.getResponsableIntegrador(conn, tipo);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new SQLException(exc);
         } finally {
             if (conn != null)
@@ -1037,7 +1037,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             nFolio = new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue();
             cSuperAdecuacion = AdecuacionManager.ObtenSiperAdecuacion(conn, nFolio, id_Caso);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new SQLException(exc);
         } finally {
@@ -1074,7 +1074,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             try {
-                log.error(e);
+                log.error(e.getMessage(), e);
                 conn.rollback();
                 throw new SQLException(e);
             } catch (Exception e2) {
@@ -1113,7 +1113,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             conn = getConnection();
             arrmMontosCalendario = AdecuacionManager.seleccionaIntegradaAdecCveCorta(conn, nFolioConsolidado, cTipoAdecuacion, U_LOGIN, nNivel, cRamo, aEjercicioFiscal);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -1131,7 +1131,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             conn = getConnection();
             arrmMontosCalendario = AdecuacionManager.seleccionaIntegradaAdec(conn, nFolioConsolidado, cTipoAdecuacion, U_LOGIN, nNivel, cRamo, aEjercicioFiscal);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -1157,7 +1157,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             // modos se conserva la app cont
             cbl.avanzaCaso(cReloaded, uLogin, "", new String[] { "TERMINAR" }, new String[] { "TERMINAR" }, m, prefixPath);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -1240,7 +1240,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                                 to = "" + usuario.getU_email();
                             AlarmaManager.procesaAlarmaCNF(conn, prefixPath, cAutoriza.getCasoOperacion(0), cAutoriza, "", to, body);
                         } catch (Exception exmail) {
-                            log.error("No se logro enviar el correo de autorizacion de adecuacion: " + exmail);
+                            log.error("Object: {}", "No se logro enviar el correo de autorizacion de adecuacion: " + exmail);
                         }
                         // avanzaCaso tiene su propia connection, en caso de
                         // fallar
@@ -1248,13 +1248,13 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                         try {
                             cbl.avanzaCaso(cAutoriza, usuario.getLogin(), "", new String[] { "CONSULTA_ADECUACION" }, new String[] { "consulta_adecuacion" }, m, prefixPath);
                         } catch (Exception exc) {
-                            log.error("No se logro avanzar el caso de autorización de adecuacion " + cAutoriza.getFolio() + " de la integración " + nFolio + " por: " + exc);
+                            log.error("Object: {}", "No se logro avanzar el caso de autorización de adecuacion " + cAutoriza.getFolio() + " de la integración " + nFolio + " por: " + exc);
                         }
                     } else {
                         try {
                             cbl.avanzaCaso(cAutoriza, usuario.getLogin(), "", new String[] { "CONSULTA_FIAF" }, new String[] { "consulta_fiaf" }, m, prefixPath);
                         } catch (Exception exc) {
-                            log.error("No se logro avanzar el caso de autorización de fiaf " + cAutoriza.getFolio() + " de la integración " + nFolio + " por: " + exc);
+                            log.error("Object: {}", "No se logro avanzar el caso de autorización de fiaf " + cAutoriza.getFolio() + " de la integración " + nFolio + " por: " + exc);
                         }
                     }
                     i++;
@@ -1262,7 +1262,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                 try {
                     cbl.avanzaCaso(cl, usuario.getLogin(), "", new String[] { "CONSULTA_INTEGRAADECUA" }, new String[] { "consulta_integadec" }, m, prefixPath);
                 } catch (Exception exc) {
-                    log.error("No se logro avanzar el caso de autorización de Integracion de adecuacion " + cl.getFolio() + " por: " + exc);
+                    log.error("Object: {}", "No se logro avanzar el caso de autorización de Integracion de adecuacion " + cl.getFolio() + " por: " + exc);
                 }
             } else {
                 conn.rollback();
@@ -1276,12 +1276,12 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                         to = "" + usuario.getU_email();
                     AlarmaManager.procesaAlarmaCNF(conn, prefixPath, cl.getCasoOperacion(0), cl, "", to, body);
                 } catch (Exception exmail) {
-                    log.error("No se logro enviar el correo de mensaje de error en autorizacion de adecuacion: " + exmail);
+                    log.error("Error occurred", "No se logro enviar el correo de mensaje de error en autorizacion de adecuacion: " + exmail);
                 }
                 try {
                     cbl.avanzaCaso(cl, usuario.getLogin(), "", new String[] { "CAPTURISTA_INTEGADEC" }, new String[] { "capturista_integadec" }, m, prefixPath);
                 } catch (Exception exc) {
-                    log.error("No se logro avanzar el caso de autorización de Integracion de adecuacion " + cl.getFolio() + " de la integración " + nFolio + " por: " + exc);
+                    log.error("Object: {}", "No se logro avanzar el caso de autorización de Integracion de adecuacion " + cl.getFolio() + " de la integración " + nFolio + " por: " + exc);
                 }
             }
         } finally {
@@ -1303,7 +1303,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                 tiene = true;
             }
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new SQLException(exc);
         } finally {
             if (conn != null)
@@ -1321,7 +1321,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             retVal = AdecuacionManager.actualizaFolioSicopEncabezadoInt(conn, folioSicop, folioAdecuacion);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new SQLException(exc);
         } finally {
@@ -1340,7 +1340,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             conn = getConnection();
             nConsecutivoSicop = AdecuacionManager.validaAdecSicop(conn, nFolio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new SQLException(exc);
         } finally {
             if (conn != null)
@@ -1358,7 +1358,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             conn = getConnection();
             nNumMAP = AdecuacionManager.obtienenNumMAP(conn, nFolio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new SQLException(exc);
         } finally {
             if (conn != null)
@@ -1376,7 +1376,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             conn = getConnection();
             nNumSicop = AdecuacionManager.obtienenNumSicop(conn, nFolio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new SQLException(exc);
         } finally {
             if (conn != null)
@@ -1397,7 +1397,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             // nFolio));
             arrConsolidado = AdecuacionManager.validaAdecIntegrada(conn, nFolio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new SQLException(exc);
         } finally {
             if (conn != null)
@@ -1575,7 +1575,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             AplicarContableReturn acr = null;
             CasoBusinessLogic cbl = new CasoBusinessLogic(GestionInterface.ATT_CONEXION);
             String resultadoFIAF = "";
-            log.debug("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             if (c.getFolio().contains("FIAF")) {
                 resultadoFIAF = autorizaIntegracionFIAF(c, nNumSicop, "", nNumMAP, "", m, prefixPath, uLogin, cCentroContable, u);
                 if ("".equals(resultadoFIAF)) {
@@ -1587,7 +1587,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                         AlarmaManager.procesaAlarmaCNF(conn, prefixPath, c.getCasoOperacion(0), c, "", to, body);
                         bAplicado = true;
                     } catch (Exception exmail) {
-                        log.error("No se logro enviar el correo de autorizacion de adecuacion: " + exmail);
+                        log.error("Object: {}", "No se logro enviar el correo de autorizacion de adecuacion: " + exmail);
                     }
                 } else if (!"".equals(resultadoFIAF)) {
                     conn.rollback();
@@ -1598,7 +1598,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                             to = "" + u.getU_email();
                         AlarmaManager.procesaAlarmaCNF(conn, prefixPath, c.getCasoOperacion(0), c, "", to, body);
                     } catch (Exception exmail) {
-                        log.error("No se logro enviar el correo: " + exmail);
+                        log.error("Object: {}", "No se logro enviar el correo: " + exmail);
                     }
                 }
             } else {
@@ -1614,15 +1614,15 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             // aqui
             // adentro
             arrLResult = (ArrayList<String>) acr.getMessageList();
-            log.debug("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             try {
                 cbl.avanzaCaso(c, uLogin, "", new String[] { "CONSULTA_INTEGRAADECUA" }, new String[] { "consulta_integadec" }, m, prefixPath);
             } catch (Exception exc) {
-                log.error("No se logro avanzar el caso de autorización de Integracion de adecuacion " + c.getFolio() + " por: " + exc);
+                log.error("Object: {}", "No se logro avanzar el caso de autorización de Integracion de adecuacion " + c.getFolio() + " por: " + exc);
             }
         } catch (Exception exc) {
             // conn.rollback();
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             arrLResult.add(exc.getLocalizedMessage());
             try {
                 // conn.rollback();
@@ -1672,7 +1672,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
 			 * }, new String[] { "TERMINAR" }, m, prefixPath);
 			 */
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -1691,7 +1691,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             mensaje = AdecuacionManager.avanzaAdecFIAF(conn, nFolio, foliosAdec);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -1710,7 +1710,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             mensaje = AdecuacionManager.agregaJustificaciones(conn, nFolio, justificacionA, justificacionR, justificacionNormativa);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -1730,11 +1730,11 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             conn = getConnection();
             AdecuacionManager.autorizaFIAF(conn, c, nNumSicop, cRecMotivSicop, nNumMAP, cRecMotivMAP, u.getLogin(), prefixPath);
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             // el
             AplicarContableReturn acr = conInt.aplicarContableNuevo(conn, c, "tFIAFAUTEncabezado", "v_AdecuacionAutDetFIAF", "nFolioFIAFaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "ADECUACIONAUT", m, prefixPath, uLogin, "NO");
             arrLResult = acr.getMessageList();
-            log.debug("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             if (acr.isSuccess()) {
                 String to = getListaCorreos(c);
                 String body = (!correoProduccion ? "CORREO DE PRUEBA <br>" : "") + (!correoProduccion ? "este correo le hubiera llegado a: " + to + "<br> <br>" : "") + "Para su conocimiento y efectos correspondientes, se le informa que <b>fue autorizado</b> el folio siguiente:<br>" + c.getTipoCaso().getDescripcion() + " No. SAI: <b>" + c.getFolio() + (nNumSicop != null ? "</b> con folio SICOP: <b>" + nNumSicop : "") + (nNumMAP != null ? "</b> con folio MAP: <b>" + nNumMAP : "") + "</b><br>" + "Mismo que ya cuenta con estatus de autorizado en el SAI. Para obtener el folio de autorización MAP, revisar en consulta su afectación<br>" + "<b>Nota importante<br>" + "Los calendarios del Folio de Adecuación MAP, no necesariamente coinciden con los registrados en las " + "afectaciones del SAI y el SICOP, dado que su política de operación es diferente al de éstos. Por lo anterior, " + "se les recuerda que los calendarios para la operación de sus adecuaciones y pagos, son los registrados tanto " + "en el SAI como en el SICOP.</b>.";
@@ -1743,7 +1743,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                         to = "" + u.getU_email();
                     AlarmaManager.procesaAlarmaCNF(conn, prefixPath, c.getCasoOperacion(0), c, "", to, body);
                 } catch (Exception exmail) {
-                    log.error("No se logro enviar el correo de autorizacion de adecuacion: " + exmail);
+                    log.error("Object: {}", "No se logro enviar el correo de autorizacion de adecuacion: " + exmail);
                 }
             } else {
                 conn.rollback();
@@ -1754,7 +1754,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                         to = "" + u.getU_email();
                     AlarmaManager.procesaAlarmaCNF(conn, prefixPath, c.getCasoOperacion(0), c, "", to, body);
                 } catch (Exception exmail) {
-                    log.error("No se logro enviar el correo: " + exmail);
+                    log.error("Object: {}", "No se logro enviar el correo: " + exmail);
                 }
             }
             ArrayList<Integer> idsCaso = AdecuacionManager.getIdCasoAdecuacionFIAFCorreo(conn, new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue());
@@ -1769,18 +1769,18 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                         to = "" + u.getU_email();
                     AlarmaManager.procesaAlarmaCNF(conn, prefixPath, c.getCasoOperacion(0), c, "", to, body);
                 } catch (Exception exmail) {
-                    log.error("No se logro enviar el correo de autorizacion de adecuacion: " + exmail);
+                    log.error("Object: {}", "No se logro enviar el correo de autorizacion de adecuacion: " + exmail);
                 }
             }
             try {
                 cbl.avanzaCaso(c, uLogin, "", new String[] { "CONSULTA_FIAF" }, new String[] { "consulta_fiaf" }, m, prefixPath);
             } catch (Exception exc) {
-                log.error("No se logro avanzar el caso de autorización de Integracion de adecuacion FIAF " + c.getFolio() + " por: " + exc);
+                log.error("Object: {}", "No se logro avanzar el caso de autorización de Integracion de adecuacion FIAF " + c.getFolio() + " por: " + exc);
             }
             conn.commit();
         } catch (Exception exc) {
             conn.rollback();
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             arrLResult.add(exc.getLocalizedMessage());
             try {
                 conn.rollback();
@@ -1825,10 +1825,10 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             AdecuacionManager.agregaFechaAplicacionFIAF(conn, nIdCaso);
             if (nIdCaso > 0) {
                 ContableInterface conInt = new AplicacionContable();
-                log.debug("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
+                log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
                 AplicarContableReturn acr = conInt.aplicarContableNuevo(conn, c, "tFIAFEncabezado", "v_AdecuacionDetFIAF", "nFolioFIAF", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "ADECUACION", m, prefixPath, userID, "NO");
                 arrLResult = acr.getMessageList();
-                log.debug("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
+                log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
                 Caso cReloaded = new Caso();
                 cReloaded.setIdCaso(c.getIdCaso());
                 cReloaded = CasoManager.select(conn, cReloaded);
@@ -1859,7 +1859,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                 conn.rollback();
             }
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             arrLResult.add(exc.getLocalizedMessage());
             try {
                 conn.rollback();
@@ -1898,9 +1898,10 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             if (acr.isSuccess()) {
                 /* VGC-20150817 Se cambia la manera de obtener los correos. */
                 String to = getListaCorreos(c);
-                String body = (!correoProduccion ? "CORREO DE PRUEBA <br>" : "") + (!correoProduccion ? "este correo le hubiera llegado a: " + to + "<br> <br>" : "") + "Para su conocimiento y efectos correspondientes, se les informa que <b>FUE RECHAZADO</b> el folio siguiente:<br><b>" + c.getTipoCaso().getDescripcion() + "</b><br>" + "No. SAI: <b>" + c.getFolio() + "</b><br>" + "<b>Justificación:<br>" + (motivoRechazo != null ? "Motivo rechazo:" + motivoRechazo + "<BR>" : "") + // (motivosRechazo.get("cRecMotivMAP")!=null?"Motivo rechazo
-                // MAP:"+motivosRechazo.get("cRecMotivMAP")+"<BR>":"")+
-                // (motivosRechazo.get("cRecMotivSicop")!=null?"Motivo rechazo
+                // (motivosRechazo.get("cRecMotivMAP")!=null?"Motivo rechazo
+                String // (motivosRechazo.get("cRecMotivMAP")!=null?"Motivo rechazo
+                body = // MAP:"+motivosRechazo.get("cRecMotivMAP")+"<BR>":"")+
+                (!correoProduccion ? "CORREO DE PRUEBA <br>" : "") + (!correoProduccion ? "este correo le hubiera llegado a: " + to + "<br> <br>" : "") + "Para su conocimiento y efectos correspondientes, se les informa que <b>FUE RECHAZADO</b> el folio siguiente:<br><b>" + c.getTipoCaso().getDescripcion() + "</b><br>" + "No. SAI: <b>" + c.getFolio() + "</b><br>" + "<b>Justificación:<br>" + (motivoRechazo != null ? "Motivo rechazo:" + motivoRechazo + "<BR>" : "") + // (motivosRechazo.get("cRecMotivSicop")!=null?"Motivo rechazo
                 // SICOP:"+motivosRechazo.get("cRecMotivSicop")+"<BR>":"")+
                 "Con base en lo anterior la afectación fue rechazada en el SAI para que procedan al replanteamiento que consideren pertinente.</b><br>" + "Saludos cordiales.";
                 try {
@@ -1908,7 +1909,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                         to = "" + objUsuario.getU_email();
                     AlarmaManager.procesaAlarmaCNF(conn, prefixPath, c.getCasoOperacion(0), c, "", to, body);
                 } catch (Exception exmail) {
-                    log.error("No se logro enviar el correo: " + exmail);
+                    log.error("Object: {}", "No se logro enviar el correo: " + exmail);
                 }
                 conn.commit();
                 cbl.avanzaCaso(cReloaded, objUsuario.getLogin(), "", new String[] { "CONSULTA_FIAF" }, new String[] { "consulta_fiaf" }, m, prefixPath);
@@ -1921,7 +1922,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                         to = "" + objUsuario.getU_email();
                     AlarmaManager.procesaAlarmaCNF(conn, prefixPath, c.getCasoOperacion(0), c, "", to, body);
                 } catch (Exception exmail) {
-                    log.error("No se logro enviar el correo: " + exmail);
+                    log.error("Object: {}", "No se logro enviar el correo: " + exmail);
                 }
                 /*
 				 * if (acr.getMessageList().get(0).contains("sido aplicado") ||
@@ -1936,7 +1937,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             }
             retVal = acr.getMessageList().get(acr.getMessageList().size() - 1);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -1985,7 +1986,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                 tiene = true;
             }
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new SQLException(exc);
         } finally {
             if (conn != null)
@@ -2003,7 +2004,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             retVal = AdecuacionManager.actualizaFolioSicopFIAFEncabezado(conn, folioSicop, folioFIAF);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new SQLException(exc);
         } finally {
@@ -2023,7 +2024,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             ac = AdecuacionManager.adecuacionCalendarioFIAF(conn, folioFIAF);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new SQLException(exc);
         } finally {
@@ -2055,7 +2056,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             AdecuacionManager.actualizaJustificaciones(conn, justificacionA, justificacionR, justificacionN, folioAdecuacion);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new SQLException(exc);
         } finally {
@@ -2073,7 +2074,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             retVal = AdecuacionManager.actualizaPolizaFIAF(conn, folio, aut);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new SQLException(exc);
         } finally {
@@ -2244,7 +2245,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             AdecuacionManager.actualizaAlarma(conn, valor, idCaso);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new SQLException(exc);
         } finally {
@@ -2261,7 +2262,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             AdecuacionManager.actualizaAlarmaCincoDias(conn, valor, folio);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new SQLException(exc);
         } finally {
@@ -2278,7 +2279,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             AdecuacionManager.actualizaMotivoCancelacion(conn, motivo, folio);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new SQLException(exc);
         } finally {
@@ -2433,7 +2434,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             conn = getConnection();
             tipoAdec = AdecuacionManager.obtieneTipoAdec(conn, nFolio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new SQLException(exc);
         } finally {
             if (conn != null)
@@ -2490,7 +2491,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             ConfiguraAplicativoManager cam = new ConfiguraAplicativoManager();
             incluyeGrupoJefatura = "S".equalsIgnoreCase(cam.getPropiedadSistema("CORREO_JEFATURA_ADEC"));
         } catch (Exception e) {
-            log.warn(e);
+            log.warn(e.getMessage(), e);
         }
         try {
             /* Elimina duplicados */
@@ -2526,7 +2527,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             try {
                 conn.rollback();
             } catch (Exception eRB) {
-                log.warn("Problemas realizando el rollback: " + eRB);
+                log.warn("Object: {}", "Problemas realizando el rollback: " + eRB);
             }
             log.error(e.getMessage(), e);
         } finally {
@@ -2549,7 +2550,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             try {
                 conn.rollback();
             } catch (Exception eRB) {
-                log.warn("Problemas realizando el rollback: " + eRB);
+                log.warn("Object: {}", "Problemas realizando el rollback: " + eRB);
             }
             log.error(e.getMessage(), e);
         } finally {
@@ -2567,7 +2568,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             conn = getConnection();
             arrResultado = AdecuacionManager.buscaDatosSIAFFSICOP(conn, lineaCaptura, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new SQLException(exc);
         } finally {
             if (conn != null)
@@ -2584,7 +2585,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             conn = getConnection();
             esControlFonden = AdecuacionManager.esControlFonden(conn);
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw new SQLException(e);
         } finally {
             if (conn != null)
@@ -2674,7 +2675,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             AdecuacionManager.esReserva(conn, nFolio, adecuacionReserva);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new SQLException(exc);
         } finally {
@@ -2689,7 +2690,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
         try {
             esReserva = AdecuacionManager.esAdecuacionReserva(conn, nIdCaso);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new SQLException(exc);
         } finally {
         }

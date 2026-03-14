@@ -25,23 +25,23 @@ public class ContrareciboManager {
     }
 
     public static String generaContrarecibo(Connection conn, String centroContable, String cxpPrefijo) throws Exception {
-        log.info("Generando CxP nueva para el CC " + centroContable + "Prefijo: " + cxpPrefijo);
+        log.info("Object: {}", "Generando CxP nueva para el CC " + centroContable + "Prefijo: " + cxpPrefijo);
         CFSequenceManager seqManager = CFSequenceManager.getInstance(GestionInterface.ATT_CONEXION);
         return generaContrarecibo(conn, centroContable, cxpPrefijo, seqManager);
     }
 
     public static String generaContrarecibo(Connection conn, String centroContable, String cxpPrefijo, CFSequenceManager seqManager) throws Exception {
-        log.info("Generando CxP nueva para el CC " + centroContable + "Prefijo: " + cxpPrefijo);
+        log.info("Object: {}", "Generando CxP nueva para el CC " + centroContable + "Prefijo: " + cxpPrefijo);
         String key = "CR-" + centroContable;
-        log.trace("Generando sequencia nueva para: " + key);
+        log.trace("Object: {}", "Generando sequencia nueva para: " + key);
         int consecutivo = seqManager.nextVal(key);
-        log.info("Sequencia generada: " + key);
+        log.info("Object: {}", "Sequencia generada: " + key);
         String cadPostfijo = generaCadenaPostfijo(consecutivo);
-        log.debug("Se genero el postfijo: " + cadPostfijo);
+        log.debug("Object: {}", "Se genero el postfijo: " + cadPostfijo);
         String ejercicioFiscal = EjercicioFiscalManager.getEjercicioFiscalActivo(conn).getaEjercicioFiscal();
-        log.debug("Ejercicio Fiscal: " + cadPostfijo);
+        log.debug("Object: {}", "Ejercicio Fiscal: " + cadPostfijo);
         String cxp = StringUtils.trim(centroContable + cxpPrefijo + ejercicioFiscal + "1" + cadPostfijo);
-        log.info("Se genero contrarecibo: " + cxp);
+        log.info("Object: {}", "Se genero contrarecibo: " + cxp);
         return cxp;
     }
 }

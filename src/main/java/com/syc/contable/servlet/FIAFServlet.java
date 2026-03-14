@@ -28,7 +28,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.DiskFileUpload;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -123,7 +123,7 @@ public class FIAFServlet extends HttpServlet {
                     out.println(new String(adecProy.integraAdecuacionesFIAF(folioFIAF, foliosAdecuaciones, cJustificacionA, cJustificacionR, usuario, cJustificacionNormativa, aEjercicioFiscal, "Ampliación", "5").getBytes("UTF-8"), "ISO-8859-1"));
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    log.warn(e.getMessage());
+                    log.warn("Object: {}", e.getMessage());
                 }
             }
             if ("2".equals(accion)) {
@@ -135,7 +135,7 @@ public class FIAFServlet extends HttpServlet {
                     out.println(new String(adecProy.aplicaFIAF(nFolio, usuario, aEjercicioFiscal, usuario.getU_Ramo(), usuario.getU_UR(), c, usuario.getPropiedad("CCENTROCONTABLE").getValor(), cFechaAplicacion, m, prefixPath).getBytes("UTF-8"), "ISO-8859-1"));
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    log.warn(e.getMessage());
+                    log.warn("Object: {}", e.getMessage());
                 }
             }
             if ("3".equals(accion)) {
@@ -144,7 +144,7 @@ public class FIAFServlet extends HttpServlet {
                     out.println(new String(adecProy.desIntegraFIAF(folioFIAF, c, usuario.getLogin(), m, prefixPath, foliosAdecuaciones).getBytes("UTF-8"), "ISO-8859-1"));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    log.warn(e.getMessage());
+                    log.warn("Object: {}", e.getMessage());
                 }
             }
             if ("4".equals(accion)) {
@@ -153,7 +153,7 @@ public class FIAFServlet extends HttpServlet {
                     out.println(new String(adecProy.agregaJustificaciones(folioFIAF, cJustificacionA, cJustificacionR, cJustificacionNormativa).getBytes("UTF-8"), "ISO-8859-1"));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    log.warn(e.getMessage());
+                    log.warn("Object: {}", e.getMessage());
                 }
             }
             if ("5".equals(accion)) {
@@ -166,7 +166,7 @@ public class FIAFServlet extends HttpServlet {
                     out.println(new String(adecProy.cancelarFIAF(c, m, prefixPath, usuario, today, motivoRechazo).getBytes("UTF-8"), "ISO-8859-1"));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    log.warn(e.getMessage());
+                    log.warn("Object: {}", e.getMessage());
                 }
             }
             if ("6".equals(accion)) {
@@ -183,7 +183,7 @@ public class FIAFServlet extends HttpServlet {
                     adecProy.avanzaAdecFIAF(folioFIAF, foliosAdecuaciones);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    log.warn(e.getMessage());
+                    log.warn("Object: {}", e.getMessage());
                 }
             }
             if ("7".equals(accion)) {
@@ -242,12 +242,12 @@ public class FIAFServlet extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         tempDir = config.getInitParameter("tempDir");
         if (tempDir == null) {
@@ -541,7 +541,7 @@ public class FIAFServlet extends HttpServlet {
         AdecuacionBusinessLogic adecua = new AdecuacionBusinessLogic(GestionInterface.ATT_CONEXION);
         HttpSession session = request.getSession(false);
         ArrayList arrIntegradas = new ArrayList();
-        DiskFileUpload upload = new DiskFileUpload();
+        ServletFileUpload upload = new ServletFileUpload();
         upload.setRepositoryPath(tempDir);
         int nConsecutivoSICOP = 0;
         Caso c = (Caso) session.getAttribute(GestionInterface.ATT_CASE);
@@ -665,7 +665,7 @@ public class FIAFServlet extends HttpServlet {
         ArrayList arrAdecAmpliacion = new ArrayList();
         ArrayList arrAdecReduccion = new ArrayList();
         String[] arrFirmantePuesto = new String[2];
-        DiskFileUpload upload = new DiskFileUpload();
+        ServletFileUpload upload = new ServletFileUpload();
         upload.setRepositoryPath(tempDir);
         Caso c = (Caso) session.getAttribute(GestionInterface.ATT_CASE);
         int nFolio = new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue();
@@ -824,7 +824,7 @@ public class FIAFServlet extends HttpServlet {
     public void creaFap(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         AdecuacionBusinessLogic adecua = new AdecuacionBusinessLogic(GestionInterface.ATT_CONEXION);
         HttpSession session = request.getSession(false);
-        DiskFileUpload upload = new DiskFileUpload();
+        ServletFileUpload upload = new ServletFileUpload();
         upload.setRepositoryPath(tempDir);
         Caso c = (Caso) session.getAttribute(GestionInterface.ATT_CASE);
         Usuario usuario = (Usuario) session.getAttribute(GestionInterface.ATT_USER);

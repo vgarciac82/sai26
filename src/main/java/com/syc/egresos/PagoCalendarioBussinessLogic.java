@@ -52,7 +52,7 @@ public class PagoCalendarioBussinessLogic extends DataSourceManager {
         mesInicio = mesActual;
         BigDecimal montoPorCubrir = detallePago.getImporteBruto();
         boolean continuar = true;
-        log.debug("Parámetros: ep=" + detallePago.getEp() + ", folioPago=" + detallePago.getFolioPago() + ", tipoPago=" + detallePago.getTipoPago() + ", idTipoConcepto=" + detallePago.getIdTipoConcepto() + ", idTipoMovimiento=" + detallePago.getIdTipoMovimiento() + ", importeBruto=" + detallePago.getImporteBruto() + ", importeRetencion=" + detallePago.getImporteRetencion() + ", mesActual=" + mesActual + ", tope=" + tope + ", montoPorCubrir=" + montoPorCubrir);
+        log.debug("Object: {}", "Parámetros: ep=" + detallePago.getEp() + ", folioPago=" + detallePago.getFolioPago() + ", tipoPago=" + detallePago.getTipoPago() + ", idTipoConcepto=" + detallePago.getIdTipoConcepto() + ", idTipoMovimiento=" + detallePago.getIdTipoMovimiento() + ", importeBruto=" + detallePago.getImporteBruto() + ", importeRetencion=" + detallePago.getImporteRetencion() + ", mesActual=" + mesActual + ", tope=" + tope + ", montoPorCubrir=" + montoPorCubrir);
         CalendarioPago calendario = new CalendarioPago();
         calendario.setTipoPago(detallePago.getTipoPago());
         calendario.setFolioPago(detallePago.getFolioPago());
@@ -65,13 +65,13 @@ public class PagoCalendarioBussinessLogic extends DataSourceManager {
             calendario.setMes(mesInicio);
             SaldoMensual saldoMes = saldos.get(mesInicio);
             BigDecimal montoSaldoMes = (saldoMes != null && saldoMes.getMontoSaldo() != null) ? saldoMes.getMontoSaldo() : BigDecimal.ZERO;
-            log.trace("Iteración: mes=" + mesInicio + ", saldoMes=" + montoSaldoMes + ", montoPorCubrir=" + montoPorCubrir);
+            log.trace("Object: {}", "Iteración: mes=" + mesInicio + ", saldoMes=" + montoSaldoMes + ", montoPorCubrir=" + montoPorCubrir);
             if (montoSaldoMes.compareTo(BigDecimal.ZERO) > 0) {
                 if (montoPorCubrir.compareTo(montoSaldoMes) <= 0) {
                     log.trace("Caso: saldo del mes cubre el monto restante.");
                     calendario.setImporteBrutoMes(montoPorCubrir);
                     saldoMes.setMontoSaldo(montoSaldoMes.subtract(montoPorCubrir));
-                    log.debug("Actualización saldo mes " + mesInicio + ": nuevoSaldo=" + saldoMes.getMontoSaldo());
+                    log.debug("Object: {}", "Actualización saldo mes " + mesInicio + ": nuevoSaldo=" + saldoMes.getMontoSaldo());
                     montoPorCubrir = BigDecimal.ZERO;
                     continuar = false;
                 } else {
@@ -79,25 +79,25 @@ public class PagoCalendarioBussinessLogic extends DataSourceManager {
                     calendario.setImporteBrutoMes(montoSaldoMes);
                     montoPorCubrir = montoPorCubrir.subtract(montoSaldoMes);
                     saldoMes.setMontoSaldo(BigDecimal.ZERO);
-                    log.debug("Actualización saldo mes " + mesInicio + ": nuevoSaldo=0.00, montoPorCubrir=" + montoPorCubrir);
+                    log.debug("Object: {}", "Actualización saldo mes " + mesInicio + ": nuevoSaldo=0.00, montoPorCubrir=" + montoPorCubrir);
                 }
                 int filas = PagoCalendarioManager.insertaCalendario(conn, calendario);
                 insertados += filas;
-                log.info("Insert calendar: mes=" + mesInicio + ", filas=" + filas + ", acumuladoInsertados=" + insertados);
+                log.info("Object: {}", "Insert calendar: mes=" + mesInicio + ", filas=" + filas + ", acumuladoInsertados=" + insertados);
                 calendario.setImporteRetencion(new BigDecimal("0.00"));
                 log.debug("Retención seteada a 0.00 para siguientes meses.");
             } else {
-                log.trace("Mes " + mesInicio + " sin saldo disponible. Se continúa.");
+                log.trace("Object: {}", "Mes " + mesInicio + " sin saldo disponible. Se continúa.");
             }
             mesInicio--;
-            log.trace("Decrementa mes: nuevo mesInicio=" + mesInicio);
+            log.trace("Object: {}", "Decrementa mes: nuevo mesInicio=" + mesInicio);
             if (mesInicio == tope && continuar) {
                 String faltante = Util.formatNumber(montoPorCubrir);
-                log.error("No se logró completar el recurso. Faltante=" + faltante);
+                log.error("Object: {}", "No se logró completar el recurso. Faltante=" + faltante);
                 throw new Exception("No se logro completar el recurso. Faltan: " + faltante);
             }
         }
-        log.info("insertaCalendarioPago(): fin. Registros insertados=" + insertados);
+        log.info("Object: {}", "insertaCalendarioPago(): fin. Registros insertados=" + insertados);
         return insertados;
     }
 

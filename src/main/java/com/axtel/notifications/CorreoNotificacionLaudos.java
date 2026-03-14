@@ -1,11 +1,11 @@
 package com.axtel.notifications;
 
 import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.pasivoscontingentes.ProcesaNotificacionBusinessLogic;

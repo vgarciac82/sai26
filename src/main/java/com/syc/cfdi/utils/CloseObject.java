@@ -27,7 +27,7 @@ public class CloseObject {
                 else if (obj instanceof Connection)
                     ((Connection) obj).close();
                 else {
-                    log.info("No se como cerrar objetos del tipo: " + obj.getClass().getName());
+                    log.info("Object: {}", "No se como cerrar objetos del tipo: " + obj.getClass().getName());
                     cerrado = false;
                 }
             }

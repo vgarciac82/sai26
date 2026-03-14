@@ -711,7 +711,7 @@ public class Comprobante {
             CFDv40 cfdi = new CFDv40(getComprobante40(), "mx.grupocorasa.sat.common.Pagos20");
             List<?> complementos = ((mx.grupocorasa.sat.cfd._40.Comprobante) cfdi.getComprobanteDocument()).getComplemento().getAny();
             for (Object complementoObj : complementos) {
-                log.debug(complementoObj.getClass());
+                log.debug("Object: {}", complementoObj.getClass());
                 if (complementoObj instanceof mx.grupocorasa.sat.common.Pagos20.Pagos) {
                     pagos = ((mx.grupocorasa.sat.common.Pagos20.Pagos) complementoObj).getPago();
                 }
@@ -722,7 +722,7 @@ public class Comprobante {
             for (Complemento complemento : complementos) {
                 for (int counter = 0; counter < complemento.getAny().size(); counter++) {
                     Object o = complemento.getAny().get(counter);
-                    log.debug(o.getClass());
+                    log.debug("Object: {}", o.getClass());
                     if (o instanceof Pagos) {
                         pagos = ((Pagos) o).getPago();
                     }

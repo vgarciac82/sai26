@@ -6,7 +6,6 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
-import org.apache.log4j.LogManager;
 import com.axtel.sai.sicove.entities.FuelAccountWalletRefund;
 import com.axtel.sai.sicove.exceptions.SicoveException;
 import com.axtel.sai.sicove.repositories.FuelAccountWalletRefundRepository;
@@ -15,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 public class JDBCFuelAccountWalletRefundRepository implements FuelAccountWalletRefundRepository {
 
-    private static final Logger log = LogManager.getLogger(JDBCFuelAccountWalletRefundRepository.class);
+    private static final Logger log = LoggerFactory.getLogger(JDBCFuelAccountWalletRefundRepository.class);
 
     private final QueryRunner runner = new QueryRunner();
 
@@ -43,7 +42,7 @@ public class JDBCFuelAccountWalletRefundRepository implements FuelAccountWalletR
 
     @Override
     public FuelAccountWalletRefund create(Connection conn, FuelAccountWalletRefund fuelAccountWalletRefund) throws SicoveException {
-        log.info("Saving FuelAccountWalletRefund: \n" + fuelAccountWalletRefund + "\n");
+        log.info("Object: {}", "Saving FuelAccountWalletRefund: \n" + fuelAccountWalletRefund + "\n");
         if (fuelAccountWalletRefund.getIdRefund() != null && fuelAccountWalletRefund.getIdRefund() > 0)
             throw new RuntimeException("La devolucion ya cuenta con ID. No puede guardarse");
         BigDecimal newId;
@@ -58,8 +57,8 @@ public class JDBCFuelAccountWalletRefundRepository implements FuelAccountWalletR
 
     @Override
     public FuelAccountWalletRefund read(Connection conn, Integer idRefund) throws SicoveException {
-        log.debug("Looking for FuelAccountWalletRefund with id " + idRefund);
-        log.trace("Executing: \n" + querySelect + "\n[" + idRefund + "]");
+        log.debug("Object: {}", "Looking for FuelAccountWalletRefund with id " + idRefund);
+        log.trace("Object: {}", "Executing: \n" + querySelect + "\n[" + idRefund + "]");
         try {
             FuelAccountWalletRefund fuelAccountWalletRefund = runner.query(conn, querySelect.toString(), resultHandler, idRefund);
             return fuelAccountWalletRefund;
@@ -71,9 +70,9 @@ public class JDBCFuelAccountWalletRefundRepository implements FuelAccountWalletR
 
     @Override
     public FuelAccountWalletRefund update(Connection conn, Integer idRefund, FuelAccountWalletRefund fuelAccountWalletRefund) throws SicoveException {
-        log.info("Updating FuelAccountWalletRefund with id " + idRefund + " new Object: \n" + fuelAccountWalletRefund);
+        log.info("Object: {}", "Updating FuelAccountWalletRefund with id " + idRefund + " new Object: \n" + fuelAccountWalletRefund);
         try {
-            log.trace("Executing: \n" + queryUpdate + "\n[" + idRefund + "]");
+            log.trace("Object: {}", "Executing: \n" + queryUpdate + "\n[" + idRefund + "]");
             runner.update(conn, queryUpdate.toString(), fuelAccountWalletRefund.getRefundAmount(), idRefund);
             fuelAccountWalletRefund = read(conn, idRefund);
             return fuelAccountWalletRefund;
@@ -85,9 +84,9 @@ public class JDBCFuelAccountWalletRefundRepository implements FuelAccountWalletR
 
     @Override
     public void delete(Connection conn, Integer idRefund) throws SicoveException {
-        log.info("Deleting FuelAccountWalletRefund with id " + idRefund);
+        log.info("Object: {}", "Deleting FuelAccountWalletRefund with id " + idRefund);
         try {
-            log.trace("Executing: \n" + queryDelete + "\n[" + idRefund + "]");
+            log.trace("Object: {}", "Executing: \n" + queryDelete + "\n[" + idRefund + "]");
             runner.update(conn, queryDelete.toString(), idRefund);
         } catch (Exception e) {
             log.error(e.getMessage(), e);

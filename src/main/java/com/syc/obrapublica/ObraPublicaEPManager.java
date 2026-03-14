@@ -59,7 +59,7 @@ public class ObraPublicaEPManager {
                 CloseObject.closeObject(rsOli, false);
                 CloseObject.closeObject(psOli, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             } finally {
                 rsOli = null;
                 psOli = null;
@@ -84,7 +84,7 @@ public class ObraPublicaEPManager {
                 CloseObject.closeObject(rsOli, false);
                 CloseObject.closeObject(psOli, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             } finally {
                 rsOli = null;
                 psOli = null;
@@ -108,7 +108,7 @@ public class ObraPublicaEPManager {
                 }
                 condicion = " AND (" + claves + ")";
                 query += condicion;
-                log.debug(query);
+                log.debug("Object: {}", query.toString());
                 ps = conn.prepareStatement(query);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -121,7 +121,7 @@ public class ObraPublicaEPManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(ps, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }
@@ -132,7 +132,7 @@ public class ObraPublicaEPManager {
         ResultSet rsEPS = null;
         String query = "SELECT ep AS epID " + "FROM   vsaldosanuales WITH(nolock) " + "WHERE  ncuentap = '82106' " + "       AND cpartida IN (SELECT cpartida " + "                        FROM   dbo.toppartidasinoli partidas WITH( nolock ) " + "                               INNER JOIN dbo.tvistasur vistas WITH( nolock ) " + "                                       ON partidas.cunidadejecutora = vistas.ur " + "                        WHERE  vistas.modulo = 'OBRAPUBLICA' " + "                               AND vistas.usuario = ?) " + "       AND cunidadejecutora IN (SELECT ur " + "                                FROM   dbo.tvistasur " + "                                WHERE  modulo = 'OBRAPUBLICA' " + "                                       AND usuario = ?) ";
         try {
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, usuario);
             ps.setString(2, usuario);
@@ -146,7 +146,7 @@ public class ObraPublicaEPManager {
                 CloseObject.closeObject(rsEPS, false);
                 CloseObject.closeObject(ps, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }
@@ -167,7 +167,7 @@ public class ObraPublicaEPManager {
                 }
                 condicion = " AND (" + claves + ")";
                 query += condicion;
-                log.debug(query);
+                log.debug("Object: {}", query.toString());
                 ps = conn.prepareStatement(query);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -180,7 +180,7 @@ public class ObraPublicaEPManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(ps, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }
@@ -197,7 +197,7 @@ public class ObraPublicaEPManager {
             claves += tokenClaves + " ep LIKE '" + ef + ".%" + cartera + "%.%'";
             condicion = " AND (" + claves + ")";
             query += condicion;
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -209,7 +209,7 @@ public class ObraPublicaEPManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(ps, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }

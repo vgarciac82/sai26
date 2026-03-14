@@ -15,7 +15,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.LogManager;
 import com.axtel.egresos.compromiso.Compromiso;
 import com.axtel.egresos.compromiso.CompromisoDetalle;
 import com.axtel.egresos.compromiso.CompromisoEncabezado;
@@ -44,7 +43,7 @@ import org.slf4j.LoggerFactory;
 
 public class ReduccionCompromisoIP {
 
-    private static final Logger log = LogManager.getLogger(ReduccionCompromisoIP.class);
+    private static final Logger log = LoggerFactory.getLogger(ReduccionCompromisoIP.class);
 
     private static final AccountingEngine ae = new AccountingEngine();
 
@@ -112,7 +111,7 @@ public class ReduccionCompromisoIP {
                 PrecompromisoFinanciero pc = insertaPrecompromiso(conn, c, ef, u, ep, valores);
                 if (pc != null) {
                     Compromiso compromiso = insertaCompromiso(conn, contrato, c, ef, u, pc);
-                    log.info("================================   APLICANDO COMPROMISO " + c.getFolio() + "   ================================");
+                    log.info("Object: {}", "================================   APLICANDO COMPROMISO " + c.getFolio() + "   ================================");
                     ae.makeAccountingApplication(conn, "PRECOMFINANCIERO", String.valueOf(pc.getEncabezado().getFolioPrecomFinanciero()), "tPrecomFinancieroEncabezado", "tPrecomFinancierodetalle", "nFolioPrecomFinanciero");
                     ae.makeAccountingApplication(conn, "COMPROMISO", String.valueOf(compromiso.getEncabezado().getnFolioCompromiso()), "tcompromisoencabezado", "tcompromisodetalle", "nFolioCompromiso");
                     log.info("===============================================================================================================");
@@ -120,7 +119,7 @@ public class ReduccionCompromisoIP {
             }
             conn.commit();
         } catch (Exception e) {
-            log.error("Error al leer el archivo CSV: " + e.getMessage());
+            log.error("Error occurred", "Error al leer el archivo CSV: " + e.getMessage());
             e.printStackTrace();
             Util.rollback(conn);
             throw new Exception("No se logro crear el compromiso.");
@@ -219,7 +218,7 @@ public class ReduccionCompromisoIP {
             pc.setEncabezado(preEnc);
             pc.setDetalle(preDet);
             CompromisoManager.insertaPrecomFinanciero(conn, pc);
-            log.info("Precompromiso " + pc.getEncabezado().getFolioPrecomFinanciero() + " insertado.");
+            log.info("Object: {}", "Precompromiso " + pc.getEncabezado().getFolioPrecomFinanciero() + " insertado.");
         }
         return pc;
     }

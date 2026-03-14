@@ -3,12 +3,12 @@ package com.axtel.sisecop.web;
 import java.io.File;
 import java.io.IOException;
 import javax.naming.InitialContext;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.axtel.sisecop.entities.ProyectoServicio;
 import com.axtel.sisecop.reports.core.Anexo2Generator;
 import com.axtel.sisecop.services.ProyectoServicioService;
@@ -40,16 +40,16 @@ public class ProyectoFormatoController extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else {
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
             }
             reportPath = getServletContext().getRealPath("Reportes");
             anexo2Generator = new Anexo2Generator(new File(reportPath));
             proyectoService = new ProyectoServicioService(jniName);
         } catch (Exception exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 
@@ -69,7 +69,7 @@ public class ProyectoFormatoController extends HttpServlet {
         try {
             String anexo2File = anexo2Generator.generateReport(project);
             Util.doDownload(response, anexo2File, "Anexo2-" + project.getServicioFolioNum() + ".pdf", "application/pdf");
-            log.info("generatePDF - PDF downloaded successfully: " + anexo2File);
+            log.info("Object: {}", "generatePDF - PDF downloaded successfully: " + anexo2File);
         } catch (JRException e) {
             log.error("Error generating PDF: " + e.toString(), e);
         } catch (IOException e) {

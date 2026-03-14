@@ -13,7 +13,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.DateConverter;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.LogManager;
 import com.axtel.contratos.PrecomprometidoStatus;
 import com.axtel.contratos.Requisition;
 import com.axtel.contratos.RequisitionStatus;
@@ -30,7 +29,7 @@ import org.slf4j.LoggerFactory;
 
 public class RequisitionManager {
 
-    private static final Logger log = LogManager.getLogger(RequisitionManager.class);
+    private static final Logger log = LoggerFactory.getLogger(RequisitionManager.class);
 
     private static StringBuilder querySel = new StringBuilder();
 
@@ -308,7 +307,7 @@ public class RequisitionManager {
         int consecutive = 100000 + CFSequenceManager.getInstance().nextVal("CO-" + user.getPropiedad("CCENTROCONTABLE").getValor());
         String caNoPreCompromiso = user.getPropiedad("CCENTROCONTABLE").getValor() + "CO" + contractRequisition.getEjercicio() + consecutive;
         try {
-            log.info("Creando encabezado del apartado." + new Timestamp(System.currentTimeMillis()));
+            log.info("Object: {}", "Creando encabezado del apartado." + new Timestamp(System.currentTimeMillis()));
             pstm = conn.prepareStatement(query.toString());
             pstm.setInt(paramCnt++, contractRequisition.getConsecutivoApartado());
             pstm.setString(paramCnt++, Util.getTodayESMX());
@@ -324,8 +323,8 @@ public class RequisitionManager {
             pstm.setInt(paramCnt++, 0);
             pstm.setString(paramCnt++, contractRequisition.getIdSolicitud());
             int insertados = pstm.executeUpdate();
-            log.info("Se insertaron: " + insertados + " registros");
-            log.info("Termina de crear el encabezado del apartado." + new Timestamp(System.currentTimeMillis()));
+            log.info("Object: {}", "Se insertaron: " + insertados + " registros");
+            log.info("Object: {}", "Termina de crear el encabezado del apartado." + new Timestamp(System.currentTimeMillis()));
         } finally {
             CloseObject.closeObject(pstm);
         }
@@ -334,7 +333,7 @@ public class RequisitionManager {
     public static void insertSecludedDetail(Connection conn, Requisition contractRequisition, Usuario user) throws SQLException {
         CallableStatement cmst = null;
         try {
-            log.info("Creando  detalle del apartado." + new Timestamp(System.currentTimeMillis()));
+            log.info("Object: {}", "Creando  detalle del apartado." + new Timestamp(System.currentTimeMillis()));
             cmst = conn.prepareCall("{call sp_insertApartadoDetalle (?,?,?,?,?)}");
             cmst.setInt(1, contractRequisition.getConsecutivoApartado());
             cmst.setString(2, user.getPropiedad("CCENTROCONTABLE").getValor());
@@ -342,7 +341,7 @@ public class RequisitionManager {
             cmst.setString(4, user.getU_UR());
             cmst.setString(5, contractRequisition.getIdSolicitud());
             cmst.execute();
-            log.info("Termina de crear el detalle del apartado." + new Timestamp(System.currentTimeMillis()));
+            log.info("Object: {}", "Termina de crear el detalle del apartado." + new Timestamp(System.currentTimeMillis()));
         } finally {
             CloseObject.closeObject(cmst);
         }

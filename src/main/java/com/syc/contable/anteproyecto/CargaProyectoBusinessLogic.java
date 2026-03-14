@@ -115,7 +115,7 @@ public class CargaProyectoBusinessLogic extends DataSourceManager {
 				 */
                 Cell cellEP = row.getCell(0);
                 if (cellEP != null) {
-                    log.debug("Procesando renglon " + (renglon));
+                    log.debug("Object: {}", "Procesando renglon " + (renglon));
                     try {
                         /*
 						 * Desagrega la ep. Si algo sale mal desagregandola
@@ -149,7 +149,7 @@ public class CargaProyectoBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("No se pudo realizar rollback en conexion" + e2);
+                    log.warn("Object: {}", "No se pudo realizar rollback en conexion" + e2);
                 }
             throw e;
         } finally {
@@ -201,7 +201,7 @@ public class CargaProyectoBusinessLogic extends DataSourceManager {
                 try {
                     stream.close();
                 } catch (Exception e2) {
-                    log.warn("No se pudo cerrar el archivo de carga." + e2);
+                    log.warn("Object: {}", "No se pudo cerrar el archivo de carga." + e2);
                 }
             stream = null;
         }
@@ -239,7 +239,7 @@ public class CargaProyectoBusinessLogic extends DataSourceManager {
                 Cell cellEP = row.getCell(0);
                 Cell cellMonto = row.getCell(1);
                 if (cellEP != null) {
-                    log.debug("Procesando renglon " + (renglon++));
+                    log.debug("Object: {}", "Procesando renglon " + (renglon++));
                     String ep = cellEP.getStringCellValue();
                     Map<String, String> epMap = EPManager.desagregaEP(conn, ep);
                     double monto = cellMonto.getNumericCellValue();
@@ -247,7 +247,7 @@ public class CargaProyectoBusinessLogic extends DataSourceManager {
                     String montoFormateado = fmt.format(monto);
                     epMap.put("EP", ep);
                     epMap.put("MONTO", montoFormateado);
-                    log.debug("EP[" + ep + "] Monto[" + montoFormateado + "]");
+                    log.debug("Object: {}", "EP[" + ep + "] Monto[" + montoFormateado + "]");
                     CargaProyectoManager.insertaRenglonProyecto(conn, epMap);
                 }
             }
@@ -264,7 +264,7 @@ public class CargaProyectoBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("No se pudo realizar rollback en conexion" + e2);
+                    log.warn("Object: {}", "No se pudo realizar rollback en conexion" + e2);
                 }
             throw e;
         } finally {
@@ -305,7 +305,7 @@ public class CargaProyectoBusinessLogic extends DataSourceManager {
                 try {
                     stream.close();
                 } catch (Exception e2) {
-                    log.warn("No se pudo cerrar el archivo de carga." + e2);
+                    log.warn("Object: {}", "No se pudo cerrar el archivo de carga." + e2);
                 }
             stream = null;
         }

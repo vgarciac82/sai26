@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.log4j.LogManager;
 import com.axtel.cfdi.CFDI;
 import com.axtel.cfdi.CFDIEncabezado;
 import com.syc.cfdi.util.CFDIUtils;
@@ -22,10 +21,10 @@ import org.slf4j.LoggerFactory;
 
 public class CFDIEncabezadoManager {
 
-    private static final Logger log = LogManager.getLogger(CFDIEncabezadoManager.class);
+    private static final Logger log = LoggerFactory.getLogger(CFDIEncabezadoManager.class);
 
     public static void actualizarCFDIEncabezado(Connection conn, CFDIEncabezado encabezado) throws SQLException {
-        log.info("Inicio de actualización del CFDI encabezado con ID: " + encabezado.getCfdiId());
+        log.info("Object: {}", "Inicio de actualización del CFDI encabezado con ID: " + encabezado.getCfdiId());
         StringBuilder queryUpdate = new StringBuilder();
         queryUpdate.append("UPDATE CFDI_Encabezado SET ");
         queryUpdate.append("Version = ?, ");
@@ -101,13 +100,13 @@ public class CFDIEncabezadoManager {
             ps.setString(i++, encabezado.getRfcProvCertif());
             ps.setBigDecimal(i++, encabezado.getTipoCambio());
             ps.setInt(i++, encabezado.getCfdiId());
-            log.debug("Ejecutando actualización del CFDI encabezado con ID: " + encabezado.getCfdiId());
+            log.debug("Object: {}", "Ejecutando actualización del CFDI encabezado con ID: " + encabezado.getCfdiId());
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
-                log.error("No se pudo actualizar el encabezado del CFDI con ID: " + encabezado.getCfdiId());
+                log.error("Object: {}", "No se pudo actualizar el encabezado del CFDI con ID: " + encabezado.getCfdiId());
                 throw new SQLException("Actualización fallida, no se pudo actualizar el CFDI Encabezado.");
             }
-            log.info("CFDI encabezado actualizado correctamente con ID: " + encabezado.getCfdiId());
+            log.info("Object: {}", "CFDI encabezado actualizado correctamente con ID: " + encabezado.getCfdiId());
         } catch (SQLException e) {
             log.error("Error al actualizar el encabezado del CFDI con ID: " + encabezado.getCfdiId() + ". Detalle: " + e.getMessage(), e);
             throw e;
@@ -119,7 +118,7 @@ public class CFDIEncabezadoManager {
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, nuevoEstatus);
             ps.setInt(2, cfdiId);
-            log.trace("Cambiando estatus del CFDI ID " + cfdiId + " a " + nuevoEstatus);
+            log.trace("Object: {}", "Cambiando estatus del CFDI ID " + cfdiId + " a " + nuevoEstatus);
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected == 0) {
                 throw new SQLException("No se encontró el CFDI con ID " + cfdiId);
@@ -174,8 +173,8 @@ public class CFDIEncabezadoManager {
             ps.setInt(23, encabezado.getEstatusId());
             ps.setString(24, encabezado.getNumCtaPago());
             ps.setBigDecimal(25, encabezado.getTipoCambio());
-            log.trace("Query: " + queryInsert);
-            log.trace("Parámetros: " + encabezado.toString());
+            log.trace("Object: {}", "Query: " + queryInsert);
+            log.trace("Object: {}", "Parámetros: " + encabezado.toString());
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Creating CFDI encabezado failed, no rows affected.");

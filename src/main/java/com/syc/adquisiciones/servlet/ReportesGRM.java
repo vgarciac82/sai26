@@ -63,7 +63,7 @@ public class ReportesGRM extends HttpServlet {
         }
         // Obtiene el tipo de reporte
         int tipoOperacion = Integer.parseInt(request.getParameter("operacion"));
-        log.debug("operacion: " + tipoOperacion);
+        log.debug("Object: {}", "operacion: " + tipoOperacion);
         switch(tipoOperacion) {
             case 0:
                 reportesSIIWEB(request, response);
@@ -203,7 +203,7 @@ public class ReportesGRM extends HttpServlet {
             }
         } catch (Exception e) {
             resp = false;
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             e.printStackTrace();
         } finally {
             out.flush();
@@ -247,7 +247,7 @@ public class ReportesGRM extends HttpServlet {
             }
         } catch (Exception e) {
             resp = false;
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
         } finally {
             out.flush();
             if (out != null) {
@@ -360,7 +360,7 @@ public class ReportesGRM extends HttpServlet {
             }
         } catch (Exception e) {
             resp = false;
-            log.error(e);
+            log.error(e.getMessage(), e);
             e.printStackTrace();
         } finally {
             out.flush();
@@ -404,7 +404,7 @@ public class ReportesGRM extends HttpServlet {
             }
         } catch (Exception e) {
             resp = false;
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             e.printStackTrace();
         } finally {
             if (resp) {
@@ -452,7 +452,7 @@ public class ReportesGRM extends HttpServlet {
             }
         } catch (Exception e) {
             resp = false;
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             e.printStackTrace();
         } finally {
             out.flush();
@@ -498,7 +498,7 @@ public class ReportesGRM extends HttpServlet {
             }
         } catch (Exception e) {
             resp = false;
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             e.printStackTrace();
         } finally {
             out.flush();
@@ -627,12 +627,12 @@ public class ReportesGRM extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 }

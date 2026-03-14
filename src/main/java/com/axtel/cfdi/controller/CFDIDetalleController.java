@@ -4,13 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import com.axtel.cfdi.CFDIDetalle;
 import com.axtel.cfdi.service.CFDIService;
 import com.axtel.web.utils.ControllerUtils;
@@ -41,7 +41,7 @@ public class CFDIDetalleController extends HttpServlet {
         log.trace("Inicio de procesamiento del método doPost para guardar detalle CFDI.");
         try {
             String json = ControllerUtils.readJsonFromRequest(request);
-            log.debug("JSON recibido en la solicitud: " + json);
+            log.debug("Object: {}", "JSON recibido en la solicitud: " + json);
             log.trace("Convirtiendo JSON a objeto CFDIDetalle.");
             CFDIDetalle detalle = gson.fromJson(json, CFDIDetalle.class);
             log.trace("Insertando el detalle CFDI en la base de datos.");
@@ -50,14 +50,14 @@ public class CFDIDetalleController extends HttpServlet {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             String jsonResponse = gson.toJson(detalle);
-            log.debug("JSON de respuesta generado: " + jsonResponse);
+            log.debug("Object: {}", "JSON de respuesta generado: " + jsonResponse);
             response.getWriter().write(jsonResponse);
-            log.info("Detalle CFDI guardado y respuesta enviada correctamente." + detalle);
+            log.info("Object: {}", "Detalle CFDI guardado y respuesta enviada correctamente." + detalle);
         } catch (Exception e) {
             log.error("Error al guardar el detalle del CFDI: " + e.getMessage(), e);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             String errorResponse = "{\"error\": \"Error al guardar el detalle del CFDI. Intente nuevamente.\"}";
-            log.debug("Enviando respuesta de error: " + errorResponse);
+            log.debug("Error occurred", "Enviando respuesta de error: " + errorResponse);
             response.getWriter().write(errorResponse);
         }
         log.info("Fin del método doPost para guardar detalle CFDI.");
@@ -89,13 +89,13 @@ public class CFDIDetalleController extends HttpServlet {
             try {
                 idDetalle = Integer.parseInt(idDetalleParam);
             } catch (NumberFormatException e) {
-                log.warn("Error al convertir 'idDetalle' a entero. Valor recibido: " + idDetalleParam);
+                log.warn("Error occurred", "Error al convertir 'idDetalle' a entero. Valor recibido: " + idDetalleParam);
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 return;
             }
-            log.trace("Eliminando detalle CFDI con ID: " + idDetalle);
+            log.trace("Object: {}", "Eliminando detalle CFDI con ID: " + idDetalle);
             cfdiService.deleteDetailRow(idDetalle);
-            log.info("Detalle CFDI con ID " + idDetalle + " eliminado correctamente.");
+            log.info("Object: {}", "Detalle CFDI con ID " + idDetalle + " eliminado correctamente.");
             resp.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             log.error("Error al eliminar el detalle CFDI: " + e.getMessage(), e);
@@ -111,16 +111,16 @@ public class CFDIDetalleController extends HttpServlet {
             InitialContext ic = new InitialContext();
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             REPORT_DIR = getServletContext().getRealPath("Reportes");
-            log.info("REPORT DIR : " + REPORT_DIR);
+            log.info("Object: {}", "REPORT DIR : " + REPORT_DIR);
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula, usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula, usando default \"" + jniName + "\"");
             } else {
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
             }
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida, usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida, usando default \"" + jniName + "\"");
         }
         gson = new GsonBuilder().create();
         cfdiService = new CFDIService(jniName, new File(REPORT_DIR));

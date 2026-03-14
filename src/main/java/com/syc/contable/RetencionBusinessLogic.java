@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.syc.contable.core.Retencion;
 import com.syc.contable.core.RetencionDetalle;
 import com.syc.contable.core.RetencionEncabezado;
@@ -70,7 +70,7 @@ public class RetencionBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
         } finally {
             CloseObject.closeObject(conn);
@@ -94,7 +94,7 @@ public class RetencionBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw exc;
         } finally {
@@ -114,9 +114,9 @@ public class RetencionBusinessLogic extends DataSourceManager {
             if ("S".equals(validaMes)) {
                 folio = c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1);
                 //Aplicación contable de la retencion
-                log.debug("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + folio);
+                log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + folio);
                 ae.makeAccountingApplication(conn, "RETENCION", folio, "tRetencionEncabezado", "tRetencionDetalle", "nFolioRetencion");
-                log.debug("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + folio);
+                log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + folio);
                 //ARLA SE QUITA LA APLICACION DEL PASIVO DIFERIDO, SE APLICARA EN LA AJENA
                 /*PasivoDiferidoManager.aplicarPasivoDiferido( conn, "RETENCION", folio, "tRetencionEncabezado", "tRetencionDetalle", "nfolioRetencion");
 				log.debug( "Termina Aplicacion pasivo Diferido del folio " + folio );*/
@@ -155,7 +155,7 @@ public class RetencionBusinessLogic extends DataSourceManager {
 */
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -171,7 +171,7 @@ public class RetencionBusinessLogic extends DataSourceManager {
             conn = getConnection();
             res = RetencionManager.getRetencionEncabezado(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             CloseObject.closeObject(conn);

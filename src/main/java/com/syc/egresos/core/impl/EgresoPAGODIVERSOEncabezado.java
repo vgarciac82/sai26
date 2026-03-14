@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import com.axtel.egresos.entities.EgresoExcedeUMA;
 import com.axtel.egresos.exceptions.EgresoException;
 import com.syc.adquisiciones.core.RecepcionMaterial;
@@ -236,11 +236,11 @@ public class EgresoPAGODIVERSOEncabezado extends EgresoEncabezado {
         PreparedStatement ps = null;
         int afectados = 0;
         try {
-            log.trace("Iniciando eliminacion del pago directo: " + getFolioPagoDiverso());
+            log.trace("Object: {}", "Iniciando eliminacion del pago directo: " + getFolioPagoDiverso());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, getFolioPagoDiverso());
             afectados = ps.executeUpdate();
-            log.trace("Se eliminaron : " + afectados + " pagos con el folio: " + getFolioPagoDiverso());
+            log.trace("Object: {}", "Se eliminaron : " + afectados + " pagos con el folio: " + getFolioPagoDiverso());
             return afectados;
         } finally {
             CloseObject.closeObject(ps);

@@ -54,24 +54,24 @@ public class CambiaPropiedadesUsuario extends HttpServlet {
             jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jndiName == null) {
                 jndiName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
             } else
-                log.info("dataSourceRefName=" + jndiName);
+                log.info("Object: {}", "dataSourceRefName=" + jndiName);
         } catch (NamingException exc) {
             jndiName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
         }
         try {
             InitialContext ic = new InitialContext();
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
     }
 
@@ -108,7 +108,7 @@ public class CambiaPropiedadesUsuario extends HttpServlet {
         try {
             propiedades = u.getPropiedades();
             UsuarioPropiedades up = (UsuarioPropiedades) propiedades.get("CCENTROCONTABLE");
-            log.info("Las propiedades del usuario cambiarón. UnidadEjecutora=" + UE + " y su centroContable=" + centroContable);
+            log.info("Object: {}", "Las propiedades del usuario cambiarón. UnidadEjecutora=" + UE + " y su centroContable=" + centroContable);
             up.setValor(centroContable);
             u.setU_UR(UE);
             u.setPropiedad("CCENTROCONTABLE", up);
@@ -147,7 +147,7 @@ public class CambiaPropiedadesUsuario extends HttpServlet {
                 }
             }
             if (!("".equals(nuevocCentroContable))) {
-                log.info("Las propiedades del usuario cambiarón. UnidadEjecutora=" + ue + " y su centroContable=" + nuevocCentroContable);
+                log.info("Object: {}", "Las propiedades del usuario cambiarón. UnidadEjecutora=" + ue + " y su centroContable=" + nuevocCentroContable);
                 up.setValor(nuevocCentroContable);
                 u.setU_UR(ue);
                 u.setPropiedad("CCENTROCONTABLE", up);

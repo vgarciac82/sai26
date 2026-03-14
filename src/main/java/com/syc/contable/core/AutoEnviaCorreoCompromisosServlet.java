@@ -32,25 +32,25 @@ public class AutoEnviaCorreoCompromisosServlet extends HttpServlet implements Ge
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         String strRunIntervalProcess = config.getInitParameter("runIntervalProcess");
         String strInterval = config.getInitParameter("sleepIntervalProcess");
         interval = Long.parseLong(strInterval);
         if (interval == -1L) {
             interval = 1000L * 60;
-            log.info("Init Parameter \"sleepIntervalProcess\" nulo usando default \"" + interval + "\"");
+            log.info("Object: {}", "Init Parameter \"sleepIntervalProcess\" nulo usando default \"" + interval + "\"");
         } else
-            log.info("sleepIntervalProcess=" + interval);
-        log.info("runIntervalProcess=" + "true".equalsIgnoreCase(strRunIntervalProcess));
+            log.info("Object: {}", "sleepIntervalProcess=" + interval);
+        log.info("Object: {}", "runIntervalProcess=" + "true".equalsIgnoreCase(strRunIntervalProcess));
         String strMaxTiempoCompromiso = config.getInitParameter("maxTiempoCompromiso");
         maxTiempoCompromiso = Long.parseLong(strMaxTiempoCompromiso);
-        log.info("Init Parameter \"maxTiempoCompromiso\"  \"" + maxTiempoCompromiso + "\"");
+        log.info("Object: {}", "Init Parameter \"maxTiempoCompromiso\"  \"" + maxTiempoCompromiso + "\"");
         if ("true".equalsIgnoreCase(strRunIntervalProcess)) {
             log.info("Iniciando Background Process");
             verificaTiempoLimiteCompromiso = new Thread(this);

@@ -4,13 +4,12 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.apache.log4j.LogManager;
 import com.axtel.web.clients.InvoiceDTO;
 import com.axtel.web.clients.TimbrarCFDIViaticos;
 import com.axtel.web.clients.ViaticoCFDI;
@@ -22,11 +21,11 @@ import org.slf4j.LoggerFactory;
 
 public class NotificaCFDIClientes extends WSClient {
 
-    private static final Logger log = LogManager.getLogger(NotificaCFDIClientes.class);
+    private static final Logger log = LoggerFactory.getLogger(NotificaCFDIClientes.class);
 
     public NotificaCFDIClientes(String urlService) {
         super();
-        log.info("Creado cliente para servicio de notificacion de creacion de CFDI. URL[" + urlService + "]");
+        log.info("Object: {}", "Creado cliente para servicio de notificacion de creacion de CFDI. URL[" + urlService + "]");
         setUrlService(urlService);
     }
 
@@ -71,12 +70,12 @@ public class NotificaCFDIClientes extends WSClient {
     }
 
     public ViaticoCFDIRespuesta generaCFDI(Connection conn, InvoiceDTO generarCFDIViaticos) throws Exception {
-        log.debug("Iniciando envio de registro de creacion de CFDI: " + generarCFDIViaticos.getViaticoCFDI().getContraRecibo());
-        log.info("Se consumira servicio en: " + getUrlService());
+        log.debug("Object: {}", "Iniciando envio de registro de creacion de CFDI: " + generarCFDIViaticos.getViaticoCFDI().getContraRecibo());
+        log.info("Object: {}", "Se consumira servicio en: " + getUrlService());
         WebTarget target = getClient().target(getUrlService());
         Builder requestBuilder = target.request(MediaType.APPLICATION_JSON);
         Entity<InvoiceDTO> msgJSON = Entity.json(generarCFDIViaticos);
-        log.trace("Enviando: " + msgJSON);
+        log.trace("Object: {}", "Enviando: " + msgJSON);
         Response rsp = requestBuilder.post(msgJSON);
         ViaticoCFDIRespuesta viaticoCFDIRespuesta = null;
         viaticoCFDIRespuesta = rsp.readEntity(ViaticoCFDIRespuesta.class);
@@ -91,7 +90,7 @@ public class NotificaCFDIClientes extends WSClient {
             throw new WSException("Problemas en request a endpoint[] Status: " + rsp.getStatus() + " - " + motivoError);
         }
         guardaRespuesta(conn, generarCFDIViaticos.getViaticoCFDI().getContraRecibo(), viaticoCFDIRespuesta);
-        log.info("Registro de CFDI terminado. Resultado:" + rsp);
+        log.info("Object: {}", "Registro de CFDI terminado. Resultado:" + rsp);
         return viaticoCFDIRespuesta;
     }
 
@@ -148,12 +147,12 @@ public class NotificaCFDIClientes extends WSClient {
     }
 
     public RespuestaTimbradoCFDI timbrarCFDI(Connection conn, TimbrarCFDIViaticos timbreCFDI, String cxp) throws Exception {
-        log.debug("Iniciando envio de registro de timbrado de CFDI del periodo: " + timbreCFDI.getPeriodo());
-        log.info("Se consumira servicio en: " + getUrlService());
+        log.debug("Object: {}", "Iniciando envio de registro de timbrado de CFDI del periodo: " + timbreCFDI.getPeriodo());
+        log.info("Object: {}", "Se consumira servicio en: " + getUrlService());
         WebTarget target = getClient().target(getUrlService());
         Builder requestBuilder = target.request(MediaType.APPLICATION_JSON);
         Entity<TimbrarCFDIViaticos> msgJSON = Entity.json(timbreCFDI);
-        log.trace("Enviando: " + msgJSON);
+        log.trace("Object: {}", "Enviando: " + msgJSON);
         Response rsp = requestBuilder.post(msgJSON);
         RespuestaTimbradoCFDI repuestaTimbrado = null;
         repuestaTimbrado = rsp.readEntity(RespuestaTimbradoCFDI.class);
@@ -166,7 +165,7 @@ public class NotificaCFDIClientes extends WSClient {
         } else {
             guardaRespuestaTimbrado(conn, cxp, repuestaTimbrado);
         }
-        log.info("Registro de CFDI terminado. Resultado:" + rsp);
+        log.info("Object: {}", "Registro de CFDI terminado. Resultado:" + rsp);
         return repuestaTimbrado;
     }
 

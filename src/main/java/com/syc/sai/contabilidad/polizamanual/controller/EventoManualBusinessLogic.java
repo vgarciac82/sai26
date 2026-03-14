@@ -3,7 +3,7 @@ package com.syc.sai.contabilidad.polizamanual.controller;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.sai.contabilidad.polizamanual.EventoManual;
 import com.syc.sai.contabilidad.polizamanual.EventoManualEngineException;

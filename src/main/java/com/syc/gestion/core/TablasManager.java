@@ -45,7 +45,7 @@ public class TablasManager extends DataSourceManager {
             cs.setString("@valorwhere", Campos[7]);
             log.info("{call sp_BuscaDatoCamposTabla_syc ( ?, ?, ?, ?, ?, ?, ?, ?)}");
             for (int j = 0; j <= 7; j++) {
-                log.info(Campos[j]);
+                log.info("Object: {}", Campos[j]);
             }
             cs.execute();
             // System.out.println("Hay Resultados>>>"+hayRes);

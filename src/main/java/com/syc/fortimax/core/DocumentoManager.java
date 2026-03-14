@@ -56,7 +56,7 @@ public class DocumentoManager extends DataSourceManager {
         queryUpdate.append("       AND id_documento = ? ");
         PreparedStatement psUpdate = null;
         try {
-            log.debug("actualizando Documento: " + d);
+            log.debug("Object: {}", "actualizando Documento: " + d);
             psUpdate = conn.prepareStatement(queryUpdate.toString());
             psUpdate.setString(1, d.getPaginaDocumento(0).getNomArchivoVol());
             psUpdate.setString(2, d.getPaginaDocumento(0).getNomArchivoOrg());
@@ -64,9 +64,9 @@ public class DocumentoManager extends DataSourceManager {
             psUpdate.setInt(4, d.getIdGabinete());
             psUpdate.setInt(5, d.getIdCarpetaPadre());
             psUpdate.setInt(6, d.getIdDocumento());
-            log.trace("Ejecutando: " + queryUpdate.toString());
+            log.trace("Object: {}", "Ejecutando: " + queryUpdate.toString());
             int actualizados = psUpdate.executeUpdate();
-            log.info("Se actualizaron " + actualizados + " paginas de documento");
+            log.info("Object: {}", "Se actualizaron " + actualizados + " paginas de documento");
         } finally {
             CloseObject.closeObject(psUpdate);
         }
@@ -128,7 +128,7 @@ public class DocumentoManager extends DataSourceManager {
             psUpdate.setInt(4, idCarpeta);
             psUpdate.setInt(5, idDocumento);
             int afectados = psUpdate.executeUpdate();
-            log.info(" Se cambio el nombre a [" + afectados + "] documentos");
+            log.info("Object: {}", " Se cambio el nombre a [" + afectados + "] documentos");
             return DocumentoManager.selectDocumento(conn, tituloAplicacion, idGabinete, idCarpeta, idDocumento);
         } finally {
             CloseObject.closeObject(psUpdate);
@@ -1704,7 +1704,7 @@ public class DocumentoManager extends DataSourceManager {
      * @throws SQLException
      */
     public static void respaldaPagina(Connection conn, Documento d) throws SQLException {
-        log.debug("Respaldando paginas de documento: " + d);
+        log.debug("Object: {}", "Respaldando paginas de documento: " + d);
         StringBuilder queryInsertaLogPagina = new StringBuilder();
         queryInsertaLogPagina.append("INSERT INTO dbo.imx_pagina_borrada ");
         queryInsertaLogPagina.append("            (titulo_aplicacion, ");
@@ -1748,14 +1748,14 @@ public class DocumentoManager extends DataSourceManager {
         queryInsertaLogPagina.append("       AND id_documento = ? ");
         PreparedStatement psInsert = null;
         try {
-            log.trace("Se ejecutara: " + queryInsertaLogPagina.toString());
+            log.trace("Object: {}", "Se ejecutara: " + queryInsertaLogPagina.toString());
             psInsert = conn.prepareStatement(queryInsertaLogPagina.toString());
             psInsert.setString(1, d.getTituloAplicacion());
             psInsert.setInt(2, d.getIdGabinete());
             psInsert.setInt(3, d.getIdCarpetaPadre());
             psInsert.setInt(4, d.getIdDocumento());
             int insertados = psInsert.executeUpdate();
-            log.info("Se respaldaron: " + insertados + " paginas de respaldo.");
+            log.info("Object: {}", "Se respaldaron: " + insertados + " paginas de respaldo.");
         } finally {
             CloseObject.closeObject(psInsert);
         }

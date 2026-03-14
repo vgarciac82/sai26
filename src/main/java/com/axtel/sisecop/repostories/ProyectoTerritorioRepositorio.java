@@ -27,7 +27,7 @@ public class ProyectoTerritorioRepositorio {
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     int generatedId = generatedKeys.getInt(1);
-                    log.info("Territory created successfully with ID: " + generatedId);
+                    log.info("Object: {}", "Territory created successfully with ID: " + generatedId);
                     return generatedId;
                 } else {
                     throw new SQLException("Creating territory failed, no ID obtained.");
@@ -70,7 +70,7 @@ public class ProyectoTerritorioRepositorio {
     }
 
     public List<ProyectoServicioTerritorio> readByServicioId(Connection conn, int servicioId) throws SQLException {
-        log.info("Looking for territory scope by the project ID " + servicioId);
+        log.info("Object: {}", "Looking for territory scope by the project ID " + servicioId);
         List<ProyectoServicioTerritorio> territorios = new ArrayList<>();
         String sql = "SELECT st.servicioterritorioId, st.entidadId, st.municipioId, " + "e.entidadNombre, m.municipioNombre " + "FROM dbo.sisecop_serviciosterritorios st " + "JOIN dbo.sisecop_entidades e ON st.entidadId = e.entidadId " + "JOIN dbo.sisecop_municipios m ON st.municipioId = m.municipioId " + "WHERE st.servicioId = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {

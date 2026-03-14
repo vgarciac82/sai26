@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.LogManager;
 import org.json.JSONObject;
 import com.axtel.egresos.viaticos.Agenda;
 import com.syc.gestion.core.Usuario;
@@ -26,7 +25,7 @@ public class ViaticosServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 5496072673639795577L;
 
-    private static final Logger log = LogManager.getLogger(ViaticosServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ViaticosServlet.class);
 
     private static final String CONSULTA = "consultaAgenda";
 

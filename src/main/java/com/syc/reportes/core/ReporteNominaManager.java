@@ -50,7 +50,7 @@ public class ReporteNominaManager {
         try {
             String query = str.toString();
             ps = conn.prepareStatement(query);
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             rs = ps.executeQuery();
             fileName = generaReporteNomina(rs, plantillas.get("REPNOMINA"), fechaFin, fechaFin);
             return fileName;
@@ -159,7 +159,7 @@ public class ReporteNominaManager {
         try {
             String query = str.toString();
             ps = conn.prepareStatement(query);
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             rs = ps.executeQuery();
             fileName = generaReporteSCOMPMIL(rs, plantillas.get("SALDOCOMPROMISOMIL"));
             return fileName;

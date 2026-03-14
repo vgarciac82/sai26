@@ -81,7 +81,7 @@ public final class AplicacionContable implements ContableInterface, TipoCasoInte
                     arrayMessageReturn.add(cTipoDocumento + " NO FUE CANCELADO(A)");
                 }
             } catch (Exception exc) {
-                log.error(exc);
+                log.error(exc.getMessage(), exc);
                 arrayMessageReturn.add(cTipoDocumento + " NO FUE CANCELADO(A) DEBIDO A: " + exc.getLocalizedMessage());
             }
             m.put("MENSAJE", retVal.getMessageList().get(0));
@@ -389,11 +389,11 @@ public final class AplicacionContable implements ContableInterface, TipoCasoInte
                 cdm.update(conn, cd);
                 conn.commit();
                 retVal = cTipoDocumento + " APLICADO CONTABLEMENTE CANCELADO";
-                log.debug("DOCUMENTO DE " + cTipoDocumento + " APLICADO CONTABLEMENTE CANCELADO");
+                log.debug("Object: {}", "DOCUMENTO DE " + cTipoDocumento + " APLICADO CONTABLEMENTE CANCELADO");
             } else {
                 retVal = cTipoDocumento + " APLICADO CONTABLEMENTE CANCELADO";
                 conn.commit();
-                log.debug("DOCUMENTO DE " + cTipoDocumento + " APLICADO CONTABLEMENTE CANCELADO");
+                log.debug("Object: {}", "DOCUMENTO DE " + cTipoDocumento + " APLICADO CONTABLEMENTE CANCELADO");
             }
         } catch (SQLException e) {
             retVal = e.getSQLState();
@@ -790,7 +790,7 @@ public final class AplicacionContable implements ContableInterface, TipoCasoInte
                         arrcCuentaDet.add(new String[] { cEventoID });
                     iTotCuentasConfig = 0;
                     iSecSuma = 0;
-                    log.debug("Numero de Line:" + iNumeroLinea);
+                    log.debug("Object: {}", "Numero de Line:" + iNumeroLinea);
                     for (Iterator<String[]> iter = arrcCuentaDet.iterator(); iter.hasNext(); ) {
                         if (!cTipoDocumento.equals("PRESUPUESTO")) {
                             if (arrcCuentaDet.size() == iTotCuentasConfig)
@@ -924,10 +924,10 @@ public final class AplicacionContable implements ContableInterface, TipoCasoInte
                         }
                         conn.commit();
                         // retVal = cTipoDocumento + " APLICADO CONTABLEMENTE";
-                        log.info("DOCUMENTO DE " + cTipoDocumento + " APLICADO CONTABLEMENTE");
+                        log.info("Object: {}", "DOCUMENTO DE " + cTipoDocumento + " APLICADO CONTABLEMENTE");
                         arrcRetAplCont.add("DOCUMENTO DE " + cTipoDocumento + " APLICADO CONTABLEMENTE");
                     } else {
-                        log.warn("Documento no cuadra Cargo:" + mTotalCargo + " == Abono:" + mTotalAbono);
+                        log.warn("Object: {}", "Documento no cuadra Cargo:" + mTotalCargo + " == Abono:" + mTotalAbono);
                         conn.rollback();
                         arrcRetAplCont.add("Documento no cuadra  Cargo:" + mTotalCargo + " == Abono:" + mTotalAbono);
                     }
@@ -1307,7 +1307,7 @@ public final class AplicacionContable implements ContableInterface, TipoCasoInte
                         }
                         if (nExsisteSaldo < 0 && (cTipoOperacion != "Cancelacion")) {
                             cMesnsaje = "Error en CreaCambiaSaldos: Saldo insuficiente en la Clave EP:" + cSubCuenta + " para la Cuenta:" + nCuenta + "por la Cantidad:" + iImporte;
-                            log.error("Error en CreaCambiaSaldos: Saldo insuficiente en la Clave EP:" + cSubCuenta + " para la Cuenta:" + nCuenta + "por la Cantidad:" + iImporte);
+                            log.error("Error occurred", "Error en CreaCambiaSaldos: Saldo insuficiente en la Clave EP:" + cSubCuenta + " para la Cuenta:" + nCuenta + "por la Cantidad:" + iImporte);
                             retVar = -1;
                         } else {
                             nExsisteSaldo = 1;
@@ -1472,7 +1472,7 @@ public final class AplicacionContable implements ContableInterface, TipoCasoInte
                 }
                 if (nExsisteSaldo < 0 && cTipoOperacion != "Cancelacion") {
                     cMesnsaje = "Error en CreaCambiaSaldos: Saldo insuficiente en la Clave EP:" + cSubCuenta + " para la Cuenta:" + nCuenta + " por la Cantidad:" + iImporte;
-                    log.error("Error en CreaCambiaSaldos: Saldo insuficiente en la Clave EP:" + cSubCuenta + " para la Cuenta:" + nCuenta + " por la Cantidad:" + iImporte);
+                    log.error("Error occurred", "Error en CreaCambiaSaldos: Saldo insuficiente en la Clave EP:" + cSubCuenta + " para la Cuenta:" + nCuenta + " por la Cantidad:" + iImporte);
                     retVar = -1;
                 } else {
                     nExsisteSaldo = 1;
@@ -1623,7 +1623,7 @@ public final class AplicacionContable implements ContableInterface, TipoCasoInte
                 int iRegistros = 0;
                 int nFolio = Integer.parseInt(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1), 10);
                 iRegistros = vuelosPago.updateLayoutVuelosDet(conn, nFolio);
-                log.info("Se Actualizaron: " + iRegistros + " Registros de Vuelos.");
+                log.info("Object: {}", "Se Actualizaron: " + iRegistros + " Registros de Vuelos.");
             } catch (Exception e) {
                 throw new SQLException(e);
             }
@@ -1659,7 +1659,7 @@ public final class AplicacionContable implements ContableInterface, TipoCasoInte
                 String subject, body;
                 subject = "Registro de Solicitud No Presupuestal inconcluso";
                 body = "<B>Atencion</b></br>" + "Se notifica que el tramite de Solicitud No Presupuestal con folio: " + folio + " esta por vencerse.<br><br>" + "Por lo anterior es necesario que verifique la informacion para concluir o en su defecto descartar el tramite del sistema, " + "ya que si no se atiende se descartara automaticamente perdiendo toda la informacion contenida en dicho tramite. <br><br>";
-                log.info("Enviando Correo al siguiente destinatario: " + correo);
+                log.info("Object: {}", "Enviando Correo al siguiente destinatario: " + correo);
                 AlarmaManager.procesaAlarmaCNF(conn, "", null, null, subject, correo, body);
             } else if (id_tc == 7) {
                 String[] folioSeparado = folio.split("-");
@@ -1667,7 +1667,7 @@ public final class AplicacionContable implements ContableInterface, TipoCasoInte
                 if (((EgresosInterface) tci).cancelaCaso(conn, id_caso, id_tc, id_oper)) {
                     ((EgresosInterface) tci).cancelaTabla(conn, nFolio, "compromiso");
                 } else
-                    log.info("No se pudo cancelar el folio de Compromiso. FOLIO: " + nFolio);
+                    log.info("Object: {}", "No se pudo cancelar el folio de Compromiso. FOLIO: " + nFolio);
             }
         } catch (Exception e) {
             log.warn(e.getMessage(), e);
@@ -1684,7 +1684,7 @@ public final class AplicacionContable implements ContableInterface, TipoCasoInte
                 return ConfiguraAplicativoManager.getSystemSetting(conn, "CORREO_ALERTAS_DESARROLLO");
             ps = conn.prepareStatement(query);
             ps.setInt(1, id_caso);
-            log.info(ps);
+            log.info("Object: {}", ps.toString());
             rs = ps.executeQuery();
             if (rs.next()) {
                 email = rs.getString("U_EMAIL");

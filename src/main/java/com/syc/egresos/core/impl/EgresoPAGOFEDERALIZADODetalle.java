@@ -218,7 +218,7 @@ public class EgresoPAGOFEDERALIZADODetalle extends EgresoDetalle {
             ps.setBigDecimal(i++, getImporteIva6());
             ps.setString(i++, getUnidadResponsable());
             ps.setBigDecimal(i++, getImporteISRResico());
-            log.debug(query.toString());
+            log.debug("Object: {}", query.toString());
             int afectados = ps.executeUpdate();
             return afectados;
         } finally {

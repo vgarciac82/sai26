@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
-import org.apache.log4j.LogManager;
 import com.syc.gestion.util.Util;
 import com.syc.obrapublica.core.DatosEstimacionObra;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
@@ -16,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 public class FirmaAutorizacionObraManager {
 
-    private static final Logger log = LogManager.getLogger(FirmaAutorizacionObraManager.class);
+    private static final Logger log = LoggerFactory.getLogger(FirmaAutorizacionObraManager.class);
 
     public static void saveAtentaNota(Connection conn, DatosEstimacionObra estimacion) throws SQLException {
         StringBuilder query = null;
@@ -58,7 +57,7 @@ public class FirmaAutorizacionObraManager {
             rs = ps.getGeneratedKeys();
             rs.next();
             estimacion.setIdNota(rs.getInt(1));
-            log.info("Se insertaron: " + insertados + " solicitudes de autorizacion de estimación de obra pública");
+            log.info("Object: {}", "Se insertaron: " + insertados + " solicitudes de autorizacion de estimación de obra pública");
         } finally {
             CloseObject.closeObject(ps);
             query = null;
@@ -67,7 +66,7 @@ public class FirmaAutorizacionObraManager {
     }
 
     public static int avanzaEstatus(Connection conn, DatosEstimacionObra estimacion) throws SQLException {
-        log.info("Cambiando estatus a: " + estimacion.getIdEstatusEstimacion() + " en la estimación de obra pública: " + estimacion);
+        log.info("Object: {}", "Cambiando estatus a: " + estimacion.getIdEstatusEstimacion() + " en la estimación de obra pública: " + estimacion);
         StringBuilder sb = new StringBuilder();
         sb.append("update tobrapublicaavancefisico set nIdEstatus=? where ccvecontrato=? and foliosai=? and noestimacion=?");
         PreparedStatement ps = null;

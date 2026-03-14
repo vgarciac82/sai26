@@ -53,7 +53,7 @@ public class RegistroIngresosManager {
         PreparedStatement pstm = null;
         RegistrosIngresosEncabezado rie = null;
         pstm = conn.prepareStatement("SELECT * FROM tRegistroIngresoEncabezado WITH (NOLOCK) WHERE nFolioRegistroIngreso = ?");
-        log.debug("Leyendo tRegistroIngresoEncabezado del Folio: " + folio);
+        log.debug("Object: {}", "Leyendo tRegistroIngresoEncabezado del Folio: " + folio);
         pstm.setInt(1, folio);
         res = pstm.executeQuery();
         if (res.next()) {
@@ -137,7 +137,7 @@ public class RegistroIngresosManager {
             psInsertEncabezado.setString(17, regInEnc.getcTipoPoliza());
             psInsertEncabezado.setString(18, DescPol);
             psInsertEncabezado.execute();
-            log.debug(psInsertEncabezado);
+            log.debug("Object: {}", psInsertEncabezado.toString());
             psInsertDetalle = conn.prepareStatement("INSERT INTO tRegistroIngresoDetalle(nFolioRegistroIngreso, nDocRenglon, cEvento, EP, mImporte, mImporteNegativo, nMes, cCentroContable, mSaldo, CTAB, mImporteMod)VALUES(?,?,?,?,?,?,?,?,?,?,?)");
             for (Iterator<RegistrosIngresosDetalle> i = regInDetalles.iterator(); i.hasNext(); ) {
                 RegistrosIngresosDetalle rd = i.next();
@@ -175,7 +175,7 @@ public class RegistroIngresosManager {
                 psInsertDetalle.setString(10, rd.getCTAB());
                 psInsertDetalle.setDouble(11, 0.00);
                 psInsertDetalle.addBatch();
-                log.debug(psInsertDetalle);
+                log.debug("Object: {}", psInsertDetalle.toString());
             }
             psInsertDetalle.executeBatch();
             conn.commit();
@@ -210,7 +210,7 @@ public class RegistroIngresosManager {
                 psInsertEncabezadoapartado.setInt(14, 0);
                 psInsertEncabezadoapartado.setString(15, folioCompleto);
                 psInsertEncabezadoapartado.execute();
-                log.debug(psInsertEncabezadoapartado);
+                log.debug("Object: {}", psInsertEncabezadoapartado.toString());
                 psInsertDetalleApartado = conn.prepareStatement("INSERT INTO dbo.tApartadoDetalle( nFolioApartado ,nDocRenglon ,EP ,cEvento ,mImporte ,mImporteNegativo ,cMes ,cCentroContable)VALUES(?,?,?,?,?,?,?,?)");
                 for (Iterator<RegistrosIngresosDetalle> i = regInDetalles.iterator(); i.hasNext(); ) {
                     RegistrosIngresosDetalle rd = i.next();
@@ -224,7 +224,7 @@ public class RegistroIngresosManager {
                     psInsertDetalleApartado.setInt(7, rd.getnMes());
                     psInsertDetalleApartado.setString(8, rd.getcCentroContable());
                     psInsertDetalleApartado.addBatch();
-                    log.debug(psInsertDetalleApartado);
+                    log.debug("Object: {}", psInsertDetalleApartado.toString());
                 }
                 psInsertDetalleApartado.executeBatch();
                 conn.commit();
@@ -234,17 +234,17 @@ public class RegistroIngresosManager {
             psUpdateEncabezadoIF.setInt(1, regInEnc.getnFolioApartado());
             psUpdateEncabezadoIF.setInt(2, regInEnc.getnFolioRegistroIngreso());
             psUpdateEncabezadoIF.execute();
-            log.debug(psUpdateEncabezadoIF);
+            log.debug("Object: {}", psUpdateEncabezadoIF.toString());
             conn.commit();
         } catch (Exception e) {
-            log.warn(e);
+            log.warn(e.getMessage(), e);
             e.printStackTrace();
             if (conn != null)
                 try {
                     conn.rollback();
                     mensaje = "error";
                 } catch (Exception e2) {
-                    log.warn(e2);
+                    log.warn(e2.getMessage(), e2);
                     e2.printStackTrace();
                 }
             throw e;
@@ -261,15 +261,15 @@ public class RegistroIngresosManager {
         try {
             String sSQL = "SELECT cTipoConcepto, ID_DESTINO FROM tCatProgramasProyectos WITH (NOLOCK) WHERE nIdPrograma = ? ";
             pstmnt = conn.prepareStatement(sSQL);
-            log.debug(sSQL);
+            log.debug("Object: {}", sSQL);
             pstmnt.setInt(1, idprograma);
-            log.debug("Programa: " + idprograma);
+            log.debug("Object: {}", "Programa: " + idprograma);
             rs = pstmnt.executeQuery();
             if (rs.next()) {
                 retval = rs.getString(1) + "_" + rs.getString(2);
             }
         } catch (SQLException s) {
-            log.warn(s);
+            log.warn("Object: {}", s);
             s.printStackTrace();
         } finally {
             if (pstmnt != null)
@@ -285,14 +285,14 @@ public class RegistroIngresosManager {
             CasoBusinessLogic cbl = new CasoBusinessLogic(GestionInterface.ATT_CONEXION);
             conn = cbl.getConnection();
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             AplicarContableReturn acr;
             if (!"2012".equals(sEjercicioFiscal))
                 acr = conInt.aplicarContableNuevo(conn, c, "tRegistroIngresoEncabezado", "tRegistroIngresoDetalle", "nFolioRegistroIngreso", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REGISTROINGRESO", m, prefixPath, uLogin, "");
             else
                 acr = conInt.aplicarContableNuevo(conn, c, "tRegistroIngresoEncabezado", "tRegistroIngresoDetalle", "nFolioRegistroIngreso", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REGISTROINGRESO", m, prefixPath, uLogin, "SI");
             arrLResult = (ArrayList<String>) acr.getMessageList();
-            log.debug("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             Caso cReloaded = new Caso();
             cReloaded.setIdCaso(c.getIdCaso());
             cReloaded = CasoManager.select(conn, cReloaded);
@@ -313,7 +313,7 @@ public class RegistroIngresosManager {
             }
         } catch (Exception exc) {
             conn.rollback();
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             arrLResult.add(exc.getLocalizedMessage());
             try {
                 conn.rollback();
@@ -337,14 +337,14 @@ public class RegistroIngresosManager {
         boolean retval = false;
         try {
             String sSQL = " UPDATE tRegistroIngresoEncabezado SET cDocumentoHaplicado = 'S' WHERE nFolioRegistroIngreso = ? ";
-            log.debug(sSQL);
+            log.debug("Object: {}", sSQL);
             pstmntUp = conn.prepareStatement(sSQL);
-            log.debug(folio);
+            log.debug("Object: {}", folio);
             pstmntUp.setInt(1, folio);
             pstmntUp.execute();
             retval = true;
         } catch (SQLException s) {
-            log.warn(s);
+            log.warn("Object: {}", s);
             s.printStackTrace();
         } finally {
             if (pstmntUp != null)
@@ -422,14 +422,14 @@ public class RegistroIngresosManager {
         boolean retval = false;
         try {
             String sSQL = " UPDATE tApartadoEncabezado SET cDocumentoHaplicado = 'S' WHERE nFolioApartado = ? ";
-            log.debug(sSQL);
+            log.debug("Object: {}", sSQL);
             pstmntUp = conn.prepareStatement(sSQL);
-            log.debug(folio);
+            log.debug("Object: {}", folio);
             pstmntUp.setInt(1, folio);
             pstmntUp.execute();
             retval = true;
         } catch (SQLException s) {
-            log.warn(s);
+            log.warn("Object: {}", s);
             s.printStackTrace();
         } finally {
             if (pstmntUp != null)
@@ -488,11 +488,11 @@ public class RegistroIngresosManager {
             //SE ARMA EL "SP" ENCABEZADO
             String Sql = " SELECT TOP 1 " + "	SUBSTRING('" + sREFERENCIA1_107 + "',LEN('" + sREFERENCIA1_107 + "')-7,LEN('" + sREFERENCIA1_107 + "'))," + "	'H' AS Header," + "	CONVERT(nvarchar(10), GETDATE(),103)," + "	CONVERT(nvarchar(10), GETDATE(),103)," + "	tCE.cRamo," + "	tCE.cRamo," + "	tCE.cRamo," + "	'RHQ' UnidadResponsable," + "	'RHQ' UnidadResponsable," + "	'RHQ' UnidadResponsable," + "	'N' ID_TIPO_MOVIMIENTO," + "	'1' AS OrigenPpto," + "	'3' AS TipoSol," + "	'MXN' TipoMoneda," + "	'1' TipoCambio," + "	'1' TIPO_PAGO," + "	'PENDIENTE' AS CveLeyenda," + "	'S04929' CBEN," + "	'" + arrCuentasBancarias[0].trim() + "' CUENTA_BANCARIA," + "	'16RHQ'," + "	'FAC'," + "	'' FechaReferencia," + "	'' Referencia1," + "	'' Referencia2," + " 	'Integracion de RIF " + sREFERENCIA1_107 + "' Concepto," + "	'' NotasReverso," + "	'' AMF," + "	'" + sREFERENCIA1_107 + "' NO_ACMI," + "	'" + sREFERENCIA1_107 + "' AuxiliarComodin," + "	'' CTR," + "	'' FolioDC," + "	CONVERT(DECIMAL(17, 2), 0) DCD_ISR, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_IVADES, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_MIL5, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_MIL2, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_OTRAS_RET, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_PENALIZACION, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_CONTRIBUCION, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_IVA, " + "	CONVERT(DECIMAL(17, 2), 0) IVAANT, " + "	'NA' ID_DESTINO_GASTO " + "FROM tRegistroIngresoEncabezado tCE " + "WHERE tCE.nFolioRegistroIngreso IN (" + listaIds + ") " + "GROUP BY cRamo";
             pstmntH = conn.prepareStatement(Sql);
-            log.debug(Sql);
+            log.debug("Object: {}", Sql.toString());
             rs = pstmntH.executeQuery();
             while (rs.next()) {
                 //inserta encabezado
-                log.debug("Procesando folio[" + arrFolios[0].trim() + "]");
+                log.debug("Object: {}", "Procesando folio[" + arrFolios[0].trim() + "]");
                 //String nFolio, nFolioCompromiso = rs.getString(1);
                 String encabezado = rs.getString(2) + "," + arrFechas[0].trim() + "," + rs.getString(4).trim() + "," + rs.getString(5).trim() + "," + rs.getString(6).trim() + "," + rs.getString(7).trim() + "," + rs.getString(8).trim() + "," + rs.getString(9).trim() + "," + rs.getString(10).trim() + "," + rs.getString(11).trim() + "," + rs.getString(12).trim() + "," + rs.getString(13).trim() + "," + rs.getString(14).trim() + "," + rs.getString(15).trim() + "," + rs.getString(16).trim() + "," + arrLeyendas[0].trim().trim() + "," + rs.getString(18).trim() + "," + rs.getString(19).trim() + "," + rs.getString(20).trim() + "," + rs.getString(21).trim() + "," + rs.getString(22).trim() + "," + rs.getString(23).trim() + "," + rs.getString(24).trim() + "," + rs.getString(25).trim().replaceAll("[\r\n]{2,}", " ") + "," + rs.getString(26).trim() + "," + rs.getString(27).trim() + "," + rs.getString(28).trim() + "," + rs.getString(29).trim() + "," + rs.getString(30).trim() + "," + rs.getString(31).trim() + "," + rs.getString(32).trim() + "," + rs.getString(33).trim() + "," + rs.getString(34).trim() + "," + rs.getString(35).trim() + "," + rs.getString(36).trim() + "," + rs.getString(37).trim() + "," + rs.getString(38).trim() + "," + rs.getString(39).trim() + "," + rs.getString(40).trim() + "," + rs.getString(41);
                 encabezado = encabezado + "\r\n";
@@ -516,8 +516,9 @@ public class RegistroIngresosManager {
                 pstmntHLayout = conn.prepareStatement(SqlLayoutGrabado);
                 pstmntHLayout.executeUpdate();
                 //SE ARMA EL "SP" DETALLE
-                String Sql2 = " SELECT '1' ID_EVENTO," + "	'24.0.001' EVENTO," + "	SUBSTRING(D.EP,6,2) ID_RAMO_ML," + "	'RHQ'," + "	SUBSTRING(D.EP,1,4) aEjercicioFiscal," + "	SUBSTRING(D.EP,13,1) cGrupoFuncional," + "	SUBSTRING(D.EP,15,1) cFuncion," + "	SUBSTRING(D.EP,17,2) cSubFuncion," + "	SUBSTRING(D.EP,20,2) cProgramaGeneral, " + "	SUBSTRING(D.EP,23,3) cActividadInstitucional, " + "	SUBSTRING(D.EP,27,4) cProgramaPresupuestario, " + "	SUBSTRING(D.EP,32,1) CCAP_157, " + "	SUBSTRING(D.EP,33,1) CCON_158," + "	SUBSTRING(D.EP,34,1) CPARG_300, " + "	SUBSTRING(D.EP,35,2) CPAR_159, " + "	SUBSTRING(D.EP,38,1) cTipoGasto, " + "	SUBSTRING(D.EP,40,1) cFuenteFinanciamiento, " + "	SUBSTRING(D.EP,42,2) cEntidadFederativa, " + "	SUBSTRING(D.EP,45,11)cCartera, " + "	'0000000000'," + "	'00'CCOP_163," + "	'000' PL," + "	'000' OFI," + "	'00000' AUX1," + "	'00000' AUX2," + "	'0000000000' AUX3," + "	CONVERT(decimal(17, 2),SUM(D.mImporte)) MONTO," + "	nMes MES_149," + "	'0' NRES," + "	CASE WHEN SUBSTRING(ep,32,5)='35801' THEN 'GD' ELSE 'PN' END TIPO_CONTRATO," + "	'000' CONC_MOV," + " 	CONVERT(DECIMAL(17, 2),0) DCD_ISR," + " 	CONVERT(DECIMAL(17, 2),0) DCD_IVA," + " 	CONVERT(DECIMAL(17, 2),0) DCD_MIL5," + " 	CONVERT(DECIMAL(17, 2),0) DCD_MIL2," + " 	CONVERT(decimal(17,2), 0) DCD_CONTRIBUCION," + " 	CONVERT(DECIMAL(17, 2),0) DCD_OTRAS_RET," + //penalizaciones
-                "	CONVERT(DECIMAL(17, 2),0)," + "	'' id_ctr_intdet " + "FROM tRegistroIngresoDetalle D  WITH (NOLOCK) " + "WHERE nFolioRegistroIngreso IN (" + listaIds + ") " + "GROUP BY SUBSTRING(D.EP,6,2), " + "	SUBSTRING(D.EP,1,4), " + "	SUBSTRING(D.EP,13,1), " + "	SUBSTRING(D.EP,15,1), " + "	SUBSTRING(D.EP,17,2), " + "	SUBSTRING(D.EP,20,2), " + "	SUBSTRING(D.EP,23,3), " + "	SUBSTRING(D.EP,27,4), " + "	SUBSTRING(D.EP,32,1), " + "	SUBSTRING(D.EP,33,1), " + "	SUBSTRING(D.EP,34,1), " + "	SUBSTRING(D.EP,35,2), " + "	SUBSTRING(D.EP,38,1), " + "	SUBSTRING(D.EP,40,1), " + "	SUBSTRING(D.EP,42,2), " + "	SUBSTRING(D.EP,45,11), " + "	nMes, " + "	SUBSTRING(ep,32,5)";
+                //penalizaciones
+                String //penalizaciones
+                Sql2 = " SELECT '1' ID_EVENTO," + "	'24.0.001' EVENTO," + "	SUBSTRING(D.EP,6,2) ID_RAMO_ML," + "	'RHQ'," + "	SUBSTRING(D.EP,1,4) aEjercicioFiscal," + "	SUBSTRING(D.EP,13,1) cGrupoFuncional," + "	SUBSTRING(D.EP,15,1) cFuncion," + "	SUBSTRING(D.EP,17,2) cSubFuncion," + "	SUBSTRING(D.EP,20,2) cProgramaGeneral, " + "	SUBSTRING(D.EP,23,3) cActividadInstitucional, " + "	SUBSTRING(D.EP,27,4) cProgramaPresupuestario, " + "	SUBSTRING(D.EP,32,1) CCAP_157, " + "	SUBSTRING(D.EP,33,1) CCON_158," + "	SUBSTRING(D.EP,34,1) CPARG_300, " + "	SUBSTRING(D.EP,35,2) CPAR_159, " + "	SUBSTRING(D.EP,38,1) cTipoGasto, " + "	SUBSTRING(D.EP,40,1) cFuenteFinanciamiento, " + "	SUBSTRING(D.EP,42,2) cEntidadFederativa, " + "	SUBSTRING(D.EP,45,11)cCartera, " + "	'0000000000'," + "	'00'CCOP_163," + "	'000' PL," + "	'000' OFI," + "	'00000' AUX1," + "	'00000' AUX2," + "	'0000000000' AUX3," + "	CONVERT(decimal(17, 2),SUM(D.mImporte)) MONTO," + "	nMes MES_149," + "	'0' NRES," + "	CASE WHEN SUBSTRING(ep,32,5)='35801' THEN 'GD' ELSE 'PN' END TIPO_CONTRATO," + "	'000' CONC_MOV," + " 	CONVERT(DECIMAL(17, 2),0) DCD_ISR," + " 	CONVERT(DECIMAL(17, 2),0) DCD_IVA," + " 	CONVERT(DECIMAL(17, 2),0) DCD_MIL5," + " 	CONVERT(DECIMAL(17, 2),0) DCD_MIL2," + " 	CONVERT(decimal(17,2), 0) DCD_CONTRIBUCION," + " 	CONVERT(DECIMAL(17, 2),0) DCD_OTRAS_RET," + "	CONVERT(DECIMAL(17, 2),0)," + "	'' id_ctr_intdet " + "FROM tRegistroIngresoDetalle D  WITH (NOLOCK) " + "WHERE nFolioRegistroIngreso IN (" + listaIds + ") " + "GROUP BY SUBSTRING(D.EP,6,2), " + "	SUBSTRING(D.EP,1,4), " + "	SUBSTRING(D.EP,13,1), " + "	SUBSTRING(D.EP,15,1), " + "	SUBSTRING(D.EP,17,2), " + "	SUBSTRING(D.EP,20,2), " + "	SUBSTRING(D.EP,23,3), " + "	SUBSTRING(D.EP,27,4), " + "	SUBSTRING(D.EP,32,1), " + "	SUBSTRING(D.EP,33,1), " + "	SUBSTRING(D.EP,34,1), " + "	SUBSTRING(D.EP,35,2), " + "	SUBSTRING(D.EP,38,1), " + "	SUBSTRING(D.EP,40,1), " + "	SUBSTRING(D.EP,42,2), " + "	SUBSTRING(D.EP,45,11), " + "	nMes, " + "	SUBSTRING(ep,32,5)";
                 pstmntD = conn.prepareStatement(Sql2);
                 rs2 = pstmntD.executeQuery();
                 while (rs2.next()) {
@@ -560,7 +561,7 @@ public class RegistroIngresosManager {
     }
 
     public static int insertaConsolidacionRegistroIngreso(Connection conn, String sTimeStamp, Usuario sUsuario, String ejercicioFiscal, String folioGenerator) throws Exception {
-        log.info("Insertando consolidacion de Ingreso Fiscal. Folio Integracion[" + sTimeStamp + "] Usuario[" + sUsuario + "] Ejercicio Fiscal[" + ejercicioFiscal + "]");
+        log.info("Object: {}", "Insertando consolidacion de Ingreso Fiscal. Folio Integracion[" + sTimeStamp + "] Usuario[" + sUsuario + "] Ejercicio Fiscal[" + ejercicioFiscal + "]");
         int insertados = 0;
         String sqlInsertConsolidacion = "INSERT INTO tconsolidacionrelaciongastosencabezado " + "            (nFolioConsolidacion," + "             nidintegracion, " + "             fcarga, " + "             faplicacion, " + "             ctipopoliza, " + "             u_login, " + "             cunidadresponsablecontable, " + "             cdescripcionpoliza, " + "             cramo, " + "             cunidadresponsable, " + "             aejerciciofiscal) " + "SELECT ?								AS nFolioConsolidacion," + "        ?                             AS nIdIntegracion, " + "       Getdate()                     AS fCarga, " + "       Getdate()                     AS fAplicacion, " + "       'IN'                          AS cTipoPoliza, " + "       ?                             AS U_LOGIN, " + "       'RHQ'                         AS cUnidadResponsableContable, " + "       'Poliza de Ingreso Devengado y Recaudado de la Integración " + sTimeStamp + "/RIF' AS cDescripcionPoliza, " + "       '16'                          AS cRamo, " + "       ?                             AS cUnidadResponsable, " + "       ?                             AS aEjercicioFiscal ";
         String sqlInsertConsolidacionDetalle = "INSERT INTO dbo.tconsolidacionrelaciongastosdetalle" + "        ( nDocRenglon ," + "          nFolioConsolidacion ," + "          ep ," + "          cevento ," + "          ccentrocontable ," + "          cmes ," + "          ID_destino_gasto ," + "          ID_TIPO_CONCEPTO ," + "          partida ," + "          tipogasto ," + "          mimportemasiva ," + "          mImporteNegativo ," + "          nidintegracion ," + "          CTAB ," + "          RFC ," + "          ALM ," + "          OBGT" + "        )" + "SELECT Row_number() OVER (ORDER BY nfolioconsolidacion) AS nDocRenglon, " + "       consolidacion_encabezado.nfolioconsolidacion AS nFolioConsolidacion, " + "       ep, " + "       dbo.fn_evento_integracion_IF(ep) AS cevento, " + "       DETALLE.ccentrocontable, " + "       DETALLE.nmes, " + "       '' id_destino_gasto, " + "       '' id_tipo_concepto, " + "       Substring(detalle.ep, 32, 5)                 AS partida, " + "       Substring(detalle.ep, 38, 1)                 AS tipogasto, " + "       Sum(DETALLE.mImporte)                  AS mimportemasiva, " + "       Sum(DETALLE.mImporteNegativo)         AS mImporteNegativo, " + "       LAYOUT.sauxiliarcomodin                      AS nidintegracion, " + "       LAYOUT.scuenta_bancaria                      AS CTAB, " + "       '' RFC, " + "       '' alm, " + "       Substring(detalle.ep, 32, 5)                 AS OBGT " + "FROM   dbo.tRegistroIngresoEncabezado ENCABEZADO WITH (nolock) " + "INNER JOIN dbo.tRegistroIngresoDetalle DETALLE WITH (nolock) " + "		  ON ENCABEZADO.nFolioRegistroIngreso = DETALLE.nFolioRegistroIngreso " + "LEFT OUTER JOIN dbo.tLayoutsCreadosRegistroIngresoEncabezado LAYOUT WITH (nolock) " + "       ON ENCABEZADO.canocontrarrecibo = LAYOUT.snocontrarrecibo " + "INNER JOIN dbo.tconsolidacionrelaciongastosencabezado consolidacion_encabezado WITH (nolock) " + "       ON LAYOUT.sauxiliarcomodin = consolidacion_encabezado.nidintegracion " + "WHERE  LAYOUT.sauxiliarcomodin IS NOT NULL " + "       AND nfolioconsolidacion = ? " + "GROUP  BY ep, " + "       consolidacion_encabezado.nfolioconsolidacion, " + "       DETALLE.ccentrocontable, " + "       DETALLE.nmes, " + "       LAYOUT.sauxiliarcomodin, " + "       scuenta_bancaria, " + "       Substring(detalle.ep, 32, 5)";
@@ -571,8 +572,8 @@ public class RegistroIngresosManager {
         try {
             Caso c = PagosDiversosRGManager.generaCaso(conn, sUsuario, folioGenerator);
             nFolioConsolidacion = Integer.parseInt(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1), 10);
-            log.debug("Query Insert Encabezado[" + sqlInsertConsolidacion + "]");
-            log.debug("Query Insert Detalle[" + sqlInsertConsolidacionDetalle + "]");
+            log.debug("Object: {}", "Query Insert Encabezado[" + sqlInsertConsolidacion + "]");
+            log.debug("Object: {}", "Query Insert Detalle[" + sqlInsertConsolidacionDetalle + "]");
             psInsertaEncabezado = conn.prepareStatement(sqlInsertConsolidacion, Statement.RETURN_GENERATED_KEYS);
             psInsertaDetalle = conn.prepareStatement(sqlInsertConsolidacionDetalle);
             psInsertaEncabezado.setInt(1, nFolioConsolidacion);
@@ -581,11 +582,11 @@ public class RegistroIngresosManager {
             psInsertaEncabezado.setString(4, "");
             psInsertaEncabezado.setString(5, ejercicioFiscal);
             insertados += psInsertaEncabezado.executeUpdate();
-            log.debug("Insertados en encabezado: " + insertados + " registros ");
+            log.debug("Object: {}", "Insertados en encabezado: " + insertados + " registros ");
             rsFolioConsolidacion = psInsertaEncabezado.getGeneratedKeys();
             psInsertaDetalle.setInt(1, nFolioConsolidacion);
             insertados += psInsertaDetalle.executeUpdate();
-            log.debug("Insertados en detalle: " + insertados + " registros ");
+            log.debug("Object: {}", "Insertados en detalle: " + insertados + " registros ");
             return nFolioConsolidacion;
         } finally {
             CloseObject.closeObject(rsFolioConsolidacion, false);
@@ -615,8 +616,9 @@ public class RegistroIngresosManager {
                 arrListaComp.add(encabezado);
                 String sCampo = "'S04929'";
                 //DETALLE DEL DOCCOMP
-                String Sql2 = " select distinct " + "		PDE.cRamo," + "		PDE.caNoContrarrecibo, " + "		CONVERT(nvarchar(10), PDE.fAplicacion,103)," + "		CONVERT(nvarchar(10), PDE.fAplicacion,103) + ' 12:00:00 a.m.', " + "		" + sCampo + "," + "		case when B.cExtranjero = 1 then '05' else '04' end 'TipoBen'," + "		'85' TIPO_OPE," + //07 ??
-                "		'05' TIVA," + "		'0' DCD_VALOR," + "		CONVERT(decimal(17, 2), PDE.mImporte) MONTO," + "		CONVERT(DECIMAL(17, 2), 0) DCD_IVA," + "		CONVERT(DECIMAL(17, 2), 0) DCD_IVADES," + "		CONVERT(DECIMAL(17, 2), 0) DCD_ISR," + "		CONVERT(DECIMAL(17, 2), 0) DCD_MIL5," + "		CONVERT(DECIMAL(17, 2), 0) DCD_MIL2," + "		CONVERT(DECIMAL(17, 2), 0) DCD_OTRAS_RET," + "		CONVERT(DECIMAL(17, 2), 0) DCD_PENALIZACION," + "		CONVERT(DECIMAL(17, 2), 0) DCD_CONTRIBUCION," + "		'0' DCD_CTOEXT," + "		PDE.caNoContrarrecibo DCD_FACTURA," + "		PDE.cConcepto," + "		PDE.caNoContrarrecibo" + "	from dbo.tRegistroIngresoEncabezado PDE  WITH (NOLOCK) " + "	INNER JOIN dbo.tRegistroIngresoDetalle RGD  WITH (NOLOCK) ON PDE.nFolioRegistroIngreso = RGD.nFolioRegistroIngreso" + "	INNER JOIN tBeneficiario B  WITH (NOLOCK) " + "		ON B.dRFC = 'CNF010405EG1' " + "	where PDE.nFolioRegistroIngreso in (" + listaIds + ")";
+                //07 ??
+                String //07 ??
+                Sql2 = " select distinct " + "		PDE.cRamo," + "		PDE.caNoContrarrecibo, " + "		CONVERT(nvarchar(10), PDE.fAplicacion,103)," + "		CONVERT(nvarchar(10), PDE.fAplicacion,103) + ' 12:00:00 a.m.', " + "		" + sCampo + "," + "		case when B.cExtranjero = 1 then '05' else '04' end 'TipoBen'," + "		'85' TIPO_OPE," + "		'05' TIVA," + "		'0' DCD_VALOR," + "		CONVERT(decimal(17, 2), PDE.mImporte) MONTO," + "		CONVERT(DECIMAL(17, 2), 0) DCD_IVA," + "		CONVERT(DECIMAL(17, 2), 0) DCD_IVADES," + "		CONVERT(DECIMAL(17, 2), 0) DCD_ISR," + "		CONVERT(DECIMAL(17, 2), 0) DCD_MIL5," + "		CONVERT(DECIMAL(17, 2), 0) DCD_MIL2," + "		CONVERT(DECIMAL(17, 2), 0) DCD_OTRAS_RET," + "		CONVERT(DECIMAL(17, 2), 0) DCD_PENALIZACION," + "		CONVERT(DECIMAL(17, 2), 0) DCD_CONTRIBUCION," + "		'0' DCD_CTOEXT," + "		PDE.caNoContrarrecibo DCD_FACTURA," + "		PDE.cConcepto," + "		PDE.caNoContrarrecibo" + "	from dbo.tRegistroIngresoEncabezado PDE  WITH (NOLOCK) " + "	INNER JOIN dbo.tRegistroIngresoDetalle RGD  WITH (NOLOCK) ON PDE.nFolioRegistroIngreso = RGD.nFolioRegistroIngreso" + "	INNER JOIN tBeneficiario B  WITH (NOLOCK) " + "		ON B.dRFC = 'CNF010405EG1' " + "	where PDE.nFolioRegistroIngreso in (" + listaIds + ")";
                 pstmntD = conn.prepareStatement(Sql2);
                 System.out.println(Sql2);
                 rs2 = pstmntD.executeQuery();
@@ -672,7 +674,7 @@ public class RegistroIngresosManager {
         PreparedStatement pstm = null;
         RegistrosIngresosDetalle rid = null;
         pstm = conn.prepareStatement("SELECT * FROM tRegistroIngresoDetalle WITH (NOLOCK) WHERE nFolioRegistroIngreso = ? AND nDocRenglon = 1");
-        log.debug("Leyendo tRegistroIngresoEncabezado del Folio: " + nFolio);
+        log.debug("Object: {}", "Leyendo tRegistroIngresoEncabezado del Folio: " + nFolio);
         pstm.setInt(1, nFolio);
         res = pstm.executeQuery();
         if (res.next()) {
@@ -708,19 +710,19 @@ public class RegistroIngresosManager {
             psInsertRazonSocialIP.setString(9, rzip.getcComprobanteFiscal());
             psInsertRazonSocialIP.setString(10, u.getLogin());
             psInsertRazonSocialIP.execute();
-            log.debug(psInsertRazonSocialIP);
+            log.debug("Object: {}", psInsertRazonSocialIP.toString());
             actualizaCRI(conn, rzip.getnFolioRegistroIngreso(), cClaveCRI, rzip.getcClave());
             conn.commit();
             mensaje = "insercion";
         } catch (Exception e) {
-            log.warn(e);
+            log.warn(e.getMessage(), e);
             e.printStackTrace();
             if (conn != null)
                 try {
                     conn.rollback();
                     mensaje = "error";
                 } catch (Exception e2) {
-                    log.warn(e2);
+                    log.warn(e2.getMessage(), e2);
                     e2.printStackTrace();
                 }
             throw e;
@@ -737,15 +739,15 @@ public class RegistroIngresosManager {
         try {
             String sSQL = "SELECT cClaveCRI \r\n" + "FROM tCatProgramasProyectos WITH (NOLOCK) \r\n" + "JOIN tCatalogoCRI_v2 WITH (NOLOCK) ON SUBSTRING(cCuenta,1,11) = SUBSTRING(cCuentaIngreso,1,11) \r\n" + "WHERE nIdPrograma = ? ";
             pstmnt = conn.prepareStatement(sSQL);
-            log.debug(sSQL);
+            log.debug("Object: {}", sSQL);
             pstmnt.setInt(1, idprograma);
-            log.debug("Programa: " + idprograma);
+            log.debug("Object: {}", "Programa: " + idprograma);
             rs = pstmnt.executeQuery();
             if (rs.next()) {
                 cClaveCRI = rs.getString(1);
             }
         } catch (SQLException s) {
-            log.warn(s);
+            log.warn("Object: {}", s);
             s.printStackTrace();
         } finally {
             if (pstmnt != null)
@@ -776,7 +778,7 @@ public class RegistroIngresosManager {
         PreparedStatement pstm = null;
         RegistroIngresoRazonSocial rirs = null;
         pstm = conn.prepareStatement("SELECT * FROM tRegistroIngresoRazonSocial WITH (NOLOCK) WHERE nFolioRegistroIngreso = ?");
-        log.debug("Leyendo tRegistroIngresoRazonSocial del Folio: " + nFolio);
+        log.debug("Object: {}", "Leyendo tRegistroIngresoRazonSocial del Folio: " + nFolio);
         pstm.setInt(1, nFolio);
         res = pstm.executeQuery();
         if (res.next()) {
@@ -804,7 +806,7 @@ public class RegistroIngresosManager {
         String aplicaCorreo = "";
         try {
             pstm = conn.prepareStatement("SELECT CASE WHEN COUNT(*) = 0 THEN 'SI' ELSE 'NO' END aplicaCorreo FROM tRegistroIngresoDetalle DET\r\n" + "JOIN tRegistroIngresoEventosSinCorreo EC ON DET.cEvento = EC.cEvento\r\n" + "WHERE nFolioRegistroIngreso = ?");
-            log.debug("Leyendo tRegistroIngresoRazonSocial del Folio: " + nFolio);
+            log.debug("Object: {}", "Leyendo tRegistroIngresoRazonSocial del Folio: " + nFolio);
             pstm.setInt(1, nFolio);
             res = pstm.executeQuery();
             if (res.next()) {
@@ -824,7 +826,7 @@ public class RegistroIngresosManager {
         ResultSet rs2 = null;
         PreparedStatement ps2 = null;
         String subject = "Registro de Ingresos Propios";
-        log.info("Correo: " + subject);
+        log.info("Object: {}", "Correo: " + subject);
         try {
             ConfiguraAplicativoBusinessLogic cabl = new ConfiguraAplicativoBusinessLogic(GestionInterface.ATT_CONEXION);
             String body = getCuerpoCorreoVistoBueno(conn, nFolio);
@@ -981,7 +983,7 @@ public class RegistroIngresosManager {
     }
 
     private static int insertaCompromisoRegistroIngreso(Connection conn, String sTimeStamp, Usuario sUsuario, String ejercicioFiscal, int nFolioConsolidacion, String centroContableUser) throws Exception {
-        log.info("Insertando consolidacion de Ingreso Fiscal. Folio Integracion[" + sTimeStamp + "] Usuario[" + sUsuario + "] Ejercicio Fiscal[" + ejercicioFiscal + "]");
+        log.info("Object: {}", "Insertando consolidacion de Ingreso Fiscal. Folio Integracion[" + sTimeStamp + "] Usuario[" + sUsuario + "] Ejercicio Fiscal[" + ejercicioFiscal + "]");
         int insertados = 0;
         int strFolioCompromiso = 0;
         PreparedStatement pstmntE = null;
@@ -1079,8 +1081,8 @@ public class RegistroIngresosManager {
         PreparedStatement psInsertaDetalle = null;
         ResultSet rsFolioConsolidacion = null;
         try {
-            log.debug("Query Insert Encabezado[" + sqlInsertCompromisoEnc + "]");
-            log.debug("Query Insert Detalle[" + sqlInsertCompromisoDet + "]");
+            log.debug("Object: {}", "Query Insert Encabezado[" + sqlInsertCompromisoEnc + "]");
+            log.debug("Object: {}", "Query Insert Detalle[" + sqlInsertCompromisoDet + "]");
             pstmntE = conn.prepareStatement(sqlInsertCompromisoEnc.toString());
             pstmntD = conn.prepareStatement(sqlInsertCompromisoDet.toString());
             pstmntE.setInt(1, strFolioCompromiso);
@@ -1088,11 +1090,11 @@ public class RegistroIngresosManager {
             pstmntE.setString(3, contrarecibo);
             pstmntE.setInt(4, nFolioConsolidacion);
             insertados += pstmntE.executeUpdate();
-            log.debug("Insertados en encabezado: " + insertados + " registros ");
+            log.debug("Object: {}", "Insertados en encabezado: " + insertados + " registros ");
             pstmntD.setInt(1, strFolioCompromiso);
             pstmntD.setInt(2, nFolioConsolidacion);
             insertados += pstmntD.executeUpdate();
-            log.debug("Insertados en detalle: " + insertados + " registros ");
+            log.debug("Object: {}", "Insertados en detalle: " + insertados + " registros ");
             return insertados;
         } finally {
             CloseObject.closeObject(rsFolioConsolidacion, false);

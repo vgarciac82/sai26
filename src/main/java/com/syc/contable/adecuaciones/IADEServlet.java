@@ -49,12 +49,12 @@ public class IADEServlet extends HttpServlet implements GestionInterface {
         int nFolio = Integer.parseInt(folioIntegracion.substring(folioIntegracion.lastIndexOf('-') + 1));
         String[] foliosAdec = req.getParameterValues("folioAdecuacion");
         String foliosAdecuacion = "";
-        log.debug("Folio integracion: " + folioIntegracion);
+        log.debug("Object: {}", "Folio integracion: " + folioIntegracion);
         if (foliosAdec == null)
             ResponseSender.sendClientSimpleMessage(resp, false, "No se seleccionaron adecuaciones a integrar");
         else {
             for (int i = 0; i < foliosAdec.length; i++) {
-                log.debug(foliosAdec[i]);
+                log.debug("Object: {}", foliosAdec[i]);
                 folioadec = Integer.parseInt(foliosAdec[i].substring(foliosAdec[i].lastIndexOf('-') + 1));
                 foliosAdecuacion = folioadec + "," + foliosAdecuacion;
             }
@@ -81,12 +81,12 @@ public class IADEServlet extends HttpServlet implements GestionInterface {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 }

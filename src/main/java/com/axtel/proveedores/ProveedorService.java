@@ -4,7 +4,6 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.LogManager;
 import com.axtel.contratos.core.ContratoDiverso;
 import com.axtel.proveedores.dao.ProveedorDAO;
 import com.axtel.proveedores.exception.ProveedorException;
@@ -28,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 public class ProveedorService extends DataSourceManager {
 
-    private static final Logger log = LogManager.getLogger(ProveedorService.class);
+    private static final Logger log = LoggerFactory.getLogger(ProveedorService.class);
 
     public ProveedorService() {
     }

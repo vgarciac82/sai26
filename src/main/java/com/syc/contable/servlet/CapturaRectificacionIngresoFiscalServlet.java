@@ -109,7 +109,7 @@ public class CapturaRectificacionIngresoFiscalServlet extends HttpServlet {
                         int secuenciaCLC = rectIFiscalBL.secCLCRect(nFolioSIAFF, rd.getEP());
                         int[] docRenglon = rectIFiscalBL.getNDocRenglon(caNoContrarrecibo, rd.getEP(), rd.getcMes(), folioR);
                         if (docRenglon[0] == -1) {
-                            log.warn("Favor de revisar el mes para la EP " + rd.getEP() + " con CXP " + caNoContrarrecibo + "\n");
+                            log.warn("Object: {}", "Favor de revisar el mes para la EP " + rd.getEP() + " con CXP " + caNoContrarrecibo + "\n");
                         } else {
                             int k = 0;
                             while (k < docRenglon.length && !banderaRemanente) {
@@ -124,7 +124,7 @@ public class CapturaRectificacionIngresoFiscalServlet extends HttpServlet {
                             rectificaciones.add(rd);
                         else {
                             remanentes += "No hay suficiente remanente para poder aplicar la rectificacion para " + rd.getEP() + " renglon " + rd.getnDocRenglon() + " cxp " + caNoContrarrecibo + "\n";
-                            log.warn("No hay suficiente remanente para poder aplicar la rectificacion para " + rd.getEP() + " renglon " + secuenciaCLC + " mes " + rd.getcMes() + " cxp " + caNoContrarrecibo + " remanente " + remanente + " importe a rectificar " + rd.getmImporte() + "\n");
+                            log.warn("Object: {}", "No hay suficiente remanente para poder aplicar la rectificacion para " + rd.getEP() + " renglon " + secuenciaCLC + " mes " + rd.getcMes() + " cxp " + caNoContrarrecibo + " remanente " + remanente + " importe a rectificar " + rd.getmImporte() + "\n");
                         }
                     } else
                         rectificaciones.add(rd);
@@ -142,7 +142,7 @@ public class CapturaRectificacionIngresoFiscalServlet extends HttpServlet {
                             insertado = rectIFiscalBL.insertarRectificacionEncabezado(folioR, id_caso, cEjercicio, cRamo, cUnidad, cCentroContable, fExp, fApl, conceptoRectificacion, cTipoMovto, nOrigenPPTO, nMes, oficioRectif, ctr_int, cTipoRectificacion, nFolioSICOP, caNoContrarrecibo, cTipoPoliza, cDescripcionPoliza, u_login, nFolioPoliza, cUnidadResponsableContable, nFolioSIAFF, totalDebe, totalDice, rectificaciones);
                     }
                 } else {
-                    log.warn(remanentes);
+                    log.warn("Object: {}", remanentes);
                     throw new Exception(remanentes);
                 }
             }

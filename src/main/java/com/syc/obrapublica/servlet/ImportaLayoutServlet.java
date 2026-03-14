@@ -20,8 +20,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.core.FileItem;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -103,7 +103,7 @@ public class ImportaLayoutServlet extends HttpServlet {
             String pathURL = request.getContextPath();
             String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + pathURL + "/";
             String path = "";
-            DiskFileUpload fu = new DiskFileUpload();
+            ServletFileUpload fu = new ServletFileUpload();
             // tamaño máximo que aceptará el archivo
             fu.setSizeMax(-1);
             Long date = System.currentTimeMillis();
@@ -209,12 +209,12 @@ public class ImportaLayoutServlet extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         tempDir = config.getInitParameter("tempDir");
         if (tempDir == null) {
@@ -227,7 +227,7 @@ public class ImportaLayoutServlet extends HttpServlet {
     }
 
     public ArrayList<String> cargaExcel(String archivo, String tipo) throws SQLException {
-        DiskFileUpload upload = new DiskFileUpload();
+        ServletFileUpload upload = new ServletFileUpload();
         upload.setRepositoryPath(tempDir);
         String cFileExcel = upload.getRepositoryPath() + "/TechosAnteProyecto.xls";
         ArrayList<String> un = new ArrayList<String>();
@@ -467,7 +467,7 @@ public class ImportaLayoutServlet extends HttpServlet {
         List<FileItem> fileItems = new ArrayList<FileItem>();
         try {
             // Se construye un objeto para que parsee la petición
-            DiskFileUpload fu = new DiskFileUpload();
+            ServletFileUpload fu = new ServletFileUpload();
             // Tamaño máximo que aceptará el archivo
             // El tamaño no importa
             fu.setSizeMax(-1);

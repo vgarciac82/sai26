@@ -8,9 +8,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.syc.contable.core.CargaAdecuacionManager;
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.gestion.util.Util;
@@ -58,9 +58,9 @@ public class CargaAdecuacionBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e4) {
-                    log.warn("Error en rollback: " + e4);
+                    log.warn("Error occurred", "Error en rollback: " + e4);
                 }
-            log.warn("No se proceso el archivo" + e3);
+            log.warn("Object: {}", "No se proceso el archivo" + e3);
             resultado = "No se pudo procesar el archivo en sql " + e3;
         } finally {
             CloseObject.closeObject(conn);
@@ -80,7 +80,7 @@ public class CargaAdecuacionBusinessLogic extends DataSourceManager {
         try {
             CargaAdecuacionManager.cargaArchivo(conn, ruta);
         } catch (Exception e) {
-            log.warn("No se proceso el archivo" + e);
+            log.warn("Object: {}", "No se proceso el archivo" + e);
             cargaCompleta = "No se pudo cargar el archivo " + e;
         } finally {
             CloseObject.closeObject(conn);
@@ -123,7 +123,7 @@ public class CargaAdecuacionBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {

@@ -93,7 +93,7 @@ public class ObraPublicaReportesManager {
             totalCNA[7] = formato.format(totalGeneral.get("avance_financiero"));
             totalCNA[8] = formato.format(totalGeneral.get("avance_financiero_total"));
             excelFile.append(RSToTable.ConvertArrayToRow(totalCNA, new int[] { 3 }));
-            log.debug(excelFile.toString());
+            log.debug("Object: {}", excelFile.toString());
             return excelFile.toString();
         } else {
             return "";
@@ -166,7 +166,7 @@ public class ObraPublicaReportesManager {
             totalCNA[12] = formato.format(totalGeneral.get("monto_asignado"));
             totalCNA[13] = formato.format(totalGeneral.get("monto_ejercido"));
             excelFile.append(RSToTable.ConvertArrayToRow(totalCNA, new int[] { 1, 2 }));
-            log.debug(excelFile.toString());
+            log.debug("Object: {}", excelFile.toString());
             return excelFile.toString();
         } else {
             return "";
@@ -248,7 +248,7 @@ public class ObraPublicaReportesManager {
             totalCNA[12] = df.format(totalGeneral.get("monto_asignado"));
             totalCNA[13] = df.format(totalGeneral.get("monto_ejercido"));
             excelFile.append(RSToTable.ConvertArrayToRow(totalCNA, new int[] { 1, 2 }) + "\n");
-            log.debug(excelFile.toString());
+            log.debug("Object: {}", excelFile.toString());
             return excelFile.toString();
         } else {
             return "";
@@ -279,7 +279,7 @@ public class ObraPublicaReportesManager {
         }
         // query += token + " cgrupofuncional is not null ";
         try {
-            log.trace(query);
+            log.trace("Object: {}", query.toString());
             pStmnt = conn.prepareStatement(query);
             int i = 1;
             if (fechaI != null && !"".equals(fechaI))
@@ -298,7 +298,7 @@ public class ObraPublicaReportesManager {
                 CloseObject.closeObject(pStmnt, false);
                 CloseObject.closeObject(rs, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }
@@ -324,7 +324,7 @@ public class ObraPublicaReportesManager {
             token = " AND ";
         }
         try {
-            log.trace(query);
+            log.trace("Object: {}", query.toString());
             pStmnt = conn.prepareStatement(query);
             int i = 1;
             if (fechaI != null && !"".equals(fechaI))
@@ -343,7 +343,7 @@ public class ObraPublicaReportesManager {
                 CloseObject.closeObject(pStmnt, false);
                 CloseObject.closeObject(rs, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }
@@ -731,7 +731,7 @@ public class ObraPublicaReportesManager {
         }
         String queryHeader = "select '";
         try {
-            log.trace(query);
+            log.trace("Object: {}", query.toString());
             int i = 1;
             if ("MULTI_REPORTE".equalsIgnoreCase(reportType)) {
                 CallableStatement cs1 = null;
@@ -785,7 +785,7 @@ public class ObraPublicaReportesManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(pstmnt, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }
@@ -827,7 +827,7 @@ public class ObraPublicaReportesManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(pStmnt, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }
@@ -849,7 +849,7 @@ public class ObraPublicaReportesManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(pStmnt, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }
@@ -1451,11 +1451,11 @@ public class ObraPublicaReportesManager {
                         if (rowHasta - 1 < rowDesde)
                             rowHasta = rowDesde + 1;
                         for (int numCol = 0; numCol < 36; numCol++) {
-                            sheet.addMergedRegion(new CellRangeAddress(// mention first row here
-                            rowDesde, //mention last row here, it is 1 as we are doing a column wise merging
-                            rowHasta - 1, //mention first column of merging
-                            numCol, //mention last column to include in merge
-                            numCol));
+                            sheet.addMergedRegion(new // mention first row here
+                            //mention last row here, it is 1 as we are doing a column wise merging
+                            //mention first column of merging
+                            CellRangeAddress(//mention last column to include in merge
+                            rowDesde, rowHasta - 1, numCol, numCol));
                         }
                         rowDesde = rowHasta;
                         //rowHasta--;
@@ -1776,7 +1776,7 @@ public class ObraPublicaReportesManager {
                 j++;
             }
         } catch (Exception hazNada) {
-            log.info("En recalculando fórmulas i = '" + i + "', j = '" + j + "'");
+            log.info("Object: {}", "En recalculando fórmulas i = '" + i + "', j = '" + j + "'");
         }
     }
 }

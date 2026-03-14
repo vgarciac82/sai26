@@ -35,7 +35,7 @@ public class GeneraLayoutBusinessLogic extends DataSourceManager {
             if (conn != null) {
                 conn.rollback();
             }
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw e;
         } finally {
             if (conn != null) {
@@ -67,7 +67,7 @@ public class GeneraLayoutBusinessLogic extends DataSourceManager {
             if (conn != null) {
                 conn.rollback();
             }
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw new Exception(e);
         } finally {
             if (conn != null) {

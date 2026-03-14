@@ -50,7 +50,7 @@ public class EPManager {
      *             programatica
      */
     public static Map<String, String> desagregaEP(Connection conn, String EP, boolean incluyeEP) throws Exception {
-        log.trace("Desagregando EP: " + EP);
+        log.trace("Object: {}", "Desagregando EP: " + EP);
         if ("".equals(EP) || null == EP)
             throw new Exception("Se ha recibido una EP vacia");
         PreparedStatement ps = null;

@@ -8,7 +8,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.log4j.LogManager;
 import com.axtel.gestion.core.DocumentTreeOper;
 import com.axtel.gestion.exception.DocumentTreeException;
 import com.axtel.gestion.services.DocumentTreeService;
@@ -30,7 +29,7 @@ public class DocumentTreeController extends HttpServlet {
 
     DocumentTreeService treeDocService;
 
-    private static final Logger log = LogManager.getLogger(DocumentTreeController.class);
+    private static final Logger log = LoggerFactory.getLogger(DocumentTreeController.class);
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -51,12 +50,12 @@ public class DocumentTreeController extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         treeDocService = new DocumentTreeServiceImpl(jniName);
     }
@@ -79,7 +78,7 @@ public class DocumentTreeController extends HttpServlet {
                     break;
             }
         } catch (DocumentTreeException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             Util.sendJSONError(response, e);
         }
         Util.sendJSON(response, result);

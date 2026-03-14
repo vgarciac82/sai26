@@ -66,7 +66,7 @@ public class AutoCancelacionApartadoManager {
                 int j = 0;
                 for (Iterator<String> i = r.iterator(); i.hasNext(); ) {
                     String sFolioCancel = i.next();
-                    log.info("Cancelando folio: " + sFolioCancel);
+                    log.info("Object: {}", "Cancelando folio: " + sFolioCancel);
                     accEng.cancelAccountingApplication(conn, "APARTADO_OPC", sFolioCancel, "tObraPublicaApartadoEncabezado", "tObraPublicaApartadoDetalle", "nFolioOPAHeader");
                     Caso c = new Caso();
                     c.setFolio(rFolioSAI.get(j));

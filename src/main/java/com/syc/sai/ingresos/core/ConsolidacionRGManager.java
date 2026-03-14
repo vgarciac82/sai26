@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
-import javax.servlet.ServletException;
+import jakarta.servlet.ServletException;
 import com.syc.contable.AccountingEngine;
 import com.syc.contable.AdecuacionBusinessLogic;
 import com.syc.contable.caja.core.CajaManager;
@@ -80,8 +80,8 @@ public class ConsolidacionRGManager {
         PreparedStatement upd_fAplicacion = null;
         String queryupdate = "UPDATE tconsolidacionrelaciongastosEncabezado SET fAplicacion = CONVERT( DATE, ISNULL((SELECT TOP 1 FECHA_PAGO FROM dbo.CLC_SIAFF_ENC SIAFF WITH(NOLOCK) INNER JOIN dbo.CLC_SICOP SICOP WITH(NOLOCK) ON SIAFF.FOLIO_CLC=FOLIO_SIAFF_112 WHERE NCTR_47 = ?), GETDATE()), 103)  WHERE nFolioConsolidacion = ?";
         String queryfecha = "SELECT YEAR(fAplicacion) AS anio FROM tconsolidacionrelaciongastosEncabezado (NOLOCK) WHERE nFolioConsolidacion = ?";
-        log.debug(queryupdate);
-        log.debug(queryfecha);
+        log.debug("Object: {}", queryupdate.toString());
+        log.debug("Object: {}", queryfecha.toString());
         boolean aplicado = false;
         String documentoAplicado = null;
         // today
@@ -107,7 +107,7 @@ public class ConsolidacionRGManager {
             } else
                 throw new Exception("No se encontro folio para la integracion de relaciones de gastos[" + nIDIntegracion + "]");
             if ("S".equalsIgnoreCase(documentoAplicado) || "C".equalsIgnoreCase(documentoAplicado)) {
-                log.info("Se intento reaplicar la integracion " + nIDIntegracion + " con folio de integracion " + nFolioConsolidacion);
+                log.info("Object: {}", "Se intento reaplicar la integracion " + nIDIntegracion + " con folio de integracion " + nFolioConsolidacion);
                 return true;
             }
             //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -169,7 +169,7 @@ public class ConsolidacionRGManager {
                         psUpdate.setString(1, proyecto);
                         psUpdate.setString(2, nIDIntegracion);
                         int afectados = psUpdate.executeUpdate();
-                        log.debug("Se actulizaron " + afectados + " registros de la integracion " + nIDIntegracion + " con el proyecto: " + proyecto);
+                        log.debug("Object: {}", "Se actulizaron " + afectados + " registros de la integracion " + nIDIntegracion + " con el proyecto: " + proyecto);
                     } else
                         throw new Exception("El pago se marco como FONDEN sin embargo no se encontro la cuenta en ninguno de los integrados");
                 }
@@ -269,7 +269,7 @@ public class ConsolidacionRGManager {
             psUpdateP.setInt(1, nFolioConsolidacion);
             int afectados = psUpdate.executeUpdate();
             afectados = afectados + psUpdateP.executeUpdate();
-            log.debug("Se actualizaron : " + afectados + " registros del detalle del Folio de Consolidación: " + nFolioConsolidacion);
+            log.debug("Object: {}", "Se actualizaron : " + afectados + " registros del detalle del Folio de Consolidación: " + nFolioConsolidacion);
         } finally {
             CloseObject.closeObject(psUpdate);
         }

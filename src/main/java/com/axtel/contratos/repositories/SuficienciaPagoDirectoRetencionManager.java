@@ -22,12 +22,12 @@ public class SuficienciaPagoDirectoRetencionManager {
             ps.setInt(2, bean.getIdTipoRetencion());
             ps.setBigDecimal(3, bean.getImporteRetencion());
             int rows = ps.executeUpdate();
-            log.info("Filas insertadas: " + rows);
+            log.info("Object: {}", "Filas insertadas: " + rows);
         }
     }
 
     public static List<SuficienciaPagoDirectoRetencion> findByFolio(Connection conn, int folio) throws SQLException {
-        log.info("Buscando Retenciones para folio: " + folio);
+        log.info("Object: {}", "Buscando Retenciones para folio: " + folio);
         List<SuficienciaPagoDirectoRetencion> list = new ArrayList<>();
         String sql = "SELECT * FROM tSuficienciaPagoDirectoRetencion WHERE nFolioSuficienciaPagoDirecto = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -46,25 +46,25 @@ public class SuficienciaPagoDirectoRetencionManager {
     }
 
     public static void update(Connection conn, SuficienciaPagoDirectoRetencion bean) throws SQLException {
-        log.info("Actualizando Retención para folio: " + bean.getFolioSuficienciaPagoDirecto());
+        log.info("Object: {}", "Actualizando Retención para folio: " + bean.getFolioSuficienciaPagoDirecto());
         String sql = "UPDATE tSuficienciaPagoDirectoRetencion SET mImporteRetencion = ? " + "WHERE nFolioSuficienciaPagoDirecto = ? AND cIdTipoRetencion = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setBigDecimal(1, bean.getImporteRetencion());
             ps.setInt(2, bean.getFolioSuficienciaPagoDirecto());
             ps.setInt(3, bean.getIdTipoRetencion());
             int rows = ps.executeUpdate();
-            log.info("Filas actualizadas: " + rows);
+            log.info("Object: {}", "Filas actualizadas: " + rows);
         }
     }
 
     public static void deleteByFolio(Connection conn, int folio, int id) throws SQLException {
-        log.info("Eliminando Retenciones para folio: " + folio);
+        log.info("Object: {}", "Eliminando Retenciones para folio: " + folio);
         String sql = "DELETE FROM tSuficienciaPagoDirectoRetencion WHERE nFolioSuficienciaPagoDirecto = ? AND cIdTipoRetencion = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, folio);
             ps.setInt(2, id);
             int rows = ps.executeUpdate();
-            log.info("Filas eliminadas: " + rows);
+            log.info("Object: {}", "Filas eliminadas: " + rows);
         }
     }
 }

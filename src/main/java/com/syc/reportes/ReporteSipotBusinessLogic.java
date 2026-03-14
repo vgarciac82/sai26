@@ -7,9 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.gestion.reportes.reportes;
 import com.syc.gestion.reportes.reportesBussinesObject;
@@ -191,7 +191,7 @@ public class ReporteSipotBusinessLogic extends DataSourceManager {
                 if (conn != null)
                     conn.close();
             } catch (SQLException exc) {
-                log.error(exc);
+                log.error(exc.getMessage(), exc);
             }
             conn = null;
         }
@@ -248,7 +248,7 @@ public class ReporteSipotBusinessLogic extends DataSourceManager {
                     dif0 = importe;
             }
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         } finally {
             CloseObject.closeObject(cll);
             CloseObject.closeObject(rs);

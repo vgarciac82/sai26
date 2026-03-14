@@ -118,8 +118,8 @@ public class LayoutPagosDiversosServlet extends HttpServlet {
                 ZipOutputStream outZIP = new ZipOutputStream(ouputStream);
                 for (// Compress the files
                 // Compress the files
-                int i = 0; // Compress the files
-                i < filenames.length; i++) {
+                // Compress the files
+                int i = 0; i < filenames.length; i++) {
                     FileInputStream in = new FileInputStream(filenames[i]);
                     // Add ZIP entry to output stream.
                     outZIP.putNextEntry(new ZipEntry(filenames[i].getName()));
@@ -146,7 +146,7 @@ public class LayoutPagosDiversosServlet extends HttpServlet {
         } catch (FileNotFoundException ex) {
             throw ex;
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             msgRetorno = "Ocurrio el siguiente error al generar el layout: " + e.getMessage();
         }
         session.setAttribute("RESULT", msgRetorno);

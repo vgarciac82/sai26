@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.axtel.sisecop.dto.ProjectPaymentDTO;
 import com.axtel.sisecop.entities.ProyectoServicioPago;
 import com.axtel.sisecop.services.ProjectPaymentService;
@@ -43,11 +43,11 @@ public class ProjectPaymentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProjectPaymentDTO paymentDTO = readPayment(request);
-        log.trace("JSON recibido correctamente y mapeado a objeto Payment. " + paymentDTO);
+        log.trace("Object: {}", "JSON recibido correctamente y mapeado a objeto Payment. " + paymentDTO);
         try {
-            log.debug("Saving payment: " + paymentDTO);
+            log.debug("Object: {}", "Saving payment: " + paymentDTO);
             ProyectoServicioPago projectPayment = paymentService.createProjectPayment(paymentDTO);
-            log.info("Payment saved: " + projectPayment);
+            log.info("Object: {}", "Payment saved: " + projectPayment);
             Util.sendJSONResponse(response, projectPayment);
         } catch (Exception e) {
             log.error("Error saving porject: " + e.toString(), e);
@@ -59,10 +59,10 @@ public class ProjectPaymentController extends HttpServlet {
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             int idPayment = Integer.parseInt(request.getParameter("id"));
-            log.info("Trying to delete " + idPayment + " payment");
+            log.info("Object: {}", "Trying to delete " + idPayment + " payment");
             Map<String, String> result = new HashMap<>();
             paymentService.deleteProjectPayment(idPayment);
-            log.info("Payment  " + idPayment + " was deleted");
+            log.info("Object: {}", "Payment  " + idPayment + " was deleted");
             result.put("deleted", "true");
             result.put("success", "true");
             result.put("rowsAfected", "1");
@@ -82,7 +82,7 @@ public class ProjectPaymentController extends HttpServlet {
             }
         }
         String jsonString = jsonRequest.toString();
-        log.trace("Recibed: " + jsonString);
+        log.trace("Object: {}", "Recibed: " + jsonString);
         ProjectPaymentDTO paymentDTO = objectMapper.readValue(jsonString, ProjectPaymentDTO.class);
         return paymentDTO;
     }

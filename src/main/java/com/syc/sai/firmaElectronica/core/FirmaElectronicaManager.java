@@ -94,7 +94,7 @@ public class FirmaElectronicaManager {
         try {
             stmnt = conn.createStatement();
             int actualizados = stmnt.executeUpdate(query.toString());
-            log.info("Se actualizaron " + actualizados + " registros en la tabla: " + tablaEnc + " con las condiciones: " + campo + "=" + valor);
+            log.info("Object: {}", "Se actualizaron " + actualizados + " registros en la tabla: " + tablaEnc + " con las condiciones: " + campo + "=" + valor);
         } finally {
             CloseObject.closeObject(stmnt);
         }
@@ -156,7 +156,7 @@ public class FirmaElectronicaManager {
     }
 
     private static boolean avanzaEstatusRM(Connection conn, RecepcionMaterialFIEL rmfiel, int estatusRM) throws SQLException {
-        log.info("Actualizando RM: " + rmfiel.getRecepcionMaterial());
+        log.info("Object: {}", "Actualizando RM: " + rmfiel.getRecepcionMaterial());
         StringBuilder query = new StringBuilder();
         query.append("UPDATE	mrecepcionpmat ");
         query.append("  SET	nIdEstadoRecepMat = ? ");
@@ -168,9 +168,9 @@ public class FirmaElectronicaManager {
             ps.setInt(1, estatusRM);
             ps.setString(2, rmfiel.getRecepcionMaterial().getcIdPedContDef());
             ps.setString(3, rmfiel.getRecepcionMaterial().getcIdRecepcionMat());
-            log.debug("Ejecutando: " + query.toString() + " [" + rmfiel.getRecepcionMaterial().getcIdPedContDef() + "][" + rmfiel.getRecepcionMaterial().getcIdRecepcionMat() + "]");
+            log.debug("Object: {}", "Ejecutando: " + query.toString() + " [" + rmfiel.getRecepcionMaterial().getcIdPedContDef() + "][" + rmfiel.getRecepcionMaterial().getcIdRecepcionMat() + "]");
             int actualizados = ps.executeUpdate();
-            log.debug("Se actualizaron: " + actualizados + " registros.");
+            log.debug("Object: {}", "Se actualizaron: " + actualizados + " registros.");
             return true;
         } finally {
             CloseObject.closeObject(ps);
@@ -182,7 +182,7 @@ public class FirmaElectronicaManager {
     }
 
     private static boolean firmaAtentaNotaRM(Connection conn, RecepcionMaterialFIEL rmfiel, int estatusFirmaAtentaNotaRM) throws SQLException {
-        log.info("Actualizando RM: " + rmfiel.getRecepcionMaterial());
+        log.info("Object: {}", "Actualizando RM: " + rmfiel.getRecepcionMaterial());
         StringBuilder query = new StringBuilder();
         query.append("update tnotaautorizarm set nIdEstatusAntentaNotaFirmada=? where cIdContratoDefinitivo=? and cIDRecepMat=? AND nIDNota=? ");
         PreparedStatement ps = null;
@@ -192,9 +192,9 @@ public class FirmaElectronicaManager {
             ps.setString(2, rmfiel.getRecepcionMaterial().getcIdPedContDef());
             ps.setString(3, rmfiel.getRecepcionMaterial().getcIdRecepcionMat());
             ps.setInt(4, rmfiel.getRecepcionMaterial().getIdNota());
-            log.debug("Ejecutando: " + query.toString() + " [" + rmfiel.getRecepcionMaterial().getcIdPedContDef() + "][" + rmfiel.getRecepcionMaterial().getcIdRecepcionMat() + "]" + "[" + rmfiel.getRecepcionMaterial().getIdNota() + "]");
+            log.debug("Object: {}", "Ejecutando: " + query.toString() + " [" + rmfiel.getRecepcionMaterial().getcIdPedContDef() + "][" + rmfiel.getRecepcionMaterial().getcIdRecepcionMat() + "]" + "[" + rmfiel.getRecepcionMaterial().getIdNota() + "]");
             int actualizados = ps.executeUpdate();
-            log.debug("Se actualizaron: " + actualizados + " registros.");
+            log.debug("Object: {}", "Se actualizaron: " + actualizados + " registros.");
             return true;
         } finally {
             CloseObject.closeObject(ps);
@@ -211,9 +211,9 @@ public class FirmaElectronicaManager {
         PreparedStatement ps = null;
         int afectados = 0;
         try {
-            log.trace(query);
-            log.trace(solicitudFirmaElectronica.getHeader());
-            log.trace(solicitudFirmaElectronica.getField());
+            log.trace("Object: {}", query.toString());
+            log.trace("Object: {}", solicitudFirmaElectronica.getHeader());
+            log.trace("Object: {}", solicitudFirmaElectronica.getField());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, nEstatusSICOP);
             ps.setInt(2, solicitudFirmaElectronica.getIdField());
@@ -233,7 +233,7 @@ public class FirmaElectronicaManager {
         PreparedStatement ps = null;
         int afectados = 0;
         try {
-            log.trace(query);
+            log.trace("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, nEstatusSICOP);
             ps.setInt(2, pkValue);
@@ -253,7 +253,7 @@ public class FirmaElectronicaManager {
         PreparedStatement ps = null;
         int afectados = 0;
         try {
-            log.trace(query);
+            log.trace("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, nEstatusSICOP);
             ps.setString(2, pkValue);
@@ -270,13 +270,13 @@ public class FirmaElectronicaManager {
         sbUpdateHeader.append("   SET	nEnviadoSICOP = ?, ");
         sbUpdateHeader.append("      	cEsFirmaElectronica = 'S' ");
         sbUpdateHeader.append(" WHERE	").append(solicitudPagoPrinter.getMasiveField()).append(" = ?");
-        log.trace("Query update encabezado masivo: " + sbUpdateHeader);
+        log.trace("Object: {}", "Query update encabezado masivo: " + sbUpdateHeader);
         StringBuilder sbUpdate = new StringBuilder();
         sbUpdate.append("UPDATE ").append(solicitudPagoPrinter.getHeader()).append(" WITH(ROWLOCK) ");
         sbUpdate.append("   SET	nEnviadoSICOP = ?, ");
         sbUpdate.append("      	cEsFirmaElectronica = 'S' ");
         sbUpdate.append(" WHERE	nFolioCargaMasiva = ? ");
-        log.trace("Query update integradas masivo: " + sbUpdate);
+        log.trace("Object: {}", "Query update integradas masivo: " + sbUpdate);
         PreparedStatement psUpdateHeader = null;
         PreparedStatement psUpdate = null;
         try {
@@ -360,7 +360,7 @@ public class FirmaElectronicaManager {
             ps.setString(1, fer.getRecepcionMaterial().getcIdRecepcionMat());
             ps.setString(2, fer.getRecepcionMaterial().getcIdPedContDef());
             int afectados = ps.executeUpdate();
-            log.info("Cancelada " + afectados + " nota de recepcion de material: " + fer.getRecepcionMaterial());
+            log.info("Object: {}", "Cancelada " + afectados + " nota de recepcion de material: " + fer.getRecepcionMaterial());
         } finally {
             CloseObject.closeObject(ps);
         }
@@ -378,7 +378,7 @@ public class FirmaElectronicaManager {
             ps.setString(1, fer.getRecepcionMaterial().getcIdRecepcionMat());
             ps.setString(2, fer.getRecepcionMaterial().getcIdPedContDef());
             int afectados = ps.executeUpdate();
-            log.info("Visto bueno " + afectados + " nota de recepcion de material: " + fer.getRecepcionMaterial());
+            log.info("Object: {}", "Visto bueno " + afectados + " nota de recepcion de material: " + fer.getRecepcionMaterial());
         } finally {
             CloseObject.closeObject(ps);
         }
@@ -767,9 +767,9 @@ public class FirmaElectronicaManager {
         PreparedStatement ps = null;
         int afectados = 0;
         try {
-            log.trace(query);
-            log.trace(solicitudFirmaElectronica.getHeader());
-            log.trace(solicitudFirmaElectronica.getField());
+            log.trace("Object: {}", query.toString());
+            log.trace("Object: {}", solicitudFirmaElectronica.getHeader());
+            log.trace("Object: {}", solicitudFirmaElectronica.getField());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, solicitudFirmaElectronica.getIdField());
             afectados = ps.executeUpdate();
@@ -937,7 +937,7 @@ public class FirmaElectronicaManager {
         PreparedStatement ps = null;
         int afectados = 0;
         try {
-            log.trace(query);
+            log.trace("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, nEstatusSICOP);
             ps.setInt(2, pkValue);

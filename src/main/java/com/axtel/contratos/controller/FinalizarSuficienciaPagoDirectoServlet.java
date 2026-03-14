@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.axtel.contratos.services.SuficienciaPagoDirectoEncabezadoBusinessLogic;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -37,12 +37,12 @@ public class FinalizarSuficienciaPagoDirectoServlet extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         bl = new SuficienciaPagoDirectoEncabezadoBusinessLogic(jniName);
     }
@@ -62,7 +62,7 @@ public class FinalizarSuficienciaPagoDirectoServlet extends HttpServlet {
             mapper.writeValue(resp.getWriter(), error("Parámetro 'folio' es requerido."));
             return;
         }
-        log.info("[API] /api/suficiencia/finalizar POST folio=" + folio);
+        log.info("Object: {}", "[API] /api/suficiencia/finalizar POST folio=" + folio);
         try {
             boolean ok = bl.finalizarContratoDirecto(folio);
             Map<String, Object> out = new HashMap<>();
@@ -79,7 +79,7 @@ public class FinalizarSuficienciaPagoDirectoServlet extends HttpServlet {
         } catch (Exception ex) {
             log.error("[API] Error al finalizar folio=" + folio + " : " + ex.getMessage(), ex);
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            mapper.writeValue(resp.getWriter(), error("Error al finalizar el trámite: " + ex.getMessage()));
+            mapper.writeValue(resp.getWriter(), error("Error occurred", "Error al finalizar el trámite: " + ex.getMessage()));
         }
     }
 

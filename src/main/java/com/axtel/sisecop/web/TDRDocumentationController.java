@@ -6,15 +6,15 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 import org.apache.commons.io.FileUtils;
 import com.axtel.sai.sicove.expedient.repositories.ExpedientRepository;
 import com.axtel.sai.sicove.expedient.repositories.impl.JDBCExpedientRepostory;
@@ -48,12 +48,12 @@ public class TDRDocumentationController extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         expedientRepository = new JDBCExpedientRepostory();
         projectTDRService = new ProjectTDRService(jniName);
@@ -76,18 +76,18 @@ public class TDRDocumentationController extends HttpServlet {
             int idProcess = Integer.parseInt(request.getParameter("idProcess"));
             String folderName = request.getParameter("folderName");
             String tdrDescription = request.getParameter("tdrDescription");
-            log.info("Saving TDR Document. \nService ID: " + servicioId + " \nProcess ID: " + idProcess + "\n Folder: " + folderName + "\n Document Description: " + tdrDescription);
+            log.info("Object: {}", "Saving TDR Document. \nService ID: " + servicioId + " \nProcess ID: " + idProcess + "\n Folder: " + folderName + "\n Document Description: " + tdrDescription);
             Part filePart = request.getPart("documentFile");
             String fileName = filePart.getSubmittedFileName();
-            log.trace("Now reading file:" + fileName);
+            log.trace("Object: {}", "Now reading file:" + fileName);
             File file = File.createTempFile("upload_", "_" + fileName);
-            log.trace("Temp File created successfully: " + file.getAbsolutePath());
+            log.trace("Object: {}", "Temp File created successfully: " + file.getAbsolutePath());
             log.trace("Moving to temp file");
             FileUtils.copyInputStreamToFile(filePart.getInputStream(), file);
-            log.debug("File: " + fileName + " readed successfully");
+            log.debug("Object: {}", "File: " + fileName + " readed successfully");
             log.trace("Traying to save TDR Info");
             ProyectoServicioTDR projectTDR = projectTDRService.addProjectTDR(idProcess, servicioId, tdrDescription, folderName, file, user.getLogin());
-            log.info("TDR Saved!!!: " + projectTDR);
+            log.info("Object: {}", "TDR Saved!!!: " + projectTDR);
             Map<String, Object> result = new HashMap<>();
             result.put("success", "true");
             result.put("message", "El archivo se adjuntó correctamente.");
@@ -109,9 +109,9 @@ public class TDRDocumentationController extends HttpServlet {
             if (user == null)
                 throw new RuntimeException("Sesion expirada.");
             int idTDR = Integer.parseInt(request.getParameter("idTDR"));
-            log.info("Deleting reference term: " + idTDR);
+            log.info("Object: {}", "Deleting reference term: " + idTDR);
             projectTDRService.deleteProjectTDR(idTDR);
-            log.info("Deleted row: " + idTDR + " succesfully");
+            log.info("Object: {}", "Deleted row: " + idTDR + " succesfully");
             Map<String, String> result = new HashMap<>();
             result.put("success", "true");
             result.put("message", "El registro se elimino correctamente.");

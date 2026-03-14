@@ -99,7 +99,7 @@ public class WSObraPublicaEstadosManager {
                 url = rs.getString("GP_VALOR");
             }
             System.out.println("URL: " + url);
-            log.info("URL: " + url);
+            log.info("Object: {}", "URL: " + url);
         } finally {
             if (rs != null) {
                 rs.close();
@@ -119,25 +119,25 @@ public class WSObraPublicaEstadosManager {
         JSONObject jsonOutput = new JSONObject();
         try {
             URL url = new URL(urlCad);
-            log.info("URL::\n" + url);
+            log.info("Object: {}", "URL::\n" + url);
             conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
             conn.setRequestMethod(metodo);
             conn.setRequestProperty("Content-Type", tipoRespuesta);
             String input = inputJson.toString();
-            log.info("Datos enviados:\n" + input);
+            log.info("Object: {}", "Datos enviados:\n" + input);
             BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
             log.info("Output from Server ....");
             jsonOutput.put("msg", "OK");
             jsonOutput.put("estatus", "TRUE");
             while ((output = br.readLine()) != null) {
                 jsonOutput.put("estados", new JSONArray(URLDecoder.decode(output, "UTF-8")));
-                log.info(output);
+                log.info("Object: {}", output);
             }
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 jsonOutput.put("msg", "Failed : HTTP error code : " + conn.getResponseCode());
                 jsonOutput.put("estatus", "FALSE");
-                log.error("Failed : HTTP error code : " + conn.getResponseCode());
+                log.error("Error occurred", "Failed : HTTP error code : " + conn.getResponseCode());
                 throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
             }
         } catch (Exception e) {
@@ -147,7 +147,7 @@ public class WSObraPublicaEstadosManager {
                 jsonOutput.put("estatus", "FALSE");
             } catch (JSONException e1) {
                 // TODO Auto-generated catch block
-                log.error("Error en JSON WebService: " + e1);
+                log.error("Error occurred", "Error en JSON WebService: " + e1);
                 e1.printStackTrace();
             }
             log.error("Error en la conexión del Web Service: " + e, e);

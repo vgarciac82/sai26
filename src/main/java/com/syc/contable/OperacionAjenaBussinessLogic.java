@@ -175,7 +175,7 @@ public class OperacionAjenaBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             if (resultado == null)
                 resultado = new ArrayList<String>();

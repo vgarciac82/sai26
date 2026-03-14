@@ -232,7 +232,7 @@ public class ReporteNotasManager {
             call1.setInt(1, mes);
         call1.setInt(2, miles);
         rs = call1.executeQuery();
-        log.debug(String.format("Ejecutando[" + query + "]"));
+        log.debug("Object: {}", String.format("Ejecutando[" + query + "]"));
         return rs;
     }
 
@@ -679,7 +679,7 @@ public class ReporteNotasManager {
             replaceTextFor(document, "IMPORTE_811", Imp811, miles);
             document = replaceTextFor(document, "IMPORTE_MODIFICADO", ImpMod, miles);
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw e;
         }
         return document;
@@ -756,14 +756,14 @@ public class ReporteNotasManager {
                 for (XWPFParagraph paragraph1 : cell.getParagraphs()) {
                     for (XWPFRun run : paragraph1.getRuns()) {
                         if (newRow.getTableCells().get(newRow.getTableCells().size() - 1) != newRow.getCell(i)) {
-                            log.debug("========================= listado2.get(h)	" + listado2.get(h));
+                            log.debug("Object: {}", "========================= listado2.get(h)	" + listado2.get(h));
                             if (encabezado) {
-                                log.debug("Armando encabezado [" + listado2.get(h) + "]");
+                                log.debug("Object: {}", "Armando encabezado [" + listado2.get(h) + "]");
                                 if (listado2.get(h) != null && !StringUtils.equals("0.00", listado2.get(h).toString())) {
                                     setFormato(run, "Montserrat", 7, listado2.get(h).toString(), true);
                                 }
                             } else {
-                                log.debug("Armando NO encabezado [" + listado2.get(h) + "]");
+                                log.debug("Object: {}", "Armando NO encabezado [" + listado2.get(h) + "]");
                                 if (listado2.get(h) != null && !StringUtils.equals("0.00", listado2.get(h).toString())) {
                                     setFormato(run, "Montserrat", 7, listado2.get(h).toString(), false);
                                 }
@@ -794,7 +794,7 @@ public class ReporteNotasManager {
                 for (XWPFParagraph paragraph1 : cell.getParagraphs()) {
                     for (XWPFRun run : paragraph1.getRuns()) {
                         if (j == renglones) {
-                            log.debug("Genera tabla sin titulos [" + listado2.get(h) + "]");
+                            log.debug("Object: {}", "Genera tabla sin titulos [" + listado2.get(h) + "]");
                             if (listado2.get(h) != null && !StringUtils.equals("0.00", listado2.get(h).toString())) {
                                 setFormato(run, "Montserrat", 7, listado2.get(h).toString(), true);
                             }
@@ -830,7 +830,7 @@ public class ReporteNotasManager {
             rs = call1.executeQuery();
             md = rs.getMetaData();
             columnasRA = md.getColumnCount();
-            log.debug(String.format("Ejecutando[" + query + "]"));
+            log.debug("Object: {}", String.format("Ejecutando[" + query + "]"));
             while (rs.next()) {
                 Object dato = new Object[columnasRA];
                 for (int i = 1; i <= columnasRA; i++) {
@@ -870,7 +870,7 @@ public class ReporteNotasManager {
             rs = call1.executeQuery();
             md = rs.getMetaData();
             columnasRA = md.getColumnCount();
-            log.debug(String.format("Ejecutando[" + query + "]"));
+            log.debug("Object: {}", String.format("Ejecutando[" + query + "]"));
             while (rs.next()) {
                 Object dato = new Object[columnasRA];
                 for (int i = 1; i <= columnasRA; i++) {
@@ -905,7 +905,7 @@ public class ReporteNotasManager {
             rs = call1.executeQuery();
             md = rs.getMetaData();
             columnasRA = md.getColumnCount();
-            log.debug(String.format("Ejecutando[" + query + "]"));
+            log.debug("Object: {}", String.format("Ejecutando[" + query + "]"));
             while (rs.next()) {
                 Object dato = new Object[columnasRA];
                 for (int i = 1; i <= columnasRA; i++) {

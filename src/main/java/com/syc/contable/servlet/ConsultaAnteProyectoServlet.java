@@ -71,7 +71,7 @@ public class ConsultaAnteProyectoServlet extends HttpServlet implements GestionI
         } catch (Exception e) {
             e.printStackTrace();
         }
-        log.debug("Redirect: " + strRedirect);
+        log.debug("Object: {}", "Redirect: " + strRedirect);
         resp.sendRedirect(strRedirect);
         log.debug("SALE  DE LA CONSULTA");
     }
@@ -84,13 +84,13 @@ public class ConsultaAnteProyectoServlet extends HttpServlet implements GestionI
             TEMP_DIR = (String) ic.lookup("java:comp/env/TemporaryDirectory");
             if (TEMP_DIR == null) {
                 TEMP_DIR = "../upload/PEF/";
-                log.info("Environment Entry \"TEMP_DIR\" nula usando default \"" + TEMP_DIR + "\"");
+                log.info("Object: {}", "Environment Entry \"TEMP_DIR\" nula usando default \"" + TEMP_DIR + "\"");
             } else
-                log.info("dataSourceRefName=" + TEMP_DIR);
+                log.info("Object: {}", "dataSourceRefName=" + TEMP_DIR);
         } catch (NamingException exc) {
             TEMP_DIR = "../upload/PEF/";
-            log.info("Ocurrio un error que evito que se cargara la entrada \"TEMP_DIR\"" + exc);
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + TEMP_DIR + "\"");
+            log.info("Error occurred", "Ocurrio un error que evito que se cargara la entrada \"TEMP_DIR\"" + exc);
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + TEMP_DIR + "\"");
         }
         try {
             File f = new File(TEMP_DIR);
@@ -98,7 +98,7 @@ public class ConsultaAnteProyectoServlet extends HttpServlet implements GestionI
                 if (!f.mkdirs())
                     throw new Exception("No se puede crear el directorio temporal " + TEMP_DIR);
         } catch (Exception e) {
-            log.error("No fue posible crear automaticamente el directorio temporal: " + TEMP_DIR + " Solicite su creacion manual");
+            log.error("Object: {}", "No fue posible crear automaticamente el directorio temporal: " + TEMP_DIR + " Solicite su creacion manual");
         }
     }
 

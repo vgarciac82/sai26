@@ -13,21 +13,22 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.core.FileItem;
 import com.syc.cfdi.utils.FacturaUtils;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import com.syc.sai.procesosAutomaticos.UploadConciliacionBusinessLogic;
-import common.Logger;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "AdjuntaConContable", urlPatterns = { "/uploadConciliacionCont" })
 public class UploadConcContableServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 126320606200256721L;
 
-    private static final Logger log = Logger.getLogger(UploadConcContableServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(UploadConcContableServlet.class);
 
     private String jniName = "";
 
@@ -79,7 +80,7 @@ public class UploadConcContableServlet extends HttpServlet implements GestionInt
                         nombreArchivo = item.getName();
                         String extension = Util.getFileExtencion(nombreArchivo);
                         nombreDestino = FacturaUtils.generaNombreArchivoTemporal(TEMP_DIR, nombreArchivo, extension);
-                        log.info("Copiando archivo: [" + nombreArchivo + "] a [" + nombreDestino + "]");
+                        log.info("Object: {}", "Copiando archivo: [" + nombreArchivo + "] a [" + nombreDestino + "]");
                         Util.copiaArchivo(archivoCargaStream, nombreDestino);
                         item.delete();
                         break;
@@ -88,14 +89,14 @@ public class UploadConcContableServlet extends HttpServlet implements GestionInt
                 UploadConciliacionBusinessLogic ucbl = new UploadConciliacionBusinessLogic(jniName, folioGenerator);
                 msgRetorno = ucbl.uploadConciliacion(u, nombreCarpeta, nombreDestino, nMes, conciliacion);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 msgRetorno = "Ocurrio el siguiente error al cargar el archivo: <br>" + e.getMessage();
             } finally {
                 if (archivoCargaStream != null)
                     try {
                         archivoCargaStream.close();
                     } catch (Exception e) {
-                        log.error("Error cerrando flujo DataInputStream" + e);
+                        log.error("Error occurred", "Error cerrando flujo DataInputStream" + e);
                     }
                 archivoCargaStream = null;
                 if (!"".equals(nombreDestino)) {
@@ -127,24 +128,24 @@ public class UploadConcContableServlet extends HttpServlet implements GestionInt
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         try {
             InitialContext ic = new InitialContext();
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
     }
 }

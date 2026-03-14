@@ -40,7 +40,7 @@ public class ReporteDetalleDIOTManager {
         String fileName = "";
         try {
             ps = conn.prepareStatement(query);
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             ps.setInt(1, mes);
             rs = ps.executeQuery();
             fileName = generaReporte(rs, plantillas.get("DetalleDIOT"));

@@ -18,7 +18,7 @@ public class EgresoContratoBusinessLogic extends EgresosBusinessLogic {
     }
 
     public String getNumeroContratoEgreso(Connection conn, String tipoPago, int folioPago) throws Exception {
-        log.info("Buscando numero de contrato para el folio : " + folioPago + " en el pago " + tipoPago);
+        log.info("Object: {}", "Buscando numero de contrato para el folio : " + folioPago + " en el pago " + tipoPago);
         return EgresoContratoManager.getNumeroContratoEgreso(conn, tipoPago, folioPago);
     }
 

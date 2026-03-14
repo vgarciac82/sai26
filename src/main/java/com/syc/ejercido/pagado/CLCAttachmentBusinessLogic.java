@@ -93,7 +93,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
             if (!dirCLC.isDirectory())
                 throw new Exception("La ruta[" + outputDir + "] no corresponde a un directorio. Reporte al administrador del sistema.");
             int extraidos = CLCAttachmentManager.extractZipCLC(zipFilePath, outputDir, arrList);
-            log.debug("El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos");
+            log.debug("Object: {}", "El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos");
             log.trace("Iniciando adjuntamiento de archivos.");
             File[] files = arrList.toArray(new File[arrList.size()]);
             for (int i = 0; i < files.length; i++) {
@@ -107,7 +107,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
                     String clcFilePath = files[i].getAbsolutePath();
                     createStatements(conn);
                     int adjuntados = CLCAttachmentManager.attachCLC(conn, ignorarExistentes, clcFilePath, csBuscaCLC, csBuscaGabinete, psInsertFolderHierarchy, psInsertFolder, psNexIDFolder, psSearchFolder, psSearchVolumenUnit, psSearchVolumen, psSearchVolPath, getProcesoAdjunta());
-                    log.info("Se adjuntaron [" + adjuntados + "]");
+                    log.info("Object: {}", "Se adjuntaron [" + adjuntados + "]");
                     conn.commit();
                 } catch (Exception e) {
                     log.error(e.getMessage(), e);
@@ -131,7 +131,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
             log.error(e.getMessage(), e);
         }
         long stop = System.currentTimeMillis();
-        log.trace("Terminado Adjuntar archivos CLC en (" + (stop - start) / 1000 + " s.])");
+        log.trace("Object: {}", "Terminado Adjuntar archivos CLC en (" + (stop - start) / 1000 + " s.])");
     }
 
     public void attachFactura(String zipFilePath, String outputDir, boolean ignorarExistentes) {
@@ -147,7 +147,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
             if (!dirCLC.isDirectory())
                 throw new Exception("La ruta[" + outputDir + "] no corresponde a un directorio. Reporte al administrador del sistema.");
             int extraidos = CLCAttachmentManager.extractZipCLC(zipFilePath, outputDir, arrList);
-            log.debug("El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos");
+            log.debug("Object: {}", "El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos");
             log.trace("Iniciando adjuntamiento de archivos.");
             File[] files = arrList.toArray(new File[arrList.size()]);
             for (int i = 0; i < files.length; i++) {
@@ -161,7 +161,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
                     String clcFilePath = files[i].getAbsolutePath();
                     createStatements(conn);
                     int adjuntados = CLCAttachmentManager.attachFactura(conn, ignorarExistentes, clcFilePath, csBuscaGabinete, psInsertFolderHierarchy, psInsertFolder, psNexIDFolder, psSearchFolder, psSearchVolumenUnit, psSearchVolumen, psSearchVolPath, getProcesoAdjunta());
-                    log.info("Se adjuntaron [" + adjuntados + "]");
+                    log.info("Object: {}", "Se adjuntaron [" + adjuntados + "]");
                     conn.commit();
                 } catch (Exception e) {
                     log.error(e.getMessage(), e);
@@ -185,7 +185,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
             log.error(e.getMessage(), e);
         }
         long stop = System.currentTimeMillis();
-        log.trace("Terminado Adjuntar archivos CLC en (" + (stop - start) / 1000 + " s.])");
+        log.trace("Object: {}", "Terminado Adjuntar archivos CLC en (" + (stop - start) / 1000 + " s.])");
     }
 
     private void createStatements(Connection conn) throws Exception {
@@ -239,7 +239,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
                 throw new Exception("La ruta[" + outputDir + "] no corresponde a un directorio. Reporte al administrador del sistema.");
             }
             int extraidos = CLCAttachmentManager.extractZipCLC(zipFilePath, outputDir, arrList);
-            log.debug("El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos");
+            log.debug("Object: {}", "El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos");
             log.trace("Iniciando adjuntamiento de archivos.");
             File[] files = arrList.toArray(new File[arrList.size()]);
             for (int i = 0; i < files.length; i++) {
@@ -275,7 +275,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
             log.error(e.getMessage(), e);
         }
         long stop = System.currentTimeMillis();
-        log.trace("Terminado Adjuntar archivos CLC en (" + (stop - start) / 1000 + " s.])");
+        log.trace("Object: {}", "Terminado Adjuntar archivos CLC en (" + (stop - start) / 1000 + " s.])");
         return result;
     }
 
@@ -293,7 +293,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
                 throw new Exception("La ruta[" + carpetaExtraccion + "] no corresponde a un directorio. Reporte al administrador del sistema.");
             }
             int extraidos = CLCAttachmentManager.extractZipCLC(zipFilePath, carpetaExtraccion, filesList);
-            log.debug("El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos");
+            log.debug("Object: {}", "El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos");
             log.trace("Iniciando adjuntamiento de archivos.");
             File[] files = filesList.toArray(new File[filesList.size()]);
             for (int i = 0; i < files.length; i++) {
@@ -307,7 +307,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
                     String cbFilePath = files[i].getAbsolutePath();
                     createStatements(conn);
                     int adjuntados = CLCAttachmentManager.attachDocumento(conn, ignorarExistentes, cbFilePath, psBuscaPago, psInsertFolderHierarchy, psInsertFolder, psNexIDFolder, psSearchFolder, psSearchVolumenUnit, psSearchVolumen, psSearchVolPath, nombreCarpeta, nombreDocumento);
-                    log.info("Se adjuntaron [" + adjuntados + "]");
+                    log.info("Object: {}", "Se adjuntaron [" + adjuntados + "]");
                     conn.commit();
                 } catch (Exception e) {
                     log.error(e.getMessage(), e);
@@ -334,7 +334,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
             log.error(e.getMessage(), e);
         }
         long stop = System.currentTimeMillis();
-        log.trace("Terminado Adjuntar archivos CLC en (" + (stop - start) / 1000 + " s.])");
+        log.trace("Object: {}", "Terminado Adjuntar archivos CLC en (" + (stop - start) / 1000 + " s.])");
     }
 
     public void attachDocumentoConciliacion(Connection conn, String filePath, String nombreCarpeta, String nombreDocumento, String folioSAI, boolean ignorarExistentes) throws Exception {
@@ -343,7 +343,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
         try {
             createStatements(conn);
             int adjuntados = CLCAttachmentManager.attachDocumento(conn, ignorarExistentes, filePath, psBuscaPago, psInsertFolderHierarchy, psInsertFolder, psNexIDFolder, psSearchFolder, psSearchVolumenUnit, psSearchVolumen, psSearchVolPath, nombreCarpeta, nombreDocumento, folioSAI);
-            log.info("Se adjuntaron [" + adjuntados + "]");
+            log.info("Object: {}", "Se adjuntaron [" + adjuntados + "]");
         } finally {
             closeStatements();
             try {
@@ -356,7 +356,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
             }
         }
         long stop = System.currentTimeMillis();
-        log.trace("Terminado Adjuntar archivos CLC en (" + (stop - start) / 1000 + " s.])");
+        log.trace("Object: {}", "Terminado Adjuntar archivos CLC en (" + (stop - start) / 1000 + " s.])");
     }
 
     public ProcesoAdjuntaBusinessLogic getProcesoAdjuntaBL() {
@@ -390,7 +390,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
                 throw new Exception("La ruta[" + outputDir + "] no corresponde a un directorio. Reporte al administrador del sistema.");
             }
             int extraidos = CLCAttachmentManager.extractZipCLC(zipFilePath, outputDir, arrList);
-            log.debug("El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos");
+            log.debug("Object: {}", "El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos");
             log.trace("Iniciando adjuntamiento de archivos.");
             File[] files = arrList.toArray(new File[arrList.size()]);
             for (int i = 0; i < files.length; i++) {
@@ -429,12 +429,12 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
             log.error(e.getMessage(), e);
         }
         long stop = System.currentTimeMillis();
-        log.trace("Terminado Adjuntar archivos CLC en (" + (stop - start) / 1000 + " s.])");
+        log.trace("Object: {}", "Terminado Adjuntar archivos CLC en (" + (stop - start) / 1000 + " s.])");
         return result;
     }
 
     public List<AttachResult> attachDocumentoCaja(String centroContable, String zipFilePath, String outputDir, boolean ignorarExistentes, String carpeta, String documento) {
-        log.info(String.format("Iniciando extraccion de archivo con documento; %s para anexar a la carpeta: %s en CAJA", documento, carpeta));
+        log.info("Object: {}", String.format("Iniciando extraccion de archivo con documento; %s para anexar a la carpeta: %s en CAJA", documento, carpeta));
         long start = System.currentTimeMillis();
         List<File> arrList = new ArrayList<File>();
         List<AttachResult> result = new ArrayList<AttachResult>();
@@ -447,7 +447,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
                 throw new Exception("La ruta[" + outputDir + "] no corresponde a un directorio. Reporte al administrador del sistema.");
             }
             int extraidos = CLCAttachmentManager.extractZipCLC(zipFilePath, outputDir, arrList);
-            log.debug("El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos");
+            log.debug("Object: {}", "El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos");
             log.trace("Iniciando adjuntamiento de archivos.");
             File[] files = arrList.toArray(new File[arrList.size()]);
             for (int i = 0; i < files.length; i++) {
@@ -486,7 +486,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
             log.error(e.getMessage(), e);
         }
         long stop = System.currentTimeMillis();
-        log.trace("Terminado Adjuntar archivos CLC en (" + (stop - start) / 1000 + " s.])");
+        log.trace("Object: {}", "Terminado Adjuntar archivos CLC en (" + (stop - start) / 1000 + " s.])");
         return result;
     }
 }

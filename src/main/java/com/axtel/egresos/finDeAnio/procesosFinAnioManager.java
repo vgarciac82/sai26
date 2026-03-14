@@ -47,12 +47,12 @@ public class procesosFinAnioManager {
             //Query para genera el encabezado del layout de la solicitud de pago
             StringBuilder querySelectPagos = genQueryPagos(listaFolios, listaPagos);
             pstmntPagos = conn.prepareStatement(querySelectPagos.toString());
-            log.trace("Ejecutando \n[" + querySelectPagos + "]");
+            log.trace("Object: {}", "Ejecutando \n[" + querySelectPagos + "]");
             rs = pstmntPagos.executeQuery();
             //Query para generar el detalle del layouts de solicitudes de pago
             StringBuilder queryPagosDet = generaQueryPagosDet(listaFolios, listaPagos);
             pstmntPagosDet = conn.prepareStatement(queryPagosDet.toString());
-            log.trace("Ejecutando \n[" + queryPagosDet + "]");
+            log.trace("Object: {}", "Ejecutando \n[" + queryPagosDet + "]");
             rs2 = pstmntPagosDet.executeQuery();
             fileName = generaLayOut(rs, rs2, plantillas.get("LAYOUTFINANIO"));
             return fileName;
@@ -177,7 +177,7 @@ public class procesosFinAnioManager {
             insertaBitacora.append("WHERE nFolioPagado IN (" + listaFolios + ") ");
             insertaBitacora.append("AND cTipoPago IN (" + listaPagos + ")");
             insertaBitacora.append("ORDER BY nFolioPagado, cTipoPago");
-            log.debug("Query para insertar Bitacora: " + insertaBitacora);
+            log.debug("Object: {}", "Query para insertar Bitacora: " + insertaBitacora);
             ps = conn.prepareStatement(insertaBitacora.toString());
             ps.setString(1, sUsuario);
             ps.executeUpdate();

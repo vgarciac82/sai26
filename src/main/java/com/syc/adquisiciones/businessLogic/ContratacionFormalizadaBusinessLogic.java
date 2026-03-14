@@ -11,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -86,7 +86,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             if (conn != null) {
                 conn.rollback();
             }
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             e.printStackTrace();
         } finally {
             if (conn != null) {
@@ -156,7 +156,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             if (conn != null) {
                 conn.rollback();
             }
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             e.printStackTrace();
         } finally {
             if (conn != null) {
@@ -425,20 +425,20 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             query = new StringBuilder();
             jsonObj = new JSONObject();
             query.append("SELECT (cUnidadResponsable + ' - ' + D_DESCRIPCION) AS cIdUnidadEjecutora, cUnidadResponsable AS cUnidadEjecutora FROM v_unidadEjecutoraPadre WITH(NOLOCK)");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             arrayObj = Util.obtieneDatQuery(conn, query.toString());
             jsonObj.put("catalogoAreaResponsable", arrayObj);
             arrayObj = null;
             query.delete(0, query.length());
             query.append("select cDescripcion,nIdTipoMod from mcatalogoTipoMod with(Nolock) where nActivo=1 and nIdTipoMod in(0)");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             arrayObj = Util.obtieneDatQuery(conn, query.toString());
             jsonObj.put("catalogoTipoMod", arrayObj);
             conn.commit();
             error = false;
             return jsonObj;
         } catch (Exception e) {
-            log.error("Bug, consulting data new contract cap 4000: " + e);
+            log.error("Object: {}", "Bug, consulting data new contract cap 4000: " + e);
             throw new Exception("Bug, consulting data new contract cap 4000: " + e.toString());
         } finally {
             if (error) {
@@ -446,7 +446,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -470,14 +470,14 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             query = new StringBuilder();
             jsonObj = new JSONObject();
             query.append("SELECT (cUnidadResponsable + ' - ' + D_DESCRIPCION) AS cIdUnidadEjecutora, cUnidadResponsable AS cUnidadEjecutora FROM v_unidadEjecutoraPadre WITH(NOLOCK)");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             arrayObj = Util.obtieneDatQuery(conn, query.toString());
             jsonObj.put("catalogoAreaResponsable", arrayObj);
             conn.commit();
             error = false;
             return jsonObj;
         } catch (Exception e) {
-            log.error("Bug, consulting data new contract cap 4000: " + e);
+            log.error("Object: {}", "Bug, consulting data new contract cap 4000: " + e);
             throw new Exception("Bug, consulting data new contract cap 4000: " + e.toString());
         } finally {
             if (error) {
@@ -485,7 +485,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -527,7 +527,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             error = false;
             return null;
         } catch (Exception e) {
-            log.error("Bug, addNewConvenioCap4: " + e);
+            log.error("Object: {}", "Bug, addNewConvenioCap4: " + e);
             throw new Exception("Bug, addNewConvenioCap4: " + e.toString());
         } finally {
             if (error) {
@@ -535,7 +535,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -582,14 +582,14 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             query.append("inner join ( select nIdContModCap4,cIdUnidadMedida from mContratoModificadoCap4Partida with(Nolock) group by nIdContModCap4,cIdUnidadMedida )unidadMed on unidadMed.nIdContModCap4=conv.nIdContModCap4 ");
             query.append(" where conv.cIdContratoDefinitivo='" + conv.getcIdContratoDefinitivo() + "' and conv.nIdContModCap4=" + conv.getnIdContModCap4() + " and conv.nConsecutivoModificacion= ");
             query.append(conv.getnConsecutivoModificacion());
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             arrayObj = Util.datGuardados(conn, query.toString());
             jsonObj.put("datosCaratula", arrayObj);
             conn.commit();
             error = false;
             return jsonObj;
         } catch (Exception e) {
-            log.error("Bug, queryDataCaratulaConvCap4: " + e);
+            log.error("Object: {}", "Bug, queryDataCaratulaConvCap4: " + e);
             throw new Exception("Bug, queryDataCaratulaConvCap4: " + e.toString());
         } finally {
             if (error) {
@@ -597,7 +597,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -630,7 +630,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error("Bug, addNewConvenioCap4: " + e);
+            log.error("Object: {}", "Bug, addNewConvenioCap4: " + e);
             throw new Exception("Bug, addNewConvenioCap4: " + e.toString());
         } finally {
             if (error) {
@@ -638,7 +638,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -680,7 +680,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error("Bug, updateItemsConvenioCap4: " + e);
+            log.error("Object: {}", "Bug, updateItemsConvenioCap4: " + e);
             throw new Exception("Bug, updateItemsConvenioCap4: " + e.toString());
         } finally {
             if (error) {
@@ -688,7 +688,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -745,7 +745,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error("Bug, apruebaConvenioCap4: " + e);
+            log.error("Object: {}", "Bug, apruebaConvenioCap4: " + e);
             throw new Exception("Bug, apruebaConvenioCap4: " + e.toString());
         } finally {
             if (error) {
@@ -753,7 +753,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -781,7 +781,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error("Bug, devuelveConvenioCap4: " + e);
+            log.error("Object: {}", "Bug, devuelveConvenioCap4: " + e);
             throw new Exception("Bug, devuelveConvenioCap4: " + e.toString());
         } finally {
             if (error) {
@@ -789,7 +789,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -814,7 +814,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error("Bug, devuelveConvenioCap4: " + e);
+            log.error("Object: {}", "Bug, devuelveConvenioCap4: " + e);
             throw new Exception("Bug, devuelveConvenioCap4: " + e.toString());
         } finally {
             if (error) {
@@ -822,7 +822,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -869,7 +869,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error("Bug, Genera Precompromiso: " + e);
+            log.error("Object: {}", "Bug, Genera Precompromiso: " + e);
             throw new Exception("Bug, Genera Precompromiso: " + e.toString());
         } finally {
             if (error) {
@@ -877,7 +877,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -914,7 +914,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             arrayTabla = cadTabla.split(",");
             tabla = Util.creaArray(arrayTabla);
             sql = "select *from v_obtieneCentroContable with(Nolock) where cIdContratoDefinitivo='" + param[0] + "' and cEjercicio='" + param[2] + "'";
-            log.info(sql);
+            log.info("Object: {}", sql.toString());
             pstm = conn.prepareStatement(sql);
             rs = pstm.executeQuery();
             conInt = new AplicacionContable();
@@ -950,7 +950,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                 //autoriza_precomp
                 nombre = new String[] { "consulta_precomp" };
                 Util.avanzaCaso(request, caso, usuario, prefixPath, responsable, nombre, jndiName);
-                log.debug(caso.getCasoDato("APLICADO_CONT").getValor());
+                log.debug("Object: {}", caso.getCasoDato("APLICADO_CONT").getValor());
             }
             usuario.setU_UR(ueOriginal);
             usuario.getPropiedad("CCENTROCONTABLE").setValor(cCentroContableOrig);
@@ -1016,7 +1016,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             //autoriza_precomp
             nombre = new String[] { "consulta_precomp" };
             Util.avanzaCaso(request, caso, usuario, prefixPath, responsable, nombre, jndiName);
-            log.debug(caso.getCasoDato("APLICADO_CONT").getValor());
+            log.debug("Object: {}", caso.getCasoDato("APLICADO_CONT").getValor());
         } catch (Exception e) {
             throw new Exception(e);
         } finally {
@@ -1134,7 +1134,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     //autoriza_precomp
                     nombre = new String[] { "consulta_precomp" };
                     Util.avanzaCaso(request, caso, usuario, conv.getPrefixPath(), responsable, nombre, conv.getJndiName());
-                    log.debug(caso.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: {}", caso.getCasoDato("APLICADO_CONT").getValor());
                     //Guardaar en bitacora los movimientos
                     Util.bitacoraMovimientos(conv.getcIdContratoDefinitivo() + "#M" + conv.getnConsecutivoModificacion(), "Generación de precompromiso para convenios con Folio=" + folio, usuario.getLogin(), conn);
                     //Guarda la relación de precompromisos
@@ -1151,7 +1151,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             error = false;
             conn.commit();
         } catch (Exception e) {
-            log.error("Bug, generaPrecompromiso: " + e);
+            log.error("Object: {}", "Bug, generaPrecompromiso: " + e);
             throw new Exception("Bug, generaPrecompromiso: " + e.toString());
         } finally {
             if (error) {
@@ -1159,7 +1159,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -1233,7 +1233,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             //autoriza_precomp
             nombre = new String[] { "consulta_precomp" };
             Util.avanzaCaso(request, caso, usuario, prefixPath, responsable, nombre, jndiName);
-            log.debug(caso.getCasoDato("APLICADO_CONT").getValor());
+            log.debug("Object: {}", caso.getCasoDato("APLICADO_CONT").getValor());
             conv.setcFolioPre(caso.getFolio());
             conv.setnConsecutivoPrecom(Integer.parseInt(folio));
             conv.setnEstatus(ContractStatus.BUDGET);
@@ -1241,7 +1241,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error("Bug, generaPrecompromiso: " + e);
+            log.error("Object: {}", "Bug, generaPrecompromiso: " + e);
             throw new Exception("Bug, generaPrecompromiso: " + e.toString());
         } finally {
             if (error) {
@@ -1249,7 +1249,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -1317,7 +1317,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error("Bug, devuelvePrecomConvenioCap4: " + e);
+            log.error("Object: {}", "Bug, devuelvePrecomConvenioCap4: " + e);
             throw new Exception("Bug, devuelvePrecomConvenioCap4: " + e.toString());
         } finally {
             if (error) {
@@ -1325,7 +1325,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -1403,7 +1403,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error("Bug, generaCompromisoConvCap4: " + e);
+            log.error("Object: {}", "Bug, generaCompromisoConvCap4: " + e);
             throw new Exception("Bug, generaCompromisoConvCap4: " + e.toString());
         } finally {
             if (error) {
@@ -1411,7 +1411,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -1451,7 +1451,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                 }
             }
         } catch (Exception e) {
-            log.error("Bug, addAnticipoNoRecepcionado: " + e);
+            log.error("Object: {}", "Bug, addAnticipoNoRecepcionado: " + e);
             throw new Exception("Bug, addAnticipoNoRecepcionado: " + e.toString());
         } finally {
             cEjercicioActual = null;
@@ -1472,7 +1472,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             query = new StringBuilder();
             jsonObj = new JSONObject();
             query.append("Select 'Todo' as descript,'0' cid union SELECT  (cUnidadResponsable + ' - ' + D_DESCRIPCION) AS descrip, cUnidadResponsable AS cIdUnidadEjecutora FROM v_unidadEjecutoraPadre WITH(NOLOCK)");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             arrayObj = Util.obtieneDatQuery(conn, query.toString());
             jsonObj.put("catalogoAreaResponsable", arrayObj);
             arrayObj = null;
@@ -1481,7 +1481,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             error = false;
             return jsonObj;
         } catch (Exception e) {
-            log.error("Bug, consulting data new garantias: " + e);
+            log.error("Object: {}", "Bug, consulting data new garantias: " + e);
             throw new Exception("Bug, consulting data garantias: " + e.toString());
         } finally {
             if (error) {
@@ -1489,7 +1489,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -1543,7 +1543,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             query.append("	inner join tCatUnidadEjecutora as ue with(Nolock)");
             query.append("	on ue.cUnidadEjecutora=cont.cIdUnidadEjecutora");
             query.append("	where  cont.cIdContratoDefinitivo='" + cIdContratoDef + "'");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             arrayObj = Util.datGuardados(conn, query.toString());
             if (rutasArchGarantia != null && rutasArchGarantia[0] != null) {
                 arrayObj.getJSONObject(0).put("existeDoctoGarantia", 1);
@@ -1638,7 +1638,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             error = false;
             return jsonObj;
         } catch (Exception e) {
-            log.error("Bug, consulting data new garantias: " + e);
+            log.error("Object: {}", "Bug, consulting data new garantias: " + e);
             throw new Exception("Bug, consulting data garantias: " + e.toString());
         } finally {
             if (error) {
@@ -1646,7 +1646,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -1727,7 +1727,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             query.append(" 	group by cIdContratoDefinitivo,lFianza,lcheque ");
             query.append(" ) garant on garant.cIdContratoDefinitivo=cont.cIdContratoDefinitivo	 ");
             query.append("	where  cont.cIdContratoDefinitivo='" + cIdContratoDef + "'");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             arrayObj = Util.datGuardados(conn, query.toString());
             if (rutasArchGarantiaLib != null && rutasArchGarantiaLib[0] != null) {
                 arrayObj.getJSONObject(0).put("existeDoctoGarantiaLiberada", 1);
@@ -1750,7 +1750,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             error = false;
             return jsonObj;
         } catch (Exception e) {
-            log.error("Bug, consulting data new garantias: " + e);
+            log.error("Object: {}", "Bug, consulting data new garantias: " + e);
             throw new Exception("Bug, consulting data garantias: " + e.toString());
         } finally {
             if (error) {
@@ -1758,7 +1758,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -1833,7 +1833,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error("Bug, Save Libera Garantia: " + e);
+            log.error("Object: {}", "Bug, Save Libera Garantia: " + e);
             throw new Exception("Bug, Save Libera Garantia: " + e.toString());
         } finally {
             if (error) {
@@ -1841,14 +1841,14 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
                 if (connContrato != null)
                     try {
                         connContrato.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -1971,7 +1971,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error("Bug, Save garantia: " + e);
+            log.error("Object: {}", "Bug, Save garantia: " + e);
             throw new Exception("Bug, Save garantia: " + e.toString());
         } finally {
             if (error) {
@@ -1979,14 +1979,14 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
                 if (connContrato != null)
                     try {
                         connContrato.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -2013,26 +2013,26 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             query = new StringBuilder();
             jsonObj = new JSONObject();
             query.append("SELECT  (cUnidadResponsable + ' - ' + D_DESCRIPCION) AS descrip, cUnidadResponsable AS cIdUnidadEjecutora FROM v_unidadEjecutoraPadre WITH(NOLOCK)");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             arrayObj = Util.obtieneDatQuery(conn, query.toString());
             jsonObj.put("catalogoAreaResponsable", arrayObj);
             arrayObj = null;
             query.delete(0, query.length());
             query.append("select 'Todo' cEstado,0 nIdEstado union select cEstado,nIdEstado from mCatalogoEstadoContrato with(Nolock) where nIdEstado<5");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             arrayObj = Util.obtieneDatQuery(conn, query.toString());
             jsonObj.put("catalogoEstatus", arrayObj);
             arrayObj = null;
             query.delete(0, query.length());
             query.append("select 'Todo' descrip,'' cIdTipoContrato  union select cIdTipoContrato+' - '+cTipoContrato as descrip,cIdTipoContrato from mCatalogoTipoContrato with(Nolock) where nActivo=1 and cIdTipoContrato in('CR','CS')");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             arrayObj = Util.obtieneDatQuery(conn, query.toString());
             jsonObj.put("catalogoTipoContrato", arrayObj);
             conn.commit();
             error = false;
             return jsonObj;
         } catch (Exception e) {
-            log.error("Bug, consulting data new contract art 25: " + e);
+            log.error("Object: {}", "Bug, consulting data new contract art 25: " + e);
             throw new Exception("Bug, consulting data new contract cart 25: " + e.toString());
         } finally {
             if (error) {
@@ -2040,7 +2040,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -2101,7 +2101,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             error = false;
             return jsonObj;
         } catch (Exception e) {
-            log.error("Bug, consulting data new contract art 25: " + e);
+            log.error("Object: {}", "Bug, consulting data new contract art 25: " + e);
             throw new Exception("Bug, consulting data new contract art 25: " + e.toString());
         } finally {
             if (error) {
@@ -2109,7 +2109,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -2137,7 +2137,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error("Bug, Add EP: " + e);
+            log.error("Object: {}", "Bug, Add EP: " + e);
             throw new Exception("Bug, Add EP: " + e.toString());
         } finally {
             if (error) {
@@ -2145,7 +2145,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -2170,7 +2170,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error("Bug, Add EP: " + e);
+            log.error("Object: {}", "Bug, Add EP: " + e);
             throw new Exception("Bug, Add EP: " + e.toString());
         } finally {
             if (error) {
@@ -2178,7 +2178,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -2228,7 +2228,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error("Bug, AprovedExtensionContractArt25: " + e);
+            log.error("Object: {}", "Bug, AprovedExtensionContractArt25: " + e);
             throw new Exception("Bug, AprovedExtensionContractArt25: " + e.toString());
         } finally {
             if (error) {
@@ -2236,7 +2236,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -2284,7 +2284,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error("Bug, AprovedExtensionContractArt25: " + e);
+            log.error("Object: {}", "Bug, AprovedExtensionContractArt25: " + e);
             throw new Exception("Bug, AprovedExtensionContractArt25: " + e.toString());
         } finally {
             if (error) {
@@ -2292,7 +2292,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -2370,7 +2370,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error("Bug, devuelveConvenioCap4: " + e);
+            log.error("Object: {}", "Bug, devuelveConvenioCap4: " + e);
             throw new Exception("Bug, devuelveConvenioCap4: " + e.toString());
         } finally {
             if (error) {
@@ -2378,7 +2378,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -2422,7 +2422,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -2467,7 +2467,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -2498,7 +2498,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             cpu = new CambiaPropiedadesUsuario();
             conInt = new AplicacionContable();
             query = "select enc.nFolioPreCompromiso,det.cCentroContable,enc.cUnidadResponsable,caso.ID_CASO,mdoc.C_FOLIO_PRE " + " from tPreCompromisoEncabezado as enc with(Nolock) " + " inner join tPreCompromisoDetalle as det with(Nolock) on enc.nFolioPreCompromiso=det.nFolioPreCompromiso " + " and enc.cDocumentoHaplicado='S' and enc.cIdContrato='" + cIdContratoDefinitivo + "' " + " inner join mDocumentoFolio as mdoc with(Nolock) on mdoc.ConsecutivoPRECOMP=enc.nFolioPreCompromiso and mdoc.cIdUnidadResponsable=enc.cUnidadResponsable " + " and det.cCentroContable=mdoc.cCentroContable " + " inner join CG_CASO as caso with(nolock) on caso.C_FOLIO=mdoc.C_FOLIO_PRE " + " inner join CG_CASO_OPERACION as oper with(Nolock) on oper.ID_CASO=caso.ID_CASO " + " group by enc.nFolioPreCompromiso,det.cCentroContable,enc.cUnidadResponsable,caso.ID_CASO,mdoc.C_FOLIO_PRE";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -2522,11 +2522,11 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     }
                     //Elinar los datos de las tablas mDocumentoFolio, mRelPedContPrecomComp
                     sqlDoc = "delete mDocumentoFolio where cIdDocumentoDefinitivo='" + cIdContratoDefinitivo + "' and ConsecutivoPRECOMP=" + nFolioPrecom;
-                    log.info(sqlDoc);
+                    log.info("Object: {}", sqlDoc.toString());
                     stmDoc = conn.createStatement();
                     stmDoc.executeUpdate(sqlDoc);
                     sqlRel = "delete mRelPedContPrecomComp where cIdPedContDef='" + cIdContratoDefinitivo + "' and nConsecutivoPrecom=" + nFolioPrecom;
-                    log.info(sqlRel);
+                    log.info("Object: {}", sqlRel.toString());
                     stmRel = conn.createStatement();
                     stmRel.executeUpdate(sqlRel);
                     //Recargando el caso
@@ -2538,7 +2538,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     //autoriza_precomp
                     String[] nombre = new String[] { "consulta_precomp" };
                     Util.avanzaCaso(request, c, usuario, prefixPath, responsable, nombre, jndiName);
-                    log.debug(c.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
                 }
             }
         } catch (Exception e) {
@@ -2607,7 +2607,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -2637,7 +2637,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             cpu = new CambiaPropiedadesUsuario();
             conInt = new AplicacionContable();
             query = "select pe.nFolioPreCompromiso,rpc.cFolioPrecom " + ",pe.cCentroContable " + ",cUnidadResponsable from tPreCompromisoEncabezado pe with(Nolock) " + "inner join mRelPedContPrecomComp as rpc with(Nolock) on pe.cIdContrato=rpc.cIdPedContDef " + "and pe.nFolioPreCompromiso=rpc.nConsecutivoPrecom and pe.cDocumentoHaplicado='S' and pe.cIdContrato=?";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmt = conn.prepareStatement(query);
             pstmt.setString(1, param[0]);
             rs = pstmt.executeQuery();
@@ -2673,7 +2673,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                 }
                 // Una vez que ha hecho la aplicación contable avanza el caso
                 Util.avanzaCaso(request, caso, usuario, prefixPath, new String[] { "CONSULTA_PAGOS" }, new String[] { "consulta_compromiso" }, jndiName);
-                log.debug(caso.getCasoDato("APLICADO_CONT").getValor());
+                log.debug("Object: {}", caso.getCasoDato("APLICADO_CONT").getValor());
             }
             if (listFoliosComp.size() > 1) {
                 Util.integraFoliosCompromiso(conn, param[0], param[2]);
@@ -2746,7 +2746,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -2811,7 +2811,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error("Bug, Genera Precompromiso: " + e);
+            log.error("Object: {}", "Bug, Genera Precompromiso: " + e);
             throw new Exception("Bug, Genera Precompromiso: " + e.toString());
         } finally {
             if (error) {
@@ -2819,7 +2819,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -2864,7 +2864,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error("Bug, Genera Precompromiso: " + e);
+            log.error("Object: {}", "Bug, Genera Precompromiso: " + e);
             throw new Exception("Bug, Genera Precompromiso: " + e.toString());
         } finally {
             if (error) {
@@ -2872,7 +2872,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -2941,7 +2941,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }

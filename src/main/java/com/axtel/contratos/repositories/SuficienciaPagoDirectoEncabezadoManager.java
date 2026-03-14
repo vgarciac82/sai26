@@ -16,7 +16,7 @@ public class SuficienciaPagoDirectoEncabezadoManager {
     private static final Logger log = LoggerFactory.getLogger(SuficienciaPagoDirectoEncabezadoManager.class);
 
     public static boolean finalizarContratoDirecto(Connection conn, int nFolioSuficienciaPagoDirecto) throws SQLException {
-        log.info("[SP] Iniciando sp_FinalizarContratoDirecto, folio=" + nFolioSuficienciaPagoDirecto);
+        log.info("Object: {}", "[SP] Iniciando sp_FinalizarContratoDirecto, folio=" + nFolioSuficienciaPagoDirecto);
         final String call = "{ call dbo.sp_FinalizarContratoDirecto(?) }";
         try (CallableStatement cs = conn.prepareCall(call)) {
             cs.setInt(1, nFolioSuficienciaPagoDirecto);
@@ -44,7 +44,7 @@ public class SuficienciaPagoDirectoEncabezadoManager {
                 }
                 hasResults = cs.getMoreResults();
             }
-            log.info("[SP] sp_FinalizarContratoDirecto ejecutado. ok=" + ok);
+            log.info("Object: {}", "[SP] sp_FinalizarContratoDirecto ejecutado. ok=" + ok);
             return ok;
         } catch (SQLException ex) {
             log.error("[SP] Error en sp_FinalizarContratoDirecto. SQLState=" + ex.getSQLState() + " Code=" + ex.getErrorCode() + " Msg=" + ex.getMessage(), ex);
@@ -53,7 +53,7 @@ public class SuficienciaPagoDirectoEncabezadoManager {
     }
 
     public static void insert(Connection conn, SuficienciaPagoDirectoEncabezado bean) throws SQLException {
-        log.info("Insertando SuficienciaPagoDirectoEncabezado..." + bean);
+        log.info("Object: {}", "Insertando SuficienciaPagoDirectoEncabezado..." + bean);
         String sql = "INSERT INTO tSuficienciaPagoDirectoEncabezado " + "(nFolioSuficienciaPagoDirecto, fCarga, cIDContrato, cTipoContrato, fAplicacion, fCancelacion, " + "cCentroContable, cRamo, cUnidadResponsable, cDocumentoHAplicado, cTipoPoliza, nFolioPoliza, " + "nFolioPolizaCancelacion, idStatus, aEjercicioFiscal, cUnidadResponsableContable, RFC, " + "cJustificacion, uLoginCaptura, mImporte, mImporteIVA, mTotal, nPorcentajeIVA) " + "VALUES (?, GETDATE(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, bean.getFolioSuficienciaPagoDirecto());
@@ -79,12 +79,12 @@ public class SuficienciaPagoDirectoEncabezadoManager {
             ps.setBigDecimal(21, bean.getTotal());
             ps.setInt(22, bean.getPorcentajeIVA());
             int rows = ps.executeUpdate();
-            log.info("Filas insertadas: " + rows);
+            log.info("Object: {}", "Filas insertadas: " + rows);
         }
     }
 
     public static SuficienciaPagoDirectoEncabezado findById(Connection conn, int folio) throws SQLException {
-        log.info("Buscando SuficienciaPagoDirectoEncabezado por folio: " + folio);
+        log.info("Object: {}", "Buscando SuficienciaPagoDirectoEncabezado por folio: " + folio);
         String sql = "SELECT e.*, p.cRazonSocial AS nombre FROM tSuficienciaPagoDirectoEncabezado e inner join mCatalogoProveedor p ON e.RFC = replace(p.cIdRFC, '-','') WHERE nFolioSuficienciaPagoDirecto =?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, folio);
@@ -99,7 +99,7 @@ public class SuficienciaPagoDirectoEncabezadoManager {
     }
 
     public static void update(Connection conn, SuficienciaPagoDirectoEncabezado bean) throws SQLException {
-        log.info("Actualizando SuficienciaPagoDirectoEncabezado folio: " + bean.getFolioSuficienciaPagoDirecto());
+        log.info("Object: {}", "Actualizando SuficienciaPagoDirectoEncabezado folio: " + bean.getFolioSuficienciaPagoDirecto());
         String sql = "UPDATE tSuficienciaPagoDirectoEncabezado SET " + "fAplicacion = ?, fCancelacion = ?,  cTipoContrato = ?, " + "cCentroContable = ?, cRamo = ?, cUnidadResponsable = ?, cDocumentoHAplicado = ?, " + "cTipoPoliza = ?, nFolioPoliza = ?, nFolioPolizaCancelacion = ?, idStatus = ?, " + "aEjercicioFiscal = ?, cUnidadResponsableContable = ?, RFC = ?, cJustificacion = ?, " + "uLoginCaptura = ?, mImporte = ?, mImporteIVA = ?, mTotal = ?, nPorcentajeIVA = ? " + "WHERE nFolioSuficienciaPagoDirecto = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             int i = 1;
@@ -125,19 +125,19 @@ public class SuficienciaPagoDirectoEncabezadoManager {
             ps.setInt(i++, bean.getPorcentajeIVA());
             ps.setInt(i++, bean.getFolioSuficienciaPagoDirecto());
             int rows = ps.executeUpdate();
-            log.info("Filas actualizadas: " + rows);
+            log.info("Object: {}", "Filas actualizadas: " + rows);
         }
     }
 
     public static void delete(Connection conn, int folio) throws SQLException {
-        log.info("Eliminando SuficienciaPagoDirectoEncabezado folio: " + folio);
+        log.info("Object: {}", "Eliminando SuficienciaPagoDirectoEncabezado folio: " + folio);
         // String sql = "DELETE FROM tSuficienciaPagoDirectoEncabezado WHERE
         // nFolioSuficienciaPagoDirecto = ?";
         String sql = "UPDATE tSuficienciaPagoDirectoEncabezado SET cDocumentoHAplicado = 'C', idStatus = 3 WHERE nFolioSuficienciaPagoDirecto = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, folio);
             int rows = ps.executeUpdate();
-            log.info("Filas actualizadas: " + rows);
+            log.info("Object: {}", "Filas actualizadas: " + rows);
         }
     }
 
@@ -171,12 +171,12 @@ public class SuficienciaPagoDirectoEncabezadoManager {
     }
 
     public static void updateStatusCancelPayment(Connection conn, int folio) throws SQLException {
-        log.info("Actualizar status para el folio: " + folio);
+        log.info("Object: {}", "Actualizar status para el folio: " + folio);
         String sql = "UPDATE suf SET idStatus = 2 FROM tPagoDirectoEncabezado pago INNER JOIN tSuficienciaPagoDirectoEncabezado suf ON pago.cIDContrato = suf.cIDContrato WHERE pago.nFolioPagoDirecto = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, folio);
             int rows = ps.executeUpdate();
-            log.info("Filas Actualizadas: " + rows);
+            log.info("Object: {}", "Filas Actualizadas: " + rows);
         }
     }
 }

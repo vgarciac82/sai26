@@ -19,8 +19,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.core.FileItem;
 import org.jfree.util.Log;
 import com.syc.contable.core.AplicacionContable;
 import jakarta.servlet.annotation.WebServlet;
@@ -137,7 +137,7 @@ public class ContratoDesemServlet extends HttpServlet {
                 mensaje = mensajeError;
             }
         } catch (Exception e) {
-            log.error("Error ContratoDesembolso: " + e);
+            log.error("Error occurred", "Error ContratoDesembolso: " + e);
             mensaje = "Error: No Se Guardaron Los Registros Correctamente";
         }
         response.sendRedirect(pathBase + "/Generador/ContratoCarga.jsp?mensaje=" + mensaje);
@@ -148,7 +148,7 @@ public class ContratoDesemServlet extends HttpServlet {
         List<FileItem> fileItems = new ArrayList<FileItem>();
         try {
             // Se construye un objeto para que parsee la petición
-            DiskFileUpload fu = new DiskFileUpload();
+            ServletFileUpload fu = new ServletFileUpload();
             // Tamaño máximo que aceptará el archivo
             // El tamaño no importa
             fu.setSizeMax(-1);
@@ -163,7 +163,7 @@ public class ContratoDesemServlet extends HttpServlet {
             fu.setRepositoryPath(szPath);
             fileItems = fu.parseRequest(request);
         } catch (Exception e) {
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
             System.out.println("Error de Aplicaci&oacute;n " + e.getMessage());
         }
         return fileItems;
@@ -209,7 +209,7 @@ public class ContratoDesemServlet extends HttpServlet {
 				
 			}*/
         } catch (Exception e) {
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
         } finally {
             try {
                 if (br != null)

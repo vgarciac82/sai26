@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.core.FileItem;
 import org.apache.commons.lang.StringUtils;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.syc.cfdi.ComponentesFactura;
@@ -125,7 +125,7 @@ public class UploadFacturasContratoServlet extends HttpServlet implements Gestio
                         throw new Exception("No se puede procesar archivos [" + extension + "] Corrija e intente de nuevo");
                     if (StringUtils.isEmpty(folioSAI))
                         throw new Exception("El folio del contrato es un dato requerido.");
-                    log.info("Copiando archivo :" + nombreArchivo);
+                    log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                     nombreDestino = FacturaUtils.generaNombreZip(TEMP_DIR, extension);
                     Util.copiaArchivo(archivoCargaStream, nombreDestino);
                     item.delete();
@@ -194,7 +194,7 @@ public class UploadFacturasContratoServlet extends HttpServlet implements Gestio
                     try {
                         archivoCargaStream.close();
                     } catch (Exception e) {
-                        log.error("Error cerrando flujo DataInputStream" + e);
+                        log.error("Error occurred", "Error cerrando flujo DataInputStream" + e);
                     }
                 archivoCargaStream = null;
                 configApp = null;
@@ -221,12 +221,12 @@ public class UploadFacturasContratoServlet extends HttpServlet implements Gestio
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         try {
             File f = new File(TEMP_DIR);
@@ -234,7 +234,7 @@ public class UploadFacturasContratoServlet extends HttpServlet implements Gestio
                 if (!f.mkdirs())
                     throw new Exception("No se puede crear el directorio temporal " + TEMP_DIR);
         } catch (Exception e) {
-            log.error("No fue posible crear automaticamente el directorio temporal: " + TEMP_DIR + " Solicite su creacion manual");
+            log.error("Object: {}", "No fue posible crear automaticamente el directorio temporal: " + TEMP_DIR + " Solicite su creacion manual");
         }
     }
 }

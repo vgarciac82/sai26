@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.LogManager;
 import com.syc.contable.core.OperacionAjenaManager;
 import com.syc.contable.core.OperacionesAjenasIntManager;
 import com.syc.contable.core.SolicitudPagoFirmaElectronica;
@@ -32,7 +31,7 @@ import org.slf4j.LoggerFactory;
  */
 public class IntegracionOAImpl implements TipoCasoInterface {
 
-    private static final Logger log = LogManager.getLogger(IntegracionOAImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(IntegracionOAImpl.class);
 
     /**
      */
@@ -63,14 +62,14 @@ public class IntegracionOAImpl implements TipoCasoInterface {
     @Override
     public void onAvanzaCaso(Connection conn, String u_login, Caso casoIntegracion, int id_caso_oper) throws SQLException {
         log.trace("Avanzando tramite de Operaciones ajenas");
-        log.info("onAvanzaCaso ---> u_login " + u_login);
-        log.info("onAvanzaCaso ---> c " + casoIntegracion);
-        log.info("onAvanzaCaso ---> id_caso_oper " + id_caso_oper);
+        log.info("Object: {}", "onAvanzaCaso ---> u_login " + u_login);
+        log.info("Object: {}", "onAvanzaCaso ---> c " + casoIntegracion);
+        log.info("Object: {}", "onAvanzaCaso ---> id_caso_oper " + id_caso_oper);
         CasoOperacion operacion = casoIntegracion.getCasoOperacion(0);
-        log.info("onAvanzaCaso ---> getIdOperacion " + operacion.getIdOperacion());
-        log.info("onAvanzaCaso ---> getOperacion().getIdOperacion() " + operacion.getOperacion().getIdOperacion());
-        log.info("onAvanzaCaso ---> getOperacion().getResponsable() " + operacion.getOperacion().getResponsable());
-        log.info("onAvanzaCaso ---> Tipo Pago: " + casoIntegracion.getTipoCaso().getGavetaAsociada());
+        log.info("Object: {}", "onAvanzaCaso ---> getIdOperacion " + operacion.getIdOperacion());
+        log.info("Object: {}", "onAvanzaCaso ---> getOperacion().getIdOperacion() " + operacion.getOperacion().getIdOperacion());
+        log.info("Object: {}", "onAvanzaCaso ---> getOperacion().getResponsable() " + operacion.getOperacion().getResponsable());
+        log.info("Object: {}", "onAvanzaCaso ---> Tipo Pago: " + casoIntegracion.getTipoCaso().getGavetaAsociada());
         /*
 		 * Se carga el encabezado para saber si fue firma electronica. Si asi
 		 * fue se procesa la firma.

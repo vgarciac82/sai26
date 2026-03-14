@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 import com.syc.contable.MovimientosPresupuestalesBussinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
@@ -57,9 +56,9 @@ public class MovimientosPresupuestalesServlet extends HttpServlet {
             }
             session.setAttribute("mensaje", mensaje);
         } catch (SQLException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         } finally {
             response.sendRedirect(basePath + "plantillasCasos/movimientosPresupuestales.jsp");
         }

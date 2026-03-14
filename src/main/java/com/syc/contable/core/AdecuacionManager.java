@@ -815,13 +815,13 @@ public class AdecuacionManager {
             rs = pstmnt.executeQuery();
             if (rs.next()) {
                 iexistenvII = rs.getInt(1);
-                log.debug("tiene: " + iexistenvII + " de nivel II");
+                log.debug("Object: {}", "tiene: " + iexistenvII + " de nivel II");
             }
             pstmntii = conn.prepareStatement(cQueryConstructorII);
             rsii = pstmntii.executeQuery();
             if (rsii.next()) {
                 iexistenvSup = rsii.getInt(1);
-                log.debug("tiene: " + iexistenvSup + " de nivel superior a II");
+                log.debug("Object: {}", "tiene: " + iexistenvSup + " de nivel superior a II");
             }
         } finally {
             CloseObject.closeObject(pstmnt);
@@ -1206,9 +1206,10 @@ public class AdecuacionManager {
         PreparedStatement pstmnt = null;
         ArrayList<String> res = new ArrayList<String>();
         ResultSet rs = null;
-        String cSQlsentence = // "select
-        "select u.U_NOMBRE+'><'+a.D_DESCRIPCION as RESPONSABLE_AREA " + // d.*,
-        // u.U_NOMBRE,
+        // "select
+        String // "select
+        cSQlsentence = // d.*,
+        "select u.U_NOMBRE+'><'+a.D_DESCRIPCION as RESPONSABLE_AREA " + // u.U_NOMBRE,
         // e.CARGO,
         // e.ID_AREA,
         // a.D_DESCRIPCION"
@@ -1285,7 +1286,7 @@ public class AdecuacionManager {
         PreparedStatement psValidaVistas = null;
         ResultSet rsValidaVistas = null;
         try {
-            log.debug("Verifica si es Administrador de Adecuaciones " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Verifica si es Administrador de Adecuaciones " + new Timestamp(System.currentTimeMillis()));
             pstmnt = conn.prepareStatement(cQueryAdminAdec);
             rs = pstmnt.executeQuery();
             if (rs.next()) {
@@ -1301,39 +1302,39 @@ public class AdecuacionManager {
                     cMensajeError += "\\r\\n";
                 }
             }
-            log.debug("Adecuacion:" + nFolio + " Valida EP's para ver si existen " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Adecuacion:" + nFolio + " Valida EP's para ver si existen " + new Timestamp(System.currentTimeMillis()));
             pstmne = conn.prepareStatement(cQueryEPnExite);
             rsne = pstmne.executeQuery();
             while (rsne.next()) {
                 cMensajeError += "Error: En la " + rsne.getString(2) + " de la clave  (" + rsne.getString(1) + ") No Existe.";
                 cMensajeError += "\\r\\n";
             }
-            log.debug("Adecuacion:" + nFolio + " Inicia Verificadion de EP Duplicadas: " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Adecuacion:" + nFolio + " Inicia Verificadion de EP Duplicadas: " + new Timestamp(System.currentTimeMillis()));
             pstmDupliEP = conn.prepareStatement(cBuscaEPDuplicada);
             rsDupliEP = pstmDupliEP.executeQuery();
             while (rsDupliEP.next()) {
                 cMensajeError += "Error: Mes " + rsDupliEP.getString(1) + " afectado " + rsDupliEP.getString(2) + " veces por la clave " + rsDupliEP.getString(3) + ". Se debe netear el calendario del mes.";
                 cMensajeError += "\\r\\n";
             }
-            log.debug("Adecuacion:" + nFolio + " Finaliza Verificadion de EP Duplicadas: " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Adecuacion:" + nFolio + " Finaliza Verificadion de EP Duplicadas: " + new Timestamp(System.currentTimeMillis()));
             // valida Suficiencia de saldo
             // if (!"SI".equals(cSuperReduccion) || !"SI".equals(cSRInterna)){
             if (!"SI".equals(cSuperReduccion) && !"SI".equals(cSRInterna)) {
-                log.debug("Adecuacion:" + nFolio + " Inicia Suficiencia de saldo en Cuenta Disponible Neto: " + new Timestamp(System.currentTimeMillis()));
+                log.debug("Object: {}", "Adecuacion:" + nFolio + " Inicia Suficiencia de saldo en Cuenta Disponible Neto: " + new Timestamp(System.currentTimeMillis()));
                 pstmvs = conn.prepareStatement(cQueryvSaldo);
                 rsvs = pstmvs.executeQuery();
                 while (rsvs.next()) {
                     cMensajeError += rsvs.getString(1);
                     cMensajeError += "\\r\\n";
                 }
-                log.debug("Adecuacion:" + nFolio + " Finaliza Suficiencia de saldo en Cuenta Disponible Neto: " + new Timestamp(System.currentTimeMillis()));
+                log.debug("Object: {}", "Adecuacion:" + nFolio + " Finaliza Suficiencia de saldo en Cuenta Disponible Neto: " + new Timestamp(System.currentTimeMillis()));
             } else {
                 // int g = 0;
                 if (!"SI".equals(cSRInterna)) {
-                    log.debug("Adecuacion:" + nFolio + " Inicia Suficiencia de saldo  en Cuenta Disponible Bruto: " + new Timestamp(System.currentTimeMillis()));
+                    log.debug("Object: {}", "Adecuacion:" + nFolio + " Inicia Suficiencia de saldo  en Cuenta Disponible Bruto: " + new Timestamp(System.currentTimeMillis()));
                     pstmvs = conn.prepareStatement(cQueryvSaldoBruto);
                     rsvs = pstmvs.executeQuery();
-                    log.debug("Se ha obtenido todos los errores he inicia el formateo de estos:" + new Timestamp(System.currentTimeMillis()));
+                    log.debug("Error occurred", "Se ha obtenido todos los errores he inicia el formateo de estos:" + new Timestamp(System.currentTimeMillis()));
                     while (rsvs.next()) {
                         cMensajeError += rsvs.getString(1);
                         cMensajeError += "\\r\\n";
@@ -1350,14 +1351,14 @@ public class AdecuacionManager {
                 pstmvs = conn.prepareStatement(cQuerySaldoResSHCP);
                 rsvs = pstmvs.executeQuery();
                 // g = 0;
-                log.debug("Se ha obtenido todos los errores he inicia el formateo de estos:" + new Timestamp(System.currentTimeMillis()));
+                log.debug("Error occurred", "Se ha obtenido todos los errores he inicia el formateo de estos:" + new Timestamp(System.currentTimeMillis()));
                 while (rsvs.next()) {
                     cMensajeError += rsvs.getString(1);
                     cMensajeError += "\\r\\n";
                     // System.out.println( g );
                     // g++;
                 }
-                log.debug("Adecuacion:" + nFolio + " Finaliza Suficiencia de saldo en Cuenta Disponible Bruto: " + new Timestamp(System.currentTimeMillis()));
+                log.debug("Object: {}", "Adecuacion:" + nFolio + " Finaliza Suficiencia de saldo en Cuenta Disponible Bruto: " + new Timestamp(System.currentTimeMillis()));
             }
             // Valida Montos Negativos en EXCEL
             System.out.println("Adecuacion:" + nFolio + " Importes en Negativo: " + new Timestamp(System.currentTimeMillis()));
@@ -2514,9 +2515,10 @@ public class AdecuacionManager {
         int nFolioCONSOLIDACION = 0;
         String cSuperAdecuacion = "";
         String cSRInterna = "";
-        String cQueryA = // ISNULL(h.nFolioTramiteSicop,''),
-        "select isnull(h.nConsecutivoSicop,0), isnull(h.nFolioCONSOLIDACION,0), isnull(cSuperAdecuacion,''), isnull(cSRInterna,'') " + // ISNULL(h.fSicop,''),ISNULL(h.nAutorizacionMAP,''),
-        // ISNULL(h.fMAP,'')
+        // ISNULL(h.nFolioTramiteSicop,''),
+        String // ISNULL(h.nFolioTramiteSicop,''),
+        cQueryA = // ISNULL(h.fSicop,''),ISNULL(h.nAutorizacionMAP,''),
+        "select isnull(h.nConsecutivoSicop,0), isnull(h.nFolioCONSOLIDACION,0), isnull(cSuperAdecuacion,''), isnull(cSRInterna,'') " + // ISNULL(h.fMAP,'')
         "  FROM tConsolidacionEncabezado h with (nolock)   RIGHT OUTER JOIN  tAdecuacionEncabezado a with (nolock) on a.nFolioConsolidacion = h.nFolioCONSOLIDACION  " + " where a.nFolioAdecuacion = " + nFolio + " ";
         try {
             pstm = conn.prepareStatement(cQueryA);
@@ -3412,7 +3414,7 @@ public class AdecuacionManager {
         } catch (SQLException e) {
             e.printStackTrace();
             mensaje = e.getMessage();
-            log.warn(e.getMessage());
+            log.warn("Object: {}", e.getMessage());
         } finally {
             CloseObject.closeObject(pstmdtu);
             CloseObject.closeObject(pstmen);
@@ -3449,7 +3451,7 @@ public class AdecuacionManager {
         } catch (SQLException e) {
             e.printStackTrace();
             mensaje = e.getMessage();
-            log.warn(e.getMessage());
+            log.warn("Object: {}", e.getMessage());
         } finally {
             CloseObject.closeObject(pstmdtu);
             CloseObject.closeObject(pstmen);
@@ -3472,7 +3474,7 @@ public class AdecuacionManager {
         } catch (SQLException e) {
             e.printStackTrace();
             mensaje = e.getMessage();
-            log.warn(e.getMessage());
+            log.warn("Object: {}", e.getMessage());
         } finally {
             CloseObject.closeObject(pstmen);
         }
@@ -4102,10 +4104,10 @@ public class AdecuacionManager {
     public static int insertaAdecuacion(Connection conn, Adecuacion adecuacion) throws Exception {
         int retval = 0;
         int borrados = 0;
-        log.info("Insertando encabezado y detalle de la adecuacion con el numero de folio " + adecuacion.getEncabezado().getnFolioAdecuacion());
+        log.info("Object: {}", "Insertando encabezado y detalle de la adecuacion con el numero de folio " + adecuacion.getEncabezado().getnFolioAdecuacion());
         borrados += AdecuacionDetalleManager.deleteAdecuacionDetalle(conn, adecuacion.getEncabezado().getnFolioAdecuacion());
         borrados += AdecuacionEncabezadoManager.deleteAdecuacionEncabezado(conn, adecuacion.getEncabezado().getnFolioAdecuacion());
-        log.info("Se eliminaron " + borrados + " registros previos ");
+        log.info("Object: {}", "Se eliminaron " + borrados + " registros previos ");
         retval += AdecuacionEncabezadoManager.insertaAdecuacionEncabezado(conn, adecuacion.getEncabezado());
         retval += AdecuacionDetalleManager.insertaAdecuacionDetalle(conn, adecuacion.getDetalle(), adecuacion.getEncabezado().getnFolioAdecuacion(), adecuacion.getEncabezado().getCentroContable());
         return retval;
@@ -4281,8 +4283,8 @@ public class AdecuacionManager {
         ResultSet rs = null;
         ArrayList<String> arrMResult = new ArrayList<String>();
         String query = "SELECT MSG FROM Fn_valida_adecuacion_iade_neteo(?)";
-        log.trace("Validando neteo de integracion [" + nFolioIADE + "]");
-        log.trace("Ejecutando [" + query + "][" + nFolioIADE + "]");
+        log.trace("Object: {}", "Validando neteo de integracion [" + nFolioIADE + "]");
+        log.trace("Object: {}", "Ejecutando [" + query + "][" + nFolioIADE + "]");
         try {
             pstmnt = conn.prepareStatement(query);
             pstmnt.setInt(1, nFolioIADE);
@@ -4290,7 +4292,7 @@ public class AdecuacionManager {
             if (rs.next()) {
                 arrMResult.add(rs.getString(1));
             }
-            log.info("Validacion de neto de integracion[" + nFolioIADE + "] terminada");
+            log.info("Object: {}", "Validacion de neto de integracion[" + nFolioIADE + "] terminada");
             return arrMResult;
         } finally {
             CloseObject.closeObject(pstmnt, false);

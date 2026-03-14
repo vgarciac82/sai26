@@ -62,12 +62,12 @@ public class EjercidoPagadoVariosServlet extends HttpServlet implements GestionI
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         String strRunIntervalProcess = config.getInitParameter("runIntervalProcess");
         String strInterval = config.getInitParameter("sleepIntervalProcess");
@@ -75,11 +75,11 @@ public class EjercidoPagadoVariosServlet extends HttpServlet implements GestionI
         if (interval == -1L) {
             System.out.println("interval: ");
             interval = 1000 * 60;
-            log.info("Init Parameter \"sleepIntervalProcess\" nulo usando default \"" + interval + "\"");
+            log.info("Object: {}", "Init Parameter \"sleepIntervalProcess\" nulo usando default \"" + interval + "\"");
         } else {
-            log.info("sleepIntervalProcess=" + interval);
+            log.info("Object: {}", "sleepIntervalProcess=" + interval);
         }
-        log.info("runIntervalProcess=" + "true".equalsIgnoreCase(strRunIntervalProcess));
+        log.info("Object: {}", "runIntervalProcess=" + "true".equalsIgnoreCase(strRunIntervalProcess));
         if ("true".equalsIgnoreCase(strRunIntervalProcess)) {
             log.info("Iniciando Background Process");
             verificaTiempoLimiteApartado = new Thread(this);

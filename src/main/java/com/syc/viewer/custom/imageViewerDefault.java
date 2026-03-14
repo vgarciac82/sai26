@@ -1,16 +1,15 @@
 package com.syc.viewer.custom;
 
 import java.io.File;
-
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 public class imageViewerDefault implements ImageViewerInterface {
 
-	public void init(HttpServletRequest req, String jniName) {
-		// Nada que hacer
-	}
+    public void init(HttpServletRequest req, String jniName) {
+        // Nada que hacer
+    }
 
-	public File[] getFilesList() {
-		return null;
-	}
+    public File[] getFilesList() {
+        return null;
+    }
 }

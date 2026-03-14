@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 //import java.util.Iterator;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.syc.contable.AdecuacionBusinessLogic;
 import com.syc.contable.ContableInterface;
 import com.syc.contable.core.AplicacionContable;
@@ -53,7 +53,7 @@ public class RegistroIngresosBussinesLogic extends DataSourceManager {
             mensaje = RegistroIngresosManager.insertaRegistroIngreso(conn, regInE, regInDetalles, folio, folioCompleto, usuario);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -83,7 +83,7 @@ public class RegistroIngresosBussinesLogic extends DataSourceManager {
             }
             retVal = acr.getMessageList().get(acr.getMessageList().size() - 1);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -137,7 +137,7 @@ public class RegistroIngresosBussinesLogic extends DataSourceManager {
             mensaje = RegistroIngresosManager.autorizaRegistroIngresos(conn, c, m, prefixPath, uLogin, usuario, sEjercicioFiscal);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -156,7 +156,7 @@ public class RegistroIngresosBussinesLogic extends DataSourceManager {
             mensaje = RegistroIngresosManager.autorizaRegistroIngresosApartado(conn, Campo, Encabezado, Folio, Detalle, Documento, fAplica, c, m, prefixPath, uLogin, usuario);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -265,7 +265,7 @@ public class RegistroIngresosBussinesLogic extends DataSourceManager {
             insertado = RegistroIngresosManager.ActualizaRendimientosGreenMex(conn, folio, mImporteRendimientos, mImporteRendimientosGM);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -283,7 +283,7 @@ public class RegistroIngresosBussinesLogic extends DataSourceManager {
             mensaje = RegistroIngresosManager.insertaRegistroRazonSolicalIP(conn, rzip, cPrograma, u);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {

@@ -237,7 +237,7 @@ public class AdecuacionEncabezadoManager {
         PreparedStatement pstmnt = null;
         int retval = -1;
         String query = "INSERT INTO tAdecuacionEncabezado (nFolioAdecuacion,fCarga,nNivel,cRamo,cUnidadResponsable,cRevisado,aEjercicioFiscal, cJustificacion, U_LOGIN,cTipoPoliza,fAplicacion,cdescripcionpoliza, cTipoAdecuacion, cSuperAdecuacion, id_caso, cSRInterna)  " + "VALUES (?,?,?,?,?,?,?,replace(?,'%',' porciento '),?,?,?,?,?,?,?,?)";
-        log.info("Insertando encabezado de la adecuacion con el numero de folio " + adecuacionEncabezado.getnFolioAdecuacion());
+        log.info("Object: {}", "Insertando encabezado de la adecuacion con el numero de folio " + adecuacionEncabezado.getnFolioAdecuacion());
         try {
             pstmnt = conn.prepareStatement(query);
             pstmnt.setInt(1, adecuacionEncabezado.getnFolioAdecuacion());
@@ -359,7 +359,7 @@ public class AdecuacionEncabezadoManager {
         try {
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, folioAdecuacion);
-            log.debug("Ejecutando: \n[" + query.toString() + "]\n[" + folioAdecuacion + "]");
+            log.debug("Object: {}", "Ejecutando: \n[" + query.toString() + "]\n[" + folioAdecuacion + "]");
             rs = ps.executeQuery();
             if (rs.next()) {
                 AdecuacionEncabezadoResumen aer = new AdecuacionEncabezadoResumen();
@@ -385,7 +385,7 @@ public class AdecuacionEncabezadoManager {
         try {
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, folioAdecuacion);
-            log.debug("Ejecutando: \n[" + query.toString() + "]\n[" + folioAdecuacion + "]");
+            log.debug("Object: {}", "Ejecutando: \n[" + query.toString() + "]\n[" + folioAdecuacion + "]");
             rs = ps.executeQuery();
             if (rs.next()) {
                 return rs.getString(1);
@@ -451,7 +451,7 @@ public class AdecuacionEncabezadoManager {
             cs = conn.prepareCall(query);
             cs.setInt(1, folioAdecuacion);
             rs = cs.executeQuery();
-            log.debug("Ejecutando: \n[" + query.toString() + "]\n[" + folioAdecuacion + "]");
+            log.debug("Object: {}", "Ejecutando: \n[" + query.toString() + "]\n[" + folioAdecuacion + "]");
             if (rs.next()) {
                 return rs.getString("validaMETA");
             } else {

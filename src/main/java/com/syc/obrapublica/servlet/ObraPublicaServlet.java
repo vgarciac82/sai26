@@ -244,7 +244,7 @@ public class ObraPublicaServlet extends HttpServlet implements GestionInterface 
                 String folioCont = opbl.generaFolioContrato(cUR, tRecurso, tAdjudicacion);
                 ResponseSender.sendResult(resp, folioCont);
             } catch (Exception e) {
-                log.error(e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendError(resp, e.getMessage());
             }
         } else if ("GEN_FOLIO_CONV".equals(accion)) {
@@ -256,7 +256,7 @@ public class ObraPublicaServlet extends HttpServlet implements GestionInterface 
                 String folioConv = opbl.generaFolioConvenio(cUR, tRecurso, tAdjudicacion);
                 ResponseSender.sendResult(resp, folioConv);
             } catch (Exception e) {
-                log.error(e);
+                log.error(e.getMessage(), e);
                 ResponseSender.sendError(resp, e.getMessage());
             }
         } else if ("CAPTURA_ESTIMACION".equals(accion)) {
@@ -457,24 +457,24 @@ public class ObraPublicaServlet extends HttpServlet implements GestionInterface 
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         try {
             InitialContext ic = new InitialContext();
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
     }
 

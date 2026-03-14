@@ -63,8 +63,8 @@ public class ReProcesaCFDI extends ProcesoSAI {
     }
 
     private void procesaCFDI(String zipFile) throws Exception {
-        log.info("Iniciando proceso: \nURL: " + getUrlConn() + "\nDriver:" + getDriverName() + "\nuser:" + getUser() + "\npass:" + getPass());
-        log.info("Procesano archivo: " + zipFile);
+        log.info("Object: {}", "Iniciando proceso: \nURL: " + getUrlConn() + "\nDriver:" + getDriverName() + "\nuser:" + getUser() + "\npass:" + getPass());
+        log.info("Object: {}", "Procesano archivo: " + zipFile);
         FacturaBusinessLogic fbl = new FacturaBusinessLogic();
         Connection conn = createConn();
         fbl.setValidacionSAT(true);
@@ -77,7 +77,7 @@ public class ReProcesaCFDI extends ProcesoSAI {
             Carpeta cfdi = FacturaManager.obtenCarpetaDestino(conn, getTituloAplicacion(), getIdGabinete(conn), "CFDI", getLogin());
             for (Iterator<String> i = facturas.keySet().iterator(); i.hasNext(); ) {
                 String facturaNombre = i.next();
-                log.debug("Insertando factura [" + facturaNombre + "] ");
+                log.debug("Object: {}", "Insertando factura [" + facturaNombre + "] ");
                 ComponentesFactura cf = facturas.get(facturaNombre);
                 FacturaManager.insertaArchivosFactura(conn, facturaNombre, cf, cfdi, getLogin());
             }

@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -33,15 +33,15 @@ public class QRCodeServlet extends HttpServlet {
         String totalParam = request.getParameter("total");
         String sello = request.getParameter("sello");
         log.info("Received request to generate QR code with parameters: ");
-        log.info("UUID: " + uuid);
-        log.info("RFC Emisor: " + rfcEmisor);
-        log.info("RFC Receptor: " + rfcReceptor);
-        log.info("Total: " + totalParam);
-        log.info("Sello: " + sello);
+        log.info("Object: {}", "UUID: " + uuid);
+        log.info("Object: {}", "RFC Emisor: " + rfcEmisor);
+        log.info("Object: {}", "RFC Receptor: " + rfcReceptor);
+        log.info("Object: {}", "Total: " + totalParam);
+        log.info("Object: {}", "Sello: " + sello);
         try {
             BigDecimal total = new BigDecimal(totalParam);
             String qrContent = generateQRContent(uuid, rfcEmisor, rfcReceptor, total, sello);
-            log.info("Generated QR content: " + qrContent);
+            log.info("Object: {}", "Generated QR content: " + qrContent);
             BitMatrix qrCodeMatrix = generateQRCodeMatrix(qrContent);
             log.info("QR code matrix generated successfully.");
             response.setContentType("image/png");
@@ -50,7 +50,7 @@ public class QRCodeServlet extends HttpServlet {
                 log.info("QR code image written to response output stream successfully.");
             }
         } catch (Exception e) {
-            log.error("Error generating QR code: " + e.getMessage());
+            log.error("Error occurred", "Error generating QR code: " + e.getMessage());
             throw new ServletException("Error generating QR code", e);
         }
     }

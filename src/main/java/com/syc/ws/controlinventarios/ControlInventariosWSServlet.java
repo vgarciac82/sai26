@@ -3,11 +3,11 @@ package com.syc.ws.controlinventarios;
 import java.io.IOException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.syc.contable.AdecuacionBusinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import org.slf4j.Logger;
@@ -38,31 +38,31 @@ public class ControlInventariosWSServlet extends HttpServlet implements GestionI
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         String strRunIntervalProcess = config.getInitParameter("runIntervalProcess");
         String strInterval = config.getInitParameter("sleepIntervalProcess");
         interval = Long.parseLong(strInterval);
         if (interval == -1L) {
             interval = 1000L * 60;
-            log.info("Init Parameter \"sleepIntervalProcess\" nulo usando default \"" + interval + "\"");
+            log.info("Object: {}", "Init Parameter \"sleepIntervalProcess\" nulo usando default \"" + interval + "\"");
         } else
-            log.info("sleepIntervalProcess=" + interval);
-        log.info("runIntervalProcess=" + "true".equalsIgnoreCase(strRunIntervalProcess));
+            log.info("Object: {}", "sleepIntervalProcess=" + interval);
+        log.info("Object: {}", "runIntervalProcess=" + "true".equalsIgnoreCase(strRunIntervalProcess));
         String strMonth = config.getInitParameter("month");
         month = Integer.parseInt(strMonth);
-        log.info("Init Parameter \"month\"  \"" + month + "\"");
+        log.info("Object: {}", "Init Parameter \"month\"  \"" + month + "\"");
         String strYear = config.getInitParameter("year");
         year = Integer.parseInt(strYear);
-        log.info("Init Parameter \"year\"  \"" + year + "\"");
+        log.info("Object: {}", "Init Parameter \"year\"  \"" + year + "\"");
         String strType = config.getInitParameter("type");
         type = Integer.parseInt(strType);
-        log.info("Init Parameter \"type\"  \"" + type + "\"");
+        log.info("Object: {}", "Init Parameter \"type\"  \"" + type + "\"");
         if ("true".equalsIgnoreCase(strRunIntervalProcess)) {
             log.info("Iniciando Background Process");
             verificaTiempoLimiteCI = new Thread(this);

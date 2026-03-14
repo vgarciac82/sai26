@@ -8,13 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import org.apache.log4j.LogManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CloseObject {
 
-    private static final Logger log = LogManager.getLogger(CloseObject.class);
+    private static final Logger log = LoggerFactory.getLogger(CloseObject.class);
 
     public static boolean closeObject(Object obj) {
         boolean cerrado = true;
@@ -47,7 +46,7 @@ public class CloseObject {
                     log.debug("El objeto es un Connection. Se cierra");
                     ((Connection) obj).close();
                 } else {
-                    log.debug("No se como cerrar objetos del tipo: " + obj.getClass().getName());
+                    log.debug("Object: {}", "No se como cerrar objetos del tipo: " + obj.getClass().getName());
                     cerrado = false;
                 }
             }
@@ -71,7 +70,7 @@ public class CloseObject {
     public static void closeStream(Object stream) {
         try {
             if (stream != null) {
-                log.debug("Closing stream of type: " + stream.getClass().getName());
+                log.debug("Object: {}", "Closing stream of type: " + stream.getClass().getName());
                 if (stream instanceof FileOutputStream) {
                     ((FileOutputStream) stream).flush();
                     ((FileOutputStream) stream).close();
@@ -81,7 +80,7 @@ public class CloseObject {
             } else if (stream instanceof FileChannel) {
                 ((FileChannel) stream).close();
             } else
-                log.error("No se como cerrar flujos de tipo: " + stream);
+                log.error("Object: {}", "No se como cerrar flujos de tipo: " + stream);
         } catch (Exception e) {
             log.warn(e.getMessage(), e);
         } finally {

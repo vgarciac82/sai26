@@ -47,24 +47,24 @@ public class CatalogosCSV extends HttpServlet {
             jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jndiName == null) {
                 jndiName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
             } else
-                log.info("dataSourceRefName=" + jndiName);
+                log.info("Object: {}", "dataSourceRefName=" + jndiName);
         } catch (NamingException exc) {
             jndiName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
         }
         try {
             InitialContext ic = new InitialContext();
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
     }
 
@@ -183,11 +183,11 @@ public class CatalogosCSV extends HttpServlet {
                 ReportesConPlantillaXLS(request, response);
             else {
                 System.out.println("No se encontro el archivo " + tipoArchivo);
-                log.warn("No se encontro el archivo " + tipoArchivo);
+                log.warn("Object: {}", "No se encontro el archivo " + tipoArchivo);
                 throw new Exception("No se encontro el archivo " + tipoArchivo);
             }
         } catch (Exception e) {
-            log.error("Error: " + e.getMessage());
+            log.error("Error occurred", "Error: " + e.getMessage());
             e.printStackTrace();
             throw new IOException(e);
         }
@@ -291,7 +291,7 @@ public class CatalogosCSV extends HttpServlet {
                 ReporteConsultaOC(filename, query, encabezadoCOCODI, request, response);
                 break;
             default:
-                log.warn("Reporte no encontrado: ." + request.getParameter("rn"));
+                log.warn("Object: {}", "Reporte no encontrado: ." + request.getParameter("rn"));
                 break;
         }
     }
@@ -309,14 +309,14 @@ public class CatalogosCSV extends HttpServlet {
             creaEncabezado(fw, aEncabezado);
             conn = DataSourceManager.getConnection(jndiName);
             String query = "select ROW_NUMBER()OVER(ORDER BY cmp.nIdLineaConsolidado) AS Row," + "'['+cmp.cIdUnidadEjecutora+'] '+cue.D_DESCRIPCION as ueDescripcion" + ",cm.cIdContratoDefinitivo,cm.cContratoDefinitivo AS cContratoDefinitivo" + ",cNoConvenio as cNoConvenio,isnull(cm.cObjetoConvenio,'No hay descripción del convenio') as cObjetoConvenio" + ",convert(varchar,cm.fMod) FechaMod,cm.mTotalAnterior,cm.mTotalModificacion" + ",cm.mTotalNuevo,cec.cEstado,cmp.nIdLineaConsolidado,cmp.cIdSolicitud" + ",cmp.cDescripcion,sl.cDescripcionAdicional,cmp.nCantidad as nCantidadLinea" + ",cmp.mPrecioUnitario,cmp.mMontoNeto as montoNetoLinea" + " from mContratoModificado as cm with(nolock)" + " inner join mCatalogoEstadoContrato cec with(nolock) on cec.nIdEstado=cm.nEstado" + " inner join mContratoModificadoPartida as cmp with(nolock) on cmp.cIdContratoDefinitivo=cm.cIdContratoDefinitivo" + " and cmp.nConsecutivoModificacion=cm.nConsecutivoModificacion" + " inner join mSolicitudLineas as sl with(Nolock) on sl.cIdSolicitud=cmp.cIdSolicitud and cmp.cIdLineaSolicitud=sl.nIdLineaSolicitud" + " inner join tCatUnidadEjecutora as cue with(Nolock) on cue.cUnidadEjecutora=cmp.cIdUnidadEjecutora" + " where 1=1" + unidadE + " order by cmp.nIdLineaConsolidado";
-            log.info("Query del reporte Convenio \n" + query);
+            log.info("Object: {}", "Query del reporte Convenio \n" + query);
             stmt = conn.createStatement();
             rs = stmt.executeQuery(query);
-            log.info("Creando el detalle del Reporte " + filename);
+            log.info("Object: {}", "Creando el detalle del Reporte " + filename);
             fw = creaDetalle(fw, rs, aEncabezado);
         } catch (Exception e) {
             // TODO: handle exception
-            log.error("Error: " + e.getMessage());
+            log.error("Error occurred", "Error: " + e.getMessage());
             e.printStackTrace();
         }
         mostrarArchivo(filename, conn, stmt, rs, fw, request, response);
@@ -336,14 +336,14 @@ public class CatalogosCSV extends HttpServlet {
             creaEncabezado(fw, aEncabezado);
             conn = DataSourceManager.getConnection(jndiName);
             String query = "select ROW_NUMBER() OVER(ORDER BY cIdUnidadEjecutora asc) AS Row,* from v_mReporteOIC1 with(nolock) where 1=1 " + unidadE;
-            log.info("Query del reporte OIC1 \n" + query);
+            log.info("Object: {}", "Query del reporte OIC1 \n" + query);
             stmt = conn.createStatement();
             rs = stmt.executeQuery(query);
-            log.info("Creando el detalle del Reporte " + filename);
+            log.info("Object: {}", "Creando el detalle del Reporte " + filename);
             fw = creaDetalle(fw, rs, aEncabezado);
         } catch (Exception e) {
             // TODO: handle exception
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
             e.printStackTrace();
         }
         mostrarArchivo(filename, conn, stmt, rs, fw, request, response);
@@ -371,7 +371,7 @@ public class CatalogosCSV extends HttpServlet {
             fw.append('\n');
             conn = DataSourceManager.getConnection(jndiName);
             String query = "select isnull(cIdDocumento,'') cIdDocumento,isnull(cAccion,'')cAccion,isnull(cIdUsuario,'')cIdUsuario,isnull(fRegistro,'')fRegistro from mBitacoraMovimientos where 1=1 " + documento + usuario + rangoFechas;
-            log.info("Query del reporte de la Bitacora \n" + query);
+            log.info("Object: {}", "Query del reporte de la Bitacora \n" + query);
             stmt = conn.createStatement();
             rs = stmt.executeQuery(query);
             while (rs.next()) {
@@ -386,7 +386,7 @@ public class CatalogosCSV extends HttpServlet {
             }
         } catch (Exception e) {
             // TODO: handle exception
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
             e.printStackTrace();
         }
         mostrarArchivo(filename, conn, stmt, rs, fw, request, response);
@@ -397,7 +397,7 @@ public class CatalogosCSV extends HttpServlet {
         Statement stmt = null;
         ResultSet rs = null;
         FileWriter fw = null;
-        log.info("Encabezado del reporte.\n" + encabezado);
+        log.info("Object: {}", "Encabezado del reporte.\n" + encabezado);
         fw = new FileWriter(System.getProperty("java.io.tmpdir") + File.separatorChar + filename);
         for (int i = 0; i < 11; i++) {
             if (i == 4) {
@@ -407,7 +407,7 @@ public class CatalogosCSV extends HttpServlet {
         }
         fw.append('\n');
         conn = DataSourceManager.getConnection(jndiName);
-        log.info("query: " + query);
+        log.info("Object: {}", "query: " + query);
         stmt = conn.createStatement();
         rs = stmt.executeQuery(query);
         int cap = 0;
@@ -530,7 +530,7 @@ public class CatalogosCSV extends HttpServlet {
         Statement stmt = null;
         ResultSet rs = null;
         FileWriter fw = null;
-        log.info("Encabezado del reporte.\n" + encabezado);
+        log.info("Object: {}", "Encabezado del reporte.\n" + encabezado);
         fw = new FileWriter(System.getProperty("java.io.tmpdir") + File.separatorChar + filename);
         for (int i = 0; i < encabezado.length; i++) {
             if (i != 0) {
@@ -540,7 +540,7 @@ public class CatalogosCSV extends HttpServlet {
         }
         fw.append('\n');
         conn = DataSourceManager.getConnection(jndiName);
-        log.info("query: " + query);
+        log.info("Object: {}", "query: " + query);
         stmt = conn.createStatement();
         rs = stmt.executeQuery(query);
         while (rs.next()) {
@@ -1384,7 +1384,7 @@ public class CatalogosCSV extends HttpServlet {
             conn = DataSourceManager.getConnection(jndiName);
             String query = "SELECT *FROM [rpt_CompraNETRedondeado_GERARDO]() " + where;
             stmt = conn.createStatement();
-            log.info(query);
+            log.info("Object: {}", query.toString());
             rs = stmt.executeQuery(query);
             while (rs.next()) {
                 fw.append(rs.getString(1));

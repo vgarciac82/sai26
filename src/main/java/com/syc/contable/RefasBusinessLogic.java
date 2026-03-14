@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -122,21 +122,21 @@ public class RefasBusinessLogic extends DataSourceManager {
                 ReintegroDetalleMil rd = reinDetalles.get(i);
                 if (duplicidad(reinDetalles, rd)) {
                     mensajes.add("La EP " + rd.getEP() + " y su cuenta por pagar " + rd.getCxp() + " se encuentra duplicada \\n");
-                    log.warn("La EP " + rd.getEP() + " y su cuenta por pagar " + rd.getCxp() + " se encuentra duplicada \n");
+                    log.warn("Object: {}", "La EP " + rd.getEP() + " y su cuenta por pagar " + rd.getCxp() + " se encuentra duplicada \n");
                     // throw new Exception("La EP " + rd.getEP() + " y su cuenta
                     // por pagar "+ rd.getCxp()+" se encuentra duplicada \\n");
                 }
                 importe += rd.getmImporteCLC();
                 if (!getEPCatalogo(rd.getEP(), recE.getEjercicioRefas(), rd.getnSIAFF())) {
                     mensajes.add("La CLC " + rd.getnSIAFF() + " ó la ep " + rd.getEP() + " no existen o se encuentra mal escritas \\n");
-                    log.warn("La CLC " + rd.getnSIAFF() + " ó la ep " + rd.getEP() + " no existen o se encuentra mal escritas \\n");
+                    log.warn("Object: {}", "La CLC " + rd.getnSIAFF() + " ó la ep " + rd.getEP() + " no existen o se encuentra mal escritas \\n");
                     // throw new Exception("La CLC " + rd.getnSIAFF() + " ó la
                     // ep "+rd.getEP()+" no existen o se encuentra mal escritas
                     // \\n");
                 }
                 if (!getRemanenteValido(rd.getEP(), recE.getEjercicioRefas(), rd.getnSIAFF(), rd.getmImporteCLC())) {
                     mensajes.add("El importe de la CLC " + rd.getnSIAFF() + " en la linea " + (i + 5) + " supera al remanente existente o se encuentra mal escritas \\n");
-                    log.warn("El importe de la CLC " + rd.getnSIAFF() + "en la linea " + (i + 5) + " supera al remanente existente o se encuentra mal escritas \\n");
+                    log.warn("Object: {}", "El importe de la CLC " + rd.getnSIAFF() + "en la linea " + (i + 5) + " supera al remanente existente o se encuentra mal escritas \\n");
                     // throw new Exception("El importe de la CLC" +
                     // rd.getnSIAFF() + "en la linea "+i+" supera al remanente
                     // existente \\n");
@@ -449,7 +449,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             inserta = RefasManager.insertaDetReintegro(conn, folio, null, "", cCentro, 1);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -472,7 +472,7 @@ public class RefasBusinessLogic extends DataSourceManager {
                 evento = "REIN_TRAM_SPEI";
             inserta = RefasManager.insertaDetReintegroPaso(conn, folio, datos, evento, cCentro, consecutivo, folioDep);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
         }
@@ -487,7 +487,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             borra = RefasManager.borraDetReintegro(conn, folio);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -508,7 +508,7 @@ public class RefasBusinessLogic extends DataSourceManager {
                 conn.commit();
             }
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -561,7 +561,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             inserta = RefasManager.insertaEncReintegro(conn, folio, datos, cCentro, fAplicacion);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -748,14 +748,14 @@ public class RefasBusinessLogic extends DataSourceManager {
                 fechaAplicacion = (String) numerosSicopSiaff.get(2);
             }
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             AplicarContableReturn acr;
             if (!"2012".equals(adecProy.obtenEjercicioFiscal()))
                 acr = conInt.aplicarContableNuevo(conn, c, "tReintegroAutEncabezado", "tReintegroAutDetalle", "nFolioReintegroaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGROAUT", m, prefixPath, uLogin, "");
             else
                 acr = conInt.aplicarContableNuevo(conn, c, "tReintegroAutEncabezado", "tReintegroAutDetalle", "nFolioReintegroaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGROAUT", m, prefixPath, uLogin, "SI");
             arrLResult = acr.getMessageList();
-            log.debug("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             Calendar cal = new GregorianCalendar();
             String mesActual = Util.NOMBRE_MESES_MX[cal.get(Calendar.MONTH)];
             Caso cReloaded = new Caso();
@@ -802,24 +802,24 @@ public class RefasBusinessLogic extends DataSourceManager {
                 if ("2014".equals(year.trim())) {
                     // mesActual = "DICIEMBRE";
                     // (!correoProduccion ? "CORREO DE PRUEBA <br>" : "")
-                    body = // + (!correoProduccion ? "este correo le hubiera
+                    // + (!correoProduccion ? "este correo le hubiera
                     // llegado a: " + to + cc + "<br> <br>" : "")
                     // + "Cierre de "+mesActual+" de "+year+"<br><br>" +
-                    "Cierre de " + mesActual + " de 2015<br><br>" + // +"Cierre de Abril de 2014<br><br>" +
-                    "Para su conocimiento y efectos correspondientes, se le informa que ha sido autorizado en SIAFF y SICOP el reintegro " + "por $ " + re.getImporteLC() + " con el folio siguiente: " + nFolioReintegro + " , " + nFolioReintegroDep + " respectivamente" + "<br>" + "Mismo que ya se encuentra con estatus de autorizado en el SAI con el No. " + c.getFolio() + ", " + "para su consulta de los reportes correspondientes.<br><br>" + "Cabe mencionar que, dentro de la carpeta de 'Comprobante de Pago' deberá de estar adjuntada la siguiente documentación: <br>" + "-       Memorando dirigido  al Lic. Sergio Ramirez Rosales, indicando Ejercicio, Clc y Clave Presupuestal del reintegro<br>" + "-       Comprobante del  pago de cargas financieras, con el nombre, cargo y firma autógrafa del responsable administrativo.<br><br>";
+                    body = // +"Cierre de Abril de 2014<br><br>" +
+                    "Cierre de " + mesActual + " de 2015<br><br>" + "Para su conocimiento y efectos correspondientes, se le informa que ha sido autorizado en SIAFF y SICOP el reintegro " + "por $ " + re.getImporteLC() + " con el folio siguiente: " + nFolioReintegro + " , " + nFolioReintegroDep + " respectivamente" + "<br>" + "Mismo que ya se encuentra con estatus de autorizado en el SAI con el No. " + c.getFolio() + ", " + "para su consulta de los reportes correspondientes.<br><br>" + "Cabe mencionar que, dentro de la carpeta de 'Comprobante de Pago' deberá de estar adjuntada la siguiente documentación: <br>" + "-       Memorando dirigido  al Lic. Sergio Ramirez Rosales, indicando Ejercicio, Clc y Clave Presupuestal del reintegro<br>" + "-       Comprobante del  pago de cargas financieras, con el nombre, cargo y firma autógrafa del responsable administrativo.<br><br>";
                     // + "Y dentro de la carpeta del 'Reportes' el reporte que
                     // genera el SAI.";
                 } else
                     // (!correoProduccion ? "CORREO DE PRUEBA <br>" : "")
-                    body = // + (!correoProduccion ? "este correo le hubiera
+                    // + (!correoProduccion ? "este correo le hubiera
                     // llegado a: " + to + cc + "<br> <br>" : "")
-                    "Cierre de " + mesActual + " de " + year + "<br><br>" + "Para su conocimiento y efectos correspondientes, se le informa que ha sido autorizado en SIAFF y SICOP el reintegro " + "por $ " + re.getImporteLC() + " con el folio siguiente: " + nFolioReintegro + " , " + nFolioReintegroDep + " respectivamente" + "<br>" + "Mismo que ya se encuentra con estatus de autorizado en el SAI con el No. " + c.getFolio() + ", " + "para su consulta de los reportes correspondientes.<br><br>";
+                    body = "Cierre de " + mesActual + " de " + year + "<br><br>" + "Para su conocimiento y efectos correspondientes, se le informa que ha sido autorizado en SIAFF y SICOP el reintegro " + "por $ " + re.getImporteLC() + " con el folio siguiente: " + nFolioReintegro + " , " + nFolioReintegroDep + " respectivamente" + "<br>" + "Mismo que ya se encuentra con estatus de autorizado en el SAI con el No. " + c.getFolio() + ", " + "para su consulta de los reportes correspondientes.<br><br>";
                 // + "Dentro de la carpeta del 'Reportes' subir el reporte que
                 // genera el SAI del reintegro en mención.";
                 try {
                     AlarmaManager.procesaAlarmaCNF(conn, prefixPath, c.getCasoOperacion(0), c, asuntoCorreo, to, cc, bcc, body);
                 } catch (Exception exmail) {
-                    log.error("No se logro enviar el correo de autorizacion de reintegros: " + exmail);
+                    log.error("Object: {}", "No se logro enviar el correo de autorizacion de reintegros: " + exmail);
                 }
                 cbl.avanzaCaso(cReloaded, uLogin, "", new String[] { "CONSULTA_REINTEGRO" }, new String[] { "consulta_reintegro" }, m, prefixPath);
             } else {
@@ -827,7 +827,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             }
         } catch (Exception exc) {
             conn.rollback();
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             arrLResult.add(exc.getLocalizedMessage());
             try {
                 conn.rollback();
@@ -875,7 +875,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             }
         } catch (Exception exc) {
             conn.rollback();
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             try {
                 conn.rollback();
             } catch (Exception ex) {
@@ -913,7 +913,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             cbl.avanzaCaso(cReloaded, uLogin, "", new String[] { "CONSULTA_REFAS" }, new String[] { "consulta_cancelado" }, m, prefixPath);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             retVal = exc.getMessage();
             conn.rollback();
             throw new Exception(exc);
@@ -940,7 +940,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             CasoBusinessLogic cbl = new CasoBusinessLogic(GestionInterface.ATT_CONEXION);
             conn = cbl.getConnection();
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             // AplicarContableReturn acr;
             // if (!"2012".equals(adecProy.obtenEjercicioFiscal()))
             // acr = conInt.aplicarContableNuevo(conn, c,
@@ -953,7 +953,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             // new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-')
             // + 1)).intValue(), "REINTEGRO", m, prefixPath, uLogin, "SI");
             // arrLResult = acr.getMessageList();
-            log.debug("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             Caso cReloaded = new Caso();
             cReloaded.setIdCaso(c.getIdCaso());
             cReloaded = CasoManager.select(conn, cReloaded);
@@ -968,7 +968,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             // }
         } catch (Exception exc) {
             conn.rollback();
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             arrLResult.add(exc.getLocalizedMessage());
             try {
                 conn.rollback();
@@ -1281,7 +1281,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             borra = RefasManager.borraReintegro(conn, folio);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -1485,7 +1485,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             RefasManager.insertaRefas(conn, reinE, reinDetalles, folio, folioCompleto, usuario, ejercicioRefa);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -1604,7 +1604,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             RefasManager.updateFechaAct(refa.getnFolioReintegro(), conn);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
         } finally {
             if (conn != null)
@@ -1620,7 +1620,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             RefasManager.updateFechaAct(folio, conn);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
         } finally {
             if (conn != null)
@@ -1642,7 +1642,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             date = RefasManager.getFechaAct(intFolio, conn);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
         } finally {
             if (conn != null)
@@ -1667,7 +1667,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             date = RefasManager.getFechaApli(intFolio, conn);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
         } finally {
             if (conn != null)
@@ -1690,14 +1690,14 @@ public class RefasBusinessLogic extends DataSourceManager {
             conn.commit();
             cbl.avanzaCaso(cReloaded, uLogin, "", new String[] { rol }, new String[] { accion }, m, prefixPath);
         } catch (Exception e) {
-            log.info(e);
+            log.info(e.getMessage(), e);
         } finally {
             try {
                 if (conn != null) {
                     conn.close();
                 }
             } catch (SQLException e) {
-                log.info(e);
+                log.info(e.getMessage(), e);
             }
         }
     }
@@ -1717,7 +1717,7 @@ public class RefasBusinessLogic extends DataSourceManager {
                     conn.close();
                 }
             } catch (SQLException e) {
-                log.info(e);
+                log.info(e.getMessage(), e);
             }
         }
         return re;
@@ -1930,7 +1930,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             AlarmaManager.procesaAlarmaCNF(conn, prefixPath, co, c, asuntoCorreo, to, cc, bcc, body);
         } catch (Exception exmail) {
             exmail.printStackTrace();
-            log.error("No se logro enviar el correo de autorizacion de reintegros: " + exmail);
+            log.error("Object: {}", "No se logro enviar el correo de autorizacion de reintegros: " + exmail);
         }
     }
 
@@ -1976,7 +1976,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             AlarmaManager.procesaAlarmaCNF(conn, prefixPath, co, c, asuntoCorreo, to, cc, bcc, body);
         } catch (Exception exmail) {
             exmail.printStackTrace();
-            log.error("No se logro enviar el correo de autorizacion de reintegros: " + exmail);
+            log.error("Object: {}", "No se logro enviar el correo de autorizacion de reintegros: " + exmail);
         } finally {
             try {
                 if (conn != null) {
@@ -1996,7 +1996,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             RefasManager.updateFechaRevision(folio, conn);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
         } finally {
             if (conn != null)
@@ -2151,7 +2151,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             AlarmaManager.procesaAlarmaCNF(conn, prefixPath, co, c, asuntoCorreo, to, cc, bcc, body);
         } catch (Exception exmail) {
             exmail.printStackTrace();
-            log.error("No se logro enviar el correo de autorizacion de reintegros: " + exmail);
+            log.error("Object: {}", "No se logro enviar el correo de autorizacion de reintegros: " + exmail);
         } finally {
             try {
                 if (conn != null) {
@@ -2208,7 +2208,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             AlarmaManager.procesaAlarmaCNF(conn, prefixPath, co, c, asuntoCorreo, to, cc, bcc, body);
         } catch (Exception exmail) {
             exmail.printStackTrace();
-            log.error("No se logro enviar el correo de autorizacion de reintegros: " + exmail);
+            log.error("Object: {}", "No se logro enviar el correo de autorizacion de reintegros: " + exmail);
         } finally {
             try {
                 if (conn != null) {

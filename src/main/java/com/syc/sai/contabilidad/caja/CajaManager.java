@@ -27,7 +27,7 @@ public class CajaManager extends DataSourceManager {
                 val = rs.getInt(1);
             }
         } catch (Exception e) {
-            log.warn("Problema ejecutando query:\n\n" + query + "\n\n" + e.toString());
+            log.warn("Object: {}", "Problema ejecutando query:\n\n" + query + "\n\n" + e.toString());
         } finally {
             CloseObject.closeObject(rs);
             CloseObject.closeObject(pStatement);
@@ -57,7 +57,7 @@ public class CajaManager extends DataSourceManager {
             }
             return val;
         } catch (Exception e) {
-            log.warn("Problema ejecutando query:\n\n" + query + "\n\n" + e.toString());
+            log.warn("Object: {}", "Problema ejecutando query:\n\n" + query + "\n\n" + e.toString());
             throw e;
         } finally {
             CloseObject.closeObject(pStatement);
@@ -90,19 +90,19 @@ public class CajaManager extends DataSourceManager {
             Cadena = Cadena.substring(0, longitud - 2);
             // el ultimo ,'
         } catch (Exception e) {
-            log.warn("Problema ejecutando query:\n\n" + query + "\n\n" + e.toString());
+            log.warn("Object: {}", "Problema ejecutando query:\n\n" + query + "\n\n" + e.toString());
         } finally {
             if (pStatement != null)
                 try {
                     pStatement.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando PreparedStatement " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando PreparedStatement " + e2.toString());
                 }
             if (rs != null)
                 try {
                     rs.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando ResultSet " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando ResultSet " + e2.toString());
                 }
             conn.close();
         }
@@ -122,7 +122,7 @@ public class CajaManager extends DataSourceManager {
         Statement pstmnt = null;
         try {
             pstmnt = conn.createStatement();
-            log.debug("Ejecuta query: " + update);
+            log.debug("Object: {}", "Ejecuta query: " + update);
             pstmnt.executeUpdate(update);
             if (cierraTransaccion)
                 conn.commit();
@@ -155,7 +155,7 @@ public class CajaManager extends DataSourceManager {
         Statement pstmnt = null;
         try {
             pstmnt = conn.createStatement();
-            log.debug("Ejecuta query: " + update);
+            log.debug("Object: {}", "Ejecuta query: " + update);
             pstmnt.executeUpdate(update);
             if (cierraTransaccion)
                 conn.commit();
@@ -319,7 +319,7 @@ public class CajaManager extends DataSourceManager {
         try {
             psSel = conn.prepareStatement(query);
             psSel.setInt(1, nfoliocomprobacion);
-            log.debug(psSel + "[" + nfoliocomprobacion + "]");
+            log.debug("Object: {}", psSel + "[" + nfoliocomprobacion + "]");
             rs = psSel.executeQuery();
             while (rs.next()) {
                 nfoliocaja = rs.getInt("nfoliocaja");
@@ -327,8 +327,8 @@ public class CajaManager extends DataSourceManager {
                 psSel = conn.prepareStatement(query2);
                 psSel.setInt(1, nfoliocaja);
                 psSel.setInt(2, nfoliocomprobacion);
-                log.debug("Intentando leer monto de la comprobacion del folio: " + nfoliocaja);
-                log.debug(psSel + "[" + nfoliocaja + "]" + "[" + nfoliocomprobacion + "]");
+                log.debug("Object: {}", "Intentando leer monto de la comprobacion del folio: " + nfoliocaja);
+                log.debug("Object: {}", psSel + "[" + nfoliocaja + "]" + "[" + nfoliocomprobacion + "]");
                 rs2 = psSel.executeQuery();
                 if (rs2.next())
                     montoComprobacion = rs2.getFloat("mMontoComprobacion");
@@ -337,8 +337,8 @@ public class CajaManager extends DataSourceManager {
                 query2 = "SELECT mMontoRemanente FROM tEstadoDeCuentaComprobacionesEncabezado WITH(NOLOCK) WHERE nFolioCaja = ?";
                 psSel = conn.prepareStatement(query2);
                 psSel.setInt(1, nfoliocaja);
-                log.debug("Intentando leer monto remante del folio: " + nfoliocaja);
-                log.debug(psSel + "[" + nfoliocaja + "]");
+                log.debug("Object: {}", "Intentando leer monto remante del folio: " + nfoliocaja);
+                log.debug("Object: {}", psSel + "[" + nfoliocaja + "]");
                 rs3 = psSel.executeQuery();
                 if (rs3.next())
                     montoRemanente = rs3.getFloat("mMontoRemanente");
@@ -348,8 +348,8 @@ public class CajaManager extends DataSourceManager {
                 query2 = "SELECT mMontoPago FROM tEstadoDeCuentaComprobacionesEncabezado WITH(NOLOCK) WHERE nFolioCaja =?";
                 psSel = conn.prepareStatement(query2);
                 psSel.setInt(1, nfoliocaja);
-                log.debug("Intentando leer monto Pago del folio: " + nfoliocaja);
-                log.debug(psSel + "[" + nfoliocaja + "]");
+                log.debug("Object: {}", "Intentando leer monto Pago del folio: " + nfoliocaja);
+                log.debug("Object: {}", psSel + "[" + nfoliocaja + "]");
                 rs2 = psSel.executeQuery();
                 if (rs2.next())
                     montoPago = rs2.getFloat("mMontoPago");
@@ -360,15 +360,15 @@ public class CajaManager extends DataSourceManager {
                     psUpd = conn.prepareStatement(query2);
                     psUpd.setFloat(1, montoRemanente);
                     psUpd.setInt(2, nfoliocaja);
-                    log.debug("Actualizado remante de la solicitud: " + nfoliocaja);
-                    log.debug(psUpd + "[" + montoRemanente + "]" + "[" + nfoliocaja + "]");
+                    log.debug("Object: {}", "Actualizado remante de la solicitud: " + nfoliocaja);
+                    log.debug("Object: {}", psUpd + "[" + montoRemanente + "]" + "[" + nfoliocaja + "]");
                     psUpd.executeUpdate();
                     query2 = "UPDATE tEstadoDeCuentaComprobacionesDetalle SET cDocumentoHaplicado='C' WHERE nFolioCaja=? AND nFolioComprobacion=?";
                     psUpd2 = conn.prepareStatement(query2);
                     psUpd2.setInt(1, nfoliocaja);
                     psUpd2.setInt(2, nfoliocomprobacion);
-                    log.debug("Actualizado cDocumentoHaplicado='C' en tEstadoDeCuentaComprobacionesDetalle: " + nfoliocaja + "-" + nfoliocomprobacion);
-                    log.debug(psUpd2 + "[" + nfoliocaja + "]" + "[" + nfoliocomprobacion + "]");
+                    log.debug("Object: {}", "Actualizado cDocumentoHaplicado='C' en tEstadoDeCuentaComprobacionesDetalle: " + nfoliocaja + "-" + nfoliocomprobacion);
+                    log.debug("Object: {}", psUpd2 + "[" + nfoliocaja + "]" + "[" + nfoliocomprobacion + "]");
                     psUpd2.executeUpdate();
                 } else {
                     throw new Exception("Problema al calcular el monto remanente de la Solicitud" + nfoliocaja);

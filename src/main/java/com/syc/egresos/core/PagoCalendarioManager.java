@@ -21,18 +21,18 @@ public class PagoCalendarioManager {
         queryInsert.append("VALUES(?,?,?,?,?,?,?,?)");
         PreparedStatement psInsert = null;
         try {
-            log.debug("Preparando inserción en tPagoCalendario..." + calendarioPago);
-            log.debug("Query generada: " + queryInsert.toString());
+            log.debug("Object: {}", "Preparando inserción en tPagoCalendario..." + calendarioPago);
+            log.debug("Object: {}", "Query generada: " + queryInsert.toString());
             psInsert = conn.prepareStatement(queryInsert.toString());
             log.debug("Asignando parámetros para CalendarioPago:");
-            log.debug("  -> TipoPago: " + calendarioPago.getTipoPago());
-            log.debug("  -> FolioPago: " + calendarioPago.getFolioPago());
-            log.debug("  -> EP: " + calendarioPago.getEp());
-            log.debug("  -> Mes: " + calendarioPago.getMes());
-            log.debug("  -> ImporteBrutoMes: " + calendarioPago.getImporteBrutoMes());
-            log.debug("  -> IdTipoConcepto: " + calendarioPago.getIdTipoConcepto());
-            log.debug("  -> IdTipoMovimiento: " + calendarioPago.getIdTipoMovimiento());
-            log.debug("  -> ImporteRetencion: " + calendarioPago.getImporteRetencion());
+            log.debug("Object: {}", "  -> TipoPago: " + calendarioPago.getTipoPago());
+            log.debug("Object: {}", "  -> FolioPago: " + calendarioPago.getFolioPago());
+            log.debug("Object: {}", "  -> EP: " + calendarioPago.getEp());
+            log.debug("Object: {}", "  -> Mes: " + calendarioPago.getMes());
+            log.debug("Object: {}", "  -> ImporteBrutoMes: " + calendarioPago.getImporteBrutoMes());
+            log.debug("Object: {}", "  -> IdTipoConcepto: " + calendarioPago.getIdTipoConcepto());
+            log.debug("Object: {}", "  -> IdTipoMovimiento: " + calendarioPago.getIdTipoMovimiento());
+            log.debug("Object: {}", "  -> ImporteRetencion: " + calendarioPago.getImporteRetencion());
             psInsert.setString(1, calendarioPago.getTipoPago());
             psInsert.setInt(2, calendarioPago.getFolioPago());
             psInsert.setString(3, calendarioPago.getEp());
@@ -53,7 +53,7 @@ public class PagoCalendarioManager {
             psInsert.setBigDecimal(8, calendarioPago.getImporteRetencion());
             log.info("Ejecutando INSERT de calendario de pago...");
             insertados = psInsert.executeUpdate();
-            log.info("Filas insertadas correctamente: " + insertados);
+            log.info("Object: {}", "Filas insertadas correctamente: " + insertados);
             return insertados;
         } catch (Exception e) {
             log.error("Ocurrió un error al insertar en tPagoCalendario: " + e.getMessage(), e);

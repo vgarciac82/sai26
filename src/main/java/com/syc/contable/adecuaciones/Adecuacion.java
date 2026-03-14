@@ -117,7 +117,7 @@ public class Adecuacion implements Serializable {
                 try {
                     stream.close();
                 } catch (Exception e2) {
-                    log.warn("No se pudo cerrar el flujo hacia el archivo de adecuacion." + e2.toString());
+                    log.warn("Object: {}", "No se pudo cerrar el flujo hacia el archivo de adecuacion." + e2.toString());
                 } finally {
                     stream = null;
                 }

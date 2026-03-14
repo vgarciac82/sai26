@@ -9,7 +9,7 @@ import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.json.JSONObject;
 import com.syc.contable.AccountingEngine;
 import com.syc.contable.PolizaManager;
@@ -525,7 +525,7 @@ public class ObraPublicaManager {
             query.append(" WHERE	compromisoObra.FolioSAI = ?");
             query.append("   AND ultimaEstimacion = 1");
             String sql = query.toString();
-            log.info(sql);
+            log.info("Object: {}", sql.toString());
             ps = conn.prepareStatement(sql);
             ps.setString(1, caNoContrarrecibo);
             ps.setString(2, folioSAI);

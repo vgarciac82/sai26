@@ -24,7 +24,7 @@ public class ProcedimientoManager {
         boolean resp = false;
         try {
             query = "DELETE dbo.mProcedimientoFechas WHERE nIdProcedimiento='" + cIdProcedimiento + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstm = conn.prepareStatement(query);
             pstm.executeUpdate();
             resp = true;
@@ -52,7 +52,7 @@ public class ProcedimientoManager {
                 resp = false;
                 fila = itr.next();
                 query = "INSERT INTO dbo.mProcedimientoFechas( nIdFecha, nIdProcedimiento, fecha )VALUES  ( " + fila.get(0) + ",'" + cIdProcedimiento + "',CONVERT(DATE,'" + fila.get(1) + "'))";
-                log.info(query);
+                log.info("Object: {}", query.toString());
                 pstm = conn.prepareStatement(query);
                 pstm.executeUpdate();
                 if (Integer.parseInt(fila.get(0)) == 12) {
@@ -119,7 +119,7 @@ public class ProcedimientoManager {
         boolean resp = false;
         try {
             query = "update mProcedimiento set nIdFundamentoLeg=" + nIdFundamentoLeg + ",nIdCategoria=" + nIdCategoria + " WHERE cIdProcedimiento='" + cIdProcedimiento + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstm = conn.prepareStatement(query);
             pstm.executeUpdate();
             resp = true;
@@ -139,7 +139,7 @@ public class ProcedimientoManager {
         boolean resp = false;
         try {
             query = "update mProcedimientoAdjudicacion set nIdFundamentoLeg=" + nIdFundamentoLeg + " WHERE cIdProcedimiento='" + cIdProcedimiento + "' and cIdRFC='" + cIdRFC + "' and nIdconsecutivoAdj=" + nIdConsecutivoAdj;
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstm = conn.prepareStatement(query);
             pstm.executeUpdate();
             resp = true;
@@ -160,7 +160,7 @@ public class ProcedimientoManager {
         boolean resp = false;
         try {
             query = "SELECT * FROM dbo.mCatalogoCategoriaProcedimiento WITH(NOLOCK) WHERE " + mMontoNeto + " BETWEEN mMontoMinimo AND mMontoMaximo AND nIdCategoria=" + nIdCategoria;
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstm = conn.prepareStatement(query);
             rs = pstm.executeQuery();
             if (rs.next()) {
@@ -187,7 +187,7 @@ public class ProcedimientoManager {
         int resp = 0;
         try {
             query = "select nIdconsecutivoAdj from mContrato with(Nolock) where cIdContratoDefinitivo='" + cIdcontratoDef + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstm = conn.prepareStatement(query);
             rs = pstm.executeQuery();
             if (rs.next()) {
@@ -214,7 +214,7 @@ public class ProcedimientoManager {
         boolean resp = false;
         try {
             query = "select *from mContrato with(Nolock) where cidProcedimiento='" + dat.getcIdProcedimiento() + "' and  cIdContratoDefinitivo='" + dat.getcIdContratoDef() + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstm = conn.prepareStatement(query);
             rs = pstm.executeQuery();
             if (rs.next() && rs.getInt("lJustificaTipoProced") == 1) {
@@ -241,7 +241,7 @@ public class ProcedimientoManager {
         boolean resp = false;
         try {
             query = "SELECT ABS(SUM(mMontoNeto)-" + map.get("mMontoNetoMod") + ")modifica FROM dbo.mContratoAmpliacionLineas WITH(NOLOCK) WHERE cEjercicio='" + map.get("cEjercicio") + "' AND cIdTipoContrato='" + map.get("cIdTipoContrato") + "' AND cIdUnidadEjecutora='" + map.get("cIdUnidadEjecutora") + "' AND nIdConsecutivo=" + map.get("nIdConsecutivo") + " AND nIdConsecutivoAmpliacion=" + map.get("nIdConsecutivoAmpliacion");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstm = conn.prepareStatement(query);
             rs = pstm.executeQuery();
             if (rs.next() && rs.getDouble("modifica") <= 0.5) {

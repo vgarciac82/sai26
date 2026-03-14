@@ -77,7 +77,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             bos.flush();
             conn.commit();
         } catch (SQLException e) {
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             if (conn != null) {
                 try {
                     conn.rollback();
@@ -150,7 +150,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             bos.flush();
             conn.commit();
         } catch (SQLException e) {
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             if (conn != null) {
                 conn.rollback();
             }
@@ -240,7 +240,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             bos.flush();
             conn.commit();
         } catch (SQLException e) {
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             if (conn != null) {
                 conn.rollback();
             }
@@ -311,7 +311,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             bos.flush();
             conn.commit();
         } catch (SQLException e) {
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             if (conn != null) {
                 conn.rollback();
             }
@@ -411,7 +411,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             bos.flush();
             conn.commit();
         } catch (SQLException e) {
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             if (conn != null) {
                 conn.rollback();
             }
@@ -707,7 +707,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             bos.flush();
             conn.commit();
         } catch (SQLException e) {
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             if (conn != null) {
                 conn.rollback();
             }
@@ -772,7 +772,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             bos.flush();
             conn.commit();
         } catch (SQLException e) {
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             if (conn != null) {
                 conn.rollback();
             }
@@ -856,7 +856,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             bos.flush();
             conn.commit();
         } catch (SQLException e) {
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             if (conn != null) {
                 conn.rollback();
             }
@@ -920,7 +920,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             conn.commit();
             return fsalida;
         } catch (SQLException e) {
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             if (conn != null) {
                 conn.rollback();
             }
@@ -1019,7 +1019,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             conn.commit();
             return fsalida;
         } catch (SQLException e) {
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             if (conn != null) {
                 conn.rollback();
             }
@@ -1093,7 +1093,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             conn.commit();
             return fsalida;
         } catch (SQLException e) {
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             if (conn != null) {
                 conn.rollback();
             }
@@ -1161,7 +1161,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             bos.flush();
             conn.commit();
         } catch (SQLException e) {
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             if (conn != null) {
                 conn.rollback();
             }
@@ -1243,7 +1243,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             if (error && conn != null) {
                 conn.rollback();
             }
@@ -1311,7 +1311,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             conn.commit();
             return fsalida;
         } catch (SQLException e) {
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             if (conn != null) {
                 conn.rollback();
             }
@@ -1378,7 +1378,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             conn.commit();
             return fsalida;
         } catch (SQLException e) {
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             if (conn != null) {
                 conn.rollback();
             }
@@ -1447,7 +1447,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             conn.commit();
             return fsalida;
         } catch (SQLException e) {
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             if (conn != null) {
                 conn.rollback();
             }
@@ -1511,7 +1511,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             conn.commit();
             return fsalida;
         } catch (SQLException e) {
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             if (conn != null) {
                 conn.rollback();
             }
@@ -1619,7 +1619,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             bos.flush();
             return fsalida;
         } catch (SQLException e) {
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             throw (e);
         } finally {
             if (conn != null) {
@@ -1691,7 +1691,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             bos.flush();
             conn.commit();
         } catch (SQLException e) {
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             if (conn != null) {
                 conn.rollback();
             }

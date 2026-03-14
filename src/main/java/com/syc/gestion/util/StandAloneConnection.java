@@ -41,7 +41,7 @@ public class StandAloneConnection {
             if (conn != null)
                 conn.close();
         } catch (Exception e) {
-            log.warn("Problemas cerrando DB Connection: " + e);
+            log.warn("Object: {}", "Problemas cerrando DB Connection: " + e);
         } finally {
             conn = null;
         }

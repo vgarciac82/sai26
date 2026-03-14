@@ -8,9 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Map;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import com.syc.adquisiciones.core.DatosRequisicion;
 import com.syc.gestion.CasoBusinessLogic;
 import com.syc.gestion.core.Caso;
@@ -60,7 +60,7 @@ public class SolicitudManager {
                         rs = pstmt.executeQuery();
                         if (rs.next()) {
                             String id_Caso = rs.getString("ID_CASO");
-                            log.debug(id_Caso);
+                            log.debug("Object: {}", id_Caso);
                             if (id_Caso != null && Integer.parseInt(id_Caso) > 0) {
                                 sc = new Caso();
                                 sc.setIdCaso(Integer.parseInt(id_Caso));
@@ -81,7 +81,7 @@ public class SolicitudManager {
                 if (rs1 != null)
                     rs1.close();
             } catch (SQLException exc) {
-                log.warn(exc);
+                log.warn(exc.getMessage(), exc);
             }
             pstmt = null;
             pstmt1 = null;
@@ -111,7 +111,7 @@ public class SolicitudManager {
             clase = cl.loadClass(folioGenerator);
             fg = (FolioGeneratorInterface) clase.newInstance();
             c = casoTx.IniciaCaso(usuario, idTC, fg);
-            log.info(usuario + "_" + idTC + "_" + fg);
+            log.info("Object: {}", usuario + "_" + idTC + "_" + fg);
             if (c == null) {
                 log.error("No se logro crear el caso");
                 throw new GestionException("No se logró crear el caso");
@@ -160,7 +160,7 @@ public class SolicitudManager {
         PreparedStatement pstm = null;
         CallableStatement cmst = null;
         try {
-            log.info("Creando encabezado y detalle del apartado." + new Timestamp(System.currentTimeMillis()));
+            log.info("Object: {}", "Creando encabezado y detalle del apartado." + new Timestamp(System.currentTimeMillis()));
             //Crea encabezado
             pstm = conn.prepareStatement(" INSERT INTO tApartadoEncabezado (nFolioApartado, fCarga, fAplicacion, cCentroContable, cRamo,cUnidadResponsable, caNoPreCompromiso," + " cTipoPoliza, nMes, aEjercicioFiscal, nStatusFinanciero, fVigencia, nEnviadoSICOP, cIdSolicitud) " + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             pstm.setInt(1, datosRequi.getnFolioApartado());
@@ -186,7 +186,7 @@ public class SolicitudManager {
             cmst.setString(4, usuario.getU_UR());
             cmst.setString(5, datosRequi.getcIdSolicitud());
             cmst.execute();
-            log.info("Termina de crear el encabezado y detalle del apartado." + new Timestamp(System.currentTimeMillis()));
+            log.info("Object: {}", "Termina de crear el encabezado y detalle del apartado." + new Timestamp(System.currentTimeMillis()));
             return true;
         } finally {
             if (pstm != null) {
@@ -258,7 +258,7 @@ public class SolicitudManager {
         String query = "update msolicitudlineasApartado set mes01=0,mes02=0,mes03=0,mes04=0,mes05=0,mes06=0,mes07=0,mes08=0,mes09=0,mes10=0,mes11=0,mes12=0 where cIdSolicitud=?";
         try {
             ps = conn.prepareStatement(query);
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps.setString(1, cIdsolicitud);
             return ps.executeUpdate() > 0;
         } finally {
@@ -274,7 +274,7 @@ public class SolicitudManager {
         String query = "delete from tApartadoDetalle where nFolioApartado in(select nFolioApartado from tApartadoEncabezado with(Nolock) where cIdSolicitud=? and cDocumentoHaplicado is null)";
         try {
             ps = conn.prepareStatement(query);
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps.setString(1, cIdsolicitud);
             return ps.executeUpdate() > 0;
         } finally {
@@ -290,7 +290,7 @@ public class SolicitudManager {
         String query = "delete from tApartadoEncabezado where cIdSolicitud=? and cDocumentoHaplicado is null";
         try {
             ps = conn.prepareStatement(query);
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps.setString(1, cIdsolicitud);
             return ps.executeUpdate() > 0;
         } finally {
@@ -306,7 +306,7 @@ public class SolicitudManager {
         String query = "update mSolicitud set ConsecutivoAPARTADO=null,C_FOLIO_APA=null where cIdSolicitud = ?";
         try {
             ps = conn.prepareStatement(query);
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps.setString(1, cIdsolicitud);
             return ps.executeUpdate() > 0;
         } finally {

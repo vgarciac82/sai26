@@ -30,12 +30,12 @@ public class GetFolioCasoServlet extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = GestionInterface.ATT_CONEXION;
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 
@@ -46,7 +46,7 @@ public class GetFolioCasoServlet extends HttpServlet {
             int id = Integer.parseInt(sid);
             CasoBusinessLogic cb = new CasoBusinessLogic(jniName);
             Caso c = cb.getCaso(id);
-            log.info("[GetFolioCasoServlet] folio=" + c.getFolio());
+            log.info("Object: {}", "[GetFolioCasoServlet] folio=" + c.getFolio());
             res.setContentType("text/xml");
             res.setHeader("Cache-Control", "no-cache");
             res.getWriter().write("<folio>" + c.getFolio() + "</folio>");

@@ -172,10 +172,10 @@ public class FirmanteManager {
         String table = StringUtils.isBlank(SolicitudFirmaElectronica.RELACION_TRAMITE_TABLA_E.get(tipoPago)) ? ("t" + tipoPago + "Encabezado") : SolicitudFirmaElectronica.RELACION_TRAMITE_TABLA_E.get(tipoPago);
         String llave = StringUtils.isBlank(SolicitudFirmaElectronica.RELACION_TRAMITE_KEY.get(tipoPago)) ? ("nFolio" + tipoPago) : SolicitudFirmaElectronica.RELACION_TRAMITE_KEY.get(tipoPago);
         String campo = "nNumEmpleado" + firmante.getTipoAutorizador();
-        log.trace("Insertando informacion de firmantes.\n Tabla: " + table + "\nllave:" + llave + "\ncampo:" + campo);
+        log.trace("Object: {}", "Insertando informacion de firmantes.\n Tabla: " + table + "\nllave:" + llave + "\ncampo:" + campo);
         StringBuilder query = new StringBuilder();
         query.append(" UPDATE ").append(table).append(" SET ").append(campo).append(" = ? ").append(" WHERE ").append(llave).append(" = ?");
-        log.debug("Se ejecutara: " + query);
+        log.debug("Object: {}", "Se ejecutara: " + query);
         PreparedStatement ps = null;
         try {
             int i = 1;
@@ -249,8 +249,8 @@ public class FirmanteManager {
     public static List<Firmante> selectByModule(Connection conn, String modulo, String tipoFirmante, String ur) {
         List<Firmante> firmantes = new ArrayList<>();
         String query = "SELECT DISTINCT * FROM tFirmanteModulo WITH(NOLOCK)  WHERE cModulo = ? AND cUnidadResponsable = ? AND cTipoFirmante = ?";
-        log.trace("Ejecutando consulta: " + query);
-        log.trace("Parámetros -> Modulo: [" + modulo + "], UR: [" + ur + "], TipoFirmante: [" + tipoFirmante + "]");
+        log.trace("Object: {}", "Ejecutando consulta: " + query);
+        log.trace("Object: {}", "Parámetros -> Modulo: [" + modulo + "], UR: [" + ur + "], TipoFirmante: [" + tipoFirmante + "]");
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setString(1, modulo);
             ps.setString(2, ur);
@@ -264,7 +264,7 @@ public class FirmanteManager {
                     firmantes.add(firmante);
                 }
             }
-            log.info("Se encontraron [" + firmantes.size() + "] firmantes para Modulo: [" + modulo + "]");
+            log.info("Object: {}", "Se encontraron [" + firmantes.size() + "] firmantes para Modulo: [" + modulo + "]");
         } catch (SQLException e) {
             log.error("Error al obtener firmantes para Modulo: [" + modulo + "], Login: [" + ur + "], TipoFirmante: [" + tipoFirmante + "]", e);
             throw new RuntimeException("Error al obtener firmantes", e);

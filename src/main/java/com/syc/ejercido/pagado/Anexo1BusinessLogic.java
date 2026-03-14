@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.ejercido.pagado.core.Anexo1Manager;
 import com.syc.gestion.core.GestionException;

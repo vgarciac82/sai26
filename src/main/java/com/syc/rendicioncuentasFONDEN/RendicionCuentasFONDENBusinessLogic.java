@@ -4,9 +4,9 @@ import java.io.File;
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
@@ -50,11 +50,11 @@ public class RendicionCuentasFONDENBusinessLogic extends DataSourceManager {
         Connection conn = null;
         try {
             conn = getConnection();
-            log.info(String.format("Generando poliza automatica. Fecha de aplicacion [%s] Unidad Ejecutora [%s] Centro Contable [%s] Login [%s] Nombre Usuario [%s]", fAplicacion, unidadEjecutora, centroContable, login, nombreUsuario));
+            log.info("Object: {}", String.format("Generando poliza automatica. Fecha de aplicacion [%s] Unidad Ejecutora [%s] Centro Contable [%s] Login [%s] Nombre Usuario [%s]", fAplicacion, unidadEjecutora, centroContable, login, nombreUsuario));
             PolizaAutomatica enc = RendicionCuentasFONDENManager.generaEncabezadoPolizaFONDEN(conn, fAplicacion, unidadEjecutora, centroContable, login, nombreUsuario);
             List<PolizaAutomaticaDetalle> detalle = RendicionCuentasFONDENManager.generaDetallePolizaFONDEN(conn, fAplicacion, unidadEjecutora, centroContable, login, nombreUsuario);
             enc.setDetalle(detalle);
-            log.debug("Poliza Generada: " + enc);
+            log.debug("Object: {}", "Poliza Generada: " + enc);
             return enc;
         } finally {
             CloseObject.closeObject(conn);

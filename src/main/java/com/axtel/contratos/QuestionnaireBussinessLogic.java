@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import org.apache.log4j.LogManager;
 import com.axtel.contratos.core.ContractQuestionnaire;
 import com.axtel.contratos.core.QuestionnaireManager;
 import com.axtel.contratos.core.RequisitionManager;
@@ -111,7 +110,7 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
         }
     }
 
-    private static final Logger log = LogManager.getLogger(QuestionnaireBussinessLogic.class);
+    private static final Logger log = LoggerFactory.getLogger(QuestionnaireBussinessLogic.class);
 
     private DataSourceManager ds = null;
 
@@ -161,7 +160,7 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
         try {
             filename = generaArchivoFirma(conn, vol, folder, getReportParams(), "FIEL", getReportTemplate(), false);
         } catch (NotEmptyDocumentException nede) {
-            log.warn("El documento no esta vacio. Se ignora" + nede);
+            log.warn("Object: {}", "El documento no esta vacio. Se ignora" + nede);
         } catch (Exception e) {
             throw new FirmaElectronicaException(e);
         }
@@ -239,7 +238,7 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
 		 */
         parametrosReales = new StringBuilder("?");
         parametrosReales.append("fortimax=").append(fortimaxNode);
-        log.debug("Cadena generada: " + parametrosReales.toString());
+        log.debug("Object: {}", "Cadena generada: " + parametrosReales.toString());
         return parametrosReales.toString();
     }
 
@@ -380,7 +379,7 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
         mailBody.append("	</form> ");
         mailBody.append("</body> ");
         mailBody.append("</html> ");
-        log.debug(mailBody);
+        log.debug("Object: {}", mailBody);
         return mailBody.toString();
     }
 
@@ -551,7 +550,7 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
         mailBody.append("	</form>");
         mailBody.append("</body>");
         mailBody.append("</html>");
-        log.debug(mailBody);
+        log.debug("Object: {}", mailBody);
         AlarmaManager.procesaAlarmaCNF(conn, "", null, null, subject.toString(), correo, mailBody.toString());
     }
 
@@ -657,7 +656,7 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
             mailBody.append("	</form> ");
             mailBody.append("</body> ");
             mailBody.append("</html> ");
-            log.debug(mailBody);
+            log.debug("Object: {}", mailBody);
             AlarmaManager.procesaAlarmaCNF(conn, "", null, null, subject.toString(), u.getU_email(), emailsGRM.toString(), "", mailBody.toString(), false);
         } catch (AutRecepcionMaterialException e) {
             throw e;
@@ -882,7 +881,7 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
             ae.setValidaInsuficienciaDeSaldo(true);
             RequisitionManager.insertApartado(conn, getContractRequisition(), getUsuario());
             Caso c = CasoManager.findByFolioLike(conn, "APARTADO", String.valueOf(getContractRequisition().getConsecutivoApartado()));
-            log.debug("Inicia aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Inicia aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
             Map<String, String> m = Util.readValuesCasoDato(c.getCasoDato());
             ae.makeAccountingApplication(conn, "APARTADO", String.valueOf(getContractRequisition().getConsecutivoApartado()), "tApartadoEncabezado", "tApartadoDetalle", "nFolioApartado");
             cmst = conn.prepareCall("{?= call pa_validaAplicacionContable (?,?,?,?,?)}");
@@ -906,9 +905,9 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
                 cbl.avanzaCaso(conn, c, getUsuario().getLogin(), "", new String[] { "CONSULTA_APARTADO" }, new String[] { "CONSULTA_APTD" }, m, null);
                 // Bitacora
                 com.syc.adquisiciones.util.Util.bitacoraMovimientos(getContractRequisition().getIdSolicitud(), "Apartado Aplicado", getUsuario().getLogin(), conn);
-                log.debug(c.getCasoDato("APLICADO_CONT").getValor());
+                log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
                 result = "DOCUMENTO DE APARTADO APLICADO PRESUPUESTALMENTE.";
-                log.debug("Termina la autorización del apartado. " + new Timestamp(System.currentTimeMillis()));
+                log.debug("Object: {}", "Termina la autorización del apartado. " + new Timestamp(System.currentTimeMillis()));
             } else {
                 switch(outputValue) {
                     case 1:
@@ -956,7 +955,7 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
             // RequisitionManager.insertApartado(conn, getContractRequisition(),
             // getUsuario());
             Caso c = CasoManager.findByFolioLike(conn, "APARTADO", String.valueOf(getContractRequisition().getConsecutivoApartado()));
-            log.debug("Inicia aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Inicia aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
             Map<String, String> m = Util.readValuesCasoDato(c.getCasoDato());
             ae.cancelAccountingApplication(conn, "APARTADO", String.valueOf(getContractRequisition().getConsecutivoApartado()), "tApartadoEncabezado", "tApartadoDetalle", "nFolioApartado");
             cmst = conn.prepareCall("{?= call pa_validaAplicacionContable (?,?,?,?,?)}");
@@ -973,9 +972,9 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
                 cbl.avanzaCaso(conn, c, getUsuario().getLogin(), "", new String[] { "CONSULTA_APARTADO" }, new String[] { "CONSULTA_APTD" }, m, null);
                 // Bitacora
                 com.syc.adquisiciones.util.Util.bitacoraMovimientos(getContractRequisition().getIdSolicitud(), "Apartado Cancelado", getUsuario().getLogin(), conn);
-                log.debug(c.getCasoDato("APLICADO_CONT").getValor());
+                log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
                 result = "DOCUMENTO DE APARTADO APLICADO PRESUPUESTALMENTE.";
-                log.debug("Termina la autorización del apartado. " + new Timestamp(System.currentTimeMillis()));
+                log.debug("Object: {}", "Termina la autorización del apartado. " + new Timestamp(System.currentTimeMillis()));
             } else {
                 switch(outputValue) {
                     case 1:
@@ -1023,7 +1022,7 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
         String voLegend = VO_BO_LEGEND_PREFIX.concat(" Firmado por: ").concat(nombre).concat(" | ").concat(puesto);
         if (tieneDelegatorioVoBO(conn)) {
             voLegend = VO_BO_LEGEND_PREFIX + " Firma " + getTipoSuplencia() + " de " + getNombreEmpleadoSuplido() + " con fundamento en el oficio: " + getFolioOficioVoBo() + " de fecha: " + getFechaOficioVoBo();
-            log.info(voLegend);
+            log.info("Object: {}", voLegend);
         }
         return voLegend;
     }
@@ -1034,7 +1033,7 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
             String autLegend = AUT_LEGEND_PREFIX.concat(" Firmado por: ").concat(nombre).concat(" | ").concat(puesto);
             if (tieneDelegatorioAut(conn)) {
                 autLegend = AUT_LEGEND_PREFIX + ". Firma " + getTipoSuplenciaAut() + " de " + getNombreEmpleadoSuplidoAut() + " con fundamento en el oficio: " + getFolioOficioAut() + " de fecha: " + getFechaOficioAut();
-                log.info(autLegend);
+                log.info("Object: {}", autLegend);
             }
             return autLegend;
         } catch (Exception e) {

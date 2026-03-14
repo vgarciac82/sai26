@@ -34,35 +34,35 @@ public class InvoicePDFService {
         this.reportPath = reportPath;
         params = new HashMap<>();
         params.put("REPORT_DIR", reportPath.getAbsolutePath() + File.separatorChar);
-        log.info("Anexo2Generator - REPORT_DIR: " + params.get("REPORT_DIR"));
-        log.info("Anexo2Generator - Subreport path: " + params.get("REPORT_DIR") + "InvoiceDetail.jasper");
+        log.info("Object: {}", "Anexo2Generator - REPORT_DIR: " + params.get("REPORT_DIR"));
+        log.info("Object: {}", "Anexo2Generator - Subreport path: " + params.get("REPORT_DIR") + "InvoiceDetail.jasper");
     }
 
     public File generateInvoicePDF(CFDI cfdi, String outputPath) throws Exception {
-        log.info("Inicio de generación de PDF para el CFDI con ID: " + cfdi.getEncabezado().getCfdiId());
+        log.info("Object: {}", "Inicio de generación de PDF para el CFDI con ID: " + cfdi.getEncabezado().getCfdiId());
         String cfdiJson = gson.toJson(cfdi);
-        log.debug("Representación JSON del CFDI: " + cfdiJson);
+        log.debug("Object: {}", "Representación JSON del CFDI: " + cfdiJson);
         File fOut = generateReport(cfdiJson, outputPath);
-        log.info("PDF generado correctamente en la ruta: " + outputPath);
+        log.info("Object: {}", "PDF generado correctamente en la ruta: " + outputPath);
         return fOut;
     }
 
     private File generateReport(String jsonString, String outputPath) throws JSONException, JRException, IOException {
-        log.trace("generateReport - Parameters received: jsonString=" + jsonString);
+        log.trace("Object: {}", "generateReport - Parameters received: jsonString=" + jsonString);
         InputStream reportStream = getClass().getResourceAsStream(reportPath.getAbsolutePath() + File.separatorChar + "sisepot.jasper");
         if (reportStream == null) {
             reportStream = new FileInputStream(reportPath.getAbsolutePath() + File.separator + "InvoiceCNF.jasper");
-            log.warn("generateReport - Using FileInputStream to load report: " + reportPath.getAbsolutePath() + File.separator + "sisepot.jasper");
+            log.warn("Object: {}", "generateReport - Using FileInputStream to load report: " + reportPath.getAbsolutePath() + File.separator + "sisepot.jasper");
         }
         log.trace("generateReport - Getting input stream from byte array with UTF-8 charset");
         InputStream jsonInputStream = new ByteArrayInputStream(jsonString.getBytes(StandardCharsets.UTF_8));
         JsonDataSource dataSource = new JsonDataSource(jsonInputStream);
-        log.trace("generateReport - Filling report with parameters: " + params);
+        log.trace("Object: {}", "generateReport - Filling report with parameters: " + params);
         JasperPrint jasperPrint = JasperFillManager.fillReport(reportStream, params, dataSource);
         log.debug("generateReport - Report filled successfully");
         File tempFile = new File(outputPath);
         JasperExportManager.exportReportToPdfFile(jasperPrint, tempFile.getAbsolutePath());
-        log.info("generateReport - Report written to temporary file: " + tempFile.getAbsolutePath());
+        log.info("Object: {}", "generateReport - Report written to temporary file: " + tempFile.getAbsolutePath());
         log.debug("generateReport - End of operation");
         return tempFile;
     }

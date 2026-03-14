@@ -7,9 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.json.JSONObject;
 import com.axtel.contratos.PrecomprometidoStatus;
 import com.axtel.contratos.QuestionnaireBussinessLogic;
@@ -84,7 +84,7 @@ public class SolicitudBusinessLogic extends DataSourceManager {
             }
             if (c != null) {
                 folioCaso = c.getFolio();
-                log.debug("Caso obtenido: " + folioCaso);
+                log.debug("Object: {}", "Caso obtenido: " + folioCaso);
                 int indice = folioCaso.lastIndexOf('-') + 1;
                 folio = Integer.parseInt(folioCaso.substring(indice));
                 //Datos que serán usados en el callback del ajax
@@ -132,9 +132,9 @@ public class SolicitudBusinessLogic extends DataSourceManager {
                 if (conn != null && !conn.isClosed()) {
                     conn.rollback();
                 }
-                log.error(e);
+                log.error(e.getMessage(), e);
             } catch (SQLException e2) {
-                log.error("Error en el rollback " + e2);
+                log.error("Error occurred", "Error en el rollback " + e2);
             }
         } finally {
             if (conn != null && !conn.isClosed()) {
@@ -218,10 +218,10 @@ public class SolicitudBusinessLogic extends DataSourceManager {
             try {
                 if (conn != null)
                     conn.rollback();
-                log.error(e);
+                log.error(e.getMessage(), e);
             } catch (SQLException e2) {
                 // TODO: handle exception
-                log.error(e2);
+                log.error(e2.getMessage(), e2);
             }
             throw (e);
         } finally {

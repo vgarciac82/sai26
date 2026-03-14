@@ -128,7 +128,7 @@ public class repConciliacionBancoServlet extends HttpServlet implements GestionI
                 if (out != null)
                     out.close();
             } catch (Exception e2) {
-                log.warn("Problemas cerrando flujo: " + e2);
+                log.warn("Object: {}", "Problemas cerrando flujo: " + e2);
             }
         }
     }

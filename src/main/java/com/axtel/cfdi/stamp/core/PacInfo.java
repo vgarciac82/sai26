@@ -49,15 +49,15 @@ public class PacInfo {
         log.trace("Starting PAC information retrieval process.");
         try {
             pst = conn.prepareStatement(query);
-            log.debug("Executing query to retrieve PAC info: " + query);
+            log.debug("Object: {}", "Executing query to retrieve PAC info: " + query);
             rs = pst.executeQuery();
             if (rs.next()) {
                 user = rs.getString("PAC_USR");
                 password = rs.getString("PAC_PWD");
                 url = rs.getString("PAC_URL");
                 log.info("PAC information retrieved successfully.");
-                log.debug("PAC User: " + user);
-                log.trace("PAC URL: " + url);
+                log.debug("Object: {}", "PAC User: " + user);
+                log.trace("Object: {}", "PAC URL: " + url);
             } else {
                 log.warn("No PAC information found in database.");
             }

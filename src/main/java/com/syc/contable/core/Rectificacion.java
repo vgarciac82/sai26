@@ -47,14 +47,14 @@ public class Rectificacion implements Serializable {
         log.trace("Estableciendo detalle");
         this.detalle = detalle;
         log.trace("Detalle establecido");
-        log.trace(this.detalle);
+        log.trace("Object: {}", this.detalle);
     }
 
     public void setEncabezado(RectificacionEncabezado encabezado) {
         log.trace("Estableciendo encabezado de la rectificacion.");
         this.encabezado = encabezado;
         log.trace("Encabezado establecido");
-        log.trace(this.encabezado);
+        log.trace("Object: {}", this.encabezado);
     }
 
     public void setnFolioRectificacion(int nFolioRectificacion) {

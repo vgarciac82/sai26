@@ -459,7 +459,7 @@ public class RectificacionAnexo1Manager {
         ResultSet rs = null;
         PreparedStatement pstm = null;
         String queryRemanente = "SELECT Remanente FROM vIngresoAnexo1Remanente WHERE canocontrarrecibo=? AND ep=? AND nDocRenglon=?";
-        log.trace("Query: " + queryRemanente + "[" + cxp + ", " + ep + ", " + nRenglon + "]");
+        log.trace("Object: {}", "Query: " + queryRemanente + "[" + cxp + ", " + ep + ", " + nRenglon + "]");
         pstm = conn.prepareStatement(queryRemanente);
         pstm.setString(1, cxp);
         pstm.setString(2, ep);
@@ -482,7 +482,7 @@ public class RectificacionAnexo1Manager {
         ResultSet rs = null;
         PreparedStatement pstm = null;
         String query = "SELECT dbo.fn_evento_rectificacion_Anexo1(?,?) AS evento";
-        log.trace("Obteniendo Evento: " + query + "[" + ep + "," + tipo + "]");
+        log.trace("Object: {}", "Obteniendo Evento: " + query + "[" + ep + "," + tipo + "]");
         pstm = conn.prepareStatement(query);
         pstm.setString(1, ep);
         pstm.setString(2, tipo);

@@ -209,7 +209,7 @@ public class PolizaBussinessLogic extends DataSourceManager {
             else if (l.size() > 1)
                 throw new PolizaException("Se encontro mas de una operacion para el caso [" + dpe.getnIdCasoOrigen() + "] No es posible revivir el caso.");
             co = (CasoOperacion) l.get(0);
-            log.info(co.getResponsable());
+            log.info("Object: {}", co.getResponsable());
             co.setIdOperacion(1);
             co.setResponsable("CAPTURA_POLIZA");
             CasoOperacionManager.update(con, co);

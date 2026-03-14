@@ -7,15 +7,15 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import com.axtel.sai.sicove.entities.FuelAsignationVerification;
@@ -57,12 +57,12 @@ public class SupportingDocumentationController extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         expedientRepository = new JDBCExpedientRepostory();
         verificationService = new JDBCFuelAsignationVerificationService(jniName, new JDBCFuelAsignationVerificationRepository());
@@ -74,9 +74,9 @@ public class SupportingDocumentationController extends HttpServlet {
         log.info("Adding document to expedient.");
         Usuario user = null;
         try {
-            log.trace("Testing if login is present: [" + request.getParameter("login") + "]");
+            log.trace("Object: {}", "Testing if login is present: [" + request.getParameter("login") + "]");
             String login = request.getParameter("login");
-            log.debug("Recibed login: " + login);
+            log.debug("Object: {}", "Recibed login: " + login);
             if (StringUtils.isEmpty(login)) {
                 log.trace("Testing for session and user");
                 HttpSession session = request.getSession(false);
@@ -128,15 +128,15 @@ public class SupportingDocumentationController extends HttpServlet {
             if (user == null)
                 throw new SicoveException("Sesion expirada.");
             String action = request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1);
-            log.trace("Executing action: " + action);
+            log.trace("Object: {}", "Executing action: " + action);
             if ("updateVerificationDetail".equals(action)) {
                 WalletFuelRequestVerificationDetail detail = mapper.readValue(request.getInputStream(), WalletFuelRequestVerificationDetail.class);
                 WalletFuelRequestVerificationDetail verificationDetail = verificationService.readFuelingVerificationDetail(detail.getIdDetail());
-                log.debug("Before updating: " + verificationDetail);
+                log.debug("Object: {}", "Before updating: " + verificationDetail);
                 verificationDetail.setAcepted(detail.isAcepted());
                 verificationDetail.setTicketObservations(detail.getTicketObservations());
                 verificationDetail = verificationService.updateFuelingVerificationDetail(verificationDetail);
-                log.info("Updated Verification Detail: " + verificationDetail);
+                log.info("Object: {}", "Updated Verification Detail: " + verificationDetail);
                 Util.sendJSON(response, verificationDetail);
             }
         } catch (Exception ex) {
@@ -155,9 +155,9 @@ public class SupportingDocumentationController extends HttpServlet {
                 idDetail = mapper.readValue(request.getInputStream(), WalletFuelRequestVerificationDetail.class).getIdDetail();
             }
             WalletFuelRequestVerificationDetail detail = verificationService.readFuelingVerificationDetail(idDetail);
-            log.info("Deleting verfication detail: " + detail);
+            log.info("Object: {}", "Deleting verfication detail: " + detail);
             verificationService.deleteFuelingVerificationDetail(detail);
-            log.info("Deleted row: " + detail);
+            log.info("Object: {}", "Deleted row: " + detail);
             Map<String, String> result = new HashMap<>();
             result.put("success", "true");
             result.put("message", "El registro se elimino correctamente.");

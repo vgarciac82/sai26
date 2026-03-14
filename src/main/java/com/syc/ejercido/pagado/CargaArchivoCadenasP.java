@@ -99,7 +99,7 @@ public class CargaArchivoCadenasP extends DataSourceManager {
             }
             conn.close();
         } catch (Exception e) {
-            log.error("Error SICOP: " + e);
+            log.error("Error occurred", "Error SICOP: " + e);
             conn.rollback();
             conn.close();
         }
@@ -135,7 +135,7 @@ public class CargaArchivoCadenasP extends DataSourceManager {
             }
             conn.close();
         } catch (Exception e) {
-            log.error("Error Guardar SIAFF: " + e);
+            log.error("Error occurred", "Error Guardar SIAFF: " + e);
             conn.rollback();
             conn.close();
         }

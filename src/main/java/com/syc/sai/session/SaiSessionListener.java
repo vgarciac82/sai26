@@ -1,8 +1,8 @@
 package com.syc.sai.session;
 
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSessionEvent;
+import jakarta.servlet.http.HttpSessionListener;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import org.slf4j.Logger;
@@ -24,7 +24,7 @@ public class SaiSessionListener implements HttpSessionListener, GestionInterface
                 SessionBussinesLogic sbl = new SessionBussinesLogic(ATT_CONEXION);
                 try {
                     int liberados = sbl.liberaCasos(u);
-                    log.info("Se liberaron " + liberados + " tramites del usuario.");
+                    log.info("Object: {}", "Se liberaron " + liberados + " tramites del usuario.");
                 } catch (Exception e) {
                     log.error(e.getMessage(), e);
                 }

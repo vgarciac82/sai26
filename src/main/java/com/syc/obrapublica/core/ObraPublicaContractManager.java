@@ -1275,7 +1275,7 @@ public class ObraPublicaContractManager {
         try {
             query = new StringBuilder();
             query.append(" select YEAR(cEjercicio)-YEAR(fInicio)diferencia_ejercicios from pContratoObra with(Nolock) where cIdContrato=? ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cNoContrato);
             rs = ps.executeQuery();
@@ -1296,7 +1296,7 @@ public class ObraPublicaContractManager {
             query.append(" insert into pContratoObraAnticipoEFAnterior ");
             query.append("(cEjercicio, cIdentidadContable, cidcontrato, cIdTipoAnticipoObra, nasignacion, nporcasignacion, mImporteAnticipo, mImporteAnticipoIVA, mTotalAnticipo, fAnticipo, mTotalAnticipado, mTotalAMortizado ) ");
             query.append(" select *from " + etiquetaSAI + "fn_getAnticipoObraNoAmortizado(?) ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cNoContrato);
         } finally {
@@ -1627,7 +1627,7 @@ public class ObraPublicaContractManager {
      * @throws SQLException
      */
     public static Caso cargaCasoContrato(Connection conn, String folioContrato) throws SQLException {
-        log.debug("Intentando encontrar caso para el contrato: " + folioContrato);
+        log.debug("Object: {}", "Intentando encontrar caso para el contrato: " + folioContrato);
         PreparedStatement psFolio = null;
         ResultSet rs = null;
         StringBuilder query = new StringBuilder();
@@ -1641,7 +1641,7 @@ public class ObraPublicaContractManager {
             rs = psFolio.executeQuery();
             if (rs.next()) {
                 String folioSAI = rs.getString(1);
-                log.debug("Se encontro folio: " + folioSAI + " para el contrato:  " + folioContrato);
+                log.debug("Object: {}", "Se encontro folio: " + folioSAI + " para el contrato:  " + folioContrato);
                 Caso c = new Caso();
                 c.setFolio(folioSAI);
                 return CasoManager.select(conn, c);

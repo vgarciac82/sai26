@@ -641,7 +641,7 @@ public class ReportesGRMManager {
         XSSFRow rw = null;
         XSSFTable table = null;
         try {
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             rst = ps.executeQuery();
             rsMetadata = rst.getMetaData();
@@ -844,7 +844,7 @@ public class ReportesGRMManager {
             query.append(" AND p.TITULO_APLICACION=doc.TITULO_APLICACION  ");
             query.append(" AND p.ID_DOCUMENTO=doc.ID_DOCUMENTO  ");
             query.append(" AND imxDiv.ID_GABINETE=?  ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, idCaso);
             ps.setString(2, tituloAplicacion);
@@ -1114,7 +1114,7 @@ public class ReportesGRMManager {
             XSSFCell celdarsad = (rw.getCell(0) == null ? rw.createCell(0) : rw.getCell(0));
             celdarsad.setCellValue(cadena);
             query = "select *from v_mReporteOCTotalizado with(Nolock) where 1=1 " + datos.getcWhere() + " union select *from v_mReporteOCTotalizadoPlu  with(Nolock) where 1=1 " + datos.getcWhere() + " union select *from v_mreporteObraTotalizado  with(Nolock) where 1=1 " + datos.getcWhere() + " union select *from v_mReporteOcTotalizadoConvEjerAnt  with(Nolock) where 1=1 " + datos.getcWhere() + " union select *from v_mReporteOcTotalizadoRemanente  with(Nolock) where 1=1 " + datos.getcWhere() + " union select *from v_mReporteOCTotalizadoContratoArt25  with(Nolock) where 1=1 " + datos.getcWhere();
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rst = ps.executeQuery();
             rsMetadata = rst.getMetaData();
@@ -1167,7 +1167,7 @@ public class ReportesGRMManager {
             XSSFCell celdarsad = (rw.getCell(0) == null ? rw.createCell(0) : rw.getCell(0));
             celdarsad.setCellValue(cadena);
             query = "select *from v_mreporteOCTotalizadoCap4 with(Nolock) where 1=1 " + datos.getcWhere();
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rst = ps.executeQuery();
             rsMetadata = rst.getMetaData();
@@ -1212,7 +1212,7 @@ public class ReportesGRMManager {
             if (!esSAIAlterno) {
                 queryCompensacionAmbientalPSP(queryProd, cEjercicio);
             }
-            log.info(queryProd.toString());
+            log.info("Object: {}", queryProd.toString());
             ps = conn.prepareStatement(queryProd.toString());
             rst = ps.executeQuery();
             rsMetadata = rst.getMetaData();
@@ -1714,7 +1714,7 @@ public class ReportesGRMManager {
             rw = (firstSheet.getRow(3) == null ? firstSheet.createRow(3) : firstSheet.getRow(3));
             XSSFCell celdarsad = (rw.getCell(2) == null ? rw.createCell(2) : rw.getCell(2));
             celdarsad.setCellValue(Encabezado);
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             rsMetadata = rs.getMetaData();
@@ -1767,7 +1767,7 @@ public class ReportesGRMManager {
             query.append("and rel.nIdProcesoContratacion=procesoCont.nIdProcesoContratacion ");
             query.append("where proced.nEstatus not in(4,5) and proced.fSolicitud >= convert(date,'" + datos.getcFechaInicio() + "') ");
             query.append("and proced.fSolicitud <= convert(date,'" + datos.getcFechaFin() + "') ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             rst = ps.executeQuery();
             rsMetadata = rst.getMetaData();
@@ -1786,7 +1786,7 @@ public class ReportesGRMManager {
                 cnt++;
             }
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw (e);
         } finally {
             if (rst != null) {
@@ -1824,7 +1824,7 @@ public class ReportesGRMManager {
             query.append("and  proced.fSolicitud >= convert(date,'" + datos.getcFechaInicio() + "') ");
             query.append("and proced.fSolicitud <= convert(date,'" + datos.getcFechaFin() + "') ");
             query.append("group by cProcedimientoTurnado");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             rst = ps.executeQuery();
             rsMetadata = rst.getMetaData();
@@ -1846,7 +1846,7 @@ public class ReportesGRMManager {
                 columnaInicio = 4;
             }
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw (e);
         } finally {
             if (rst != null) {
@@ -1955,7 +1955,7 @@ public class ReportesGRMManager {
             } else {
                 query.append("select *from reportePenasConvencionales('" + datos.getcUnidadEjecutora() + "')");
             }
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             rst = ps.executeQuery();
             rsMetadata = rst.getMetaData();
@@ -2007,7 +2007,7 @@ public class ReportesGRMManager {
             celdarsad.setCellValue(cadena);
             query = new StringBuilder();
             query.append("select *from v_mreportePenasConvencionales ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             rst = ps.executeQuery();
             rsMetadata = rst.getMetaData();
@@ -2054,7 +2054,7 @@ public class ReportesGRMManager {
         XSSFRow rw = null;
         try {
             query = "select *from v_mCatalogoProveedoresIncumplidos with(Nolock) ";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rst = ps.executeQuery();
             rsMetadata = rst.getMetaData();
@@ -2097,7 +2097,7 @@ public class ReportesGRMManager {
         XSSFRow rw = null;
         try {
             query = "select *from v_mContratosRescindidos with(Nolock) ";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rst = ps.executeQuery();
             rsMetadata = rst.getMetaData();
@@ -2140,7 +2140,7 @@ public class ReportesGRMManager {
         XSSFRow rw = null;
         try {
             query = "select *from v_mReporteGarantias with(Nolock) where 1=1 " + datos.getcWhere();
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rst = ps.executeQuery();
             rsMetadata = rst.getMetaData();
@@ -2217,7 +2217,7 @@ public class ReportesGRMManager {
                 query.append("WHERE (substring(comp.ClaveInterna,1,3) =? or cont.cIdUnidadAdministrativa =?) ");
             }
             query.append("order by comp.cidcontrato ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             if (!"".equalsIgnoreCase(datos.getcUnidadEjecutora())) {
                 ps.setString(1, datos.getcUnidadEjecutora());
@@ -2278,7 +2278,7 @@ public class ReportesGRMManager {
             if (!"".equalsIgnoreCase(datos.getcUnidadEjecutora())) {
                 query.append("and cFolio like '%" + datos.getcUnidadEjecutora() + "%' ");
             }
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             rst = ps.executeQuery();
             rsMetadata = rst.getMetaData();
@@ -2618,7 +2618,7 @@ public class ReportesGRMManager {
             query.append("	end,4) as money) porcentajeAvance ");
             query.append(",contratoSAI from ");
             query.append("	[fn_mFormatoUCAP] (convert(date,?),convert(date,?)) fun ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, datos.getcFechaInicio());
             ps.setString(2, datos.getcFechaFin());
@@ -2732,7 +2732,7 @@ public class ReportesGRMManager {
             query.append(" 			and conv.cIdCABM=cucop.cIdCABM ");
             query.append(" 			and conv.cIdSubPartida=cucop.cIdSubPartida ");
             query.append(" 		order by fun.orden ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, datos.getcFechaInicio());
             ps.setString(2, datos.getcFechaFin());
@@ -2791,7 +2791,7 @@ public class ReportesGRMManager {
             query.append("where  ");
             query.append("(fact.cEsNotaCredito='N' OR mImportePenalizacion = 0 )  and enc.cDocumentoHaplicado='S' and pag.cDocumentoHaplicado='S' ");
             query.append("order by fun.orden ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, datos.getcFechaInicio());
             ps.setString(2, datos.getcFechaFin());

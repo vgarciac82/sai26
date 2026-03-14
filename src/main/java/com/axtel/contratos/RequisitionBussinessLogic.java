@@ -3,7 +3,6 @@ package com.axtel.contratos;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import org.apache.log4j.LogManager;
 import com.axtel.contratos.core.RequisitionManager;
 import com.axtel.contratos.exception.ContratoException;
 import com.syc.cfdi.db.CloseObject;
@@ -14,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class RequisitionBussinessLogic extends DataSourceManager {
 
-    private static final Logger log = LogManager.getLogger(RequisitionBussinessLogic.class);
+    private static final Logger log = LoggerFactory.getLogger(RequisitionBussinessLogic.class);
 
     public RequisitionBussinessLogic(String jniName) {
         super.init(jniName);

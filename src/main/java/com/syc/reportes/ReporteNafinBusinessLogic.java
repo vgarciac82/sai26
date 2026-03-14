@@ -8,9 +8,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.gestion.util.Util;
 import com.syc.reportes.core.ReporteNafinManager;
@@ -59,7 +59,7 @@ public class ReporteNafinBusinessLogic extends DataSourceManager {
                 out.close();
             } else {
                 String archivoNafin = System.getProperty("java.io.tmpdir") + File.separatorChar + "ReporteNafin_" + tipo + "_" + sufijo.trim() + ".txt";
-                log.info("-------Se genera el archivo " + archivoNafin + " ----------");
+                log.info("Object: {}", "-------Se genera el archivo " + archivoNafin + " ----------");
                 BufferedWriter salida = new BufferedWriter(new FileWriter(archivoNafin));
                 StringBuffer archivoBuffer = new StringBuffer();
                 for (int i = 0; i < file.size(); i++) {

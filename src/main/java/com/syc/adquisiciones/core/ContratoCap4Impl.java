@@ -10,9 +10,9 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.jfree.util.Log;
 import com.axtel.contratos.ContractStatus;
 import com.jenkov.prizetags.tree.itf.ITree;
@@ -47,7 +47,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
                 log.warn("No se genero el siguiente consecutivo de contrato.");
                 return respuesta;
             }
-            log.info("Query que genera un nuevo contrato de cap 4000: " + query);
+            log.info("Object: {}", "Query que genera un nuevo contrato de cap 4000: " + query);
             datosContrato.setcIdcontratoDefinitivo((datosContrato.getnEsPlurianual() == 1 ? "PLU-" : "") + "CF-" + datosContrato.getcIdUnidadEjecutora() + "-" + consecutivo + "/" + datosContrato.getcEjercicio());
             pstm = conn.prepareStatement(query);
             pstm.setString(1, (datosContrato.getnEsPlurianual() == 1 ? "PLU-" : "") + "CF-" + datosContrato.getcIdUnidadEjecutora() + "-" + consecutivo + "/" + datosContrato.getcEjercicio());
@@ -99,7 +99,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
             query.append(",cOficioDG=?,cFolioMASCP=?,cNumProcedCNET=?,nCodContratoCNET=?,nCodExpedienteCNET=?");
             query.append(" where cIdContratoDefinitivo=?");
             pstm = conn.prepareStatement(query.toString());
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstm.setInt(1, datosContrato.getcActividadEconomica());
             pstm.setString(2, datosContrato.getcIdRFC());
             pstm.setString(3, datosContrato.getcNoContCNET());
@@ -147,10 +147,10 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
         try {
             //Delete fechas
             String queryDelete = "delete mContratoCap4Fechas where cIdContratoDefinitivo=?";
-            log.info("pstmDelete: " + queryDelete);
+            log.info("Object: {}", "pstmDelete: " + queryDelete);
             pstmDelete = conn.prepareStatement(queryDelete);
             pstmDelete.setString(1, datosContrato.getcIdcontratoDefinitivo());
-            log.info("Parametro cIdContratoDefinitivo= " + datosContrato.getcIdcontratoDefinitivo());
+            log.info("Object: {}", "Parametro cIdContratoDefinitivo= " + datosContrato.getcIdcontratoDefinitivo());
             pstmDelete.executeUpdate();
             log.info("Se borran Fechas");
             //insert fechas
@@ -163,7 +163,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
                 pstm.setString(2, datosContrato.getcIdcontratoDefinitivo());
                 pstm.setString(3, arrayFechas.get(i).getValue());
                 pstm.executeUpdate();
-                log.info("idFecha= " + arrayFechas.get(i).getIdFecha() + " cIdcontratoDefinitivo= " + datosContrato.getcIdcontratoDefinitivo() + " Fecha=" + arrayFechas.get(i).getValue());
+                log.info("Object: {}", "idFecha= " + arrayFechas.get(i).getIdFecha() + " cIdcontratoDefinitivo= " + datosContrato.getcIdcontratoDefinitivo() + " Fecha=" + arrayFechas.get(i).getValue());
                 i++;
             }
             log.info("Se Guardan Fechas");
@@ -189,8 +189,8 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
         try {
             String query = "update mContratoCap4Partidas set nCantidadMin=?,nCantidadMax=?,mPrecioUnitario=?,mPrecioUnitarioMax=?	,mMontoNetoLinea=?,mMontoNetoMinimo=?,mMontoNetoMaximo=?,mMontoNetoTotalPluri=? " + ",nIdIVA=?,cDescripcionAdicional=?,cIdUnidadMedida=?  where nIdContratoCap4Partida=? and cIdContratoDefinitivo=?";
             String query2 = "UPDATE mContratoCap4 set nEsAbierto=? where cIdContratoDefinitivo=?";
-            log.info(query);
-            log.info(query2);
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", query2.toString());
             validaPartidas(datosContrato);
             arrayPartidas = datosContrato.getArrayPartidas();
             int i = 0;
@@ -287,7 +287,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
             cmst.registerOutParameter(1, Types.INTEGER);
             cmst.setString(2, datosContrato.getcEjercicio());
             cmst.setString(3, datosContrato.getcIdcontratoDefinitivo());
-            log.info("call pa_validaContratoCap4Financiero (" + datosContrato.getcEjercicio() + "," + datosContrato.getcIdcontratoDefinitivo() + ")");
+            log.info("Object: {}", "call pa_validaContratoCap4Financiero (" + datosContrato.getcEjercicio() + "," + datosContrato.getcIdcontratoDefinitivo() + ")");
             cmst.execute();
             outputValue = cmst.getInt(1);
             if (outputValue == 0 || outputValue == 4) {
@@ -302,7 +302,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
                     //se avanza caso para que no se vea la operacion  en el inbox
                     Util.avanzaCaso(request, c, usuario, prefixPath, new String[] { "CONSULTA_CONTRATODIVERSO" }, new String[] { "consulta_contrato" }, jndiName);
                 }
-                log.info("exec pa_apruebaContratoCap4 '" + datosContrato.getcEjercicio() + "','" + datosContrato.getcIdcontratoDefinitivo() + "','" + usuario.getLogin() + "','" + folio + "','" + folioCaso + "'");
+                log.info("Object: {}", "exec pa_apruebaContratoCap4 '" + datosContrato.getcEjercicio() + "','" + datosContrato.getcIdcontratoDefinitivo() + "','" + usuario.getLogin() + "','" + folio + "','" + folioCaso + "'");
                 cmst2 = conn.prepareCall("{?= call pa_apruebaContratoCap4(?,?,?,?,?)}");
                 cmst2.registerOutParameter(1, Types.INTEGER);
                 cmst2.setString(2, datosContrato.getcEjercicio());
@@ -376,7 +376,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
         ResultSet rs = null;
         try {
             String query = "select *from mContratoCap4 with(Nolock) where cIdContratoDefinitivo=? and nIdEstado=?";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstm = conn.prepareStatement(query);
             pstm.setString(1, cIdContratoDef);
             pstm.setInt(2, estatus);
@@ -403,7 +403,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
         ResultSet rs = null;
         try {
             String query = "select *from mContratoPluriCap4 with(Nolock) where cIdContratoDefinitivo=? and nIdEstado=?";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstm = conn.prepareStatement(query);
             pstm.setString(1, cIdContratoDef);
             pstm.setInt(2, estatus);
@@ -464,7 +464,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
             //autoriza_precomp
             String[] nombre = new String[] { "consulta_precomp" };
             Util.avanzaCaso(request, caso, usuario, prefixPath, responsable, nombre, jndiName);
-            log.debug(caso.getCasoDato("APLICADO_CONT").getValor());
+            log.debug("Object: {}", caso.getCasoDato("APLICADO_CONT").getValor());
             resp = true;
         } finally {
             if (pstm != null) {
@@ -513,7 +513,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
         ResultSet rs = null;
         try {
             String query = "select (isnull(MAX(nIdConsecutivo),0)+1) consecutivo from mContratoCap4 with(Nolock) where cIdUnidadEjecutora='" + datosContrato.getcIdUnidadEjecutora() + "'";
-            Log.info("Query para obtener el siguiente consecutivo de contratos cap 400: " + query);
+            Log.info("Object: {}", "Query para obtener el siguiente consecutivo de contratos cap 400: " + query);
             pstm = conn.prepareStatement(query);
             rs = pstm.executeQuery();
             if (rs.next()) {
@@ -581,7 +581,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
         int outputValue = -1;
         boolean resp = false;
         try {
-            log.debug("pa_devuelveContratoCap4 '" + datosContrato.getcEjercicio() + "','" + datosContrato.getcIdcontratoDefinitivo() + "','" + usuario.getLogin() + "'");
+            log.debug("Object: {}", "pa_devuelveContratoCap4 '" + datosContrato.getcEjercicio() + "','" + datosContrato.getcIdcontratoDefinitivo() + "','" + usuario.getLogin() + "'");
             cmst = conn.prepareCall("{?= call pa_devuelveContratoCap4 (?,?,?)}");
             cmst.registerOutParameter(1, Types.INTEGER);
             cmst.setString(2, datosContrato.getcEjercicio());
@@ -614,7 +614,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
             }
         } catch (Exception e) {
             // TODO: handle exception
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             e.printStackTrace();
         }
         return resp;
@@ -634,7 +634,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
             cmst.setInt(4, datosContrato.getnIdAmpliacion());
             cmst.execute();
             outputValue = cmst.getInt(1);
-            log.info("outputValue:" + outputValue);
+            log.info("Object: {}", "outputValue:" + outputValue);
             if (outputValue == 0) {
                 resp = true;
                 log.info("Contrato cap4 aprobado correctamente.");
@@ -671,7 +671,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
             resp = true;
         } catch (Exception e) {
             // TODO: handle exception
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
         }
         return resp;
     }
@@ -764,7 +764,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
             insertPartidasContratoPluriCap4(conn, datosContrato.getcIdcontratoDefinitivo(), cNameDB);
             resp = true;
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw new Exception(e);
         } finally {
             cEjercicioAnt = null;
@@ -1096,7 +1096,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
             cmst.registerOutParameter(1, Types.INTEGER);
             cmst.setString(2, datosContrato.getcEjercicio());
             cmst.setString(3, datosContrato.getcIdcontratoDefinitivo());
-            log.info("call pa_validaContratoPluriCap4Financiero (" + datosContrato.getcEjercicio() + "," + datosContrato.getcIdcontratoDefinitivo() + ")");
+            log.info("Object: {}", "call pa_validaContratoPluriCap4Financiero (" + datosContrato.getcEjercicio() + "," + datosContrato.getcIdcontratoDefinitivo() + ")");
             cmst.execute();
             outputValue = cmst.getInt(1);
             if (outputValue == 0 || outputValue == 4) {
@@ -1111,7 +1111,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
                     //se avanza caso para que no se vea la operacion  en el inbox
                     Util.avanzaCaso(request, c, usuario, prefixPath, new String[] { "CONSULTA_CONTRATODIVERSO" }, new String[] { "consulta_contrato" }, jndiName);
                 }
-                log.info("exec pa_apruebaContratoPluriCap4 '" + datosContrato.getcEjercicio() + "','" + datosContrato.getcIdcontratoDefinitivo() + "','" + usuario.getLogin() + "','" + folio + "','" + folioCaso + "'");
+                log.info("Object: {}", "exec pa_apruebaContratoPluriCap4 '" + datosContrato.getcEjercicio() + "','" + datosContrato.getcIdcontratoDefinitivo() + "','" + usuario.getLogin() + "','" + folio + "','" + folioCaso + "'");
                 cmst2 = conn.prepareCall("{?= call pa_apruebaContratoPluriCap4(?,?,?,?,?)}");
                 cmst2.registerOutParameter(1, Types.INTEGER);
                 cmst2.setString(2, datosContrato.getcEjercicio());
@@ -1145,7 +1145,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
         int outputValue = -1;
         boolean resp = false;
         try {
-            log.debug("pa_devuelveContratoPluriCap4 '" + datosContrato.getcEjercicio() + "','" + datosContrato.getcIdcontratoDefinitivo() + "','" + usuario.getLogin() + "'");
+            log.debug("Object: {}", "pa_devuelveContratoPluriCap4 '" + datosContrato.getcEjercicio() + "','" + datosContrato.getcIdcontratoDefinitivo() + "','" + usuario.getLogin() + "'");
             cmst = conn.prepareCall("{?= call pa_devuelveContratoPluriCap4 (?,?,?)}");
             cmst.registerOutParameter(1, Types.INTEGER);
             cmst.setString(2, datosContrato.getcEjercicio());
@@ -1224,7 +1224,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
             }
         } catch (Exception e) {
             // TODO: handle exception
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             throw new Exception(e.getMessage());
         }
         return resp;

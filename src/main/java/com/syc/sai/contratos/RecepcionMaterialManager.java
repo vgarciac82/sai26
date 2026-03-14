@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.LogManager;
 import com.syc.adquisiciones.core.DatosRecepcionFIEL;
 import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
@@ -21,7 +20,7 @@ import org.slf4j.LoggerFactory;
  */
 public class RecepcionMaterialManager {
 
-    private static final Logger log = LogManager.getLogger(RecepcionMaterialManager.class);
+    private static final Logger log = LoggerFactory.getLogger(RecepcionMaterialManager.class);
 
     /**
      * Actualiza el estatus de una recepcion de material.
@@ -36,7 +35,7 @@ public class RecepcionMaterialManager {
      * @throws SQLException
      */
     public static int avanzaEstatus(Connection conn, DatosRecepcionFIEL recepcionMaterial, int status) throws SQLException {
-        log.info("Cambiando estatus a: " + status + " en la RM: " + recepcionMaterial);
+        log.info("Object: {}", "Cambiando estatus a: " + status + " en la RM: " + recepcionMaterial);
         StringBuilder sb = new StringBuilder();
         sb.append("UPDATE mRecepcionpMat SET nIdEstadoRecepMat = ? WHERE cIdpedContDef = ? AND cIdRecepMat = ?");
         PreparedStatement ps = null;
@@ -89,7 +88,7 @@ public class RecepcionMaterialManager {
             rsKey = ps.getGeneratedKeys();
             rsKey.next();
             recepcionMaterial.setIdNota(rsKey.getInt(1));
-            log.info("Se insertaron: " + insertados + " solicitudes de autorizacion de RM");
+            log.info("Object: {}", "Se insertaron: " + insertados + " solicitudes de autorizacion de RM");
         } finally {
             CloseObject.closeObject(ps);
         }
@@ -101,7 +100,7 @@ public class RecepcionMaterialManager {
      * @throws SQLException
      */
     private static void findContratoCNET(Connection conn, DatosRecepcionFIEL recepcionMaterial) throws SQLException {
-        log.info("Insertando RM: " + recepcionMaterial);
+        log.info("Object: {}", "Insertando RM: " + recepcionMaterial);
         StringBuilder query = new StringBuilder();
         query.append("select cNoContratoCNET from v_mListadoContratos where cIdContratoDefinitivo=?");
         PreparedStatement ps = null;

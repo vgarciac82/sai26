@@ -340,7 +340,7 @@ public final class DefaultFolioGenerator implements FolioGeneratorInterface {
             pstmnt = null;
         }
         if (log.isDebugEnabled())
-            log.debug("Folio generado " + retval);
+            log.debug("Object: {}", "Folio generado " + retval);
         return retval;
     }
 
@@ -660,7 +660,7 @@ public final class DefaultFolioGenerator implements FolioGeneratorInterface {
             pstmnt = null;
         }
         if (log.isDebugEnabled())
-            log.debug("Folio generado " + retval);
+            log.debug("Object: {}", "Folio generado " + retval);
         return retval;
     }
 
@@ -918,7 +918,7 @@ public final class DefaultFolioGenerator implements FolioGeneratorInterface {
             pstmnt = null;
         }
         if (log.isDebugEnabled())
-            log.debug("Folio generado " + retval);
+            log.debug("Object: {}", "Folio generado " + retval);
         return retval;
     }
 }

@@ -3,7 +3,6 @@ package com.axtel.sai.sicove.services.impl;
 import java.io.File;
 import java.sql.Connection;
 import java.util.List;
-import org.apache.log4j.LogManager;
 import com.axtel.sai.sicove.entities.FuelAsignationVerification;
 import com.axtel.sai.sicove.entities.WalletFuelRequestVerificationDetail;
 import com.axtel.sai.sicove.exceptions.SicoveException;
@@ -20,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 public class JDBCFuelAsignationVerificationService extends DataSourceManager implements FuelAsignationVerificationService {
 
-    private static final Logger log = LogManager.getLogger(JDBCFuelAsignationVerificationService.class);
+    private static final Logger log = LoggerFactory.getLogger(JDBCFuelAsignationVerificationService.class);
 
     private FuelAsignationVerificationRepository fuelAsignationVerificationRepository;
 
@@ -178,9 +177,9 @@ public class JDBCFuelAsignationVerificationService extends DataSourceManager imp
         CasoBusinessLogic processService = new CasoBusinessLogic(jniName);
         try {
             conn = getConnection();
-            log.debug("Deleting document from expedient: " + detail.getTicketReference());
+            log.debug("Object: {}", "Deleting document from expedient: " + detail.getTicketReference());
             processService.deleteDocument(conn, detail.getTicketReference());
-            log.debug("Deleting verification detail info: " + detail);
+            log.debug("Object: {}", "Deleting verification detail info: " + detail);
             fuelAsignationVerificationRepository.deleteFuelingVerificationDetail(conn, detail);
             detail.setTicketAmount(detail.getTicketAmount().negate());
             fuelAsignationVerificationRepository.updatePendingAmount(conn, detail);

@@ -95,7 +95,7 @@ public class LayoutCompromisosServlet extends HttpServlet {
             filename.delete();
             cmpbl.estatusCompromiso(compromisosQuery);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new ServletException(exc);
         } finally {
         }

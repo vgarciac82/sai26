@@ -157,8 +157,8 @@ public class AltaProveedorImpl implements TipoCasoInterface {
                 return ConfiguraAplicativoManager.getSystemSetting(conn, "CORREO_ALERTAS_DESARROLLO");
             ps = conn.prepareStatement(query);
             ps.setString(1, folio);
-            log.debug(ps);
-            log.debug(folio);
+            log.debug("Object: {}", ps.toString());
+            log.debug("Object: {}", folio);
             rs = ps.executeQuery();
             if (rs.next())
                 val = rs.getString(1);
@@ -177,8 +177,8 @@ public class AltaProveedorImpl implements TipoCasoInterface {
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, folio);
-            log.debug(ps);
-            log.debug(folio);
+            log.debug("Object: {}", ps.toString());
+            log.debug("Object: {}", folio);
             rs = ps.executeQuery();
             if (rs.next())
                 val = rs.getString(1);
@@ -197,8 +197,8 @@ public class AltaProveedorImpl implements TipoCasoInterface {
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, folio);
-            log.debug(ps);
-            log.debug(folio);
+            log.debug("Object: {}", ps.toString());
+            log.debug("Object: {}", folio);
             rs = ps.executeQuery();
             if (rs.next())
                 val = rs.getString(1);
@@ -217,8 +217,8 @@ public class AltaProveedorImpl implements TipoCasoInterface {
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, folio);
-            log.debug(ps);
-            log.debug(folio);
+            log.debug("Object: {}", ps.toString());
+            log.debug("Object: {}", folio);
             rs = ps.executeQuery();
             if (rs.next())
                 val = 1;
@@ -239,8 +239,8 @@ public class AltaProveedorImpl implements TipoCasoInterface {
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, folio);
-            log.debug(ps);
-            log.debug(folio);
+            log.debug("Object: {}", ps.toString());
+            log.debug("Object: {}", folio);
             rs = ps.executeQuery();
             if (rs.next())
                 val = rs.getString(1);
@@ -292,7 +292,7 @@ public class AltaProveedorImpl implements TipoCasoInterface {
                         correo = cabl.getSystemSetting("CORREO_MODIFICA_PROVEEDOR");
                     break;
                 default:
-                    log.warn("Enviaria correo del folio: " + folio + ", pero el operador no lo permite: " + id_oper);
+                    log.warn("Object: {}", "Enviaria correo del folio: " + folio + ", pero el operador no lo permite: " + id_oper);
                     break;
             }
             if (StringUtils.isEmpty(correo)) {
@@ -315,7 +315,7 @@ public class AltaProveedorImpl implements TipoCasoInterface {
         String subject, body;
         subject = "Registro de Alta Proveedor inconcluso";
         body = "<B>Atención</b></br>" + "Se notifica que el trámite de  Alta Proveedor con folio: " + folio + " está por vencerse.<br><br>" + "Por lo anterior es necesario que verifique la información para concluir o en su defecto descartar el trámite del sistema, " + "ya que si no se atiende se descartara automáticamente perdiendo toda la información contenida en dicho trámite. EL tiempo límite de atención es de una semana a partir del 1ero de Junio del 2017 <br><br>";
-        log.info("Enviando Correo al siguiente destinatario: " + correo);
+        log.info("Object: {}", "Enviando Correo al siguiente destinatario: " + correo);
         AlarmaManager.procesaAlarmaCNF(conn, "", null, null, subject, correo, body);
     }
 
@@ -330,7 +330,7 @@ public class AltaProveedorImpl implements TipoCasoInterface {
             ps = conn.prepareStatement(query);
             ps.setInt(1, id_caso);
             ps.setInt(2, id_tc);
-            log.info(ps);
+            log.info("Object: {}", ps.toString());
             rs = ps.executeQuery();
             if (rs.next()) {
                 email = rs.getString("U_EMAIL");
@@ -355,7 +355,7 @@ public class AltaProveedorImpl implements TipoCasoInterface {
             ps = conn.prepareStatement(query);
             ps.setInt(1, id_tc);
             rs = ps.executeQuery();
-            log.info(ps);
+            log.info("Object: {}", ps.toString());
             if (rs.next()) {
                 id_oper = rs.getInt("ID_OPER");
                 o_responsable = rs.getString("O_RESPONSABLE");
@@ -366,7 +366,7 @@ public class AltaProveedorImpl implements TipoCasoInterface {
             ps.setString(2, o_responsable);
             ps.setInt(3, id_caso);
             ps.setInt(4, id_tc);
-            log.info(ps);
+            log.info("Object: {}", ps.toString());
             success = ps.executeUpdate() > 0;
             if (success) {
                 query = "INSERT INTO tCasosVencidosCancelados VALUES(?,?,?,getdate())";
@@ -374,7 +374,7 @@ public class AltaProveedorImpl implements TipoCasoInterface {
                 ps.setInt(1, id_tc);
                 ps.setInt(2, id_caso);
                 ps.setInt(3, id_operAnterior);
-                log.info(ps);
+                log.info("Object: {}", ps.toString());
                 success = ps.executeUpdate() > 0;
             }
         } catch (Exception e) {
@@ -383,7 +383,7 @@ public class AltaProveedorImpl implements TipoCasoInterface {
             CloseObject.closeObject(rs);
             CloseObject.closeObject(ps);
         }
-        log.info("Se Mueve a Consulta el caso " + id_caso + " : " + success);
+        log.info("Object: {}", "Se Mueve a Consulta el caso " + id_caso + " : " + success);
         return success;
     }
 

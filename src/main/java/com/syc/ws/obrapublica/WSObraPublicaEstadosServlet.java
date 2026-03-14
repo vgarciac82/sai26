@@ -48,7 +48,7 @@ public class WSObraPublicaEstadosServlet extends HttpServlet {
         }
         String uri = request.getRequestURI();
         String action = uri.substring(uri.lastIndexOf("/") + 1, uri.length());
-        log.debug(action);
+        log.debug("Object: {}", action);
         Usuario u = (Usuario) session.getAttribute(com.syc.gestion.servlet.GestionInterface.ATT_USER);
         if ("CreaEstimacionObra".equals(action)) {
             WSObraPublicaEstadosBusinessLogic WSObra = new WSObraPublicaEstadosBusinessLogic(jniName);
@@ -88,7 +88,7 @@ public class WSObraPublicaEstadosServlet extends HttpServlet {
                 WSObraPublicaEstadosBusinessLogic WSObra = new WSObraPublicaEstadosBusinessLogic(jniName);
                 jsonResp = WSObra.ObtenerJsonObraPublicaEstados(nIdEstado);
             } catch (Exception e) {
-                log.error("Error al consumir Web Service: " + e.getMessage());
+                log.error("Error occurred", "Error al consumir Web Service: " + e.getMessage());
             } finally {
                 destino = arrayObj.put(jsonResp).toString();
                 out.println(new String(destino.getBytes("ISO-8859-1"), "UTF-8"));
@@ -109,24 +109,24 @@ public class WSObraPublicaEstadosServlet extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         try {
             InitialContext ic = new InitialContext();
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
     }
 }

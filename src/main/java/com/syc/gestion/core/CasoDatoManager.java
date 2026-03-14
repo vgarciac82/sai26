@@ -9,8 +9,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import org.apache.log4j.LogManager;
+import jakarta.servlet.http.HttpServletRequest;
 import org.jfree.util.Log;
 import com.syc.utils.URIComponentUtils;
 import org.slf4j.Logger;
@@ -18,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 public class CasoDatoManager {
 
-    private static final Logger log = LogManager.getLogger(CasoDatoManager.class);
+    private static final Logger log = LoggerFactory.getLogger(CasoDatoManager.class);
 
     public static Map<String, CasoDato> createCasoDato(Connection conn, int id_tc, int id_caso) throws SQLException {
         Map<String, CasoDato> m = new LinkedHashMap<>();
@@ -97,7 +96,7 @@ public class CasoDatoManager {
                 value = URIComponentUtils.decodeURIComponent(value);
             }
             if (value != null) {
-                log.trace("Putting data for variable: " + name + ": " + value);
+                log.trace("Object: {}", "Putting data for variable: " + name + ": " + value);
                 m.put(name, value);
             }
         }
@@ -162,7 +161,7 @@ public class CasoDatoManager {
     public static int update(Connection conn, CasoDato cd) throws SQLException {
         int retval = -1;
         PreparedStatement pstmnt = null;
-        Log.debug("Updating CASO_DATO:" + cd);
+        Log.debug("Object: {}", "Updating CASO_DATO:" + cd);
         try {
             pstmnt = conn.prepareStatement("UPDATE cg_caso_dato with(rowlock) SET id_tc = ?, cd_valor = ? WHERE id_caso = ? AND id_cd = ?");
             pstmnt.setInt(1, cd.getIdTC());
@@ -176,7 +175,7 @@ public class CasoDatoManager {
             }
         } catch (SQLException e) {
             // FIXME quitar este catch cuando re resuelva lo del interbloqueo
-            Log.warn(e);
+            Log.warn("Error occurred", e);
         } finally {
             if (pstmnt != null)
                 pstmnt.close();
@@ -219,7 +218,7 @@ public class CasoDatoManager {
             pstmnt.setInt(3, id_tc);
             pstmnt.executeUpdate();
         } catch (SQLException e) {
-            Log.warn(e);
+            Log.warn("Error occurred", e);
         } finally {
             if (pstmnt != null)
                 pstmnt.close();
@@ -236,7 +235,7 @@ public class CasoDatoManager {
             pstmnt.setInt(3, id_caso);
             pstmnt.executeUpdate();
         } catch (SQLException e) {
-            Log.warn(e);
+            Log.warn("Error occurred", e);
         } finally {
             if (pstmnt != null)
                 pstmnt.close();

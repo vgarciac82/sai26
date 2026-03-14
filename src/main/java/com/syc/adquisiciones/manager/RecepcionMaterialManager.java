@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.log4j.LogManager;
 import com.syc.adquisiciones.core.RecepcionMaterial;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
@@ -20,7 +19,7 @@ public class RecepcionMaterialManager {
 
     private static final String INSERT_QUERY = "INSERT INTO mRecepcionpMat (cIdRecepMat, nIdConsecutivoRecepM, cEjercicio, cIdpedContDef, nCantidad, " + "mMontoConIVA, mMontoSinIVA, mMontoIVA, nIdEstadoRecepMat, cUnidadEjecutora, cIdAlmacen, isServicio, mMontoOtrosImp, " + "isFactAmort, cObservaciones, isAmortizaEjercAnt, mDescuentoConIVA, mDescuentoSinIVA, mDescuentoIVA, nIdEntraAlmacen) " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    private static final Logger log = LogManager.getLogger(RecepcionMaterialManager.class);
+    private static final Logger log = LoggerFactory.getLogger(RecepcionMaterialManager.class);
 
     private static final String SELECT_QUERY = "SELECT * FROM mRecepcionpMat WITH(NOLOCK) WHERE cIdRecepMat = ? AND cIdpedContDef = ?";
 
@@ -32,10 +31,10 @@ public class RecepcionMaterialManager {
             ps.setInt(1, status);
             ps.setString(2, contract);
             ps.setString(3, id);
-            log.trace("Updating status of reception [" + id + "] in contract [" + contract + "] to [" + status + "]");
+            log.trace("Object: {}", "Updating status of reception [" + id + "] in contract [" + contract + "] to [" + status + "]");
             int updated = ps.executeUpdate();
             if (updated == 0) {
-                log.warn("No reception updated for contract [" + contract + "] and id [" + id + "]");
+                log.warn("Object: {}", "No reception updated for contract [" + contract + "] and id [" + id + "]");
             }
         } catch (SQLException e) {
             log.error("Error updating status of reception [" + id + "] in contract [" + contract + "]: " + e, e);
@@ -138,7 +137,7 @@ public class RecepcionMaterialManager {
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, contract);
-            log.trace("Retrieving active receptions for contract [" + contract + "]");
+            log.trace("Object: {}", "Retrieving active receptions for contract [" + contract + "]");
             rs = ps.executeQuery();
             while (rs.next()) {
                 recepciones.add(mapToRecepcionMaterial(rs));

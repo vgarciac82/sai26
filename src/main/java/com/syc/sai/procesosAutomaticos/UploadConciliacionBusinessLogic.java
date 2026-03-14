@@ -52,7 +52,7 @@ public class UploadConciliacionBusinessLogic extends DataSourceManager {
     public String uploadCB(Usuario u, String nombreCarpeta, String nombreDestino, String ctaBan, int nMes) {
         Connection conn = null;
         Caso c = null;
-        log.info("Iniciando el proceso de ajuntar conciliacion bancaria en la carpeta[" + nombreCarpeta + "] Archivo[" + nombreDestino + "] Cuenta [" + ctaBan + "] Mes[" + nMes + "]");
+        log.info("Object: {}", "Iniciando el proceso de ajuntar conciliacion bancaria en la carpeta[" + nombreCarpeta + "] Archivo[" + nombreDestino + "] Cuenta [" + ctaBan + "] Mes[" + nMes + "]");
         String msg = "";
         try {
             conn = getConnection();
@@ -91,7 +91,7 @@ public class UploadConciliacionBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
         } finally {
             CloseObject.closeObject(conn);
@@ -115,7 +115,7 @@ public class UploadConciliacionBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas con rollback: " + e2);
+                    log.warn("Object: {}", "Problemas con rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -146,9 +146,9 @@ public class UploadConciliacionBusinessLogic extends DataSourceManager {
             NumberFormat nf = NumberFormat.getInstance(locale);
             if (mSaldo.find()) {
                 String saldoStr = mSaldo.group(1);
-                log.debug("Saldo Final: " + saldoStr);
+                log.debug("Object: {}", "Saldo Final: " + saldoStr);
                 double saldo = nf.parse(saldoStr).doubleValue();
-                log.info("Saldo Final: " + saldo);
+                log.info("Object: {}", "Saldo Final: " + saldo);
                 saldoEdoCta = new SaldosEdoCta(saldo, saldo);
             } else {
                 throw new RuntimeException("No se encontro el saldo. Se espera la palabra SALDO FINAL en el pdf");
@@ -174,9 +174,9 @@ public class UploadConciliacionBusinessLogic extends DataSourceManager {
             NumberFormat nf = NumberFormat.getInstance(locale);
             if (mSaldo.find()) {
                 String saldoStr = mSaldo.group(1);
-                log.debug("Saldo Final: " + saldoStr);
+                log.debug("Object: {}", "Saldo Final: " + saldoStr);
                 double saldo = nf.parse(saldoStr).doubleValue();
-                log.info("Saldo Final: " + saldo);
+                log.info("Object: {}", "Saldo Final: " + saldo);
                 saldoEdoCta = new SaldosEdoCta(saldo, saldo);
             } else {
                 throw new RuntimeException("No se encontro el saldo. Se espera la palabra SALDO FINAL en el pdf");
@@ -193,7 +193,7 @@ public class UploadConciliacionBusinessLogic extends DataSourceManager {
     public String uploadConciliacion(Usuario u, String nombreCarpeta, String nombreDestino, int nMes, int conciliacion) {
         Connection conn = null;
         Caso c = null;
-        log.info("Iniciando el proceso de ajuntar conciliacion contable en la carpeta[" + nombreCarpeta + "] Archivo[" + nombreDestino + "] Mes[" + nMes + "] Tipo[" + conciliacion + "]");
+        log.info("Object: {}", "Iniciando el proceso de ajuntar conciliacion contable en la carpeta[" + nombreCarpeta + "] Archivo[" + nombreDestino + "] Mes[" + nMes + "] Tipo[" + conciliacion + "]");
         String msg = "";
         try {
             conn = getConnection();
@@ -223,7 +223,7 @@ public class UploadConciliacionBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
         } finally {
             CloseObject.closeObject(conn);

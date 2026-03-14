@@ -31,7 +31,7 @@ import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
-import org.apache.commons.fileupload.DiskFileUpload;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
 import com.syc.gestion.reportes.core.InformeSemestralBean;
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.gestion.servlet.GestionFileReceiverServlet;
@@ -89,12 +89,12 @@ public class InformeSemestralServlet extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         tempDir = config.getInitParameter("tempDir");
         if (tempDir == null) {
@@ -126,7 +126,7 @@ public class InformeSemestralServlet extends HttpServlet {
     }
 
     public void datosPlantilla(HttpServletRequest request, HttpServletResponse response, String tReporte) throws ServletException, IOException, SQLException, ClassNotFoundException, ParseException {
-        DiskFileUpload upload = new DiskFileUpload();
+        ServletFileUpload upload = new ServletFileUpload();
         upload.setRepositoryPath(tempDir);
         cFileExcel = upload.getRepositoryPath() + "\\" + "InformeSemestral.xls";
         if (tReporte.equals("1")) {
@@ -148,8 +148,8 @@ public class InformeSemestralServlet extends HttpServlet {
 
     // Fin del Metodo
     public void llenaExcel(String plantilla, String query, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException, ParseException {
-        log.info("plantilla: " + plantilla);
-        log.info("query detalle: " + query);
+        log.info("Object: {}", "plantilla: " + plantilla);
+        log.info("Object: {}", "query detalle: " + query);
         response.setContentType("application/vnd.ms-excel");
         response.addHeader("Content-Disposition", "attachment; filename=\"infSemestral_" + System.currentTimeMillis() + ".xls\";");
         try {
@@ -186,8 +186,8 @@ public class InformeSemestralServlet extends HttpServlet {
             // variable para guardar el dato y pasarlo a la celda
             String etiqueta;
             log.info("Inica Escritura en excel");
-            log.info("plantilla para la escritura: " + plantilla);
-            log.info("numeros de fila:" + nFil);
+            log.info("Object: {}", "plantilla para la escritura: " + plantilla);
+            log.info("Object: {}", "numeros de fila:" + nFil);
             // DATOS DEL LIBRO DE EXCEL
             Workbook workbook = Workbook.getWorkbook(new File(plantilla).getAbsoluteFile());
             WritableWorkbook copy = Workbook.createWorkbook(response.getOutputStream(), workbook);
@@ -261,8 +261,8 @@ public class InformeSemestralServlet extends HttpServlet {
             log.info("Escribiendo en la plantilla...");
             for (// for para controlar filas
             // for para controlar filas
-            int i = 0; // for para controlar filas
-            i < nFil; i++) {
+            // for para controlar filas
+            int i = 0; i < nFil; i++) {
                 // for para controlar columnas
                 for (int j = 0; j <= 3; j++) ;
                 {
@@ -374,7 +374,7 @@ public class InformeSemestralServlet extends HttpServlet {
             log.info("Escritura realizada con exito");
         }//fin del Try
          catch (Exception eP) {
-            log.info(eP);
+            log.info(eP.getMessage(), eP);
             eP.printStackTrace();
         }
         // Fin del catch

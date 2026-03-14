@@ -122,7 +122,7 @@ public class ProyectoServicioService extends ProyectoServicioGeneral {
         try {
             connection = getConnection();
             int deleted = getTerritorioRepositorio().delete(connection, idTerritory);
-            log.debug(deleted + " rows have benn deleted from territory ");
+            log.debug("Object: {}", deleted + " rows have benn deleted from territory ");
             connection.commit();
         } catch (SQLException e) {
             Util.rollback(connection);
@@ -176,23 +176,23 @@ public class ProyectoServicioService extends ProyectoServicioGeneral {
         String urlString = null;
         try {
             urlString = ConfiguraAplicativoManager.getSystemSetting(dbConnection, "URL_ELASTICSEARCH") + "/proyectos/_doc/";
-            log.info("URL configurada para Elasticsearch: " + urlString);
+            log.info("Object: {}", "URL configurada para Elasticsearch: " + urlString);
         } catch (Exception e) {
             log.error("No se encontró la URL configurada para Elasticsearch", e);
             throw new RuntimeException("No se encontró URL configurada: " + e.toString());
         }
         URL url = new URL(urlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        log.info("Conexión a Elasticsearch iniciada en: " + urlString);
+        log.info("Object: {}", "Conexión a Elasticsearch iniciada en: " + urlString);
         conn.setDoOutput(true);
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
         log.info("Se ha configurado el Content-Type a 'application/json; charset=UTF-8'");
         ProyectoDTO proyectoDTO = new ProyectoDTO(proyecto.getServicioId(), proyecto.getServicioTitulo(), proyecto.getServicioObjetivos(), proyecto.getServicioFolioPre() + "/" + proyecto.getServicioFolioAnio() + "/" + String.format("%04d", proyecto.getServicioFolioNum()));
-        log.debug("Generado el objeto proyecto: " + proyectoDTO);
+        log.debug("Object: {}", "Generado el objeto proyecto: " + proyectoDTO);
         ObjectMapper mapper = new ObjectMapper();
         String jsonInputString = mapper.writeValueAsString(proyectoDTO);
-        log.debug("JSON generado para el proyecto: " + jsonInputString);
+        log.debug("Object: {}", "JSON generado para el proyecto: " + jsonInputString);
         try (OutputStream os = conn.getOutputStream()) {
             byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
@@ -203,9 +203,9 @@ public class ProyectoServicioService extends ProyectoServicioGeneral {
         }
         int responseCode = conn.getResponseCode();
         if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
-            log.info("Proyecto índice enviado correctamente a Elasticsearch: " + proyectoDTO);
+            log.info("Object: {}", "Proyecto índice enviado correctamente a Elasticsearch: " + proyectoDTO);
         } else {
-            log.error("Error al enviar el proyecto a indexación. Código de respuesta: " + responseCode);
+            log.error("Error occurred", "Error al enviar el proyecto a indexación. Código de respuesta: " + responseCode);
             throw new RuntimeException("Error al enviar el proyecto a indexación. Código de respuesta: " + responseCode);
         }
         conn.disconnect();

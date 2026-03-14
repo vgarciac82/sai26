@@ -244,7 +244,7 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e2) {
-                        log.warn(e2);
+                        log.warn(e2.getMessage(), e2);
                     }
             } finally {
                 CloseObject.closeObject(conn);
@@ -304,7 +304,7 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -348,7 +348,7 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
     public String firmaConciliacion(ConciliacionFirma fer, String cerFileName, String keyFileName) throws Exception {
         String logProc = null;
         Certificate[] chain = validaCertificados(fer, cerFileName, keyFileName);
-        log.trace(fer);
+        log.trace("Object: {}", fer);
         Connection conn = null;
         try {
             conn = getConnection();
@@ -357,10 +357,10 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
             ((ConciliacionFirma) fer).cargaInformacion(conn);
             FirmaElectronicaManager.avanzaEstatusConciliacion(conn, fer);
             String pathPagina = ((ConciliacionFirma) fer).getRutaReporteImpreso();
-            log.info("Se firmara el documento: " + pathPagina);
+            log.info("Object: {}", "Se firmara el documento: " + pathPagina);
             int idTipoFirmante = ((ConciliacionFirma) fer).getIdTipoFirmante();
-            log.debug("El archivo se encuentra en: " + pathPagina);
-            log.info("Inicia firma electronica de la conciliación. Tipo Firmante: " + idTipoFirmante);
+            log.debug("Object: {}", "El archivo se encuentra en: " + pathPagina);
+            log.info("Object: {}", "Inicia firma electronica de la conciliación. Tipo Firmante: " + idTipoFirmante);
             Rectangle rectangleSign = EstadosFinancierosFirma.ZONAS_FIRMA.get(idTipoFirmante);
             Integer[] rectangleAcuse = EstadosFinancierosFirma.ZONAS_ACUSE.get(idTipoFirmante);
             if (((ConciliacionFirma) fer).getOrden() == 1) {
@@ -387,7 +387,7 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn(e2);
+                    log.warn(e2.getMessage(), e2);
                 }
             throw e;
         } finally {
@@ -419,8 +419,8 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
                 List<Documento> documentos = ((QuestionnaireBussinessLogic) feq).getRutaDocumentos(conn, requisition);
                 for (Documento documento : documentos) {
                     String pathPagina = documento.getFullPathFilesNames()[0];
-                    log.info("Se firmara el documento: " + pathPagina);
-                    log.trace("El archivo se encuentra en: " + pathPagina);
+                    log.info("Object: {}", "Se firmara el documento: " + pathPagina);
+                    log.trace("Object: {}", "El archivo se encuentra en: " + pathPagina);
                     Rectangle rectangleSign = null;
                     if ("Cuestionario Firmado".equals(documento.getNombreDocumento()))
                         rectangleSign = calculaPosicionFirmanteV(1);
@@ -449,7 +449,7 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e2) {
-                        log.warn(e2);
+                        log.warn(e2.getMessage(), e2);
                     }
                 throw e;
             } finally {
@@ -502,14 +502,14 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
 
     public File firmaEstimacionObra(Connection conn, EstimacionObraFIEL estObraFIEL, String cerFileName, String keyFileName) throws Exception {
         Certificate[] chain = validaCertificados(estObraFIEL, cerFileName, keyFileName);
-        log.info("Iniciando firma electronica de la Estimación " + estObraFIEL.getEstimacionObra());
+        log.info("Object: {}", "Iniciando firma electronica de la Estimación " + estObraFIEL.getEstimacionObra());
         String pathPagina = null;
         String folio = estObraFIEL.getFolios();
         File signedFile = null;
         try {
             pathPagina = ((EstimacionObraFIEL) estObraFIEL).getRutaReporteImpreso(conn);
-            log.info("Se firmara el documento: " + pathPagina);
-            log.trace("El archivo se encuentra en: " + pathPagina);
+            log.info("Object: {}", "Se firmara el documento: " + pathPagina);
+            log.trace("Object: {}", "El archivo se encuentra en: " + pathPagina);
             Rectangle rectangleSign = calculaPosicionFirmanteV(estObraFIEL.getEstimacionObra().getNumFirmante());
             String encReazon = "Autorizo la estimacion de obra con folio: ";
             encReazon = encReazon.concat(String.valueOf(estObraFIEL.getEstimacionObra().getnEstimacion()));
@@ -608,7 +608,7 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
         if (!StringUtils.isEmpty(fer.getOrdenes()))
             ordenes = fer.getOrdenes().split(",");
         int nOrden = -1;
-        log.trace(fer);
+        log.trace("Object: {}", fer);
         for (String folio : folios) {
             Connection conn = null;
             nOrden++;
@@ -623,10 +623,10 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
                     logProc = new ArrayList<String>();
                 FirmaElectronicaManager.avanzaEstatusReporte(conn, fer);
                 String pathPagina = fer.getRutaReporteImpreso();
-                log.info("Se firmara el documento: " + pathPagina);
+                log.info("Object: {}", "Se firmara el documento: " + pathPagina);
                 int idTipoFirmante = ((EstadosFinancierosFirma) fer).getIdTipoFirmante();
-                log.debug("El archivo se encuentra en: " + pathPagina);
-                log.info("Inicia firma electronica del documento. Tipo Firmante: " + idTipoFirmante);
+                log.debug("Object: {}", "El archivo se encuentra en: " + pathPagina);
+                log.info("Object: {}", "Inicia firma electronica del documento. Tipo Firmante: " + idTipoFirmante);
                 int idTipoReporte = fer.getIdTipoReporte();
                 Rectangle rectangleSign = null;
                 Integer[] rectangleAcuse = null;
@@ -661,7 +661,7 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e2) {
-                        log.warn(e2);
+                        log.warn(e2.getMessage(), e2);
                     }
                 throw e;
             } finally {
@@ -730,7 +730,7 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Prblema realizando rollback " + e2);
+                    log.warn("Object: {}", "Prblema realizando rollback " + e2);
                 }
             throw e;
         } finally {
@@ -837,7 +837,7 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
     public List<String> rechazaConciliacion(ConciliacionFirma fer) {
         List<String> logProc = null;
         String[] folios = fer.getFolios().split(",");
-        log.trace(fer);
+        log.trace("Object: {}", fer);
         for (String folio : folios) {
             Connection conn = null;
             try {
@@ -862,7 +862,7 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e2) {
-                        log.warn(e2);
+                        log.warn(e2.getMessage(), e2);
                     }
             } finally {
                 CloseObject.closeObject(conn);
@@ -874,7 +874,7 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
     public List<String> rechazaReporte(FirmaElectronicaReporte fer) {
         List<String> logProc = null;
         String[] folios = fer.getFolios().split(",");
-        log.trace(fer);
+        log.trace("Object: {}", fer);
         for (String folio : folios) {
             Connection conn = null;
             try {
@@ -896,7 +896,7 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e2) {
-                        log.warn(e2);
+                        log.warn(e2.getMessage(), e2);
                     }
             } finally {
                 CloseObject.closeObject(conn);
@@ -933,7 +933,7 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e2) {
-                        log.warn(e2);
+                        log.warn(e2.getMessage(), e2);
                     }
             } finally {
                 CloseObject.closeObject(conn);
@@ -982,8 +982,8 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
         String razonFirma = null;
         try {
             String pathPagina = ((ProcesoEnteraSatisfaccionBusinessLogic) feENSA).getRutaReporteImpreso(conn);
-            log.info("Se firmara el documento: " + pathPagina);
-            log.trace("El archivo se encuentra en: " + pathPagina);
+            log.info("Object: {}", "Se firmara el documento: " + pathPagina);
+            log.trace("Object: {}", "El archivo se encuentra en: " + pathPagina);
             rectangleSign = endPageSignatoryV(1);
             encReazon = "Autorizo el proceso de entera satisfacción con folio: ";
             encReazon = encReazon.concat(feENSA.getDatEnteraSatisfaccion().getcFolio());

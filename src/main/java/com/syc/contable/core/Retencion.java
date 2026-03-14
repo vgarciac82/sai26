@@ -52,7 +52,7 @@ public class Retencion implements Serializable {
         log.trace("Estableciendo encabezado de la Retencion.");
         this.encabezado = encabezado;
         log.trace("Encabezado establecido");
-        log.trace(this.encabezado);
+        log.trace("Object: {}", this.encabezado);
     }
 
     public void setnFolioRetencion(int nFolioRetencion) {

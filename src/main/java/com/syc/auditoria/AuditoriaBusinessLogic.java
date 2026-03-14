@@ -80,8 +80,8 @@ public class AuditoriaBusinessLogic extends DataSourceManager {
             }
         } catch (Exception e) {
             log.error("Error al construir cadena de campo_valor para el insert");
-            log.error("query: " + query);
-            log.error("valores: " + valores);
+            log.error("Object: {}", "query: " + query);
+            log.error("Object: {}", "valores: " + valores);
             e.printStackTrace();
             throw new GestionException(e);
         }

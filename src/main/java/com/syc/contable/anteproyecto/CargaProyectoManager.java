@@ -128,7 +128,7 @@ public class CargaProyectoManager {
                 query += ")";
             }
             query += " ORDER BY 1 ";
-            log.trace(query);
+            log.trace("Object: {}", query.toString());
             stmnt = conn.createStatement();
             rs = stmnt.executeQuery(query);
             return Util.ExcelFromRS(rs, nombreArchivo);
@@ -171,7 +171,7 @@ public class CargaProyectoManager {
         // query += token + "aEjercicioFiscal = " + ejercicioFiscal;
         query += " ORDER BY 1 ";
         try {
-            log.trace(query);
+            log.trace("Object: {}", query.toString());
             stmnt = conn.createStatement();
             rs = stmnt.executeQuery(query);
             return Util.ExcelFromRS(rs, nombreArchivo);
@@ -229,9 +229,9 @@ public class CargaProyectoManager {
         try {
             log.trace("Iniciando insercion de renglon");
             stmnt = conn.createStatement();
-            log.debug(Util.genInsertUpdateFromMap("tProyecto_Calendario", infoRenglon, new String[] { "EP" }));
+            log.debug("Object: {}", Util.genInsertUpdateFromMap("tProyecto_Calendario", infoRenglon, new String[] { "EP" }));
             r = stmnt.executeUpdate(Util.genInsertFromMap("tProyecto_Calendario", infoRenglon));
-            log.trace("Se inserto " + r + "registros");
+            log.trace("Object: {}", "Se inserto " + r + "registros");
             return r;
         } finally {
             CloseObject.closeObject(stmnt, false);
@@ -255,7 +255,7 @@ public class CargaProyectoManager {
             log.trace("Iniciando insercion de renglon");
             stmnt = conn.createStatement();
             r = stmnt.executeUpdate(Util.genInsertFromMap("tProyecto_PF", infoRenglon));
-            log.trace("Se inserto " + r + "registros");
+            log.trace("Object: {}", "Se inserto " + r + "registros");
             return r;
         } finally {
             CloseObject.closeObject(stmnt, false);

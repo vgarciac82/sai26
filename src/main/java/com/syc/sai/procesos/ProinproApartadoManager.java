@@ -34,10 +34,10 @@ public class ProinproApartadoManager {
                 r.add(rs.getInt("nFolioDocOli"));
             }
             if (r != null && r.size() > 0) {
-                log.info("Se cancelaran " + r.size() + " documentos con mas de " + maximoDias + " dias de antiguedad");
+                log.info("Object: {}", "Se cancelaran " + r.size() + " documentos con mas de " + maximoDias + " dias de antiguedad");
                 for (Iterator<Integer> i = r.iterator(); i.hasNext(); ) {
                     int nFolioOLI = i.next();
-                    log.info("Cancelando folio: " + nFolioOLI);
+                    log.info("Object: {}", "Cancelando folio: " + nFolioOLI);
                     accEng.cancelAccountingApplication(conn, "PROINPRO", String.valueOf(nFolioOLI), "tdocproinproencabezado", "tdocproinprodetalle", "nFolioDocOli");
                     psUpdate.setInt(1, nFolioOLI);
                     psUpdate.executeUpdate();

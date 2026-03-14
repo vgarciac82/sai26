@@ -92,10 +92,10 @@ public class IntercalarPedidoPDF {
                     OutputStream output = new FileOutputStream(getRutaFileIntercalado());
                     intercalarPDFs(pdf1, pdf2, output, true);
                 } else {
-                    log.info("El archivo " + getRutaPDF2() + " no existe");
+                    log.info("Object: {}", "El archivo " + getRutaPDF2() + " no existe");
                 }
             } else {
-                log.info("El archivo " + getRutaPDF1() + " no existe");
+                log.info("Object: {}", "El archivo " + getRutaPDF1() + " no existe");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -200,12 +200,12 @@ public class IntercalarPedidoPDF {
         try {
             if (new File(rutaFile).exists()) {
                 if (new File(rutaFile).delete()) {
-                    log.info("El archivo " + rutaFile + " se elimino correctamente");
+                    log.info("Object: {}", "El archivo " + rutaFile + " se elimino correctamente");
                 }
             }
             return Boolean.TRUE;
         } catch (Exception e) {
-            log.error("Ocurrio un error al borrar el archivo " + rutaFile);
+            log.error("Error occurred", "Ocurrio un error al borrar el archivo " + rutaFile);
             e.printStackTrace();
             return Boolean.FALSE;
         }

@@ -52,7 +52,7 @@ public class RectificacionAnexo1 implements Serializable {
         log.trace("Estableciendo encabezado de la rectificacion.");
         this.encabezado = encabezado;
         log.trace("Encabezado establecido");
-        log.trace(this.encabezado);
+        log.trace("Object: {}", this.encabezado);
     }
 
     public void setnFolioRectificacion(int nFolioRectificaAnexo1) {

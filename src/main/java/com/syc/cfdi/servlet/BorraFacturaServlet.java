@@ -3,12 +3,12 @@ package com.syc.cfdi.servlet;
 import java.io.IOException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.syc.cfdi.FacturaBusinessLogic;
@@ -78,7 +78,7 @@ public class BorraFacturaServlet extends HttpServlet implements GestionInterface
                 token = ",";
             }
             if (!StringUtils.isEmpty(parametrosFaltantes)) {
-                log.warn("Se intenta operacion sin parametros completos " + parametrosFaltantes);
+                log.warn("Object: {}", "Se intenta operacion sin parametros completos " + parametrosFaltantes);
                 ResponseSender.sendClientSimpleMessage(resp, false, "No se recibieron los siguientes parametros[ " + parametrosFaltantes + "]");
                 return;
             }
@@ -110,12 +110,12 @@ public class BorraFacturaServlet extends HttpServlet implements GestionInterface
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 }

@@ -88,7 +88,7 @@ public class AltaProveedorBusinessLogic extends DataSourceManager {
             conn.commit();
         } catch (Exception e) {
             conn.rollback();
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             throw new Exception(e);
         } finally {
             if (conn != null) {
@@ -108,7 +108,7 @@ public class AltaProveedorBusinessLogic extends DataSourceManager {
             conn.commit();
         } catch (Exception e) {
             conn.rollback();
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             throw new Exception(e);
         } finally {
             if (conn != null) {
@@ -911,7 +911,7 @@ public class AltaProveedorBusinessLogic extends DataSourceManager {
         } catch (Exception e) {
             resp.setResp(false);
             resp.setMsg((null == e.getMessage() ? "Error" : e.getMessage().toString()));
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             throw new Exception(e);
         }
         return resp;
@@ -957,7 +957,7 @@ public class AltaProveedorBusinessLogic extends DataSourceManager {
             resp.setResp(false);
             resp.setMsg((null == e.getMessage() ? "Error" : e.getMessage().toString()));
             com.syc.gestion.util.Util.rollback(conn);
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             throw new Exception(e);
         } finally {
             if (conn != null) {
@@ -1055,7 +1055,7 @@ public class AltaProveedorBusinessLogic extends DataSourceManager {
             resp.setResp(false);
             resp.setMsg(e.getMessage().toString());
             conn.rollback();
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             throw new Exception(e);
         } finally {
             if (conn != null) {
@@ -1125,7 +1125,7 @@ public class AltaProveedorBusinessLogic extends DataSourceManager {
         } catch (Exception e) {
             resp.setResp(false);
             resp.setMsg(e.getMessage().toString());
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             throw new Exception(e);
         }
         return resp;
@@ -1228,7 +1228,7 @@ public class AltaProveedorBusinessLogic extends DataSourceManager {
             resp.setResp(false);
             resp.setMsg(e.getMessage().toString());
             conn.rollback();
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             throw new Exception(e);
         } finally {
             if (conn != null) {
@@ -1324,7 +1324,7 @@ public class AltaProveedorBusinessLogic extends DataSourceManager {
             resp.setResp(false);
             resp.setMsg(e.getMessage().toString());
             conn.rollback();
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             throw new Exception(e);
         } finally {
             if (conn != null) {
@@ -1464,7 +1464,7 @@ public class AltaProveedorBusinessLogic extends DataSourceManager {
             resp.setResp(false);
             resp.setMsg(e.getMessage().toString());
             conn.rollback();
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             throw new Exception(e);
         } finally {
             if (conn != null) {
@@ -1476,7 +1476,7 @@ public class AltaProveedorBusinessLogic extends DataSourceManager {
     }
 
     public void deleteAltaProveedor(Connection conn, String rfc, String login, String folio) throws ProveedorException {
-        log.info("Eliminando proveedor: " + rfc);
+        log.info("Object: {}", "Eliminando proveedor: " + rfc);
         try {
             if (AltaProveedorManager.esProveedorConPagos(conn, rfc)) {
                 AltaProveedorManager.cambiaStatusCtasBanBeneficiario(conn, -1, rfc);

@@ -136,7 +136,7 @@ public class EmpleadoManager {
                 try {
                     cargo = buscaCargoRH(conn, rs.getString("CE_OS_RESPONSABLE"));
                 } catch (Exception e3) {
-                    log.warn("Error buscando cargo en SAI RRHH " + e3);
+                    log.warn("Error occurred", "Error buscando cargo en SAI RRHH " + e3);
                 }
                 if (StringUtils.isBlank(cargo))
                     re.setCargo(rs.getString("CARGO"));
@@ -179,8 +179,8 @@ public class EmpleadoManager {
         int retval = -1;
         PreparedStatement pstmnt = null;
         try {
-            pstmnt = conn.prepareStatement("UPDATE cg_cat_empleado " + "SET ID_AREA = ?, " + "CE_AP_PATERNO = ?, " + "CE_AP_MATERNO = ?, " + "CE_NOMBRE_COMPLETO = ?, " + "SALUTACION = ?, " + "CARGO = ? " + //OJO: Esto se pone como CE_OS_RESPONSABLE
-            //Para salir del compromiso, pero hace falta
+            pstmnt = conn.prepareStatement(//OJO: Esto se pone como CE_OS_RESPONSABLE
+            "UPDATE cg_cat_empleado " + "SET ID_AREA = ?, " + "CE_AP_PATERNO = ?, " + "CE_AP_MATERNO = ?, " + "CE_NOMBRE_COMPLETO = ?, " + "SALUTACION = ?, " + "CARGO = ? " + //Para salir del compromiso, pero hace falta
             //Revisarlo y cuando menos crear un indice
             //unico por CE_OS_RESPONSABLE
             "WHERE CE_OS_RESPONSABLE = ?");
@@ -208,8 +208,8 @@ public class EmpleadoManager {
         int retval = -1;
         PreparedStatement pstmnt = null;
         try {
-            pstmnt = conn.prepareStatement("UPDATE cg_cat_empleado " + "SET ID_AREA = ?, " + "CE_AP_PATERNO = ?, " + "CE_AP_MATERNO = ?, " + "CE_NOMBRE_COMPLETO = ?, " + "SALUTACION = ?, " + "CARGO = ?, " + "CE_OS_RESPONSABLE = ? " + //OJO: Esto se pone como CE_OS_RESPONSABLE
-            //Para salir del compromiso, pero hace falta
+            pstmnt = conn.prepareStatement(//OJO: Esto se pone como CE_OS_RESPONSABLE
+            "UPDATE cg_cat_empleado " + "SET ID_AREA = ?, " + "CE_AP_PATERNO = ?, " + "CE_AP_MATERNO = ?, " + "CE_NOMBRE_COMPLETO = ?, " + "SALUTACION = ?, " + "CARGO = ?, " + "CE_OS_RESPONSABLE = ? " + //Para salir del compromiso, pero hace falta
             //Revisarlo y cuando menos crear un indice
             //unico por CE_OS_RESPONSABLE
             "WHERE CE_OS_RESPONSABLE = ?");

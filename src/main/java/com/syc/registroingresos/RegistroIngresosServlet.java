@@ -100,15 +100,15 @@ public class RegistroIngresosServlet extends HttpServlet {
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-                log.warn(e);
+                log.warn(e.getMessage(), e);
                 out.println("Error: " + e.getMessage());
             } catch (GestionException e) {
                 e.printStackTrace();
-                log.warn(e);
+                log.warn(e.getMessage(), e);
                 out.println("Error: " + e.getMessage());
             } catch (Exception e) {
                 e.printStackTrace();
-                log.warn(e);
+                log.warn(e.getMessage(), e);
                 out.println("Error: " + e.getMessage());
             }
         }
@@ -129,15 +129,15 @@ public class RegistroIngresosServlet extends HttpServlet {
                     out.println(new String(mensaje));
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    log.warn(e);
+                    log.warn(e.getMessage(), e);
                     out.println("Error: " + e.getMessage());
                 } catch (GestionException e) {
                     e.printStackTrace();
-                    log.warn(e);
+                    log.warn(e.getMessage(), e);
                     out.println("Error: " + e.getMessage());
                 } catch (Exception e) {
                     e.printStackTrace();
-                    log.warn(e);
+                    log.warn(e.getMessage(), e);
                     out.println("Error: " + e.getMessage());
                 }
             } else {
@@ -156,15 +156,15 @@ public class RegistroIngresosServlet extends HttpServlet {
                     out.println(new String(mensaje));
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    log.warn(e);
+                    log.warn(e.getMessage(), e);
                     out.println("Error: " + e.getMessage());
                 } catch (GestionException e) {
                     e.printStackTrace();
-                    log.warn(e);
+                    log.warn(e.getMessage(), e);
                     out.println("Error: " + e.getMessage());
                 } catch (Exception e) {
                     e.printStackTrace();
-                    log.warn(e);
+                    log.warn(e.getMessage(), e);
                     out.println("Error: " + e.getMessage());
                 }
             }
@@ -183,24 +183,24 @@ public class RegistroIngresosServlet extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         try {
             InitialContext ic = new InitialContext();
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
     }
 
@@ -299,7 +299,7 @@ public class RegistroIngresosServlet extends HttpServlet {
                 }
             }
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         }
         if (mensaje.equals("error")) {

@@ -33,10 +33,10 @@ public class ImpresionChequeServlet extends HttpServlet implements GestionInterf
         String tipo = req.getParameter("tipo");
         String usuario = req.getParameter("usuario");
         String beneficiario_temp = req.getParameter("BeneficiarioNuevo");
-        log.info(usuario);
-        log.info(tipo);
-        log.info(CXP);
-        log.info(beneficiario_temp);
+        log.info("Object: {}", usuario);
+        log.info("Object: {}", tipo);
+        log.info("Object: {}", CXP);
+        log.info("Object: {}", beneficiario_temp);
         String reportPath = getServletContext().getRealPath("Reportes" + File.separator + "ChequeManual.jasper");
         String ruta = getServletContext().getRealPath("Reportes");
         reportesBussinesObject objReporte = new reportesBussinesObject(jniName);
@@ -75,12 +75,12 @@ public class ImpresionChequeServlet extends HttpServlet implements GestionInterf
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 }

@@ -119,7 +119,7 @@ public class Caso implements Serializable {
     }
 
     public String getFormatFechaInicio(String format) {
-        log.trace("Formateando fecha " + format);
+        log.trace("Object: {}", "Formateando fecha " + format);
         return (new SimpleDateFormat(format)).format(c_fecha_ini);
     }
 

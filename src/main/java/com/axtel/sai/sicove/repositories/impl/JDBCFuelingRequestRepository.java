@@ -29,7 +29,7 @@ public class JDBCFuelingRequestRepository implements FuelingRequestRepository {
 
     @Override
     public VehicleFuelRequest saveFuelRequest(Connection conn, VehicleFuelRequest vehicleFuelRequest) throws SicoveException {
-        log.info("Saving: " + vehicleFuelRequest);
+        log.info("Object: {}", "Saving: " + vehicleFuelRequest);
         StringBuilder insertFuelRequestSql = new StringBuilder("INSERT INTO vehicle_fuel_request (vehicle_id, employee_responsible, user_request, justification_id, fueling_amount, estimated_kilometers, id_process, id_status, wallet_number, id_wallet)");
         insertFuelRequestSql.append(" VALUES (?, ?, ?, ?, ?, ?, ?, ?, (SELECT wallet_number FROM fuelAccountWallets WITH(NOLOCK) WHERE id_fuel_account_wallets = ?), ?)");
         if (vehicleFuelRequest.getFuelingRequestId() > 0)
@@ -46,7 +46,7 @@ public class JDBCFuelingRequestRepository implements FuelingRequestRepository {
 
     @Override
     public VehicleFuelRequest readVehicleFuelRequest(Connection conn, int id) throws SicoveException {
-        log.info("Looking for fuel request number " + id);
+        log.info("Object: {}", "Looking for fuel request number " + id);
         StringBuilder query = new StringBuilder();
         query.append("SELECT fuelingWallet.fueling_request_id                 AS fuelingRequestId,");
         query.append("       fuelingWallet.vehicle_id                         AS vehicleId,");
@@ -66,9 +66,9 @@ public class JDBCFuelingRequestRepository implements FuelingRequestRepository {
         query.append(" WHERE fuelingWallet.fueling_request_id = ? ");
         VehicleFuelRequest vehicleFuelRequest;
         try {
-            log.trace("Executing Query: \n" + query + "\n[" + id + "]");
+            log.trace("Object: {}", "Executing Query: \n" + query + "\n[" + id + "]");
             vehicleFuelRequest = runner.query(conn, query.toString(), vehicleFuelRequestHandler, id);
-            log.debug("Founded: " + vehicleFuelRequest);
+            log.debug("Object: {}", "Founded: " + vehicleFuelRequest);
             return vehicleFuelRequest;
         } catch (SQLException e) {
             throw new SicoveException(e);
@@ -77,7 +77,7 @@ public class JDBCFuelingRequestRepository implements FuelingRequestRepository {
 
     @Override
     public VehicleFuelRequest updateFuelRequest(Connection conn, VehicleFuelRequest fuelRequest) throws SicoveException {
-        log.info("Updating: " + fuelRequest);
+        log.info("Object: {}", "Updating: " + fuelRequest);
         StringBuilder query = new StringBuilder();
         query.append("UPDATE	vehicle_fuel_request ");
         query.append("   SET	employee_responsible = ? ");
@@ -89,7 +89,7 @@ public class JDBCFuelingRequestRepository implements FuelingRequestRepository {
         query.append("		,id_wallet = ? ");
         query.append(" WHERE	fueling_request_id = ? ");
         try {
-            log.trace("Executing Query: \n" + query + "\n[" + fuelRequest.getEmployeeResponsible() + "][" + fuelRequest.getEstimatedKilometers() + "]" + "][" + fuelRequest.getFuelingAmount() + "]" + "][" + fuelRequest.getIdStatus() + "]" + "][" + fuelRequest.getVehicleId() + "]" + "][" + fuelRequest.getWalletNumber() + "]" + "][" + fuelRequest.getIdWallet() + "][" + fuelRequest.getFuelingRequestId() + "]");
+            log.trace("Object: {}", "Executing Query: \n" + query + "\n[" + fuelRequest.getEmployeeResponsible() + "][" + fuelRequest.getEstimatedKilometers() + "]" + "][" + fuelRequest.getFuelingAmount() + "]" + "][" + fuelRequest.getIdStatus() + "]" + "][" + fuelRequest.getVehicleId() + "]" + "][" + fuelRequest.getWalletNumber() + "]" + "][" + fuelRequest.getIdWallet() + "][" + fuelRequest.getFuelingRequestId() + "]");
             runner.update(conn, query.toString(), fuelRequest.getEmployeeResponsible(), fuelRequest.getEstimatedKilometers(), fuelRequest.getFuelingAmount(), fuelRequest.getIdStatus(), fuelRequest.getVehicleId(), fuelRequest.getIdWallet(), fuelRequest.getIdWallet(), fuelRequest.getFuelingRequestId());
             fuelRequest = readVehicleFuelRequest(conn, fuelRequest.getFuelingRequestId());
             return fuelRequest;
@@ -105,7 +105,7 @@ public class JDBCFuelingRequestRepository implements FuelingRequestRepository {
         query.append("   SET	id_status = ? ");
         query.append(" WHERE	fueling_request_id = ? ");
         try {
-            log.trace("Executing Query: \n" + query + "\n[" + status + "][" + fuelRequestId + "]");
+            log.trace("Object: {}", "Executing Query: \n" + query + "\n[" + status + "][" + fuelRequestId + "]");
             runner.update(conn, query.toString(), status, fuelRequestId);
         } catch (SQLException e) {
             throw new SicoveException(e);
@@ -114,14 +114,14 @@ public class JDBCFuelingRequestRepository implements FuelingRequestRepository {
 
     @Override
     public void authRequestStatus(Connection conn, VehicleFuelRequest fuelRequest) throws SicoveException {
-        log.info("Updating: " + fuelRequest);
+        log.info("Object: {}", "Updating: " + fuelRequest);
         StringBuilder query = new StringBuilder();
         query.append("UPDATE	vehicle_fuel_request ");
         query.append("   SET	id_status = ? ");
         query.append("         ,authorized_amount = ? ");
         query.append(" WHERE	fueling_request_id = ? ");
         try {
-            log.trace("Executing Query: \n" + query + "\n[" + fuelRequest.getIdStatus() + "][" + fuelRequest.getAuthorizedAmount() + "][" + fuelRequest.getFuelingRequestId() + "]");
+            log.trace("Object: {}", "Executing Query: \n" + query + "\n[" + fuelRequest.getIdStatus() + "][" + fuelRequest.getAuthorizedAmount() + "][" + fuelRequest.getFuelingRequestId() + "]");
             runner.update(conn, query.toString(), fuelRequest.getIdStatus(), fuelRequest.getAuthorizedAmount(), fuelRequest.getFuelingRequestId());
         } catch (SQLException e) {
             throw new SicoveException(e);
@@ -130,13 +130,13 @@ public class JDBCFuelingRequestRepository implements FuelingRequestRepository {
 
     @Override
     public void finishRequest(Connection conn, VehicleFuelRequest fuelRequest) throws SicoveException {
-        log.info("Finishing: " + fuelRequest);
+        log.info("Object: {}", "Finishing: " + fuelRequest);
         StringBuilder query = new StringBuilder();
         query.append("UPDATE	vehicle_fuel_request ");
         query.append("   SET	id_status = ? ");
         query.append(" WHERE	fueling_request_id = ? ");
         try {
-            log.trace("Executing Query: \n" + query + "\n[" + fuelRequest.getIdStatus() + "][" + fuelRequest.getFuelingRequestId() + "]");
+            log.trace("Object: {}", "Executing Query: \n" + query + "\n[" + fuelRequest.getIdStatus() + "][" + fuelRequest.getFuelingRequestId() + "]");
             runner.update(conn, query.toString(), fuelRequest.getIdStatus(), fuelRequest.getFuelingRequestId());
         } catch (SQLException e) {
             throw new SicoveException(e);
@@ -145,13 +145,13 @@ public class JDBCFuelingRequestRepository implements FuelingRequestRepository {
 
     @Override
     public void discardRequest(Connection conn, VehicleFuelRequest fuelRequest) throws SicoveException {
-        log.info("Discarding: " + fuelRequest);
+        log.info("Object: {}", "Discarding: " + fuelRequest);
         StringBuilder query = new StringBuilder();
         query.append("UPDATE	vehicle_fuel_request ");
         query.append("   SET	id_status = ? ");
         query.append(" WHERE	fueling_request_id = ? ");
         try {
-            log.trace("Executing Query: \n" + query + "\n[" + SICOVE.FUELING_REQUEST_DISCARD + "][" + fuelRequest.getFuelingRequestId() + "]");
+            log.trace("Object: {}", "Executing Query: \n" + query + "\n[" + SICOVE.FUELING_REQUEST_DISCARD + "][" + fuelRequest.getFuelingRequestId() + "]");
             runner.update(conn, query.toString(), SICOVE.FUELING_REQUEST_DISCARD, fuelRequest.getFuelingRequestId());
         } catch (SQLException e) {
             throw new SicoveException(e);
@@ -160,7 +160,7 @@ public class JDBCFuelingRequestRepository implements FuelingRequestRepository {
 
     @Override
     public BigDecimal rejectRequest(Connection conn, VehicleFuelRequest fuelRequest) throws SicoveException {
-        log.info("Rejecting: " + fuelRequest);
+        log.info("Object: {}", "Rejecting: " + fuelRequest);
         StringBuilder queryInsert = new StringBuilder();
         queryInsert.append("INSERT INTO vehicle_fuel_request_rejected(fueling_request_id,justification) ");
         queryInsert.append("VALUES(?,?) ");
@@ -175,7 +175,7 @@ public class JDBCFuelingRequestRepository implements FuelingRequestRepository {
 
     @Override
     public VehicleFuelRequestDAO readFullVehicleFuelRequest(Connection conn, int id) throws SicoveException {
-        log.info("Looking for fuel request number " + id);
+        log.info("Object: {}", "Looking for fuel request number " + id);
         StringBuilder query = new StringBuilder();
         query.append("SELECT fuelingWallet.fueling_request_id                 AS fuelingRequestId,");
         query.append("       fuelingWallet.vehicle_id                         AS vehicleId,");
@@ -195,9 +195,9 @@ public class JDBCFuelingRequestRepository implements FuelingRequestRepository {
         query.append(" WHERE fuelingWallet.fueling_request_id = ? ");
         VehicleFuelRequestDAO vehicleFuelRequest;
         try {
-            log.trace("Executing Query: \n" + query + "\n[" + id + "]");
+            log.trace("Object: {}", "Executing Query: \n" + query + "\n[" + id + "]");
             vehicleFuelRequest = runner.query(conn, query.toString(), fullVehicleFuelRequestHandler, id);
-            log.debug("Founded: " + vehicleFuelRequest);
+            log.debug("Object: {}", "Founded: " + vehicleFuelRequest);
             return vehicleFuelRequest;
         } catch (SQLException e) {
             throw new SicoveException(e);

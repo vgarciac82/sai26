@@ -96,7 +96,7 @@ public class FacturaManager {
         String text = new String(Files.toByteArray(fxml), Charsets.UTF_8);
         text = Util.removeStringBOMChar(text);
         InputStream in = new ByteArrayInputStream(text.getBytes());
-        log.debug(text);
+        log.debug("Object: {}", text);
         // LAOP - Detect and exclude a UTF-8 BOM
         InputStream inBOM = new BOMInputStream(in);
         if ("3.3".equals(version)) {
@@ -116,13 +116,13 @@ public class FacturaManager {
             try {
                 inBOM.close();
             } catch (Exception e) {
-                log.warn("Problemas cerrando flujo hacia el XML del CFDI " + e.toString());
+                log.warn("Object: {}", "Problemas cerrando flujo hacia el XML del CFDI " + e.toString());
             }
         if (in != null)
             try {
                 in.close();
             } catch (Exception e) {
-                log.warn("Problemas cerrando flujo hacia el XML del CFDI " + e.toString());
+                log.warn("Object: {}", "Problemas cerrando flujo hacia el XML del CFDI " + e.toString());
             }
         in = null;
         inBOM = null;
@@ -172,14 +172,14 @@ public class FacturaManager {
             psBuscarDocumentos = conn.prepareStatement(queryBuscaDocumentos);
             psBorraPaginas = conn.prepareStatement(queryBorraPaginas);
             psBorraDocumentos = conn.prepareStatement(queryBorraDocumentos);
-            log.trace("Ejecutando query [ " + queryBuscarGabinete + "] [" + folioGestion + "]");
+            log.trace("Object: {}", "Ejecutando query [ " + queryBuscarGabinete + "] [" + folioGestion + "]");
             psBuscarGabinete.setString(1, folioGestion);
             rsBuscarGabinete = psBuscarGabinete.executeQuery();
             if (rsBuscarGabinete.next()) {
                 int gabinete = rsBuscarGabinete.getInt(1);
-                log.info("Se eliminaran los documentos factura para el pago [" + tituloAplicacion + "] folio [" + folioGestion + "] Gabinete [" + gabinete + "]");
+                log.info("Object: {}", "Se eliminaran los documentos factura para el pago [" + tituloAplicacion + "] folio [" + folioGestion + "] Gabinete [" + gabinete + "]");
                 log.trace("Buscando la carpeta CFDI");
-                log.trace("Ejecutando [" + queryBuscarCarpeta + "][" + tituloAplicacion + "]" + "][" + gabinete + "][CFDI][Oficios]");
+                log.trace("Object: {}", "Ejecutando [" + queryBuscarCarpeta + "][" + tituloAplicacion + "]" + "][" + gabinete + "][CFDI][Oficios]");
                 psBuscarCarpeta.setString(1, tituloAplicacion);
                 psBuscarCarpeta.setInt(2, gabinete);
                 psBuscarCarpeta.setString(3, "CFDI");
@@ -187,31 +187,31 @@ public class FacturaManager {
                 rsBuscarCarpeta = psBuscarCarpeta.executeQuery();
                 while (rsBuscarCarpeta.next()) {
                     int idCarpetaPadre = rsBuscarCarpeta.getInt(1);
-                    log.info("Se eliminaran todos los documentos en la carpeta [" + idCarpetaPadre + "] del pago [" + tituloAplicacion + "] Folio[" + folioGestion + "] Gabinete[" + gabinete + "]");
-                    log.trace("Buscando documentos de la carpeta [" + idCarpetaPadre + "]");
-                    log.trace("Ejecutando [" + queryBuscaDocumentos + "][" + tituloAplicacion + "][" + gabinete + "][" + idCarpetaPadre + "]");
+                    log.info("Object: {}", "Se eliminaran todos los documentos en la carpeta [" + idCarpetaPadre + "] del pago [" + tituloAplicacion + "] Folio[" + folioGestion + "] Gabinete[" + gabinete + "]");
+                    log.trace("Object: {}", "Buscando documentos de la carpeta [" + idCarpetaPadre + "]");
+                    log.trace("Object: {}", "Ejecutando [" + queryBuscaDocumentos + "][" + tituloAplicacion + "][" + gabinete + "][" + idCarpetaPadre + "]");
                     psBuscarDocumentos.setString(1, tituloAplicacion);
                     psBuscarDocumentos.setInt(2, gabinete);
                     psBuscarDocumentos.setInt(3, idCarpetaPadre);
                     rsBorraDocumentos = psBuscarDocumentos.executeQuery();
                     while (rsBorraDocumentos.next()) {
                         int idDocumento = rsBorraDocumentos.getInt(1);
-                        log.debug("Eliminando paginas de [" + tituloAplicacion + "_G" + gabinete + "C" + idCarpetaPadre + "D" + idDocumento + "]");
-                        log.trace("Ejecutando [" + queryBorraPaginas + "][" + tituloAplicacion + "][" + gabinete + "][" + idCarpetaPadre + "][" + idDocumento + "]");
+                        log.debug("Object: {}", "Eliminando paginas de [" + tituloAplicacion + "_G" + gabinete + "C" + idCarpetaPadre + "D" + idDocumento + "]");
+                        log.trace("Object: {}", "Ejecutando [" + queryBorraPaginas + "][" + tituloAplicacion + "][" + gabinete + "][" + idCarpetaPadre + "][" + idDocumento + "]");
                         psBorraPaginas.setString(1, tituloAplicacion);
                         psBorraPaginas.setInt(2, gabinete);
                         psBorraPaginas.setInt(3, idCarpetaPadre);
                         psBorraPaginas.setInt(4, idDocumento);
                         int paginasBorradas = psBorraPaginas.executeUpdate();
-                        log.info("Se borraron " + paginasBorradas);
-                        log.debug("Eliminando documento [" + tituloAplicacion + "_G" + gabinete + "C" + idCarpetaPadre + "D" + idDocumento + "]");
-                        log.trace("Ejecutando [" + queryBorraDocumentos + "][" + tituloAplicacion + "][" + gabinete + "][" + idCarpetaPadre + "][" + idDocumento + "]");
+                        log.info("Object: {}", "Se borraron " + paginasBorradas);
+                        log.debug("Object: {}", "Eliminando documento [" + tituloAplicacion + "_G" + gabinete + "C" + idCarpetaPadre + "D" + idDocumento + "]");
+                        log.trace("Object: {}", "Ejecutando [" + queryBorraDocumentos + "][" + tituloAplicacion + "][" + gabinete + "][" + idCarpetaPadre + "][" + idDocumento + "]");
                         psBorraDocumentos.setString(1, tituloAplicacion);
                         psBorraDocumentos.setInt(2, gabinete);
                         psBorraDocumentos.setInt(3, idCarpetaPadre);
                         psBorraDocumentos.setInt(4, idDocumento);
                         int documentosBorrdos = psBorraDocumentos.executeUpdate();
-                        log.info("Se borraron " + documentosBorrdos + " documentos ");
+                        log.info("Object: {}", "Se borraron " + documentosBorrdos + " documentos ");
                         borrados++;
                     }
                 }
@@ -231,7 +231,7 @@ public class FacturaManager {
     }
 
     public static int eliminaFacturas(Connection conn, String tituloAplicacion, String nFolioPago) throws Exception {
-        log.info("Eliminando facturas para el tipo de pago [" + tituloAplicacion + "] folio de pago [" + nFolioPago + "]");
+        log.info("Object: {}", "Eliminando facturas para el tipo de pago [" + tituloAplicacion + "] folio de pago [" + nFolioPago + "]");
         String queryDeleteFacturas = "DELETE FROM tPagoFactura WHERE cTipoPago = ? AND nFolioPago = ?";
         int eliminados = 0;
         PreparedStatement psFacturas = null;
@@ -242,7 +242,7 @@ public class FacturaManager {
             eliminados = eliminaRetencionFacturas(conn, tituloAplicacion, Integer.parseInt(nFolioPago, 10));
             eliminados += eliminaImpuestosFacturas(conn, tituloAplicacion, Integer.parseInt(nFolioPago, 10));
             eliminados += psFacturas.executeUpdate();
-            log.info("Se eliminaron " + eliminados + " facturas");
+            log.info("Object: {}", "Se eliminaron " + eliminados + " facturas");
             log.debug("Eliminando documentos");
             return eliminados;
         } finally {
@@ -251,7 +251,7 @@ public class FacturaManager {
     }
 
     public static int eliminaFacturas(Connection conn, String tituloAplicacion, String nFolioPago, String folioGestion, String login) throws Exception {
-        log.info("Eliminando facturas para el tipo de pago [" + tituloAplicacion + "] folio de pago [" + nFolioPago + "] folio gestion [" + folioGestion + "] por el usuario [" + login + "]");
+        log.info("Object: {}", "Eliminando facturas para el tipo de pago [" + tituloAplicacion + "] folio de pago [" + nFolioPago + "] folio gestion [" + folioGestion + "] por el usuario [" + login + "]");
         String queryDeleteFacturas = "DELETE FROM tPagoFactura WHERE cTipoPago = ? AND nFolioPago = ?";
         int eliminados = 0;
         PreparedStatement ps = null;
@@ -260,7 +260,7 @@ public class FacturaManager {
             ps.setString(1, tituloAplicacion);
             ps.setInt(2, Integer.parseInt(nFolioPago, 10));
             eliminados = ps.executeUpdate();
-            log.info("Se eliminaron " + eliminados + " facturas");
+            log.info("Object: {}", "Se eliminaron " + eliminados + " facturas");
             log.debug("Eliminando documentos");
             eliminados += FacturaManager.eliminaDocumentoFactura(conn, tituloAplicacion, folioGestion, login);
             return eliminados;
@@ -270,7 +270,7 @@ public class FacturaManager {
     }
 
     public static int eliminaImpuestosFacturas(Connection conn, String tituloAplicacion, int nFolioPago) throws Exception {
-        log.info("Eliminando impuestos de las facturas para el tipo de pago [" + tituloAplicacion + "] folio de pago [" + nFolioPago + "]");
+        log.info("Object: {}", "Eliminando impuestos de las facturas para el tipo de pago [" + tituloAplicacion + "] folio de pago [" + nFolioPago + "]");
         String queryDeleteImpuestos = "DELETE FROM tPagoFacturaImpuestos WHERE cTipoPago = ? AND nFolioPago = ?";
         int eliminados = 0;
         PreparedStatement psImpuestos = null;
@@ -279,7 +279,7 @@ public class FacturaManager {
             psImpuestos.setString(1, tituloAplicacion);
             psImpuestos.setInt(2, nFolioPago);
             eliminados += psImpuestos.executeUpdate();
-            log.info("Se eliminaron " + eliminados + " facturas");
+            log.info("Object: {}", "Se eliminaron " + eliminados + " facturas");
             return eliminados;
         } finally {
             CloseObject.closeObject(psImpuestos, false);
@@ -287,7 +287,7 @@ public class FacturaManager {
     }
 
     public static int eliminaRetencionFacturas(Connection conn, String tituloAplicacion, int nFolioPago) throws Exception {
-        log.info("Eliminando retenciones para el tipo de pago [" + tituloAplicacion + "] folio de pago [" + nFolioPago + "]");
+        log.info("Object: {}", "Eliminando retenciones para el tipo de pago [" + tituloAplicacion + "] folio de pago [" + nFolioPago + "]");
         String queryDeleteRetenciones = "DELETE FROM tPagoFacturaRetencion WHERE cTipoPago = ? AND nFolioPago = ?";
         int eliminados = 0;
         PreparedStatement psRetenciones = null;
@@ -296,7 +296,7 @@ public class FacturaManager {
             psRetenciones.setString(1, tituloAplicacion);
             psRetenciones.setInt(2, nFolioPago);
             eliminados = psRetenciones.executeUpdate();
-            log.info("Se eliminaron " + eliminados + " retenciones en facturas");
+            log.info("Object: {}", "Se eliminaron " + eliminados + " retenciones en facturas");
             return eliminados;
         } finally {
             CloseObject.closeObject(psRetenciones, false);
@@ -309,7 +309,7 @@ public class FacturaManager {
         boolean existe = false;
         String query = "select COUNT(*) AS existe from tContratoFactura with(Nolock) where cIDContrato='" + idContrato + "' and cFactura = '" + UUID + "'";
         try {
-            log.trace("Query[" + query + "]");
+            log.trace("Object: {}", "Query[" + query + "]");
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -420,7 +420,7 @@ public class FacturaManager {
         String uuidContrato = null;
         String query = "select *from tContratoFactura with(Nolock) where cIDContrato='" + idContrato + "'";
         try {
-            log.trace("Query[" + query + "]");
+            log.trace("Object: {}", "Query[" + query + "]");
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -538,7 +538,7 @@ public class FacturaManager {
         Carpeta cfdi = FacturaManager.obtenCarpetaDestino(conn, c, (esNotaCredito ? "NC" : "CFDI"), u.getLogin());
         for (Iterator<String> i = facturas.keySet().iterator(); i.hasNext(); ) {
             String facturaNombre = i.next();
-            log.debug("Insertando factura [" + facturaNombre + "] ");
+            log.debug("Object: {}", "Insertando factura [" + facturaNombre + "] ");
             ComponentesFactura cf = facturas.get(facturaNombre);
             insertados += FacturaManager.insertaArchivosFactura(conn, facturaNombre, cf, cfdi, c, u.getLogin());
         }
@@ -556,7 +556,7 @@ public class FacturaManager {
                 origen = new File(cf.getPdfPathFile());
             else
                 origen = new File(cf.getXmlPathFile());
-            log.trace("Insertando el archivo: " + origen.getName());
+            log.trace("Object: {}", "Insertando el archivo: " + origen.getName());
             String tmpFile = origen.getName();
             int pos = tmpFile.lastIndexOf('.') + 1;
             String ext = pos != -1 ? tmpFile.substring(pos) : "";
@@ -565,7 +565,7 @@ public class FacturaManager {
             total++;
         }
         long stop = System.currentTimeMillis();
-        log.trace("Finalizado insercion en expediene de la factura en [" + ((stop - start) / 1000) + "] s.");
+        log.trace("Object: {}", "Finalizado insercion en expediene de la factura en [" + ((stop - start) / 1000) + "] s.");
         return total;
     }
 
@@ -584,7 +584,7 @@ public class FacturaManager {
                 origen = new File(cf.getPdfPathFile());
             else
                 origen = new File(cf.getXmlPathFile());
-            log.trace("Insertando el archivo: " + origen.getName());
+            log.trace("Object: {}", "Insertando el archivo: " + origen.getName());
             String tmpFile = origen.getName();
             int pos = tmpFile.lastIndexOf('.') + 1;
             String ext = pos != -1 ? tmpFile.substring(pos) : "";
@@ -594,10 +594,10 @@ public class FacturaManager {
                 log.trace("Archivo insertado exitosamente");
                 total++;
             } else
-                log.info("El documento: --[" + d + "]-- YA EXISTIA COMO RECIBO. No se adjunta nuevamente-");
+                log.info("Object: {}", "El documento: --[" + d + "]-- YA EXISTIA COMO RECIBO. No se adjunta nuevamente-");
         }
         long stop = System.currentTimeMillis();
-        log.trace("Finalizado insercion en expediene de la factura en [" + ((stop - start) / 1000) + "] s.");
+        log.trace("Object: {}", "Finalizado insercion en expediene de la factura en [" + ((stop - start) / 1000) + "] s.");
         return total;
     }
 
@@ -634,9 +634,9 @@ public class FacturaManager {
         query.append("           ,? ");
         query.append("           ,? ");
         query.append("           ,? )");
-        log.trace("Query: \n" + query);
+        log.trace("Object: {}", "Query: \n" + query);
         try {
-            log.debug("Insertando bonificacion: " + bonificacion);
+            log.debug("Object: {}", "Insertando bonificacion: " + bonificacion);
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, tipoPago);
             ps.setInt(2, nFolioPago);
@@ -674,7 +674,7 @@ public class FacturaManager {
             ps = conn.prepareStatement(query.toString());
             if (concepto.getTraslados() != null)
                 for (Traslado traslado : concepto.getTraslados().getTraslados()) {
-                    log.trace("Ejecutando: \n" + query + "\n" + traslado);
+                    log.trace("Object: {}", "Ejecutando: \n" + query + "\n" + traslado);
                     int i = 1;
                     ps.setLong(i++, concepto.getIdConcepto());
                     ps.setString(i++, traslado.getImpuesto());
@@ -703,7 +703,7 @@ public class FacturaManager {
         long start = System.currentTimeMillis();
         log.trace("Insertando archivo");
         File origen = new File(rutaArchivo);
-        log.trace("Insertando el archivo: " + origen.getName());
+        log.trace("Object: {}", "Insertando el archivo: " + origen.getName());
         String tmpFile = origen.getName();
         int pos = tmpFile.lastIndexOf('.') + 1;
         String ext = pos != -1 ? tmpFile.substring(pos) : "";
@@ -711,7 +711,7 @@ public class FacturaManager {
         log.trace("Archivo insertado exitosamente");
         total++;
         long stop = System.currentTimeMillis();
-        log.trace("Finalizado insercion en expediene de la factura en [" + ((stop - start) / 1000) + "] s.");
+        log.trace("Object: {}", "Finalizado insercion en expediene de la factura en [" + ((stop - start) / 1000) + "] s.");
         return total;
     }
 
@@ -721,7 +721,7 @@ public class FacturaManager {
         long start = System.currentTimeMillis();
         log.trace("Insertando archivo");
         File origen = new File(rutaArcAutNoComprobable);
-        log.trace("Insertando el archivo: " + origen.getName());
+        log.trace("Object: {}", "Insertando el archivo: " + origen.getName());
         String tmpFile = origen.getName();
         int pos = tmpFile.lastIndexOf('.') + 1;
         String ext = pos != -1 ? tmpFile.substring(pos) : "";
@@ -729,7 +729,7 @@ public class FacturaManager {
         log.trace("Archivo insertado exitosamente");
         total++;
         long stop = System.currentTimeMillis();
-        log.trace("Finalizado insercion en expediene de la factura en [" + ((stop - start) / 1000) + "] s.");
+        log.trace("Object: {}", "Finalizado insercion en expediene de la factura en [" + ((stop - start) / 1000) + "] s.");
         return total;
     }
 
@@ -739,7 +739,7 @@ public class FacturaManager {
         long start = System.currentTimeMillis();
         log.trace("Insertando archivo");
         File origen = new File(rutaArchivo);
-        log.trace("Insertando el archivo: " + origen.getName());
+        log.trace("Object: {}", "Insertando el archivo: " + origen.getName());
         String tmpFile = origen.getName();
         int pos = tmpFile.lastIndexOf('.') + 1;
         String ext = pos != -1 ? tmpFile.substring(pos) : "";
@@ -747,18 +747,18 @@ public class FacturaManager {
         log.trace("Archivo insertado exitosamente");
         total++;
         long stop = System.currentTimeMillis();
-        log.trace("Finalizado insercion en expediene de la factura en [" + ((stop - start) / 1000) + "] s.");
+        log.trace("Object: {}", "Finalizado insercion en expediene de la factura en [" + ((stop - start) / 1000) + "] s.");
         return total;
     }
 
     public static void insertaGastosNoComprobables(Connection conn, int nFolio, double monto) throws Exception {
-        log.info("Insertando informcion de gastos no comprobables para la RG[" + nFolio + "] Monto[" + monto + "]");
+        log.info("Object: {}", "Insertando informcion de gastos no comprobables para la RG[" + nFolio + "] Monto[" + monto + "]");
         long start = System.currentTimeMillis();
         log.trace("Inicio de insertando informcion de gastos no comprobables");
         String queryDelete = "DELETE FROM tRelacionGastosNoComprobable WHERE nFolioRelacionGastos = ?";
         String queryInsert = "INSERT INTO tRelacionGastosNoComprobable( nFolioRelacionGastos , mMontoNoComprobable ) VALUES  ( ?,? )";
-        log.trace("Query Delete[ " + queryDelete + "]");
-        log.trace("Query Insert[ " + queryInsert + "]");
+        log.trace("Object: {}", "Query Delete[ " + queryDelete + "]");
+        log.trace("Object: {}", "Query Insert[ " + queryInsert + "]");
         PreparedStatement psDelete = null;
         PreparedStatement psInsert = null;
         try {
@@ -766,13 +766,13 @@ public class FacturaManager {
             psInsert = conn.prepareStatement(queryInsert);
             psDelete.setInt(1, nFolio);
             int borrados = psDelete.executeUpdate();
-            log.debug("Se borraron " + borrados + " registros preexistentes");
+            log.debug("Object: {}", "Se borraron " + borrados + " registros preexistentes");
             psInsert.setInt(1, nFolio);
             psInsert.setDouble(2, monto);
             int insertados = psInsert.executeUpdate();
-            log.debug("Se insertaron " + insertados + " registros.");
+            log.debug("Object: {}", "Se insertaron " + insertados + " registros.");
             long stop = System.currentTimeMillis();
-            log.trace("Finalizado insercion de gastos no comprobables en [" + ((stop - start) / 1000) + "] s.");
+            log.trace("Object: {}", "Finalizado insercion de gastos no comprobables en [" + ((stop - start) / 1000) + "] s.");
         } finally {
             CloseObject.closeObject(psDelete, false);
             CloseObject.closeObject(psInsert, false);
@@ -831,7 +831,7 @@ public class FacturaManager {
                     psInsertaImpuestos.setBigDecimal(6, tasa);
                     psInsertaImpuestos.setString(7, tipoFactor);
                     psInsertaImpuestos.setBigDecimal(8, base);
-                    log.trace(String.format("Ejecutando %s [%s, %d, %s, %s, %.2f, %.2f, %s, %.2f]", qInsertaImpuestos, tipoPago, nFolioPago, factura.getUUID(), nombreImpuesto, importeImpuesto.floatValue(), tasa.floatValue(), tipoFactor, base.floatValue()));
+                    log.trace("Object: {}", String.format("Ejecutando %s [%s, %d, %s, %s, %.2f, %.2f, %s, %.2f]", qInsertaImpuestos, tipoPago, nFolioPago, factura.getUUID(), nombreImpuesto, importeImpuesto.floatValue(), tasa.floatValue(), tipoFactor, base.floatValue()));
                     afectados = psInsertaImpuestos.executeUpdate();
                     psInsertaImpuestos.clearParameters();
                 }
@@ -845,11 +845,11 @@ public class FacturaManager {
                 psInsertaImpuestos.setString(4, nombreImpuesto);
                 psInsertaImpuestos.setBigDecimal(5, importeImpuesto);
                 psInsertaImpuestos.setBigDecimal(6, tasa);
-                log.trace(String.format("Ejecutando %s [%s, %d, %s, %s, %.2f, %.2f]", qInsertaImpuestos, tipoPago, nFolioPago, factura.getUUID(), nombreImpuesto, importeImpuesto.floatValue(), tasa.floatValue()));
+                log.trace("Object: {}", String.format("Ejecutando %s [%s, %d, %s, %s, %.2f, %.2f]", qInsertaImpuestos, tipoPago, nFolioPago, factura.getUUID(), nombreImpuesto, importeImpuesto.floatValue(), tasa.floatValue()));
                 afectados = psInsertaImpuestos.executeUpdate();
                 psInsertaImpuestos.clearParameters();
             }
-            log.debug("Se insertaron " + afectados + " retenciones en factura.");
+            log.debug("Object: {}", "Se insertaron " + afectados + " retenciones en factura.");
             return afectados;
         } finally {
             CloseObject.closeObject(psInsertaImpuestos, false);
@@ -907,7 +907,7 @@ public class FacturaManager {
                 String factura = i.next();
                 ComponentesFactura cf = facturas.get(factura);
                 Comprobante comprobante = cf.getComprobante();
-                log.trace("Factura [" + factura + "]");
+                log.trace("Object: {}", "Factura [" + factura + "]");
                 double montoFacturaSinIVA = comprobante.getSubTotal().doubleValue();
                 double montoTotal = comprobante.getTotal().doubleValue();
                 double montoIVA = 0.0d;
@@ -919,12 +919,12 @@ public class FacturaManager {
                 montoIVA = comprobante.calculaImpuestosTrasladados();
                 if (comprobante.getTotalImpuestosTrasladados() != null) {
                     montoTotalImpuestos = comprobante.getTotalImpuestosTrasladados().doubleValue();
-                    log.trace("La factura cuenta con el elemento <TotalImpuestosTrasladados> [" + montoTotal + "]");
+                    log.trace("Object: {}", "La factura cuenta con el elemento <TotalImpuestosTrasladados> [" + montoTotal + "]");
                 } else {
                     montoTotalImpuestos = montoTotal - montoFacturaSinIVA;
-                    log.trace("La factura no cuenta con el elemento <TotalImpuestosTrasladados> Se calcula. Monto Total[" + montoTotal + " Monto Subtotal[" + montoFacturaSinIVA + "] Impuestos[" + montoTotalImpuestos + "]");
+                    log.trace("Object: {}", "La factura no cuenta con el elemento <TotalImpuestosTrasladados> Se calcula. Monto Total[" + montoTotal + " Monto Subtotal[" + montoFacturaSinIVA + "] Impuestos[" + montoTotalImpuestos + "]");
                 }
-                log.trace("UUID [" + noFactura + "]");
+                log.trace("Object: {}", "UUID [" + noFactura + "]");
                 montoTotalImpuestosCalculado = montoTotal - montoFacturaSinIVA - montoIVA;
                 if (montoTotalImpuestosCalculado < 0) {
                     montoTotalImpuestosCalculado = 0;
@@ -1067,7 +1067,7 @@ public class FacturaManager {
                             psInsertInfo.setDate(11, new Date(nc.getFechaExpedicionMillis()));
                             psInsertInfo.setDate(12, new Date(nc.getFechaTimbradoMillis()));
                             int insertados = psInsertInfo.executeUpdate();
-                            log.info("Se inserto " + insertados + " registro con la relacion: " + tipoPago + ", " + folioPago + " " + "[" + uuidNC + "][" + invoice.getUUID() + "]");
+                            log.info("Object: {}", "Se inserto " + insertados + " registro con la relacion: " + tipoPago + ", " + folioPago + " " + "[" + uuidNC + "][" + invoice.getUUID() + "]");
                         }
                     }
                 }
@@ -1142,7 +1142,7 @@ public class FacturaManager {
                 String factura = i.next();
                 ComponentesFactura cf = facturas.get(factura);
                 Comprobante comprobante = cf.getComprobante();
-                log.trace("Factura [" + factura + "]");
+                log.trace("Object: {}", "Factura [" + factura + "]");
                 BigDecimal montoFacturaSinIVA = new BigDecimal(0.0);
                 BigDecimal montoTotal = new BigDecimal(0.0);
                 BigDecimal montoIVA = new BigDecimal(0.0);
@@ -1170,16 +1170,16 @@ public class FacturaManager {
                     montoIVA = new BigDecimal(comprobante.calculaImpuestosTrasladados());
                     if (comprobante.getTotalImpuestosTrasladados() != null) {
                         montoTotalImpuestos = comprobante.getTotalImpuestosTrasladados();
-                        log.trace("La factura cuenta con el elemento <TotalImpuestosTrasladados> [" + montoTotal + "]");
+                        log.trace("Object: {}", "La factura cuenta con el elemento <TotalImpuestosTrasladados> [" + montoTotal + "]");
                     } else {
                         montoTotalImpuestos = montoTotal.subtract(montoFacturaSinIVA);
-                        log.trace("La factura no cuenta con el elemento <TotalImpuestosTrasladados> Se calcula. Monto Total[" + montoTotal + " Monto Subtotal[" + montoFacturaSinIVA + "] Impuestos[" + montoTotalImpuestos + "]");
+                        log.trace("Object: {}", "La factura no cuenta con el elemento <TotalImpuestosTrasladados> Se calcula. Monto Total[" + montoTotal + " Monto Subtotal[" + montoFacturaSinIVA + "] Impuestos[" + montoTotalImpuestos + "]");
                     }
                     montoDescuento = (comprobante.getDescuento() == null ? new BigDecimal(0.0) : comprobante.getDescuento());
                 }
                 String noFactura = comprobante.getUUID();
                 String rfcOrigen = comprobante.getRFCEmisor();
-                log.trace("UUID [" + noFactura + "]");
+                log.trace("Object: {}", "UUID [" + noFactura + "]");
                 ps.setString(1, tipoPago);
                 ps.setInt(2, nFolioPago);
                 ps.setString(3, noFactura);
@@ -1212,7 +1212,7 @@ public class FacturaManager {
                 ps.setString(17, comprobante.getCodigoPostalEmisor());
                 ps.setBigDecimal(18, montoDescuento.multiply(new BigDecimal(esNotaCredito ? -1.0d : 1.0d)));
                 int logCnt = 1;
-                log.trace("Ejecutando: [" + query.toString() + "]" + "\n[" + logCnt++ + "][" + tipoPago + "]" + "\n[" + logCnt++ + "][" + nFolioPago + "]" + "\n[" + logCnt++ + "][" + noFactura + "]" + "\n[" + logCnt++ + "][" + montoFacturaSinIVA.multiply(new BigDecimal(esNotaCredito ? -1.0d : 1.0d)) + "]" + "\n[" + logCnt++ + "][" + rfcOrigen + "]" + "\n[" + logCnt++ + "][" + montoTotal.multiply(new BigDecimal(esNotaCredito ? -1.0d : 1.0d)) + "]" + "\n[" + logCnt++ + "][" + montoIVA.multiply(new BigDecimal(esNotaCredito ? -1.0d : 1.0d)).setScale(2, RoundingMode.HALF_UP) + "]" + "\n[" + logCnt++ + "][" + montoTotalImpuestosCalculado.multiply(new BigDecimal(esNotaCredito ? -1.0d : 1.0d)) + "]" + "\n[" + logCnt++ + "][" + (esNotaCredito ? "S" : "N") + "]" + "\n[" + logCnt++ + "][" + comprobante.getMetodoPago() + "]" + "\n[" + logCnt++ + "][" + comprobante.getNombreEmisor() + "]" + "\n[" + logCnt++ + "][" + comprobante.getRegimenEmisor() + "]" + "\n[" + logCnt++ + "][" + new Timestamp(comprobante.getFechaExpedicionMillis()) + "]" + "\n[" + logCnt++ + "][" + new Timestamp(comprobante.getFechaTimbradoMillis()) + "]" + "\n[" + logCnt++ + "][" + comprobante.getFolioSerie() + "]" + "\n[" + logCnt++ + "][" + comprobante.getFolio() + "]" + "\n[" + logCnt++ + "][" + comprobante.getCodigoPostalEmisor() + "]" + "\n[" + logCnt++ + "][" + montoDescuento.multiply(new BigDecimal(esNotaCredito ? -1.0d : 1.0d)) + "]");
+                log.trace("Object: {}", "Ejecutando: [" + query.toString() + "]" + "\n[" + logCnt++ + "][" + tipoPago + "]" + "\n[" + logCnt++ + "][" + nFolioPago + "]" + "\n[" + logCnt++ + "][" + noFactura + "]" + "\n[" + logCnt++ + "][" + montoFacturaSinIVA.multiply(new BigDecimal(esNotaCredito ? -1.0d : 1.0d)) + "]" + "\n[" + logCnt++ + "][" + rfcOrigen + "]" + "\n[" + logCnt++ + "][" + montoTotal.multiply(new BigDecimal(esNotaCredito ? -1.0d : 1.0d)) + "]" + "\n[" + logCnt++ + "][" + montoIVA.multiply(new BigDecimal(esNotaCredito ? -1.0d : 1.0d)).setScale(2, RoundingMode.HALF_UP) + "]" + "\n[" + logCnt++ + "][" + montoTotalImpuestosCalculado.multiply(new BigDecimal(esNotaCredito ? -1.0d : 1.0d)) + "]" + "\n[" + logCnt++ + "][" + (esNotaCredito ? "S" : "N") + "]" + "\n[" + logCnt++ + "][" + comprobante.getMetodoPago() + "]" + "\n[" + logCnt++ + "][" + comprobante.getNombreEmisor() + "]" + "\n[" + logCnt++ + "][" + comprobante.getRegimenEmisor() + "]" + "\n[" + logCnt++ + "][" + new Timestamp(comprobante.getFechaExpedicionMillis()) + "]" + "\n[" + logCnt++ + "][" + new Timestamp(comprobante.getFechaTimbradoMillis()) + "]" + "\n[" + logCnt++ + "][" + comprobante.getFolioSerie() + "]" + "\n[" + logCnt++ + "][" + comprobante.getFolio() + "]" + "\n[" + logCnt++ + "][" + comprobante.getCodigoPostalEmisor() + "]" + "\n[" + logCnt++ + "][" + montoDescuento.multiply(new BigDecimal(esNotaCredito ? -1.0d : 1.0d)) + "]");
                 ps.executeUpdate();
                 /*
 				 * VGC20160815 Se agrega para validacion: Se leen las
@@ -1378,7 +1378,7 @@ public class FacturaManager {
     }
 
     public static double insertaInformacionReciboDePago40(Connection conn, String UUID_REP, mx.grupocorasa.sat.common.Pagos20.Pagos.Pago.DoctoRelacionado docto, String tipoPago, int folioPago) throws Exception {
-        log.trace("Inicio insertaInformacionReciboDePago40 - UUID_REP=" + UUID_REP + ", tipoPago=" + tipoPago + ", folioPago=" + folioPago);
+        log.trace("Object: {}", "Inicio insertaInformacionReciboDePago40 - UUID_REP=" + UUID_REP + ", tipoPago=" + tipoPago + ", folioPago=" + folioPago);
         double totalInsertado = 0.0d;
         StringBuilder query = new StringBuilder();
         query.append("INSERT INTO tReciboElectronico");
@@ -1423,8 +1423,8 @@ public class FacturaManager {
             log.trace("Preparando PreparedStatement para insertaInformacionReciboDePago40");
             ps = conn.prepareStatement(query.toString());
             long numeroParcialidad = docto.getNumParcialidad() == null ? 1L : docto.getNumParcialidad().longValue();
-            log.debug("SQL a ejecutar en insertaInformacionReciboDePago40: " + query.toString());
-            log.debug("Parámetros SQL insertaInformacionReciboDePago40: " + "[1=" + UUID_REP + ", 2=" + docto.getFolio() + ", 3=" + docto.getSerie() + ", 4=" + docto.getIdDocumento() + ", 5=" + numeroParcialidad + ", 6=" + docto.getImpPagado() + ", 7=" + docto.getImpSaldoAnt() + ", 8=" + docto.getImpPagado() + ", 9=" + docto.getImpSaldoInsoluto() + ", 10=" + tipoPago + ", 11=" + folioPago + "]");
+            log.debug("Object: {}", "SQL a ejecutar en insertaInformacionReciboDePago40: " + query.toString());
+            log.debug("Object: {}", "Parámetros SQL insertaInformacionReciboDePago40: " + "[1=" + UUID_REP + ", 2=" + docto.getFolio() + ", 3=" + docto.getSerie() + ", 4=" + docto.getIdDocumento() + ", 5=" + numeroParcialidad + ", 6=" + docto.getImpPagado() + ", 7=" + docto.getImpSaldoAnt() + ", 8=" + docto.getImpPagado() + ", 9=" + docto.getImpSaldoInsoluto() + ", 10=" + tipoPago + ", 11=" + folioPago + "]");
             ps.setString(1, UUID_REP);
             ps.setString(2, docto.getFolio());
             ps.setString(3, docto.getSerie());
@@ -1437,7 +1437,7 @@ public class FacturaManager {
             ps.setString(10, tipoPago);
             ps.setInt(11, folioPago);
             int rows = ps.executeUpdate();
-            log.info("insertaInformacionReciboDePago40 - registros afectados en tReciboElectronico: " + rows);
+            log.info("Object: {}", "insertaInformacionReciboDePago40 - registros afectados en tReciboElectronico: " + rows);
         } finally {
             log.debug("Cerrando PreparedStatement en insertaInformacionReciboDePago40");
             CloseObject.closeObject(ps, false);
@@ -1453,7 +1453,7 @@ public class FacturaManager {
         long start = System.currentTimeMillis();
         log.trace("Insertando archivo");
         File origen = new File(rutaArchivo);
-        log.trace("Insertando el archivo: " + origen.getName());
+        log.trace("Object: {}", "Insertando el archivo: " + origen.getName());
         String tmpFile = origen.getName();
         int pos = tmpFile.lastIndexOf('.') + 1;
         String ext = pos != -1 ? tmpFile.substring(pos) : "";
@@ -1461,7 +1461,7 @@ public class FacturaManager {
         log.trace("Archivo insertado exitosamente");
         total++;
         long stop = System.currentTimeMillis();
-        log.trace("Finalizado insercion en expediene de la factura en [" + ((stop - start) / 1000) + "] s.");
+        log.trace("Object: {}", "Finalizado insercion en expediene de la factura en [" + ((stop - start) / 1000) + "] s.");
         return total;
     }
 
@@ -1471,7 +1471,7 @@ public class FacturaManager {
         long start = System.currentTimeMillis();
         log.trace("Insertando archivo");
         File origen = new File(rutaArchivo);
-        log.trace("Insertando el archivo: " + origen.getName());
+        log.trace("Object: {}", "Insertando el archivo: " + origen.getName());
         String tmpFile = origen.getName();
         int pos = tmpFile.lastIndexOf('.') + 1;
         String ext = pos != -1 ? tmpFile.substring(pos) : "";
@@ -1479,7 +1479,7 @@ public class FacturaManager {
         log.trace("Archivo insertado exitosamente");
         total++;
         long stop = System.currentTimeMillis();
-        log.trace("Finalizado insercion en expediene de la factura en [" + ((stop - start) / 1000) + "] s.");
+        log.trace("Object: {}", "Finalizado insercion en expediene de la factura en [" + ((stop - start) / 1000) + "] s.");
         return total;
     }
 
@@ -1490,7 +1490,7 @@ public class FacturaManager {
             ps = conn.prepareStatement(queryInsert.toString());
             for (Iterator<String> i = facturas.keySet().iterator(); i.hasNext(); ) {
                 String factura = i.next();
-                log.trace("Obteniendo CFDI relacionados: " + factura);
+                log.trace("Object: {}", "Obteniendo CFDI relacionados: " + factura);
                 ComponentesFactura cf = facturas.get(factura);
                 Comprobante comprobante = cf.getComprobante();
                 String uuidHijo = comprobante.getUUID();
@@ -1502,7 +1502,7 @@ public class FacturaManager {
                         List<CfdiRelacionado> cfdiRelacionadoLst = o.getCfdiRelacionado();
                         for (CfdiRelacionado cfdiRelacionado : cfdiRelacionadoLst) {
                             String uuidPadre = cfdiRelacionado.getUUID();
-                            log.trace("Tipo Relacion: " + tipoRelacion + " UUID Padre: " + uuidPadre + " UUID Factura: " + uuidHijo);
+                            log.trace("Object: {}", "Tipo Relacion: " + tipoRelacion + " UUID Padre: " + uuidPadre + " UUID Factura: " + uuidHijo);
                             if (!existeCFDIPadreContrato(conn, idContrato, uuidPadre))
                                 throw new RuntimeException("En el archivo: " + factura + " no se encontro referencia a la factura global del contrato: " + idContrato + " Posiblemente esta cargando el archivo incorrecto.");
                             ps.setString(1, uuidPadre);
@@ -1537,7 +1537,7 @@ public class FacturaManager {
         int afectados = 0;
         if (factura != null && factura.getRetenciones() != null)
             afectados = insertaRetencionesFactura(conn, tipoPago, nFolioPago, factura.getUUID(), factura.getRetenciones());
-        log.debug("Se insertaron " + afectados + " retenciones en factura.");
+        log.debug("Object: {}", "Se insertaron " + afectados + " retenciones en factura.");
         return afectados;
     }
 
@@ -1571,11 +1571,11 @@ public class FacturaManager {
                 psInsertaRetenciones.setString(3, uuid);
                 psInsertaRetenciones.setString(4, nombreRetencion);
                 psInsertaRetenciones.setBigDecimal(5, importeRetencion);
-                log.trace(String.format("Ejecutando %s,[%s, %d, %s, %s, %.2f]", qInsertaRetenciones, tipoPago, nFolioPago, uuid, nombreRetencion, importeRetencion));
+                log.trace("Object: {}", String.format("Ejecutando %s,[%s, %d, %s, %s, %.2f]", qInsertaRetenciones, tipoPago, nFolioPago, uuid, nombreRetencion, importeRetencion));
                 afectados += psInsertaRetenciones.executeUpdate();
                 psInsertaRetenciones.clearParameters();
             }
-            log.debug("Se insertaron " + afectados + " retenciones en factura.");
+            log.debug("Object: {}", "Se insertaron " + afectados + " retenciones en factura.");
             return afectados;
         } finally {
             CloseObject.closeObject(psInsertaRetenciones, false);
@@ -1605,7 +1605,7 @@ public class FacturaManager {
         try {
             ps = conn.prepareStatement(query.toString(), Statement.RETURN_GENERATED_KEYS);
             for (Concepto concepto : conceptos.getConceptos()) {
-                log.trace("Ejecutando: " + query + "\n" + concepto);
+                log.trace("Object: {}", "Ejecutando: " + query + "\n" + concepto);
                 int i = 1;
                 ps.setString(i++, UUID);
                 ps.setString(i++, concepto.getClaveProdServ());
@@ -1634,11 +1634,11 @@ public class FacturaManager {
     }
 
     public static Carpeta obtenCarpetaDestino(Connection conn, String tituloAplicacion, int idGabinete, String nombreCarpeta, String uLogin) throws Exception {
-        log.trace("Inicia busqueda de carpeta [" + nombreCarpeta + "]");
+        log.trace("Object: {}", "Inicia busqueda de carpeta [" + nombreCarpeta + "]");
         long start = System.currentTimeMillis();
         Carpeta cfdiCarpeta = CarpetaManager.getCarpetaByName(conn, tituloAplicacion, idGabinete, nombreCarpeta);
         if (cfdiCarpeta == null) {
-            log.trace("No existe la carpeta [" + nombreCarpeta + "] se creara.");
+            log.trace("Object: {}", "No existe la carpeta [" + nombreCarpeta + "] se creara.");
             Carpeta modelo = new Carpeta();
             modelo.setTituloAplicacion(tituloAplicacion);
             modelo.setIdGabinete(idGabinete);
@@ -1656,10 +1656,10 @@ public class FacturaManager {
             oc.setNombreHija(cfdiCarpeta.getNombreCarpeta());
             oc.setTituloAplicacion(cfdiCarpeta.getTituloAplicacion());
             OrgCarpetaManager.insert(conn, oc);
-            log.trace("Carpeta [" + nombreCarpeta + "] creada con exito.");
+            log.trace("Object: {}", "Carpeta [" + nombreCarpeta + "] creada con exito.");
         }
         long stop = System.currentTimeMillis();
-        log.trace("Finaliza busqueda de carpeta en [" + ((stop - start) / 1000) + "] s.");
+        log.trace("Object: {}", "Finaliza busqueda de carpeta en [" + ((stop - start) / 1000) + "] s.");
         return cfdiCarpeta;
     }
 
@@ -1680,30 +1680,30 @@ public class FacturaManager {
         for (Iterator<String> i = files.iterator(); i.hasNext(); ) {
             String fullFileName = i.next().toLowerCase();
             String fileName = FacturaUtils.obtenNombreArchivoZip(fullFileName, false).toLowerCase();
-            log.trace("File[" + fullFileName + "]");
-            log.trace("File Name[" + fileName + "]");
+            log.trace("Object: {}", "File[" + fullFileName + "]");
+            log.trace("Object: {}", "File Name[" + fileName + "]");
             if (mustExcludeFile(fileName))
                 continue;
-            log.trace("FileName[" + fileName + "]");
+            log.trace("Object: {}", "FileName[" + fileName + "]");
             String extencion = FacturaUtils.obtenExtensionArchivoZip(fullFileName).toLowerCase();
-            log.trace("Extension[" + extencion + "]");
+            log.trace("Object: {}", "Extension[" + extencion + "]");
             log.trace("Creando componentes de factura");
             MassPaymentInvoiceComponents invoice;
             if (!content.containsKey(fileName.toLowerCase())) {
                 content.put(fileName.toLowerCase(), new MassPaymentInvoiceComponents());
-                log.trace("No existe el elemento [" + fileName + "] en el mapa. Se inserta.");
+                log.trace("Object: {}", "No existe el elemento [" + fileName + "] en el mapa. Se inserta.");
             }
             invoice = content.get(fileName.toLowerCase());
             if ("PDF".equalsIgnoreCase(extencion)) {
                 invoice.setPdfFile(fileName + "." + extencion);
-                log.trace("Se inserto el PDF [" + fileName + "." + extencion + "]");
+                log.trace("Object: {}", "Se inserto el PDF [" + fileName + "." + extencion + "]");
             } else if ("XML".equalsIgnoreCase(extencion)) {
                 invoice.setXmlFile(fileName + "." + extencion);
-                log.trace("Se inserto el XML [" + fileName + "." + extencion + "]");
+                log.trace("Object: {}", "Se inserto el XML [" + fileName + "." + extencion + "]");
             }
         }
         long stop = System.currentTimeMillis();
-        log.trace("Terminado organizacion de facturas en [" + ((stop - start) / 1000) + "s. ] ");
+        log.trace("Object: {}", "Terminado organizacion de facturas en [" + ((stop - start) / 1000) + "s. ] ");
         return content;
     }
 
@@ -1714,30 +1714,30 @@ public class FacturaManager {
         log.trace("Iterando lista de facturas.");
         for (Iterator<String> i = files.iterator(); i.hasNext(); ) {
             String nombreArchivoCompleto = i.next();
-            log.trace("Archivo[" + nombreArchivoCompleto + "]");
+            log.trace("Object: {}", "Archivo[" + nombreArchivoCompleto + "]");
             String nombreArchivo = FacturaUtils.obtenNombreArchivoZip(nombreArchivoCompleto, false);
-            log.trace("Nombre Archivo[" + nombreArchivo + "]");
+            log.trace("Object: {}", "Nombre Archivo[" + nombreArchivo + "]");
             String extencion = FacturaUtils.obtenExtensionArchivoZip(nombreArchivoCompleto);
-            log.trace("Extension[" + extencion + "]");
+            log.trace("Object: {}", "Extension[" + extencion + "]");
             if ("".equals(extencion) || (!"PDF".equalsIgnoreCase(extencion) && !("XML".equalsIgnoreCase(extencion))))
                 throw new ArchivoNoAdmitido("Se encontro el archivo no permitido [" + nombreArchivoCompleto + "]");
             log.trace("Creando componentes de factura");
             ComponentesFactura factura;
             if (!contenido.containsKey(nombreArchivo)) {
                 contenido.put(nombreArchivo, new ComponentesFactura());
-                log.trace("No existe el elemento [" + nombreArchivo + "] en el mapa. Se inserta.");
+                log.trace("Object: {}", "No existe el elemento [" + nombreArchivo + "] en el mapa. Se inserta.");
             }
             factura = contenido.get(nombreArchivo);
             if ("PDF".equalsIgnoreCase(extencion)) {
                 factura.setPdfFile(nombreArchivo + "." + extencion);
-                log.trace("Se inserto el PDF [" + nombreArchivo + "." + extencion + "]");
+                log.trace("Object: {}", "Se inserto el PDF [" + nombreArchivo + "." + extencion + "]");
             } else if ("XML".equalsIgnoreCase(extencion)) {
                 factura.setXmlFile(nombreArchivo + "." + extencion);
-                log.trace("Se inserto el XML [" + nombreArchivo + "." + extencion + "]");
+                log.trace("Object: {}", "Se inserto el XML [" + nombreArchivo + "." + extencion + "]");
             }
         }
         long stop = System.currentTimeMillis();
-        log.trace("Terminado organizacion de facturas en [" + ((stop - start) / 1000) + "s. ] ");
+        log.trace("Object: {}", "Terminado organizacion de facturas en [" + ((stop - start) / 1000) + "s. ] ");
         return contenido;
     }
 
@@ -1759,7 +1759,7 @@ public class FacturaManager {
             rs = ps.executeQuery();
             if (rs.next()) {
                 int timeToPay = rs.getInt(1);
-                log.info("Still having " + timeToPay + " to pay completly ");
+                log.info("Object: {}", "Still having " + timeToPay + " to pay completly ");
                 return timeToPay;
             } else
                 throw new RuntimeException("no es posible determinar los dias restantes para el pago");
@@ -1797,7 +1797,7 @@ public class FacturaManager {
             String archivo = i.next();
             ComponentesFactura cf = facturas.get(archivo);
             try {
-                log.trace("Validando el beneficiario en [" + archivo + "]");
+                log.trace("Object: {}", "Validando el beneficiario en [" + archivo + "]");
                 String rfcFactura = StringUtils.trimToEmpty(cf.getComprobante().getRFCReceptor());
                 String rfcEsperado = StringUtils.trimToEmpty(beneficiario);
                 if (!rfcEsperado.equalsIgnoreCase(rfcFactura)) {
@@ -1824,7 +1824,7 @@ public class FacturaManager {
         List<String> errores = new ArrayList<String>();
         for (Iterator<String> i = facturas.keySet().iterator(); i.hasNext(); ) {
             String factura = i.next();
-            log.trace("Validando factura: " + factura);
+            log.trace("Object: {}", "Validando factura: " + factura);
             ComponentesFactura cf = facturas.get(factura);
             Comprobante comprobante = cf.getComprobante();
             String noFactura = comprobante.getUUID();
@@ -1847,7 +1847,7 @@ public class FacturaManager {
         String uuidContrato = null;
         for (Iterator<String> i = facturas.keySet().iterator(); i.hasNext(); ) {
             String factura = i.next();
-            log.trace("Validando factura convenio: " + factura);
+            log.trace("Object: {}", "Validando factura convenio: " + factura);
             ComponentesFactura cf = facturas.get(factura);
             Comprobante comprobante = cf.getComprobante();
             // Obtener uuid relacionado y tipo de relacion
@@ -1875,7 +1875,7 @@ public class FacturaManager {
             int ejercicio = Integer.parseInt(EjercicioFiscalManager.getEjercicioFiscalActivo(conn).getaEjercicioFiscal());
             return validaEjercicioFactura(facturas, ejercicio);
         } catch (Exception e) {
-            log.error("Error validando EF: " + e.toString());
+            log.error("Error occurred", "Error validando EF: " + e.toString());
             throw new RuntimeException("Error validando EF: " + e.toString(), e);
         }
     }
@@ -1892,7 +1892,7 @@ public class FacturaManager {
             String archivo = i.next();
             ComponentesFactura cf = facturas.get(archivo);
             try {
-                log.trace("Validando el ejercicio de factura en [" + archivo + "] Ejercicio esperado [" + ejercicio + "]");
+                log.trace("Object: {}", "Validando el ejercicio de factura en [" + archivo + "] Ejercicio esperado [" + ejercicio + "]");
                 long fechaFactura = cf.getComprobante().getFechaExpedicionMillis();
                 Calendar c = Util.toDate(fechaFactura);
                 int yEmision = c.get(Calendar.YEAR);
@@ -1917,7 +1917,7 @@ public class FacturaManager {
             String archivo = i.next();
             ComponentesFactura cf = facturas.get(archivo);
             try {
-                log.trace("Validando el beneficiario en [" + archivo + "]");
+                log.trace("Object: {}", "Validando el beneficiario en [" + archivo + "]");
                 String rfcFactura = StringUtils.trimToEmpty(cf.getComprobante().getRFCEmisor());
                 String rfcEsperado = StringUtils.trimToEmpty(beneficiario);
                 if (!rfcEsperado.equalsIgnoreCase(rfcFactura)) {
@@ -1945,7 +1945,7 @@ public class FacturaManager {
                 mpic.getErrorLog().add("No se encuentra completa la factura: " + invoiceName + "; debe existir el archivo XML y PDF de la factura.");
         }
         long stop = System.currentTimeMillis();
-        log.trace("Terminado validacion de facturas completas en [" + ((stop - start) / 1000) + "s. ] ");
+        log.trace("Object: {}", "Terminado validacion de facturas completas en [" + ((stop - start) / 1000) + "s. ] ");
         return invoices;
     }
 
@@ -1968,7 +1968,7 @@ public class FacturaManager {
             // }
         }
         long stop = System.currentTimeMillis();
-        log.trace("Terminado validacion de facturas completas en [" + ((stop - start) / 1000) + "s. ] ");
+        log.trace("Object: {}", "Terminado validacion de facturas completas en [" + ((stop - start) / 1000) + "s. ] ");
         return facturasIncompletas;
     }
 
@@ -1976,16 +1976,16 @@ public class FacturaManager {
         String query = "SELECT ctipopago, nfoliopago, crfcfactura, cfactura FROM dbo.tpagofactura WITH(NOLOCK) WHERE Rtrim(Ltrim(cfactura)) = ?";
         List<String> errores = new ArrayList<>();
         try (PreparedStatement ps = conn.prepareStatement(query)) {
-            log.trace("Query [" + query + "]");
+            log.trace("Object: {}", "Query [" + query + "]");
             for (Iterator<String> i = facturas.keySet().iterator(); i.hasNext(); ) {
                 String factura = i.next();
                 ComponentesFactura cf = facturas.get(factura);
                 try {
-                    log.trace("Validando factura: " + factura);
+                    log.trace("Object: {}", "Validando factura: " + factura);
                     Comprobante comprobante = cf.getComprobante();
                     String noFactura = comprobante.getUUID();
                     ps.setString(1, noFactura);
-                    log.trace("Ejecutando consulta para: ['" + comprobante.getRFCEmisor() + "', '" + noFactura + "']");
+                    log.trace("Object: {}", "Ejecutando consulta para: ['" + comprobante.getRFCEmisor() + "', '" + noFactura + "']");
                     try (ResultSet rs = ps.executeQuery()) {
                         if (rs.next()) {
                             String mensajeError = "La factura: " + rs.getString("cfactura") + " ya existe en el pago [" + rs.getString("ctipopago") + "] con el folio [" + rs.getInt("nfoliopago") + "]";
@@ -2013,16 +2013,16 @@ public class FacturaManager {
         ResultSet rs = null;
         List<String> errores = new ArrayList<String>();
         try {
-            log.trace("Query[" + query + "]");
+            log.trace("Object: {}", "Query[" + query + "]");
             ps = conn.prepareStatement(query);
             for (Iterator<String> i = facturas.keySet().iterator(); i.hasNext(); ) {
                 String factura = i.next();
-                log.trace("Validando factura: " + factura);
+                log.trace("Object: {}", "Validando factura: " + factura);
                 ComponentesFactura cf = facturas.get(factura);
                 Comprobante comprobante = cf.getComprobante();
                 String noFactura = comprobante.getUUID();
                 ps.setString(1, noFactura);
-                log.trace("Ejecutando consulta para:['" + comprobante.getRFCEmisor() + "', '" + noFactura + "']");
+                log.trace("Object: {}", "Ejecutando consulta para:['" + comprobante.getRFCEmisor() + "', '" + noFactura + "']");
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     errores.add("La factura: " + rs.getString("cFactura") + " ya existe en el contrato[" + rs.getString("cIDContrato") + "]");
@@ -2039,16 +2039,16 @@ public class FacturaManager {
         String query = "SELECT ctipopago, nfoliopago, crfcfactura, cfactura, aEjercicioFiscal " + "FROM v_pagofactura WITH(NOLOCK) " + "WHERE aEjercicioFiscal NOT IN (SELECT aEjercicioFiscal FROM tejerciciofiscal WITH(NOLOCK) WHERE cactivo = 1) " + "AND Rtrim(Ltrim(cfactura)) = ?";
         List<String> errores = new ArrayList<>();
         try (PreparedStatement ps = conn.prepareStatement(query)) {
-            log.trace("Query [" + query + "]");
+            log.trace("Object: {}", "Query [" + query + "]");
             for (Iterator<String> i = facturas.keySet().iterator(); i.hasNext(); ) {
                 String factura = i.next();
                 ComponentesFactura cf = facturas.get(factura);
                 try {
-                    log.trace("Validando factura: " + factura);
+                    log.trace("Object: {}", "Validando factura: " + factura);
                     Comprobante comprobante = cf.getComprobante();
                     String noFactura = comprobante.getUUID();
                     ps.setString(1, noFactura);
-                    log.trace("Ejecutando consulta para: ['" + comprobante.getRFCEmisor() + "', '" + noFactura + "']");
+                    log.trace("Object: {}", "Ejecutando consulta para: ['" + comprobante.getRFCEmisor() + "', '" + noFactura + "']");
                     try (ResultSet rs = ps.executeQuery()) {
                         if (rs.next()) {
                             String mensajeError = "La factura: " + rs.getString("cfactura") + " ya existe en el pago [" + rs.getString("ctipopago") + "] con el folio [" + rs.getInt("nfoliopago") + "] en el ejercicio fiscal [" + rs.getString("aEjercicioFiscal") + "]";
@@ -2089,7 +2089,7 @@ public class FacturaManager {
                 repetidos.add("El archivo: " + fileName + " se encuentra en " + (contador.get(fileName).intValue() + 1) + " ocacion(es) en el archivo.");
         }
         long stop = System.currentTimeMillis();
-        log.trace("Terminado validacion de facturas repetidas en archivo en [" + ((stop - start) / 1000) + "s. ] ");
+        log.trace("Object: {}", "Terminado validacion de facturas repetidas en archivo en [" + ((stop - start) / 1000) + "s. ] ");
         return repetidos;
     }
 
@@ -2106,7 +2106,7 @@ public class FacturaManager {
             String archivo = i.next();
             ComponentesFactura cf = facturas.get(archivo);
             try {
-                log.trace("Validando la forma de pago en [" + archivo + "]");
+                log.trace("Object: {}", "Validando la forma de pago en [" + archivo + "]");
                 String formaDePago = cf.getComprobante().getFormaDePago();
                 if (!formaPagoValida.contains(formaDePago)) {
                     String mensajeError = "La factura [" + archivo + "] NO contiene forma de pago válida. Contiene: " + formaDePago;
@@ -2140,7 +2140,7 @@ public class FacturaManager {
             String archivo = i.next();
             ComponentesFactura cf = facturas.get(archivo);
             try {
-                log.trace("Validando la forma de pago en [" + archivo + "]");
+                log.trace("Object: {}", "Validando la forma de pago en [" + archivo + "]");
                 String formaDePago = cf.getComprobante().getFormaDePago();
                 if (!formaPagoValida.contains(formaDePago)) {
                     String mensajeError = "La factura [" + archivo + "] NO contiene forma de pago válida. Contiene: " + formaDePago;
@@ -2185,7 +2185,7 @@ public class FacturaManager {
             String archivo = i.next();
             ComponentesFactura cf = facturas.get(archivo);
             try {
-                log.trace("Validando el régimen fiscal del receptor en [" + archivo + "]");
+                log.trace("Object: {}", "Validando el régimen fiscal del receptor en [" + archivo + "]");
                 String regimenReceptor = StringUtils.trimToEmpty(cf.getComprobante().getRegimenReceptor());
                 String regimenEsperado = StringUtils.trimToEmpty(regimenFiscalCliente);
                 if (!StringUtils.isBlank(regimenReceptor) && !regimenReceptor.equalsIgnoreCase(regimenEsperado)) {
@@ -2234,7 +2234,7 @@ public class FacturaManager {
             String factura = i.next();
             ComponentesFactura cf = facturas.get(factura);
             try {
-                log.trace("Factura [" + factura + "]");
+                log.trace("Object: {}", "Factura [" + factura + "]");
                 Comprobante comprobante = cf.getComprobante();
                 Factura f;
                 Acuse acuse;
@@ -2253,7 +2253,7 @@ public class FacturaManager {
                 fsv.setUuid(f.getUUID());
                 try {
                     acuse = fsv.validaCFDI();
-                    log.trace("Acuse SAT de la factura [" + factura + "] Estatus [" + (acuse != null ? acuse.getCodigoEstatus() : "") + "] Estado [" + acuse.getEstado() + "]");
+                    log.trace("Object: {}", "Acuse SAT de la factura [" + factura + "] Estatus [" + (acuse != null ? acuse.getCodigoEstatus() : "") + "] Estado [" + acuse.getEstado() + "]");
                 } catch (Exception e) {
                     log.error("No fue posible validar la factura [" + factura + "] ante el SAT debido al error: " + e, e);
                     String mensajeError = "No fue posible validar la factura [" + factura + "] ante el SAT debido al error: " + e;
@@ -2263,12 +2263,12 @@ public class FacturaManager {
                 }
                 if (!FacturaManager.SAT_VIGENTE_STR.equalsIgnoreCase(acuse.getEstado())) {
                     String mensajeError = "La factura: " + f.getUUID() + " del emisor: " + f.getNombreEmisor() + " no es válida ante el SAT." + (notificaErrores ? " Se notificará a la Gerencia de Recursos Financieros de este hecho." : "") + " Respuesta SAT. Estatus [" + acuse.getCodigoEstatus() + "] Estado CFDI [" + acuse.getEstado() + "]. Favor de revisar con el proveedor la validación del certificado del emisor o actualización en los registros del SAT e intentarlo de nuevo.";
-                    log.info(mensajeError);
+                    log.info(mensajeError.getMessage(), mensajeError);
                     errores.add(mensajeError);
                     cf.getErrorLog().add(mensajeError);
                 } else if (FacturaManager.SAT_PROCESO_CANCELACION.equalsIgnoreCase(acuse.getEstatusCancelacion())) {
                     String mensajeError = "La factura: " + f.getUUID() + " del emisor: " + f.getNombreEmisor() + " está en proceso de cancelación en el SAT." + (notificaErrores ? " Se notificará a la Gerencia de Recursos Financieros de este hecho." : "") + " Respuesta SAT. Estatus [" + acuse.getCodigoEstatus() + "] Estado CFDI [" + acuse.getEstado() + "] Estatus Cancelación [" + acuse.getEstatusCancelacion() + "]. Favor de revisar con el proveedor la validación del certificado del emisor o actualización en los registros del SAT e intentarlo de nuevo.";
-                    log.info(mensajeError);
+                    log.info(mensajeError.getMessage(), mensajeError);
                     errores.add(mensajeError);
                     cf.getErrorLog().add(mensajeError);
                 }
@@ -2298,7 +2298,7 @@ public class FacturaManager {
             String archivo = i.next();
             ComponentesFactura cf = facturas.get(archivo);
             try {
-                log.trace("Validando el tipo de factura en [" + archivo + "]");
+                log.trace("Object: {}", "Validando el tipo de factura en [" + archivo + "]");
                 String tipoFactura = cf.getComprobante().getTipoComprobante();
                 if (esNotaCredito && !CFDIInterface.EGRESO.equalsIgnoreCase(tipoFactura)) {
                     String mensajeError = "La nota de crédito [" + archivo + "] NO es de tipo Egreso. Se debe procesar como factura";
@@ -2331,7 +2331,7 @@ public class FacturaManager {
                     String archivo = i.next();
                     ComponentesFactura cf = facturas.get(archivo);
                     try {
-                        log.trace("Validando el tipo de pago y retenciones en [" + archivo + "]");
+                        log.trace("Object: {}", "Validando el tipo de pago y retenciones en [" + archivo + "]");
                         String formaPagoFactura = cf.getComprobante().getMetodoPago();
                         if ("PUE".equalsIgnoreCase(formaPagoFactura)) {
                             Comprobante comprobante = cf.getComprobante();
@@ -2385,7 +2385,7 @@ public class FacturaManager {
             String archivo = i.next();
             ComponentesFactura cf = facturas.get(archivo);
             try {
-                log.trace("Validando el tipo de factura en  [" + archivo + "]");
+                log.trace("Object: {}", "Validando el tipo de factura en  [" + archivo + "]");
                 String usoCFDI = cf.getComprobante().getUsoCFDI();
                 if (!usosValidos.contains(usoCFDI)) {
                     errores.add("La factura [" + archivo + "] NO contiene el uso de CFDI Valido.  Contiene: " + usoCFDI);
@@ -2406,7 +2406,7 @@ public class FacturaManager {
             String archivo = i.next();
             ComponentesFactura cf = facturas.get(archivo);
             try {
-                log.trace("Validando la versión en [" + archivo + "]");
+                log.trace("Object: {}", "Validando la versión en [" + archivo + "]");
                 if (!(cf.getComprobante().isCfd33() || cf.getComprobante().isCfd40())) {
                     String mensajeError = "La versión de la factura no es la esperada: 3.3 o 4.0. Se requiere solicitar cambio de factura.";
                     errores.add(mensajeError);

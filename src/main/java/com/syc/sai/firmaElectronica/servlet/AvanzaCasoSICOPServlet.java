@@ -108,7 +108,7 @@ public class AvanzaCasoSICOPServlet extends HttpServlet implements GestionInterf
                 if (!autorizar) {
                     JSONObject resJson = cpAMF.cancelaDevengado(tipoDoc, nFolio, u, false);
                 }
-                log.info(" Autorizando el envio de SICOP/SIAFF del tramite: " + tablaEncabezado + " con folio: " + valorLlave);
+                log.info("Object: {}", " Autorizando el envio de SICOP/SIAFF del tramite: " + tablaEncabezado + " con folio: " + valorLlave);
                 session.setAttribute("MSG", (autorizar ? "Autorizacion" : "Rechazo") + " de envio a SICOP del tramite " + c.getTipoCaso().getDescripcion() + " con folio: " + valorLlave + " realizado exitosamente. " + (autorizar ? "Ahora puede generar el layout" : " Cancelación del devengado exitoso."));
             } else {
                 throw new Exception(msg);
@@ -137,12 +137,12 @@ public class AvanzaCasoSICOPServlet extends HttpServlet implements GestionInterf
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         cpAMF = new CierrePresupuestal(jniName);
     }

@@ -91,7 +91,7 @@ public class LayoutBancoRGManager {
                 sql.append(" AND ").append(folioCondicion).append(" IN (").append(nFolios).append(") ");
                 sql.append(" AND SUBSTRING(CTAB,1,3) ").append(esBanorte).append(" ('072');");
             }
-            log.info("Ejecutando query de Layout " + sTipo + " [" + sql.toString() + "]");
+            log.info("Object: {}", "Ejecutando query de Layout " + sTipo + " [" + sql.toString() + "]");
             pstmLayout = conn.prepareStatement(sql.toString());
             rsLayout = pstmLayout.executeQuery();
             while (rsLayout.next()) {
@@ -125,7 +125,7 @@ public class LayoutBancoRGManager {
             }
             pstm = conn.prepareStatement("UPDATE " + tablaEncabezado + " SET nEnviadoSICOP = 1 WHERE " + folioCondicion + " IN (" + nFolios + ")");
             pstm.executeUpdate();
-            log.info("Ejecutando query de actualizacion del Enviado a SICOP " + sTipo + " en los folios " + nFolios);
+            log.info("Object: {}", "Ejecutando query de actualizacion del Enviado a SICOP " + sTipo + " en los folios " + nFolios);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         } finally {

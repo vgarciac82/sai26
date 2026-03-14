@@ -508,7 +508,7 @@ public class GeneraSolicitudViaticos {
             pst.setInt(10, firmanteVobo);
             pst.setInt(11, firmanteAut);
             pst.executeUpdate();
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
         } finally {
             CloseObject.closeObject(pst, false);
         }
@@ -522,7 +522,7 @@ public class GeneraSolicitudViaticos {
             pst.setInt(1, folio);
             pst.setInt(2, idComision);
             pst.executeUpdate();
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
         } finally {
             CloseObject.closeObject(pst, false);
         }
@@ -553,7 +553,7 @@ public class GeneraSolicitudViaticos {
             pst = conn.prepareStatement("UPDATE tEstadoDeCuentaViaticosEncabezado SET mMontoRemanente = mMontoRemanente - ? WHERE nFolioCaja = ?");
             pst.setBigDecimal(1, total);
             pst.setInt(2, folio);
-            log.debug(pst);
+            log.debug("Object: {}", pst.toString());
             pst.executeUpdate();
         } finally {
             CloseObject.closeObject(pst, false);
@@ -568,7 +568,7 @@ public class GeneraSolicitudViaticos {
             pst.setInt(2, folio);
             pst.setInt(3, folio);
             pst.setBigDecimal(4, total);
-            log.debug(pst);
+            log.debug("Object: {}", pst.toString());
             pst.executeUpdate();
         } finally {
             CloseObject.closeObject(pst, false);
@@ -1473,7 +1473,7 @@ public class GeneraSolicitudViaticos {
         parametrosReales.append("d=").append(String.valueOf(document));
         parametrosReales.append("&");
         parametrosReales.append("f=").append(StringUtils.reverse(String.valueOf(folio)));
-        log.debug("Cadena generada: " + parametrosReales);
+        log.debug("Object: {}", "Cadena generada: " + parametrosReales);
         return parametrosReales.toString();
     }
 
@@ -2134,7 +2134,7 @@ public class GeneraSolicitudViaticos {
             pst = conn.prepareStatement(query);
             pst.setInt(1, idComision);
             rs = pst.executeQuery();
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             if (rs.next()) {
                 folio = rs.getInt("nFolioTramite");
             }
@@ -2304,7 +2304,7 @@ public class GeneraSolicitudViaticos {
             pst = conn.prepareStatement(query.toString());
             pst.setInt(1, idComision);
             rs = pst.executeQuery();
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             if (rs.next()) {
                 folio = rs.getInt("nIdComision");
             }
@@ -2336,7 +2336,7 @@ public class GeneraSolicitudViaticos {
         try {
             pst = conn.prepareStatement(query.toString());
             rs = pst.executeQuery();
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             while (rs.next()) {
                 folios.add(rs.getInt("nidComisionModulo"));
             }

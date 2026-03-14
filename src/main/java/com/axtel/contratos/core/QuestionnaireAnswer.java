@@ -2,7 +2,6 @@ package com.axtel.contratos.core;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.log4j.LogManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +12,7 @@ import org.slf4j.LoggerFactory;
  */
 public class QuestionnaireAnswer {
 
-    private static final Logger log = LogManager.getLogger(QuestionnaireAnswer.class);
+    private static final Logger log = LoggerFactory.getLogger(QuestionnaireAnswer.class);
 
     /**
      * Numero de pregunta
@@ -76,7 +75,7 @@ public class QuestionnaireAnswer {
             QuestionnaireAnswer answer = new QuestionnaireAnswer();
             answer.setQuestionId(Integer.parseInt(answerParts[0]));
             answer.setAnswer(answerParts[1]);
-            log.trace("Se obtuvo la respuesta: " + answer);
+            log.trace("Object: {}", "Se obtuvo la respuesta: " + answer);
             answersList.add(answer);
         }
         return answersList;

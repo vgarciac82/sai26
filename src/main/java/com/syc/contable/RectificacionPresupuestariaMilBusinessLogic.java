@@ -184,7 +184,7 @@ public class RectificacionPresupuestariaMilBusinessLogic extends DataSourceManag
                         to = "vgarciac@axtel.com.mx";
                     AlarmaManager.procesaAlarmaCNF(conn, prefixPath, c.getCasoOperacion(0), c, "", to, body);
                 } catch (Exception exmail) {
-                    log.error("No se logro enviar el correo de cancelacion de rectificaciones: " + exmail);
+                    log.error("Object: {}", "No se logro enviar el correo de cancelacion de rectificaciones: " + exmail);
                 }
                 cbl.avanzaCaso(cReloaded, uLogin, "", new String[] { "CONSULTA_RECTIFICACIONMIL" }, new String[] { "cons_rectificacion_m" }, m, prefixPath);
             } else {
@@ -192,7 +192,7 @@ public class RectificacionPresupuestariaMilBusinessLogic extends DataSourceManag
             }
             retVal = acr.getMessageList().get(acr.getMessageList().size() - 1);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -210,7 +210,7 @@ public class RectificacionPresupuestariaMilBusinessLogic extends DataSourceManag
             conn = getConnection();
             res = RectificacionPresupuestariaManager.getRectificacionEncabezado(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             if (conn != null)
@@ -227,7 +227,7 @@ public class RectificacionPresupuestariaMilBusinessLogic extends DataSourceManag
             conn = getConnection();
             res = RectificacionPresupuestariaManager.getRectificacionEncabezadoMil(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             if (conn != null)
@@ -244,7 +244,7 @@ public class RectificacionPresupuestariaMilBusinessLogic extends DataSourceManag
             conn = getConnection();
             res = RectificacionPresupuestariaManager.getRectificacionEncabezadoSicopMil(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             if (conn != null)
@@ -261,7 +261,7 @@ public class RectificacionPresupuestariaMilBusinessLogic extends DataSourceManag
             conn = getConnection();
             res = RectificacionPresupuestariaManager.getRectificacionDetalleSicopMil(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             if (conn != null)
@@ -278,7 +278,7 @@ public class RectificacionPresupuestariaMilBusinessLogic extends DataSourceManag
             conn = getConnection();
             res = RectificacionPresupuestariaManager.getRectificacionDetalle(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             if (conn != null)
@@ -510,7 +510,7 @@ public class RectificacionPresupuestariaMilBusinessLogic extends DataSourceManag
                 RectificacionDetalle rd = recDetalles.get(i);
                 if (!rpbl.getEPCatalogo(rd.getEp())) {
                     mensajes.add("La EP " + rd.getEp() + " no existe o se encuentra mal escrita \\n");
-                    log.warn("La EP " + rd.getEp() + " no existe o se encuentra mal escrita \n");
+                    log.warn("Object: {}", "La EP " + rd.getEp() + " no existe o se encuentra mal escrita \n");
                     throw new Exception("La EP " + rd.getEp() + " no existe o se encuentra mal escrita \\n");
                 } else {
                     String str = rpbl.clcPagada(0, recE.getCaNoContrarrecibo());
@@ -537,13 +537,13 @@ public class RectificacionPresupuestariaMilBusinessLogic extends DataSourceManag
 					 */
                     if (secuenciaCLC == -1 && rd.getEvento().contains("DICE")) {
                         mensajes.add("No se puede obtener el valor de la secuencia para la EP " + rd.getEp() + " Cuenta por Pagar " + recE.getCaNoContrarrecibo() + ".Favor de revisar la tabla CLC_SICOP.\\n");
-                        log.warn("No se puede obtener el valor de la secuencia para la EP " + rd.getEp() + "Cuenta por Pagar " + recE.getCaNoContrarrecibo() + ".Favor de revisar la tabla CLC_SICOP.\n");
+                        log.warn("Object: {}", "No se puede obtener el valor de la secuencia para la EP " + rd.getEp() + "Cuenta por Pagar " + recE.getCaNoContrarrecibo() + ".Favor de revisar la tabla CLC_SICOP.\n");
                         throw new Exception("No se puede obtener el valor de la secuencia para la EP " + rd.getEp() + " Cuenta por Pagar " + recE.getCaNoContrarrecibo() + ".Favor de revisar la tabla CLC_SICOP.\\n");
                     } else {
                         int[] docRenglon = rpbl.getNDocRenglon(recE.getCaNoContrarrecibo(), rd.getEp(), rd.getMes(), folio);
                         if (docRenglon[0] == -1 && rd.getEvento().contains("DICE")) {
                             mensajes.add("Favor de revisar el mes para la EP " + rd.getEp() + " con CXP " + recE.getCaNoContrarrecibo() + "\\n");
-                            log.warn("Favor de revisar el mes para la EP " + rd.getEp() + " con CXP " + recE.getCaNoContrarrecibo() + "\n");
+                            log.warn("Object: {}", "Favor de revisar el mes para la EP " + rd.getEp() + " con CXP " + recE.getCaNoContrarrecibo() + "\n");
                             throw new Exception("Favor de revisar el mes para la EP " + rd.getEp() + " con CXP " + recE.getCaNoContrarrecibo() + "\\n");
                         } else {
                             int j = 0;
@@ -559,7 +559,7 @@ public class RectificacionPresupuestariaMilBusinessLogic extends DataSourceManag
                                 String meses = ReintegrosManager.getMesesImportes(conn, rd.getEp(), recE.getCaNoContrarrecibo());
                                 mensaje += meses;
                                 mensajes.add(mensaje);
-                                log.warn("No hay suficiente remanente para poder aplicar la rectificacion para " + rd.getEp() + " renglon " + secuenciaCLC + " mes " + rd.getMes() + " cxp " + recE.getCaNoContrarrecibo() + " remanente " + remanente + " importe a reintegrar " + rd.getImporte() + "\n");
+                                log.warn("Object: {}", "No hay suficiente remanente para poder aplicar la rectificacion para " + rd.getEp() + " renglon " + secuenciaCLC + " mes " + rd.getMes() + " cxp " + recE.getCaNoContrarrecibo() + " remanente " + remanente + " importe a reintegrar " + rd.getImporte() + "\n");
                                 throw new Exception("No hay suficiente remanente para poder aplicar la rectificacion para " + rd.getEp() + " renglon " + secuenciaCLC + " mes " + rd.getMes() + " cxp " + recE.getCaNoContrarrecibo() + " remanente " + remanente + " importe a reintegrar " + rd.getImporte() + "\\n");
                             }
                         }
@@ -662,7 +662,7 @@ public class RectificacionPresupuestariaMilBusinessLogic extends DataSourceManag
             borra = RectificacionPresupuestariaManager.borraRecitificacionMil(conn, folio);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -681,10 +681,10 @@ public class RectificacionPresupuestariaMilBusinessLogic extends DataSourceManag
             CasoBusinessLogic cbl = new CasoBusinessLogic(GestionInterface.ATT_CONEXION);
             conn = cbl.getConnection();
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Inicia Apartado aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Inicia Apartado aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             AplicarContableReturn acr = conInt.aplicarContableNuevo(conn, c, "tRectificacionEncabezadoMil", "tRectificacionDetalleMil", "nFolioRectificacionMil", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "RECTIFICACION", m, prefixPath, uLogin, "");
             arrLResult = acr.getMessageList();
-            log.debug("Termina Apartado Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Termina Apartado Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             Caso cReloaded = new Caso();
             cReloaded.setIdCaso(c.getIdCaso());
             cReloaded = CasoManager.select(conn, cReloaded);
@@ -701,7 +701,7 @@ public class RectificacionPresupuestariaMilBusinessLogic extends DataSourceManag
             }
         } catch (Exception exc) {
             conn.rollback();
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             arrLResult.add(exc.getLocalizedMessage());
             try {
                 conn.rollback();
@@ -743,7 +743,7 @@ public class RectificacionPresupuestariaMilBusinessLogic extends DataSourceManag
                 nIdCaso = new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue();
                 if (nIdCaso > 0) {
                     ContableInterface conInt = new AplicacionContable();
-                    log.debug("Inicia Autorización contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
+                    log.debug("Object: {}", "Inicia Autorización contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
                     // boolean validaSaldo;
                     cTablaEncabezado = "tRectificacionAutEncabezadoMil";
                     cTablaDetalle = "tRectificacionAutDetalleMil";
@@ -752,7 +752,7 @@ public class RectificacionPresupuestariaMilBusinessLogic extends DataSourceManag
                     AplicarContableReturn acr = conInt.aplicarContableNuevo(conn, c, cTablaEncabezado, cTablaDetalle, cFolio, nIdCaso, cTipoDocumento, m, prefixPath, uLogin, "");
                     arrLResult = acr.getMessageList();
                     conn.commit();
-                    log.debug("Termina Autorización contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
+                    log.debug("Object: {}", "Termina Autorización contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
                     Caso cReloaded = new Caso();
                     cReloaded.setIdCaso(c.getIdCaso());
                     cReloaded = CasoManager.select(conn, cReloaded);
@@ -765,7 +765,7 @@ public class RectificacionPresupuestariaMilBusinessLogic extends DataSourceManag
                                 to = "vgarciac@axtel.com.mx;";
                             AlarmaManager.procesaAlarmaCNF(conn, prefixPath, c.getCasoOperacion(0), c, "", to, body);
                         } catch (Exception exmail) {
-                            log.error("No se logro enviar el correo de autorizacion de rectificaciones: " + exmail);
+                            log.error("Object: {}", "No se logro enviar el correo de autorizacion de rectificaciones: " + exmail);
                         }
                         cbl.avanzaCaso(cReloaded, uLogin, "", new String[] { "CONSULTA_RECTIFICACIONMIL" }, new String[] { "cons_rectificacion_m" }, m, prefixPath);
                     } else {
@@ -776,11 +776,11 @@ public class RectificacionPresupuestariaMilBusinessLogic extends DataSourceManag
                     conn.rollback();
                 }
             } else {
-                log.debug(mensaje);
+                log.debug("Object: {}", mensaje);
                 //cMensaje += mensaje;
             }
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             arrLResult.add(exc.getLocalizedMessage());
             try {
                 conn.rollback();

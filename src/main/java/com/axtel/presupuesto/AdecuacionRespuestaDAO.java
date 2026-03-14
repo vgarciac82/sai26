@@ -7,7 +7,6 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
-import org.apache.log4j.LogManager;
 import com.axtel.ws.clients.AdecuacionRespuesta;
 import com.syc.contable.adecuaciones.UsuarioNotificado;
 import com.syc.contable.adecuaciones.UsuarioSiplan;
@@ -22,7 +21,7 @@ public class AdecuacionRespuestaDAO {
 
     private static final StringBuilder queryInsertDet = new StringBuilder("INSERT INTO  tUsuarioAdecuacionNotificadoPrograma(nFolioAdecuacion, cUsuarioNotificado, cOrden )VALUES(? ,?, ? )");
 
-    private static final Logger log = LogManager.getLogger(AdecuacionRespuestaDAO.class);
+    private static final Logger log = LoggerFactory.getLogger(AdecuacionRespuestaDAO.class);
 
     public static boolean existeNoficado(Connection conn, int folioAdecuacion, String usuario) throws SQLException {
         StringBuilder query = new StringBuilder("SELECT COUNT(*) AS existe from tUsuarioAdecuacionNotificado WHERE nFolioAdecuacion = ? AND cUsuarioNotificado = ?");
@@ -42,7 +41,7 @@ public class AdecuacionRespuestaDAO {
     }
 
     public static int insertaRespuesta(Connection conn, int folioAdecuacion, AdecuacionRespuesta respuesta) throws SQLException {
-        log.info("Insertando objeto: " + respuesta);
+        log.info("Object: {}", "Insertando objeto: " + respuesta);
         int insertados = 0;
         for (UsuarioNotificado usuario : respuesta.getUsuariosNotificar()) {
             if (!existeNoficado(conn, folioAdecuacion, usuario.getUsuario())) {
@@ -53,7 +52,7 @@ public class AdecuacionRespuestaDAO {
                 }
             }
         }
-        log.trace("Se insertaron :  " + insertados + " Regustros en tUsuarioAdecuacionNotificado");
+        log.trace("Object: {}", "Se insertaron :  " + insertados + " Regustros en tUsuarioAdecuacionNotificado");
         return insertados;
     }
 

@@ -61,7 +61,7 @@ public class Request extends RequestBase {
         this.rfcConsulta = rfcConsulta;
         this.rfcEmisor = rfcEmisor;
         this.rfcReceptor = rfcReceptor;
-        log.trace("Request creado.\nURL:" + url + "\nAction:" + SOAPAction);
+        log.trace("Object: {}", "Request creado.\nURL:" + url + "\nAction:" + SOAPAction);
     }
 
     /**
@@ -82,7 +82,7 @@ public class Request extends RequestBase {
     public void generate() throws NoSuchAlgorithmException, SignatureException, InvalidKeyException, CertificateEncodingException {
         String fechaInicial = Util.dateToString(getfInicio(), "yyyy-MM-dd") + "T00:00:00";
         String fechaFinal = Util.dateToString(getfFin(), "yyyy-MM-dd") + "T23:59:59";
-        log.trace("Se enviara busqueda al SAT con los siguientes parametros:\nFecha Inicio:" + fechaInicial + "\nFecha Final:" + fechaFinal + "\nRFC:" + rfcReceptor);
+        log.trace("Object: {}", "Se enviara busqueda al SAT con los siguientes parametros:\nFecha Inicio:" + fechaInicial + "\nFecha Final:" + fechaFinal + "\nRFC:" + rfcReceptor);
         StringBuilder canonicalTimestamp = new StringBuilder();
         canonicalTimestamp.append("<des:SolicitaDescarga xmlns:des=\"http://DescargaMasivaTerceros.sat.gob.mx\">");
         canonicalTimestamp.append("<des:solicitud RfcEmisor=\"");
@@ -100,7 +100,7 @@ public class Request extends RequestBase {
         canonicalTimestamp.append("\">");
         canonicalTimestamp.append("</des:solicitud>");
         canonicalTimestamp.append("</des:SolicitaDescarga>");
-        log.info("Request Generado: " + canonicalTimestamp.toString());
+        log.info("Object: {}", "Request Generado: " + canonicalTimestamp.toString());
         String digest = createDigest(canonicalTimestamp.toString());
         StringBuilder canonicalSignedInfo = new StringBuilder();
         canonicalSignedInfo.append("<SignedInfo xmlns=\"http://www.w3.org/2000/09/xmldsig#\">");
@@ -172,7 +172,7 @@ public class Request extends RequestBase {
         xmlSolicitud.append("</des:SolicitaDescarga>");
         xmlSolicitud.append("</s:Body>");
         xmlSolicitud.append("</s:Envelope>");
-        log.trace("XML enviado:\n" + xmlSolicitud);
+        log.trace("Object: {}", "XML enviado:\n" + xmlSolicitud);
         this.setXml(xmlSolicitud.toString());
     }
 
@@ -202,7 +202,7 @@ public class Request extends RequestBase {
 
     @Override
     protected String getResult(String xmlResponse) throws Exception {
-        log.debug("Respuesta recibida: " + xmlResponse);
+        log.debug("Object: {}", "Respuesta recibida: " + xmlResponse);
         Document doc = convertStringToXMLDocument(xmlResponse);
         if (doc != null) {
             String codStatus = doc.getElementsByTagName("SolicitaDescargaResult").item(0).getAttributes().getNamedItem("CodEstatus").getTextContent();

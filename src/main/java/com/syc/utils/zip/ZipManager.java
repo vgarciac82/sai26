@@ -44,7 +44,7 @@ public class ZipManager {
 
     public static int extraeArchivos(String rutaArchivo, String directorioTemporal, List<File> extractedFiles) throws IOException {
         long start = System.currentTimeMillis();
-        log.trace("Iniciando extraccion de contenido del archivo [" + rutaArchivo + "]");
+        log.trace("Object: {}", "Iniciando extraccion de contenido del archivo [" + rutaArchivo + "]");
         if (extractedFiles != null)
             log.debug("Los resultados se guardaran en lista.");
         int archivosExtraidos = 0;
@@ -52,13 +52,13 @@ public class ZipManager {
         if (!destDir.exists()) {
             destDir.mkdir();
         }
-        log.trace("Abriendo archivo [" + rutaArchivo + "]  para su extraccion.");
+        log.trace("Object: {}", "Abriendo archivo [" + rutaArchivo + "]  para su extraccion.");
         ZipInputStream zipIn = new ZipInputStream(new FileInputStream(rutaArchivo));
         ZipEntry entry = zipIn.getNextEntry();
         log.trace("Iterando contenido del archivo.");
         while (entry != null) {
             String filePath = directorioTemporal + (directorioTemporal.endsWith(String.valueOf(File.separatorChar)) ? "" : File.separatorChar) + entry.getName();
-            log.trace("Procesando archivo [" + filePath + "] dentro del archivo ZIP");
+            log.trace("Object: {}", "Procesando archivo [" + filePath + "] dentro del archivo ZIP");
             if (!entry.isDirectory()) {
                 log.trace("Se trata de un archivo, se extraera");
                 extractFile(zipIn, filePath);
@@ -76,7 +76,7 @@ public class ZipManager {
         zipIn.close();
         zipIn = null;
         long stop = System.currentTimeMillis();
-        log.trace("Terminada extraccion de contenido del archivo [" + rutaArchivo + "] Se extrageron [" + archivosExtraidos + "] archivos en [" + ((stop - start) / 1000) + "] s.");
+        log.trace("Object: {}", "Terminada extraccion de contenido del archivo [" + rutaArchivo + "] Se extrageron [" + archivosExtraidos + "] archivos en [" + ((stop - start) / 1000) + "] s.");
         return archivosExtraidos;
     }
 
@@ -85,7 +85,7 @@ public class ZipManager {
         int archivosExtraidos = 0;
         if (!(directorioTemporal.endsWith("/") || directorioTemporal.endsWith("\\")))
             directorioTemporal = directorioTemporal + File.separatorChar;
-        log.trace("Directorio temporal de extraccion[ " + directorioTemporal + "]");
+        log.trace("Object: {}", "Directorio temporal de extraccion[ " + directorioTemporal + "]");
         File destDir = new File(directorioTemporal);
         if (!destDir.exists()) {
             destDir.mkdir();
@@ -98,7 +98,7 @@ public class ZipManager {
             String nombreElemento = FacturaUtils.obtenNombreArchivoZip(entry.getName(), false);
             String extension = FacturaUtils.obtenExtensionArchivoZip(entry.getName());
             String filePath = FacturaUtils.generaNombreArchivoTemporal(directorioTemporal, nombreElemento, extension);
-            log.trace("Procesando archivo [" + nombreElemento + "." + extension + "] dentro del archivo ZIP");
+            log.trace("Object: {}", "Procesando archivo [" + nombreElemento + "." + extension + "] dentro del archivo ZIP");
             if (!entry.isDirectory()) {
                 log.trace("Se trata de un archivo, se extraera");
                 File f = new File(filePath);
@@ -122,7 +122,7 @@ public class ZipManager {
         zipIn.close();
         is.close();
         long stop = System.currentTimeMillis();
-        log.trace("Terminada extraccion de contenido del archivo. Se extrageron [" + archivosExtraidos + "] archivos en [" + ((stop - start) / 1000) + "] s.");
+        log.trace("Object: {}", "Terminada extraccion de contenido del archivo. Se extrageron [" + archivosExtraidos + "] archivos en [" + ((stop - start) / 1000) + "] s.");
         return facturas;
     }
 
@@ -135,27 +135,27 @@ public class ZipManager {
      * @throws IOException
      */
     public static Map<String, ComponentesFactura> extraeArchivosFactura(String rutaArchivo, String directorioTemporal) throws IOException {
-        log.trace("Iniciando extraccion de contenido del archivo [" + rutaArchivo + "]");
-        log.trace("Abriendo archivo [" + rutaArchivo + "]  para su extraccion.");
+        log.trace("Object: {}", "Iniciando extraccion de contenido del archivo [" + rutaArchivo + "]");
+        log.trace("Object: {}", "Abriendo archivo [" + rutaArchivo + "]  para su extraccion.");
         return extraeArchivosFactura(new FileInputStream(rutaArchivo), directorioTemporal);
     }
 
     public static List<File> extraeArchivosMemoria(String rutaArchivo, String directorioTemporal) throws IOException {
         List<File> contenido = new ArrayList<File>();
         long start = System.currentTimeMillis();
-        log.trace("Iniciando extraccion de contenido del archivo [" + rutaArchivo + "]");
+        log.trace("Object: {}", "Iniciando extraccion de contenido del archivo [" + rutaArchivo + "]");
         int archivosExtraidos = 0;
         File destDir = new File(directorioTemporal);
         if (!destDir.exists()) {
             destDir.mkdir();
         }
-        log.trace("Abriendo archivo [" + rutaArchivo + "]  para su extraccion.");
+        log.trace("Object: {}", "Abriendo archivo [" + rutaArchivo + "]  para su extraccion.");
         ZipInputStream zipIn = new ZipInputStream(new FileInputStream(rutaArchivo));
         ZipEntry entry = zipIn.getNextEntry();
         log.trace("Iterando contenido del archivo.");
         while (entry != null) {
             String filePath = directorioTemporal + (directorioTemporal.endsWith(String.valueOf(File.separatorChar)) ? "" : File.separatorChar) + entry.getName();
-            log.trace("Procesando archivo [" + filePath + "] dentro del archivo ZIP");
+            log.trace("Object: {}", "Procesando archivo [" + filePath + "] dentro del archivo ZIP");
             if (!entry.isDirectory()) {
                 log.trace("Se trata de un archivo, se extraera");
                 extractFile(zipIn, filePath);
@@ -172,7 +172,7 @@ public class ZipManager {
         zipIn.close();
         zipIn = null;
         long stop = System.currentTimeMillis();
-        log.trace("Terminada extraccion de contenido del archivo [" + rutaArchivo + "] Se extrageron [" + archivosExtraidos + "] archivos en [" + ((stop - start) / 1000) + "] s.");
+        log.trace("Object: {}", "Terminada extraccion de contenido del archivo [" + rutaArchivo + "] Se extrageron [" + archivosExtraidos + "] archivos en [" + ((stop - start) / 1000) + "] s.");
         return contenido;
     }
 
@@ -180,7 +180,7 @@ public class ZipManager {
         List<String> contents = new ArrayList<String>();
         ZipFile zFile = null;
         try {
-            log.trace("Iniciando lectura de contenido del archivo [" + archivoZip.getAbsolutePath() + "]");
+            log.trace("Object: {}", "Iniciando lectura de contenido del archivo [" + archivoZip.getAbsolutePath() + "]");
             long start = System.currentTimeMillis();
             zFile = ZipManager.openZipFile(archivoZip);
             Enumeration<? extends ZipEntry> entries = zFile.entries();
@@ -192,7 +192,7 @@ public class ZipManager {
                     contents.add(entry.getName().toLowerCase());
             }
             long finish = System.currentTimeMillis();
-            log.trace("Terminada lectura de contenido del archivo [" + archivoZip.getAbsolutePath() + "] en [" + ((finish - start) / 1000) + " s.]");
+            log.trace("Object: {}", "Terminada lectura de contenido del archivo [" + archivoZip.getAbsolutePath() + "] en [" + ((finish - start) / 1000) + " s.]");
             return contents;
         } finally {
             if (zFile != null)
@@ -213,14 +213,14 @@ public class ZipManager {
     private static ZipFile openZipFile(File archivoZip) throws ZipException, IOException {
         long start = System.currentTimeMillis();
         ZipFile zipFile = null;
-        log.trace("Iniciando apertura de archivo [" + archivoZip.getAbsolutePath() + "]");
+        log.trace("Object: {}", "Iniciando apertura de archivo [" + archivoZip.getAbsolutePath() + "]");
         log.trace("Validando archivo");
         if (!archivoZip.exists())
             throw new ZipException("No existe el archivo [" + archivoZip + "]");
-        log.debug("Abriendo archivo [" + archivoZip.getAbsolutePath() + "]");
+        log.debug("Object: {}", "Abriendo archivo [" + archivoZip.getAbsolutePath() + "]");
         zipFile = new ZipFile(archivoZip);
         long finish = System.currentTimeMillis();
-        log.trace("Terminando apertura de archivo en " + ((finish - start) / 1000) + " s.");
+        log.trace("Object: {}", "Terminando apertura de archivo en " + ((finish - start) / 1000) + " s.");
         return zipFile;
     }
 

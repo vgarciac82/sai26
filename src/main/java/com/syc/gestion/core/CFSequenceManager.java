@@ -178,7 +178,7 @@ public class CFSequenceManager extends DataSourceManager {
                 insert(conn, name, retVal);
             }
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new SQLException(exc);
         } finally {
             if (psSelect != null)
@@ -206,7 +206,7 @@ public class CFSequenceManager extends DataSourceManager {
             retVal = nextVal(conn, name);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new SQLException(exc);
         } finally {

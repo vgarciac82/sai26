@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import org.apache.log4j.LogManager;
 import com.axtel.egresos.viaticos.Agenda;
 import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
@@ -14,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class AgendaDAO {
 
-    private static final Logger log = LogManager.getLogger(AgendaDAO.class);
+    private static final Logger log = LoggerFactory.getLogger(AgendaDAO.class);
 
     public static int insertarAgenda(Connection conn, Agenda agenda) throws Exception {
         StringBuilder queryInsert = new StringBuilder();
@@ -37,7 +36,7 @@ public class AgendaDAO {
             ps.setString(cnt++, agenda.getLocalidad());
             ps.setString(cnt++, agenda.getMotivoComision());
             ps.setString(cnt++, agenda.getActividades());
-            log.debug(queryInsert.toString() + " con el folio" + agenda.getIdAgenda());
+            log.debug("Object: {}", queryInsert.toString() + " con el folio" + agenda.getIdAgenda());
             insertados = ps.executeUpdate();
             return insertados;
         } finally {
@@ -143,7 +142,7 @@ public class AgendaDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Agenda agenda = new Agenda();
-        log.debug("Consultando agenda del empleado: " + agenda.getIdAgenda());
+        log.debug("Object: {}", "Consultando agenda del empleado: " + agenda.getIdAgenda());
         try {
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, folio);

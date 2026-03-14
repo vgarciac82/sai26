@@ -20,9 +20,10 @@ public class XMLReviewerManager {
     private static final Logger log = LoggerFactory.getLogger(XMLReviewerManager.class);
 
     public static String[] getPagosConCFDI(Connection conn) throws Exception {
-        String query = "SELECT	* " + "  FROM ( " + "		SELECT	DISTINCT cTipoPago, " + "				nFolioPago " + "		  FROM	tpagofactura WITH(NOLOCK) " + "		 WHERE	cRFCFactura NOT IN ('OFICIOTRANSITO', 'OFICIOPAGO', 'OFICIOCTOFED', 'EXTRANJERO', 'OFICIOALIMENTACION') " + "		   AND cEsNotaCredito = 'N' " + //					 +"        AND cTipoPago= 'RELACIONGASTOS' AND nFolioPago IN( 8951 ) "
-        ") AS tbl " + "ORDER BY ctipopago, nFolioPago ";
-        log.debug(query);
+        //					 +"        AND cTipoPago= 'RELACIONGASTOS' AND nFolioPago IN( 8951 ) "
+        String //					 +"        AND cTipoPago= 'RELACIONGASTOS' AND nFolioPago IN( 8951 ) "
+        query = "SELECT	* " + "  FROM ( " + "		SELECT	DISTINCT cTipoPago, " + "				nFolioPago " + "		  FROM	tpagofactura WITH(NOLOCK) " + "		 WHERE	cRFCFactura NOT IN ('OFICIOTRANSITO', 'OFICIOPAGO', 'OFICIOCTOFED', 'EXTRANJERO', 'OFICIOALIMENTACION') " + "		   AND cEsNotaCredito = 'N' " + ") AS tbl " + "ORDER BY ctipopago, nFolioPago ";
+        log.debug("Object: {}", query.toString());
         ResultSet rs = null;
         PreparedStatement ps = null;
         try {
@@ -44,7 +45,7 @@ public class XMLReviewerManager {
         int idGabinete = -1;
         idTC = getTipoCaso(conn, tipoPago);
         idGabinete = getIDGabinete(conn, idTC, nFolioPago);
-        log.trace(" Tipo Caso: " + idTC + " Gabinete: " + idGabinete);
+        log.trace("Object: {}", " Tipo Caso: " + idTC + " Gabinete: " + idGabinete);
         return getCFDIXMLFilePath(conn, tipoPago, idGabinete);
     }
 
@@ -112,7 +113,7 @@ public class XMLReviewerManager {
             ps.setInt(3, nFolioPago);
             ps.setString(4, uuid);
             int afectados = ps.executeUpdate();
-            log.info(String.format("Ejecutando: [%s] %s,%s,%d,%s Afectados: %d", query, metodoPago, tipoPago, nFolioPago, uuid, afectados));
+            log.info("Object: {}", String.format("Ejecutando: [%s] %s,%s,%d,%s Afectados: %d", query, metodoPago, tipoPago, nFolioPago, uuid, afectados));
         } finally {
             CloseObject.closeObject(ps);
         }
@@ -131,7 +132,7 @@ public class XMLReviewerManager {
             ps.setBigDecimal(5, importe);
             ps.setBigDecimal(6, tasaOCuota);
             insertados = ps.executeUpdate();
-            log.info("Se insertaron : " + insertados + " registros");
+            log.info("Object: {}", "Se insertaron : " + insertados + " registros");
         } finally {
             CloseObject.closeObject(ps);
         }

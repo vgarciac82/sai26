@@ -24,7 +24,7 @@ public class ReportesGreenMexManager {
     private static final Logger log = LoggerFactory.getLogger(ReportesGreenMexManager.class);
 
     public static String ReporteFinancieroGreenMex(Connection conn, String fechaInicio, Map<String, String> plantillas) throws Exception {
-        log.info(String.format("Iniciando reporte financiero GreenMex"));
+        log.info("Object: {}", String.format("Iniciando reporte financiero GreenMex"));
         long startQueries = System.currentTimeMillis();
         CallableStatement cs = null;
         ResultSet rs = null;
@@ -35,9 +35,9 @@ public class ReportesGreenMexManager {
             cs = conn.prepareCall(query);
             cs.setString(1, fechaInicio);
             rs = cs.executeQuery();
-            log.trace("Select[" + query + "]");
+            log.trace("Object: {}", "Select[" + query + "]");
             long stopQueries = System.currentTimeMillis();
-            log.info(String.format("Ejecucion de consultas terminado en [%2d] segundos", (stopQueries - startQueries) / 1000));
+            log.info("Object: {}", String.format("Ejecucion de consultas terminado en [%2d] segundos", (stopQueries - startQueries) / 1000));
             fileName = generaReporteFinancieroGreenMex(rs, plantillas.get("FINANCIEROGREENMEX"), fechaInicio);
             return fileName;
         } finally {

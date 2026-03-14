@@ -3,7 +3,6 @@ package com.axtel.sisecop.services;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-import org.apache.log4j.LogManager;
 import com.axtel.sisecop.dto.ProductDTO;
 import com.axtel.sisecop.dto.ProjectBudgetItemDTO;
 import com.axtel.sisecop.dto.ProjectPaymentDTO;
@@ -32,7 +31,7 @@ import org.slf4j.LoggerFactory;
 
 public class ProyectoExcepcionService extends ProyectoServicioGeneral {
 
-    private static final Logger log = LogManager.getLogger(ProyectoExcepcionService.class);
+    private static final Logger log = LoggerFactory.getLogger(ProyectoExcepcionService.class);
 
     private ProyectoExcepcionRepository proyectoExcepcionRepository;
 
@@ -87,24 +86,24 @@ public class ProyectoExcepcionService extends ProyectoServicioGeneral {
     }
 
     private void clonarActividades(Connection conn, ProyectoServicio proyecto) throws SQLException {
-        log.info("Clonando actividades del proyecto ID: " + proyecto.getServicioId() + " Se clonaran: " + proyecto.getActividades() == null ? "0" : proyecto.getActividades().size() + " actividades");
+        log.info("Object: {}", "Clonando actividades del proyecto ID: " + proyecto.getServicioId() + " Se clonaran: " + proyecto.getActividades() == null ? "0" : proyecto.getActividades().size() + " actividades");
         for (ProyectoServicioActividad actividad : proyecto.getActividades()) {
-            log.trace("Clonando actividad : " + actividad);
+            log.trace("Object: {}", "Clonando actividad : " + actividad);
             ProyectoServicioActividadDTO dto = new ProyectoServicioActividadDTO();
             dto.setIdService(proyecto.getServicioId());
             dto.setServicioactividadAnio(actividad.getServicioactividadAnio());
             dto.setServicioactividadDescripcion(actividad.getServicioactividadDescripcion());
             dto.setSisecopMes(actividad.getSisecopMes());
             getProjectActivityRepository().insertProyectoServicioActividad(conn, dto);
-            log.trace("Actividad [" + actividad + "] clonada exitosamente");
+            log.trace("Object: {}", "Actividad [" + actividad + "] clonada exitosamente");
         }
-        log.debug("Clonando actividades del proyecto ID: " + proyecto.getServicioId() + " Terminado");
+        log.debug("Object: {}", "Clonando actividades del proyecto ID: " + proyecto.getServicioId() + " Terminado");
     }
 
     private void clonarServicioPagos(Connection conn, ProyectoServicio proyecto) throws SQLException {
-        log.info("Clonando pagos del proyecto ID: " + proyecto.getServicioId() + " Se clonarán: " + (proyecto.getPagos() == null ? "0" : proyecto.getPagos().size()) + " pagos");
+        log.info("Object: {}", "Clonando pagos del proyecto ID: " + proyecto.getServicioId() + " Se clonarán: " + (proyecto.getPagos() == null ? "0" : proyecto.getPagos().size()) + " pagos");
         for (ProyectoServicioPago pago : proyecto.getPagos()) {
-            log.trace("Clonando pago: " + pago);
+            log.trace("Object: {}", "Clonando pago: " + pago);
             ProjectPaymentDTO dto = new ProjectPaymentDTO();
             dto.setIdService(proyecto.getServicioId());
             dto.setMesPago(pago.getMesPago());
@@ -112,30 +111,30 @@ public class ProyectoExcepcionService extends ProyectoServicioGeneral {
             dto.setServicioPagoCantidad(pago.getServicioPagoCantidad());
             dto.setServicioPagoId(pago.getServicioPagoId());
             getProjectPaymentRepository().create(conn, dto);
-            log.trace("Pago [" + pago + "] clonado exitosamente");
+            log.trace("Object: {}", "Pago [" + pago + "] clonado exitosamente");
         }
-        log.debug("Clonación de pagos del proyecto ID: " + proyecto.getServicioId() + " terminada");
+        log.debug("Object: {}", "Clonación de pagos del proyecto ID: " + proyecto.getServicioId() + " terminada");
     }
 
     private void clonarServicioProductos(Connection conn, ProyectoServicio proyecto) throws SQLException {
-        log.info("Clonando productos del proyecto ID: " + proyecto.getServicioId() + ". Se clonarán: " + (proyecto.getProductos() == null ? "0" : proyecto.getProductos().size()) + " productos");
+        log.info("Object: {}", "Clonando productos del proyecto ID: " + proyecto.getServicioId() + ". Se clonarán: " + (proyecto.getProductos() == null ? "0" : proyecto.getProductos().size()) + " productos");
         for (ProyectoProducto producto : proyecto.getProductos()) {
-            log.trace("Clonando producto: " + producto);
+            log.trace("Object: {}", "Clonando producto: " + producto);
             ProductDTO dto = new ProductDTO();
             dto.setDescripcion(producto.getProductoDescripcion());
             dto.setProductoId(producto.getProductoId());
             dto.setServicioId(proyecto.getServicioId());
             dto.setServicioproductoId(producto.getServicioProductoID());
             getProductRepository().insertProduct(conn, dto);
-            log.trace("Producto [" + producto + "] clonado exitosamente");
+            log.trace("Object: {}", "Producto [" + producto + "] clonado exitosamente");
         }
-        log.debug("Clonación de productos del proyecto ID: " + proyecto.getServicioId() + " terminada");
+        log.debug("Object: {}", "Clonación de productos del proyecto ID: " + proyecto.getServicioId() + " terminada");
     }
 
     private void clonarServicioClaves(Connection conn, ProyectoServicio proyecto) throws SQLException {
-        log.info("Clonando claves presupuestarias del proyecto ID: " + proyecto.getServicioId() + ". Se clonarán: " + (proyecto.getServicioClaves() == null ? "0" : proyecto.getServicioClaves().size()) + " claves presupuestarias");
+        log.info("Object: {}", "Clonando claves presupuestarias del proyecto ID: " + proyecto.getServicioId() + ". Se clonarán: " + (proyecto.getServicioClaves() == null ? "0" : proyecto.getServicioClaves().size()) + " claves presupuestarias");
         for (ProjectBudgetItem clave : proyecto.getServicioClaves()) {
-            log.trace("Clonando clave presupuestaria: " + clave);
+            log.trace("Object: {}", "Clonando clave presupuestaria: " + clave);
             ProjectBudgetItemDTO dto = new ProjectBudgetItemDTO();
             dto.setAdministrativeUnit(clave.getAdministrativeUnit());
             dto.setBudgetItem(clave.getBudgetItem());
@@ -144,15 +143,15 @@ public class ProyectoExcepcionService extends ProyectoServicioGeneral {
             dto.setInitialYear(clave.getInitialYear());
             dto.setManagement(clave.getManagement());
             getBudgetRepository().create(conn, dto);
-            log.trace("Clave presupuestaria [" + clave + "] clonada exitosamente");
+            log.trace("Object: {}", "Clave presupuestaria [" + clave + "] clonada exitosamente");
         }
-        log.debug("Clonación de claves presupuestarias del proyecto ID: " + proyecto.getServicioId() + " terminada");
+        log.debug("Object: {}", "Clonación de claves presupuestarias del proyecto ID: " + proyecto.getServicioId() + " terminada");
     }
 
     private void clonarServicioTDR(Connection conn, ProyectoServicio proyecto) throws SQLException, FortimaxException {
-        log.info("Clonando TDR del proyecto ID: " + proyecto.getServicioId() + ". Se clonarán: " + (proyecto.getServiciosTDR() == null ? "0" : proyecto.getServiciosTDR().size()) + " TDRs");
+        log.info("Object: {}", "Clonando TDR del proyecto ID: " + proyecto.getServicioId() + ". Se clonarán: " + (proyecto.getServiciosTDR() == null ? "0" : proyecto.getServiciosTDR().size()) + " TDRs");
         for (ProyectoServicioTDR tdr : proyecto.getServiciosTDR()) {
-            log.trace("Clonando TDR: " + tdr);
+            log.trace("Object: {}", "Clonando TDR: " + tdr);
             if (Fortimax.esNodoValido(tdr.getTdrRuta())) {
                 Fortimax source = new Fortimax(tdr.getTdrRuta());
                 Fortimax copy = FortimaxManager.copyFile(conn, source, proyecto.getLoginUsuario(), source.getTituloAplicacion(), proyecto.getIdProcess());
@@ -160,15 +159,15 @@ public class ProyectoExcepcionService extends ProyectoServicioGeneral {
             }
             tdr.setTdrId(0);
             getTdrRepositorio().createServicioTermino(conn, proyecto.getServicioId(), tdr);
-            log.trace("TDR [" + tdr + "] clonado exitosamente");
+            log.trace("Object: {}", "TDR [" + tdr + "] clonado exitosamente");
         }
-        log.debug("Clonación de TDRs del proyecto ID: " + proyecto.getServicioId() + " terminada");
+        log.debug("Object: {}", "Clonación de TDRs del proyecto ID: " + proyecto.getServicioId() + " terminada");
     }
 
     private void clonarServicioTerritorios(Connection conn, ProyectoServicio proyecto) throws SQLException {
-        log.info("Clonando territorios del proyecto ID: " + proyecto.getServicioId() + ". Se clonarán: " + (proyecto.getTerritorios() == null ? "0" : proyecto.getTerritorios().size()) + " territorios");
+        log.info("Object: {}", "Clonando territorios del proyecto ID: " + proyecto.getServicioId() + ". Se clonarán: " + (proyecto.getTerritorios() == null ? "0" : proyecto.getTerritorios().size()) + " territorios");
         for (ProyectoServicioTerritorio territorio : proyecto.getTerritorios()) {
-            log.trace("Clonando territorio: " + territorio);
+            log.trace("Object: {}", "Clonando territorio: " + territorio);
             // Crear un DTO a partir del POJO
             TerritoryDTO dto = new TerritoryDTO();
             dto.setMunicipalityId(territorio.getMunicipio().getMunicipioId());
@@ -176,9 +175,9 @@ public class ProyectoExcepcionService extends ProyectoServicioGeneral {
             dto.setStateId(territorio.getEntidadFederativa().getId());
             // Insertar el territorio clonado
             getTerritorioRepositorio().create(conn, dto);
-            log.trace("Territorio [" + territorio + "] clonado exitosamente");
+            log.trace("Object: {}", "Territorio [" + territorio + "] clonado exitosamente");
         }
-        log.debug("Clonación de territorios del proyecto ID: " + proyecto.getServicioId() + " terminada");
+        log.debug("Object: {}", "Clonación de territorios del proyecto ID: " + proyecto.getServicioId() + " terminada");
     }
 
     public ProyectoExcepcion createProyectoExcepcion(ProyectoExcepcion proyectoExcepcion) throws SQLException {

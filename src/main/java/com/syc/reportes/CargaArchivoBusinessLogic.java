@@ -42,7 +42,7 @@ public class CargaArchivoBusinessLogic extends DataSourceManager {
         for (String[] renglon : renglonesArchivo) {
             try {
                 conn = getConnection();
-                log.debug(" Operando el renglon " + nRenglon + " : " + renglon[2]);
+                log.debug("Object: {}", " Operando el renglon " + nRenglon + " : " + renglon[2]);
                 int columna = 3;
                 String fAp = renglon[0];
                 String fExp = renglon[1];
@@ -78,7 +78,7 @@ public class CargaArchivoBusinessLogic extends DataSourceManager {
                                 conn.commit();
                             } catch (Exception e2) {
                                 String errorMsg = "Error mientras se aplicaba el ejercido " + folio + ". Causa: " + e2.toString();
-                                log.warn(errorMsg);
+                                log.warn(errorMsg.getMessage(), errorMsg);
                                 throw new Exception(errorMsg, e2);
                             }
                             // Inserta pagado
@@ -91,7 +91,7 @@ public class CargaArchivoBusinessLogic extends DataSourceManager {
                                 conn.commit();
                             } catch (Exception e4) {
                                 String errorMsg = "Error mientras se aplicaba el pagado " + folio + ". Causa: " + e4.toString();
-                                log.warn(errorMsg);
+                                log.warn(errorMsg.getMessage(), errorMsg);
                                 throw new Exception(errorMsg, e4);
                             }
                         } else {
@@ -106,7 +106,7 @@ public class CargaArchivoBusinessLogic extends DataSourceManager {
                                     conn.commit();
                                 } catch (Exception e4) {
                                     String errorMsg = "Error mientras se aplicaba el pagado " + folio + ". Causa: " + e4.toString();
-                                    log.warn(errorMsg);
+                                    log.warn(errorMsg.getMessage(), errorMsg);
                                     throw new Exception(errorMsg, e4);
                                 }
                             }
@@ -118,7 +118,7 @@ public class CargaArchivoBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e2) {
-                        log.warn("Problemas en rollback: " + e2);
+                        log.warn("Object: {}", "Problemas en rollback: " + e2);
                     }
                 if (resultado == null)
                     resultado = new ArrayList<String>();
@@ -210,7 +210,7 @@ public class CargaArchivoBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {

@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Map;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import com.syc.contable.AdecuacionBusinessLogic;
 import com.syc.contable.core.SolicitudCajaFirmaElectronica;
@@ -299,7 +299,7 @@ public class CajaBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn(e2);
+                    log.warn(e2.getMessage(), e2);
                 }
             throw e;
         } finally {

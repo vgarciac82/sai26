@@ -94,7 +94,7 @@ public class IAnteProyectoManager {
             log.trace("Iniciando insercion de renglon");
             stmnt = conn.createStatement();
             r = stmnt.executeUpdate(Util.genInsertFromMap("tcorrida_validacion_anteproyecto", infoRenglon));
-            log.trace("Se inserto " + r + "registros");
+            log.trace("Object: {}", "Se inserto " + r + "registros");
             return r;
         } finally {
             CloseObject.closeObject(stmnt, false);
@@ -249,7 +249,7 @@ public class IAnteProyectoManager {
             rsCasos = ps.executeQuery();
             while (rsCasos.next()) {
                 String un = rsCasos.getString("UN");
-                log.info(un);
+                log.info("Object: {}", un);
                 u.setU_UR(un);
                 c = generaCaso(u, 40, fg, "Integracion de Anteproyecto UN " + un, jniName, un);
                 enc.setFolio(new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue());

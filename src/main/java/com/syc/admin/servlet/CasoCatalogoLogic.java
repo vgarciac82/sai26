@@ -124,7 +124,7 @@ public class CasoCatalogoLogic extends DataSourceManager {
         Connection conn = null;
         boolean delete = true;
         if (resp.length != oper.length) {
-            log.error("Las dimensiones no coinciden rep[" + resp.length + "] vs oper[" + oper.length + "]");
+            log.error("Object: {}", "Las dimensiones no coinciden rep[" + resp.length + "] vs oper[" + oper.length + "]");
             throw new GestionException("Las dimensiones no coinciden rep[" + resp.length + "] vs oper[" + oper.length + "]");
         }
         try {
@@ -146,7 +146,7 @@ public class CasoCatalogoLogic extends DataSourceManager {
                 o.setNombre(oper[i].trim());
                 o = OperacionManager.select(conn, o);
                 if (o == null) {
-                    log.error("No se localizo la Operacion \"" + oper[i] + "\"");
+                    log.error("Object: {}", "No se localizo la Operacion \"" + oper[i] + "\"");
                     throw new GestionException("No se localizo la Operacion \"" + oper[i] + "\"");
                 }
                 CasoOperacion co = CasoOperacionManager.nuevoCasoOperacion(conn, resp[i].trim(), observ, c, o);
@@ -191,7 +191,7 @@ public class CasoCatalogoLogic extends DataSourceManager {
             FortimaxFile[] files = PaginaManager.getPaginasDeDocumento(conn, fimx.getTituloAplicacion(), fimx.getIdGabinete(), fimx.getIdCarpeta(), fimx.getIdDocumento());
             for (int i = 0; i < files.length; i++) {
                 if (!files[i].getFile().delete()) {
-                    log.warn("No se logro borrar archivo \"" + files[i].getFisicalName() + "\"");
+                    log.warn("Object: {}", "No se logro borrar archivo \"" + files[i].getFisicalName() + "\"");
                     files[i].getFile().deleteOnExit();
                 }
             }
@@ -231,7 +231,7 @@ public class CasoCatalogoLogic extends DataSourceManager {
             PaginaManager.deletePagina(conn, p, OCRProgramPath, OCRParameter1, OCRParameter2, luceneDbPath, luceneStopwordsPath, luceneMergeFactor, luceneMaxMergeDocs);
             if (!ff[pagina].getFile().delete()) {
                 ff[pagina].getFile().deleteOnExit();
-                log.warn("No se logro borrar pagina \"" + ff[pagina].getFile().getAbsolutePath() + "\"");
+                log.warn("Object: {}", "No se logro borrar pagina \"" + ff[pagina].getFile().getAbsolutePath() + "\"");
             }
             conn.commit();
         } catch (Exception exc) {

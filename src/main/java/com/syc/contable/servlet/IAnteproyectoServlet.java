@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.core.FileItem;
 import com.syc.contable.AdecuacionBusinessLogic;
 import com.syc.contable.IAnteProyectoBusinessLogic;
 import com.syc.contable.core.IAnteproyectoEncabezado;
@@ -221,10 +221,10 @@ public class IAnteproyectoServlet extends HttpServlet implements GestionInterfac
                         if (!"xls".equalsIgnoreCase(extension))
                             throw new Exception("No se puede procesar archivos [" + extension + "] Corrija e intente de nuevo");
                         nombreDestino = IAnteproyectoServlet.TEMP_DIR + "carga_archivo_anteproyecto_" + System.currentTimeMillis() + "." + extension;
-                        log.info("Copiando archivo :" + nombreArchivo);
+                        log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                         Util.copiaArchivo(archivoCargaStream, nombreDestino);
                         item.delete();
-                        log.debug("Procesando archivo:" + nombreArchivo);
+                        log.debug("Object: {}", "Procesando archivo:" + nombreArchivo);
                         IAnteProyectoBusinessLogic iapbl = new IAnteProyectoBusinessLogic(u.getLogin());
                         mensajeRetorno = "Error de carga: ";
                         int i;
@@ -263,13 +263,13 @@ public class IAnteproyectoServlet extends HttpServlet implements GestionInterfac
                     try {
                         archivoCargaStream.close();
                     } catch (Exception e) {
-                        log.error("Error cerrando flujo DataInputStream" + e);
+                        log.error("Error occurred", "Error cerrando flujo DataInputStream" + e);
                     }
                 if (archivoCargaIS != null)
                     try {
                         archivoCargaIS.close();
                     } catch (Exception e) {
-                        log.error("Error cerrando flujo InputStream" + e);
+                        log.error("Error occurred", "Error cerrando flujo InputStream" + e);
                     }
                 archivoCargaIS = null;
                 archivoCargaStream = null;
@@ -372,13 +372,13 @@ public class IAnteproyectoServlet extends HttpServlet implements GestionInterfac
             TEMP_DIR = (String) ic.lookup("java:comp/env/TemporaryDirectory");
             if (TEMP_DIR == null) {
                 TEMP_DIR = "../upload/PEF/";
-                log.info("Environment Entry \"TEMP_DIR\" nula usando default \"" + TEMP_DIR + "\"");
+                log.info("Object: {}", "Environment Entry \"TEMP_DIR\" nula usando default \"" + TEMP_DIR + "\"");
             } else
-                log.info("dataSourceRefName=" + TEMP_DIR);
+                log.info("Object: {}", "dataSourceRefName=" + TEMP_DIR);
         } catch (NamingException exc) {
             TEMP_DIR = "../upload/PEF/";
-            log.info("Ocurrio un error que evito que se cargara la entrada \"TEMP_DIR\"" + exc);
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + TEMP_DIR + "\"");
+            log.info("Error occurred", "Ocurrio un error que evito que se cargara la entrada \"TEMP_DIR\"" + exc);
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + TEMP_DIR + "\"");
         }
         try {
             File f = new File(TEMP_DIR);
@@ -386,31 +386,31 @@ public class IAnteproyectoServlet extends HttpServlet implements GestionInterfac
                 if (!f.mkdirs())
                     throw new Exception("No se puede crear el directorio temporal " + TEMP_DIR);
         } catch (Exception e) {
-            log.error("No fue posible crear automaticamente el directorio temporal: " + TEMP_DIR + " Solicite su creacion manual");
+            log.error("Object: {}", "No fue posible crear automaticamente el directorio temporal: " + TEMP_DIR + " Solicite su creacion manual");
         }
         try {
             InitialContext ic = new InitialContext();
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         try {
             InitialContext ic = new InitialContext();
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
     }
 

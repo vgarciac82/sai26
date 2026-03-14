@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.LogManager;
 import org.json.JSONObject;
 import com.axtel.web.exceptions.SessionExpiredException;
 import com.syc.adquisiciones.core.DatosRecepcionFIEL;
@@ -32,7 +31,7 @@ public class FirmaAutorizacionRMServlet extends HttpServlet implements GestionIn
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger log = LogManager.getLogger(FirmaAutorizacionRMServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(FirmaAutorizacionRMServlet.class);
 
     private static String REPORT_PATH = "";
 

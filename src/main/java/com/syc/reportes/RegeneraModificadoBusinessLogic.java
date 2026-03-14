@@ -1,8 +1,8 @@
 package com.syc.reportes;
 
 import java.sql.Connection;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.reportes.core.RegeneraModificadoManager;
 import com.syc.sai.contabilidad.utils.db.CloseObject;

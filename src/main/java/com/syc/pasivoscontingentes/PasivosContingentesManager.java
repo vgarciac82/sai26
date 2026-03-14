@@ -31,7 +31,7 @@ public class PasivosContingentesManager {
     private static final Logger log = LoggerFactory.getLogger(ReporteAcreedoresDeudoresManager.class);
 
     public static String PasivoContingenteManager(Connection conn, String mes, String anio, Map<String, String> plantillas) throws Exception {
-        log.info(String.format("Iniciando cedulas de pasivos contigentes patrimoniales"));
+        log.info("Object: {}", String.format("Iniciando cedulas de pasivos contigentes patrimoniales"));
         CallableStatement cs = null, cs2 = null;
         ResultSet rs = null, rs2 = null;
         String query = "{call sp_cedulaPasivosContingentes( ? )}";
@@ -45,11 +45,11 @@ public class PasivosContingentesManager {
         try {
             cs = conn.prepareCall(query);
             cs.setString(1, fecha);
-            log.debug(String.format("Ejecutando[" + query + "]%S", fecha));
+            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S", fecha));
             rs = cs.executeQuery();
             cs2 = conn.prepareCall(query2);
             cs2.setString(1, fecha);
-            log.debug(String.format("Ejecutando[" + query2 + "]%S", fecha));
+            log.debug("Object: {}", String.format("Ejecutando[" + query2 + "]%S", fecha));
             rs2 = cs2.executeQuery();
             fileName = generaReporteMasivo(rs, rs2, plantillas.get("CEDULA"), mesS, anio);
             return fileName;
@@ -177,7 +177,7 @@ public class PasivosContingentesManager {
     }
 
     public static void PasivosEjerciciosAnteriores(Connection conn, int anio) throws Exception {
-        log.info(String.format("Actualizando saldos para el siguiente ejercicio fiscal"));
+        log.info("Object: {}", String.format("Actualizando saldos para el siguiente ejercicio fiscal"));
         PreparedStatement ps = null;
         String query = "INSERT INTO tpasivosContingentesAnt " + " SELECT idPasivoContingente " + " 	, (SELECT aEjercicioFiscal FROM dbo.tEjercicioFiscal WHERE cActivo = 1) AS nEjercicioFiscal " + " 	, ISNULL(SUM(nEnero),0) + ISNULL(SUM(nFebrero),0) + ISNULL(SUM(nMarzo),0) + ISNULL(SUM(nAbril),0) + ISNULL(SUM(nMayo),0) + ISNULL(SUM(nJunio),0) + ISNULL(SUM(nJulio),0) + ISNULL(SUM(nAgosto),0) + ISNULL(SUM(nSeptiembre),0) + ISNULL(SUM(nOctubre),0) + ISNULL(SUM(nNoviembre),0) + ISNULL(SUM(nDiciembre),0) AS nInteresesAnuales " + " FROM dbo.tpasivosContingentesAct " + " GROUP BY idPasivoContingente";
         try {
@@ -203,7 +203,7 @@ public class PasivosContingentesManager {
     }
 
     public static String PasivosContingentesLaboral(Connection conn, String mes, String anio, Map<String, String> plantillas) throws Exception {
-        log.info(String.format("Iniciando cedulas de pasivos contigentes patrimoniales"));
+        log.info("Object: {}", String.format("Iniciando cedulas de pasivos contigentes patrimoniales"));
         CallableStatement cs = null;
         ResultSet rs = null;
         String query = "{call sp_cedulaPasivosContingentesLaborales( ? )}";
@@ -216,7 +216,7 @@ public class PasivosContingentesManager {
         try {
             cs = conn.prepareCall(query);
             cs.setString(1, fecha);
-            log.debug(String.format("Ejecutando[" + query + "]%S", fecha));
+            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S", fecha));
             rs = cs.executeQuery();
             fileName = generaReporteLaboral(rs, plantillas.get("CEDULALABORAL"), mesS, anio);
             return fileName;
@@ -271,7 +271,7 @@ public class PasivosContingentesManager {
     }
 
     public static String PasivosContingentesAntiguedad(Connection conn, String mes, String anio, Map<String, String> plantillas, String unidad) throws Exception {
-        log.info(String.format("Iniciando cedulas de pasivos contigentes patrimoniales"));
+        log.info("Object: {}", String.format("Iniciando cedulas de pasivos contigentes patrimoniales"));
         CallableStatement cs = null;
         ResultSet rs = null;
         ResultSet rs2 = null;
@@ -288,7 +288,7 @@ public class PasivosContingentesManager {
         try {
             cs = conn.prepareCall(query);
             cs.setString(1, fecha);
-            log.debug(String.format("Ejecutando[" + query + "]%S", fecha));
+            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S", fecha));
             rs = cs.executeQuery();
             ps = conn.prepareStatement(query2);
             ps.setString(1, unidad);
@@ -349,7 +349,7 @@ public class PasivosContingentesManager {
     }
 
     public static String PasivosContingentesTrimestral(Connection conn, String mes, String anio, Map<String, String> plantillas, String unidad) throws Exception {
-        log.info(String.format("Iniciando cedulas de pasivos contigentes patrimoniales"));
+        log.info("Object: {}", String.format("Iniciando cedulas de pasivos contigentes patrimoniales"));
         CallableStatement cs = null;
         ResultSet rs = null, rs2 = null, rs3 = null, rs4 = null;
         PreparedStatement ps = null, ps2 = null, ps3 = null;
@@ -369,19 +369,19 @@ public class PasivosContingentesManager {
         try {
             cs = conn.prepareCall(query);
             cs.setString(1, fecha);
-            log.debug(String.format("Ejecutando[" + query + "]%S", fecha));
+            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S", fecha));
             rs = cs.executeQuery();
             ps = conn.prepareStatement(query2);
             ps.setString(1, unidad);
-            log.debug(String.format("Ejecutando[" + query2 + "]%S", unidad));
+            log.debug("Object: {}", String.format("Ejecutando[" + query2 + "]%S", unidad));
             rs2 = ps.executeQuery();
             ps2 = conn.prepareStatement(query3);
             ps2.setInt(1, mesS);
-            log.debug(String.format("Ejecutando[" + query3 + "]%S", mes));
+            log.debug("Object: {}", String.format("Ejecutando[" + query3 + "]%S", mes));
             rs3 = ps2.executeQuery();
             ps3 = conn.prepareStatement(query4);
             ps3.setInt(1, mesS);
-            log.debug(String.format("Ejecutando[" + query4 + "]%S", mes));
+            log.debug("Object: {}", String.format("Ejecutando[" + query4 + "]%S", mes));
             rs4 = ps3.executeQuery();
             if (rs2.next()) {
                 unidadResponsable = rs2.getString(1);
@@ -592,7 +592,7 @@ public class PasivosContingentesManager {
     }
 
     public static String PasivosContingentesAntiguedadExpediente(Connection conn, String mes, String anio, Map<String, String> plantillas, String unidad) throws Exception {
-        log.info(String.format("Iniciando cedulas de pasivos contigentes patrimoniales"));
+        log.info("Object: {}", String.format("Iniciando cedulas de pasivos contigentes patrimoniales"));
         CallableStatement cs = null, cs2 = null;
         ResultSet rs = null, rs2 = null;
         String query = "{call sp_cedulaPasivosContingentesAntiguedadExpediente( ? )}";
@@ -606,11 +606,11 @@ public class PasivosContingentesManager {
         try {
             cs = conn.prepareCall(query);
             cs.setString(1, fecha);
-            log.debug(String.format("Ejecutando[" + query + "]%S", fecha));
+            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S", fecha));
             rs = cs.executeQuery();
             cs2 = conn.prepareCall(query2);
             cs2.setString(1, fecha);
-            log.debug(String.format("Ejecutando[" + query2 + "]%S", fecha));
+            log.debug("Object: {}", String.format("Ejecutando[" + query2 + "]%S", fecha));
             rs2 = cs2.executeQuery();
             fileName = generaReporteAntiguedadExpediente(rs, rs2, plantillas.get("CEDULAANTIGUEDADEXPEDIENTE"), mesS, anio);
             return fileName;
@@ -714,7 +714,7 @@ public class PasivosContingentesManager {
     }
 
     public static String PasivosContingentesAntiguedadExpedienteConsolidado(Connection conn, String mes, String anio, Map<String, String> plantillas, String unidad) throws Exception {
-        log.info(String.format("Iniciando cedulas de pasivos contigentes patrimoniales"));
+        log.info("Object: {}", String.format("Iniciando cedulas de pasivos contigentes patrimoniales"));
         CallableStatement cs = null, cs2 = null;
         ResultSet rs = null, rs2 = null;
         String query = "{call sp_cedulaPasivosContingentesAntiguedadExpedienteConsolidado( ? )}";
@@ -728,11 +728,11 @@ public class PasivosContingentesManager {
         try {
             cs = conn.prepareCall(query);
             cs.setString(1, fecha);
-            log.debug(String.format("Ejecutando[" + query + "]%S", fecha));
+            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S", fecha));
             rs = cs.executeQuery();
             cs2 = conn.prepareCall(query2);
             cs2.setString(1, fecha);
-            log.debug(String.format("Ejecutando[" + query2 + "]%S", fecha));
+            log.debug("Object: {}", String.format("Ejecutando[" + query2 + "]%S", fecha));
             rs2 = cs2.executeQuery();
             fileName = generaReporteAntiguedadExpedienteConsolidado(rs, rs2, plantillas.get("CEDULAANTIGUEDADEXPEDIENTECONSOLIDADO"), mesS, anio);
             return fileName;

@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.ServletException;
+import jakarta.servlet.ServletException;
 import org.apache.openjpa.lib.log.Log;
 import com.syc.adquisiciones.manager.BaseSACManager;
 import com.syc.adquisiciones.vo.ConexionesBD;
@@ -55,7 +55,7 @@ public class CatalogosManager {
         PreparedStatement pstmnt = null;
         try {
             pstmnt = conn.prepareStatement(query);
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmnt.executeUpdate();
             //GAF 2010-04-19
             //En los manager no debe haber commits!

@@ -36,7 +36,7 @@ import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
-import org.apache.commons.fileupload.DiskFileUpload;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -104,12 +104,12 @@ public class ReporteSOExTransferenciaServlet extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         tempDir = config.getInitParameter("tempDir");
         if (tempDir == null) {
@@ -132,7 +132,7 @@ public class ReporteSOExTransferenciaServlet extends HttpServlet {
     }
 
     public void datosPlantilla(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException, ParseException {
-        DiskFileUpload upload = new DiskFileUpload();
+        ServletFileUpload upload = new ServletFileUpload();
         upload.setRepositoryPath(tempDir);
         cFileExcel = upload.getRepositoryPath() + "\\" + "ReporteSOExTransferencia.xls";
         String soe = request.getParameter("ParamRep");
@@ -144,8 +144,8 @@ public class ReporteSOExTransferenciaServlet extends HttpServlet {
     public void llenaExcel(String plantilla, String query, String nSoe, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException, ParseException {
         response.setContentType("application/vnd.ms-excel");
         response.addHeader("Content-Disposition", "attachment; filename=\"reporteSOETransfer_" + System.currentTimeMillis() + ".xls\";");
-        log.info("plantilla: " + plantilla);
-        log.info("query detalle: " + query);
+        log.info("Object: {}", "plantilla: " + plantilla);
+        log.info("Object: {}", "query detalle: " + query);
         conn = DataSourceManager.getConnection(jndiName);
         stm = conn.createStatement();
         try {
@@ -166,8 +166,8 @@ public class ReporteSOExTransferenciaServlet extends HttpServlet {
         try {
             String etiqueta;
             log.info("Inica Escritura en excel");
-            log.info("plantilla para la escritura: " + plantilla);
-            log.info("numeros de fila:" + nFil);
+            log.info("Object: {}", "plantilla para la escritura: " + plantilla);
+            log.info("Object: {}", "numeros de fila:" + nFil);
             // DATOS DEL LIBRO DE EXCEL
             Workbook workbook = Workbook.getWorkbook(new File(plantilla).getAbsoluteFile());
             WritableWorkbook copy = Workbook.createWorkbook(response.getOutputStream(), workbook);
@@ -316,7 +316,7 @@ public class ReporteSOExTransferenciaServlet extends HttpServlet {
             copy.close();
             log.info("Escritura realizada con exito");
         } catch (Exception eP) {
-            log.info(eP);
+            log.info(eP.getMessage(), eP);
             eP.printStackTrace();
         }
     }

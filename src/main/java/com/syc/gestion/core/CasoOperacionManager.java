@@ -13,7 +13,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import com.syc.dbms.DBMS;
 import com.syc.gestion.util.PaginaData;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
@@ -284,7 +284,7 @@ public class CasoOperacionManager {
             Usuario u = new Usuario();
             u.setLogin(u_login);
             u = UsuarioManager.select(conn, u);
-            log.debug(qry + "[" + u.getNombre() + ", " + cCentroContable + ", " + UR + "]");
+            log.debug("Object: {}", qry + "[" + u.getNombre() + ", " + cCentroContable + ", " + UR + "]");
             cstmnt = conn.prepareCall(qry);
             cstmnt.setString(1, u.getNombre());
             cstmnt.setString(2, cCentroContable);
@@ -404,7 +404,7 @@ public class CasoOperacionManager {
                 qry = "SELECT (SELECT cd_valor FROM cg_caso_dato WHERE id_caso = operacion.id_caso AND id_cd = 2) AS FECHA_DOCUMENTO, (SELECT cd_valor FROM cg_caso_dato WHERE id_caso = operacion.id_caso AND id_cd = 4) AS operador, ISNULL(operacion.co_observacion,'') AS co_observacion, co_status, co_tiempo_limite, co_fecha_ini, co_responsable, id_caso, id_caso_oper, id_oper, id_tc, o_numero, o_nombre, o_responsable, o_descripcion, o_plantilla, o_tiempo_limite, o_alarma, o_post_display, o_post_submit, o_on_load, o_on_submit, tc_descripcion, c_folio, " + "				dbo.Fn_montooperacion(operacion.id_tc, Substring(operacion.c_folio, 10, 10)) AS mImporte, " + "	            dbo.Fn_statusoperacion(operacion.id_tc, Substring(operacion.c_folio, 10, 10)) AS ESTATUS, " + "	            dbo.Fn_foliosicop(operacion.id_tc, Substring(operacion.c_folio, 10, 10)) AS FolioSICOP, " + "	            dbo.Fn_foliomap(operacion.id_tc, Substring(operacion.c_folio, 10, 10)) AS FolioMAP, " + "	            dbo.Fn_tipoadecuacion(Substring(operacion.c_folio, 10, 10)) AS TipoAdecuacion, " + "	            dbo.Fn_niveladecuacion(Substring(operacion.c_folio, 10, 10)) AS NivelAdecuacion, " + "	            dbo.Fn_documento(operacion.id_tc, Substring(operacion.c_folio, 10, 10), operacion.id_caso) AS documento, " + "	            dbo.Fn_fechaappcont(operacion.id_tc, Substring(operacion.c_folio, 10, 10)) AS fechaAppCont, " + "			    firmaElectronica " + "	FROM   voperacionesinbox AS operacion WITH(nolock) " + "	WHERE  1 = 1 AND co_responsable = '" + u.getNombre() + "'" + "	       OR  ( ( ( operacion.c_unidad_folio IN (SELECT DISTINCT ur  FROM   dbo.tvistasur WITH(nolock)  WHERE  usuario = '" + u_login + "' ) ) " + "					AND	co_responsable IN (SELECT g_nombre FROM dbo.CG_USUARIO_GRUPO WITH(NOLOCK) WHERE U_LOGIN = '" + u_login + "' ) ) " + "				OR ( co_responsable IN (SELECT g_nombre FROM dbo.CG_USUARIO_GRUPO WITH(NOLOCK) WHERE U_LOGIN = '" + u_login + "' ) " + "					AND id_tc IN (49,6) AND id_oper IN (3,6,4) ) )";
             }
             String query = SelectPaginado + " " + qry + " " + WherePaginado + " " + " WHERE 1=1 " + WhereFiltros + WhereRegistros;
-            log.info("Query Carga Inbox:" + query);
+            log.info("Object: {}", "Query Carga Inbox:" + query);
             pstmnt = conn.prepareStatement(query);
             rs = pstmnt.executeQuery();
             while (rs.next()) {

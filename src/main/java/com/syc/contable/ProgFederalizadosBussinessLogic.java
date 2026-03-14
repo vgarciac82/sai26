@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import com.syc.contable.core.CompromisoManager;
 import com.syc.contable.core.ContratoFederalizadoManager;
@@ -143,7 +143,7 @@ public class ProgFederalizadosBussinessLogic extends DataSourceManager {
         logOper.append(contrato).append("]");
         try {
             conn = getConnection();
-            log.info(logOper);
+            log.info("Object: {}", logOper.toString());
             insertados = ContratoFederalizadoManager.insertDetail(conn, ep, contrato, calendario);
             conn.commit();
             return insertados;
@@ -152,7 +152,7 @@ public class ProgFederalizadosBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -168,10 +168,10 @@ public class ProgFederalizadosBussinessLogic extends DataSourceManager {
         logOper.append(contrato).append("]");
         try {
             conn = getConnection();
-            log.info("Limpiando detalle de la EP[" + ep + "] del contrato: " + contrato);
+            log.info("Object: {}", "Limpiando detalle de la EP[" + ep + "] del contrato: " + contrato);
             int eliminados = ContratoFederalizadoManager.deleteDetail(conn, ep, contrato);
-            log.info("Se eliminaron " + eliminados + " renglones de detalle ");
-            log.info(logOper);
+            log.info("Object: {}", "Se eliminaron " + eliminados + " renglones de detalle ");
+            log.info("Object: {}", logOper.toString());
             insertados = ContratoFederalizadoManager.insertDetail(conn, ep, contrato, calendario);
             conn.commit();
             return insertados;
@@ -180,7 +180,7 @@ public class ProgFederalizadosBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -202,7 +202,7 @@ public class ProgFederalizadosBussinessLogic extends DataSourceManager {
             int insertados = CompromisoManager.insertaCompromisoFederalizado(conn, cfb.getIdContrato(), folioCompromiso, contrarecibo, u.getU_Ramo(), cfb.getEjercicioFiscal(), u.getLogin());
             /* Inserta detalle */
             insertados += CompromisoManager.insertaDetalleCompromisoFederalizado(conn, cfb.getIdContrato(), cfb.getEjercicioFiscal(), cfb.getCentroContable(), folioCompromiso);
-            log.info("Se insertaron " + insertados + " registros de compromiso");
+            log.info("Object: {}", "Se insertaron " + insertados + " registros de compromiso");
             /* Aplica Contablemente */
             AccountingEngine ae = new AccountingEngine();
             ae.setValidaInsuficienciaDeSaldo(true);
@@ -223,7 +223,7 @@ public class ProgFederalizadosBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {

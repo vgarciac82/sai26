@@ -197,7 +197,7 @@ public class CargaArchivoManager {
                     queryApp.append(" '" + strcEjercicio + "'," + mCNIC + "," + mImporteNeto + "," + strFolioEjPag + ", " + mImporteISRLaudos + ", " + mIva6 + ", '" + ur + "')");
                     psInserta = conn.prepareStatement(queryApp.toString());
                     inserto = psInserta.executeUpdate();
-                    log.debug(queryApp.toString());
+                    log.debug("Object: {}", queryApp.toString());
                 } else if (("PAGADO").equals(tipo)) {
                     queryApp.append("INSERT INTO tPagadoDetalle ( cTipoPago, nFolioPAGO, nDocRenglon,");
                     queryApp.append("cMes,cEjercicio,cIdEntidadContable,cIdRelacion,EP,cIdCuentaContable,mComprometido, nPoliza, ID_TIPO_MOVIMIENTO, ID_TIPO_CONCEPTO,");
@@ -257,7 +257,7 @@ public class CargaArchivoManager {
                     queryApp.append("', '" + cTAB + "'," + mImporteISRLaudos + "," + mPasivoDiferido + "," + mIva6 + ",'" + ur + "')");
                     psInserta = conn.prepareStatement(queryApp.toString());
                     inserto = psInserta.executeUpdate();
-                    log.debug(queryApp.toString());
+                    log.debug("Object: {}", queryApp.toString());
                 }
             }
             return inserto;

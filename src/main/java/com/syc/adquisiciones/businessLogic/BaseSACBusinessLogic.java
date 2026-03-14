@@ -85,7 +85,7 @@ public class BaseSACBusinessLogic extends DataSourceManager {
             if (conn != null) {
                 conn.rollback();
             }
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             throw e;
         } finally {
             if (conn != null) {
@@ -127,7 +127,7 @@ public class BaseSACBusinessLogic extends DataSourceManager {
             if (conn != null) {
                 conn.rollback();
             }
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             throw e;
         } finally {
             if (conn != null) {
@@ -160,7 +160,7 @@ public class BaseSACBusinessLogic extends DataSourceManager {
             if (conn != null) {
                 conn.rollback();
             }
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             throw e;
         } finally {
             if (conn != null) {
@@ -210,7 +210,7 @@ public class BaseSACBusinessLogic extends DataSourceManager {
             if (conn != null) {
                 conn.rollback();
             }
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             e.printStackTrace();
             resp.setMsg(e.getMessage());
             resp.setResp(false);
@@ -278,7 +278,7 @@ public class BaseSACBusinessLogic extends DataSourceManager {
             if (conn != null) {
                 conn.rollback();
             }
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw e;
         } finally {
             if (conn != null) {
@@ -306,7 +306,7 @@ public class BaseSACBusinessLogic extends DataSourceManager {
             if (conn != null) {
                 conn.rollback();
             }
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw e;
         } finally {
             if (conn != null) {
@@ -334,7 +334,7 @@ public class BaseSACBusinessLogic extends DataSourceManager {
             if (conn != null) {
                 conn.rollback();
             }
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw e;
         } finally {
             if (conn != null) {

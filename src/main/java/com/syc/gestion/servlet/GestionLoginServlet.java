@@ -11,8 +11,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.core.FileUploadException;
 import org.apache.commons.lang.StringUtils;
 import org.bouncycastle.crypto.RuntimeCryptoException;
 import com.axtel.user.entities.Employee;
@@ -53,12 +53,12 @@ public class GestionLoginServlet extends HttpServlet implements GestionInterface
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         try {
             tempDir = new String(getServletConfig().getInitParameter("tempDir"));
@@ -128,7 +128,7 @@ public class GestionLoginServlet extends HttpServlet implements GestionInterface
         }
         String redireccionaEjercicio = "";
         redireccionaEjercicio = (req.getParameter("redirEjer") != null ? req.getParameter("redirEjer") : "si");
-        log.debug("redirecciona=" + redireccionaEjercicio);
+        log.debug("Object: {}", "redirecciona=" + redireccionaEjercicio);
         String uPassword = req.getParameter("password");
         if ("si".equals(redireccionaEjercicio)) {
             // cuando viene de redireccionar ya no se requiere password
@@ -153,10 +153,10 @@ public class GestionLoginServlet extends HttpServlet implements GestionInterface
             return;
         }
         Usuario u = null;
-        log.info("JNI NAMEe: " + jniName);
+        log.info("Object: {}", "JNI NAMEe: " + jniName);
         UsuarioBusinessLogic uc = new UsuarioBusinessLogic(jniName);
         try {
-            log.info("Password 1: " + uc.convertCMD5("1"));
+            log.info("Object: {}", "Password 1: " + uc.convertCMD5("1"));
             uPassword = uc.convertCMD5(uPassword);
             /*
 			 * Ethiel, para login normal
@@ -193,7 +193,7 @@ public class GestionLoginServlet extends HttpServlet implements GestionInterface
 		 */
         if ("si".equals(redireccionaEjercicio) && !"2015".equals(ejercicio)) {
             String url = req.getScheme() + "://" + req.getServerName() + (req.getServerPort() == 80 ? "" : ":" + req.getServerPort()) + req.getContextPath() + (!"2015".equals(ejercicio) ? "_" + ejercicio : "") + "/gstnmngr/login?login=" + uLogin + "&redirEjer=no&ejercicio=" + ejercicio + (!StringUtils.isBlank(action) ? "&a=" + action : "") + (!StringUtils.isBlank(ul) ? "&ul=" + ul : "") + (!StringUtils.isBlank(un) ? "&un=" + un : "") + (!StringUtils.isBlank(d) ? "&d=" + d : "") + (!(f == null) ? "&f=" + f : "") + (!(o == null) ? "&o=" + o : "");
-            log.debug(url);
+            log.debug("Object: {}", url);
             resp.sendRedirect(url);
             return;
         }
@@ -243,11 +243,11 @@ public class GestionLoginServlet extends HttpServlet implements GestionInterface
             AuditoriaBusinessLogic ABL = new AuditoriaBusinessLogic(GestionInterface.ATT_CONEXION);
             ABL.agregaAuditoria(u.getLogin(), ea.getId(), GestionInterface.ATT_CONEXION.substring(GestionInterface.ATT_CONEXION.indexOf("/") + 1), "Acceso", "Login", u.getLogin(), u.getLogin(), "SELECT * FROM CG_USUARIO WHERE U_LOGIN=" + u.getLogin(), u.getLogin());
         } catch (Exception audex) {
-            log.error("Error escribiendo en la bitacora de accesos al intentar login de:" + u.getLogin());
+            log.error("Error occurred", "Error escribiendo en la bitacora de accesos al intentar login de:" + u.getLogin());
             audex.printStackTrace();
         }
         if (log.isDebugEnabled())
-            log.debug("Forward a gestion?" + PRM_CMD + "=" + CMD_MAIN);
+            log.debug("Object: {}", "Forward a gestion?" + PRM_CMD + "=" + CMD_MAIN);
         req.getRequestDispatcher("gestion?" + PRM_CMD + "=" + CMD_MAIN).forward(req, resp);
     }
 
@@ -268,7 +268,7 @@ public class GestionLoginServlet extends HttpServlet implements GestionInterface
     }
 
     protected List<?> parseRequest(HttpServletRequest req) throws ServletException {
-        DiskFileUpload upload = new DiskFileUpload();
+        ServletFileUpload upload = new ServletFileUpload();
         // Directorio temporal de carga de
         upload.setRepositoryPath(tempDir);
         // archivos

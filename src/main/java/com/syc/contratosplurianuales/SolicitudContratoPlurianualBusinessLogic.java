@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.OutputStream;
 import java.sql.Connection;
 import java.util.Map;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
@@ -46,7 +46,7 @@ public class SolicitudContratoPlurianualBusinessLogic extends DataSourceManager 
                 if (conn != null)
                     conn.rollback();
             } catch (Exception e2) {
-                log.warn("Error en rollback: " + e2);
+                log.warn("Error occurred", "Error en rollback: " + e2);
             }
             log.error(e.getMessage(), e);
             throw e;

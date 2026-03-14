@@ -20,7 +20,7 @@ public class ReporteSeguimientoContratosBeanManager {
         bean.setUR(rs.getString("cu_ur"));
         bean.setIdArea(rs.getString("id_area"));
         for (int i = 0; i < beanInfo.length; i++) {
-            log.trace("Procesando columna " + metaData.getColumnName(i + 1));
+            log.trace("Object: {}", "Procesando columna " + metaData.getColumnName(i + 1));
             String val = rs.getString(metaData.getColumnName(i + 1));
             if (i == 4 || i == 9 || i == 10) {
                 if (totales.get(metaData.getColumnName(i + 1)) == null)
@@ -39,7 +39,7 @@ public class ReporteSeguimientoContratosBeanManager {
         String[] beanInfo = new String[metaData.getColumnCount()];
         Map<String, Double> totales = ccBean.getTotales();
         for (int i = 0; i < beanInfo.length; i++) {
-            log.trace("Procesando columna " + metaData.getColumnName(i + 1));
+            log.trace("Object: {}", "Procesando columna " + metaData.getColumnName(i + 1));
             String val = rs.getString(metaData.getColumnName(i + 1));
             if (i == 4 || i == 9 || i == 10) {
                 if (totales.get(metaData.getColumnName(i + 1)) == null)

@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.LogManager;
 import com.axtel.proveedores.ProveedorService;
 import com.axtel.proveedores.model.Proveedor;
 import com.axtel.request.MultipartObject;
@@ -31,7 +30,7 @@ public class AcutalizaREPSEServlet extends HttpServlet implements GestionInterfa
      */
     private static final long serialVersionUID = -129610500485493735L;
 
-    private static final Logger log = LogManager.getLogger(AcutalizaREPSEServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(AcutalizaREPSEServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

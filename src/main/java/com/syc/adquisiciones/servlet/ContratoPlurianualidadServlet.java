@@ -89,24 +89,24 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
             jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jndiName == null) {
                 jndiName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
             } else
-                log.info("dataSourceRefName=" + jndiName);
+                log.info("Object: {}", "dataSourceRefName=" + jndiName);
         } catch (NamingException exc) {
             jndiName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
         }
         try {
             InitialContext ic = new InitialContext();
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
     }
 
@@ -188,7 +188,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
                         e1.printStackTrace();
                     }
                 } catch (Exception e) {
-                    log.error("Error en Aplicacion contable:" + e.getMessage());
+                    log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
                 }
                 break;
             case 9:
@@ -234,7 +234,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
             conn = DataSourceManager.getConnection(jndiName);
             log.info("Query para obtener todos los precompromisos de un contrato. ");
             String query = "select pe.nFolioPreCompromiso,rpc.cFolioPrecom " + ",pe.cCentroContable " + ",cUnidadResponsable from tPreCompromisoEncabezado pe with(Nolock) " + "inner join mRelPedContPrecomComp as rpc with(Nolock) on pe.cIdContrato=rpc.cIdPedContDef " + "and pe.nFolioPreCompromiso=rpc.nConsecutivoPrecom and pe.cDocumentoHaplicado='S' and pe.cIdContrato=?";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmt = conn.prepareStatement(query);
             pstmt.setString(1, cIdContratoDefinitivo);
             rs = pstmt.executeQuery();
@@ -305,7 +305,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
                     c = CasoManager.select(conn, sc);
                     // Una vez que ha hecho la aplicación contable avanza el caso
                     avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-                    log.debug(c.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
                     mensaje = "DOCUMENTO DE COMPROMISO APLICADO CONTABLEMENTE";
                     actualiza = true;
                 }
@@ -361,7 +361,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
                 e1.printStackTrace();
             }
             e.printStackTrace();
-            log.error(e);
+            log.error(e.getMessage(), e);
         } finally {
             cpu.cambiaCentroContableUE(ueOriginal, cCentroContableOrig, usuario);
             try {
@@ -417,17 +417,17 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
         try {
             //Encabezado
             String query = "insert into tCompromisoEncabezado (nFolioCompromiso,fCarga,cIdContrato,cTipoContrato,fAplicacion,cCentroContable" + " ,cRamo,cUnidadResponsable,cDocumentoHaplicado,nFolioPoliza,caNoCompromiso,nEnviadoSICOP " + " ,cTipoPoliza,nMes,cRevisado,aEjercicioFiscal,cUnidadResponsableContable,nFolioPolizaCancelacion " + ",fCancelacion,cDescripcionPoliza,usuario,cRadicado,nFolioAutSICOP) " + "select " + nFolioComp + ",fCarga,substring(cIdContrato,1,patindex('%/%' , cIdContrato)+4),cTipoContrato,fAplicacion,cCentroContable, " + " cRamo,cUnidadResponsable,null,null,caNoPreCompromiso,nEnviadoSICOP,cTipoPoliza,nMes,cRevisado,aEjercicioFiscal,cUnidadResponsableContable, " + " nFolioPolizaCancelacion,fCancelacion,cDescripcionPoliza,'" + usuario.getLogin() + "','" + isRadicado + "',null from tPreCompromisoEncabezado with(nolock) " + " where nFolioPreCompromiso=" + nFolioPrecom + " and cIdContrato='" + cIdContratoDefinitivo + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             stmEnc = conn.createStatement();
             stmEnc.executeUpdate(query);
             //Detalle
             String sql = "insert into tCompromisoDetalle (nFolioCompromiso,nDocRenglon,EP,cEvento,mImporte,mImporteNegativo,cMes,cCentroContable) select " + nFolioComp + ",nDocRenglon,EP,'CMP002',convert(money,str(mImporte,15,2))as mImporte, " + " convert(money,str(mImporteNegativo,15,2))as mImporteNegativo,cMes,cCentroContable from tPreCompromisoDetalle with(nolock) " + " where nFolioPreCompromiso=" + nFolioPrecom;
-            log.info(sql);
+            log.info("Object: {}", sql.toString());
             stmDet = conn.createStatement();
             stmDet.executeUpdate(sql);
             //Actualiza tprecompromiso
             String sqlPrecom = "update tPreCompromisoEncabezado set C_FOLIO_COMP='" + folioCasoCompromiso + "', ConsecutivoCOMP=" + nFolioComp + ",nStatusFinanciero=1 " + " where cIdContrato='" + cIdContratoDefinitivo + "' and nFolioPreCompromiso=" + nFolioPrecom;
-            log.info(sqlPrecom);
+            log.info("Object: {}", sqlPrecom.toString());
             stmPrecom = conn.createStatement();
             stmPrecom.executeUpdate(sqlPrecom);
             retval = 0;
@@ -470,7 +470,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
             int id_caso = 0;
             String cIdContratoDefinitivo = request.getParameter("cIdContratoDefinitivo");
             String query = "select enc.nFolioPreCompromiso,det.cCentroContable,enc.cUnidadResponsable,caso.ID_CASO,mdoc.C_FOLIO_PRE " + " from tPreCompromisoEncabezado as enc with(Nolock) " + " inner join tPreCompromisoDetalle as det with(Nolock) on enc.nFolioPreCompromiso=det.nFolioPreCompromiso " + " and enc.cDocumentoHaplicado='S' and enc.cIdContrato='" + cIdContratoDefinitivo + "' " + " inner join mDocumentoFolio as mdoc with(Nolock) on mdoc.ConsecutivoPRECOMP=enc.nFolioPreCompromiso and mdoc.cIdUnidadResponsable=enc.cUnidadResponsable " + " and det.cCentroContable=mdoc.cCentroContable " + " inner join CG_CASO as caso with(nolock) on caso.C_FOLIO=mdoc.C_FOLIO_PRE " + " inner join CG_CASO_OPERACION as oper with(Nolock) on oper.ID_CASO=caso.ID_CASO " + " group by enc.nFolioPreCompromiso,det.cCentroContable,enc.cUnidadResponsable,caso.ID_CASO,mdoc.C_FOLIO_PRE";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             int nFolioPrecom = 0;
@@ -496,11 +496,11 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
                     }
                     //Elinar los datos de las tablas mDocumentoFolio, mRelPedContPrecomComp
                     sqlDoc = "delete mDocumentoFolio where cIdDocumentoDefinitivo='" + cIdContratoDefinitivo + "' and ConsecutivoPRECOMP=" + nFolioPrecom;
-                    log.info(sqlDoc);
+                    log.info("Object: {}", sqlDoc.toString());
                     stmDoc = conn.createStatement();
                     stmDoc.executeUpdate(sqlDoc);
                     sqlRel = "delete mRelPedContPrecomComp where cIdPedContDef='" + cIdContratoDefinitivo + "' and nConsecutivoPrecom=" + nFolioPrecom;
-                    log.info(sqlRel);
+                    log.info("Object: {}", sqlRel.toString());
                     stmRel = conn.createStatement();
                     stmRel.executeUpdate(sqlRel);
                     //Guardaar en bitacora los movimientos
@@ -514,7 +514,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
                     //autoriza_precomp
                     String[] nombre = new String[] { "consulta_precomp" };
                     avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-                    log.debug(c.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
                     Folios = Folios + token + cFolioPrecom;
                     token = ",";
                     actualiza = true;
@@ -526,12 +526,12 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
                     pstm = conn.prepareStatement("UPDATE mContratoPluAmpliacion SET nIdEstado = 2 , ConsecutivoPRECOMP = null, C_FOLIO_PRE = null " + " WHERE cIdContratoDefinitivo+'-AMP-'+convert(varchar,nIdConsecutivoAmpliacion) = ? ");
                     pstm.setString(1, cIdContratoDefinitivo);
                     pstm.executeUpdate();
-                    log.info("Se devuelve la ampliación del contrto plurianual: " + cIdContratoDefinitivo);
+                    log.info("Object: {}", "Se devuelve la ampliación del contrto plurianual: " + cIdContratoDefinitivo);
                 } else {
                     pstm = conn.prepareStatement("UPDATE mPlurianualidadContrato SET nIdEstado = 2 , ConsecutivoPRECOMP = null, C_FOLIO_PRE = null " + " WHERE cIdContratoDefinitivo = ? ");
                     pstm.setString(1, cIdContratoDefinitivo);
                     pstm.executeUpdate();
-                    log.info("Se devuelve el contrato plurianual " + cIdContratoDefinitivo);
+                    log.info("Object: {}", "Se devuelve el contrato plurianual " + cIdContratoDefinitivo);
                 }
                 //falta actualizar la tabla de ampliaciones de contratos plurianuales
                 jsonObj.put("STATUS", "Precompromisos Cancelados correctamente.");
@@ -552,7 +552,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
                 e1.printStackTrace();
             }
             e.printStackTrace();
-            log.error(e);
+            log.error(e.getMessage(), e);
         } finally {
             cpu.cambiaCentroContableUE(ueOriginal, cCentroContableOrig, usuario);
             destino = arrayObj.put(jsonObj).toString();
@@ -575,7 +575,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-                log.error(e);
+                log.error(e.getMessage(), e);
             }
         }
     }
@@ -608,7 +608,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
             }
         } catch (Exception e) {
             // TODO: handle exception
-            log.error(e);
+            log.error(e.getMessage(), e);
             e.printStackTrace();
             try {
                 jsonObj.put("PRECOM", "false");
@@ -680,7 +680,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
             //autoriza_precomp
             String[] nombre = new String[] { "consulta_precomp" };
             avanzaCaso(request, caso, usuario, prefixPath, responsable, nombre);
-            log.debug(caso.getCasoDato("APLICADO_CONT").getValor());
+            log.debug("Object: {}", caso.getCasoDato("APLICADO_CONT").getValor());
             actualiza = true;
             //Se cambia de estatus
             if (actualiza) {
@@ -730,7 +730,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
         try {
             conn = DataSourceManager.getConnection(jndiName);
             String sql = "select *from v_obtieneCentroContable with(Nolock) where cIdContratoDefinitivo='" + cIdContratoDefinitivo + "' and cEjercicio='" + cEjercicio + "'";
-            log.info(sql);
+            log.info("Object: {}", sql.toString());
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
             String folio;
@@ -786,7 +786,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
                 //autoriza_precomp
                 String[] nombre = new String[] { "consulta_precomp" };
                 avanzaCaso(request, caso, usuario, prefixPath, responsable, nombre);
-                log.debug(caso.getCasoDato("APLICADO_CONT").getValor());
+                log.debug("Object: {}", caso.getCasoDato("APLICADO_CONT").getValor());
                 caso = null;
                 actualiza = true;
             }
@@ -866,7 +866,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
             seqValue = usuario.getPropiedad("CCENTROCONTABLE").getValor() + "CO" + param[2] + seqValue;
             caNoContrarrecibo = seqValue;
             queryEnc = "INSERT INTO tPreCompromisoEncabezado " + " values (" + param[4] + ",GETDATE(),'" + param[0] + "','DI',GETDATE()," + usuario.getPropiedad("CCENTROCONTABLE").getValor() + "," + usuario.getU_Ramo() + ",'" + usuario.getU_UR() + "',NULL, NULL, '" + caNoContrarrecibo + "' , 0 , 'CO' , " + "DATEPART(MONTH,GETDATE()), NULL , '" + param[2] + "', 'RHQ' , NULL , NULL , '" + param[3] + "', 0,'" + vigencia + "',NULL,NULL)";
-            log.info(queryEnc);
+            log.info("Object: {}", queryEnc.toString());
             stmEnc.executeUpdate(queryEnc);
             //Crea el detalle de la liberacion del precompromiso.
             stmDet = conn.createStatement();
@@ -889,14 +889,14 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
                 if (isDescentralizado) {
                     if (Double.parseDouble(fila.get(2)) > 0 && ue.equals(usuario.getU_UR())) {
                         queryDet = "INSERT INTO tPreCompromisoDetalle (nFolioPreCompromiso,nDocRenglon,EP,cEvento,mImporte,mImporteNegativo,cMes,cCentroContable)" + " values(" + param[4] + "," + i + ",'" + fila.get(0) + "','" + cEevento + "'," + fila.get(2) + ",-" + fila.get(2) + "," + fila.get(1) + "," + usuario.getPropiedad("CCENTROCONTABLE").getValor() + ")";
-                        log.info(queryDet);
+                        log.info("Object: {}", queryDet.toString());
                         stmDet.executeUpdate(queryDet);
                         i++;
                     }
                 } else {
                     if (Double.parseDouble(fila.get(2)) > 0) {
                         queryDet = "INSERT INTO tPreCompromisoDetalle (nFolioPreCompromiso,nDocRenglon,EP,cEvento,mImporte,mImporteNegativo,cMes,cCentroContable)" + " values(" + param[4] + "," + i + ",'" + fila.get(0) + "','" + cEevento + "'," + fila.get(2) + ",-" + fila.get(2) + "," + fila.get(1) + "," + usuario.getPropiedad("CCENTROCONTABLE").getValor() + ")";
-                        log.info(queryDet);
+                        log.info("Object: {}", queryDet.toString());
                         stmDet.executeUpdate(queryDet);
                         i++;
                     }
@@ -913,8 +913,8 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
             //Se guarda la relación de precompromisos con el contrato
             queryRel = "insert into mRelPedContPrecomComp values('" + param[0] + "','" + param[5] + "'," + param[4] + ",NULL,NULL)";
             queryDoc = "insert into mDocumentoFolio values('" + param[2] + "','" + param[0] + "'," + usuario.getPropiedad("CCENTROCONTABLE").getValor() + ",'" + usuario.getU_UR() + "',NULL,NULL,'" + param[5] + "'," + param[4] + ")";
-            log.info(queryRel);
-            log.info(queryDoc);
+            log.info("Object: {}", queryRel.toString());
+            log.info("Object: {}", queryDoc.toString());
             stmRel.executeUpdate(queryRel);
             stmDoc.executeUpdate(queryDoc);
             retval = 0;
@@ -974,7 +974,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
             }
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
         } finally {
             try {
                 if (conn != null)
@@ -1033,7 +1033,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
             }
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
         } finally {
             try {
                 if (conn != null)
@@ -1084,7 +1084,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
             }
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
         } finally {
             try {
                 if (conn != null)
@@ -1174,7 +1174,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion Contable, Consulte a su administrador.";
         }
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         AplicarContableReturn acr = null;
         String prefixPath = getServletContext().getRealPath("/WEB-INF/mail-bodies/") + File.separator;
@@ -1207,8 +1207,8 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
                     c = CasoManager.select(conn, sc);
                     // Una vez que ha hecho la aplicaciÃ³n contable avanza el caso A CONSULTA PAGOS
                     avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-                    log.debug(c.getCasoDato("APLICADO_CONT").getValor());
-                    log.debug("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+                    log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
                     mensaje = "DOCUMENTO DE PRECOMPROMISO APLICADO CONTABLEMENTE.";
                     conn.commit();
                 } else {
@@ -1259,7 +1259,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
             } catch (JSONException e1) {
                 e1.printStackTrace();
             }
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
             mensaje = "ERROR INESPERADO DE LA APLICACION CONTABLE(MOTOR CONTABLE O NO AVANZO EL CASO).";
         } finally {
             try {
@@ -1295,7 +1295,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
 
     @SuppressWarnings("unchecked")
     private synchronized void devuelveContablementeVentanilla(String strParam, HttpServletRequest request, HttpServletResponse response, HttpSession session, String[] responsable, String[] nombre) throws ServletException, IOException {
-        log.debug("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         Connection conncbl = null;
         AplicarContableReturn acr = null;
@@ -1334,8 +1334,8 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
                         c = CasoManager.select(conncbl, sc);
                         // Una vez que ha hecho la aplicación contable avanza el caso
                         avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-                        log.debug(c.getCasoDato("APLICADO_CONT").getValor());
-                        log.debug("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+                        log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+                        log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
                         mensaje = "DOCUMENTO DE PRECOMPROMISO CANCELADO CONTABLEMENTE";
                         conncbl.commit();
                     } else {
@@ -1359,7 +1359,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
                 }
             }
         } catch (Exception e) {
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
             mensaje = "ERROR INESPERADO DE LA CANCELACION CONTABLE(MOTOR CONTABLE O NO AVANZO EL CASO).FAVOR DE INTENTAR NUEVAMENTE";
             try {
                 conncbl.rollback();
@@ -1375,7 +1375,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
             } catch (SQLException exc) {
                 log.warn("Cerrando conexion a base de datos", exc);
             }
-            log.debug("Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
             //if ("true".equals(c.getCasoDato("APLICADO_CONT").getValor())||mensaje.contains("APLICADO"))
             try {
                 mensaje = !"".equals(mensaje) ? mensaje : arrLResult.get(0);
@@ -1404,7 +1404,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
         //Valida Centro de Costos
         String mensaje = "";
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         Connection conncbl = null;
         Statement stmt = null;
@@ -1436,11 +1436,11 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
                     sc.setIdCaso(c.getIdCaso());
                     c = CasoManager.select(conncbl, sc);
                     avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-                    log.debug(c.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
                 }
             }
         } catch (Exception e) {
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
         } finally {
             try {
                 if (conn != null)
@@ -1471,7 +1471,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
             rs = null;
             stmt = null;
         }
-        log.debug("Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: {}", "Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
         //if ("true".equals(c.getCasoDato("APLICADO_CONT").getValor())||mensaje.contains("APLICADO"))
         try {
             mensaje = !"".equals(mensaje) ? mensaje : arrLResult.get(0);
@@ -1508,7 +1508,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion Contable, Consulte a su administrador.";
         }
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         String prefixPath = getServletContext().getRealPath("/WEB-INF/mail-bodies/") + File.separator;
         try {
@@ -1545,10 +1545,10 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
                     c = CasoManager.select(conn, sc);
                     // Una vez que ha hecho la aplicación contable avanza el caso
                     avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-                    log.debug(c.getCasoDato("APLICADO_CONT").getValor());
-                    log.debug("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+                    log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
                     mensaje = "DOCUMENTO DE PRECOMPROMISO CANCELADO CONTABLEMENTE";
-                    log.debug("Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+                    log.debug("Object: {}", "Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
                     conn.commit();
                 } else {
                     conn.rollback();
@@ -1585,7 +1585,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
                 conn1.commit();
             }
         } catch (Exception e) {
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
             try {
                 jsonObj.put("Devuelve", "0");
             } catch (JSONException e2) {
@@ -1835,7 +1835,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
             cmst.setString(3, param[1]);
             cmst.setString(4, param[2]);
             cmst.execute();
-            log.info("exec pa_validaContratoPlurianualFinanciero('" + param[0] + "','" + param[1] + "','" + param[2] + "')");
+            log.info("Object: {}", "exec pa_validaContratoPlurianualFinanciero('" + param[0] + "','" + param[1] + "','" + param[2] + "')");
             outputValue = cmst.getInt(1);
             //caso de exito o con folio existente
             if (outputValue == 0 || outputValue == 4) {
@@ -1864,7 +1864,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
                     cmst.setString(4, param[3]);
                     cmst.setString(5, folio + "");
                     cmst.setString(6, folioCaso);
-                    log.info("exec pa_apruebaContratoPlurianual('" + param[0] + "','" + param[1] + "','" + param[3] + "','" + folio + "','" + folioCaso + "')");
+                    log.info("Object: {}", "exec pa_apruebaContratoPlurianual('" + param[0] + "','" + param[1] + "','" + param[3] + "','" + folio + "','" + folioCaso + "')");
                     cmst.execute();
                     outputValue = cmst.getInt(1);
                     if (outputValue == 0) {
@@ -1924,7 +1924,7 @@ public class ContratoPlurianualidadServlet extends HttpServlet implements Gestio
             cmst.setString(3, param[1]);
             cmst.setString(4, param[2]);
             cmst.execute();
-            log.info("exec pa_devuelveContratoPlurianual('" + param[0] + "','" + param[1] + "','" + param[2] + "')");
+            log.info("Object: {}", "exec pa_devuelveContratoPlurianual('" + param[0] + "','" + param[1] + "','" + param[2] + "')");
             int outputValue = cmst.getInt(1);
             if (outputValue == 0) {
                 Util.bitacoraMovimientos(param[1], "SE DEVUELVE EL CONTRATO PLURIANUAL", usuario.getLogin(), conn);

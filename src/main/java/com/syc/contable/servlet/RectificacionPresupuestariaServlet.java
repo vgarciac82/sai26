@@ -135,7 +135,7 @@ public class RectificacionPresupuestariaServlet extends HttpServlet {
                 rpmbl.actualizaFechaAplicacion(folioR);
                 out.println(rpmbl.aplicaRectificacion(folioR, usuario, adecProy.obtenEjercicioFiscal(), usuario.getU_Ramo(), usuario.getU_UR(), c, usuario.getPropiedad("CCENTROCONTABLE").getValor(), c.getCasoDato("FECHA_AP_CONT").getValor(), m, prefixPath, usuario.getLogin()));
             } catch (Exception ex) {
-                log.warn(ex);
+                log.warn(ex.getMessage(), ex);
             }
         } else if (request.getParameter("aplica") != null && request.getParameter("aplica").equals("2")) {
             // AUTORIZACION
@@ -148,7 +148,7 @@ public class RectificacionPresupuestariaServlet extends HttpServlet {
                 rpmbl.actualizaFechaAplicacion(folioR);
                 out.println(rpmbl.autorizaRectificacion(c, m, prefixPath, usuario.getLogin(), usuario));
             } catch (Exception ex) {
-                log.warn(ex);
+                log.warn(ex.getMessage(), ex);
             }
             /* CAPTURA MANUAL DE LA RECTIFICACION */
         } else {

@@ -5,13 +5,12 @@ import java.io.IOException;
 import java.util.List;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.log4j.LogManager;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.axtel.cfdi.stamp.core.InvoiceRespond;
 import com.axtel.cfdi.stamp.service.StampCFDIService;
 import com.axtel.web.utils.ControllerUtils;
@@ -25,7 +24,7 @@ public class CFDIStampController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger log = LogManager.getLogger(CFDIStampController.class);
+    private static final Logger log = LoggerFactory.getLogger(CFDIStampController.class);
 
     private final Gson gson = new GsonBuilder().create();
 
@@ -41,7 +40,7 @@ public class CFDIStampController extends HttpServlet {
             String json = ControllerUtils.readJsonFromRequest(request);
             @SuppressWarnings("unchecked")
             List<String> cfdiIds = (List<String>) gson.fromJson(json, List.class);
-            log.info("Timbrando CFDIs con IDs: " + cfdiIds);
+            log.info("Object: {}", "Timbrando CFDIs con IDs: " + cfdiIds);
             List<InvoiceRespond> result = stampService.stamp(cfdiIds);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
@@ -59,7 +58,7 @@ public class CFDIStampController extends HttpServlet {
             String json = ControllerUtils.readJsonFromRequest(request);
             List<Integer> cfdiIds = gson.fromJson(json, List.class);
             // Log para los IDs recibidos
-            log.info("Cancelando CFDIs con IDs: " + cfdiIds);
+            log.info("Object: {}", "Cancelando CFDIs con IDs: " + cfdiIds);
             // Aquí agregar la lógica de cancelación de CFDIs
             // Por ejemplo: cfdiService.cancelCFDIs(cfdiIds);
             response.setContentType("application/json");
@@ -81,13 +80,13 @@ public class CFDIStampController extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula, usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula, usando default \"" + jniName + "\"");
             } else {
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
             }
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida, usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida, usando default \"" + jniName + "\"");
         }
         stampService = new StampCFDIService(jniName, new File(REPORT_DIR));
     }

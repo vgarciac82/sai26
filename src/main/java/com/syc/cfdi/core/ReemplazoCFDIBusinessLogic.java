@@ -3,7 +3,6 @@ package com.syc.cfdi.core;
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
-import org.apache.log4j.LogManager;
 import com.syc.cfdi.ComponentesFactura;
 import com.syc.cfdi.FacturaBusinessLogic;
 import com.syc.crud.dsmngr.DataSourceManager;
@@ -17,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public class ReemplazoCFDIBusinessLogic extends DataSourceManager {
 
-    private static final Logger log = LogManager.getLogger(ReemplazoCFDIBusinessLogic.class);
+    private static final Logger log = LoggerFactory.getLogger(ReemplazoCFDIBusinessLogic.class);
 
     private FacturaBusinessLogic fbl = null;
 
@@ -30,24 +29,24 @@ public class ReemplazoCFDIBusinessLogic extends DataSourceManager {
         Connection conn = null;
         try {
             conn = getConnection();
-            log.info("Buscando caso para reemplazar facturas. Tramite: " + tipoPago + " folio: " + folio);
+            log.info("Object: {}", "Buscando caso para reemplazar facturas. Tramite: " + tipoPago + " folio: " + folio);
             Caso caso = CasoManager.findByFolioLike(conn, tipoPago, String.valueOf(folio));
-            log.info("Reemplazando facturas en: " + caso);
+            log.info("Object: {}", "Reemplazando facturas en: " + caso);
             int afectados = 0;
             afectados = ReemplazoCFDIManager.insertaFacturaReemplazada(conn, u.getLogin(), tipoPago, folio);
-            log.debug("Se insertaron " + afectados + " facturas reemplazadas.");
+            log.debug("Object: {}", "Se insertaron " + afectados + " facturas reemplazadas.");
             afectados = ReemplazoCFDIManager.insertaFacturaImpuestosReemplazada(conn, u.getLogin(), tipoPago, folio);
-            log.debug("Se insertaron " + afectados + " Impuestos - Factura reemplazadas.");
+            log.debug("Object: {}", "Se insertaron " + afectados + " Impuestos - Factura reemplazadas.");
             afectados = ReemplazoCFDIManager.insertaFacturaRetencionReemplazada(conn, u.getLogin(), tipoPago, folio);
-            log.debug("Se insertaron " + afectados + " Retenciones  - Factura reemplazadas.");
+            log.debug("Object: {}", "Se insertaron " + afectados + " Retenciones  - Factura reemplazadas.");
             afectados = ReemplazoCFDIManager.insertaFacturaConceptosReemplazada(conn, u.getLogin(), tipoPago, folio);
-            log.debug("Se insertaron " + afectados + " Conceptos  - Factura reemplazadas.");
+            log.debug("Object: {}", "Se insertaron " + afectados + " Conceptos  - Factura reemplazadas.");
             afectados = ReemplazoCFDIManager.insertaFacturaConceptoImpuestosReemplazada(conn, u.getLogin(), tipoPago, folio);
-            log.debug("Se insertaron " + afectados + " Concepto - Impuesto  - Factura reemplazadas.");
+            log.debug("Object: {}", "Se insertaron " + afectados + " Concepto - Impuesto  - Factura reemplazadas.");
             afectados = ReemplazoCFDIManager.insertaFacturaBonificacionReemplazada(conn, u.getLogin(), tipoPago, folio);
-            log.debug("Se insertaron " + afectados + " Bonificacion  - Factura reemplazadas.");
+            log.debug("Object: {}", "Se insertaron " + afectados + " Bonificacion  - Factura reemplazadas.");
             afectados = ReemplazoCFDIManager.insertaFacturaValesCombustibleReemplazada(conn, u.getLogin(), tipoPago, folio);
-            log.debug("Se insertaron " + afectados + " Vales  - Factura reemplazadas.");
+            log.debug("Object: {}", "Se insertaron " + afectados + " Vales  - Factura reemplazadas.");
             int idCarpetaReemplazo = ReemplazoCFDIManager.creaEstructuraCarpeta(conn, caso, u.getLogin());
             ReemplazoCFDIManager.eliminaInformacionFacturas(conn, tipoPago, folio);
             log.debug("Se cambiaran las facturas a la carpeta de respaldo.");

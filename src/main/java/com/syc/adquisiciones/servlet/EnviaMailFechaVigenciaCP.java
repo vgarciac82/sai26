@@ -9,16 +9,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.Multipart;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import jakarta.mail.Authenticator;
+import jakarta.mail.Message;
+import jakarta.mail.Multipart;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import jakarta.servlet.ServletConfig;
@@ -65,22 +65,22 @@ public class EnviaMailFechaVigenciaCP extends HttpServlet implements Runnable {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         String strRunIntervalProcess = config.getInitParameter("runIntervalProcess");
         String strInterval = config.getInitParameter("sleepIntervalProcess");
         interval = Long.parseLong(strInterval);
         if (interval == -1L) {
             interval = 1000L * 60;
-            log.info("Init Parameter \"sleepIntervalProcess\" nulo usando default \"" + interval + "\"");
+            log.info("Object: {}", "Init Parameter \"sleepIntervalProcess\" nulo usando default \"" + interval + "\"");
         } else
-            log.info("sleepIntervalProcess=" + interval);
-        log.info("runIntervalProcess=" + "true".equalsIgnoreCase(strRunIntervalProcess));
+            log.info("Object: {}", "sleepIntervalProcess=" + interval);
+        log.info("Object: {}", "runIntervalProcess=" + "true".equalsIgnoreCase(strRunIntervalProcess));
         if ("true".equalsIgnoreCase(strRunIntervalProcess)) {
             log.info("Iniciando Background Process");
             verificaTiempoLimiteApartado = new Thread(this);
@@ -279,7 +279,7 @@ public class EnviaMailFechaVigenciaCP extends HttpServlet implements Runnable {
                 CloseObject.closeObject(ps, false);
                 CloseObject.closeObject(conn, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
         return moduleProperties;
@@ -312,7 +312,7 @@ public class EnviaMailFechaVigenciaCP extends HttpServlet implements Runnable {
             }
             conn.commit();
         } catch (Exception e) {
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
             mensaje = "ERROR INESPERADO DE LA CANCELACION CONTABLE";
             try {
                 conn.rollback();

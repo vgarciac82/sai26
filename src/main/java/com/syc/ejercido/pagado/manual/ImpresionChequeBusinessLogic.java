@@ -20,7 +20,7 @@ public class ImpresionChequeBusinessLogic extends DataSourceManager {
         int nuevoFolio = 0;
         Connection conn = null;
         try {
-            log.info("Reemplazando cheque [" + nFolioCheque + "]");
+            log.info("Object: {}", "Reemplazando cheque [" + nFolioCheque + "]");
             conn = getConnection();
             nuevoFolio = ImpresionChequeManager.reemplazaCheque(conn, nFolioCheque);
             AccountingEngine motorContable = new AccountingEngine();

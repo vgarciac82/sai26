@@ -107,14 +107,14 @@ public class LayoutRetencionSicopServlet extends HttpServlet {
                 // Complete the ZIP file
                 outZIP.close();
             } catch (IOException e) {
-                Log.error(e, e);
+                Log.error(e.getMessage(), e);
                 throw new Exception(e);
             }
             //Borrar los archivos
             layoutSicop.delete();
             layoutCompromiso.delete();
         } catch (Exception e) {
-            Log.error(e, e);
+            Log.error(e.getMessage(), e);
             throw new ServletException(e);
         }
     }

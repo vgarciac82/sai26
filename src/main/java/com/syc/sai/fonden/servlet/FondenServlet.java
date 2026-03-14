@@ -17,8 +17,9 @@ import com.syc.sai.fonden.FondenMovimiento;
 import com.syc.sai.fonden.model.FondenBusinessLogic;
 import com.syc.sai.fonden.model.FondenFacturacionBusinessLogic;
 import com.syc.sai.fonden.model.FondenMovimientoBusinessLogic;
-import common.Logger;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "FondenServlet", urlPatterns = { "/Fonden", "/Fonden/readFonden", "/FondenMovimiento/readFondenMovimiento", "/FondenMovimiento/saveFondenMovimiento", "/FondenFacturacion/saveFondenFacturacion", "/FondenMovimiento/validateNoGreaterThanImporteAnual", "/Fonden/saveFonden", "/FondenMovimiento/getFondenReporteGeneral" })
 public class FondenServlet extends HttpServlet {
@@ -27,7 +28,7 @@ public class FondenServlet extends HttpServlet {
      */
     private static final long serialVersionUID = -4346303594908652764L;
 
-    private static final Logger log = Logger.getLogger(FondenServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(FondenServlet.class);
 
     /**
      * Constructor of the object.
@@ -75,7 +76,7 @@ public class FondenServlet extends HttpServlet {
             token = ",";
         }
         arr = "[" + arr + "]";
-        log.debug(arr);
+        log.debug("Object: {}", arr);
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);
@@ -104,7 +105,7 @@ public class FondenServlet extends HttpServlet {
             json = String.format(json, "0", e.getMessage());
             arr = "[" + json + "]";
         }
-        log.debug(arr);
+        log.debug("Object: {}", arr);
         o.print(arr);
         o.flush();
         o.close();
@@ -145,7 +146,7 @@ public class FondenServlet extends HttpServlet {
             e.printStackTrace();
             json = String.format(json, "0", e.getMessage());
         }
-        log.debug(arr);
+        log.debug("Object: {}", arr);
         o.print(arr);
         o.flush();
         o.close();
@@ -164,7 +165,7 @@ public class FondenServlet extends HttpServlet {
             json = String.format(json, numRows, "Hubo un error al guardar");
         }
         arr = "[" + json + "]";
-        log.debug(arr);
+        log.debug("Object: {}", arr);
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);
@@ -185,7 +186,7 @@ public class FondenServlet extends HttpServlet {
             json = String.format(json, success, "El monto total es mayor al Importe anual FONDEN");
         }
         arr = "[" + json + "]";
-        log.debug(arr);
+        log.debug("Object: {}", arr);
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);
@@ -209,7 +210,7 @@ public class FondenServlet extends HttpServlet {
             try {
                 accion = req.getRequestURI().substring(req.getRequestURI().lastIndexOf("/") + 1);
             } catch (Exception e) {
-                log.warn("Error obteniendo substring " + e);
+                log.warn("Error occurred", "Error obteniendo substring " + e);
             }
             if ("".equals(accion) || null == accion) {
                 ResponseSender.sendError(resp, "No se recibio el parametro \"accion\" reporte al administrador");
@@ -223,7 +224,7 @@ public class FondenServlet extends HttpServlet {
             try {
                 readFonden("", req, resp);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
             }
         } else if ("selected".equals(accion)) {
             String key = req.getParameter("key");
@@ -233,37 +234,37 @@ public class FondenServlet extends HttpServlet {
             try {
                 saveFonden(null, req, resp);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
             }
         } else if ("readFondenMovimiento".equals(accion)) {
             try {
                 readFondenMovimiento(null, req, resp);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
             }
         } else if ("saveFondenMovimiento".equals(accion)) {
             try {
                 saveFondenMovimiento(null, req, resp);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
             }
         } else if ("saveFondenFacturacion".equals(accion)) {
             try {
                 saveFondenFacturacion(null, req, resp);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
             }
         } else if ("validateNoGreaterThanImporteAnual".equals(accion)) {
             try {
                 validateNoGreaterThanImporteAnual(null, req, resp);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
             }
         } else if ("getFondenReporteGeneral".equals(accion)) {
             try {
                 getFondenReporteGeneral(req, resp);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
             }
         }
     }

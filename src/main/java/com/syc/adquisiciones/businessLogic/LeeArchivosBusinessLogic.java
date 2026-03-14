@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -111,7 +111,7 @@ public class LeeArchivosBusinessLogic extends DataSourceManager {
                     conn.rollback();
                 } catch (SQLException e2) {
                     resp.setMsg("Problemas en rollback: " + e2.getMessage().toString());
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             }
             throw (e);
@@ -240,7 +240,7 @@ public class LeeArchivosBusinessLogic extends DataSourceManager {
                     conn.rollback();
                 } catch (SQLException e2) {
                     resp.setMsg("Problemas en rollback: " + e2.getMessage().toString());
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             }
         } finally {
@@ -279,7 +279,7 @@ public class LeeArchivosBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (SQLException e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             }
             throw new Exception("Bug, downloadContratoFisico: " + e.toString());
@@ -326,7 +326,7 @@ public class LeeArchivosBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (SQLException e2) {
-                        log.warn("Problemas en rollback: " + e2);
+                        log.warn("Object: {}", "Problemas en rollback: " + e2);
                     }
                 }
             }
@@ -371,7 +371,7 @@ public class LeeArchivosBusinessLogic extends DataSourceManager {
                     try {
                         connContrato.rollback();
                     } catch (SQLException e2) {
-                        log.warn("Problemas en rollback: " + e2);
+                        log.warn("Object: {}", "Problemas en rollback: " + e2);
                     }
                 }
             }
@@ -556,7 +556,7 @@ public class LeeArchivosBusinessLogic extends DataSourceManager {
                     conn.rollback();
                 } catch (SQLException e2) {
                     resp.setMsg("Problemas en rollback: " + e2.getMessage().toString());
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             }
         } finally {
@@ -643,7 +643,7 @@ public class LeeArchivosBusinessLogic extends DataSourceManager {
                                         if (null != c) {
                                             // Inicia aplicacion contable
                                             conInt = new AplicacionContable();
-                                            log.debug("Inicia aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
+                                            log.debug("Object: {}", "Inicia aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
                                             m = CasoDatoManager.readValuesCasoDato(request, c.getCasoDato(), true);
                                             acr = conInt.aplicarContableNuevo(connApCont, c, "", "", "", 0, "", m, datosArchivo.getcPrefixPath(), usuario.getLogin(), "");
                                             if (acr.isSuccess()) {
@@ -660,8 +660,8 @@ public class LeeArchivosBusinessLogic extends DataSourceManager {
                                                 // Avanza el caso
                                                 cbl = new CasoBusinessLogic(datosArchivo.getJniName());
                                                 cbl.avanzaCaso(c, usuario.getLogin(), "", new String[] { "CONSULTA_APARTADO" }, new String[] { "CONSULTA_APTD" }, m, datosArchivo.getcPrefixPath());
-                                                log.debug(c.getCasoDato("APLICADO_CONT").getValor());
-                                                log.debug("Termina Aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
+                                                log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+                                                log.debug("Object: {}", "Termina Aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
                                                 msg = msg + token + "La integrada " + folio + " con n\u00famero de requisici\u00f3n " + arrayObj.getJSONObject(i).getString("cIdSolicitud") + " \"APARTADO APLICADO PRESUPUESTALMENTE\".";
                                             } else {
                                                 throw new SQLException("La integrada " + folio + " con n\u00famero de requisici\u00f3n " + arrayObj.getJSONObject(i).getString("cIdSolicitud") + " " + acr.getMessageList().get(0));
@@ -670,7 +670,7 @@ public class LeeArchivosBusinessLogic extends DataSourceManager {
                                             // No Se pudo obtener el caso de la
                                             // requisición
                                             msg = msg + token + "La integrada " + folio + " con n\u00famero de requisici\u00f3n " + arrayObj.getJSONObject(i).getString("cIdSolicitud") + " \"ERROR AL OBTENER EL CASO\".";
-                                            log.warn("No se pudo obtener el caso para la requisición " + arrayObj.getJSONObject(i).getString("cIdSolicitud"));
+                                            log.warn("Object: {}", "No se pudo obtener el caso para la requisición " + arrayObj.getJSONObject(i).getString("cIdSolicitud"));
                                         }
                                         sc = null;
                                         c = null;
@@ -678,7 +678,7 @@ public class LeeArchivosBusinessLogic extends DataSourceManager {
                                     }
                                     connApCont.commit();
                                 } catch (SQLException e) {
-                                    log.error(e);
+                                    log.error(e.getMessage(), e);
                                     msg = msg + token + e.getMessage();
                                     if (connApCont != null) {
                                         connApCont.rollback();
@@ -691,7 +691,7 @@ public class LeeArchivosBusinessLogic extends DataSourceManager {
                                     cbl = null;
                                 }
                             } else {
-                                log.info("El folio de la integrada " + folio + ", no se encontro o el estus no es el correcto");
+                                log.info("Object: {}", "El folio de la integrada " + folio + ", no se encontro o el estus no es el correcto");
                             }
                         } else {
                             log.info("No se encontro folio en la descripción");
@@ -708,7 +708,7 @@ public class LeeArchivosBusinessLogic extends DataSourceManager {
             if (conn != null) {
                 conn.rollback();
             }
-            log.error(e);
+            log.error(e.getMessage(), e);
         } finally {
             if (conn != null) {
                 conn.close();
@@ -908,14 +908,14 @@ public class LeeArchivosBusinessLogic extends DataSourceManager {
             msgRow.append("Ok, Número de consolidado SAI = " + requi.getcIdConsolidado() + ", Número de procedimiento SAI = " + cont.getcIdProcedimiento() + " y Número de contrato SAI = " + cont.getcIdContratoDefinitivo());
         } catch (Exception e) {
             msgRow.append("Error, " + e.getMessage());
-            log.error(e);
+            log.error(e.getMessage(), e);
             Util.rollback(connReg);
         } finally {
             if (connReg != null) {
                 try {
                     connReg.close();
                 } catch (SQLException e) {
-                    log.error(e);
+                    log.error(e.getMessage(), e);
                 }
             }
             if (proced.getFechasProcedimiento() != null) {

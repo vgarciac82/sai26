@@ -72,13 +72,13 @@ public class CargaOperAjenaBussinessLogic extends DataSourceManager {
             conn.commit();
             valorReturn = String.valueOf(descripcion + ":" + fTempGral);
         } catch (Exception se) {
-            log.error("Error: " + se);
+            log.error("Error occurred", "Error: " + se);
             se.printStackTrace();
             valorReturn = "Error:Archivo" + se;
             try {
                 conn.rollback();
             } catch (Exception e) {
-                log.error("Error al hacer Rollback: " + se);
+                log.error("Error occurred", "Error al hacer Rollback: " + se);
             }
         }
         conn = null;
@@ -95,13 +95,13 @@ public class CargaOperAjenaBussinessLogic extends DataSourceManager {
             valorReturn = validaInformacion.insertaPasivosLaborales(conn, folio);
             conn.commit();
         } catch (Exception se) {
-            log.error("Error: " + se);
+            log.error("Error occurred", "Error: " + se);
             se.printStackTrace();
             valorReturn = "Error:Archivo" + se;
             try {
                 conn.rollback();
             } catch (Exception e) {
-                log.error("Error al hacer Rollback: " + se);
+                log.error("Error occurred", "Error al hacer Rollback: " + se);
             }
         }
         conn = null;

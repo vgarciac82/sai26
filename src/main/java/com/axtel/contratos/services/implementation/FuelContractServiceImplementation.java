@@ -3,7 +3,6 @@ package com.axtel.contratos.services.implementation;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-import org.apache.log4j.LogManager;
 import com.axtel.contratos.entities.FuelContract;
 import com.axtel.contratos.entities.FuelContractAccount;
 import com.axtel.contratos.repositories.FuelContractRepository;
@@ -15,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 public class FuelContractServiceImplementation extends DataSourceManager implements FuelContractService {
 
-    private static final Logger log = LogManager.getLogger(FuelContractServiceImplementation.class);
+    private static final Logger log = LoggerFactory.getLogger(FuelContractServiceImplementation.class);
 
     private final FuelContractRepository fuelContractRepository = new FuelContractRepository();
 
@@ -36,7 +35,7 @@ public class FuelContractServiceImplementation extends DataSourceManager impleme
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -69,7 +68,7 @@ public class FuelContractServiceImplementation extends DataSourceManager impleme
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -90,7 +89,7 @@ public class FuelContractServiceImplementation extends DataSourceManager impleme
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -111,7 +110,7 @@ public class FuelContractServiceImplementation extends DataSourceManager impleme
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {

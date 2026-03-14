@@ -39,7 +39,7 @@ public class ListadoCorreosPendientesBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas con rollback: " + e2);
+                    log.warn("Object: {}", "Problemas con rollback: " + e2);
                 }
         } finally {
             CloseObject.closeObject(conn);
@@ -61,7 +61,7 @@ public class ListadoCorreosPendientesBusinessLogic extends DataSourceManager {
         mailBody += "<br><br>Atte. <b>Sistema de Administracion Integral SAI</b>";
         CorreosPendientesBean cpb = new CorreosPendientesBean(to, inicioCorreo + mailBody, subject, "");
         int nInsertados = insertaNotificacionPendiente(cpb);
-        log.trace("Notificacion insertada exitosamente. Para[" + to + "] Correo[" + mailBody + "] Asunto: " + subject);
+        log.trace("Object: {}", "Notificacion insertada exitosamente. Para[" + to + "] Correo[" + mailBody + "] Asunto: " + subject);
         return nInsertados;
     }
 
@@ -92,7 +92,7 @@ public class ListadoCorreosPendientesBusinessLogic extends DataSourceManager {
         mailBody += "<br><br>Atte. <b>Sistema de Administracion Integral SAI</b>";
         CorreosPendientesBean cpb = new CorreosPendientesBean(to, inicioCorreo + mailBody, subject, "");
         int nInsertados = insertaNotificacionPendiente(cpb);
-        log.trace("Notificacion insertada exitosamente. Para[" + to + "] Correo[" + mailBody + "] Asunto: " + subject);
+        log.trace("Object: {}", "Notificacion insertada exitosamente. Para[" + to + "] Correo[" + mailBody + "] Asunto: " + subject);
         return nInsertados;
     }
 }

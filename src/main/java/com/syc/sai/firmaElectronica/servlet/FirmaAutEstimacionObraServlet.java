@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.LogManager;
 import org.json.JSONObject;
 import com.axtel.web.exceptions.SessionExpiredException;
 import com.syc.gestion.core.Usuario;
@@ -28,7 +27,7 @@ public class FirmaAutEstimacionObraServlet extends HttpServlet implements Gestio
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger log = LogManager.getLogger(FirmaAutEstimacionObraServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(FirmaAutEstimacionObraServlet.class);
 
     public static String REPORT_PATH = "";
 

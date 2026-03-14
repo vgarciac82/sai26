@@ -75,24 +75,24 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
             jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jndiName == null) {
                 jndiName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
             } else
-                log.info("dataSourceRefName=" + jndiName);
+                log.info("Object: {}", "dataSourceRefName=" + jndiName);
         } catch (NamingException exc) {
             jndiName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
         }
         try {
             InitialContext ic = new InitialContext();
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
     }
 
@@ -240,7 +240,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
                 mensaje = cancelacionDeDocumentos(param, usuario, request, response);
             } catch (Exception e) {
                 // TODO: handle exception
-                log.error("Error en la cancelación de documentos " + e);
+                log.error("Error occurred", "Error en la cancelación de documentos " + e);
                 e.printStackTrace();
                 mensaje = "Error en la Cancelación del documento.";
             } finally {
@@ -351,7 +351,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
         //else
         //	where += " and ad.cMes between '01' and '"+ param[8]+"'";
         query = "select DISTINCT '<input type=''checkbox'' id=''folioPrecompromiso_'+CONVERT(varchar,K.ConsecutivoPRECOMP)+''' " + " name=''folioPrecompromiso_'' value='''+CONVERT(varchar,K.cIdConsolidado)+'''/>', k.importe,k.cIdConsolidado,k.C_FOLIO_PRE,K.ConsecutivoPRECOMP,K.cIdUnidadEjecutora,K.cDescripcion            from ( " + " select distinct mc.cIdConsolidado,mc.C_FOLIO_PRE,mc.ConsecutivoPRECOMP,SUM(md.mImporte)as importe,mc.cIdUnidadEjecutora,mc.cDescripcion from mConsolidado mc with(nolock),tPrecomMaterialesEncabezado me with(nolock),tPrecomMaterialesDetalle md with(nolock) " + " where mc.ConsecutivoPRECOMP=me.nFolioPrecomMateriales " + " and md.nFolioPrecomMateriales=me.nFolioPrecomMateriales " + " and me.cDocumentoHaplicado='S' " + " and mc.nIdEstado=2 " + and + " and mc.cIdConsolidado not in( " + " select distinct mc.cIdConsolidado from mConsolidado mc with(nolock) " + " inner join mProcedimiento mp with(nolock) " + " on mc.cIdConsolidado=mp.cIdConsolidado " + " inner join mPedido p with(nolock) " + " on p.cIdProcedimiento=mp.cIdProcedimiento " + " and p.nIdEstado in(4,7,6) " + " union " + " select distinct mc.cIdConsolidado from mConsolidado mc with(nolock) " + " inner join mProcedimiento mp with(nolock) " + " on mc.cIdConsolidado=mp.cIdConsolidado " + " inner join mContrato p with(nolock) " + " on p.cIdProcedimiento=mp.cIdProcedimiento " + " and p.nIdEstado in(4,7,6)) " + " group by  mc.cIdConsolidado,mc.C_FOLIO_PRE,mc.ConsecutivoPRECOMP,mc.cIdUnidadEjecutora,mc.cDescripcion " + " union  " + " select distinct mp.cIdProcedimiento,mp.C_FOLIO_PRE,mp.ConsecutivoPRECOMP,SUM(md.mImporte)as importe,c.cIdUnidadEjecutora,c.cDescripcion from mConsolidado c with(nolock),tPrecomMaterialesEncabezado pme with(nolock),mProcedimiento mp with(nolock),tPrecomMaterialesDetalle md with(nolock) " + " where c.cIdConsolidado=mp.cIdConsolidado " + " and mp.cIdProcedimiento=pme.cIdConsolidado " + " and pme.cDocumentoHaplicado='S' " + " and pme.nFolioPrecomMateriales=md.nFolioPrecomMateriales " + " and pme.nFolioPrecomMateriales=mp.ConsecutivoPRECOMP " + " and mp.nIdEstado in(2) " + " and c.nIdEstado in(2) " + and + " and mp.cIdProcedimiento not in( " + " select distinct mp.cIdProcedimiento from mConsolidado mc with(nolock) " + " inner join mProcedimiento mp with(nolock) " + " on mc.cIdConsolidado=mp.cIdConsolidado " + " inner join mPedido p with(nolock) " + " on p.cIdProcedimiento=mp.cIdProcedimiento " + " and p.nIdEstado in(4,7,6) " + " union  " + " select distinct mp.cIdProcedimiento from mConsolidado mc with(nolock) " + " inner join mProcedimiento mp with(nolock) " + " on mc.cIdConsolidado=mp.cIdConsolidado " + " inner join mContrato p with(nolock) " + " on p.cIdProcedimiento=mp.cIdProcedimiento " + " and p.nIdEstado in(4,7,6)) " + " group by  mp.cIdProcedimiento,mp.C_FOLIO_PRE,mp.ConsecutivoPRECOMP,c.cIdUnidadEjecutora,c.cDescripcion " + " union " + " select distinct cIdPedidoDefinitivo,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,SUM(pd.mImporte)as importe,p.cIdUnidadEjecutora,p.cConceptoPedido from mPedido p with(nolock),tPreCompromisoEncabezado pe with(nolock),tPreCompromisoDetalle pd with(nolock) " + " where p.nIdEstado not in(4,7,6) " + " and p.cIdTipoProcedimiento in('PR','PL','PN','PC','PS') " + " and pe.nFolioPreCompromiso=pd.nFolioPreCompromiso " + " and pe.nFolioPreCompromiso=p.ConsecutivoPRECOMP " + " and pe.cDocumentoHaplicado='S' " + and + " and pd.cEvento='PRECOM'" + " group by  p.cIdPedidoDefinitivo,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,p.cIdUnidadEjecutora,p.cConceptoPedido " + " union " + " select distinct cIdContratoDefinitivo,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,SUM(pd.mImporte)as importe,p.cIdUnidadEjecutora,p.cConceptoContrato from mContrato p with(nolock),tPreCompromisoEncabezado pe with(nolock),tPreCompromisoDetalle pd with(nolock) " + " where p.nIdEstado not in(4,7,6) " + " and p.cIdTipoProcedimiento in('PR','PL','PN','PC','PS')" + " and pe.nFolioPreCompromiso=pd.nFolioPreCompromiso " + " and pe.nFolioPreCompromiso=p.ConsecutivoPRECOMP " + " and pe.cDocumentoHaplicado='S' " + and + " and pd.cEvento='PRECOM'" + " group by  p.cIdContratoDefinitivo,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,p.cIdUnidadEjecutora,p.cConceptoContrato " + " union " + " select distinct cIdContratoDefinitivo,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,SUM(pd.mImporte)as importe,p.cIdUnidadEjecutora,p.cConceptoContrato from mPasivoContrato p with(nolock) ,tPreCompromisoEncabezado pe with(nolock),tPreCompromisoDetalle pd with(nolock) " + " where p.nIdEstado=3 " + " and pe.nFolioPreCompromiso=pd.nFolioPreCompromiso " + " and pe.nFolioPreCompromiso=p.ConsecutivoPRECOMP " + " and pe.cDocumentoHaplicado='S' " + and + " group by  p.cIdContratoDefinitivo,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,p.cIdUnidadEjecutora,p.cConceptoContrato " + " union " + " select distinct cIdPedidoDefinitivo,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,SUM(pd.mImporte)as importe,p.cIdUnidadEjecutora,p.cConceptoPedido from mPasivoPedido p with(nolock),tPreCompromisoEncabezado pe with(nolock),tPreCompromisoDetalle pd with(nolock) " + " where p.nIdEstado=3 " + " and pe.nFolioPreCompromiso=pd.nFolioPreCompromiso " + " and pe.nFolioPreCompromiso=p.ConsecutivoPRECOMP " + " and pe.cDocumentoHaplicado='S' " + and + " group by  p.cIdPedidoDefinitivo,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,p.cIdUnidadEjecutora,p.cConceptoPedido " + " union " + " select distinct cIdContratoDefinitivo,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,SUM(pd.mImporte)as importe,p.cIdUnidadEjecutora,p.cConceptoContrato from mPlurianualidadContrato p with(nolock) ,tPreCompromisoEncabezado pe with(nolock),tPreCompromisoDetalle pd with(nolock) " + " where p.nIdEstado=3 " + " and pe.nFolioPreCompromiso=pd.nFolioPreCompromiso " + " and pe.nFolioPreCompromiso=p.ConsecutivoPRECOMP " + " and pe.cDocumentoHaplicado='S' " + and + " group by  p.cIdContratoDefinitivo,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,p.cIdUnidadEjecutora,p.cConceptoContrato " + " union " + " select distinct cIdPedidoDefinitivo,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,SUM(pd.mImporte)as importe,p.cIdUnidadEjecutora,p.cConceptoPedido from mPlurianualidadPedido p with(nolock) ,tPreCompromisoEncabezado pe with(nolock),tPreCompromisoDetalle pd with(nolock) " + " where p.nIdEstado=3 " + " and pe.nFolioPreCompromiso=pd.nFolioPreCompromiso " + " and pe.nFolioPreCompromiso=p.ConsecutivoPRECOMP " + " and pe.cDocumentoHaplicado='S' " + and + " group by  p.cIdPedidoDefinitivo,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,p.cIdUnidadEjecutora,p.cConceptoPedido " + " union " + " select distinct c.cIdContratoDefinitivo+'-'+'AMP-'+convert(varchar(30),p.nIdConsecutivoAmpliacion),p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,SUM(pd.mImporte)as importe,p.cIdUnidadEjecutora,'AMPLIACION CONTRATO '+ p.cIdContrato as cConceptoContrato  from mContratoAmpliacion p with(nolock),tPreCompromisoEncabezado pe with(nolock),tPreCompromisoDetalle pd with(nolock) ,mContrato c with(nolock) " + " where p.nIdEstado=3 " + " and pe.nFolioPreCompromiso=pd.nFolioPreCompromiso " + " and pe.nFolioPreCompromiso=p.ConsecutivoPRECOMP " + " and pe.cDocumentoHaplicado='S' " + and + " and c.cIdTipoContrato=p.cIdTipoContrato " + " and c.cIdUnidadEjecutora=p.cIdUnidadEjecutora " + " and c.nIdConsecutivo=p.nIdConsecutivo " + " and c.nIdEstado=4 " + " group by  p.cIdContrato,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,p.cIdUnidadEjecutora,p.cIdContratoDefinitivo ,c.cIdContratoDefinitivo,p.nIdConsecutivoAmpliacion " + " union " + " select distinct c.cIdPedidoDefinitivo+'-'+'AMP-'+convert(varchar(30),p.nIdConsecutivoAmpliacion),p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,SUM(pd.mImporte)as importe,p.cIdUnidadEjecutora,'AMPLIACION PEDIDO '+ p.cIdPedido as cConceptoPedido  from mPedidoAmpliacion p with(nolock),tPreCompromisoEncabezado pe with(nolock),tPreCompromisoDetalle pd with(nolock) , mPedido c with(nolock)" + " where p.nIdEstado=3 " + " and pe.nFolioPreCompromiso=pd.nFolioPreCompromiso " + " and pe.nFolioPreCompromiso=p.ConsecutivoPRECOMP " + " and pe.cDocumentoHaplicado='S' " + and + " and c.cIdTipoPedido=p.cIdTipoPedido " + " and c.cIdUnidadEjecutora=p.cIdUnidadEjecutora " + " and c.nIdConsecutivo=p.nIdConsecutivo " + " and c.nIdEstado=4 " + " group by  p.cIdPedido,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,p.cIdUnidadEjecutora ,c.cIdPedidoDefinitivo,p.nIdConsecutivoAmpliacion " + " union " + " select distinct p.cContratoDefinitivo,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,SUM(pd.mImporte)as importe,c.cIdUnidadEjecutora,c.cConceptoContrato from mContratoModificado p with(nolock) ,tPreCompromisoEncabezado pe with(nolock),tPreCompromisoDetalle pd with(nolock),mContrato c with(nolock)" + " where p.nEstado=3 " + " and pe.nFolioPreCompromiso=pd.nFolioPreCompromiso " + " and pe.nFolioPreCompromiso=p.ConsecutivoPRECOMP " + " and pe.cDocumentoHaplicado='S' " + and + " and c.cIdContrato=p.cIdContrato " + " and c.cIdContratoDefinitivo=p.cIdContratoDefinitivo " + " group by  p.cContratoDefinitivo,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,c.cIdUnidadEjecutora,c.cConceptoContrato " + " union " + " select distinct p.cPedidoDefinitivo,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,SUM(pd.mImporte)as importe,mp.cIdUnidadEjecutora,mp.cConceptoPedido from mPedidoModificado p with(nolock),tPreCompromisoEncabezado pe with(nolock),tPreCompromisoDetalle pd with(nolock),mpedido mp with(nolock) " + " where p.nEstado=3 " + " and pe.nFolioPreCompromiso=pd.nFolioPreCompromiso " + " and pe.nFolioPreCompromiso=p.ConsecutivoPRECOMP " + " and pe.cDocumentoHaplicado='S' " + and + " and p.cIdPedidoDefinitivo=mp.cIdPedidoDefinitivo " + " and p.cIdPedido=mp.cIdPedido " + " group by  p.cPedidoDefinitivo,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP,mp.cIdUnidadEjecutora,mp.cConceptoPedido)k " + " inner join tMovimiento tm with(nolock) " + " on tm.cFolioDocumentoMovimiento=k.ConsecutivoPRECOMP " + " and tm.cTipoDocumento in('PRECOMPROMISO','PRECOMMATERIALES')" + " where 1=1 " + where + " order by k.cIdConsolidado";
-        log.info("getSolicitudesConApartado:" + query);
+        log.info("Object: {}", "getSolicitudesConApartado:" + query);
         try {
             conn = DataSourceManager.getConnection(jndiName);
             retVal = CatalogosManager.getSelectQuery(conn, query);
@@ -393,7 +393,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
                                 errores++;
                                 break;
                             }
-                            log.info("Empieza a cancelar la(s) solicitudes del documento: " + documento);
+                            log.info("Object: {}", "Empieza a cancelar la(s) solicitudes del documento: " + documento);
                             if (!cancelarApartadoCompleto(documento, request, response, usuario, cEjercicio, conn)) {
                                 errores++;
                                 break;
@@ -420,7 +420,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
             // TODO: handle exception
             resp = "ERROR AL CANCELAR EL PRECOMPROMISO Y SU APARTADO";
             conn.rollback();
-            log.error("Error Al liberar el recurso de precompromiso y apartado.\n" + e);
+            log.error("Error occurred", "Error Al liberar el recurso de precompromiso y apartado.\n" + e);
             e.printStackTrace();
         } finally {
             if (rs != null)
@@ -451,7 +451,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
         int nFolioPrecom;
         try {
             query = "select p.cIdPedidoDefinitivo, pro.cIdConsolidado,p.cIdProcedimiento,c_folio,ConsecutivoCDIV as idCaso,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP " + "from mPedido AS p with(Nolock) " + "inner join mProcedimiento as pro with(Nolock) on pro.cIdProcedimiento=p.cIdProcedimiento and pro.nIdEstado=2 " + "and '" + documento + "' in(p.cIdProcedimiento,pro.cIdConsolidado,p.cIdPedidoDefinitivo) and p.nIdEstado=3 " + " group by p.cIdPedidoDefinitivo,pro.cIdConsolidado,p.cIdProcedimiento,c_folio,ConsecutivoCDIV,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP  " + "union " + "select p.cIdContratoDefinitivo cIdPedidoDefinitivo,pro.cIdConsolidado,p.cIdProcedimiento,c_folio,ConsecutivoCDIV as idCaso,p.C_FOLIO_PRE,p.ConsecutivoPRECOMP " + "from mContrato AS p with(Nolock) " + "inner join mProcedimiento as pro with(Nolock) on pro.cIdProcedimiento=p.cIdProcedimiento and pro.nIdEstado=2 " + "and '" + documento + "' in(p.cIdProcedimiento,pro.cIdConsolidado,p.cIdContratoDefinitivo) and p.nIdEstado=3 " + " group by p.cIdContratoDefinitivo,pro.cIdConsolidado,p.cIdProcedimiento,c_folio,ConsecutivoCDIV, p.C_FOLIO_PRE,p.ConsecutivoPRECOMP ";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             stm = conn.createStatement();
             rs = stm.executeQuery(query);
             while (rs.next()) {
@@ -460,24 +460,24 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
                 if ("PRECOMPROMISO".equals(tipoPrecom)) {
                     reultado = devuelveEstatusPedCont(pedCont, nFolioPrecom, conn);
                     if (!reultado) {
-                        log.warn("No se devolvio el pedCont " + pedCont + " con folio de precompromiso " + nFolioPrecom);
+                        log.warn("Object: {}", "No se devolvio el pedCont " + pedCont + " con folio de precompromiso " + nFolioPrecom);
                         return reultado;
                     }
                 } else {
                     if (!accEng.cancelAccountingApplication(conn, "PRECOMPROMISO", "" + nFolioPrecom, "tPrecompromisoEncabezado", "tPrecompromisoDetalle", "nFolioPrecompromiso")) {
-                        log.warn("No se cancelo la aplicación contable del documento " + documento + " con folio de precompromiso " + nFolioPrecom);
+                        log.warn("Object: {}", "No se cancelo la aplicación contable del documento " + documento + " con folio de precompromiso " + nFolioPrecom);
                         return reultado;
                     }
                     reultado = devuelveEstatusPedCont(pedCont, nFolioPrecom, conn);
                     if (!reultado) {
-                        log.warn("No se devolvio el pedCont " + pedCont + " con folio de precompromiso " + nFolioPrecom);
+                        log.warn("Object: {}", "No se devolvio el pedCont " + pedCont + " con folio de precompromiso " + nFolioPrecom);
                         return reultado;
                     }
                 }
             }
         } catch (Exception e) {
             // TODO: handle exception
-            log.error("Error al  buscar el pedido o contrato del documento " + documento);
+            log.error("Error occurred", "Error al  buscar el pedido o contrato del documento " + documento);
             e.printStackTrace();
         } finally {
             if (rs != null)
@@ -505,18 +505,18 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
             csmt.registerOutParameter(3, Types.INTEGER);
             csmt.execute();
             outputVal = csmt.getInt(3);
-            log.debug(outputVal);
+            log.debug("Object: {}", outputVal);
             if (outputVal == 0) {
-                log.info(" EL PEDIDO O CONTRATO " + documento + " SE DEVOLVIO EL ESTATUS CON FOLIO " + nFolioPrecom + "  ");
+                log.info("Object: {}", " EL PEDIDO O CONTRATO " + documento + " SE DEVOLVIO EL ESTATUS CON FOLIO " + nFolioPrecom + "  ");
                 result = true;
             } else {
-                log.info(" EL PEDIDO O CONTRATO " + documento + " SE NO DEVOLVIO EL ESTATUS CON FOLIO " + nFolioPrecom + "  ");
+                log.info("Object: {}", " EL PEDIDO O CONTRATO " + documento + " SE NO DEVOLVIO EL ESTATUS CON FOLIO " + nFolioPrecom + "  ");
                 result = false;
             }
         } catch (Exception e) {
             // TODO: handle exception
             result = false;
-            log.error("Error al devolver el estatus del documento " + documento + "\n " + e);
+            log.error("Error occurred", "Error al devolver el estatus del documento " + documento + "\n " + e);
             e.printStackTrace();
         } finally {
             if (csmt != null)
@@ -542,19 +542,19 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
             rs = stm.executeQuery(query);
             while (rs.next()) {
                 folioApartado = rs.getString("nFolioApartado");
-                log.info("Liberando el apartado de la solicitud con folio " + folioApartado);
+                log.info("Object: {}", "Liberando el apartado de la solicitud con folio " + folioApartado);
                 if (!accEng.cancelAccountingApplication(conn, "APARTADO", folioApartado, "tApartadoEncabezado", "tApartadoDetalle", "nFolioApartado")) {
                     respuesta = false;
-                    log.warn("No se Libera el apartado de la solicitud con folio " + folioApartado);
+                    log.warn("Object: {}", "No se Libera el apartado de la solicitud con folio " + folioApartado);
                 }
                 csmt = conn.prepareCall("{ call pa_actualizaRequisicionLiberaApartadoFinanciero(?,?)}");
                 csmt.setString(1, folioApartado);
                 csmt.setString(2, usuario.getLogin());
                 csmt.execute();
-                log.info("EL FOLIO" + folioApartado + " DEL APARTADO DE LA SOLICITUD  SE CANCELO CORRECTAMENTE ");
+                log.info("Object: {}", "EL FOLIO" + folioApartado + " DEL APARTADO DE LA SOLICITUD  SE CANCELO CORRECTAMENTE ");
             }
         } catch (SQLException e) {
-            log.error("ERROR AL CANCELAR EL APARTADO DE LA SOLICITUD.\n" + e);
+            log.error("Error occurred", "ERROR AL CANCELAR EL APARTADO DE LA SOLICITUD.\n" + e);
             respuesta = false;
             e.printStackTrace();
         } finally {
@@ -580,15 +580,15 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
         AccountingEngine accEng = new AccountingEngine();
         accEng.setValidaInsuficienciaDeSaldo(true);
         try {
-            log.info("Liberando el apartado de la solicitud con folio de apartado " + folioApartado);
+            log.info("Object: {}", "Liberando el apartado de la solicitud con folio de apartado " + folioApartado);
             if (!accEng.cancelAccountingApplication(conn, "APARTADO", folioApartado, "tApartadoEncabezado", "tApartadoDetalle", "nFolioApartado")) {
                 respuesta = false;
-                log.warn("No se Libera el apartado de la solicitud con folio " + folioApartado);
+                log.warn("Object: {}", "No se Libera el apartado de la solicitud con folio " + folioApartado);
             }
         } catch (Exception e) {
             // TODO: handle exception
             respuesta = false;
-            log.error("Error en la cancelación de Apartado." + e);
+            log.error("Error occurred", "Error en la cancelación de Apartado." + e);
             e.printStackTrace();
         }
         return respuesta;
@@ -603,15 +603,15 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
         AccountingEngine accEng = new AccountingEngine();
         accEng.setValidaInsuficienciaDeSaldo(true);
         try {
-            log.info("Liberando el precompromiso materiales con folio " + folioPrecomMat);
+            log.info("Object: {}", "Liberando el precompromiso materiales con folio " + folioPrecomMat);
             if (!accEng.cancelAccountingApplication(conn, "PRECOMMATERIALES", folioPrecomMat, "tPrecomMaterialesEncabezado", "tPrecomMaterialesDetalle", "nFolioPrecomMateriales")) {
                 respuesta = false;
-                log.warn("No se Libera el Precompromiso del consolidado con folio " + folioPrecomMat);
+                log.warn("Object: {}", "No se Libera el Precompromiso del consolidado con folio " + folioPrecomMat);
             }
         } catch (Exception e) {
             // TODO: handle exception
             respuesta = false;
-            log.error("Error en la cancelación de Precompromiso  materiales." + e);
+            log.error("Error occurred", "Error en la cancelación de Precompromiso  materiales." + e);
             e.printStackTrace();
         }
         return respuesta;
@@ -626,15 +626,15 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
         AccountingEngine accEng = new AccountingEngine();
         accEng.setValidaInsuficienciaDeSaldo(true);
         try {
-            log.info("Liberando el precompromiso materiales con folio " + folioPrecomMat);
+            log.info("Object: {}", "Liberando el precompromiso materiales con folio " + folioPrecomMat);
             if (!accEng.makeAccountingApplication(conn, "PRECOMMATERIALES", folioPrecomMat, "tPrecomMaterialesEncabezado", "tPrecomMaterialesDetalle", "nFolioPrecomMateriales")) {
                 respuesta = false;
-                log.warn("No se Libera el PrecompromisoMat con folio " + folioPrecomMat);
+                log.warn("Object: {}", "No se Libera el PrecompromisoMat con folio " + folioPrecomMat);
             }
         } catch (Exception e) {
             // TODO: handle exception
             respuesta = false;
-            log.error("Error en la cancelación de Precompromiso  materiales." + e);
+            log.error("Error occurred", "Error en la cancelación de Precompromiso  materiales." + e);
             e.printStackTrace();
         }
         return respuesta;
@@ -649,15 +649,15 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
         AccountingEngine accEng = new AccountingEngine();
         accEng.setValidaInsuficienciaDeSaldo(true);
         try {
-            log.info("Liberando el precompromiso materiales con folio " + folioPrecompromiso);
+            log.info("Object: {}", "Liberando el precompromiso materiales con folio " + folioPrecompromiso);
             if (!accEng.cancelAccountingApplication(conn, "PRECOMPROMISO", "" + folioPrecompromiso, "tPrecompromisoEncabezado", "tPrecompromisoDetalle", "nFolioPrecompromiso")) {
                 respuesta = false;
-                log.warn("No se Libera el Precompromiso del PedCont con folio " + folioPrecompromiso);
+                log.warn("Object: {}", "No se Libera el Precompromiso del PedCont con folio " + folioPrecompromiso);
             }
         } catch (Exception e) {
             // TODO: handle exception
             respuesta = false;
-            log.error("Error en la cancelación de Precompromiso  materiales." + e);
+            log.error("Error occurred", "Error en la cancelación de Precompromiso  materiales." + e);
             e.printStackTrace();
         }
         return respuesta;
@@ -684,7 +684,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
             cadRequisiciones = cadRequisiciones + ";";
             requis = cadRequisiciones.toString().split(";");
             String query = "select nFolioPrecomMateriales from tPrecomMaterialesEncabezado with(Nolock) where cIdConsolidado='" + consolidado + "' and cDocumentoHaplicado='S'";
-            log.info("Query para buscar si hay precomMateriales: " + query);
+            log.info("Object: {}", "Query para buscar si hay precomMateriales: " + query);
             rs = stm.executeQuery(query);
             //Cancela precom si tiene
             if (rs.next()) {
@@ -700,7 +700,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
             csmt.registerOutParameter(3, Types.INTEGER);
             csmt.execute();
             outputVal = csmt.getInt(3);
-            log.info("Querys para la anulación del consolidado. " + queryCons);
+            log.info("Object: {}", "Querys para la anulación del consolidado. " + queryCons);
             if (outputVal != 0) {
                 resp = false;
             }
@@ -718,7 +718,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
         } catch (Exception e) {
             // TODO: handle exception
             resp = false;
-            log.error("Error al cancelar el precompromiso del consolidado. " + e);
+            log.error("Error occurred", "Error al cancelar el precompromiso del consolidado. " + e);
             e.printStackTrace();
         } finally {
             if (rs != null) {
@@ -752,7 +752,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
             //cancelar compromiso
             queryEnc = "select det.cCentroContable,enc.cRadicado,enc.cIdContrato,enc.cUnidadResponsable,enc.aEjercicioFiscal " + " from tCompromisoEncabezado as enc with(Nolock) inner join tCompromisoDetalle  as det with(nolock) on det.nFolioCompromiso=enc.nFolioCompromiso and enc.cDocumentoHaplicado='S' " + " where cIdContrato='" + params[0] + "' group by det.cCentroContable,enc.cRadicado,enc.cIdContrato,enc.cUnidadResponsable,enc.aEjercicioFiscal having SUM(mImporte)>0";
             stmEnc = conn.createStatement();
-            log.info(queryEnc);
+            log.info("Object: {}", queryEnc.toString());
             rsEnc = stmEnc.executeQuery(queryEnc);
             int retval;
             int folio;
@@ -767,7 +767,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
                 //Aplicación contable
                 if (retval == 0) {
                     if (!accEng.makeAccountingApplication(conn, "COMPROMISO", "" + folio, "tCompromisoEncabezado", "tCompromisoDetalle", "nFolioCompromiso")) {
-                        log.info("No se aplico contablemente el compromiso:" + folio);
+                        log.info("Object: {}", "No se aplico contablemente el compromiso:" + folio);
                         return false;
                     }
                 }
@@ -783,13 +783,13 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
                 queryL = "update mSolicitudLineas set cIdEstadoLinea='L' WHERE cIdSolicitud in(select cIdSolicitud from v_lineasPartidaContrato with(Nolock) " + "where cIdContrato=SUBSTRING('" + params[0] + "',1,(LEN('" + params[0] + "')-5))) " + " and nIdLineaSolicitud in(select nIdLineaSolicitud from v_lineasPartidaContrato with(Nolock) " + " where cIdContrato=SUBSTRING('" + params[0] + "',1,(LEN('" + params[0] + "')-5)))";
                 queryPedCont = "update mContrato set nIdEstado=6,cMotivoCancelacion='" + new String(params[8].getBytes("ISO-8859-1"), "UTF-8") + "' where cIdContratoDefinitivo='" + params[0] + "'";
             }
-            log.info(queryL);
+            log.info("Object: {}", queryL.toString());
             if (Integer.parseInt(params[9]) == 0) {
                 stmL = conn.createStatement();
                 stmL.executeUpdate(queryL);
             }
             //Cambiar el estatus del contrato
-            log.info(queryPedCont);
+            log.info("Object: {}", queryPedCont.toString());
             stmPedCont = conn.createStatement();
             stmPedCont.executeUpdate(queryPedCont);
             //guardar en bitacora
@@ -831,7 +831,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
             //revisar si hay precompromiso de ped/cont y liberarlo
             stm = conn.createStatement();
             String query = "select nFolioPreCompromiso from tPreCompromisoEncabezado with(Nolock) where cIdContrato='" + params[0] + "' and cDocumentoHaplicado='S'";
-            log.info("Query para buscar si hay precomPedCont: " + query);
+            log.info("Object: {}", "Query para buscar si hay precomPedCont: " + query);
             rs = stm.executeQuery(query);
             //Cancela precomPromiso del pedCont si tiene
             while (rs.next()) {
@@ -851,7 +851,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
                 csmt.registerOutParameter(3, Types.INTEGER);
                 csmt.execute();
                 outputVal = csmt.getInt(3);
-                log.info("Querys para la anulación del consolidado. " + queryCons);
+                log.info("Object: {}", "Querys para la anulación del consolidado. " + queryCons);
                 if (outputVal != 0) {
                     return resp = false;
                 }
@@ -871,7 +871,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
                 String queryPrecomMat = "select nFolioPrecomMateriales from tPrecomMaterialesEncabezado with(Nolock) where cIdConsolidado='" + params[5] + "' and cDocumentoHaplicado='S'";
                 String folioPrecomMat = "";
                 stmPro = conn.createStatement();
-                log.info("Query para buscar si hay precomProcedimiento: " + queryPrecomMat);
+                log.info("Object: {}", "Query para buscar si hay precomProcedimiento: " + queryPrecomMat);
                 rsPro = stmPro.executeQuery(queryPrecomMat);
                 if (rsPro.next()) {
                     folioPrecomMat = rsPro.getString("nFolioPrecomMateriales");
@@ -891,7 +891,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
         } catch (Exception e) {
             // TODO: handle exception
             resp = false;
-            log.error("Error al cancelar el pedido o contrato. " + e);
+            log.error("Error occurred", "Error al cancelar el pedido o contrato. " + e);
             e.printStackTrace();
         } finally {
             if (rs != null) {
@@ -930,7 +930,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
         } catch (Exception e) {
             // TODO: handle exception
             folio = 0;
-            log.error("Error al crear el encabezado y detalle del precompromiso a liberar. " + e);
+            log.error("Error occurred", "Error al crear el encabezado y detalle del precompromiso a liberar. " + e);
             e.printStackTrace();
         }
         return folio;
@@ -958,12 +958,12 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
             seqValue = usuario.getPropiedad("CCENTROCONTABLE").getValor() + "CO" + cEjercicio + seqValue;
             caNoContrarrecibo = seqValue;
             queryEnc = "INSERT INTO tCompromisoEncabezado (nFolioCompromiso,fCarga,cIdContrato,cTipoContrato,fAplicacion,cCentroContable " + "	,cRamo,cUnidadResponsable,cDocumentoHaplicado,nFolioPoliza,caNoCompromiso,nEnviadoSICOP " + "	,cTipoPoliza,nMes,cRevisado,aEjercicioFiscal,cUnidadResponsableContable,nFolioPolizaCancelacion " + "	,fCancelacion,cDescripcionPoliza,usuario,cRadicado,nFolioAutSICOP) " + " values (" + folio + ",GETDATE(),'" + cidContrato + "','DI',GETDATE()," + usuario.getPropiedad("CCENTROCONTABLE").getValor() + "," + usuario.getU_Ramo() + ",'" + usuario.getU_UR() + "',NULL, NULL, '" + caNoContrarrecibo + "' , 0 , 'CO' , " + "DATEPART(MONTH,GETDATE()), NULL , '" + cEjercicio + "', 'RHQ' , NULL , NULL , 'LIBERACION TOTAL DE COMPROMISO POR EL MODULO DE CANCELACIÓN DE PEDIDOS O CONTRATOS APROBADOS.', '" + usuario.getLogin() + "','" + esRadicado + "',null)";
-            log.info(queryEnc);
+            log.info("Object: {}", queryEnc.toString());
             stmEnc.executeUpdate(queryEnc);
             //Crea el detalle de la liberacion del precompromiso.
             stmDet = conn.createStatement();
             queryDet = "INSERT INTO tCompromisoDetalle (nFolioCompromiso,nDocRenglon,EP,cEvento,mImporte,mImporteNegativo,cMes,cCentroContable) select " + folio + ",(ROW_NUMBER() OVER (ORDER BY det.EP,det.cMes) )  nDocRenglon,det.EP,'" + cEevento + "'cEvento " + ",(SUM(mImporte)*-1)mImporte,SUM(mImporte) mImporteNegtivo,det.cMes,det.cCentroContable " + " from tCompromisoEncabezado as enc with(Nolock) " + " inner join tCompromisoDetalle  as det with(nolock) on det.nFolioCompromiso=enc.nFolioCompromiso and enc.cDocumentoHaplicado='S' " + " where cIdContrato='" + cidContrato + "' and det.cCentroContable='" + usuario.getPropiedad("CCENTROCONTABLE").getValor() + "' and enc.cRadicado='" + esRadicado + "' " + " group by det.EP,det.cMes,det.cCentroContable";
-            log.info(queryDet);
+            log.info("Object: {}", queryDet.toString());
             stmDet.executeUpdate(queryDet);
             retval = 0;
         } finally {
@@ -993,7 +993,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
             String queryPrecomMat = "select nFolioPrecomMateriales from tPrecomMaterialesEncabezado with(Nolock) where cIdConsolidado='" + params[0] + "' and cDocumentoHaplicado='S'";
             String folioPrecomMat = "";
             stmPro = conn.createStatement();
-            log.info("Query para buscar si hay precomProcedimiento: " + queryPrecomMat);
+            log.info("Object: {}", "Query para buscar si hay precomProcedimiento: " + queryPrecomMat);
             rsPro = stmPro.executeQuery(queryPrecomMat);
             if (rsPro.next()) {
                 folioPrecomMat = rsPro.getString("nFolioPrecomMateriales");
@@ -1005,15 +1005,15 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
             //Cancelar Procedimiento
             stmPAP = conn.createStatement();
             String queryPAP = "update mProcedimientoAdjudicacionPartidas set nIdEstadoPartida=2 where cIdProcedimiento='" + params[0] + "'";
-            log.info("Query para Liberar las lineas del procedimiento: " + queryPAP);
+            log.info("Object: {}", "Query para Liberar las lineas del procedimiento: " + queryPAP);
             stmPAP.executeUpdate(queryPAP);
             stm = conn.createStatement();
             String query = "update mProcedimiento set nIdEstado=3 where cIdProcedimiento='" + params[0] + "'";
-            log.info("Query para declarar desierto el procedimiento: " + query);
+            log.info("Object: {}", "Query para declarar desierto el procedimiento: " + query);
             stm.executeUpdate(query);
             //Guardar en Bitacora
             String queryB = "insert into mBitacoraMovimientos (cIdDocumento,cAccion,cIdUsuario,fRegistro) values('" + params[0] + "','CANCELACION_DOCUMENTO','" + usuario.getLogin() + "',GETDATE())";
-            log.info("Bitacora : " + queryB);
+            log.info("Object: {}", "Bitacora : " + queryB);
             stmB = conn.createStatement();
             stmB.executeUpdate(queryB);
             params[0] = params[4];
@@ -1062,7 +1062,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
             stm = conn.createStatement();
             String folioApartado = "";
             String query = "select nFolioApartado from tApartadoEncabezado with(Nolock) where cDocumentoHaplicado='S' and cIdSolicitud='" + requi + "'";
-            log.info("Query para buscar si la requi tiene apartado: " + query);
+            log.info("Object: {}", "Query para buscar si la requi tiene apartado: " + query);
             rs = stm.executeQuery(query);
             //Cancela apartado si tiene
             if (rs.next()) {
@@ -1083,12 +1083,12 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
                     resp = false;
                 }
             } else {
-                log.warn("Como no se libero el apartado de la requisición " + requi + " no se liberan sus lineas.");
+                log.warn("Object: {}", "Como no se libero el apartado de la requisición " + requi + " no se liberan sus lineas.");
             }
         } catch (Exception e) {
             // TODO: handle exception
             resp = false;
-            log.error("Error en la cancelación de documento con su apartado." + e);
+            log.error("Error occurred", "Error en la cancelación de documento con su apartado." + e);
             e.printStackTrace();
         } finally {
             if (csmt != null) {
@@ -1300,7 +1300,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
         else
             where += " and ad.cMes between '" + param[8] + "' and '" + param[9] + "'";
         query = " select distinct '<input type=''checkbox'' id=''folioApartado_'+CONVERT(varchar,s.ConsecutivoAPARTADO)+''' " + "name=''folioApartado_'' value='''+CONVERT(varchar,s.ConsecutivoAPARTADO)+'''/>'," + "SUM(ad.mImporte)as importeDetalle,s.cIdSolicitud,s.C_FOLIO_APA,s.ConsecutivoAPARTADO,s.cIdUnidadEjecutora,s.cDescripcion " + " from mSolicitud s with(nolock),tApartadoEncabezado ae with(nolock),tApartadoDetalle ad with(nolock) where ae.nFolioApartado=S.ConsecutivoAPARTADO AND S.cIdSolicitud NOT IN(" + "	Select distinct cs.cidsolicitud from mConsolidadoSolicitud cs with(nolock),mConsolidado c with(nolock),tPrecomMaterialesEncabezado pme with(nolock) where c.cIdConsolidado=cs.cIdConsolidado" + " and c.cIdConsolidado=pme.cIdConsolidado and pme.cDocumentoHaplicado='S' and c.nIdEstado in(2) " + " UNION " + " select distinct cs.cidsolicitud from mConsolidadoSolicitud cs with(nolock),mConsolidado c with(nolock),tPrecomMaterialesEncabezado pme with(nolock),mProcedimiento mp with(nolock) " + " where c.cIdConsolidado=mp.cIdConsolidado and mp.cIdProcedimiento=pme.cIdConsolidado and pme.cDocumentoHaplicado='S' and mp.nIdEstado in(2) " + " and cs.cIdConsolidado=c.cIdConsolidado and c.nIdEstado in(2) ) and ae.cDocumentoHaplicado='S' AND S.nIdEstado=3 AND S.nIdEstadoPrecomprometido=3 " + " and ad.nFolioApartado=ae.nFolioApartado " + where + " group by s.cIdSolicitud,s.C_FOLIO_APA,s.ConsecutivoAPARTADO,s.cIdUnidadEjecutora,s.cIdEntidadContable,s.cDescripcion order by s.cIdUnidadEjecutora";
-        log.info("getSolicitudesConApartado:" + query);
+        log.info("Object: {}", "getSolicitudesConApartado:" + query);
         try {
             conn = DataSourceManager.getConnection(jndiName);
             retVal = CatalogosManager.getSelectQuery(conn, query);
@@ -1370,7 +1370,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
         } else if (tipoRequisicion.indexOf("RM") >= 0) {
             query = "select tabF.folioApartado, tabF.cIdSolicitud, tabF.cDescripcion, tabF.totalLineasSolicitud, tabF.totalLineasActivas, tabF.totalLineasApartado-tabF.totalLineasPrecomprometidas as totalLineasApartado, tabF.totalLineasPrecomprometidas " + "from (" + "select " + "tabL.folioApartado, tabL.cIdSolicitud, tabL.cDescripcion, sum(tabL.totalLineasSolicitud) as totalLineasSolicitud, " + "sum(tabL.totalLineasActivas) as totalLineasActivas, sum(tabL.totalLineasApartado) as totalLineasApartado, " + "case when tab.totalLineasPrecomprometidas is null then 0 else tab.totalLineasPrecomprometidas end as totalLineasPrecomprometidas " + "from ( " + "select 'APTD-'+rtrim(ltrim(ae.cUnidadResponsable))+'-'+cast(ae.nFolioApartado as varchar) as folioApartado, " + "s.cDescripcion, s.cIdSolicitud, 1 as totalLineasSolicitud, case when sln.cIdEstadoLinea  in( 'C','L') then 0 else 1 end as totalLineasActivas," + "case when (sum(case when sla.nIdLineaSolicitud is null then 0 else " + "case when ad.nFolioApartado is null then 0 else " + "case when (sla.mes01+sla.mes02+sla.mes03+sla.mes04+sla.mes05+sla.mes06+sla.mes07+sla.mes08+sla.mes09+sla.mes10+sla.mes11+sla.mes12)>0 then 1 else 0 end " + "end " + "end)) > 0 then 1 else 0 end as totalLineasApartado " + "from " + "mSolicitud s with(nolock) " + "inner join mSolicitudLineas sln with(nolock) " + "on s.cIdSolicitud = sln.cIdSolicitud " + "left join mSolicitudLineasApartado sla with(nolock) " + "on sln.cIdSolicitud = sla.cIdSolicitud and sln.nIdLineaSolicitud = sla.nIdLineaSolicitud " + "left join tApartadoEncabezado ae with(nolock) " + "on s.cIdSolicitud = ae.cIdSolicitud and ae.cDocumentoHaplicado = 'S' " + "left join tApartadoDetalle ad with(nolock) " + "on ae.nFolioApartado = ad.nFolioApartado " + "where s.cIdTipoSolicitud in (" + tipoRequisicion + ") and s.nIdEstado in (2,3) and ad.cEvento='APARTADO' " + where + "group by ae.cUnidadResponsable, ae.nFolioApartado, s.cDescripcion, s.cIdSolicitud, sln.nIdLineaSolicitud, sln.cIdEstadoLinea " + ")as tabL " + "left join ( " + "select tabS.cIdSolicitud, count(*) as totalLineasPrecomprometidas " + "from " + "(" + "select modi.cIdSolicitud, modi.cIdLineaSolicitud " + "from (" + "select cmp.cIdSolicitud, cmp.cIdLineaSolicitud, cm.cContratoDefinitivo as cDocumentoDefinitivo " + "from mContratoModificadoPartida cmp  with(nolock) " + "inner join mContratoModificado cm with(nolock) " + "on cmp.cIdContratoDefinitivo = cm.cIdContratoDefinitivo and cmp.nConsecutivoModificacion = cm.nConsecutivoModificacion " + "inner join mSolicitud s with(nolock) " + "on cmp.cIdSolicitud = s.cIdSolicitud " + "where cm.tipoMod = 0 and s.cIdTipoSolicitud in (" + tipoRequisicion + ") and s.nIdEstado in (2,3) " + where + "union " + "select pmp.cIdSolicitud, pmp.cIdLineaSolicitud, pm.cPedidoDefinitivo as cDocumentoDefinitivo " + "from mPedidoModificadoPartida pmp with(nolock) " + "inner join mPedidoModificado pm with(nolock) " + "on pmp.cIdPedidoDefinitivo = pm.cIdPedidoDefinitivo and pmp.nConsecutivoModificacion = pm.nConsecutivoModificacion " + "inner join mSolicitud s with(nolock) " + "on pmp.cIdSolicitud = s.cIdSolicitud " + "where pm.tipoMod = 0 and s.cIdTipoSolicitud in (" + tipoRequisicion + ") and s.nIdEstado in (2,3) " + where + ") as modi " + "left join tPreCompromisoEncabezado pen with(nolock) " + "on modi.cDocumentoDefinitivo = pen.cIdContrato " + "where pen.cDocumentoHaplicado='S' " + "group by modi.cIdSolicitud, modi.cIdLineaSolicitud" + ") as tabS " + "group by tabS.cIdSolicitud " + ") as tab " + "on tabL.cIdSolicitud = tab.cIdSolicitud " + "group by tabL.folioApartado, tabL.cIdSolicitud, tabL.cDescripcion, tab.totalLineasPrecomprometidas" + ") as tabF " + "where (tabF.totalLineasApartado-tabF.totalLineasPrecomprometidas) > 0 " + where2;
         }
-        log.info("getSolicitudesConApartado:" + query);
+        log.info("Object: {}", "getSolicitudesConApartado:" + query);
         try {
             conn = DataSourceManager.getConnection(jndiName);
             retVal = CatalogosManager.getSelectQuery(conn, query);
@@ -1392,7 +1392,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
     private String[][] getLineasConApartado(String cIdSolicitud) throws ServletException {
         String[][] retVal = null;
         String query = "select " + "sl.nIdLineaSolicitud, sl.cIdCABM, sl.cDescripcion " + ",'$ '+CONVERT(VARCHAR,CAST(sum(sla.mes01+sla.mes02+sla.mes03+sla.mes04+sla.mes05+sla.mes06+ " + "sla.mes07+sla.mes08+sla.mes09+sla.mes10+sla.mes11+sla.mes12) AS money),1) as total " + "from " + "mSolicitudLineas sl with(nolock) " + "inner join mSolicitudLineasApartado sla with(nolock) " + "on sl.cIdSolicitud = sla.cIdSolicitud and sl.nIdLineaSolicitud = sla.nIdLineaSolicitud " + "where sl.cIdSolicitud='" + cIdSolicitud + "' " + "and sl.nIdLineaSolicitud not in (" + getLineasPrecomprometidas(cIdSolicitud) + ") " + "group by " + "sl.nIdLineaSolicitud, sl.cIdCABM, sl.cDescripcion " + "having sum(sla.mes01+sla.mes02+sla.mes03+sla.mes04+sla.mes05+sla.mes06+ " + "sla.mes07+sla.mes08+sla.mes09+sla.mes10+sla.mes11+sla.mes12)>0 " + "order by sl.nIdLineaSolicitud";
-        log.info("getLineasConApartado:" + query);
+        log.info("Object: {}", "getLineasConApartado:" + query);
         try {
             conn = DataSourceManager.getConnection(jndiName);
             retVal = CatalogosManager.getSelectQuery(conn, query);
@@ -1415,13 +1415,13 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
         String[][] retVal = null;
         String lineasPrecom = "0,";
         String query = "";
-        log.info("cIdSolicitud: " + cIdSolicitud);
+        log.info("Object: {}", "cIdSolicitud: " + cIdSolicitud);
         if (cIdSolicitud.indexOf("RC") == 0 || cIdSolicitud.indexOf("RO") == 0 || cIdSolicitud.indexOf("RS") == 0) {
             query = "select sl.nIdLineaSolicitud " + "from " + "mSolicitud s with(nolock) " + "inner join mSolicitudLineas sl with(nolock) " + "on s.cIdSolicitud = sl.cIdSolicitud " + "inner join mConsolidadoSolicitud cs with(nolock) " + "on sl.cIdSolicitud = cs.cIdSolicitud and sl.nIdLineaSolicitud = cs.nIdLineaSolicitud " + "inner join mConsolidado c " + "on cs.cIdConsolidado = c.cIdConsolidado " + "inner join tPrecomMaterialesEncabezado pen with(nolock) " + "on c.ConsecutivoPRECOMP = pen.nFolioPrecomMateriales and pen.cDocumentoHaplicado='S' " + "where " + "s.nIdEstado in (2,3) " + "and s.cIdSolicitud='" + cIdSolicitud + "' " + "order by sl.nIdLineaSolicitud ";
         } else if (cIdSolicitud.indexOf("RM") == 0) {
             query = "select sl.nIdLineaSolicitud " + "from mSolicitud s with(nolock) " + "inner join mSolicitudLineas sl with(nolock) " + "on s.cIdSolicitud = sl.cIdSolicitud " + "left join mContratoModificadoPartida cmp with(nolock) " + "on cmp.cIdSolicitud = sl.cIdSolicitud and sl.nIdLineaSolicitud = cmp.cIdLineaSolicitud " + "left join mContratoModificado cm with(nolock) " + "on cm.cIdContratoDefinitivo = cmp.cIdContratoDefinitivo and cm.nConsecutivoModificacion = cmp.nConsecutivoModificacion " + "left join tPrecompromisoEncabezado pen with(nolock) " + "on cm.cContratoDefinitivo = pen.cIdContrato and pen.cDocumentoHaplicado='S' " + "where s.nIdEstado in (2,3) and s.cIdSolicitud='" + cIdSolicitud + "' and pen.nFolioPreCompromiso is not null " + "union " + "select sl.nIdLineaSolicitud " + "from mSolicitud s with(nolock) " + "inner join mSolicitudLineas sl with(nolock) " + "on s.cIdSolicitud = sl.cIdSolicitud " + "left join mPedidoModificadoPartida pmp with(nolock) " + "on pmp.cIdSolicitud = sl.cIdSolicitud and sl.nIdLineaSolicitud = pmp.cIdLineaSolicitud " + "left join mPedidoModificado pm with(nolock) " + "on pm.cIdPedidoDefinitivo = pmp.cIdPedidoDefinitivo and pm.nConsecutivoModificacion = pmp.nConsecutivoModificacion " + "left join tPrecompromisoEncabezado pen with(nolock) " + "on pm.cPedidoDefinitivo = pen.cIdContrato and pen.cDocumentoHaplicado='S' " + "where s.nIdEstado in (2,3) and s.cIdSolicitud='" + cIdSolicitud + "' and pen.nFolioPreCompromiso is not null ";
         }
-        log.info("getLineasPrecomprometidas:" + query);
+        log.info("Object: {}", "getLineasPrecomprometidas:" + query);
         try {
             conn = DataSourceManager.getConnection(jndiName);
             retVal = CatalogosManager.getSelectQuery(conn, query);
@@ -1488,7 +1488,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
             contrato += " and substring(doc.cIdContrato,4,3) = '" + params[4] + "' ";
         }
         query = "select 'PRMT-'+rtrim(ltrim(pe.cUnidadResponsable))+'-'+cast(pe.nFolioPrecomMateriales as varchar) as folioPrecompromiso, doc.cIdConsolidado, " + "'CONSOLIDADO' as tipo, pe.cDescripcionPoliza, '$ '+convert(varchar,sum(pd.mImporte),1) as total " + "from mConsolidado doc with(nolock) inner join tPrecomMaterialesEncabezado pe with(nolock) " + "on doc.cIdConsolidado = pe.cIdConsolidado inner join tPrecomMaterialesDetalle pd with(nolock) " + "on pd.nFolioPrecomMateriales = pe.nFolioPrecomMateriales " + "left join mProcedimientoAdjudicacion pa with(nolock) " + "on pa.cIdTipoConsolidado+'-'+ltrim(rtrim(pa.cIdUnidadEjecutora))+'-'+cast(pa.nIdConsecutivo as varchar) = doc.cIdConsolidado " + "left join mPedido ped with(nolock) on ped.cIdProcedimiento = pa.cIdProcedimiento and rtrim(ltrim(ped.cIdRFC)) = rtrim(ltrim(pa.cIdRFC)) and ped.nIdconsecutivoAdj = pa.nIdconsecutivoAdj " + "left join mContrato cr with(nolock) on cr.cIdProcedimiento = pa.cIdProcedimiento and rtrim(ltrim(cr.cIdRFC)) = rtrim(ltrim(pa.cIdRFC)) and cr.nIdconsecutivoAdj = pa.nIdconsecutivoAdj " + "where pe.cDocumentoHaplicado = 'S' and (ped.nIdEstado < 3 or (ped.nIdEstado is null and (cr.nIdEstado < 3 or cr.nIdEstado is null))) " + "and (select max(nFolioPreCompromiso) from tPreCompromisoEncabezado with(nolock) where cIdContrato = ped.cIdPedido or cIdContrato = ped.cIdPedidoDefinitivo and cDocumentoHaplicado = 'S') is null " + "and (select max(nFolioPreCompromiso) from tPreCompromisoEncabezado with(nolock) where cIdContrato = cr.cIdContrato or cIdContrato = cr.cIdContratoDefinitivo and cDocumentoHaplicado = 'S') is null " + ur + " " + consolidado_procedimiento + "group by doc.cIdConsolidado, pe.cDescripcionPoliza, pe.cUnidadResponsable, pe.nFolioPrecomMateriales " + "union " + "select 'PRMT-'+rtrim(ltrim(pe.cUnidadResponsable))+'-'+cast(pe.nFolioPrecomMateriales as varchar) as folioPrecompromiso, doc.cIdProcedimiento, " + "'PROCEDIMIENTO' as tipo, pe.cDescripcionPoliza, '$ '+convert(varchar,sum(pd.mImporte),1) as total " + "from mProcedimiento doc with(nolock) inner join tPrecomMaterialesEncabezado pe with(nolock) " + "on doc.cIdProcedimiento = pe.cIdConsolidado inner join tPrecomMaterialesDetalle pd with(nolock) " + "on pd.nFolioPrecomMateriales = pe.nFolioPrecomMateriales " + "left join mProcedimientoAdjudicacion pa with(nolock) " + "on pa.cIdProcedimiento = doc.cIdProcedimiento " + "left join mPedido ped with(nolock) on ped.cIdProcedimiento = pa.cIdProcedimiento and ped.cIdRFC = pa.cIdRFC and ped.nIdconsecutivoAdj = pa.nIdconsecutivoAdj " + "left join mContrato cr with(nolock) on cr.cIdProcedimiento = pa.cIdProcedimiento and rtrim(ltrim(cr.cIdRFC)) = rtrim(ltrim(pa.cIdRFC)) and cr.nIdconsecutivoAdj = pa.nIdconsecutivoAdj " + "where pe.cDocumentoHaplicado = 'S' and (ped.nIdEstado < 3 or (ped.nIdEstado is null and (cr.nIdEstado < 3 or cr.nIdEstado is null))) " + " and (select max(nFolioPreCompromiso) from tPreCompromisoEncabezado with(nolock) where cIdContrato = ped.cIdPedido or cIdContrato = ped.cIdPedidoDefinitivo and cDocumentoHaplicado = 'S') is null " + " and (select max(nFolioPreCompromiso) from tPreCompromisoEncabezado with(nolock) where cIdContrato = cr.cIdContrato or cIdContrato = cr.cIdContratoDefinitivo and cDocumentoHaplicado = 'S') is null " + ur + " " + consolidado_procedimiento + "group by doc.cIdProcedimiento, pe.cDescripcionPoliza, pe.cUnidadResponsable, pe.nFolioPrecomMateriales " + "union " + "select 'PRCP-'+rtrim(ltrim(pe.cUnidadResponsable))+'-'+cast(pe.nFolioPreCompromiso as varchar) as folioPrecompromiso, pe.cIdContrato, " + "'PEDIDO' as tipo, pe.cDescripcionPoliza, '$ '+convert(varchar,sum(pd.mImporte),1) as total " + "from mPedido doc with(nolock) inner join tPreCompromisoEncabezado pe with(nolock) " + "on (doc.cIdPedidoDefinitivo = pe.cIdContrato or doc.cIdPedido = pe.cIdContrato) inner join tPreCompromisoDetalle pd with(nolock) " + "on pd.nFolioPreCompromiso = pe.nFolioPreCompromiso " + "where pe.cDocumentoHaplicado = 'S' and pe.C_FOLIO_COMP is null and pd.cEvento in ('PRECOM','COMP_MAT') " + pedido + " " + ur + "group by pe.cIdContrato, pe.cDescripcionPoliza, pe.cUnidadResponsable, pe.nFolioPreCompromiso " + "union " + "select 'PRCP-'+rtrim(ltrim(pe.cUnidadResponsable))+'-'+cast(pe.nFolioPreCompromiso as varchar) as folioPrecompromiso, pe.cIdContrato, " + "'CONTRATO' as tipo, pe.cDescripcionPoliza, '$ '+convert(varchar,sum(pd.mImporte),1) as total " + "from mContrato doc with(nolock) inner join tPreCompromisoEncabezado pe with(nolock) " + "on (doc.cIdContratoDefinitivo = pe.cIdContrato or doc.cIdContrato = pe.cIdContrato) inner join tPreCompromisoDetalle pd with(nolock) " + "on pd.nFolioPreCompromiso = pe.nFolioPreCompromiso " + "where pe.cDocumentoHaplicado = 'S' and pe.C_FOLIO_COMP is null and pd.cEvento in ('PRECOM','COMP_MAT') " + contrato + " " + ur + "group by pe.cIdContrato, pe.cDescripcionPoliza, pe.cUnidadResponsable, pe.nFolioPreCompromiso " + "union " + "select 'PRCP-'+rtrim(ltrim(pe.cUnidadResponsable))+'-'+cast(pe.nFolioPreCompromiso as varchar) as folioPrecompromiso, pe.cIdContrato, " + "'AMPLIACION PEDIDO' as tipo, pe.cDescripcionPoliza, '$ '+convert(varchar,sum(pd.mImporte),1) as total " + "from mPedidoAmpliacion doc with(nolock) inner join mPedido p with(nolock) " + "on doc.cIdTipoPedido+'-'+doc.cIdUnidadEjecutora+'-'+cast(doc.nIdConsecutivo as varchar) = p.cIdPedido " + "inner join tPreCompromisoEncabezado pe with(nolock) " + "on p.cIdPedidoDefinitivo+'-AMP-'+cast(doc.nIdConsecutivoAmpliacion as varchar) = pe.cIdContrato " + "inner join tPreCompromisoDetalle pd with(nolock) " + "on pd.nFolioPreCompromiso = pe.nFolioPreCompromiso " + "where pe.cDocumentoHaplicado = 'S' and pe.C_FOLIO_COMP is null " + documento + " " + ur + "group by pe.cIdContrato, pe.cDescripcionPoliza, pe.cUnidadResponsable, pe.nFolioPreCompromiso " + "union " + "select 'PRCP-'+rtrim(ltrim(pe.cUnidadResponsable))+'-'+cast(pe.nFolioPreCompromiso as varchar) as folioPrecompromiso, doc.cIdPedidoDefinitivo, " + "'PASIVO PEDIDO' as tipo, pe.cDescripcionPoliza, '$ '+convert(varchar,sum(pd.mImporte),1) as total " + "from mPasivoPedido doc with(nolock) inner join tPreCompromisoEncabezado pe with(nolock) " + "on doc.cIdPedidoDefinitivo = pe.cIdContrato inner join tPreCompromisoDetalle pd with(nolock) " + "on pd.nFolioPreCompromiso = pe.nFolioPreCompromiso " + "where pe.cDocumentoHaplicado = 'S' and pe.C_FOLIO_COMP is null " + documento + " " + ur + "group by doc.cIdPedidoDefinitivo, pe.cDescripcionPoliza, pe.cUnidadResponsable, pe.nFolioPreCompromiso " + "union " + "select 'PRCP-'+rtrim(ltrim(pe.cUnidadResponsable))+'-'+cast(pe.nFolioPreCompromiso as varchar) as folioPrecompromiso, doc.cIdPedidoDefinitivo, " + "'PLURIANUALIDAD PEDIDO' as tipo, pe.cDescripcionPoliza, '$ '+convert(varchar,sum(pd.mImporte),1) as total " + "from mPlurianualidadPedido doc with(nolock) inner join tPreCompromisoEncabezado pe with(nolock) " + "on doc.cIdPedidoDefinitivo = pe.cIdContrato inner join tPreCompromisoDetalle pd with(nolock) " + "on pd.nFolioPreCompromiso = pe.nFolioPreCompromiso " + "where pe.cDocumentoHaplicado = 'S' and pe.C_FOLIO_COMP is null " + documento + " " + ur + "group by doc.cIdPedidoDefinitivo, pe.cDescripcionPoliza, pe.cUnidadResponsable, pe.nFolioPreCompromiso " + "union " + "select 'PRCP-'+rtrim(ltrim(pe.cUnidadResponsable))+'-'+cast(pe.nFolioPreCompromiso as varchar) as folioPrecompromiso, doc.cPedidoDefinitivo, " + "'MODIFICACION PEDIDO' as tipo, pe.cDescripcionPoliza, '$ '+convert(varchar,sum(pd.mImporte),1) as total " + "from mPedidoModificado doc with(nolock) inner join tPreCompromisoEncabezado pe with(nolock) " + "on doc.cPedidoDefinitivo = pe.cIdContrato inner join tPreCompromisoDetalle pd with(nolock) " + "on pd.nFolioPreCompromiso = pe.nFolioPreCompromiso " + "where pe.cDocumentoHaplicado = 'S' and pe.C_FOLIO_COMP is null and doc.tipoMod = 0 " + pedido + "group by doc.cPedidoDefinitivo, pe.cDescripcionPoliza, pe.cUnidadResponsable, pe.nFolioPreCompromiso " + "union " + "select 'PRCP-'+rtrim(ltrim(pe.cUnidadResponsable))+'-'+cast(pe.nFolioPreCompromiso as varchar) as folioPrecompromiso, pe.cIdContrato, " + "'AMPLIACION CONTRATO' as tipo, pe.cDescripcionPoliza, '$ '+convert(varchar,sum(pd.mImporte),1) as total " + "from mContratoAmpliacion doc with(nolock) inner join mPedido p with(nolock) " + "on doc.cIdTipoContrato+'-'+doc.cIdUnidadEjecutora+'-'+cast(doc.nIdConsecutivo as varchar) = p.cIdPedido " + "inner join tPreCompromisoEncabezado pe with(nolock) " + "on p.cIdPedidoDefinitivo+'-AMP-'+cast(doc.nIdConsecutivoAmpliacion as varchar) = pe.cIdContrato " + "inner join tPreCompromisoDetalle pd with(nolock) " + "on pd.nFolioPreCompromiso = pe.nFolioPreCompromiso " + "where pe.cDocumentoHaplicado = 'S' and pe.C_FOLIO_COMP is null " + documento + " " + ur + "group by pe.cIdContrato, pe.cDescripcionPoliza, pe.cUnidadResponsable, pe.nFolioPreCompromiso " + "union " + "select 'PRCP-'+rtrim(ltrim(pe.cUnidadResponsable))+'-'+cast(pe.nFolioPreCompromiso as varchar) as folioPrecompromiso, doc.cIdContratoDefinitivo, " + "'PASIVO CONTRATO' as tipo, pe.cDescripcionPoliza, '$ '+convert(varchar,sum(pd.mImporte),1) as total " + "from mPasivoContrato doc with(nolock) inner join tPreCompromisoEncabezado pe with(nolock) " + "on doc.cIdContratoDefinitivo = pe.cIdContrato inner join tPreCompromisoDetalle pd with(nolock) " + "on pd.nFolioPreCompromiso = pe.nFolioPreCompromiso " + "where pe.cDocumentoHaplicado = 'S' and pe.C_FOLIO_COMP is null " + documento + " " + ur + "group by doc.cIdContratoDefinitivo, pe.cDescripcionPoliza, pe.cUnidadResponsable, pe.nFolioPreCompromiso " + "union " + "select 'PRCP-'+rtrim(ltrim(pe.cUnidadResponsable))+'-'+cast(pe.nFolioPreCompromiso as varchar) as folioPrecompromiso, doc.cIdContratoDefinitivo, " + "'PLURIANUALIDAD CONTRATO' as tipo, pe.cDescripcionPoliza, '$ '+convert(varchar,sum(pd.mImporte),1) as total " + "from mPlurianualidadContrato doc with(nolock) inner join tPreCompromisoEncabezado pe with(nolock) " + "on doc.cIdContratoDefinitivo = pe.cIdContrato inner join tPreCompromisoDetalle pd with(nolock) " + "on pd.nFolioPreCompromiso = pe.nFolioPreCompromiso " + "where pe.cDocumentoHaplicado = 'S' and pe.C_FOLIO_COMP is null " + documento + " " + ur + "group by doc.cIdContratoDefinitivo, pe.cDescripcionPoliza, pe.cUnidadResponsable, pe.nFolioPreCompromiso " + "union " + "select 'PRCP-'+rtrim(ltrim(pe.cUnidadResponsable))+'-'+cast(pe.nFolioPreCompromiso as varchar) as folioPrecompromiso, doc.cContratoDefinitivo, " + "'MODIFICACION CONTRATO' as tipo, pe.cDescripcionPoliza, '$ '+convert(varchar,sum(pd.mImporte),1) as total " + "from mContratoModificado doc with(nolock) inner join tPreCompromisoEncabezado pe with(nolock) " + "on doc.cContratoDefinitivo = pe.cIdContrato inner join tPreCompromisoDetalle pd with(nolock) " + "on pd.nFolioPreCompromiso = pe.nFolioPreCompromiso " + "where pe.cDocumentoHaplicado = 'S' and pe.C_FOLIO_COMP is null and doc.tipoMod = 0 " + contrato + "group by doc.cContratoDefinitivo, pe.cDescripcionPoliza, pe.cUnidadResponsable, pe.nFolioPreCompromiso";
-        log.info("getPrecompromisos:" + query);
+        log.info("Object: {}", "getPrecompromisos:" + query);
         try {
             conn = DataSourceManager.getConnection(jndiName);
             retVal = CatalogosManager.getSelectQuery(conn, query);
@@ -1518,7 +1518,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
         if (folioCasoPrecomSeparado[0].equals("PRMT")) {
             query = "select " + "EP, " + "case when [1] is null then 0 else [1] end as Enero," + "case when [2] is null then 0 else [2] end as Febrero," + "case when [3] is null then 0 else [3] end as Marzo, " + "case when [4] is null then 0 else [4] end as Abril, " + "case when [5] is null then 0 else [5] end as Mayo, " + "case when [6] is null then 0 else [6] end as Junio, " + "case when [7] is null then 0 else [7] end as Julio, " + "case when [8] is null then 0 else [8] end as Agosto, " + "case when [9] is null then 0 else [9] end as Septiembre," + "case when [10] is null then 0 else [10] end as Octubre, " + "case when [11] is null then 0 else [11] end as Noviembre, " + "case when [12] is null then 0 else [12] end as Diciembre " + "from " + "(select pd.EP, pd.cMes, sum(pd.mImporte) as mImporte " + "from tPrecomMaterialesEncabezado pe inner join tPrecomMaterialesDetalle pd " + "on pe.nFolioPrecomMateriales = pd.nFolioPrecomMateriales " + "where " + "pe.cDocumentoHaplicado = 'S' " + "and pe.nFolioPrecomMateriales = " + folioCasoPrecomSeparado[2] + " " + "and pd.cEvento in ('PRECOM','PRECOM_MAT','DISP_PRECOMMAT') " + "and pd.mImporte > 0 " + "and (select MAX(CONSECUTIVO_MAT) from mPrecomMaterialesPrecomFinanciero pm with(nolock) where CONSECUTIVO_MAT = " + folioCasoPrecomSeparado[2] + ") is null " + "group by pd.EP, pd.cMes) as tab " + "pivot ( " + "sum(mImporte) " + "for cMes in ([1],[2],[3],[4],[5],[6],[7],[8],[9],[10],[11],[12]) " + ") as pvt ";
         }
-        log.info("getEP_Precom:" + query);
+        log.info("Object: {}", "getEP_Precom:" + query);
         try {
             conn = DataSourceManager.getConnection(jndiName);
             retVal = CatalogosManager.getSelectQuery(conn, query);
@@ -1541,7 +1541,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
     private String[][] getFoliosPrecomCancelar(String cIdDocumento, Connection conn) throws ServletException {
         String[][] retVal = null;
         String query = "select distinct nFolioPreCompromiso from tPreCompromisoEncabezado with(nolock) " + "where cIdContrato='" + cIdDocumento + "' and cDocumentoHaplicado='S' and C_FOLIO_COMP is null and ConsecutivoCOMP is null " + "union " + "select distinct nFolioPrecomMateriales from tPrecomMaterialesEncabezado pme with(nolock) " + "left join mPrecomMaterialesPrecomFinanciero pm with(nolock) " + "on pme.nFolioPrecomMateriales = pm.CONSECUTIVO_MAT " + "where pme.cIdConsolidado='" + cIdDocumento + "' and cDocumentoHaplicado='S' and pm.CONSECUTIVO_MAT is null ";
-        log.info("getFoliosPrecomCancelar:" + query);
+        log.info("Object: {}", "getFoliosPrecomCancelar:" + query);
         try {
             retVal = CatalogosManager.getSelectQuery(conn, query);
         } catch (SQLException e) {
@@ -1930,7 +1930,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
             if (conn != null) {
                 conn.rollback();
             }
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
         } finally {
             if (conn != null) {
                 conn.close();
@@ -1980,7 +1980,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
             throw new GestionException(exc);
         }
         c = casoTx.IniciaCaso(usuario, idTC, fg);
-        log.error(usuario.getLogin() + "_" + idTC + "_" + fg);
+        log.error("Object: {}", usuario.getLogin() + "_" + idTC + "_" + fg);
         if (c == null) {
             log.error("No se logro crear el caso");
             throw new GestionException("No se logró crear el caso");

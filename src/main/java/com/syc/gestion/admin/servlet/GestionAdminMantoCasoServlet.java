@@ -52,12 +52,12 @@ public class GestionAdminMantoCasoServlet extends HttpServlet implements Gestion
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 
@@ -92,7 +92,7 @@ public class GestionAdminMantoCasoServlet extends HttpServlet implements Gestion
         try {
             mode = Integer.parseInt(strMode);
         } catch (NumberFormatException exc) {
-            log.warn("Modo (" + strMode + ") no soportado");
+            log.warn("Object: {}", "Modo (" + strMode + ") no soportado");
             // TODO Enviar un javascript window.alert("Modo (" + strMode + ") no soportado");
             return;
         }
@@ -105,7 +105,7 @@ public class GestionAdminMantoCasoServlet extends HttpServlet implements Gestion
         } else if (OPER_SIGTE_CASO.equalsIgnoreCase(type)) {
             mantenimientoOperacionResponsable(req, resp, mode);
         } else {
-            log.warn("Tipo de envio (" + type + ") no soportado");
+            log.warn("Object: {}", "Tipo de envio (" + type + ") no soportado");
             // TODO Enviar un javascript window.alert("Tipo de envio (" + type + ") no soportado");
             return;
         }

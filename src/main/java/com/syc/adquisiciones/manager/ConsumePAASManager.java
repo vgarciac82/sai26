@@ -34,7 +34,7 @@ public class ConsumePAASManager {
             stmEnc = conn.createStatement();
             if (datos.getnCantidadTotal() > 0) {
                 query = " INSERT INTO dbo.tPagoDirectoPAAS( cEjercicio ,cIdUnidadEjecutora ,nFolioPagoDirecto ,nLinea ,cIdCABM ,  cIdSubPartida ,cDescripcionAdicional ,nCantidad ,mPrecioUnitario ,nIdIVA ,cIdEstadoLinea ,  mMontoNeto ,fFechaInicio ,fFechaFin ,cIdAlmacenEntrega ,nIdCategoria ,nIdFundamentoLeg) VALUES  ( '" + datos.getcEjercicio() + "' ,'" + datos.getcIdUnidadEjecutora() + "' ," + " " + datos.getnFolioPago() + " ,isnull((select max(nLinea)+1 from tPagoDirectoPAAS with(Nolock) where cEjercicio='" + datos.getcEjercicio() + "' and cIdUnidadEjecutora='" + datos.getcIdUnidadEjecutora() + "' and nFolioPagoDirecto=" + datos.getnFolioPago() + "),1) ,'" + datos.getcCabm() + "' ," + "'" + datos.getcPartida() + "' ,NULL ," + datos.getnCantidadTotal() + " ," + datos.getmPUpromedio() + "," + datos.getnIdIVA() + ",'D' ," + "round((" + datos.getnCantidadTotal() + "*" + datos.getmPUpromedio() + "*(1+(0.01*" + datos.getnValorIVA() + "))),2) ,convert(date,'" + datos.getfFechaInicio() + "') ," + "convert(date,'" + datos.getfFechaFin() + "') ,'" + datos.getcAlmacenEntrega() + "' ," + datos.getnTipoAdjudicacion() + " ," + datos.getnFundamentoLegal() + " )";
-                log.info("query: " + query);
+                log.info("Object: {}", "query: " + query);
                 if (stmEnc.executeUpdate(query) == 1)
                     resp = true;
             }
@@ -54,7 +54,7 @@ public class ConsumePAASManager {
         while (itr.hasNext()) {
             fila = itr.next();
             query = "UPDATE dbo.tPagoDirectoPAAS SET cDescripcionAdicional='" + (String) fila.get(2) + "',mPrecioUnitario=" + (String) fila.get(4) + ",nIdIVA=" + (String) fila.get(5) + ",mMontoNeto=(CASE WHEN ABS(" + (String) fila.get(6) + "-(ROUND((nCantidad*" + (String) fila.get(4) + "*(1+(0.01*ISNULL((SELECT VALOR FROM dbo.mCatalogoTipoIVA WITH(NOLOCK) WHERE IDIVA=" + (String) fila.get(5) + "),0)))),2)))>0.5 " + "THEN (ROUND((nCantidad*" + (String) fila.get(4) + "*(1+(0.01*ISNULL((SELECT VALOR FROM dbo.mCatalogoTipoIVA WITH(NOLOCK) WHERE IDIVA=" + (String) fila.get(5) + "),0)))),2)) ELSE " + (String) fila.get(6) + " END) " + ",fFechaInicio=CONVERT(DATE,'" + datos.getfFechaInicio() + "') " + ",fFechaFin=CONVERT(DATE,'" + datos.getfFechaFin() + "'),cIdAlmacenEntrega='" + datos.getcAlmacenEntrega() + "' WHERE cEjercicio='" + datos.getcEjercicio() + "' AND cIdUnidadEjecutora='" + datos.getcIdUnidadEjecutora() + "' AND nFolioPagoDirecto=" + datos.getnFolioPago() + " AND nLinea=" + (String) fila.get(0);
-            log.trace("ConsumePAASManager.actualizaPagoDeirectoPAAS Ejecutando:  " + query);
+            log.trace("Object: {}", "ConsumePAASManager.actualizaPagoDeirectoPAAS Ejecutando:  " + query);
             if (!execQuery(conn, query)) {
                 resp = false;
                 break;
@@ -101,7 +101,7 @@ public class ConsumePAASManager {
                 }
                 respuesta.setMsg("No hay disponibilidad en el PAAS para el cucop " + datos.getcCabm() + " de la unidad ejecutora " + datos.getcIdUnidadEjecutora() + " en el mes " + (String) fila.get(0));
                 respuesta.setResp(false);
-                log.warn("No hay disponibilidad en el PAAS para el cucop " + datos.getcCabm() + " de la unidad ejecutora " + datos.getcIdUnidadEjecutora() + " en el mes " + (String) fila.get(0));
+                log.warn("Object: {}", "No hay disponibilidad en el PAAS para el cucop " + datos.getcCabm() + " de la unidad ejecutora " + datos.getcIdUnidadEjecutora() + " en el mes " + (String) fila.get(0));
                 break;
             }
             respuesta.setResp(false);
@@ -124,7 +124,7 @@ public class ConsumePAASManager {
         Statement stmEnc = null;
         int n = 0;
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             stmEnc = conn.createStatement();
             n = stmEnc.executeUpdate(query);
             if (n > 0)
@@ -183,11 +183,11 @@ public class ConsumePAASManager {
         ResultSet rs = null;
         try {
             query = "SELECT * FROM fn_mProgramaAnualDetalleCantidadEnSolicitudes() WHERE cEjercicio =? AND cIdUnidadEjecutora =? AND cIdSubPartida=?  AND cIdCABM =? AND nCantidadEnSolicitudes >0";
-            log.info(query);
-            log.info("cEjercicio: " + cEjercicio);
-            log.info("cIdUnidadEjecutora: " + cIdUnidadEjecutora);
-            log.info("cPartida: " + cPartida);
-            log.info("cCucop: " + cCucop);
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", "cEjercicio: " + cEjercicio);
+            log.info("Object: {}", "cIdUnidadEjecutora: " + cIdUnidadEjecutora);
+            log.info("Object: {}", "cPartida: " + cPartida);
+            log.info("Object: {}", "cCucop: " + cCucop);
             ps = conn.prepareStatement(query);
             ps.setString(1, cEjercicio);
             ps.setString(2, cIdUnidadEjecutora);
@@ -210,7 +210,7 @@ public class ConsumePAASManager {
         boolean resp = false;
         try {
             query = "DELETE FROM mProgramaAnualDetallePeriodo WHERE cEjercicio ='" + cEjercicio + "' AND cIdUnidadEjecutora ='" + cIdUnidadEjecutora + "' AND cIdCABM ='" + cCucop + "' AND cIdSubPartida ='" + cPartida + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             row = ps.executeUpdate();
             if (row > 0)
@@ -247,7 +247,7 @@ public class ConsumePAASManager {
         boolean resp = false;
         try {
             query = "DELETE FROM mProgramaAnualDetalle WHERE cEjercicio ='" + cEjercicio + "' AND cIdUnidadEjecutora ='" + cIdUnidadEjecutora + "' AND cIdCABM ='" + cCucop + "' AND cIdSubPartida ='" + cPartida + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             row = ps.executeUpdate();
             if (row > 0)

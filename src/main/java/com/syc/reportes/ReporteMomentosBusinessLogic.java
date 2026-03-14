@@ -11,10 +11,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.gestion.util.Util;
@@ -99,7 +99,7 @@ public class ReporteMomentosBusinessLogic extends DataSourceManager {
                         try {
                             in.close();
                         } catch (Exception e) {
-                            log.warn("Problemas cerrando reporte. " + e);
+                            log.warn("Object: {}", "Problemas cerrando reporte. " + e);
                         }
                 }
                 if (zos != null) {

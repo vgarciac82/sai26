@@ -76,10 +76,10 @@ public class OperacionAjenaManager {
         String Sql = " SELECT distinct tCE.nFolioOperAjenas,  'H' AS Header,  CONVERT(nvarchar(10), tCE.fCaptura,103), CONVERT(nvarchar(10), tCE.fAplicacion,103), tCE.cRamo, tCE.cRamo, tCE.cRamo, 'RHQ' UnidadResponsable, 'RHQ' UnidadResponsable, 'RHQ' UnidadResponsable, tCE.cIdTipoDocumento,  '1' AS OrigenPpto, 'MXN' TipoMoneda , '1.00' TipoCambio, '2' TIPO_PAGO, '3' AS CveLeyenda, B.CBEN, 'Cuenta' CUENTA_BANCARIA, rtrim(tCE.cIdRFC), 'OTR', '' FechaReferencia, LEFT(tCE.cConcepto, 40) Referencia1, '' Referencia2, LEFT(tCE.cConcepto, 40), '' AMF, rtrim(tCE.caNoContrarrecibo) NO_ACMI, rtrim(tCE.caNoContrarrecibo) AuxiliarComodin, '' CTR , '' FolioDC  FROM tOperAjenasEncabezado tCE  WITH (NOLOCK) LEFT JOIN tBeneficiario B  WITH (NOLOCK) ON tce.cIdRFC = B.dRFC  INNER JOIN tBeneficiarioCuentasBancarias BCB  WITH (NOLOCK) ON tCE.cIdRFC =	BCB.dRFC  LEFT JOIN pCatalogoTipoDocumento CTD  WITH (NOLOCK) ON tCE.cIdTipoDocumento = CTD.cIdTipoDocumento  LEFT JOIN v_pagosDocComprobatoria DC ON DC.caNoContrarrecibo =tCE.caNoContrarrecibo  WHERE tCE.nFolioOperAjenas in (" + listaIds + ") ";
         try {
             pstmntH = conn.prepareStatement(Sql);
-            log.debug(Sql);
+            log.debug("Object: {}", Sql.toString());
             rs = pstmntH.executeQuery();
             while (rs.next()) {
-                log.debug(arrFolios[0].trim());
+                log.debug("Object: {}", arrFolios[0].trim());
                 String nFolio, nFolioCompromiso = rs.getString(1);
                 for (int i = 0; i < arrFolios.length; i++) {
                     nFolio = arrFolios[i].trim();
@@ -156,7 +156,7 @@ public class OperacionAjenaManager {
                 String Sql2 = " SELECT DISTINCT PDE.cRamo, DCD.DCD_FACTURA,	CONVERT(nvarchar(10), DCD.fAplicacion,103),  CONVERT(nvarchar(10), DCD.fRecepcion,103) + ' 12:00:00 a.m.', DCD.DCD_CBEN,	 case when B.cExtranjero = 1 then '05' else '04' end 'TipoBen', DCD.DCD_TIPO_OPE, DCD.DCD_TIVA 'TIVA',  CONVERT(decimal(17, 2), DCD.DCD_VALOR),  CONVERT(decimal(17, 2), DCD.DCD_IMP_BRUTO) BRUTO,  CONVERT(decimal(17, 2), DCD.DCD_IVADES) IVA,  CONVERT(decimal(17, 2), DCD.DCD_IVA) RETIVA,  CONVERT(decimal(17, 2), DCD.DCD_ISR) ISR,  CONVERT(decimal(17, 2), DCD.DCD_MIL5) R5MILLAR,  CONVERT(decimal(17, 2), DCD.DCD_MIL2) R2MILLAS,  CONVERT(decimal(17, 2), DCD.DCD_OTRAS_RET) OTRASRET,  CONVERT(decimal(17, 2), DCD.DCD_PENALIZACION) PENALIZA,  CONVERT(decimal(17, 2), DCD.DCD_CONTRIBUCION) CONTRIB,  DCD.DCD_CTOEXT,  PDE.cIdDocumento,  DCD.cConcepto  from dbo.tOperAjenasEncabezado PDE (nolock) inner join dbo.v_pagosDocComprobatoria DCD (nolock)  on PDE.caNoContrarrecibo = DCD.caNoContrarrecibo  inner join [dbo].[tBeneficiario] B (nolock) on PDE.cIdRFC = B.dRFC  inner join [dbo].[CAT_TIPO_IVA] TI (nolock) on TI.TIVA = DCD.DCD_TIVA  where PDE.nFolioOperAjenas  = " + nFolioCompromiso;
                 log.debug("Inicia la documentacion comprobatoria");
                 pstmntD = conn.prepareStatement(Sql2);
-                log.debug(Sql2);
+                log.debug("Object: {}", Sql2.toString());
                 rs2 = pstmntD.executeQuery();
                 while (rs2.next()) {
                     String token = new String();
@@ -415,7 +415,7 @@ public class OperacionAjenaManager {
         query += esIP ? " AND SUBSTRING(ep,40,1) = 4 " : " AND SUBSTRING(ep,40,1) <> 4  ";
         query += camposTipoCondicion.get(tipo);
         query += " and cCentroContable = " + cc;
-        log.debug(query);
+        log.debug("Object: {}", query.toString());
         String[][] retVal = CatalogosManager.getSelectQuery(conn, query);
         return retVal;
     }

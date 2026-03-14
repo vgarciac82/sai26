@@ -308,14 +308,14 @@ public class FacturaBusinessLogic extends DataSourceManager {
     }
 
     public Map<String, MassPaymentInvoiceComponents> loadMassInoviceSupplierPayment(InvoiceSubmissionRequest submission, Map<String, MassPaymentInvoiceComponents> invoices, Usuario user) throws Exception {
-        log.trace("Iniciando extraccion de contenido del archivo [" + submission.getInvoices() + "]");
-        log.trace("Abriendo archivo [" + submission.getInvoices().getAbsolutePath() + "]  para su extraccion.");
+        log.trace("Object: {}", "Iniciando extraccion de contenido del archivo [" + submission.getInvoices() + "]");
+        log.trace("Object: {}", "Abriendo archivo [" + submission.getInvoices().getAbsolutePath() + "]  para su extraccion.");
         long start = System.currentTimeMillis();
         String excludeUnits = getActivityReportExcludedUnits();
         int extractedFiles = 0;
         if (!(directorioTemporal.endsWith("/") || directorioTemporal.endsWith("\\")))
             directorioTemporal = directorioTemporal + File.separatorChar;
-        log.trace("Directorio temporal de extraccion[ " + directorioTemporal + "]");
+        log.trace("Object: {}", "Directorio temporal de extraccion[ " + directorioTemporal + "]");
         File destDir = new File(directorioTemporal);
         if (!destDir.exists()) {
             destDir.mkdir();
@@ -328,7 +328,7 @@ public class FacturaBusinessLogic extends DataSourceManager {
             String elementName = FacturaUtils.obtenNombreArchivoZip(entry.getName(), false).toLowerCase();
             String extension = FacturaUtils.obtenExtensionArchivoZip(entry.getName()).toLowerCase();
             String filePath = FacturaUtils.generaNombreArchivoTemporal(directorioTemporal, elementName, extension).toLowerCase();
-            log.trace("Procesando archivo [" + elementName + "." + extension + "] dentro del archivo ZIP");
+            log.trace("Object: {}", "Procesando archivo [" + elementName + "." + extension + "] dentro del archivo ZIP");
             if (!entry.isDirectory()) {
                 log.trace("Se trata de un archivo, se extraera");
                 File f = new File(filePath);
@@ -359,7 +359,7 @@ public class FacturaBusinessLogic extends DataSourceManager {
         zipIn.close();
         invoices = loadActivityReport(invoices, otherElements, (excludeUnits.toUpperCase().indexOf(user.getU_UR()) >= 0));
         long stop = System.currentTimeMillis();
-        log.trace("Terminada extraccion de contenido del archivo. Se extrajeron [" + extractedFiles + "] archivos en [" + ((stop - start) / 1000) + "] s.");
+        log.trace("Object: {}", "Terminada extraccion de contenido del archivo. Se extrajeron [" + extractedFiles + "] archivos en [" + ((stop - start) / 1000) + "] s.");
         return invoices;
     }
 
@@ -400,7 +400,7 @@ public class FacturaBusinessLogic extends DataSourceManager {
             String nombreFact = i.next();
             ComponentesFactura cf = facturas.get(nombreFact);
             File fxml = new File(cf.getXmlPathFile());
-            log.trace("Iniciando proceso de : " + cf.getXmlPathFile());
+            log.trace("Object: {}", "Iniciando proceso de : " + cf.getXmlPathFile());
             Comprobante comprobante = FacturaManager.cargaComprobante(fxml);
             cf.setComprobante(comprobante);
             boolean esCFDICombustible = comprobante.esCFDICombustible();
@@ -449,7 +449,7 @@ public class FacturaBusinessLogic extends DataSourceManager {
                     Carpeta cfdi = FacturaManager.obtenCarpetaDestino(conn, c, "CFDI", u.getLogin());
                     for (Iterator<String> i = facturas.keySet().iterator(); i.hasNext(); ) {
                         String facturaNombre = i.next();
-                        log.debug("Insertando factura [" + facturaNombre + "] ");
+                        log.debug("Object: {}", "Insertando factura [" + facturaNombre + "] ");
                         ComponentesFactura cf = facturas.get(facturaNombre);
                         insertados += FacturaManager.insertaArchivosFactura(conn, facturaNombre, cf, cfdi, c, u.getLogin());
                     }
@@ -473,7 +473,7 @@ public class FacturaBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("No fue posible realiar rollback: " + e2);
+                    log.warn("Object: {}", "No fue posible realiar rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -561,7 +561,7 @@ public class FacturaBusinessLogic extends DataSourceManager {
                     Carpeta cfdi = FacturaManager.obtenCarpetaDestino(conn, c, "CFDI", u.getLogin());
                     for (Iterator<String> i = facturas.keySet().iterator(); i.hasNext(); ) {
                         String facturaNombre = i.next();
-                        log.debug("Insertando factura [" + facturaNombre + "] ");
+                        log.debug("Object: {}", "Insertando factura [" + facturaNombre + "] ");
                         ComponentesFactura cf = facturas.get(facturaNombre);
                         insertados += FacturaManager.insertaArchivosFactura(conn, facturaNombre, cf, cfdi, c, u.getLogin());
                     }
@@ -960,7 +960,7 @@ public class FacturaBusinessLogic extends DataSourceManager {
                     throw new Exception(String.format("No se encontro expediente en el tramite. Caso[%d]", c.getIdCaso()));
                 String usrLogin = getUsuario().getLogin();
                 Carpeta rep = FacturaManager.obtenCarpetaDestino(conn, c, "REP", usrLogin);
-                log.debug("Insertando factura [" + REPNombre + "] ");
+                log.debug("Object: {}", "Insertando factura [" + REPNombre + "] ");
                 insertados = FacturaManager.insertaArchivosFactura(conn, REPNombre, cf, rep, c, usrLogin);
                 FacturaManager.insertaInformacionReciboDePago33(conn, cf.getComprobante().getUUID(), docto, tipoPago, folioPago);
             }
@@ -995,12 +995,12 @@ public class FacturaBusinessLogic extends DataSourceManager {
                     throw new Exception(String.format("No se encontro expediente en el tramite. Caso[%d]", c.getIdCaso()));
                 String usrLogin = getUsuario().getLogin();
                 Carpeta rep = FacturaManager.obtenCarpetaDestino(conn, c, "REP", usrLogin);
-                log.debug("Insertando factura [" + REPNombre + "] ");
+                log.debug("Object: {}", "Insertando factura [" + REPNombre + "] ");
                 insertados = FacturaManager.insertaArchivosFactura(conn, REPNombre, cf, rep, c, usrLogin);
                 String xmlPath = cf.getXmlPathFile();
                 EdrConceptoDispersion concepto = AdendaEdenredUtils.buscarConceptoDispersion(xmlPath, uuidOrigen);
                 if (concepto != null) {
-                    log.debug("Se encontró la adenda EDENRED para UUID: " + uuidOrigen);
+                    log.debug("Object: {}", "Se encontró la adenda EDENRED para UUID: " + uuidOrigen);
                     mx.grupocorasa.sat.common.Pagos20.Pagos.Pago.DoctoRelacionado doctoNuevo = new mx.grupocorasa.sat.common.Pagos20.Pagos.Pago.DoctoRelacionado();
                     doctoNuevo.setFolio(docto.getFolio());
                     doctoNuevo.setSerie(docto.getSerie());
@@ -1082,7 +1082,7 @@ public class FacturaBusinessLogic extends DataSourceManager {
                 String uuidPadre = docto.getIdDocumento();
                 logRenglon.append(uuidPadre).append(";");
                 DocumentoSAI doctoSAI = FacturaManager.getDocumentoOrigen(conn, uuidPadre);
-                log.trace("Documento encontrado: " + doctoSAI);
+                log.trace("Object: {}", "Documento encontrado: " + doctoSAI);
                 Caso c = new Caso();
                 c.setIdCaso(doctoSAI.getIdCaso());
                 c = CasoManager.select(conn, c);
@@ -1092,7 +1092,7 @@ public class FacturaBusinessLogic extends DataSourceManager {
                     throw new Exception(String.format("No se encontro expediente en el tramite. Caso[%d] UUID[%s]", doctoSAI.getIdCaso(), doctoSAI.getUUID()));
                 String usrLogin = getUsuario().getLogin();
                 Carpeta rep = FacturaManager.obtenCarpetaDestino(conn, c, "REP", usrLogin);
-                log.debug("Insertando factura [" + REPNombre + "] ");
+                log.debug("Object: {}", "Insertando factura [" + REPNombre + "] ");
                 FacturaManager.insertaArchivosREP(conn, REPNombre, cf, rep, c, usrLogin);
                 FacturaManager.insertaInformacionReciboDePago33(conn, cf.getComprobante().getUUID(), docto, doctoSAI.getTipoDocumento(), doctoSAI.getFolioDocumento());
                 logRenglon.append(doctoSAI.getTipoDocumento()).append(";");
@@ -1123,7 +1123,7 @@ public class FacturaBusinessLogic extends DataSourceManager {
                 String uuidPadre = docto.getIdDocumento();
                 logRenglon.append(uuidPadre).append(";");
                 DocumentoSAI doctoSAI = FacturaManager.getDocumentoOrigen(conn, uuidPadre);
-                log.trace("Documento encontrado: " + doctoSAI);
+                log.trace("Object: {}", "Documento encontrado: " + doctoSAI);
                 Caso c = new Caso();
                 c.setIdCaso(doctoSAI.getIdCaso());
                 c = CasoManager.select(conn, c);
@@ -1133,7 +1133,7 @@ public class FacturaBusinessLogic extends DataSourceManager {
                     throw new Exception(String.format("No se encontro expediente en el tramite. Caso[%d] UUID[%s]", doctoSAI.getIdCaso(), doctoSAI.getUUID()));
                 String usrLogin = getUsuario().getLogin();
                 Carpeta rep = FacturaManager.obtenCarpetaDestino(conn, c, "REP", usrLogin);
-                log.debug("Insertando factura [" + REPNombre + "] ");
+                log.debug("Object: {}", "Insertando factura [" + REPNombre + "] ");
                 FacturaManager.insertaArchivosREP(conn, REPNombre, cf, rep, c, usrLogin);
                 FacturaManager.insertaInformacionReciboDePago40(conn, cf.getComprobante().getUUID(), docto, doctoSAI.getTipoDocumento(), doctoSAI.getFolioDocumento());
                 i++;
@@ -1187,7 +1187,7 @@ public class FacturaBusinessLogic extends DataSourceManager {
             Carpeta cfdi = FacturaManager.obtenCarpetaDestino(conn, c, "CFDI Contrato", u.getLogin());
             for (Iterator<String> i = facturas.keySet().iterator(); i.hasNext(); ) {
                 String facturaNombre = i.next();
-                log.debug("Insertando factura [" + facturaNombre + "] ");
+                log.debug("Object: {}", "Insertando factura [" + facturaNombre + "] ");
                 ComponentesFactura cf = facturas.get(facturaNombre);
                 insertados += FacturaManager.insertaArchivosFactura(conn, facturaNombre, cf, cfdi, c, u.getLogin());
             }

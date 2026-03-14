@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.core.FileItem;
 import com.syc.contable.OperacionAjenaBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
@@ -74,7 +74,7 @@ public class CargaArchivosSicopAjenasServlet extends HttpServlet implements Gest
                     if (!"csv".equalsIgnoreCase(extension)) {
                         throw new Exception("El nombre del archivo debe contener la extensión csv.");
                     }
-                    log.info("Copiando archivo :" + nombreArchivo);
+                    log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                     nombreDestino = File.createTempFile("CARGA_AJENAS", ".csv", new File(System.getProperty("java.io.tmpdir")));
                     Util.copiaArchivo(archivoCargaStream, nombreDestino.getAbsolutePath());
                     archivoRecibido = true;
@@ -104,13 +104,13 @@ public class CargaArchivosSicopAjenasServlet extends HttpServlet implements Gest
             TEMP_DIR = (String) ic.lookup("java:comp/env/TemporaryDirectory");
             if (TEMP_DIR == null) {
                 TEMP_DIR = "../upload/PEF/";
-                log.info("Environment Entry \"TEMP_DIR\" nula usando default \"" + TEMP_DIR + "\"");
+                log.info("Object: {}", "Environment Entry \"TEMP_DIR\" nula usando default \"" + TEMP_DIR + "\"");
             } else
-                log.info("dataSourceRefName=" + TEMP_DIR);
+                log.info("Object: {}", "dataSourceRefName=" + TEMP_DIR);
         } catch (NamingException exc) {
             TEMP_DIR = "../upload/PEF/";
-            log.info("Ocurrio un error que evito que se cargara la entrada \"TEMP_DIR\"" + exc);
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + TEMP_DIR + "\"");
+            log.info("Error occurred", "Ocurrio un error que evito que se cargara la entrada \"TEMP_DIR\"" + exc);
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + TEMP_DIR + "\"");
         }
         try {
             File f = new File(TEMP_DIR);
@@ -118,19 +118,19 @@ public class CargaArchivosSicopAjenasServlet extends HttpServlet implements Gest
                 if (!f.mkdirs())
                     throw new Exception("No se puede crear el directorio temporal " + TEMP_DIR);
         } catch (Exception e) {
-            log.error("No fue posible crear automaticamente el directorio temporal: " + TEMP_DIR + " Solicite su creacion manual");
+            log.error("Object: {}", "No fue posible crear automaticamente el directorio temporal: " + TEMP_DIR + " Solicite su creacion manual");
         }
         try {
             InitialContext ic = new InitialContext();
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 }

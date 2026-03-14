@@ -47,8 +47,8 @@ public class IngresoGreenMexManager {
             int insertados = psEncabezado.executeUpdate();
             insertados += psDetalle.executeUpdate();
             insertados += psDetalleR.executeUpdate();
-            log.debug("Se insertaron " + insertados + " campos para aplicar el Ingreso para GREENMEX ");
-            log.info(" Aplicando motor para el Ingreso para GREENMEX " + nFolioIngresoGreenMex);
+            log.debug("Object: {}", "Se insertaron " + insertados + " campos para aplicar el Ingreso para GREENMEX ");
+            log.info("Object: {}", " Aplicando motor para el Ingreso para GREENMEX " + nFolioIngresoGreenMex);
             AccountingEngine accEng = new AccountingEngine();
             accEng.setValidaInsuficienciaDeSaldo(true);
             accEng.makeAccountingApplication(conn, "INGRESOGREENMEX", String.valueOf(nFolioIngresoGreenMex), "tIngresoGreenMexEncabezado", "tIngresoGreenMexDetalle", "nFolioIngresoGreenMex");

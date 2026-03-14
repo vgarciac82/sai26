@@ -39,12 +39,12 @@ public class ConvenioModificatorioServlet extends HttpServlet implements Gestion
             jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jndiName == null) {
                 jndiName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
             } else
-                log.info("dataSourceRefName=" + jndiName);
+                log.info("Object: {}", "dataSourceRefName=" + jndiName);
         } catch (NamingException exc) {
             jndiName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
         }
     }
 
@@ -98,12 +98,12 @@ public class ConvenioModificatorioServlet extends HttpServlet implements Gestion
                     break;
             }
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             jsonObj = new JSONObject();
             try {
                 jsonObj.put("MSG", (null == e.getMessage() || "null".equalsIgnoreCase(e.getMessage()) ? "Error: " + e.toString() : "Error : " + e.getMessage().toString()));
             } catch (JSONException e1) {
-                log.error(e1);
+                log.error(e1.getMessage(), e1);
                 throw new ServletException(e1);
             }
         } finally {

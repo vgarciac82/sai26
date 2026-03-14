@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.LogManager;
 import com.axtel.contratos.QuestionnaireBussinessLogic;
 import com.syc.egresos.core.EgresoEncabezado;
 import com.syc.ejercido.pagado.EgresosBusinessLogic;
@@ -30,7 +29,7 @@ public class QuestionnairePaymentServlet extends HttpServlet implements GestionI
      */
     private static final long serialVersionUID = -1644166077419107778L;
 
-    private static final Logger log = LogManager.getLogger(QuestionnairePaymentServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(QuestionnairePaymentServlet.class);
 
     private String jniName;
 
@@ -77,12 +76,12 @@ public class QuestionnairePaymentServlet extends HttpServlet implements GestionI
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (Exception exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 }

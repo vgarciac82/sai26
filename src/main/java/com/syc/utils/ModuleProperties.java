@@ -63,7 +63,7 @@ public class ModuleProperties extends DataSourceManager {
                 CloseObject.closeObject(ps, false);
                 CloseObject.closeObject(conn, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }

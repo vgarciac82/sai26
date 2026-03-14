@@ -6,12 +6,12 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.axtel.sisecop.dto.ProjectBudgetItemDTO;
 import com.axtel.sisecop.entities.ProjectBudgetItem;
 import com.axtel.sisecop.services.ProjectBudgetService;
@@ -44,11 +44,11 @@ public class ProjectBudgetController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProjectBudgetItemDTO budgetItem = readBudgetItem(request);
-        log.trace("JSON recibido correctamente y mapeado a objeto BudgetItem. " + budgetItem);
+        log.trace("Object: {}", "JSON recibido correctamente y mapeado a objeto BudgetItem. " + budgetItem);
         try {
-            log.debug("Saving budgetItem: " + budgetItem);
+            log.debug("Object: {}", "Saving budgetItem: " + budgetItem);
             ProjectBudgetItem projectBudgetItem = budgetService.createProjectBudget(budgetItem);
-            log.info("Territory saved: " + projectBudgetItem);
+            log.info("Object: {}", "Territory saved: " + projectBudgetItem);
             Util.sendJSONResponse(response, projectBudgetItem);
         } catch (Exception e) {
             log.error("Error saving porject: " + e.toString(), e);
@@ -60,10 +60,10 @@ public class ProjectBudgetController extends HttpServlet {
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             int idBudgetItem = Integer.parseInt(request.getParameter("id"));
-            log.info("Trying to delete " + idBudgetItem + " budget item");
+            log.info("Object: {}", "Trying to delete " + idBudgetItem + " budget item");
             Map<String, String> result = new HashMap<>();
             budgetService.deleteProjectBudget(idBudgetItem);
-            log.info("Budget Item " + idBudgetItem + " was deleted");
+            log.info("Object: {}", "Budget Item " + idBudgetItem + " was deleted");
             result.put("deleted", "true");
             result.put("success", "true");
             result.put("rowsAfected", "1");
@@ -83,7 +83,7 @@ public class ProjectBudgetController extends HttpServlet {
             }
         }
         String jsonString = jsonRequest.toString();
-        log.trace("Recibed: " + jsonString);
+        log.trace("Object: {}", "Recibed: " + jsonString);
         ProjectBudgetItemDTO budgetItemDTO = objectMapper.readValue(jsonString, ProjectBudgetItemDTO.class);
         return budgetItemDTO;
     }

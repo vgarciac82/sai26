@@ -52,12 +52,12 @@ public class GeneraLayoutServlet extends HttpServlet {
             jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jndiName == null) {
                 jndiName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
             } else
-                log.info("dataSourceRefName=" + jndiName);
+                log.info("Object: {}", "dataSourceRefName=" + jndiName);
         } catch (NamingException exc) {
             jndiName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
         }
     }
 
@@ -92,7 +92,7 @@ public class GeneraLayoutServlet extends HttpServlet {
                     break;
             }
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         }
     }
 
@@ -116,7 +116,7 @@ public class GeneraLayoutServlet extends HttpServlet {
             mensaje = resp.getMsg();
         } catch (Exception e) {
             e.printStackTrace();
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             mensaje = e.getMessage().toString();
         } finally {
             try {
@@ -126,7 +126,7 @@ public class GeneraLayoutServlet extends HttpServlet {
                 out.println(destino);
             } catch (JSONException e) {
                 e.printStackTrace();
-                log.error(e.getMessage());
+                log.error("Object: {}", e.getMessage());
             }
         }
     }
@@ -173,7 +173,7 @@ public class GeneraLayoutServlet extends HttpServlet {
                 leidos1 = bufferedInput1.read(array1);
             }
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             e.printStackTrace();
         } finally {
             bufferedInput1.close();

@@ -148,7 +148,7 @@ public class CargaMasivaSNPBusinessLogic extends DataSourceManager {
         ae.setValidaInsuficienciaDeSaldo(true);
         for (int i = 0; i <= hoja.getLastRowNum(); i++) {
             Row fila = hoja.getRow(i);
-            log.trace(fila.getCell(0).getStringCellValue());
+            log.trace("Object: {}", fila.getCell(0).getStringCellValue());
             if ("H".equalsIgnoreCase(StringUtils.trimToEmpty(fila.getCell(0).getStringCellValue()))) {
                 numeroSNP++;
                 solicitudes.add(numeroSNP, new SolicitudNoPresupuestal());
@@ -156,7 +156,7 @@ public class CargaMasivaSNPBusinessLogic extends DataSourceManager {
             } else if ("D".equalsIgnoreCase(StringUtils.trimToEmpty(fila.getCell(0).getStringCellValue()))) {
                 solicitudes.get(numeroSNP).getDetalle().add(SolicitudNoPresupuestalDetalle.instanceFromExcel(fila, u));
             }
-            log.trace(solicitudes.get(numeroSNP));
+            log.trace("Object: {}", solicitudes.get(numeroSNP));
         }
         for (int i = 0; i < solicitudes.size(); i++) {
             Connection conn = null;
@@ -164,7 +164,7 @@ public class CargaMasivaSNPBusinessLogic extends DataSourceManager {
                 conn = getConnection();
                 Caso c = generaCasoCaja(conn, u, 42);
                 int nFolioCaja = Integer.parseInt(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1));
-                log.info(" ============================= GENERADO FOLIO " + c.getFolio() + " - " + nFolioCaja + " =====================================");
+                log.info("Object: {}", " ============================= GENERADO FOLIO " + c.getFolio() + " - " + nFolioCaja + " =====================================");
                 solicitudes.get(i).setFolioSNP(nFolioCaja);
                 CajaManager.insertaSolicitudNoPresupuestal(conn, solicitudes.get(i));
                 ae.makeAccountingApplication(conn, "CAJA", String.valueOf(nFolioCaja), "tcajaencabezado", "tcajadetalle", "nFoliocaja");
@@ -200,7 +200,7 @@ public class CargaMasivaSNPBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e2) {
-                        log.warn(e2);
+                        log.warn(e2.getMessage(), e2);
                     }
                 throw e;
             } finally {

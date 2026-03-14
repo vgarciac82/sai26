@@ -400,7 +400,7 @@ public class ConfiguraAplicativoBusinessLogic extends DataSourceManager {
                 arrLDetalle = ConfiguraAplicativoManager.layoutDetalle(conn, cLayout);
                 arrHeader = (ArrayList) arrLHeader.get(3);
             } catch (Exception exc) {
-                log.error(exc);
+                log.error(exc.getMessage(), exc);
                 conn.rollback();
                 throw new Exception(exc);
             } finally {
@@ -440,7 +440,7 @@ public class ConfiguraAplicativoBusinessLogic extends DataSourceManager {
                 try {
                     ConfiguraAplicativoManager.actTablaLayout(conn, queryInicial);
                 } catch (Exception exc) {
-                    log.error(exc);
+                    log.error(exc.getMessage(), exc);
                     arrmMontosCalendario.add("Error en query inicial");
                     conn.rollback();
                     if (conn != null) {
@@ -596,8 +596,8 @@ public class ConfiguraAplicativoBusinessLogic extends DataSourceManager {
                                         ConfiguraAplicativoManager.actTablaLayout(conn, elRegreso);
                                     }
                                 } catch (Exception exc) {
-                                    log.debug(elUpdate);
-                                    log.error(exc);
+                                    log.debug("Object: {}", elUpdate);
+                                    log.error(exc.getMessage(), exc);
                                     arrmMontosCalendario.add("Error en Renglon " + IterRegElx + " del archivo : '" + exc.getMessage() + "'");
                                     conn.rollback();
                                     if (conn != null) {
@@ -620,7 +620,7 @@ public class ConfiguraAplicativoBusinessLogic extends DataSourceManager {
                         linea = "";
                     }
                 } catch (Exception exc) {
-                    log.error(exc);
+                    log.error(exc.getMessage(), exc);
                     conn.rollback();
                     throw new Exception(exc);
                 } finally {
@@ -649,7 +649,7 @@ public class ConfiguraAplicativoBusinessLogic extends DataSourceManager {
                         String elRegreso = validaLinea(linea, arrLDetalle, tablaDestino, elDelim);
                         if ("/*OK*/".compareToIgnoreCase(elRegreso.substring(0, 6)) >= 0) {
                             elUpdate = elUpdate + elRegreso;
-                            log.debug(elRegreso);
+                            log.debug("Object: {}", elRegreso);
                         } else {
                             arrmMontosCalendario.add("Error en Renglon " + numLinea + " del archivo : '" + elRegreso + "'");
                             sinError++;
@@ -693,7 +693,7 @@ public class ConfiguraAplicativoBusinessLogic extends DataSourceManager {
                             conn.rollback();
                     }
                 } catch (Exception exc) {
-                    log.error(exc);
+                    log.error(exc.getMessage(), exc);
                     conn.rollback();
                     throw new Exception(exc);
                 } finally {

@@ -84,7 +84,7 @@ public class PenaltiesImplements extends DataSourceManager implements PenaltiesI
             query.append("	from mDeductionItems with(Nolock)group by nIdPenaltyDeduction  ");
             query.append(")deduction on deduction.nIdPenaltyDeduction=penaltyDeduction.nIdPenaltyDeduction ");
             query.append("where cFolio='" + penalty.getcFolio() + "' ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             arrayObj = Util.datGuardados(conn, query.toString());
             jsonObj.put("penaltyDeductionSave", arrayObj);
             arrayObj = null;
@@ -157,7 +157,7 @@ public class PenaltiesImplements extends DataSourceManager implements PenaltiesI
             error = false;
             return jsonObj;
         } catch (SQLException e) {
-            log.error("Bug, consulting penalities and deductions: " + e);
+            log.error("Object: {}", "Bug, consulting penalities and deductions: " + e);
             throw new PenaltiesExceptions("Bug, consulting penalities and deductions: " + e.toString(), e);
         } finally {
             if (error) {
@@ -165,7 +165,7 @@ public class PenaltiesImplements extends DataSourceManager implements PenaltiesI
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new PenaltiesExceptions("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -215,7 +215,7 @@ public class PenaltiesImplements extends DataSourceManager implements PenaltiesI
             conn.commit();
             error = false;
         } catch (SQLException e) {
-            log.error("Bug, savePenalties: " + e);
+            log.error("Object: {}", "Bug, savePenalties: " + e);
             throw new PenaltiesExceptions("Bug, savePenalties: " + e.toString(), e);
         } finally {
             if (error) {
@@ -223,7 +223,7 @@ public class PenaltiesImplements extends DataSourceManager implements PenaltiesI
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback savePenalties: " + e);
+                        log.error("Object: {}", "Bug, Rollback savePenalties: " + e);
                         throw new PenaltiesExceptions("Bug, Rollback savePenalties: " + e.toString(), e);
                     }
             }
@@ -246,7 +246,7 @@ public class PenaltiesImplements extends DataSourceManager implements PenaltiesI
             conn.commit();
             error = false;
         } catch (SQLException e) {
-            log.error("Bug, deleting penalities and deductions: " + e);
+            log.error("Object: {}", "Bug, deleting penalities and deductions: " + e);
             throw new PenaltiesExceptions("Bug, deleting penalities and deductions: " + e.toString(), e);
         } finally {
             if (error) {
@@ -254,7 +254,7 @@ public class PenaltiesImplements extends DataSourceManager implements PenaltiesI
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback deletePenalties: " + e);
+                        log.error("Object: {}", "Bug, Rollback deletePenalties: " + e);
                         throw new PenaltiesExceptions("Bug, Rollback deletePenalties: " + e.toString(), e);
                     }
             }
@@ -277,7 +277,7 @@ public class PenaltiesImplements extends DataSourceManager implements PenaltiesI
             error = false;
             return response;
         } catch (SQLException e) {
-            log.error("Bug, : " + e);
+            log.error("Object: {}", "Bug, : " + e);
             throw new PenaltiesExceptions("Bug, deleting penalities and deductions: " + e.toString(), e);
         } finally {
             if (error) {
@@ -285,7 +285,7 @@ public class PenaltiesImplements extends DataSourceManager implements PenaltiesI
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback deletePenalties: " + e);
+                        log.error("Object: {}", "Bug, Rollback deletePenalties: " + e);
                         throw new PenaltiesExceptions("Bug, Rollback deletePenalties: " + e.toString(), e);
                     }
             }
@@ -307,7 +307,7 @@ public class PenaltiesImplements extends DataSourceManager implements PenaltiesI
             penalty.setcEmailCaptureUsser(manager.getEmailUsser(conn, penalty.getcCaptureUsser()));
             conn.commit();
         } catch (SQLException e) {
-            log.error("Bug, : " + e);
+            log.error("Object: {}", "Bug, : " + e);
             throw new PenaltiesExceptions("Bug, sendPenalty: " + e.toString(), e);
         } finally {
             if (error) {
@@ -315,7 +315,7 @@ public class PenaltiesImplements extends DataSourceManager implements PenaltiesI
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback sendPenalty: " + e);
+                        log.error("Object: {}", "Bug, Rollback sendPenalty: " + e);
                         throw new PenaltiesExceptions("Bug, Rollback sendPenalty: " + e.toString(), e);
                     }
             }
@@ -335,7 +335,7 @@ public class PenaltiesImplements extends DataSourceManager implements PenaltiesI
             manager.saveValidatePenaltyAndDeductions(conn, penalty);
             conn.commit();
         } catch (SQLException e) {
-            log.error("Bug, : " + e);
+            log.error("Object: {}", "Bug, : " + e);
             throw new PenaltiesExceptions("Bug, sendPenalty: " + e.toString(), e);
         } finally {
             if (error) {
@@ -343,7 +343,7 @@ public class PenaltiesImplements extends DataSourceManager implements PenaltiesI
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback sendPenalty: " + e);
+                        log.error("Object: {}", "Bug, Rollback sendPenalty: " + e);
                         throw new PenaltiesExceptions("Bug, Rollback sendPenalty: " + e.toString(), e);
                     }
             }
@@ -397,7 +397,7 @@ public class PenaltiesImplements extends DataSourceManager implements PenaltiesI
             manager.addPenaltyRowItems(conn, penalty);
             conn.commit();
         } catch (SQLException e) {
-            log.error("Bug, : " + e);
+            log.error("Object: {}", "Bug, : " + e);
             throw new PenaltiesExceptions("Bug, addRowPenaltyItem: " + e.toString(), e);
         } finally {
             if (error) {
@@ -405,7 +405,7 @@ public class PenaltiesImplements extends DataSourceManager implements PenaltiesI
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback addRowPenaltyItem: " + e);
+                        log.error("Object: {}", "Bug, Rollback addRowPenaltyItem: " + e);
                         throw new PenaltiesExceptions("Bug, Rollback addRowPenaltyItem: " + e.toString(), e);
                     }
             }
@@ -432,7 +432,7 @@ public class PenaltiesImplements extends DataSourceManager implements PenaltiesI
             manager.addDeductionRowItems(conn, penalty);
             conn.commit();
         } catch (SQLException e) {
-            log.error("Bug, : " + e);
+            log.error("Object: {}", "Bug, : " + e);
             throw new PenaltiesExceptions("Bug, addRowDeductionItem: " + e.toString(), e);
         } finally {
             if (error) {
@@ -440,7 +440,7 @@ public class PenaltiesImplements extends DataSourceManager implements PenaltiesI
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback addRowDeductionItem: " + e);
+                        log.error("Object: {}", "Bug, Rollback addRowDeductionItem: " + e);
                         throw new PenaltiesExceptions("Bug, Rollback addRowDeductionItem: " + e.toString(), e);
                     }
             }
@@ -458,7 +458,7 @@ public class PenaltiesImplements extends DataSourceManager implements PenaltiesI
             sendEmail(penalty, conn);
             conn.commit();
         } catch (Exception e) {
-            log.error("Bug, : " + e);
+            log.error("Object: {}", "Bug, : " + e);
             throw new PenaltiesExceptions("Bug, sendEmail: " + e.toString(), e);
         } finally {
             if (error) {
@@ -466,7 +466,7 @@ public class PenaltiesImplements extends DataSourceManager implements PenaltiesI
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback sendEmail: " + e);
+                        log.error("Object: {}", "Bug, Rollback sendEmail: " + e);
                         throw new PenaltiesExceptions("Bug, Rollback sendEmail: " + e.toString(), e);
                     }
             }

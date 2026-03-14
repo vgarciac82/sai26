@@ -8,7 +8,6 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
-import org.apache.log4j.LogManager;
 import com.syc.cfdi.core.Factura;
 import com.syc.cfdi.core.FacturaManager;
 import com.syc.cfdi.db.CloseObject;
@@ -19,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 public class ReinsertaRetencionesCFDI extends ProcesoSAI {
 
-    private static final Logger log = LogManager.getLogger(ReinsertaRetencionesCFDI.class);
+    private static final Logger log = LoggerFactory.getLogger(ReinsertaRetencionesCFDI.class);
 
     private final ScalarHandler<Integer> intScalarHandler = new ScalarHandler<>();
 
@@ -40,7 +39,7 @@ public class ReinsertaRetencionesCFDI extends ProcesoSAI {
             Connection conn = null;
             try {
                 conn = createConn();
-                log.info("Procesando: " + expedient);
+                log.info("Object: {}", "Procesando: " + expedient);
                 if (tramiteAplicado(conn, expedient.getTituloAplicacion(), expedient.getIdGabinete()))
                     reinsertaRetenciones(conn, expedient);
                 conn.commit();

@@ -77,7 +77,7 @@ public class ComsocAutorizacionBussinesLogic extends DataSourceManager {
                 try {
                     conn.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando conexion a DB " + e2);
+                    log.warn("Object: {}", "Problemas cerrando conexion a DB " + e2);
                 }
         }
     }

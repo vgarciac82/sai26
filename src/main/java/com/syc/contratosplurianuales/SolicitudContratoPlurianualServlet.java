@@ -16,15 +16,16 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
-import common.Logger;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "SolicitudContratoPlurianualServlet", urlPatterns = { "/plurianuales/SolicitudPlurianual" })
 public class SolicitudContratoPlurianualServlet extends HttpServlet implements GestionInterface {
 
     private static final long serialVersionUID = 126320606200256721L;
 
-    private static final Logger log = Logger.getLogger(SolicitudContratoPlurianualServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(SolicitudContratoPlurianualServlet.class);
 
     private String jniName = "";
 
@@ -58,12 +59,12 @@ public class SolicitudContratoPlurianualServlet extends HttpServlet implements G
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 
@@ -72,7 +73,7 @@ public class SolicitudContratoPlurianualServlet extends HttpServlet implements G
         try {
             generaExcelSolicitud(req, resp);
         } catch (Exception e) {
-            log.error(e, e);
+            log.error(e.getMessage(), e);
             ServletOutputStream out = resp.getOutputStream();
             out.println("Ocurrio el siguiente eror mientras se generaba el reporte:<br>");
             out.println(e.getMessage());

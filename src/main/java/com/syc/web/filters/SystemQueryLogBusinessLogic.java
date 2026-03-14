@@ -1,7 +1,7 @@
 package com.syc.web.filters;
 
 import java.sql.Connection;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
@@ -30,7 +30,7 @@ public class SystemQueryLogBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
         } finally {
             CloseObject.closeObject(conn);

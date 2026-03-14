@@ -33,7 +33,7 @@ public abstract class RequestBase {
      * @param SOAPAction
      */
     protected RequestBase(String url, String SOAPAction) {
-        log.info("Creado Request a: \nURL:" + url + "\nAction:" + SOAPAction);
+        log.info("Object: {}", "Creado Request a: \nURL:" + url + "\nAction:" + SOAPAction);
         this.xml = null;
         this.url = url;
         this.SOAPAction = SOAPAction;
@@ -59,7 +59,7 @@ public abstract class RequestBase {
      * @throws NoSuchAlgorithmException
      */
     protected String createDigest(String sourceData) throws NoSuchAlgorithmException {
-        log.debug("Creando Digest para la entrada " + sourceData);
+        log.debug("Object: {}", "Creando Digest para la entrada " + sourceData);
         MessageDigest digest = MessageDigest.getInstance("SHA-1");
         digest.reset();
         digest.update(sourceData.getBytes());

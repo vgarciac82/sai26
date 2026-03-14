@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Connection;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -48,7 +48,7 @@ public class validaXMLBusinessLogic extends DataSourceManager {
                 else
                     condicion = condicion + fila.getCell(0).getStringCellValue() + "','";
             }
-            log.trace(condicion);
+            log.trace("Object: {}", condicion);
             file = validaXMLManager.buscaXML(conn, condicion, nombreDestino);
             File f = new File(file);
             resp.setContentType("application/vnd.ms-excel");

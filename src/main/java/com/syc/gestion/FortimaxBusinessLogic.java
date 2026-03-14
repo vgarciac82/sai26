@@ -237,7 +237,7 @@ public class FortimaxBusinessLogic extends DataSourceManager {
     public PaginaData getQueryByExampleAvanzadaData(String titulo_aplicacion, String u_login, Map map, String param_fecha_de, String param_fecha_a, String tipoasunto, PaginaData param_pd) throws GestionException {
         Connection conn = null;
         PaginaData pd = new PaginaData();
-        log.info("u_login=" + u_login);
+        log.info("Object: {}", "u_login=" + u_login);
         try {
             conn = getConnection();
             conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);

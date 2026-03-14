@@ -108,7 +108,7 @@ public class SuficienciaPagoDirectoEncabezadoBusinessLogic extends DataSourceMan
     }
 
     public boolean finalizarContratoDirecto(int folio) throws SQLException {
-        log.info("[BL] FinalizarContratoDirecto folio=" + folio);
+        log.info("Object: {}", "[BL] FinalizarContratoDirecto folio=" + folio);
         Connection con = null;
         boolean ok = false;
         try {
@@ -116,7 +116,7 @@ public class SuficienciaPagoDirectoEncabezadoBusinessLogic extends DataSourceMan
             con.setAutoCommit(false);
             ok = SuficienciaPagoDirectoEncabezadoManager.finalizarContratoDirecto(con, folio);
             con.commit();
-            log.info("[BL] FinalizarContratoDirecto OK, commit realizado. folio=" + folio);
+            log.info("Object: {}", "[BL] FinalizarContratoDirecto OK, commit realizado. folio=" + folio);
             return ok;
         } catch (SQLException ex) {
             if (con != null) {

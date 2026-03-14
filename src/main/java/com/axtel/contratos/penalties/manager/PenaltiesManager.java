@@ -29,7 +29,7 @@ public class PenaltiesManager {
             query.append(" insert into mPenaltyDeduction ");
             query.append("(cFolio,cIdContratoDefinitivo,nIdEstate,fCaptureDate,cCaptureUser,lPenalty,lDeduction,cDocumentHAplicado,cConcept,nIdPeriod,cNumberJob) ");
             query.append(" values(?,?,?,GETDATE(),?,?,?,?,?,?,?)");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString(), Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, penalty.getcFolio());
             ps.setString(2, penalty.getcIdContratoDefinitivo());
@@ -63,7 +63,7 @@ public class PenaltiesManager {
         try {
             query = new StringBuilder();
             query.append(" update mPenaltyDeduction set nIdEstate=?,lPenalty=?,lDeduction=?,cIdContratoDefinitivo=?,cDocumentHAplicado=?,cConcept=?,cNumberJob=?,nIdPeriod=? where cFolio=? ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, penalty.getnIdEstate());
             ps.setInt(2, penalty.getlPenalty());
@@ -91,7 +91,7 @@ public class PenaltiesManager {
         try {
             query = new StringBuilder();
             query.append("select nIdPenaltyDeduction,nIdEstate,convert(varchar,fCaptureDate,103)fCaptureDate,cCaptureUser,lPenalty,lDeduction,cDocumentHAplicado  from mPenaltyDeduction with(Nolock) where cFolio=? and cIdContratoDefinitivo=? ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, penalty.getcFolio());
             ps.setString(2, penalty.getcIdContratoDefinitivo());
@@ -121,7 +121,7 @@ public class PenaltiesManager {
         try {
             query = new StringBuilder();
             query.append("select * from mPenaltyDeduction with(Nolock) where cFolio=? ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, penalty.getcFolio());
             rs = ps.executeQuery();
@@ -148,7 +148,7 @@ public class PenaltiesManager {
                 query.append("insert into mPenaltyItems (nIdPenaltyDeduction,nIdItemContract,nPiecesElements,mDelayAmount,nDailyPenaltyPercentage");
                 query.append(",mAmountDailyPenalty,nDailyDays,mTotalAmountPenalty,nComplianceGuaranteePercentage,nPenaltyDays,mAmountPenalty,nConsecutiveItem)  ");
                 query.append("values(?,?,?,?,?,?,?,?,?,?,?,?)");
-                log.info(query);
+                log.info("Object: {}", query.toString());
                 ps = conn.prepareStatement(query.toString());
                 ps.setInt(1, item.getnIdPenaltyDeduction());
                 ps.setInt(2, item.getnIdItemContract());
@@ -166,7 +166,7 @@ public class PenaltiesManager {
                 query.append("insert into mPenaltyItems (nIdPenaltyDeduction,nIdItemContract,fItemDeliveryDate,nPiecesElements,mItemAmount,mDelayAmount,nDailyPenaltyPercentage");
                 query.append(",mAmountDailyPenalty,nDailyDays,mTotalAmountPenalty,nComplianceGuaranteePercentage,nPenaltyDays,mAmountPenalty,nConsecutiveItem)  ");
                 query.append("values(?,?,convert(date,?),?,?,?,?,?,?,?,?,?,?,?)");
-                log.info(query);
+                log.info("Object: {}", query.toString());
                 ps = conn.prepareStatement(query.toString());
                 ps.setInt(1, item.getnIdPenaltyDeduction());
                 ps.setInt(2, item.getnIdItemContract());
@@ -202,7 +202,7 @@ public class PenaltiesManager {
         try {
             query = new StringBuilder();
             query.append("Delete mPenaltyItems where nIdPenaltyDeduction=? ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, penalty.getnIdPenaltyDeduction());
             success = ps.executeUpdate() > 0;
@@ -226,7 +226,7 @@ public class PenaltiesManager {
             query.append("select nIdPenaltyDeduction,nIdItemContract,isnull(fItemDeliveryDate,'')fItemDeliveryDate,nPiecesElements,isnull(mItemAmount,0.0)mItemAmount,mDelayAmount");
             query.append(",nDailyPenaltyPercentage,mAmountDailyPenalty,nDailyDays,mTotalAmountPenalty,nComplianceGuaranteePercentage,nPenaltyDays,mAmountPenalty");
             query.append(" from mPenaltyItems with(Nolock) where nIdPenaltyDeduction=?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, penalty.getnIdPenaltyDeduction());
             rs = ps.executeQuery();
@@ -269,7 +269,7 @@ public class PenaltiesManager {
                 query.append("insert into mDeductionItems (nIdPenaltyDeduction,nIdItemContract,nPiecesElements,mDelayAmount,nDailyPenaltyPercentage");
                 query.append(",mAmountDailyDeduction,nDeficiencyDays,mTotalAmountDeduction,nComplianceGuaranteePercentage,nPenaltyDays,mAmountDeduction,nConsecutiveItem)  ");
                 query.append("values(?,?,?,?,?,?,?,?,?,?,?,?)");
-                log.info(query);
+                log.info("Object: {}", query.toString());
                 ps = conn.prepareStatement(query.toString());
                 ps.setInt(1, item.getnIdPenaltyDeduction());
                 ps.setInt(2, item.getnIdItemContract());
@@ -287,7 +287,7 @@ public class PenaltiesManager {
                 query.append("insert into mDeductionItems (nIdPenaltyDeduction,nIdItemContract,fItemDeliveryDate,nPiecesElements,mItemAmount,mDelayAmount,nDailyPenaltyPercentage");
                 query.append(",mAmountDailyDeduction,nDeficiencyDays,mTotalAmountDeduction,nComplianceGuaranteePercentage,nPenaltyDays,mAmountDeduction,nConsecutiveItem)  ");
                 query.append("values(?,?,convert(date,?),?,?,?,?,?,?,?,?,?,?,?)");
-                log.info(query);
+                log.info("Object: {}", query.toString());
                 ps = conn.prepareStatement(query.toString());
                 ps.setInt(1, item.getnIdPenaltyDeduction());
                 ps.setInt(2, item.getnIdItemContract());
@@ -323,7 +323,7 @@ public class PenaltiesManager {
         try {
             query = new StringBuilder();
             query.append("Delete mDeductionItems where nIdPenaltyDeduction=? ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, penalty.getnIdPenaltyDeduction());
             success = ps.executeUpdate() > 0;
@@ -349,7 +349,7 @@ public class PenaltiesManager {
             docs = new StringBuilder();
             query.append("SELECT NOMBRE_DOCUMENTO FROM IMX_DOCUMENTO WITH(NOLOCK) WHERE TITULO_APLICACION='PENACONVENCIONAL' ");
             query.append("AND ID_GABINETE=(SELECT ID_GABINETE FROM IMX_DOCUMENTO WITH(NOLOCK)WHERE TITULO_APLICACION='PENACONVENCIONAL' AND NOMBRE_DOCUMENTO =?) AND ID_CARPETA_PADRE=2 AND NUMERO_PAGINAS<=0 ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cFolio);
             rs = ps.executeQuery();
@@ -383,7 +383,7 @@ public class PenaltiesManager {
         try {
             query = new StringBuilder();
             query.append("update mPenaltyDeduction set cObservations=? where cFolio=? ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, penalty.getcObservations());
             ps.setString(2, penalty.getcFolio());
@@ -404,7 +404,7 @@ public class PenaltiesManager {
         try {
             query = new StringBuilder();
             query.append("update mPenaltyDeduction set cDocumentHAplicado=?,nIdEstate=? where cFolio=? ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, penalty.getcDocumentHAplicado());
             ps.setInt(2, penalty.getnIdEstate());
@@ -426,7 +426,7 @@ public class PenaltiesManager {
         try {
             query = new StringBuilder();
             query.append("update mPenaltyDeduction set cDocumentHAplicado=?,nIdEstate=?,cObservations=?,cValidatingUser=?,fValidateDate=getDate() where cFolio=? ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, penalty.getcDocumentHAplicado());
             ps.setInt(2, penalty.getnIdEstate());
@@ -450,7 +450,7 @@ public class PenaltiesManager {
         try {
             query = new StringBuilder();
             query.append("update mPenaltyDeduction set cIdContratoDefinitivo=?,lPenalty=0,lDeduction=0 where cFolio=? ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, penalty.getcIdContratoDefinitivo());
             ps.setString(2, penalty.getcFolio());
@@ -472,7 +472,7 @@ public class PenaltiesManager {
         try {
             query = new StringBuilder();
             query.append("select isnull(MAX(nConsecutiveItem),0)nConsecutiveItem from mDeductionItems with(nolock) where nIdPenaltyDeduction=? and nIdItemContract=? ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, penalty.getnIdPenaltyDeduction());
             ps.setInt(2, penalty.getDeductionItems().get(0).getnIdItemContract());
@@ -498,7 +498,7 @@ public class PenaltiesManager {
         try {
             query = new StringBuilder();
             query.append("select isnull(MAX(nConsecutiveItem),0)nConsecutiveItem from mPenaltyItems with(nolock) where nIdPenaltyDeduction=? and nIdItemContract=? ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, penalty.getnIdPenaltyDeduction());
             ps.setInt(2, penalty.getPenaltyItems().get(0).getnIdItemContract());
@@ -526,7 +526,7 @@ public class PenaltiesManager {
                 query.append("insert into mDeductionItems (nIdPenaltyDeduction,nIdItemContract,nPiecesElements,mDelayAmount,nDailyPenaltyPercentage");
                 query.append(",mAmountDailyDeduction,nDeficiencyDays,mTotalAmountDeduction,nComplianceGuaranteePercentage,nPenaltyDays,mAmountDeduction,nConsecutiveItem)  ");
                 query.append("values(?,?,?,?,?,?,?,?,?,?,?,?)");
-                log.info(query);
+                log.info("Object: {}", query.toString());
                 ps = conn.prepareStatement(query.toString());
                 ps.setInt(1, penalty.getnIdPenaltyDeduction());
                 ps.setInt(2, penalty.getDeductionItems().get(0).getnIdItemContract());
@@ -544,7 +544,7 @@ public class PenaltiesManager {
                 query.append("insert into mDeductionItems (nIdPenaltyDeduction,nIdItemContract,fItemDeliveryDate,nPiecesElements,mItemAmount,mDelayAmount,nDailyPenaltyPercentage");
                 query.append(",mAmountDailyDeduction,nDeficiencyDays,mTotalAmountDeduction,nComplianceGuaranteePercentage,nPenaltyDays,mAmountDeduction,nConsecutiveItem)  ");
                 query.append("values(?,?,convert(date,getDate()),?,?,?,?,?,?,?,?,?,?,?)");
-                log.info(query);
+                log.info("Object: {}", query.toString());
                 ps = conn.prepareStatement(query.toString());
                 ps.setInt(1, penalty.getnIdPenaltyDeduction());
                 ps.setInt(2, penalty.getDeductionItems().get(0).getnIdItemContract());
@@ -581,7 +581,7 @@ public class PenaltiesManager {
                 query.append("insert into mPenaltyItems (nIdPenaltyDeduction,nIdItemContract,nPiecesElements,mDelayAmount,nDailyPenaltyPercentage");
                 query.append(",mAmountDailyPenalty,nDailyDays,mTotalAmountPenalty,nComplianceGuaranteePercentage,nPenaltyDays,mAmountPenalty,nConsecutiveItem)  ");
                 query.append("values(?,?,?,?,?,?,?,?,?,?,?,?)");
-                log.info(query);
+                log.info("Object: {}", query.toString());
                 ps = conn.prepareStatement(query.toString());
                 ps.setInt(1, penalty.getnIdPenaltyDeduction());
                 ps.setInt(2, penalty.getPenaltyItems().get(0).getnIdItemContract());
@@ -599,7 +599,7 @@ public class PenaltiesManager {
                 query.append("insert into mPenaltyItems (nIdPenaltyDeduction,nIdItemContract,fItemDeliveryDate,nPiecesElements,mItemAmount,mDelayAmount,nDailyPenaltyPercentage");
                 query.append(",mAmountDailyPenalty,nDailyDays,mTotalAmountPenalty,nComplianceGuaranteePercentage,nPenaltyDays,mAmountPenalty,nConsecutiveItem)  ");
                 query.append("values(?,?,convert(date,getDate()),?,?,?,?,?,?,?,?,?,?,?)");
-                log.info(query);
+                log.info("Object: {}", query.toString());
                 ps = conn.prepareStatement(query.toString());
                 ps.setInt(1, penalty.getnIdPenaltyDeduction());
                 ps.setInt(2, penalty.getPenaltyItems().get(0).getnIdItemContract());
@@ -634,7 +634,7 @@ public class PenaltiesManager {
         try {
             query = new StringBuilder();
             query.append("select *from CG_USUARIO with(Nolock) where U_LOGIN=? ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cLogin);
             rs = ps.executeQuery();
@@ -660,7 +660,7 @@ public class PenaltiesManager {
             query.append(" insert into mBitacoraSendEmailPenalty ");
             query.append("(nIdPenaltyDeduction,cEmails,isEmailSend,fDateSend) ");
             query.append(" values(?,?,?,GETDATE())");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, nIdPenaltyDeduction);
             ps.setString(2, cEmails);

@@ -28,12 +28,12 @@ public class ProcedimientoBusinesLogic extends DataSourceManager {
                 resp = false;
                 msg = "Error, no se recibio el monto neto del contrato.";
                 token = "\n";
-                log.warn(msg);
+                log.warn("Object: {}", msg);
             }
             if (!manager.validaContJustificado(conn, datProced) && !manager.validaTipoProcedPorMonto(conn, datProced.getnCategoriaProcedimientoNuevo(), datProced.getmMontoNetoContrato())) {
                 resp = false;
                 msg = msg + token + "El tipo de procedimiento seleccionado no corresponde con el monto total del contrato.";
-                log.warn(msg);
+                log.warn("Object: {}", msg);
             }
             if (resp) {
                 nIdProcedimientoAdj = manager.getNidConsecutivoAdj(conn, datProced.getcIdContratoDef());
@@ -47,20 +47,20 @@ public class ProcedimientoBusinesLogic extends DataSourceManager {
                             manager.guardaFechas(conn, datProced.getcIdProcedimiento(), datProced.getFechas(), datProced.getcIdContratoDef());
                             Util.bitacoraMovimientos(datProced.getcIdContratoDef(), "Se Modifican Fechas", usuario.getLogin(), conn);
                             msg = "Datos Actualizados:\nTipo de procedimiento.\nFundamento Legal \nY Fechas.";
-                            log.info(msg);
+                            log.info("Object: {}", msg);
                         } else {
                             resp = false;
                             msg = "Error en Fechas, el objeto fechas es nulo.";
-                            log.warn(msg);
+                            log.warn("Object: {}", msg);
                         }
                     } else {
                         msg = "Datos Actualizados:\nFundamento Legal.";
-                        log.info(msg);
+                        log.info("Object: {}", msg);
                     }
                 } else {
                     resp = false;
                     msg = "No es necesario actualizar, por que no hay cambios.";
-                    log.warn(msg);
+                    log.warn("Object: {}", msg);
                 }
             }
             if (resp) {
@@ -74,7 +74,7 @@ public class ProcedimientoBusinesLogic extends DataSourceManager {
             if (conn != null) {
                 conn.rollback();
             }
-            log.error(e);
+            log.error(e.getMessage(), e);
             e.printStackTrace();
         } finally {
             if (conn != null) {

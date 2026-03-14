@@ -7,7 +7,6 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.LogManager;
 import com.axtel.cfdi.CFDI;
 import com.axtel.cfdi.CFDIDetalle;
 import com.axtel.cfdi.CFDIEncabezado;
@@ -42,7 +41,7 @@ import org.slf4j.LoggerFactory;
 
 public class CFDIService extends DataSourceManager {
 
-    private static final Logger log = LogManager.getLogger(CFDIService.class);
+    private static final Logger log = LoggerFactory.getLogger(CFDIService.class);
 
     private DriveRepositoryInterface driveRepository;
 
@@ -109,14 +108,14 @@ public class CFDIService extends DataSourceManager {
         cfdi.guardar(byteOS, true);
         String xml = ((ByteArrayOutputStream) byteOS).toString("UTF-8");
         byteOS.flush();
-        log.info("XML GENERADO:\n===================================\n" + xml + "\n===================================");
+        log.info("Object: {}", "XML GENERADO:\n===================================\n" + xml + "\n===================================");
         PacInfo pacInfo = new PacInfo(conn);
         String usuario = UtilSecurity.decrypt(pacInfo.getUser());
         String password = UtilSecurity.decrypt(pacInfo.getPassword());
-        log.info(pacInfo.getUrl());
+        log.info("Object: {}", pacInfo.getUrl());
         sdk = new Stamp(pacInfo.getUrl(), usuario, password, null, 0);
         response = (StampResponseV2) sdk.timbrarV2(xml, false);
-        log.debug(response.getStatus());
+        log.debug("Object: {}", response.getStatus());
         return response;
     }
 
@@ -156,10 +155,10 @@ public class CFDIService extends DataSourceManager {
     public VirtualFile generateXML(Connection conn, String cfdiXml) throws FileManagmentException {
         try {
             VirtualFile volumenFile = volumenService.generateFileLocation(conn, "xml");
-            log.debug("Escribiendo : =======================================================\n\n" + cfdiXml + "\n\n===================================================================");
+            log.debug("Object: {}", "Escribiendo : =======================================================\n\n" + cfdiXml + "\n\n===================================================================");
             File f = volumenFile.getFilePath().toFile();
             boolean created = f.createNewFile();
-            log.info("Archivo " + (created ? "creado" : "no se pudo crear") + " en " + f.getAbsolutePath());
+            log.info("Object: {}", "Archivo " + (created ? "creado" : "no se pudo crear") + " en " + f.getAbsolutePath());
             FileUtils.writeStringToFile(f, cfdiXml, StandardCharsets.UTF_8);
             return volumenFile;
         } catch (Exception e) {
@@ -177,7 +176,7 @@ public class CFDIService extends DataSourceManager {
 
     public CFDI getCFDI(Connection conn, int cfdiId) {
         try {
-            log.info("Fetching CFDI with ID: " + cfdiId);
+            log.info("Object: {}", "Fetching CFDI with ID: " + cfdiId);
             CFDI cfdi = new CFDI();
             cfdi.setEncabezado(CFDIEncabezadoManager.obtenerCFDIEncabezado(conn, cfdiId));
             cfdi.setDetalles(CFDIDetalleManager.obtenerTodosCFDIDetalles(conn, cfdiId));
@@ -190,7 +189,7 @@ public class CFDIService extends DataSourceManager {
     public CFDI getCFDI(int cfdiId) {
         Connection conn = null;
         try {
-            log.info("Fetching CFDI with ID: " + cfdiId);
+            log.info("Object: {}", "Fetching CFDI with ID: " + cfdiId);
             conn = getConnection();
             return getCFDI(conn, cfdiId);
         } catch (Exception e) {
@@ -203,7 +202,7 @@ public class CFDIService extends DataSourceManager {
     public CFDI insertCFDI(CFDI cfdi) {
         Connection conn = null;
         try {
-            log.info("Creating CFDI: " + cfdi);
+            log.info("Object: {}", "Creating CFDI: " + cfdi);
             conn = getConnection();
             CFDIEncabezado encabezado = CFDIEncabezadoManager.guardarCFDIEncabezado(conn, cfdi.getEncabezado());
             cfdi.setEncabezado(encabezado);
@@ -224,7 +223,7 @@ public class CFDIService extends DataSourceManager {
     public CFDIDetalle insertCFDIDetail(CFDIDetalle detailRow) {
         Connection conn = null;
         try {
-            log.info("Creating CFDI Detail: " + detailRow);
+            log.info("Object: {}", "Creating CFDI Detail: " + detailRow);
             conn = getConnection();
             detailRow = CFDIDetalleManager.guardarCFDIDetalle(conn, detailRow);
             CFDIEncabezadoManager.actualizaMonto(conn, detailRow.getCfdiId());
@@ -241,7 +240,7 @@ public class CFDIService extends DataSourceManager {
     public CFDIEncabezado insertCFDIHeader(CFDIEncabezado header) {
         Connection conn = null;
         try {
-            log.info("Creating CFDI: " + header);
+            log.info("Object: {}", "Creating CFDI: " + header);
             conn = getConnection();
             header = CFDIEncabezadoManager.guardarCFDIEncabezado(conn, header);
             conn.commit();
@@ -269,12 +268,12 @@ public class CFDIService extends DataSourceManager {
             toStamp.sellar(digitalSignature.getKey(), digitalSignature.getCert());
             StampResponseV2 response = firmaCFDI(conn, toStamp);
             if ("success".equals(String.valueOf(response.getStatus()))) {
-                log.debug(response.getData().getTFD());
-                log.debug(response.getData().getCFDI());
+                log.debug("Object: {}", response.getData().getTFD());
+                log.debug("Object: {}", response.getData().getCFDI());
                 xml = response.getMessageDetail();
             } else {
-                log.debug(response.getMessage());
-                log.debug(response.getMessageDetail());
+                log.debug("Object: {}", response.getMessage());
+                log.debug("Object: {}", response.getMessageDetail());
                 if ("307. El comprobante contiene un timbre previo.".equalsIgnoreCase(response.getMessage())) {
                     xml = response.getData().getCFDI();
                 } else {
@@ -300,7 +299,7 @@ public class CFDIService extends DataSourceManager {
     public CFDI updateCFDI(CFDI cfdi) {
         Connection conn = null;
         try {
-            log.info("Updating CFDI: " + cfdi);
+            log.info("Object: {}", "Updating CFDI: " + cfdi);
             conn = getConnection();
             CFDIEncabezadoManager.actualizarCFDIEncabezado(conn, cfdi.getEncabezado());
             cfdi.setEncabezado(CFDIEncabezadoManager.obtenerCFDIEncabezado(conn, cfdi.getEncabezado().getCfdiId()));

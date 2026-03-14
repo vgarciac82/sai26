@@ -57,7 +57,7 @@ public class EgresosManager {
             ps.setString(3, usuarioCaptura);
             ps.setString(4, nFolio);
             int afectados = ps.executeUpdate();
-            log.debug("Se actualizaron " + afectados + " registros con los firmantes Captura: " + usuarioCaptura + " VoBo " + usuarioVoBo + " Autoriza " + usuarioAutoriza + " Para el tramite " + headerTable + " con Folio " + nFolio);
+            log.debug("Object: {}", "Se actualizaron " + afectados + " registros con los firmantes Captura: " + usuarioCaptura + " VoBo " + usuarioVoBo + " Autoriza " + usuarioAutoriza + " Para el tramite " + headerTable + " con Folio " + nFolio);
         } finally {
             CloseObject.closeObject(ps);
         }
@@ -806,7 +806,7 @@ public class EgresosManager {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            log.debug("Ejecutando: " + query);
+            log.debug("Object: {}", "Ejecutando: " + query);
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, folioPago);
             rs = ps.executeQuery();

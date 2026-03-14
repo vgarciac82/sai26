@@ -2,7 +2,6 @@ package com.axtel.reports.utils;
 
 import java.io.File;
 import java.io.FileFilter;
-import org.apache.log4j.LogManager;
 import com.syc.gestion.util.Util;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -11,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 public class ReportCompiler {
 
-    private static final Logger log = LogManager.getLogger(ReportCompiler.class);
+    private static final Logger log = LoggerFactory.getLogger(ReportCompiler.class);
 
     public static void main(String[] args) throws Exception {
         compileFile(new File("C:\\Axtel\\Clientes\\CONAFOR\\Workspaces\\Desarrollo\\sai\\WebContent\\Reportes\\InvoiceDetail.jrxml"));
@@ -51,7 +50,7 @@ public class ReportCompiler {
                     JasperCompileManager.compileReportToFile(f.getAbsolutePath(), Util.getFileWithoutExtencion(f.getAbsolutePath()) + ".jasper");
                 } catch (JRException e) {
                     System.err.println("============================================== ERROR!!!! ===============================================");
-                    log.error("Error compilando: " + f.getAbsolutePath());
+                    log.error("Error occurred", "Error compilando: " + f.getAbsolutePath());
                     System.err.println("========================================================================================================");
                 }
             }

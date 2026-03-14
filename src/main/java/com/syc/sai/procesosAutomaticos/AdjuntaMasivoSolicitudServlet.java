@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.core.FileItem;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
@@ -76,10 +76,10 @@ public class AdjuntaMasivoSolicitudServlet extends HttpServlet implements Gestio
                 if (!"zip".equalsIgnoreCase(extension))
                     throw new Exception("No se puede procesar archivos [" + extension + "] Corrija e intente de nuevo");
                 nombreDestino = TEMP_DIR + "CARGA_ARCHIVO_" + System.currentTimeMillis() + "." + extension;
-                log.info("Copiando archivo :" + nombreArchivo);
+                log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                 Util.copiaArchivo(archivoCargaStream, nombreDestino);
                 item.delete();
-                log.debug("Procesando archivo:" + nombreArchivo);
+                log.debug("Object: {}", "Procesando archivo:" + nombreArchivo);
                 AdjuntaArchivoMasivoBusinessLogic aambl = new AdjuntaArchivoMasivoBusinessLogic(jniName);
                 String logAdjuntos = "";
                 if (!"1".equals(sCertifTransito)) {
@@ -106,13 +106,13 @@ public class AdjuntaMasivoSolicitudServlet extends HttpServlet implements Gestio
                 try {
                     archivoCargaStream.close();
                 } catch (Exception e) {
-                    log.error("Error cerrando flujo DataInputStream" + e);
+                    log.error("Error occurred", "Error cerrando flujo DataInputStream" + e);
                 }
             if (archivoCargaIS != null)
                 try {
                     archivoCargaIS.close();
                 } catch (Exception e) {
-                    log.error("Error cerrando flujo InputStream" + e);
+                    log.error("Error occurred", "Error cerrando flujo InputStream" + e);
                 }
             archivoCargaIS = null;
             archivoCargaStream = null;
@@ -132,19 +132,19 @@ public class AdjuntaMasivoSolicitudServlet extends HttpServlet implements Gestio
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         try {
             File f = new File(TEMP_DIR);
             if (!f.exists())
                 f.mkdir();
         } catch (Exception e) {
-            log.error("No se logro crear el directorio temporal: " + TEMP_DIR + " Causa:" + e);
+            log.error("Object: {}", "No se logro crear el directorio temporal: " + TEMP_DIR + " Causa:" + e);
         }
     }
 }

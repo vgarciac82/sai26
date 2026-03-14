@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.LogManager;
 import com.axtel.egresos.viaticos.Viaticos;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import com.syc.sai.contabilidad.utils.db.RSToTable;
@@ -17,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public class ViaticosDAO {
 
-    private static final Logger log = LogManager.getLogger(ViaticosDAO.class);
+    private static final Logger log = LoggerFactory.getLogger(ViaticosDAO.class);
 
     public static int insertarViaticos(Connection conn, Viaticos Viaticos) throws Exception {
         StringBuilder queryInsert = new StringBuilder();
@@ -38,7 +37,7 @@ public class ViaticosDAO {
             ps.setString(cnt++, Viaticos.getJustificacion());
             ps.setInt(cnt++, Viaticos.getTienePaquete());
             ps.setInt(cnt++, Viaticos.getIdPaquete());
-            log.debug(queryInsert.toString());
+            log.debug("Object: {}", queryInsert.toString());
             insertados = ps.executeUpdate();
             return insertados;
         } finally {
@@ -53,7 +52,7 @@ public class ViaticosDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Viaticos viatico = new Viaticos();
-        log.debug("Consultando el viatico del empleado: " + idAgenda);
+        log.debug("Object: {}", "Consultando el viatico del empleado: " + idAgenda);
         try {
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, idAgenda);
@@ -106,7 +105,7 @@ public class ViaticosDAO {
         String query = "DELETE tViaticos where nidAgenda = ?";
         PreparedStatement ps = null;
         int borrados = 0;
-        log.debug("Borrando el viatico del folio: " + folio);
+        log.debug("Object: {}", "Borrando el viatico del folio: " + folio);
         try {
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, folio);
@@ -121,7 +120,7 @@ public class ViaticosDAO {
         String query = "DELETE tViaticos where nidAgenda in (select nidAgenda from tAgenda (nolock) where nIdComision = ?)";
         PreparedStatement ps = null;
         int borrados = 0;
-        log.debug("Borrando el viatico de la comision: " + idcomision);
+        log.debug("Object: {}", "Borrando el viatico de la comision: " + idcomision);
         try {
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, idcomision);

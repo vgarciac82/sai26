@@ -2,7 +2,6 @@ package com.axtel.egresos.services.impl;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
-import org.apache.log4j.LogManager;
 import com.axtel.egresos.repositories.GreenMexRepository;
 import com.axtel.egresos.services.GreenMexService;
 import com.axtel.sai.sicove.exceptions.SicoveException;
@@ -13,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 public class JDBCGreenMexService extends DataSourceManager implements GreenMexService {
 
-    private static final Logger log = LogManager.getLogger(JDBCGreenMexService.class);
+    private static final Logger log = LoggerFactory.getLogger(JDBCGreenMexService.class);
 
     private String jniName;
 

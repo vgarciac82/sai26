@@ -28,18 +28,18 @@ public class EmployeeClient {
         this.userName = userName;
         this.password = code;
         basicAuth = "Basic " + Base64.getEncoder().encodeToString((getUserName() + ":" + getPassword()).getBytes("UTF-8"));
-        log.info("EmployeeClient inicializado con URL: " + url);
+        log.info("Object: {}", "EmployeeClient inicializado con URL: " + url);
     }
 
     public Employee fetchEmployee(int employeeId) throws Exception {
-        log.trace("Iniciando fetchEmployee con id: " + employeeId);
+        log.trace("Object: {}", "Iniciando fetchEmployee con id: " + employeeId);
         URL url = new URL(getServiceURL() + employeeId);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Authorization", basicAuth);
         connection.setRequestProperty("Accept", "application/json");
         int responseCode = connection.getResponseCode();
-        log.debug("Código de respuesta HTTP: " + responseCode);
+        log.debug("Object: {}", "Código de respuesta HTTP: " + responseCode);
         if (responseCode == 200) {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"))) {
                 StringBuilder response = new StringBuilder();
@@ -48,14 +48,14 @@ public class EmployeeClient {
                     response.append(line);
                 }
                 String json = response.toString();
-                log.trace("JSON recibido: " + json);
+                log.trace("Object: {}", "JSON recibido: " + json);
                 Gson gson = new Gson();
                 Employee employee = gson.fromJson(json, Employee.class);
-                log.info("Empleado recibido: " + employee.getName() + " " + employee.getFirstSurname());
+                log.info("Object: {}", "Empleado recibido: " + employee.getName() + " " + employee.getFirstSurname());
                 return employee;
             }
         } else {
-            log.error("Error HTTP al obtener empleado. Código: " + responseCode);
+            log.error("Error occurred", "Error HTTP al obtener empleado. Código: " + responseCode);
             throw new RuntimeException("Failed : HTTP error code : " + responseCode);
         }
     }

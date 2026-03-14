@@ -34,11 +34,11 @@ public class DocBancarioManager {
     private static final Logger log = LoggerFactory.getLogger(FacturaManager.class);
 
     public static Carpeta obtenCarpetaDestino(Connection conn, Caso c, String nombreCarpeta, String uLogin) throws Exception {
-        log.trace("Inicia busqueda de carpeta [" + nombreCarpeta + "]");
+        log.trace("Object: {}", "Inicia busqueda de carpeta [" + nombreCarpeta + "]");
         long start = System.currentTimeMillis();
         Carpeta carpeta = CarpetaManager.getCarpetaByName(conn, c.getTipoCaso().getGavetaAsociada(), c.getIdGabinete(), nombreCarpeta);
         if (carpeta == null) {
-            log.trace("No existe la carpeta [" + nombreCarpeta + "] se creara.");
+            log.trace("Object: {}", "No existe la carpeta [" + nombreCarpeta + "] se creara.");
             Carpeta modelo = new Carpeta();
             modelo.setTituloAplicacion(c.getTipoCaso().getGavetaAsociada());
             modelo.setIdGabinete(c.getIdGabinete());
@@ -56,10 +56,10 @@ public class DocBancarioManager {
             oc.setNombreHija(carpeta.getNombreCarpeta());
             oc.setTituloAplicacion(carpeta.getTituloAplicacion());
             OrgCarpetaManager.insert(conn, oc);
-            log.trace("Carpeta [" + nombreCarpeta + "] creada con exito.");
+            log.trace("Object: {}", "Carpeta [" + nombreCarpeta + "] creada con exito.");
         }
         long stop = System.currentTimeMillis();
-        log.trace("Finaliza busqueda de carpeta en [" + ((stop - start) / 1000) + "] s.");
+        log.trace("Object: {}", "Finaliza busqueda de carpeta en [" + ((stop - start) / 1000) + "] s.");
         return carpeta;
     }
 
@@ -69,7 +69,7 @@ public class DocBancarioManager {
         long start = System.currentTimeMillis();
         log.trace("Insertando archivo");
         File origen = new File(rutaArchivo);
-        log.trace("Insertando el archivo: " + origen.getName());
+        log.trace("Object: {}", "Insertando el archivo: " + origen.getName());
         String tmpFile = origen.getName();
         int pos = tmpFile.lastIndexOf('.') + 1;
         String ext = pos != -1 ? tmpFile.substring(pos) : "";
@@ -77,7 +77,7 @@ public class DocBancarioManager {
         log.trace("Archivo insertado exitosamente");
         total++;
         long stop = System.currentTimeMillis();
-        log.trace("Finalizado insercion en expediene de la factura en [" + ((stop - start) / 1000) + "] s.");
+        log.trace("Object: {}", "Finalizado insercion en expediene de la factura en [" + ((stop - start) / 1000) + "] s.");
         return total;
     }
 
@@ -197,7 +197,7 @@ public class DocBancarioManager {
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, rfc);
-            log.trace("Retrieving active bank accounts for RFC [" + rfc + "]");
+            log.trace("Object: {}", "Retrieving active bank accounts for RFC [" + rfc + "]");
             rs = ps.executeQuery();
             while (rs.next()) {
                 CuentaBancaria cuenta = new CuentaBancaria(rs.getString("subCuentaBancaria"), rs.getString("dRFC"));

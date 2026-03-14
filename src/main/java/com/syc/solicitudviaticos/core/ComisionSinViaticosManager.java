@@ -37,7 +37,7 @@ public class ComisionSinViaticosManager {
     }
 
     public static void liberaVuelos(Connection conn, int nFolioComision) throws Exception {
-        log.debug("Se liberaran los vuelos en el Com. sin Viat. " + nFolioComision);
+        log.debug("Object: {}", "Se liberaran los vuelos en el Com. sin Viat. " + nFolioComision);
         StringBuilder query = new StringBuilder();
         query.append(" UPDATE	tLayoutVuelosDet ");
         query.append("    SET	tLayoutVuelosDet.Status = 'A' ");
@@ -47,14 +47,14 @@ public class ComisionSinViaticosManager {
         query.append("    AND	tLayoutVuelosDet.cRuta = tComisionesSinComprobacionDet.cRuta ");
         query.append("    AND	tLayoutVuelosDet.rfc = tComisionesSinComprobacionDet.RFCVuelo ");
         query.append("    AND  tComisionesSinComprobacionDet.nFolioComision = ? ");
-        log.trace("Se ejecutara: \n" + query);
+        log.trace("Object: {}", "Se ejecutara: \n" + query);
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, nFolioComision);
             int actualizados = ps.executeUpdate();
             liberaTransporteAereo(conn, nFolioComision);
-            log.info("Se cambio el estatus a " + actualizados + " vuelos de la comision sin viaticos " + nFolioComision);
+            log.info("Object: {}", "Se cambio el estatus a " + actualizados + " vuelos de la comision sin viaticos " + nFolioComision);
         } finally {
             CloseObject.closeObject(ps);
         }
@@ -66,43 +66,43 @@ public class ComisionSinViaticosManager {
         query.append("    INNER JOIN tTransporteAereo TA ");
         query.append("    ON TA.nFolioPago = cdet.nFolioComision AND TA.cReferencia= cdet.cBoleto  ");
         query.append("  where nFolioComision = ?");
-        log.trace("Se ejecutara: \n" + query);
+        log.trace("Object: {}", "Se ejecutara: \n" + query);
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, nFolioComision);
             int actualizados = ps.executeUpdate();
-            log.info("Se eliminaron " + actualizados + " vuelos del transporte aereo " + nFolioComision);
+            log.info("Object: {}", "Se eliminaron " + actualizados + " vuelos del transporte aereo " + nFolioComision);
         } finally {
             CloseObject.closeObject(ps);
         }
     }
 
     public static void actualizaAplicacion(Connection conn, String docAplicado, int idField) throws Exception {
-        log.info("Se cambiara el estatus de la solicitud: " + idField + " a: " + docAplicado);
+        log.info("Object: {}", "Se cambiara el estatus de la solicitud: " + idField + " a: " + docAplicado);
         String query = "UPDATE tComisionesSinComprobacionEnc SET cDocumentohAplicado = ? WHERE nFolioComision = ?";
         PreparedStatement ps = null;
         try {
-            log.trace("Se ejecutara: \n[" + query + "]\n[" + docAplicado + "," + idField + "]");
+            log.trace("Object: {}", "Se ejecutara: \n[" + query + "]\n[" + docAplicado + "," + idField + "]");
             ps = conn.prepareStatement(query);
             ps.setString(1, docAplicado);
             ps.setInt(2, idField);
             int actualizados = ps.executeUpdate();
-            log.trace("Se actualizaron " + actualizados + " registros");
+            log.trace("Object: {}", "Se actualizaron " + actualizados + " registros");
         } finally {
             CloseObject.closeObject(ps);
         }
     }
 
     public static void actualizaFechaAplicacion(Connection conn, int idField) throws Exception {
-        log.info("Se cambiara la fecha de la solicitud: " + idField);
+        log.info("Object: {}", "Se cambiara la fecha de la solicitud: " + idField);
         String query = "UPDATE tComisionesSinComprobacionEnc SET faplicacion = GETDATE() WHERE  nFolioComision = ? ";
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement(query);
             ps.setInt(1, idField);
             int actualizados = ps.executeUpdate();
-            log.trace("Se actualizaron " + actualizados + " registros");
+            log.trace("Object: {}", "Se actualizaron " + actualizados + " registros");
         } finally {
             CloseObject.closeObject(ps);
         }

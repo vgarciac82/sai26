@@ -5,13 +5,13 @@ import java.io.PrintWriter;
 import java.util.List;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import com.syc.cfdi.FacturaBusinessLogic;
 import com.syc.gestion.core.Usuario;
 import org.slf4j.Logger;
@@ -34,13 +34,13 @@ public class FacturaValidacionesPreAutorizaRGServlet extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else {
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
             }
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 
@@ -80,13 +80,13 @@ public class FacturaValidacionesPreAutorizaRGServlet extends HttpServlet {
         FacturaBusinessLogic fbl = null;
         try {
             fbl = new FacturaBusinessLogic(jniName, false, u);
-            log.info("Invocando validacionesPreAutorizaRelacionGastos para folio=" + folio + " usuario=" + u.getLogin());
+            log.info("Object: {}", "Invocando validacionesPreAutorizaRelacionGastos para folio=" + folio + " usuario=" + u.getLogin());
             List<String> resultados = fbl.validacionesPreAutorizaRelacionGastos(folio);
             String json = toJsonArray(resultados);
             PrintWriter out = resp.getWriter();
             out.write(json);
             out.flush();
-            log.info("Respuesta enviada OK para folio=" + folio + " (cantidad=" + (resultados == null ? 0 : resultados.size()) + ")");
+            log.info("Object: {}", "Respuesta enviada OK para folio=" + folio + " (cantidad=" + (resultados == null ? 0 : resultados.size()) + ")");
         } catch (Exception e) {
             log.error("Error procesando validacionesPreAutorizaRelacionGastos", e);
             writeJsonError(resp, "Ocurrio un error procesando la solicitud");

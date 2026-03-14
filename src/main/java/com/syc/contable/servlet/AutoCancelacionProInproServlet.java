@@ -33,25 +33,25 @@ public class AutoCancelacionProInproServlet extends HttpServlet implements Gesti
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         String strRunIntervalProcess = config.getInitParameter("runIntervalProcess");
         String strInterval = config.getInitParameter("sleepIntervalProcess");
         interval = Long.parseLong(strInterval);
         if (interval == -1L) {
             interval = 1000L * 60;
-            log.info("Init Parameter \"sleepIntervalProcess\" nulo usando default \"" + interval + "\"");
+            log.info("Object: {}", "Init Parameter \"sleepIntervalProcess\" nulo usando default \"" + interval + "\"");
         } else
-            log.info("sleepIntervalProcess=" + interval);
-        log.info("runIntervalProcess=" + "true".equalsIgnoreCase(strRunIntervalProcess));
+            log.info("Object: {}", "sleepIntervalProcess=" + interval);
+        log.info("Object: {}", "runIntervalProcess=" + "true".equalsIgnoreCase(strRunIntervalProcess));
         String strMaxTiempoApartado = config.getInitParameter("maxTiempoApartado");
         maxTiempoApartado = Long.parseLong(strMaxTiempoApartado);
-        log.info("Init Parameter \"maxTiempoApartado\"  \"" + maxTiempoApartado + "\"");
+        log.info("Object: {}", "Init Parameter \"maxTiempoApartado\"  \"" + maxTiempoApartado + "\"");
         if ("true".equalsIgnoreCase(strRunIntervalProcess)) {
             log.info("Iniciando Background Process");
             verificaTiempoLimiteApartado = new Thread(this);

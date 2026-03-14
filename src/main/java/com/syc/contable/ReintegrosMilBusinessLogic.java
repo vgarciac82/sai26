@@ -106,7 +106,7 @@ public class ReintegrosMilBusinessLogic extends DataSourceManager {
                 importe += rd.getmImporteCLC();
                 if (!getEPCatalogo(rd.getEP())) {
                     mensajes.add("La EP " + rd.getEP() + " no existe o se encuentra mal escrita \\n");
-                    log.warn("La EP " + rd.getEP() + " no existe o se encuentra mal escrita \n");
+                    log.warn("Object: {}", "La EP " + rd.getEP() + " no existe o se encuentra mal escrita \n");
                     throw new Exception("La EP " + rd.getEP() + " no existe o se encuentra mal escrita \\n");
                 } else {
                     String str = clcPagada(Integer.parseInt(rd.getnSIAFF().replace(".0", "")), rd.getCLCSAI());
@@ -139,19 +139,19 @@ public class ReintegrosMilBusinessLogic extends DataSourceManager {
                         // REGULARIZACION!!!!!
                         if ("-1".equals(rd.getSecCLC())) {
                             mensajes.add("No se puede obtener el valor de la secuencia para la EP " + rd.getEP() + " porque no se encuentra en la tabla CLC_SICOP o porque no se pudo enlazar.\\n");
-                            log.warn("No se puede obtener el valor de la secuencia para la EP " + rd.getEP() + " porque no se encuentra en la tabla CLC_SICOP o porque no se pudo enlazar.\n");
+                            log.warn("Object: {}", "No se puede obtener el valor de la secuencia para la EP " + rd.getEP() + " porque no se encuentra en la tabla CLC_SICOP o porque no se pudo enlazar.\n");
                             throw new Exception("No se puede obtener el valor de la secuencia para la EP " + rd.getEP() + " porque no se encuentra en la tabla CLC_SICOP o porque no se pudo enlazar.\\n");
                         } else {
                             if ("-1".equals(rd.getFolioDependenciaSicop())) {
                                 mensajes.add("No se puede obtener el folio de dependencia para la EP " + rd.getEP() + " porque no se encuentra en la tabla CLC_SICOP o porque no se pudo enlazar.\\n");
-                                log.warn("No se puede obtener el folio de dependencia para la EP " + rd.getEP() + " porque no se encuentra en la tabla CLC_SICOP o porque no se pudo enlazar.\n");
+                                log.warn("Object: {}", "No se puede obtener el folio de dependencia para la EP " + rd.getEP() + " porque no se encuentra en la tabla CLC_SICOP o porque no se pudo enlazar.\n");
                                 throw new Exception("No se puede obtener el folio de dependencia para la EP " + rd.getEP() + " porque no se encuentra en la tabla CLC_SICOP o porque no se pudo enlazar.\\n");
                             }
                             banderaRemanente = false;
                             int docRenglon = getNDocRenglon(rd.getCLCSAI(), rd.getEP(), rd.getMes(), rd.getCxp(), rd.getTipoMovimiento(), rd.getTipoConcepto());
                             if (docRenglon == -1) {
                                 mensajes.add("Favor de revisar el mes para la EP " + rd.getEP() + " con CXP " + rd.getCLCSAI() + "\\n");
-                                log.warn("Favor de revisar el mes para la EP " + rd.getEP() + " con CXP " + rd.getCLCSAI() + "\n");
+                                log.warn("Object: {}", "Favor de revisar el mes para la EP " + rd.getEP() + " con CXP " + rd.getCLCSAI() + "\n");
                                 throw new Exception("Favor de revisar el mes para la EP " + rd.getEP() + " con CXP " + rd.getCLCSAI() + "\\n");
                             } else {
                                 remanente = getRemanente(rd.getEP(), rd.getCLCSAI(), docRenglon, rd.getCxp());
@@ -163,7 +163,7 @@ public class ReintegrosMilBusinessLogic extends DataSourceManager {
                                 if (!banderaRemanente) {
                                     mensajes.add("No hay suficiente remanente para poder aplicar el reintegro para " + rd.getEP() + " renglon " + rd.getSecCLC() + " mes " + rd.getMes() + " cxp " + rd.getCLCSAI() + " remanente " + remanente + " importe a reintegrar " + rd.getmImporteCLC() + "\\n");
                                     mensajes.add(ReintegrosMilManager.getMesesImportes(conn, rd.getEP(), rd.getCLCSAI()));
-                                    log.warn("No hay suficiente remanente para poder aplicar el reintegro para " + rd.getEP() + " renglon " + rd.getSecCLC() + " mes " + rd.getMes() + " cxp " + rd.getCLCSAI() + " remanente " + remanente + " importe a reintegrar " + rd.getmImporteCLC() + "\n");
+                                    log.warn("Object: {}", "No hay suficiente remanente para poder aplicar el reintegro para " + rd.getEP() + " renglon " + rd.getSecCLC() + " mes " + rd.getMes() + " cxp " + rd.getCLCSAI() + " remanente " + remanente + " importe a reintegrar " + rd.getmImporteCLC() + "\n");
                                     throw new Exception("No hay suficiente remanente para poder aplicar el reintegro para " + rd.getEP() + " renglon " + rd.getSecCLC() + " mes " + rd.getMes() + " cxp " + rd.getCLCSAI() + " remanente " + remanente + " importe a reintegrar " + rd.getmImporteCLC() + "\\n" + ReintegrosMilManager.getMesesImportes(conn, rd.getEP(), rd.getCLCSAI()));
                                 } else {
                                     String partida = getcPartida(rd.getEP());
@@ -409,7 +409,7 @@ public class ReintegrosMilBusinessLogic extends DataSourceManager {
                 evento = "REIN_TRAM_SPEI";
             inserta = ReintegrosMilManager.insertaDetReintegroPaso(conn, folio, datos, evento, cCentro, consecutivo, folioDep);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
         }
@@ -424,7 +424,7 @@ public class ReintegrosMilBusinessLogic extends DataSourceManager {
             borra = ReintegrosMilManager.borraDetReintegro(conn, folio);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -445,7 +445,7 @@ public class ReintegrosMilBusinessLogic extends DataSourceManager {
                 conn.commit();
             }
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -584,14 +584,14 @@ public class ReintegrosMilBusinessLogic extends DataSourceManager {
                     ReintegrosMilManager.updateReintegroMilFA(conn, folio);
                 }
                 ContableInterface conInt = new AplicacionContable();
-                log.debug("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+                log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
                 AplicarContableReturn acr;
                 if (!"2012".equals(adecProy.obtenEjercicioFiscal()))
                     acr = conInt.aplicarContableNuevo(conn, c, "tReintegroAutEncabezadoMil", "tReintegroAutDetalleMil", "nFolioReintegroMilaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGROAUTMIL", m, prefixPath, uLogin, "");
                 else
                     acr = conInt.aplicarContableNuevo(conn, c, "tReintegroAutEncabezadoMil", "tReintegroAutDetalleMil", "nFolioReintegroMilaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGROAUTMIL", m, prefixPath, uLogin, "SI");
                 arrLResult = (ArrayList<String>) acr.getMessageList();
-                log.debug("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+                log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
                 Calendar cal = new GregorianCalendar();
                 String mesActual = Util.NOMBRE_MESES_MX[cal.get(Calendar.MONTH)];
                 Caso cReloaded = new Caso();
@@ -618,7 +618,7 @@ public class ReintegrosMilBusinessLogic extends DataSourceManager {
                         }
                         AlarmaManager.procesaAlarmaCNF(conn, prefixPath, c.getCasoOperacion(0), c, asuntoCorreo, to, cc, bcc, body);
                     } catch (Exception exmail) {
-                        log.error("No se logro enviar el correo de autorizacion de reintegros: " + exmail);
+                        log.error("Object: {}", "No se logro enviar el correo de autorizacion de reintegros: " + exmail);
                     }
                     cbl.avanzaCaso(cReloaded, uLogin, "", new String[] { "CONSULTA_REINTEGRO_MIL" }, new String[] { "consulta_reintegro_m" }, m, prefixPath);
                 } else {
@@ -629,7 +629,7 @@ public class ReintegrosMilBusinessLogic extends DataSourceManager {
             }
         } catch (Exception exc) {
             conn.rollback();
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             arrLResult.add(exc.getLocalizedMessage());
             try {
                 conn.rollback();
@@ -656,14 +656,14 @@ public class ReintegrosMilBusinessLogic extends DataSourceManager {
             CasoBusinessLogic cbl = new CasoBusinessLogic(GestionInterface.ATT_CONEXION);
             conn = cbl.getConnection();
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             AplicarContableReturn acr;
             if (!"2012".equals(adecProy.obtenEjercicioFiscal()))
                 acr = conInt.aplicarContableNuevo(conn, c, "tReintegroAutEncabezadoMil", "tReintegroAutDetalleMil", "nFolioReintegroMilaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGROAUTMIL", m, prefixPath, uLogin, "");
             else
                 acr = conInt.aplicarContableNuevo(conn, c, "tReintegroAutEncabezadoMil", "tReintegroAutDetalleMil", "nFolioReintegroMilaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGROAUTMIL", m, prefixPath, uLogin, "SI");
             arrLResult = (ArrayList<String>) acr.getMessageList();
-            log.debug("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             Caso cReloaded = new Caso();
             cReloaded.setIdCaso(c.getIdCaso());
             cReloaded = CasoManager.select(conn, cReloaded);
@@ -678,7 +678,7 @@ public class ReintegrosMilBusinessLogic extends DataSourceManager {
             }
         } catch (Exception exc) {
             conn.rollback();
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             arrLResult.add(exc.getLocalizedMessage());
             try {
                 conn.rollback();
@@ -714,7 +714,7 @@ public class ReintegrosMilBusinessLogic extends DataSourceManager {
                         to = "vgarciac@axtel.com.mx;";
                     AlarmaManager.procesaAlarmaCNF(conn, prefixPath, c.getCasoOperacion(0), c, "", to, body);
                 } catch (Exception exmail) {
-                    log.error("No se logro enviar el correo de cancelacion de reintegros: " + exmail);
+                    log.error("Object: {}", "No se logro enviar el correo de cancelacion de reintegros: " + exmail);
                 }
                 cbl.avanzaCaso(cReloaded, uLogin, "", new String[] { "CONSULTA_REINTEGRO_MIL" }, new String[] { "consulta_reintegro_mil" }, m, prefixPath);
             } else {
@@ -723,7 +723,7 @@ public class ReintegrosMilBusinessLogic extends DataSourceManager {
             retVal = acr.getMessageList().get(acr.getMessageList().size() - 1);
             cbl.avanzaCaso(cReloaded, uLogin, "", new String[] { "CONSULTA_REINTEGROMIL" }, new String[] { "consulta_reintegro_m" }, m, prefixPath);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             exc.printStackTrace();
         } finally {
@@ -749,14 +749,14 @@ public class ReintegrosMilBusinessLogic extends DataSourceManager {
             CasoBusinessLogic cbl = new CasoBusinessLogic(GestionInterface.ATT_CONEXION);
             conn = cbl.getConnection();
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             AplicarContableReturn acr;
             if (!"2012".equals(adecProy.obtenEjercicioFiscal()))
                 acr = conInt.aplicarContableNuevo(conn, c, "tReintegroEncabezadoMil", "tReintegroDetalleMil", "nFolioReintegroMil", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGROMIL", m, prefixPath, uLogin, "");
             else
                 acr = conInt.aplicarContableNuevo(conn, c, "tReintegroEncabezadoMil", "tReintegroDetalleMil", "nFolioReintegroMil", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGROMIL", m, prefixPath, uLogin, "SI");
             arrLResult = acr.getMessageList();
-            log.debug("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             Caso cReloaded = new Caso();
             cReloaded.setIdCaso(c.getIdCaso());
             cReloaded = CasoManager.select(conn, cReloaded);
@@ -771,7 +771,7 @@ public class ReintegrosMilBusinessLogic extends DataSourceManager {
             }
         } catch (Exception exc) {
             conn.rollback();
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             arrLResult.add(exc.getLocalizedMessage());
             try {
                 conn.rollback();
@@ -1098,7 +1098,7 @@ public class ReintegrosMilBusinessLogic extends DataSourceManager {
             borra = ReintegrosMilManager.borraReintegro(conn, folio);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -1277,7 +1277,7 @@ public class ReintegrosMilBusinessLogic extends DataSourceManager {
             ReintegrosMilManager.insertaReintegroPasivo(conn, folio);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {

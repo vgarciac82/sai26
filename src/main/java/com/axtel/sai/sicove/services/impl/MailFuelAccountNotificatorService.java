@@ -2,7 +2,6 @@ package com.axtel.sai.sicove.services.impl;
 
 import java.sql.Connection;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.LogManager;
 import com.axtel.contratos.entities.FuelProvisioningRequest;
 import com.axtel.sai.sicove.entities.RequestAuthChain;
 import com.axtel.sai.sicove.exceptions.SicoveException;
@@ -20,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 public class MailFuelAccountNotificatorService extends DataSourceManager implements FuelAccountNotificatorService {
 
-    private static final Logger log = LogManager.getLogger(MailFuelAccountNotificatorService.class);
+    private static final Logger log = LoggerFactory.getLogger(MailFuelAccountNotificatorService.class);
 
     private String processName;
 
@@ -241,7 +240,7 @@ public class MailFuelAccountNotificatorService extends DataSourceManager impleme
         parametrosReales.append("d=").append(String.valueOf(processName));
         parametrosReales.append("&");
         parametrosReales.append("f=").append(StringUtils.reverse(String.valueOf(id)));
-        log.debug("Cadena generada: " + parametrosReales);
+        log.debug("Object: {}", "Cadena generada: " + parametrosReales);
         return parametrosReales.toString();
     }
 
@@ -273,19 +272,19 @@ public class MailFuelAccountNotificatorService extends DataSourceManager impleme
         try {
             log.trace("[notifyRejection] Gettin notification chain");
             RequestAuthChain requestAuthChain = getNotificationChain(fuelRequest);
-            log.trace("[notifyRejection] notification chain obtained \n[" + requestAuthChain + "]\n");
+            log.trace("Object: {}", "[notifyRejection] notification chain obtained \n[" + requestAuthChain + "]\n");
             log.trace("[notifyRejection] Gettin notification body");
             String notificationBody = generateRejectNotificationBody(fuelRequest, requestAuthChain);
-            log.trace("[notifyRejection] notification body obtained \n[" + notificationBody + "]\n");
+            log.trace("Object: {}", "[notifyRejection] notification body obtained \n[" + notificationBody + "]\n");
             log.trace("[notifyRejection] Gettin connection");
             conn = getConnection();
-            log.trace("[notifyRejection] connection obtained \n[" + conn + "]\n");
+            log.trace("Object: {}", "[notifyRejection] connection obtained \n[" + conn + "]\n");
             log.trace("[notifyRejection] Gettin TO list");
             String to = requestAuthChain.getApplicantMail() + (requestAuthChain.getInitiatingUser() != null ? ";" + requestAuthChain.getInitiatingUser().getU_email() : "");
-            log.trace("[notifyRejection] notification list \n[" + to + "]\n");
+            log.trace("Object: {}", "[notifyRejection] notification list \n[" + to + "]\n");
             log.trace("[notifyRejection] Gettin notification chain");
             AlarmaManager.procesaAlarmaCNF(conn, null, null, null, "Solicitud de combustible en tarjeta " + requestAuthChain.getAccountNumber() + " rechazada", to, notificationBody);
-            log.trace("[notifyRejection] notification chain obtained \n[" + requestAuthChain + "]\n");
+            log.trace("Object: {}", "[notifyRejection] notification chain obtained \n[" + requestAuthChain + "]\n");
             success = true;
         } catch (Exception e) {
             log.error(e.toString(), e);

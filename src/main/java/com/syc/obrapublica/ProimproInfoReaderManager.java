@@ -34,7 +34,7 @@ public class ProimproInfoReaderManager {
                 CloseObject.closeObject(rsOli, false);
                 CloseObject.closeObject(psOli, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             } finally {
                 rsOli = null;
                 psOli = null;
@@ -70,7 +70,7 @@ public class ProimproInfoReaderManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(ps, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             } finally {
                 rs = null;
                 ps = null;
@@ -104,7 +104,7 @@ public class ProimproInfoReaderManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(ps, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             } finally {
                 rs = null;
                 ps = null;
@@ -132,7 +132,7 @@ public class ProimproInfoReaderManager {
                 cond += token + "      iduae = ? ";
                 token = " AND ";
             }
-            log.debug("Buscando carteras [" + sqlBase + cond + "]");
+            log.debug("Object: {}", "Buscando carteras [" + sqlBase + cond + "]");
             ps = conn.prepareStatement(sqlBase + cond);
             int i = 1;
             if (cartera != null && !"".equals(cartera)) {
@@ -154,7 +154,7 @@ public class ProimproInfoReaderManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(ps, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             } finally {
                 rs = null;
                 ps = null;
@@ -180,7 +180,7 @@ public class ProimproInfoReaderManager {
                 }
                 condicion = " AND (" + claves + ")";
                 query += condicion;
-                log.debug(query);
+                log.debug("Object: {}", query.toString());
                 ps = conn.prepareStatement(query);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -193,7 +193,7 @@ public class ProimproInfoReaderManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(ps, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }

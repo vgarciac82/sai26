@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
@@ -297,7 +297,7 @@ public class NotificacionSolicitudViaticos {
         totalDias = 0;
         for (Iterator<AgendaNotificacion> i = getAgenda().iterator(); i.hasNext(); ) {
             AgendaNotificacion agendaDia = i.next();
-            log.debug("Sumando dias de viaticos: " + agendaDia.getDias());
+            log.debug("Object: {}", "Sumando dias de viaticos: " + agendaDia.getDias());
             totalDias = totalDias + agendaDia.getDias();
         }
         return totalDias;
@@ -311,7 +311,7 @@ public class NotificacionSolicitudViaticos {
         totalViatico.setScale(2, RoundingMode.HALF_UP);
         for (Iterator<AgendaNotificacion> i = getAgenda().iterator(); i.hasNext(); ) {
             AgendaNotificacion agendaDia = i.next();
-            log.debug("Sumando monto de viatico: " + agendaDia.getTotal());
+            log.debug("Object: {}", "Sumando monto de viatico: " + agendaDia.getTotal());
             totalViatico = totalViatico.add(agendaDia.getTotal());
         }
         return totalViatico;
@@ -558,7 +558,7 @@ public class NotificacionSolicitudViaticos {
             parametrosReales.append("autorizacion=").append(String.valueOf(true));
             parametrosReales.append("&");
             parametrosReales.append("IdRenglonAutorizador=").append(getIdRenglonAutorizador());
-            log.debug("Cadena generada: " + parametrosReales);
+            log.debug("Object: {}", "Cadena generada: " + parametrosReales);
             return parametrosReales.toString();
         } catch (Exception e) {
             throw new Exception("FMX-SEC-10001 Error generando Token", e);

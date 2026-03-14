@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.apache.log4j.LogManager;
 import com.axtel.contratos.ActionsFIEL;
 import com.axtel.contratos.ProcesoEnteraSatisfaccionBusinessLogic;
 import com.axtel.contratos.entities.DatEnteraSatisfaccion;
@@ -22,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 public class ImplementsActionsFIEL_ENSA extends DataSourceManager implements ActionsFIEL {
 
-    private static final Logger log = LogManager.getLogger(ImplementsActionsFIEL_ENSA.class);
+    private static final Logger log = LoggerFactory.getLogger(ImplementsActionsFIEL_ENSA.class);
 
     @Override
     public List<String> sign(SolicitudFirmaElectronica sfe, String cerFileName, String keyFileName) throws Exception {
@@ -61,7 +60,7 @@ public class ImplementsActionsFIEL_ENSA extends DataSourceManager implements Act
                         try {
                             conn.rollback();
                         } catch (Exception e2) {
-                            log.warn(e2);
+                            log.warn(e2.getMessage(), e2);
                         }
                     throw e;
                 } finally {
@@ -126,7 +125,7 @@ public class ImplementsActionsFIEL_ENSA extends DataSourceManager implements Act
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn(e2);
+                    log.warn(e2.getMessage(), e2);
                 }
             throw e;
         } finally {
@@ -177,7 +176,7 @@ public class ImplementsActionsFIEL_ENSA extends DataSourceManager implements Act
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn(e2);
+                    log.warn(e2.getMessage(), e2);
                 }
             throw e;
         } finally {

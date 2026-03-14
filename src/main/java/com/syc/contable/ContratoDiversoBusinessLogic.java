@@ -1,7 +1,6 @@
 package com.syc.contable;
 
 import java.sql.Connection;
-import org.apache.log4j.LogManager;
 import com.axtel.contratos.core.ContratoDiverso;
 import com.axtel.contratos.core.ContratoDiversoManager;
 import com.axtel.contratos.core.ContratoDiversoRetencion;
@@ -15,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 public class ContratoDiversoBusinessLogic extends DataSourceManager {
 
-    private static final Logger log = LogManager.getLogger(ContratoDiversoBusinessLogic.class);
+    private static final Logger log = LoggerFactory.getLogger(ContratoDiversoBusinessLogic.class);
 
     public static final Integer ID_RETENCION_ISR_RESICO = 18;
 
@@ -65,9 +64,9 @@ public class ContratoDiversoBusinessLogic extends DataSourceManager {
         Connection conn = null;
         try {
             conn = getConnection();
-            log.info("Insertando el contrato diverso: " + contrato);
+            log.info("Object: {}", "Insertando el contrato diverso: " + contrato);
             int insertados = ContratoDiversoManager.insertaContratoDiverso(conn, contrato);
-            log.info("Se insertaron: " + insertados + " contratos diversos");
+            log.info("Object: {}", "Se insertaron: " + insertados + " contratos diversos");
             conn.commit();
             return insertados;
         } catch (Exception e) {

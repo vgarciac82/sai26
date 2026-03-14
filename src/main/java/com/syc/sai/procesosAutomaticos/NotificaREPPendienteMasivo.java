@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.log4j.LogManager;
 import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import com.syc.sai.interfaces.CFDIBusinessLogic;
@@ -19,7 +18,7 @@ public class NotificaREPPendienteMasivo {
 
     private final StringBuilder query = new StringBuilder("SELECT DISTINCT rfc FROM v_treciboelectronico_pagofactura WHERE ncomprobado = 0 ");
 
-    private static final Logger log = LogManager.getLogger(NotificaREPPendienteMasivo.class);
+    private static final Logger log = LoggerFactory.getLogger(NotificaREPPendienteMasivo.class);
 
     private final CFDIBusinessLogic cfdiBusinessLogic;
 
@@ -43,11 +42,11 @@ public class NotificaREPPendienteMasivo {
     private void sendNotifications() throws SQLException {
         List<String> toList = getProviders();
         for (String to : toList) {
-            log.trace("Enviando notificacion a : " + to);
+            log.trace("Object: {}", "Enviando notificacion a : " + to);
             try {
                 getCfdiBusinessLogic().notificaREPFaltantes(conn, null, null, to);
             } catch (Exception e) {
-                log.error("No fue posible notificar a : " + to + " debido al error: " + e);
+                log.error("Error occurred", "No fue posible notificar a : " + to + " debido al error: " + e);
             }
         }
     }

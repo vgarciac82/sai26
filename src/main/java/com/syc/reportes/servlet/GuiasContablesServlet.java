@@ -63,7 +63,7 @@ public class GuiasContablesServlet extends HttpServlet implements GestionInterfa
                 } else {
                     res = rrs.guardaVersion(req, resp);
                 }
-                log.info("Registros Insertados: " + res);
+                log.info("Object: {}", "Registros Insertados: " + res);
                 if (res > 0) {
                     msg = "Se creo exitosamente la version al documento seleccionado";
                     session.setAttribute("RESULT", msg);

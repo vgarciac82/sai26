@@ -115,7 +115,7 @@ public class ContratoModificadoBusiness extends DataSourceManager {
             return msg.toString();
         } catch (SQLException e) {
             conn.rollback();
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw (e);
         } finally {
             if (conn != null) {
@@ -153,7 +153,7 @@ public class ContratoModificadoBusiness extends DataSourceManager {
             return msg;
         } catch (SQLException e) {
             conn.rollback();
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw (e);
         } finally {
             if (conn != null) {
@@ -184,7 +184,7 @@ public class ContratoModificadoBusiness extends DataSourceManager {
             return msg;
         } catch (SQLException e) {
             conn.rollback();
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw (e);
         } finally {
             if (conn != null) {
@@ -220,7 +220,7 @@ public class ContratoModificadoBusiness extends DataSourceManager {
             return msg;
         } catch (SQLException e) {
             conn.rollback();
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw (e);
         } finally {
             if (conn != null) {
@@ -250,7 +250,7 @@ public class ContratoModificadoBusiness extends DataSourceManager {
             return msg;
         } catch (SQLException e) {
             conn.rollback();
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw (e);
         } finally {
             if (conn != null) {
@@ -298,7 +298,7 @@ public class ContratoModificadoBusiness extends DataSourceManager {
             return arrayObj;
         } catch (SQLException e) {
             conn.rollback();
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw (e);
         } finally {
             if (conn != null) {
@@ -367,7 +367,7 @@ public class ContratoModificadoBusiness extends DataSourceManager {
         } catch (SQLException e) {
             conn.rollback();
             msg = e.getMessage();
-            log.error(e);
+            log.error(e.getMessage(), e);
             e.printStackTrace();
         } finally {
             if (conn != null) {
@@ -411,7 +411,7 @@ public class ContratoModificadoBusiness extends DataSourceManager {
             return msg;
         } catch (SQLException e) {
             conn.rollback();
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw (e);
         } finally {
             if (conn != null) {
@@ -443,7 +443,7 @@ public class ContratoModificadoBusiness extends DataSourceManager {
             return msg;
         } catch (SQLException e) {
             conn.rollback();
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw (e);
         } finally {
             if (conn != null) {
@@ -573,7 +573,7 @@ public class ContratoModificadoBusiness extends DataSourceManager {
             if (conn != null) {
                 conn.rollback();
             }
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw (e);
         } finally {
             if (c1 != null) {
@@ -624,7 +624,7 @@ public class ContratoModificadoBusiness extends DataSourceManager {
         } catch (SQLException e) {
             if (error && conn != null)
                 conn.rollback();
-            log.error(e);
+            log.error(e.getMessage(), e);
             msg.append("Error: " + e.getMessage());
             throw (e);
         } finally {

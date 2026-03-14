@@ -40,12 +40,12 @@ public class CopiaRequisicionServlet extends HttpServlet {
             jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jndiName == null) {
                 jndiName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
             } else
-                log.info("dataSourceRefName=" + jndiName);
+                log.info("Object: {}", "dataSourceRefName=" + jndiName);
         } catch (NamingException exc) {
             jndiName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
         }
     }
 
@@ -77,7 +77,7 @@ public class CopiaRequisicionServlet extends HttpServlet {
                 cmst.execute();
                 log.info("Se ejecuto el procedimiento almacenado");
                 int outputValue = cmst.getInt(6);
-                log.info("Se obtiene resultado..." + outputValue);
+                log.info("Object: {}", "Se obtiene resultado..." + outputValue);
                 try {
                     if (outputValue == 1) {
                         jsonObj.put("Col1", "1");

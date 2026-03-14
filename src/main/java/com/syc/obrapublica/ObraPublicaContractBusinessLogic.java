@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
-import javax.servlet.ServletException;
+import jakarta.servlet.ServletException;
 import com.syc.contable.AccountingEngine;
 import com.syc.contable.AccountingEngineException;
 import com.syc.dsmngr.DataSourceManager;
@@ -609,7 +609,7 @@ public class ObraPublicaContractBusinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.warn("Error realizando rollback: " + e);
+                        log.warn("Error occurred", "Error realizando rollback: " + e);
                     }
             } finally {
                 try {
@@ -692,9 +692,9 @@ public class ObraPublicaContractBusinessLogic extends DataSourceManager {
                     }
                 }
                 if (// MLR Se agrega para
-                "6".equalsIgnoreCase(tipoDocumento)) // enviar a consulta
+                // enviar a consulta
                 // un convenio
-                {
+                "6".equalsIgnoreCase(tipoDocumento)) {
                     retVal = ObraPublicaContractManager.updateCancelacionConv(conn, folioSAI);
                     System.out.println("Entra retval2");
                 }
@@ -820,7 +820,7 @@ public class ObraPublicaContractBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e) {
-                    log.warn("Error realizando rollback: " + e);
+                    log.warn("Error occurred", "Error realizando rollback: " + e);
                 }
         } finally {
             try {
@@ -863,7 +863,7 @@ public class ObraPublicaContractBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e) {
-                    log.warn("Error realizando rollback: " + e);
+                    log.warn("Error occurred", "Error realizando rollback: " + e);
                 }
         } finally {
             try {
@@ -906,7 +906,7 @@ public class ObraPublicaContractBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e) {
-                    log.warn("Error realizando rollback: " + e);
+                    log.warn("Error occurred", "Error realizando rollback: " + e);
                 }
         } finally {
             try {
@@ -1128,7 +1128,7 @@ public class ObraPublicaContractBusinessLogic extends DataSourceManager {
                 try {
                     conn.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando conexion a DB " + e2);
+                    log.warn("Object: {}", "Problemas cerrando conexion a DB " + e2);
                 }
         }
     }
@@ -1147,7 +1147,7 @@ public class ObraPublicaContractBusinessLogic extends DataSourceManager {
                 try {
                     conn.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando conexion a DB " + e2);
+                    log.warn("Object: {}", "Problemas cerrando conexion a DB " + e2);
                 }
         }
     }

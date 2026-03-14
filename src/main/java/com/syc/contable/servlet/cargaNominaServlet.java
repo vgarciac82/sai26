@@ -15,8 +15,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.core.FileItem;
 import org.jfree.util.Log;
 import com.syc.contable.CargaNominaBussinessLogic;
 import com.syc.gestion.core.Caso;
@@ -60,7 +60,7 @@ public class cargaNominaServlet extends HttpServlet {
         String szPath = "";
         try {
             // Se construye un objeto para que parsee la petición
-            DiskFileUpload fu = new DiskFileUpload();
+            ServletFileUpload fu = new ServletFileUpload();
             // Tamaño máximo que aceptará el archivo
             // El tamaño no importa
             fu.setSizeMax(-1);

@@ -70,24 +70,24 @@ public class RelacionGastosServlet extends HttpServlet implements GestionInterfa
             jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jndiName == null) {
                 jndiName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
             } else
-                log.info("dataSourceRefName=" + jndiName);
+                log.info("Object: {}", "dataSourceRefName=" + jndiName);
         } catch (NamingException exc) {
             jndiName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
         }
         try {
             InitialContext ic = new InitialContext();
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
     }
 
@@ -117,7 +117,7 @@ public class RelacionGastosServlet extends HttpServlet implements GestionInterfa
         }
         //Obtiene la operación que se manda como parámetro en la llamada GET
         int tipoOperacion = Integer.parseInt(request.getParameter("operacion"));
-        log.debug("operacion: " + tipoOperacion);
+        log.debug("Object: {}", "operacion: " + tipoOperacion);
         String strParam = request.getParameter("Param");
         //String tipoPago = "";
         switch(tipoOperacion) {
@@ -167,7 +167,7 @@ public class RelacionGastosServlet extends HttpServlet implements GestionInterfa
             cCentroContable = usuario.getPropiedad("CCENTROCONTABLE").getValor();
         if (cCentroContable.isEmpty() || cCentroContable.equals(""))
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion Contable, Consulte a su administrador.";
-        log.debug("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         String prefixPath = getServletContext().getRealPath("/WEB-INF/mail-bodies/") + File.separator;
         try {
@@ -186,8 +186,8 @@ public class RelacionGastosServlet extends HttpServlet implements GestionInterfa
                 c = CasoManager.select(conn, sc);
                 // Una vez que ha hecho la aplicación contable avanza el caso A CONSULTA PAGOS
                 avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-                log.debug(c.getCasoDato("APLICADO_CONT").getValor());
-                log.debug("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+                log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+                log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
                 mensaje = "DOCUMENTO DE PRECOMPROMISO APLICADO CONTABLEMENTE.";
                 pstm1 = conn.prepareStatement("delete from CG_CASO_OPERACION where ID_CASO=(select ID_CASO from CG_CASO with(nolock) where  C_FOLIO=? ) and (CO_RESPONSABLE='VENTANILLA_RELACIONGASTOS' or CO_RESPONSABLE='CONSULTA_RELACIONGASTOS') and (ID_OPER=1 OR ID_OPER=3)");
                 pstm1.setString(1, c.getFolio());
@@ -216,7 +216,7 @@ public class RelacionGastosServlet extends HttpServlet implements GestionInterfa
             } catch (JSONException e1) {
                 e1.printStackTrace();
             }
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
             mensaje = "ERROR INESPERADO DE LA APLICACION CONTABLE(MOTOR CONTABLE O NO AVANZO EL CASO).";
         } finally {
             try {
@@ -273,7 +273,7 @@ public class RelacionGastosServlet extends HttpServlet implements GestionInterfa
         if (cCentroContable.isEmpty() || cCentroContable.equals("")) {
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion Contable, Consulte a su administrador.";
         }
-        log.debug("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         String prefixPath = getServletContext().getRealPath("/WEB-INF/mail-bodies/") + File.separator;
         try {
@@ -327,7 +327,7 @@ public class RelacionGastosServlet extends HttpServlet implements GestionInterfa
             } catch (JSONException e1) {
                 e1.printStackTrace();
             }
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
             mensaje = "ERROR INESPERADO DE LA APLICACION CONTABLE(MOTOR CONTABLE O NO AVANZO EL CASO).";
         } finally {
             try {
@@ -393,7 +393,7 @@ public class RelacionGastosServlet extends HttpServlet implements GestionInterfa
             }
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
         } finally {
             try {
                 if (conn != null)

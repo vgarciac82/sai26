@@ -11,9 +11,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import com.syc.cfdi.db.CloseObject;
 import com.syc.contable.AccountingEngine;
@@ -83,7 +83,7 @@ public class SolicitudViaticosBusinessLogic extends DataSourceManager implements
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Error dando rollback: " + e2);
+                    log.warn("Error occurred", "Error dando rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -110,7 +110,7 @@ public class SolicitudViaticosBusinessLogic extends DataSourceManager implements
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Error dando rollback: " + e2);
+                    log.warn("Error occurred", "Error dando rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -130,7 +130,7 @@ public class SolicitudViaticosBusinessLogic extends DataSourceManager implements
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Error dando rollback: " + e2);
+                    log.warn("Error occurred", "Error dando rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -164,7 +164,7 @@ public class SolicitudViaticosBusinessLogic extends DataSourceManager implements
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Error dando rollback: " + e2);
+                    log.warn("Error occurred", "Error dando rollback: " + e2);
                 }
             throw e;
         }
@@ -192,7 +192,7 @@ public class SolicitudViaticosBusinessLogic extends DataSourceManager implements
     }
 
     public void onAvanzaCaso(Connection conn, String u_login, Caso c, int id_caso_oper) throws SQLException {
-        log.info(String.format("Inicia manejo de evento onAvanzaCaso Folio[%s] id:[%d] Usuario:[%s] IDCasoOper:[%d]", c.getFolio(), c.getIdCaso(), u_login, id_caso_oper));
+        log.info("Object: {}", String.format("Inicia manejo de evento onAvanzaCaso Folio[%s] id:[%d] Usuario:[%s] IDCasoOper:[%d]", c.getFolio(), c.getIdCaso(), u_login, id_caso_oper));
         int nFolioSolicitudViaticos = Integer.parseInt(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1));
         if (id_caso_oper == AVANZA_AUTORIZACION) {
             try {
@@ -292,7 +292,7 @@ public class SolicitudViaticosBusinessLogic extends DataSourceManager implements
                 session.setAttribute("mensaje", "No se pudo completar la operacion debido al siguiente error:\n" + e + "\n Notifique al administrador del sistema.");
                 response.sendRedirect("../Generador/RespuestaViaticos.jsp");
             } catch (Exception e3) {
-                log.warn("Problemas enviando respuesta " + e3);
+                log.warn("Object: {}", "Problemas enviando respuesta " + e3);
             }
         }
     }
@@ -303,7 +303,7 @@ public class SolicitudViaticosBusinessLogic extends DataSourceManager implements
         try {
             AccountingEngine ae = new AccountingEngine();
             ae.setValidaInsuficienciaDeSaldo(true);
-            log.info("Autorizadn Solicitud: " + folioSolicitud + " No. Empleado Autorizador: " + empleadoAutoriza);
+            log.info("Object: {}", "Autorizadn Solicitud: " + folioSolicitud + " No. Empleado Autorizador: " + empleadoAutoriza);
             conn = getConnection();
             Caso casoSolViaticos = SolicitudViaticosManager.buscaCaso(conn, folioSolicitud);
             Usuario u = SolicitudViaticosManager.getUsuarioCaptura(conn, folioSolicitud);
@@ -344,7 +344,7 @@ public class SolicitudViaticosBusinessLogic extends DataSourceManager implements
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problema en rollback:" + e2);
+                    log.warn("Object: {}", "Problema en rollback:" + e2);
                 }
             throw e;
         } finally {
@@ -384,13 +384,13 @@ public class SolicitudViaticosBusinessLogic extends DataSourceManager implements
                 try {
                     in.close();
                 } catch (Exception e) {
-                    log.warn("Problemas cerrando flujo: " + e);
+                    log.warn("Object: {}", "Problemas cerrando flujo: " + e);
                 }
             if (out != null)
                 try {
                     out.close();
                 } catch (Exception e) {
-                    log.warn("Problemas cerrando flujo: " + e);
+                    log.warn("Object: {}", "Problemas cerrando flujo: " + e);
                 }
         }
     }

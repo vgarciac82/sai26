@@ -35,7 +35,7 @@ public class SaldosBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas con rollback: " + e2);
+                    log.warn("Object: {}", "Problemas con rollback: " + e2);
                 }
             }
         } finally {

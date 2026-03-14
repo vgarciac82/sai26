@@ -95,7 +95,7 @@ public class ReportePagosBeneficiariosManager {
         log.info("----------------Preparando la consulta para enviarla ------------------");
         ps = conn.prepareStatement(query);
         rs = ps.executeQuery();
-        log.info(query);
+        log.info("Object: {}", query.toString());
         try {
             if (conFact.equals("presupuestal") || (conFact.equals("todos"))) {
                 fileName = generaReporte(rs, plantillas.get("PAGOSBENEFICIARIOS"), fechaInicio, fechaFin);

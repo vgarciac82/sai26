@@ -44,7 +44,7 @@ public class CalculaImpuestosRetencionesBusinessLogic extends DataSourceManager 
             List<EgresoRetencion> retenciones = ebl.cargaRetenciones(conn, tipoPago, nFolioPago);
             List<PenaConvencional> penas = ebl.cargaPenas(conn, tipoPago, nFolioPago);
             int eliminados = EgresoDetalleManager.borraDetalle(conn, tipoPago, nFolioPago);
-            log.info("Se eliminaron " + eliminados + " renglones del detalle para tipo de pago " + tipoPago + " con folio " + nFolioPago);
+            log.info("Object: {}", "Se eliminaron " + eliminados + " renglones del detalle para tipo de pago " + tipoPago + " con folio " + nFolioPago);
             int resultado = CalculaImpuestosRetencionesManager.recalculaImpuestosRetenciones(conn, encabezado, detalle, calendarioPago, retenciones, impuestos, penas);
             Amortizacion amortizacion = encabezado.getAmortizacion(conn);
             if (amortizacion != null && Util.ZERO.compareTo(amortizacion.getMontoAmortizacion()) != 0) {
@@ -58,7 +58,7 @@ public class CalculaImpuestosRetencionesBusinessLogic extends DataSourceManager 
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -68,22 +68,22 @@ public class CalculaImpuestosRetencionesBusinessLogic extends DataSourceManager 
 
     public int recalculaMontoImpuestos(String tipoPago, int nFolioPago) throws Exception {
         log.trace("recalculaMontoImpuestos(): inicio");
-        log.info("Recalculando importes para el pago [" + tipoPago + "] folio [" + nFolioPago + "]");
+        log.info("Object: {}", "Recalculando importes para el pago [" + tipoPago + "] folio [" + nFolioPago + "]");
         if ("pagodiverso".equalsIgnoreCase(tipoPago) || "pagoobra".equalsIgnoreCase(tipoPago)) {
-            log.trace("Tipo de pago [" + tipoPago + "] requiere recálculo con impuestos/retenciones específicos.");
+            log.trace("Object: {}", "Tipo de pago [" + tipoPago + "] requiere recálculo con impuestos/retenciones específicos.");
             int resultado = recalculaImpuestosRetenciones(tipoPago, nFolioPago);
-            log.info("Recalculo completado por ruta especial. Registros afectados=" + resultado);
+            log.info("Object: {}", "Recalculo completado por ruta especial. Registros afectados=" + resultado);
             log.trace("recalculaMontoImpuestos(): fin");
             return resultado;
         }
-        log.trace("Tipo de pago [" + tipoPago + "] no es especial. Calculando tablas dinámicas.");
+        log.trace("Object: {}", "Tipo de pago [" + tipoPago + "] no es especial. Calculando tablas dinámicas.");
         String tablaEncabezado = "t" + tipoPago + "encabezado";
         String tablaDetalle = "t" + tipoPago + "detalle";
         String nombreCampo = "nFolio" + tipoPago;
-        log.debug("Tablas generadas -> Encabezado: " + tablaEncabezado + ", Detalle: " + tablaDetalle + ", Campo de enlace: " + nombreCampo + ", Folio: " + nFolioPago);
+        log.debug("Object: {}", "Tablas generadas -> Encabezado: " + tablaEncabezado + ", Detalle: " + tablaDetalle + ", Campo de enlace: " + nombreCampo + ", Folio: " + nFolioPago);
         log.trace("Invocando recalculo estándar de impuestos con tablas dinámicas...");
         int resultado = recalculaMontoImpuestos(tablaEncabezado, tablaDetalle, nombreCampo, nFolioPago);
-        log.info("Recalculo estándar completado. Registros afectados=" + resultado);
+        log.info("Object: {}", "Recalculo estándar completado. Registros afectados=" + resultado);
         log.trace("recalculaMontoImpuestos(): fin");
         return resultado;
     }
@@ -97,17 +97,17 @@ public class CalculaImpuestosRetencionesBusinessLogic extends DataSourceManager 
         log.trace("recalculaMontoImpuestos(encabezado, detalle, campo, folio): inicio");
         Connection conn = null;
         try {
-            log.debug("Parámetros -> tablaPagoEncabezado=" + tablaPagoEncabezado + ", tablaPagoDetalle=" + tablaPagoDetalle + ", nombreCampo=" + nombreCampo + ", nFolioPago=" + nFolioPago);
+            log.debug("Object: {}", "Parámetros -> tablaPagoEncabezado=" + tablaPagoEncabezado + ", tablaPagoDetalle=" + tablaPagoDetalle + ", nombreCampo=" + nombreCampo + ", nFolioPago=" + nFolioPago);
             log.trace("Obteniendo conexión...");
             conn = getConnection();
-            log.debug("Conexión obtenida: " + (conn != null ? conn.hashCode() : "null"));
+            log.debug("Object: {}", "Conexión obtenida: " + (conn != null ? conn.hashCode() : "null"));
             log.trace("Invocando CalculaImpuestosRetencionesManager.recalculaMontoImpuestos(...)");
             int resultado = CalculaImpuestosRetencionesManager.recalculaMontoImpuestos(conn, tablaPagoEncabezado, tablaPagoDetalle, nombreCampo, nFolioPago);
-            log.info("Recalculo de montos de impuestos completado. Registros afectados=" + resultado);
+            log.info("Object: {}", "Recalculo de montos de impuestos completado. Registros afectados=" + resultado);
             log.trace("Realizando commit...");
             conn.commit();
             log.info("Commit exitoso.");
-            log.trace("recalculaMontoImpuestos(...): fin OK en " + (System.currentTimeMillis() - t0) + " ms");
+            log.trace("Object: {}", "recalculaMontoImpuestos(...): fin OK en " + (System.currentTimeMillis() - t0) + " ms");
             return resultado;
         } catch (Exception e) {
             log.error("Error en recalculaMontoImpuestos(...): " + e, e);
@@ -120,7 +120,7 @@ public class CalculaImpuestosRetencionesBusinessLogic extends DataSourceManager 
                     log.warn("Problemas realizando rollback. " + e2, e2);
                 }
             }
-            log.trace("recalculaMontoImpuestos(...): fin con error en " + (System.currentTimeMillis() - t0) + " ms");
+            log.trace("Error occurred", "recalculaMontoImpuestos(...): fin con error en " + (System.currentTimeMillis() - t0) + " ms");
             throw e;
         } finally {
             try {

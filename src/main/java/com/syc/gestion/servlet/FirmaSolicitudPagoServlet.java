@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.core.FileItem;
 import org.apache.commons.lang.StringUtils;
 import com.syc.cfdi.utils.FacturaUtils;
 import com.syc.egresos.core.RelacionGastosMasivaBussinessLogic;
@@ -76,7 +76,7 @@ public class FirmaSolicitudPagoServlet extends HttpServlet implements GestionInt
                 while (iter.hasNext()) {
                     FileItem item = (FileItem) iter.next();
                     if (item.isFormField()) {
-                        log.trace(item.getFieldName() + " = " + item.getString());
+                        log.trace("Object: {}", item.getFieldName() + " = " + item.getString());
                         objMap.put(item.getFieldName(), item.getString());
                         if ("tipoAutorizacion".equalsIgnoreCase(item.getFieldName()))
                             tipoAutorizacion = item.getString();
@@ -86,18 +86,18 @@ public class FirmaSolicitudPagoServlet extends HttpServlet implements GestionInt
                         if ("cerFile".equals(item.getFieldName())) {
                             archivoCargaStreamCer = new DataInputStream(item.getInputStream());
                             cerFileName = FacturaUtils.generaNombreArchivoTemporal(FirmaSolicitudPagoServlet.TEMP_DIR, item.getName(), "cer");
-                            log.info("Copiando archivo :" + cerFileName);
+                            log.info("Object: {}", "Copiando archivo :" + cerFileName);
                             Util.copiaArchivo(archivoCargaStreamCer, cerFileName);
                         } else if ("keyFile".equals(item.getFieldName())) {
                             archivoCargaStreamKey = new DataInputStream(item.getInputStream());
                             keyFileName = FacturaUtils.generaNombreArchivoTemporal(FirmaSolicitudPagoServlet.TEMP_DIR, item.getName(), "key");
-                            log.info("Copiando archivo :" + keyFileName);
+                            log.info("Object: {}", "Copiando archivo :" + keyFileName);
                             Util.copiaArchivo(archivoCargaStreamKey, keyFileName);
                             if (archivoCargaStreamKey != null)
                                 try {
                                     archivoCargaStreamKey.close();
                                 } catch (Exception e) {
-                                    log.error("Error cerrando flujo DataInputStream" + e);
+                                    log.error("Error occurred", "Error cerrando flujo DataInputStream" + e);
                                 }
                         }
                     }
@@ -155,7 +155,7 @@ public class FirmaSolicitudPagoServlet extends HttpServlet implements GestionInt
                     try {
                         archivoCargaStreamCer.close();
                     } catch (Exception e) {
-                        log.error("Error cerrando flujo DataInputStream" + e);
+                        log.error("Error occurred", "Error cerrando flujo DataInputStream" + e);
                     }
                 archivoCargaStreamCer = null;
                 if (!"".equals(cerFileName)) {
@@ -167,7 +167,7 @@ public class FirmaSolicitudPagoServlet extends HttpServlet implements GestionInt
                     try {
                         archivoCargaStreamKey.close();
                     } catch (Exception e) {
-                        log.error("Error cerrando flujo DataInputStream" + e);
+                        log.error("Error occurred", "Error cerrando flujo DataInputStream" + e);
                     }
                 archivoCargaStreamKey = null;
                 if (!"".equals(keyFileName)) {
@@ -192,12 +192,12 @@ public class FirmaSolicitudPagoServlet extends HttpServlet implements GestionInt
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         settings = new ConfiguraAplicativoBusinessLogic(jniName);
         try {
@@ -205,13 +205,13 @@ public class FirmaSolicitudPagoServlet extends HttpServlet implements GestionInt
             TEMP_DIR = (String) ic.lookup("java:comp/env/TemporaryDirectory");
             if (TEMP_DIR == null) {
                 TEMP_DIR = "/temp/firmaElectronica/";
-                log.info("Environment Entry \"TEMP_DIR\" nula usando default \"" + TEMP_DIR + "\"");
+                log.info("Object: {}", "Environment Entry \"TEMP_DIR\" nula usando default \"" + TEMP_DIR + "\"");
             } else
-                log.info("dataSourceRefName=" + TEMP_DIR);
+                log.info("Object: {}", "dataSourceRefName=" + TEMP_DIR);
         } catch (NamingException exc) {
             TEMP_DIR = "/temp/firmaElectronica/";
-            log.info("Ocurrio un error que evito que se cargara la entrada \"TEMP_DIR\"" + exc);
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + TEMP_DIR + "\"");
+            log.info("Error occurred", "Ocurrio un error que evito que se cargara la entrada \"TEMP_DIR\"" + exc);
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + TEMP_DIR + "\"");
         }
         try {
             File f = new File(TEMP_DIR);
@@ -219,7 +219,7 @@ public class FirmaSolicitudPagoServlet extends HttpServlet implements GestionInt
                 if (!f.mkdirs())
                     throw new Exception("No se puede crear el directorio temporal " + TEMP_DIR);
         } catch (Exception e) {
-            log.error("No fue posible crear automaticamente el directorio temporal: " + TEMP_DIR + " Solicite su creacion manual");
+            log.error("Object: {}", "No fue posible crear automaticamente el directorio temporal: " + TEMP_DIR + " Solicite su creacion manual");
         }
     }
 }

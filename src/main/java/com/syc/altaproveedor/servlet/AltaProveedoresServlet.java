@@ -204,7 +204,7 @@ public class AltaProveedoresServlet extends HttpServlet implements GestionInterf
             arrayObj = new JSONArray();
             mensaje = "Error: \n" + e.getMessage().toString();
             respuesta = false;
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             e.printStackTrace();
         } finally {
             if (listaCtas != null) {

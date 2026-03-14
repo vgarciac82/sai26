@@ -115,7 +115,7 @@ public class ProgramaAnualBusinessLogic extends DataSourceManager {
         } catch (Exception e) {
             if (conn != null)
                 conn.rollback();
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             e.printStackTrace();
         } finally {
             if (conn != null)
@@ -161,9 +161,9 @@ public class ProgramaAnualBusinessLogic extends DataSourceManager {
                 if (conn != null)
                     conn.rollback();
             } catch (SQLException e2) {
-                log.error("Error en el rollback : " + e.getMessage());
+                log.error("Error occurred", "Error en el rollback : " + e.getMessage());
             }
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             e.printStackTrace();
         } finally {
             if (conn != null)
@@ -214,9 +214,9 @@ public class ProgramaAnualBusinessLogic extends DataSourceManager {
                 if (conn != null)
                     conn.rollback();
             } catch (SQLException e2) {
-                log.error("Error en el rollback : " + e.getMessage());
+                log.error("Error occurred", "Error en el rollback : " + e.getMessage());
             }
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             e.printStackTrace();
         } finally {
             if (conn != null)
@@ -249,7 +249,7 @@ public class ProgramaAnualBusinessLogic extends DataSourceManager {
         } catch (Exception e) {
             if (conn != null)
                 conn.rollback();
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             e.printStackTrace();
         } finally {
             if (conn != null)
@@ -293,10 +293,10 @@ public class ProgramaAnualBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.error("Error al hacer el rollback :" + e2);
+                    log.error("Error occurred", "Error al hacer el rollback :" + e2);
                 }
             respuesta.setMsg(e.getMessage());
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
         } finally {
             if (conn != null)
                 conn.close();
@@ -325,7 +325,7 @@ public class ProgramaAnualBusinessLogic extends DataSourceManager {
             montoPresupuesto = manager.presupuestoPorPartidaCapMil(conn, dat);
             montoCalendarizado = manager.montoCapturadoPorPartidaCapMil(conn, dat);
             tolerancia = manager.toleranciaPAAS(conn);
-            log.info("Presupuesto de la partida " + dat.getcPartidaCapMil() + " es : " + montoPresupuesto + " ; monto calendarizado en el PAAS es " + montoCalendarizado[1]);
+            log.info("Object: {}", "Presupuesto de la partida " + dat.getcPartidaCapMil() + " es : " + montoPresupuesto + " ; monto calendarizado en el PAAS es " + montoCalendarizado[1]);
             if ((montosACalendarizar[1] + montoCalendarizado[1]) > (montoPresupuesto * (1.0D + tolerancia / 100.0D))) {
                 respuesta.setMsg("No es posible realizar las modificaciones porque sobrepasan el presupuesto de la partida");
                 respuesta.setResp(false);

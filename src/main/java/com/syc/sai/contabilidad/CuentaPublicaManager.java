@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import com.syc.admin.servlet.ReportsException;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import com.syc.sai.contabilidad.utils.db.RSToTable;
@@ -25,7 +25,7 @@ public class CuentaPublicaManager {
             int[] indices = { 16, 19, 22, 25, 28, 31, 34, 37, 40, 43 };
             String spCll = "{call sp_C32AP390_syc()}";
             cs1 = conn.prepareCall(spCll);
-            log.debug(spCll);
+            log.debug("Object: {}", spCll);
             rs = cs1.executeQuery();
             List<List<String>> l = RSToTable.rsToList(rs);
             // Encabezado
@@ -78,7 +78,7 @@ public class CuentaPublicaManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(cs1, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }
@@ -89,7 +89,7 @@ public class CuentaPublicaManager {
         try {
             String spCll = "{call sp_C11IF085_syc()}";
             cs1 = conn.prepareCall(spCll);
-            log.debug(spCll);
+            log.debug("Object: {}", spCll);
             rs = cs1.executeQuery();
             return RSToTable.rsToTable(rs, true);
         } catch (Exception e) {
@@ -99,7 +99,7 @@ public class CuentaPublicaManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(cs1, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }
@@ -116,7 +116,7 @@ public class CuentaPublicaManager {
             anchor.put("ObraPublica", 2);
             String spCll = "{call sp_C11IF085I_syc()}";
             cs1 = conn.prepareCall(spCll);
-            log.debug(spCll);
+            log.debug("Object: {}", spCll);
             rs = cs1.executeQuery();
             return RSToTable.rsToTable(rs, anchor, true);
         } catch (Exception e) {
@@ -126,7 +126,7 @@ public class CuentaPublicaManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(cs1, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }
@@ -139,7 +139,7 @@ public class CuentaPublicaManager {
             int[] indices = { 16, 19, 22, 25, 28, 31, 34, 37, 40, 43 };
             String spCll = "{call sp_C32AP400_syc()}";
             cs1 = conn.prepareCall(spCll);
-            log.debug(spCll);
+            log.debug("Object: {}", spCll);
             rs = cs1.executeQuery();
             List<List<String>> l = RSToTable.rsToList(rs);
             // Encabezado
@@ -192,7 +192,7 @@ public class CuentaPublicaManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(cs1, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }
@@ -205,7 +205,7 @@ public class CuentaPublicaManager {
             int[] indices = { 16, 19, 22, 25, 28, 31, 34, 37, 40, 43 };
             String spCll = "{call sp_C32AP405_syc()}";
             cs1 = conn.prepareCall(spCll);
-            log.debug(spCll);
+            log.debug("Object: {}", spCll);
             rs = cs1.executeQuery();
             List<List<String>> l = RSToTable.rsToList(rs);
             // Encabezado
@@ -258,7 +258,7 @@ public class CuentaPublicaManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(cs1, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }
@@ -278,11 +278,11 @@ public class CuentaPublicaManager {
             }
             spCll += ")}";
             cs1 = conn.prepareCall(spCll);
-            log.debug(spCll);
+            log.debug("Object: {}", spCll);
             if (condiciones != null) {
                 for (int i = 0; i < condiciones.length; i++) {
                     cs1.setString(i + 1, condiciones[i]);
-                    log.debug(i + " " + condiciones[i]);
+                    log.debug("Object: {}", i + " " + condiciones[i]);
                 }
             }
             rs = cs1.executeQuery();
@@ -296,7 +296,7 @@ public class CuentaPublicaManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(cs1, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }
@@ -323,11 +323,11 @@ public class CuentaPublicaManager {
             }
             spCll += ")}";
             cs1 = conn.prepareCall(spCll);
-            log.debug(spCll);
+            log.debug("Object: {}", spCll);
             if (condiciones != null) {
                 for (int i = 0; i < condiciones.length; i++) {
                     cs1.setString(i + 1, condiciones[i]);
-                    log.debug(i + " " + condiciones[i]);
+                    log.debug("Object: {}", i + " " + condiciones[i]);
                 }
             }
             //spCll="{call sp_BalanzaDet_syc   ('2014','10', 'BalanzaDet', '1', '7')}";
@@ -343,7 +343,7 @@ public class CuentaPublicaManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(cs1, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }

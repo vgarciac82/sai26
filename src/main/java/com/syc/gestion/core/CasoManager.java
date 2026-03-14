@@ -294,7 +294,7 @@ public class CasoManager {
                 Caso c = new Caso();
                 c.setIdCaso(rs.getInt(1));
                 c = CasoManager.select(conn, c);
-                log.debug("Procesando alarma del Id Caso = (" + c.getIdCaso() + ")");
+                log.debug("Object: {}", "Procesando alarma del Id Caso = (" + c.getIdCaso() + ")");
                 if ((c.getStatus() & Caso.MSG_SENDED) == Caso.MSG_SENDED)
                     continue;
                 c.setStatus(c.getStatus() | Caso.MSG_SENDED);

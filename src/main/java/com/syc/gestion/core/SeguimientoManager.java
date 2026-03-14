@@ -528,11 +528,11 @@ public class SeguimientoManager {
 				+ " GROUP BY tc.id_tc, b.b_id_caso, b.b_c_folio, tc.tc_descripcion "; 
 				//+ "ORDER BY 1,2,3";
 			*/
-            String query = "SELECT Count(*) " + "     FROM ( " + "          SELECT s.tc_id_tc, " + "                 s.b_id_caso, " + "                 s.b_c_folio, " + "                 MIN(s.b_c_fecha_ini)   AS b_c_fecha_ini, " + "	                MAX(s.b_co_fecha_ini)  AS b_co_fecha_ini, " + //, "
-            "                 MIN(CASE WHEN s.bc_cerrado = 'S' THEN 'cerrado' ELSE 'activo' END) AS estado " + //+"					imx.asunto,"
-            //+"					imx.referencia"
-            "            FROM fx_seguimientoConsulta( ?, '') as s" + "            " + ("".equals(fromCBO) ? "" : "," + fromCBO) + " ,imxanp imx" + "           WHERE " + "                s.c_id_caso = c.id_caso " + "				AND imx.id_gabinete = c.c_id_gabinete " + "             AND e.ce_os_responsable = co.co_responsable" + "             AND a.id_area           = e.id_area" + "           " + ("".equals(whereCBO) ? "" : " " + whereCBO) + where + //,imx.asunto,imx.referencia "
-            "          GROUP BY s.tc_id_tc, s.b_id_caso, s.b_c_folio " + "          ) as seg";
+            String query = //, "
+            "SELECT Count(*) " + "     FROM ( " + "          SELECT s.tc_id_tc, " + "                 s.b_id_caso, " + "                 s.b_c_folio, " + "                 MIN(s.b_c_fecha_ini)   AS b_c_fecha_ini, " + "	                MAX(s.b_co_fecha_ini)  AS b_co_fecha_ini, " + //+"					imx.asunto,"
+            "                 MIN(CASE WHEN s.bc_cerrado = 'S' THEN 'cerrado' ELSE 'activo' END) AS estado " + //+"					imx.referencia"
+            "            FROM fx_seguimientoConsulta( ?, '') as s" + "            " + ("".equals(fromCBO) ? "" : "," + fromCBO) + " ,imxanp imx" + "           WHERE " + "                s.c_id_caso = c.id_caso " + "				AND imx.id_gabinete = c.c_id_gabinete " + "             AND e.ce_os_responsable = co.co_responsable" + "             AND a.id_area           = e.id_area" + "           " + ("".equals(whereCBO) ? "" : " " + whereCBO) + //,imx.asunto,imx.referencia "
+            where + "          GROUP BY s.tc_id_tc, s.b_id_caso, s.b_c_folio " + "          ) as seg";
             //log.info("query=[" + query + "]");
             //query = "SELECT Count(*) FROM ( "
             //	+ query + " ) as seg ";
@@ -612,13 +612,13 @@ public class SeguimientoManager {
             if (rs.next())
                 TotalRegistros = rs.getInt(1);
             query = "SELECT DISTINCT tc.id_tc" + ",     b.b_id_caso" + ",     b.b_c_folio" + ",     MIN(b.b_c_fecha_ini)   AS b_c_fecha_ini" + ",     MAX(b.b_co_fecha_ini)  AS b_co_fecha_ini" + ",     tc.tc_descripcion AS tc_descripcion" + ",     MIN(CASE WHEN bc.cerrado = 'S' THEN 'cerrado' ELSE 'activo' END) AS estado " + "FROM  cg_tipo_caso tc" + ",     cg_operacion o" + ",     cg_caso_operacion co1" + ",     cg_bitacora b" + ",     cg_bitacora_caso bc" + ",     cg_bitacora_operacion bo " + ("".equals(fromCBO) ? "" : "," + fromCBO) + " " + "WHERE tc.id_tc         = b.b_id_tc " + "AND   o.id_tc          = b.b_id_tc " + "AND   o.id_oper        = b.b_id_oper " + "AND   co1.id_tc        = b.b_id_tc " + "AND   co1.id_caso      = b.b_id_caso " + "AND   co1.id_caso_oper = b.b_co_id_caso_oper_sigte " + "AND   co1.id_caso      = bc.id_caso " + "AND   co1.id_caso      = bo.id_caso " + "AND   co1.id_caso_oper = bo.secuencial_operacion  " + where + ("".equals(whereCBO) ? "" : " " + whereCBO) + " GROUP BY tc.id_tc, b.b_id_caso, b.b_c_folio, tc.tc_descripcion " + "ORDER BY 1,2,3";
-            query = " SELECT s.tc_id_tc, " + "        s.b_id_caso, " + "        s.b_c_folio, " + "        MIN(s.b_c_fecha_ini)   AS b_c_fecha_ini, " + "	       MAX(s.b_co_fecha_ini)  AS b_co_fecha_ini, " + //, "
-            "        MIN(CASE WHEN s.bc_cerrado = 'S' THEN 'cerrado' ELSE 'activo' END) AS estado " + //+ "        imx.asunto ,"
-            //+ "        imx.referencia "
-            "  FROM fx_seguimientoConsulta( ?, '') as s" + ("".equals(fromCBO) ? "" : "," + fromCBO) + " ,imxanp imx" + " WHERE " + "  s.c_id_caso = c.id_caso " + "  AND imx.id_gabinete = c.c_id_gabinete" + "  AND  e.ce_os_responsable = co.co_responsable " + "  AND a.id_area           = e.id_area" + where + ("".equals(whereCBO) ? "" : " " + whereCBO) + //,imx.asunto,imx.referencia ";
-            " GROUP BY s.tc_id_tc, s.b_id_caso, s.b_c_folio ";
+            query = //, "
+            " SELECT s.tc_id_tc, " + "        s.b_id_caso, " + "        s.b_c_folio, " + "        MIN(s.b_c_fecha_ini)   AS b_c_fecha_ini, " + "	       MAX(s.b_co_fecha_ini)  AS b_co_fecha_ini, " + //+ "        imx.asunto ,"
+            "        MIN(CASE WHEN s.bc_cerrado = 'S' THEN 'cerrado' ELSE 'activo' END) AS estado " + //+ "        imx.referencia "
+            "  FROM fx_seguimientoConsulta( ?, '') as s" + ("".equals(fromCBO) ? "" : "," + fromCBO) + " ,imxanp imx" + " WHERE " + "  s.c_id_caso = c.id_caso " + "  AND imx.id_gabinete = c.c_id_gabinete" + "  AND  e.ce_os_responsable = co.co_responsable " + "  AND a.id_area           = e.id_area" + where + //,imx.asunto,imx.referencia ";
+            ("".equals(whereCBO) ? "" : " " + whereCBO) + " GROUP BY s.tc_id_tc, s.b_id_caso, s.b_c_folio ";
             String query_pag = " SELECT * FROM ( " + "            SELECT *, ROW_NUMBER() OVER (ORDER BY  s.b_c_folio) AS RowNumber " + "              FROM (" + query + " ) as s    ) as seg " + "  WHERE RowNumber BETWEEN " + (in_pd.getTamanoPaginas() * in_pd.getNumeroPagina() + 1) + " AND " + in_pd.getTamanoPaginas() * (in_pd.getNumeroPagina() + 1);
-            log.info("query=[" + query_pag + "]");
+            log.info("Object: {}", "query=[" + query_pag + "]");
             //System.out.println("Query de Seguimiento##### " + query);
             pstmnt = conn.prepareStatement(query_pag);
             idx = 1;

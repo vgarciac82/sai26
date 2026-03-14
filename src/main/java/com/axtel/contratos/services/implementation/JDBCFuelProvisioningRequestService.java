@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.log4j.LogManager;
 import com.axtel.contratos.entities.FuelProvisioningRequest;
 import com.axtel.contratos.exception.ContratoException;
 import com.axtel.contratos.repositories.FuelProvisioningRequestRepository;
@@ -23,7 +22,7 @@ import org.slf4j.LoggerFactory;
 
 public class JDBCFuelProvisioningRequestService extends DataSourceManager implements FuelProvisioningRequestService {
 
-    private static final Logger log = LogManager.getLogger(JDBCFuelProvisioningRequestService.class);
+    private static final Logger log = LoggerFactory.getLogger(JDBCFuelProvisioningRequestService.class);
 
     private FuelProvisioningRequestRepository fuelProvisioningRequestRepository;
 
@@ -50,7 +49,7 @@ public class JDBCFuelProvisioningRequestService extends DataSourceManager implem
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn(e2);
+                    log.warn(e2.getMessage(), e2);
                 }
             throw new ContratoException(e);
         } finally {
@@ -99,7 +98,7 @@ public class JDBCFuelProvisioningRequestService extends DataSourceManager implem
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn(e2);
+                    log.warn(e2.getMessage(), e2);
                 }
             throw new ContratoException(e);
         } finally {
@@ -121,7 +120,7 @@ public class JDBCFuelProvisioningRequestService extends DataSourceManager implem
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn(e2);
+                    log.warn(e2.getMessage(), e2);
                 }
             throw new ContratoException(e);
         } finally {

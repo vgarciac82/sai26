@@ -61,12 +61,12 @@ public abstract class DataSourceManager {
             jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jndiName == null) {
                 jndiName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
             } else
-                log.info("dataSourceRefName=" + jndiName);
+                log.info("Object: {}", "dataSourceRefName=" + jndiName);
         } catch (NamingException exc) {
             jndiName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
         }
         init(jndiName);
     }
@@ -82,7 +82,7 @@ public abstract class DataSourceManager {
     public Connection getConnection() throws SQLException {
         //boolean changed = false;
         Connection conn = ds.getConnection();
-        log.trace("Getting DB Connection for " + jniName + " DataSources @ " + Util.getTodayWithTime());
+        log.trace("Object: {}", "Getting DB Connection for " + jniName + " DataSources @ " + Util.getTodayWithTime());
         // EJRV Esto se configura en el pool de conecciones
         /*
 		if (logIsolationType)
@@ -112,7 +112,7 @@ public abstract class DataSourceManager {
     }
 
     public static Connection getConnection(String jniName) throws SQLException {
-        log.trace("Getting DB Connection for " + jniName + " DataSources @ " + Util.getTodayWithTime());
+        log.trace("Object: {}", "Getting DB Connection for " + jniName + " DataSources @ " + Util.getTodayWithTime());
         if (dsm == null)
             dsm = new DataSourceManager() {
             };

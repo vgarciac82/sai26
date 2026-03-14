@@ -3,13 +3,13 @@ package com.axtel.sisecop.web;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import com.axtel.sisecop.entities.ProyectoServicio;
 import com.axtel.sisecop.services.ProyectoServicioService;
 import com.axtel.web.utils.WebUtils;
@@ -43,7 +43,7 @@ public class ProyectoWorkflowController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProyectoServicio proyectoServicio = readProjectRequest(request);
-        log.trace("JSON recibido correctamente y mapeado a objeto ProyectoServicio. " + proyectoServicio);
+        log.trace("Object: {}", "JSON recibido correctamente y mapeado a objeto ProyectoServicio. " + proyectoServicio);
         try {
             ProyectoServicio proyectoOriginal = proyectoService.findById(proyectoServicio.getServicioId());
             proyectoOriginal.setEstatus(proyectoServicio.getEstatus());
@@ -53,9 +53,9 @@ public class ProyectoWorkflowController extends HttpServlet {
                 proyectoOriginal.setObservaciones(proyectoServicio.getObservaciones());
             HttpSession session = request.getSession(false);
             Usuario user = (Usuario) session.getAttribute(GestionInterface.ATT_USER);
-            log.debug("Sending project to step : " + proyectoOriginal.getEstatus().getEstatusId());
+            log.debug("Object: {}", "Sending project to step : " + proyectoOriginal.getEstatus().getEstatusId());
             proyectoOriginal = proyectoService.nextStep(proyectoOriginal, user);
-            log.info("Project avanced to next step: " + proyectoOriginal);
+            log.info("Object: {}", "Project avanced to next step: " + proyectoOriginal);
             Util.sendJSONResponse(response, proyectoOriginal);
         } catch (Exception e) {
             log.error("Error saving porject: " + e.toString(), e);
@@ -72,7 +72,7 @@ public class ProyectoWorkflowController extends HttpServlet {
             }
         }
         String jsonString = jsonRequest.toString();
-        log.trace("Received: " + jsonString);
+        log.trace("Object: {}", "Received: " + jsonString);
         ProyectoServicio proyectoServicio = objectMapper.readValue(jsonString, ProyectoServicio.class);
         return proyectoServicio;
     }

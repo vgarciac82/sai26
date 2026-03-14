@@ -3,7 +3,7 @@ package com.axtel.contabilidad.reintegrosCaja;
 import java.sql.Connection;
 import java.sql.Timestamp;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import com.syc.contable.AccountingEngine;
 import com.syc.crud.dsmngr.DataSourceManager;
@@ -135,7 +135,7 @@ public class ReintegrosCajaBusinessLogic extends DataSourceManager {
             conn = getConnection();
             rce = ReintegrosCajaManager.getReintegrosCajaEncabezado(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             CloseObject.closeObject(conn);
@@ -151,7 +151,7 @@ public class ReintegrosCajaBusinessLogic extends DataSourceManager {
             conn = getConnection();
             res = ReintegrosCajaManager.getReintegrosCajaDetalle(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             CloseObject.closeObject(conn);
@@ -166,7 +166,7 @@ public class ReintegrosCajaBusinessLogic extends DataSourceManager {
             conn = getConnection();
             tipoPoliza = ReintegrosCajaManager.getTipoPolizaEvento(conn, cEvento);
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw new Exception(e);
         } finally {
             CloseObject.closeObject(conn);
@@ -188,7 +188,7 @@ public class ReintegrosCajaBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
         } finally {
             CloseObject.closeObject(conn);
@@ -210,9 +210,9 @@ public class ReintegrosCajaBusinessLogic extends DataSourceManager {
                 //Actualiza fecha de aplicacion
                 ReintegrosCajaManager.actializaFecha(conn, folio, cFechaAplicacion);
                 //Aplicación contable de la retencion
-                log.debug("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + folio);
+                log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + folio);
                 ae.makeAccountingApplication(conn, documento, folio, tablaEncabezado, tablaDetalle, campoFolio);
-                log.debug("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + folio);
+                log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + folio);
                 conn.commit();
             } else {
                 mensaje = "El mes contable esta cerrado. Notifique al administrador";
@@ -246,7 +246,7 @@ public class ReintegrosCajaBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
         } finally {
             CloseObject.closeObject(conn);
@@ -261,7 +261,7 @@ public class ReintegrosCajaBusinessLogic extends DataSourceManager {
             conn = getConnection();
             existe = ReintegrosCajaManager.existenDatos(conn, nFolioReinegroCaja);
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw new Exception(e);
         } finally {
             CloseObject.closeObject(conn);
@@ -276,7 +276,7 @@ public class ReintegrosCajaBusinessLogic extends DataSourceManager {
             conn = getConnection();
             existe = ReintegrosCajaManager.existenDatosAut(conn, nFolioReinegroCaja);
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw new Exception(e);
         } finally {
             CloseObject.closeObject(conn);
@@ -291,7 +291,7 @@ public class ReintegrosCajaBusinessLogic extends DataSourceManager {
             conn = getConnection();
             datos = ReintegrosCajaManager.PolizaCancelacion(conn, string, Encabezado, Detalle, Folio);
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             throw new Exception(e);
         } finally {
             CloseObject.closeObject(conn);
@@ -342,7 +342,7 @@ public class ReintegrosCajaBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn(e2);
+                    log.warn(e2.getMessage(), e2);
                 }
             throw e;
         } finally {
@@ -359,9 +359,9 @@ public class ReintegrosCajaBusinessLogic extends DataSourceManager {
         try {
             conn = getConnection();
             //Cancelacion contable de Reintegro Caja
-            log.debug("Inicia cacelacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nFolioReinegroCaja);
+            log.debug("Object: {}", "Inicia cacelacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nFolioReinegroCaja);
             ae.cancelAccountingApplication(conn, "REINTEGROCAJA", nFolioReinegroCaja, "tReintegroCajaEncabezado", "tReintegroCajaDetalle", "nFolioReintegroCaja");
-            log.debug("Termina Cancelacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nFolioReinegroCaja);
+            log.debug("Object: {}", "Termina Cancelacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nFolioReinegroCaja);
             conn.commit();
         } catch (Exception exc) {
             mensaje = exc.getMessage();

@@ -136,9 +136,9 @@ public class LayoutCuentasBancariasServlet extends HttpServlet {
                 out.close();
             }
         } catch (FileNotFoundException ex) {
-            Log.error(ex, ex);
+            Log.error(ex.getMessage(), ex);
         } catch (Exception e) {
-            Log.error(e, e);
+            Log.error(e.getMessage(), e);
         }
     }
 

@@ -35,7 +35,7 @@ public class LayoutPagosDirectosServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         cualArchivo = (request.getParameter("archivo") != null) ? request.getParameter("archivo").trim() : "";
-        log.trace("Tipo de layout: " + cualArchivo);
+        log.trace("Object: {}", "Tipo de layout: " + cualArchivo);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

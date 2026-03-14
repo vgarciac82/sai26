@@ -58,7 +58,7 @@ public class RelacionEFProgramaBusinessLogic extends DataSourceManager {
                 try {
                     stream.close();
                 } catch (Exception e2) {
-                    log.warn("No se pudo cerrar el archivo de carga." + e2);
+                    log.warn("Object: {}", "No se pudo cerrar el archivo de carga." + e2);
                 }
             stream = null;
         }
@@ -92,7 +92,7 @@ public class RelacionEFProgramaBusinessLogic extends DataSourceManager {
                 Cell CellcActividadInstitucional = row.getCell(4);
                 Cell CellcProgramaPresupuestario = row.getCell(5);
                 if (CellcgrupoFuncional != null) {
-                    log.debug("Procesando renglon " + (renglon));
+                    log.debug("Object: {}", "Procesando renglon " + (renglon));
                     try {
                         String cgrupoFuncional = CellcgrupoFuncional.getStringCellValue();
                         String cFuncion = CellcFuncion.getStringCellValue();
@@ -107,7 +107,7 @@ public class RelacionEFProgramaBusinessLogic extends DataSourceManager {
                         renglonMap.put("cProgramaGeneral", cProgramaGeneral);
                         renglonMap.put("cActividadInstitucional", cActividadInstitucional);
                         renglonMap.put("cProgramaPresupuestario", cProgramaPresupuestario);
-                        log.debug("cgrupoFuncional[" + cgrupoFuncional + "] cFuncion[" + cFuncion + "]cSubFuncion[" + cSubFuncion + "]cProgramaGeneral[" + cProgramaGeneral + "]cActividadInstitucional[" + cActividadInstitucional + "]cProgramaPresupuestario[" + cProgramaPresupuestario + "]");
+                        log.debug("Object: {}", "cgrupoFuncional[" + cgrupoFuncional + "] cFuncion[" + cFuncion + "]cSubFuncion[" + cSubFuncion + "]cProgramaGeneral[" + cProgramaGeneral + "]cActividadInstitucional[" + cActividadInstitucional + "]cProgramaPresupuestario[" + cProgramaPresupuestario + "]");
                         RelacionEFProgramaManager.insertaRenglonRelacionEFPrograma(conn, renglonMap);
                     } catch (Exception e) {
                         renglonInsertada = false;
@@ -127,7 +127,7 @@ public class RelacionEFProgramaBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("No se pudo realizar rollback en conexion" + e2);
+                    log.warn("Object: {}", "No se pudo realizar rollback en conexion" + e2);
                 }
             throw e;
         } finally {

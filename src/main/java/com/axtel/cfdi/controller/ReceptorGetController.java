@@ -3,14 +3,13 @@ package com.axtel.cfdi.controller;
 import java.io.IOException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.apache.log4j.LogManager;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import com.axtel.cfdi.Receptor;
 import com.axtel.cfdi.service.ReceptorService;
 import com.google.gson.Gson;
@@ -31,7 +30,7 @@ public class ReceptorGetController extends HttpServlet {
 
     private String jniName;
 
-    private static final Logger log = LogManager.getLogger(ReceptorGetController.class);
+    private static final Logger log = LoggerFactory.getLogger(ReceptorGetController.class);
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -41,13 +40,13 @@ public class ReceptorGetController extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula, usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula, usando default \"" + jniName + "\"");
             } else {
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
             }
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida, usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida, usando default \"" + jniName + "\"");
         }
         receptorService = new ReceptorService(jniName);
         gson = new GsonBuilder().create();
@@ -66,7 +65,7 @@ public class ReceptorGetController extends HttpServlet {
             if (rfc == null || rfc.isEmpty()) {
                 throw new RuntimeException("El RFC es obligatorio.");
             }
-            log.debug("Looking for: " + rfc);
+            log.debug("Object: {}", "Looking for: " + rfc);
             Receptor receptor = receptorService.obtenerReceptorPorRfc(rfc);
             if (receptor == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);

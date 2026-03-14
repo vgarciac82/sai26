@@ -24,7 +24,7 @@ public class DescargaMasivaManager {
         StringBuilder query = new StringBuilder();
         query.append("INSERT INTO tRequestSAT(cUUIDRequest, dFechaInicio, dFechaFin, RFCEmisor,RFCReceptor,RFCConsulta,requestStatus)");
         query.append("VALUES(?, ?, ?, ?,?,?,?)");
-        log.trace("Ejecutando: \n" + query.toString() + "\n[" + request.getIdRequest() + "][" + request.getfInicio() + "][" + request.getfFin() + "][" + request.getRfcEmisor() + "][" + request.getRfcReceptor() + "][" + request.getRfcConsulta() + "][" + request.getStatusRequest() + "]");
+        log.trace("Object: {}", "Ejecutando: \n" + query.toString() + "\n[" + request.getIdRequest() + "][" + request.getfInicio() + "][" + request.getfFin() + "][" + request.getRfcEmisor() + "][" + request.getRfcReceptor() + "][" + request.getRfcConsulta() + "][" + request.getStatusRequest() + "]");
         try {
             ps = conn.prepareStatement(query.toString());
             ps.setString(idParam++, request.getIdRequest());
@@ -35,7 +35,7 @@ public class DescargaMasivaManager {
             ps.setString(idParam++, request.getRfcConsulta());
             ps.setString(idParam++, request.getStatusRequest());
             afectados = ps.executeUpdate();
-            log.debug("Se insertaron " + afectados + " registros en la tabla tRequestSAT");
+            log.debug("Object: {}", "Se insertaron " + afectados + " registros en la tabla tRequestSAT");
             return afectados;
         } finally {
             CloseObject.closeObject(ps);
@@ -98,7 +98,7 @@ public class DescargaMasivaManager {
             ps.setString(5, request.getIdPaquetes());
             ps.setString(6, request.getIdRequest());
             int afectados = ps.executeUpdate();
-            log.info("Actualizando la informacion del request: " + request.getIdRequest() + " se afectaron: " + afectados + " registros");
+            log.info("Object: {}", "Actualizando la informacion del request: " + request.getIdRequest() + " se afectaron: " + afectados + " registros");
             return afectados;
         } finally {
             CloseObject.closeObject(ps);
@@ -144,7 +144,7 @@ public class DescargaMasivaManager {
             ps.setString(1, request.getRutaDescarga().getAbsolutePath());
             ps.setString(2, request.getIdRequest());
             int afectados = ps.executeUpdate();
-            log.info("Actualizando la informacion del request: " + request.getIdRequest() + " se afectaron: " + afectados + " registros");
+            log.info("Object: {}", "Actualizando la informacion del request: " + request.getIdRequest() + " se afectaron: " + afectados + " registros");
             return afectados;
         } finally {
             CloseObject.closeObject(ps);
@@ -202,7 +202,7 @@ public class DescargaMasivaManager {
             ps.setString(1, fProcesado.getAbsolutePath());
             ps.setString(2, request.getIdRequest());
             int afectados = ps.executeUpdate();
-            log.info("Actualizando la informacion del request: " + request.getIdRequest() + " se afectaron: " + afectados + " registros");
+            log.info("Object: {}", "Actualizando la informacion del request: " + request.getIdRequest() + " se afectaron: " + afectados + " registros");
             return afectados;
         } finally {
             CloseObject.closeObject(ps);

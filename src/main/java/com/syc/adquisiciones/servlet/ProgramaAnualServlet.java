@@ -29,9 +29,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.core.FileItem;
+import org.apache.commons.fileupload2.core.FileUploadException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -92,24 +92,24 @@ public class ProgramaAnualServlet extends HttpServlet {
             jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jndiName == null) {
                 jndiName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
             } else
-                log.info("dataSourceRefName=" + jndiName);
+                log.info("Object: {}", "dataSourceRefName=" + jndiName);
         } catch (NamingException exc) {
             jndiName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
         }
         try {
             InitialContext ic = new InitialContext();
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
         tempDir = config.getInitParameter("tempDir");
         if (tempDir == null) {
@@ -162,7 +162,7 @@ public class ProgramaAnualServlet extends HttpServlet {
             }
         } catch (Exception e) {
             // TODO: handle exception
-            log.error("No hay session: " + e);
+            log.error("Object: {}", "No hay session: " + e);
             e.printStackTrace();
         }
     }
@@ -238,7 +238,7 @@ public class ProgramaAnualServlet extends HttpServlet {
         } catch (Exception e) {
             respuesta = false;
             mensaje = e.getMessage();
-            log.error(e);
+            log.error(e.getMessage(), e);
         } finally {
             business = null;
             dat = null;
@@ -248,7 +248,7 @@ public class ProgramaAnualServlet extends HttpServlet {
                 this.jsonObj.put("RESPUESTA", respuesta);
                 this.jsonObj.put("MENSAJE", mensaje);
             } catch (JSONException e) {
-                log.error(e);
+                log.error(e.getMessage(), e);
             }
             String str = new String(this.arrayObj.put(this.jsonObj).toString().getBytes("UTF-8"), "ISO-8859-1");
             this.out.println(str);
@@ -372,7 +372,7 @@ public class ProgramaAnualServlet extends HttpServlet {
                     c = generaGuardaCaso(request, response, session, prefixPath, tipoCaso, CONCEPTO_MOV, responsable, nombre);
                 }
                 nombreDestino = generaNombre(extension, UE);
-                log.info("creando el arbol para el archivo :" + nombreArchivo);
+                log.info("Object: {}", "creando el arbol para el archivo :" + nombreArchivo);
                 if ("uploadfileEncabezado".equals(item.getFieldName())) {
                     urlEnc = nombreDestino;
                     cbl.recibeDocumentoGestion(c, 0, "Layout_" + UE + "_Enc", extension, new DataInputStream(item.getInputStream()), true);
@@ -381,7 +381,7 @@ public class ProgramaAnualServlet extends HttpServlet {
                     urlDet = nombreDestino;
                     cbl.recibeDocumentoGestion(c, 0, "Layout_" + UE + "_Det", extension, new DataInputStream(item.getInputStream()), true);
                 }
-                log.info("Copiando archivo :" + nombreArchivo);
+                log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                 //Util.copiaArchivo(archivoCargaStream, nombreDestino);
                 rutaRemoto = ConfiguraAplicativoManager.obtenRutaRemoto(conn);
                 splitRuta = rutaRemoto.split("/");
@@ -390,7 +390,7 @@ public class ProgramaAnualServlet extends HttpServlet {
                 cargaArchivo = Util.uploadStreamServerBD(nombreDestino, archivoCargaStream, conn);
                 if (!cargaArchivo) {
                     resp = "No se pudo copiar el rchivo " + nombreDestino + " en el server.";
-                    log.info("No se pudo copiar el rchivo " + nombreDestino + " en el server.");
+                    log.info("Object: {}", "No se pudo copiar el rchivo " + nombreDestino + " en el server.");
                     throw new Exception("No se pudo copiar el rchivo " + nombreDestino + " en el server.");
                 }
                 item.delete();
@@ -459,7 +459,7 @@ public class ProgramaAnualServlet extends HttpServlet {
                 e2.printStackTrace();
             }
             e.printStackTrace();
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
         } finally {
             if (conn != null) {
                 try {
@@ -467,7 +467,7 @@ public class ProgramaAnualServlet extends HttpServlet {
                 } catch (SQLException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
-                    log.error("Error al cerrar la coneccion." + e);
+                    log.error("Error occurred", "Error al cerrar la coneccion." + e);
                 }
             }
             conn = null;
@@ -486,7 +486,7 @@ public class ProgramaAnualServlet extends HttpServlet {
             CasoBusinessLogic cbl = new CasoBusinessLogic(jndiName);
             c = iniciaCaso(tipoCaso);
             folioCaso = c.getFolio();
-            log.debug("Caso obtenido: " + folioCaso);
+            log.debug("Object: {}", "Caso obtenido: " + folioCaso);
             int indice = folioCaso.lastIndexOf('-') + 1;
             folio = Integer.parseInt(folioCaso.substring(indice));
             //Argumentos para llenar la tabla de CG_CASO_DATO y que se muestren en el inbox
@@ -562,7 +562,7 @@ public class ProgramaAnualServlet extends HttpServlet {
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
         } finally {
             return respuesta;
         }
@@ -574,14 +574,14 @@ public class ProgramaAnualServlet extends HttpServlet {
         PreparedStatement pstm = null;
         String resp = "true";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstm = conn.prepareStatement(query);
             pstm.executeUpdate();
         } catch (Exception e) {
             // TODO: handle exception
             resp = new String(e.getMessage());
             e.printStackTrace();
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
         }
         return resp;
     }
@@ -712,7 +712,7 @@ public class ProgramaAnualServlet extends HttpServlet {
     }
 
     private List parseRequest(HttpServletRequest req) throws ServletException {
-        DiskFileUpload upload = new DiskFileUpload();
+        ServletFileUpload upload = new ServletFileUpload();
         upload.setRepositoryPath(tempDir);
         // Directorio temporal de carga de archivos
         // Si el archivo excede este tamaño, ocurre un excepcion FileUploadException
@@ -758,7 +758,7 @@ public class ProgramaAnualServlet extends HttpServlet {
             throw new GestionException(exc);
         }
         c = casoTx.IniciaCaso(usuario, idTC, fg);
-        log.error(usuario + "_" + idTC + "_" + fg);
+        log.error("Object: {}", usuario + "_" + idTC + "_" + fg);
         if (c == null) {
             log.error("No se logro crear el caso");
             throw new GestionException("No se logró crear el caso");
@@ -770,7 +770,7 @@ public class ProgramaAnualServlet extends HttpServlet {
         String idRandom = String.valueOf(Math.round((1 + Math.random()) * 10000));
         String idArchivoFinal = GestionInterface.PREFIX_TEMP.substring(0, GestionInterface.PREFIX_TEMP.length() - idRandom.length()) + idRandom;
         String nombreDestino = "LAYOUTPAAS_" + UE + "_" + System.currentTimeMillis() + "_" + idArchivoFinal + "." + extension;
-        log.info("LAYOUTPAAS_" + UE + "_" + System.currentTimeMillis() + "_" + idArchivoFinal + "." + extension);
+        log.info("Object: {}", "LAYOUTPAAS_" + UE + "_" + System.currentTimeMillis() + "_" + idArchivoFinal + "." + extension);
         return nombreDestino;
     }
 }

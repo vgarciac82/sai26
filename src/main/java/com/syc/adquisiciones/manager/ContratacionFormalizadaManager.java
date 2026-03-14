@@ -42,7 +42,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append("UPDATE mProcedimiento SET nIdCategoria=? WHERE cIdProcedimiento=?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, nIdCategoriaProced);
             ps.setString(2, cidproced);
@@ -61,7 +61,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append("UPDATE mProcedimiento SET nIdFundamentoLeg=? WHERE cIdProcedimiento=?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, nIdfundamentoLeg);
             ps.setString(2, cidproced);
@@ -80,7 +80,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append("UPDATE mProcedimientoAdjudicacion SET nIdFundamentoLeg=? WHERE cIdProcedimiento=? and nIdconsecutivoAdj=? and cIdRFC=?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, procedAdj.getnIdfundamentoLeg());
             ps.setString(2, procedAdj.getcIdProcedimiento());
@@ -153,23 +153,23 @@ public class ContratacionFormalizadaManager {
             query.append(",nCodContratoCNET='" + cont.getnCodContratoCNET() + "',cComentarioJustificaTipoProced=?,lJustificaTipoProced=?");
             query.append(" ,ITieneAnticipo =?,lEsPSP=?");
             query.append(" where cEjercicio = ? and cIdContratoDefinitivo = ?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             log.info("Parametros : ");
-            log.info("1, " + cont.getEsDescentralizado());
-            log.info(" 2, " + cont.getcConceptoContrato());
-            log.info(" 3, " + cont.getfInicio());
-            log.info(" 4, " + cont.getfFin());
-            log.info(" 5, " + cont.getfFormalizacion());
-            log.info(" 6, " + cont.getfSolicitud());
-            log.info(" 7, " + cont.getfPropuestas());
-            log.info(" 8, " + cont.getfEntrega());
-            log.info(" 9, " + cont.getcNoContratoCNET());
-            log.info(" 10, " + cont.getcOficioDG());
-            log.info(" 11, " + cont.getcFolioMASCP());
-            log.info(" 12, " + cont.getcComentarioJustificaTipoProced());
-            log.info(" 13, " + cont.getlJustificaTipoProced());
-            log.info(" 14, " + cont.getITieneAnticipo());
-            log.info(" 15, " + (cont.isnEsContratacionPSP() == true ? 1 : 0));
+            log.info("Object: {}", "1, " + cont.getEsDescentralizado());
+            log.info("Object: {}", " 2, " + cont.getcConceptoContrato());
+            log.info("Object: {}", " 3, " + cont.getfInicio());
+            log.info("Object: {}", " 4, " + cont.getfFin());
+            log.info("Object: {}", " 5, " + cont.getfFormalizacion());
+            log.info("Object: {}", " 6, " + cont.getfSolicitud());
+            log.info("Object: {}", " 7, " + cont.getfPropuestas());
+            log.info("Object: {}", " 8, " + cont.getfEntrega());
+            log.info("Object: {}", " 9, " + cont.getcNoContratoCNET());
+            log.info("Object: {}", " 10, " + cont.getcOficioDG());
+            log.info("Object: {}", " 11, " + cont.getcFolioMASCP());
+            log.info("Object: {}", " 12, " + cont.getcComentarioJustificaTipoProced());
+            log.info("Object: {}", " 13, " + cont.getlJustificaTipoProced());
+            log.info("Object: {}", " 14, " + cont.getITieneAnticipo());
+            log.info("Object: {}", " 15, " + (cont.isnEsContratacionPSP() == true ? 1 : 0));
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, cont.getEsDescentralizado());
             ps.setString(2, cont.getcConceptoContrato());
@@ -204,7 +204,7 @@ public class ContratacionFormalizadaManager {
             query = new StringBuilder();
             query.append("update  pContratoDiverso  set fAdjudicacion=CONVERT( date,?), fContratoIni =CONVERT( date,?), fContratoFin =CONVERT( date,?)");
             query.append(" ,fFirmaContrato=CONVERT( date,?),bTieneAnticipo=? where cEjercicio=? and cIdUnidadAdministrativa=? and cIdContrato=?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cont.getfFormalizacion());
             ps.setString(2, cont.getfInicio());
@@ -230,7 +230,7 @@ public class ContratacionFormalizadaManager {
             query = new StringBuilder();
             query.append("update mDocumentacionContrato set mTotalGarantias=?, cMecanismosVigilancia=?,mGarantiaAnticipo=?,mGarantiaCumplimiento=?,lExcentaGarantia=? WHERE cIdContrato=?");
             query.append("");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setDouble(1, cont.getmTotalGarantia());
             ps.setString(2, cont.getcMecanismosVigilancia());
@@ -252,7 +252,7 @@ public class ContratacionFormalizadaManager {
         String query = "";
         try {
             query = "DELETE FROM mImpuestosAdicionales WHERE cIdTipoDocumento= ? AND cIdUnidadEjecutora=? AND nIdConsecutivo=?";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, cont.getcIdtipoContrato());
             ps.setString(2, cont.getcIdUnidadEjecutora());
@@ -290,7 +290,7 @@ public class ContratacionFormalizadaManager {
         String query = "";
         try {
             query = "DELETE FROM mOtrosImpuestos WHERE cIdTipoDocumento= ? AND cIdUnidadEjecutora=? AND nIdConsecutivo=?";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, cont.getcIdtipoContrato());
             ps.setString(2, cont.getcIdUnidadEjecutora());
@@ -332,7 +332,7 @@ public class ContratacionFormalizadaManager {
         String query = "";
         try {
             query = "delete mDatosContratoPSP where cIdcontratoDefinitivo=?";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, cIdcontratoDef);
             success = ps.executeUpdate() > 0;
@@ -348,7 +348,7 @@ public class ContratacionFormalizadaManager {
         String query = "";
         try {
             query = "delete mContratoServicioPrestado where cIdcontratoDefinitivo=?";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, cIdcontratoDef);
             success = ps.executeUpdate() > 0;
@@ -364,7 +364,7 @@ public class ContratacionFormalizadaManager {
         String query = "";
         try {
             query = "update mcontrato set lEsPSP=" + esPSP + " where cIdContratoDefinitivo='" + cIdcontratoDef + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -387,7 +387,7 @@ public class ContratacionFormalizadaManager {
             ps.setInt(5, (datPSP.islEsMaestro() == true ? 1 : 0));
             ps.setDouble(6, datPSP.getmMontoMensual());
             ps.setString(7, datPSP.getcDenominacionProyecto());
-            log.info(query);
+            log.info("Object: {}", query.toString());
             success = ps.executeUpdate() > 0;
         } finally {
             CloseObject.closeObject(ps, false);
@@ -401,7 +401,7 @@ public class ContratacionFormalizadaManager {
         String query = "select * from tPreCompromisoEncabezado with(nolock) where (cIdContrato=? or cIdContrato=?+'-'+?+'-'+cast(? as varchar)) and cDocumentoHaplicado = 'S'";
         boolean resp = false;
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, contrato.getcIdContratoDefinitivo());
             ps.setString(2, contrato.getcIdtipoContrato());
@@ -424,7 +424,7 @@ public class ContratacionFormalizadaManager {
         String query = "select *from tCompromisoEncabezado with(Nolock) where (cDocumentoHaplicado='S' or cDocumentoHaplicado is null) and cIdContrato=?";
         boolean resp = false;
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, contrato.getcIdContratoDefinitivo());
             rs = ps.executeQuery();
@@ -444,7 +444,7 @@ public class ContratacionFormalizadaManager {
         String query = "select *from mDatosContratoPSP with(Nolock) where cIdcontratoDefinitivo=?";
         DatosContratoPSP dat = new DatosContratoPSP();
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, cIdContratoDef);
             rs = ps.executeQuery();
@@ -469,7 +469,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append("update  mContratoRemanenteEjercicioAnterior set nEstado=? where cIdContratoDefinitivo=?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, contrato.getnIdEstado());
             ps.setString(2, contrato.getcIdContratoDefinitivo());
@@ -488,10 +488,10 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append("update  mContratoRemanenteEjercicioAnterior set C_FOLIO=?,ConsecutivoCDIV=? where cIdContratoDefinitivo=?");
-            log.info(query);
-            log.info("C_FOLIO : " + contrato.getcFOLIO());
-            log.info("ConsecutivoCDIV : " + contrato.getnConsecutivoCDIV());
-            log.info("cIdContratoDefinitivo : " + contrato.getcIdContratoDefinitivo());
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", "C_FOLIO : " + contrato.getcFOLIO());
+            log.info("Object: {}", "ConsecutivoCDIV : " + contrato.getnConsecutivoCDIV());
+            log.info("Object: {}", "cIdContratoDefinitivo : " + contrato.getcIdContratoDefinitivo());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, contrato.getcFOLIO());
             ps.setInt(2, contrato.getnConsecutivoCDIV());
@@ -511,9 +511,9 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append("update pContratoDiverso set id_caso=? where cIdContrato=?");
-            log.info(query);
-            log.info("id_caso : " + contrato.getnConsecutivoCDIV());
-            log.info("cIdContratoDefinitivo : " + contrato.getcIdContratoDefinitivo());
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", "id_caso : " + contrato.getnConsecutivoCDIV());
+            log.info("Object: {}", "cIdContratoDefinitivo : " + contrato.getcIdContratoDefinitivo());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, contrato.getnConsecutivoCDIV());
             ps.setString(2, contrato.getcIdContratoDefinitivo());
@@ -531,7 +531,7 @@ public class ContratacionFormalizadaManager {
         String query = "";
         try {
             query = "delete from mProcedimientoFechas where  nIdProcedimiento=? and nIdFecha in (12,?,?,13)";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, cIdprocedimiento);
             ps.setInt(2, nIdFechaIni);
@@ -550,7 +550,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = "insert into mProcedimientoFechas values (?,?,CONVERT(DATE,?,103))";
             ps = conn.prepareStatement(query);
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps.setInt(1, nIdFecha);
             ps.setString(2, cIdprocedimiento);
             ps.setString(3, cFecha);
@@ -668,7 +668,7 @@ public class ContratacionFormalizadaManager {
         String query = "SELECT * FROM mDocumentacionContrato with (nolock) WHERE cIdContrato=?";
         boolean resp = false;
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, cIdContratoDef);
             rs = ps.executeQuery();
@@ -688,7 +688,7 @@ public class ContratacionFormalizadaManager {
         String query = "SELECT * FROM mContratoServicioPrestado with (nolock) WHERE cIdcontratoDefinitivo=?";
         boolean resp = false;
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, cIdContratoDef);
             rs = ps.executeQuery();
@@ -728,7 +728,7 @@ public class ContratacionFormalizadaManager {
         String query = "";
         try {
             query = "delete from mContratosConGarantia where  cIdContratoDefinitivo=? ";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, cIdContratoDef);
             success = ps.executeUpdate() > 0;
@@ -905,7 +905,7 @@ public class ContratacionFormalizadaManager {
         String query = "select *from mContratoModificadoCap4 with(Nolock) where cIdContratoDefinitivo=? and nEstatus<4";
         boolean resp = false;
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, cIdContratoDef);
             rs = ps.executeQuery();
@@ -925,7 +925,7 @@ public class ContratacionFormalizadaManager {
         String query = "select *from pContratoDiverso with(Nolock) where cIdContrato=? ";
         boolean resp = false;
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, conv.getcIdContratoDefinitivo());
             rs = ps.executeQuery();
@@ -986,7 +986,7 @@ public class ContratacionFormalizadaManager {
             query.append(" 	group by cIdContratoDefinitivo ");
             query.append(" )part on part.cIdContratoDefinitivo=cont.cIdContratoDefinitivo ");
             query.append(" where cont.cIdContratoDefinitivo=?");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, conv.getcIdContratoDefinitivo());
             ps.setString(2, conv.getcIdContratoDefinitivo());
@@ -1022,7 +1022,7 @@ public class ContratacionFormalizadaManager {
         String query = "select isnull(MAX(nConsecutivoModificacion),0)nConsecutivoModificacion from mContratoModificadoCap4 with(Nolock) where cIdContratoDefinitivo=? and nEstatus=4";
         int nConsecutivo = 0;
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, conv.getcIdContratoDefinitivo());
             rs = ps.executeQuery();
@@ -1042,7 +1042,7 @@ public class ContratacionFormalizadaManager {
         String query = "";
         try {
             query = "DELETE FROM mContratoModificadoCap4Partida WHERE nIdContModCap4= ? ";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setInt(1, conv.getnIdContModCap4());
             success = ps.executeUpdate() > 0;
@@ -1058,7 +1058,7 @@ public class ContratacionFormalizadaManager {
         String query = "";
         try {
             query = "DELETE FROM mContratoModificadoCap4 WHERE nIdContModCap4= ? and cIdContratoDefinitivo=? and nConsecutivoModificacion=? ";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setInt(1, conv.getnIdContModCap4());
             ps.setString(2, conv.getcIdContratoDefinitivo());
@@ -1076,7 +1076,7 @@ public class ContratacionFormalizadaManager {
         String query = "select *from mContratoModificadoCap4 with(Nolock) where nIdContModCap4= ? and cIdContratoDefinitivo=? and nConsecutivoModificacion=? ";
         int nState = 4;
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setInt(1, conv.getnIdContModCap4());
             ps.setString(2, conv.getcIdContratoDefinitivo());
@@ -1100,7 +1100,7 @@ public class ContratacionFormalizadaManager {
             query = new StringBuilder();
             query.append("update mContratoModificadoCap4Partida set nCantidad=?,mMontoNeto=?,mPrecioUnitario=? ");
             query.append(" where nIdContModCap4=? and nIdLineaConsolidado=?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, conv.getPartidas().get(0).getnCantidad());
             ps.setDouble(2, conv.getPartidas().get(0).getmMontoNeto());
@@ -1120,7 +1120,7 @@ public class ContratacionFormalizadaManager {
         ResultSet rs = null;
         String query = "select *from mContratoModificadoCap4Partida with(Nolock) where nIdContModCap4=? and nIdLineaConsolidado=? ";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setInt(1, conv.getnIdContModCap4());
             ps.setInt(2, conv.getPartidas().get(0).getnIdLineaConsolidado());
@@ -1148,7 +1148,7 @@ public class ContratacionFormalizadaManager {
         String query = "select *from mCatalogoTipoIVA with(Nolock) where IDIVA=? ";
         int nPorcentaje = 0;
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setInt(1, nIdIVA);
             rs = ps.executeQuery();
@@ -1173,7 +1173,7 @@ public class ContratacionFormalizadaManager {
             query.append("inner join (select nIdContModCap4,sum(mMontoNeto)montoModificado from mContratoModificadoCap4Partida with(Nolock) ");
             query.append("group by nIdContModCap4 )modificado on modificado.nIdContModCap4=conv.nIdContModCap4 ");
             query.append("where conv.cIdContratoDefinitivo=? and conv.nIdContModCap4=? and conv.nConsecutivoModificacion=?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, conv.getcIdContratoDefinitivo());
             ps.setInt(2, conv.getnIdContModCap4());
@@ -1205,7 +1205,7 @@ public class ContratacionFormalizadaManager {
             query.append(" group by part.nIdContModCap4 ");
             query.append(" )part on part.nIdContModCap4=cont.nIdContModCap4 ");
             query.append(" where cont.nIdContModCap4=? and cont.cIdContratoDefinitivo=? and cont.nConsecutivoModificacion=? ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, conv.getnIdContModCap4());
             ps.setString(2, conv.getcIdContratoDefinitivo());
@@ -1237,7 +1237,7 @@ public class ContratacionFormalizadaManager {
             query.append("fFirmaContrato, " + conv.getnConsecutivoCDIV() + ",cOrigenRM,isConvEjercicioAnt,nEsDescentralizado,cNoProcedimientoCNET,nCodContratoCNET,cAprobacionPLU,nCodExpedienteCNET from ");
             query.append(nameDB);
             query.append("..pContratoDiverso with(Nolock) where cidcontrato=?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, conv.getcIdContratoDefinitivo());
             success = ps.executeUpdate() > 0;
@@ -1284,7 +1284,7 @@ public class ContratacionFormalizadaManager {
             query.append(" inner join mCatalogoEquivalenciaTipoAdjudicacion cea with(nolock) ");
             query.append(" on cea.nIdCategoriaProcedimiento=pro.nIdCategoria ");
             query.append(" where cIdContratoDefinitivo=? ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, cont.getnConsecutivoCDIV());
             ps.setString(2, cont.getcIdContratoDefinitivo());
@@ -1305,7 +1305,7 @@ public class ContratacionFormalizadaManager {
         String query = "";
         try {
             query = "delete tContratoEP_TMP where cIdContratoDefinitivo=? and nIdClaveEgresos=? ";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, cIdContratoDef);
             ps.setString(2, cEP);
@@ -1322,7 +1322,7 @@ public class ContratacionFormalizadaManager {
         String query = "";
         try {
             query = "delete tContratoEP_TMP where cIdContratoDefinitivo=?  ";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, cIdContratoDef);
             success = ps.executeUpdate() > 0;
@@ -1338,7 +1338,7 @@ public class ContratacionFormalizadaManager {
         String query = "";
         try {
             query = "insert into tContratoEP_TMP (cEjercicio,cIdUnidadEjecutora,cIdContrato,cIdContratoDefinitivo,cIdTipoContrato,nIdClaveEgresos,ClaveInterna,cIdEntidadContable)" + "values(?,?,?,?,?,?,?,?)";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, dat.getcEjercicio());
             ps.setString(2, dat.getcIdUnidadEjecutora());
@@ -1372,7 +1372,7 @@ public class ContratacionFormalizadaManager {
             query.append(" on sol.cIdSolicitud=enc.cIdSolicitud ");
             query.append(" where enc.cDocumentoHaplicado='S'and enc.cIdSolicitud=? ");
             query.append(" group by sol.cEjercicio,sol.cIdUnidadEjecutora,det.EP,enc.cCentroContable ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cont.getcIdContrato());
             ps.setString(2, cont.getcIdContratoDefinitivo());
@@ -1395,7 +1395,7 @@ public class ContratacionFormalizadaManager {
             query.append("select temp.cEjercicio,temp.cIdContratoDefinitivo,'DI',temp.nIdClaveEgresos,temp.cIdEntidadContable ");
             query.append("from tContratoEP_TMP temp with(Nolock) left join tContratoEP as ep with(Nolock) ");
             query.append("on ep.cIdContrato=temp.cIdContratoDefinitivo and ep.EP=temp.nIdClaveEgresos where temp.cIdContratoDefinitivo=? and ep.EP is null ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cIdContratoDef);
             success = ps.executeUpdate() > 0;
@@ -1411,7 +1411,7 @@ public class ContratacionFormalizadaManager {
         String query = "";
         try {
             query = "delete pContratoDiversoConvenio where cIdContrato=? and nConsecutivoModificacion=? and cIdModificacion=? ";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, cIdContratoDef);
             ps.setInt(2, nConsecutivoMod);
@@ -1432,7 +1432,7 @@ public class ContratacionFormalizadaManager {
             query = new StringBuilder();
             query.append("update mContratoModificadoCap4 set nEstatus=?,fFechaFormalizacion=convert(date,?),fFechaInicioEntrega=convert(date,?),fFechaFin=convert(date,?) ,cObjetoConvenio=?,cNoConvenio=? ");
             query.append(" where nIdContModCap4=? and cIdContratoDefinitivo=? and nConsecutivoModificacion=?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, conv.getnEstatus());
             ps.setString(2, conv.getfFormalizacion());
@@ -1458,7 +1458,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append("update mContratoModificadoCap4 set nConsecutivoCDIV=?,cFolio=? where cIdContratoDefinitivo=? and nIdContModCap4=? and nConsecutivoModificacion=?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, conv.getnConsecutivoCDIV());
             ps.setString(2, conv.getcFolio());
@@ -1481,7 +1481,7 @@ public class ContratacionFormalizadaManager {
             query = new StringBuilder();
             query.append("update mContratoModificadoCap4 set nEstatus=? ");
             query.append(" where nIdContModCap4=? and cIdContratoDefinitivo=? and nConsecutivoModificacion=?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, conv.getnEstatus());
             ps.setInt(2, conv.getnIdContModCap4());
@@ -1503,7 +1503,7 @@ public class ContratacionFormalizadaManager {
             query = new StringBuilder();
             query.append("update mContratoModificadoCap4 set nEstatus=?,cFolioPre=?,nConsecutivoPrecom=? ");
             query.append(" where nIdContModCap4=? and cIdContratoDefinitivo=? and nConsecutivoModificacion=?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, conv.getnEstatus());
             ps.setString(2, conv.getcFolioPre());
@@ -1525,7 +1525,7 @@ public class ContratacionFormalizadaManager {
         String query = "select *from tContratoEP_TMP  with(Nolock) where cIdContratoDefinitivo=?  ";
         int exist = 0;
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, cIdContratoDef);
             rs = ps.executeQuery();
@@ -1545,7 +1545,7 @@ public class ContratacionFormalizadaManager {
         String query = "select *from tContratoEP_TMP  with(Nolock) where cIdContratoDefinitivo=?  and nIdClaveEgresos=?";
         int exist = 0;
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, cIdContratoDef);
             ps.setString(2, ep);
@@ -1571,7 +1571,7 @@ public class ContratacionFormalizadaManager {
             query.append(" on precom.cIdContrato=cont.cIdContratoDefinitivo  +'#M'+convert(varchar,cont.nConsecutivoModificacion) ");
             query.append(" inner join CG_CASO as caso with(Nolock) on   caso.C_FOLIO=cont.cFolioPre ");
             query.append(" where precom.cIdContrato =? and cDocumentoHaplicado='S' ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, conv.getcIdContratoDefinitivo() + "#M" + conv.getnConsecutivoModificacion());
             rs = ps.executeQuery();
@@ -1594,7 +1594,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append("select *from mContratoModificadoCap4 with(Nolock) where cIdContratoDefinitivo=? and nConsecutivoModificacion=? and nIdContModCap4=?  ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, conv.getcIdContratoDefinitivo());
             ps.setInt(2, conv.getnConsecutivoModificacion());
@@ -1640,7 +1640,7 @@ public class ContratacionFormalizadaManager {
             query.append(" and anticipo.cIdRecepMat=recep.cIdRecepMat ");
             query.append(" where recep.nIdEstadoRecepMat=3 ");
             query.append(" and recep.cIdpedContDef=? ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cIdcontratoDef);
             rs = ps.executeQuery();
@@ -1665,7 +1665,7 @@ public class ContratacionFormalizadaManager {
             query = new StringBuilder();
             query.append(" select *from " + cNameDB + "..mRecepcionpMat as recep with(Nolock) ");
             query.append(" where recep.cIdpedContDef=? and recep.nIdEstadoRecepMat=3 and recep.cIdRecepMat like'RM%' ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cIdcontratoDef);
             rs = ps.executeQuery();
@@ -1701,7 +1701,7 @@ public class ContratacionFormalizadaManager {
             query.append(" and partidas.cIdProcedimiento=contrato.cIdProcedimiento ");
             query.append(" and partidas.nIdLineaConsolidado=pluri.nIdLineaConsolidado ");
             query.append(" where pluri.cIdContratoDefinitivo=?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cIdcontratoDef);
             success = ps.executeUpdate() > 0;
@@ -1720,7 +1720,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append(" select *from mCatalogoRecisionContratos as recision with(Nolock) where  cIdRFC=? and cNumeroContratoCNET=?");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, datos.getcIdRFC());
             ps.setString(2, datos.getcContratoCNET());
@@ -1746,7 +1746,7 @@ public class ContratacionFormalizadaManager {
             query.append(" ,cFolioSAI,cLogin,fFechaCaptura,cNameDB) ");
             query.append(" values(?, ?, ?, ?, ?, ?, ?, ?, ?, convert(date,?), convert(date,?), ?, ?, convert(date,getDate()), ?) ");
             ps = conn.prepareStatement(query.toString());
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps.setString(1, datos.getcEjercicioContrato());
             ps.setString(2, datos.getcIdRFC());
             ps.setString(3, datos.getcIdContratoDefinitivo());
@@ -1777,7 +1777,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append("select *from mContratoArt25 with(Nolock) where cIdContratoDefinitivo=?   ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cont.getcIdContratoDef());
             rs = ps.executeQuery();
@@ -1825,7 +1825,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append("update  mContratoArt25 set nIdEstado=? where cIdContratoDefinitivo=?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, contrato.getnIdEstado());
             ps.setString(2, contrato.getcIdContratoDef());
@@ -1844,10 +1844,10 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append("update  mContratoArt25 set C_FOLIO=?,ConsecutivoCDIV=? where cIdContratoDefinitivo=?");
-            log.info(query);
-            log.info("C_FOLIO : " + contrato.getCfolio());
-            log.info("ConsecutivoCDIV : " + contrato.getnConsecutivoCDIV());
-            log.info("cIdContratoDefinitivo : " + contrato.getcIdContratoDef());
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", "C_FOLIO : " + contrato.getCfolio());
+            log.info("Object: {}", "ConsecutivoCDIV : " + contrato.getnConsecutivoCDIV());
+            log.info("Object: {}", "cIdContratoDefinitivo : " + contrato.getcIdContratoDef());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, contrato.getCfolio());
             ps.setInt(2, contrato.getnConsecutivoCDIV());
@@ -1896,7 +1896,7 @@ public class ContratacionFormalizadaManager {
             query.append("			inner join mCatalogoEquivalenciaTipoAdjudicacion cea with(nolock) ");
             query.append("			on cea.nIdCategoriaProcedimiento=cont.nIdCategoria ");
             query.append("			 where cIdContratoDefinitivo=?  ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, cont.getnConsecutivoCDIV());
             ps.setString(2, cont.getcIdContratoDef());
@@ -1917,7 +1917,7 @@ public class ContratacionFormalizadaManager {
         String query = "";
         try {
             query = "delete pContratoDiverso where cIdContrato=?  ";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, cIdContratoDef);
             success = ps.executeUpdate() > 0;
@@ -1944,7 +1944,7 @@ public class ContratacionFormalizadaManager {
             query.append("	group by cIdContratoDefinitivo ");
             query.append(" )sub on sub.cIdContratoDefinitivo=cont.cIdContratoDefinitivo ");
             query.append(" where cont.cIdContratoDefinitivo=? ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cIdContratoDef);
             success = ps.executeUpdate() > 0;
@@ -1966,7 +1966,7 @@ public class ContratacionFormalizadaManager {
             query.append(" ,fFechaExpedicion=convert(date,?),cNumeroChequeFianza=? ");
             query.append(" ,mMontoGarantia=? ");
             query.append(" where cIdContratoDefinitivo=? and nIdtipoProcesoGarantia=? and nTipoGarantia=? and nIdConsecutivoEndosoGarantia=?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, garantia.getListGarantia().get(index).getcAseguradora());
             ps.setInt(2, garantia.getListGarantia().get(index).getlFianza());
@@ -1993,7 +1993,7 @@ public class ContratacionFormalizadaManager {
         String query = "";
         try {
             query = "delete mGarantiasContrato where cIdContratoDefinitivo=? and nTipoGarantia=? and  nIdtipoProcesoGarantia=? and nIdConsecutivoEndosoGarantia=?";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, garantia.getcIdContratoDefinitivo());
             ps.setInt(2, garantia.getListGarantia().get(index).getnTipoGarantia());
@@ -2014,7 +2014,7 @@ public class ContratacionFormalizadaManager {
             query = new StringBuilder();
             query.append(" update mUsuarioCapturaGarantia set cUsuarioActualiza=?,fFechaActualiza=getDate() ");
             query.append(" where cIdContratoDefinitivo=? and nIdtipoProcesoGarantia=? and nIdConsecutivoEndosoGarantia=? ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, garantia.getcUsuarioActualiza());
             ps.setString(2, garantia.getcIdContratoDefinitivo());
@@ -2039,7 +2039,7 @@ public class ContratacionFormalizadaManager {
             query.append(" ,fFechaExpedicion,cNumeroChequeFianza,mMontoGarantia,nIdConsecutivoEndosoGarantia )");
             query.append(" values(?, ?, ?, ?, ?,?, convert(date,?), ?, ?,?) ");
             ps = conn.prepareStatement(query.toString());
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps.setString(1, garantia.getcIdContratoDefinitivo());
             ps.setInt(2, garantia.getListGarantia().get(index).getnTipoGarantia());
             ps.setInt(3, garantia.getnTipoProcesoGarantia());
@@ -2068,7 +2068,7 @@ public class ContratacionFormalizadaManager {
             query.append(" insert into mUsuarioCapturaGarantia (cIdContratoDefinitivo,nIdtipoProcesoGarantia,cUsuarioCaptura,fFechaCaptura,nIdConsecutivoEndosoGarantia )");
             query.append(" values(?, ?, ?, getDate(),?) ");
             ps = conn.prepareStatement(query.toString());
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps.setString(1, garantia.getcIdContratoDefinitivo());
             ps.setInt(2, garantia.getnTipoProcesoGarantia());
             ps.setString(3, garantia.getcUsuarioCaptura());
@@ -2090,7 +2090,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append("select *from mGarantiasContrato garantia with(Nolock) where garantia.nIdtipoProcesoGarantia=? and garantia.cIdContratoDefinitivo=?  and garantia.nTipoGarantia=? AND nIdConsecutivoEndosoGarantia=?");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, garantia.getnTipoProcesoGarantia());
             ps.setString(2, garantia.getcIdContratoDefinitivo());
@@ -2115,7 +2115,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append("select *from mUsuarioCapturaGarantia usuarioGarantia with(Nolock) where  usuarioGarantia.nIdtipoProcesoGarantia=? and usuarioGarantia.cIdContratoDefinitivo=? and nIdConsecutivoEndosoGarantia=?");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, garantia.getnTipoProcesoGarantia());
             ps.setString(2, garantia.getcIdContratoDefinitivo());
@@ -2139,7 +2139,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append("select *from mGarantiasContrato garantia with(Nolock)where garantia.nIdtipoProcesoGarantia=? and garantia.cIdContratoDefinitivo=? ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, garantia.getnTipoProcesoGarantia());
             ps.setString(2, garantia.getcIdContratoDefinitivo());
@@ -2161,7 +2161,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append("select *from mContratosConGarantia cont with(Nolock)where  cont.cIdContratoDefinitivo=?   ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, contrato.getcIdContratoDefinitivo());
             rs = ps.executeQuery();
@@ -2195,7 +2195,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append("select *from mGarantiacontratoLiberada with(Nolock) where cIdContratoDefinitivo=?  ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, libGarantia.getcIdContratoDefinitivo());
             rs = ps.executeQuery();
@@ -2219,7 +2219,7 @@ public class ContratacionFormalizadaManager {
             query.append(" ,fFechaSolicitud,cOficioLiberacion,fFechaLiberacion,lchequeEntregadoProveedor,cUsuarioCaptura,fFechaCaptura) ");
             query.append(" values(?,?,?,convert(date,?),?,convert(date,?),?,?,GETDATE()) ");
             ps = conn.prepareStatement(query.toString());
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps.setString(1, libGarantia.getcIdContratoDefinitivo());
             ps.setString(2, libGarantia.getcMotivoLiberacion());
             ps.setString(3, libGarantia.getcOficioSolicitud());
@@ -2247,7 +2247,7 @@ public class ContratacionFormalizadaManager {
             query.append(" ,cOficioSolicitud=?,fFechaSolicitud=convert(date,?),cOficioLiberacion=?");
             query.append(" ,fFechaLiberacion=convert(date,?),lchequeEntregadoProveedor=?,cUsuarioActualiza=?");
             query.append(" ,fFechaActualiza=GETDATE() where cIdContratoDefinitivo=?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, libGarantia.getcMotivoLiberacion());
             ps.setString(2, libGarantia.getcOficioSolicitud());
@@ -2271,7 +2271,7 @@ public class ContratacionFormalizadaManager {
         ResultSet rs = null;
         String query = "select *from mContratoModificado with(nolock) where cIdContratoDefinitivo=? and nConsecutivoModificacion=? ";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, conv.getcIdContratoDefinitivo());
             ps.setInt(2, conv.getnConsecutivoModificacion());
@@ -2294,7 +2294,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append("update mContratoModificado set nEstado=? where cIdContratoDefinitivo=? and nConsecutivoModificacion=?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, conv.getnEstado());
             ps.setString(2, conv.getcIdContratoDefinitivo());
@@ -2319,7 +2319,7 @@ public class ContratacionFormalizadaManager {
             } else {
                 query.append("update mContratoModificado set C_FOLIO_PRE=?,ConsecutivoPRECOMP=? where cIdContratoDefinitivo=? and nConsecutivoModificacion=?");
             }
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             if (conv.getnFolioPreCompromiso() == 0) {
                 ps.setString(1, conv.getcIdContratoDefinitivo());
@@ -2348,7 +2348,7 @@ public class ContratacionFormalizadaManager {
             query.append(" insert into mRelPedContPrecomComp (cIdPedContDef,cFolioPrecom,nConsecutivoPrecom,cFolioComp,nConsecutivoComp) ");
             query.append(" values(?,?,?,NULL,NULL) ");
             ps = conn.prepareStatement(query.toString());
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps.setString(1, cIdContratoDef);
             ps.setString(2, cFolioPrecom);
             ps.setInt(3, nFolioPrecom);
@@ -2370,7 +2370,7 @@ public class ContratacionFormalizadaManager {
             query.append(" insert into mDocumentoFolio (cEjercicio,cIdDocumentoDefinitivo,cCentroContable,cIdUnidadResponsable,C_FOLIO,ConsecutivoCDIV,C_FOLIO_PRE,ConsecutivoPRECOMP) ");
             query.append(" values(?,?,?,?,NULL,NULL,?,?) ");
             ps = conn.prepareStatement(query.toString());
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps.setString(1, cEjercicio);
             ps.setString(2, cIdContratoDef);
             ps.setString(3, cCentroContable);
@@ -2407,7 +2407,7 @@ public class ContratacionFormalizadaManager {
             query.append(" and idRetencion not in(select distinct cIdTipoRetencion from pContratoDiversoRetencion where cIdContrato=?) ");
             query.append(" and (cFisica=? or cMoral=?)");
             ps = conn.prepareStatement(query.toString());
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps.setString(1, conv.getcEjercicio());
             ps.setString(2, conv.getcEntidadContable());
             ps.setString(3, conv.getcIdContratoDefinitivo());
@@ -2443,7 +2443,7 @@ public class ContratacionFormalizadaManager {
             query.append(" and idRetencion not in(select distinct cIdTipoRetencion from pContratoDiversoRetencion where cIdContrato=?) ");
             query.append(" and (cFisica=? or cMoral=?)");
             ps = conn.prepareStatement(query.toString());
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps.setString(1, cont.getcEjercicio());
             ps.setString(2, cont.getcIdEntidadContable());
             ps.setString(3, cont.getcIdContratoDefinitivo());
@@ -2471,7 +2471,7 @@ public class ContratacionFormalizadaManager {
             query.append("INSERT into pContratoDiversoConvenio( cEjercicio, cIdEntidadContable, cIdContrato, nConsecutivoModificacion,	mConvenio,	mIVAConvenio, ");
             query.append(" mTotal,	mGlobalContrato,	fInicio, fTermino,	fFirmaContrato,		cIdModificacion,cOrigenRM,	fAdjudicacion,cDocumentoAbierto) ");
             query.append(" values(?, ?, ?, ?, ?, ?, ?, ?, convert(date,?), convert(date,?), convert(date,?), ?, ?, convert(date,?), ?) ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, conv.getcEjercicio());
             ps.setString(2, conv.getcIdEntidadContable());
@@ -2555,7 +2555,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append("select *from mContratoArt25Ampliacion with(Nolock) where cIdContratoDefinitivo=?  and nIdConsecutivoAmpliacion=? ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cont.getcIdContratoDef());
             ps.setInt(2, cont.getnIdConsecutivoAmpliacion());
@@ -2589,7 +2589,7 @@ public class ContratacionFormalizadaManager {
             query.append("left join tContratoEP as ep with(Nolock) ");
             query.append("on ep.cIdContrato=temp.cIdContratoDefinitivo and ep.EP=temp.cClaveEP ");
             query.append("where temp.cIdContratoDefinitivo=? and temp.nIdConsecutivoAmpliacion=? and ep.EP is null ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cIdContratoDef);
             ps.setInt(2, nConsecutivoAmp);
@@ -2645,7 +2645,7 @@ public class ContratacionFormalizadaManager {
             query.append(" on part.cIdContratoDefinitivo=amp.cIdContratoDefinitivo ");
             query.append(" and part.nIdLineaConsolidado=lin.nIdLineaConsolidado ");
             query.append(" where amp.cIdContratoDefinitivo=?  and amp.nIdConsecutivoAmpliacion=? ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cont.getcIdContratoDef());
             ps.setInt(2, cont.getnIdConsecutivoAmpliacion());
@@ -2761,7 +2761,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append(" select *from mProcedimiento with(Nolock) where nIdEstado in(1,2)  and cIdConsolidado=?");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, proced.getcIdConsolidado());
             rs = ps.executeQuery();
@@ -2785,7 +2785,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append(" select *from  mCatalogoProveedor cp with(nolock) where cp.alta_rapida='N' and cp.lHabilitado=1 and replace(cp.cIdRFC,'-','')=replace(?,'-','')");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, proced.getcIdRFC());
             rs = ps.executeQuery();
@@ -2811,7 +2811,7 @@ public class ContratacionFormalizadaManager {
             query.append(" INNER JOIN mCatalogoTipoConsolidado ctc  with(nolock) ON c.cIdTipoConsolidado = ctc.cIdTipoConsolidado ");
             query.append(" INNER JOIN mCatalogoTipoProcedimiento ctp with(nolock) ON ctc.nTipoConsolidado = ctp.nTipoProcedimiento ");
             query.append(" where c.cIdConsolidado=? ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, proced.getcIdConsolidado());
             rs = ps.executeQuery();
@@ -2834,7 +2834,7 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append(" select nIdConsecutivo as nIdConsecutivo from fn_GetConsecutivoProcedimiento(?,?,?) ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, proced.getcEjercicio());
             ps.setString(2, proced.getcIdTipoProcedimiento());
@@ -2911,7 +2911,7 @@ public class ContratacionFormalizadaManager {
             query.append(" where part.cIdConsolidado=? and adj.cIdProcedimiento=? ");
             query.append(" group by adj.lContratoAbierto,adj.mMontoTotalPlurianual ");
             query.append(" ,proced.isPlurianual,adj.nIdconsecutivoAdj ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, proced.getcIdConsolidado());
             ps.setString(2, proced.getcIdProcedimiento());
@@ -2966,10 +2966,10 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append(" select (ISNULL(MAX(nIdConsecutivo),0) + 1)nConsecutivoCont from mContrato as cont with(Nolock) WHERE cIdUnidadEjecutora = ? and cIdTipoContrato = ?");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             log.info("Parametros : ");
-            log.info("1, " + proced.getcIdUnidadEjecutora());
-            log.info(" 2, " + cIdTipoContrato);
+            log.info("Object: {}", "1, " + proced.getcIdUnidadEjecutora());
+            log.info("Object: {}", " 2, " + cIdTipoContrato);
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, proced.getcIdUnidadEjecutora());
             ps.setString(2, cIdTipoContrato);
@@ -3027,11 +3027,11 @@ public class ContratacionFormalizadaManager {
         try {
             query = new StringBuilder();
             query.append(" select *from mContrato as cont with(Nolock) where cIdProcedimiento=? and cIdRFC=? and nIdconsecutivoAdj=? ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             log.info("Parametros : ");
-            log.info("1, " + cont.getcIdProcedimiento());
-            log.info(" 2, " + cont.getcIdRFC());
-            log.info(" 3, " + cont.getnIdconsecutivoAdj());
+            log.info("Object: {}", "1, " + cont.getcIdProcedimiento());
+            log.info("Object: {}", " 2, " + cont.getcIdRFC());
+            log.info("Object: {}", " 3, " + cont.getnIdconsecutivoAdj());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cont.getcIdProcedimiento());
             ps.setString(2, cont.getcIdRFC());
@@ -3392,7 +3392,7 @@ public class ContratacionFormalizadaManager {
         Statement stmEnc = null;
         int n = 0;
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             stmEnc = conn.createStatement();
             n = stmEnc.executeUpdate(query);
             if (n > 0)

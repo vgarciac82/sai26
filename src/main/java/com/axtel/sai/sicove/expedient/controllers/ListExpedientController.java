@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.LogManager;
 import com.axtel.sai.sicove.SICOVE;
 import com.axtel.sai.sicove.expedient.entities.DocumentFortimax;
 import com.axtel.sai.sicove.expedient.repositories.ExpedientRepository;
@@ -35,7 +34,7 @@ public class ListExpedientController extends HttpServlet {
 
     private static final long serialVersionUID = -3249489437722787496L;
 
-    private static final Logger log = LogManager.getLogger(ListExpedientController.class);
+    private static final Logger log = LoggerFactory.getLogger(ListExpedientController.class);
 
     private static ExpedientService expedientService;
 
@@ -105,12 +104,12 @@ public class ListExpedientController extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         expedientRepository = new JDBCExpedientRepostory();
         expedientService = new JDBCExpedientService(jniName, expedientRepository);

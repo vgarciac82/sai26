@@ -328,13 +328,13 @@ public class CalendarioAnteProyectoAut extends HttpServlet {
                         montos = true;
                     } else {
                         inserta = false;
-                        log.debug("Los montos no coinciden para la fila " + fila + " " + String.valueOf(sumaTotal));
+                        log.debug("Object: {}", "Los montos no coinciden para la fila " + fila + " " + String.valueOf(sumaTotal));
                     }
                     if (anteProy.getExisteDetalleAut(anac)) {
                         existe = true;
                     } else {
                         inserta = false;
-                        log.debug("No toda la información existe o fue alterada para la fila " + fila);
+                        log.debug("Object: {}", "No toda la información existe o fue alterada para la fila " + fila);
                     }
                     if (anteProy.getRepetidoCalendario(anac)) {
                         repetido = true;

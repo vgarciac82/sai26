@@ -3,7 +3,6 @@ package com.axtel.sai.sicove.services.impl;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.log4j.LogManager;
 import com.axtel.contratos.exception.ContratoException;
 import com.axtel.sai.sicove.entities.EmployeeDAO;
 import com.axtel.sai.sicove.entities.FuelingJustification;
@@ -29,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 public class JBCFuelingRequestService extends DataSourceManager implements FuelingRequestService {
 
-    private static final Logger log = LogManager.getLogger(JBCFuelingRequestService.class);
+    private static final Logger log = LoggerFactory.getLogger(JBCFuelingRequestService.class);
 
     private FuelingRequestRepository fuelingRequestRepository;
 

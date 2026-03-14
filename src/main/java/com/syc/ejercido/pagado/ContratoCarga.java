@@ -134,13 +134,13 @@ public class ContratoCarga extends DataSourceManager {
             valorReturn += " \n" + szError;
             conn.commit();
         } catch (Exception se) {
-            log.error("Error: " + se);
+            log.error("Error occurred", "Error: " + se);
             se.printStackTrace();
             valorReturn = " error en el renglon " + nRegistro + ", datos incompletos.";
             try {
                 conn.rollback();
             } catch (Exception exc) {
-                Log.warn("Error: cerrando rollback enviaRuta " + exc);
+                Log.warn("Error occurred", "Error: cerrando rollback enviaRuta " + exc);
             }
         } finally {
             try {
@@ -186,7 +186,7 @@ public class ContratoCarga extends DataSourceManager {
             ps.executeUpdate();
             respuesta = "guardado";
         } catch (Exception e) {
-            log.error("Error Guardar Compromiso Encabezado: " + e);
+            log.error("Error occurred", "Error Guardar Compromiso Encabezado: " + e);
         } finally {
             try {
                 if (ps != null) {
@@ -205,7 +205,7 @@ public class ContratoCarga extends DataSourceManager {
                     rs2.close();
                 }
             } catch (Exception ef) {
-                log.warn("Error: cerrando statement: " + ef);
+                log.warn("Error occurred", "Error: cerrando statement: " + ef);
             }
             ps = null;
             pscaso = null;
@@ -231,7 +231,7 @@ public class ContratoCarga extends DataSourceManager {
             }
             System.out.println("RES: " + respuesta);
         } catch (Exception e) {
-            log.warn("Error: Buscar Compromiso Aplicado: " + e);
+            log.warn("Error occurred", "Error: Buscar Compromiso Aplicado: " + e);
         } finally {
             try {
                 if (ps != null) {
@@ -241,7 +241,7 @@ public class ContratoCarga extends DataSourceManager {
                     rs.close();
                 }
             } catch (Exception e) {
-                log.warn("Error: cerrando statement: " + e);
+                log.warn("Error occurred", "Error: cerrando statement: " + e);
             }
             ps = null;
             rs = null;
@@ -262,7 +262,7 @@ public class ContratoCarga extends DataSourceManager {
             }
             System.out.println("RES: " + respuesta2 + ": " + EntidadFederativa);
         } catch (Exception e) {
-            log.warn("Error: Buscar Compromiso Aplicado: " + e);
+            log.warn("Error occurred", "Error: Buscar Compromiso Aplicado: " + e);
         } finally {
             try {
                 if (ps != null) {
@@ -272,7 +272,7 @@ public class ContratoCarga extends DataSourceManager {
                     rs.close();
                 }
             } catch (Exception e) {
-                log.warn("Error: cerrando statement: " + e);
+                log.warn("Error occurred", "Error: cerrando statement: " + e);
             }
             ps = null;
             rs = null;
@@ -293,7 +293,7 @@ public class ContratoCarga extends DataSourceManager {
             }
             System.out.println("RES: " + respuesta3 + ": " + TipoAdjudicacion);
         } catch (Exception e) {
-            log.warn("Error: Buscar Compromiso Aplicado: " + e);
+            log.warn("Error occurred", "Error: Buscar Compromiso Aplicado: " + e);
         } finally {
             try {
                 if (ps != null) {
@@ -303,7 +303,7 @@ public class ContratoCarga extends DataSourceManager {
                     rs.close();
                 }
             } catch (Exception e) {
-                log.warn("Error: cerrando statement: " + e);
+                log.warn("Error occurred", "Error: cerrando statement: " + e);
             }
             ps = null;
             rs = null;
@@ -324,7 +324,7 @@ public class ContratoCarga extends DataSourceManager {
             }
             System.out.println("RES: " + respuesta4 + ": " + Ejecutor);
         } catch (Exception e) {
-            log.warn("Error: Buscar Compromiso Aplicado: " + e);
+            log.warn("Error occurred", "Error: Buscar Compromiso Aplicado: " + e);
         } finally {
             try {
                 if (ps != null) {
@@ -334,7 +334,7 @@ public class ContratoCarga extends DataSourceManager {
                     rs.close();
                 }
             } catch (Exception e) {
-                log.warn("Error: cerrando statement: " + e);
+                log.warn("Error occurred", "Error: cerrando statement: " + e);
             }
             ps = null;
             rs = null;
@@ -356,7 +356,7 @@ public class ContratoCarga extends DataSourceManager {
             }
             System.out.println("RES: " + respuesta5 + ": " + NoContrato);
         } catch (Exception e) {
-            log.warn("Error: Buscar Compromiso Aplicado: " + e);
+            log.warn("Error occurred", "Error: Buscar Compromiso Aplicado: " + e);
         } finally {
             try {
                 if (ps != null) {
@@ -366,7 +366,7 @@ public class ContratoCarga extends DataSourceManager {
                     rs.close();
                 }
             } catch (Exception e) {
-                log.warn("Error: cerrando statement: " + e);
+                log.warn("Error occurred", "Error: cerrando statement: " + e);
             }
             ps = null;
             rs = null;

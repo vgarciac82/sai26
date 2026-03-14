@@ -144,7 +144,7 @@ public class CapturaRectificacionPresupuestariaServlet extends HttpServlet {
                         //throw new Exception("No se pudo obtener la secuencia para la EP: "+rd.getEp());
                         int[] docRenglon = rbl.getNDocRenglon(caNoContrarrecibo, rd.getEp(), rd.getMes(), folioR);
                         if (docRenglon[0] == -1) {
-                            log.warn("Favor de revisar el mes para la EP " + rd.getEp() + " con CXP " + caNoContrarrecibo + "\n");
+                            log.warn("Object: {}", "Favor de revisar el mes para la EP " + rd.getEp() + " con CXP " + caNoContrarrecibo + "\n");
                         } else {
                             int k = 0;
                             while (k < docRenglon.length && !banderaRemanente) {
@@ -162,7 +162,7 @@ public class CapturaRectificacionPresupuestariaServlet extends HttpServlet {
                             rectificaciones.add(rd);
                         else {
                             remanentes += "No hay suficiente remanente para poder aplicar la rectificacion para " + rd.getEp() + " renglon " + rd.getRenglon() + " cxp " + caNoContrarrecibo + "\n";
-                            log.warn("No hay suficiente remanente para poder aplicar la rectificacion para " + rd.getEp() + " renglon " + secuenciaCLC + " mes " + rd.getMes() + " cxp " + caNoContrarrecibo + " remanente " + remanente + " importe a reintegrar " + rd.getImporte() + "\n");
+                            log.warn("Object: {}", "No hay suficiente remanente para poder aplicar la rectificacion para " + rd.getEp() + " renglon " + secuenciaCLC + " mes " + rd.getMes() + " cxp " + caNoContrarrecibo + " remanente " + remanente + " importe a reintegrar " + rd.getImporte() + "\n");
                             //throw new Exception(remanentes);
                         }
                     } else
@@ -186,7 +186,7 @@ public class CapturaRectificacionPresupuestariaServlet extends HttpServlet {
                     }
                 } else {
                     session.setAttribute("mensaje", remanentes);
-                    log.warn(remanentes);
+                    log.warn("Object: {}", remanentes);
                     throw new Exception(remanentes);
                 }
             }

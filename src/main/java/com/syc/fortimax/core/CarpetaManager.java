@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.apache.log4j.LogManager;
 import com.syc.fortimax.exceptions.FortimaxException;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
@@ -12,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 public class CarpetaManager {
 
-    private static final Logger log = LogManager.getLogger(CarpetaManager.class);
+    private static final Logger log = LoggerFactory.getLogger(CarpetaManager.class);
 
     public static Carpeta createFolder(Connection conn, Fortimax fortimax, String folderName, String userName) throws SQLException, FortimaxException {
         String processName = fortimax.getTituloAplicacion();
@@ -33,7 +32,7 @@ public class CarpetaManager {
         oc.setNombreHija(folderName);
         oc.setTituloAplicacion(processName);
         OrgCarpetaManager.insert(conn, oc);
-        log.trace("Folder [" + folderName + "] created successfully");
+        log.trace("Object: {}", "Folder [" + folderName + "] created successfully");
         return folder;
     }
 

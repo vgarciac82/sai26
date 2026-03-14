@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.log4j.LogManager;
 import com.axtel.cfdi.CFDI;
 import com.axtel.cfdi.service.CFDIService;
 import com.axtel.cfdi.stamp.core.DigitalSignature;
@@ -19,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 public class StampCFDIService extends DataSourceManager {
 
-    private static final Logger log = LogManager.getLogger(StampCFDIService.class);
+    private static final Logger log = LoggerFactory.getLogger(StampCFDIService.class);
 
     private CFDIService cfdiService;
 

@@ -44,13 +44,13 @@ public class ObtienePrecioUnitarioPAA extends HttpServlet {
             jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jndiName == null) {
                 jndiName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
             } else
-                log.info("dataSourceRefName=" + jndiName);
+                log.info("Object: {}", "dataSourceRefName=" + jndiName);
         } catch (NamingException exc) {
             mensaje = "Error: al obtener dataSource.";
             jndiName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
         }
     }
 
@@ -110,7 +110,7 @@ public class ObtienePrecioUnitarioPAA extends HttpServlet {
             log.error("Error: no se encontro la clase com.microsoft.sqlserver.jdbc.SQLServerDriver");
             mensaje = "Error: no se encontro la clase com.microsoft.sqlserver.jdbc.SQLServerDriver";
         }
-        log.info(mensaje);
+        log.info("Object: {}", mensaje);
         out.println(mensaje);
     }
 
@@ -120,7 +120,7 @@ public class ObtienePrecioUnitarioPAA extends HttpServlet {
         try {
             conn = DataSourceManager.getConnection(jndiName);
             stm = conn.createStatement();
-            log.info("select * from tEjercicioFiscal with(nolock) where aEjercicioFiscal between " + (ejercicioFiscalActual - 3) + " and " + (ejercicioFiscalActual - 1) + " order by aEjercicioFiscal desc");
+            log.info("Object: {}", "select * from tEjercicioFiscal with(nolock) where aEjercicioFiscal between " + (ejercicioFiscalActual - 3) + " and " + (ejercicioFiscalActual - 1) + " order by aEjercicioFiscal desc");
             rs = stm.executeQuery("select * from tEjercicioFiscal with(nolock) where aEjercicioFiscal between " + (ejercicioFiscalActual - 3) + " and " + (ejercicioFiscalActual - 1) + " order by aEjercicioFiscal desc");
             while (rs.next()) {
                 dc = new DatosConexion();

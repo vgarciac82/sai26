@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.DiskFileUpload;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -30,8 +30,9 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.obrapublica.ObraPublicaReportesBusinessLogic;
 import com.syc.sai.contabilidad.CuentaPublicaCuerpoReportes;
-import common.Logger;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "ReportesOP", urlPatterns = { "/ObraPublica/reportes" })
 public class ObraPublicaReportesServlet extends HttpServlet implements GestionInterface {
@@ -42,7 +43,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
 
     private static final String REPORTS_BODY_ROOT = "ctaPublica";
 
-    private static final Logger log = Logger.getLogger(ObraPublicaReportesServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ObraPublicaReportesServlet.class);
 
     private static final String htmlBodyI = "<HTML>\n " + "\t<HEAD><style type=\"text/css\">.dollars:before { content:'$'; }</style>\n " + "\t\t<TITLE>\n</TITLE>\n " + "\t\t<style type=\"text/css\">\n " + "table td {" + "\tborder-color: black;" + "\tborder-style: solid;" + "\tborder-width: thin;" + "}" + ".encabezado {" + "\tfont-family: Arial, \"Helvetica Neue\", Helvetica, sans-serif;" + "\tfont-size: 5 px;" + "\tfont-weight: bold;" + "\ttext-align: center;" + "}" + ".titulo {" + "\tborder-style: none;" + "\tfont-family: Calibri, Verdana, Ariel, sans-serif;" + "\tfont-size: 11 px;" + "\tfont-weight: bold;" + "}" + "\t\t</style>\n " + "\t</HEAD>\n " + "\t<BODY>\n";
 
@@ -82,7 +83,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 String reportBody = CuentaPublicaCuerpoReportes.getReportBody("OPFormato10Encabezado");
                 if (reportBody == null)
                     reportBody = CuentaPublicaCuerpoReportes.getReportBody("OPFormato10Encabezado", getReportStream("OPFormato10Encabezado"));
-                DiskFileUpload upload = new DiskFileUpload();
+                ServletFileUpload upload = new ServletFileUpload();
                 upload.setRepositoryPath(tempDir);
                 String cFileExcel = upload.getRepositoryPath() + "\\" + "formato10.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
@@ -95,7 +96,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 /*String report = "<table>" + reportTitulo + strReport + "</table>";
 				sendExcel(resp, report, "OPFormato10", null);*/
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendError(resp, e.toString());
             }
         } else if ("CONSOLI_NAL".equals(reportType)) {
@@ -106,7 +107,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
             boolean generarVacio = false;
             try {
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
-                DiskFileUpload upload = new DiskFileUpload();
+                ServletFileUpload upload = new ServletFileUpload();
                 upload.setRepositoryPath(tempDir);
                 String cFileExcel = upload.getRepositoryPath() + "\\" + "OPConsolidaNacionalTotal.xls";
                 System.out.println(cFileExcel);
@@ -122,7 +123,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 /*String report = "<table>" + reportTitulo + strReport + "</table>";
 				sendExcel(resp, report, "OPFormato10", null);*/
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendError(resp, e.toString());
             }
         } else if ("CONSOLI_AREA_RESP".equals(reportType)) {
@@ -133,7 +134,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
             boolean generarVacio = false;
             try {
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
-                DiskFileUpload upload = new DiskFileUpload();
+                ServletFileUpload upload = new ServletFileUpload();
                 upload.setRepositoryPath(tempDir);
                 String cFileExcel = upload.getRepositoryPath() + "\\" + "OPConsolidaAreaResponsable.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
@@ -146,7 +147,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 /*String report = "<table>" + reportTitulo + strReport + "</table>";
 				sendExcel(resp, report, "OPFormato10", null);*/
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendError(resp, e.toString());
             }
         } else if ("CONSOLI_PROYECTO".equals(reportType)) {
@@ -157,7 +158,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
             boolean generarVacio = false;
             try {
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
-                DiskFileUpload upload = new DiskFileUpload();
+                ServletFileUpload upload = new ServletFileUpload();
                 upload.setRepositoryPath(tempDir);
                 String cFileExcel = upload.getRepositoryPath() + "\\" + "OPConsolidaXProyecto.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
@@ -170,7 +171,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 /*String report = "<table>" + reportTitulo + strReport + "</table>";
 				sendExcel(resp, report, "OPFormato10", null);*/
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendError(resp, e.toString());
             }
         } else if ("MULTI_REPORTE".equals(reportType)) {
@@ -181,7 +182,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
             boolean generarVacio = false;
             try {
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
-                DiskFileUpload upload = new DiskFileUpload();
+                ServletFileUpload upload = new ServletFileUpload();
                 upload.setRepositoryPath(tempDir);
                 String cFileExcel = upload.getRepositoryPath() + "\\" + "MultiReporteObra.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
@@ -451,7 +452,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 /*String report = "<table>" + reportTitulo + strReport + "</table>";
 				sendExcel(resp, report, "OPFormato10", null);*/
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendError(resp, e.toString());
             }
         } else if ("EXPORTA_PAOP".equals(reportType)) {
@@ -459,7 +460,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
             boolean generarVacio = false;
             try {
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
-                DiskFileUpload upload = new DiskFileUpload();
+                ServletFileUpload upload = new ServletFileUpload();
                 upload.setRepositoryPath(tempDir);
                 String cFileExcel = upload.getRepositoryPath() + "\\" + "exportaPAOPCaptura.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
@@ -471,7 +472,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 resp.addHeader("Content-Disposition", "inline; filename=\"" + System.currentTimeMillis() + "CONSOLI_AREA_RESP.xls" + postFijo + "\"; charset=UTF-8\" pageEncoding=\"utf-8\"");
                 wb.write(resp.getOutputStream());
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendError(resp, e.toString());
             }
         } else if ("CONSOLI_PROYECTO_REGION".equals(reportType)) {
@@ -482,7 +483,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
             boolean generarVacio = false;
             try {
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
-                DiskFileUpload upload = new DiskFileUpload();
+                ServletFileUpload upload = new ServletFileUpload();
                 upload.setRepositoryPath(tempDir);
                 String cFileExcel = upload.getRepositoryPath() + "\\" + "OPConsolidaXProyectoXRegion.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
@@ -495,7 +496,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 /*String report = "<table>" + reportTitulo + strReport + "</table>";
 				sendExcel(resp, report, "OPFormato10", null);*/
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendError(resp, e.toString());
             }
         } else if ("REPORTE_CONTRATOS".equals(reportType)) {
@@ -514,7 +515,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 sendExcel(resp, report, "OPFormatoContratosAdjudicados", ObraPublicaReportesServlet.HTML_BODY_ROP_RCA_I);
                 CuentaPublicaCuerpoReportes.CuerpoReportes.clear();
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendError(resp, e.toString());
             }
         } else if ("REPORTE_ACUMULADO".equals(reportType)) {
@@ -532,7 +533,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 String report = "<table>" + reportBody + strReport + "</table>";
                 sendExcel(resp, report, "OPFormatoContratosAdjudicados", ObraPublicaReportesServlet.HTML_BODY_ROP_RCA_I);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendError(resp, e.toString());
             }
         } else if ("REPORTE_SEGUIMIENTO".equals(reportType)) {
@@ -550,7 +551,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 String report = "<table>" + reportBody + strReport + "</table>";
                 sendExcel(resp, report, "OPFormatoContratosAdjudicados", ObraPublicaReportesServlet.HTML_BODY_ROP_RCA_I);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendError(resp, e.toString());
             }
         } else if ("CONSOLI_POR_AREA_EJECUTORA".equals(reportType)) {
@@ -561,7 +562,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
             boolean generarVacio = false;
             try {
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
-                DiskFileUpload upload = new DiskFileUpload();
+                ServletFileUpload upload = new ServletFileUpload();
                 upload.setRepositoryPath(tempDir);
                 String cFileExcel = upload.getRepositoryPath() + "\\" + "OPConsolidoPorAreaEjecutora.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
@@ -573,7 +574,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 resp.addHeader("Content-Disposition", "inline; filename=\"" + System.currentTimeMillis() + "ConsolidoPorAreaEjecutora.xls" + postFijo + "\"; charset=UTF-8\" pageEncoding=\"utf-8\"");
                 wb.write(resp.getOutputStream());
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendError(resp, e.toString());
             }
         } else if ("CONSOLI_POR_AREA_EJECUTORA_y_PROYECTO".equals(reportType)) {
@@ -584,7 +585,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
             boolean generarVacio = false;
             try {
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
-                DiskFileUpload upload = new DiskFileUpload();
+                ServletFileUpload upload = new ServletFileUpload();
                 upload.setRepositoryPath(tempDir);
                 String cFileExcel = upload.getRepositoryPath() + "\\" + "OPConsolidoPorAreaEjecutorayProyecto.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
@@ -595,7 +596,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 resp.addHeader("Content-Disposition", "inline; filename=\"" + System.currentTimeMillis() + "Cons_AreaEjecutoraXProuecto.xls" + postFijo + "\"; charset=UTF-8\" pageEncoding=\"utf-8\"");
                 wb.write(resp.getOutputStream());
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 sendError(resp, e.toString());
             }
         }
@@ -622,9 +623,9 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
         String reportSrcName = null;
         try {
             reportSrcName = REPORTS_BODY_ROOT + File.separator + reportType + ".bdy";
-            log.debug("Report Name -> " + reportSrcName);
+            log.debug("Object: {}", "Report Name -> " + reportSrcName);
             String reportPath = getServletContext().getRealPath(reportSrcName);
-            log.debug("Report Path-> " + reportPath);
+            log.debug("Object: {}", "Report Path-> " + reportPath);
             if (reportPath != null) {
                 is = new FileInputStream(reportPath);
             } else {
@@ -696,7 +697,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
 
     public void excelConPlantilla(HttpServletRequest request, HttpServletResponse response, String tipoReporte, String cCentroContable, String fechaI, String fechaF, String idunidadresponsable, boolean generarVacio, String reportBody, String reportType, String strUsuario, String strCondicion, String strCondMultiR, String columnasBorrar, String strGeneral, String strResumen) throws Exception {
         HttpSession session = request.getSession(false);
-        DiskFileUpload upload = new DiskFileUpload();
+        ServletFileUpload upload = new ServletFileUpload();
         upload.setRepositoryPath(tempDir);
         int nConsecutivoSICOP = 0;
         Integer esPDF = 0;
@@ -769,7 +770,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
         int numHoja = 0;
         //funcion
         HSSFFont font = (HSSFFont) wb.createFont();
-        log.info("Inicia Reporte: " + request.getParameter("laPlant"));
+        log.info("Object: {}", "Inicia Reporte: " + request.getParameter("laPlant"));
         while (numHoja <= maxHojas) {
             if (arrDetalle != null) {
                 if (!arrDetalle.isEmpty())
@@ -778,7 +779,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
             arrDetalle = null;
             numHoja++;
         }
-        log.info("Termina Reporte: " + request.getParameter("laPlant"));
+        log.info("Object: {}", "Termina Reporte: " + request.getParameter("laPlant"));
         response.setContentType("application/vnd.ms-excel");
         String postFijo = "";
         if (request.getParameter("cMes") != null) {
@@ -1021,7 +1022,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 j++;
             }
         } catch (Exception hazNada) {
-            log.info("En recalculando fórmulas i = '" + i + "', j = '" + j + "'");
+            log.info("Object: {}", "En recalculando fórmulas i = '" + i + "', j = '" + j + "'");
         }
     }
 }

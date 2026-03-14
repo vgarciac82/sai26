@@ -116,15 +116,16 @@ public class Anexo1Manager {
 			}
 			rs3.close();*/
             //URVP SE ARMA EL "SP" ENCABEZADO
-            String Sql = " SELECT TOP 1 " + "	SUBSTRING('" + sREFERENCIA1_107 + "',LEN('" + sREFERENCIA1_107 + "')-7,LEN('" + sREFERENCIA1_107 + //tCE.nFolioAnexo," +
-            "'))," + "	'H' AS Header," + "	CONVERT(nvarchar(10), GETDATE(),103)," + "	CONVERT(nvarchar(10), GETDATE(),103)," + "	tCE.cRamo," + "	tCE.cRamo," + "	tCE.cRamo," + "	'RHQ' UnidadResponsable," + "	'RHQ' UnidadResponsable," + "	'RHQ' UnidadResponsable," + "	'N' ID_TIPO_MOVIMIENTO," + "	'1' AS OrigenPpto," + "	'3' AS TipoSol," + "	'MXN' TipoMoneda," + "	'1' TipoCambio," + "	'1' TIPO_PAGO," + "	'PENDIENTE' AS CveLeyenda," + "	'S04929' CBEN," + "	'" + arrCuentasBancarias[0].trim() + "' CUENTA_BANCARIA," + "	'16RHQ'," + "	'FAC'," + "	'' FechaReferencia," + "	'' Referencia1," + "	'' Referencia2," + " 	'Integracion de Anexo 1 " + sREFERENCIA1_107 + //"	REPLACE(LEFT(tCE.cConcepto, 70),',','')," +
-            "' Concepto," + "	'' NotasReverso," + "	'' AMF," + "	'" + sREFERENCIA1_107 + "' NO_ACMI," + "	'" + sREFERENCIA1_107 + "' AuxiliarComodin," + "	'' CTR," + "	'' FolioDC," + "	CONVERT(DECIMAL(17, 2), 0) DCD_ISR, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_IVADES, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_MIL5, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_MIL2, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_OTRAS_RET, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_PENALIZACION, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_CONTRIBUCION, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_IVA, " + "	CONVERT(DECIMAL(17, 2), 0) IVAANT, " + "	'NA' ID_DESTINO_GASTO " + "FROM tAnexo1Encabezado tCE " + "WHERE tCE.nFolioAnexo1 IN (" + listaIds + ") " + "GROUP BY cRamo";
+            //tCE.nFolioAnexo," +
+            String //tCE.nFolioAnexo," +
+            Sql = //"	REPLACE(LEFT(tCE.cConcepto, 70),',','')," +
+            " SELECT TOP 1 " + "	SUBSTRING('" + sREFERENCIA1_107 + "',LEN('" + sREFERENCIA1_107 + "')-7,LEN('" + sREFERENCIA1_107 + "'))," + "	'H' AS Header," + "	CONVERT(nvarchar(10), GETDATE(),103)," + "	CONVERT(nvarchar(10), GETDATE(),103)," + "	tCE.cRamo," + "	tCE.cRamo," + "	tCE.cRamo," + "	'RHQ' UnidadResponsable," + "	'RHQ' UnidadResponsable," + "	'RHQ' UnidadResponsable," + "	'N' ID_TIPO_MOVIMIENTO," + "	'1' AS OrigenPpto," + "	'3' AS TipoSol," + "	'MXN' TipoMoneda," + "	'1' TipoCambio," + "	'1' TIPO_PAGO," + "	'PENDIENTE' AS CveLeyenda," + "	'S04929' CBEN," + "	'" + arrCuentasBancarias[0].trim() + "' CUENTA_BANCARIA," + "	'16RHQ'," + "	'FAC'," + "	'' FechaReferencia," + "	'' Referencia1," + "	'' Referencia2," + " 	'Integracion de Anexo 1 " + sREFERENCIA1_107 + "' Concepto," + "	'' NotasReverso," + "	'' AMF," + "	'" + sREFERENCIA1_107 + "' NO_ACMI," + "	'" + sREFERENCIA1_107 + "' AuxiliarComodin," + "	'' CTR," + "	'' FolioDC," + "	CONVERT(DECIMAL(17, 2), 0) DCD_ISR, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_IVADES, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_MIL5, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_MIL2, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_OTRAS_RET, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_PENALIZACION, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_CONTRIBUCION, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_IVA, " + "	CONVERT(DECIMAL(17, 2), 0) IVAANT, " + "	'NA' ID_DESTINO_GASTO " + "FROM tAnexo1Encabezado tCE " + "WHERE tCE.nFolioAnexo1 IN (" + listaIds + ") " + "GROUP BY cRamo";
             pstmntH = conn.prepareStatement(Sql);
-            log.debug(Sql);
+            log.debug("Object: {}", Sql.toString());
             rs = pstmntH.executeQuery();
             while (rs.next()) {
                 //inserta encabezado
-                log.debug("Procesando folio[" + arrFolios[0].trim() + "]");
+                log.debug("Object: {}", "Procesando folio[" + arrFolios[0].trim() + "]");
                 //String nFolio, nFolioCompromiso = rs.getString(1);
                 String encabezado = rs.getString(2) + "," + arrFechas[0].trim() + "," + rs.getString(4).trim() + "," + rs.getString(5).trim() + "," + rs.getString(6).trim() + "," + rs.getString(7).trim() + "," + rs.getString(8).trim() + "," + rs.getString(9).trim() + "," + rs.getString(10).trim() + "," + rs.getString(11).trim() + "," + rs.getString(12).trim() + "," + rs.getString(13).trim() + "," + rs.getString(14).trim() + "," + rs.getString(15).trim() + "," + rs.getString(16).trim() + "," + arrLeyendas[0].trim().trim() + "," + rs.getString(18).trim() + "," + rs.getString(19).trim() + "," + rs.getString(20).trim() + "," + rs.getString(21).trim() + "," + rs.getString(22).trim() + "," + rs.getString(23).trim() + "," + rs.getString(24).trim() + "," + rs.getString(25).trim().replaceAll("[\r\n]{2,}", " ") + "," + rs.getString(26).trim() + "," + rs.getString(27).trim() + "," + rs.getString(28).trim() + "," + rs.getString(29).trim() + "," + rs.getString(30).trim() + "," + rs.getString(31).trim() + "," + rs.getString(32).trim() + "," + rs.getString(33).trim() + "," + rs.getString(34).trim() + "," + rs.getString(35).trim() + "," + rs.getString(36).trim() + "," + rs.getString(37).trim() + "," + rs.getString(38).trim() + "," + rs.getString(39).trim() + "," + rs.getString(40).trim() + "," + rs.getString(41);
                 encabezado = encabezado + "\r\n";
@@ -149,9 +150,10 @@ public class Anexo1Manager {
                 pstmntHLayout = conn.prepareStatement(SqlLayoutGrabado);
                 pstmntHLayout.executeUpdate();
                 //URVP SE ARMA EL "SP" DETALLE
-                String Sql2 = " SELECT '1' ID_EVENTO," + "	'24.0.001' EVENTO," + "	SUBSTRING(D.EP,6,2) ID_RAMO_ML," + "	'RHQ'," + "	SUBSTRING(D.EP,1,4) aEjercicioFiscal," + "	SUBSTRING(D.EP,13,1) cGrupoFuncional," + "	SUBSTRING(D.EP,15,1) cFuncion," + "	SUBSTRING(D.EP,17,2) cSubFuncion," + //"	SUBSTRING(D.EP,20,2) cProgramaGeneral, " +
-                "	CASE WHEN SUBSTRING(D.EP,20,2) IN (SELECT cProgramaGeneral FROM tCat_ProGeneralPlurianual WITH (NOLOCK)) THEN '00' ELSE SUBSTRING(D.EP,20,2) END AS cProgramaGeneral, " + "	SUBSTRING(D.EP,23,3) cActividadInstitucional, " + "	SUBSTRING(D.EP,27,4) cProgramaPresupuestario, " + "	SUBSTRING(D.EP,32,1) CCAP_157, " + "	SUBSTRING(D.EP,33,1)CCON_158," + "	SUBSTRING(D.EP,34,1) CPARG_300, " + "	SUBSTRING(D.EP,35,2) CPAR_159, " + "	SUBSTRING(D.EP,38,1) cTipoGasto, " + "	SUBSTRING(D.EP,40,1) cFuenteFinanciamiento, " + "	SUBSTRING(D.EP,42,2) cEntidadFederativa, " + "	SUBSTRING(D.EP,45,11)cCartera, " + "	'0000000000'," + "	'00'CCOP_163," + "	'000' PL," + "	'000' OFI," + "	'00000' AUX1," + "	'00000' AUX2," + "	'0000000000' AUX3," + "	CONVERT(decimal(17, 2),SUM(D.mImporte)) MONTO," + "	cMes MES_149," + "	'0' NRES," + "	CASE WHEN SUBSTRING(ep,32,5)='35801' THEN 'GD' ELSE 'PN' END TIPO_CONTRATO," + "	'000' CONC_MOV," + " 	CONVERT(DECIMAL(17, 2),0) DCD_ISR," + " 	CONVERT(DECIMAL(17, 2),0) DCD_IVA," + " 	CONVERT(DECIMAL(17, 2),0) DCD_MIL5," + " 	CONVERT(DECIMAL(17, 2),0) DCD_MIL2," + " 	CONVERT(decimal(17,2), 0) DCD_CONTRIBUCION," + " 	CONVERT(DECIMAL(17, 2),0) DCD_OTRAS_RET," + //penalizaciones
-                "	CONVERT(DECIMAL(17, 2),0)," + "	'' id_ctr_intdet " + "FROM tAnexo1Detalle D " + "WHERE nFolioAnexo1 IN (" + listaIds + ") " + "GROUP BY SUBSTRING(D.EP,6,2), " + "	SUBSTRING(D.EP,1,4), " + "	SUBSTRING(D.EP,13,1), " + "	SUBSTRING(D.EP,15,1), " + "	SUBSTRING(D.EP,17,2), " + "	SUBSTRING(D.EP,20,2), " + "	SUBSTRING(D.EP,23,3), " + "	SUBSTRING(D.EP,27,4), " + "	SUBSTRING(D.EP,32,1), " + "	SUBSTRING(D.EP,33,1), " + "	SUBSTRING(D.EP,34,1), " + "	SUBSTRING(D.EP,35,2), " + "	SUBSTRING(D.EP,38,1), " + "	SUBSTRING(D.EP,40,1), " + "	SUBSTRING(D.EP,42,2), " + "	SUBSTRING(D.EP,45,11), " + "	cMes, " + "	SUBSTRING(ep,32,5)";
+                //"	SUBSTRING(D.EP,20,2) cProgramaGeneral, " +
+                String //"	SUBSTRING(D.EP,20,2) cProgramaGeneral, " +
+                Sql2 = //penalizaciones
+                " SELECT '1' ID_EVENTO," + "	'24.0.001' EVENTO," + "	SUBSTRING(D.EP,6,2) ID_RAMO_ML," + "	'RHQ'," + "	SUBSTRING(D.EP,1,4) aEjercicioFiscal," + "	SUBSTRING(D.EP,13,1) cGrupoFuncional," + "	SUBSTRING(D.EP,15,1) cFuncion," + "	SUBSTRING(D.EP,17,2) cSubFuncion," + "	CASE WHEN SUBSTRING(D.EP,20,2) IN (SELECT cProgramaGeneral FROM tCat_ProGeneralPlurianual WITH (NOLOCK)) THEN '00' ELSE SUBSTRING(D.EP,20,2) END AS cProgramaGeneral, " + "	SUBSTRING(D.EP,23,3) cActividadInstitucional, " + "	SUBSTRING(D.EP,27,4) cProgramaPresupuestario, " + "	SUBSTRING(D.EP,32,1) CCAP_157, " + "	SUBSTRING(D.EP,33,1)CCON_158," + "	SUBSTRING(D.EP,34,1) CPARG_300, " + "	SUBSTRING(D.EP,35,2) CPAR_159, " + "	SUBSTRING(D.EP,38,1) cTipoGasto, " + "	SUBSTRING(D.EP,40,1) cFuenteFinanciamiento, " + "	SUBSTRING(D.EP,42,2) cEntidadFederativa, " + "	SUBSTRING(D.EP,45,11)cCartera, " + "	'0000000000'," + "	'00'CCOP_163," + "	'000' PL," + "	'000' OFI," + "	'00000' AUX1," + "	'00000' AUX2," + "	'0000000000' AUX3," + "	CONVERT(decimal(17, 2),SUM(D.mImporte)) MONTO," + "	cMes MES_149," + "	'0' NRES," + "	CASE WHEN SUBSTRING(ep,32,5)='35801' THEN 'GD' ELSE 'PN' END TIPO_CONTRATO," + "	'000' CONC_MOV," + " 	CONVERT(DECIMAL(17, 2),0) DCD_ISR," + " 	CONVERT(DECIMAL(17, 2),0) DCD_IVA," + " 	CONVERT(DECIMAL(17, 2),0) DCD_MIL5," + " 	CONVERT(DECIMAL(17, 2),0) DCD_MIL2," + " 	CONVERT(decimal(17,2), 0) DCD_CONTRIBUCION," + " 	CONVERT(DECIMAL(17, 2),0) DCD_OTRAS_RET," + "	CONVERT(DECIMAL(17, 2),0)," + "	'' id_ctr_intdet " + "FROM tAnexo1Detalle D " + "WHERE nFolioAnexo1 IN (" + listaIds + ") " + "GROUP BY SUBSTRING(D.EP,6,2), " + "	SUBSTRING(D.EP,1,4), " + "	SUBSTRING(D.EP,13,1), " + "	SUBSTRING(D.EP,15,1), " + "	SUBSTRING(D.EP,17,2), " + "	SUBSTRING(D.EP,20,2), " + "	SUBSTRING(D.EP,23,3), " + "	SUBSTRING(D.EP,27,4), " + "	SUBSTRING(D.EP,32,1), " + "	SUBSTRING(D.EP,33,1), " + "	SUBSTRING(D.EP,34,1), " + "	SUBSTRING(D.EP,35,2), " + "	SUBSTRING(D.EP,38,1), " + "	SUBSTRING(D.EP,40,1), " + "	SUBSTRING(D.EP,42,2), " + "	SUBSTRING(D.EP,45,11), " + "	cMes, " + "	SUBSTRING(ep,32,5)";
                 pstmntD = conn.prepareStatement(Sql2);
                 rs2 = pstmntD.executeQuery();
                 while (rs2.next()) {
@@ -172,8 +174,9 @@ public class Anexo1Manager {
                     pstmntD.close();
                 }
                 // Aqui grabamos dentro de layouts creados detalle
-                String SqlLayoutGrabadoDet = "	DECLARE @lsUR varchar(3), @lsEP varchar(100), @lmSuma money " + "	DECLARE curRGIntegrado CURSOR LOCAL FOR " + "			SELECT E.cUnidadResponsable, D.EP, SUM(D.mImporte)" + "			FROM tAnexo1Encabezado E, tAnexo1Detalle D " + "			WHERE E.nFolioAnexo1 = D.nFolioAnexo1 AND E.nFolioAnexo1 IN (" + listaIds + ") " + "			GROUP BY E.cUnidadResponsable, D.EP " + " 	OPEN curRGIntegrado " + " 		FETCH NEXT FROM curRGIntegrado into @lsUR, @lsEP, @lmSuma WHILE @@FETCH_STATUS = 0 " + " 		BEGIN " + " 			INSERT INTO tLayoutsCreadosAnexo1Detalle " + " 			SELECT TOP 1 " + strFolioLayout + "," + "				'1' ID_EVENTO," + "				'24.0.001' EVENTO," + "				ltrim(TCEP.cRamo) ID_RAMO_ML," + "				'RHQ'," + "				TCEP.aEjercicioFiscal," + "				TCEP.cGrupoFuncional," + "				tCEP.cFuncion," + "				tCEP.cSubFuncion," + //"				tCEP.cProgramaGeneral," +
-                "				CASE WHEN tCEP.cProgramaGeneral IN (SELECT cProgramaGeneral FROM tCat_ProGeneralPlurianual WITH (NOLOCK)) THEN '00' ELSE tCEP.cProgramaGeneral END AS cProgramaGeneral," + "				tCEP.cActividadInstitucional," + "				tCEP.cProgramaPresupuestario," + "				ltrim(substring(cpartida,1,1)) CCAP_157," + "				substring(cpartida,2,1) CCON_158," + "				substring(cpartida,3,1) CPARG_300," + "				substring(cpartida,4,2) CPAR_159," + "				tCEP.cTipoGasto," + "				tCEP.cFuenteFinanciamiento," + "				tCEP.cEntidadFederativa," + "				tCEP.cCartera," + "				ltrim('0000000' + tCEP.cUnidadEjecutora)," + "				substring(TCEP.cUnidadNorativa,2,2) CCOP_163," + "				'000' PL," + "				'000' OFI," + "				'00000' AUX1," + "				'00000' AUX2," + "				'0000000000' AUX3," + "				@lmSuma MONTO," + "				MONTH(GETDATE()) MES_149," + "				'0' NRES," + "				ltrim('PN') TIPO_CONTRATO," + "				'000' CONC_MOV," + "				CONVERT(DECIMAL(17, 2), 0) DCD_ISR, " + "				CONVERT(DECIMAL(17, 2), 0) DCD_IVA, " + "				CONVERT(DECIMAL(17, 2), 0) DCD_MIL5, " + "				CONVERT(DECIMAL(17, 2), 0) DCD_MIL2, " + "				CONVERT(DECIMAL(17, 2), 0) DCD_CONTRIBUCION, " + "				CONVERT(DECIMAL(17, 2), 0) DCD_OTRAS_RET, " + "				CONVERT(DECIMAL(17, 2), 0) DCD_IVADES, " + "				CONVERT(DECIMAL(17, 2), 0) DCD_PENALIZACION, " + "				'' id_ctr_intdet," + "				" + strFolioLayout + " 			FROM tAnexo1Detalle TPDD (nolock)" + "			INNER JOIN tAnexo1Encabezado TPDE ON TPDD.nFolioAnexo1 = TPDE.nFolioAnexo1 " + "			INNER JOIN tCatalogoEP TCEP ON TPDD.EP = TCEP.EP " + "			WHERE TPDE.cUnidadResponsable = @lsUR" + "				AND TPDD.EP = @lsEP" + "			FETCH NEXT FROM curRGIntegrado into @lsUR, @lsEP, @lmSuma" + "		END" + "	CLOSE curRGIntegrado " + " 	DEALLOCATE curRGIntegrado  ";
+                //"				tCEP.cProgramaGeneral," +
+                String //"				tCEP.cProgramaGeneral," +
+                SqlLayoutGrabadoDet = "	DECLARE @lsUR varchar(3), @lsEP varchar(100), @lmSuma money " + "	DECLARE curRGIntegrado CURSOR LOCAL FOR " + "			SELECT E.cUnidadResponsable, D.EP, SUM(D.mImporte)" + "			FROM tAnexo1Encabezado E, tAnexo1Detalle D " + "			WHERE E.nFolioAnexo1 = D.nFolioAnexo1 AND E.nFolioAnexo1 IN (" + listaIds + ") " + "			GROUP BY E.cUnidadResponsable, D.EP " + " 	OPEN curRGIntegrado " + " 		FETCH NEXT FROM curRGIntegrado into @lsUR, @lsEP, @lmSuma WHILE @@FETCH_STATUS = 0 " + " 		BEGIN " + " 			INSERT INTO tLayoutsCreadosAnexo1Detalle " + " 			SELECT TOP 1 " + strFolioLayout + "," + "				'1' ID_EVENTO," + "				'24.0.001' EVENTO," + "				ltrim(TCEP.cRamo) ID_RAMO_ML," + "				'RHQ'," + "				TCEP.aEjercicioFiscal," + "				TCEP.cGrupoFuncional," + "				tCEP.cFuncion," + "				tCEP.cSubFuncion," + "				CASE WHEN tCEP.cProgramaGeneral IN (SELECT cProgramaGeneral FROM tCat_ProGeneralPlurianual WITH (NOLOCK)) THEN '00' ELSE tCEP.cProgramaGeneral END AS cProgramaGeneral," + "				tCEP.cActividadInstitucional," + "				tCEP.cProgramaPresupuestario," + "				ltrim(substring(cpartida,1,1)) CCAP_157," + "				substring(cpartida,2,1) CCON_158," + "				substring(cpartida,3,1) CPARG_300," + "				substring(cpartida,4,2) CPAR_159," + "				tCEP.cTipoGasto," + "				tCEP.cFuenteFinanciamiento," + "				tCEP.cEntidadFederativa," + "				tCEP.cCartera," + "				ltrim('0000000' + tCEP.cUnidadEjecutora)," + "				substring(TCEP.cUnidadNorativa,2,2) CCOP_163," + "				'000' PL," + "				'000' OFI," + "				'00000' AUX1," + "				'00000' AUX2," + "				'0000000000' AUX3," + "				@lmSuma MONTO," + "				MONTH(GETDATE()) MES_149," + "				'0' NRES," + "				ltrim('PN') TIPO_CONTRATO," + "				'000' CONC_MOV," + "				CONVERT(DECIMAL(17, 2), 0) DCD_ISR, " + "				CONVERT(DECIMAL(17, 2), 0) DCD_IVA, " + "				CONVERT(DECIMAL(17, 2), 0) DCD_MIL5, " + "				CONVERT(DECIMAL(17, 2), 0) DCD_MIL2, " + "				CONVERT(DECIMAL(17, 2), 0) DCD_CONTRIBUCION, " + "				CONVERT(DECIMAL(17, 2), 0) DCD_OTRAS_RET, " + "				CONVERT(DECIMAL(17, 2), 0) DCD_IVADES, " + "				CONVERT(DECIMAL(17, 2), 0) DCD_PENALIZACION, " + "				'' id_ctr_intdet," + "				" + strFolioLayout + " 			FROM tAnexo1Detalle TPDD (nolock)" + "			INNER JOIN tAnexo1Encabezado TPDE ON TPDD.nFolioAnexo1 = TPDE.nFolioAnexo1 " + "			INNER JOIN tCatalogoEP TCEP ON TPDD.EP = TCEP.EP " + "			WHERE TPDE.cUnidadResponsable = @lsUR" + "				AND TPDD.EP = @lsEP" + "			FETCH NEXT FROM curRGIntegrado into @lsUR, @lsEP, @lmSuma" + "		END" + "	CLOSE curRGIntegrado " + " 	DEALLOCATE curRGIntegrado  ";
                 pstmntHLayoutDet = conn.prepareStatement(SqlLayoutGrabadoDet);
                 pstmntHLayoutDet.executeUpdate();
                 insertaConsolidacionAnexo1(conn, sTimeStamp, usuario, ejercicioFiscal, folioGenerator);
@@ -194,12 +197,13 @@ public class Anexo1Manager {
     }
 
     public static int insertaConsolidacionAnexo1(Connection conn, String sTimeStamp, Usuario sUsuario, String ejercicioFiscal, String folioGenerator) throws Exception {
-        log.info("Insertando consolidacion de Ingreso del Anexo 1. Folio Integracion[" + sTimeStamp + "] Usuario[" + sUsuario + "] Ejercicio Fiscal[" + ejercicioFiscal + "]");
+        log.info("Object: {}", "Insertando consolidacion de Ingreso del Anexo 1. Folio Integracion[" + sTimeStamp + "] Usuario[" + sUsuario + "] Ejercicio Fiscal[" + ejercicioFiscal + "]");
         int insertados = 0;
         String sqlInsertConsolidacion = "INSERT INTO tconsolidacionrelaciongastosencabezado " + "            (nFolioConsolidacion," + "             nidintegracion, " + "             fcarga, " + "             faplicacion, " + "             ctipopoliza, " + "             u_login, " + "             cunidadresponsablecontable, " + "             cdescripcionpoliza, " + "             cramo, " + "             cunidadresponsable, " + "             aejerciciofiscal) " + "SELECT ?								AS nFolioConsolidacion," + "        ?                             AS nIdIntegracion, " + "       Getdate()                     AS fCarga, " + "       Getdate()                     AS fAplicacion, " + "       'IN'                          AS cTipoPoliza, " + "       ?                             AS U_LOGIN, " + "       'RHQ'                         AS cUnidadResponsableContable, " + "       'Poliza de Ingreso Devengado y Recaudado de la Integración " + sTimeStamp + "/ANEXO1' AS cDescripcionPoliza, " + "       '16'                          AS cRamo, " + "       ?                             AS cUnidadResponsable, " + "       ?                             AS aEjercicioFiscal ";
-        String sqlInsertConsolidacionDetalle = "INSERT INTO dbo.tconsolidacionrelaciongastosdetalle" + "        ( nDocRenglon ," + "          nFolioConsolidacion ," + "          ep ," + "          cevento ," + "          ccentrocontable ," + "          cmes ," + "          ID_destino_gasto ," + "          ID_TIPO_CONCEPTO ," + "          partida ," + "          tipogasto ," + "          mimportemasiva ," + "          mImporteNegativo ," + "          nidintegracion ," + "          CTAB ," + "          RFC ," + "          ALM ," + "          OBGT" + "        )" + "SELECT Row_number() OVER (ORDER BY nfolioconsolidacion) AS nDocRenglon, " + "       consolidacion_encabezado.nfolioconsolidacion AS nFolioConsolidacion, " + "       ep, " + "       dbo.fn_evento_integracion_Anexo1(ep) AS cevento, " + "       DETALLE.ccentrocontable, " + "       DETALLE.cmes, " + "       '' id_destino_gasto, " + "       '' id_tipo_concepto, " + "       Substring(detalle.ep, 32, 5)                 AS partida, " + "       Substring(detalle.ep, 38, 1)                 AS tipogasto, " + "       Sum(DETALLE.mImporte)                  AS mimportemasiva, " + "       Sum(DETALLE.mImporteNegativo)         AS mImporteNegativo, " + "       LAYOUT.sauxiliarcomodin                      AS nidintegracion, " + "       LAYOUT.scuenta_bancaria                      AS CTAB, " + //+"       CASE WHEN ENCABEZADO.rfc <> 'TESOFE' THEN '' ELSE ENCABEZADO.rfc END AS RFC, "
-        "       '' RFC, " + "       '' alm, " + "       Substring(detalle.ep, 32, 5)                 AS OBGT " + "FROM   dbo.tAnexo1Encabezado ENCABEZADO WITH (nolock) " + "INNER JOIN dbo.tAnexo1Detalle DETALLE WITH (nolock) " + "		  ON ENCABEZADO.nFolioAnexo1 = DETALLE.nFolioAnexo1 " + "LEFT OUTER JOIN dbo.tLayoutsCreadosAnexo1Header LAYOUT WITH (nolock) " + "       ON ENCABEZADO.canocontrarrecibo = LAYOUT.snocontrarrecibo " + "INNER JOIN dbo.tconsolidacionrelaciongastosencabezado consolidacion_encabezado WITH (nolock) " + "       ON LAYOUT.sauxiliarcomodin = consolidacion_encabezado.nidintegracion " + "WHERE  LAYOUT.sauxiliarcomodin IS NOT NULL " + "       AND nfolioconsolidacion = ? " + "GROUP  BY ep, " + "       consolidacion_encabezado.nfolioconsolidacion, " + "       DETALLE.ccentrocontable, " + "       DETALLE.cmes, " + "       LAYOUT.sauxiliarcomodin, " + "       scuenta_bancaria, " + //+"       CASE WHEN ENCABEZADO.RFC <> 'TESOFE' THEN '' ELSE ENCABEZADO.RFC END , "
-        "       Substring(detalle.ep, 32, 5)";
+        //+"       CASE WHEN ENCABEZADO.rfc <> 'TESOFE' THEN '' ELSE ENCABEZADO.rfc END AS RFC, "
+        String //+"       CASE WHEN ENCABEZADO.rfc <> 'TESOFE' THEN '' ELSE ENCABEZADO.rfc END AS RFC, "
+        sqlInsertConsolidacionDetalle = //+"       CASE WHEN ENCABEZADO.RFC <> 'TESOFE' THEN '' ELSE ENCABEZADO.RFC END , "
+        "INSERT INTO dbo.tconsolidacionrelaciongastosdetalle" + "        ( nDocRenglon ," + "          nFolioConsolidacion ," + "          ep ," + "          cevento ," + "          ccentrocontable ," + "          cmes ," + "          ID_destino_gasto ," + "          ID_TIPO_CONCEPTO ," + "          partida ," + "          tipogasto ," + "          mimportemasiva ," + "          mImporteNegativo ," + "          nidintegracion ," + "          CTAB ," + "          RFC ," + "          ALM ," + "          OBGT" + "        )" + "SELECT Row_number() OVER (ORDER BY nfolioconsolidacion) AS nDocRenglon, " + "       consolidacion_encabezado.nfolioconsolidacion AS nFolioConsolidacion, " + "       ep, " + "       dbo.fn_evento_integracion_Anexo1(ep) AS cevento, " + "       DETALLE.ccentrocontable, " + "       DETALLE.cmes, " + "       '' id_destino_gasto, " + "       '' id_tipo_concepto, " + "       Substring(detalle.ep, 32, 5)                 AS partida, " + "       Substring(detalle.ep, 38, 1)                 AS tipogasto, " + "       Sum(DETALLE.mImporte)                  AS mimportemasiva, " + "       Sum(DETALLE.mImporteNegativo)         AS mImporteNegativo, " + "       LAYOUT.sauxiliarcomodin                      AS nidintegracion, " + "       LAYOUT.scuenta_bancaria                      AS CTAB, " + "       '' RFC, " + "       '' alm, " + "       Substring(detalle.ep, 32, 5)                 AS OBGT " + "FROM   dbo.tAnexo1Encabezado ENCABEZADO WITH (nolock) " + "INNER JOIN dbo.tAnexo1Detalle DETALLE WITH (nolock) " + "		  ON ENCABEZADO.nFolioAnexo1 = DETALLE.nFolioAnexo1 " + "LEFT OUTER JOIN dbo.tLayoutsCreadosAnexo1Header LAYOUT WITH (nolock) " + "       ON ENCABEZADO.canocontrarrecibo = LAYOUT.snocontrarrecibo " + "INNER JOIN dbo.tconsolidacionrelaciongastosencabezado consolidacion_encabezado WITH (nolock) " + "       ON LAYOUT.sauxiliarcomodin = consolidacion_encabezado.nidintegracion " + "WHERE  LAYOUT.sauxiliarcomodin IS NOT NULL " + "       AND nfolioconsolidacion = ? " + "GROUP  BY ep, " + "       consolidacion_encabezado.nfolioconsolidacion, " + "       DETALLE.ccentrocontable, " + "       DETALLE.cmes, " + "       LAYOUT.sauxiliarcomodin, " + "       scuenta_bancaria, " + "       Substring(detalle.ep, 32, 5)";
         PreparedStatement psInsertaEncabezado = null;
         PreparedStatement psInsertaDetalle = null;
         ResultSet rsFolioConsolidacion = null;
@@ -207,8 +211,8 @@ public class Anexo1Manager {
         try {
             Caso c = PagosDiversosRGManager.generaCaso(conn, sUsuario, folioGenerator);
             nFolioConsolidacion = Integer.parseInt(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1), 10);
-            log.debug("Query Insert Encabezado[" + sqlInsertConsolidacion + "]");
-            log.debug("Query Insert Detalle[" + sqlInsertConsolidacionDetalle + "]");
+            log.debug("Object: {}", "Query Insert Encabezado[" + sqlInsertConsolidacion + "]");
+            log.debug("Object: {}", "Query Insert Detalle[" + sqlInsertConsolidacionDetalle + "]");
             psInsertaEncabezado = conn.prepareStatement(sqlInsertConsolidacion, Statement.RETURN_GENERATED_KEYS);
             psInsertaDetalle = conn.prepareStatement(sqlInsertConsolidacionDetalle);
             psInsertaEncabezado.setInt(1, nFolioConsolidacion);
@@ -217,11 +221,11 @@ public class Anexo1Manager {
             psInsertaEncabezado.setString(4, "");
             psInsertaEncabezado.setString(5, ejercicioFiscal);
             insertados += psInsertaEncabezado.executeUpdate();
-            log.debug("Insertados en encabezado: " + insertados + " registros ");
+            log.debug("Object: {}", "Insertados en encabezado: " + insertados + " registros ");
             rsFolioConsolidacion = psInsertaEncabezado.getGeneratedKeys();
             psInsertaDetalle.setInt(1, nFolioConsolidacion);
             insertados += psInsertaDetalle.executeUpdate();
-            log.debug("Insertados en detalle: " + insertados + " registros ");
+            log.debug("Object: {}", "Insertados en detalle: " + insertados + " registros ");
             return insertados;
         } finally {
             CloseObject.closeObject(rsFolioConsolidacion, false);
@@ -251,8 +255,9 @@ public class Anexo1Manager {
             arrListaComp.add(encabezado);
             String sCampo = "'S04929'";
             //URVP DETALLE DEL DOCCOMP
-            String Sql2 = " select distinct " + "		PDE.cRamo," + "		PDE.caNoContrarrecibo, " + "		CONVERT(nvarchar(10), PDE.fAplicacion,103)," + "		CONVERT(nvarchar(10), PDE.fAplicacion,103) + ' 12:00:00 a.m.', " + "		" + sCampo + "," + "		case when B.cExtranjero = 1 then '05' else '04' end 'TipoBen'," + "		'85' TIPO_OPE," + //07 ??
-            "		'05' TIVA," + "		'0' DCD_VALOR," + "		CONVERT(decimal(17, 2), PDE.mImporte) MONTO," + "		CONVERT(DECIMAL(17, 2), 0) DCD_IVA," + "		CONVERT(DECIMAL(17, 2), 0) DCD_IVADES," + "		CONVERT(DECIMAL(17, 2), 0) DCD_ISR," + "		CONVERT(DECIMAL(17, 2), 0) DCD_MIL5," + "		CONVERT(DECIMAL(17, 2), 0) DCD_MIL2," + "		CONVERT(DECIMAL(17, 2), 0) DCD_OTRAS_RET," + "		CONVERT(DECIMAL(17, 2), 0) DCD_PENALIZACION," + "		CONVERT(DECIMAL(17, 2), 0) DCD_CONTRIBUCION," + "		'0' DCD_CTOEXT," + "		PDE.caNoContrarrecibo DCD_FACTURA," + "		PDE.cConcepto," + "		PDE.caNoContrarrecibo" + "	from dbo.tAnexo1Encabezado PDE" + "	INNER JOIN dbo.tAnexo1Detalle RGD ON PDE.nFolioAnexo1 = RGD.nFolioAnexo1" + "	INNER JOIN tBeneficiario B " + "		ON B.dRFC = 'CNF010405EG1' " + "	where PDE.nFolioAnexo1 in (" + listaIds + ")";
+            //07 ??
+            String //07 ??
+            Sql2 = " select distinct " + "		PDE.cRamo," + "		PDE.caNoContrarrecibo, " + "		CONVERT(nvarchar(10), PDE.fAplicacion,103)," + "		CONVERT(nvarchar(10), PDE.fAplicacion,103) + ' 12:00:00 a.m.', " + "		" + sCampo + "," + "		case when B.cExtranjero = 1 then '05' else '04' end 'TipoBen'," + "		'85' TIPO_OPE," + "		'05' TIVA," + "		'0' DCD_VALOR," + "		CONVERT(decimal(17, 2), PDE.mImporte) MONTO," + "		CONVERT(DECIMAL(17, 2), 0) DCD_IVA," + "		CONVERT(DECIMAL(17, 2), 0) DCD_IVADES," + "		CONVERT(DECIMAL(17, 2), 0) DCD_ISR," + "		CONVERT(DECIMAL(17, 2), 0) DCD_MIL5," + "		CONVERT(DECIMAL(17, 2), 0) DCD_MIL2," + "		CONVERT(DECIMAL(17, 2), 0) DCD_OTRAS_RET," + "		CONVERT(DECIMAL(17, 2), 0) DCD_PENALIZACION," + "		CONVERT(DECIMAL(17, 2), 0) DCD_CONTRIBUCION," + "		'0' DCD_CTOEXT," + "		PDE.caNoContrarrecibo DCD_FACTURA," + "		PDE.cConcepto," + "		PDE.caNoContrarrecibo" + "	from dbo.tAnexo1Encabezado PDE" + "	INNER JOIN dbo.tAnexo1Detalle RGD ON PDE.nFolioAnexo1 = RGD.nFolioAnexo1" + "	INNER JOIN tBeneficiario B " + "		ON B.dRFC = 'CNF010405EG1' " + "	where PDE.nFolioAnexo1 in (" + listaIds + ")";
             pstmntD = conn.prepareStatement(Sql2);
             System.out.println(Sql2);
             rs2 = pstmntD.executeQuery();
@@ -389,7 +394,7 @@ public class Anexo1Manager {
                 psUpdate.setString(3, ep);
                 psUpdate.setString(4, cmes);
                 psUpdate.setInt(5, nFolio);
-                log.info("Update " + cont + ": [UPDATE dbo.tAnexo1Detalle SET nDocRenglon = " + cont + " WHERE nDocRenglon = " + renglon + " AND Ep = '" + ep + "' AND cMes = " + cmes + " AND nFolioAnexo1 = " + nFolio + "]");
+                log.info("Object: {}", "Update " + cont + ": [UPDATE dbo.tAnexo1Detalle SET nDocRenglon = " + cont + " WHERE nDocRenglon = " + renglon + " AND Ep = '" + ep + "' AND cMes = " + cmes + " AND nFolioAnexo1 = " + nFolio + "]");
                 psUpdate.executeUpdate();
                 cont++;
             }
@@ -425,13 +430,13 @@ public class Anexo1Manager {
                         nFolioPagoApartado = rsSequence.getString("seq_value");
                     }
                     //SE INSERTA ENCABEZADO
-                    log.info("Insert Enzabezado Movimiento Comodin Radicado: [" + sqlInsertEncabezado + " (" + nFolioPagoApartado + ", " + nFolio + ")]");
+                    log.info("Object: {}", "Insert Enzabezado Movimiento Comodin Radicado: [" + sqlInsertEncabezado + " (" + nFolioPagoApartado + ", " + nFolio + ")]");
                     pstmInsert = conn.prepareStatement(sqlInsertEncabezado);
                     pstmInsert.setInt(1, Integer.parseInt(nFolioPagoApartado, 10));
                     pstmInsert.setInt(2, nFolio);
                     pstmInsert.executeUpdate();
                 }
-                log.info("Insert Detalle Movimiento Comodin Radicado: [" + sqlInsertDetalle + " (" + nFolioPagoApartado + ", " + nFolio + ")]");
+                log.info("Object: {}", "Insert Detalle Movimiento Comodin Radicado: [" + sqlInsertDetalle + " (" + nFolioPagoApartado + ", " + nFolio + ")]");
                 pstmInsert = conn.prepareStatement(sqlInsertDetalle);
                 pstmInsert.setInt(1, Integer.parseInt(nFolioPagoApartado, 10));
                 pstmInsert.setInt(2, nFolio);
@@ -444,11 +449,11 @@ public class Anexo1Manager {
                 if (rsSequence.next()) {
                     nFolioPagoApartado = rsSequence.getString("nFolioPagoApartado");
                 }
-                log.info("Delete Detalle Movimiento Comodin Radicado: [DELETE tPagoApartadoDetalle WHERE nFolioPagoApartado = " + nFolioPagoApartado + "]");
+                log.info("Object: {}", "Delete Detalle Movimiento Comodin Radicado: [DELETE tPagoApartadoDetalle WHERE nFolioPagoApartado = " + nFolioPagoApartado + "]");
                 pstmDelete = conn.prepareStatement("DELETE tPagoApartadoDetalle WHERE nFolioPagoApartado = ?");
                 pstmDelete.setInt(1, Integer.parseInt(nFolioPagoApartado, 10));
                 pstmDelete.executeUpdate();
-                log.info("Insert Detalle Movimiento Comodin Radicado: [" + sqlInsertDetalle + " (" + nFolioPagoApartado + ", " + nFolio + ")]");
+                log.info("Object: {}", "Insert Detalle Movimiento Comodin Radicado: [" + sqlInsertDetalle + " (" + nFolioPagoApartado + ", " + nFolio + ")]");
                 pstmInsert = conn.prepareStatement(sqlInsertDetalle);
                 pstmInsert.setInt(1, Integer.parseInt(nFolioPagoApartado, 10));
                 pstmInsert.setInt(2, nFolio);
@@ -477,7 +482,7 @@ public class Anexo1Manager {
             if (rsSequence.next()) {
                 //SI EXISTE SE TOMA EL MISMO FOLIO DE APARTADO
                 nFolioPagoApartado = rsSequence.getString("nFolioPagoApartado");
-                log.info("Delete Detalle Movimiento Comodin Radicado: [DELETE tPagoApartadoDetalle WHERE nFolioPagoApartado = " + nFolioPagoApartado + "]");
+                log.info("Object: {}", "Delete Detalle Movimiento Comodin Radicado: [DELETE tPagoApartadoDetalle WHERE nFolioPagoApartado = " + nFolioPagoApartado + "]");
                 pstmDelete = conn.prepareStatement("DELETE tPagoApartadoDetalle WHERE nFolioPagoApartado = ?");
                 pstmDelete.setInt(1, Integer.parseInt(nFolioPagoApartado, 10));
                 pstmDelete.executeUpdate();
@@ -491,13 +496,13 @@ public class Anexo1Manager {
                     nFolioPagoApartado = rsSequence.getString("seq_value");
                 }
                 //SE INSERTA ENCABEZADO
-                log.info("Insert Enzabezado Movimiento Comodin Radicado: [" + sqlInsertEncabezado + " (" + nFolioPagoApartado + ", " + nFolio + ")]");
+                log.info("Object: {}", "Insert Enzabezado Movimiento Comodin Radicado: [" + sqlInsertEncabezado + " (" + nFolioPagoApartado + ", " + nFolio + ")]");
                 pstmInsert = conn.prepareStatement(sqlInsertEncabezado);
                 pstmInsert.setInt(1, Integer.parseInt(nFolioPagoApartado, 10));
                 pstmInsert.setInt(2, nFolio);
                 pstmInsert.executeUpdate();
             }
-            log.info("Insert Detalle Movimiento Comodin Radicado: [" + sqlInsertDetalle + " (" + nFolioPagoApartado + ", " + nFolio + ")]");
+            log.info("Object: {}", "Insert Detalle Movimiento Comodin Radicado: [" + sqlInsertDetalle + " (" + nFolioPagoApartado + ", " + nFolio + ")]");
             pstmInsert = conn.prepareStatement(sqlInsertDetalle);
             pstmInsert.setInt(1, Integer.parseInt(nFolioPagoApartado, 10));
             pstmInsert.setInt(2, nFolio);

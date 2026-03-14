@@ -40,7 +40,7 @@ public class ImageManipulator {
         int nFile = 1;
         String concepto = "gastos de alimentos por día laborado, a los brigadistas que se encuentren desarrollando tareas de combate, incluyendo los días de traslado al sitio de combate y los días de retorno del combate a su centro de trabajo habitual";
         for (String fProc : procesar) {
-            log.info("Se procesara archivo " + nFile + " de " + procesar.size() + ": " + fProc);
+            log.info("Object: {}", "Se procesara archivo " + nFile + " de " + procesar.size() + ": " + fProc);
             manipulator.protegeSolicitudPago(fProc, concepto);
             nFile++;
         }
@@ -122,7 +122,7 @@ public class ImageManipulator {
             PDFRenderer pdfRenderer = new PDFRenderer(document);
             BufferedImage image = pdfRenderer.renderImageWithDPI(0, 300, ImageType.GRAY);
             // BufferedImage image = pdfRenderer.renderImage( 0 );
-            log.info(image);
+            log.info("Object: {}", String.valueOf(image));
             ImageIOUtil.writeImage(image, imageOutputPath, 300);
             document.close();
         } finally {
@@ -158,7 +158,7 @@ public class ImageManipulator {
                 try {
                     document.close();
                 } catch (Exception e) {
-                    log.warn("Problemas cerrando documento: " + e);
+                    log.warn("Object: {}", "Problemas cerrando documento: " + e);
                 }
         }
     }

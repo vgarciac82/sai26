@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import com.google.gson.Gson;
 import com.syc.contable.core.SolicitudPagoFirmaElectronica;
@@ -47,7 +47,7 @@ public final class AutorizaEnvioSICOPMasivoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.trace("Inicio de doPost en servlet de autorización de trámites.");
         String action = req.getRequestURI().substring(req.getRequestURI().lastIndexOf("/") + 1);
-        log.info("#Executing: " + action + " action");
+        log.info("Object: {}", "#Executing: " + action + " action");
         HttpSession session = req.getSession(false);
         String msg = "";
         if (session == null) {
@@ -67,12 +67,12 @@ public final class AutorizaEnvioSICOPMasivoServlet extends HttpServlet {
                 int total = idCasos.length;
                 int exito = 0;
                 int status = ("revisaEnvioSICOPMasivo".equals(action) ? SolicitudFirmaElectronica.AUT_LAYOUT : SolicitudFirmaElectronica.GENERA_LAYOUT);
-                log.info("Procesando " + total + " trámites para autorización. Nuevo estatus: " + status);
+                log.info("Object: {}", "Procesando " + total + " trámites para autorización. Nuevo estatus: " + status);
                 for (String idCaso : idCasos) {
-                    log.debug("Procesando trámite con ID Caso: " + idCaso);
+                    log.debug("Object: {}", "Procesando trámite con ID Caso: " + idCaso);
                     try {
                         Caso c = processBL.getCaso(Integer.parseInt(idCaso));
-                        log.debug("Caso obtenido: " + c);
+                        log.debug("Object: {}", "Caso obtenido: " + c);
                         String tablaEncabezado = SolicitudFirmaElectronica.RELACION_TRAMITE_TABLA_E.get(c.getTipoCaso().getGavetaAsociada());
                         String tablaDetalle = "";
                         if (tablaEncabezado == null) {
@@ -84,7 +84,7 @@ public final class AutorizaEnvioSICOPMasivoServlet extends HttpServlet {
                             campoLlave = "nFolio" + c.getTipoCaso().getGavetaAsociada();
                         }
                         int valorLlave = Util.folio(c);
-                        log.debug("Autorizando trámite en tabla: " + tablaEncabezado + ", campo: " + campoLlave + ", valor: " + valorLlave);
+                        log.debug("Object: {}", "Autorizando trámite en tabla: " + tablaEncabezado + ", campo: " + campoLlave + ", valor: " + valorLlave);
                         if (esAmbiental == false && "tPAGODIVERSOENCABEZADO".equalsIgnoreCase(tablaEncabezado)) {
                             SolicitudFirmaElectronica solicitudPagoPrinter = new SolicitudPagoFirmaElectronica();
                             solicitudPagoPrinter.setDetail(tablaDetalle);
@@ -103,7 +103,7 @@ public final class AutorizaEnvioSICOPMasivoServlet extends HttpServlet {
                         } else {
                             febl.actualizaEstatusSICOP(tablaEncabezado, campoLlave, valorLlave, status);
                         }
-                        log.info("Autorizado envío SICOP/SIAFF del trámite: " + tablaEncabezado + " con folio: " + valorLlave);
+                        log.info("Object: {}", "Autorizado envío SICOP/SIAFF del trámite: " + tablaEncabezado + " con folio: " + valorLlave);
                         exito++;
                     } catch (Exception e) {
                         log.error("Error mientras se avanzaba trámite con ID Caso: " + idCaso + ". Detalles: " + e.toString(), e);
@@ -113,13 +113,13 @@ public final class AutorizaEnvioSICOPMasivoServlet extends HttpServlet {
                 result.put("total", total);
                 result.put("success", exito);
                 String jsonResponse = new Gson().toJson(result);
-                log.info("Autorización finalizada. Total: " + total + ", Exitosos: " + exito);
-                log.debug("Enviando respuesta JSON: " + jsonResponse);
+                log.info("Object: {}", "Autorización finalizada. Total: " + total + ", Exitosos: " + exito);
+                log.debug("Object: {}", "Enviando respuesta JSON: " + jsonResponse);
                 resp.setContentType("application/json");
                 resp.setCharacterEncoding("UTF-8");
                 resp.getWriter().write(jsonResponse);
             } else {
-                log.warn("Sesión inválida: " + msg);
+                log.warn("Object: {}", "Sesión inválida: " + msg);
                 throw new Exception(msg);
             }
         } catch (Exception e) {
@@ -139,17 +139,17 @@ public final class AutorizaEnvioSICOPMasivoServlet extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         sysConfig = new ConfiguraAplicativoBusinessLogic(jniName);
         febl = new FirmaElectronicaBusinessLogic(jniName);
         processBL = new CasoBusinessLogic(jniName);
         esAmbiental = "true".equalsIgnoreCase(sysConfig.getSystemSetting("SAI_AMBIENTAL"));
-        log.info(" ============================================ AMBIENTE: " + (esAmbiental ? " COMPENSACION AMBIENTAL" : " RECURSOS FISCALES") + "================================================");
+        log.info("Object: {}", " ============================================ AMBIENTE: " + (esAmbiental ? " COMPENSACION AMBIENTAL" : " RECURSOS FISCALES") + "================================================");
     }
 }

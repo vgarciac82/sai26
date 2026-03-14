@@ -5,9 +5,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.gestion.reportes.reportes;
 import com.syc.gestion.reportes.reportesBussinesObject;
@@ -126,7 +126,7 @@ public class repConciliacionBancoBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (SQLException exc) {
-                    log.warn("Realizando rollback: " + exc);
+                    log.warn("Object: {}", "Realizando rollback: " + exc);
                 }
             CloseObject.closeObject(conn);
         }

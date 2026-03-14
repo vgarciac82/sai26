@@ -11,7 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import com.axtel.egresos.entities.EgresoExcedeUMA;
 import com.axtel.egresos.exceptions.EgresoException;
 import com.axtel.egresos.viaticos.Agenda;
@@ -179,11 +179,11 @@ public class EgresoRELACIONGASTOSEncabezado extends EgresoEncabezado {
         PreparedStatement ps = null;
         int afectados = 0;
         try {
-            log.trace("Iniciando eliminacion de la Relacion de gastos: " + getFolioPago());
+            log.trace("Object: {}", "Iniciando eliminacion de la Relacion de gastos: " + getFolioPago());
             ps = conn.prepareStatement(query);
             ps.setInt(1, getFolioPago());
             afectados = ps.executeUpdate();
-            log.trace("Se eliminaron : " + afectados + " pagos con el folio: " + getFolioPago());
+            log.trace("Object: {}", "Se eliminaron : " + afectados + " pagos con el folio: " + getFolioPago());
             return afectados;
         } finally {
             CloseObject.closeObject(ps);
@@ -346,7 +346,7 @@ public class EgresoRELACIONGASTOSEncabezado extends EgresoEncabezado {
             ps.setString(cnt++, getLogin());
             ps.setString(cnt++, getIdConcepto());
             ps.setString(cnt++, getConcepto());
-            log.debug(queryIns);
+            log.debug("Object: {}", queryIns.toString());
             return ps.executeUpdate();
         } catch (SQLException e) {
             throw new EgresoException(e);

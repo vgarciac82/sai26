@@ -81,7 +81,7 @@ public class RelacionGastosManager {
     }
 
     public static boolean remanenteSuficiente(Connection conn, int nFolioCaja, double montosRelacion) throws Exception {
-        log.info("Calculando remanente para la solicitud " + nFolioCaja);
+        log.info("Object: {}", "Calculando remanente para la solicitud " + nFolioCaja);
         String query = "SELECT mMontoRemanente FROM dbo.tEstadoDeCuentaViaticosEncabezado (NOLOCK) WHERE nFolioCaja = ?";
         ResultSet rs = null;
         PreparedStatement ps = null;
@@ -143,10 +143,10 @@ public class RelacionGastosManager {
         try {
             pstmntH = conn.prepareStatement(query.toString());
             rs = pstmntH.executeQuery();
-            log.debug(query.toString());
+            log.debug("Object: {}", query.toString());
             ResultSetMetaData rsmd = rs.getMetaData();
             while (rs.next()) {
-                log.debug(arrFolios[0].trim());
+                log.debug("Object: {}", arrFolios[0].trim());
                 String nFolio, nFolioCompromiso = rs.getString(1);
                 for (int i = 0; i < arrFolios.length; i++) {
                     nFolio = arrFolios[i].trim();
@@ -352,7 +352,7 @@ public class RelacionGastosManager {
             Sql.append(" WHERE tCE.nFolioRELACIONGASTOS in (" + listaIds + ") ");
             Sql.append(" GROUP BY  cRamo");
             pstmntH2 = conn.prepareStatement(Sql.toString());
-            log.debug(Sql);
+            log.debug("Object: {}", Sql.toString());
             rs = pstmntH2.executeQuery();
             ResultSetMetaData rsmd = rs.getMetaData();
             while (rs.next()) {
@@ -424,7 +424,7 @@ public class RelacionGastosManager {
             StringBuilder oficio = new StringBuilder();
             String folioCompPadded = String.format("%04d", folioComp);
             oficio.append(folio).append("-").append(folioCompPadded).append("-").append(anio);
-            log.debug("Folio Oficio " + oficio.toString());
+            log.debug("Object: {}", "Folio Oficio " + oficio.toString());
             return oficio.toString();
         } finally {
             CloseObject.closeObject(pst2);
@@ -447,7 +447,7 @@ public class RelacionGastosManager {
                 token = ",";
             }
             cxp = detalle.toString();
-            log.debug("Folios repetidos " + cxp);
+            log.debug("Object: {}", "Folios repetidos " + cxp);
         } finally {
             CloseObject.closeObject(pst);
             CloseObject.closeObject(rs);
@@ -668,7 +668,7 @@ public class RelacionGastosManager {
     }
 
     public static int insertaConsolidacinRelacionGastos(Connection conn, String sTimeStamp, Usuario sUsuario, String ejercicioFiscal, String folioGenerator) throws Exception {
-        log.info("Insertando consolidacion para la relacion de gastos. Folio Integracion[" + sTimeStamp + "] Usuario[" + sUsuario + "] Ejercicio Fiscal[" + ejercicioFiscal + "]");
+        log.info("Object: {}", "Insertando consolidacion para la relacion de gastos. Folio Integracion[" + sTimeStamp + "] Usuario[" + sUsuario + "] Ejercicio Fiscal[" + ejercicioFiscal + "]");
         int insertados = 0;
         StringBuilder sqlInsertConsolidacion = new StringBuilder();
         sqlInsertConsolidacion.append("INSERT INTO tconsolidacionrelaciongastosencabezado ");
@@ -706,8 +706,8 @@ public class RelacionGastosManager {
         try {
             Caso c = RelacionGastosManager.generaCaso(conn, sUsuario, folioGenerator);
             nFolioConsolidacion = Integer.parseInt(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1), 10);
-            log.debug("Query Insert Encabezado[" + sqlInsertConsolidacion.toString() + "]");
-            log.debug("Query Insert Detalle[" + sqlInsertConsolidacionDetalle.toString() + "]");
+            log.debug("Object: {}", "Query Insert Encabezado[" + sqlInsertConsolidacion.toString() + "]");
+            log.debug("Object: {}", "Query Insert Detalle[" + sqlInsertConsolidacionDetalle.toString() + "]");
             psInsertaEncabezado = conn.prepareStatement(sqlInsertConsolidacion.toString(), Statement.RETURN_GENERATED_KEYS);
             psInsertaDetalle = conn.prepareStatement(sqlInsertConsolidacionDetalle.toString());
             psInsertaEncabezado.setInt(1, nFolioConsolidacion);
@@ -716,11 +716,11 @@ public class RelacionGastosManager {
             psInsertaEncabezado.setString(4, sUsuario.getU_UR());
             psInsertaEncabezado.setString(5, ejercicioFiscal);
             insertados += psInsertaEncabezado.executeUpdate();
-            log.debug("Insertados en encabezado: " + insertados + " registros ");
+            log.debug("Object: {}", "Insertados en encabezado: " + insertados + " registros ");
             rsFolioConsolidacion = psInsertaEncabezado.getGeneratedKeys();
             psInsertaDetalle.setInt(1, nFolioConsolidacion);
             insertados += psInsertaDetalle.executeUpdate();
-            log.debug("Insertados en detalle: " + insertados + " registros ");
+            log.debug("Object: {}", "Insertados en detalle: " + insertados + " registros ");
             return insertados;
         } finally {
             CloseObject.closeObject(rsFolioConsolidacion, false);
@@ -919,12 +919,12 @@ public class RelacionGastosManager {
                 parametrosReporte.put("folio", canoContrarecibo);
                 parametrosReporte.put("whereFolio", " and CR.caNoContrarrecibo = '" + canoContrarecibo + "'");
                 JasperRunManager.runReportToPdfStream(in, zos, parametrosReporte, conn);
-                log.info(canoContrarecibo);
+                log.info("Object: {}", canoContrarecibo);
                 if (in != null)
                     try {
                         in.close();
                     } catch (Exception e) {
-                        log.warn("Problemas cerrando reporte. " + e);
+                        log.warn("Object: {}", "Problemas cerrando reporte. " + e);
                     }
             }
             if (zos != null) {
@@ -942,15 +942,15 @@ public class RelacionGastosManager {
 
     public static synchronized boolean esRelacionPorOficio(Connection conn, int nFolioTramite) throws Exception {
         boolean relacionPorOficio = false;
-        log.trace("Verificando si la RG " + nFolioTramite + " es por oficio");
+        log.trace("Object: {}", "Verificando si la RG " + nFolioTramite + " es por oficio");
         String query = "SELECT	COUNT( * ) AS totalOficios FROM	tPagoFactura WITH(NOLOCK)  WHERE	cTipoPago = 'RELACIONGASTOS'  AND	nFolioPago = ?  AND	SUBSTRING( cRFCFactura, 1,6 ) = 'OFICIO'";
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
             ps = conn.prepareStatement(query);
             ps.setInt(1, nFolioTramite);
-            log.trace("Ejecutando Query: " + query);
-            log.trace("Parametros: " + nFolioTramite);
+            log.trace("Object: {}", "Ejecutando Query: " + query);
+            log.trace("Object: {}", "Parametros: " + nFolioTramite);
             rs = ps.executeQuery();
             if (rs.next())
                 relacionPorOficio = rs.getInt(1) > 0;
@@ -1473,7 +1473,7 @@ public class RelacionGastosManager {
         PreparedStatement psHeader = null;
         ResultSet rsHeader = null;
         try {
-            log.debug(queryEncabezadoLayout.toString());
+            log.debug("Object: {}", queryEncabezadoLayout.toString());
             psHeader = conn.prepareStatement(queryEncabezadoLayout.toString());
             psHeader.setInt(1, folioRelacionGastosCompromiso);
             rsHeader = psHeader.executeQuery();
@@ -1614,7 +1614,7 @@ public class RelacionGastosManager {
                 }
                 token = "";
                 detalle.append("\r\n");
-                log.debug("Detalle: " + detalle.toString());
+                log.debug("Object: {}", "Detalle: " + detalle.toString());
             }
             // Valida que el total del Layout sea igual a los pagos
             validarTotalLayoutIntegrada(conn, total, folioRelacionGastosCompromiso);
@@ -1796,7 +1796,7 @@ public class RelacionGastosManager {
             psUpdateLayoutRG = conn.prepareStatement(sUpdateLayoutRG);
             psUpdateLayoutRG.setString(1, sFolioIntegracionRG);
             int updateVuelos = psUpdateLayoutRG.executeUpdate();
-            log.info("Se Actualizaron: " + updateVuelos + " Registros.");
+            log.info("Object: {}", "Se Actualizaron: " + updateVuelos + " Registros.");
         } finally {
             CloseObject.closeObject(psUpdateLayoutRG);
         }
@@ -2036,7 +2036,7 @@ public class RelacionGastosManager {
                 Map<String, String> objMap = RSToTable.rsToMap(rs);
                 if (objMap != null) {
                     renglones++;
-                    log.debug("Poblando el renglon " + renglones + " del detalle");
+                    log.debug("Object: {}", "Poblando el renglon " + renglones + " del detalle");
                     BeanUtils.populate(detalleRenglon, objMap);
                     detalle.add(detalleRenglon);
                     continuar = true;
@@ -2063,7 +2063,7 @@ public class RelacionGastosManager {
             boolean continuar = true;
             String ep = detalleIterator.next();
             BigDecimal montoPorCubrir = detalleGenealNuevo.get(ep);
-            log.debug("Buscando saldo para cubrir: " + Util.formatNumber(montoPorCubrir) + " de la EP[" + ep + "]");
+            log.debug("Object: {}", "Buscando saldo para cubrir: " + Util.formatNumber(montoPorCubrir) + " de la EP[" + ep + "]");
             List<SaldoMensual> saldoCuenta = SaldoManager.obtenSaldoMensual(conn, "82106", ep);
             /*
 			 * Los ingresos propios van del mes 1 al 12, los ingresos fiscales
@@ -2079,7 +2079,7 @@ public class RelacionGastosManager {
             }
             /* Ciclo que recorre los saldos intentando cubrir el monto */
             while (continuar) {
-                log.debug("Buscando cubrir el monto " + Util.formatNumber(montoPorCubrir) + " con el mes " + (mesInicio - 1) + " Con saldo: " + Util.formatNumber(saldoCuenta.get(mesInicio - 1).getMontoSaldo()));
+                log.debug("Object: {}", "Buscando cubrir el monto " + Util.formatNumber(montoPorCubrir) + " con el mes " + (mesInicio - 1) + " Con saldo: " + Util.formatNumber(saldoCuenta.get(mesInicio - 1).getMontoSaldo()));
                 /* Existe saldo en el mes */
                 if (saldoCuenta.get(mesInicio - 1).getMontoSaldo().compareTo(new BigDecimal(0.0d)) > 0) {
                     /*
@@ -2151,7 +2151,7 @@ public class RelacionGastosManager {
         CFSequenceManager seq = CFSequenceManager.getInstance(null);
         int numeroCxP = seq.nextVal(conn, seqName);
         String cxp = cc + prefijo + ef + numeroCxP;
-        log.info("Se genero cxp: " + cxp);
+        log.info("Object: {}", "Se genero cxp: " + cxp);
         return cxp;
     }
 
@@ -2289,7 +2289,7 @@ public class RelacionGastosManager {
             ps.setInt(cnt++, rgEnc.getnIdConcepto());
             ps.setString(cnt++, rgEnc.getNidprograma());
             ps.setString(cnt++, rgEnc.getcConcepto());
-            log.debug(rgEnc.toString());
+            log.debug("Object: {}", rgEnc.toString());
             resultados = ps.executeUpdate();
             return resultados;
         } catch (Exception e) {
@@ -2420,7 +2420,7 @@ public class RelacionGastosManager {
             psDetalle.setInt(2, encabezado.getFolioPago());
             insertados = psEncabezado.executeUpdate();
             insertados += psDetalle.executeUpdate();
-            log.debug("Se insertaron " + insertados + "registros");
+            log.debug("Object: {}", "Se insertaron " + insertados + "registros");
             return nFolioPagoApartado;
         } finally {
             CloseObject.closeObject(psEncabezado);
@@ -2456,7 +2456,7 @@ public class RelacionGastosManager {
             psDetalle.setInt(2, encabezado.getnFolioRELACIONGASTOS());
             insertados = psEncabezado.executeUpdate();
             insertados += psDetalle.executeUpdate();
-            log.debug("Se insertaron " + insertados + "registros");
+            log.debug("Object: {}", "Se insertaron " + insertados + "registros");
             return nFolioPagoApartado;
         } finally {
             CloseObject.closeObject(psEncabezado);
@@ -2521,7 +2521,7 @@ public class RelacionGastosManager {
         PreparedStatement psHeader = null;
         ResultSet rsHeader = null;
         try {
-            log.debug(queryEncabezadoLayout);
+            log.debug("Object: {}", queryEncabezadoLayout.toString());
             psHeader = conn.prepareStatement(queryEncabezadoLayout.toString());
             psHeader.setString(1, Integradora);
             rsHeader = psHeader.executeQuery();
@@ -2576,12 +2576,12 @@ public class RelacionGastosManager {
         PreparedStatement psLayoutDetalle = null;
         ResultSet rsLayoutDetalle = null;
         try {
-            log.debug("Generando Detalle Integracion (LAYOUT) Query: " + queryLayoutDetalle);
+            log.debug("Object: {}", "Generando Detalle Integracion (LAYOUT) Query: " + queryLayoutDetalle);
             psLayoutDetalle = conn.prepareStatement(queryLayoutDetalle.toString());
             rsLayoutDetalle = psLayoutDetalle.executeQuery();
             if (rsLayoutDetalle.next()) {
                 String detalle = Util.resultSetToConcatenateString(rsLayoutDetalle, ",", 0);
-                log.debug("Detalle para DC de la integracion " + Integradora + "\n" + detalle);
+                log.debug("Object: {}", "Detalle para DC de la integracion " + Integradora + "\n" + detalle);
                 return detalle;
             } else
                 throw new Exception("No se encontro informacion para armar el detalle con folio de compromiso :" + Integradora);
@@ -2679,9 +2679,9 @@ public class RelacionGastosManager {
                     psDeleteInfoVuelos = conn.prepareStatement(sDeleteInfoVuelos);
                     psDeleteInfoVuelos.setInt(1, folio);
                     int updateVuelos = psUpdateLayoutVuelos.executeUpdate();
-                    log.info("Se Actualizaron: " + updateVuelos + " Vuelos.");
+                    log.info("Object: {}", "Se Actualizaron: " + updateVuelos + " Vuelos.");
                     int deleteVuelos = psDeleteInfoVuelos.executeUpdate();
-                    log.info("Se eliminaron: " + deleteVuelos + " Vuelos.");
+                    log.info("Object: {}", "Se eliminaron: " + deleteVuelos + " Vuelos.");
                 }
             }
         } finally {
@@ -2890,34 +2890,34 @@ public class RelacionGastosManager {
     }
 
     public static void saveCargaMasivaRG(Connection conn, CargaMasivaRG cargaMasivaRG) throws SQLException {
-        log.info("Insertando carga masiva: " + cargaMasivaRG);
+        log.info("Object: {}", "Insertando carga masiva: " + cargaMasivaRG);
         PreparedStatement ps = null;
         StringBuilder query = new StringBuilder("INSERT INTO tRelacionGastosCargaMasiva(nFolioCargaMasiva, nIDEstatusCarga)VALUES(?,?)");
-        log.trace("Consulta: " + query);
+        log.trace("Object: {}", "Consulta: " + query);
         try {
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, cargaMasivaRG.getFolioCargaMasiva());
             ps.setInt(2, cargaMasivaRG.getEstatusCarga());
-            log.trace("Se ejecutara consulta para insertar objeto: " + cargaMasivaRG);
+            log.trace("Object: {}", "Se ejecutara consulta para insertar objeto: " + cargaMasivaRG);
             int inserted = ps.executeUpdate();
-            log.debug("Se insertaron " + inserted + " registros en tRelacionGastosCargaMasiva");
+            log.debug("Object: {}", "Se insertaron " + inserted + " registros en tRelacionGastosCargaMasiva");
         } finally {
             CloseObject.closeObject(ps);
         }
     }
 
     public static void updateCargaMasivaRG(Connection conn, CargaMasivaRG cargaMasivaRG) throws SQLException {
-        log.info("Actualizando carga masiva: " + cargaMasivaRG);
+        log.info("Object: {}", "Actualizando carga masiva: " + cargaMasivaRG);
         PreparedStatement ps = null;
         StringBuilder query = new StringBuilder("UPDATE tRelacionGastosCargaMasiva WITH(ROWLOCK) SET nIDEstatusCarga = ? WHERE nFolioCargaMasiva = ?");
-        log.trace("Consulta: " + query);
+        log.trace("Object: {}", "Consulta: " + query);
         try {
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, cargaMasivaRG.getEstatusCarga());
             ps.setInt(2, cargaMasivaRG.getFolioCargaMasiva());
-            log.trace("Se ejecutara consulta para actualizar objeto: " + cargaMasivaRG);
+            log.trace("Object: {}", "Se ejecutara consulta para actualizar objeto: " + cargaMasivaRG);
             int inserted = ps.executeUpdate();
-            log.debug("Se actualizaron: " + inserted + " registros en tRelacionGastosCargaMasiva");
+            log.debug("Object: {}", "Se actualizaron: " + inserted + " registros en tRelacionGastosCargaMasiva");
         } finally {
             CloseObject.closeObject(ps);
         }
@@ -3023,8 +3023,8 @@ public class RelacionGastosManager {
         queryDet.append("FROM tRELACIONGASTOSDetalle DET WITH (NOLOCK) ");
         queryDet.append("JOIN tComprobacionLaudos COMP WITH (NOLOCK) ON DET.nFolioRELACIONGASTOS = COMP.nFolioRELACIONGASTOS ");
         queryDet.append("WHERE DET.nFolioRELACIONGASTOS = ? ");
-        log.trace("Consulta: " + queryEnc);
-        log.trace("Consulta: " + queryDet);
+        log.trace("Object: {}", "Consulta: " + queryEnc);
+        log.trace("Object: {}", "Consulta: " + queryDet);
         try {
             psEnc = conn.prepareStatement(queryEnc.toString());
             psEnc.setInt(1, nFolio);
@@ -3032,8 +3032,8 @@ public class RelacionGastosManager {
             psDet.setInt(1, nFolio);
             int insertedEnc = psEnc.executeUpdate();
             int insertedDet = psDet.executeUpdate();
-            log.debug("Se actualizaron: " + insertedEnc + " registros en tRELACIONGASTOSEncabezado");
-            log.debug("Se actualizaron: " + insertedDet + " registros en tRELACIONGASTOSDetalle");
+            log.debug("Object: {}", "Se actualizaron: " + insertedEnc + " registros en tRELACIONGASTOSEncabezado");
+            log.debug("Object: {}", "Se actualizaron: " + insertedDet + " registros en tRELACIONGASTOSDetalle");
         } finally {
             CloseObject.closeObject(psEnc);
             CloseObject.closeObject(psDet);

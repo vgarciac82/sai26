@@ -18,8 +18,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.core.FileItem;
 import org.jfree.util.Log;
 import com.syc.contable.core.AplicacionContable;
 import com.syc.gestion.servlet.GestionInterface;
@@ -211,7 +211,7 @@ public class SubirArchivosCapituloMilServlet extends HttpServlet implements Gest
                 mensaje = regresaMensaje(valor, mensajeError);
             }
         } catch (Exception e) {
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
             mensaje = "Error: No Se Guardaron Los Registros Correctamente / ";
         }
         response.sendRedirect("../Generador/capituloMil.jsp?mensaje=" + mensaje);
@@ -222,7 +222,7 @@ public class SubirArchivosCapituloMilServlet extends HttpServlet implements Gest
         List<FileItem> fileItems = new ArrayList<FileItem>();
         try {
             // Se construye un objeto para que parsee la peticiÃ³n
-            DiskFileUpload fu = new DiskFileUpload();
+            ServletFileUpload fu = new ServletFileUpload();
             // Tamaño máximo que aceptará el archivo
             // El tamaño no importa
             fu.setSizeMax(-1);
@@ -237,7 +237,7 @@ public class SubirArchivosCapituloMilServlet extends HttpServlet implements Gest
             fu.setRepositoryPath(szPath);
             fileItems = fu.parseRequest(request);
         } catch (Exception e) {
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
             System.out.println("Error de Aplicación " + e.getMessage());
         }
         return fileItems;
@@ -268,7 +268,7 @@ public class SubirArchivosCapituloMilServlet extends HttpServlet implements Gest
                 BigDecimal totalNomina = new BigDecimal(0);
                 totalNomina = (totalNomina.add(importeNetoTotalNominaComprometido)).setScale(2, RoundingMode.HALF_UP);
                 totalNomina = (totalNomina.add(importeDocTotalNomina)).setScale(2, RoundingMode.HALF_UP);
-                log.info("nomina: " + totalNomina + " / " + " compromiso: " + totalComprometido);
+                log.info("Object: {}", "nomina: " + totalNomina + " / " + " compromiso: " + totalComprometido);
                 if ((totalNomina.compareTo(totalComprometido)) == 1) {
                     valorReturn = "mayor";
                 }
@@ -276,7 +276,7 @@ public class SubirArchivosCapituloMilServlet extends HttpServlet implements Gest
                 valorReturn = valor;
             }
         } catch (Exception e) {
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
         } finally {
             try {
                 if (br != null)

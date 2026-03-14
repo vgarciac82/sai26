@@ -55,7 +55,7 @@ public class ReintegrosCaja {
         log.trace("Estableciendo encabezado del reintegro de caja.");
         this.encabezado = encabezado;
         log.trace("Encabezado establecido");
-        log.trace(this.encabezado);
+        log.trace("Object: {}", this.encabezado);
     }
 
     public void setnFolioReintegrocaja(int nFolioReintegrocaja) {

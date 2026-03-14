@@ -78,7 +78,7 @@ public class JsonTxt extends HttpServlet implements GestionInterface {
             out.write("{ \"aaData\": [");
             int puntero = -1;
             String coma = ",";
-            for (int i = 0; i < rows; i++) log.trace("[\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + formato.format(Double.parseDouble(data.get(++puntero))) + "\",\"" + formato.format(Double.parseDouble(data.get(++puntero))) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\"]");
+            for (int i = 0; i < rows; i++) log.trace("Object: {}", "[\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + formato.format(Double.parseDouble(data.get(++puntero))) + "\",\"" + formato.format(Double.parseDouble(data.get(++puntero))) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\",\"" + data.get(++puntero) + "\"]");
             puntero = -1;
             for (int i = 0; i < rows; i++) {
                 if (i + 1 == rows)

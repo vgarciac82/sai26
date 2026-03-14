@@ -8,14 +8,14 @@ import java.util.Date;
 import java.util.List;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import com.axtel.egresos.entities.InvoiceSubmissionRequest;
 import com.axtel.egresos.entities.MassPaymentResult;
 import com.axtel.egresos.services.MassPaymentSupplierService;
@@ -55,12 +55,12 @@ public class InvoiceUploadServlet extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         paymentProcessor = new MassPaymentSupplierServiceImpl(jniName);
         userService = new UsuarioBusinessLogic(jniName);
@@ -72,15 +72,15 @@ public class InvoiceUploadServlet extends HttpServlet {
             log.info("Recepción de archivo iniciada");
             Part invoicesFilePart = request.getPart("invoices");
             File fileInvoices = Util.saveFile(invoicesFilePart);
-            log.info("Archivo guardado en " + fileInvoices.getAbsolutePath());
+            log.info("Object: {}", "Archivo guardado en " + fileInvoices.getAbsolutePath());
             Part opinionsFilePart = request.getPart("opinions");
             File fileOpinions = Util.saveFile(opinionsFilePart);
-            log.info("Archivo guardado en " + fileOpinions.getAbsolutePath());
+            log.info("Object: {}", "Archivo guardado en " + fileOpinions.getAbsolutePath());
             String budgetItem = request.getParameter("budgetItem");
             String employeeLoading = request.getParameter("employeeLoading");
             int authEmployeeNumber = Integer.parseInt(request.getParameter("authEmployeeNumber"));
             int voBoEmployeeNumber = Integer.parseInt(request.getParameter("voBoEmployeeNumber"));
-            log.debug("authEmployeeNumber=" + authEmployeeNumber + " voBoEmployeeNumber={" + voBoEmployeeNumber + "}");
+            log.debug("Object: {}", "authEmployeeNumber=" + authEmployeeNumber + " voBoEmployeeNumber={" + voBoEmployeeNumber + "}");
             Usuario user = new Usuario(employeeLoading);
             user = userService.getUsuario(user);
             Firmante authFirmante = new Firmante(authEmployeeNumber);
@@ -97,7 +97,7 @@ public class InvoiceUploadServlet extends HttpServlet {
             submission.setBudgetItem(budgetItem);
             log.info("Procesando envío de pago masivo");
             List<MassPaymentResult> logResults = paymentProcessor.processSubmission(submission, user);
-            log.info("Procesamiento completado, {" + logResults.size() + "} resultados obtenidos");
+            log.info("Object: {}", "Procesamiento completado, {" + logResults.size() + "} resultados obtenidos");
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_OK);

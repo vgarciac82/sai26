@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-import org.apache.log4j.LogManager;
 import com.axtel.sai.sicove.exceptions.SicoveException;
 import com.axtel.sai.sicove.expedient.entities.DocumentFortimax;
 import com.axtel.sai.sicove.expedient.repositories.ExpedientRepository;
@@ -31,7 +30,7 @@ import org.slf4j.LoggerFactory;
 
 public class JDBCExpedientService extends DataSourceManager implements ExpedientService {
 
-    private static final Logger log = LogManager.getLogger(JDBCExpedientService.class);
+    private static final Logger log = LoggerFactory.getLogger(JDBCExpedientService.class);
 
     private ExpedientRepository expedientRepository;
 

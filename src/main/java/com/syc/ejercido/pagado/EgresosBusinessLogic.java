@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import com.axtel.contratos.core.QuestionnaireManager;
 import com.axtel.egresos.entities.EgresoExcedeUMA;
@@ -53,7 +53,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
 
     public static EgresoDetalle instanciaDetalle(EgresoEncabezado encabezado) throws Exception {
         String egresoBLName = GestionInterface.EGRESOS_IMPLEMENTACION_PKG + "." + "Egreso" + encabezado.getTipoPago() + "Detalle";
-        log.info(String.format("Se cargara tipo de egreso [%s] desde la clase: [%s]", encabezado.getTipoPago(), egresoBLName));
+        log.info("Object: {}", String.format("Se cargara tipo de egreso [%s] desde la clase: [%s]", encabezado.getTipoPago(), egresoBLName));
         EgresoDetalle egresoDetalle = Util.instanceEgresoDetalle(egresoBLName);
         return egresoDetalle;
     }
@@ -81,9 +81,9 @@ public class EgresosBusinessLogic extends DataSourceManager {
         try {
             conn = getConnection();
             int borrados = encabezado.delete(conn);
-            log.info("Se elimino el encabezado: " + encabezado + ". Eliminados: " + borrados);
+            log.info("Object: {}", "Se elimino el encabezado: " + encabezado + ". Eliminados: " + borrados);
             int insertados = encabezado.save(conn);
-            log.info("Se inserto el encabezado: " + encabezado);
+            log.info("Object: {}", "Se inserto el encabezado: " + encabezado);
             insertados += encabezado.avanzaEstatus(conn);
             log.info("Se avanzo el pago al siguiente estatus");
             conn.commit();
@@ -93,7 +93,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas ejecutando rollback: " + e2);
+                    log.warn("Object: {}", "Problemas ejecutando rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -107,7 +107,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
             conn = getConnection();
             int actualizados = encabezado.actualizaMontosRetencion(conn);
             actualizados += encabezado.avanzaEstatus(conn);
-            log.info("Se actualizaron los montos de retencion en el folio: " + encabezado.getFolioPago() + " del pago: " + getTipoEgreso());
+            log.info("Object: {}", "Se actualizaron los montos de retencion en el folio: " + encabezado.getFolioPago() + " del pago: " + getTipoEgreso());
             conn.commit();
             return actualizados;
         } catch (Exception e) {
@@ -115,7 +115,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas ejecutando rollback: " + e2);
+                    log.warn("Object: {}", "Problemas ejecutando rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -128,7 +128,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
         try {
             conn = getConnection();
             int actualizados = encabezado.actualizaRetencion(conn, idTipoRetencion, valorRetencion);
-            log.info("Se actualizo la retencion " + idTipoRetencion + " en el folio: " + encabezado.getFolioPago() + " Al valor: " + actualizados);
+            log.info("Object: {}", "Se actualizo la retencion " + idTipoRetencion + " en el folio: " + encabezado.getFolioPago() + " Al valor: " + actualizados);
             conn.commit();
             return actualizados;
         } catch (Exception e) {
@@ -136,7 +136,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas ejecutando rollback: " + e2);
+                    log.warn("Object: {}", "Problemas ejecutando rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -168,7 +168,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("problemas en rollback: " + e2);
+                    log.warn("Object: {}", "problemas en rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -196,9 +196,9 @@ public class EgresosBusinessLogic extends DataSourceManager {
             impuestos = cargaImpuestos(conn, encabezado);
         List<EgresoRetencion> retenciones = cargaRetenciones(conn, encabezado);
         int eliminados = EgresoDetalleManager.borraDetalle(conn, encabezado);
-        log.info("Se eliminaron " + eliminados + " renglones del detalle para tipo de pago " + encabezado.getTipoPago() + " con folio " + encabezado.getFolioPago());
+        log.info("Object: {}", "Se eliminaron " + eliminados + " renglones del detalle para tipo de pago " + encabezado.getTipoPago() + " con folio " + encabezado.getFolioPago());
         int resultado = CalculaImpuestosRetencionesManager.calculaImpuestosRetenciones(conn, encabezado, calendarioPago, retenciones, impuestos);
-        log.info("Se insertaron: " + resultado + "registros en la DB");
+        log.info("Object: {}", "Se insertaron: " + resultado + "registros en la DB");
         /*
 		 * Antes de aplicar el tramite valida la congruencia. En caso de
 		 * encontrar diferencias lanza excepcion.
@@ -238,7 +238,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
         for (PaymentDiference dif : diferencias) {
             mensaje.append("- ").append(dif.toString()).append("\n");
         }
-        log.warn(mensaje.toString());
+        log.warn("Object: {}", mensaje.toString());
         return new RuntimeException(mensaje.toString());
     }
 
@@ -275,7 +275,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas ejecutando rollback: " + e2);
+                    log.warn("Object: {}", "Problemas ejecutando rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -294,7 +294,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas ejecutando rollback: " + e2);
+                    log.warn("Object: {}", "Problemas ejecutando rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -310,9 +310,9 @@ public class EgresosBusinessLogic extends DataSourceManager {
             List<EgresoImpuestos> impuestos = cargaImpuestosNomina(conn, encabezado);
             List<EgresoRetencion> retenciones = cargaRetenciones(conn, encabezado);
             int eliminados = EgresoDetalleManager.borraDetalle(conn, encabezado);
-            log.info("Se eliminaron " + eliminados + " renglones del detalle para tipo de pago " + encabezado.getTipoPago() + " con folio " + encabezado.getFolioPago());
+            log.info("Object: {}", "Se eliminaron " + eliminados + " renglones del detalle para tipo de pago " + encabezado.getTipoPago() + " con folio " + encabezado.getFolioPago());
             int resultado = CalculaImpuestosRetencionesManager.calculaImpuestosRetenciones(conn, encabezado, calendarioPago, retenciones, impuestos);
-            log.info("Se insertaron: " + resultado + "registros en la DB");
+            log.info("Object: {}", "Se insertaron: " + resultado + "registros en la DB");
             EgresosManager.aplicaTramite(conn, encabezado);
             PasivoDiferidoManager.aplicarPasivoDiferido(conn, encabezado.getTipoPago(), String.valueOf(encabezado.getFolioPago()), encabezado.getTablaEncabezado(), encabezado.getTablaDetalle(), encabezado.getCampoLlave());
             avanzaEstatus(conn, encabezado);
@@ -325,7 +325,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas ejecutando rollback: " + e2);
+                    log.warn("Object: {}", "Problemas ejecutando rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -350,7 +350,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas ejecutando rollback: " + e2);
+                    log.warn("Object: {}", "Problemas ejecutando rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -370,7 +370,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
 
     public List<EgresoDetalle> cargaDetalleEgreso(String tipoEgreso, int folioEgreso) throws Exception {
         String egresoBLName = GestionInterface.EGRESOS_IMPLEMENTACION_PKG + "." + "Egreso" + tipoEgreso + "Detalle";
-        log.info(String.format("Se cargara tipo de egreso [%s] desde la clase: [%s]", tipoEgreso, egresoBLName));
+        log.info("Object: {}", String.format("Se cargara tipo de egreso [%s] desde la clase: [%s]", tipoEgreso, egresoBLName));
         EgresoDetalle egresoDetalle = Util.instanceEgresoDetalle(egresoBLName);
         egresoDetalle.setJniName(this.jniName);
         return egresoDetalle.cargaDetalle(folioEgreso);
@@ -446,9 +446,9 @@ public class EgresosBusinessLogic extends DataSourceManager {
             int eliminados = 0;
             if (encabezado.retencionEliminable(conn, idTipoRetencion)) {
                 insertados = encabezado.bitacoraRetEliminada(conn, idTipoRetencion);
-                log.info("Se registro la bitacora para la eliminacion de la retencion " + idTipoRetencion + " en el folio: " + encabezado.getFolioPago() + " Insertados: " + insertados);
+                log.info("Object: {}", "Se registro la bitacora para la eliminacion de la retencion " + idTipoRetencion + " en el folio: " + encabezado.getFolioPago() + " Insertados: " + insertados);
                 eliminados = encabezado.eliminaRetencion(conn, idTipoRetencion);
-                log.info("Se elimino la retencion " + idTipoRetencion + " en el folio: " + encabezado.getFolioPago() + " Eliminados: " + eliminados);
+                log.info("Object: {}", "Se elimino la retencion " + idTipoRetencion + " en el folio: " + encabezado.getFolioPago() + " Eliminados: " + eliminados);
             } else
                 throw new Exception("La retencion esta marcada como obligatoria por lo que no se puede eliminar.");
             conn.commit();
@@ -458,7 +458,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas ejecutando rollback: " + e2);
+                    log.warn("Object: {}", "Problemas ejecutando rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -493,7 +493,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas ejecutando rollback: " + e2);
+                    log.warn("Object: {}", "Problemas ejecutando rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -608,7 +608,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas ejecutando rollback: " + e2);
+                    log.warn("Object: {}", "Problemas ejecutando rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -645,7 +645,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("problemas en rollback: " + e2);
+                    log.warn("Object: {}", "problemas en rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -678,7 +678,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas ejecutando rollback: " + e2);
+                    log.warn("Object: {}", "Problemas ejecutando rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -739,7 +739,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas ejecutando rollback: " + e2);
+                    log.warn("Object: {}", "Problemas ejecutando rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -797,7 +797,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
             conn = getConnection();
             int insertados = QuestionnaireManager.insertPaymentsQuestionnaire(conn, encabezado);
             insertados += QuestionnaireManager.insertAnswersPayments(conn, encabezado);
-            log.debug("Se insertaron:  " + insertados + " registros de respuesta.");
+            log.debug("Object: {}", "Se insertaron:  " + insertados + " registros de respuesta.");
             conn.commit();
             return insertados;
         } catch (Exception e) {
@@ -805,7 +805,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas ejecutando rollback: " + e2);
+                    log.warn("Object: {}", "Problemas ejecutando rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -826,7 +826,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas ejecutando rollback: " + e2);
+                    log.warn("Object: {}", "Problemas ejecutando rollback: " + e2);
                 }
             throw e;
         } finally {

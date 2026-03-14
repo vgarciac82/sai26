@@ -135,7 +135,7 @@ public class CargaPagosBoletaje extends DataSourceManager {
                 if (brr != null)
                     brr.close();
             } catch (Exception e) {
-                log.warn("Problemas cerrando archivo. " + e);
+                log.warn("Object: {}", "Problemas cerrando archivo. " + e);
             } finally {
                 brr = null;
                 fileStream = null;

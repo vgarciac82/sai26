@@ -124,7 +124,7 @@ public class CorreosPendientesBusinessLogic extends DataSourceManager {
             try {
                 CloseObject.closeObject(conn, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             }
         }
         return exito;

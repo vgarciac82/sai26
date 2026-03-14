@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.core.FileItem;
 import com.syc.cfdi.ComponentesFactura;
 import com.syc.cfdi.FacturaBusinessLogic;
 import com.syc.cfdi.core.ExtraccionFacturas;
@@ -75,12 +75,12 @@ public class UploadREPZipServlet extends HttpServlet implements GestionInterface
                         String extension = Util.getFileExtencion(nombreArchivo);
                         if (!"zip".equalsIgnoreCase(extension))
                             throw new Exception("No se puede procesar archivos [" + extension + "] Corrija e intente de nuevo");
-                        log.info("Copiando archivo :" + nombreArchivo);
+                        log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                         nombreDestino = FacturaUtils.generaNombreZip(TEMP_DIR, extension);
-                        log.trace("Se genero el sig. nombre: " + nombreDestino);
+                        log.trace("Object: {}", "Se genero el sig. nombre: " + nombreDestino);
                         Util.copiaArchivo(archivoCargaStream, nombreDestino);
                         File ref = new File(nombreDestino);
-                        log.trace("Validando el archivo copiado: \nRuta: " + ref.getAbsolutePath() + "\nExiste: " + ref.exists() + "\nRead: " + ref.canRead() + "\nRead: " + ref.canRead() + "\nWrite: " + ref.canWrite() + "\nParent: " + ref.getParent() + "\nLength: " + ref.length());
+                        log.trace("Object: {}", "Validando el archivo copiado: \nRuta: " + ref.getAbsolutePath() + "\nExiste: " + ref.exists() + "\nRead: " + ref.canRead() + "\nRead: " + ref.canRead() + "\nWrite: " + ref.canWrite() + "\nParent: " + ref.getParent() + "\nLength: " + ref.length());
                         item.delete();
                     }
                 }
@@ -111,7 +111,7 @@ public class UploadREPZipServlet extends HttpServlet implements GestionInterface
                     try {
                         archivoCargaStream.close();
                     } catch (Exception e) {
-                        log.error("Error cerrando flujo DataInputStream" + e);
+                        log.error("Error occurred", "Error cerrando flujo DataInputStream" + e);
                     }
                 archivoCargaStream = null;
                 if (!"".equals(nombreDestino)) {
@@ -135,25 +135,25 @@ public class UploadREPZipServlet extends HttpServlet implements GestionInterface
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         try {
             InitialContext ic = new InitialContext();
             TEMP_DIR = (String) ic.lookup("java:comp/env/TemporaryDirectory");
             if (TEMP_DIR == null) {
                 TEMP_DIR = "../upload/Facturas/";
-                log.info("Environment Entry \"TEMP_DIR\" nula usando default \"" + TEMP_DIR + "\"");
+                log.info("Object: {}", "Environment Entry \"TEMP_DIR\" nula usando default \"" + TEMP_DIR + "\"");
             } else
-                log.info("dataSourceRefName=" + TEMP_DIR);
+                log.info("Object: {}", "dataSourceRefName=" + TEMP_DIR);
         } catch (NamingException exc) {
             TEMP_DIR = "../upload/Reps/";
-            log.info("Ocurrio un error que evito que se cargara la entrada \"TEMP_DIR\"" + exc);
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + TEMP_DIR + "\"");
+            log.info("Error occurred", "Ocurrio un error que evito que se cargara la entrada \"TEMP_DIR\"" + exc);
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + TEMP_DIR + "\"");
         }
         try {
             File f = new File(TEMP_DIR);
@@ -161,7 +161,7 @@ public class UploadREPZipServlet extends HttpServlet implements GestionInterface
                 if (!f.mkdirs())
                     throw new Exception("No se puede crear el directorio temporal " + TEMP_DIR);
         } catch (Exception e) {
-            log.error("No fue posible crear automaticamente el directorio temporal: " + TEMP_DIR + " Solicite su creacion manual");
+            log.error("Object: {}", "No fue posible crear automaticamente el directorio temporal: " + TEMP_DIR + " Solicite su creacion manual");
         }
     }
 }

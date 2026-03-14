@@ -17,7 +17,7 @@ public class CloseObject {
         try {
             closeObject(obj, false);
         } catch (Exception e) {
-            log.warn(e);
+            log.warn(e.getMessage(), e);
         }
         return cerrado;
     }
@@ -50,7 +50,7 @@ public class CloseObject {
                     log.trace("El objeto es un Connection. Se cierra");
                     ((Connection) obj).close();
                 } else {
-                    log.info("No se como cerrar objetos del tipo: " + obj.getClass().getName());
+                    log.info("Object: {}", "No se como cerrar objetos del tipo: " + obj.getClass().getName());
                     cerrado = false;
                 }
             }

@@ -202,7 +202,7 @@ public class ExpedientExporterBusinessLogic extends DataSourceManager {
                     String folioCaso = StringUtils.trim(toExport[1]);
                     int idGabinete = Integer.parseInt(StringUtils.trim(toExport[2]));
                     String concepto = toExport[3];
-                    log.info(String.format("Exportando expediente %d de %d CxP: %s Folio: %s Gabinete: %d", cnt, export.length, cuentaPorPagar, folioCaso, idGabinete));
+                    log.info("Object: {}", String.format("Exportando expediente %d de %d CxP: %s Folio: %s Gabinete: %d", cnt, export.length, cuentaPorPagar, folioCaso, idGabinete));
                     String zipExportName = System.getProperty("java.io.tmpdir") + File.separatorChar + cuentaPorPagar + ".zip";
                     logGeneralRenglon.setCuentaPorPagar(cuentaPorPagar);
                     Caso c = new Caso();

@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.log4j.LogManager;
 import org.json.JSONObject;
 import com.axtel.web.exceptions.SessionExpiredException;
 import com.syc.gestion.core.Caso;
@@ -34,7 +33,7 @@ public class ConvenioColaboracionServlet extends HttpServlet implements GestionI
      */
     private static final long serialVersionUID = 5496072673639795589L;
 
-    private static final Logger log = LogManager.getLogger(ConvenioColaboracionServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(ConvenioColaboracionServlet.class);
 
     private String jniName;
 
@@ -60,7 +59,7 @@ public class ConvenioColaboracionServlet extends HttpServlet implements GestionI
             cc = ConvenioColaboracionBussinessLogic.instanceFromRequest(req, folio, u);
             ConvenioColaboracionBussinessLogic ccbl = new ConvenioColaboracionBussinessLogic(jniName);
             int insertados = ccbl.insertaContratoColaboracion(cc);
-            log.info("Se insertaron " + insertados + " registros exitosamente");
+            log.info("Object: {}", "Se insertaron " + insertados + " registros exitosamente");
             msg = "Se inserto correctamente el convenio de colaboracion";
             success = true;
         } catch (SessionExpiredException e) {
@@ -95,8 +94,8 @@ public class ConvenioColaboracionServlet extends HttpServlet implements GestionI
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
         } catch (Exception exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
-        log.debug("Environment Entry \"dataSourceRefName\" \"" + jniName + "\"");
+        log.debug("Object: {}", "Environment Entry \"dataSourceRefName\" \"" + jniName + "\"");
     }
 }

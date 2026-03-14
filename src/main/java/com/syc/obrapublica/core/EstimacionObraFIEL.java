@@ -9,7 +9,6 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.LogManager;
 import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.fortimax.core.Aplicacion;
 import com.syc.fortimax.core.AplicacionManager;
@@ -38,7 +37,7 @@ import org.slf4j.LoggerFactory;
 
 public class EstimacionObraFIEL extends SolicitudFirmaElectronica {
 
-    private static final Logger log = LogManager.getLogger(EstimacionObraFIEL.class);
+    private static final Logger log = LoggerFactory.getLogger(EstimacionObraFIEL.class);
 
     private DataSourceManager ds = null;
 
@@ -70,7 +69,7 @@ public class EstimacionObraFIEL extends SolicitudFirmaElectronica {
                     try {
                         conn.rollback();
                     } catch (Exception e2) {
-                        log.warn("Problemas en rollback: " + e2);
+                        log.warn("Object: {}", "Problemas en rollback: " + e2);
                     }
             }
             CloseObject.closeObject(conn);
@@ -201,7 +200,7 @@ public class EstimacionObraFIEL extends SolicitudFirmaElectronica {
         try {
             filename = generaArchivoFirma(conn, vol, folder, parametrosReporte, "FIEL", nameReporte.toString(), isSignedCopy);
         } catch (NotEmptyDocumentException nede) {
-            log.warn("El documento no esta vacio. Se ignora" + nede);
+            log.warn("Object: {}", "El documento no esta vacio. Se ignora" + nede);
         } catch (Exception e) {
             throw new FirmaElectronicaException(e);
         }
@@ -342,7 +341,7 @@ public class EstimacionObraFIEL extends SolicitudFirmaElectronica {
 		 */
         parametrosReales = new StringBuilder("?");
         parametrosReales.append("fortimax=").append(fortimaxNode);
-        log.debug("Cadena generada: " + parametrosReales.toString());
+        log.debug("Object: {}", "Cadena generada: " + parametrosReales.toString());
         return parametrosReales.toString();
     }
 
@@ -809,7 +808,7 @@ public class EstimacionObraFIEL extends SolicitudFirmaElectronica {
         String voLegend = VO_BO_LEGEND_PREFIX.concat(" Firmado por: ").concat(nombre).concat(" | ").concat(puesto);
         if (tieneDelegatorioVoBO(conn)) {
             voLegend = VO_BO_LEGEND_PREFIX + " Firma " + getTipoSuplencia() + " de " + getNombreEmpleadoSuplido() + " con fundamento en el oficio: " + getFolioOficioVoBo() + " de fecha: " + getFechaOficioVoBo();
-            log.info(voLegend);
+            log.info("Object: {}", voLegend);
         }
         return voLegend;
     }
@@ -820,7 +819,7 @@ public class EstimacionObraFIEL extends SolicitudFirmaElectronica {
             String autLegend = AUT_LEGEND_PREFIX.concat(" Firmado por: ").concat(nombre).concat(" | ").concat(puesto);
             if (tieneDelegatorioAut(conn)) {
                 autLegend = AUT_LEGEND_PREFIX + ". Firma " + getTipoSuplenciaAut() + " de " + getNombreEmpleadoSuplidoAut() + " con fundamento en el oficio: " + getFolioOficioAut() + " de fecha: " + getFechaOficioAut();
-                log.info(autLegend);
+                log.info("Object: {}", autLegend);
             }
             return autLegend;
         } catch (Exception e) {

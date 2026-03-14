@@ -19,7 +19,7 @@ public class CompromisoPagoDirectoEncabezadoBusinessLogic extends DataSourceMana
     }
 
     public void insertaPagoDesdeSuficiencia(Caso c, Usuario user, String suficiencia) throws Exception {
-        log.info("Insertando pago directo desde suficiencia " + suficiencia);
+        log.info("Object: {}", "Insertando pago directo desde suficiencia " + suficiencia);
         Connection conn = null;
         try {
             conn = getConnection();

@@ -111,7 +111,7 @@ public class ReportePolizasManager {
         try {
             pst = conn.prepareStatement(query);
             rs = pst.executeQuery();
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             fileName = generaReporteREPExcel(rs, plantillas.get("EXTLISTADO"), unidad);
             return fileName;
         } finally {
@@ -168,7 +168,7 @@ public class ReportePolizasManager {
         try {
             pst = conn.prepareStatement(query);
             rs = pst.executeQuery();
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             fileName = generaReporteBoletosExcel(rs, plantillas.get("EXTBOLETOSCOMP"));
             return fileName;
         } finally {
@@ -185,7 +185,7 @@ public class ReportePolizasManager {
         try {
             pst = conn.prepareStatement(query);
             rs = pst.executeQuery();
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             fileName = generaReporteBoletosExcel(rs, plantillas.get("EXTBOLETOS"));
             return fileName;
         } finally {
@@ -294,16 +294,18 @@ public class ReportePolizasManager {
                         valor = valor.substring(0, 255);
                     } else if (i == 35) {
                         //valor = valor.replace("\"", "");
-                        valor = // reemplaza con espacio
-                        valor.replaceAll("[\\r\\n\\u00A0\\u2028\\u2029\\u200B\\t]", " ").replaceAll(" +", // colapsa múltiples espacios
-                        " ").trim();
+                        // reemplaza con espacio
+                        // colapsa múltiples espacios
+                        valor = // colapsa múltiples espacios
+                        valor.replaceAll("[\\r\\n\\u00A0\\u2028\\u2029\\u200B\\t]", " ").// colapsa múltiples espacios
+                        replaceAll(" +", " ").trim();
                     }
                     // PreparedStatement es 1-based
                     ps.setString(i + 1, valor);
                     sql2.append(valor + ",");
                 }
                 ps.addBatch();
-                log.debug("Agregando el CFDI:" + sql2.toString());
+                log.debug("Object: {}", "Agregando el CFDI:" + sql2.toString());
                 if (++count % batchSize == 0) {
                     ps.executeBatch();
                     conn.commit();

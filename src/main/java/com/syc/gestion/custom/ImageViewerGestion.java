@@ -1,7 +1,7 @@
 package com.syc.gestion.custom;
 
 import java.io.File;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import com.syc.fortimax.core.Fortimax;
 import com.syc.gestion.CasoBusinessLogic;
 import com.syc.gestion.core.GestionException;

@@ -64,7 +64,7 @@ public class RectificacionServlet extends HttpServlet {
                     out.println(new String(rectificacion.ValidaRectificacion(new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), usuario, adecProy.obtenEjercicioFiscal(), usuario.getU_Ramo(), usuario.getU_UR(), c, usuario.getPropiedad("CCENTROCONTABLE").getValor(), c.getCasoDato("FECHA_AP_CONT").getValor(), m, prefixPath, usuario.getLogin()).getBytes("UTF-8"), "ISO-8859-1"));
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    log.warn(ex.getMessage());
+                    log.warn("Object: {}", ex.getMessage());
                 }
             } else if ("2".equals(accion)) {
                 //AUTORIZACION RECTIFICACION
@@ -82,7 +82,7 @@ public class RectificacionServlet extends HttpServlet {
                     out.println(new String(rectificacion.aplicaRectificacion(c, m, prefixPath, usuario.getLogin(), usuario, fApl).getBytes("UTF-8"), "ISO-8859-1"));
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    log.warn(ex.getMessage());
+                    log.warn("Object: {}", ex.getMessage());
                 }
             } else if ("3".equals(accion)) {
                 //CANCELA RECTIFICACION
@@ -100,7 +100,7 @@ public class RectificacionServlet extends HttpServlet {
                     out.println(new String(rectificacion.cancelarAppContableNuevo(c, m, prefixPath, usuario.getLogin(), c.getCasoDato("FECHA_AP_CONT").getValor()).getBytes("UTF-8"), "ISO-8859-1"));
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    log.warn(ex.getMessage());
+                    log.warn("Object: {}", ex.getMessage());
                 }
             }
         }

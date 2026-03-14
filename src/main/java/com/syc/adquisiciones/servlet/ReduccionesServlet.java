@@ -75,24 +75,24 @@ public class ReduccionesServlet extends HttpServlet {
             jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jndiName == null) {
                 jndiName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
             } else
-                log.info("dataSourceRefName=" + jndiName);
+                log.info("Object: {}", "dataSourceRefName=" + jndiName);
         } catch (NamingException exc) {
             jndiName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
         }
         try {
             InitialContext ic = new InitialContext();
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
     }
 
@@ -151,7 +151,7 @@ public class ReduccionesServlet extends HttpServlet {
                         tem = centrosContables[i].split("-");
                         c = iniciaCaso(request, "14", tem[0]);
                         folioCaso = c.getFolio();
-                        log.info("Folio caso: " + c.getFolio());
+                        log.info("Object: {}", "Folio caso: " + c.getFolio());
                         int indice = folioCaso.lastIndexOf('-') + 1;
                         folio = Integer.parseInt(folioCaso.substring(indice));
                         Map<String, String> datos = new HashMap<String, String>();
@@ -206,7 +206,7 @@ public class ReduccionesServlet extends HttpServlet {
                 } else {
                     c = iniciaCaso(request, "14", usuario.getU_UR());
                     folioCaso = c.getFolio();
-                    log.info("Folio caso: " + c.getFolio());
+                    log.info("Object: {}", "Folio caso: " + c.getFolio());
                     int indice = folioCaso.lastIndexOf('-') + 1;
                     folio = Integer.parseInt(folioCaso.substring(indice));
                     Map<String, String> datos = new HashMap<String, String>();
@@ -309,7 +309,7 @@ public class ReduccionesServlet extends HttpServlet {
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion Contable, Consulte a su administrador.";
         }
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         Connection conn = null;
         AplicarContableReturn acr = null;
@@ -330,9 +330,9 @@ public class ReduccionesServlet extends HttpServlet {
             c = CasoManager.select(conn, sc);
             // Una vez que ha hecho la aplicación contable avanza el caso
             avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-            log.debug(c.getCasoDato("APLICADO_CONT").getValor());
+            log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
         } catch (Exception e) {
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
         } finally {
             try {
                 if (conn != null)
@@ -342,7 +342,7 @@ public class ReduccionesServlet extends HttpServlet {
             }
             conn = null;
         }
-        log.debug("Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: {}", "Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
         try {
             //Regresa el mensaje de la aplicación contable para que sea mostrado en el JSP
             mensaje = !"".equals(mensaje) ? mensaje : arrLResult.get(0);

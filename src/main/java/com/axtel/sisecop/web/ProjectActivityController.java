@@ -6,12 +6,12 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.axtel.sisecop.dto.ProyectoServicioActividadDTO;
 import com.axtel.sisecop.entities.ProyectoServicioActividad;
 import com.axtel.sisecop.services.ProjectActivityService;
@@ -44,11 +44,11 @@ public class ProjectActivityController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProyectoServicioActividadDTO activity = readActivity(request);
-        log.trace("JSON recibido correctamente y mapeado a objeto ProyectoServicioActividadDTO. " + activity);
+        log.trace("Object: {}", "JSON recibido correctamente y mapeado a objeto ProyectoServicioActividadDTO. " + activity);
         try {
-            log.debug("Saving activity: " + activity);
+            log.debug("Object: {}", "Saving activity: " + activity);
             ProyectoServicioActividad activitySaved = activityService.createActivity(activity);
-            log.info("Activity saved: " + activitySaved);
+            log.info("Object: {}", "Activity saved: " + activitySaved);
             Util.sendJSONResponse(response, activitySaved);
         } catch (Exception e) {
             log.error("Error saving porject: " + e.toString(), e);
@@ -60,10 +60,10 @@ public class ProjectActivityController extends HttpServlet {
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             int idActivity = Integer.parseInt(request.getParameter("id"));
-            log.info("Trying to delete " + idActivity + " budget item");
+            log.info("Object: {}", "Trying to delete " + idActivity + " budget item");
             Map<String, String> result = new HashMap<>();
             activityService.deleteActivity(idActivity);
-            log.info("Activity " + idActivity + " was deleted");
+            log.info("Object: {}", "Activity " + idActivity + " was deleted");
             result.put("deleted", "true");
             result.put("success", "true");
             result.put("rowsAfected", "1");
@@ -83,7 +83,7 @@ public class ProjectActivityController extends HttpServlet {
             }
         }
         String jsonString = jsonRequest.toString();
-        log.trace("Recibed: " + jsonString);
+        log.trace("Object: {}", "Recibed: " + jsonString);
         ProyectoServicioActividadDTO activity = objectMapper.readValue(jsonString, ProyectoServicioActividadDTO.class);
         return activity;
     }

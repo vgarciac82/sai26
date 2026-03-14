@@ -145,7 +145,7 @@ public class ProcessAgreement extends DataSourceManager {
                         }
                     }
                 } else {
-                    log.info("No es la hora programada de envio de emails para el proceso de contratos que está por teminar su vigencia; hora programada de ejecución=" + horaVerificacion + ", Hora en que se verifica= " + hoy.get(Calendar.HOUR_OF_DAY));
+                    log.info("Object: {}", "No es la hora programada de envio de emails para el proceso de contratos que está por teminar su vigencia; hora programada de ejecución=" + horaVerificacion + ", Hora en que se verifica= " + hoy.get(Calendar.HOUR_OF_DAY));
                 }
             } else {
                 log.info("No está habilitado el servicio de envio de correos para el proceso de contratos que está por teminar su vigencia");
@@ -157,9 +157,9 @@ public class ProcessAgreement extends DataSourceManager {
                     conn.rollback();
                 }
             } catch (SQLException e2) {
-                log.error("Error en el rollback: " + e2);
+                log.error("Error occurred", "Error en el rollback: " + e2);
             }
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
         } finally {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
@@ -290,7 +290,7 @@ public class ProcessAgreement extends DataSourceManager {
                             }
                         }
                     } else {
-                        log.info("No es la hora programada de envio de emails para el proceso de PAAAS vs Presupuesto; hora programada de ejecución=" + horaVerificacion + ", Hora en que se verifica= " + hoy.get(Calendar.HOUR_OF_DAY));
+                        log.info("Object: {}", "No es la hora programada de envio de emails para el proceso de PAAAS vs Presupuesto; hora programada de ejecución=" + horaVerificacion + ", Hora en que se verifica= " + hoy.get(Calendar.HOUR_OF_DAY));
                     }
                 } else {
                     log.info("No es el día 20 de cada mes; día de ejecución=");
@@ -305,9 +305,9 @@ public class ProcessAgreement extends DataSourceManager {
                     conn.rollback();
                 }
             } catch (SQLException e2) {
-                log.error("Error en el rollback: " + e2);
+                log.error("Error occurred", "Error en el rollback: " + e2);
             }
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
         } finally {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
@@ -354,7 +354,7 @@ public class ProcessAgreement extends DataSourceManager {
                     // Obtener las partidas a borrar del paas
                     tablaPartidas = manager.getListAreasPAAASPartidas(conn, fila.get(4));
                     if (tablaPartidas == null || tablaPartidas.isEmpty()) {
-                        log.info("No hay partidas con disponibilidad en el PAAAS para borrar de la unidade ejecutora : " + fila.get(4));
+                        log.info("Object: {}", "No hay partidas con disponibilidad en el PAAAS para borrar de la unidade ejecutora : " + fila.get(4));
                     } else {
                         filaPartidas = new ArrayList<String>();
                         itrPartidas = tablaPartidas.iterator();
@@ -376,9 +376,9 @@ public class ProcessAgreement extends DataSourceManager {
                     conn.rollback();
                 }
             } catch (SQLException e2) {
-                log.error("Error en el rollback: " + e2);
+                log.error("Error occurred", "Error en el rollback: " + e2);
             }
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
         } finally {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
@@ -420,7 +420,7 @@ public class ProcessAgreement extends DataSourceManager {
             if (infoRequis != null & !infoRequis.isEmpty()) {
                 for (int clave : infoRequis.keySet()) {
                     i = 0;
-                    log.info("Se enviara correo al empleado " + clave);
+                    log.info("Object: {}", "Se enviara correo al empleado " + clave);
                     table = infoRequis.get(clave);
                     itr = table.iterator();
                     bodymail.append(" <html>");
@@ -519,9 +519,9 @@ public class ProcessAgreement extends DataSourceManager {
                     conn.rollback();
                 }
             } catch (SQLException e2) {
-                log.error("Error en el rollback: " + e2);
+                log.error("Error occurred", "Error en el rollback: " + e2);
             }
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
         } finally {
             if (conn != null && !conn.isClosed()) {
                 conn.close();

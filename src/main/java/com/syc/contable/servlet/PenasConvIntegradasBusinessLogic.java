@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import com.syc.contable.core.PenasConvIntDetalle;
 import com.syc.contable.core.PenasConvIntEncabezado;
 import com.syc.contable.core.PenasConvIntegradasManager;

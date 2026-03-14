@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.core.FileItem;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -76,7 +76,7 @@ public class ContratacionFormalizadaServlet extends HttpServlet {
         }
         usuario = (Usuario) session.getAttribute(GestionInterface.ATT_USER);
         int tipoProceso = (request.getParameter("tipoProceso") == null || "".equalsIgnoreCase(request.getParameter("tipoProceso")) ? -1 : Integer.parseInt(request.getParameter("tipoProceso")));
-        log.debug("Proceso: " + tipoProceso);
+        log.debug("Object: {}", "Proceso: " + tipoProceso);
         prefixPath = getServletContext().getRealPath("/WEB-INF/mail-bodies/") + File.separator;
         switch(tipoProceso) {
             case //Contratos
@@ -182,7 +182,7 @@ public class ContratacionFormalizadaServlet extends HttpServlet {
                     break;
             }
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             jsonObj = new JSONObject();
             respuesta = false;
             mensaje = e.getMessage();
@@ -341,7 +341,7 @@ public class ContratacionFormalizadaServlet extends HttpServlet {
                     break;
             }
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             jsonObj = new JSONObject();
             respuesta = false;
             mensaje = e.getMessage();
@@ -407,7 +407,7 @@ public class ContratacionFormalizadaServlet extends HttpServlet {
                     break;
             }
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             jsonObj = new JSONObject();
             respuesta = false;
             mensaje = e.getMessage();
@@ -552,7 +552,7 @@ public class ContratacionFormalizadaServlet extends HttpServlet {
                     break;
             }
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             jsonObj = new JSONObject();
             respuesta = false;
             mensaje = e.getMessage();
@@ -644,7 +644,7 @@ public class ContratacionFormalizadaServlet extends HttpServlet {
             arrayObj = new JSONArray();
             mensaje = e.getMessage().toString();
             respuesta = false;
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             e.printStackTrace();
         } finally {
             business = null;
@@ -726,7 +726,7 @@ public class ContratacionFormalizadaServlet extends HttpServlet {
             arrayObj = new JSONArray();
             mensaje = e.getMessage().toString();
             respuesta = false;
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             e.printStackTrace();
         } finally {
             business = null;
@@ -1013,12 +1013,12 @@ public class ContratacionFormalizadaServlet extends HttpServlet {
             jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jndiName == null) {
                 jndiName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
             } else
-                log.info("dataSourceRefName=" + jndiName);
+                log.info("Object: {}", "dataSourceRefName=" + jndiName);
         } catch (NamingException exc) {
             jndiName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
         }
         // Put your code here
         try {
@@ -1026,12 +1026,12 @@ public class ContratacionFormalizadaServlet extends HttpServlet {
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
     }
 }

@@ -89,7 +89,7 @@ public class ExpedientInfoLogThread implements Runnable {
                     String cuentaPorPagar = StringUtils.trim(toExport[0]);
                     String folioCaso = StringUtils.trim(toExport[1]);
                     int idGabinete = Integer.parseInt(StringUtils.trim(toExport[2]));
-                    log.info((t == null ? "" : (t.getName() + ": ")) + ": " + String.format("Exportando expediente %d de %d CxP: %s Folio: %s Gabinete: %d", cnt, total, cuentaPorPagar, folioCaso, idGabinete));
+                    log.info("Object: {}", (t == null ? "" : (t.getName() + ": ")) + ": " + String.format("Exportando expediente %d de %d CxP: %s Folio: %s Gabinete: %d", cnt, total, cuentaPorPagar, folioCaso, idGabinete));
                     logGeneralRenglon.setCuentaPorPagar(cuentaPorPagar);
                     Caso c = new Caso();
                     c.setFolio(folioCaso);
@@ -116,7 +116,7 @@ public class ExpedientInfoLogThread implements Runnable {
                         if (conn != null)
                             conn.rollback();
                     } catch (Exception e2) {
-                        log.warn("Problemas con rollback: " + e2);
+                        log.warn("Object: {}", "Problemas con rollback: " + e2);
                     }
                     logGeneralRenglon.setLog(StringUtils.trimToEmpty(logGeneralRenglon.getLog()) + ";" + "Ocurrio el siguiente error al procesar el expediente: " + e);
                     log.error((t == null ? "" : (t.getName() + ": ")) + ": " + e, e);
@@ -125,7 +125,7 @@ public class ExpedientInfoLogThread implements Runnable {
                         if (conn != null)
                             conn.rollback();
                     } catch (Exception e2) {
-                        log.warn("Problemas con rollback: " + e2);
+                        log.warn("Object: {}", "Problemas con rollback: " + e2);
                     }
                     logGeneralRenglon.setLog(StringUtils.trimToEmpty(logGeneralRenglon.getLog()) + ";" + "Ocurrio el siguiente error al procesar el expediente: " + thr);
                     log.error((t == null ? "" : (t.getName() + ": ")) + ": " + thr, thr);
@@ -135,7 +135,7 @@ public class ExpedientInfoLogThread implements Runnable {
                 logGeneral.add(logGeneralRenglon);
                 infoRenglon = getNext();
             }
-            log.info((t == null ? "" : (t.getName() + ": ")) + ": " + "Proceso terminado");
+            log.info("Object: {}", (t == null ? "" : (t.getName() + ": ")) + ": " + "Proceso terminado");
         } catch (Exception e) {
             System.err.println("Error general:" + e);
             throw e;
@@ -149,7 +149,7 @@ public class ExpedientInfoLogThread implements Runnable {
         String retStr = null;
         if (export.size() > 0) {
             retStr = export.remove(index - 1);
-            log.debug((t == null ? "" : (t.getName() + ": ")) + " Devolviendo elemento en posicion " + index + " Valor: " + retStr);
+            log.debug("Object: {}", (t == null ? "" : (t.getName() + ": ")) + " Devolviendo elemento en posicion " + index + " Valor: " + retStr);
         }
         return retStr;
     }

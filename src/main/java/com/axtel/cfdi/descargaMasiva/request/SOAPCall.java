@@ -61,7 +61,7 @@ public class SOAPCall {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             soapResponse.writeTo(baos);
             String result = new String(baos.toByteArray(), "UTF-8");
-            log.info("Request SOAP Message:\nR E S U L T: \n" + result);
+            log.info("Object: {}", "Request SOAP Message:\nR E S U L T: \n" + result);
             soapConnection.close();
             return result;
         } catch (Exception e) {

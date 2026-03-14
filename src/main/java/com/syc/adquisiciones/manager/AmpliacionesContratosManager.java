@@ -28,7 +28,7 @@ public class AmpliacionesContratosManager implements OperacionesCRUD {
         boolean resp = false;
         try {
             query = "UPDATE dbo.mContratoAmpliacion SET mMontoNeto=" + map.get("mMontoNetoMod") + " WHERE cIdContratoDefinitivo='" + map.get("cIdContratoDef") + "' AND nIdConsecutivoAmpliacion=" + map.get("nIdConsecutivoAmpliacion");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstm = conn.prepareStatement(query);
             pstm.executeUpdate();
             resp = true;

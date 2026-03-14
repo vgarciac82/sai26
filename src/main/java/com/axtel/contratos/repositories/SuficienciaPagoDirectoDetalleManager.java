@@ -26,12 +26,12 @@ public class SuficienciaPagoDirectoDetalleManager {
             ps.setInt(6, bean.getCentroContable());
             ps.setString(7, bean.getUr());
             int rows = ps.executeUpdate();
-            log.info("Filas insertadas: " + rows);
+            log.info("Object: {}", "Filas insertadas: " + rows);
         }
     }
 
     public static List<SuficienciaPagoDirectoDetalle> findByFolio(Connection conn, int folio) throws SQLException {
-        log.info("Buscando Detalles para folio: " + folio);
+        log.info("Object: {}", "Buscando Detalles para folio: " + folio);
         List<SuficienciaPagoDirectoDetalle> list = new ArrayList<>();
         String sql = "SELECT * FROM tSuficienciaPagoDirectoDetalle WHERE nFolioSuficienciaPagoDirecto = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -54,7 +54,7 @@ public class SuficienciaPagoDirectoDetalleManager {
     }
 
     public static void update(Connection conn, SuficienciaPagoDirectoDetalle bean) throws SQLException {
-        log.info("Actualizando Detalle para folio: " + bean.getFolioSuficienciaPagoDirecto());
+        log.info("Object: {}", "Actualizando Detalle para folio: " + bean.getFolioSuficienciaPagoDirecto());
         String sql = "UPDATE tSuficienciaPagoDirectoDetalle SET cEP = ?, mImporte = ?, mImporteNegativo = ?, " + "cCentroContable = ?, cUR = ? WHERE nFolioSuficienciaPagoDirecto = ? AND nDocRenglon = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, bean.getEp());
@@ -65,17 +65,17 @@ public class SuficienciaPagoDirectoDetalleManager {
             ps.setInt(6, bean.getFolioSuficienciaPagoDirecto());
             ps.setInt(7, bean.getDocRenglon());
             int rows = ps.executeUpdate();
-            log.info("Filas actualizadas: " + rows);
+            log.info("Object: {}", "Filas actualizadas: " + rows);
         }
     }
 
     public static void deleteByFolio(Connection conn, int folio) throws SQLException {
-        log.info("Eliminando Detalles para folio: " + folio);
+        log.info("Object: {}", "Eliminando Detalles para folio: " + folio);
         String sql = "DELETE FROM tSuficienciaPagoDirectoDetalle WHERE nFolioSuficienciaPagoDirecto = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, folio);
             int rows = ps.executeUpdate();
-            log.info("Filas eliminadas: " + rows);
+            log.info("Object: {}", "Filas eliminadas: " + rows);
         }
     }
 }

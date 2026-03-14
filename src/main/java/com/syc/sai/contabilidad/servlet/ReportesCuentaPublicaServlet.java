@@ -128,9 +128,9 @@ public class ReportesCuentaPublicaServlet extends HttpServlet implements Gestion
         String reportSrcName = null;
         try {
             reportSrcName = ReportesCuentaPublicaServlet.REPORTS_BODY_ROOT + File.separator + reportType + ".bdy";
-            log.debug("Report Name -> " + reportSrcName);
+            log.debug("Object: {}", "Report Name -> " + reportSrcName);
             String reportPath = getServletContext().getRealPath(reportSrcName);
-            log.debug("Report Path-> " + reportPath);
+            log.debug("Object: {}", "Report Path-> " + reportPath);
             if (reportPath != null) {
                 is = new FileInputStream(reportPath);
             } else {

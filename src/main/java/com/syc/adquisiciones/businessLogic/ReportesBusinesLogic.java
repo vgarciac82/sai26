@@ -2,8 +2,8 @@ package com.syc.adquisiciones.businessLogic;
 
 import java.io.File;
 import java.sql.Connection;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
 import com.syc.adquisiciones.manager.ReportesManager;
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.gestion.util.Util;
@@ -38,7 +38,7 @@ public class ReportesBusinesLogic extends DataSourceManager {
         } catch (Exception e) {
             // TODO: handle exception
             conn.rollback();
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             throw (e);
         } finally {
             if (conn != null) {

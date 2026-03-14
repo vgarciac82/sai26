@@ -88,26 +88,26 @@ public class RecepcionImpl implements RecepcionInterfacce {
                     String queryAnticipos = "select sum(isnull(rma.mMontoAnticipoConIVA,0.00)) mMontoAnticipoConIVA,sum(isnull(rma.mMontoAnticipoSinIVA,0.00))mMontoAnticipoSinIVA,sum(isnull(rma.mMontoAnticipoIVA,0.00))mMontoAnticipoIVA " + " from mRecepcionpMat as rm with(Nolock) inner join mRecepcionpMatAnticipo as rma with(Nolock) on rm.cIdRecepMat=rma.cIdRecepMat and rm.cIdpedContDef=rma.cIdpedContDef " + " and rm.nIdConsecutivoRecepM=rma.nIdConsecutivoRecepM	where rm.cIdpedContDef='" + datosRecepcion.getcIdPedContDef() + "' and rm.cIdRecepMat like 'RA-'+SUBSTRING('" + datosRecepcion.getcIdRecepcionMat() + "',4,3)+'%' and nIdEstadoRecepMat<>4";
                     montoAnticipos = obtieneMontos(conn, queryAnticipos);
                 }
-                log.info("Anticipo ejercicio actual. montoAntConIVA=" + montoAnticipos[0] + "; montoAntSinIVA=" + montoAnticipos[1] + "; montoAntIVA=" + montoAnticipos[2]);
+                log.info("Object: {}", "Anticipo ejercicio actual. montoAntConIVA=" + montoAnticipos[0] + "; montoAntSinIVA=" + montoAnticipos[1] + "; montoAntIVA=" + montoAnticipos[2]);
                 //codigo para anticipos no ejercidos de ejercicios anteriores. "PLU".indexOf(datosRecepcion.getcIdPedContDef())>0
                 if (datosRecepcion.getcIdPedContDef().indexOf("PLU") != -1) {
                     String queryAnticiposEjerAnt = "select sum(isnull(rmaEjeAnt.mMontoAnticipoConIVA,0.00)) mMontoAnticipoConIVA " + ",sum(isnull(rmaEjeAnt.mMontoAnticipoSinIVA,0.00))mMontoAnticipoSinIVA,sum(isnull(rmaEjeAnt.mMontoAnticipoIVA,0.00))mMontoAnticipoIVA " + "From mRecepcionpMatAnticipoEjerciciosAnt rmaEjeAnt with(Nolock) where cIdpedContDef='" + datosRecepcion.getcIdPedContDef() + "'";
-                    log.info(queryAnticiposEjerAnt);
+                    log.info("Object: {}", queryAnticiposEjerAnt.toString());
                     montoAnticiposEjerAnt = obtieneMontos(conn, queryAnticiposEjerAnt);
                     montoAnticipos[0] = montoAnticipos[0] + montoAnticiposEjerAnt[0];
                     montoAnticipos[1] = montoAnticipos[1] + montoAnticiposEjerAnt[1];
                     montoAnticipos[2] = montoAnticipos[2] + montoAnticiposEjerAnt[2];
-                    log.info("Anticipo ejercicio anterior. montoAntConIVA=" + montoAnticiposEjerAnt[0] + "; montoAntSinIVA=" + montoAnticiposEjerAnt[1] + "; montoAntIVA=" + montoAnticiposEjerAnt[2]);
+                    log.info("Object: {}", "Anticipo ejercicio anterior. montoAntConIVA=" + montoAnticiposEjerAnt[0] + "; montoAntSinIVA=" + montoAnticiposEjerAnt[1] + "; montoAntIVA=" + montoAnticiposEjerAnt[2]);
                 }
                 //Obtener montos amortizados total o por partes
                 if (hayAnticipo || datosRecepcion.getcIdPedContDef().indexOf("PLU") != -1) {
                     String queryRecepAmortizadas = "select sum(rml.mMontoConIVARML)-sum(rm.mMontoConIVARM) mMontoConIVA,sum(rml.mMontoSinIVARML)-sum(rm.mMontoSinIVARM) mMontoSinIVA " + ",sum(rml.mMontoIVARML)-sum(rm.mMontoIVARM) mMontoIVA from(select sum(isnull(rm.mMontoConIVA,0.00))mMontoConIVARM ,sum(isnull(rm.mMontoSinIVA,0.00)) mMontoSinIVARM " + ",sum(isnull(rm.mMontoIVA,0.00)) mMontoIVARM ,rm.cIdpedContDef,rm.nIdConsecutivoRecepM,rm.cIdRecepMat,nIdEstadoRecepMat " + " from mRecepcionpMat as rm with(Nolock) group by  rm.cIdpedContDef,rm.nIdConsecutivoRecepM,rm.cIdRecepMat,nIdEstadoRecepMat " + " )rm inner join (select sum(isnull(rml.mMontoConIVA-isnull(mDescuentoConIVA,0.00),0.00))mMontoConIVARML ,sum(isnull(rml.mMontoSinIVA-isnull(mDescuentoSinIVA,0.00),0.00))mMontoSinIVARML" + "	,sum(isnull(rml.mMontoIVA-isnull(mDescuentoIVA,0.00),0.00))mMontoIVARML,rml.cIdpedContDef,cIdRecepMat,rml.nIdConsecutivoRecepM " + "	from mRecepcionpMatLineas as rml with(Nolock) group by rml.cIdpedContDef,cIdRecepMat,rml.nIdConsecutivoRecepM " + " )rml on rm.cIdRecepMat=rml.cIdRecepMat and rm.cIdpedContDef=rml.cIdpedContDef and rm.nIdConsecutivoRecepM=rml.nIdConsecutivoRecepM " + " and rm.nIdConsecutivoRecepM=rml.nIdConsecutivoRecepM where rm.cIdpedContDef='" + datosRecepcion.getcIdPedContDef() + "' and nIdEstadoRecepMat in(2,3,5)";
-                    log.info(queryRecepAmortizadas);
+                    log.info("Object: {}", queryRecepAmortizadas.toString());
                     montosAmortizados = obtieneMontos(conn, queryRecepAmortizadas);
                     montoAnticipos[0] = montoAnticipos[0] - montosAmortizados[0];
                     montoAnticipos[1] = montoAnticipos[1] - montosAmortizados[1];
                     montoAnticipos[2] = montoAnticipos[2] - montosAmortizados[2];
-                    log.info("Anticipo total. montoAntConIVA=" + montoAnticipos[0] + "; montoAntSinIVA=" + montoAnticipos[1] + "; montoAntIVA=" + montoAnticipos[2]);
+                    log.info("Object: {}", "Anticipo total. montoAntConIVA=" + montoAnticipos[0] + "; montoAntSinIVA=" + montoAnticipos[1] + "; montoAntIVA=" + montoAnticipos[2]);
                 }
             } else {
                 //Con factor de amortización
@@ -117,14 +117,14 @@ public class RecepcionImpl implements RecepcionInterfacce {
             //Obtener los montos de la recepción a pagar.
             String queryRecep = "select isnull(mMontoConIVA,0.00) ,isnull(mMontoSinIVA,0.00),isnull(mMontoIVA,0.00) " + " from mRecepcionpMat with(Nolock) where cIdpedContDef='" + datosRecepcion.getcIdPedContDef() + "' and cIdRecepMat='" + datosRecepcion.getcIdRecepcionMat() + "'";
             montosRecep = obtieneMontos(conn, queryRecep);
-            log.info("montoRecepMatConIVA=" + montosRecep[0] + "; montoRecepMatSinIVA=" + montosRecep[1] + "; montoRecepMatIVA=" + montosRecep[2]);
+            log.info("Object: {}", "montoRecepMatConIVA=" + montosRecep[0] + "; montoRecepMatSinIVA=" + montosRecep[1] + "; montoRecepMatIVA=" + montosRecep[2]);
             //Validar montos
             montosRemanenteSinIVA = validaMontos(montoAnticipos[1], montosRecep[1]);
-            log.info("montosRemanenteAntSinIVA=" + montosRemanenteSinIVA[0] + "; montosRemanenteRMSinIVA=" + montosRemanenteSinIVA[1]);
+            log.info("Object: {}", "montosRemanenteAntSinIVA=" + montosRemanenteSinIVA[0] + "; montosRemanenteRMSinIVA=" + montosRemanenteSinIVA[1]);
             montosRemanenteIVA = validaMontos(montoAnticipos[2], montosRecep[2]);
-            log.info("montosRemanenteAntIVA=" + montosRemanenteIVA[0] + "; montosRemanenteRMIVA=" + montosRemanenteIVA[1]);
+            log.info("Object: {}", "montosRemanenteAntIVA=" + montosRemanenteIVA[0] + "; montosRemanenteRMIVA=" + montosRemanenteIVA[1]);
             montosRemanenteConIVA = validaMontos(montoAnticipos[0], montosRecep[0]);
-            log.info("montosRemanenteAntConIVA=" + montosRemanenteConIVA[0] + "; montosRemanenteRMConIVA=" + montosRemanenteConIVA[1]);
+            log.info("Object: {}", "montosRemanenteAntConIVA=" + montosRemanenteConIVA[0] + "; montosRemanenteRMConIVA=" + montosRemanenteConIVA[1]);
             //Actualizar Anticipo  y recepción
             int nEstatus = 5;
             if (montoAnticipos[0] < montosRecep[0]) {
@@ -167,7 +167,7 @@ public class RecepcionImpl implements RecepcionInterfacce {
         boolean resp = false;
         try {
             String query = "select *from mRecepcionpMat with(Nolock) where cIdpedContDef='" + datosRecepcion.getcIdPedContDef() + "' and cIdRecepMat like 'RA-'+SUBSTRING('" + datosRecepcion.getcIdRecepcionMat() + "',4,3)+'%'" + " and nIdEstadoRecepMat<>4";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             if (rs.next()) {
@@ -191,7 +191,7 @@ public class RecepcionImpl implements RecepcionInterfacce {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             if (rs.next()) {
@@ -237,12 +237,12 @@ public class RecepcionImpl implements RecepcionInterfacce {
         try {
             //Actualiza Anticipo
             String queryAnticipo = "update mRecepcionpMat set mMontoConIVA=" + montoRemanenteAnt[0] + ",mMontoSinIVA=" + montoRemanenteAnt[1] + ",mMontoIVA=" + montoRemanenteAnt[2] + " where cIdpedContDef='" + datosRecepcion.getcIdPedContDef() + "' and cIdRecepMat='" + datosRecepcion.getcIdRecepAnticipo() + "' and nIdEstadoRecepMat<>4";
-            log.info(queryAnticipo);
+            log.info("Object: {}", queryAnticipo.toString());
             pstmAnt = conn.prepareStatement(queryAnticipo);
             pstmAnt.executeUpdate();
             //Actualiza Recepción de Material
             String queryRM = "update mRecepcionpMat set mMontoConIVA=" + montoRemanenteRM[0] + ",mMontoSinIVA=" + montoRemanenteRM[1] + ",mMontoIVA=" + montoRemanenteRM[2] + ",nIdEstadoRecepMat=" + nEstatus + " where cIdpedContDef='" + datosRecepcion.getcIdPedContDef() + "' and cIdRecepMat='" + datosRecepcion.getcIdRecepcionMat() + "'";
-            log.info(queryRM);
+            log.info("Object: {}", queryRM.toString());
             pstmRM = conn.prepareStatement(queryRM);
             pstmRM.executeUpdate();
             resp = true;

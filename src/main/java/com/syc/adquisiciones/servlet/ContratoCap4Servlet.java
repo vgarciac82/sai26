@@ -80,7 +80,7 @@ public class ContratoCap4Servlet extends HttpServlet {
             }
         } catch (Exception e) {
             // TODO: handle exception
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             e.printStackTrace();
         }
     }
@@ -103,7 +103,7 @@ public class ContratoCap4Servlet extends HttpServlet {
             jsonObj = new JSONObject();
             out = response.getWriter();
             int tipoOperacion = Integer.parseInt(request.getParameter("operacion"));
-            log.debug("operacion: " + tipoOperacion);
+            log.debug("Object: {}", "operacion: " + tipoOperacion);
             String prefixPath = getServletContext().getRealPath("/WEB-INF/mail-bodies/") + File.separator;
             switch(tipoOperacion) {
                 case //Nuevo
@@ -289,12 +289,12 @@ public class ContratoCap4Servlet extends HttpServlet {
                 conn.rollback();
                 e.printStackTrace();
                 mensaje = "Error: " + new String(e.getMessage().getBytes("UTF-8"), "ISO-8859-1");
-                log.error(e.getMessage());
+                log.error("Object: {}", e.getMessage());
             } catch (SQLException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
                 mensaje = "Error: " + new String(e1.getMessage().getBytes("UTF-8"), "ISO-8859-1");
-                log.error(e1.getMessage());
+                log.error("Object: {}", e1.getMessage());
             }
         } finally {
             try {
@@ -307,10 +307,10 @@ public class ContratoCap4Servlet extends HttpServlet {
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-                log.error(e.getMessage());
+                log.error("Object: {}", e.getMessage());
             } catch (JSONException ex) {
                 ex.printStackTrace();
-                log.error(ex.getMessage());
+                log.error("Object: {}", ex.getMessage());
             }
             String destino = arrayObj.put(jsonObj).toString();
             out.println(destino);
@@ -358,7 +358,7 @@ public class ContratoCap4Servlet extends HttpServlet {
             arrayValores = arrayTabla[i].split("-");
             fechasCont.setIdFecha(Integer.parseInt(arrayValores[0]));
             fechasCont.setValue(arrayValores[1]);
-            log.info("IdFecha=" + arrayValores[0] + " fecha=" + arrayValores[1]);
+            log.info("Object: {}", "IdFecha=" + arrayValores[0] + " fecha=" + arrayValores[1]);
             arrayFechas.add(fechasCont);
             fechasCont = null;
             arrayValores = null;
@@ -373,7 +373,7 @@ public class ContratoCap4Servlet extends HttpServlet {
         //cadenaPartidas+=aData[0]+"-"+$("#cDescripAdi_"+aData[0]).val()+"-"+cantMin+"-"+cantMax+"-"+precioU+"-"+precioUMax
         //             +"-"+mMontoNetoLine+"-"+mMontoNetoMin+"-"+mMontoNetoMax+"-"+mMontoNetoPluri+"-"+nIdIVA+"-"+mMontoNetoLineOrig+"-"+mMontoNetoMaxOrig+"-"+cidUniMed;
         String cadenaPartidas = request.getParameter("cadenaPartidas");
-        log.info("Cadena : " + cadenaPartidas);
+        log.info("Object: {}", "Cadena : " + cadenaPartidas);
         String[] arrayTupla = cadenaPartidas.split(",");
         String[] arrayValores = null;
         for (int i = 0; i < arrayTupla.length; i++) {
@@ -393,7 +393,7 @@ public class ContratoCap4Servlet extends HttpServlet {
             partidaCont.setmMontoNetoLineaOrig(Math.round(Double.parseDouble(arrayValores[11]) * 100) / 100.0d);
             partidaCont.setmMontoNetoMaxOrig(Math.round(Double.parseDouble(arrayValores[12]) * 100) / 100.0d);
             partidaCont.setcIdUnidadMedida(arrayValores[13]);
-            log.info("IdContatoPartida=" + arrayValores[0] + " DescripAdi=" + arrayValores[1] + " CantidadMin=" + arrayValores[2] + " CantidadMax=" + arrayValores[3] + " PrecioU=" + arrayValores[4] + " PrecioUMa=" + arrayValores[5] + " MontoNetoLinea=" + arrayValores[6] + " MontoNetoMin=" + arrayValores[7] + " MontoNetoMax=" + arrayValores[8] + " MontoNetoPluri=" + arrayValores[9] + " nIdIVA=" + arrayValores[10] + " MontoNetoLineaOrig=" + arrayValores[11] + " MontoNetoMaxOrig=" + arrayValores[12] + " cidUniMed=" + arrayValores[13]);
+            log.info("Object: {}", "IdContatoPartida=" + arrayValores[0] + " DescripAdi=" + arrayValores[1] + " CantidadMin=" + arrayValores[2] + " CantidadMax=" + arrayValores[3] + " PrecioU=" + arrayValores[4] + " PrecioUMa=" + arrayValores[5] + " MontoNetoLinea=" + arrayValores[6] + " MontoNetoMin=" + arrayValores[7] + " MontoNetoMax=" + arrayValores[8] + " MontoNetoPluri=" + arrayValores[9] + " nIdIVA=" + arrayValores[10] + " MontoNetoLineaOrig=" + arrayValores[11] + " MontoNetoMaxOrig=" + arrayValores[12] + " cidUniMed=" + arrayValores[13]);
             arrayPartida.add(partidaCont);
             arrayValores = null;
             partidaCont = null;
@@ -414,12 +414,12 @@ public class ContratoCap4Servlet extends HttpServlet {
             jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jndiName == null) {
                 jndiName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
             } else
-                log.info("dataSourceRefName=" + jndiName);
+                log.info("Object: {}", "dataSourceRefName=" + jndiName);
         } catch (NamingException exc) {
             jndiName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
         }
         // Put your code here
         try {
@@ -427,12 +427,12 @@ public class ContratoCap4Servlet extends HttpServlet {
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
     }
 }

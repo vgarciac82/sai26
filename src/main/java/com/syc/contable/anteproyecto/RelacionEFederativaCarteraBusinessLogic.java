@@ -58,7 +58,7 @@ public class RelacionEFederativaCarteraBusinessLogic extends DataSourceManager {
                 try {
                     stream.close();
                 } catch (Exception e2) {
-                    log.warn("No se pudo cerrar el archivo de carga." + e2);
+                    log.warn("Object: {}", "No se pudo cerrar el archivo de carga." + e2);
                 }
             stream = null;
         }
@@ -88,14 +88,14 @@ public class RelacionEFederativaCarteraBusinessLogic extends DataSourceManager {
                 Cell CellcEntidadFederativa = row.getCell(0);
                 Cell CellcCartera = row.getCell(1);
                 if (CellcEntidadFederativa != null) {
-                    log.debug("Procesando renglon " + (renglon));
+                    log.debug("Object: {}", "Procesando renglon " + (renglon));
                     try {
                         String cEntidadFederativa = CellcEntidadFederativa.getStringCellValue();
                         String cCartera = CellcCartera.getStringCellValue();
                         renglonMap = new HashMap<String, String>();
                         renglonMap.put("cEntidadFederativa", cEntidadFederativa);
                         renglonMap.put("cCartera", cCartera);
-                        log.debug("cEntidadFederativa[" + cEntidadFederativa + "] cCartera[" + cCartera);
+                        log.debug("Object: {}", "cEntidadFederativa[" + cEntidadFederativa + "] cCartera[" + cCartera);
                         RelacionEFederativaCarteraManager.insertaRenglonEFederativaCartera(conn, renglonMap);
                     } catch (Exception e) {
                         renglonInsertada = false;
@@ -115,7 +115,7 @@ public class RelacionEFederativaCarteraBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("No se pudo realizar rollback en conexion" + e2);
+                    log.warn("Object: {}", "No se pudo realizar rollback en conexion" + e2);
                 }
             throw e;
         } finally {

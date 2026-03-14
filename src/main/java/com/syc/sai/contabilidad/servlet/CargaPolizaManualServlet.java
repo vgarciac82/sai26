@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.core.FileItem;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
@@ -84,10 +84,10 @@ public class CargaPolizaManualServlet extends HttpServlet {
                     if (!"xls".equalsIgnoreCase(extension))
                         throw new Exception("No se puede procesar archivos [" + extension + "] Corrija e intente de nuevo");
                     nombreDestino = CargaPolizaManualServlet.TEMP_DIR + "CARGA_POLIZAMANUAL_" + System.currentTimeMillis() + "." + extension;
-                    log.info("Copiando archivo :" + nombreArchivo);
+                    log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                     Util.copiaArchivo(archivoCargaStream, nombreDestino);
                     item.delete();
-                    log.debug("Procesando archivo:" + nombreArchivo);
+                    log.debug("Object: {}", "Procesando archivo:" + nombreArchivo);
                     List<String> mensajes = cpmbl.cargaExcelPolizaManual(nombreDestino, FolioDocumento, CentroContable, EjercicioFiscal);
                     if (mensajes.size() > 0) {
                         for (int i = 0; i < mensajes.size(); i++) mensajeRetorno += " " + mensajes.get(i).replace("'", "").replace('"', ' ');
@@ -114,13 +114,13 @@ public class CargaPolizaManualServlet extends HttpServlet {
                     try {
                         archivoCargaStream.close();
                     } catch (Exception e) {
-                        log.error("Error cerrando flujo DataInputStream" + e);
+                        log.error("Error occurred", "Error cerrando flujo DataInputStream" + e);
                     }
                 if (archivoCargaIS != null)
                     try {
                         archivoCargaIS.close();
                     } catch (Exception e) {
-                        log.error("Error cerrando flujo InputStream" + e);
+                        log.error("Error occurred", "Error cerrando flujo InputStream" + e);
                     }
                 archivoCargaIS = null;
                 archivoCargaStream = null;
@@ -133,7 +133,7 @@ public class CargaPolizaManualServlet extends HttpServlet {
             session.setAttribute("folio", FolioDocumento);
             session.setAttribute(GestionInterface.ATT_FOLIOPOLIZA, FolioDocumento);
             session.setAttribute("MENSAJE_CARGA", mensajeRetorno);
-            log.info(mensajeRetorno);
+            log.info("Object: {}", mensajeRetorno);
             resp.sendRedirect("../../Generador/PolizasEvento.jsp");
         }
         // fin del if de accion
@@ -147,13 +147,13 @@ public class CargaPolizaManualServlet extends HttpServlet {
             TEMP_DIR = (String) ic.lookup("java:comp/env/TemporaryDirectory");
             if (TEMP_DIR == null) {
                 TEMP_DIR = "../upload/PEF/";
-                log.info("Environment Entry \"TEMP_DIR\" nula usando default \"" + TEMP_DIR + "\"");
+                log.info("Object: {}", "Environment Entry \"TEMP_DIR\" nula usando default \"" + TEMP_DIR + "\"");
             } else
-                log.info("dataSourceRefName=" + TEMP_DIR);
+                log.info("Object: {}", "dataSourceRefName=" + TEMP_DIR);
         } catch (NamingException exc) {
             TEMP_DIR = "../upload/PEF/";
-            log.info("Ocurrio un error que evito que se cargara la entrada \"TEMP_DIR\"" + exc);
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + TEMP_DIR + "\"");
+            log.info("Error occurred", "Ocurrio un error que evito que se cargara la entrada \"TEMP_DIR\"" + exc);
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + TEMP_DIR + "\"");
         }
     }
 

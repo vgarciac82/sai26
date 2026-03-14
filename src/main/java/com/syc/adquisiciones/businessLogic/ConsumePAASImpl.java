@@ -56,7 +56,7 @@ public class ConsumePAASImpl extends DataSourceManager implements ConsumePAASInt
                 respuesta.setMsg("Datos Guardados.");
                 respuesta.setResp(resp);
             } else {
-                log.warn(respuesta.getMsg());
+                log.warn("Object: {}", respuesta.getMsg());
                 conn.rollback();
             }
         } catch (Exception e) {
@@ -67,7 +67,7 @@ public class ConsumePAASImpl extends DataSourceManager implements ConsumePAASInt
             e.printStackTrace();
             respuesta.setMsg(e.getMessage());
             respuesta.setResp(false);
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
         } finally {
             if (conn != null) {
                 conn.close();
@@ -98,7 +98,7 @@ public class ConsumePAASImpl extends DataSourceManager implements ConsumePAASInt
             e.printStackTrace();
             respuesta.setMsg(e.getMessage());
             respuesta.setResp(false);
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
         } finally {
             if (conn != null) {
                 conn.close();
@@ -155,7 +155,7 @@ public class ConsumePAASImpl extends DataSourceManager implements ConsumePAASInt
                 respuesta.setMsg("Registro Eliminado.");
                 respuesta.setResp(resp);
             } else {
-                log.warn(respuesta.getMsg());
+                log.warn("Object: {}", respuesta.getMsg());
                 conn.rollback();
             }
         } catch (Exception e) {
@@ -163,7 +163,7 @@ public class ConsumePAASImpl extends DataSourceManager implements ConsumePAASInt
             e.printStackTrace();
             respuesta.setMsg(e.getMessage());
             respuesta.setResp(false);
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
         } finally {
             if (conn != null) {
                 conn.close();

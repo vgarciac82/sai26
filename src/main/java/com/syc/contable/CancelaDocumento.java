@@ -76,7 +76,7 @@ public class CancelaDocumento extends DataSourceManager {
             u.setLogin(uLogin);
             u = UsuarioManager.select(conn, u);
             AplicacionContable ci = new AplicacionContable();
-            log.debug("Cancelacion con motor nuevo del folio: " + c.getFolio());
+            log.debug("Object: {}", "Cancelacion con motor nuevo del folio: " + c.getFolio());
             if (c.getIdTC() != 3) {
                 AplicarContableReturn acr = ci.cancelarAppContableNueva(conn, c, "", "", "", 0, "", m, prefixPath, uLogin, cFecha);
                 int nFolio = Integer.parseInt(cFolioDocto.substring((cFolioDocto.lastIndexOf('-') + 1)));
@@ -105,7 +105,7 @@ public class CancelaDocumento extends DataSourceManager {
             } else {
                 retVal = "Las Adecuaciones presupuestales NO se cancelan desde esta pantalla. Favor de contactar a la Gerencia de Presupuesto";
             }
-            log.debug(retVal);
+            log.debug("Object: {}", retVal);
             return retVal;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -113,7 +113,7 @@ public class CancelaDocumento extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -135,7 +135,7 @@ public class CancelaDocumento extends DataSourceManager {
                 conn.commit();
             }
         } catch (Exception e) {
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
             try {
                 conn.rollback();
             } catch (Exception ee) {

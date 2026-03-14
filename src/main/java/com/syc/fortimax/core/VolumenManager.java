@@ -85,7 +85,7 @@ public class VolumenManager {
                             if (!makeDirectories(v))
                                 throw new SQLException("No se logro crear directorio " + v.getPath());
                     } catch (Exception exc) {
-                        log.error(exc);
+                        log.error(exc.getMessage(), exc);
                         throw new SQLException(exc);
                     }
                 } else {
@@ -95,7 +95,7 @@ public class VolumenManager {
                             if (!makeDirectories(v))
                                 throw new SQLException("No se logro crear directorio " + v.getPath());
                     } catch (Exception exc) {
-                        log.error(exc);
+                        log.error(exc.getMessage(), exc);
                         throw new SQLException(exc);
                     }
                 }

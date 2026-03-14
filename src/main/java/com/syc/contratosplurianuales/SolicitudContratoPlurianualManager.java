@@ -15,8 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -740,12 +740,12 @@ public class SolicitudContratoPlurianualManager {
                 ZipEntry ze = new ZipEntry(pdfName);
                 zos.putNextEntry(ze);
                 JasperRunManager.runReportToPdfStream(in, zos, parametrosReporte, conn);
-                log.debug("Procesando reporte del folio" + folio + " y el contrato anterior fue " + folioAnterior);
+                log.debug("Object: {}", "Procesando reporte del folio" + folio + " y el contrato anterior fue " + folioAnterior);
                 if (in != null)
                     try {
                         in.close();
                     } catch (Exception e) {
-                        log.warn("Problemas cerrando reporte. " + e);
+                        log.warn("Object: {}", "Problemas cerrando reporte. " + e);
                     }
             }
             if (zos != null) {

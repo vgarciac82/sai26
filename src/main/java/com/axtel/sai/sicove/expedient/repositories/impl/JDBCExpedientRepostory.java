@@ -8,7 +8,6 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.LogManager;
 import com.axtel.sai.sicove.exceptions.SicoveException;
 import com.axtel.sai.sicove.expedient.entities.DocumentFortimax;
 import com.axtel.sai.sicove.expedient.repositories.ExpedientRepository;
@@ -30,7 +29,7 @@ import org.slf4j.LoggerFactory;
 
 public class JDBCExpedientRepostory implements ExpedientRepository {
 
-    private static final Logger log = LogManager.getLogger(JDBCExpedientRepostory.class);
+    private static final Logger log = LoggerFactory.getLogger(JDBCExpedientRepostory.class);
 
     private final QueryRunner run = new QueryRunner();
 
@@ -67,7 +66,7 @@ public class JDBCExpedientRepostory implements ExpedientRepository {
 
     @Override
     public List<DocumentFortimax> getExpedientDocuments(Connection conn, int idProcess, String folderExclude) throws SicoveException {
-        log.info("Searching expedient for process " + idProcess);
+        log.info("Object: {}", "Searching expedient for process " + idProcess);
         StringBuilder query = new StringBuilder(queryExpedientBase);
         query.append("       LEFT JOIN imx_pagina pag ");
         query.append("              ON doc.titulo_aplicacion = pag.titulo_aplicacion ");
@@ -81,12 +80,12 @@ public class JDBCExpedientRepostory implements ExpedientRepository {
             query.append("       AND folder.nombre_carpeta <> ? ");
         List<DocumentFortimax> documents;
         try {
-            log.trace("Executing: \n" + query + "\n[" + idProcess + "]" + "\n[" + StringUtils.trimToEmpty(folderExclude) + "]");
+            log.trace("Object: {}", "Executing: \n" + query + "\n[" + idProcess + "]" + "\n[" + StringUtils.trimToEmpty(folderExclude) + "]");
             if (!StringUtils.isEmpty(folderExclude))
                 documents = run.query(conn, query.toString(), resultListHandler, idProcess, folderExclude);
             else
                 documents = run.query(conn, query.toString(), resultListHandler, idProcess);
-            log.debug("Retriving " + documents);
+            log.debug("Object: {}", "Retriving " + documents);
             return documents;
         } catch (SQLException e) {
             throw new SicoveException(e);
@@ -95,7 +94,7 @@ public class JDBCExpedientRepostory implements ExpedientRepository {
 
     @Override
     public List<DocumentFortimax> getExpedientCapturedDocuments(Connection conn, int idProcess, String folderExclude) throws SicoveException {
-        log.info("Searching expedient for process " + idProcess);
+        log.info("Object: {}", "Searching expedient for process " + idProcess);
         StringBuilder query = new StringBuilder(queryExpedientBase);
         query.append("       INNER JOIN imx_pagina pag ");
         query.append("              ON doc.titulo_aplicacion = pag.titulo_aplicacion ");
@@ -108,12 +107,12 @@ public class JDBCExpedientRepostory implements ExpedientRepository {
             query.append("       AND folder.nombre_carpeta <> ? ");
         List<DocumentFortimax> documents;
         try {
-            log.trace("Executing: \n" + query + "\n[" + idProcess + "]");
+            log.trace("Object: {}", "Executing: \n" + query + "\n[" + idProcess + "]");
             if (!StringUtils.isEmpty(folderExclude))
                 documents = run.query(conn, query.toString(), resultListHandler, idProcess, folderExclude);
             else
                 documents = run.query(conn, query.toString(), resultListHandler, idProcess);
-            log.debug("Retriving " + documents);
+            log.debug("Object: {}", "Retriving " + documents);
             return documents;
         } catch (SQLException e) {
             throw new SicoveException(e);
@@ -186,7 +185,7 @@ public class JDBCExpedientRepostory implements ExpedientRepository {
         oc.setNombreHija(folderName);
         oc.setTituloAplicacion(processName);
         OrgCarpetaManager.insert(conn, oc);
-        log.trace("Folder [" + folderName + "] created successfully");
+        log.trace("Object: {}", "Folder [" + folderName + "] created successfully");
         return folder;
     }
 }

@@ -3,11 +3,11 @@ package com.syc.gestion.reportes.core;
 import java.io.IOException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 //import  com.syc.admin.servlet.SeguridadCatalogos;
 import com.syc.gestion.reportes.ReporteBussinesLogic;
 import org.slf4j.Logger;
@@ -28,12 +28,12 @@ public class ConsultaPolizasSelec extends HttpServlet {
             jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jndiName == null) {
                 jndiName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
             } else
-                log.info("dataSourceRefName=" + jndiName);
+                log.info("Object: {}", "dataSourceRefName=" + jndiName);
         } catch (NamingException exc) {
             jndiName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
         }
     }
 
@@ -61,16 +61,16 @@ public class ConsultaPolizasSelec extends HttpServlet {
         if (selection != null)
             for (int i = 0; i < selection.length; i++) {
                 num_checkbox = selection[i];
-                log.info("ConsultaPolizasSeleccionadas - num_checkbox " + num_checkbox);
+                log.info("Object: {}", "ConsultaPolizasSeleccionadas - num_checkbox " + num_checkbox);
                 if (num_checkbox == null) {
-                    log.warn("No se encontro num_checkbox para " + selection[i]);
+                    log.warn("Object: {}", "No se encontro num_checkbox para " + selection[i]);
                     continue;
                 }
                 //				SeguridadCatalogos( request,  response);
                 //				var url = "../admin/SeguridadCatalogos?catalogo=REPORTE&accion=run&rn=PolizaConagua.jasper<%=paramPoliza%>";
                 //				var ventimp = window.open(url, "popacuse", "scrollbars=1, resizable=yes, width=1024, height=768");
                 try {
-                    log.info("Entrando a strOpcion=1, modificaSOL con la Solicitud " + num_checkbox);
+                    log.info("Object: {}", "Entrando a strOpcion=1, modificaSOL con la Solicitud " + num_checkbox);
                     //				          sbl.modificaSOL(num_checkbox, strnoAcuerdo, strnoFolioSiaff);
                 } catch (Exception exc) {
                     log.error("aplicaModifAMF", exc);

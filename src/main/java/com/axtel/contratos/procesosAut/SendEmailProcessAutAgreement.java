@@ -16,7 +16,7 @@ public class SendEmailProcessAutAgreement {
 			 */
             process.sendEmailAgreement();
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             e.printStackTrace();
         } finally {
             process = null;

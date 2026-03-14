@@ -37,17 +37,17 @@ public class ReenviaAlertasServlet extends HttpServlet implements GestionInterfa
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         ConfiguraAplicativoBusinessLogic cabl = new ConfiguraAplicativoBusinessLogic(jniName);
         ReenviaAlertasServlet.activarReenvioAlertas = "S".equalsIgnoreCase(cabl.getSystemSetting("ACTIVA_REENVIO_ALERTAS"));
         ReenviaAlertasServlet.tiempoEsperaAlertas = Long.parseLong(cabl.getSystemSetting("TIEMPO_REENVIO_ALERTAS"));
-        log.info("Se leyeron los siguientes parametros:[ACTIVA_REENVIO_ALERTAS]=[" + activarReenvioAlertas + "];[TIEMPO_REENVIO_ALERTAS][" + tiempoEsperaAlertas + "]");
+        log.info("Object: {}", "Se leyeron los siguientes parametros:[ACTIVA_REENVIO_ALERTAS]=[" + activarReenvioAlertas + "];[TIEMPO_REENVIO_ALERTAS][" + tiempoEsperaAlertas + "]");
         log.info("Creando demonio");
         MAIL_SENDER_DEMON = new Thread(this);
         MAIL_SENDER_DEMON.setPriority(Thread.MIN_PRIORITY);
@@ -66,7 +66,7 @@ public class ReenviaAlertasServlet extends HttpServlet implements GestionInterfa
                         CorreosPendientesBusinessLogic cpbl = new CorreosPendientesBusinessLogic(jniName);
                         int reenviados = cpbl.reenviaAlertasPendientes();
                         long stop = System.currentTimeMillis();
-                        log.info("Termino el reenvio de " + reenviados + " alertas en " + ((stop - start) / 1000));
+                        log.info("Object: {}", "Termino el reenvio de " + reenviados + " alertas en " + ((stop - start) / 1000));
                         Thread.sleep(ReenviaAlertasServlet.tiempoEsperaAlertas);
                     } catch (Exception e) {
                         log.error(e.getMessage(), e);

@@ -2,7 +2,6 @@ package com.axtel.egresos.core;
 
 import java.sql.Connection;
 import java.util.List;
-import org.apache.log4j.LogManager;
 import com.axtel.egresos.viaticos.Agenda;
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
@@ -11,10 +10,10 @@ import org.slf4j.LoggerFactory;
 
 public class AgendaBusinessLogic extends DataSourceManager {
 
-    private static final Logger log = LogManager.getLogger(AgendaBusinessLogic.class);
+    private static final Logger log = LoggerFactory.getLogger(AgendaBusinessLogic.class);
 
     public AgendaBusinessLogic(String jiniName) {
-        log.info("Creating AgendaBusinessLogic with reference to " + jiniName);
+        log.info("Object: {}", "Creating AgendaBusinessLogic with reference to " + jiniName);
         super.release();
         log.trace("Data source released initializng new one");
         super.init(jiniName);

@@ -68,7 +68,7 @@ public class CLCAttachmentManager {
             int clc = 0;
             if (clcFilePath.toUpperCase().indexOf("CLC") >= 0) {
                 clc = Integer.parseInt(clcFilePath.substring(clcFilePath.lastIndexOf("_") + 1, clcFilePath.lastIndexOf(".")), 10);
-                log.info("Adjuntando archivo [" + clcFilePath + "] a la CLC " + clc);
+                log.info("Object: {}", "Adjuntando archivo [" + clcFilePath + "] a la CLC " + clc);
                 csBuscaCLC.setInt(1, clc);
                 rsCLCs = csBuscaCLC.executeQuery();
                 while (rsCLCs.next()) {
@@ -91,7 +91,7 @@ public class CLCAttachmentManager {
                                 CLCAttachmentManager.attchToExpedient(psInsertFolderHierarchy, psInsertFolder, psNexIDFolder, psSearchFolder, tipoPago, idGabinete, clcFilePath, psSearchVolumenUnit, psSearchVolumen, psSearchVolPath, conn, "CLC");
                                 CLCAttachmentLogManager.insertLogCLC(conn, new File(clcFilePath).getName(), 0, "", Integer.parseInt(nFolioPago, 10), tipoPago, '9', "Se adjunto exitosamente el archivo", "CLC", pa.getIdProceso());
                             } else {
-                                log.info("El archivo [" + clcFilePath + "] ya existe. Se ignora");
+                                log.info("Object: {}", "El archivo [" + clcFilePath + "] ya existe. Se ignora");
                                 CLCAttachmentLogManager.insertLogCLC(conn, new File(clcFilePath).getName(), 0, "", Integer.parseInt(nFolioPago, 10), tipoPago, '3', " El archivo ya existe. Se ignora.", "CLC", pa.getIdProceso());
                             }
                         } catch (Exception e1) {
@@ -107,7 +107,7 @@ public class CLCAttachmentManager {
                     }
                 }
             } else {
-                log.info("El archivo " + clcFilePath + " no esta bien formado. Debe nombrarse [CLC_###.pdf] Donde ### es el numero de CLC");
+                log.info("Object: {}", "El archivo " + clcFilePath + " no esta bien formado. Debe nombrarse [CLC_###.pdf] Donde ### es el numero de CLC");
                 CLCAttachmentLogManager.insertLogCLC(conn, new File(clcFilePath).getName(), 0, "", -1, "", '4', "El archivo " + clcFilePath + " no esta bien formado. Debe nombrarse [CLC_###.pdf] Donde ### es el numero de CLC", "CLC", pa.getIdProceso());
             }
             return procesados;
@@ -150,7 +150,7 @@ public class CLCAttachmentManager {
                             CLCAttachmentManager.attchToExpedient(psInsertFolderHierarchy, psInsertFolder, psNexIDFolder, psSearchFolder, tipoPago, idGabinete, clcFilePath, psSearchVolumenUnit, psSearchVolumen, psSearchVolPath, conn, "Otros");
                             CLCAttachmentLogManager.insertLogCLC(conn, new File(clcFilePath).getName(), 0, "", Integer.parseInt(nFolioPago, 10), tipoPago, '9', "Se adjunto exitosamente el archivo", "Otros", pa.getIdProceso());
                         } else {
-                            log.info("El archivo [" + clcFilePath + "] ya existe. Se ignora");
+                            log.info("Object: {}", "El archivo [" + clcFilePath + "] ya existe. Se ignora");
                             CLCAttachmentLogManager.insertLogCLC(conn, new File(clcFilePath).getName(), 0, "", Integer.parseInt(nFolioPago, 10), tipoPago, '3', " El archivo ya existe. Se ignora.", "Otros", pa.getIdProceso());
                         }
                     } catch (Exception e1) {
@@ -367,7 +367,7 @@ public class CLCAttachmentManager {
                             if (!makeDirectories(v))
                                 throw new SQLException("No se logro crear directorio " + v.getPath());
                     } catch (Exception exc) {
-                        log.error(exc);
+                        log.error(exc.getMessage(), exc);
                         throw new SQLException(exc);
                     }
                 } else {
@@ -382,7 +382,7 @@ public class CLCAttachmentManager {
                             if (!makeDirectories(v))
                                 throw new SQLException("No se logro crear directorio " + v.getPath());
                     } catch (Exception exc) {
-                        log.error(exc);
+                        log.error(exc.getMessage(), exc);
                         throw new SQLException(exc);
                     }
                 }
@@ -405,7 +405,7 @@ public class CLCAttachmentManager {
         long start = System.currentTimeMillis();
         log.trace("Insertando archivo");
         File origen = new File(clcPathFile);
-        log.trace("Insertando el archivo: " + origen.getName());
+        log.trace("Object: {}", "Insertando el archivo: " + origen.getName());
         String tmpFile = origen.getName();
         int pos = tmpFile.lastIndexOf('.') + 1;
         String ext = pos != -1 ? tmpFile.substring(pos) : "";
@@ -413,7 +413,7 @@ public class CLCAttachmentManager {
         log.trace("Archivo insertado exitosamente");
         total++;
         long stop = System.currentTimeMillis();
-        log.trace("Finalizado insercion en expediene de la factura en [" + ((stop - start) / 1000) + "] s.");
+        log.trace("Object: {}", "Finalizado insercion en expediene de la factura en [" + ((stop - start) / 1000) + "] s.");
         return total;
     }
 
@@ -533,11 +533,11 @@ public class CLCAttachmentManager {
     }
 
     private static Carpeta obtenCarpetaDestino(PreparedStatement psInsertFolderHierarchy, PreparedStatement psInsertFolder, PreparedStatement psNexIDFolder, PreparedStatement psSearchFolder, String tituloAplicacion, int idGabinete, String nombreCarpeta) throws Exception {
-        log.trace("Inicia busqueda de carpeta [" + nombreCarpeta + "]");
+        log.trace("Object: {}", "Inicia busqueda de carpeta [" + nombreCarpeta + "]");
         long start = System.currentTimeMillis();
         Carpeta cfdiCarpeta = getCarpetaByName(psSearchFolder, tituloAplicacion, idGabinete, nombreCarpeta);
         if (cfdiCarpeta == null) {
-            log.trace("No existe la carpeta [" + nombreCarpeta + "] se creara.");
+            log.trace("Object: {}", "No existe la carpeta [" + nombreCarpeta + "] se creara.");
             Carpeta modelo = new Carpeta();
             modelo.setTituloAplicacion(tituloAplicacion);
             modelo.setIdGabinete(idGabinete);
@@ -555,10 +555,10 @@ public class CLCAttachmentManager {
             oc.setNombreHija(cfdiCarpeta.getNombreCarpeta());
             oc.setTituloAplicacion(cfdiCarpeta.getTituloAplicacion());
             insertOrgCarpeta(psInsertFolderHierarchy, oc);
-            log.trace("Carpeta [" + nombreCarpeta + "] creada con exito.");
+            log.trace("Object: {}", "Carpeta [" + nombreCarpeta + "] creada con exito.");
         }
         long stop = System.currentTimeMillis();
-        log.trace("Finaliza busqueda de carpeta en [" + ((stop - start) / 1000) + "] s.");
+        log.trace("Object: {}", "Finaliza busqueda de carpeta en [" + ((stop - start) / 1000) + "] s.");
         return cfdiCarpeta;
     }
 
@@ -581,7 +581,7 @@ public class CLCAttachmentManager {
         ResultSet rsGabinetes = null;
         ResultSet rsCLCs = null;
         List<AttachResult> resultList = new ArrayList<AttachResult>();
-        log.trace("Procesando archivo [" + cbFilePath + "]");
+        log.trace("Object: {}", "Procesando archivo [" + cbFilePath + "]");
         try {
             /*ARLA20190911 Se hace la busqueda por numero de folio y no por cxp*/
             String nombreArchivo = new File(cbFilePath).getName();
@@ -604,7 +604,7 @@ public class CLCAttachmentManager {
 				contraRecibo = Util.getFileWithoutExtencion(nombreArchivo);
 			}
 			*/
-            log.info("Adjuntando archivo [" + cbFilePath + "] al  Contrarecibo " + contraRecibo);
+            log.info("Object: {}", "Adjuntando archivo [" + cbFilePath + "] al  Contrarecibo " + contraRecibo);
             csBuscaCxP.setString(1, contraRecibo);
             csBuscaCxP.setString(2, cTipoPago);
             rsCLCs = csBuscaCxP.executeQuery();
@@ -624,7 +624,7 @@ public class CLCAttachmentManager {
                 if (rsGabinetes.next()) {
                     int idGabinete = rsGabinetes.getInt(1);
                     if ((ignorarExistentes && !DocumentoManager.existeDocumentoCapturado(conn, tipoPago, idGabinete, "Comprobante Banco")) || !ignorarExistentes) {
-                        log.debug(" Adjuntando archivo al pago " + tipoPago + " con folio " + nFolioPago);
+                        log.debug("Object: {}", " Adjuntando archivo al pago " + tipoPago + " con folio " + nFolioPago);
                         try {
                             procesados += CLCAttachmentManager.attchToExpedient(psInsertFolderHierarchy, psInsertFolder, psNexIDFolder, psSearchFolder, tipoPago, idGabinete, cbFilePath, psSearchVolumenUnit, psSearchVolumen, psSearchVolPath, conn, "Comprobante Banco", "Comprobante Banco");
                             CLCAttachmentLogManager.insertLog(conn, new File(cbFilePath).getName(), 0, contraRecibo, Integer.parseInt(nFolioPago, 10), tipoPago, '9', "Se adjunto exitosamente el archivo");
@@ -650,7 +650,7 @@ public class CLCAttachmentManager {
                 CLCAttachmentLogManager.insertLog(conn, new File(cbFilePath).getName(), 0, contraRecibo, -1, "RELACIONGASTOS", '0', "No se encontro pago con CxP " + contraRecibo);
                 resultList.add(new AttachResult(nombreArchivo, "No se encontro pago con CxP " + contraRecibo, false));
             }
-            log.info("Se procesaron " + procesados + " archivos.");
+            log.info("Object: {}", "Se procesaron " + procesados + " archivos.");
         } catch (Exception e) {
             resultList.add(new AttachResult(cbFilePath, "Ocurrio el siguiente error al adjuntar: " + e, false));
             throw e;
@@ -681,10 +681,10 @@ public class CLCAttachmentManager {
     public static int attachDocumento(Connection conn, boolean ignorarExistentes, String cbFilePath, PreparedStatement psBuscaPago, PreparedStatement psInsertFolderHierarchy, PreparedStatement psInsertFolder, PreparedStatement psNexIDFolder, PreparedStatement psSearchFolder, PreparedStatement psSearchVolumenUnit, PreparedStatement psSearchVolumen, PreparedStatement psSearchVolPath, String nombreCarpeta, String nombreDocumento) throws Exception {
         int procesados = 0;
         ResultSet rsGabinetes = null;
-        log.trace("Procesando archivo [" + cbFilePath + "]");
+        log.trace("Object: {}", "Procesando archivo [" + cbFilePath + "]");
         try {
             String cFolioPago = new File(cbFilePath).getName().substring(0, new File(cbFilePath).getName().lastIndexOf("."));
-            log.info("Adjuntando archivo [" + cbFilePath + "] al pago con folio [" + cFolioPago + "]");
+            log.info("Object: {}", "Adjuntando archivo [" + cbFilePath + "] al pago con folio [" + cFolioPago + "]");
             psBuscaPago.setString(1, cFolioPago);
             rsGabinetes = psBuscaPago.executeQuery();
             if (rsGabinetes.next()) {
@@ -694,7 +694,7 @@ public class CLCAttachmentManager {
                 } else {
                     String tipoPago = rsGabinetes.getString("tc_gaveta_asociada");
                     if ((ignorarExistentes && !DocumentoManager.existeDocumentoCapturado(conn, tipoPago, idGabinete, nombreDocumento)) || !ignorarExistentes) {
-                        log.debug(" Adjuntando archivo al pago " + tipoPago + " con folio " + cFolioPago);
+                        log.debug("Object: {}", " Adjuntando archivo al pago " + tipoPago + " con folio " + cFolioPago);
                         try {
                             procesados = CLCAttachmentManager.attchToExpedient(psInsertFolderHierarchy, psInsertFolder, psNexIDFolder, psSearchFolder, tipoPago, idGabinete, cbFilePath, psSearchVolumenUnit, psSearchVolumen, psSearchVolPath, conn, nombreCarpeta, nombreDocumento);
                             CLCAttachmentLogManager.insertLog(conn, new File(cbFilePath).getName(), 0, cFolioPago, idGabinete, tipoPago, '9', "Se adjunto exitosamente el archivo", "SOLPAGO");
@@ -722,9 +722,9 @@ public class CLCAttachmentManager {
     public static int attachDocumento(Connection conn, boolean ignorarExistentes, String cbFilePath, PreparedStatement psBuscaPago, PreparedStatement psInsertFolderHierarchy, PreparedStatement psInsertFolder, PreparedStatement psNexIDFolder, PreparedStatement psSearchFolder, PreparedStatement psSearchVolumenUnit, PreparedStatement psSearchVolumen, PreparedStatement psSearchVolPath, String nombreCarpeta, String nombreDocumento, String cFolioPago) throws Exception {
         int procesados = 0;
         ResultSet rsGabinetes = null;
-        log.trace("Procesando archivo [" + cbFilePath + "]");
+        log.trace("Object: {}", "Procesando archivo [" + cbFilePath + "]");
         try {
-            log.info("Adjuntando archivo [" + cbFilePath + "] al pago con folio [" + cFolioPago + "]");
+            log.info("Object: {}", "Adjuntando archivo [" + cbFilePath + "] al pago con folio [" + cFolioPago + "]");
             psBuscaPago.setString(1, cFolioPago);
             rsGabinetes = psBuscaPago.executeQuery();
             if (rsGabinetes.next()) {
@@ -734,7 +734,7 @@ public class CLCAttachmentManager {
                 } else {
                     String tipoPago = rsGabinetes.getString("tc_gaveta_asociada");
                     if ((ignorarExistentes && !DocumentoManager.existeDocumentoCapturado(conn, tipoPago, idGabinete, nombreCarpeta, nombreDocumento)) || !ignorarExistentes) {
-                        log.debug(" Adjuntando archivo al pago " + tipoPago + " con folio " + cFolioPago);
+                        log.debug("Object: {}", " Adjuntando archivo al pago " + tipoPago + " con folio " + cFolioPago);
                         try {
                             procesados = CLCAttachmentManager.attchToExpedient(psInsertFolderHierarchy, psInsertFolder, psNexIDFolder, psSearchFolder, tipoPago, idGabinete, cbFilePath, psSearchVolumenUnit, psSearchVolumen, psSearchVolPath, conn, nombreCarpeta, nombreDocumento);
                             CLCAttachmentLogManager.insertLog(conn, new File(cbFilePath).getName(), 0, cFolioPago, idGabinete, tipoPago, '9', "Se adjunto exitosamente el archivo", "CONBANCOFIRMADA");
@@ -764,11 +764,11 @@ public class CLCAttachmentManager {
         ResultSet rsGabinetes = null;
         ResultSet rsCLCs = null;
         List<AttachResult> resultList = new ArrayList<AttachResult>();
-        log.trace("Procesando archivo [" + cbFilePath + "]");
+        log.trace("Object: {}", "Procesando archivo [" + cbFilePath + "]");
         try {
             String nombreArchivo = new File(cbFilePath).getName();
             int nFolioCaja = Integer.parseInt(Util.getFileWithoutExtencion(nombreArchivo));
-            log.info("Adjuntando archivo [" + cbFilePath + "] al folio de Caja " + nFolioCaja);
+            log.info("Object: {}", "Adjuntando archivo [" + cbFilePath + "] al folio de Caja " + nFolioCaja);
             csBuscaCxP.setInt(1, nFolioCaja);
             rsCLCs = csBuscaCxP.executeQuery();
             boolean encontrados = false;
@@ -786,7 +786,7 @@ public class CLCAttachmentManager {
                 if (rsGabinetes.next()) {
                     int idGabinete = rsGabinetes.getInt(1);
                     if ((ignorarExistentes && !DocumentoManager.existeDocumentoCapturado(conn, tipoPago, idGabinete, "Comprobante Banco")) || !ignorarExistentes) {
-                        log.debug(" Adjuntando archivo al pago " + tipoPago + " con folio " + nFolioPago);
+                        log.debug("Object: {}", " Adjuntando archivo al pago " + tipoPago + " con folio " + nFolioPago);
                         try {
                             procesados += CLCAttachmentManager.attchToExpedient(psInsertFolderHierarchy, psInsertFolder, psNexIDFolder, psSearchFolder, tipoPago, idGabinete, cbFilePath, psSearchVolumenUnit, psSearchVolumen, psSearchVolPath, conn, "Comprobante Banco", "Comprobante Banco");
                             CLCAttachmentLogManager.insertLogCLC(conn, new File(cbFilePath).getName(), 0, String.valueOf(nFolioCaja), Integer.parseInt(nFolioPago, 10), tipoPago, '9', "Se adjunto exitosamente el archivo", "COMPROBANTE_SNP", procesoAdjunta.getIdProceso());
@@ -812,7 +812,7 @@ public class CLCAttachmentManager {
                 CLCAttachmentLogManager.insertLogCLC(conn, new File(cbFilePath).getName(), 0, String.valueOf(nFolioCaja), -1, "RELACIONGASTOS", '0', "No se encontro pago con CxP " + String.valueOf(nFolioCaja), "COMPROBANTE_SNP", procesoAdjunta.getIdProceso());
                 resultList.add(new AttachResult(nombreArchivo, "No se encontro pago con CxP " + String.valueOf(nFolioCaja), false));
             }
-            log.info("Se procesaron " + procesados + " archivos.");
+            log.info("Object: {}", "Se procesaron " + procesados + " archivos.");
         } catch (Exception e) {
             resultList.add(new AttachResult(cbFilePath, "Ocurrio el siguiente error al adjuntar: " + e, false));
             throw e;
@@ -828,11 +828,11 @@ public class CLCAttachmentManager {
         ResultSet rsGabinetes = null;
         ResultSet rsCLCs = null;
         List<AttachResult> resultList = new ArrayList<AttachResult>();
-        log.trace("Procesando archivo [" + cbFilePath + "]");
+        log.trace("Object: {}", "Procesando archivo [" + cbFilePath + "]");
         try {
             String nombreArchivo = new File(cbFilePath).getName();
             int nFolioCaja = Integer.parseInt(Util.getFileWithoutExtencion(nombreArchivo));
-            log.info("Adjuntando archivo [" + cbFilePath + "] al folio de Caja " + nFolioCaja);
+            log.info("Object: {}", "Adjuntando archivo [" + cbFilePath + "] al folio de Caja " + nFolioCaja);
             csBuscaCxP.setInt(1, nFolioCaja);
             rsCLCs = csBuscaCxP.executeQuery();
             boolean encontrados = false;
@@ -850,7 +850,7 @@ public class CLCAttachmentManager {
                 if (rsGabinetes.next()) {
                     int idGabinete = rsGabinetes.getInt(1);
                     if ((ignorarExistentes && !DocumentoManager.existeDocumentoCapturado(conn, tipoPago, idGabinete, nombreCarpeta, nombreDocumento)) || !ignorarExistentes) {
-                        log.debug(" Adjuntando archivo al pago " + tipoPago + " con folio " + nFolioPago);
+                        log.debug("Object: {}", " Adjuntando archivo al pago " + tipoPago + " con folio " + nFolioPago);
                         try {
                             procesados += CLCAttachmentManager.attchToExpedient(psInsertFolderHierarchy, psInsertFolder, psNexIDFolder, psSearchFolder, tipoPago, idGabinete, cbFilePath, psSearchVolumenUnit, psSearchVolumen, psSearchVolPath, conn, nombreCarpeta, nombreDocumento);
                             CLCAttachmentLogManager.insertLogCLC(conn, new File(cbFilePath).getName(), 0, String.valueOf(nFolioCaja), Integer.parseInt(nFolioPago, 10), tipoPago, '9', "Se adjunto exitosamente el archivo", "COMPROBANTE_SNP", procesoAdjunta.getIdProceso());
@@ -876,7 +876,7 @@ public class CLCAttachmentManager {
                 CLCAttachmentLogManager.insertLogCLC(conn, new File(cbFilePath).getName(), 0, String.valueOf(nFolioCaja), -1, "RELACIONGASTOS", '0', "No se encontro pago con CxP " + String.valueOf(nFolioCaja), "COMPROBANTE_SNP", procesoAdjunta.getIdProceso());
                 resultList.add(new AttachResult(nombreArchivo, "No se encontro pago con CxP " + String.valueOf(nFolioCaja), false));
             }
-            log.info("Se procesaron " + procesados + " archivos.");
+            log.info("Object: {}", "Se procesaron " + procesados + " archivos.");
         } catch (Exception e) {
             resultList.add(new AttachResult(cbFilePath, "Ocurrio el siguiente error al adjuntar: " + e, false));
             throw e;

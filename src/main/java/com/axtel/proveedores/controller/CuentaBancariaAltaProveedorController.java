@@ -7,15 +7,15 @@ import java.util.List;
 import java.util.Map;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 import org.apache.commons.io.FileUtils;
 import com.axtel.proveedores.exception.ProveedorException;
 import com.jenkov.prizetags.tree.itf.ITree;
@@ -52,12 +52,12 @@ public class CuentaBancariaAltaProveedorController extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         dbbl = new DocBancarioBusinessLogic(jniName);
         cbl = new CasoBusinessLogic(jniName);
@@ -82,7 +82,7 @@ public class CuentaBancariaAltaProveedorController extends HttpServlet {
             cuentaBancaria.setSucursal(request.getParameter("sucursal") == null ? "000" : request.getParameter("sucursal"));
             cuentaBancaria.setFolio(c.getFolio());
             cuentaBancaria.setCuenta(cuentaBancaria.getBanco() + "-" + cuentaBancaria.getCuentaBancaria());
-            log.info("Registrando Cuenta: " + cuentaBancaria);
+            log.info("Object: {}", "Registrando Cuenta: " + cuentaBancaria);
             Part filePart = request.getPart("formFile");
             String fileName = filePart.getSubmittedFileName();
             File file = File.createTempFile("upload_", "_" + fileName);
@@ -104,7 +104,7 @@ public class CuentaBancariaAltaProveedorController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String action = request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1);
-        log.info("Action: " + action);
+        log.info("Object: {}", "Action: " + action);
         try {
             if ("actualizaArbol".equals(action)) {
                 HttpSession session = request.getSession(false);

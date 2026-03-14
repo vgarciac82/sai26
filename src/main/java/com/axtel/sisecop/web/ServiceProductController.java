@@ -7,12 +7,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.axtel.sisecop.dto.ProductDTO;
 import com.axtel.sisecop.entities.ProyectoProducto;
 import com.axtel.sisecop.services.ProductService;
@@ -41,11 +41,11 @@ public class ServiceProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProductDTO product = readServicioProducto(request);
-        log.trace("JSON recibido correctamente y mapeado a objeto ServicioProductoDTO. " + product);
+        log.trace("Object: {}", "JSON recibido correctamente y mapeado a objeto ServicioProductoDTO. " + product);
         try {
-            log.debug("Saving servicioProducto: " + product);
+            log.debug("Object: {}", "Saving servicioProducto: " + product);
             ProyectoProducto createdProduct = productService.create(product);
-            log.info("ServicioProducto saved: " + createdProduct);
+            log.info("Object: {}", "ServicioProducto saved: " + createdProduct);
             Util.sendJSONResponse(response, createdProduct);
         } catch (Exception e) {
             log.error("Error saving servicioProducto: " + e.toString(), e);
@@ -57,7 +57,7 @@ public class ServiceProductController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             int projectID = Integer.parseInt(request.getParameter("servicioId"));
-            log.debug("Looking for products in project: " + projectID);
+            log.debug("Object: {}", "Looking for products in project: " + projectID);
             List<ProyectoProducto> products = productService.readByProjectID(projectID);
             Util.sendJSONResponse(response, products);
         } catch (Exception e) {
@@ -70,9 +70,9 @@ public class ServiceProductController extends HttpServlet {
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             int servicioProductoId = Integer.parseInt(request.getParameter("servicioProductoId"));
-            log.info("Trying to delete servicioProducto " + servicioProductoId);
+            log.info("Object: {}", "Trying to delete servicioProducto " + servicioProductoId);
             productService.deleteServicioProducto(servicioProductoId);
-            log.info("ServicioProducto " + servicioProductoId + " deleted");
+            log.info("Object: {}", "ServicioProducto " + servicioProductoId + " deleted");
             Map<String, String> result = new HashMap<>();
             result.put("deleted", "true");
             result.put("success", "true");

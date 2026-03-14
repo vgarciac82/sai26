@@ -84,7 +84,7 @@ public class PagosDirectosBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -97,7 +97,7 @@ public class PagosDirectosBussinessLogic extends DataSourceManager {
         Connection conn = null;
         try {
             conn = getConnection();
-            log.info("Generando layout de Pago Directo para los folios: [" + listaFolios + "]" + "Cuentas Bancarias [" + listaCuentaBancaria + "]" + "]" + "Fechas [" + listaFechas + "]" + "] " + "Leyendas [" + ListaLeyendas + "]" + "Usaurio [" + sUsuario + "]");
+            log.info("Object: {}", "Generando layout de Pago Directo para los folios: [" + listaFolios + "]" + "Cuentas Bancarias [" + listaCuentaBancaria + "]" + "]" + "Fechas [" + listaFechas + "]" + "] " + "Leyendas [" + ListaLeyendas + "]" + "Usaurio [" + sUsuario + "]");
             arrListaComp = PagosDirectosManager.generaLayoutPagos(conn, listaFolios, listaCuentaBancaria, listaFechas, ListaLeyendas, sUsuario);
             log.debug("Layout generado exitosamente");
             conn.commit();
@@ -107,7 +107,7 @@ public class PagosDirectosBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             }
             throw e;
@@ -129,7 +129,7 @@ public class PagosDirectosBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Error realizando rollback: " + e2);
+                    log.warn("Error occurred", "Error realizando rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -168,7 +168,7 @@ public class PagosDirectosBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Error realizando rollback: " + e2);
+                    log.warn("Error occurred", "Error realizando rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -190,7 +190,7 @@ public class PagosDirectosBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Error realizando rollback: " + e2);
+                    log.warn("Error occurred", "Error realizando rollback: " + e2);
                 }
             throw e;
         } finally {

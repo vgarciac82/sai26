@@ -38,7 +38,7 @@ public class CargaMasivaSNPManager {
             query = query + cond;
             if (cUnidadEjecutora != null)
                 query = query + " AND cunidadresponsable = ?";
-            log.debug("Query a ejecutar: " + query);
+            log.debug("Object: {}", "Query a ejecutar: " + query);
             ps = conn.prepareStatement(query);
             int cnt = 1;
             for (Iterator<String> i = filtros.iterator(); i.hasNext(); ) {

@@ -54,7 +54,7 @@ public class BaseSAC extends HttpServlet {
         }
         usuario = (Usuario) session.getAttribute(GestionInterface.ATT_USER);
         int tipoProceso = (request.getParameter("tipoProceso") == null || "".equalsIgnoreCase(request.getParameter("tipoProceso")) ? -1 : Integer.parseInt(request.getParameter("tipoProceso")));
-        log.debug("Proceso: " + tipoProceso);
+        log.debug("Object: {}", "Proceso: " + tipoProceso);
         switch(tipoProceso) {
             case //Nuevo Procedimiento
             1:
@@ -133,7 +133,7 @@ public class BaseSAC extends HttpServlet {
             arrayObj = new JSONArray();
             mensaje = e.getMessage().toString();
             respuesta = false;
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             e.printStackTrace();
         } finally {
             business = null;
@@ -192,7 +192,7 @@ public class BaseSAC extends HttpServlet {
             arrayObj = new JSONArray();
             mensaje = e.getMessage().toString();
             respuesta = false;
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             e.printStackTrace();
         } finally {
             business = null;
@@ -248,12 +248,12 @@ public class BaseSAC extends HttpServlet {
             jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jndiName == null) {
                 jndiName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
             } else
-                log.info("dataSourceRefName=" + jndiName);
+                log.info("Object: {}", "dataSourceRefName=" + jndiName);
         } catch (NamingException exc) {
             jndiName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
         }
         // Put your code here
         try {
@@ -261,12 +261,12 @@ public class BaseSAC extends HttpServlet {
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
     }
 }

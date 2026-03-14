@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.core.FileItem;
 import com.syc.contable.CompromisoBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
@@ -61,7 +61,7 @@ public class RespuestaCompromisosServlet extends HttpServlet {
                 } else {
                     archivoCargaStream = new DataInputStream(item.getInputStream());
                     String nombreArchivo = item.getName();
-                    log.info("Copiando archivo :" + nombreArchivo);
+                    log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                     nombreDestino = File.createTempFile("CARGA_COMPROMISO", ".csv", new File(System.getProperty("java.io.tmpdir")));
                     Util.copiaArchivo(archivoCargaStream, nombreDestino.getAbsolutePath());
                     archivoRecibido = true;

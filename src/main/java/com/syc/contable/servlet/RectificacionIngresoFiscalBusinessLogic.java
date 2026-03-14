@@ -45,7 +45,7 @@ public class RectificacionIngresoFiscalBusinessLogic extends DataSourceManager {
             conn = getConnection();
             res = RectificacionIngresoFiscalManager.getRectificacionEncabezado(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             if (conn != null)
@@ -62,7 +62,7 @@ public class RectificacionIngresoFiscalBusinessLogic extends DataSourceManager {
             conn = getConnection();
             res = RectificacionIngresoFiscalManager.getRectificacionDetalle(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             if (conn != null)
@@ -222,10 +222,10 @@ public class RectificacionIngresoFiscalBusinessLogic extends DataSourceManager {
             CasoBusinessLogic cbl = new CasoBusinessLogic(GestionInterface.ATT_CONEXION);
             conn = cbl.getConnection();
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Inicia aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Inicia aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             AplicarContableReturn acr = conInt.aplicarContableNuevo(conn, c, "tRectificacionIngresosEncabezado", "tRectificacionIngresosDetalle", "nFolioRectificaIngreso", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "RECTIFICAINGRESO", m, prefixPath, uLogin, "");
             arrLResult = acr.getMessageList();
-            log.debug("Termina Apartado Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Termina Apartado Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             Caso cReloaded = new Caso();
             cReloaded.setIdCaso(c.getIdCaso());
             cReloaded = CasoManager.select(conn, cReloaded);
@@ -236,7 +236,7 @@ public class RectificacionIngresoFiscalBusinessLogic extends DataSourceManager {
             }
         } catch (Exception exc) {
             conn.rollback();
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             arrLResult.add(exc.getLocalizedMessage());
             try {
                 conn.rollback();
@@ -262,7 +262,7 @@ public class RectificacionIngresoFiscalBusinessLogic extends DataSourceManager {
             conn = getConnection();
             res = RectificacionIngresoFiscalManager.getRectificacionEncabezadoSicop(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             if (conn != null)
@@ -279,7 +279,7 @@ public class RectificacionIngresoFiscalBusinessLogic extends DataSourceManager {
             conn = getConnection();
             res = RectificacionIngresoFiscalManager.getRectificacionDetalleSicop(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             if (conn != null)

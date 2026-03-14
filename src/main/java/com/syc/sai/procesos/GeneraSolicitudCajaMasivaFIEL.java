@@ -121,7 +121,7 @@ public class GeneraSolicitudCajaMasivaFIEL {
             int numero = 0;
             ps = conn.prepareStatement(getQuery().toString());
             for (String folio : folios) {
-                log.info("Procesando folio:" + folio);
+                log.info("Object: {}", "Procesando folio:" + folio);
                 if (StringUtils.isBlank(folio))
                     continue;
                 Caso c = new Caso();
@@ -140,7 +140,7 @@ public class GeneraSolicitudCajaMasivaFIEL {
                     conn.rollback();
                 } catch (Exception e2) {
                     // e2.printStackTrace();
-                    log.warn(e2);
+                    log.warn(e2.getMessage(), e2);
                 }
             log.error(e.getMessage(), e);
         } finally {
@@ -161,7 +161,7 @@ public class GeneraSolicitudCajaMasivaFIEL {
     private File generaSolicitudAutorizacion(Connection conn, Caso casoCaja, int nFolioCaja, String directorioReportes) throws Exception {
         File reportParentDir = new File(directorioReportes);
         String fileName = generaRutaSalida(conn, casoCaja, "Solicitud Firmada", "pdf");
-        log.info("El archivo se guardara en:" + fileName);
+        log.info("Object: {}", "El archivo se guardara en:" + fileName);
         String reportName = "PolizaCaja_FIEL.jasper";
         File solicitud = new File(fileName);
         File reporteIn = new File(reportParentDir, reportName);
@@ -182,13 +182,13 @@ public class GeneraSolicitudCajaMasivaFIEL {
                 try {
                     in.close();
                 } catch (Exception e) {
-                    log.warn("Problemas cerrando flujo: " + e);
+                    log.warn("Object: {}", "Problemas cerrando flujo: " + e);
                 }
             if (out != null)
                 try {
                     out.close();
                 } catch (Exception e) {
-                    log.warn("Problemas cerrando flujo: " + e);
+                    log.warn("Object: {}", "Problemas cerrando flujo: " + e);
                 }
         }
     }

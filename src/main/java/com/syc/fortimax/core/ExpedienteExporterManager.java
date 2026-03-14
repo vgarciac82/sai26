@@ -55,13 +55,13 @@ public class ExpedienteExporterManager {
     }
 
     public static void updateExportado(Connection conn, String tableName, String campo, char valor, String llave, String valorLlave) throws Exception {
-        log.debug("Cambiando estatus en la tabla [" + tableName + "] Campo: [" + campo + "] Valor: [" + valor + "] PK: [" + llave + "] Valor:[" + valorLlave + "]");
+        log.debug("Object: {}", "Cambiando estatus en la tabla [" + tableName + "] Campo: [" + campo + "] Valor: [" + valor + "] PK: [" + llave + "] Valor:[" + valorLlave + "]");
         Statement stmnt = null;
         String query = "UPDATE " + tableName + " WITH(ROWLOCK) SET " + campo + " = '" + valor + "' WHERE " + llave + " = '" + valorLlave + "'";
         try {
             stmnt = conn.createStatement();
             int r = stmnt.executeUpdate(query);
-            log.debug("Se actualizaron: " + r + " registros exitosamente.");
+            log.debug("Object: {}", "Se actualizaron: " + r + " registros exitosamente.");
         } finally {
             CloseObject.closeObject(stmnt);
         }

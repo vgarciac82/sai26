@@ -21,8 +21,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.core.FileItem;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -96,7 +96,7 @@ public class CatalogoEPExcelServlet extends HttpServlet {
             String pathURL = request.getContextPath();
             String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + pathURL + "/";
             String path = "";
-            DiskFileUpload fu = new DiskFileUpload();
+            ServletFileUpload fu = new ServletFileUpload();
             fu.setSizeMax(-1);
             Long date = System.currentTimeMillis();
             SimpleDateFormat fecha = new SimpleDateFormat("yyyyMMddhhmmssS");
@@ -190,12 +190,12 @@ public class CatalogoEPExcelServlet extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         tempDir = config.getInitParameter("tempDir");
         if (tempDir == null) {
@@ -208,7 +208,7 @@ public class CatalogoEPExcelServlet extends HttpServlet {
     }
 
     public ArrayList<String> cargaExcel(String archivo, String tipo) throws Exception {
-        DiskFileUpload upload = new DiskFileUpload();
+        ServletFileUpload upload = new ServletFileUpload();
         upload.setRepositoryPath(tempDir);
         String cFileExcel = upload.getRepositoryPath() + "/CatalogoEP.xls";
         ArrayList<String> validaEP = new ArrayList<String>();
@@ -239,12 +239,12 @@ public class CatalogoEPExcelServlet extends HttpServlet {
                 arrMResult = estrProgaBinss.validaClaveEP(valcell1, i, cSubCuenta);
                 i++;
                 if (arrMResult.get(0).toString().length() < 10) {
-                    log.debug("Sin Error la EP:" + valcell1 + " de la Secuancia del ARchiv XLS:" + i);
+                    log.debug("Error occurred", "Sin Error la EP:" + valcell1 + " de la Secuancia del ARchiv XLS:" + i);
                     validaEP.add(valcell1);
                     estrProgaBinss.InsertaEP(valcell1, aEjercicioFiscal, cSubCuenta);
                 } else {
                     //estrProgaBinss.InsertaERROREP(arrMResult);
-                    log.debug("Con ERROR la EP:" + valcell1 + " de la Secuancia del ARchiv XLS:" + i);
+                    log.debug("Error occurred", "Con ERROR la EP:" + valcell1 + " de la Secuancia del ARchiv XLS:" + i);
                     inValidaEP.addAll(arrMResult);
                 }
                 arrMResult = null;
@@ -267,7 +267,7 @@ public class CatalogoEPExcelServlet extends HttpServlet {
         List<FileItem> fileItems = new ArrayList<FileItem>();
         try {
             // Se construye un objeto para que parsee la petición
-            DiskFileUpload fu = new DiskFileUpload();
+            ServletFileUpload fu = new ServletFileUpload();
             // Tamaño máximo que aceptará el archivo
             // El tamaño no importa
             fu.setSizeMax(-1);

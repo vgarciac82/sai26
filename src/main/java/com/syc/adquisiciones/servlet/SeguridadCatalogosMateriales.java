@@ -84,12 +84,12 @@ public class SeguridadCatalogosMateriales extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 
@@ -343,7 +343,7 @@ public class SeguridadCatalogosMateriales extends HttpServlet {
                 //parms1.put ("fechainicio", new Date() );
                 parms1.put("cIdUnidadEjecutora", req.getParameter("cIdUnidadEjecutora"));
                 parms1.put("formato", req.getParameter("formato"));
-                log.info("Formato : " + req.getParameter("formato"));
+                log.info("Object: {}", "Formato : " + req.getParameter("formato"));
                 parms1.put("SUBREPORT_DIR", getServletContext().getRealPath("Reportes"));
             }
             /**
@@ -356,7 +356,7 @@ public class SeguridadCatalogosMateriales extends HttpServlet {
                 //parms1.put ("fechainicio", new Date() );
                 parms1.put("cIdUnidadEjecutora", req.getParameter("cIdUnidadEjecutora"));
                 parms1.put("formato", req.getParameter("formato"));
-                log.info("Formato : " + req.getParameter("formato"));
+                log.info("Object: {}", "Formato : " + req.getParameter("formato"));
                 parms1.put("SUBREPORT_DIR", getServletContext().getRealPath("Reportes"));
             }
             /**
@@ -369,7 +369,7 @@ public class SeguridadCatalogosMateriales extends HttpServlet {
                 //parms1.put ("fechainicio", new Date() );
                 parms1.put("cIdUnidadEjecutora", req.getParameter("cIdUnidadEjecutora"));
                 parms1.put("formato", req.getParameter("formato"));
-                log.info("Formato : " + req.getParameter("formato"));
+                log.info("Object: {}", "Formato : " + req.getParameter("formato"));
                 parms1.put("SUBREPORT_DIR", getServletContext().getRealPath("Reportes"));
             }
             /**
@@ -382,7 +382,7 @@ public class SeguridadCatalogosMateriales extends HttpServlet {
                 //parms1.put ("fechainicio", new Date() );
                 parms1.put("cIdUnidadEjecutora", req.getParameter("cIdUnidadEjecutora"));
                 parms1.put("formato", req.getParameter("formato"));
-                log.info("Formato : " + req.getParameter("formato"));
+                log.info("Object: {}", "Formato : " + req.getParameter("formato"));
                 parms1.put("SUBREPORT_DIR", getServletContext().getRealPath("Reportes"));
             }
             /**
@@ -395,7 +395,7 @@ public class SeguridadCatalogosMateriales extends HttpServlet {
                 //parms1.put ("fechainicio", new Date() );
                 parms1.put("cIdUnidadEjecutora", req.getParameter("cIdUnidadEjecutora"));
                 parms1.put("formato", req.getParameter("formato"));
-                log.info("Formato : " + req.getParameter("formato"));
+                log.info("Object: {}", "Formato : " + req.getParameter("formato"));
                 parms1.put("SUBREPORT_DIR", getServletContext().getRealPath("Reportes"));
             }
             /**
@@ -406,7 +406,7 @@ public class SeguridadCatalogosMateriales extends HttpServlet {
             if (req.getParameter("rn").equals("ReporteConsolidado.jasper")) {
                 parms1.put("cIdConsolidado", req.getParameter("cIdCons"));
                 parms1.put("formato", req.getParameter("formato"));
-                log.info("Formato : " + req.getParameter("formato"));
+                log.info("Object: {}", "Formato : " + req.getParameter("formato"));
                 parms1.put("SUBREPORT_DIR", getServletContext().getRealPath("Reportes"));
             }
             /**
@@ -417,7 +417,7 @@ public class SeguridadCatalogosMateriales extends HttpServlet {
             if (req.getParameter("rn").equals("reporteOCDetallado.jasper") || "reporteOCDetalladoASF.jasper".equalsIgnoreCase(req.getParameter("rn"))) {
                 parms1.put("cIdUnidadEjecutora", req.getParameter("cIdUnidadEjecutora"));
                 parms1.put("formato", req.getParameter("formato"));
-                log.info("Formato : " + req.getParameter("formato"));
+                log.info("Object: {}", "Formato : " + req.getParameter("formato"));
                 parms1.put("SUBREPORT_DIR", getServletContext().getRealPath("Reportes"));
             }
             /**
@@ -428,7 +428,7 @@ public class SeguridadCatalogosMateriales extends HttpServlet {
             if (req.getParameter("rn").equals("reporteMIPyMes.jasper")) {
                 parms1.put("cIdUnidadEjecutora", req.getParameter("cIdUnidadEjecutora"));
                 parms1.put("formato", req.getParameter("formato"));
-                log.info("Formato : " + req.getParameter("formato"));
+                log.info("Object: {}", "Formato : " + req.getParameter("formato"));
                 parms1.put("SUBREPORT_DIR", getServletContext().getRealPath("Reportes"));
             }
             /**
@@ -439,7 +439,7 @@ public class SeguridadCatalogosMateriales extends HttpServlet {
             if (req.getParameter("rn").equals("reporteOCPartida.jasper")) {
                 parms1.put("cIdUnidadEjecutora", req.getParameter("cIdUnidadEjecutora"));
                 parms1.put("formato", req.getParameter("formato"));
-                log.info("Formato : " + req.getParameter("formato"));
+                log.info("Object: {}", "Formato : " + req.getParameter("formato"));
                 parms1.put("SUBREPORT_DIR", getServletContext().getRealPath("Reportes"));
             }
             /**
@@ -450,7 +450,7 @@ public class SeguridadCatalogosMateriales extends HttpServlet {
             if (req.getParameter("rn").equals("reporteOCCUCOP.jasper")) {
                 parms1.put("cIdUnidadEjecutora", req.getParameter("cIdUnidadEjecutora"));
                 parms1.put("formato", req.getParameter("formato"));
-                log.info("Formato : " + req.getParameter("formato"));
+                log.info("Object: {}", "Formato : " + req.getParameter("formato"));
                 parms1.put("SUBREPORT_DIR", getServletContext().getRealPath("Reportes"));
             }
             /**
@@ -464,7 +464,7 @@ public class SeguridadCatalogosMateriales extends HttpServlet {
                 parms1.put("documento_", req.getParameter("documento_"));
                 parms1.put("usuario", req.getParameter("usuario"));
                 parms1.put("rangoFechas", req.getParameter("rangoFechas"));
-                log.info("Formato : " + req.getParameter("formato"));
+                log.info("Object: {}", "Formato : " + req.getParameter("formato"));
                 parms1.put("SUBREPORT_DIR", getServletContext().getRealPath("Reportes"));
             }
             /**
@@ -1225,35 +1225,35 @@ public class SeguridadCatalogosMateriales extends HttpServlet {
                 parms1.put("formato", req.getParameter("formato"));
                 parms1.put("where_", req.getParameter("where_"));
                 parms1.put("SUBREPORT_DIR", getServletContext().getRealPath("Reportes"));
-                log.info("Ejecutando el reporte : " + req.getParameter("rn") + " con los parametros :" + req.getParameter("where_"));
+                log.info("Object: {}", "Ejecutando el reporte : " + req.getParameter("rn") + " con los parametros :" + req.getParameter("where_"));
             }
             //Reporte de consolidados
             if (req.getParameter("rn").equals("ReporteConsultaCons.jasper")) {
                 parms1.put("formato", req.getParameter("formato"));
                 parms1.put("where_", req.getParameter("where_"));
                 parms1.put("SUBREPORT_DIR", getServletContext().getRealPath("Reportes"));
-                log.info("Ejecutando el reporte : " + req.getParameter("rn") + " con los parametros :" + req.getParameter("where_"));
+                log.info("Object: {}", "Ejecutando el reporte : " + req.getParameter("rn") + " con los parametros :" + req.getParameter("where_"));
             }
             //Reporte de procedimientos
             if (req.getParameter("rn").equals("ReporteConsultaProcedimientos.jasper")) {
                 parms1.put("formato", req.getParameter("formato"));
                 parms1.put("where_", req.getParameter("where_"));
                 parms1.put("SUBREPORT_DIR", getServletContext().getRealPath("Reportes"));
-                log.info("Ejecutando el reporte : " + req.getParameter("rn") + " con los parametros :" + req.getParameter("where_"));
+                log.info("Object: {}", "Ejecutando el reporte : " + req.getParameter("rn") + " con los parametros :" + req.getParameter("where_"));
             }
             //Reporte de Pedidos
             if (req.getParameter("rn").equals("ReporteConsultaPedidos.jasper")) {
                 parms1.put("formato", req.getParameter("formato"));
                 parms1.put("where_", req.getParameter("where_"));
                 parms1.put("SUBREPORT_DIR", getServletContext().getRealPath("Reportes"));
-                log.info("Ejecutando el reporte : " + req.getParameter("rn") + " con los parametros :" + req.getParameter("where_"));
+                log.info("Object: {}", "Ejecutando el reporte : " + req.getParameter("rn") + " con los parametros :" + req.getParameter("where_"));
             }
             //Reporte de Contratos
             if (req.getParameter("rn").equals("ReporteConsultaContratos.jasper")) {
                 parms1.put("formato", req.getParameter("formato"));
                 parms1.put("where_", req.getParameter("where_"));
                 parms1.put("SUBREPORT_DIR", getServletContext().getRealPath("Reportes"));
-                log.info("Ejecutando el reporte : " + req.getParameter("rn") + " con los parametros :" + req.getParameter("where_"));
+                log.info("Object: {}", "Ejecutando el reporte : " + req.getParameter("rn") + " con los parametros :" + req.getParameter("where_"));
             }
         }
         try {

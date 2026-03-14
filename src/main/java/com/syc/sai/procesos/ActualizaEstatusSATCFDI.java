@@ -71,7 +71,7 @@ public class ActualizaEstatusSATCFDI {
         String user = args[2];
         String pass = args[3];
         ActualizaEstatusSATCFDI actualizador = null;
-        log.info("Iniciando proceso: \nURL: " + urlConn + "\nDriver:" + driverName + "\nuser:" + user + "\npass:" + pass);
+        log.info("Object: {}", "Iniciando proceso: \nURL: " + urlConn + "\nDriver:" + driverName + "\nuser:" + user + "\npass:" + pass);
         actualizador = new ActualizaEstatusSATCFDI(urlConn, driverName, user, pass);
         actualizador.actualizaEstausSAT();
     }
@@ -101,7 +101,7 @@ public class ActualizaEstatusSATCFDI {
         leeCFDIProcesar();
         int i = 1;
         for (CFDIConsulta cfdi : cfdiList) {
-            log.info("Procesando CFDI " + i++ + " de " + cfdiList.size());
+            log.info("Object: {}", "Procesando CFDI " + i++ + " de " + cfdiList.size());
             Connection connUpdate = null;
             PreparedStatement psUpdate = null;
             try {
@@ -122,14 +122,14 @@ public class ActualizaEstatusSATCFDI {
                 psUpdate.setString(2, cfdi.getUuid());
                 int afectados = psUpdate.executeUpdate();
                 connUpdate.commit();
-                log.info("Se valido exitosamente la factura: " + cfdi.getUuid() + " Resultado: " + acuse.getEstado() + " Se afectaron:  " + afectados + " registros.");
+                log.info("Object: {}", "Se valido exitosamente la factura: " + cfdi.getUuid() + " Resultado: " + acuse.getEstado() + " Se afectaron:  " + afectados + " registros.");
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
                 if (connUpdate != null)
                     try {
                         connUpdate.rollback();
                     } catch (Exception e2) {
-                        log.warn("Problemas en rollback ::actualizaEstausSAT() [" + e2.toString() + "]");
+                        log.warn("Object: {}", "Problemas en rollback ::actualizaEstausSAT() [" + e2.toString() + "]");
                     }
             } finally {
                 CloseObject.closeObject(connUpdate);

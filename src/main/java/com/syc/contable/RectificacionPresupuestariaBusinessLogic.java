@@ -180,7 +180,7 @@ public class RectificacionPresupuestariaBusinessLogic extends DataSourceManager 
                     id_paso = c.getCasoOperacion(0).getIdOperacion();
                     if (nIdCaso > 0) {
                         ContableInterface conInt = new AplicacionContable();
-                        log.debug("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
+                        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
                         // boolean validaSaldo;
                         cTablaEncabezado = "tRectificacionAutEncabezado";
                         cTablaDetalle = "tRectificacionAutDetalle";
@@ -188,7 +188,7 @@ public class RectificacionPresupuestariaBusinessLogic extends DataSourceManager 
                         cTipoDocumento = "RECTIFICACIONAUT";
                         AplicarContableReturn acr = conInt.aplicarContableNuevo(conn, c, cTablaEncabezado, cTablaDetalle, cFolio, nIdCaso, cTipoDocumento, m, prefixPath, uLogin, "");
                         arrLResult.addAll(acr.getMessageList());
-                        log.debug("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
+                        log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
                         Caso cReloaded = new Caso();
                         cReloaded.setIdCaso(c.getIdCaso());
                         cReloaded = CasoManager.select(conn, cReloaded);
@@ -204,14 +204,14 @@ public class RectificacionPresupuestariaBusinessLogic extends DataSourceManager 
                         conn.rollback();
                     }
                 } else {
-                    log.debug(mensaje);
+                    log.debug("Object: {}", mensaje);
                     //cMensaje += mensaje;
                 }
             } else {
                 arrLResult.add("El mes de aplicacion esta cerrado contablemente, favor de notificar a contabilidad o cambiar la fecha de aplicacion.");
             }
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             arrLResult.add(exc.getLocalizedMessage());
             try {
                 conn.rollback();
@@ -238,10 +238,10 @@ public class RectificacionPresupuestariaBusinessLogic extends DataSourceManager 
             CasoBusinessLogic cbl = new CasoBusinessLogic(GestionInterface.ATT_CONEXION);
             conn = cbl.getConnection();
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             AplicarContableReturn acr = conInt.aplicarContableNuevo(conn, c, "tRectificacionEncabezado", "tRectificacionDetalle", "nFolioRectificacion", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "RECTIFICACION", m, prefixPath, uLogin, "");
             arrLResult = acr.getMessageList();
-            log.debug("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             Caso cReloaded = new Caso();
             cReloaded.setIdCaso(c.getIdCaso());
             cReloaded = CasoManager.select(conn, cReloaded);
@@ -256,7 +256,7 @@ public class RectificacionPresupuestariaBusinessLogic extends DataSourceManager 
             }
         } catch (Exception exc) {
             conn.rollback();
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             arrLResult.add(exc.getLocalizedMessage());
             try {
                 conn.rollback();
@@ -295,7 +295,7 @@ public class RectificacionPresupuestariaBusinessLogic extends DataSourceManager 
             }
             retVal = acr.getMessageList().get(acr.getMessageList().size() - 1);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -313,7 +313,7 @@ public class RectificacionPresupuestariaBusinessLogic extends DataSourceManager 
             conn = getConnection();
             res = RectificacionPresupuestariaManager.getRectificacionEncabezado(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             if (conn != null)
@@ -330,7 +330,7 @@ public class RectificacionPresupuestariaBusinessLogic extends DataSourceManager 
             conn = getConnection();
             res = RectificacionPresupuestariaManager.getRectificacionEncabezadoSicop(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             if (conn != null)
@@ -347,7 +347,7 @@ public class RectificacionPresupuestariaBusinessLogic extends DataSourceManager 
             conn = getConnection();
             res = RectificacionPresupuestariaManager.getRectificacionDetalleSicop(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             if (conn != null)
@@ -364,7 +364,7 @@ public class RectificacionPresupuestariaBusinessLogic extends DataSourceManager 
             conn = getConnection();
             res = RectificacionPresupuestariaManager.getRectificacionDetalle(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             if (conn != null)

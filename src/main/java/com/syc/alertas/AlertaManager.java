@@ -29,7 +29,7 @@ public class AlertaManager {
             String query = "" + "SELECT ID_CASO, " + "       co.ID_TC, " + "       o.ID_OPER, " + "       Round (Cast(( Datediff(hh, co.CO_FECHA_INI, Getdate()) * 100 ) / " + "            o.O_TIEMPO_LIMITE AS " + "            decimal),0) AS PORC " + "FROM   dbo.CG_CASO_OPERACION co WITH (nolock) " + "       INNER JOIN dbo.CG_OPERACION o WITH (nolock) " + "               ON co.ID_TC = o.ID_TC " + "                  AND co.ID_OPER = o.ID_OPER " + "WHERE  o.O_TIEMPO_LIMITE > 0 " + "       AND Round (Cast(( Datediff(hh, co.CO_FECHA_INI, Getdate()) * 100 ) / " + "                o.O_TIEMPO_LIMITE AS " + "                    decimal),0) > 80" + "ORDER BY ID_CASO	";
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
-            log.info(ps);
+            log.info("Object: {}", ps.toString());
             Map<String, List<Integer>> casosRetrazados = new HashMap<String, List<Integer>>();
             while (rs.next()) {
                 List<Integer> dataList = new ArrayList<Integer>();
@@ -53,7 +53,7 @@ public class AlertaManager {
         log.info("Obteniendo Interface...");
         TipoCasoInterface tci = instanciaInterface(conn, id_tc);
         String folio = extraeFolio(conn, id_caso, id_tc);
-        log.info("Extrayendo Folio: " + folio);
+        log.info("Object: {}", "Extrayendo Folio: " + folio);
         tci.onVenceCaso(conn, folio, id_caso, id_tc, id_oper, porc);
     }
 
@@ -75,7 +75,7 @@ public class AlertaManager {
             ps.setInt(1, id_caso);
             ps.setInt(2, id_tc);
             rs = ps.executeQuery();
-            log.info(ps);
+            log.info("Object: {}", ps.toString());
             if (rs.next()) {
                 folio = rs.getString("C_FOLIO");
             }
@@ -98,7 +98,7 @@ public class AlertaManager {
         } catch (Exception e) {
             log.warn(e.getMessage(), e);
         }
-        log.info("EL Proceso de Alertas en Casos Vencidos se encuentra activo: " + activo);
+        log.info("Object: {}", "EL Proceso de Alertas en Casos Vencidos se encuentra activo: " + activo);
         return activo;
     }
 
@@ -113,7 +113,7 @@ public class AlertaManager {
             ps = conn.prepareStatement(query);
             ps.setInt(1, id_tc);
             rs = ps.executeQuery();
-            log.info(ps);
+            log.info("Object: {}", ps.toString());
             if (rs.next()) {
                 nombreTCI = rs.getString("TC_INTERFACE");
             }

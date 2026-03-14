@@ -7,7 +7,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.log4j.LogManager;
 import com.syc.gestion.core.Caso;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
@@ -15,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 public class ReemplazoCFDIManager {
 
-    private static final Logger log = LogManager.getLogger(ReemplazoCFDIManager.class);
+    private static final Logger log = LoggerFactory.getLogger(ReemplazoCFDIManager.class);
 
     public static int insertaFacturaReemplazada(Connection conn, String login, String tipoPago, int folioPago) throws Exception {
         StringBuilder query = new StringBuilder();
@@ -547,7 +546,7 @@ public class ReemplazoCFDIManager {
             psDeleteFacturaBonificacion.setString(1, tipoPago);
             psDeleteFacturaBonificacion.setInt(2, folioPago);
             eliminados += psDeleteFacturaBonificacion.executeUpdate();
-            log.info("Se eliminaron " + eliminados + " facturas del pago: " + tipoPago + " Folio: " + folioPago);
+            log.info("Object: {}", "Se eliminaron " + eliminados + " facturas del pago: " + tipoPago + " Folio: " + folioPago);
             return eliminados;
         } finally {
             CloseObject.closeObject(psDeleteConceptoImpuestos);
@@ -642,7 +641,7 @@ public class ReemplazoCFDIManager {
             try {
                 String query = "SELECT * FROM " + table + " WHERE ctipopago = ? AND nfoliopago = ?";
                 ps = conn.prepareStatement(query);
-                log.debug("Executing: " + query);
+                log.debug("Object: {}", "Executing: " + query);
                 ps.setString(1, tipoPago);
                 ps.setInt(2, folioPago);
                 rs = ps.executeQuery();

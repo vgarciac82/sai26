@@ -62,7 +62,7 @@ public class ProcesoEnteraSatisfaccionBusinessLogic extends SolicitudFirmaElectr
             conn = ds.getConnection();
             //Codificar
             query.append("Select *from fn_procesoEnteraSatisfaccion('" + cFolio + "')  ");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             arrayObj = Util.datGuardados(conn, query.toString());
             jsonObj.put("infoGuardada", arrayObj);
             if (arrayObj.getJSONObject(0).getBoolean("HAYINFO")) {
@@ -90,7 +90,7 @@ public class ProcesoEnteraSatisfaccionBusinessLogic extends SolicitudFirmaElectr
             error = false;
             return jsonObj;
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             throw new Exception(e);
         } finally {
             if (error) {
@@ -98,7 +98,7 @@ public class ProcesoEnteraSatisfaccionBusinessLogic extends SolicitudFirmaElectr
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -139,7 +139,7 @@ public class ProcesoEnteraSatisfaccionBusinessLogic extends SolicitudFirmaElectr
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             throw new Exception(e);
         } finally {
             if (error) {
@@ -147,7 +147,7 @@ public class ProcesoEnteraSatisfaccionBusinessLogic extends SolicitudFirmaElectr
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -180,7 +180,7 @@ public class ProcesoEnteraSatisfaccionBusinessLogic extends SolicitudFirmaElectr
         try {
             filename = generaArchivoFirma(conn, vol, folder, parametrosReporte, "FIEL", getDocNameJasper(), isSignedCopy);
         } catch (NotEmptyDocumentException nede) {
-            log.warn("El documento no esta vacio. Se ignora" + nede);
+            log.warn("Object: {}", "El documento no esta vacio. Se ignora" + nede);
         } catch (Exception e) {
             throw new FirmaElectronicaException(e);
         }
@@ -291,7 +291,7 @@ public class ProcesoEnteraSatisfaccionBusinessLogic extends SolicitudFirmaElectr
                     try {
                         conn.rollback();
                     } catch (Exception e2) {
-                        log.warn("Problemas en rollback: " + e2);
+                        log.warn("Object: {}", "Problemas en rollback: " + e2);
                     }
             }
             CloseObject.closeObject(conn);
@@ -401,7 +401,7 @@ public class ProcesoEnteraSatisfaccionBusinessLogic extends SolicitudFirmaElectr
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             throw new Exception(e);
         } finally {
             if (error) {
@@ -409,7 +409,7 @@ public class ProcesoEnteraSatisfaccionBusinessLogic extends SolicitudFirmaElectr
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -439,7 +439,7 @@ public class ProcesoEnteraSatisfaccionBusinessLogic extends SolicitudFirmaElectr
             conn.commit();
             error = false;
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             throw new Exception(e);
         } finally {
             if (error) {
@@ -447,7 +447,7 @@ public class ProcesoEnteraSatisfaccionBusinessLogic extends SolicitudFirmaElectr
                     try {
                         conn.rollback();
                     } catch (Exception e) {
-                        log.error("Bug, Rollback: " + e);
+                        log.error("Object: {}", "Bug, Rollback: " + e);
                         throw new Exception("Bug, Rollback: " + e.toString(), e);
                     }
             }
@@ -785,7 +785,7 @@ public class ProcesoEnteraSatisfaccionBusinessLogic extends SolicitudFirmaElectr
 		 */
         parametrosReales = new StringBuilder("?");
         parametrosReales.append("fortimax=").append(fortimaxNode);
-        log.debug("Cadena generada: " + parametrosReales.toString());
+        log.debug("Object: {}", "Cadena generada: " + parametrosReales.toString());
         return parametrosReales.toString();
     }
 

@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.core.FileItem;
 import com.axtel.contratos.ActionsFIEL;
 import com.axtel.contratos.QuestionnaireBussinessLogic;
 import com.axtel.contratos.core.ImplementsActionsFIEL_ENSA;
@@ -87,7 +87,7 @@ public class FirmaReporteServlet extends HttpServlet implements GestionInterface
                 while (iter.hasNext()) {
                     FileItem item = (FileItem) iter.next();
                     if (item.isFormField()) {
-                        log.trace(item.getFieldName() + " = " + item.getString());
+                        log.trace("Object: {}", item.getFieldName() + " = " + item.getString());
                         objMap.put(item.getFieldName(), item.getString());
                         item.delete();
                         continue;
@@ -95,18 +95,18 @@ public class FirmaReporteServlet extends HttpServlet implements GestionInterface
                         if ("cerFile".equals(item.getFieldName())) {
                             archivoCargaStreamCer = new DataInputStream(item.getInputStream());
                             cerFileName = FacturaUtils.generaNombreArchivoTemporal(TEMP_DIR, item.getName(), "cer");
-                            log.info("Copiando archivo :" + cerFileName);
+                            log.info("Object: {}", "Copiando archivo :" + cerFileName);
                             Util.copiaArchivo(archivoCargaStreamCer, cerFileName);
                         } else if ("keyFile".equals(item.getFieldName())) {
                             archivoCargaStreamKey = new DataInputStream(item.getInputStream());
                             keyFileName = FacturaUtils.generaNombreArchivoTemporal(TEMP_DIR, item.getName(), "key");
-                            log.info("Copiando archivo :" + keyFileName);
+                            log.info("Object: {}", "Copiando archivo :" + keyFileName);
                             Util.copiaArchivo(archivoCargaStreamKey, keyFileName);
                             if (archivoCargaStreamKey != null)
                                 try {
                                     archivoCargaStreamKey.close();
                                 } catch (Exception e) {
-                                    log.error("Error cerrando flujo DataInputStream" + e);
+                                    log.error("Error occurred", "Error cerrando flujo DataInputStream" + e);
                                 }
                         }
                     }
@@ -186,7 +186,7 @@ public class FirmaReporteServlet extends HttpServlet implements GestionInterface
                     try {
                         archivoCargaStreamCer.close();
                     } catch (Exception e) {
-                        log.error("Error cerrando flujo DataInputStream" + e);
+                        log.error("Error occurred", "Error cerrando flujo DataInputStream" + e);
                     }
                 archivoCargaStreamCer = null;
                 if (!"".equals(cerFileName)) {
@@ -198,7 +198,7 @@ public class FirmaReporteServlet extends HttpServlet implements GestionInterface
                     try {
                         archivoCargaStreamKey.close();
                     } catch (Exception e) {
-                        log.error("Error cerrando flujo DataInputStream" + e);
+                        log.error("Error occurred", "Error cerrando flujo DataInputStream" + e);
                     }
                 archivoCargaStreamKey = null;
                 if (!"".equals(keyFileName)) {
@@ -232,26 +232,26 @@ public class FirmaReporteServlet extends HttpServlet implements GestionInterface
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
             settings = new ConfiguraAplicativoBusinessLogic(jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         try {
             InitialContext ic = new InitialContext();
             TEMP_DIR = (String) ic.lookup("java:comp/env/TemporaryDirectory");
             if (TEMP_DIR == null) {
                 TEMP_DIR = "/temp/firmaElectronica/";
-                log.info("Environment Entry \"TEMP_DIR\" nula usando default \"" + TEMP_DIR + "\"");
+                log.info("Object: {}", "Environment Entry \"TEMP_DIR\" nula usando default \"" + TEMP_DIR + "\"");
             } else
-                log.info("dataSourceRefName=" + TEMP_DIR);
+                log.info("Object: {}", "dataSourceRefName=" + TEMP_DIR);
         } catch (NamingException exc) {
             TEMP_DIR = "/temp/firmaElectronica/";
-            log.info("Ocurrio un error que evito que se cargara la entrada \"TEMP_DIR\"" + exc);
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + TEMP_DIR + "\"");
+            log.info("Error occurred", "Ocurrio un error que evito que se cargara la entrada \"TEMP_DIR\"" + exc);
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + TEMP_DIR + "\"");
         }
         try {
             File f = new File(TEMP_DIR);
@@ -259,7 +259,7 @@ public class FirmaReporteServlet extends HttpServlet implements GestionInterface
                 if (!f.mkdirs())
                     throw new Exception("No se puede crear el directorio temporal " + TEMP_DIR);
         } catch (Exception e) {
-            log.error("No fue posible crear automaticamente el directorio temporal: " + TEMP_DIR + " Solicite su creacion manual");
+            log.error("Object: {}", "No fue posible crear automaticamente el directorio temporal: " + TEMP_DIR + " Solicite su creacion manual");
         }
     }
 }

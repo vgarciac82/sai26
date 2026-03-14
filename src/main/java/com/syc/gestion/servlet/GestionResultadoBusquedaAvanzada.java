@@ -42,12 +42,12 @@ public class GestionResultadoBusquedaAvanzada extends HttpServlet implements Ges
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 
@@ -65,7 +65,7 @@ public class GestionResultadoBusquedaAvanzada extends HttpServlet implements Ges
         SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         resp.setContentType("text/html");
         String u_login = req.getParameter("u_login");
-        log.info("u_login=" + u_login);
+        log.info("Object: {}", "u_login=" + u_login);
         param_consulta = "u_login=" + u_login;
         HttpSession session = req.getSession(false);
         if (session == null) {
@@ -289,7 +289,7 @@ public class GestionResultadoBusquedaAvanzada extends HttpServlet implements Ges
                         continue;
                     }
                     if (m.isEmpty()) {
-                        log.warn("No se recupero caso operacion para (usr[" + u.getLogin() + "], app[" + fimx.getTituloAplicacion() + "], idGab[" + data[i][0] + "])");
+                        log.warn("Object: {}", "No se recupero caso operacion para (usr[" + u.getLogin() + "], app[" + fimx.getTituloAplicacion() + "], idGab[" + data[i][0] + "])");
                         continue;
                     }
                     // Miguel

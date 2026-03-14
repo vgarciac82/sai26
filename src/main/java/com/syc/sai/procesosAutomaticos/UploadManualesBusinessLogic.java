@@ -44,7 +44,7 @@ public class UploadManualesBusinessLogic extends DataSourceManager {
     public String uploadManual(Usuario u, String nombreCarpeta, String nombreDestino, int nIDversion) {
         Connection conn = null;
         Caso c = null;
-        log.info("Iniciando el proceso de ajuntar el manual contable en la carpeta[" + nombreCarpeta + "] Archivo[" + nombreDestino + "]");
+        log.info("Object: {}", "Iniciando el proceso de ajuntar el manual contable en la carpeta[" + nombreCarpeta + "] Archivo[" + nombreDestino + "]");
         String msg = "";
         int idManual = -1;
         try {
@@ -82,7 +82,7 @@ public class UploadManualesBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
         } finally {
             CloseObject.closeObject(conn);

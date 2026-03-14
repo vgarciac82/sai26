@@ -25,9 +25,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -129,7 +129,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas con rollback:" + e2);
+                    log.warn("Object: {}", "Problemas con rollback:" + e2);
                 }
             }
             throw e;
@@ -185,7 +185,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
             List<Integer> folios = CompromisoManager.selectCompromisosCancelar(conn);
             for (Iterator<Integer> i = folios.iterator(); i.hasNext(); ) {
                 Integer nFolioCompromiso = i.next();
-                log.info("Cancelando folio: " + nFolioCompromiso);
+                log.info("Object: {}", "Cancelando folio: " + nFolioCompromiso);
                 AccountingEngine motorContable = new AccountingEngine();
                 motorContable.makeAccountingApplication(conn, "PRECOMFINANCIERO", nFolioCompromiso.toString(), "tPrecomFinancieroEncabezado", "tPrecomFinancieroDetalle", "nFolioPrecomFinanciero");
                 CompromisoManager.borraCompromisosCancelarLista(conn, nFolioCompromiso);
@@ -218,7 +218,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
             motorContable.makeAccountingApplication(conn, "COMPROMISO", String.valueOf(nFolioCompromiso), "tcompromisoencabezado", "tcompromisodetalle", "nFolioCompromiso");
             conn.commit();
             long end = System.currentTimeMillis();
-            log.info(String.format("Se termino el proceso de limpieza anual de compromisos exitosamente en %2d segundos", (end - start) / 1000));
+            log.info("Object: {}", String.format("Se termino el proceso de limpieza anual de compromisos exitosamente en %2d segundos", (end - start) / 1000));
             return nFolioCompromiso;
         } catch (Exception e) {
             if (conn != null)
@@ -263,7 +263,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -284,7 +284,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -326,7 +326,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -417,7 +417,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             if (resultado == null)
                 resultado = new ArrayList<String>();
@@ -449,7 +449,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             if (resultado == null)
                 resultado = new ArrayList<String>();
@@ -491,7 +491,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
         for (String[] renglon : renglonesArchivo) {
             try {
                 conn = getConnection();
-                log.debug(" Operando el renglon " + nRenglon + " : " + renglon[21]);
+                log.debug("Object: {}", " Operando el renglon " + nRenglon + " : " + renglon[21]);
                 int columna = 0;
                 String fAp = renglon[23];
                 String fExp = renglon[6];
@@ -527,7 +527,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
                         conn.commit();
                     } catch (Exception e2) {
                         String errorMsg = "Error mientras se guardaba el compromiso " + renglon[20] + ". Causa: " + e2.toString();
-                        log.warn(errorMsg);
+                        log.warn(errorMsg.getMessage(), errorMsg);
                         throw new Exception(errorMsg, e2);
                     }
                     diferencia = CompromisoManager.diferenciaSICOPvsSAI(conn, caNoCompromiso);
@@ -542,7 +542,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
                             // caNoCompromiso );
                         } catch (Exception e4) {
                             String errorMsg = "Error mientras se aplicaba el compromiso " + renglon[20] + ". Causa: " + e4.toString();
-                            log.warn(errorMsg);
+                            log.warn(errorMsg.getMessage(), errorMsg);
                             throw new Exception(errorMsg, e4);
                         }
                     } else {
@@ -555,7 +555,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
                     try {
                         conn.rollback();
                     } catch (Exception e2) {
-                        log.warn("Problemas en rollback: " + e2);
+                        log.warn("Object: {}", "Problemas en rollback: " + e2);
                     }
                 if (resultado == null)
                     resultado = new ArrayList<String>();
@@ -580,7 +580,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -618,7 +618,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
         List<String[]> lista = new ArrayList<>();
         log.trace("Creando formato de lectura CSV");
         CSVFormat format = CSVFormat.DEFAULT.builder().setDelimiter(',').setQuote('"').setIgnoreSurroundingSpaces(true).setTrim(true).setHeader().setSkipHeaderRecord(true).setAllowMissingColumnNames(true).build();
-        log.trace("Formato creado " + format);
+        log.trace("Object: {}", "Formato creado " + format);
         int renglon = 1;
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
             CSVParser parser = new CSVParser(reader, format)) {
@@ -630,7 +630,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
                         row[i] = record.get(i);
                     }
                     lista.add(row);
-                    log.trace("Renglon " + renglon++ + " Leido exitosamente ");
+                    log.trace("Object: {}", "Renglon " + renglon++ + " Leido exitosamente ");
                 }
             }
         }
@@ -642,7 +642,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
         List<String[]> lista = new ArrayList<>();
         log.trace("Creando formato de lectura CSV");
         CSVFormat format = CSVFormat.DEFAULT.builder().setDelimiter(',').setQuote('"').setIgnoreSurroundingSpaces(true).setTrim(true).setHeader().setSkipHeaderRecord(true).setAllowMissingColumnNames(true).build();
-        log.trace("Formato creado " + format);
+        log.trace("Object: {}", "Formato creado " + format);
         int renglon = 1;
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
             CSVParser parser = new CSVParser(reader, format)) {
@@ -654,7 +654,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
                         row[i] = record.get(i);
                     }
                     lista.add(row);
-                    log.trace("Renglon " + renglon++ + " Leido exitosamente ");
+                    log.trace("Object: {}", "Renglon " + renglon++ + " Leido exitosamente ");
                 }
             }
         }
@@ -747,7 +747,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {

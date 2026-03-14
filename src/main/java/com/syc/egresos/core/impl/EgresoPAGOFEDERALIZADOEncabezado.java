@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.DateConverter;
 import com.axtel.egresos.entities.EgresoExcedeUMA;
@@ -311,11 +311,11 @@ public class EgresoPAGOFEDERALIZADOEncabezado extends EgresoEncabezado {
         PreparedStatement ps = null;
         int afectados = 0;
         try {
-            log.trace("Iniciando eliminacion del pago directo: " + getFolioPago());
+            log.trace("Object: {}", "Iniciando eliminacion del pago directo: " + getFolioPago());
             ps = conn.prepareStatement(query);
             ps.setInt(1, getFolioPago());
             afectados = ps.executeUpdate();
-            log.trace("Se eliminaron : " + afectados + " pagos con el folio: " + getFolioPago());
+            log.trace("Object: {}", "Se eliminaron : " + afectados + " pagos con el folio: " + getFolioPago());
             return afectados;
         } finally {
             CloseObject.closeObject(ps);
@@ -344,7 +344,7 @@ public class EgresoPAGOFEDERALIZADOEncabezado extends EgresoEncabezado {
         for (EgresoRetencion retencion : retenciones) {
             insertados += EgresoRetencionFederalizadoManager.insertaRetencionEgresoFederalizado(conn, this, retencion);
         }
-        log.info("Se insertaron: " + insertados + " retenciones para el pago directo folio " + getfolioPagoFederalizado());
+        log.info("Object: {}", "Se insertaron: " + insertados + " retenciones para el pago directo folio " + getfolioPagoFederalizado());
         return insertados;
     }
 
@@ -586,8 +586,8 @@ public class EgresoPAGOFEDERALIZADOEncabezado extends EgresoEncabezado {
             ps.setString(param++, String.valueOf(getEsFirmaElectronica()));
             ps.setString(param++, getConcepto());
             ps.setInt(param++, getIdEstatus());
-            log.debug(queryIns.toString());
-            log.debug("Informacion:" + getIdContrato() + ", " + getFolioPago() + ", " + getContrarecibo() + ", " + getRfc() + ", " + getNombre() + ", " + Util.toSQLDate(getFechaAplicacion()) + ", " + getFolioPago() + ", " + getImporteBruto() + ", " + getImporteSancion() + ", " + getImporteDevolucion() + ", " + getImporteAmortizacionAnticipo() + ", " + getImporteIVA() + ", " + getImporteRetencion() + ", " + getImporteMasIva() + ", " + getConcepto() + ", " + getIdConcepto() + ", " + Util.toSQLDate(getFechaProgramadaPago()) + ", " + getIdUsuarioCaptura() + ", " + getIdDestinoGasto() + ", " + getIdTipoOperacion() + ", " + Util.toSQLDate(getfPeriodode()) + ", " + Util.toSQLDate(getfPeriodoHasta()) + ", " + getUnidadResponsable() + ", " + getRamo() + ", " + getIdTipoDocumento() + ", " + getImporteMasIva() + ", " + getImporteAmortizacion() + ", " + getImporteAcumuladoPagar() + ", " + getImporteSaldoAnticipo() + ", " + getCentroContable() + ", " + getMes() + ", " + getEjercicioFiscal() + ", " + getImporteAmortizacionAcumulado() + ", " + getImporteSancionAcumulad() + ", " + getImporteDevolucionAcumulado() + ", " + getTipoPoliza() + ", " + getCTAB() + ", " + getOtrosImpuestos() + ", " + getIdPrograma() + ", " + getcSubPrograma() + ", " + getNumEmpleadoElab() + ", " + getNumEmpleadoVoBo() + ", " + getNumEmpleadoAut() + ", " + getEsFirmaElectronica() + ", " + getConcepto() + ", " + getIdEstatus());
+            log.debug("Object: {}", queryIns.toString());
+            log.debug("Object: {}", "Informacion:" + getIdContrato() + ", " + getFolioPago() + ", " + getContrarecibo() + ", " + getRfc() + ", " + getNombre() + ", " + Util.toSQLDate(getFechaAplicacion()) + ", " + getFolioPago() + ", " + getImporteBruto() + ", " + getImporteSancion() + ", " + getImporteDevolucion() + ", " + getImporteAmortizacionAnticipo() + ", " + getImporteIVA() + ", " + getImporteRetencion() + ", " + getImporteMasIva() + ", " + getConcepto() + ", " + getIdConcepto() + ", " + Util.toSQLDate(getFechaProgramadaPago()) + ", " + getIdUsuarioCaptura() + ", " + getIdDestinoGasto() + ", " + getIdTipoOperacion() + ", " + Util.toSQLDate(getfPeriodode()) + ", " + Util.toSQLDate(getfPeriodoHasta()) + ", " + getUnidadResponsable() + ", " + getRamo() + ", " + getIdTipoDocumento() + ", " + getImporteMasIva() + ", " + getImporteAmortizacion() + ", " + getImporteAcumuladoPagar() + ", " + getImporteSaldoAnticipo() + ", " + getCentroContable() + ", " + getMes() + ", " + getEjercicioFiscal() + ", " + getImporteAmortizacionAcumulado() + ", " + getImporteSancionAcumulad() + ", " + getImporteDevolucionAcumulado() + ", " + getTipoPoliza() + ", " + getCTAB() + ", " + getOtrosImpuestos() + ", " + getIdPrograma() + ", " + getcSubPrograma() + ", " + getNumEmpleadoElab() + ", " + getNumEmpleadoVoBo() + ", " + getNumEmpleadoAut() + ", " + getEsFirmaElectronica() + ", " + getConcepto() + ", " + getIdEstatus());
             return ps.executeUpdate();
         } catch (SQLException e) {
             throw new EgresoException(e);

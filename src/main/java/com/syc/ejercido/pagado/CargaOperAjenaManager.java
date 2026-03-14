@@ -25,7 +25,7 @@ public class CargaOperAjenaManager extends DataSourceManager {
                 folio = Integer.parseInt(rs.getString("folio"), 10);
             }
         } catch (Exception e) {
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
             e.printStackTrace();
             folio = 0;
         } finally {
@@ -58,7 +58,7 @@ public class CargaOperAjenaManager extends DataSourceManager {
                 valor = "existe";
             }
         } catch (Exception e) {
-            log.error("Error al Validar RFC : " + e);
+            log.error("Error occurred", "Error al Validar RFC : " + e);
         } finally {
             try {
                 if (ps != null) {
@@ -97,7 +97,7 @@ public class CargaOperAjenaManager extends DataSourceManager {
                 valor = "existe";
             }
         } catch (Exception e) {
-            log.error("Error al Validar mes de captura : " + e);
+            log.error("Error occurred", "Error al Validar mes de captura : " + e);
         } finally {
             try {
                 if (ps1 != null) {
@@ -142,7 +142,7 @@ public class CargaOperAjenaManager extends DataSourceManager {
             psEnc.executeUpdate();
             valor = "guardado";
         } catch (Exception e) {
-            log.error("Error al guardar el dato " + e);
+            log.error("Error occurred", "Error al guardar el dato " + e);
         }
         return valor;
     }
@@ -156,7 +156,7 @@ public class CargaOperAjenaManager extends DataSourceManager {
             psEnc.execute();
             valor = "guardado";
         } catch (Exception e) {
-            log.error("Error al guardar el dato " + e);
+            log.error("Error occurred", "Error al guardar el dato " + e);
         }
         return valor;
     }

@@ -68,7 +68,7 @@ public class AdjuntaArchivoMasivoManager {
             for (int i = desde; i <= hasta; i++) {
                 String numero = ceros.substring(0, ceros.length() - String.valueOf(i).length()) + String.valueOf(i);
                 String cxp = cxpBase + numero;
-                log.info("Contrarecibo generado [" + cxp + "]");
+                log.info("Object: {}", "Contrarecibo generado [" + cxp + "]");
                 psDocumento.setString(1, cxp);
                 rsDocumento = psDocumento.executeQuery();
                 if (rsDocumento.next()) {
@@ -102,14 +102,14 @@ public class AdjuntaArchivoMasivoManager {
                         if (DocumentoManager.existeDocumento(conn, tituloAplicacion, idGabinete, nombreDocumento) && !DocumentoManager.existeDocumentoCapturado(conn, tituloAplicacion, idGabinete, nombreDocumento)) {
                             Documento d = DocumentoManager.buscaDocumento(conn, tituloAplicacion, idGabinete, nombreDocumento);
                             File origen = new File(nombreDestino);
-                            log.trace("Insertando el archivo: " + origen.getName());
+                            log.trace("Object: {}", "Insertando el archivo: " + origen.getName());
                             String tmpFile = origen.getName();
                             int pos = tmpFile.lastIndexOf('.') + 1;
                             String ext = pos != -1 ? tmpFile.substring(pos) : "";
                             CLCAttachmentManager.insertaDocumento(conn, d.getTituloAplicacion(), d.getIdGabinete(), d.getIdCarpetaPadre(), nombreDocumento, ext, "CARGA_MASIVA", nombreDestino, psSearchVolumenUnit, psSearchVolumen, psSearchVolPath, (i == hasta));
                             log.trace("Archivo insertado exitosamente");
                             cnt++;
-                            log.info("Documento adjuntado exitosamente en el CxP[" + cxp + "]");
+                            log.info("Object: {}", "Documento adjuntado exitosamente en el CxP[" + cxp + "]");
                         }
                     }
                 }
@@ -226,7 +226,7 @@ public class AdjuntaArchivoMasivoManager {
                 int desde = Math.min(rango.getInicio(), rango.getFin());
                 for (int i = desde; i <= hasta; i++) {
                     int nFolioDocPoliza = i;
-                    log.info("Folio de documento Poliza [" + nFolioDocPoliza + "]");
+                    log.info("Object: {}", "Folio de documento Poliza [" + nFolioDocPoliza + "]");
                     psExpediente.setInt(1, nFolioDocPoliza);
                     rsExpediente = psExpediente.executeQuery();
                     if (rsExpediente.next()) {
@@ -240,14 +240,14 @@ public class AdjuntaArchivoMasivoManager {
                         if (DocumentoManager.existeDocumento(conn, tituloAplicacion, idGabinete, nombreDocumento) && !DocumentoManager.existeDocumentoCapturado(conn, tituloAplicacion, idGabinete, nombreDocumento)) {
                             Documento d = DocumentoManager.buscaDocumento(conn, tituloAplicacion, idGabinete, nombreDocumento);
                             File origen = new File(nombreDestino);
-                            log.trace("Insertando el archivo: " + origen.getName());
+                            log.trace("Object: {}", "Insertando el archivo: " + origen.getName());
                             String tmpFile = origen.getName();
                             int pos = tmpFile.lastIndexOf('.') + 1;
                             String ext = pos != -1 ? tmpFile.substring(pos) : "";
                             CLCAttachmentManager.insertaDocumento(conn, d.getTituloAplicacion(), d.getIdGabinete(), d.getIdCarpetaPadre(), nombreDocumento, ext, "CARGA_MASIVA", nombreDestino, psSearchVolumenUnit, psSearchVolumen, psSearchVolPath, (i == hasta && !iterator.hasNext()));
                             log.trace("Archivo insertado exitosamente");
                             cnt++;
-                            log.info("Documento adjuntado exitosamente en folio[" + nFolioDocPoliza + "]");
+                            log.info("Object: {}", "Documento adjuntado exitosamente en folio[" + nFolioDocPoliza + "]");
                         }
                     }
                 }
@@ -290,10 +290,10 @@ public class AdjuntaArchivoMasivoManager {
             psSearchVolPath = conn.prepareStatement(querySearchFilePath);
             int hasta = Math.max(rango.getInicio(), rango.getFin());
             int desde = Math.min(rango.getInicio(), rango.getFin());
-            log.info(String.format("Adjuntando archivo %s al expediente tipo %s en la carpeta %d en el documento %d centro contable %s del EF %d desde el folio inicial %d al folio final %d", nombreDestino, tituloAplicacion, idCarpeta, idDocumento, cCentroContable, aEjercicioFiscal, desde, hasta));
+            log.info("Object: {}", String.format("Adjuntando archivo %s al expediente tipo %s en la carpeta %d en el documento %d centro contable %s del EF %d desde el folio inicial %d al folio final %d", nombreDestino, tituloAplicacion, idCarpeta, idDocumento, cCentroContable, aEjercicioFiscal, desde, hasta));
             for (int i = desde; i <= hasta; i++) {
                 int nFolioDocPoliza = i;
-                log.info("Folio de documento Poliza [" + nFolioDocPoliza + "]");
+                log.info("Object: {}", "Folio de documento Poliza [" + nFolioDocPoliza + "]");
                 psExpediente.setInt(1, nFolioDocPoliza);
                 rsExpediente = psExpediente.executeQuery();
                 if (rsExpediente.next()) {
@@ -303,26 +303,26 @@ public class AdjuntaArchivoMasivoManager {
                     if (rsElemento.next()) {
                         nombreDocumento = rsElemento.getString(1);
                     } else {
-                        log.error("No se encontro documento para el idDocumento " + idDocumento);
+                        log.error("Object: {}", "No se encontro documento para el idDocumento " + idDocumento);
                         continue;
                     }
                     idGabinete = rsExpediente.getInt("id_gabinete");
                     if (DocumentoManager.existeDocumento(conn, tituloAplicacion, idGabinete, nombreDocumento) && !DocumentoManager.existeDocumentoCapturado(conn, tituloAplicacion, idGabinete, nombreDocumento)) {
                         Documento d = DocumentoManager.buscaDocumento(conn, tituloAplicacion, idGabinete, nombreDocumento);
                         File origen = new File(nombreDestino);
-                        log.trace("Insertando el archivo: " + origen.getName());
+                        log.trace("Object: {}", "Insertando el archivo: " + origen.getName());
                         String tmpFile = origen.getName();
                         int pos = tmpFile.lastIndexOf('.') + 1;
                         String ext = pos != -1 ? tmpFile.substring(pos) : "";
                         CLCAttachmentManager.insertaDocumento(conn, d.getTituloAplicacion(), d.getIdGabinete(), d.getIdCarpetaPadre(), nombreDocumento, ext, "CARGA_MASIVA", nombreDestino, psSearchVolumenUnit, psSearchVolumen, psSearchVolPath, false);
                         log.trace("Archivo insertado exitosamente");
                         cnt++;
-                        log.info("Documento adjuntado exitosamente en folio[" + nFolioDocPoliza + "]");
+                        log.info("Object: {}", "Documento adjuntado exitosamente en folio[" + nFolioDocPoliza + "]");
                     } else {
-                        log.info(String.format("El documento %s en el gabinete %d de la aplicacion %s en la carpeta %d no se encontro o ya contiene informacion. ", nombreDocumento, idGabinete, tituloAplicacion, idCarpeta));
+                        log.info("Object: {}", String.format("El documento %s en el gabinete %d de la aplicacion %s en la carpeta %d no se encontro o ya contiene informacion. ", nombreDocumento, idGabinete, tituloAplicacion, idCarpeta));
                     }
                 } else {
-                    log.error("No se encontro expediente con el folio " + nFolioDocPoliza);
+                    log.error("Object: {}", "No se encontro expediente con el folio " + nFolioDocPoliza);
                 }
             }
         } finally {
@@ -382,7 +382,7 @@ public class AdjuntaArchivoMasivoManager {
             for (int i = 0; i < procesar.size(); i++) {
                 try {
                     String cxp = Util.getFileWithoutExtencion(procesar.get(i).getName());
-                    log.debug("Contrarecibo generado [" + cxp + "]");
+                    log.debug("Object: {}", "Contrarecibo generado [" + cxp + "]");
                     psDocumento.setString(1, cxp);
                     rsDocumento = psDocumento.executeQuery();
                     if (rsDocumento.next()) {
@@ -395,13 +395,13 @@ public class AdjuntaArchivoMasivoManager {
                                 if (!DocumentoManager.existeDocumentoCapturado(conn, tituloAplicacion, idGabinete, nombreDocumento)) {
                                     Documento d = DocumentoManager.buscaDocumento(conn, tituloAplicacion, idGabinete, nombreDocumento);
                                     File origen = procesar.get(i);
-                                    log.trace("Insertando el archivo: " + origen.getName());
+                                    log.trace("Object: {}", "Insertando el archivo: " + origen.getName());
                                     String tmpFile = origen.getName();
                                     int pos = tmpFile.lastIndexOf('.') + 1;
                                     String ext = pos != -1 ? tmpFile.substring(pos) : "";
                                     CLCAttachmentManager.insertaDocumento(conn, d.getTituloAplicacion(), d.getIdGabinete(), d.getIdCarpetaPadre(), nombreDocumento, ext, u.getLogin(), procesar.get(i).getAbsolutePath(), psSearchVolumenUnit, psSearchVolumen, psSearchVolPath, true);
                                     log.trace("Archivo insertado exitosamente");
-                                    log.info("Documento adjuntado exitosamente en el CxP[" + cxp + "]");
+                                    log.info("Object: {}", "Documento adjuntado exitosamente en el CxP[" + cxp + "]");
                                     logAdjuntos.append(token + "[" + cxp + "] Documento adjuntado exitosamente  en el expediente [" + idGabinete + "] del tramite [" + tituloAplicacion + "] con folio [" + nFolioDocumento + "]");
                                 } else {
                                     logAdjuntos.append(token + "[" + cxp + "] El documento [" + nombreDocumento + "] en el expediente [" + idGabinete + "] del tramite [" + tituloAplicacion + "] con folio " + nFolioDocumento + " NO ESTA VACIO. Se ignora");
@@ -466,11 +466,11 @@ public class AdjuntaArchivoMasivoManager {
 
     public static String crearCarpetaRG(Connection conn, String gavetaAsociada, int idGabinete, String nombreCarpeta, String uLogin, PreparedStatement psSearchVolumenUnit, PreparedStatement psSearchVolumen, PreparedStatement psSearchVolPath, File origen, String nombreDestino, boolean bValor, String cxp, int nFolioDocumento) throws Exception {
         StringBuffer logAdjuntos = new StringBuffer();
-        log.trace("Inicia busqueda de carpeta [" + nombreCarpeta + "]");
+        log.trace("Object: {}", "Inicia busqueda de carpeta [" + nombreCarpeta + "]");
         long start = System.currentTimeMillis();
         Carpeta carpeta = CarpetaManager.getCarpetaByName(conn, gavetaAsociada, idGabinete, nombreCarpeta);
         if (carpeta == null) {
-            log.trace("No existe la carpeta [" + nombreCarpeta + "] se creara.");
+            log.trace("Object: {}", "No existe la carpeta [" + nombreCarpeta + "] se creara.");
             Carpeta modelo = new Carpeta();
             modelo.setTituloAplicacion(gavetaAsociada);
             modelo.setIdGabinete(idGabinete);
@@ -488,10 +488,10 @@ public class AdjuntaArchivoMasivoManager {
             oc.setNombreHija(carpeta.getNombreCarpeta());
             oc.setTituloAplicacion(carpeta.getTituloAplicacion());
             OrgCarpetaManager.insert(conn, oc);
-            log.trace("Carpeta [" + nombreCarpeta + "] creada con exito.");
+            log.trace("Object: {}", "Carpeta [" + nombreCarpeta + "] creada con exito.");
         }
         if (!DocumentoManager.existeDocumento(conn, gavetaAsociada, idGabinete, nombreCarpeta)) {
-            log.trace("Insertando el archivo: " + origen.getName());
+            log.trace("Object: {}", "Insertando el archivo: " + origen.getName());
             String tmpFile = origen.getName();
             int pos = tmpFile.lastIndexOf('.') + 1;
             String ext = pos != -1 ? tmpFile.substring(pos) : "";
@@ -503,7 +503,7 @@ public class AdjuntaArchivoMasivoManager {
             logAdjuntos.append("[" + cxp + "] El documento [" + nombreCarpeta + "] en el expediente [" + idGabinete + "] del tramite [" + gavetaAsociada + "] con folio " + nFolioDocumento + " NO ESTA VACIO. Se ignora");
         }
         long stop = System.currentTimeMillis();
-        log.trace("Finaliza busqueda de carpeta en [" + ((stop - start) / 1000) + "] s.");
+        log.trace("Object: {}", "Finaliza busqueda de carpeta en [" + ((stop - start) / 1000) + "] s.");
         return logAdjuntos.toString();
     }
 
@@ -540,7 +540,7 @@ public class AdjuntaArchivoMasivoManager {
             for (int i = 0; i < procesar.size(); i++) {
                 try {
                     String cxp = Util.getFileWithoutExtencion(procesar.get(i).getName());
-                    log.debug("Contrarecibo generado [" + cxp + "]");
+                    log.debug("Object: {}", "Contrarecibo generado [" + cxp + "]");
                     psDocumento.setString(1, cxp);
                     rsDocumento = psDocumento.executeQuery();
                     if (rsDocumento.next()) {

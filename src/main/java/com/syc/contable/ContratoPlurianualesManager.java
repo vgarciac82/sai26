@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import com.syc.sai.contabilidad.ClasePlurianualEp;
 import com.syc.contable.core.AplicacionContable;
 import com.syc.contable.core.AplicacionContable.AplicarContableReturn;
@@ -51,11 +51,11 @@ public class ContratoPlurianualesManager {
             //	log.debug("Iniciando insercion de renglon");
             stmnt = conn.createStatement();
             r = stmnt.executeUpdate(Util.genInsertFromMap(sTabla, infoRenglon));
-            log.trace("Se inserto Exitosamente en " + sTabla);
+            log.trace("Object: {}", "Se inserto Exitosamente en " + sTabla);
             return r;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            log.debug("Error: problemas al leer archivo funcion: ContratoPlurianualesManager.insertaRenglonProyecto" + r);
+            log.debug("Error occurred", "Error: problemas al leer archivo funcion: ContratoPlurianualesManager.insertaRenglonProyecto" + r);
             throw e;
         } finally {
             CloseObject.closeObject(stmnt, false);
@@ -69,11 +69,11 @@ public class ContratoPlurianualesManager {
             log.trace("Limpiando tablas tContratoPlurianual_EP");
             stmnt = conn.createStatement();
             r = stmnt.executeUpdate("delete tContratoPlurianual_EP where nFolioContratoPlurianual ='" + cFolio + "'");
-            log.trace("Se eliminaron registros  de tContratoPlurianual_EP con folio = " + cFolio + " Exitosamente ");
+            log.trace("Object: {}", "Se eliminaron registros  de tContratoPlurianual_EP con folio = " + cFolio + " Exitosamente ");
             return r;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            log.debug("Error: problemas al leer archivo funcion: ContratoPlurianualesManager.EliminaContratoPlurianual_EP" + r);
+            log.debug("Error occurred", "Error: problemas al leer archivo funcion: ContratoPlurianualesManager.EliminaContratoPlurianual_EP" + r);
             throw e;
         } finally {
             CloseObject.closeObject(stmnt, false);
@@ -87,11 +87,11 @@ public class ContratoPlurianualesManager {
             log.trace("Limpiando tablas tContratoPlurianualEncabezado");
             stmnt = conn.createStatement();
             r = stmnt.executeUpdate("delete tContratoPlurianualEncabezado where nFolioContratoPlurianual ='" + cFolio + "'");
-            log.trace("Se eliminaron registros  de tContratoPlurianualEncabezado con folio = " + cFolio + " Exitosamente ");
+            log.trace("Object: {}", "Se eliminaron registros  de tContratoPlurianualEncabezado con folio = " + cFolio + " Exitosamente ");
             return r;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            log.debug("Error: problemas al leer archivo funcion: ContratoPlurianualesManager.fn_EliminaContratoPlurianualEncabezado" + r);
+            log.debug("Error occurred", "Error: problemas al leer archivo funcion: ContratoPlurianualesManager.fn_EliminaContratoPlurianualEncabezado" + r);
             throw e;
         } finally {
             CloseObject.closeObject(stmnt, false);
@@ -105,11 +105,11 @@ public class ContratoPlurianualesManager {
             log.trace("Limpiando tablas tContratoPlurianual_EP");
             stmnt = conn.createStatement();
             r = stmnt.executeUpdate("delete tContratoPlurianualDetalle where nFolioContratoPlurianual ='" + cFolio + "'");
-            log.trace("Se eliminaron registros  de tContratoPlurianualDetalle con folio = " + cFolio + " Exitosamente ");
+            log.trace("Object: {}", "Se eliminaron registros  de tContratoPlurianualDetalle con folio = " + cFolio + " Exitosamente ");
             return r;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            log.debug("Error: problemas al leer archivo funcion: ContratoPlurianualesManager.fn_EliminaContratoPlurianualDetalle" + r);
+            log.debug("Error occurred", "Error: problemas al leer archivo funcion: ContratoPlurianualesManager.fn_EliminaContratoPlurianualDetalle" + r);
             throw e;
         } finally {
             CloseObject.closeObject(stmnt, false);
@@ -123,11 +123,11 @@ public class ContratoPlurianualesManager {
             log.trace("Limpiando tablas tContratoPlurianualMontosAnuales");
             stmnt = conn.createStatement();
             r = stmnt.executeUpdate("delete tContratoPlurianualMontosAnuales where nFolioContratoPlurianual =" + cFolio);
-            log.trace("Se eliminaron registros  de tContratoPlurianualMontosAnuales con folio = " + cFolio + " Exitosamente ");
+            log.trace("Object: {}", "Se eliminaron registros  de tContratoPlurianualMontosAnuales con folio = " + cFolio + " Exitosamente ");
             return r;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            log.debug("Error: problemas al leer archivo funcion: ContratoPlurianualesManager.tContratoPlurianualMontosAnuales" + r);
+            log.debug("Error occurred", "Error: problemas al leer archivo funcion: ContratoPlurianualesManager.tContratoPlurianualMontosAnuales" + r);
             throw e;
         } finally {
             CloseObject.closeObject(stmnt, false);
@@ -139,7 +139,7 @@ public class ContratoPlurianualesManager {
         ResultSet rs = null;
         int total = 0;
         try {
-            log.trace("Validando Ep:" + Ep);
+            log.trace("Object: {}", "Validando Ep:" + Ep);
             stmnt = conn.prepareStatement("select COUNT(*) as Existe from tCatalogoEP with(nolock) where EP = ? ");
             stmnt.setString(1, Ep);
             rs = stmnt.executeQuery();
@@ -272,7 +272,7 @@ public class ContratoPlurianualesManager {
             String sql = "";
             log.debug("insercion de renglon en funcion InsertContratoPlurianualApartado");
             sql = "INSERT INTO tContratoPlurianualApartado(nFolioContratoPlurianual, nDocRenglon, EP, Anio, cEvento, mImporte, mImporteNegativo, cCentroContable, cMes, mSaldoModificado, fRegistro)VALUES(" + sFolio + "," + String.valueOf(iConsecutivo) + ",'" + sEp + "'," + sAnio + ",'" + sEvento + "'," + sImporte + "," + sImporteNeg + "," + sCC + "," + sMes + "," + cMod + " , GETDATE() )";
-            log.debug(sql);
+            log.debug("Object: {}", sql.toString());
             pstm = conn.prepareStatement(sql);
             pstm.execute();
             res = pstm.getUpdateCount() != 0 ? true : false;
@@ -401,7 +401,7 @@ public class ContratoPlurianualesManager {
                     stmnt.close();
                 }
             } catch (SQLException e) {
-                log.info(e);
+                log.info(e.getMessage(), e);
             }
         }
         return respuesta;
@@ -429,7 +429,7 @@ public class ContratoPlurianualesManager {
                     stmnt.close();
                 }
             } catch (SQLException e) {
-                log.info(e);
+                log.info(e.getMessage(), e);
             }
         }
         return respuesta;
@@ -457,7 +457,7 @@ public class ContratoPlurianualesManager {
                     stmnt.close();
                 }
             } catch (SQLException e) {
-                log.info(e);
+                log.info(e.getMessage(), e);
             }
         }
         return respuesta;
@@ -469,7 +469,7 @@ public class ContratoPlurianualesManager {
         int total = 0;
         String query;
         try {
-            log.trace("Validando Ep:" + Ep);
+            log.trace("Object: {}", "Validando Ep:" + Ep);
             query = "SELECT COUNT(*) as Existe FROM sai_" + String.valueOf(Anio) + ".dbo.tProyecto with(nolock) WHERE EP = ? ";
             stmnt = conn.prepareStatement(query);
             stmnt.setString(1, Ep);

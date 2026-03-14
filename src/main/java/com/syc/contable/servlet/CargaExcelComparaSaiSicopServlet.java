@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.core.FileItem;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -84,10 +84,10 @@ public class CargaExcelComparaSaiSicopServlet extends HttpServlet implements Ges
                     if (!"csv".equalsIgnoreCase(extension))
                         throw new Exception("No se puede procesar archivos [" + extension + "] Corrija e intente de nuevo");
                     nombreDestino = CargaExcelComparaSaiSicopServlet.TEMP_DIR + "CARGA_PROYECTO_" + System.currentTimeMillis() + "." + extension;
-                    log.info("Copiando archivo :" + nombreArchivo);
+                    log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                     Util.copiaArchivo(archivoCargaStream, nombreDestino);
                     item.delete();
-                    log.debug("Procesando archivo:" + nombreArchivo);
+                    log.debug("Object: {}", "Procesando archivo:" + nombreArchivo);
                     ComparaSaiSicopBusinessLogic cssbl = new ComparaSaiSicopBusinessLogic(u.getLogin());
                     cssbl.cargaExcelComparaSaiSicop(nombreDestino);
                     mensajeRetorno = "Archivo cargado exitosamente";
@@ -105,13 +105,13 @@ public class CargaExcelComparaSaiSicopServlet extends HttpServlet implements Ges
                     try {
                         archivoCargaStream.close();
                     } catch (Exception e) {
-                        log.error("Error cerrando flujo DataInputStream" + e);
+                        log.error("Error occurred", "Error cerrando flujo DataInputStream" + e);
                     }
                 if (archivoCargaIS != null)
                     try {
                         archivoCargaIS.close();
                     } catch (Exception e) {
-                        log.error("Error cerrando flujo InputStream" + e);
+                        log.error("Error occurred", "Error cerrando flujo InputStream" + e);
                     }
                 archivoCargaIS = null;
                 archivoCargaStream = null;
@@ -150,7 +150,7 @@ public class CargaExcelComparaSaiSicopServlet extends HttpServlet implements Ges
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            log.debug("Redirect: " + strRedirect);
+            log.debug("Object: {}", "Redirect: " + strRedirect);
             resp.sendRedirect(strRedirect);
             log.debug("SALE  DE LA CONSULTA");
         }
@@ -164,13 +164,13 @@ public class CargaExcelComparaSaiSicopServlet extends HttpServlet implements Ges
             TEMP_DIR = (String) ic.lookup("java:comp/env/TemporaryDirectory");
             if (TEMP_DIR == null) {
                 TEMP_DIR = "../upload/PEF/";
-                log.info("Environment Entry \"TEMP_DIR\" nula usando default \"" + TEMP_DIR + "\"");
+                log.info("Object: {}", "Environment Entry \"TEMP_DIR\" nula usando default \"" + TEMP_DIR + "\"");
             } else
-                log.info("dataSourceRefName=" + TEMP_DIR);
+                log.info("Object: {}", "dataSourceRefName=" + TEMP_DIR);
         } catch (NamingException exc) {
             TEMP_DIR = "../upload/PEF/";
-            log.info("Ocurrio un error que evito que se cargara la entrada \"TEMP_DIR\"" + exc);
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + TEMP_DIR + "\"");
+            log.info("Error occurred", "Ocurrio un error que evito que se cargara la entrada \"TEMP_DIR\"" + exc);
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + TEMP_DIR + "\"");
         }
         try {
             File f = new File(TEMP_DIR);
@@ -178,7 +178,7 @@ public class CargaExcelComparaSaiSicopServlet extends HttpServlet implements Ges
                 if (!f.mkdirs())
                     throw new Exception("No se puede crear el directorio temporal " + TEMP_DIR);
         } catch (Exception e) {
-            log.error("No fue posible crear automaticamente el directorio temporal: " + TEMP_DIR + " Solicite su creacion manual");
+            log.error("Object: {}", "No fue posible crear automaticamente el directorio temporal: " + TEMP_DIR + " Solicite su creacion manual");
         }
     }
 

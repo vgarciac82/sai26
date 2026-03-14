@@ -4,7 +4,6 @@ import java.sql.Connection;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.apache.log4j.LogManager;
 import com.axtel.user.UserException;
 import com.axtel.user.entities.ExecutiveUnit;
 import com.axtel.user.repositories.ExecutiveUnitRepository;
@@ -13,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 public class JDBCExecutiveUnitRepository implements ExecutiveUnitRepository {
 
-    private static final Logger log = LogManager.getLogger(JDBCExecutiveUnitRepository.class);
+    private static final Logger log = LoggerFactory.getLogger(JDBCExecutiveUnitRepository.class);
 
     private final QueryRunner run = new QueryRunner();
 
@@ -40,8 +39,8 @@ public class JDBCExecutiveUnitRepository implements ExecutiveUnitRepository {
         query.append("		executiveUnit.cCentroResp AS responsibleCenter  ");
         query.append("  FROM	nom_unidad_ejecutora AS executiveUnit ");
         query.append(" WHERE executiveUnit.cUejecutora = ? ");
-        log.debug("Buscando unidad ejecutora." + administrativeUnit);
-        log.trace("Ejecutando: \n" + query + "\n[" + administrativeUnit + "]");
+        log.debug("Object: {}", "Buscando unidad ejecutora." + administrativeUnit);
+        log.trace("Object: {}", "Ejecutando: \n" + query + "\n[" + administrativeUnit + "]");
         ExecutiveUnit eu;
         try {
             eu = run.query(conn, query.toString(), resultHandler, administrativeUnit);

@@ -45,7 +45,7 @@ public class ContratoAmpImpl extends DataSourceManager implements OperacionesAmp
             conn.commit();
         } catch (Exception e) {
             // TODO: handle exception
-            log.error(e);
+            log.error(e.getMessage(), e);
             e.printStackTrace();
             msg = e.getMessage();
             conn.rollback();

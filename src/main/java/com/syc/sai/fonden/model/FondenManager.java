@@ -34,13 +34,13 @@ public class FondenManager {
                 try {
                     pStatement.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando PreparedStatement " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando PreparedStatement " + e2.toString());
                 }
             if (rs != null)
                 try {
                     rs.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando ResultSet " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando ResultSet " + e2.toString());
                 }
         }
     }
@@ -77,13 +77,13 @@ public class FondenManager {
                 try {
                     pStatement.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando PreparedStatement " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando PreparedStatement " + e2.toString());
                 }
             if (rs != null)
                 try {
                     rs.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando ResultSet " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando ResultSet " + e2.toString());
                 }
         }
     }
@@ -112,13 +112,13 @@ public class FondenManager {
                 try {
                     pStatement.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando PreparedStatement " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando PreparedStatement " + e2.toString());
                 }
             if (rs != null)
                 try {
                     rs.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando ResultSet " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando ResultSet " + e2.toString());
                 }
         }
     }

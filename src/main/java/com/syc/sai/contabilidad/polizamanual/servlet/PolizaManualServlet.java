@@ -18,8 +18,9 @@ import com.syc.sai.contabilidad.polizamanual.controller.CatalogoPartidaBusinessL
 import com.syc.sai.contabilidad.polizamanual.controller.CuentasBusinessLogic;
 import com.syc.sai.contabilidad.polizamanual.controller.DocPolizaEncabezadoBusinessLogic;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
-import common.Logger;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebServlet(name = "PolizaManualServlet", urlPatterns = { "/polizamanual/ImprimePoliza", "/PolizaManual", "/PolizaManual/saveOrUpdateDocPolizaEncabezado", "/PolizaManual/autocompleteCabms", "/PolizaManual/getCuentasByPartida", "/PolizaManual/autocompleteCatalogoPartida" })
 public class PolizaManualServlet extends HttpServlet {
@@ -28,7 +29,7 @@ public class PolizaManualServlet extends HttpServlet {
      */
     private static final long serialVersionUID = 964438170851267336L;
 
-    private static final Logger log = Logger.getLogger(PolizaManualServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(PolizaManualServlet.class);
 
     private static String jniName = "jdbc/gestion";
 
@@ -53,7 +54,7 @@ public class PolizaManualServlet extends HttpServlet {
         bl.saveOrUpdateDocPolizaEncabezado(req);
         String arr = "";
         arr = "[" + arr + "]";
-        log.debug(arr);
+        log.debug("Object: {}", arr);
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);
@@ -87,7 +88,7 @@ public class PolizaManualServlet extends HttpServlet {
         } else {
             arr += token + String.format(json, "0", "Debe seleccionar un grupo", "Debe seleccionar un grupo");
         }
-        log.debug(arr);
+        log.debug("Object: {}", arr);
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);
@@ -132,7 +133,7 @@ public class PolizaManualServlet extends HttpServlet {
         /// fin del else
         arr = "[" + arr + "]";
         arr = new String(arr.getBytes("ISO-8859-1"), "UTF-8");
-        log.debug(arr);
+        log.debug("Object: {}", arr);
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);
@@ -151,7 +152,7 @@ public class PolizaManualServlet extends HttpServlet {
             token = ",";
         }
         arr = "[" + arr + "]";
-        log.debug(arr);
+        log.debug("Object: {}", arr);
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);
@@ -174,7 +175,7 @@ public class PolizaManualServlet extends HttpServlet {
             try {
                 bl.imprimePoliza(request, response, reportPath, reportPath, ruta, poliza, cCentroContable);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 throw new ServletException(e);
             }
         } else {
@@ -208,7 +209,7 @@ public class PolizaManualServlet extends HttpServlet {
             try {
                 accion = req.getRequestURI().substring(req.getRequestURI().lastIndexOf("/") + 1);
             } catch (Exception e) {
-                log.warn("Error obteniendo substring " + e);
+                log.warn("Error occurred", "Error obteniendo substring " + e);
             }
             if ("".equals(accion) || null == accion) {
                 ResponseSender.sendError(resp, "No se recibio el parametro \"accion\" reporte al administrador");
@@ -219,25 +220,25 @@ public class PolizaManualServlet extends HttpServlet {
             try {
                 saveOrUpdateDocPolizaEncabezado(req, resp);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
             }
         } else if ("autocompleteCabms".equals(accion)) {
             try {
                 autocompleteCabms(req, resp);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
             }
         } else if ("getCuentasByPartida".equals(accion)) {
             try {
                 getCuentasByPartida(req, resp);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
             }
         } else if ("autocompleteCatalogoPartida".equals(accion)) {
             try {
                 autocompleteCatalogoPartida(req, resp);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
             }
         }
     }

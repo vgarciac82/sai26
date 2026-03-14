@@ -26,7 +26,7 @@ public class BaseSACManager {
         JSONArray arrayObj = new JSONArray();
         JSONObject jsonObj = new JSONObject();
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             int token = 0;
@@ -64,7 +64,7 @@ public class BaseSACManager {
         JSONArray arrayObj = new JSONArray();
         JSONObject jsonObj = new JSONObject();
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             rsMetadata = rs.getMetaData();
@@ -99,7 +99,7 @@ public class BaseSACManager {
         String query = "";
         try {
             query = "insert into mProcedimientoSAC (cIdProcedimientoSAC	,fSolicitud 	,cOficioSolicitud	,cAreaTecnica	,cProcedimientoTurnado	,nTipoProcedimiento\r\n" + "	,nIdMateriaProcedimiento	,cDenominacionProced	,cProyectoConvocatoria	,fAutConvocatoria	,fConvocatoria	,fJuntaAclaraciones\r\n" + "	,fAperturaProposiciones	,fEvaluacionTecnica	,fFallo_ActaAdjucdicacion	,fGeneracionContratoCNET	,fExpedienteTurnadoContrato\r\n" + "	,nProveedorDadoAlta_SAICNET	,fCaptura	,cLoginCaptura	,nEstatus) \r\n" + "	values(?,convert(date,?),?,?,?,?,?,?,?\r\n" + "	,convert(date,?),convert(date,?),convert(date,?),convert(date,?),convert(date,?),convert(date,?),convert(date,?),convert(date,?)\r\n" + "	,?,convert(date,GETDATE()),?,1)";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, datos.getcNumeroProcedimiento());
             ps.setString(2, datos.getcFechaSolicitud());
@@ -133,7 +133,7 @@ public class BaseSACManager {
         int nIdProced = 0;
         String query = "select *from mProcedimientoSAC with(Nolock) where cOficioSolicitud=?";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, datos.getcOficioSolicitud());
             rs = ps.executeQuery();
@@ -153,7 +153,7 @@ public class BaseSACManager {
         String query = "";
         try {
             query = "insert into mAreaResponsableProcedSAC (nIdProcedimientoSAC,cAreaResponsable) values(?,?)";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setInt(1, nIdProced);
             ps.setString(2, cAreaResp);
@@ -170,7 +170,7 @@ public class BaseSACManager {
         String query = "";
         try {
             query = "insert into mAreaRequirenteProcedSAC (nIdProcedimientoSAC,cAreaRequirente) values(?,?)";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setInt(1, nIdProced);
             ps.setString(2, cAreaReq);
@@ -201,7 +201,7 @@ public class BaseSACManager {
                 ps.setString(4, fila.get(2));
                 ps.setString(5, fila.get(3));
                 if (ps.executeUpdate() <= 0) {
-                    log.error("Error mo se pudo guardar el participante " + fila.get(1) + " " + fila.get(2) + " " + fila.get(3));
+                    log.error("Error occurred", "Error mo se pudo guardar el participante " + fila.get(1) + " " + fila.get(2) + " " + fila.get(3));
                     throw new Exception("Error mo se pudo guardar el participante " + fila.get(1) + " " + fila.get(2) + " " + fila.get(3));
                 }
             }
@@ -241,7 +241,7 @@ public class BaseSACManager {
         String query = "";
         try {
             query = "update mProcedimientoSAC \r\n" + "set cIdProcedimientoSAC='" + datos.getcNumeroProcedimiento() + "'\r\n" + ",fSolicitud=convert(date,'" + datos.getcFechaSolicitud() + "')\r\n" + ",cOficioSolicitud='" + datos.getcOficioSolicitud() + "'\r\n" + ",cAreaTecnica='" + datos.getcAreaTecnica() + "'\r\n" + ",cProcedimientoTurnado='" + datos.getcProcedimientoContratacionTurnado() + "'\r\n" + ",nTipoProcedimiento=" + datos.getnTipoProcedimiento() + "\r\n" + ",nIdMateriaProcedimiento=" + datos.getnMateriaProcedimiento() + "\r\n" + ",cDenominacionProced='" + datos.getcDenominacionProced() + "'\r\n" + ",cProyectoConvocatoria='" + datos.getcProyectoConvocatoria() + "'\r\n" + ",fAutConvocatoria=convert(date,'" + datos.getcFechaAutConvocatoria() + "')\r\n" + ",fConvocatoria=convert(date,'" + datos.getcFechaPublicacionConvocatoria() + "')\r\n" + ",fJuntaAclaraciones=convert(date,'" + datos.getcFechaJuntaAclara() + "')\r\n" + ",fAperturaProposiciones=convert(date,'" + datos.getcFechaApertProposiciones() + "')\r\n" + ",fEvaluacionTecnica=convert(date,'" + datos.getcFechaEvaluacionTecnica() + "')\r\n" + ",fFallo_ActaAdjucdicacion=convert(date,'" + datos.getcFechaFallo() + "')\r\n" + ",fGeneracionContratoCNET=convert(date,'" + datos.getcFechaGeneracionContrato() + "')\r\n" + ",fExpedienteTurnadoContrato=convert(date,'" + datos.getcFechaExpediente() + "')\r\n" + ",nProveedorDadoAlta_SAICNET=" + datos.getnProveedorDadoAlta() + "\r\n" + ",nIdProcesoContratacion=" + datos.getnProcesoContratacion() + "\r\n" + ",fAtencion=convert(date,'" + datos.getcFechaAtencion() + "')\r\n" + ",nEstatus=2" + ",cObservaciones='" + datos.getcObservaciones() + "'" + "where nIdProcedimientoSAC=" + datos.getnIdProcedimientoSAC();
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -256,7 +256,7 @@ public class BaseSACManager {
         String query = "";
         try {
             query = "update mProcedimientoSAC \r\n" + "set nEstatus=" + datos.getnEstatus() + " where nIdProcedimientoSAC=" + datos.getnIdProcedimientoSAC();
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -271,7 +271,7 @@ public class BaseSACManager {
         String query = "";
         try {
             query = "delete mAreaRequirenteProcedSAC where nIdProcedimientoSAC=?";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setInt(1, nIdProced);
             success = ps.executeUpdate() > 0;
@@ -287,7 +287,7 @@ public class BaseSACManager {
         String query = "";
         try {
             query = "delete mAreaResponsableProcedSAC where nIdProcedimientoSAC=?";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setInt(1, nIdProced);
             success = ps.executeUpdate() > 0;

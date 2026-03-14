@@ -56,7 +56,7 @@ public class ReporteTomaDeDesicionBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Error realizando rollback: " + e2);
+                    log.warn("Error occurred", "Error realizando rollback: " + e2);
                 }
             throw e;
         } finally {

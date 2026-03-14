@@ -100,7 +100,7 @@ public class RectificacionAnexo1BusinessLogic extends DataSourceManager {
             conn = getConnection();
             res = RectificacionAnexo1Manager.getRectificacionEncabezado(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             if (conn != null)
@@ -117,7 +117,7 @@ public class RectificacionAnexo1BusinessLogic extends DataSourceManager {
             conn = getConnection();
             res = RectificacionAnexo1Manager.getRectificacionEncabezadoSicop(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             if (conn != null)
@@ -135,7 +135,7 @@ public class RectificacionAnexo1BusinessLogic extends DataSourceManager {
             conn = getConnection();
             res = RectificacionAnexo1Manager.getRectificacionDetalleSicop(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             if (conn != null)
@@ -152,7 +152,7 @@ public class RectificacionAnexo1BusinessLogic extends DataSourceManager {
             conn = getConnection();
             res = RectificacionAnexo1Manager.getRectificacionDetalle(conn, folio);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new Exception(exc);
         } finally {
             if (conn != null)
@@ -227,10 +227,10 @@ public class RectificacionAnexo1BusinessLogic extends DataSourceManager {
             CasoBusinessLogic cbl = new CasoBusinessLogic(GestionInterface.ATT_CONEXION);
             conn = cbl.getConnection();
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Inicia aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Inicia aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             AplicarContableReturn acr = conInt.aplicarContableNuevo(conn, c, "tRectificaAnexo1Encabezado", "tRectificaAnexo1Detalle", "nFolioRectificaAnexo1", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "RECTIFICAANEXO1", m, prefixPath, uLogin, "");
             arrLResult = acr.getMessageList();
-            log.debug("Termina Apartado Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Termina Apartado Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             Caso cReloaded = new Caso();
             cReloaded.setIdCaso(c.getIdCaso());
             cReloaded = CasoManager.select(conn, cReloaded);
@@ -241,7 +241,7 @@ public class RectificacionAnexo1BusinessLogic extends DataSourceManager {
             }
         } catch (Exception exc) {
             conn.rollback();
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             arrLResult.add(exc.getLocalizedMessage());
             try {
                 conn.rollback();

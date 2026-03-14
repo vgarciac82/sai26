@@ -2,7 +2,7 @@ package com.syc.sai.fonden.model;
 
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.sai.fonden.FondenFacturacion;
 import com.syc.sai.fonden.FondenFacturacionEngineException;

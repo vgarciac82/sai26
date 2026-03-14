@@ -57,7 +57,7 @@ public class ValidacionAdecuacionesManager {
      *             Si ocurre un error no controlado
      */
     public static String insertaArchivoValidacionCuerpo(Connection conn, Workbook wb, HSSFSheet hoja, int nFolio, int nRenglonCuerpo) throws Exception {
-        log.info(" Iniciando carga de archivo excel de adecuaciones para su validacion Folio[" + nFolio + "]");
+        log.info("Object: {}", " Iniciando carga de archivo excel de adecuaciones para su validacion Folio[" + nFolio + "]");
         String query = "INSERT INTO tValida_Adecuacion(Folio, Secuencia, EP, MAP, funcion, programa_general, programa, partida, movimiento, anual, enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre, diciembre) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String mensajes = "";
         int totalInsertados = 0;
@@ -70,7 +70,7 @@ public class ValidacionAdecuacionesManager {
                 try {
                     contadorRenglones++;
                     Row renglon = i.next();
-                    log.trace("Procesando renglon " + contadorRenglones + " del archivo excel");
+                    log.trace("Object: {}", "Procesando renglon " + contadorRenglones + " del archivo excel");
                     if (contadorRenglones >= nRenglonCuerpo) {
                         if (Util.renglonVacio(renglon))
                             continue;
@@ -102,7 +102,7 @@ public class ValidacionAdecuacionesManager {
                     mensajes += "\nERROR PROCESANDO RENGLON " + contadorRenglones + ": " + e.toString();
                 }
             }
-            log.info("Finalizando carga de archivo excel de adecuaciones para su validacion Folio[" + nFolio + "] Se insertaron " + totalInsertados);
+            log.info("Object: {}", "Finalizando carga de archivo excel de adecuaciones para su validacion Folio[" + nFolio + "] Se insertaron " + totalInsertados);
             return mensajes;
         } finally {
             CloseObject.closeObject(ps, false);
@@ -359,7 +359,7 @@ public class ValidacionAdecuacionesManager {
     }
 
     public static void insertaArchivoValidacionCuerpo(Connection conn, Adecuacion adecuacion, int nFolio, String cSuperReduccion, String cSRInterna) throws Exception {
-        log.info(" Iniciando carga de archivo excel de adecuaciones para su validacion Folio[" + nFolio + "]");
+        log.info("Object: {}", " Iniciando carga de archivo excel de adecuaciones para su validacion Folio[" + nFolio + "]");
         String query = "INSERT INTO tValida_Adecuacion(Folio, Secuencia, EP, MAP, funcion, programa_general, programa, partida, movimiento, anual, enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre, diciembre) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String mensajes = "";
         int totalInsertados = 0;
@@ -371,7 +371,7 @@ public class ValidacionAdecuacionesManager {
                 try {
                     contadorRenglones++;
                     AdecuacionDetalle detalle = i.next();
-                    log.trace("Procesando renglon " + contadorRenglones + " del archivo excel");
+                    log.trace("Object: {}", "Procesando renglon " + contadorRenglones + " del archivo excel");
                     /* Insercion de informacion requerida para la validacion */
                     ps.setString(1, "A" + nFolio);
                     ps.setInt(2, detalle.getSecuencia());
@@ -400,7 +400,7 @@ public class ValidacionAdecuacionesManager {
             if (mensajes.length() > 0)
                 throw new Exception(mensajes);
             ps.executeBatch();
-            log.info("Finalizando carga de archivo excel de adecuaciones para su validacion Folio[" + nFolio + "] Se insertaron " + totalInsertados);
+            log.info("Object: {}", "Finalizando carga de archivo excel de adecuaciones para su validacion Folio[" + nFolio + "] Se insertaron " + totalInsertados);
         } finally {
             CloseObject.closeObject(ps, false);
         }

@@ -103,7 +103,7 @@ public class RecepcionServlet extends HttpServlet {
             jsonObj = new JSONObject();
             out = response.getWriter();
             int tipoOperacion = Integer.parseInt(request.getParameter("operacion"));
-            log.debug("operacion: " + tipoOperacion);
+            log.debug("Object: {}", "operacion: " + tipoOperacion);
             switch(tipoOperacion) {
                 case 0:
                     respuesta = recepInt.crear(conn, usuario, datosRecep);
@@ -138,12 +138,12 @@ public class RecepcionServlet extends HttpServlet {
                 conn.rollback();
                 e.printStackTrace();
                 mensaje = e.getMessage();
-                log.error(e.getMessage());
+                log.error("Object: {}", e.getMessage());
             } catch (SQLException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
                 mensaje = e1.getMessage();
-                log.error(e1.getMessage());
+                log.error("Object: {}", e1.getMessage());
             }
         } finally {
             try {
@@ -156,10 +156,10 @@ public class RecepcionServlet extends HttpServlet {
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-                log.error(e.getMessage());
+                log.error("Object: {}", e.getMessage());
             } catch (JSONException ex) {
                 ex.printStackTrace();
-                log.error(ex.getMessage());
+                log.error("Object: {}", ex.getMessage());
             }
             String destino = arrayObj.put(jsonObj).toString();
             out.println(destino);
@@ -180,12 +180,12 @@ public class RecepcionServlet extends HttpServlet {
             jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jndiName == null) {
                 jndiName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
             } else
-                log.info("dataSourceRefName=" + jndiName);
+                log.info("Object: {}", "dataSourceRefName=" + jndiName);
         } catch (NamingException exc) {
             jndiName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
         }
     }
 }

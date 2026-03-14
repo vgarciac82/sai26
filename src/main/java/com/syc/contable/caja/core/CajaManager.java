@@ -64,7 +64,7 @@ public class CajaManager {
         ResultSet rs = null;
         int retval = -1;
         int nDocRenglon = 0;
-        log.info("Insertando detalle para el estado de cuenta de la solicitud " + nFolioCaja + " por " + mMontoComprobacion);
+        log.info("Object: {}", "Insertando detalle para el estado de cuenta de la solicitud " + nFolioCaja + " por " + mMontoComprobacion);
         try {
             String queryDocRenglon = "SELECT MAX( nDocRenglon ) AS nDocRenglon FROM tEstadoDeCuentaViaticosDetalle WITH( NOLOCK ) WHERE nFolioCaja = ? ";
             String queryInsert = "INSERT INTO tEstadoDeCuentaViaticosDetalle(nFolioCaja, nFoliocomprobacion, nDocRenglon, mMontoComprobacion,fFechaComprobacion) VALUES (?,?,?,?," + (fFechaComprobacion == null ? "GETDATE()" : "?") + ")";
@@ -93,7 +93,7 @@ public class CajaManager {
     public static int updateViaticosEncabezado(Connection conn, int nFolioCaja, double mMontoComprobacion) throws Exception {
         PreparedStatement pstmnt = null;
         int retval = -1;
-        log.info("Actualizando el remanente de la solicitud" + nFolioCaja);
+        log.info("Object: {}", "Actualizando el remanente de la solicitud" + nFolioCaja);
         try {
             String queryUpdate = "UPDATE tEstadoDeCuentaViaticosEncabezado SET mMontoRemanente = mMontoRemanente + ? WHERE nFolioCaja = ?";
             pstmnt = conn.prepareStatement(queryUpdate);
@@ -230,15 +230,15 @@ public class CajaManager {
             try {
                 psSel = conn.prepareStatement(query);
                 psSel.setInt(1, nfoliocomprobacion);
-                log.info(psSel + "[" + nfoliocomprobacion + "]");
+                log.info("Object: {}", psSel + "[" + nfoliocomprobacion + "]");
                 rs = psSel.executeQuery();
                 while (rs.next()) {
                     nfoliocaja = rs.getInt("nfoliocaja");
                     query2 = "SELECT mMontoRemanente FROM tEstadoDeCuentaComprobacionesEncabezado WITH(NOLOCK) WHERE nFolioCaja=?";
                     psSel = conn.prepareStatement(query2);
                     psSel.setInt(1, nfoliocaja);
-                    log.info("Intentando leer monto remante del folio: " + nfoliocaja);
-                    log.info(psSel + "[" + nfoliocaja + "]");
+                    log.info("Object: {}", "Intentando leer monto remante del folio: " + nfoliocaja);
+                    log.info("Object: {}", psSel + "[" + nfoliocaja + "]");
                     rs2 = psSel.executeQuery();
                     if (rs2.next())
                         montoRemanente = rs2.getFloat("mMontoRemanente");
@@ -248,8 +248,8 @@ public class CajaManager {
                     psSel = conn.prepareStatement(query2);
                     psSel.setInt(1, nfoliocaja);
                     psSel.setInt(2, nfoliocomprobacion);
-                    log.info("Intentando leer monto de comprobacion del folio: " + nfoliocaja);
-                    log.info(psSel + "[" + nfoliocaja + "]" + "[" + nfoliocomprobacion + "]");
+                    log.info("Object: {}", "Intentando leer monto de comprobacion del folio: " + nfoliocaja);
+                    log.info("Object: {}", psSel + "[" + nfoliocaja + "]" + "[" + nfoliocomprobacion + "]");
                     rs2 = psSel.executeQuery();
                     if (rs2.next())
                         montoComprobacion = rs2.getFloat("mMontoComprobacion");
@@ -263,15 +263,15 @@ public class CajaManager {
                         psUpd = conn.prepareStatement(update);
                         psUpd.setFloat(1, montoRemanente);
                         psUpd.setInt(2, nfoliocaja);
-                        log.info("Actualizado remante de la solicitud: " + nfoliocaja);
-                        log.info(psUpd + "[" + montoRemanente + "]" + "[" + nfoliocaja + "]");
+                        log.info("Object: {}", "Actualizado remante de la solicitud: " + nfoliocaja);
+                        log.info("Object: {}", psUpd + "[" + montoRemanente + "]" + "[" + nfoliocaja + "]");
                         psUpd.executeUpdate();
                         update = "UPDATE tEstadoDeCuentaComprobacionesDetalle SET cDocumentoHaplicado='S' WHERE nFolioCaja=? AND nFolioComprobacion=?";
                         psUpd = conn.prepareStatement(update);
                         psUpd.setInt(1, nfoliocaja);
                         psUpd.setInt(2, nfoliocomprobacion);
-                        log.info("Actualizado cDocumentoHaplicado='S' en tEstadoDeCuentaComprobacionesDetalle: " + nfoliocaja + "-" + nfoliocomprobacion);
-                        log.info(psUpd + "[" + nfoliocaja + "]" + "[" + nfoliocomprobacion + "]");
+                        log.info("Object: {}", "Actualizado cDocumentoHaplicado='S' en tEstadoDeCuentaComprobacionesDetalle: " + nfoliocaja + "-" + nfoliocomprobacion);
+                        log.info("Object: {}", psUpd + "[" + nfoliocaja + "]" + "[" + nfoliocomprobacion + "]");
                         psUpd.executeUpdate();
                     }
                 }
@@ -293,8 +293,8 @@ public class CajaManager {
         try {
             psSel = conn.prepareStatement(query);
             psSel.setInt(1, nFolioCaja);
-            log.info("Leyendo evento de la solicitud: " + nFolioCaja);
-            log.info(psSel + "[" + nFolioCaja + "]");
+            log.info("Object: {}", "Leyendo evento de la solicitud: " + nFolioCaja);
+            log.info("Object: {}", psSel + "[" + nFolioCaja + "]");
             rs = psSel.executeQuery();
             if (rs.next())
                 evento = rs.getString("cEvento");
@@ -304,7 +304,7 @@ public class CajaManager {
                 query = "SELECT CASE WHEN esSaldoInicial=1 THEN 'SI' ELSE 'NO' END AS esSaldoInicial FROM tcajaencabezado WITH(NOLOCK) where nFoliocaja=?";
                 psSel = conn.prepareStatement(query);
                 psSel.setInt(1, nFolioCaja);
-                log.info(psSel + "[" + nFolioCaja + "]");
+                log.info("Object: {}", psSel + "[" + nFolioCaja + "]");
                 rs = psSel.executeQuery();
                 if (rs.next())
                     saldoInicial = rs.getString("esSaldoInicial");
@@ -326,12 +326,12 @@ public class CajaManager {
         PreparedStatement pstmnt = null;
         String retval = "";
         ResultSet rs = null;
-        log.info("Buscar evento para validar si el anticipo es una asignacion de caja chica" + nFolioCaja);
+        log.info("Object: {}", "Buscar evento para validar si el anticipo es una asignacion de caja chica" + nFolioCaja);
         try {
             String query = "SELECT cEvento FROM tCajaDetalle WHERE nFolioCaja = ?";
             pstmnt = conn.prepareStatement(query);
             pstmnt.setInt(1, nFolioCaja);
-            log.info(pstmnt + "[" + nFolioCaja + "]");
+            log.info("Object: {}", pstmnt + "[" + nFolioCaja + "]");
             rs = pstmnt.executeQuery();
             if (rs.next())
                 retval = rs.getString("cEvento");
@@ -345,12 +345,12 @@ public class CajaManager {
         PreparedStatement pstmnt = null;
         double retval = 0;
         ResultSet rs = null;
-        log.info("Buscar remanente del anticipo de asignacion de caja chica" + nFolioCaja);
+        log.info("Object: {}", "Buscar remanente del anticipo de asignacion de caja chica" + nFolioCaja);
         try {
             String query = "SELECT mMontoRemanente FROM tEstadoDeCuentaViaticosEncabezado WHERE nFolioCaja = ?";
             pstmnt = conn.prepareStatement(query);
             pstmnt.setInt(1, nFolioCaja);
-            log.info(pstmnt + "[" + nFolioCaja + "]");
+            log.info("Object: {}", pstmnt + "[" + nFolioCaja + "]");
             rs = pstmnt.executeQuery();
             if (rs.next())
                 retval = rs.getDouble("mMontoRemanente");
@@ -495,7 +495,7 @@ public class CajaManager {
             ps.setInt(1, estatusSICOP);
             ps.setInt(2, folioCaja);
             int afectados = ps.executeUpdate();
-            log.info("Se cambio el estatus de envio SICOP a " + estatusSICOP + " de la SNP " + folioCaja + ". " + afectados + " afectados");
+            log.info("Object: {}", "Se cambio el estatus de envio SICOP a " + estatusSICOP + " de la SNP " + folioCaja + ". " + afectados + " afectados");
         } finally {
             CloseObject.closeObject(ps);
         }
@@ -544,8 +544,8 @@ public class CajaManager {
             cs.setInt(1, nFolioCaja);
             cs.setString(2, tipo);
             cs.execute();
-            log.info("Se ejecuta:" + query);
-            log.info("Se actualizo el indentificador si es saldo inicial de: " + nFolioCaja);
+            log.info("Object: {}", "Se ejecuta:" + query);
+            log.info("Object: {}", "Se actualizo el indentificador si es saldo inicial de: " + nFolioCaja);
         } finally {
             CloseObject.closeObject(cs);
             CloseObject.closeObject(rs);
@@ -581,8 +581,8 @@ public class CajaManager {
             ps = conn.prepareStatement(query);
             ps.setInt(1, nFolioCaja);
             ps.execute();
-            log.info("Se ejecuta:" + query);
-            log.info("Se inserta en el estado de cuenta el anticipo con folio: " + nFolioCaja);
+            log.info("Object: {}", "Se ejecuta:" + query);
+            log.info("Object: {}", "Se inserta en el estado de cuenta el anticipo con folio: " + nFolioCaja);
         } finally {
             CloseObject.closeObject(ps);
         }
@@ -732,10 +732,10 @@ public class CajaManager {
         query.append("WHERE ENC.nIdIntegracion = '" + nIDIntegracion + "'\r\n");
         query.append("GROUP BY ENC.fAplicacion, ENC.fAplicacion, MONTH(ENC.fAplicacion), ccentrocontable, cUnidadResponsableContable, aEjercicioFiscal, cRamo, ENC.cUnidadResponsable, sNoContrarrecibo");
         try {
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             psInsert = conn.prepareStatement(query.toString());
             int insertados = psInsert.executeUpdate();
-            log.debug("Se insertaron " + insertados + " regsitros. ");
+            log.debug("Object: {}", "Se insertaron " + insertados + " regsitros. ");
         } finally {
             CloseObject.closeObject(psInsert);
         }
@@ -771,10 +771,10 @@ public class CajaManager {
         queryInsert.append("WHERE ENC.nIdIntegracion = '" + nIDIntegracion + "'\r\n");
         queryInsert.append("GROUP BY ENC.cUnidadResponsable, CTAB");
         try {
-            log.debug(queryInsert);
+            log.debug("Object: {}", queryInsert.toString());
             psInsert = conn.prepareStatement(queryInsert.toString());
             int insertados = psInsert.executeUpdate();
-            log.debug("Se insertaron " + insertados + " regsitros. ");
+            log.debug("Object: {}", "Se insertaron " + insertados + " regsitros. ");
         } finally {
             CloseObject.closeObject(psInsert);
         }
@@ -791,10 +791,10 @@ public class CajaManager {
         queryInsert.append("JOIN tLayoutsCreadosRelacionGastosHeader L WITH (NOLOCK) ON ENC.nIdIntegracion = L.sAuxiliarComodin\r\n");
         queryInsert.append("WHERE ENC.nIdIntegracion = '" + nIDIntegracion + "'");
         try {
-            log.debug(queryInsert);
+            log.debug("Object: {}", queryInsert.toString());
             psInsert = conn.prepareStatement(queryInsert.toString());
             int insertados = psInsert.executeUpdate();
-            log.debug("Se insertaron " + insertados + " regsitros. ");
+            log.debug("Object: {}", "Se insertaron " + insertados + " regsitros. ");
         } finally {
             CloseObject.closeObject(psInsert);
         }
@@ -824,9 +824,9 @@ public class CajaManager {
             pst2.setString(2, nFolio);
             pst2.setInt(3, folioAnticipo);
             pst2.setDouble(4, importe);
-            log.debug(pst);
+            log.debug("Object: {}", pst.toString());
             pst2.executeUpdate();
-            log.debug(pst2);
+            log.debug("Object: {}", pst2.toString());
             pst.executeUpdate();
         } finally {
             CloseObject.closeObject(pst, false);

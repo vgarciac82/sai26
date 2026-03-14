@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.core.FileItem;
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
@@ -42,7 +42,7 @@ public class CargaArchivoTaxiServlet extends HttpServlet {
                 if (!item.isFormField()) {
                     archivoCargaStream = new DataInputStream(item.getInputStream());
                     String nombreArchivo = item.getName();
-                    log.info("Copiando archivo :" + nombreArchivo);
+                    log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                     nombreDestino = File.createTempFile("Carga_taxis", ".xls", new File(System.getProperty("java.io.tmpdir")));
                     Util.copiaArchivo(archivoCargaStream, nombreDestino.getAbsolutePath());
                     archivoRecibido = true;
@@ -51,7 +51,7 @@ public class CargaArchivoTaxiServlet extends HttpServlet {
             }
             if (!archivoRecibido)
                 throw new Exception("No se recibio archivo.");
-            log.info("Copiando archivo :" + nombreDestino);
+            log.info("Object: {}", "Copiando archivo :" + nombreDestino);
             CargaArchivoBusinessLogic cmpBL = new CargaArchivoBusinessLogic(GestionInterface.ATT_CONEXION);
             List<String> errores = cmpBL.procesaLayoutTaxis(nombreDestino);
             if (errores == null)

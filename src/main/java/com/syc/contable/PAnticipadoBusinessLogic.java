@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import com.syc.contable.core.PAnticipadoManager;
 import com.syc.contable.core.RefasManager;
 import com.syc.dsmngr.DataSourceManager;
@@ -23,9 +23,9 @@ public class PAnticipadoBusinessLogic extends DataSourceManager {
     public PAnticipadoBusinessLogic(String jniName) {
         if (jniName == null) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
         } else
-            log.info("dataSourceRefName=" + jniName);
+            log.info("Object: {}", "dataSourceRefName=" + jniName);
         super.init(jniName);
     }
 
@@ -55,7 +55,7 @@ public class PAnticipadoBusinessLogic extends DataSourceManager {
             date = PAnticipadoManager.getFecha(intFolio, conn, indice);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
         } finally {
             if (conn != null)
@@ -74,7 +74,7 @@ public class PAnticipadoBusinessLogic extends DataSourceManager {
             PAnticipadoManager.CierreMensual(conn);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
         } finally {
             if (conn != null)
@@ -91,7 +91,7 @@ public class PAnticipadoBusinessLogic extends DataSourceManager {
             mensaje = PAnticipadoManager.CancelacionMasiva(conn, usuario, request);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
         } finally {
             if (conn != null)
@@ -108,7 +108,7 @@ public class PAnticipadoBusinessLogic extends DataSourceManager {
             PAnticipadoManager.AperturaMensual(conn);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
         } finally {
             if (conn != null)
@@ -124,7 +124,7 @@ public class PAnticipadoBusinessLogic extends DataSourceManager {
             PAnticipadoManager.updateFechaAct(folio, conn);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
         } finally {
             if (conn != null)
@@ -140,7 +140,7 @@ public class PAnticipadoBusinessLogic extends DataSourceManager {
             PAnticipadoManager.updateFechaSol(folio, conn);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
         } finally {
             if (conn != null)
@@ -156,7 +156,7 @@ public class PAnticipadoBusinessLogic extends DataSourceManager {
             PAnticipadoManager.updateEstatus(folio, estatus, conn);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
         } finally {
             if (conn != null)
@@ -172,7 +172,7 @@ public class PAnticipadoBusinessLogic extends DataSourceManager {
             conn = getConnection();
             retval = PAnticipadoManager.getEstatus(folio, conn);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
         } finally {
             if (conn != null)
                 conn.close();

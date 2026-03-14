@@ -5,8 +5,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
 import com.axtel.egresos.finDeAnio.procesosFinAnioManager;
 import com.syc.contable.PagosDirectosBussinessLogic;
 import com.syc.crud.dsmngr.DataSourceManager;
@@ -29,7 +29,7 @@ public class procesosFinAnioBussinessLogic extends DataSourceManager {
         Connection conn = null;
         try {
             conn = getConnection();
-            log.info("Generando layout para los folios: [" + listaFolios + "]");
+            log.info("Object: {}", "Generando layout para los folios: [" + listaFolios + "]");
             file = procesosFinAnioManager.BuscaPagos(conn, listaEvento, listaFolios, listaPagos, plantillas);
             log.debug("Layout generado exitosamente");
             procesosFinAnioManager.bitacora(conn, listaEvento, listaFolios, listaPagos, sUsuario);

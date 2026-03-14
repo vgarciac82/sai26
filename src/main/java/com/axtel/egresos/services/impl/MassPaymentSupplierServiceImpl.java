@@ -233,7 +233,7 @@ public class MassPaymentSupplierServiceImpl extends DataSourceManager implements
                         opinions.put(response.getSource().getRfc(), response);
                     response.getSat().put("file", fOpinion.toFile().getAbsolutePath());
                 } catch (Exception e) {
-                    log.warn("Error leyendo archivo: " + fOpinion + "Para determinar opinion de cumplimiento.");
+                    log.warn("Error occurred", "Error leyendo archivo: " + fOpinion + "Para determinar opinion de cumplimiento.");
                     String fileName = fOpinion.getFileName() == null ? ("DESCONOCIDO_" + iDesc++) : fOpinion.getFileName().toString();
                     OpinionResolveResponse response = new OpinionResolveResponse();
                     response.setManualValidationRequired(true);
@@ -364,7 +364,7 @@ public class MassPaymentSupplierServiceImpl extends DataSourceManager implements
 				 * 
 				 */
                 String rfcSupplier = payment.getComprobante().getRFCEmisor();
-                log.debug("Validating query result for " + rfcSupplier);
+                log.debug("Object: {}", "Validating query result for " + rfcSupplier);
                 OpinionResolveResponse sco = null;
                 if (satOpinions.get(rfcSupplier) != null) {
                     sco = satOpinions.remove(rfcSupplier);

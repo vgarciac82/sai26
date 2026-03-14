@@ -50,7 +50,7 @@ public class ExportaDocumentoMasivoINAI {
             int i = 0;
             conn = Util.getStandAloneConnection();
             for (DocumentoExtraer docto : lista) {
-                log.info(String.format("Exportando: %s Folio: %d", docto.getTituloAplicacion(), docto.getFolioDocumento()));
+                log.info("Object: {}", String.format("Exportando: %s Folio: %d", docto.getTituloAplicacion(), docto.getFolioDocumento()));
                 if (i % 1000 == 0) {
                     if (fos != null) {
                         zos.flush();
@@ -65,7 +65,7 @@ public class ExportaDocumentoMasivoINAI {
                 }
                 Caso c = CasoManager.findByFolioLike(conn, docto.getTituloAplicacion(), String.valueOf(docto.getFolioDocumento()));
                 if (c == null) {
-                    log.info(String.format("Expediente sin caso: %s folio %d", docto.getTituloAplicacion(), docto.getFolioDocumento()));
+                    log.info("Object: {}", String.format("Expediente sin caso: %s folio %d", docto.getTituloAplicacion(), docto.getFolioDocumento()));
                     i++;
                     continue;
                 }
@@ -75,7 +75,7 @@ public class ExportaDocumentoMasivoINAI {
                 if (exportL != null && exportL.size() > 0)
                     Util.addToZip(zos, exportL.toArray(new Documento[exportL.size()]));
                 else {
-                    log.info(String.format("Expediente sin contenido en el documento %s en la aplicacion: %s con  folio %d ", nombreDocumento, docto.getTituloAplicacion(), docto.getFolioDocumento()));
+                    log.info("Object: {}", String.format("Expediente sin contenido en el documento %s en la aplicacion: %s con  folio %d ", nombreDocumento, docto.getTituloAplicacion(), docto.getFolioDocumento()));
                 }
                 i++;
             }
@@ -86,7 +86,7 @@ public class ExportaDocumentoMasivoINAI {
             } catch (Exception e) {
                 System.err.println("Problemas cerradno flujo: " + e);
             }
-            log.info("Se exportaron " + totalDocs + " Expedientes");
+            log.info("Object: {}", "Se exportaron " + totalDocs + " Expedientes");
             return totalDocs;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -115,7 +115,7 @@ public class ExportaDocumentoMasivoINAI {
                     entrada.close();
                     entrada = null;
                 } catch (Exception e) {
-                    log.warn("Problemas cerrando archivo de entrada" + e);
+                    log.warn("Object: {}", "Problemas cerrando archivo de entrada" + e);
                 }
         }
     }

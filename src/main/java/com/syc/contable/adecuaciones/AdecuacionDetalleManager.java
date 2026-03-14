@@ -176,7 +176,7 @@ public class AdecuacionDetalleManager {
                 }
             }
             pstmnt.executeBatch();
-            log.info("Se insertaron [" + nDocRenglon + "] renglondes de la adecuacion [" + nFolioAdecuacion + "]");
+            log.info("Object: {}", "Se insertaron [" + nDocRenglon + "] renglondes de la adecuacion [" + nFolioAdecuacion + "]");
             return nDocRenglon;
         } finally {
             CloseObject.closeObject(pstmnt, false);
@@ -230,7 +230,7 @@ public class AdecuacionDetalleManager {
     }
 
     private static List<AdecuacionDetalle> readAdecuacionDetalle(Connection conn, String query, int nFolioAdecuacion) throws Exception {
-        log.trace("Se ejecutara: " + query);
+        log.trace("Object: {}", "Se ejecutara: " + query);
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<AdecuacionDetalle> detalle = new ArrayList<AdecuacionDetalle>();
@@ -304,7 +304,7 @@ public class AdecuacionDetalleManager {
     }
 
     public static List<AdecuacionDetalle> readFromExcel(Workbook wb, HSSFSheet hoja, String usuario, int nFolio, boolean superReduccion, boolean SRInterna, int nRenglonCuerpo) throws Exception {
-        log.info(" Iniciando carga de archivo excel de adecuaciones para su validacion Folio[" + nFolio + "]");
+        log.info("Object: {}", " Iniciando carga de archivo excel de adecuaciones para su validacion Folio[" + nFolio + "]");
         List<AdecuacionDetalle> detalle = new ArrayList<AdecuacionDetalle>();
         String mensajes = "";
         int contadorRenglones = -1;
@@ -313,7 +313,7 @@ public class AdecuacionDetalleManager {
             try {
                 contadorRenglones++;
                 Row renglon = i.next();
-                log.trace("Procesando renglon " + contadorRenglones + " del archivo excel");
+                log.trace("Object: {}", "Procesando renglon " + contadorRenglones + " del archivo excel");
                 if (contadorRenglones >= nRenglonCuerpo) {
                     if (Util.renglonVacio(renglon))
                         continue;
@@ -340,7 +340,7 @@ public class AdecuacionDetalleManager {
         }
         if (secuencia == 0)
             mensajes += "\nEl archivo Excel no contiene detalle.";
-        log.info("Finalizando carga de archivo excel de adecuaciones para su validacion Folio[" + nFolio + "] Se contaron " + secuencia + " renglones de detalle");
+        log.info("Object: {}", "Finalizando carga de archivo excel de adecuaciones para su validacion Folio[" + nFolio + "] Se contaron " + secuencia + " renglones de detalle");
         if ("".equals(mensajes))
             return detalle;
         else

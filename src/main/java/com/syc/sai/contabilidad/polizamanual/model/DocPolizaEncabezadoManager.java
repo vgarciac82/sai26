@@ -7,8 +7,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
 import com.syc.sai.contabilidad.polizamanual.DocPolizaEncabezado;
 import com.syc.sai.contabilidad.polizamanual.DocPolizaEncabezadoEngineException;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
@@ -49,13 +49,13 @@ public class DocPolizaEncabezadoManager {
                 try {
                     pStatement.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando PreparedStatement " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando PreparedStatement " + e2.toString());
                 }
             if (rs != null)
                 try {
                     rs.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando ResultSet " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando ResultSet " + e2.toString());
                 }
         }
     }
@@ -113,13 +113,13 @@ public class DocPolizaEncabezadoManager {
                 try {
                     pStatement.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando PreparedStatement " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando PreparedStatement " + e2.toString());
                 }
             if (rs != null)
                 try {
                     rs.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando ResultSet " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando ResultSet " + e2.toString());
                 }
         }
     }
@@ -177,13 +177,13 @@ public class DocPolizaEncabezadoManager {
                 try {
                     pStatement.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando PreparedStatement " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando PreparedStatement " + e2.toString());
                 }
             if (rs != null)
                 try {
                     rs.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando ResultSet " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando ResultSet " + e2.toString());
                 }
         }
     }
@@ -270,13 +270,13 @@ public class DocPolizaEncabezadoManager {
                 try {
                     pStatement.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando PreparedStatement " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando PreparedStatement " + e2.toString());
                 }
             if (rs != null)
                 try {
                     rs.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando ResultSet " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando ResultSet " + e2.toString());
                 }
         }
     }

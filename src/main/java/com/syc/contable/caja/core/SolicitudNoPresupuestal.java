@@ -30,7 +30,7 @@ public class SolicitudNoPresupuestal {
         super();
         this.encabezado = encabezado;
         this.detalle = detalle;
-        log.trace("Instancia creada con los objetos: Encabezado[" + encabezado + "] Detalle[" + detalle + "]");
+        log.trace("Object: {}", "Instancia creada con los objetos: Encabezado[" + encabezado + "] Detalle[" + detalle + "]");
     }
 
     public List<SolicitudNoPresupuestalDetalle> getDetalle() {

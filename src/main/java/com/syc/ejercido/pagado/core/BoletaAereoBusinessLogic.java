@@ -4,9 +4,9 @@ import java.io.File;
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.ejercido.pagado.core.BoletajeAereoManager.Boletos;
 import com.syc.gestion.util.Util;
@@ -35,7 +35,7 @@ public class BoletaAereoBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas realizando Rollback: " + e2);
+                    log.warn("Object: {}", "Problemas realizando Rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -65,7 +65,7 @@ public class BoletaAereoBusinessLogic extends DataSourceManager {
                 if (conn != null)
                     conn.rollback();
             } catch (Exception e2) {
-                log.warn("Error en rollback: " + e2);
+                log.warn("Error occurred", "Error en rollback: " + e2);
             }
             log.error(e.getMessage(), e);
             throw e;

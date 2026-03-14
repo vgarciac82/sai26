@@ -30,12 +30,12 @@ public class ConsultaPolizasServlet extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 
@@ -66,13 +66,15 @@ public class ConsultaPolizasServlet extends HttpServlet {
             String json = new String("{\"aaData\":[]}");
             resp.setContentType("application/json");
             ServletOutputStream out = resp.getOutputStream();
-            log.debug(json);
+            log.debug("Object: {}", json);
             out.print(json);
             out.flush();
             out.close();
         } else {
             ReporteBussinesLogic rbl = new ReporteBussinesLogic(jniName);
-            String json = //,PolIdOper);
+            //,PolIdOper);
+            String //,PolIdOper);
+            json = //,PolIdOper);
             rbl.//,PolIdOper);
             ConsultaPolizasResultadoJSON(//,PolIdOper);
             PolCtroContable, //,PolIdOper);
@@ -87,12 +89,11 @@ public class ConsultaPolizasServlet extends HttpServlet {
             PolNumeroIni, //,PolIdOper);
             PolNumeroFin, //,PolIdOper);
             PolMontoIni, //,PolIdOper);
-            PolMontoFin, //,PolIdOper);
-            PolOrigen, PolAutomatica);
+            PolMontoFin, PolOrigen, PolAutomatica);
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             ServletOutputStream out = resp.getOutputStream();
-            log.debug(json);
+            log.debug("Object: {}", json);
             out.print(new String(json.getBytes("UTF-8"), "ISO-8859-1"));
             out.flush();
             out.close();

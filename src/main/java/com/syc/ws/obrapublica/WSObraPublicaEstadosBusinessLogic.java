@@ -74,7 +74,7 @@ public class WSObraPublicaEstadosBusinessLogic extends DataSourceManager {
                 arrayObjResult.put(jsonObjResult);
                 jsonObjResult = null;
             }
-            log.info("object JSON: " + arrayObjResult.toString());
+            log.info("Object: {}", "object JSON: " + arrayObjResult.toString());
         } finally {
             jsonObjResult = null;
         }
@@ -108,7 +108,7 @@ public class WSObraPublicaEstadosBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn(e2);
+                    log.warn(e2.getMessage(), e2);
                 }
             throw e;
         } finally {

@@ -41,14 +41,17 @@ public class AccountingEngine extends DataSourceManager {
 
     private static final String sqlInsertMovto = "INSERT INTO tMovimiento (aEjercicioFiscal, cCentroContable, nCuenta, nSubCuenta, nFolioPoliza, cRamo, cUnidadResponsable, " + "nDocRenglon, mMovimiento, cTipoMovimiento, cDescripcionMovPol, cTipoDocumento, fOperacionMovimiento, cFolioDocumentoMovimiento, cCancelaMovimiento, " + "fMovimiento, dConceptoMovimiento, cMoneda, cTipoPoliza, Periodo13, ADEFAS, nTipoAjuste, parcial) " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    private static final String sqlExisteSaldo = "SELECT * FROM tSaldos WITH(ROWLOCK) " + //TENIA-->ISNULL(cSubCuenta, 'x') = ISNULL(?, 'x')
-    "WHERE cRamo = ?  AND cUnidadResponsable = ? AND aEjercicioFiscal = ? AND cCentroContable = ? AND nCuenta = ? AND ISNULL(cSubCuenta, '') = ISNULL(?, '')";
+    private static final //TENIA-->ISNULL(cSubCuenta, 'x') = ISNULL(?, 'x')
+    String //TENIA-->ISNULL(cSubCuenta, 'x') = ISNULL(?, 'x')
+    sqlExisteSaldo = "SELECT * FROM tSaldos WITH(ROWLOCK) " + "WHERE cRamo = ?  AND cUnidadResponsable = ? AND aEjercicioFiscal = ? AND cCentroContable = ? AND nCuenta = ? AND ISNULL(cSubCuenta, '') = ISNULL(?, '')";
 
-    private static final String sqlInsertSaldo = "INSERT INTO tSaldos (aEjercicioFiscal, cCentroContable, cRamo, cUnidadResponsable, nCuenta,  cSubCuenta, cMoneda, " + "nMesPrimerMovimiento, nMesArrastre, mSaldoArrastre, mSaldo0, mSaldo1, mHaber1, mDeber1, mSaldo2, mHaber2, mDeber2, mSaldo3, mHaber3, mDeber3, " + "mSaldo4, mHaber4, mDeber4, mSaldo5, mHaber5, mDeber5, mSaldo6, mHaber6, mDeber6, mSaldo7, mHaber7, mDeber7, mSaldo8, mHaber8, mDeber8, " + "mSaldo9, mHaber9, mDeber9, mSaldo10, mHaber10, mDeber10, mSaldo11, mHaber11, mDeber11, mSaldo12, mHaber12, mDeber12, mSaldo13, mHaber13, mDeber13) " + //TENIA ? EN LUGAR DE isnull(?,'')
-    "VALUES (?, ?, ?, ?, ?, isnull(?,''), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final //TENIA ? EN LUGAR DE isnull(?,'')
+    String //TENIA ? EN LUGAR DE isnull(?,'')
+    sqlInsertSaldo = "INSERT INTO tSaldos (aEjercicioFiscal, cCentroContable, cRamo, cUnidadResponsable, nCuenta,  cSubCuenta, cMoneda, " + "nMesPrimerMovimiento, nMesArrastre, mSaldoArrastre, mSaldo0, mSaldo1, mHaber1, mDeber1, mSaldo2, mHaber2, mDeber2, mSaldo3, mHaber3, mDeber3, " + "mSaldo4, mHaber4, mDeber4, mSaldo5, mHaber5, mDeber5, mSaldo6, mHaber6, mDeber6, mSaldo7, mHaber7, mDeber7, mSaldo8, mHaber8, mDeber8, " + "mSaldo9, mHaber9, mDeber9, mSaldo10, mHaber10, mDeber10, mSaldo11, mHaber11, mDeber11, mSaldo12, mHaber12, mDeber12, mSaldo13, mHaber13, mDeber13) " + "VALUES (?, ?, ?, ?, ?, isnull(?,''), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    private static final String sqlUpdateSaldo = "UPDATE tSaldos WITH(ROWLOCK) SET nMesArrastre = ?, mSaldoArrastre = ?, mSaldo1 = ?, mHaber1 = ?, mDeber1 = ?, " + "mSaldo2 = ?, mHaber2 = ?, mDeber2 = ?, mSaldo3 = ?, mHaber3 = ?, mDeber3 = ?, mSaldo4 = ?, mHaber4 = ?, mDeber4 = ?, " + "mSaldo5 = ?, mHaber5 = ?, mDeber5 = ?, mSaldo6 = ?, mHaber6 = ?, mDeber6 = ?, mSaldo7 = ?, mHaber7 = ?, mDeber7 = ?, " + "mSaldo8 = ?, mHaber8 = ?, mDeber8 = ?, mSaldo9 = ?, mHaber9 = ?, mDeber9 = ?, mSaldo10 = ?, mHaber10 = ?, mDeber10 = ?, " + "mSaldo11 = ?, mHaber11 = ?, mDeber11 = ?, mSaldo12 = ?, mHaber12 = ?, mDeber12 = ?, mSaldo13 = ?, mHaber13 = ?, mDeber13 = ?, nMesPrimerMovimiento = ? " + // = ISNULL(?, 'x')
-    "WHERE cRamo = ? AND cUnidadResponsable = ? AND aEjercicioFiscal = ? AND cCentroContable = ? AND nCuenta = ? AND ISNULL(cSubCuenta, 'x') = ISNULL(?, '')";
+    private static final // = ISNULL(?, 'x')
+    String // = ISNULL(?, 'x')
+    sqlUpdateSaldo = "UPDATE tSaldos WITH(ROWLOCK) SET nMesArrastre = ?, mSaldoArrastre = ?, mSaldo1 = ?, mHaber1 = ?, mDeber1 = ?, " + "mSaldo2 = ?, mHaber2 = ?, mDeber2 = ?, mSaldo3 = ?, mHaber3 = ?, mDeber3 = ?, mSaldo4 = ?, mHaber4 = ?, mDeber4 = ?, " + "mSaldo5 = ?, mHaber5 = ?, mDeber5 = ?, mSaldo6 = ?, mHaber6 = ?, mDeber6 = ?, mSaldo7 = ?, mHaber7 = ?, mDeber7 = ?, " + "mSaldo8 = ?, mHaber8 = ?, mDeber8 = ?, mSaldo9 = ?, mHaber9 = ?, mDeber9 = ?, mSaldo10 = ?, mHaber10 = ?, mDeber10 = ?, " + "mSaldo11 = ?, mHaber11 = ?, mDeber11 = ?, mSaldo12 = ?, mHaber12 = ?, mDeber12 = ?, mSaldo13 = ?, mHaber13 = ?, mDeber13 = ?, nMesPrimerMovimiento = ? " + "WHERE cRamo = ? AND cUnidadResponsable = ? AND aEjercicioFiscal = ? AND cCentroContable = ? AND nCuenta = ? AND ISNULL(cSubCuenta, 'x') = ISNULL(?, '')";
 
     private int batchSize = 15000;
 
@@ -113,7 +116,7 @@ public class AccountingEngine extends DataSourceManager {
             }
             sql.append(") AS tbl\n");
             sql.append("ORDER BY fAplicacion");
-            log.debug("Union Query:\n" + sql);
+            log.debug("Object: {}", "Union Query:\n" + sql);
             try {
                 boolean result = false;
                 psSelect = conn.prepareStatement(sql.toString());
@@ -186,7 +189,7 @@ public class AccountingEngine extends DataSourceManager {
         ResultSet rs = null;
         try {
             for (int i = 0; i < documentsNames.length; i++) {
-                log.info(String.format("Procesando documentos de %s...", documentsNames[i]));
+                log.info("Object: {}", String.format("Procesando documentos de %s...", documentsNames[i]));
                 try {
                     psSelect = conn.prepareStatement("SELECT " + fieldsNames[i] + " FROM t" + documentsNames[i] + TABLE_HEADER_SUFIX + " WITH (NOLOCK) WHERE cDocumentoHaplicado = 'R'");
                     rs = psSelect.executeQuery();
@@ -207,7 +210,7 @@ public class AccountingEngine extends DataSourceManager {
                     rs = null;
                     psSelect = null;
                 }
-                log.info(String.format("Documentos de %s procesados", documentsNames[i]));
+                log.info("Object: {}", String.format("Documentos de %s procesados", documentsNames[i]));
             }
             retVal = true;
         } catch (Exception exc) {
@@ -282,7 +285,7 @@ public class AccountingEngine extends DataSourceManager {
             List<Map<String, String>> detail = da.getDataDetailMap();
             if (log.isDebugEnabled()) {
                 DateFormat timeFormatter = new TimeFormat();
-                log.debug(String.format("Documento %s con encabezado de %,.0f columnas y detalle de %,.0f columnas con %,.0f renglones, cargado en %s", documentName.toUpperCase(), (double) header.size(), (double) (detail.size() > 0 ? detail.get(0).size() : 0), (double) detail.size(), timeFormatter.format(new Date(System.currentTimeMillis() - start))));
+                log.debug("Object: {}", String.format("Documento %s con encabezado de %,.0f columnas y detalle de %,.0f columnas con %,.0f renglones, cargado en %s", documentName.toUpperCase(), (double) header.size(), (double) (detail.size() > 0 ? detail.get(0).size() : 0), (double) detail.size(), timeFormatter.format(new Date(System.currentTimeMillis() - start))));
             }
             // Campos Virtuales
             header.put("cTipoDocumento", documentName);
@@ -297,7 +300,7 @@ public class AccountingEngine extends DataSourceManager {
             // Procesa movimientos
             if (log.isInfoEnabled()) {
                 start = System.currentTimeMillis();
-                log.info(String.format("Procesando documento %s (%s) con %,.0f movimientos...", documentName, id, (double) movements.size()));
+                log.info("Object: {}", String.format("Procesando documento %s (%s) con %,.0f movimientos...", documentName, id, (double) movements.size()));
             }
             /* se actualiza fecha de cancelación en el caso de que la fecha de aplicación del documento este en periodo contable cerrado y este se aplique con fecha actual*/
             String sMes = "";
@@ -342,7 +345,7 @@ public class AccountingEngine extends DataSourceManager {
                 psUpdateDocto.setString(2, header.get(fieldName));
                 psUpdateDocto.executeUpdate();
                 if (log.isDebugEnabled()) {
-                    log.debug(sqlUpdateDocto + " [" + pmr.getFolioPoliza() + ", (" + fieldName + ")" + header.get(fieldName) + "]");
+                    log.debug("Object: {}", sqlUpdateDocto + " [" + pmr.getFolioPoliza() + ", (" + fieldName + ")" + header.get(fieldName) + "]");
                     start = System.currentTimeMillis();
                 }
             } else {
@@ -350,7 +353,7 @@ public class AccountingEngine extends DataSourceManager {
             }
             if (log.isInfoEnabled()) {
                 DateFormat timeFormatter = new TimeFormat();
-                log.info(String.format("Documento %s (%s) con %,.0f movimientos procesado en %s.", documentName, id, (double) movements.size(), timeFormatter.format(new Date(System.currentTimeMillis() - start))));
+                log.info("Object: {}", String.format("Documento %s (%s) con %,.0f movimientos procesado en %s.", documentName, id, (double) movements.size(), timeFormatter.format(new Date(System.currentTimeMillis() - start))));
             }
         } catch (Exception exc) {
             retVal = false;
@@ -442,7 +445,7 @@ public class AccountingEngine extends DataSourceManager {
             //log.debug(sqlMovs + " [" + header.get("cFolioDocumentoMovimiento") + "]");
             psSelectMovs.setString(1, documentName);
             psSelectMovs.setString(2, id);
-            log.debug(sqlMovs + " [" + documentName + ", " + id + "]");
+            log.debug("Object: {}", sqlMovs + " [" + documentName + ", " + id + "]");
             List<AccountingMovement> movements = readMovementsToCancel(psSelectMovs.executeQuery());
             // validación de fecha de documento y si el periodo contable está abierto
             String sMes = "";
@@ -498,14 +501,14 @@ public class AccountingEngine extends DataSourceManager {
                 psUpdateMovs.setString(1, documentName);
                 psUpdateMovs.setString(2, id);
                 psUpdateMovs.setString(3, header.get("nFolioPoliza"));
-                log.debug(sqlUpdMovs + " [" + documentName + ", " + id + ", " + header.get("nFolioPoliza") + "]");
+                log.debug("Object: {}", sqlUpdMovs + " [" + documentName + ", " + id + ", " + header.get("nFolioPoliza") + "]");
                 psUpdateMovs.executeUpdate();
                 // Actualiza documento (tableHeader) como cancelado contablemente
                 // (TODO cDocumentoHaplicado, nFolioPolizaCancelacion y fCancelacion en todos los encabezados de documentos)
                 psUpdateDocto.setString(1, fechaCancelaDocto);
                 psUpdateDocto.setInt(2, pmr.getFolioPoliza());
                 psUpdateDocto.setString(3, header.get(fieldName));
-                log.debug(sqlUpdDoc + " [" + new Date(now) + ", " + pmr.getFolioPoliza() + ", " + header.get(fieldName) + "]");
+                log.debug("Object: {}", sqlUpdDoc + " [" + new Date(now) + ", " + pmr.getFolioPoliza() + ", " + header.get(fieldName) + "]");
                 psUpdateDocto.executeUpdate();
             } else {
                 throw new AccountingEngineException("No Existe Detalle de Movimientos para Aplicar");
@@ -542,12 +545,12 @@ public class AccountingEngine extends DataSourceManager {
         DocumentAccounting da = new DocumentAccounting(initialCapacity);
         try {
             sql = "SELECT * FROM " + tableHeader + " WITH (NOLOCK) WHERE " + fieldName + " = ?";
-            log.debug("SQL Header: " + sql + " [" + id + "]");
+            log.debug("Object: {}", "SQL Header: " + sql + " [" + id + "]");
             pstmntHeader = conn.prepareStatement(sql);
             pstmntHeader.setString(1, id);
             readDataHeaderFromResultSet(pstmntHeader.executeQuery(), da.getDataHeaderMap());
             sql = "SELECT * FROM " + tableDetail + " WITH (NOLOCK) WHERE " + fieldName + " = ?";
-            log.debug("SQL Detail: " + sql + " [" + id + "]");
+            log.debug("Object: {}", "SQL Detail: " + sql + " [" + id + "]");
             pstmntDetail = conn.prepareStatement(sql);
             pstmntDetail.setString(1, id);
             readDataDetailFromResultSet(pstmntDetail.executeQuery(), da.getDataDetailMap());
@@ -850,7 +853,7 @@ public class AccountingEngine extends DataSourceManager {
             int batchCount = 0;
             DateFormat timeFormatter = new TimeFormat();
             long startTime = System.currentTimeMillis();
-            log.info(String.format("Procesando %,.0f movimientos de %s(%s)...", (double) movements.size(), documentName, values.get(fieldName)));
+            log.info("Object: {}", String.format("Procesando %,.0f movimientos de %s(%s)...", (double) movements.size(), documentName, values.get(fieldName)));
             for (AccountingMovement mov : movements) {
                 if (firstTime) {
                     firstTime = false;
@@ -909,10 +912,10 @@ public class AccountingEngine extends DataSourceManager {
                 }
                 movtoAnterior = mov;
                 if (log.isDebugEnabled())
-                    log.debug(mov);
+                    log.debug("Object: {}", mov);
             }
             long endTime = System.currentTimeMillis();
-            log.info(String.format("%,.0f movimientos de %s(%s) procesados en %s", (double) movements.size(), documentName, values.get(fieldName), timeFormatter.format(new Date(endTime - startTime))));
+            log.info("Object: {}", String.format("%,.0f movimientos de %s(%s) procesados en %s", (double) movements.size(), documentName, values.get(fieldName), timeFormatter.format(new Date(endTime - startTime))));
             if (batchCount > 0) {
                 // Adiciona Saldo a lista
                 if ((cargosGrupoMovtos != 0) || (abonosGrupoMovtos != 0))
@@ -938,7 +941,7 @@ public class AccountingEngine extends DataSourceManager {
             startTime = System.currentTimeMillis();
             psInsertSaldo = conn.prepareStatement(sqlInsertSaldo);
             psUpdateSaldo = conn.prepareStatement(sqlUpdateSaldo);
-            log.info(String.format("Procesando %,.0f saldos de %s(%s)...", (double) balancesToUpdate.size(), documentName, values.get(fieldName)));
+            log.info("Object: {}", String.format("Procesando %,.0f saldos de %s(%s)...", (double) balancesToUpdate.size(), documentName, values.get(fieldName)));
             for (BalancesToUpdate balance : balancesToUpdate) {
                 // Adiciona Saldo al Batch
                 updateSaldo(conn, psInsertSaldo, psUpdateSaldo, balance.getCargos(), balance.getAbonos(), balance.getMovement(), values);
@@ -960,7 +963,7 @@ public class AccountingEngine extends DataSourceManager {
                 validaTotalRegistrosAfectados(psUpdateSaldo.executeBatch(), "UpdateSaldo");
             }
             endTime = System.currentTimeMillis();
-            log.info(String.format("%,.0f saldos de %s(%s) procesados en %s", (double) balancesToUpdate.size(), documentName, values.get(fieldName), timeFormatter.format(new Date(endTime - startTime))));
+            log.info("Object: {}", String.format("%,.0f saldos de %s(%s) procesados en %s", (double) balancesToUpdate.size(), documentName, values.get(fieldName), timeFormatter.format(new Date(endTime - startTime))));
         } catch (Exception exc) {
             retVal = false;
             log.error(exc.getMessage(), exc);
@@ -1074,7 +1077,7 @@ public class AccountingEngine extends DataSourceManager {
         String sqlInsSeq = "INSERT INTO cf_sequence (seq_name, seq_value) SELECT 'SEQ_POLIZA_' + aEjercicioFiscal + '_' + cCentroContable + '_' + cTipoPoliza, " + "ISNULL(MAX(nFolioPoliza), 0) + 1 FROM tPoliza WITH (NOLOCK) WHERE aEjercicioFiscal = ? AND cCentroContable = ? AND cTipoPoliza = ? " + "GROUP BY aEjercicioFiscal, cCentroContable, cTipoPoliza";
         String sqlSelSeq = "SELECT seq_value + 1 FROM cf_sequence WITH( ROWLOCK, XLOCK ) WHERE seq_name = ?";
         try {
-            log.debug(sqlSelSeq + " [SEQ_POLIZA_" + ejercicioFiscal + "_" + centroContable + "_" + tipoPoliza + "]");
+            log.debug("Object: {}", sqlSelSeq + " [SEQ_POLIZA_" + ejercicioFiscal + "_" + centroContable + "_" + tipoPoliza + "]");
             tipoPoliza = tipoPoliza.toUpperCase();
             psSelect = conn.prepareStatement(sqlSelSeq);
             psSelect.setString(1, "SEQ_POLIZA_" + ejercicioFiscal + "_" + centroContable + "_" + tipoPoliza);
@@ -1085,14 +1088,14 @@ public class AccountingEngine extends DataSourceManager {
                 psUpdate = conn.prepareStatement(sqlUpdSeq);
                 psUpdate.setInt(1, retVal);
                 psUpdate.setString(2, "SEQ_POLIZA_" + ejercicioFiscal + "_" + centroContable + "_" + tipoPoliza);
-                log.debug(sqlUpdSeq + " [" + retVal + ",SEQ_POLIZA_" + ejercicioFiscal + "_" + centroContable + "_" + tipoPoliza + "]");
+                log.debug("Object: {}", sqlUpdSeq + " [" + retVal + ",SEQ_POLIZA_" + ejercicioFiscal + "_" + centroContable + "_" + tipoPoliza + "]");
                 psUpdate.executeUpdate();
             } else {
                 psInsert = conn.prepareStatement(sqlInsSeq);
                 psInsert.setString(1, ejercicioFiscal);
                 psInsert.setString(2, centroContable);
                 psInsert.setString(3, tipoPoliza);
-                log.debug(sqlInsSeq + " [" + ejercicioFiscal + ", " + centroContable + ", " + tipoPoliza + "]");
+                log.debug("Object: {}", sqlInsSeq + " [" + ejercicioFiscal + ", " + centroContable + ", " + tipoPoliza + "]");
                 psInsert.executeUpdate();
             }
         } catch (Exception exc) {
@@ -1267,7 +1270,7 @@ public class AccountingEngine extends DataSourceManager {
                 fAplicacion = new Date(dateFormatter.parse(fechaCancelaDocto).getTime());
             }
         } catch (Exception exc) {
-            log.warn(exc);
+            log.warn(exc.getMessage(), exc);
             throw new AccountingEngineException("Formato de fecha de aplicaci\u00f3n inv\u00e1lido. Formato esperado 'yyyy-MM-dd'");
         }
         cal.clear();
@@ -1305,7 +1308,7 @@ public class AccountingEngine extends DataSourceManager {
         if (log.isDebugEnabled()) {
             StringBuffer msg = new StringBuffer(sqlInsertPoliza);
             msg.append("\n[").append(folioPoliza).append(", ").append(new Timestamp(now)).append(", ").append(values.get("cDescripcionPoliza")).append(", ").append(Math.truncate(cargo, 2)).append(", ").append(Math.truncate(abono, 2)).append(", ").append(cal.get(Calendar.MONTH) + 1).append(", ").append("null").append(", ").append(fAplicacion).append(", ").append(getPolizaAutomatica(conn, documentName, values.get("cTipoPoliza"))).append(", ").append(mov.getCentroContable()).append(", ").append(mov.getEjercicioFiscal()).append(", ").append(values.get("cTipoPoliza")).append(", ").append(values.get("cTipoDocumento")).append(", ").append(values.get(fieldName)).append("]");
-            log.debug(msg);
+            log.debug("Object: {}", msg);
         }
     }
 
@@ -1320,7 +1323,7 @@ public class AccountingEngine extends DataSourceManager {
         if (log.isDebugEnabled()) {
             StringBuffer msg = new StringBuffer(sqlUpdatePoliza);
             msg.append("\n[").append(Math.truncate(cargos, 2)).append(", ").append(Math.truncate(abonos, 2)).append(", ").append(ejercicioFiscal).append(", ").append(centroContable).append(", ").append(tipoPoliza).append(", ").append(folioPoliza).append("]");
-            log.debug(msg);
+            log.debug("Object: {}", msg);
         }
     }
 
@@ -1349,7 +1352,7 @@ public class AccountingEngine extends DataSourceManager {
             int mesAplicacion = "S".equals(values.get("periodo13")) ? 12 : cal.get(Calendar.MONTH);
             double diferencia = mov.esDeudora() ? (Math.truncate(cargos, 2) - Math.truncate(abonos, 2)) : (Math.truncate(abonos, 2) - Math.truncate(cargos, 2));
             diferencia = Math.truncate(diferencia, 2);
-            log.debug(sqlExisteSaldo + " [" + values.get("cRamo") + ", " + values.get("cUnidadResponsableContable") + ", " + mov.getEjercicioFiscal() + ", " + (mov.getbPresupuesto() ? "0" : mov.getCentroContable()) + ", " + mov.getCuenta() + ", " + mov.getSubCuenta() + "]");
+            log.debug("Object: {}", sqlExisteSaldo + " [" + values.get("cRamo") + ", " + values.get("cUnidadResponsableContable") + ", " + mov.getEjercicioFiscal() + ", " + (mov.getbPresupuesto() ? "0" : mov.getCentroContable()) + ", " + mov.getCuenta() + ", " + mov.getSubCuenta() + "]");
             rs = psExisteSaldo.executeQuery();
             if (rs.next()) {
                 double[] deber = new double[] { rs.getDouble("mDeber1"), rs.getDouble("mDeber2"), rs.getDouble("mDeber3"), rs.getDouble("mDeber4"), rs.getDouble("mDeber5"), rs.getDouble("mDeber6"), rs.getDouble("mDeber7"), rs.getDouble("mDeber8"), rs.getDouble("mDeber9"), rs.getDouble("mDeber10"), rs.getDouble("mDeber11"), rs.getDouble("mDeber12"), rs.getDouble("mDeber13") };
@@ -1429,7 +1432,7 @@ public class AccountingEngine extends DataSourceManager {
                         msg.append(", ").append(Math.truncate(saldo[i], 2)).append(", ").append(Math.truncate(haber[i], 2)).append(", ").append(Math.truncate(deber[i], 2));
                     }
                     msg.append(", ").append(mesPrimerMovimiento).append(", ").append(values.get("cRamo")).append(", ").append(values.get("cUnidadResponsableContable")).append(", ").append(mov.getEjercicioFiscal()).append(", ").append(mov.getbPresupuesto() ? "0" : mov.getCentroContable()).append(", ").append(mov.getCuenta()).append(", ").append(mov.getSubCuenta()).append("]");
-                    log.debug(msg);
+                    log.debug("Object: {}", msg);
                 }
             } else {
                 if (validaInsuficienciaDeSaldo() && mov.isVerificaSaldo() && (diferencia < 0d))
@@ -1476,7 +1479,7 @@ public class AccountingEngine extends DataSourceManager {
                         msg.append((i == mesAplicacion) ? Math.truncate(diferencia, 2) : 0).append(", ").append((i == mesAplicacion) ? Math.truncate(abonos, 2) : 0).append(", ").append((i == mesAplicacion) ? Math.truncate(cargos, 2) : 0);
                     }
                     msg.append("]");
-                    log.debug(msg);
+                    log.debug("Object: {}", msg);
                 }
             }
         } finally {
@@ -1566,7 +1569,7 @@ public class AccountingEngine extends DataSourceManager {
         if (log.isDebugEnabled()) {
             StringBuffer msg = new StringBuffer(sqlInsertMovto);
             msg.append("\n[").append(mov.getEjercicioFiscal()).append(", ").append(mov.getCentroContable()).append(", ").append(mov.getCuenta()).append(", ").append(mov.getSubCuenta()).append(", ").append(mov.getFolioPoliza()).append(", ").append(values.get("cRamo")).append(", ").append(values.get("cUnidadResponsableContable")).append(", ").append(mov.getDocRenglon()).append(", ").append(Math.truncate(mov.getMovimiento(), 2)).append(", ").append(mov.getTipoMovimiento()).append(", ").append(values.get("cDescripcionMovPol")).append(", ").append(values.get("cTipoDocumento")).append(", ").append(fMovimiento).append(", ").append("(").append(fieldName).append(") = ").append(values.get(fieldName)).append(", ").append("null").append(", ").append(new Timestamp(now)).append(", ").append(values.get("dConceptoMovimiento")).append(", ").append(values.get("cMoneda")).append(", ").append(values.get("cTipoPoliza")).append(", ").append(values.get("Periodo13")).append(", ").append(values.get("ADEFAS")).append(", ").append(values.get("nTipoAjuste")).append(", ").append(mov.getParcial() == null ? "N" : mov.getParcial()).append("]");
-            log.debug(msg);
+            log.debug("Object: {}", msg);
         }
     }
 

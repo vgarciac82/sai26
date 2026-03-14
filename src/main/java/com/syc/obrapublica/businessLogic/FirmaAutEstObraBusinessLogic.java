@@ -6,8 +6,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import org.apache.log4j.LogManager;
+import jakarta.servlet.http.HttpServletRequest;
 import com.syc.cfdi.db.CloseObject;
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.gestion.core.Usuario;
@@ -23,7 +22,7 @@ import org.slf4j.LoggerFactory;
 
 public class FirmaAutEstObraBusinessLogic extends DataSourceManager implements FirmaAutorizacionObraInterface {
 
-    private static final Logger log = LogManager.getLogger(FirmaAutEstObraBusinessLogic.class);
+    private static final Logger log = LoggerFactory.getLogger(FirmaAutEstObraBusinessLogic.class);
 
     @Override
     public void enviaAutorizacion(Usuario usuario, HttpServletRequest request, String REPORT_PATH) throws Exception {
@@ -106,7 +105,7 @@ public class FirmaAutEstObraBusinessLogic extends DataSourceManager implements F
                         try {
                             conn.rollback();
                         } catch (Exception e2) {
-                            log.warn(e2);
+                            log.warn(e2.getMessage(), e2);
                         }
                     throw e;
                 } finally {
@@ -158,7 +157,7 @@ public class FirmaAutEstObraBusinessLogic extends DataSourceManager implements F
                         try {
                             conn.rollback();
                         } catch (Exception e2) {
-                            log.warn(e2);
+                            log.warn(e2.getMessage(), e2);
                         }
                 } finally {
                     CloseObject.closeObject(conn);

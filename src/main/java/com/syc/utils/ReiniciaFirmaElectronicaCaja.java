@@ -56,7 +56,7 @@ public class ReiniciaFirmaElectronicaCaja {
         Caso rco = null;
         boolean delete = true;
         if (resp.length != oper.length) {
-            log.error("Las dimensiones no coinciden rep[" + resp.length + "] vs oper[" + oper.length + "]");
+            log.error("Object: {}", "Las dimensiones no coinciden rep[" + resp.length + "] vs oper[" + oper.length + "]");
             throw new GestionException("Las dimensiones no coinciden rep[" + resp.length + "] vs oper[" + oper.length + "]");
         }
         int[] idCasoOperSgte = new int[resp.length];
@@ -86,7 +86,7 @@ public class ReiniciaFirmaElectronicaCaja {
             o.setNombre(oper[i].trim());
             o = OperacionManager.select(conn, o);
             if (o == null) {
-                log.error("No se localizo la Operacion \"" + oper[i] + "\"");
+                log.error("Object: {}", "No se localizo la Operacion \"" + oper[i] + "\"");
                 throw new GestionException("No se localizo la Operación \"" + oper[i] + "\"");
             }
             CasoOperacion co = CasoOperacionManager.nuevoCasoOperacion(conn, resp[i].trim(), observ, c, o);
@@ -143,7 +143,7 @@ public class ReiniciaFirmaElectronicaCaja {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn(e2);
+                    log.warn(e2.getMessage(), e2);
                 }
             throw e;
         } finally {

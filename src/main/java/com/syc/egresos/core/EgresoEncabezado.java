@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.DateConverter;
 import org.apache.commons.lang.StringUtils;
@@ -248,7 +248,7 @@ public abstract class EgresoEncabezado extends DataSourceManager {
         query.append("UPDATE	t").append(getTipoPago()).append("Encabezado ");
         query.append("   SET	canocontrarrecibo = ?");
         query.append(" WHERE nFolio").append(getTipoPago()).append(" = ?");
-        log.debug("Query generado para actualizar contrarecibo:\n" + query.toString());
+        log.debug("Object: {}", "Query generado para actualizar contrarecibo:\n" + query.toString());
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement(query.toString());
@@ -272,7 +272,7 @@ public abstract class EgresoEncabezado extends DataSourceManager {
             ps.setString(1, getIdTipoMovimiento());
             ps.setString(2, getIdTipoConcepto());
             ps.setInt(3, getFolioPago());
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             return ps.executeUpdate();
         } finally {
             CloseObject.closeObject(ps);
@@ -291,7 +291,7 @@ public abstract class EgresoEncabezado extends DataSourceManager {
             ps.setString(1, getIdTipoMovimiento());
             ps.setString(2, getIdTipoConcepto());
             ps.setInt(3, getFolioPago());
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             return ps.executeUpdate();
         } finally {
             CloseObject.closeObject(ps);
@@ -802,13 +802,13 @@ public abstract class EgresoEncabezado extends DataSourceManager {
                 try {
                     is.close();
                 } catch (Exception e) {
-                    log.warn("Problemas cerrando flujo de entrada: " + e);
+                    log.warn("Object: {}", "Problemas cerrando flujo de entrada: " + e);
                 }
             if (out != null)
                 try {
                     is.close();
                 } catch (Exception e) {
-                    log.warn("Problemas cerrando flujo de entrada: " + e);
+                    log.warn("Object: {}", "Problemas cerrando flujo de entrada: " + e);
                 }
         }
     }
@@ -835,13 +835,13 @@ public abstract class EgresoEncabezado extends DataSourceManager {
                 try {
                     is.close();
                 } catch (Exception e) {
-                    log.warn("Problemas cerrando flujo de entrada: " + e);
+                    log.warn("Object: {}", "Problemas cerrando flujo de entrada: " + e);
                 }
             if (out != null)
                 try {
                     is.close();
                 } catch (Exception e) {
-                    log.warn("Problemas cerrando flujo de entrada: " + e);
+                    log.warn("Object: {}", "Problemas cerrando flujo de entrada: " + e);
                 }
         }
     }

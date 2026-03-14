@@ -2,7 +2,6 @@ package com.axtel.contratos.services.implementation;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import org.apache.log4j.LogManager;
 import com.axtel.contratos.entities.FuelAccountWallet;
 import com.axtel.contratos.exception.ContratoException;
 import com.axtel.contratos.repositories.FuelAccountWalletRepository;
@@ -14,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class JDBCFuelAccountWalletService extends DataSourceManager implements FuelAccountWalletService {
 
-    private static final Logger log = LogManager.getLogger(JDBCFuelAccountWalletService.class);
+    private static final Logger log = LoggerFactory.getLogger(JDBCFuelAccountWalletService.class);
 
     private FuelAccountWalletRepository accountWalletRepository;
 
@@ -37,7 +36,7 @@ public class JDBCFuelAccountWalletService extends DataSourceManager implements F
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn(e2);
+                    log.warn(e2.getMessage(), e2);
                 }
             throw new ContratoException(e);
         } finally {
@@ -73,7 +72,7 @@ public class JDBCFuelAccountWalletService extends DataSourceManager implements F
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn(e2);
+                    log.warn(e2.getMessage(), e2);
                 }
             throw new ContratoException(e);
         } finally {

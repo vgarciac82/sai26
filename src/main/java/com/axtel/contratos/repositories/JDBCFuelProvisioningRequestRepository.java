@@ -25,7 +25,7 @@ public class JDBCFuelProvisioningRequestRepository implements FuelProvisioningRe
 
     @Override
     public FuelProvisioningRequest insert(Connection conn, FuelProvisioningRequest fuelProvisioningRequest) throws ContratoException {
-        log.info("Insertando: " + fuelProvisioningRequest);
+        log.info("Object: {}", "Insertando: " + fuelProvisioningRequest);
         StringBuilder queryInsert = new StringBuilder();
         queryInsert.append("INSERT INTO fuel_provisioning_request( ");
         queryInsert.append("			id_account ");
@@ -72,7 +72,7 @@ public class JDBCFuelProvisioningRequestRepository implements FuelProvisioningRe
         FuelProvisioningRequest fuelProvisioningRequest;
         try {
             fuelProvisioningRequest = runner.query(conn, querySelect.toString(), fuelProvisioningRequestHandler, id);
-            log.debug("Se encontro: " + fuelProvisioningRequest);
+            log.debug("Object: {}", "Se encontro: " + fuelProvisioningRequest);
             return fuelProvisioningRequest;
         } catch (SQLException e) {
             throw new ContratoException(e);
@@ -81,7 +81,7 @@ public class JDBCFuelProvisioningRequestRepository implements FuelProvisioningRe
 
     @Override
     public FuelProvisioningRequest update(Connection conn, FuelProvisioningRequest fuelProvisioningRequest) throws ContratoException {
-        log.info("Actualizando: " + fuelProvisioningRequest);
+        log.info("Object: {}", "Actualizando: " + fuelProvisioningRequest);
         StringBuilder queryUpdate = new StringBuilder();
         queryUpdate.append("UPDATE	fuel_provisioning_request ");
         queryUpdate.append("   SET	reject_justification = ? ");
@@ -105,7 +105,7 @@ public class JDBCFuelProvisioningRequestRepository implements FuelProvisioningRe
 
     @Override
     public boolean delete(Connection conn, int id) throws ContratoException {
-        log.info("Deleting fuel_provisioning_request: " + id);
+        log.info("Object: {}", "Deleting fuel_provisioning_request: " + id);
         StringBuilder queryUpdate = new StringBuilder();
         queryUpdate.append("UPDATE	fuel_provisioning_request ");
         queryUpdate.append("   SET	request_status = ? ");

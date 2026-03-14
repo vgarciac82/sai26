@@ -57,7 +57,7 @@ public class ComparaSaiSicopBusinessLogic extends DataSourceManager {
                     continue;
                 }
                 if ("RHQ".equalsIgnoreCase(renglonInfo[1])) {
-                    log.debug("renglon leido " + renglon);
+                    log.debug("Object: {}", "renglon leido " + renglon);
                     ComparaSaiSicopManager.obtieneDatosEP(conn, renglonInfo, psInsertaMomento);
                 }
                 renglon++;
@@ -74,7 +74,7 @@ public class ComparaSaiSicopBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("No se pudo realizar rollback en conexion" + e2);
+                    log.warn("Object: {}", "No se pudo realizar rollback en conexion" + e2);
                 }
             throw e;
         } finally {
@@ -104,7 +104,7 @@ public class ComparaSaiSicopBusinessLogic extends DataSourceManager {
                 try {
                     stream.close();
                 } catch (Exception e2) {
-                    log.warn("No se pudo cerrar el archivo de carga." + e2);
+                    log.warn("Object: {}", "No se pudo cerrar el archivo de carga." + e2);
                 }
             stream = null;
         }

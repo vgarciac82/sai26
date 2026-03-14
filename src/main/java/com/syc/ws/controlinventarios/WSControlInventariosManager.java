@@ -101,7 +101,7 @@ public class WSControlInventariosManager {
                 url = rs.getString("GP_VALOR");
             }
             System.out.println("URL: " + url);
-            log.info("URL: " + url);
+            log.info("Object: {}", "URL: " + url);
         } finally {
             if (rs != null) {
                 rs.close();

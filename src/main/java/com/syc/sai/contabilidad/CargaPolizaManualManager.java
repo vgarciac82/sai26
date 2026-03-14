@@ -23,9 +23,9 @@ public class CargaPolizaManualManager {
         int r = 0;
         try {
             stmnt = conn.createStatement();
-            log.info("Inicia Insert del renglon" + nRenglon);
+            log.info("Object: {}", "Inicia Insert del renglon" + nRenglon);
             r = stmnt.executeUpdate(genInsertFromMap("tCargaPololizaPorLayout", infoRenglon));
-            log.info("Se inserto " + r + " registros");
+            log.info("Object: {}", "Se inserto " + r + " registros");
             return r;
         } finally {
             CloseObject.closeObject(stmnt, false);
@@ -50,7 +50,7 @@ public class CargaPolizaManualManager {
             tokenEncabezado = ", ";
             tokenValores = ", ";
         }
-        log.info(queryEncabezado + ")" + queryValores + ")");
+        log.info("Object: {}", queryEncabezado + ")" + queryValores + ")");
         return queryEncabezado + ")" + queryValores + ")";
     }
 
@@ -59,7 +59,7 @@ public class CargaPolizaManualManager {
         resp = validaCuenta(conn, Cuenta, SubCuenta);
         if (resp != "ok") {
             resp = "Error en el renglon " + renglon + ", " + resp;
-            log.info("Error en el renglon " + renglon + ", " + resp);
+            log.info("Error occurred", "Error en el renglon " + renglon + ", " + resp);
         }
         return resp;
     }
@@ -73,17 +73,17 @@ public class CargaPolizaManualManager {
         String rTipoSubCuenta = " ";
         String resp = "";
         try {
-            log.info("Inicia validacion de la cuenta: " + Cuenta);
-            log.info("Ejectua query: " + sql);
+            log.info("Object: {}", "Inicia validacion de la cuenta: " + Cuenta);
+            log.info("Object: {}", "Ejectua query: " + sql);
             pstmnt = con.prepareStatement(sql);
             rs = pstmnt.executeQuery();
             while (rs.next()) {
                 rCuenta = rs.getString("nCuenta");
                 rTipoSubCuenta = rs.getString("cSubCuenta");
             }
-            log.info("valor de tipo subcuenta: " + rTipoSubCuenta.toString());
+            log.info("Object: {}", "valor de tipo subcuenta: " + rTipoSubCuenta.toString());
             if (rCuenta.equals("")) {
-                log.info("La cuenta:" + Cuenta + " no existe o no es de Aplicacion");
+                log.info("Object: {}", "La cuenta:" + Cuenta + " no existe o no es de Aplicacion");
                 resp = "Cuenta inexistente o no es de Aplicacion.";
             } else {
                 if (subCuenta == "x") {
@@ -101,7 +101,7 @@ public class CargaPolizaManualManager {
                         log.info("la cuenta NO necesita subCuenta y se CAPTURÓ en el archivo!!...");
                         resp = "La cuenta " + Cuenta + " NO necesita SubCuenta y se capturó en el archivo.";
                     } else {
-                        log.info("La Cuenta necesita una subcuenta del tipo: " + rTipoSubCuenta + " validando SubCuenta");
+                        log.info("Object: {}", "La Cuenta necesita una subcuenta del tipo: " + rTipoSubCuenta + " validando SubCuenta");
                         //regresa la validacion de la subcuenta
                         resp = validaSubCuenta(con, subCuenta, rTipoSubCuenta);
                     }
@@ -130,15 +130,15 @@ public class CargaPolizaManualManager {
         String rsubCuenta = "";
         String resp = "";
         try {
-            log.info("Inicia Validacion de SubCuneta:" + subCuenta);
-            log.info("Ejecuta query de subcuenta: " + sql);
+            log.info("Object: {}", "Inicia Validacion de SubCuneta:" + subCuenta);
+            log.info("Object: {}", "Ejecuta query de subcuenta: " + sql);
             pstm = con.prepareStatement(sql);
             rs = pstm.executeQuery();
             while (rs.next()) {
                 rsubCuenta = rs.getString("dSubCuenta");
             }
             if (rsubCuenta == "") {
-                log.info("La SubCuenta:" + subCuenta + " no existe.");
+                log.info("Object: {}", "La SubCuenta:" + subCuenta + " no existe.");
                 resp = "La SubCuenta no existe.";
             } else {
                 log.info("SubCuenta Encontrada!!...");
@@ -166,9 +166,9 @@ public class CargaPolizaManualManager {
         int r = 0;
         try {
             stmnt = conn.createStatement();
-            log.info("Inicia Insert en " + table);
+            log.info("Object: {}", "Inicia Insert en " + table);
             r = stmnt.executeUpdate(genInsertFromMap(table, infoRenglon));
-            log.info("Se inserto " + r + " registros en " + table);
+            log.info("Object: {}", "Se inserto " + r + " registros en " + table);
             return r;
         } finally {
             CloseObject.closeObject(stmnt, false);
@@ -183,15 +183,15 @@ public class CargaPolizaManualManager {
         String rsubCuenta = "";
         String resp = "";
         try {
-            log.info("Inicia Validacion de SubCuneta:" + subCuenta);
-            log.info("Ejecuta query de subcuenta: " + sql);
+            log.info("Object: {}", "Inicia Validacion de SubCuneta:" + subCuenta);
+            log.info("Object: {}", "Ejecuta query de subcuenta: " + sql);
             pstm = con.prepareStatement(sql);
             rs = pstm.executeQuery();
             while (rs.next()) {
                 rsubCuenta = rs.getString("dSubCuenta");
             }
             if (rsubCuenta == "") {
-                log.info("La SubCuenta:" + subCuenta + " no existe.");
+                log.info("Object: {}", "La SubCuenta:" + subCuenta + " no existe.");
                 resp = "La SubCuenta no existe.";
             } else {
                 log.info("SubCuenta Encontrada!!...");
@@ -221,7 +221,7 @@ public class CargaPolizaManualManager {
         String sql = "select p.nCuenta,c.dCuenta,p.nSubCuenta,p.nCargo,p.nAbono from tCargaPololizaPorLayout p with(nolock)" + " inner join tCuentas c with(nolock) on p.nCuenta=c.nCuenta where p.cCentroContable='" + cCentroContable + "' and p.nFolioDocumento=" + foliodoc;
         try {
             pstmnt = conn.prepareStatement(sql);
-            log.info("Ejecuta query: " + sql);
+            log.info("Object: {}", "Ejecuta query: " + sql);
             rs = pstmnt.executeQuery();
             while (rs.next()) {
                 Poliza cPoliza = new Poliza();
@@ -263,7 +263,7 @@ public class CargaPolizaManualManager {
         deleteDetalle(conn, folioDocPoliza);
         try {
             pstmnt = conn.createStatement();
-            log.info("Ejecuta query: " + sql);
+            log.info("Object: {}", "Ejecuta query: " + sql);
             pstmnt.executeUpdate(sql);
             conn.commit();
         } catch (Exception e) {
@@ -282,7 +282,7 @@ public class CargaPolizaManualManager {
         String sql = "delete from tdocpolizaDetalle where  nfolioDocPoliza=" + folioDocPoliza;
         try {
             pstmnt = conn.createStatement();
-            log.info("Ejecuta query: " + sql);
+            log.info("Object: {}", "Ejecuta query: " + sql);
             //pstmnt.executeQuery(sql);
             pstmnt.executeUpdate(sql);
             conn.commit();

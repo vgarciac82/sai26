@@ -82,47 +82,48 @@ public class PagosDiversosManager {
                 if (!"".equals(vcReferencia1) && "".equals(vcReferencia2)) {
                     vcLeyenda = "0";
                 }
-                String encabezado = // A
-                rs.getString(2) + "," + // B
-                arrFechas[intIndice].trim() + "," + // C
-                rs.getString(4).trim() + "," + // D
-                rs.getString(5).trim() + "," + // E
-                rs.getString(6).trim() + "," + // F
-                rs.getString(7).trim() + "," + // G
-                rs.getString(8).trim() + "," + // H
-                rs.getString(9).trim() + "," + // I
-                rs.getString(10).trim() + "," + // J
-                rs.getString(11).trim() + "," + // K
-                rs.getString(12).trim() + "," + // L
-                rs.getString(13).trim() + "," + // M
-                rs.getString(14).trim() + "," + // N
-                vtipoPago + "," + // O
-                rs.getString(16).trim() + "," + // P
-                vcLeyenda + "," + // Q
-                vcBenef + "," + // R
-                vcCtaBancaria + "," + // S
-                vRFC + "," + // T
-                rs.getString(21).trim() + "," + // U
-                rs.getString(22).trim() + "," + // V
-                rs.getString(23).trim() + "," + // W
-                rs.getString(24).trim() + "," + // X
-                rs.getString(25).trim().replaceAll("[\r\n]{2,}", " ") + "," + // Y
-                rs.getString(26).trim() + "," + // Z
-                rs.getString(27).trim() + "," + // AA
-                StringUtils.trimToEmpty(rs.getString(28)) + "," + // AB
-                StringUtils.trimToEmpty(rs.getString(29)) + "," + // AC
-                StringUtils.trimToEmpty(rs.getString(30)) + "," + // AD
-                StringUtils.trimToEmpty(rs.getString(31)) + "," + // AE
-                rs.getString(32).trim() + "," + // AF
-                rs.getString(33).trim() + "," + // AG
-                rs.getString(34).trim() + "," + // AH
-                rs.getString(35).trim() + "," + // AI
-                rs.getString(36).trim() + "," + // AJ
-                rs.getString(37).trim() + "," + // AK
-                rs.getString(38).trim() + "," + // AL
-                rs.getString(39).trim() + "," + // AM
-                rs.getString(40).trim() + "," + // AN
-                rs.getString(41);
+                // A
+                String // A
+                // B
+                encabezado = // C
+                rs.getString(2) + "," + arrFechas[intIndice].trim() + "," + // D
+                rs.getString(4).trim() + "," + // E
+                rs.getString(5).trim() + "," + // F
+                rs.getString(6).trim() + "," + // G
+                rs.getString(7).trim() + "," + // H
+                rs.getString(8).trim() + "," + // I
+                rs.getString(9).trim() + "," + // J
+                rs.getString(10).trim() + "," + // K
+                rs.getString(11).trim() + "," + // L
+                rs.getString(12).trim() + "," + // M
+                rs.getString(13).trim() + "," + // N
+                rs.getString(14).trim() + "," + // O
+                vtipoPago + "," + // P
+                rs.getString(16).trim() + "," + // Q
+                vcLeyenda + "," + // R
+                vcBenef + "," + // S
+                vcCtaBancaria + "," + // T
+                vRFC + "," + // U
+                rs.getString(21).trim() + "," + // V
+                rs.getString(22).trim() + "," + // W
+                rs.getString(23).trim() + "," + // X
+                rs.getString(24).trim() + "," + // Y
+                rs.getString(25).trim().replaceAll("[\r\n]{2,}", " ") + "," + // Z
+                rs.getString(26).trim() + "," + // AA
+                rs.getString(27).trim() + "," + // AB
+                StringUtils.trimToEmpty(rs.getString(28)) + "," + // AC
+                StringUtils.trimToEmpty(rs.getString(29)) + "," + // AD
+                StringUtils.trimToEmpty(rs.getString(30)) + "," + // AE
+                StringUtils.trimToEmpty(rs.getString(31)) + "," + // AF
+                rs.getString(32).trim() + "," + // AG
+                rs.getString(33).trim() + "," + // AH
+                rs.getString(34).trim() + "," + // AI
+                rs.getString(35).trim() + "," + // AJ
+                rs.getString(36).trim() + "," + // AK
+                rs.getString(37).trim() + "," + // AL
+                rs.getString(38).trim() + "," + // AM
+                rs.getString(39).trim() + "," + // AN
+                rs.getString(40).trim() + "," + rs.getString(41);
                 encabezado = encabezado + "\r\n";
                 arrListaComp.add(encabezado);
                 // Aqui grabamos dentro de layouts creados encabezado
@@ -385,7 +386,7 @@ public class PagosDiversosManager {
         sql2.append("     	tCEP.cActividadInstitucional,	tCEP.cProgramaPresupuestario, cpartida, tCEP.cTipoGasto,	tCEP.cFuenteFinanciamiento,		tCEP.cEntidadFederativa,");
         sql2.append("     	tCEP.cCartera, 	ltrim(TPDD.ID_TIPO_CONCEPTO),  	TPDE.cFolioPAGODIVERSO,	TPDE.cCentroContable, TPDD.cMes, TPDD.nFolioPagoDiverso, SUBSTRING( dbo.CambiaEPCarteraMeta(TPDD.EP),45, 11) ");
         sql2.append(" ORDER BY TPDD.nFolioPagoDiverso ");
-        log.debug(sql2);
+        log.debug("Object: {}", sql2.toString());
         pstmntD = conn.prepareStatement(sql2.toString());
         rs = pstmntD.executeQuery();
         return rs;
@@ -398,7 +399,7 @@ public class PagosDiversosManager {
         ResultSet rs = null;
         ResultSet rs2 = null;
         String Sql = " SELECT PDE.nFolioPagoDiverso, 'H' H, PDE.cRamo, '" + unidadContable + "', '' SOL_PAGO, '3', PDE.caNoContrarrecibo FOLIO_INTERNO, PDE.caNoContrarrecibo COMODIN " + " FROM  dbo.tPAGODIVERSOEncabezado PDE WITH (NOLOCK) WHERE PDE.nFolioPagoDiverso in (" + listaIds + ")  ORDER BY PDE.nFolioPagoDiverso  ";
-        log.debug("Documentacion comprobatoria encabezado " + Sql);
+        log.debug("Object: {}", "Documentacion comprobatoria encabezado " + Sql);
         try {
             pstmntH = conn.prepareStatement(Sql);
             System.out.println(Sql);
@@ -435,7 +436,7 @@ public class PagosDiversosManager {
                 consulta.append(" WHERE PDE.nFolioPagoDiverso = " + nFolioCompromiso + " ORDER BY PDE.nFolioPAGODIVERSO");
                 pstmntD = conn.prepareStatement(consulta.toString());
                 log.debug("Documentacion comprobatoria detalle");
-                log.debug("---------------------\n" + consulta.toString() + "\n------------------------------------------");
+                log.debug("Object: {}", "---------------------\n" + consulta.toString() + "\n------------------------------------------");
                 rs2 = pstmntD.executeQuery();
                 while (rs2.next()) {
                     String token = new String();
@@ -728,7 +729,7 @@ public class PagosDiversosManager {
             sqlLayoutGrabado.append("     	LEFT JOIN v_pagosDocComprobatoria DC (NOLOCK) ");
             sqlLayoutGrabado.append("     	ON DC.caNoContrarrecibo = tCE.caNoContrarrecibo AND DC.cTipoPago = 'PAGODIVERSO'  ");
             sqlLayoutGrabado.append(" WHERE	tCE.nFolioPagoDiverso in (" + listaIds + ") ");
-            log.debug(sqlLayoutGrabado);
+            log.debug("Object: {}", sqlLayoutGrabado.toString());
             String SqlLayoutGrabado = sqlLayoutGrabado.toString();
             pstmntHLayout = conn.prepareStatement(SqlLayoutGrabado);
             pstmntHLayout.executeUpdate();
@@ -755,7 +756,7 @@ public class PagosDiversosManager {
             sqlLayoutDet.append(" LEFT JOIN v_pagosDocComprobatoria DC ON DC.caNoContrarrecibo = TPDE.caNoContrarrecibo AND DC.cTipoPago = 'PAGODIVERSO'  ");
             sqlLayoutDet.append(" where TPDD.nFolioPagoDiverso in (" + listaIds + ") ");
             String SqlLayoutGrabadoDet = sqlLayoutDet.toString();
-            log.debug(SqlLayoutGrabadoDet);
+            log.debug("Object: {}", SqlLayoutGrabadoDet.toString());
             pstmntHLayoutDet = conn.prepareStatement(SqlLayoutGrabadoDet);
             pstmntHLayoutDet.executeUpdate();
         } finally {
@@ -990,7 +991,7 @@ public class PagosDiversosManager {
             sb.append(" FROM tPAGODIVERSOEncabezado pago WITH(NOLOCK)  INNER JOIN tBen_BancoAmbiental beneficiario WITH(NOLOCK) ON pago.rfc=beneficiario.dRFC ");
             sb.append(" WHERE cDocumentoHaplicado = 'S' AND nfoliopagodiverso IN ( " + nFolios + ")AND SUBSTRING(pago.CTAB,1,3)" + esBanorte + "('072')" + ctaBancaria);
             String Sql = sb.toString();
-            log.info("Ejecutando query de Layout  [" + Sql + "]");
+            log.info("Object: {}", "Ejecutando query de Layout  [" + Sql + "]");
             pstmLayout = conn.prepareStatement(Sql);
             rsLayout = pstmLayout.executeQuery();
             while (rsLayout.next()) {
@@ -1047,7 +1048,7 @@ public class PagosDiversosManager {
             sb.append(" WHERE cDocumentoHaplicado = 'S' ");
             sb.append("	AND nFolioPAGODIVERSO IN (" + nFolios + ")" + "	AND SUBSTRING(CTAB,1,3) " + esBanorte + " ('072')");
             String Sql = sb.toString();
-            log.info("Ejecutando query de Layout  [" + Sql + "]");
+            log.info("Object: {}", "Ejecutando query de Layout  [" + Sql + "]");
             pstmLayout = conn.prepareStatement(Sql);
             rsLayout = pstmLayout.executeQuery();
             while (rsLayout.next()) {
@@ -1111,7 +1112,7 @@ public class PagosDiversosManager {
             ps.setString(1, sPagoTiendaDigital);
             ps.setInt(2, folioPago);
             int actualizados = ps.executeUpdate();
-            log.trace("Se actualizo " + actualizados + " pagos de tienda: " + sPagoTiendaDigital + " folio: " + folioPago);
+            log.trace("Object: {}", "Se actualizo " + actualizados + " pagos de tienda: " + sPagoTiendaDigital + " folio: " + folioPago);
         } finally {
             CloseObject.closeObject(ps);
         }

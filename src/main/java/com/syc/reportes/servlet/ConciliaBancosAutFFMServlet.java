@@ -97,13 +97,13 @@ public class ConciliaBancosAutFFMServlet extends HttpServlet {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
         } catch (Exception e) {
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
             jsonObj.put("ERROR", new String(e.getMessage().getBytes("UTF-8"), "ISO-8859-1"));
             if (conn != null)
                 try {
                     conn.rollback();
                 } catch (SQLException e1) {
-                    log.warn("Error en rollback " + e1);
+                    log.warn("Error occurred", "Error en rollback " + e1);
                 }
             throw e;
         } finally {

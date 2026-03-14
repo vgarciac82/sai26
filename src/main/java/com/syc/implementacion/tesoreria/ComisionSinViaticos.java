@@ -47,7 +47,7 @@ public class ComisionSinViaticos implements TipoCasoInterface {
     public void onAvanzaCaso(Connection conn, String u_login, Caso c, int id_caso_oper) throws SQLException {
         if (id_caso_oper == 5)
             try {
-                log.info(String.format("Ejecutando proceso Avanza Caso. Login[%s] Caso[%d]  Operacion[%d]", u_login, c.getIdCaso(), id_caso_oper));
+                log.info("Object: {}", String.format("Ejecutando proceso Avanza Caso. Login[%s] Caso[%d]  Operacion[%d]", u_login, c.getIdCaso(), id_caso_oper));
                 String document = c.getTipoCaso().getGavetaAsociada();
                 String detail = StringUtils.isBlank(SolicitudFirmaElectronica.RELACION_TRAMITE_TABLA_D.get(document)) ? ("t" + document + "Detalle") : SolicitudFirmaElectronica.RELACION_TRAMITE_TABLA_D.get(document);
                 String header = StringUtils.isBlank(SolicitudFirmaElectronica.RELACION_TRAMITE_TABLA_E.get(document)) ? ("t" + document + "Encabezado") : SolicitudFirmaElectronica.RELACION_TRAMITE_TABLA_E.get(document);

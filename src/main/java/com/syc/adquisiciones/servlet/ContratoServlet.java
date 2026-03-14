@@ -84,24 +84,24 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
             jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jndiName == null) {
                 jndiName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
             } else
-                log.info("dataSourceRefName=" + jndiName);
+                log.info("Object: {}", "dataSourceRefName=" + jndiName);
         } catch (NamingException exc) {
             jndiName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
         }
         try {
             InitialContext ic = new InitialContext();
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
     }
 
@@ -134,7 +134,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
             return;
         }
         int tipoOperacion = Integer.parseInt(request.getParameter("operacion"));
-        log.debug("operacion: " + tipoOperacion);
+        log.debug("Object: {}", "operacion: " + tipoOperacion);
         String strParam = request.getParameter("Param");
         String tipoPago = "";
         switch(tipoOperacion) {
@@ -188,7 +188,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
                         e1.printStackTrace();
                     }
                 } catch (Exception e) {
-                    log.error("Error en Aplicacion contable:" + e.getMessage());
+                    log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
                 }
                 break;
             case 9:
@@ -242,7 +242,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
         } finally {
             try {
                 if (conn != null)
@@ -271,7 +271,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
         String docDefinitivo = tipo + "-" + ue + "-" + consecutivo;
         //Apartir de los atributos guardados en sesión se hace un QRY para obtener el ID_CASO
         sql = "select MAX(c.ID_CASO) ID_CASO, MAX(c.ID_TC) ID_TC, MAX(o.ID_CASO_OPER) ID_CASO_OPER " + " from mContrato con " + " left join mDocumentoFolio df on con.cIdContratoDefinitivo = df.cIdDocumentoDefinitivo " + " left join cg_caso c on df.C_FOLIO_PRE = c.C_FOLIO " + " left join CG_CASO_OPERACION o on c.ID_CASO = o.id_caso " + " where con.cIdContrato = '" + docDefinitivo + "' and df.cCentroContable = '" + centroContable + "' and df.cIdUnidadResponsable = '" + ur + "'";
-        log.debug(sql);
+        log.debug("Object: {}", sql.toString());
         Caso c = null;
         try {
             conn = DataSourceManager.getConnection(jndiName);
@@ -295,7 +295,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
         } finally {
             try {
                 if (conn != null)
@@ -344,7 +344,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
         } finally {
             try {
                 if (conn != null)
@@ -395,7 +395,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
         } finally {
             try {
                 if (conn != null)
@@ -545,7 +545,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion Contable, Consulte a su administrador.";
         }
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         AplicarContableReturn acr = null;
         String prefixPath = getServletContext().getRealPath("/WEB-INF/mail-bodies/") + File.separator;
@@ -569,7 +569,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
                 if (outputValue == 0) {
                     mensaje = "DOCUMENTO DE PRECOMPROMISO APLICADO CONTABLEMENTE.";
                     jsonObj.put("Aplica", "1");
-                    log.info("folioCasoPreCompromiso : " + request.getParameter("folioCasoPreCompromiso"));
+                    log.info("Object: {}", "folioCasoPreCompromiso : " + request.getParameter("folioCasoPreCompromiso"));
                     pstm = conn.prepareStatement("UPDATE mContrato SET nIdEstado = 3 , ConsecutivoPRECOMP = ?, C_FOLIO_PRE = ? " + " WHERE cIdTipoContrato = ? " + " and cIdUnidadEjecutora = ?" + " and nIdConsecutivo = ?" + " and cEjercicio=?");
                     pstm.setString(1, request.getParameter("nFolioPrecompromiso"));
                     pstm.setString(2, request.getParameter("folioCasoPreCompromiso"));
@@ -590,8 +590,8 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
                     c = CasoManager.select(conn, sc);
                     // Una vez que ha hecho la aplicación contable avanza el caso
                     avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-                    log.debug(c.getCasoDato("APLICADO_CONT").getValor());
-                    log.debug("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+                    log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
                     conn.commit();
                 } else {
                     conn.rollback();
@@ -645,7 +645,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
             } catch (JSONException e1) {
                 e1.printStackTrace();
             }
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
             mensaje = "ERROR INESPERADO DE LA APLICACION CONTABLE(MOTOR CONTABLE O NO AVANZO EL CASO).";
         } finally {
             try {
@@ -709,7 +709,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion Contable, Consulte a su administrador.";
         }
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         Connection conn = null, conn1 = null;
         AplicarContableReturn acr = null;
@@ -752,10 +752,10 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
                     c = CasoManager.select(conn, sc);
                     // Una vez que ha hecho la aplicación contable avanza el caso
                     avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-                    log.debug(c.getCasoDato("APLICADO_CONT").getValor());
-                    log.debug("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+                    log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
                     conn.commit();
-                    log.debug("Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+                    log.debug("Object: {}", "Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
                 } else {
                     conn.rollback();
                     switch(outputValue) {
@@ -795,7 +795,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
                 mensaje = !"".equals(mensaje) ? mensaje : arrLResult.get(0);
             }
         } catch (Exception e) {
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
             mensaje = "ERROR INESPERADO DE LA CANCELACION CONTABLE(MOTOR CONTABLE O NO AVANZO EL CASO).FAVOR DE INTENTAR NUEVAMENTE";
             try {
                 conn.rollback();
@@ -852,7 +852,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
         //Valida Centro de Costos
         String mensaje = "";
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         Connection conn = null;
         ResultSet rs = null;
@@ -875,9 +875,9 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
                 String centroContable = rs.getString(1);
                 String ur = rs.getString(2);
                 int folioPrecom = rs.getInt(3);
-                log.debug("Centro: " + centroContable + "__Unidad: " + ur);
+                log.debug("Object: {}", "Centro: " + centroContable + "__Unidad: " + ur);
                 Caso c = getCaso(session, centroContable, ur);
-                log.debug("Folio: " + c.getFolio());
+                log.debug("Object: {}", "Folio: " + c.getFolio());
                 if (c != null) {
                     Map m = CasoDatoManager.readValuesCasoDato(request, c.getCasoDato(), true);
                     acr = conInt.cancelarAppContableNueva(conn, c, "", "", "", 0, "", m, prefixPath, usuario.getLogin(), "");
@@ -899,11 +899,11 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
                             c = CasoManager.select(conn, sc);
                             // Una vez que ha hecho la aplicación contable avanza el caso
                             avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-                            log.debug(c.getCasoDato("APLICADO_CONT").getValor());
-                            log.debug("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+                            log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+                            log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
                             mensaje = "DOCUMENTO DE PRECOMPROMISO CANCELADO CONTABLEMENTE";
                             conn.commit();
-                            log.debug("Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+                            log.debug("Object: {}", "Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
                             //if ("true".equals(c.getCasoDato("APLICADO_CONT").getValor())||mensaje.contains("APLICADO"))
                         } else {
                             switch(outputValue) {
@@ -927,7 +927,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
                 }
             }
         } catch (Exception e) {
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
             mensaje = "ERROR INESPERADO DE LA CANCELACION CONTABLE(MOTOR CONTABLE O NO AVANZO EL CASO).FAVOR DE INTENTAR NUEVAMENTE";
             try {
                 conn.rollback();
@@ -1025,7 +1025,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
         }
         String mensaje = "";
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         Connection conncbl = null;
         AplicarContableReturn acr = null;
@@ -1064,8 +1064,8 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
                         c = CasoManager.select(conncbl, sc);
                         // Una vez que ha hecho la aplicación contable avanza el caso
                         avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-                        log.debug(c.getCasoDato("APLICADO_CONT").getValor());
-                        log.debug("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+                        log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+                        log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
                         mensaje = "DOCUMENTO DE PRECOMPROMISO CANCELADO CONTABLEMENTE";
                         conncbl.commit();
                     } else {
@@ -1089,7 +1089,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
                 }
             }
         } catch (Exception e) {
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
             mensaje = "ERROR INESPERADO DE LA CANCELACION CONTABLE(MOTOR CONTABLE O NO AVANZO EL CASO).FAVOR DE INTENTAR NUEVAMENTE";
             try {
                 conncbl.rollback();
@@ -1105,7 +1105,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
             } catch (SQLException exc) {
                 log.warn("Cerrando conexion a base de datos", exc);
             }
-            log.debug("Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
             //if ("true".equals(c.getCasoDato("APLICADO_CONT").getValor())||mensaje.contains("APLICADO"))
             try {
                 mensaje = !"".equals(mensaje) ? mensaje : arrLResult.get(0);
@@ -1183,7 +1183,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
                 cmst.setString(6, folioCaso);
                 cmst.execute();
                 outputValue = cmst.getInt(1);
-                log.info("exec pa_apruebaContrato('" + param[0] + "','" + param[1] + "','" + param[2] + "','" + folio + "','" + folioCaso + "')");
+                log.info("Object: {}", "exec pa_apruebaContrato('" + param[0] + "','" + param[1] + "','" + param[2] + "','" + folio + "','" + folioCaso + "')");
                 if (outputValue == 0)
                     conn.commit();
                 else
@@ -1235,7 +1235,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
             cmst.setString(4, param[2]);
             cmst.setString(5, param[3]);
             cmst.execute();
-            log.debug("pa_devuelveContrato " + param[0] + "," + param[1] + "," + param[2] + "," + param[3]);
+            log.debug("Object: {}", "pa_devuelveContrato " + param[0] + "," + param[1] + "," + param[2] + "," + param[3]);
             outputValue = cmst.getInt(1);
             if (outputValue == 0)
                 conn.commit();
@@ -1564,7 +1564,7 @@ public class ContratoServlet extends HttpServlet implements GestionInterface {
                     if (accEng.makeAccountingApplication(conn, "PRECOMPROMISO", nFolioPrecompromiso + "", "tPrecompromisoEncabezado", "tPreCompromisoDetalle", "nFolioPreCompromiso")) {
                         Map m = CasoDatoManager.readValuesCasoDato(request, c.getCasoDato(), true);
                         cabl.avanzaCaso(c, usuario.getLogin(), "", new String[] { "CONSULTA_PRECOMPROMISO" }, new String[] { "consulta_precomp" }, m, prefixPath);
-                        log.info("Se aplico contablemente el precompromiso:" + nFolioPrecompromiso);
+                        log.info("Object: {}", "Se aplico contablemente el precompromiso:" + nFolioPrecompromiso);
                         conn.commit();
                     }
                 }

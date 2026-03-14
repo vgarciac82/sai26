@@ -7,13 +7,13 @@ import java.util.Iterator;
 import java.util.List;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import org.apache.commons.fileupload2.core.FileItem;
 import com.syc.cfdi.utils.FacturaUtils;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.custom.FolioGeneratorInterface;
@@ -80,7 +80,7 @@ public class TestServlet extends HttpServlet implements GestionInterface {
             String extension = Util.getFileExtencion(nombreArchivo);
             if (!"zip".equalsIgnoreCase(extension))
                 throw new Exception("No se puede procesar archivos [" + extension + "] Corrija e intente de nuevo");
-            log.info("Copiando archivo :" + nombreArchivo);
+            log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
             nombreDestino = FacturaUtils.generaNombreZip(TEMP_DIR, extension);
             Util.copiaArchivo(archivoCargaStream, nombreDestino);
             item.delete();
@@ -96,31 +96,31 @@ public class TestServlet extends HttpServlet implements GestionInterface {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         try {
             InitialContext ic = new InitialContext();
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
         try {
             File f = new File(TEMP_DIR);
             if (!f.exists())
                 f.mkdir();
         } catch (Exception e) {
-            log.error("No se logro crear el directorio temporal: " + TEMP_DIR + " Causa:" + e);
+            log.error("Object: {}", "No se logro crear el directorio temporal: " + TEMP_DIR + " Causa:" + e);
         }
     }
 }

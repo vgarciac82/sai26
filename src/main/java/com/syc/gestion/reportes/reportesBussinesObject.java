@@ -15,9 +15,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 //import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.gestion.util.Util;
@@ -100,7 +100,7 @@ public class reportesBussinesObject extends DataSourceManager {
      * @throws Exception
      */
     public void reporteImprimeAdecuacionPDF(HttpServletRequest request, HttpServletResponse response, String reportPath, String imgPath) throws Exception {
-        log.debug("Imprimiendo reporte de adecuacion REPORT_PATH[" + reportPath + "] IMAGE_PATH[" + imgPath + "]");
+        log.debug("Object: {}", "Imprimiendo reporte de adecuacion REPORT_PATH[" + reportPath + "] IMAGE_PATH[" + imgPath + "]");
         long init = System.currentTimeMillis();
         Connection conn = null;
         Map<String, Object> parms = null;
@@ -121,7 +121,7 @@ public class reportesBussinesObject extends DataSourceManager {
             out.flush();
             out.close();
             reportStream.close();
-            log.info("Reporte de adecuacion terminado en " + (System.currentTimeMillis() - init) / 100 + " segundos ");
+            log.info("Object: {}", "Reporte de adecuacion terminado en " + (System.currentTimeMillis() - init) / 100 + " segundos ");
         } finally {
             CloseObject.closeObject(conn, false);
             parms = null;
@@ -174,7 +174,7 @@ public class reportesBussinesObject extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (SQLException exc) {
-                    log.warn("Realizando rollback: " + exc);
+                    log.warn("Object: {}", "Realizando rollback: " + exc);
                 }
             CloseObject.closeObject(conn);
         }
@@ -256,7 +256,7 @@ public class reportesBussinesObject extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (SQLException exc) {
-                    log.warn("Realizando rollback: " + exc);
+                    log.warn("Object: {}", "Realizando rollback: " + exc);
                 }
             CloseObject.closeObject(conn);
         }

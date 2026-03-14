@@ -45,7 +45,7 @@ public class ReportesManager implements GestionInterface {
         try {
             //Apartado
             query = queryApartado();
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstm = conn.prepareStatement(query);
             rs = pstm.executeQuery();
             //workbook=creaWorkbookXLS( file_name, plantillaPath);
@@ -68,7 +68,7 @@ public class ReportesManager implements GestionInterface {
             totales = null;
             //Precompromiso
             query = queryPrecompromiso();
-            log.info(query);
+            log.info("Object: {}", query.toString());
             if (pstm != null)
                 pstm.close();
             pstm = null;
@@ -85,7 +85,7 @@ public class ReportesManager implements GestionInterface {
             totales = null;
             //Compromiso
             query = queryCompromiso();
-            log.info(query);
+            log.info("Object: {}", query.toString());
             if (pstm != null)
                 pstm.close();
             pstm = null;
@@ -100,7 +100,7 @@ public class ReportesManager implements GestionInterface {
             totales = null;
             //Disponible
             query = queryDisponible();
-            log.info(query);
+            log.info("Object: {}", query.toString());
             if (pstm != null)
                 pstm.close();
             pstm = null;
@@ -124,7 +124,7 @@ public class ReportesManager implements GestionInterface {
             bos.flush();
         } catch (Exception e) {
             // TODO: handle exception
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             throw (e);
         } finally {
             if (pstm != null) {

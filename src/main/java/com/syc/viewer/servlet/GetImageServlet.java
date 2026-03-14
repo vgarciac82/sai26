@@ -42,24 +42,24 @@ public class GetImageServlet extends HttpServlet implements ViewerParametersInte
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         try {
             InitialContext ic = new InitialContext();
             imageviewer = (String) ic.lookup("java:comp/env/imageViewerInterface");
             if (imageviewer == null) {
                 imageviewer = "com.syc.custom.imageViewerDefault";
-                log.info("Environment Entry \"imageViewerInterface\" nula usando default \"" + imageviewer + "\"");
+                log.info("Object: {}", "Environment Entry \"imageViewerInterface\" nula usando default \"" + imageviewer + "\"");
             } else
-                log.info("imageViewerInterface=" + imageviewer);
+                log.info("Object: {}", "imageViewerInterface=" + imageviewer);
         } catch (NamingException exc) {
             imageviewer = "com.syc.custom.imageViewerDefault";
-            log.info("Environment Entry \"imageViewerInterface\" no definida usando default \"" + imageviewer + "\"");
+            log.info("Object: {}", "Environment Entry \"imageViewerInterface\" no definida usando default \"" + imageviewer + "\"");
         }
     }
 

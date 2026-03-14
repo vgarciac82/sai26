@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.LogManager;
 import com.axtel.egresos.viaticos.Transporte;
 import com.axtel.egresos.viaticos.TransporteAereo;
 import com.axtel.egresos.viaticos.TransporteOficial;
@@ -18,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 public class TransporteDAO {
 
-    private static final Logger log = LogManager.getLogger(TransporteDAO.class);
+    private static final Logger log = LoggerFactory.getLogger(TransporteDAO.class);
 
     public static int insertarTransporteLocal(Connection conn, Transporte transporte) throws Exception {
         StringBuilder queryInsert = new StringBuilder();
@@ -36,7 +35,7 @@ public class TransporteDAO {
             ps.setString(cnt++, transporte.getOrigen());
             ps.setBigDecimal(cnt++, transporte.getMonto());
             ps.setLong(cnt++, transporte.getKm());
-            log.debug(queryInsert.toString());
+            log.debug("Object: {}", queryInsert.toString());
             insertados = ps.executeUpdate();
             return insertados;
         } finally {
@@ -62,7 +61,7 @@ public class TransporteDAO {
             ps.setLong(cnt++, transporte.getKm());
             ps.setString(cnt++, transporte.getNumEconomico());
             ps.setInt(cnt++, transporte.getTieneVales());
-            log.debug(queryInsert.toString());
+            log.debug("Object: {}", queryInsert.toString());
             insertados = ps.executeUpdate();
             return insertados;
         } finally {
@@ -87,7 +86,7 @@ public class TransporteDAO {
             ps.setString(cnt++, transporte.getRFCVuelo());
             ps.setString(cnt++, transporte.getNombreVuelo());
             ps.setString(cnt++, transporte.getTipoPago());
-            log.debug(queryInsert.toString());
+            log.debug("Object: {}", queryInsert.toString());
             insertados = ps.executeUpdate();
             return insertados;
         } finally {
@@ -150,7 +149,7 @@ public class TransporteDAO {
             ps.setBigDecimal(2, avion.getmImporteBoleto());
             ps.setInt(3, avion.getIdComision());
             borrados = ps.executeUpdate();
-            log.debug(queryDelete);
+            log.debug("Object: {}", queryDelete.toString());
             return borrados;
         } finally {
             CloseObject.closeObject(ps);
@@ -195,7 +194,7 @@ public class TransporteDAO {
             pst.setInt(2, idComision);
             pst.setInt(3, folioPago);
             actualizados = pst.executeUpdate();
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             return actualizados;
         } finally {
             CloseObject.closeObject(pst);
@@ -212,7 +211,7 @@ public class TransporteDAO {
             pst.setInt(2, transporte.getIdComision());
             pst.setString(3, transporte.getcNumeroBoleto());
             actualizados = pst.executeUpdate();
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             return actualizados;
         } finally {
             CloseObject.closeObject(pst);
@@ -234,7 +233,7 @@ public class TransporteDAO {
             pst.setInt(7, folioComision);
             pst.setInt(8, transporte.getIdTransporte());
             actualizados = pst.executeUpdate();
-            log.debug(query);
+            log.debug("Object: {}", query.toString());
             return actualizados;
         } finally {
             CloseObject.closeObject(pst);
@@ -349,7 +348,7 @@ public class TransporteDAO {
             ps.setInt(1, nFolioRelaciongastos);
             ps.setString(2, cTipoPago);
             borrados = ps.executeUpdate();
-            log.debug(queryDelete);
+            log.debug("Object: {}", queryDelete.toString());
             return borrados;
         } finally {
             CloseObject.closeObject(ps);

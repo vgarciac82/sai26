@@ -1,51 +1,49 @@
 package com.syc.sai.contratos.core;
 
-
-import javax.servlet.http.HttpServletRequest;
-
+import jakarta.servlet.http.HttpServletRequest;
 
 public class ContratoFederalizadoBean {
 
-	private String	centroContable;
-	private int		ejercicioFiscal;
-	private String	idContrato;
+    private String centroContable;
 
-	public String getCentroContable() {
-		return centroContable;
-	}
+    private int ejercicioFiscal;
 
-	public void setCentroContable( String centroContable ) {
-		this.centroContable = centroContable;
-	}
+    private String idContrato;
 
-	public int getEjercicioFiscal() {
-		return ejercicioFiscal;
-	}
+    public String getCentroContable() {
+        return centroContable;
+    }
 
-	public void setEjercicioFiscal( int ejercicioFiscal ) {
-		this.ejercicioFiscal = ejercicioFiscal;
-	}
+    public void setCentroContable(String centroContable) {
+        this.centroContable = centroContable;
+    }
 
-	public String getIdContrato() {
-		return idContrato;
-	}
+    public int getEjercicioFiscal() {
+        return ejercicioFiscal;
+    }
 
-	public void setIdContrato( String idContrato ) {
-		this.idContrato = idContrato;
-	}
+    public void setEjercicioFiscal(int ejercicioFiscal) {
+        this.ejercicioFiscal = ejercicioFiscal;
+    }
 
-	public static ContratoFederalizadoBean instanceFromRequest( HttpServletRequest req ) {
-		ContratoFederalizadoBean cfb = new ContratoFederalizadoBean();
-		cfb.setCentroContable( req.getParameter( "cIdEntidadContable" ) );
-		cfb.setEjercicioFiscal( Integer.parseInt( req.getParameter( "cEjercicio" ) ) );
-		cfb.setIdContrato( req.getParameter( "cIdContrato" ) );
+    public String getIdContrato() {
+        return idContrato;
+    }
 
-		return cfb;
-	}
+    public void setIdContrato(String idContrato) {
+        this.idContrato = idContrato;
+    }
 
-	@Override
-	public String toString() {
-		return "ContratoFederalizadoBean [centroContable=" + centroContable + ", ejercicioFiscal=" + ejercicioFiscal + ", idContrato=" + idContrato + "]";
-	}
+    public static ContratoFederalizadoBean instanceFromRequest(HttpServletRequest req) {
+        ContratoFederalizadoBean cfb = new ContratoFederalizadoBean();
+        cfb.setCentroContable(req.getParameter("cIdEntidadContable"));
+        cfb.setEjercicioFiscal(Integer.parseInt(req.getParameter("cEjercicio")));
+        cfb.setIdContrato(req.getParameter("cIdContrato"));
+        return cfb;
+    }
 
+    @Override
+    public String toString() {
+        return "ContratoFederalizadoBean [centroContable=" + centroContable + ", ejercicioFiscal=" + ejercicioFiscal + ", idContrato=" + idContrato + "]";
+    }
 }

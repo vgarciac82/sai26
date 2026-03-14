@@ -223,7 +223,7 @@ public class CuentaContableManager {
 			 * modelo.getnOrdenBalanza()); } if (modelo.getnNivelBalanza() > 0)
 			 * { pStatement.setInt(cnt++, modelo.getnNivelBalanza()); }
 			 */
-            log.info(qry);
+            log.info("Object: {}", qry);
             rs = pStatement.executeQuery();
             while (rs.next()) {
                 l.add(extraeCuentaContable(rs));
@@ -236,13 +236,13 @@ public class CuentaContableManager {
                 try {
                     pStatement.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando PreparedStatement " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando PreparedStatement " + e2.toString());
                 }
             if (rs != null)
                 try {
                     rs.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando ResultSet " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando ResultSet " + e2.toString());
                 }
         }
     }
@@ -298,13 +298,13 @@ public class CuentaContableManager {
                 try {
                     pStatement.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando PreparedStatement " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando PreparedStatement " + e2.toString());
                 }
             if (rs != null)
                 try {
                     rs.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando ResultSet " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando ResultSet " + e2.toString());
                 }
         }
     }
@@ -332,13 +332,13 @@ public class CuentaContableManager {
                 try {
                     pStatement.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando PreparedStatement " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando PreparedStatement " + e2.toString());
                 }
             if (rs != null)
                 try {
                     rs.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando ResultSet " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando ResultSet " + e2.toString());
                 }
         }
     }
@@ -364,13 +364,13 @@ public class CuentaContableManager {
                 try {
                     pStatement.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando PreparedStatement " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando PreparedStatement " + e2.toString());
                 }
             if (rs != null)
                 try {
                     rs.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando ResultSet " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando ResultSet " + e2.toString());
                 }
         }
     }
@@ -396,13 +396,13 @@ public class CuentaContableManager {
                 try {
                     pStatement.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando PreparedStatement " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando PreparedStatement " + e2.toString());
                 }
             if (rs != null)
                 try {
                     rs.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando ResultSet " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando ResultSet " + e2.toString());
                 }
         }
     }
@@ -427,13 +427,13 @@ public class CuentaContableManager {
                 try {
                     pStatement.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando PreparedStatement " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando PreparedStatement " + e2.toString());
                 }
             if (rs != null)
                 try {
                     rs.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando ResultSet " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando ResultSet " + e2.toString());
                 }
         }
     }
@@ -466,13 +466,13 @@ public class CuentaContableManager {
                 try {
                     pStatement.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando PreparedStatement " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando PreparedStatement " + e2.toString());
                 }
             if (rs != null)
                 try {
                     rs.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando ResultSet " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando ResultSet " + e2.toString());
                 }
         }
     }
@@ -581,7 +581,7 @@ public class CuentaContableManager {
                 try {
                     pStmnt.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando PreparedStatement" + e2);
+                    log.warn("Object: {}", "Problemas cerrando PreparedStatement" + e2);
                 }
             pStmnt = null;
         }
@@ -643,7 +643,7 @@ public class CuentaContableManager {
                 try {
                     pStmnt.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando PreparedStatement" + e2);
+                    log.warn("Object: {}", "Problemas cerrando PreparedStatement" + e2);
                 }
             pStmnt = null;
         }
@@ -664,7 +664,7 @@ public class CuentaContableManager {
                 try {
                     pStmnt.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando PreparedStatement" + e2);
+                    log.warn("Object: {}", "Problemas cerrando PreparedStatement" + e2);
                 }
             pStmnt = null;
         }
@@ -696,7 +696,7 @@ public class CuentaContableManager {
                     conn = null;
                 }
             } catch (Exception e2) {
-                log.warn("Problemas cerrando PreparedStatement" + e2);
+                log.warn("Object: {}", "Problemas cerrando PreparedStatement" + e2);
             }
         }
         return OrdenNivelBalanza;
@@ -738,7 +738,7 @@ public class CuentaContableManager {
                     stm = null;
                 }
             } catch (Exception e2) {
-                log.warn("Problemas cerrando PreparedStatement" + e2);
+                log.warn("Object: {}", "Problemas cerrando PreparedStatement" + e2);
             }
         }
         return Cuentas;

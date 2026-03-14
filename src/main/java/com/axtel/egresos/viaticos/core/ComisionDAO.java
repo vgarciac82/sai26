@@ -7,7 +7,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.apache.log4j.LogManager;
 import com.axtel.egresos.viaticos.Agenda;
 import com.axtel.egresos.viaticos.Comision;
 import com.syc.gestion.servlet.GestionInterface;
@@ -19,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 public class ComisionDAO {
 
-    private static final Logger log = LogManager.getLogger(ComisionDAO.class);
+    private static final Logger log = LoggerFactory.getLogger(ComisionDAO.class);
 
     public static int insertarComision(Connection conn, Comision comision) throws Exception {
         StringBuilder queryInsert = new StringBuilder();
@@ -38,7 +37,7 @@ public class ComisionDAO {
             ps.setString(cnt++, comision.getCuentaBancariaCNF());
             ps.setString(cnt++, comision.getRFC());
             ps.setInt(cnt++, comision.getIdNombre());
-            log.debug(queryInsert.toString());
+            log.debug("Object: {}", queryInsert.toString());
             insertados = ps.executeUpdate();
             return insertados;
         } finally {
@@ -72,7 +71,7 @@ public class ComisionDAO {
             ps.setBigDecimal(cnt++, comision.getMaritimoLocal());
             ps.setBigDecimal(cnt++, comision.getAereoLocal());
             ps.setString(cnt++, comision.getEvento());
-            log.debug(queryInsert.toString());
+            log.debug("Object: {}", queryInsert.toString());
             insertados = ps.executeUpdate();
             return insertados;
         } finally {
@@ -197,7 +196,7 @@ public class ComisionDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Comision comision = new Comision();
-        log.debug("Consultando folio de comision: " + folio);
+        log.debug("Object: {}", "Consultando folio de comision: " + folio);
         try {
             ps = conn.prepareStatement(query);
             ps.setInt(1, folio);

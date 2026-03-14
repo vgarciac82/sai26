@@ -38,12 +38,12 @@ public class GestionResultadoAplicacionServlet extends HttpServlet implements Ge
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 
@@ -249,7 +249,7 @@ public class GestionResultadoAplicacionServlet extends HttpServlet implements Ge
                     continue;
                 }
                 if (m.isEmpty()) {
-                    log.warn("No se recupero caso operacion para (usr[" + u.getLogin() + "], app[" + fimx.getTituloAplicacion() + "], idGab[" + data[i][0] + "])");
+                    log.warn("Object: {}", "No se recupero caso operacion para (usr[" + u.getLogin() + "], app[" + fimx.getTituloAplicacion() + "], idGab[" + data[i][0] + "])");
                     continue;
                 }
                 for (int j = 1; j < data[i].length; j++) {

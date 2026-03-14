@@ -24,7 +24,7 @@ public class GenericConnectionWS {
             conn.setRequestMethod(metodo);
             conn.setRequestProperty("Accept", tipoRespuesta);
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                log.error("Failed : HTTP error code : " + conn.getResponseCode());
+                log.error("Error occurred", "Failed : HTTP error code : " + conn.getResponseCode());
                 throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
             }
             BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
@@ -33,7 +33,7 @@ public class GenericConnectionWS {
             int i = 0;
             while ((output = br.readLine()) != null) {
                 respJson.put("" + i, output);
-                log.info(output);
+                log.info("Object: {}", output);
                 i++;
             }
         } catch (Exception e) {
@@ -41,10 +41,10 @@ public class GenericConnectionWS {
                 respJson.put("0", e.getMessage());
             } catch (JSONException e1) {
                 // TODO Auto-generated catch block
-                log.error("Error en JSON webservice: " + e1);
+                log.error("Error occurred", "Error en JSON webservice: " + e1);
                 e1.printStackTrace();
             }
-            log.error("Error en la conección con el web service: " + e);
+            log.error("Error occurred", "Error en la conección con el web service: " + e);
         } finally {
             if (conn != null) {
                 conn.disconnect();
@@ -65,7 +65,7 @@ public class GenericConnectionWS {
             conn.setRequestMethod(metodo);
             conn.setRequestProperty("Content-Type", tipoRespuesta);
             String input = inputJson.toString();
-            log.info("Datos enviados:\n" + input);
+            log.info("Object: {}", "Datos enviados:\n" + input);
             OutputStream os = conn.getOutputStream();
             os.write(input.getBytes("UTF-8"));
             os.flush();
@@ -73,15 +73,15 @@ public class GenericConnectionWS {
             log.info("Output from Server ....");
             while ((output = br.readLine()) != null) {
                 respOutput = output;
-                log.info(output + "\n");
+                log.info("Object: {}", output + "\n");
             }
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                log.error("Failed : HTTP error code : " + conn.getResponseCode());
+                log.error("Error occurred", "Failed : HTTP error code : " + conn.getResponseCode());
                 throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
             }
         } catch (Exception e) {
             respOutput = e.getMessage();
-            log.error("Error en la conección del webservie: " + e);
+            log.error("Error occurred", "Error en la conección del webservie: " + e);
         } finally {
             if (conn != null) {
                 conn.disconnect();

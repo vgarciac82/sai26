@@ -40,12 +40,12 @@ public class ProcessAgreementManager {
             if (rs.next()) {
                 if ("TRUE".equalsIgnoreCase(rs.getString("cValor"))) {
                     resp = true;
-                    log.info("El proceso de envios de correos para " + cParametro + "  esta habilitado");
+                    log.info("Object: {}", "El proceso de envios de correos para " + cParametro + "  esta habilitado");
                 } else {
-                    log.info("El proceso de envios de correos para " + cParametro + " no esta habilitado");
+                    log.info("Object: {}", "El proceso de envios de correos para " + cParametro + " no esta habilitado");
                 }
             } else {
-                log.info("El proceso de envios de correos para " + cParametro + " no está la bandera en msistema");
+                log.info("Object: {}", "El proceso de envios de correos para " + cParametro + " no está la bandera en msistema");
             }
         } finally {
             CloseObject.closeObject(rs);
@@ -66,7 +66,7 @@ public class ProcessAgreementManager {
             if (rs.next()) {
                 resp = Integer.parseInt(rs.getString("cValor"));
             } else {
-                log.info("El proceso de envios de correos para " + cParametro + " no está la bandera de la hora de ejecución en msistema.");
+                log.info("Object: {}", "El proceso de envios de correos para " + cParametro + " no está la bandera de la hora de ejecución en msistema.");
             }
         } finally {
             CloseObject.closeObject(rs);
@@ -103,13 +103,13 @@ public class ProcessAgreementManager {
         ArrayList<List<String>> tabla = null;
         List<String> fila = null;
         try {
-            query = //contratos del ejercicio actual centralizados
-            "select cIdUnidadEjecutora, \r\n" + "cont.cIdContratoDefinitivo\r\n" + ",cNoContratoCNET\r\n" + ",cConceptoContrato\r\n" + ",ue.D_DESCRIPCION areaReq \r\n" + ",convert(date,fFin) fechaFin\r\n" + "from mcontrato cont with(Nolock) \r\n" + "inner join tCatUnidadEjecutora as ue with(Nolock) on ue.cUnidadEjecutora=cont.cIdUnidadEjecutora \r\n" + "left join mContratoTerminacionAnticipada as term with(Nolock) on term.cIdContratoDefinitivo=cont.cIdContratoDefinitivo\r\n" + "where \r\n" + "nIdEstado=4 and cont.cIdTipoContrato<>'CT' and cont.esDescentralizado=0\r\n" + "and term.fFechaTermino is null\r\n" + "and cont.cIdContratoDefinitivo not in(select cidContratoDefinitivo from mBitacoraSendEmailContrato with(Nolock) where isEmailSend=1) \r\n" + "and convert(date,fFin)>convert(date,GETDATE()) " + "and convert(date,fFin)<=dateadd(day," + ncantDays + ",convert(date,GETDATE()))\r\n" + //contratos del ejercicio actual descentralizados
-            "union select con.cIdUnidadEjecutoraSolicitud cIdUnidadEjecutora,\r\n" + "cont.cIdContratoDefinitivo,\r\n" + "cNoContratoCNET,\r\n" + "cConceptoContrato,\r\n" + "ue.D_DESCRIPCION areaReq,\r\n" + "convert(date,fFin) fechaFin\r\n" + "from mcontrato cont with(Nolock) \r\n" + "inner join mProcedimiento pro with(Nolock) on pro.cIdProcedimiento=cont.cIdProcedimiento\r\n" + "inner join (\r\n" + "	select cIdUnidadEjecutoraSolicitud,con.cIdConsolidado \r\n" + "	from mConsolidadoSolicitud sol with(Nolock) \r\n" + "	inner join mConsolidado as con with(Nolock) on con.cIdConsolidado=sol.cIdConsolidado\r\n" + "	where con.nIdEstado=2 \r\n" + "	group by cIdUnidadEjecutoraSolicitud,con.cIdConsolidado \r\n" + ")con on con.cIdConsolidado=pro.cIdConsolidado\r\n" + "inner join tCatUnidadEjecutora as ue with(Nolock) on ue.cUnidadEjecutora=con.cIdUnidadEjecutoraSolicitud\r\n" + "left join mContratoTerminacionAnticipada as term with(Nolock) on term.cIdContratoDefinitivo=cont.cIdContratoDefinitivo\r\n" + "where cont.nIdEstado=4 and cont.cIdTipoContrato<>'CT'\r\n" + "and cont.esDescentralizado=1 " + "and term.fFechaTermino is null " + "and cont.cIdContratoDefinitivo not in(select cidContratoDefinitivo from mBitacoraSendEmailContrato with(Nolock) where isEmailSend=1) \r\n" + "and convert(date,fFin)>convert(date,GETDATE()) " + "and convert(date,fFin)<=dateadd(day," + ncantDays + ",convert(date,GETDATE()))\r\n" + //Contratos plurianuales de ejercicios anteriores centralizados
-            "union\r\n" + "select \r\n" + "cIdUnidadEjecutora, \r\n" + "cIdContratoDefinitivo\r\n" + ",cNoContratoCNET\r\n" + ",cConceptoContrato\r\n" + ",ue.D_DESCRIPCION areaReq \r\n" + ",convert(date,fFin) fechaFin\r\n" + "from mPlurianualidadContrato cont with(Nolock) \r\n" + "inner join tCatUnidadEjecutora as ue with(Nolock) on ue.cUnidadEjecutora=cont.cIdUnidadEjecutora \r\n" + "where \r\n" + "nIdEstado=4 and cont.esDescentralizado=0 \r\n" + "and cIdContratoDefinitivo not in(select cidContratoDefinitivo from mBitacoraSendEmailContrato with(Nolock) where isEmailSend=1) \r\n" + "and convert(date,fFin)>convert(date,GETDATE()) " + "and convert(date,fFin)<=dateadd(day," + ncantDays + ",convert(date,GETDATE()))\r\n" + //Contratos plurianuales de ejercicios anteriores descentralizados
-            "union\r\n" + "select  \r\n" + "part.cIdUnidadRequi cIdUnidadEjecutora,  \r\n" + "cont.cIdContratoDefinitivo \r\n" + ",cNoContratoCNET \r\n" + ",cConceptoContrato \r\n" + ",upper(ue.D_DESCRIPCION) areaReq \r\n" + ",convert(date,fFin) fechaFin\r\n" + "from mPlurianualidadContrato cont with(Nolock) \r\n" + "inner join(\r\n" + "	select cIdUnidadRequi,cIdContratoDefinitivo \r\n" + "	from mPartidasContratoPlurianual  with(Nolock)\r\n" + "	group by cIdUnidadRequi,cIdContratoDefinitivo\r\n" + ")part on part.cIdContratoDefinitivo=cont.cIdContratoDefinitivo\r\n" + "inner join tCatUnidadEjecutora as ue with(Nolock) on ue.cUnidadEjecutora=part.cIdUnidadRequi\r\n" + "where nIdEstado=4 and cont.esDescentralizado=1\r\n" + "and cont.cIdContratoDefinitivo not in(select cidContratoDefinitivo from mBitacoraSendEmailContrato with(Nolock) where isEmailSend=1) " + " and convert(date,fFin)>convert(date,GETDATE())" + "and convert(date,fFin)<=dateadd(day," + ncantDays + ",convert(date,GETDATE()))\r\n" + //Contratos cap4
-            "union\r\n" + "select \r\n" + "cIdUnidadEjecutora, \r\n" + "contCap4.cIdContratoDefinitivo\r\n" + ",cNoContratoCNET\r\n" + ",cConceptoContrato\r\n" + ",ue.D_DESCRIPCION areaReq \r\n" + ",convert(date,fechas.fFecha) fechaFin\r\n" + "from mContratoCap4 as contCap4 with(nolock)\r\n" + "inner join tCatUnidadEjecutora as ue with(Nolock) on ue.cUnidadEjecutora=contCap4.cIdUnidadEjecutora \r\n" + "inner join mContratoCap4Fechas as fechas with(nolock)\r\n" + "on fechas.cIdContratoDefinitivo=contCap4.cIdContratoDefinitivo\r\n" + "where contCap4.nIdEstado=4 and fechas.nIdFecha=18\r\n" + "and contCap4.cIdContratoDefinitivo not in(select cidContratoDefinitivo from mBitacoraSendEmailContrato with(Nolock) where isEmailSend=1) \r\n" + " and convert(date,fechas.fFecha)>convert(date,GETDATE()) " + "and convert(date,fechas.fFecha)<=dateadd(day," + ncantDays + ",convert(date,GETDATE()))";
-            log.info(query);
+            //contratos del ejercicio actual centralizados
+            //contratos del ejercicio actual descentralizados
+            query = //Contratos plurianuales de ejercicios anteriores centralizados
+            "select cIdUnidadEjecutora, \r\n" + "cont.cIdContratoDefinitivo\r\n" + ",cNoContratoCNET\r\n" + ",cConceptoContrato\r\n" + ",ue.D_DESCRIPCION areaReq \r\n" + ",convert(date,fFin) fechaFin\r\n" + "from mcontrato cont with(Nolock) \r\n" + "inner join tCatUnidadEjecutora as ue with(Nolock) on ue.cUnidadEjecutora=cont.cIdUnidadEjecutora \r\n" + "left join mContratoTerminacionAnticipada as term with(Nolock) on term.cIdContratoDefinitivo=cont.cIdContratoDefinitivo\r\n" + "where \r\n" + "nIdEstado=4 and cont.cIdTipoContrato<>'CT' and cont.esDescentralizado=0\r\n" + "and term.fFechaTermino is null\r\n" + "and cont.cIdContratoDefinitivo not in(select cidContratoDefinitivo from mBitacoraSendEmailContrato with(Nolock) where isEmailSend=1) \r\n" + "and convert(date,fFin)>convert(date,GETDATE()) " + "and convert(date,fFin)<=dateadd(day," + ncantDays + ",convert(date,GETDATE()))\r\n" + "union select con.cIdUnidadEjecutoraSolicitud cIdUnidadEjecutora,\r\n" + "cont.cIdContratoDefinitivo,\r\n" + "cNoContratoCNET,\r\n" + "cConceptoContrato,\r\n" + "ue.D_DESCRIPCION areaReq,\r\n" + "convert(date,fFin) fechaFin\r\n" + "from mcontrato cont with(Nolock) \r\n" + "inner join mProcedimiento pro with(Nolock) on pro.cIdProcedimiento=cont.cIdProcedimiento\r\n" + "inner join (\r\n" + "	select cIdUnidadEjecutoraSolicitud,con.cIdConsolidado \r\n" + "	from mConsolidadoSolicitud sol with(Nolock) \r\n" + "	inner join mConsolidado as con with(Nolock) on con.cIdConsolidado=sol.cIdConsolidado\r\n" + "	where con.nIdEstado=2 \r\n" + "	group by cIdUnidadEjecutoraSolicitud,con.cIdConsolidado \r\n" + ")con on con.cIdConsolidado=pro.cIdConsolidado\r\n" + "inner join tCatUnidadEjecutora as ue with(Nolock) on ue.cUnidadEjecutora=con.cIdUnidadEjecutoraSolicitud\r\n" + "left join mContratoTerminacionAnticipada as term with(Nolock) on term.cIdContratoDefinitivo=cont.cIdContratoDefinitivo\r\n" + "where cont.nIdEstado=4 and cont.cIdTipoContrato<>'CT'\r\n" + "and cont.esDescentralizado=1 " + "and term.fFechaTermino is null " + "and cont.cIdContratoDefinitivo not in(select cidContratoDefinitivo from mBitacoraSendEmailContrato with(Nolock) where isEmailSend=1) \r\n" + "and convert(date,fFin)>convert(date,GETDATE()) " + "and convert(date,fFin)<=dateadd(day," + ncantDays + ",convert(date,GETDATE()))\r\n" + "union\r\n" + "select \r\n" + "cIdUnidadEjecutora, \r\n" + "cIdContratoDefinitivo\r\n" + ",cNoContratoCNET\r\n" + ",cConceptoContrato\r\n" + ",ue.D_DESCRIPCION areaReq \r\n" + ",convert(date,fFin) fechaFin\r\n" + "from mPlurianualidadContrato cont with(Nolock) \r\n" + "inner join tCatUnidadEjecutora as ue with(Nolock) on ue.cUnidadEjecutora=cont.cIdUnidadEjecutora \r\n" + "where \r\n" + "nIdEstado=4 and cont.esDescentralizado=0 \r\n" + "and cIdContratoDefinitivo not in(select cidContratoDefinitivo from mBitacoraSendEmailContrato with(Nolock) where isEmailSend=1) \r\n" + "and convert(date,fFin)>convert(date,GETDATE()) " + "and convert(date,fFin)<=dateadd(day," + //Contratos plurianuales de ejercicios anteriores descentralizados
+            ncantDays + ",convert(date,GETDATE()))\r\n" + "union\r\n" + "select  \r\n" + "part.cIdUnidadRequi cIdUnidadEjecutora,  \r\n" + "cont.cIdContratoDefinitivo \r\n" + ",cNoContratoCNET \r\n" + ",cConceptoContrato \r\n" + ",upper(ue.D_DESCRIPCION) areaReq \r\n" + ",convert(date,fFin) fechaFin\r\n" + "from mPlurianualidadContrato cont with(Nolock) \r\n" + "inner join(\r\n" + "	select cIdUnidadRequi,cIdContratoDefinitivo \r\n" + "	from mPartidasContratoPlurianual  with(Nolock)\r\n" + "	group by cIdUnidadRequi,cIdContratoDefinitivo\r\n" + ")part on part.cIdContratoDefinitivo=cont.cIdContratoDefinitivo\r\n" + "inner join tCatUnidadEjecutora as ue with(Nolock) on ue.cUnidadEjecutora=part.cIdUnidadRequi\r\n" + "where nIdEstado=4 and cont.esDescentralizado=1\r\n" + "and cont.cIdContratoDefinitivo not in(select cidContratoDefinitivo from mBitacoraSendEmailContrato with(Nolock) where isEmailSend=1) " + " and convert(date,fFin)>convert(date,GETDATE())" + "and convert(date,fFin)<=dateadd(day," + //Contratos cap4
+            ncantDays + ",convert(date,GETDATE()))\r\n" + "union\r\n" + "select \r\n" + "cIdUnidadEjecutora, \r\n" + "contCap4.cIdContratoDefinitivo\r\n" + ",cNoContratoCNET\r\n" + ",cConceptoContrato\r\n" + ",ue.D_DESCRIPCION areaReq \r\n" + ",convert(date,fechas.fFecha) fechaFin\r\n" + "from mContratoCap4 as contCap4 with(nolock)\r\n" + "inner join tCatUnidadEjecutora as ue with(Nolock) on ue.cUnidadEjecutora=contCap4.cIdUnidadEjecutora \r\n" + "inner join mContratoCap4Fechas as fechas with(nolock)\r\n" + "on fechas.cIdContratoDefinitivo=contCap4.cIdContratoDefinitivo\r\n" + "where contCap4.nIdEstado=4 and fechas.nIdFecha=18\r\n" + "and contCap4.cIdContratoDefinitivo not in(select cidContratoDefinitivo from mBitacoraSendEmailContrato with(Nolock) where isEmailSend=1) \r\n" + " and convert(date,fechas.fFecha)>convert(date,GETDATE()) " + "and convert(date,fechas.fFecha)<=dateadd(day," + ncantDays + ",convert(date,GETDATE()))";
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             tabla = new ArrayList<List<String>>();
@@ -142,7 +142,7 @@ public class ProcessAgreementManager {
             if (rs.next()) {
                 resp = rs.getString("cCoordinacionGPP");
             } else {
-                log.warn("No se encontro la coordinación de la unidad ejecutora " + cUE);
+                log.warn("Object: {}", "No se encontro la coordinación de la unidad ejecutora " + cUE);
             }
         } finally {
             CloseObject.closeObject(rs);
@@ -163,7 +163,7 @@ public class ProcessAgreementManager {
             if (rs.next()) {
                 resp = rs.getString("d_email");
             } else {
-                log.info("No se encontro el correo de la coordinaci\u00f3n " + cUE);
+                log.info("Object: {}", "No se encontro el correo de la coordinaci\u00f3n " + cUE);
             }
         } finally {
             CloseObject.closeObject(rs);
@@ -184,7 +184,7 @@ public class ProcessAgreementManager {
             if (rs.next()) {
                 resp = rs.getString("d_email");
             } else {
-                log.info("No se encontro el correo del gerente de la unidad " + cUE);
+                log.info("Object: {}", "No se encontro el correo del gerente de la unidad " + cUE);
             }
         } finally {
             CloseObject.closeObject(rs);
@@ -255,7 +255,7 @@ public class ProcessAgreementManager {
             conn.commit();
         } catch (SQLException e) {
             conn.rollback();
-            log.error("Error al guardar la bitacora de envio de correos: " + e);
+            log.error("Error occurred", "Error al guardar la bitacora de envio de correos: " + e);
         } finally {
             if (pstmnt != null) {
                 pstmnt.close();
@@ -359,7 +359,7 @@ public class ProcessAgreementManager {
             query.append("and coordinadores.c_coordinacion=relUE.cCoordinacionGPP ");
             query.append("where modd.Modificado>ISNULL(paas.Total_calendarizado_PAAS,0) ");
             query.append("order by modd.UE ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             rs = ps.executeQuery();
             rsM = rs.getMetaData();
@@ -486,7 +486,7 @@ public class ProcessAgreementManager {
             query.append("			and c_jefeinmediato in(1,0)  ");
             query.append("		)coordinadores on coordinadores.cUejecutora=relUE.cCoordinacionGPP  ");
             query.append("		and coordinadores.c_coordinacion=relUE.cCoordinacionGPP  ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             rs = ps.executeQuery();
             rsM = rs.getMetaData();
@@ -574,7 +574,7 @@ public class ProcessAgreementManager {
             query.append("			where modificado.Modificado is null ");
             query.append("			group by cIdUnidadEjecutora,modificado.Modificado ");
             query.append("			,paas.cIdSubPartida	,unidad.D_DESCRIPCION,partida.cSubPartida ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             rs = ps.executeQuery();
             rsM = rs.getMetaData();
@@ -616,7 +616,7 @@ public class ProcessAgreementManager {
             conn.commit();
         } catch (SQLException e) {
             conn.rollback();
-            log.error("Error al guardar la bitacora de envio de correos: " + e);
+            log.error("Error occurred", "Error al guardar la bitacora de envio de correos: " + e);
         } finally {
             if (pstmnt != null) {
                 pstmnt.close();
@@ -771,7 +771,7 @@ public class ProcessAgreementManager {
             query.append("modd.Modificado>ISNULL(paas.Total_calendarizado_PAAS,0) ");
             query.append("and modd.UE='" + UE + "' ");
             query.append("order by modd.UE,modd.partida");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             rst = ps.executeQuery();
             rsMetadata = rst.getMetaData();
@@ -880,7 +880,7 @@ public class ProcessAgreementManager {
             query.append("			where modificado.Modificado is null ");
             query.append("			group by cIdUnidadEjecutora,modificado.Modificado ");
             query.append("			,paas.cIdSubPartida	,unidad.D_DESCRIPCION,partida.cSubPartida ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, UE);
             rst = ps.executeQuery();
@@ -988,8 +988,8 @@ public class ProcessAgreementManager {
             query.append("	and disp.cIdSubPartida=pdp.cIdSubPartida ");
             query.append("	and disp.cIdCABM=pdp.cIdCABM ");
             query.append("	and disp.nIdPeriodo=pdp.nIdPeriodo ");
-            log.info(query.toString());
-            log.info("Parametros:\ncIdUnidadEjecutora=" + cIdUnidadEjecutora + "\ncIdSubPartida=" + cIdSubPartida);
+            log.info("Object: {}", query.toString());
+            log.info("Object: {}", "Parametros:\ncIdUnidadEjecutora=" + cIdUnidadEjecutora + "\ncIdSubPartida=" + cIdSubPartida);
             pstmnt = conn.prepareStatement(query.toString());
             pstmnt.setString(1, cIdUnidadEjecutora);
             pstmnt.setString(2, cIdSubPartida);
@@ -1039,7 +1039,7 @@ public class ProcessAgreementManager {
             query.append(" and enc.cDocumentoHaplicado='S' ");
             query.append(" and DATEDIFF (DAY, enc.fAplicacion , GETDATE() ) >=? ");
             query.append(" order by catFirm.nNumeroEmpleado ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, afterDays);
             rs = ps.executeQuery();

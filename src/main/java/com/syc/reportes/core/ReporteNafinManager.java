@@ -73,7 +73,7 @@ public class ReporteNafinManager {
         try {
             pst = conn.prepareStatement(query);
             int num = pst.executeUpdate();
-            log.debug("Se actualizaron " + num + " registros.");
+            log.debug("Object: {}", "Se actualizaron " + num + " registros.");
         } finally {
             CloseObject.closeObject(pst);
         }
@@ -125,7 +125,7 @@ public class ReporteNafinManager {
         try {
             pst = conn.prepareStatement(query);
             rs = pst.executeQuery();
-            log.debug("Consulta el consecutivo para el id del documento: " + query);
+            log.debug("Object: {}", "Consulta el consecutivo para el id del documento: " + query);
             if (rs.next()) {
                 consecutivo = rs.getInt("seq_value");
             }
@@ -234,7 +234,7 @@ public class ReporteNafinManager {
             ps.setString(2, ffin);
             rs = ps.executeQuery();
             ResultSetMetaData rsmd = rs.getMetaData();
-            log.info(query);
+            log.info("Object: {}", query.toString());
             while (rs.next()) {
                 String token = new String();
                 StringBuffer detalle = new StringBuffer();
@@ -280,7 +280,7 @@ public class ReporteNafinManager {
         query.append(" WHERE cDocumentoHaplicado = 's' AND convert(date,fAplicacion,113) between @fechaini AND @fechaFin ");
         query.append(" AND dRFC not in (SELECT cIdRFC FROM tproveedorNafin (nolock))");
         try {
-            log.debug(query.toString());
+            log.debug("Object: {}", query.toString());
             pst = conn.prepareStatement(query.toString());
             pst.setString(1, fini);
             pst.setString(2, ffin);

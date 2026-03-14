@@ -12,8 +12,8 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,7 +59,7 @@ public class CatalogosBusinessLogic extends DataSourceManager {
             if (makeCommit)
                 conn.commit();
         } catch (SQLException exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new ServletException(exc);
         } finally {
             try {
@@ -118,7 +118,7 @@ public class CatalogosBusinessLogic extends DataSourceManager {
                     jsonArray.put(jsonObj);
                 }
             } catch (SQLException exc) {
-                log.error(exc);
+                log.error(exc.getMessage(), exc);
                 throw new ServletException(exc);
             } finally {
                 try {
@@ -215,7 +215,7 @@ public class CatalogosBusinessLogic extends DataSourceManager {
                 conn.commit();
                 strResult = "S";
             } catch (SQLException exc) {
-                log.error(exc);
+                log.error(exc.getMessage(), exc);
                 try {
                     conn.rollback();
                 } catch (SQLException e) {
@@ -223,7 +223,7 @@ public class CatalogosBusinessLogic extends DataSourceManager {
                 }
                 strAgregadoFinal = exc.getMessage();
             } catch (ServletException exc) {
-                log.error(exc);
+                log.error(exc.getMessage(), exc);
                 try {
                     conn.rollback();
                 } catch (SQLException e) {
@@ -273,7 +273,7 @@ public class CatalogosBusinessLogic extends DataSourceManager {
             conn.commit();
             strAgregado = "S";
         } catch (SQLException exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             try {
                 conn.rollback();
             } catch (SQLException e) {
@@ -301,7 +301,7 @@ public class CatalogosBusinessLogic extends DataSourceManager {
             conn = getConnection();
             retVal = CatalogosManager.getSelectQuery(conn, query);
         } catch (SQLException exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             throw new ServletException(exc);
         } finally {
             try {
@@ -347,7 +347,7 @@ public class CatalogosBusinessLogic extends DataSourceManager {
                 if (retVal.length > 0)
                     map.put((cbd.getEjercicioFiscal().trim().length() == 3) ? "2" + cbd.getEjercicioFiscal().trim() + "-PRUEBAS" : cbd.getEjercicioFiscal(), "" + retVal.length);
             } catch (SQLException exc) {
-                log.error(exc);
+                log.error(exc.getMessage(), exc);
                 throw new ServletException(exc);
             } finally {
                 try {

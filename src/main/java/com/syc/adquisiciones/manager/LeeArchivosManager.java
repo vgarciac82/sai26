@@ -783,7 +783,7 @@ public class LeeArchivosManager {
             query.append(" where sol.cIdSolicitud=? ");
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cIdSolicitud);
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             rs = ps.executeQuery();
             if (rs.next()) {
                 requi = new Requisition();
@@ -833,7 +833,7 @@ public class LeeArchivosManager {
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, aAreaReq);
             ps.setString(2, cAreaResp);
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             rs = ps.executeQuery();
             if (rs.next()) {
                 resp = true;
@@ -877,7 +877,7 @@ public class LeeArchivosManager {
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cIdSolicitud);
             ps.setString(2, cIdSolicitud);
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             rs = ps.executeQuery();
             if (rs.next()) {
                 object = new JSONObject();
@@ -905,7 +905,7 @@ public class LeeArchivosManager {
             query.append(" select cDocumentoHaplicado as documentoAplicado from tApartadoEncabezado WITH(NOLOCK) where cIdSolicitud=rtrim(?) and cDocumentoHaplicado='S' ");
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cIdSolicitud);
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             rs = ps.executeQuery();
             if (rs.next()) {
                 resp = true;
@@ -1074,7 +1074,7 @@ public class LeeArchivosManager {
             query.append(" 	)sub  order by nIdLineaSolicitud ");
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cIdSolicitud);
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             rs = ps.executeQuery();
             msg = new StringBuilder();
             while (rs.next()) {
@@ -1106,7 +1106,7 @@ public class LeeArchivosManager {
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cIdSolicitud);
             ps.setInt(2, nNumCuentaDisp);
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             rs = ps.executeQuery();
             msg = new StringBuilder();
             rsMetadata = rs.getMetaData();
@@ -1154,7 +1154,7 @@ public class LeeArchivosManager {
             query.append(" and (sol.cIdUnidadEjecutora<>substring(layout.cClaveInterna,1,3) or sol.cIdSubPartida<>SUBSTRING( layout.cClaveEgresos,32,5) ) ");
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cIdSolicitud);
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             rs = ps.executeQuery();
             msg = new StringBuilder();
             while (rs.next()) {
@@ -1259,7 +1259,7 @@ public class LeeArchivosManager {
             query.append(" select *from mSolicitud with(Nolock) where cIdSolicitud=? and nIdEstado<>1  ");
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cIdSolicitud);
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             rs = ps.executeQuery();
             msg = new StringBuilder();
             if (rs.next()) {

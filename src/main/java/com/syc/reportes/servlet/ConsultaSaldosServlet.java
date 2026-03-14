@@ -112,7 +112,7 @@ public class ConsultaSaldosServlet extends HttpServlet implements GestionInterfa
                 count += 1;
             }
             sql = "SELECT DISTINCT nCuenta " + ", REPLACE (cSubCuenta, '&', '&amp' )  cSubCuenta" + ", cCentroContable " + ", CONVERT(varchar, CAST( " + sql_ini + " AS money), 1) AS SaldoInicial " + ", CONVERT(varchar, CAST( " + sql_cargos + " AS money), 1) AS Cargos " + ", CONVERT(varchar, CAST( " + sql_abonos + " AS money), 1) AS Abonos " + ", CONVERT(varchar, CAST( " + sql_ini + " + (CASE WHEN naturalezaDeLaCuenta = 'D' THEN " + " ( " + sql_cargos + " ) - ( " + sql_abonos + " ) " + " ELSE " + " ( " + sql_abonos + " ) - ( " + sql_cargos + " )" + " END ) AS money), 1) AS SaldoFinal " + "FROM dbo.tSaldosVista (NOLOCK) " + " WHERE nCuenta LIKE '" + cCuenta + "' " + " AND cSubCuenta LIKE '" + cSubCuenta + "' " + " AND cCentroContable LIKE '" + Centro + "' " + "GROUP BY nCuenta, cSubCuenta, cCentroContable, naturalezaDeLaCuenta";
-            log.info(sql);
+            log.info("Object: {}", sql.toString());
             pstmt = conn.createStatement();
             rs = pstmt.executeQuery(sql);
             int nRenglon = 0;
@@ -137,7 +137,7 @@ public class ConsultaSaldosServlet extends HttpServlet implements GestionInterfa
             response.setCharacterEncoding("UTF-8");
         } catch (Exception e) {
             jsonObj.put("ERROR", new String(e.getMessage().getBytes("UTF-8"), "ISO-8859-1"));
-            log.error(e);
+            log.error(e.getMessage(), e);
         } finally {
             CloseObject.closeObject(rs);
             CloseObject.closeObject(pstmt);

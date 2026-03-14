@@ -26,10 +26,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUpload;
-import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.core.FileItem;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.core.FileUploadException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -88,24 +88,24 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
             jndiName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jndiName == null) {
                 jndiName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jndiName + "\"");
             } else
-                log.info("dataSourceRefName=" + jndiName);
+                log.info("Object: {}", "dataSourceRefName=" + jndiName);
         } catch (NamingException exc) {
             jndiName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jndiName + "\"");
         }
         try {
             InitialContext ic = new InitialContext();
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
         tempDir = config.getInitParameter("tempDir");
         if (tempDir == null) {
@@ -142,7 +142,7 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
         String strParam = request.getParameter("Param");
         // Obtiene la operación que se manda como parámetro en la llamada GET
         int tipoOperacion = Integer.parseInt(request.getParameter("operacion"));
-        log.debug("operacion: " + tipoOperacion);
+        log.debug("Object: {}", "operacion: " + tipoOperacion);
         try {
             switch(tipoOperacion) {
                 case 0:
@@ -176,7 +176,7 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
             }
         } catch (Exception e) {
             // TODO: handle exception
-            log.error(e.getMessage());
+            log.error("Object: {}", e.getMessage());
             e.printStackTrace();
         }
     }
@@ -293,7 +293,7 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
                     rs = pstmt.executeQuery();
                     if (rs.next()) {
                         String idCaso = rs.getString("ID_CASO");
-                        log.debug(idCaso);
+                        log.debug("Object: {}", idCaso);
                         if (idCaso == null) {
                             log.error("Llamada invalida, sin identificador de caso");
                             throw new GestionException("Llamada inválida, sin identificador de caso");
@@ -312,7 +312,7 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                log.error("Error en Aplicacion presupuestal:" + e.getMessage());
+                log.error("Error occurred", "Error en Aplicacion presupuestal:" + e.getMessage());
             } finally {
                 try {
                     if (conn != null)
@@ -343,7 +343,7 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
         PreparedStatement pstm = null;
         CallableStatement cmst = null;
         try {
-            log.info("Creando encabezado y detalle del apartado." + new Timestamp(System.currentTimeMillis()));
+            log.info("Object: {}", "Creando encabezado y detalle del apartado." + new Timestamp(System.currentTimeMillis()));
             // Crea encabezado
             pstm = conn.prepareStatement(" INSERT INTO tApartadoEncabezado (nFolioApartado, fCarga, fAplicacion, cCentroContable, cRamo,cUnidadResponsable, caNoPreCompromiso," + " cTipoPoliza, nMes, aEjercicioFiscal, nStatusFinanciero, fVigencia, nEnviadoSICOP, cIdSolicitud) " + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             pstm.setInt(1, datosRequi.getnFolioApartado());
@@ -369,7 +369,7 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
             cmst.setString(4, usuario.getU_UR());
             cmst.setString(5, datosRequi.getcIdSolicitud());
             cmst.execute();
-            log.info("Termina de crear el encabezado y detalle del apartado." + new Timestamp(System.currentTimeMillis()));
+            log.info("Object: {}", "Termina de crear el encabezado y detalle del apartado." + new Timestamp(System.currentTimeMillis()));
             resp = true;
         } finally {
             if (pstm != null) {
@@ -432,11 +432,11 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
             // Aplicación contable
             ContableInterface conInt = new AplicacionContable();
             AplicarContableReturn acr = null;
-            log.debug("Inicia aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Inicia aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
             Map m = CasoDatoManager.readValuesCasoDato(request, c.getCasoDato(), true);
             acr = conInt.aplicarContableNuevo(conn, c, "", "", "", 0, "", m, prefixPath, usuario.getLogin(), "");
             arrLResult = (ArrayList<String>) acr.getMessageList();
-            log.debug("Termina aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Termina aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
             // Se valida aplicación contable
             if (acr.isSuccess()) {
                 // Confirma moviemientos contaboles correctos
@@ -469,10 +469,10 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
                     avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
                     // Bitacora
                     Util.bitacoraMovimientos(datosRequi.getcIdSolicitud(), "Apartado Aplicado", usuario.getLogin(), conn);
-                    log.debug(c.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
                     jsonObj.put("Success", "true");
                     mensaje = "DOCUMENTO DE APARTADO APLICADO PRESUPUESTALMENTE.";
-                    log.debug("Termina la autorización del apartado. " + new Timestamp(System.currentTimeMillis()));
+                    log.debug("Object: {}", "Termina la autorización del apartado. " + new Timestamp(System.currentTimeMillis()));
                     resp = true;
                 } else {
                     resp = false;
@@ -550,7 +550,7 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
         }
         // Inicia aplicacion contable
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Inicia aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: {}", "Inicia aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         AplicarContableReturn acr = null;
         String prefixPath = getServletContext().getRealPath("/WEB-INF/mail-bodies/") + File.separator;
@@ -597,12 +597,12 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
                     sc.setIdCaso(c.getIdCaso());
                     c = CasoManager.select(conn, sc);
                     avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-                    log.debug(c.getCasoDato("APLICADO_CONT").getValor());
-                    log.debug("Termina Aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
+                    log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: {}", "Termina Aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
                     jsonObj.put("Success", "true");
                     mensaje = "DOCUMENTO DE APARTADO APLICADO PRESUPUESTALMENTE.";
                     jsonObj.put("Success", "true");
-                    log.debug("Termina Aplicacion presupuestal" + new Timestamp(System.currentTimeMillis()));
+                    log.debug("Object: {}", "Termina Aplicacion presupuestal" + new Timestamp(System.currentTimeMillis()));
                     conn.commit();
                 } else {
                     conn.rollback();
@@ -662,7 +662,7 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
             } catch (JSONException e1) {
                 e1.printStackTrace();
             }
-            log.error("Error en Aplicacion presupuestal:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion presupuestal:" + e.getMessage());
             mensaje = e.getMessage();
         } finally {
             try {
@@ -727,7 +727,7 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion presupuestal, Consulte a su administrador.";
         }
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Inicia aplicacion presupuestal" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: {}", "Inicia aplicacion presupuestal" + new Timestamp(System.currentTimeMillis()));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         AplicarContableReturn acr = null;
         String prefixPath = getServletContext().getRealPath("/WEB-INF/mail-bodies/") + File.separator;
@@ -753,21 +753,21 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
                 cmst.setString(6, "APARTADO");
                 cmst.execute();
                 int outputValue = cmst.getInt(1);
-                log.info(outputValue + "= call pa_validaAplicacionContable (" + Integer.parseInt(request.getParameter("nFolioApartado").toString()) + ",'" + request.getParameter("cEjercicio").toString() + "','C','PR','APARTADO')");
-                log.info("outputValue : " + outputValue);
+                log.info("Object: {}", outputValue + "= call pa_validaAplicacionContable (" + Integer.parseInt(request.getParameter("nFolioApartado").toString()) + ",'" + request.getParameter("cEjercicio").toString() + "','C','PR','APARTADO')");
+                log.info("Object: {}", "outputValue : " + outputValue);
                 if (outputValue == 0) {
                     // actualiza vigencia de las requisiciones
                     cmst1 = conn.prepareCall("{ call sp_deleteEyDApartado (?)}");
                     cmst1.setString(1, request.getParameter("cIdSolicitud"));
                     cmst1.execute();
-                    log.info("call sp_deleteEyDApartado ('" + request.getParameter("cIdSolicitud") + "')");
+                    log.info("Object: {}", "call sp_deleteEyDApartado ('" + request.getParameter("cIdSolicitud") + "')");
                     // Recargando el caso
                     Caso sc = new Caso();
                     sc.setIdCaso(c.getIdCaso());
                     c = CasoManager.select(conn, sc);
                     avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-                    log.debug(c.getCasoDato("APLICADO_CONT").getValor());
-                    log.debug("Termina Aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
+                    log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: {}", "Termina Aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
                     mensaje = "CANCELACION DE APARTADO APLICADA PRESUPUESTALMENTE";
                     jsonObj.put("Success", "true");
                     conn.commit();
@@ -799,7 +799,7 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
-            log.error("Error en Aplicacion presupuestal:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion presupuestal:" + e.getMessage());
             mensaje = e.getMessage();
         } finally {
             try {
@@ -851,7 +851,7 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
                 e1.printStackTrace();
             }
         } catch (Exception e) {
-            log.error("Error en Aplicacion presupuestal:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion presupuestal:" + e.getMessage());
         } finally {
             if (out != null) {
                 out.close();
@@ -898,7 +898,7 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
             datosRequi.setNombre(nombre);
             jsonObj = business.apartaRT(request, datosRequi, session, usuario);
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             try {
                 jsonObj.put("Folio1", -1);
                 jsonObj.put("Folio2", "");
@@ -934,7 +934,7 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
             datosRequi.setNombre(nombre);
             jsonObj.put("msg", business.devuelveApartado(request, datosRequi, session, usuario));
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             try {
                 jsonObj.put("msg", (null == e.getMessage() ? "Error " + e.getLocalizedMessage() : e.getMessage()));
             } catch (JSONException e1) {
@@ -977,7 +977,7 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
                 }
             }
             folioCaso = c.getFolio();
-            log.debug("Caso obtenido: " + folioCaso);
+            log.debug("Object: {}", "Caso obtenido: " + folioCaso);
             int indice = folioCaso.lastIndexOf('-') + 1;
             folio = Integer.parseInt(folioCaso.substring(indice));
             // Datos que serán usados en el callback del ajax
@@ -1019,7 +1019,7 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
             out.println(destino);
             out.flush();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             try {
                 conn.rollback();
             } catch (SQLException e) {
@@ -1192,7 +1192,7 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
             throw new GestionException(exc);
         }
         c = casoTx.IniciaCaso(usuario, idTC, fg);
-        log.error(usuario + "_" + idTC + "_" + fg);
+        log.error("Object: {}", usuario + "_" + idTC + "_" + fg);
         if (c == null) {
             log.error("No se logro crear el caso");
             throw new GestionException("No se logró crear el caso");
@@ -1201,7 +1201,7 @@ public class SolicitudServlet extends HttpServlet implements GestionInterface {
     }
 
     private List parseRequest(HttpServletRequest req) throws ServletException {
-        DiskFileUpload upload = new DiskFileUpload();
+        ServletFileUpload upload = new ServletFileUpload();
         upload.setRepositoryPath(tempDir);
         // Directorio temporal de carga de archivos
         // Si el archivo excede este tamaño, ocurre un excepcion

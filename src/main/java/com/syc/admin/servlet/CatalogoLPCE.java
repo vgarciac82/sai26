@@ -19,9 +19,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.core.FileItem;
+import org.apache.commons.fileupload2.core.FileUploadException;
 import com.syc.crud.dsmngr.DataSourceManager;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
@@ -49,12 +49,12 @@ public class CatalogoLPCE extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         tempDir = config.getInitParameter("tempDir");
         if (tempDir == null) {
@@ -67,7 +67,7 @@ public class CatalogoLPCE extends HttpServlet {
     }
 
     private List parseRequest(HttpServletRequest req) throws ServletException {
-        DiskFileUpload upload = new DiskFileUpload();
+        ServletFileUpload upload = new ServletFileUpload();
         // Directorio temporal de carga de archivos
         upload.setRepositoryPath(tempDir);
         // Si el archivo excede este tama?o, ocurre un excepcion FileUploadException
@@ -113,16 +113,16 @@ public class CatalogoLPCE extends HttpServlet {
         String obtienenombreCarpeta = request.getParameter("choice");
         String RutaContex = getServletContext().getRealPath("/") + "docs" + File.separator + "lpce" + File.separator;
         //RutaContex=RutaContex.replaceAll("\\\\", "\\");
-        log.info("Nombre de la RutaContex: " + RutaContex);
-        log.info("Nombre de la carpeta: " + obtienenombreCarpeta);
+        log.info("Object: {}", "Nombre de la RutaContex: " + RutaContex);
+        log.info("Object: {}", "Nombre de la carpeta: " + obtienenombreCarpeta);
         log.info("estamos en la iteración");
         try {
             conn = DataSourceManager.getConnection(jniName);
             ////////REgreso via ajax/////////////////
             if (request.getParameter("operacion") != null && "4".equalsIgnoreCase(request.getParameter("operacion"))) {
-                log.info("operacion****+" + request.getParameter("operacion"));
+                log.info("Object: {}", "operacion****+" + request.getParameter("operacion"));
                 String name = (String) sesion.getAttribute("ejmploNombre");
-                log.info("name****" + name);
+                log.info("Object: {}", "name****" + name);
                 actualAjax = (FileItem) sesion.getAttribute("itemActual");
                 CarpetaAjax = (String) sesion.getAttribute("carpeta");
                 rutaAjax = (String) sesion.getAttribute("ruta");
@@ -136,13 +136,13 @@ public class CatalogoLPCE extends HttpServlet {
             {
                 //obtener ruta
                 query = "select cValor from msistema where cParametro='" + obtienenombreCarpeta + "lpce'";
-                log.info("query:::::::" + query);
+                log.info("Object: {}", "query:::::::" + query);
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery(query);
                 //se obtiene la url de la tabla
                 while (rs.next()) {
                     urlServicios = rs.getString(1);
-                    log.info("Que trae el query? " + rs.getString(1));
+                    log.info("Object: {}", "Que trae el query? " + rs.getString(1));
                 }
                 //para obtener el nombre del archivo a subir
                 fileItems = parseRequest(request);
@@ -154,7 +154,7 @@ public class CatalogoLPCE extends HttpServlet {
                     //Se obtiene el nombre del archivo
                     NombreArchivo = fichero.getName();
                     NombreArchivo = NombreArchivo.replace(".docx", ".doc");
-                    log.info("NombreArchivo .- " + NombreArchivo);
+                    log.info("Object: {}", "NombreArchivo .- " + NombreArchivo);
                     count++;
                 }
                 cmst = conn.prepareCall("{?= call pa_mvalidaExixteArchivoLPCE (?,?)}");
@@ -173,28 +173,28 @@ public class CatalogoLPCE extends HttpServlet {
                     response.sendRedirect("../Generador/SAICYS/mCatalogoLicitacionPublicaCreditoExterno.jsp?tab=1&msg=2");
                     return;
                 } else {
-                    log.info("obtienenombreCarpeta: " + obtienenombreCarpeta);
-                    log.info("NombreArchivo: " + NombreArchivo);
+                    log.info("Object: {}", "obtienenombreCarpeta: " + obtienenombreCarpeta);
+                    log.info("Object: {}", "NombreArchivo: " + NombreArchivo);
                     id = Integer.parseInt(NombreArchivo.substring(0, NombreArchivo.indexOf('.')));
                     //obtener ruta
                     queryMaximo = "select MAX(nIdLicitacion) as maximo from mCatalogoLicitacionPublicacreditoExterno";
-                    log.info("queryMaximo:::::::" + queryMaximo);
+                    log.info("Object: {}", "queryMaximo:::::::" + queryMaximo);
                     stmt = conn.createStatement();
                     rsMaximo = stmt.executeQuery(queryMaximo);
                     while (rsMaximo.next()) {
                         maximo = Integer.parseInt(rsMaximo.getString(1));
-                        log.info("Que trae el query maximo? " + rsMaximo.getString(1));
+                        log.info("Object: {}", "Que trae el query maximo? " + rsMaximo.getString(1));
                     }
                     if (id <= maximo) {
                         if (obtienenombreCarpeta != null && obtienenombreCarpeta.equalsIgnoreCase("Servicios")) {
                             query = "update mCatalogoLicitacionPublicaCreditoExterno set mNombreServicios='" + NombreArchivo + "' where nIdLicitacion=" + "'" + id + "'";
-                            log.info("query:::::::" + query);
+                            log.info("Object: {}", "query:::::::" + query);
                             stmt = conn.createStatement();
                             stmt.execute(query);
                             conn.commit();
                         } else {
                             query = "update mCatalogoLicitacionPublicaCreditoExterno set mNombreBienes='" + NombreArchivo + "' where nIdLicitacion=" + "'" + id + "'";
-                            log.info("query:::::::" + query);
+                            log.info("Object: {}", "query:::::::" + query);
                             stmt = conn.createStatement();
                             stmt.execute(query);
                             conn.commit();
@@ -213,7 +213,7 @@ public class CatalogoLPCE extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            log.info("Error de Aplicación " + e.getMessage());
+            log.info("Error occurred", "Error de Aplicación " + e.getMessage());
             e.printStackTrace();
         } finally {
             try {

@@ -20,11 +20,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.DefaultFileItem;
-import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUpload;
-import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload2.core.DiskFileItem;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.core.FileItem;
+import org.apache.commons.fileupload2.core.FileUploadException;
 import org.apache.commons.ssl.PKCS8Key;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.lowagie.text.pdf.PdfReader;
@@ -58,12 +57,12 @@ public class GestionSignFileReceiverServlet extends HttpServlet implements Gesti
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         tempDir = config.getInitParameter("tempDir");
         if (tempDir == null) {
@@ -76,12 +75,7 @@ public class GestionSignFileReceiverServlet extends HttpServlet implements Gesti
     }
 
     private List parseRequest(HttpServletRequest req) throws ServletException {
-        DiskFileUpload upload = new DiskFileUpload();
-        upload.setRepositoryPath(tempDir);
-        // Directorio temporal de carga de archivos
-        // Si el archivo excede este tamaño, ocurre un excepcion FileUploadException
-        // -1 sin limite
-        upload.setSizeMax(-1);
+        JakartaServletFileUpload upload = new JakartaServletFileUpload();
         try {
             return upload.parseRequest(req);
         } catch (FileUploadException fe) {
@@ -92,7 +86,7 @@ public class GestionSignFileReceiverServlet extends HttpServlet implements Gesti
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         boolean updToAlbum = "true".equalsIgnoreCase(req.getParameter("upd"));
-        if ((!FileUpload.isMultipartContent(req)) && (!updToAlbum)) {
+        if ((!JakartaServletFileUpload.isMultipartContent(req)) && (!updToAlbum)) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "No es una peticion multipart/form-data");
             return;
         }
@@ -131,7 +125,7 @@ public class GestionSignFileReceiverServlet extends HttpServlet implements Gesti
                 item = (FileItem) i.next();
             if (count == 3) {
                 //campo del password
-                uPassword = ((DefaultFileItem) i.next()).getString();
+                uPassword = ((DiskFileItem) i.next()).getString();
             }
             if (item == null) {
                 count++;

@@ -138,7 +138,7 @@ public class ExpedientExporteThread extends DataSourceManager implements Runnabl
                     int idGabinete = Integer.parseInt(StringUtils.trim(toExport[2]));
                     String concepto = toExport[3];
                     facturaMask = new CFDIMaskGenerator(conn);
-                    log.info((t == null ? "" : (t.getName() + ": ")) + ": " + String.format("Exportando expediente %d de %d CxP: %s Folio: %s Gabinete: %d", cnt, total, cuentaPorPagar, folioCaso, idGabinete));
+                    log.info("Object: {}", (t == null ? "" : (t.getName() + ": ")) + ": " + String.format("Exportando expediente %d de %d CxP: %s Folio: %s Gabinete: %d", cnt, total, cuentaPorPagar, folioCaso, idGabinete));
                     String zipExportName = new File(prntDir, cuentaPorPagar + ".zip").getAbsolutePath();
                     logGeneralRenglon.setCuentaPorPagar(cuentaPorPagar);
                     Caso c = new Caso();
@@ -227,7 +227,7 @@ public class ExpedientExporteThread extends DataSourceManager implements Runnabl
                         if (conn != null)
                             conn.rollback();
                     } catch (Exception e2) {
-                        log.warn("Problemas con rollback: " + e2);
+                        log.warn("Object: {}", "Problemas con rollback: " + e2);
                     }
                     logGeneralRenglon.setLog(StringUtils.trimToEmpty(logGeneralRenglon.getLog()) + ";" + "Ocurrio el siguiente error al procesar el expediente: " + e);
                     log.error((t == null ? "" : (t.getName() + ": ")) + ": " + e, e);
@@ -236,7 +236,7 @@ public class ExpedientExporteThread extends DataSourceManager implements Runnabl
                         if (conn != null)
                             conn.rollback();
                     } catch (Exception e2) {
-                        log.warn("Problemas con rollback: " + e2);
+                        log.warn("Object: {}", "Problemas con rollback: " + e2);
                     }
                     logGeneralRenglon.setLog(StringUtils.trimToEmpty(logGeneralRenglon.getLog()) + ";" + "Ocurrio el siguiente error al procesar el expediente: " + thr);
                     log.error((t == null ? "" : (t.getName() + ": ")) + ": " + thr, thr);
@@ -247,7 +247,7 @@ public class ExpedientExporteThread extends DataSourceManager implements Runnabl
                 logGeneral.add(logGeneralRenglon);
                 infoRenglon = getNext();
             }
-            log.info((t == null ? "" : (t.getName() + ": ")) + ": " + "Proceso terminado");
+            log.info("Object: {}", (t == null ? "" : (t.getName() + ": ")) + ": " + "Proceso terminado");
         } catch (Exception e) {
             System.err.println("Error general:" + e);
             throw e;
@@ -261,7 +261,7 @@ public class ExpedientExporteThread extends DataSourceManager implements Runnabl
         String retStr = null;
         if (export.size() > 0) {
             retStr = export.remove(index - 1);
-            log.debug((t == null ? "" : (t.getName() + ": ")) + " Devolviendo elemento en posicion " + index + " Valor: " + retStr);
+            log.debug("Object: {}", (t == null ? "" : (t.getName() + ": ")) + " Devolviendo elemento en posicion " + index + " Valor: " + retStr);
         }
         return retStr;
     }
@@ -305,7 +305,7 @@ public class ExpedientExporteThread extends DataSourceManager implements Runnabl
                     String cuentaPorPagar = StringUtils.trim(toExport[0]);
                     String folioCaso = StringUtils.trim(toExport[1]);
                     int idGabinete = Integer.parseInt(StringUtils.trim(toExport[2]));
-                    log.info((t == null ? "" : (t.getName() + ": ")) + String.format("Exportando expediente %d de %d CxP: %s Folio: %s Gabinete: %d", cnt, total, cuentaPorPagar, folioCaso, idGabinete));
+                    log.info("Object: {}", (t == null ? "" : (t.getName() + ": ")) + String.format("Exportando expediente %d de %d CxP: %s Folio: %s Gabinete: %d", cnt, total, cuentaPorPagar, folioCaso, idGabinete));
                     logGeneralRenglon.setCuentaPorPagar(cuentaPorPagar);
                     Caso c = new Caso();
                     c.setFolio(folioCaso);
@@ -330,7 +330,7 @@ public class ExpedientExporteThread extends DataSourceManager implements Runnabl
                         if (conn != null)
                             conn.rollback();
                     } catch (Exception e2) {
-                        log.warn("Problemas con rollback: " + e2);
+                        log.warn("Object: {}", "Problemas con rollback: " + e2);
                     }
                     logGeneralRenglon.setLog(StringUtils.trimToEmpty(logGeneralRenglon.getLog()) + ";" + "Ocurrio el siguiente error al procesar el expediente: " + e);
                     log.error((t == null ? "" : (t.getName() + ": ")) + e, e);
@@ -339,7 +339,7 @@ public class ExpedientExporteThread extends DataSourceManager implements Runnabl
                         if (conn != null)
                             conn.rollback();
                     } catch (Exception e2) {
-                        log.warn("Problemas con rollback: " + e2);
+                        log.warn("Object: {}", "Problemas con rollback: " + e2);
                     }
                     logGeneralRenglon.setLog(StringUtils.trimToEmpty(logGeneralRenglon.getLog()) + ";" + "Ocurrio el siguiente error al procesar el expediente: " + thr);
                     log.error((t == null ? "" : (t.getName() + ": ")) + ": " + thr, thr);
@@ -349,7 +349,7 @@ public class ExpedientExporteThread extends DataSourceManager implements Runnabl
                 logGeneral.add(logGeneralRenglon);
                 infoRenglon = getNext();
             }
-            log.info((t == null ? "" : (t.getName() + ": ")) + ": " + "Proceso terminado");
+            log.info("Object: {}", (t == null ? "" : (t.getName() + ": ")) + ": " + "Proceso terminado");
         } catch (Exception e) {
             System.err.println("Error general:" + e);
             throw e;
@@ -391,13 +391,13 @@ public class ExpedientExporteThread extends DataSourceManager implements Runnabl
                 try {
                     out.close();
                 } catch (Exception e) {
-                    log.warn("Problemas cerrando flujo de Salida: " + e);
+                    log.warn("Object: {}", "Problemas cerrando flujo de Salida: " + e);
                 }
             if (in != null)
                 try {
                     in.close();
                 } catch (Exception e) {
-                    log.warn("Problemas cerrando flujo de Entrada: " + e);
+                    log.warn("Object: {}", "Problemas cerrando flujo de Entrada: " + e);
                 }
         }
     }

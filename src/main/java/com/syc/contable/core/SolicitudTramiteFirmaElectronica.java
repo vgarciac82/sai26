@@ -90,7 +90,7 @@ public class SolicitudTramiteFirmaElectronica extends SolicitudFirmaElectronica 
             filename = d.getFullPathFilesNames()[0];
             runReport(conn, getReportPath(), reportName, "", filename, params);
         } catch (NotEmptyDocumentException nede) {
-            log.warn("El documento no esta vacio. Se ignora" + nede);
+            log.warn("Object: {}", "El documento no esta vacio. Se ignora" + nede);
         } catch (Exception e) {
             throw new FirmaElectronicaException(e);
         }
@@ -102,7 +102,7 @@ public class SolicitudTramiteFirmaElectronica extends SolicitudFirmaElectronica 
         try {
             if (tieneDelegatorioAut(conn)) {
                 String voLegend = AUT_LEGEND_PREFIX + " Firma " + getTipoSuplenciaAut() + " de " + getNombreEmpleadoSuplidoAut() + " con fundamento en el oficio: " + getFolioOficioAut() + " de fecha: " + getFechaOficioAut();
-                log.info(voLegend);
+                log.info("Object: {}", voLegend);
                 return voLegend;
             } else
                 return AUT_LEGEND_PREFIX;
@@ -117,7 +117,7 @@ public class SolicitudTramiteFirmaElectronica extends SolicitudFirmaElectronica 
             String autLegend = AUT_LEGEND_PREFIX.concat(" Firmado por: ").concat(nombre).concat(" | ").concat(puesto);
             if (tieneDelegatorioAut(conn)) {
                 autLegend = AUT_LEGEND_PREFIX + ". Firma " + getTipoSuplenciaAut() + " de " + getNombreEmpleadoSuplidoAut() + " con fundamento en el oficio: " + getFolioOficioAut() + " de fecha: " + getFechaOficioAut();
-                log.info(autLegend);
+                log.info("Object: {}", autLegend);
             }
             return autLegend;
         } catch (Exception e) {
@@ -317,7 +317,7 @@ public class SolicitudTramiteFirmaElectronica extends SolicitudFirmaElectronica 
     public String getVoBoLegend(Connection conn) throws Exception {
         if (tieneDelegatorioVoBO(conn)) {
             String voLegend = VO_BO_LEGEND_PREFIX + " Firma " + getTipoSuplencia() + " de " + getNombreEmpleadoSuplido() + " con fundamento en el oficio: " + getFolioOficioVoBo() + " de fecha: " + getFechaOficioVoBo();
-            log.info(voLegend);
+            log.info("Object: {}", voLegend);
             return voLegend;
         } else
             return VO_BO_LEGEND_PREFIX;
@@ -328,7 +328,7 @@ public class SolicitudTramiteFirmaElectronica extends SolicitudFirmaElectronica 
         String voLegend = VO_BO_LEGEND_PREFIX.concat(" Firmado por: ").concat(nombre).concat(" | ").concat(puesto);
         if (tieneDelegatorioVoBO(conn)) {
             voLegend = VO_BO_LEGEND_PREFIX + " Firma " + getTipoSuplencia() + " de " + getNombreEmpleadoSuplido() + " con fundamento en el oficio: " + getFolioOficioVoBo() + " de fecha: " + getFechaOficioVoBo();
-            log.info(voLegend);
+            log.info("Object: {}", voLegend);
         }
         return voLegend;
     }
@@ -352,7 +352,7 @@ public class SolicitudTramiteFirmaElectronica extends SolicitudFirmaElectronica 
 
     @Override
     public void onCancelaTramite(Connection conn, String reason) throws Exception {
-        log.info("Procesando cancelacion de tramite. Causa: " + reason);
+        log.info("Object: {}", "Procesando cancelacion de tramite. Causa: " + reason);
         StringBuilder query = new StringBuilder();
         query.append(" SELECT	TOP 1 nombreCapturista,  ");
         query.append(" 		folioTramite, ");
@@ -382,7 +382,7 @@ public class SolicitudTramiteFirmaElectronica extends SolicitudFirmaElectronica 
         query.append(" 		 WHERE	( comision.nNumEmpleadoElab IS NULL OR comision.nNumEmpleadoElab < 0 ) ");
         query.append(" ) AS elabora ");
         query.append(" WHERE elabora.folioTramite = ? ");
-        log.debug("Se ejecutara: " + query);
+        log.debug("Object: {}", "Se ejecutara: " + query);
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -396,8 +396,8 @@ public class SolicitudTramiteFirmaElectronica extends SolicitudFirmaElectronica 
                 String mailSubject = rs.getString("mailSubject");
                 String correoCapturista = rs.getString("correoCapturista");
                 String cuerpoCorreo = String.format(SolicitudTramiteFirmaElectronica.correo.toString(), nombreCapturista, folioTramite, reason, Util.getToday());
-                log.debug("Se encontro usuario elabora: \n" + nombreCapturista + "\n" + correoCapturista);
-                log.trace("Se enviara correo: " + cuerpoCorreo);
+                log.debug("Object: {}", "Se encontro usuario elabora: \n" + nombreCapturista + "\n" + correoCapturista);
+                log.trace("Object: {}", "Se enviara correo: " + cuerpoCorreo);
                 AlarmaManager.procesaAlarmaCNF(conn, "", null, null, mailSubject, correoCapturista, cuerpoCorreo);
             }
         } finally {
@@ -408,7 +408,7 @@ public class SolicitudTramiteFirmaElectronica extends SolicitudFirmaElectronica 
 
     @Override
     public void onFinishAut(Connection conn) throws Exception {
-        log.info("Terminando la autorizacion del tramite: " + this.getIdField());
+        log.info("Object: {}", "Terminando la autorizacion del tramite: " + this.getIdField());
         CasoBusinessLogic cbl = new CasoBusinessLogic(GestionInterface.ATT_CONEXION);
         Caso c = CasoManager.findByFolioLike(conn, getDocument(), String.valueOf(getIdField()));
         Map<String, String> datos = Util.readValuesCasoDato(c.getCasoDato());

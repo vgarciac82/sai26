@@ -29,7 +29,7 @@ public class CarteraVigenteGetSaldoManager {
                 CloseObject.closeObject(rs, false);
                 CloseObject.closeObject(ps, false);
             } catch (Exception e) {
-                log.warn(e);
+                log.warn(e.getMessage(), e);
             } finally {
                 rs = null;
                 ps = null;

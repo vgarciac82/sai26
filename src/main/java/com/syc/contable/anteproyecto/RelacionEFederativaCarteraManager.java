@@ -19,7 +19,7 @@ public class RelacionEFederativaCarteraManager {
             log.trace("Iniciando insercion de renglon");
             stmnt = conn.createStatement();
             r = stmnt.executeUpdate(Util.genInsertFromMap("tCatalogoEFederativaCartera", infoRenglon));
-            log.trace("Se inserto " + r + "registros");
+            log.trace("Object: {}", "Se inserto " + r + "registros");
             return r;
         } finally {
             CloseObject.closeObject(stmnt, false);

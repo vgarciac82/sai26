@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.core.FileItem;
 import org.apache.commons.lang.StringUtils;
 import com.syc.cfdi.ComponentesFactura;
 import com.syc.cfdi.FacturaBusinessLogic;
@@ -78,7 +78,7 @@ public class UploadREPPagoZipServlet extends HttpServlet implements GestionInter
                         String extension = Util.getFileExtencion(nombreArchivo);
                         if (!"zip".equalsIgnoreCase(extension))
                             throw new Exception("No se puede procesar archivos [" + extension + "] Corrija e intente de nuevo");
-                        log.info("Copiando archivo :" + nombreArchivo);
+                        log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                         nombreDestino = FacturaUtils.generaNombreZip(TEMP_DIR, extension);
                         Util.copiaArchivo(archivoCargaStream, nombreDestino);
                         item.delete();
@@ -112,7 +112,7 @@ public class UploadREPPagoZipServlet extends HttpServlet implements GestionInter
                     try {
                         archivoCargaStream.close();
                     } catch (Exception e) {
-                        log.error("Error cerrando flujo DataInputStream" + e);
+                        log.error("Error occurred", "Error cerrando flujo DataInputStream" + e);
                     }
                 archivoCargaStream = null;
                 if (!"".equals(nombreDestino)) {
@@ -134,12 +134,12 @@ public class UploadREPPagoZipServlet extends HttpServlet implements GestionInter
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 }

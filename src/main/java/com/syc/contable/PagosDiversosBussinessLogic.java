@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellType;
@@ -213,7 +213,7 @@ public class PagosDiversosBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas con el rollback: " + e2);
+                    log.warn("Object: {}", "Problemas con el rollback: " + e2);
                 }
             }
             throw e;
@@ -447,7 +447,7 @@ public class PagosDiversosBussinessLogic extends DataSourceManager {
                     FirmaElectronicaManager.avanzaEstatusSICOP(conn, solicitudPagoPrinter, SolicitudFirmaElectronica.VO_BO_SICOP);
                 }
                 avanzaCasoConsulta(conn, c, u);
-                log.debug("Se inserto: " + insertados + " en encabeazado;");
+                log.debug("Object: {}", "Se inserto: " + insertados + " en encabeazado;");
                 pagosProcesados++;
             }
         } catch (SQLException | GestionException | EgresoException | AccountingEngineException e) {

@@ -33,7 +33,7 @@ public class GuardarInformacionGeneral extends DataSourceManager {
             psInsert.executeUpdate();
             respuesta = "guardado";
         } catch (Exception e) {
-            log.error("Error Guardar Informacion Registro Diario Bancos: " + e);
+            log.error("Error occurred", "Error Guardar Informacion Registro Diario Bancos: " + e);
         }
         return respuesta;
     }
@@ -54,7 +54,7 @@ public class GuardarInformacionGeneral extends DataSourceManager {
             psInsert.executeUpdate();
             respuesta = "guardado";
         } catch (Exception e) {
-            log.error("Error Guardar Informacion Registro Diario Bancos: " + e);
+            log.error("Error occurred", "Error Guardar Informacion Registro Diario Bancos: " + e);
         }
         return respuesta;
     }
@@ -77,7 +77,7 @@ public class GuardarInformacionGeneral extends DataSourceManager {
             psInsert.executeUpdate();
             respuesta = "guardado";
         } catch (Exception e) {
-            log.error("Error Guardar Informacion Registro Diario Bancos: " + e);
+            log.error("Error occurred", "Error Guardar Informacion Registro Diario Bancos: " + e);
         }
         return respuesta;
     }
@@ -103,7 +103,7 @@ public class GuardarInformacionGeneral extends DataSourceManager {
             psInsert.executeUpdate();
             respuesta = "guardado";
         } catch (Exception e) {
-            log.error("Error Guardar Informacion Registro Diario Bancos: " + e);
+            log.error("Error occurred", "Error Guardar Informacion Registro Diario Bancos: " + e);
         }
         return respuesta;
     }

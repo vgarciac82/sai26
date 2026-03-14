@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.DateConverter;
 import org.apache.commons.dbutils.QueryRunner;
@@ -117,9 +117,9 @@ public class EgresoPAGODIRECTOEncabezado extends EgresoEncabezado {
             ps.setString(i++, pde.getIdUsuarioCaptura());
             ps.setInt(i++, pde.getFolioPagoDirecto());
             int actualizados = 0;
-            log.info("Ejecutando: " + queryUpdate + "\n[" + pde.getConcepto() + ", " + pde.getDescripcionPoliza() + ", " + pde.getIdTipoDocumento() + ", " + pde.getIdTipoFondo() + ", " + pde.getIdUsuarioCaptura() + ", " + pde.getCTAB() + ", " + pde.getUnidadResponsable() + ", " + new java.sql.Date(pde.getFechaAplicacion().getTime()) + ", " + pde.getIdDestinoGasto() + ", " + pde.getIdTipoConcepto() + ", " + pde.getIdTipoMovimiento() + ", " + pde.getImporteBruto() + ", " + pde.getImporteDescuento() + ", " + pde.getImporteIVA() + ", " + pde.getImporteNeto() + ", " + pde.getImportePenalizacion() + ", " + pde.getImporteRetencion() + ", " + pde.getOtrosImpuestos() + ", " + pde.getEnviadoSICOP() + ", " + pde.getIdConcepto() + ", " + pde.getIdEstatus() + ", " + pde.getNumEmpleadoAut() + ", " + pde.getNumEmpleadoElab() + ", " + pde.getNumEmpleadoVoBo() + ", " + pde.getPorcentajeIVA() + ", " + pde.getIdUsuarioCaptura() + ", " + pde.getFolioPagoDirecto() + "]");
+            log.info("Object: {}", "Ejecutando: " + queryUpdate + "\n[" + pde.getConcepto() + ", " + pde.getDescripcionPoliza() + ", " + pde.getIdTipoDocumento() + ", " + pde.getIdTipoFondo() + ", " + pde.getIdUsuarioCaptura() + ", " + pde.getCTAB() + ", " + pde.getUnidadResponsable() + ", " + new java.sql.Date(pde.getFechaAplicacion().getTime()) + ", " + pde.getIdDestinoGasto() + ", " + pde.getIdTipoConcepto() + ", " + pde.getIdTipoMovimiento() + ", " + pde.getImporteBruto() + ", " + pde.getImporteDescuento() + ", " + pde.getImporteIVA() + ", " + pde.getImporteNeto() + ", " + pde.getImportePenalizacion() + ", " + pde.getImporteRetencion() + ", " + pde.getOtrosImpuestos() + ", " + pde.getEnviadoSICOP() + ", " + pde.getIdConcepto() + ", " + pde.getIdEstatus() + ", " + pde.getNumEmpleadoAut() + ", " + pde.getNumEmpleadoElab() + ", " + pde.getNumEmpleadoVoBo() + ", " + pde.getPorcentajeIVA() + ", " + pde.getIdUsuarioCaptura() + ", " + pde.getFolioPagoDirecto() + "]");
             actualizados = ps.executeUpdate();
-            log.info("Se actualizaron " + actualizados + " Registros de encabezado pago directo  folio " + pde.getFolioPagoDirecto());
+            log.info("Object: {}", "Se actualizaron " + actualizados + " Registros de encabezado pago directo  folio " + pde.getFolioPagoDirecto());
             return actualizados;
         } finally {
             CloseObject.closeObject(ps);
@@ -144,7 +144,7 @@ public class EgresoPAGODIRECTOEncabezado extends EgresoEncabezado {
     }
 
     private static int insertaEncabezadoNuevo(Connection conn, EgresoPAGODIRECTOEncabezado pde) throws SQLException {
-        log.info("Insertando el registro : " + pde);
+        log.info("Object: {}", "Insertando el registro : " + pde);
         StringBuilder query = new StringBuilder();
         query.append("INSERT INTO tPagoDirectoEncabezado (");
         query.append("nFolioPagoDirecto,");
@@ -294,7 +294,7 @@ public class EgresoPAGODIRECTOEncabezado extends EgresoEncabezado {
             sb.append("32").append("[").append(pde.getFolioSuficiencia()).append("]\n");
             sb.append("33").append("[").append(pde.getIdContrato()).append("]\n");
             sb.append("34").append("[").append(pde.getDescripcionPoliza()).append("]\n");
-            log.info("Ejecutando Query: " + sb.toString());
+            log.info("Object: {}", "Ejecutando Query: " + sb.toString());
             ps.setInt(1, pde.getFolioPagoDirecto());
             ps.setDate(2, new java.sql.Date(pde.getFechaCarga().getTime()));
             ps.setDate(3, new java.sql.Date(pde.getFechaAplicacion().getTime()));
@@ -330,7 +330,7 @@ public class EgresoPAGODIRECTOEncabezado extends EgresoEncabezado {
             ps.setString(33, pde.getIdContrato());
             ps.setString(34, pde.getDescripcionPoliza());
             int afectados = ps.executeUpdate();
-            log.info("Se inserto " + afectados + " registros en pago directo para el folio " + pde.getFolioPagoDirecto());
+            log.info("Object: {}", "Se inserto " + afectados + " registros en pago directo para el folio " + pde.getFolioPagoDirecto());
             return afectados;
         } finally {
             CloseObject.closeObject(ps);
@@ -481,7 +481,7 @@ public class EgresoPAGODIRECTOEncabezado extends EgresoEncabezado {
         for (EgresoRetencion retencion : retenciones) {
             insertados += EgresoRetencionManager.insertaRetencionEgresoDirecto(conn, this, retencion);
         }
-        log.info("Se insertaron: " + insertados + " retenciones para el pago directo folio " + getFolioPagoDirecto());
+        log.info("Object: {}", "Se insertaron: " + insertados + " retenciones para el pago directo folio " + getFolioPagoDirecto());
         return insertados;
     }
 
@@ -580,11 +580,11 @@ public class EgresoPAGODIRECTOEncabezado extends EgresoEncabezado {
                 idContrato = StringUtils.trimToNull(rs2.getString("cIDContrato"));
             }
             if (idContrato != null) {
-                log.info("Regresando estatus de la suficiencia : " + idContrato);
+                log.info("Object: {}", "Regresando estatus de la suficiencia : " + idContrato);
                 psUpdate = conn.prepareStatement(queryUpdate.toString());
                 psUpdate.setString(1, idContrato);
                 psUpdate.executeUpdate();
-                log.info("Suficiencia " + idContrato + " actualizada correctamente.");
+                log.info("Object: {}", "Suficiencia " + idContrato + " actualizada correctamente.");
             }
             FacturaManager.eliminaFacturas(conn, getTipoPago(), String.valueOf(getFolioPago()));
             if (!"NODR".equals(destinoGasto)) {

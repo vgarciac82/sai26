@@ -51,7 +51,7 @@ public class ReintegroContBussinesLogic extends DataSourceManager {
             res = ReintegrosContablesManager.actualizaFechaAplicacion(conn, folio, fAplicacion);
             conn.commit();
         } catch (Exception exc) {
-            log.warn(exc);
+            log.warn(exc.getMessage(), exc);
             exc.printStackTrace();
         } finally {
             if (conn != null)
@@ -80,14 +80,14 @@ public class ReintegroContBussinesLogic extends DataSourceManager {
             CasoBusinessLogic cbl = new CasoBusinessLogic(GestionInterface.ATT_CONEXION);
             conn = cbl.getConnection();
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             AplicarContableReturn acr;
             if (!"2012".equals(adecProy.obtenEjercicioFiscal()))
                 acr = conInt.aplicarContableNuevo(conn, c, "tReintegroEncabezado", "tReintegroDetalle", "nFolioReintegro", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGRO", m, prefixPath, uLogin, "");
             else
                 acr = conInt.aplicarContableNuevo(conn, c, "tReintegroEncabezado", "tReintegroDetalle", "nFolioReintegro", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGRO", m, prefixPath, uLogin, "SI");
             arrLResult = acr.getMessageList();
-            log.debug("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
             Caso cReloaded = new Caso();
             cReloaded.setIdCaso(c.getIdCaso());
             cReloaded = CasoManager.select(conn, cReloaded);
@@ -100,7 +100,7 @@ public class ReintegroContBussinesLogic extends DataSourceManager {
             }
         } catch (Exception exc) {
             conn.rollback();
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             arrLResult.add(exc.getLocalizedMessage());
             try {
                 conn.rollback();
@@ -141,7 +141,7 @@ public class ReintegroContBussinesLogic extends DataSourceManager {
                     ReintegrosContablesManager.actualizaAmortizacion(conn, folio);
                 }
                 ContableInterface conInt = new AplicacionContable();
-                log.debug("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+                log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
                 AplicarContableReturn acr;
                 if (!"2012".equals(adecProy.obtenEjercicioFiscal()))
                     acr = conInt.aplicarContableNuevo(conn, c, "tReintegroAutEncabezado", "tReintegroAutDetalle", "nFolioReintegroaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGROAUT", m, prefixPath, uLogin, "");
@@ -149,7 +149,7 @@ public class ReintegroContBussinesLogic extends DataSourceManager {
                     acr = conInt.aplicarContableNuevo(conn, c, "tReintegroAutEncabezado", "tReintegroAutDetalle", "nFolioReintegroaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGROAUT", m, prefixPath, uLogin, "SI");
                 //arrLResult = acr.getMessageList();
                 arrLResult = (ArrayList<String>) acr.getMessageList();
-                log.debug("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+                log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
                 Calendar cal = new GregorianCalendar();
                 String mesActual = Util.NOMBRE_MESES_MX[cal.get(Calendar.MONTH)];
                 Caso cReloaded = new Caso();
@@ -178,7 +178,7 @@ public class ReintegroContBussinesLogic extends DataSourceManager {
                         }
                         AlarmaManager.procesaAlarmaCNF(conn, prefixPath, c.getCasoOperacion(0), c, asuntoCorreo, to, cc, bcc, body);
                     } catch (Exception exmail) {
-                        log.error("No se logro enviar el correo de autorizacion de reintegros: " + exmail);
+                        log.error("Object: {}", "No se logro enviar el correo de autorizacion de reintegros: " + exmail);
                     }
                     cbl.avanzaCaso(cReloaded, uLogin, "", new String[] { "CONSULTA_REINTEGROCONT" }, new String[] { "consulta_reintegrocont" }, m, prefixPath);
                 } else {
@@ -189,7 +189,7 @@ public class ReintegroContBussinesLogic extends DataSourceManager {
             }
         } catch (Exception exc) {
             conn.rollback();
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             arrLResult.add(exc.getLocalizedMessage());
             try {
                 conn.rollback();
@@ -217,7 +217,7 @@ public class ReintegroContBussinesLogic extends DataSourceManager {
             res = ReintegrosContablesManager.folioDependencia(conn, caNoContrarrecibo, EP, folio);
             conn.commit();
         } catch (Exception exc) {
-            log.warn(exc);
+            log.warn(exc.getMessage(), exc);
             exc.printStackTrace();
         } finally {
             if (conn != null)
@@ -236,7 +236,7 @@ public class ReintegroContBussinesLogic extends DataSourceManager {
             res = ReintegrosContablesManager.getRFC(conn, caNoContrarrecibo, ep);
             conn.commit();
         } catch (Exception exc) {
-            log.warn(exc);
+            log.warn(exc.getMessage(), exc);
             exc.printStackTrace();
         } finally {
             if (conn != null)
@@ -255,7 +255,7 @@ public class ReintegroContBussinesLogic extends DataSourceManager {
             res = ReintegrosContablesManager.getNDocRenglon(conn, caNoContrarrecibo, EP, cMes, folio);
             conn.commit();
         } catch (Exception exc) {
-            log.warn(exc);
+            log.warn(exc.getMessage(), exc);
             exc.printStackTrace();
         } finally {
             if (conn != null)
@@ -274,7 +274,7 @@ public class ReintegroContBussinesLogic extends DataSourceManager {
             res = ReintegrosContablesManager.getALM(conn, caNoContrarrecibo, EP, cMes, folio, renglon);
             conn.commit();
         } catch (Exception exc) {
-            log.warn(exc);
+            log.warn(exc.getMessage(), exc);
             exc.printStackTrace();
         } finally {
             if (conn != null)
@@ -292,7 +292,7 @@ public class ReintegroContBussinesLogic extends DataSourceManager {
             conn = cbl.getConnection();
             res = ReintegrosContablesManager.getcPartida(conn, EP);
         } catch (Exception exc) {
-            log.warn(exc);
+            log.warn(exc.getMessage(), exc);
             exc.printStackTrace();
         } finally {
             if (conn != null)
@@ -310,7 +310,7 @@ public class ReintegroContBussinesLogic extends DataSourceManager {
             conn = cbl.getConnection();
             res = ReintegrosContablesManager.secCLC(conn, caNoContrarrecibo, EP, folio);
         } catch (Exception exc) {
-            log.warn(exc);
+            log.warn(exc.getMessage(), exc);
             exc.printStackTrace();
         } finally {
             if (conn != null)
@@ -327,7 +327,7 @@ public class ReintegroContBussinesLogic extends DataSourceManager {
             ReintegrosContablesManager.insertaReintegro(conn, reinE, reinDetalles, folio, folioCompleto, usuario);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -356,7 +356,7 @@ public class ReintegroContBussinesLogic extends DataSourceManager {
             }
             retVal = acr.getMessageList().get(acr.getMessageList().size() - 1);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {

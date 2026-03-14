@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import org.apache.log4j.LogManager;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -14,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class SolicitudPagoFirmaElectronicaTest {
 
-    private static final Logger log = LogManager.getLogger(SolicitudPagoFirmaElectronicaTest.class);
+    private static final Logger log = LoggerFactory.getLogger(SolicitudPagoFirmaElectronicaTest.class);
 
     public static final String dbPropertiesFilePath = "/procesos/config/dbConfig.properties";
 
@@ -52,7 +51,7 @@ public class SolicitudPagoFirmaElectronicaTest {
     public void testGetCuerpoCorreoVistoBueno() {
         try {
             String cuerpoCorreo = spfe.getCuerpoCorreoVistoBueno(conn);
-            log.info(cuerpoCorreo);
+            log.info("Object: {}", cuerpoCorreo);
             assertEquals("1", cuerpoCorreo);
         } catch (Exception e) {
             log.error(e.getMessage(), e);

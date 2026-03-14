@@ -107,15 +107,15 @@ public class ActualizaCFDI {
         ActualizaCFDI actualizador = null;
         if (args.length == 5) {
             File fileFolios = new File(args[4]);
-            log.info("Iniciando proceso de archivo: " + fileFolios + "\nURL: " + urlConn + "\nDriver:" + driverName + "\nuser:" + user + "\npass:" + pass);
+            log.info("Object: {}", "Iniciando proceso de archivo: " + fileFolios + "\nURL: " + urlConn + "\nDriver:" + driverName + "\nuser:" + user + "\npass:" + pass);
             actualizador = new ActualizaCFDI(urlConn, driverName, user, pass);
             actualizador.actualizaInformacionFechas(fileFolios);
         }
-        log.info(actualizador.getFaltantes());
+        log.info("Object: {}", actualizador.getFaltantes().toString());
     }
 
     private void actualizaInformacionFechas(File fileFolios) throws SQLException {
-        log.info("Procesano archivo: " + fileFolios);
+        log.info("Object: {}", "Procesano archivo: " + fileFolios);
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new FileReader(fileFolios));
@@ -131,11 +131,11 @@ public class ActualizaCFDI {
                     stmntFolios = conn.createStatement();
                     psApp = conn.prepareStatement(queryApp.toString());
                     String[] info = line.split(",");
-                    log.info("Procesando entrada: " + line);
+                    log.info("Object: {}", "Procesando entrada: " + line);
                     rsFolios = stmntFolios.executeQuery("SELECT id_gabinete FROM imx" + info[0] + " WHERE folio LIKE '%-%-" + info[1] + "'");
                     if (rsFolios.next()) {
                         int idCabinet = rsFolios.getInt(1);
-                        log.info("Se encuentra folio de gabinete: " + idCabinet);
+                        log.info("Object: {}", "Se encuentra folio de gabinete: " + idCabinet);
                         psApp.setString(1, info[0]);
                         psApp.setInt(2, idCabinet);
                         rs = psApp.executeQuery();
@@ -181,16 +181,16 @@ public class ActualizaCFDI {
                 String uuid = comprobante.getUUID();
                 String regimenFiscal = comprobante.getRegimenEmisor();
                 String metodoPago = comprobante.getMetodoPago();
-                log.info("Actualizando Archivo: " + rutaArchivo + " factura: " + uuid + " Fecha de Timbrado: " + fechaTimbradoMillis + " Metodo de Pago: " + metodoPago + " Razon Social: " + comprobante.getNombreEmisor());
+                log.info("Object: {}", "Actualizando Archivo: " + rutaArchivo + " factura: " + uuid + " Fecha de Timbrado: " + fechaTimbradoMillis + " Metodo de Pago: " + metodoPago + " Razon Social: " + comprobante.getNombreEmisor());
                 psUpdate.setTimestamp(1, new Timestamp(fechaTimbradoMillis));
                 psUpdate.setTimestamp(2, new Timestamp(fechaEmitidoMillis));
                 psUpdate.setString(3, regimenFiscal);
                 psUpdate.setString(4, metodoPago);
                 psUpdate.setString(5, comprobante.getNombreEmisor());
                 psUpdate.setString(6, uuid);
-                log.info("Ejecutando: " + queryUpdate.toString() + "\nActualizando Archivo: " + rutaArchivo + "\n( 1, " + new Timestamp(fechaTimbradoMillis) + ")" + "( 2, " + new Timestamp(fechaEmitidoMillis) + ")" + "( 3, " + regimenFiscal + " )" + "( 4, " + metodoPago + " )" + "( 5, " + comprobante.getNombreEmisor() + " )" + "( 6, " + uuid + " )");
+                log.info("Object: {}", "Ejecutando: " + queryUpdate.toString() + "\nActualizando Archivo: " + rutaArchivo + "\n( 1, " + new Timestamp(fechaTimbradoMillis) + ")" + "( 2, " + new Timestamp(fechaEmitidoMillis) + ")" + "( 3, " + regimenFiscal + " )" + "( 4, " + metodoPago + " )" + "( 5, " + comprobante.getNombreEmisor() + " )" + "( 6, " + uuid + " )");
                 int actualizados = psUpdate.executeUpdate();
-                log.info("Se actualizaron: " + actualizados + " facturas");
+                log.info("Object: {}", "Se actualizaron: " + actualizados + " facturas");
                 connUpdate.commit();
             } catch (FileNotFoundException e) {
                 log.error(e.getMessage(), e);
@@ -198,7 +198,7 @@ public class ActualizaCFDI {
                     try {
                         connUpdate.rollback();
                     } catch (Exception e2) {
-                        log.warn("Problemas en rollback ::procesaRS " + e2.toString());
+                        log.warn("Object: {}", "Problemas en rollback ::procesaRS " + e2.toString());
                     }
                 getFaltantes().add(rutaArchivo);
             } catch (Exception e) {
@@ -207,7 +207,7 @@ public class ActualizaCFDI {
                     try {
                         connUpdate.rollback();
                     } catch (Exception e2) {
-                        log.warn("Problemas en rollback ::procesaRS " + e2.toString());
+                        log.warn("Object: {}", "Problemas en rollback ::procesaRS " + e2.toString());
                     }
             } finally {
                 CloseObject.closeObject(psUpdate);

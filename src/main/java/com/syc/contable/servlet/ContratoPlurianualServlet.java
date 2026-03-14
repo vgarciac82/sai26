@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.core.FileItem;
 import org.json.JSONObject;
 import com.syc.contable.ContratoPlurianualBusinessLogic;
 import com.syc.gestion.core.Caso;
@@ -120,10 +120,10 @@ public class ContratoPlurianualServlet extends HttpServlet implements GestionInt
                 if (!"xls".equalsIgnoreCase(extension))
                     mensajeRetorno = "No se puede procesar archivos [" + extension + "] solo  [xls] Corrija y vuelva a Cargar el Excel ";
                 nombreDestino = ContratoPlurianualServlet.TEMP_DIR + "CARGA_PROYECTO_" + System.currentTimeMillis() + "." + extension;
-                log.info("Copiando archivo :" + nombreArchivo);
+                log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                 Util.copiaArchivo(archivoCargaStream, nombreDestino);
                 item.delete();
-                log.debug("Procesando archivo:" + nombreArchivo);
+                log.debug("Object: {}", "Procesando archivo:" + nombreArchivo);
                 ContratoPlurianualBusinessLogic cpbl = new ContratoPlurianualBusinessLogic(u.getLogin());
                 String nModificacion = req.getParameter("nmod");
                 if ("".equals(nModificacion) || nModificacion == null) {
@@ -146,7 +146,7 @@ public class ContratoPlurianualServlet extends HttpServlet implements GestionInt
                         mensajeRetorno = "ok";
                     }
                 }
-                log.debug(mensajeRetorno);
+                log.debug("Object: {}", mensajeRetorno);
                 /*
 				 * Solo se espera un archivo por carga, por lo que al leerlo no
 				 * es necesario continuar con el ciclo.
@@ -161,14 +161,14 @@ public class ContratoPlurianualServlet extends HttpServlet implements GestionInt
                 try {
                     archivoCargaStream.close();
                 } catch (Exception e) {
-                    log.error("Error cerrando flujo DataInputStream" + e);
+                    log.error("Error occurred", "Error cerrando flujo DataInputStream" + e);
                     mensajeRetorno = "Error " + e;
                 }
             if (archivoCargaIS != null)
                 try {
                     archivoCargaIS.close();
                 } catch (Exception e) {
-                    log.error("Error cerrando flujo InputStream" + e);
+                    log.error("Error occurred", "Error cerrando flujo InputStream" + e);
                 }
             archivoCargaIS = null;
             archivoCargaStream = null;
@@ -190,13 +190,13 @@ public class ContratoPlurianualServlet extends HttpServlet implements GestionInt
             TEMP_DIR = (String) ic.lookup("java:comp/env/TemporaryDirectory");
             if (TEMP_DIR == null) {
                 TEMP_DIR = "../upload/PEF/";
-                log.info("Environment Entry \"TEMP_DIR\" nula usando default \"" + TEMP_DIR + "\"");
+                log.info("Object: {}", "Environment Entry \"TEMP_DIR\" nula usando default \"" + TEMP_DIR + "\"");
             } else
-                log.info("dataSourceRefName=" + TEMP_DIR);
+                log.info("Object: {}", "dataSourceRefName=" + TEMP_DIR);
         } catch (NamingException exc) {
             TEMP_DIR = "../upload/PEF/";
-            log.info("Ocurrio un error que evito que se cargara la entrada \"TEMP_DIR\"" + exc);
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + TEMP_DIR + "\"");
+            log.info("Error occurred", "Ocurrio un error que evito que se cargara la entrada \"TEMP_DIR\"" + exc);
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + TEMP_DIR + "\"");
         }
         try {
             File f = new File(TEMP_DIR);
@@ -204,7 +204,7 @@ public class ContratoPlurianualServlet extends HttpServlet implements GestionInt
                 if (!f.mkdirs())
                     throw new Exception("No se puede crear el directorio temporal " + TEMP_DIR);
         } catch (Exception e) {
-            log.error("No fue posible crear automaticamente el directorio temporal: " + TEMP_DIR + " Solicite su creacion manual");
+            log.error("Object: {}", "No fue posible crear automaticamente el directorio temporal: " + TEMP_DIR + " Solicite su creacion manual");
         }
     }
 }

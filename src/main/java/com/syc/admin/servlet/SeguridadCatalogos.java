@@ -65,12 +65,12 @@ public class SeguridadCatalogos extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 
@@ -477,7 +477,7 @@ public class SeguridadCatalogos extends HttpServlet {
              */
             if ("reporteContratoDiverso.jasper".equals(req.getParameter("rn"))) {
                 parms1.put("SUBREPORT_DIR", reportPath1);
-                log.info("SUBREPORT_DIR: " + reportPath1);
+                log.info("Object: {}", "SUBREPORT_DIR: " + reportPath1);
             }
             /**
              * *****************************************************************************************************
@@ -486,7 +486,7 @@ public class SeguridadCatalogos extends HttpServlet {
              */
             if ("rptContratoOBRA.jasper".equals(req.getParameter("rn"))) {
                 parms1.put("SUBREPORT_DIR", reportPath1);
-                log.info("SUBREPORT_DIR: " + reportPath1);
+                log.info("Object: {}", "SUBREPORT_DIR: " + reportPath1);
             }
             /**
              * *****************************************************************************************************
@@ -1109,13 +1109,13 @@ public class SeguridadCatalogos extends HttpServlet {
                 else
                     in = new FileInputStream(reportPath1 + File.separatorChar + reportName);
                 if (req.getParameter("xls") != null && "SI".equals(req.getParameter("xls"))) {
-                    log.info("nombre del reporte: " + reportName);
+                    log.info("Object: {}", "nombre del reporte: " + reportName);
                     resp.setContentType("application/vnd.ms-excel");
                     byte[] bytes = null;
                     reportPath1 = reportPath1 + "\\" + reportName;
-                    log.info("parametros: " + parms1);
-                    log.info("path: " + reportPath1);
-                    log.info("valor de la variable in: " + in);
+                    log.info("Object: {}", "parametros: " + parms1);
+                    log.info("Object: {}", "path: " + reportPath1);
+                    log.info("Object: {}", "valor de la variable in: " + in);
                     JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath1, parms1, conn);
                     bytes = convertJasperPrintToExcel(jasperPrint);
                     resp.setContentLength(bytes.length);

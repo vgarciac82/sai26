@@ -2,7 +2,6 @@ package com.axtel.sai.sicove.services.impl;
 
 import java.sql.Connection;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.LogManager;
 import com.axtel.sai.sicove.entities.RequestAuthChain;
 import com.axtel.sai.sicove.entities.VehicleFuelRequest;
 import com.axtel.sai.sicove.exceptions.SicoveException;
@@ -20,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 public class MailFuelingNotificatorService extends DataSourceManager implements FuelingNotificatorService {
 
-    private static final Logger log = LogManager.getLogger(MailFuelingNotificatorService.class);
+    private static final Logger log = LoggerFactory.getLogger(MailFuelingNotificatorService.class);
 
     private String processName;
 
@@ -244,7 +243,7 @@ public class MailFuelingNotificatorService extends DataSourceManager implements 
         parametrosReales.append("d=").append(String.valueOf(processName));
         parametrosReales.append("&");
         parametrosReales.append("f=").append(StringUtils.reverse(String.valueOf(id)));
-        log.debug("Cadena generada: " + parametrosReales);
+        log.debug("Object: {}", "Cadena generada: " + parametrosReales);
         return parametrosReales.toString();
     }
 
@@ -481,7 +480,7 @@ public class MailFuelingNotificatorService extends DataSourceManager implements 
         try {
             RequestAuthChain requestAuthChain = getNotificationChain(fuelRequest);
             String notificationBody = generateCaptureVerificationBody(fuelRequest, requestAuthChain);
-            log.trace("Cuerpo del correo: \n\n" + notificationBody + "\n\n");
+            log.trace("Object: {}", "Cuerpo del correo: \n\n" + notificationBody + "\n\n");
             conn = getConnection();
             AlarmaManager.procesaAlarmaCNF(conn, null, null, null, "Comprobacion en tarjeta " + fuelRequest.getWalletNumber() + " NO aceptada", requestAuthChain.getAuthorizerMail(), notificationBody);
             success = true;
@@ -567,7 +566,7 @@ public class MailFuelingNotificatorService extends DataSourceManager implements 
         try {
             RequestAuthChain requestAuthChain = getNotificationChain(fuelRequest);
             String notificationBody = generateAprovedVerifBody(fuelRequest, requestAuthChain);
-            log.trace("Cuerpo del correo: \n\n" + notificationBody + "\n\n");
+            log.trace("Object: {}", "Cuerpo del correo: \n\n" + notificationBody + "\n\n");
             conn = getConnection();
             AlarmaManager.procesaAlarmaCNF(conn, null, null, null, "Comprobacion en tarjeta " + fuelRequest.getWalletNumber() + " ACEPTADA", requestAuthChain.getAuthorizerMail(), notificationBody);
             success = true;

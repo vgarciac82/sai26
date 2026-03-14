@@ -24,7 +24,7 @@ public class JDBCFuelAccountWalletRepository implements FuelAccountWalletReposit
 
     @Override
     public FuelAccountWallet insert(Connection conn, FuelAccountWallet fuelAccountWallet) throws ContratoException {
-        log.info("Insertando: " + fuelAccountWallet);
+        log.info("Object: {}", "Insertando: " + fuelAccountWallet);
         StringBuilder queryInsert = new StringBuilder();
         queryInsert.append("INSERT INTO fuelAccountWallets ");
         queryInsert.append("           (id_contract_account ");
@@ -66,7 +66,7 @@ public class JDBCFuelAccountWalletRepository implements FuelAccountWalletReposit
         } catch (SQLException e) {
             throw new ContratoException(e);
         }
-        log.debug("Se encontro: " + accountWallet);
+        log.debug("Object: {}", "Se encontro: " + accountWallet);
         return accountWallet;
     }
 

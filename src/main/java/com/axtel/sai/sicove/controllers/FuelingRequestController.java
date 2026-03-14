@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.LogManager;
 import com.axtel.contratos.exception.ContratoException;
 import com.axtel.sai.sicove.SICOVE;
 import com.axtel.sai.sicove.entities.VehicleFuelRequest;
@@ -43,7 +42,7 @@ public class FuelingRequestController extends HttpServlet {
 
     private static final long serialVersionUID = 1039657416626590670L;
 
-    private static final Logger log = LogManager.getLogger(FuelingRequestController.class);
+    private static final Logger log = LoggerFactory.getLogger(FuelingRequestController.class);
 
     private com.fasterxml.jackson.databind.ObjectMapper objectMapper;
 
@@ -71,12 +70,12 @@ public class FuelingRequestController extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         fuelingNotificatorRepository = new JDBCFuelingNotificatorRepository();
         fuelingJustificationRepository = new JDBCFuelingJustificationRepository();
@@ -124,7 +123,7 @@ public class FuelingRequestController extends HttpServlet {
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String action = request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1);
         VehicleFuelRequest fuelRequest;
-        log.debug("Action: " + action);
+        log.debug("Object: {}", "Action: " + action);
         try {
             if ("validatingVerification".equals(action)) {
                 fuelRequest = objectMapper.readValue(request.getInputStream(), VehicleFuelRequest.class);
@@ -185,7 +184,7 @@ public class FuelingRequestController extends HttpServlet {
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1);
         VehicleFuelRequest fuelRequest;
-        log.debug("Action: " + action);
+        log.debug("Object: {}", "Action: " + action);
         try {
             Map<String, String> result = new HashMap<>();
             result.put("success", "true");

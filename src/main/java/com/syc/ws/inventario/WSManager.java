@@ -161,7 +161,7 @@ public class WSManager {
             log.error("No se recibio el idTransaction");
             return -1;
         }
-        log.info("Respuesta Web Service, estatus: " + jsonrespWS.getString("estatus"));
+        log.info("Object: {}", "Respuesta Web Service, estatus: " + jsonrespWS.getString("estatus"));
         return jsonrespWS.getInt("code");
     }
 
@@ -199,7 +199,7 @@ public class WSManager {
         GenericConnectionWS bienesExt = new GenericConnectionWS();
         respWS = bienesExt.connectionWebService(url, metodo, tipoRespuesta, jsonObj);
         JSONObject jsonrespWS = new JSONObject(respWS);
-        log.info("Respuesta Web Service, estatus: " + jsonrespWS.getString("estatus"));
+        log.info("Object: {}", "Respuesta Web Service, estatus: " + jsonrespWS.getString("estatus"));
         return jsonrespWS.getInt("code");
     }
 
@@ -241,7 +241,7 @@ public class WSManager {
         GenericConnectionWS bienesExt = new GenericConnectionWS();
         respWS = bienesExt.connectionWebService(url, metodo, tipoRespuesta, jsonObj);
         JSONObject jsonrespWS = new JSONObject(respWS);
-        log.info("Respuesta Web Service, estatus: " + jsonrespWS.getString("estatus"));
+        log.info("Object: {}", "Respuesta Web Service, estatus: " + jsonrespWS.getString("estatus"));
         WSManager.cambiaEstatusRecepcion(conn, 4, nFolioPago);
         return jsonrespWS.getInt("code");
     }
@@ -533,7 +533,7 @@ public class WSManager {
                 url = rs.getString("GP_VALOR");
             }
             System.out.println("URL: " + url);
-            log.info("URL: " + url);
+            log.info("Object: {}", "URL: " + url);
         } finally {
             CloseObject.closeObject(rs);
             CloseObject.closeObject(pstmnt);
@@ -566,7 +566,7 @@ public class WSManager {
                 return respuestaWS;
             }
             query = "select nFolioOPComHeader, isnull(nIdRealEstate,0) idRealEstate,cDescripcion,convert(date,fFechaIniContr)fFechaIniContr,convert(date,fFechaFinContr)fFechaFinContr,cCveContrato,nMontoConIVA,FolioSAI from tObraPublicaCompromisoEncabezado with(Nolock) where nFolioOPComHeader= " + nFolio;
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             jsonObj = new JSONObject();
@@ -588,7 +588,7 @@ public class WSManager {
                 //Guardar en bitacora.
                 query = "insert into tBitacoraGeneratePublickWork (nIdPublicWorkSAI,nIdRealEstate,cNumContrato,cUrlWS,fFechaCaptura,nCode,cEstatus,nIdPublicWork,cLogin) " + " values(" + rs.getInt(1) + "," + rs.getInt(2) + ",'" + rs.getString(8) + "','" + url + "',GETDATE()," + jsonrespWS.getInt("code") + ",'" + jsonrespWS.getString("estatus") + "'," + jsonrespWS.getInt("idRePublicWork") + ",'" + u.getLogin() + "')";
                 com.syc.adquisiciones.util.Util.updateQuery(query, conn);
-                log.info("Respuesta Web Service, estatus: " + jsonrespWS.getString("estatus"));
+                log.info("Object: {}", "Respuesta Web Service, estatus: " + jsonrespWS.getString("estatus"));
             } else {
                 respuestaWS.setCode(-1);
                 respuestaWS.setEstatus("Error");
@@ -624,7 +624,7 @@ public class WSManager {
                 respuestaWS.setEstatus("El Web service se encuentra configurado para que no se ejecute.");
                 return respuestaWS;
             }
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, folioSAI);
             ps.setString(2, String.valueOf(numEstimacion));
@@ -647,7 +647,7 @@ public class WSManager {
                 //Guardar en bitacora.
                 query = "insert into tBitacoraGeneratePublickWork (nIdPublicWorkSAI,nIdRealEstate,cNumContrato,cUrlWS,fFechaCaptura,nCode,cEstatus,nIdPublicWork,nIdPublicWorkPartial,cLogin) " + " values(" + rs.getInt(1) + "," + rs.getInt(2) + ",'" + folioSAI + "','" + url + "',GETDATE()," + jsonrespWS.getInt("code") + ",'" + jsonrespWS.getString("estatus") + "'," + rs.getString("idRePublicWork") + "," + jsonrespWS.getInt("idRePublicWork") + ",'" + u.getLogin() + "')";
                 com.syc.adquisiciones.util.Util.updateQuery(query, conn);
-                log.info("Respuesta Web Service: " + respuestaWS);
+                log.info("Object: {}", "Respuesta Web Service: " + respuestaWS);
             } else {
                 throw new Exception("No se encontraron datos en la tabla tObraPublicaCompromisoEncabezado con el folio " + folioSAI + " y la estimacion numero " + numEstimacion);
             }
@@ -696,7 +696,7 @@ public class WSManager {
                 return respuestaWS;
             }
             String sql = query.toString();
-            log.info(sql);
+            log.info("Object: {}", sql.toString());
             ps = conn.prepareStatement(sql);
             ps.setString(1, folioSAI);
             ps.setString(2, caNoContrarrecibo);
@@ -709,7 +709,7 @@ public class WSManager {
                 jsonObj.put("estimationNo", rs.getInt("estimationNo"));
                 jsonObj.put("amount", rs.getDouble("amount"));
                 jsonObj.put("finalize", rs.getInt("ultimaEstimacion") == 1 ? true : false);
-                log.info(jsonObj);
+                log.info("Object: {}", jsonObj.toString());
                 GenericConnectionWS bienesExt = new GenericConnectionWS();
                 respWS = bienesExt.connectionWebService(url, metodo, tipoRespuesta, jsonObj);
                 jsonrespWS = new JSONObject(respWS);
@@ -761,7 +761,7 @@ public class WSManager {
                         throw new Exception("El llamado al sistema de inmuebles esta activo pero no existe registro de la obra publica. No se guardo informacion");
                     }
                 }
-                log.info("Respuesta Web Service: " + respuestaWS);
+                log.info("Object: {}", "Respuesta Web Service: " + respuestaWS);
             } else {
                 throw new Exception("No se encontraron datos en la tabla tObraPublicaCompromisoEncabezado con el folio " + folioSAI + " y la estimacion numero " + rs.getInt("estimationNo"));
             }

@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.LogManager;
 import com.axtel.contratos.entities.FuelProvisioningRequest;
 import com.axtel.contratos.repositories.JDBCFuelProvisioningRequestRepository;
 import com.axtel.contratos.services.FuelProvisioningRequestService;
@@ -37,14 +36,14 @@ public class FuelAccountRequestController extends HttpServlet {
 
     private String jniName = "";
 
-    private static final Logger log = LogManager.getLogger(FuelAccountRequestController.class);
+    private static final Logger log = LoggerFactory.getLogger(FuelAccountRequestController.class);
 
     private ObjectMapper mapper = new ObjectMapper();
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getRequestURI().substring(req.getRequestURI().lastIndexOf("/") + 1);
-        log.info("Action: " + action);
+        log.info("Object: {}", "Action: " + action);
         try {
             FuelProvisioningRequest fuelProvisioningRequest = mapper.readValue(req.getInputStream(), FuelProvisioningRequest.class);
             if ("auth".equals(action)) {
@@ -56,7 +55,7 @@ public class FuelAccountRequestController extends HttpServlet {
                 fuelProvisioningRequest = fuelProvisioningRequestService.readFuelProvisioning(fuelProvisioningRequest.getFuelProvisioningRequestId());
                 fuelAccountNotificatorService.sendPendingAuthNotification(fuelProvisioningRequest);
             } else {
-                log.info(fuelProvisioningRequest);
+                log.info("Object: {}", String.valueOf(fuelProvisioningRequest));
                 FuelProvisioningRequest fuelProvisioningOrg = fuelProvisioningRequestService.readFuelProvisioning(fuelProvisioningRequest.getFuelProvisioningRequestId());
                 fuelProvisioningOrg.setAutorizedAmount(fuelProvisioningRequest.getAutorizedAmount());
                 fuelProvisioningOrg.setRequestStatus(fuelProvisioningRequest.getRequestStatus());
@@ -64,7 +63,7 @@ public class FuelAccountRequestController extends HttpServlet {
                 fuelProvisioningOrg.setRequestJustification(fuelProvisioningRequest.getRequestJustification());
                 fuelProvisioningOrg.setRejectJustification(fuelProvisioningRequest.getRejectJustification());
                 fuelProvisioningRequest = fuelProvisioningRequestService.update(fuelProvisioningRequest);
-                log.info(fuelProvisioningRequest);
+                log.info("Object: {}", String.valueOf(fuelProvisioningRequest));
                 Util.sendJSON(resp, fuelProvisioningRequest);
             }
         } catch (Exception e) {
@@ -76,10 +75,10 @@ public class FuelAccountRequestController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         FuelProvisioningRequest fuelProvisioningRequest = mapper.readValue(req.getInputStream(), FuelProvisioningRequest.class);
-        log.info(fuelProvisioningRequest);
+        log.info("Object: {}", String.valueOf(fuelProvisioningRequest));
         try {
             fuelProvisioningRequest = fuelProvisioningRequestService.insert(fuelProvisioningRequest);
-            log.info(fuelProvisioningRequest);
+            log.info("Object: {}", String.valueOf(fuelProvisioningRequest));
             Util.sendJSON(resp, fuelProvisioningRequest);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -90,12 +89,12 @@ public class FuelAccountRequestController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String idStr = req.getParameter(SICOVE.PARAM_REQUEST_FOLIO);
-        log.info("Querying Fuelling Request into Account with folio: " + idStr);
+        log.info("Object: {}", "Querying Fuelling Request into Account with folio: " + idStr);
         try {
             if (StringUtils.isBlank(idStr))
                 throw new RuntimeException("No se recibio folio para busqueda");
             FuelProvisioningRequest fuelProvisioningRequest = fuelProvisioningRequestService.readFuelProvisioning(Integer.valueOf(idStr));
-            log.debug("Found: " + fuelProvisioningRequest);
+            log.debug("Object: {}", "Found: " + fuelProvisioningRequest);
             Util.sendJSON(resp, fuelProvisioningRequest);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -121,7 +120,7 @@ public class FuelAccountRequestController extends HttpServlet {
             }
         } else {
             String idStr = req.getParameter(SICOVE.PARAM_REQUEST_FOLIO);
-            log.info("Deleting Fuelling Request with folio: " + idStr);
+            log.info("Object: {}", "Deleting Fuelling Request with folio: " + idStr);
             try {
                 if (StringUtils.isBlank(idStr))
                     throw new RuntimeException("No se recibio folio para descartar");
@@ -145,12 +144,12 @@ public class FuelAccountRequestController extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         fuelProvisioningRequestService = new JDBCFuelProvisioningRequestService(new JDBCFuelProvisioningRequestRepository(), jniName);
         fuelAccountNotificatorService = new MailFuelAccountNotificatorService(jniName, "REQFUELACCOUNT", new JDBCFuelAccountNotificatorRepository());

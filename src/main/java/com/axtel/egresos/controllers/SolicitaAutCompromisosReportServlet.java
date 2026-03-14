@@ -8,13 +8,12 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.log4j.LogManager;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.syc.contable.CompromisoBussinessLogic;
 import com.syc.gestion.util.Util;
 import org.slf4j.Logger;
@@ -23,7 +22,7 @@ import org.slf4j.LoggerFactory;
 @WebServlet(name = "CompromisosExcelServlet", urlPatterns = { "/compromisos/excel" })
 public class SolicitaAutCompromisosReportServlet extends HttpServlet {
 
-    private static final Logger log = LogManager.getLogger(SolicitaAutCompromisosReportServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(SolicitaAutCompromisosReportServlet.class);
 
     private static final long serialVersionUID = -6914266220036308467L;
 
@@ -41,9 +40,9 @@ public class SolicitaAutCompromisosReportServlet extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
             if (TEMPLATE_REPORT == null) {
                 log.info("Loading Authorization Format Template");
                 URL resource = getClass().getClassLoader().getResource("ExcelTemplates/Solicitud_Aut_Compromisos.xlsx");
@@ -55,7 +54,7 @@ public class SolicitaAutCompromisosReportServlet extends HttpServlet {
             }
         } catch (NamingException | URISyntaxException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         logic = new CompromisoBussinessLogic(jniName);
     }

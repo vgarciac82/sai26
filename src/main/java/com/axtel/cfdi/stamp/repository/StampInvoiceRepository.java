@@ -157,7 +157,7 @@ public class StampInvoiceRepository {
         CfdiRelacionados cfdiRelacionados = null;
         Statement stmt = null;
         ResultSet rs = null;
-        log.trace("Executing query to fetch CFDI relationships: " + queryCFDIRel.toString());
+        log.trace("Object: {}", "Executing query to fetch CFDI relationships: " + queryCFDIRel.toString());
         try {
             stmt = conn.createStatement();
             rs = stmt.executeQuery(queryCFDIRel.toString());
@@ -166,11 +166,11 @@ public class StampInvoiceRepository {
                     log.trace("Initializing CfdiRelacionados object");
                     cfdiRelacionados = of.createComprobanteCfdiRelacionados();
                     String tipoRelacion = rs.getString("cTipoRelacion");
-                    log.trace("Setting TipoRelacion to CfdiRelacionados: " + tipoRelacion);
+                    log.trace("Object: {}", "Setting TipoRelacion to CfdiRelacionados: " + tipoRelacion);
                     cfdiRelacionados.setTipoRelacion(CTipoRelacion.fromValue(tipoRelacion));
                 }
                 String uuidOrigen = rs.getString("cUUIDOrigen");
-                log.trace("Adding CfdiRelacionado with UUID: " + uuidOrigen);
+                log.trace("Object: {}", "Adding CfdiRelacionado with UUID: " + uuidOrigen);
                 CfdiRelacionado cfdiRelacionado = of.createComprobanteCfdiRelacionadosCfdiRelacionado();
                 cfdiRelacionado.setUUID(uuidOrigen);
                 cfdiRelacionados.getCfdiRelacionado().add(cfdiRelacionado);
@@ -183,9 +183,9 @@ public class StampInvoiceRepository {
             CloseObject.closeObject(rs, stmt);
         }
         if (cfdiRelacionados == null) {
-            log.trace("No relationships found for invoice ID: " + invoiceID);
+            log.trace("Object: {}", "No relationships found for invoice ID: " + invoiceID);
         } else {
-            log.trace("Fetched relationships for invoice ID: " + invoiceID);
+            log.trace("Object: {}", "Fetched relationships for invoice ID: " + invoiceID);
         }
         return cfdiRelacionados;
     }

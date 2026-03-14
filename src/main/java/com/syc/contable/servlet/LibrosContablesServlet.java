@@ -38,7 +38,7 @@ public class LibrosContablesServlet extends HttpServlet implements GestionInterf
             if (u == null)
                 throw new ServletException("No se encontro sesion activa. Vuelva a ingresar al sistema.");
             String accion = req.getRequestURI().substring(req.getRequestURI().lastIndexOf("/") + 1);
-            log.info("Generando reporte: " + accion);
+            log.info("Object: {}", "Generando reporte: " + accion);
             if ("LibroBalance".equals(accion)) {
                 String path = null;
                 try {
@@ -78,12 +78,12 @@ public class LibrosContablesServlet extends HttpServlet implements GestionInterf
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 }

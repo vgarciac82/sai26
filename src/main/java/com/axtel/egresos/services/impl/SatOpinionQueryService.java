@@ -50,10 +50,10 @@ public class SatOpinionQueryService {
 
     public OpinionResolveResponse consultOpinion(String login, File file, String sistema) throws IOException {
         log.trace("Inicio consultOpinion()");
-        log.debug("Parametros recibidos -> login: " + login + ", sistema: " + sistema + ", archivo: " + file.getName());
+        log.debug("Object: {}", "Parametros recibidos -> login: " + login + ", sistema: " + sistema + ", archivo: " + file.getName());
         String boundary = UUID.randomUUID().toString();
         URL url = new URL(getUrlConnection());
-        log.debug("URL conexion: " + getUrlConnection());
+        log.debug("Object: {}", "URL conexion: " + getUrlConnection());
         log.trace("Abriendo conexion HTTP");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -71,14 +71,14 @@ public class SatOpinionQueryService {
             log.debug("Payload multipart enviado correctamente");
         }
         int status = connection.getResponseCode();
-        log.debug("HTTP Status recibido: " + status);
+        log.debug("Object: {}", "HTTP Status recibido: " + status);
         InputStream responseStream = status < 400 ? connection.getInputStream() : connection.getErrorStream();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(responseStream, StandardCharsets.UTF_8))) {
             String body = reader.lines().collect(Collectors.joining("\n"));
             log.trace("Respuesta recibida del servicio");
-            log.debug("Longitud del body recibido: " + body.length());
+            log.debug("Object: {}", "Longitud del body recibido: " + body.length());
             OpinionResolveResponse response = new ObjectMapper().readValue(body, OpinionResolveResponse.class);
-            log.info("Consulta de opinion completada. Status HTTP: " + status);
+            log.info("Object: {}", "Consulta de opinion completada. Status HTTP: " + status);
             return response;
         } finally {
             log.debug("Cerrando conexion HTTP");
@@ -87,15 +87,15 @@ public class SatOpinionQueryService {
     }
 
     private void writeFormField(DataOutputStream out, String boundary, String name, String value) throws IOException {
-        log.trace("Escribiendo campo form-data: " + name);
+        log.trace("Object: {}", "Escribiendo campo form-data: " + name);
         out.writeBytes("--" + boundary + "\r\n");
         out.writeBytes("Content-Disposition: form-data; name=\"" + name + "\"\r\n\r\n");
         out.writeBytes(value + "\r\n");
     }
 
     private void writeFileField(DataOutputStream out, String boundary, String fieldName, File file) throws IOException {
-        log.trace("Escribiendo archivo en form-data: " + file.getName());
-        log.debug("Tamano del archivo (bytes): " + file.length());
+        log.trace("Object: {}", "Escribiendo archivo en form-data: " + file.getName());
+        log.debug("Object: {}", "Tamano del archivo (bytes): " + file.length());
         out.writeBytes("--" + boundary + "\r\n");
         out.writeBytes("Content-Disposition: form-data; name=\"" + fieldName + "\"; filename=\"" + file.getName() + "\"\r\n");
         out.writeBytes("Content-Type: application/pdf\r\n\r\n");
@@ -112,19 +112,19 @@ public class SatOpinionQueryService {
 
     public void saveFile(Connection conn, Caso process, Usuario user, String filePath) throws Exception {
         log.trace("Inicio saveFile()");
-        log.debug("Parametros -> idGabinete: " + process.getIdGabinete() + ", usuario: " + user.getLogin() + ", filePath: " + filePath);
+        log.debug("Object: {}", "Parametros -> idGabinete: " + process.getIdGabinete() + ", usuario: " + user.getLogin() + ", filePath: " + filePath);
         if (process.getIdGabinete() <= 0) {
-            log.debug("Proceso no persistido. idGabinete invalido: " + process.getIdGabinete());
+            log.debug("Object: {}", "Proceso no persistido. idGabinete invalido: " + process.getIdGabinete());
             throw new RuntimeException("No se ha guardado el tramite. Debe guardar el tramite primero para anexar documentos.");
         }
         log.trace("Obteniendo carpeta destino para Opinion de Cumplimiento");
         Carpeta folder = FacturaManager.obtenCarpetaDestino(conn, process, "Opinion de Cumplimiento", user.getLogin());
-        log.debug("Carpeta destino -> tituloAplicacion: " + folder.getTituloAplicacion() + ", idGabinete: " + folder.getIdGabinete() + ", idCarpeta: " + folder.getIdCarpeta());
+        log.debug("Object: {}", "Carpeta destino -> tituloAplicacion: " + folder.getTituloAplicacion() + ", idGabinete: " + folder.getIdGabinete() + ", idCarpeta: " + folder.getIdCarpeta());
         String ext = Util.getFileExtencion(filePath);
-        log.debug("Extension detectada: " + ext);
+        log.debug("Object: {}", "Extension detectada: " + ext);
         log.trace("Insertando documento en gestor documental");
         DocumentoManager.insertaDocumento(conn, folder.getTituloAplicacion(), folder.getIdGabinete(), folder.getIdCarpeta(), "SAT Formato 32D" + "." + ext, ext, user.getLogin(), filePath);
-        log.info("Archivo de Opinion de Cumplimiento insertado correctamente para el tramite idGabinete: " + process.getIdGabinete());
+        log.info("Object: {}", "Archivo de Opinion de Cumplimiento insertado correctamente para el tramite idGabinete: " + process.getIdGabinete());
         log.trace("Fin saveFile()");
     }
 }

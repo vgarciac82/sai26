@@ -51,7 +51,7 @@ public class FuelContractRepository {
         queryInsert.append(" active AS active, registration_date AS registrationDate, employee_registration AS employeeRegistration,");
         queryInsert.append(" is_by_liters AS byLiters FROM fuel_contract WHERE id = ?");
         FuelContract contract = runner.query(conn, queryInsert.toString(), fuelContractResultHandler, id);
-        log.debug("Se encontro: " + contract);
+        log.debug("Object: {}", "Se encontro: " + contract);
         return contract;
     }
 
@@ -64,7 +64,7 @@ public class FuelContractRepository {
         queryUpdate.append(",is_by_liters = ? ");
         queryUpdate.append("WHERE id = ? ");
         int numRowsUpdated = runner.update(conn, queryUpdate.toString(), contract.getContractNumber(), contract.getTotalMaxAmount(), contract.isActive(), contract.isByLiters(), contract.getId());
-        log.info("Se actualizo " + numRowsUpdated + " registros de contrato: \n" + contract);
+        log.info("Object: {}", "Se actualizo " + numRowsUpdated + " registros de contrato: \n" + contract);
         contract = readContract(conn, contract.getId());
         return contract;
     }
@@ -72,7 +72,7 @@ public class FuelContractRepository {
     public boolean delete(Connection conn, FuelContract contract) throws SQLException {
         StringBuilder queryDelete = new StringBuilder("DELETE FROM fuel_contract where id = ?");
         int numRowsDeleted = runner.update(conn, queryDelete.toString(), contract.getId());
-        log.info("Se elimino " + numRowsDeleted + " registros del contrato: \n" + contract);
+        log.info("Object: {}", "Se elimino " + numRowsDeleted + " registros del contrato: \n" + contract);
         return true;
     }
 
@@ -103,7 +103,7 @@ public class FuelContractRepository {
         StringBuilder query = new StringBuilder(CONTRACT_ACCOUNT_HEADER_SQL);
         query.append(" WHERE  id_account = ?");
         FuelContractAccount contractAccount = runner.query(conn, query.toString(), fuelContractAccountResultHandler, id);
-        log.debug("Se encontro: " + contractAccount);
+        log.debug("Object: {}", "Se encontro: " + contractAccount);
         return contractAccount;
     }
 
@@ -111,7 +111,7 @@ public class FuelContractRepository {
         StringBuilder query = new StringBuilder(CONTRACT_ACCOUNT_HEADER_SQL);
         query.append(" WHERE  id_unit = ?");
         List<FuelContractAccount> accounts = runner.query(conn, query.toString(), fuelContractListHandler, unitId);
-        log.debug("Se encontro: " + accounts);
+        log.debug("Object: {}", "Se encontro: " + accounts);
         return accounts;
     }
 }

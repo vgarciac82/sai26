@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -83,7 +83,7 @@ public class Util {
             cmst.setString(1, cIdContratoDefinitivo);
             cmst.setString(2, cAccion);
             cmst.setString(3, uLogin);
-            log.info("call sp_mBitacoraMovimientos ('" + cIdContratoDefinitivo + "','" + cAccion + "','" + uLogin + "')");
+            log.info("Object: {}", "call sp_mBitacoraMovimientos ('" + cIdContratoDefinitivo + "','" + cAccion + "','" + uLogin + "')");
             cmst.execute();
         } finally {
             if (cmst != null) {
@@ -196,7 +196,7 @@ public class Util {
             cmst.setString(5, conv.getcCentroContable());
             cmst.setString(6, conv.getcUnidadEjecutoraLinea());
             cmst.setInt(7, conv.getnEsDescentralizado());
-            log.info("call " + nameStoreProcedure + " ('" + conv.getcIdContratoDefinitivo() + "'," + conv.getnConsecutivoModificacion() + ",'" + conv.getnFolioPreCompromiso() + "','" + conv.getcUnidadEjecutoraLinea() + "'," + conv.getnEsDescentralizado() + ")");
+            log.info("Object: {}", "call " + nameStoreProcedure + " ('" + conv.getcIdContratoDefinitivo() + "'," + conv.getnConsecutivoModificacion() + ",'" + conv.getnFolioPreCompromiso() + "','" + conv.getcUnidadEjecutoraLinea() + "'," + conv.getnEsDescentralizado() + ")");
             cmst.execute();
         } finally {
             if (cmst != null) {
@@ -218,7 +218,7 @@ public class Util {
         try {
             stmEnc = conn.createStatement();
             queryEnc = "INSERT INTO tPreCompromisoEncabezado (nFolioPreCompromiso,fCarga,cIdContrato,cTipoContrato,fAplicacion,cCentroContable,cRamo " + " ,cUnidadResponsable,cDocumentoHaplicado,nFolioPoliza,caNoPreCompromiso,nEnviadoSICOP,cTipoPoliza" + " ,nMes,cRevisado,aEjercicioFiscal,cUnidadResponsableContable,nFolioPolizaCancelacion,fCancelacion" + " ,cDescripcionPoliza,nStatusFinanciero,fVigencia,C_FOLIO_COMP,ConsecutivoCOMP) " + " values (" + param[4] + ",GETDATE(),'" + param[0] + "','DI',GETDATE()," + usuario.getPropiedad("CCENTROCONTABLE").getValor() + "," + usuario.getU_Ramo() + ",'" + usuario.getU_UR() + "',NULL, NULL, '" + caNoContrarrecibo + "' , 0 , 'CO' , " + "DATEPART(MONTH,GETDATE()), NULL , '" + param[2] + "', 'RHQ' , NULL , NULL , '" + param[3] + "', 0,'" + vigencia + "',NULL,NULL)";
-            log.info(queryEnc);
+            log.info("Object: {}", queryEnc.toString());
             stmEnc.executeUpdate(queryEnc);
             retval = 0;
         } finally {
@@ -252,7 +252,7 @@ public class Util {
             query = new StringBuilder();
             query.append(" insert into tIntegraFoliosCompromiso (caNoIntegradaComp,nFolioCompromiso) ");
             query.append(" select ?,nFolioCompromiso from tCompromisoEncabezado with(Nolock) where cIdContrato=? and cDocumentoHaplicado is null ");
-            log.info(query.toString());
+            log.info("Object: {}", query.toString());
             pstm = conn.prepareStatement(query.toString());
             pstm.setString(1, seqValue);
             pstm.setString(2, cIdContratoDef);
@@ -292,7 +292,7 @@ public class Util {
             seqValue = usuario.getPropiedad("CCENTROCONTABLE").getValor() + "CO" + param[2] + seqValue;
             caNoContrarrecibo = seqValue;
             queryEnc = "INSERT INTO tPreCompromisoEncabezado (nFolioPreCompromiso,fCarga,cIdContrato,cTipoContrato,fAplicacion,cCentroContable,cRamo " + " ,cUnidadResponsable,cDocumentoHaplicado,nFolioPoliza,caNoPreCompromiso,nEnviadoSICOP,cTipoPoliza" + " ,nMes,cRevisado,aEjercicioFiscal,cUnidadResponsableContable,nFolioPolizaCancelacion,fCancelacion" + " ,cDescripcionPoliza,nStatusFinanciero,fVigencia,C_FOLIO_COMP,ConsecutivoCOMP) " + " values (" + param[4] + ",GETDATE(),'" + param[0] + "','DI',GETDATE()," + usuario.getPropiedad("CCENTROCONTABLE").getValor() + "," + usuario.getU_Ramo() + ",'" + usuario.getU_UR() + "',NULL, NULL, '" + caNoContrarrecibo + "' , 0 , 'CO' , " + "DATEPART(MONTH,GETDATE()), NULL , '" + param[2] + "', 'RHQ' , NULL , NULL , '" + param[3] + "', 0,'" + vigencia + "',NULL,NULL)";
-            log.info(queryEnc);
+            log.info("Object: {}", queryEnc.toString());
             stmEnc.executeUpdate(queryEnc);
             // Crea el detalle de la liberacion del precompromiso.
             stmDet = conn.createStatement();
@@ -308,14 +308,14 @@ public class Util {
                 if (isDescentralizado) {
                     if (Double.parseDouble(fila.get(2)) > 0 && ue.equals(usuario.getU_UR())) {
                         queryDet = "INSERT INTO tPreCompromisoDetalle (nFolioPreCompromiso,nDocRenglon,EP,cEvento,mImporte,mImporteNegativo,cMes,cCentroContable)" + " values(" + param[4] + "," + i + ",'" + fila.get(0) + "','" + cEevento + "'," + fila.get(2) + ",-" + fila.get(2) + "," + fila.get(1) + "," + usuario.getPropiedad("CCENTROCONTABLE").getValor() + ")";
-                        log.info(queryDet);
+                        log.info("Object: {}", queryDet.toString());
                         stmDet.executeUpdate(queryDet);
                         i++;
                     }
                 } else {
                     if (Double.parseDouble(fila.get(2)) > 0) {
                         queryDet = "INSERT INTO tPreCompromisoDetalle (nFolioPreCompromiso,nDocRenglon,EP,cEvento,mImporte,mImporteNegativo,cMes,cCentroContable)" + " values(" + param[4] + "," + i + ",'" + fila.get(0) + "','" + cEevento + "'," + fila.get(2) + ",-" + fila.get(2) + "," + fila.get(1) + "," + usuario.getPropiedad("CCENTROCONTABLE").getValor() + ")";
-                        log.info(queryDet);
+                        log.info("Object: {}", queryDet.toString());
                         stmDet.executeUpdate(queryDet);
                         i++;
                     }
@@ -331,8 +331,8 @@ public class Util {
             // Se guarda la relación de precompromisos con el contrato
             queryRel = "insert into mRelPedContPrecomComp values('" + param[0] + "','" + param[5] + "'," + param[4] + ",NULL,NULL)";
             queryDoc = "insert into mDocumentoFolio values('" + param[2] + "','" + param[0] + "'," + usuario.getPropiedad("CCENTROCONTABLE").getValor() + ",'" + usuario.getU_UR() + "',NULL,NULL,'" + param[5] + "'," + param[4] + ")";
-            log.info(queryRel);
-            log.info(queryDoc);
+            log.info("Object: {}", queryRel.toString());
+            log.info("Object: {}", queryDoc.toString());
             stmRel.executeUpdate(queryRel);
             stmDoc.executeUpdate(queryDoc);
             retval = 0;
@@ -400,11 +400,11 @@ public class Util {
         ResultSet rs = null;
         try {
             String query = "select *from tPreCompromisoEncabezado with(Nolock) where cIdContrato=? and cDocumentoHaplicado='S'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstm = conn.prepareStatement(query);
             pstm.setString(1, cIdContratoDef);
             rs = pstm.executeQuery();
-            log.info("cIdContratoDef : " + cIdContratoDef);
+            log.info("Object: {}", "cIdContratoDef : " + cIdContratoDef);
             if (rs.next()) {
                 resp = true;
             }
@@ -421,11 +421,11 @@ public class Util {
         ResultSet rs = null;
         try {
             String query = "select *from tCompromisoEncabezado with(Nolock) where cIdContrato=? and cDocumentoHaplicado='S'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstm = conn.prepareStatement(query);
             pstm.setString(1, cIdContratoDef);
             rs = pstm.executeQuery();
-            log.info("cIdContratoDef : " + cIdContratoDef);
+            log.info("Object: {}", "cIdContratoDef : " + cIdContratoDef);
             if (rs.next()) {
                 resp = true;
             }
@@ -442,11 +442,11 @@ public class Util {
         ResultSet rs = null;
         try {
             String query = "SELECT det.EP,SUBSTRING(det.EP,40,1)tipoIngreso FROM tPreCompromisoEncabezado enc WITH(NOLOCK) " + " INNER JOIN dbo.tPreCompromisoDetalle det WITH(NOLOCK) ON enc.nFolioPreCompromiso = det.nFolioPreCompromiso " + " WHERE enc.cDocumentoHaplicado='S' AND enc.cIdContrato=? AND SUBSTRING(det.EP,40,1)<>4 ";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstm = conn.prepareStatement(query);
             pstm.setString(1, cIdContratoDef);
             rs = pstm.executeQuery();
-            log.info("cIdContratoDef : " + cIdContratoDef);
+            log.info("Object: {}", "cIdContratoDef : " + cIdContratoDef);
             if (rs.next()) {
                 resp = true;
             }
@@ -471,10 +471,10 @@ public class Util {
                 // CV-A10-15/2017#M1
                 query = "select *from tCompromisoEncabezado with(Nolock) where cIdContrato=SUBSTRING('" + cIdContratoDef + "',0,CHARINDEX('#M','" + cIdContratoDef + "',1)) AND cDocumentoHaplicado IS NULL and (nFolioAutSICOP IS NULL or nFolioAutSICOP='' or nFolioAutSICOP='-1')";
             }
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstm = conn.prepareStatement(query);
             rs = pstm.executeQuery();
-            log.info("cIdContratoDef : " + cIdContratoDef);
+            log.info("Object: {}", "cIdContratoDef : " + cIdContratoDef);
             if (rs.next()) {
                 resp = true;
             }
@@ -499,10 +499,10 @@ public class Util {
                 // CV-A10-15/2017#M1
                 query = "SELECT *FROM	tPAGODIVERSOEncabezado WITH (NOLOCK) WHERE	cFolioPAGODIVERSO = SUBSTRING('" + cIdContratoDef + "',0,CHARINDEX('#M','" + cIdContratoDef + "',1)) AND		ISNULL(cDocumentoHaplicado, 'S') = 'S' " + " AND		ISNULL(nEnviadoSICOP, 0) IN (0, 2) AND		cIngresosPropios <> 'S'	";
             }
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstm = conn.prepareStatement(query);
             rs = pstm.executeQuery();
-            log.info("cIdContratoDef : " + cIdContratoDef);
+            log.info("Object: {}", "cIdContratoDef : " + cIdContratoDef);
             if (rs.next()) {
                 resp = true;
             }
@@ -525,17 +525,17 @@ public class Util {
         try {
             // Encabezado
             String query = "insert into tCompromisoEncabezado (nFolioCompromiso,fCarga,cIdContrato,cTipoContrato,fAplicacion,cCentroContable " + ",cRamo,cUnidadResponsable,cDocumentoHaplicado,nFolioPoliza,caNoCompromiso,nEnviadoSICOP " + ",cTipoPoliza,nMes,cRevisado,aEjercicioFiscal,cUnidadResponsableContable,nFolioPolizaCancelacion " + ",fCancelacion,cDescripcionPoliza,usuario,cRadicado,nFolioAutSICOP) " + " select " + nFolioComp + ",fCarga,substring(cIdContrato,1,patindex('%/%' , cIdContrato)+4),cTipoContrato,fAplicacion,cCentroContable, " + " cRamo,cUnidadResponsable,null,null,caNoPreCompromiso,nEnviadoSICOP,cTipoPoliza,nMes,cRevisado,aEjercicioFiscal,cUnidadResponsableContable, " + " nFolioPolizaCancelacion,fCancelacion,cDescripcionPoliza,'" + usuario.getLogin() + "','" + isRadicado + "',-1 from tPreCompromisoEncabezado with(nolock) " + " where nFolioPreCompromiso=" + nFolioPrecom + " and cIdContrato='" + cIdContratoDefinitivo + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             stmEnc = conn.createStatement();
             stmEnc.executeUpdate(query);
             // Detalle
             String sql = "insert into tCompromisoDetalle (nFolioCompromiso,nDocRenglon,EP,cEvento,mImporte,mImporteNegativo,cMes,cCentroContable) select " + nFolioComp + ",nDocRenglon,EP,'CMP002',convert(money,str(mImporte,15,2))as mImporte, " + " convert(money,str(mImporteNegativo,15,2))as mImporteNegativo,cMes,cCentroContable from tPreCompromisoDetalle with(nolock) " + " where nFolioPreCompromiso=" + nFolioPrecom + " AND cEvento not in( 'APTDDISP','R_APTDDISP' )";
-            log.info(sql);
+            log.info("Object: {}", sql.toString());
             stmDet = conn.createStatement();
             stmDet.executeUpdate(sql);
             // Actualiza tprecompromiso
             String sqlPrecom = "update tPreCompromisoEncabezado set C_FOLIO_COMP='" + folioCasoCompromiso + "', ConsecutivoCOMP=" + nFolioComp + ",nStatusFinanciero=1 " + " where cIdContrato='" + cIdContratoDefinitivo + "' and nFolioPreCompromiso=" + nFolioPrecom;
-            log.info(sqlPrecom);
+            log.info("Object: {}", sqlPrecom.toString());
             stmPrecom = conn.createStatement();
             stmPrecom.executeUpdate(sqlPrecom);
             retval = 0;
@@ -560,7 +560,7 @@ public class Util {
         int resp = -1;
         PreparedStatement pstm = null;
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstm = conn.prepareStatement(query);
             resp = pstm.executeUpdate();
         } finally {
@@ -588,7 +588,7 @@ public class Util {
         Map<String, String> m = null;
         try {
             String query = "select enc.nFolioPreCompromiso,det.cCentroContable,enc.cUnidadResponsable,caso.ID_CASO,mdoc.C_FOLIO_PRE " + " from tPreCompromisoEncabezado as enc with(Nolock) " + " inner join tPreCompromisoDetalle as det with(Nolock) on enc.nFolioPreCompromiso=det.nFolioPreCompromiso " + " and enc.cDocumentoHaplicado='S' and enc.cIdContrato='" + datosContrato.getcIdcontratoDefinitivo() + "' " + " inner join mDocumentoFolio as mdoc with(Nolock) on mdoc.ConsecutivoPRECOMP=enc.nFolioPreCompromiso and mdoc.cIdUnidadResponsable=enc.cUnidadResponsable " + " and det.cCentroContable=mdoc.cCentroContable " + " inner join CG_CASO as caso with(nolock) on caso.C_FOLIO=mdoc.C_FOLIO_PRE " + " inner join CG_CASO_OPERACION as oper with(Nolock) on oper.ID_CASO=caso.ID_CASO " + " group by enc.nFolioPreCompromiso,det.cCentroContable,enc.cUnidadResponsable,caso.ID_CASO,mdoc.C_FOLIO_PRE";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             int nFolioPrecom = 0;
@@ -611,11 +611,11 @@ public class Util {
                     // Elinar los datos de las tablas mDocumentoFolio,
                     // mRelPedContPrecomComp
                     sqlDoc = "delete mDocumentoFolio where cIdDocumentoDefinitivo='" + datosContrato.getcIdcontratoDefinitivo() + "' and ConsecutivoPRECOMP=" + nFolioPrecom;
-                    log.info(sqlDoc);
+                    log.info("Object: {}", sqlDoc.toString());
                     stmDoc = conn.createStatement();
                     stmDoc.executeUpdate(sqlDoc);
                     sqlRel = "delete mRelPedContPrecomComp where cIdPedContDef='" + datosContrato.getcIdcontratoDefinitivo() + "' and nConsecutivoPrecom=" + nFolioPrecom;
-                    log.info(sqlRel);
+                    log.info("Object: {}", sqlRel.toString());
                     stmRel = conn.createStatement();
                     stmRel.executeUpdate(sqlRel);
                     // Guardaar en bitacora los movimientos
@@ -631,7 +631,7 @@ public class Util {
                     // avanzaCaso(request, c, usuario, prefixPath, responsable,
                     // nombre);
                     Util.avanzaCaso(request, c, usuario, prefixPath, responsable, nombre, jndiName);
-                    log.debug(c.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
                 }
             }
             resp = true;
@@ -665,7 +665,7 @@ public class Util {
         try {
             log.info("Query para obtener todos los precompromisos de un contrato. ");
             String query = "select pe.nFolioPreCompromiso,rpc.cFolioPrecom " + ",pe.cCentroContable " + ",cUnidadResponsable from tPreCompromisoEncabezado pe with(Nolock) " + "inner join mRelPedContPrecomComp as rpc with(Nolock) on pe.cIdContrato=rpc.cIdPedContDef " + "and pe.nFolioPreCompromiso=rpc.nConsecutivoPrecom and pe.cDocumentoHaplicado='S' and pe.cIdContrato=?";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             if (datosContrato.getcCuentaDisponible().equals("82109")) {
                 isRadicado = "S";
             }
@@ -721,7 +721,7 @@ public class Util {
                     // Una vez que ha hecho la aplicación contable avanza el
                     // caso
                     avanzaCaso(request, c, usuario, prefixPath, new String[] { "CONSULTA_PAGOS" }, new String[] { "consulta_compromiso" }, jndiName);
-                    log.debug(c.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
                 }
             }
             if (listFoliosComp.size() > 1) {
@@ -752,17 +752,17 @@ public class Util {
         try {
             // Encabezado
             String query = "insert into tCompromisoEncabezado (nFolioCompromiso,fCarga,cIdContrato,cTipoContrato,fAplicacion,cCentroContable,cRamo" + ",cUnidadResponsable,cDocumentoHaplicado,nFolioPoliza,caNoCompromiso,nEnviadoSICOP,cTipoPoliza,nMes,cRevisado,aEjercicioFiscal,cUnidadResponsableContable,nFolioPolizaCancelacion,fCancelacion " + " ,cDescripcionPoliza,usuario,cRadicado) " + "select " + nFolioComp + ",fCarga,substring(cIdContrato,1,patindex('%/%' , cIdContrato)+4),cTipoContrato,fAplicacion,cCentroContable, " + " cRamo,cUnidadResponsable,null,null,caNoPreCompromiso,nEnviadoSICOP,cTipoPoliza,nMes,cRevisado,aEjercicioFiscal,cUnidadResponsableContable, " + " nFolioPolizaCancelacion,fCancelacion,cDescripcionPoliza,'" + usuario.getLogin() + "','" + isRadicado + "' from tPreCompromisoEncabezado with(nolock) " + " where nFolioPreCompromiso=" + nFolioPrecom + " and cIdContrato='" + cIdContratoDefinitivo + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             stmEnc = conn.createStatement();
             stmEnc.executeUpdate(query);
             // Detalle
             String sql = "insert into tCompromisoDetalle (nFolioCompromiso,nDocRenglon,EP,cEvento,mImporte,mImporteNegativo,cMes,cCentroContable) select " + nFolioComp + ",nDocRenglon,EP,'CMP002',convert(money,str(mImporte,15,2))as mImporte, " + " convert(money,str(mImporteNegativo,15,2))as mImporteNegativo,cMes,cCentroContable from tPreCompromisoDetalle with(nolock) " + " where nFolioPreCompromiso=" + nFolioPrecom;
-            log.info(sql);
+            log.info("Object: {}", sql.toString());
             stmDet = conn.createStatement();
             stmDet.executeUpdate(sql);
             // Actualiza tprecompromiso
             String sqlPrecom = "update tPreCompromisoEncabezado set C_FOLIO_COMP='" + folioCasoCompromiso + "', ConsecutivoCOMP=" + nFolioComp + ",nStatusFinanciero=1 " + " where cIdContrato='" + cIdContratoDefinitivo + "' and nFolioPreCompromiso=" + nFolioPrecom;
-            log.info(sqlPrecom);
+            log.info("Object: {}", sqlPrecom.toString());
             stmPrecom = conn.createStatement();
             stmPrecom.executeUpdate(sqlPrecom);
             retval = 0;
@@ -788,7 +788,7 @@ public class Util {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             if (rs.next()) {
@@ -813,7 +813,7 @@ public class Util {
         String cEjercicio = "";
         try {
             String query = "select *from tEjercicioFiscal with(Nolock) where cActivo=1";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             if (rs.next()) {
@@ -838,7 +838,7 @@ public class Util {
         String cNameDB = "";
         try {
             String query = "select *from tEjercicioFiscal with(Nolock) where aEjercicioFiscal=" + cEjercicio;
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             if (rs.next()) {
@@ -862,7 +862,7 @@ public class Util {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             if (rs.next()) {
@@ -886,7 +886,7 @@ public class Util {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             if (rs.next()) {
@@ -1047,7 +1047,7 @@ public class Util {
         JSONArray arrayObj = new JSONArray();
         JSONObject jsonObj = new JSONObject();
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             int token = 0;
@@ -1082,7 +1082,7 @@ public class Util {
         JSONArray arrayObj = new JSONArray();
         JSONObject jsonObj = new JSONObject();
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             rsMetadata = rs.getMetaData();
@@ -1114,7 +1114,7 @@ public class Util {
         JSONArray arrayObj = new JSONArray();
         JSONObject jsonObj = new JSONObject();
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             rsMetadata = rs.getMetaData();
@@ -1196,7 +1196,7 @@ public class Util {
         parametrosReales.append("d=").append(String.valueOf(document));
         parametrosReales.append("&");
         parametrosReales.append("f=").append(StringUtils.reverse(String.valueOf(folio)));
-        log.debug("Cadena generada: " + parametrosReales);
+        log.debug("Object: {}", "Cadena generada: " + parametrosReales);
         return parametrosReales.toString();
     }
 
@@ -1207,7 +1207,7 @@ public class Util {
         try {
             query = new StringBuilder();
             query.append("update mRelPedContPrecomComp set cFolioComp=?,nConsecutivoComp=? where cIdPedContDef=? and cFolioPrecom=? and nConsecutivoPrecom=?");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, cFolioCompromiso);
             ps.setInt(2, nFolioCompromiso);
@@ -1228,7 +1228,7 @@ public class Util {
         try {
             propiedades = u.getPropiedades();
             UsuarioPropiedades up = (UsuarioPropiedades) propiedades.get("CCENTROCONTABLE");
-            log.info("Las propiedades del usuario cambiarón. UnidadEjecutora=" + UE + " y su centroContable=" + centroContable);
+            log.info("Object: {}", "Las propiedades del usuario cambiarón. UnidadEjecutora=" + UE + " y su centroContable=" + centroContable);
             up.setValor(centroContable);
             u.setU_UR(UE);
             u.setPropiedad("CCENTROCONTABLE", up);

@@ -50,7 +50,7 @@ public class RelacionGastosMasivaBussinessLogic extends DataSourceManager {
             accEng.setValidaInsuficienciaDeSaldo(true);
             List<RelacionGastosEncabezado> rgs = RelacionGastosManager.getIntegradasResumen(conn, folioCargaMasiva);
             for (RelacionGastosEncabezado rg : rgs) {
-                log.info(String.format("Cancelando RG [%s] aplicada por firma electronica.", rg.getCaNoContrarrecibo()));
+                log.info("Object: {}", String.format("Cancelando RG [%s] aplicada por firma electronica.", rg.getCaNoContrarrecibo()));
                 RelacionGastosManager.cancelaRelacionGastos(conn, accEng, rg);
                 PasivoDiferidoManager.cancelarPasivoDiferido(conn, documento, String.valueOf(rg.getnFolioRELACIONGASTOS()));
                 LogCancelaDevengadoManager.registraLog(conn, documento, rg.getnFolioRELACIONGASTOS(), u.getLogin());
@@ -65,7 +65,7 @@ public class RelacionGastosMasivaBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Error realizando rollback en RelacionGastosMasivaBussinessLogic.cancelaCargaMasiva: " + e2.toString());
+                    log.warn("Error occurred", "Error realizando rollback en RelacionGastosMasivaBussinessLogic.cancelaCargaMasiva: " + e2.toString());
                 }
             throw e;
         } finally {

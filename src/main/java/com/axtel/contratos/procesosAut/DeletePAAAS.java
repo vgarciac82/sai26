@@ -17,7 +17,7 @@ public class DeletePAAAS {
 			 */
             process.borraPAAASPresupuestoCero();
         } catch (Exception exc) {
-            log.warn("Error en Process:  " + exc.toString());
+            log.warn("Error occurred", "Error en Process:  " + exc.toString());
         } finally {
             process = null;
         }

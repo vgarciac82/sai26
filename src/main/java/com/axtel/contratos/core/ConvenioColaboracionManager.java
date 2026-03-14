@@ -6,14 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import org.apache.log4j.LogManager;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ConvenioColaboracionManager {
 
-    private static final Logger log = LogManager.getLogger(ConvenioColaboracionManager.class);
+    private static final Logger log = LoggerFactory.getLogger(ConvenioColaboracionManager.class);
 
     public static int insertaJustificacionCNET(Connection conn, ConvenioColaboracionEncabezado cc, String justificacion) throws SQLException {
         PreparedStatement psTC = null;
@@ -22,7 +21,7 @@ public class ConvenioColaboracionManager {
         qInsertTipoContrato.append("VALUES(?,?,?)");
         int insertados = 0;
         try {
-            log.info("Se ejecutara: [" + qInsertTipoContrato + "]\n" + cc);
+            log.info("Object: {}", "Se ejecutara: [" + qInsertTipoContrato + "]\n" + cc);
             psTC = conn.prepareStatement(qInsertTipoContrato.toString());
             int parm = 1;
             psTC.setString(parm++, cc.getIdContrato());
@@ -80,7 +79,7 @@ public class ConvenioColaboracionManager {
         query.append("           ?) ");
         int insertados = 0;
         try {
-            log.info("Se ejecutara: [" + query + "]\n" + cc);
+            log.info("Object: {}", "Se ejecutara: [" + query + "]\n" + cc);
             ps = conn.prepareStatement(query.toString());
             int parm = 1;
             ps.setInt(parm++, cc.getFolioConvenioColaboracion());
@@ -164,7 +163,7 @@ public class ConvenioColaboracionManager {
         query.append("             ?) ");
         int insertados = 0;
         try {
-            log.info("Se ejecutara: [" + query + "]\n" + cDet);
+            log.info("Object: {}", "Se ejecutara: [" + query + "]\n" + cDet);
             ps = conn.prepareStatement(query.toString());
             int parm = 1;
             ps.setInt(parm++, cDet.getFolioConvenioColaboracion());

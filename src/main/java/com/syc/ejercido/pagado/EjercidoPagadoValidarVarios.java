@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import com.axtel.web.clients.InvoiceDTO;
@@ -155,7 +155,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                 queryCXP.append(" WHERE pagado != 'pagado' AND integracion = '0' ");
                 queryCXP.append(NotCXP + " ORDER BY cTipoPago, caNoContrarrecibo ");
                 pstmEncCXP = conn.prepareStatement(queryCXP.toString());
-                log.info(queryCXP.toString());
+                log.info("Object: {}", queryCXP.toString());
                 rs1 = pstmEncCXP.executeQuery();
                 /*
 				 * INICIO DE LA APLICACION DE PAGOS TERSOFE A PROVEEDOR(NOMINA,
@@ -184,19 +184,19 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                     /**
                      * o hacer todo el procedimiento de Guardar y Aplicar **
                      */
-                    log.info("[EJERCIDO/PAGADO] Tipo de Pago[" + cTipoPago + "] Folio de Pago[" + nFolioPago + "] Contrarecibo[" + strCaNoContrarrecibo + "] Tipo de Poliza[" + tipoPoliza + "] Estatus Ejercido[" + statusEjercido + "] Estatus Pagado[" + statusPagado + "]");
+                    log.info("Object: {}", "[EJERCIDO/PAGADO] Tipo de Pago[" + cTipoPago + "] Folio de Pago[" + nFolioPago + "] Contrarecibo[" + strCaNoContrarrecibo + "] Tipo de Poliza[" + tipoPoliza + "] Estatus Ejercido[" + statusEjercido + "] Estatus Pagado[" + statusPagado + "]");
                     if (statusEjercido.equals("ejercido") && statusPagado.equals("existeSinPagar")) {
                         pstmSicopPag = conn.prepareStatement(" SELECT SICOP.NCTR_47, SICOP.NCLC_43, isnull(SIAFF.FECHA_PAGO,'-') as FECHA_PAGO, SIAFF.ESTATUS_CLC " + " FROM CLC_SICOP SICOP WITH(NOLOCK), CLC_SIAFF_ENC SIAFF WITH(NOLOCK) " + " WHERE SICOP.FOLIO_SIAFF_112=SIAFF.FOLIO_CLC AND NCTR_47 = ? " + " GROUP BY SICOP.NCTR_47, SICOP.NCLC_43, SIAFF.FECHA_PAGO, SIAFF.ESTATUS_CLC ");
-                        log.info(" SELECT SICOP.NCTR_47, SICOP.NCLC_43, isnull(SIAFF.FECHA_PAGO,'-') as FECHA_PAGO, SIAFF.ESTATUS_CLC " + " FROM CLC_SICOP SICOP WITH(NOLOCK), CLC_SIAFF_ENC SIAFF WITH(NOLOCK) " + " WHERE SICOP.FOLIO_SIAFF_112=SIAFF.FOLIO_CLC AND NCTR_47 = ? " + " GROUP BY SICOP.NCTR_47, SICOP.NCLC_43, SIAFF.FECHA_PAGO, SIAFF.ESTATUS_CLC");
-                        log.info("[" + strCaNoContrarrecibo + "]");
+                        log.info("Object: {}", " SELECT SICOP.NCTR_47, SICOP.NCLC_43, isnull(SIAFF.FECHA_PAGO,'-') as FECHA_PAGO, SIAFF.ESTATUS_CLC " + " FROM CLC_SICOP SICOP WITH(NOLOCK), CLC_SIAFF_ENC SIAFF WITH(NOLOCK) " + " WHERE SICOP.FOLIO_SIAFF_112=SIAFF.FOLIO_CLC AND NCTR_47 = ? " + " GROUP BY SICOP.NCTR_47, SICOP.NCLC_43, SIAFF.FECHA_PAGO, SIAFF.ESTATUS_CLC");
+                        log.info("Object: {}", "[" + strCaNoContrarrecibo + "]");
                         pstmSicopPag.setString(1, strCaNoContrarrecibo);
                         rs10 = pstmSicopPag.executeQuery();
                         if (rs10.next()) {
                             String fPago = rs10.getString("FECHA_PAGO");
                             String strStatusSiaff = rs10.getString("ESTATUS_CLC");
                             clcSicop = rs10.getString("NCLC_43");
-                            log.info(String.format("fPago %s strStatusSiaff %s clcSicop %s", fPago, strStatusSiaff, clcSicop));
-                            log.info("strStatusSiaff: " + strStatusSiaff);
+                            log.info("Object: {}", String.format("fPago %s strStatusSiaff %s clcSicop %s", fPago, strStatusSiaff, clcSicop));
+                            log.info("Object: {}", "strStatusSiaff: " + strStatusSiaff);
                             if (fPago.length() > 1 && strStatusSiaff.equals("Pagada")) {
                                 try {
                                     String[] fechPagado = fPago.split("/");
@@ -257,7 +257,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                              *  APLICACION_CONTABLE = '1' Para Poder Ejercer
                              * *
                              */
-                            log.debug("Contrarecibo " + StringUtils.trim(strCaNoContrarrecibo));
+                            log.debug("Object: {}", "Contrarecibo " + StringUtils.trim(strCaNoContrarrecibo));
                             String sqlCLC = "SELECT NCTR_47, NCLC_43, APLICACION_CONTABLE FROM CLC_SICOP SICOP WITH(NOLOCK), CLC_SIAFF_ENC SIAFF WITH(NOLOCK) WHERE SICOP.FOLIO_SIAFF_112 = SIAFF.FOLIO_CLC AND NCTR_47 = '" + strCaNoContrarrecibo + "' AND (SELECT SUM(convert(money,IMP_NETO_107)) as totalSicop FROM CLC_SICOP WITH(NOLOCK) WHERE NCTR_47 = '" + strCaNoContrarrecibo + "' AND FOLIO_SIAFF_112 <> '0' AND DOC_HAPLICADO=1) BETWEEN  " + String.format("%.2f", numeMenorFor) + " AND " + String.format("%.2f", numeMayorFor) + " GROUP BY NCTR_47, NCLC_43, APLICACION_CONTABLE";
                             pstmEncSICOP = conn.prepareStatement(sqlCLC);
                             rs2 = pstmEncSICOP.executeQuery();
@@ -290,7 +290,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                                         camposDet.append("			WHERE cEvento != 'ANTICIPO' AND cEvento != 'ANTICIPO_DIV' AND nFolio =? AND cTipoPago = ?  ");
                                         camposDet.append("			GROUP BY STUFF(SUBSTRING(ep, 1, 44), 20, 2, '00')  + SUBSTRING( dbo.CambiaEPCarteraMeta(EP),45, 11) , RFC,cEjercicio, cIdRelacion,nCapitulo");
                                     }
-                                    log.trace("\nEjercido/Pagado Ejecutando: \n[" + camposDet + "]\n[" + nFolioPago + "][" + cTipoPago + "]\n");
+                                    log.trace("Object: {}", "\nEjercido/Pagado Ejecutando: \n[" + camposDet + "]\n[" + nFolioPago + "][" + cTipoPago + "]\n");
                                     pstmntDetCXP = conn.prepareStatement(camposDet.toString());
                                     pstmntDetCXP.setString(1, Integer.toString(nFolioPago));
                                     pstmntDetCXP.setString(2, cTipoPago);
@@ -495,7 +495,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                     statusPagado = rs11.getString("pagado");
                     folioPagado = rs11.getString("folioPagado");
                     integracion = rs11.getString("integracion");
-                    log.info("[Ejercido/Pagado][Integracion] Integracion[" + integracion + "] folio Pagado[" + folioPagado + "] Estatus Pagado[" + statusPagado + "] Estatus Ejercido[" + statusEjercido + "] Tipo Pago[" + cTipoPago + "]");
+                    log.info("Object: {}", "[Ejercido/Pagado][Integracion] Integracion[" + integracion + "] folio Pagado[" + folioPagado + "] Estatus Pagado[" + statusPagado + "] Estatus Ejercido[" + statusEjercido + "] Tipo Pago[" + cTipoPago + "]");
                     if (statusEjercido.equals("ejercido") && statusPagado.equals("existeSinPagar")) {
                         /**
                          *  Valores SICOP SIAFF Para Guardar en tPagadoEncabezado
@@ -644,7 +644,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                                 camposDet.append("			FROM v_AplicarEjercidoPagadoDetalle WITH(NOLOCK) 	");
                                 camposDet.append("			WHERE cEvento != 'ANTICIPO' AND cEvento != 'ANTICIPO_DIV' AND nFolio in (").append(nFolioPagoInt).append(") AND cTipoPago = ? ");
                                 camposDet.append("			GROUP BY STUFF(SUBSTRING(ep, 1, 44), 20, 2, '00')  + SUBSTRING( dbo.CambiaEPCarteraMeta(EP),45, 11) ,cEjercicio");
-                                log.trace("\\nEjercido/Pagado Ejecutando: \n[" + camposDet + "]\n[" + cTipoPago + "]\n");
+                                log.trace("Object: {}", "\\nEjercido/Pagado Ejecutando: \n[" + camposDet + "]\n[" + cTipoPago + "]\n");
                                 pstmntDetCXP = conn.prepareStatement(camposDet.toString());
                                 pstmntDetCXP.setString(1, cTipoPago);
                                 rs3 = pstmntDetCXP.executeQuery();
@@ -960,7 +960,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                     statusPagado = rs11.getString("pagado");
                     folioPagado = rs11.getString("folioPagado");
                     integracion = rs11.getString("integracion");
-                    log.info("[Ejercido/Pagado][Integracion Operaciones Ajenas] Integracion[" + integracion + "] folio Pagado[" + folioPagado + "] Estatus Pagado[" + statusPagado + "] Estatus Ejercido[" + statusEjercido + "] Tipo Pago[" + cTipoPago + "]");
+                    log.info("Object: {}", "[Ejercido/Pagado][Integracion Operaciones Ajenas] Integracion[" + integracion + "] folio Pagado[" + folioPagado + "] Estatus Pagado[" + statusPagado + "] Estatus Ejercido[" + statusEjercido + "] Tipo Pago[" + cTipoPago + "]");
                     if (statusEjercido.equals("ejercido") && statusPagado.equals("existeSinPagar")) {
                         /**
                          *  Valores SICOP SIAFF Para Guardar en tPagadoEncabezado
@@ -1079,7 +1079,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                                  * Detalles Dependiendo el Documento **
                                  */
                                 camposDet = new StringBuilder("SELECT SUBSTRING( dbo.CambiaEPPlurianual(EP), 0,56) AS EP, SUM(CONVERT(money,mImporteNeto)) AS mImporteNeto,cEjercicio FROM v_AplicarEjercidoPagadoDetalle WITH(NOLOCK) WHERE cEvento != 'ANTICIPO' AND cEvento != 'ANTICIPO_DIV' AND nFolio IN (" + nFolioPagoInt + ") AND cTipoPago = ? GROUP BY SUBSTRING( dbo.CambiaEPPlurianual(EP), 0,56), cEjercicio, cIdCuentaContable ");
-                                log.trace("\\nEjercido/Pagado Ejecutando: \n[" + camposDet + "]\n[" + cTipoPago + "]\n");
+                                log.trace("Object: {}", "\\nEjercido/Pagado Ejecutando: \n[" + camposDet + "]\n[" + cTipoPago + "]\n");
                                 pstmntDetCXP = conn.prepareStatement(camposDet.toString());
                                 pstmntDetCXP.setString(1, cTipoPago);
                                 rs3 = pstmntDetCXP.executeQuery();
@@ -1100,10 +1100,10 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                                      *  Detalles SICOP
                                      * *
                                      */
-                                    String sql = ("SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END " + " AS EP," + " SUM(CONVERT(money,IMPORTE_148)) AS IMPORTE_148 " + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCTR_47 = '" + integracion + "' AND " + " DOC_HAPLICADO='1' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + epDetSICOP + "',45,11) AND " + " (" + " SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+" + " CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + // END
-                                    " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 " + " END AS EP" + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCTR_47 = '" + integracion + "' AND " + " DOC_HAPLICADO='1' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + epDetSICOP + "',45,11) " + // ,CCAU_162,CCOP_163
-                                    " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + String.format("%.2f", numeMenorForDet) + " AND " + String.format("%.2f", numeMayorForDet) + ") = '" + epDetSICOP + "'" + // ,CCAU_162,CCOP_163
-                                    " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + String.format("%.2f", numeMenorForDet) + " AND " + String.format("%.2f", numeMayorForDet));
+                                    String sql = (// END
+                                    // ,CCAU_162,CCOP_163
+                                    "SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END " + " AS EP," + " SUM(CONVERT(money,IMPORTE_148)) AS IMPORTE_148 " + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCTR_47 = '" + integracion + "' AND " + " DOC_HAPLICADO='1' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + epDetSICOP + "',45,11) AND " + " (" + " SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+" + " CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 " + " END AS EP" + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCTR_47 = '" + integracion + "' AND " + " DOC_HAPLICADO='1' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + epDetSICOP + "',45,11) " + " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + String.format("%.2f", numeMenorForDet) + " AND " + String.format("%.2f", numeMayorForDet) + ") = '" + // ,CCAU_162,CCOP_163
+                                    epDetSICOP + "'" + " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + String.format("%.2f", numeMenorForDet) + " AND " + String.format("%.2f", numeMayorForDet));
                                     System.out.println("Integracion sqlDet:" + sql);
                                     pstmDetSICOP = conn.prepareStatement(sql);
                                     rs4 = pstmDetSICOP.executeQuery();
@@ -1263,7 +1263,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                     pstmIntegracionApl.setString(1, integracion);
                     rs17 = pstmIntegracionApl.executeQuery();
                     while (rs17.next()) {
-                        log.info("[Integracion de Pago Diverso] Integracion[" + integracion + "] folio Pagado[" + folioPagado + "] Estatus Pagado[" + statusPagado + "] Estatus Ejercido[" + statusEjercido + "] Tipo Pago[" + cTipoPago + "]");
+                        log.info("Object: {}", "[Integracion de Pago Diverso] Integracion[" + integracion + "] folio Pagado[" + folioPagado + "] Estatus Pagado[" + statusPagado + "] Estatus Ejercido[" + statusEjercido + "] Tipo Pago[" + cTipoPago + "]");
                         if (statusEjercido.equals("noEjercido") && statusPagado.equals("noPagado")) {
                             pstmFolInt = conn.prepareStatement("SELECT caNoContrarrecibo, nFolio, ejercido, impNeto FROM v_AplicarEjercidoPagadoEncabezado with(nolock) WHERE integracion = ?");
                             pstmFolInt.setString(1, integracion);
@@ -1308,7 +1308,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                                 if (aplicacionContable.equals("1")) {
                                     // Detalles Dependiendo el Documento
                                     camposDet = new StringBuilder("SELECT SUBSTRING(EP,0,56) AS EP, SUM(CONVERT(money,mImporteNeto)) AS mImporteNeto,cEjercicio FROM v_AplicarEjercidoPagadoDetalle WITH(NOLOCK) WHERE cEvento != 'ANTICIPO' AND cEvento != 'ANTICIPO_DIV' AND nFolio IN (").append(nFolioPagoInt).append(") AND cTipoPago = ? GROUP BY SUBSTRING(EP,0,56), cEjercicio, cIdCuentaContable ");
-                                    log.trace("\\nEjercido/Pagado Ejecutando: \n[" + camposDet + "]\n[" + cTipoPago + "]\n");
+                                    log.trace("Object: {}", "\\nEjercido/Pagado Ejecutando: \n[" + camposDet + "]\n[" + cTipoPago + "]\n");
                                     pstmntDetCXP = conn.prepareStatement(camposDet.toString());
                                     pstmntDetCXP.setString(1, cTipoPago);
                                     rs3 = pstmntDetCXP.executeQuery();
@@ -1325,10 +1325,10 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                                         numeMayorForDet = Double.parseDouble(formatterDet.format(numeMayorDet));
                                         // Validacion con un centavo mas o menos
                                         // en Detalles SICOP
-                                        String sql = ("SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END  AS EP," + " SUM(CONVERT(money,IMPORTE_148)) AS IMPORTE_148 " + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCTR_47 = '" + integracion + "' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + epDetSICOP + "',45,11) AND " + " (" + " SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+" + " CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + // END
-                                        " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 " + " END AS EP" + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCTR_47 = '" + integracion + "' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + epDetSICOP + "',45,11) " + // ,CCAU_162,CCOP_163
-                                        " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + String.format("%.2f", numeMenorForDet) + " AND " + String.format("%.2f", numeMayorForDet) + ") = '" + epDetSICOP + "'" + // ,CCAU_162,CCOP_163
-                                        " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + String.format("%.2f", numeMenorForDet) + " AND " + String.format("%.2f", numeMayorForDet));
+                                        String sql = (// END
+                                        // ,CCAU_162,CCOP_163
+                                        "SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END  AS EP," + " SUM(CONVERT(money,IMPORTE_148)) AS IMPORTE_148 " + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCTR_47 = '" + integracion + "' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + epDetSICOP + "',45,11) AND " + " (" + " SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+" + " CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 " + " END AS EP" + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCTR_47 = '" + integracion + "' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + epDetSICOP + "',45,11) " + " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + String.format("%.2f", numeMenorForDet) + " AND " + String.format("%.2f", numeMayorForDet) + ") = '" + // ,CCAU_162,CCOP_163
+                                        epDetSICOP + "'" + " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + String.format("%.2f", numeMenorForDet) + " AND " + String.format("%.2f", numeMayorForDet));
                                         pstmDetSICOP = conn.prepareStatement(sql);
                                         rs4 = pstmDetSICOP.executeQuery();
                                         // Detalle Son Diferentes
@@ -1543,7 +1543,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                     // URVP.13082014. SE PONE FIJO EL TIPO DE POLIZA A DIARIO EN
                     // DEL EJERCIDO----------------^ (tipoPoliza--DI)
                     pstmInsertEncEje = conn.prepareStatement(queryInsertEjercidoEncabezado);
-                    log.debug("Insertando en tEjercidoEncabezado " + queryInsertEjercidoEncabezado);
+                    log.debug("Object: {}", "Insertando en tEjercidoEncabezado " + queryInsertEjercidoEncabezado);
                     pstmInsertEncEje.executeUpdate();
                 }
                 if (existePagadoAplicado(conn, strCaNoContrarrecibo))
@@ -1570,10 +1570,10 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                         queryPagadoA.append("','" + fechaPagoSicop + "'," + solicitudPago + "," + numProceso + "," + folioSiaff + ",'" + FechaPagado + "'," + strFolioPagado + " )");
                         pstmInsertEncPag = conn.prepareStatement(queryPagadoA.toString());
                         int insertadosPagado = pstmInsertEncPag.executeUpdate();
-                        log.trace("Ejecutando: " + queryPagadoA);
-                        log.debug("Se insertaron: " + insertadosPagado + " Registros en tPagado ");
+                        log.trace("Object: {}", "Ejecutando: " + queryPagadoA);
+                        log.debug("Object: {}", "Se insertaron: " + insertadosPagado + " Registros en tPagado ");
                     } else {
-                        log.debug("El pago " + strCaNoContrarrecibo + " ya estaba insertado sin ser aplicado.");
+                        log.debug("Object: {}", "El pago " + strCaNoContrarrecibo + " ya estaba insertado sin ser aplicado.");
                     }
                 }
                 /**
@@ -1596,7 +1596,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                 pstmInsertDetEje.setString(1, cTipoPago);
                 pstmInsertDetEje.setInt(2, nFolioPago);
                 rsEjercidoDetalle = pstmInsertDetEje.executeQuery();
-                log.trace(" Ejecutando query: " + queryDetallePagado + "\n[" + cTipoPago + "]\n[" + nFolioPago + "]");
+                log.trace("Object: {}", " Ejecutando query: " + queryDetallePagado + "\n[" + cTipoPago + "]\n[" + nFolioPago + "]");
                 int nDocRenglon = 0;
                 while (rsEjercidoDetalle.next()) {
                     log.trace("Iterando detalle de pagos.");
@@ -1651,7 +1651,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                     }
                     if (esSAIAlterno && ("AJENAS".equalsIgnoreCase(cTipoPago) && espagofonden)) {
                         cEvento = OperacionAjenaManager.calculaEventoFonden(EP);
-                        log.debug("Se trata de sistema alterno. Cambiando evento: " + cEvento);
+                        log.debug("Object: {}", "Se trata de sistema alterno. Cambiando evento: " + cEvento);
                     }
                     String cCentroContable = rsEjercidoDetalle.getString("cCentroContable");
                     String Rfc = rsEjercidoDetalle.getString("RFC");
@@ -1692,7 +1692,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                     queryInsertDetEjercido.append(cUnidadResponsable).append("',").append(mISRRESICO).append(" , ").append(mISROtro).append(")");
                     pstmInsertDetEje = conn.prepareStatement(queryInsertDetEjercido.toString());
                     if (!existeEjercido) {
-                        log.trace("No existe detalle. Se ejecutara: \n" + queryInsertDetEjercido);
+                        log.trace("Object: {}", "No existe detalle. Se ejecutara: \n" + queryInsertDetEjercido);
                         pstmInsertDetEje.executeUpdate();
                     }
                     if (statusPagado.equals("noPagado")) {
@@ -1717,9 +1717,9 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                             queryInsertPagadoDet.append("','").append(intaEjercicioFiscal).append("',").append(mIMDT).append(",").append(mImporteNeto).append(",").append(strFolioPagado).append(",'").append(cOBGT).append("', '");
                             queryInsertPagadoDet.append(cTAB).append("',").append(mImporteISRLaudos).append(",").append(mPasivoDiferido).append(",").append(mIva6).append(", '").append(pasivo).append("','").append(cUnidadResponsable).append("',").append(mISRRESICO).append(",").append(mISROtro).append(" )");
                             pstmInsertDetPag = conn.prepareStatement(queryInsertPagadoDet.toString());
-                            log.trace("Se insertara detalle de pago:\n" + queryInsertPagadoDet);
+                            log.trace("Object: {}", "Se insertara detalle de pago:\n" + queryInsertPagadoDet);
                             int detPagInser = pstmInsertDetPag.executeUpdate();
-                            log.debug("Se insertaron " + detPagInser + " en el detalle de pagado.");
+                            log.debug("Object: {}", "Se insertaron " + detPagInser + " en el detalle de pagado.");
                         }
                     }
                     valor = "guardado";
@@ -1737,7 +1737,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
         String valor = "";
         try {
             descripcion = StringUtils.trimToEmpty(descripcion).replaceAll("'", "");
-            log.debug("INSERT INTO tDetalleEjercidoPagado (cTipoPago, nFolioPago, caNoContrarrecibo, clcSicop, fechaAplicacion, EP, importe, tipoDocumento, descripcion) " + "VALUES('" + cTipoPago + "', " + nFolioPago + ", '" + strCaNoContrarrecibo + "', '" + clcSicop + "', '" + fechaAplicacion + "', '" + EP + "', " + importe + ", '" + tipoDocumento + "', '" + descripcion + "') ");
+            log.debug("Object: {}", "INSERT INTO tDetalleEjercidoPagado (cTipoPago, nFolioPago, caNoContrarrecibo, clcSicop, fechaAplicacion, EP, importe, tipoDocumento, descripcion) " + "VALUES('" + cTipoPago + "', " + nFolioPago + ", '" + strCaNoContrarrecibo + "', '" + clcSicop + "', '" + fechaAplicacion + "', '" + EP + "', " + importe + ", '" + tipoDocumento + "', '" + descripcion + "') ");
             pstmDiferencia = conn.prepareStatement("INSERT INTO tDetalleEjercidoPagado (cTipoPago, nFolioPago, caNoContrarrecibo, clcSicop, fechaAplicacion, EP, importe, tipoDocumento, descripcion) " + "VALUES('" + cTipoPago + "', " + nFolioPago + ", '" + strCaNoContrarrecibo + "', '" + clcSicop + "', '" + fechaAplicacion + "', '" + EP + "', " + importe + ", '" + tipoDocumento + "', '" + descripcion + "') ");
             pstmDiferencia.executeUpdate();
         } finally {
@@ -1769,7 +1769,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                 integracion = rsFoliosIntegraciones.getString("Integracion");
                 estatus = rsFoliosIntegraciones.getString("Aplicado");
                 mImporte = Double.parseDouble(rsFoliosIntegraciones.getString("mImporte"));
-                log.info("[Integracion de Anexo 1] Folio Consolidacion[" + nFolioConsolidacion + "] Integracion[" + integracion + "]  Estatus[" + estatus + "] Importe[" + String.format("%.2f", mImporte) + "]");
+                log.info("Object: {}", "[Integracion de Anexo 1] Folio Consolidacion[" + nFolioConsolidacion + "] Integracion[" + integracion + "]  Estatus[" + estatus + "] Importe[" + String.format("%.2f", mImporte) + "]");
                 numeMenor = mImporte - centavos;
                 numeMayor = mImporte + centavos;
                 NumberFormat formatter = new DecimalFormat("###.##");
@@ -1959,7 +1959,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                 integracion = rsFoliosIntegraciones.getString("Integracion");
                 estatus = rsFoliosIntegraciones.getString("Aplicado");
                 mImporte = Double.parseDouble(rsFoliosIntegraciones.getString("mImporte"));
-                log.info("[Integracion de RIF] Folio Consolidacion[" + nFolioConsolidacion + "] Integracion[" + integracion + "]  Estatus[" + estatus + "] Importe[" + String.format("%.2f", mImporte) + "]");
+                log.info("Object: {}", "[Integracion de RIF] Folio Consolidacion[" + nFolioConsolidacion + "] Integracion[" + integracion + "]  Estatus[" + estatus + "] Importe[" + String.format("%.2f", mImporte) + "]");
                 numeMenor = mImporte - centavos;
                 numeMayor = mImporte + centavos;
                 NumberFormat formatter = new DecimalFormat("###.##");
@@ -1994,9 +1994,9 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                             // Validacion con un centavo mas o menos en Detalles
                             // SICOP
                             String sql = (// +'.'+SUBSTRING(CCAU_162,8,3)+'.'+"
-                            "SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END " + " AS EP," + " SUM(CONVERT(money,IMPORTE_148)) AS IMPORTE_148 " + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCTR_47 = '" + integracion + "' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + epDetSICOP + "',45,11) AND " + " (" + " SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+" + " CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + // END
-                            " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 " + // +'.'+SUBSTRING(CCAU_162,8,3)+'.'+"
-                            " END AS EP" + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCTR_47 = '" + integracion + "' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + epDetSICOP + "',45,11) " + " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + String.format("%.2f", numeMenorForDet) + " AND " + String.format("%.2f", numeMayorForDet) + ") = '" + epDetSICOP + "'" + " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + String.format("%.2f", numeMenorForDet) + " AND " + String.format("%.2f", numeMayorForDet));
+                            // END
+                            // +'.'+SUBSTRING(CCAU_162,8,3)+'.'+"
+                            "SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END " + " AS EP," + " SUM(CONVERT(money,IMPORTE_148)) AS IMPORTE_148 " + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCTR_47 = '" + integracion + "' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + epDetSICOP + "',45,11) AND " + " (" + " SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+" + " CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 " + " END AS EP" + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCTR_47 = '" + integracion + "' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + epDetSICOP + "',45,11) " + " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + String.format("%.2f", numeMenorForDet) + " AND " + String.format("%.2f", numeMayorForDet) + ") = '" + epDetSICOP + "'" + " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + String.format("%.2f", numeMenorForDet) + " AND " + String.format("%.2f", numeMayorForDet));
                             pstmDetSICOP = conn.prepareStatement(sql);
                             rsDetSICOP = pstmDetSICOP.executeQuery();
                             // Detalle Son Diferentes
@@ -2182,7 +2182,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
         try {
             pst = conn.prepareStatement(query);
             int i = pst.executeUpdate();
-            log.debug("Se insertaron " + i + " registros en CLC_SICOP_PAGO ");
+            log.debug("Object: {}", "Se insertaron " + i + " registros en CLC_SICOP_PAGO ");
         } finally {
             CloseObject.closeObject(pst, false);
         }
@@ -2228,12 +2228,12 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
         String query = "UPDATE tRELACIONGASTOSEncabezado SET nEnviadoSICOP = -5 WHERE caNoContrarrecibo IN " + notCuentaPorPagar;
         try {
             ps = conn.prepareStatement(query);
-            log.debug("Contrarecibo enviado a rechazo bancario " + notCuentaPorPagar + ", " + query);
+            log.debug("Object: {}", "Contrarecibo enviado a rechazo bancario " + notCuentaPorPagar + ", " + query);
             int afectados = ps.executeUpdate();
-            log.debug("Se actualizaron " + afectados);
+            log.debug("Object: {}", "Se actualizaron " + afectados);
             conn.commit();
         } catch (Exception e) {
-            log.info("Error de Aplicación " + e.getMessage());
+            log.info("Error occurred", "Error de Aplicación " + e.getMessage());
             e.printStackTrace();
         } finally {
             CloseObject.closeObject(ps, false);

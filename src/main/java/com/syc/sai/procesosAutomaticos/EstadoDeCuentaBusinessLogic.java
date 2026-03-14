@@ -36,21 +36,21 @@ public class EstadoDeCuentaBusinessLogic extends DataSourceManager {
                 String ext = Util.getFileExtencion(f.getName());
                 if ("TXT".equalsIgnoreCase(ext)) {
                     EstadoDeCuentaSimple edoCta = procesaTextoEdoCta(conn, f);
-                    log.info(edoCta);
+                    log.info("Object: {}", String.valueOf(edoCta));
                 } else if ("PDF".equalsIgnoreCase(ext)) {
                     EstadoDeCuentaSimple edoCta = procesaPDFEdoCta(conn, f);
-                    log.info(edoCta);
+                    log.info("Object: {}", String.valueOf(edoCta));
                 } else {
                     throw new Exception("No se permiten archivo del tipo [" + ext + "]. Eliminelo del zip e intente de nuevo");
                 }
-                log.info(f.getAbsolutePath());
+                log.info("Object: {}", f.getAbsolutePath());
             }
             conn.commit();
             return 0;
         } catch (Exception e) {
             try {
             } catch (Exception e2) {
-                log.warn(e2);
+                log.warn(e2.getMessage(), e2);
             }
             throw e;
         } finally {

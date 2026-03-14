@@ -31,7 +31,7 @@ public class JDBCMonthlyAssinationRepository implements MonthlyAssinationReposit
 
     @Override
     public MonthlyAssinationSummary getMonthlySummary(Connection conn, int accountId, int month) throws SicoveException {
-        log.info("Getting Assignation Sumary for month " + month + " id account: " + month);
+        log.info("Object: {}", "Getting Assignation Sumary for month " + month + " id account: " + month);
         StringBuilder querySelect = new StringBuilder();
         querySelect.append(" SELECT	asignation_id_account AS asignationIdAccount, ");
         querySelect.append(" 		asignation_request_month AS asignationRequestMonth, ");
@@ -85,9 +85,9 @@ public class JDBCMonthlyAssinationRepository implements MonthlyAssinationReposit
         querySelect.append(" 			fuelling.fueling_id_account = refund_id_account ");
         MonthlyAssinationSummary monthlyAssinationSummary;
         try {
-            log.trace("Executing Query: \n" + querySelect + "\n[" + month + "]\n[" + accountId + "]" + "\n[" + month + "]\n[" + accountId + "]" + "\n[" + month + "]\n[" + accountId + "]");
+            log.trace("Object: {}", "Executing Query: \n" + querySelect + "\n[" + month + "]\n[" + accountId + "]" + "\n[" + month + "]\n[" + accountId + "]" + "\n[" + month + "]\n[" + accountId + "]");
             monthlyAssinationSummary = runner.query(conn, querySelect.toString(), assignationSummaryRequestHandler, month, accountId, month, accountId, month, accountId);
-            log.debug("Founded: " + monthlyAssinationSummary);
+            log.debug("Object: {}", "Founded: " + monthlyAssinationSummary);
             return monthlyAssinationSummary;
         } catch (SQLException e) {
             throw new SicoveException(e);
@@ -96,7 +96,7 @@ public class JDBCMonthlyAssinationRepository implements MonthlyAssinationReposit
 
     @Override
     public List<MonthlyDetailAssinationSummary> getMonthlyDetail(Connection conn, int accountId, int month) throws SicoveException {
-        log.info("Getting Assignation Sumary for month " + month + " id account: " + month);
+        log.info("Object: {}", "Getting Assignation Sumary for month " + month + " id account: " + month);
         StringBuilder querySelect = new StringBuilder();
         querySelect.append(" SELECT	request_date AS requestDate, ");
         querySelect.append("      	    request_amount AS requestedAmount, ");
@@ -108,9 +108,9 @@ public class JDBCMonthlyAssinationRepository implements MonthlyAssinationReposit
         querySelect.append("   AND	id_account =  ?");
         List<MonthlyDetailAssinationSummary> monthlyDetailAssinationSummary;
         try {
-            log.trace("Executing Query: \n" + querySelect + "\n[" + month + "]\n[" + accountId + "]");
+            log.trace("Object: {}", "Executing Query: \n" + querySelect + "\n[" + month + "]\n[" + accountId + "]");
             monthlyDetailAssinationSummary = runner.query(conn, querySelect.toString(), assignationDetailRequestHandler, month, accountId);
-            log.debug("Founded: " + monthlyDetailAssinationSummary);
+            log.debug("Object: {}", "Founded: " + monthlyDetailAssinationSummary);
             return monthlyDetailAssinationSummary;
         } catch (SQLException e) {
             throw new SicoveException(e);
@@ -288,7 +288,7 @@ public class JDBCMonthlyAssinationRepository implements MonthlyAssinationReposit
         ResultSet rsFuelling = null;
         PreparedStatement psFuelling = null;
         try {
-            log.trace("Ejecutando:  " + query);
+            log.trace("Object: {}", "Ejecutando:  " + query);
             psFuelling = conn.prepareStatement(query.toString());
             psFuelling.setInt(1, account);
             psFuelling.setInt(2, month);

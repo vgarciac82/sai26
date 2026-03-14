@@ -25,7 +25,7 @@ public class JDBCFuelingJustificationRepository implements FuelingJustificationR
 
     @Override
     public FuelingJustification saveFuelingJustification(Connection conn, FuelingJustification fuelingJustification) throws SicoveException {
-        log.info("Saving: " + fuelingJustification);
+        log.info("Object: {}", "Saving: " + fuelingJustification);
         StringBuilder insertJustificationSql = new StringBuilder("INSERT INTO justification (is_justification, id_commision, justification_text, initial_date, end_date, country_id, state_name, municipality_name)");
         insertJustificationSql.append(" VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         if (fuelingJustification.getJustificationId() > 0)
@@ -57,7 +57,7 @@ public class JDBCFuelingJustificationRepository implements FuelingJustificationR
         FuelingJustification fuelingJustification;
         try {
             fuelingJustification = runner.query(conn, query.toString(), fuelingJustificationRepositoryHandler, id);
-            log.debug("Se encontro: " + fuelingJustification);
+            log.debug("Object: {}", "Se encontro: " + fuelingJustification);
             return fuelingJustification;
         } catch (SQLException e) {
             throw new SicoveException(e);
@@ -66,7 +66,7 @@ public class JDBCFuelingJustificationRepository implements FuelingJustificationR
 
     @Override
     public FuelingJustification updateFuelingJustification(Connection conn, FuelingJustification fuelingJustification) throws SicoveException {
-        log.info("Updating: " + fuelingJustification);
+        log.info("Object: {}", "Updating: " + fuelingJustification);
         StringBuilder query = new StringBuilder();
         query.append("UPDATE	justification ");
         query.append("   SET	is_justification = ? ");

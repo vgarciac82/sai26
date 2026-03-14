@@ -68,7 +68,7 @@ public class CargaPolizaManualBusinessLogic extends DataSourceManager {
                 try {
                     stream.close();
                 } catch (Exception e2) {
-                    log.warn("No se pudo cerrar el archivo de carga." + e2);
+                    log.warn("Object: {}", "No se pudo cerrar el archivo de carga." + e2);
                 }
             stream = null;
         }
@@ -106,9 +106,9 @@ public class CargaPolizaManualBusinessLogic extends DataSourceManager {
                 } else {
                     tipoCelda = 1;
                 }
-                log.info("valores del renglon: " + renglon + "  Tipo de celda en subcuenta: " + CellcSubCuenta + "  Cuenta: " + CellnCuenta + "  SubCuenta: " + CellcSubCuenta + "  Cargo: " + CellnCargo.getNumericCellValue() + "  Abono :" + CellnAbono.getNumericCellValue());
+                log.info("Object: {}", "valores del renglon: " + renglon + "  Tipo de celda en subcuenta: " + CellcSubCuenta + "  Cuenta: " + CellnCuenta + "  SubCuenta: " + CellcSubCuenta + "  Cargo: " + CellnCargo.getNumericCellValue() + "  Abono :" + CellnAbono.getNumericCellValue());
                 if (CellnCuenta != null) {
-                    log.debug("Procesando renglon " + (renglon));
+                    log.debug("Object: {}", "Procesando renglon " + (renglon));
                     try {
                         String nCuenta = CellnCuenta.getStringCellValue();
                         String cSubCuenta = " ";
@@ -149,7 +149,7 @@ public class CargaPolizaManualBusinessLogic extends DataSourceManager {
                         renglonMap.put("nAbono", nAbono);
                         renglonMap.put("cCentroContable", CentroContable);
                         renglonMap.put("nFolioDocumento", FolioDocumento);
-                        log.debug("nCuenta[" + nCuenta + "] cSubCuenta[" + cSubCuenta + "] nCargo[" + nCargo + "] nAbono[" + nAbono + "]  cCentroContable[" + CentroContable + "]  FolioDocumento[" + FolioDocumento + "]");
+                        log.debug("Object: {}", "nCuenta[" + nCuenta + "] cSubCuenta[" + cSubCuenta + "] nCargo[" + nCargo + "] nAbono[" + nAbono + "]  cCentroContable[" + CentroContable + "]  FolioDocumento[" + FolioDocumento + "]");
                         //SE MANDA A VALIDAR EL VALOR DE LA SUBCUENTA PARA SEGUIR INSERTANDO REGISTRO O EN SU CASO HACER EL ROLLBACK
                         Reg = CargaPolizaManualManager.validaRenglon(conn, nCuenta, cSubCuenta, renglon);
                         if (Reg == "ok") {
@@ -160,14 +160,14 @@ public class CargaPolizaManualBusinessLogic extends DataSourceManager {
                             //UN error
                             //errores.add("Error en renglon [" + renglon + "]  "+Reg );
                             errores.add(Reg);
-                            log.info(Reg);
+                            log.info("Object: {}", Reg);
                             renglonInsertada = false;
                         }
                     } catch (Exception e) {
                         renglonInsertada = false;
                         //errores.add("Error en renglon [" + renglon + "] " + e.toString());
                         errores.add(e.toString());
-                        log.info("Error en renglon  [" + renglon + "] " + e.toString());
+                        log.info("Error occurred", "Error en renglon  [" + renglon + "] " + e.toString());
                     }
                 }
             }
@@ -188,7 +188,7 @@ public class CargaPolizaManualBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("No se pudo realizar rollback en conexion" + e2);
+                    log.warn("Object: {}", "No se pudo realizar rollback en conexion" + e2);
                 }
             throw e;
         } finally {
@@ -274,7 +274,7 @@ public class CargaPolizaManualBusinessLogic extends DataSourceManager {
         int renglon = 0;
         String sql = "select nCuenta,case when nSubCuenta='x'then ' ' else nSubCuenta end nSubCuenta ,cCentroContable,nFolioDocumento," + " case when nCargo!=0 AND nAbono=0 then 'CARGO'" + " when nAbono!=0 and nCargo=0 then 'ABONO'" + " END evento," + " case when nCargo!=0 AND nAbono=0 then nCargo" + " when nAbono!=0 and nCargo=0 then nAbono" + " END importe" + " from tCargaPololizaPorLayout where nFolioDocumento=" + FolioDocPoliza + " and cCentroContable='" + CentroContable + "'";
         try {
-            log.info("Ejectua query: " + sql);
+            log.info("Object: {}", "Ejectua query: " + sql);
             pstmnt = conn.prepareStatement(sql);
             rs = pstmnt.executeQuery();
             while (rs.next()) {

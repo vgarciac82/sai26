@@ -50,7 +50,7 @@ public class ReportePAOP extends DataSourceManager {
             conn.commit();
             json.put("status", "correcto");
         } catch (Exception e) {
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
             conn.rollback();
         } finally {
             try {

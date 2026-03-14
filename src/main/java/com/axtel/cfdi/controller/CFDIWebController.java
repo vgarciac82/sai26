@@ -5,14 +5,13 @@ import java.io.IOException;
 import java.util.Date;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.apache.log4j.LogManager;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import com.axtel.cfdi.CFDI;
 import com.axtel.cfdi.CFDIEncabezado;
 import com.axtel.cfdi.service.CFDIService;
@@ -28,7 +27,7 @@ import org.slf4j.LoggerFactory;
 @WebServlet("/CFDIManagment")
 public class CFDIWebController extends HttpServlet {
 
-    private static final Logger log = LogManager.getLogger(CFDIWebController.class);
+    private static final Logger log = LoggerFactory.getLogger(CFDIWebController.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -74,7 +73,7 @@ public class CFDIWebController extends HttpServlet {
             }
             CFDI cfdi = cfdiService.getCFDI(idInvoice);
             if (cfdi == null) {
-                log.warn("CFDI no encontrado para idInvoice: " + idInvoice + ". Enviando status 404.");
+                log.warn("Object: {}", "CFDI no encontrado para idInvoice: " + idInvoice + ". Enviando status 404.");
                 // 404
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return;
@@ -83,7 +82,7 @@ public class CFDIWebController extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             String jsonResponse = gson.toJson(cfdi);
             response.getWriter().write(jsonResponse);
-            log.info("CFDI obtenido y enviado correctamente para idInvoice: " + idInvoice);
+            log.info("Object: {}", "CFDI obtenido y enviado correctamente para idInvoice: " + idInvoice);
         } catch (Exception e) {
             log.error("Error inesperado en doGet", e);
             // 500
@@ -96,17 +95,17 @@ public class CFDIWebController extends HttpServlet {
         log.trace("Inicio de procesamiento de CFDI en método POST.");
         try {
             String json = ControllerUtils.readJsonFromRequest(request);
-            log.debug("JSON recibido: " + json);
+            log.debug("Object: {}", "JSON recibido: " + json);
             CFDI cfdi = gson.fromJson(json, CFDI.class);
-            log.info("Objeto CFDI deserializado: " + cfdi);
+            log.info("Object: {}", "Objeto CFDI deserializado: " + cfdi);
             log.info("Insertando encabezado del CFDI.");
             CFDIEncabezado cfdiHeader = cfdiService.insertCFDIHeader(cfdi.getEncabezado());
             cfdi.setEncabezado(cfdiHeader);
-            log.info("Encabezado del CFDI insertado correctamente con ID: " + cfdiHeader.getCfdiId());
+            log.info("Object: {}", "Encabezado del CFDI insertado correctamente con ID: " + cfdiHeader.getCfdiId());
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             String jsonResponse = gson.toJson(cfdi);
-            log.debug("Respuesta JSON generada: " + jsonResponse);
+            log.debug("Object: {}", "Respuesta JSON generada: " + jsonResponse);
             response.getWriter().write(jsonResponse);
             log.info("CFDI procesado y respuesta enviada correctamente.");
         } catch (Exception e) {
@@ -121,16 +120,16 @@ public class CFDIWebController extends HttpServlet {
         log.info("Inicio de actualización de CFDI en método PUT.");
         try {
             String json = ControllerUtils.readJsonFromRequest(request);
-            log.debug("JSON recibido: " + json);
+            log.debug("Object: {}", "JSON recibido: " + json);
             CFDI cfdi = gson.fromJson(json, CFDI.class);
-            log.info("Objeto CFDI deserializado: " + cfdi);
+            log.info("Object: {}", "Objeto CFDI deserializado: " + cfdi);
             log.info("Actualizando CFDI en base de datos.");
             cfdi = cfdiService.updateCFDI(cfdi);
-            log.info("CFDI actualizado correctamente con ID: " + cfdi.getEncabezado().getCfdiId());
+            log.info("Object: {}", "CFDI actualizado correctamente con ID: " + cfdi.getEncabezado().getCfdiId());
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             String jsonResponse = gson.toJson(cfdi);
-            log.debug("Respuesta JSON generada: " + jsonResponse);
+            log.debug("Object: {}", "Respuesta JSON generada: " + jsonResponse);
             response.getWriter().write(jsonResponse);
             log.info("CFDI actualizado y respuesta enviada correctamente.");
         } catch (Exception e) {
@@ -148,13 +147,13 @@ public class CFDIWebController extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula, usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula, usando default \"" + jniName + "\"");
             } else {
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
             }
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida, usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida, usando default \"" + jniName + "\"");
         }
         GsonBuilder gbuilder = new GsonBuilder();
         gbuilder.registerTypeAdapter(Date.class, new DateDeserializer());

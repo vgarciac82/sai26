@@ -24,7 +24,7 @@ public class ReporteIngresosManager {
     private static final Logger log = LoggerFactory.getLogger(ReporteIngresosManager.class);
 
     public static String ReporteIngresos(Connection conn, String fechaInicio, String fechaFin, String cClave, String columnas, String SNP, String INGM, Map<String, String> plantillas) throws Exception {
-        log.info(String.format("Iniciando reporte de Ingresos"));
+        log.info("Object: {}", String.format("Iniciando reporte de Ingresos"));
         long startQueries = System.currentTimeMillis();
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -220,7 +220,7 @@ public class ReporteIngresosManager {
                         query.append(GB);
                     }
                 }
-                log.trace("Select[" + query + "]");
+                log.trace("Object: {}", "Select[" + query + "]");
                 ps = conn.prepareStatement(query.toString());
             } else {
                 query.append("SELECT Folio AS \"FOLIO INGRESO\"");
@@ -341,12 +341,12 @@ public class ReporteIngresosManager {
                         query.append(GB);
                     }
                 }
-                log.trace("Select[" + query + "]");
+                log.trace("Object: {}", "Select[" + query + "]");
                 ps = conn.prepareStatement(query.toString());
             }
             rs = ps.executeQuery();
             long stopQueries = System.currentTimeMillis();
-            log.info(String.format("Ejecucion de consultas terminado en [%2d] segundos", (stopQueries - startQueries) / 1000));
+            log.info("Object: {}", String.format("Ejecucion de consultas terminado en [%2d] segundos", (stopQueries - startQueries) / 1000));
             fileName = generaReporteIngresos(rs, plantillas.get("INGRESOS"), fechaInicio, fechaFin);
             return fileName;
         } finally {

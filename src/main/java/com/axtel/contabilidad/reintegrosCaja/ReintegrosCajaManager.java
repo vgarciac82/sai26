@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.DateConverter;
@@ -248,7 +248,7 @@ public class ReintegrosCajaManager {
             pstmnt.setString(19, encabezado.getcIdUsuarioCaptura());
             pstmnt.setInt(20, encabezado.getID_CASO());
             pstmnt.setDouble(21, encabezado.getmMontoSolicitud());
-            log.debug(insertQuery);
+            log.debug("Object: {}", insertQuery);
             pstmnt.execute();
         } catch (Exception e) {
             throw e;
@@ -277,7 +277,7 @@ public class ReintegrosCajaManager {
             pstmnt.setString(13, detalle.getFFM());
             pstmnt.setString(14, detalle.getcCentroContable());
             pstmnt.setString(15, detalle.getcUnidadResponsable());
-            log.debug(insertQuery);
+            log.debug("Object: {}", insertQuery);
             pstmnt.execute();
         } catch (Exception e) {
             throw e;
@@ -302,7 +302,7 @@ public class ReintegrosCajaManager {
             pstmnt.setString(4, tipoPoliza);
             pstmnt.setString(5, login);
             pstmnt.setInt(6, nFolioReinegroCaja);
-            log.debug(insertQuery);
+            log.debug("Object: {}", insertQuery);
             pstmnt.execute();
         } catch (Exception e) {
             throw e;
@@ -319,7 +319,7 @@ public class ReintegrosCajaManager {
             insertQuery = "INSERT INTO tReintegroCajaAutDetalle ( nFolioReintegroCajaAut, nDocRenglon, cEvento, mImporte, mImporteNegativo, ALM, CTAB, OBGT, RFC, EP, nCuentaBeneficiario, FFM, cCentroContable, cUnidadResponsable )\r\n" + " SELECT nFolioReintegroCaja, nDocRenglon, cEventoDestino, mImporte, mImporteNegativo, ALM, CTAB, OBGT, RFC, EP, nCuentaBeneficiario, FFM, cCentroContable, cUnidadResponsable \r\n" + " FROM tReintegroCajaDetalle WITH(NOLOCK)\r\n" + " WHERE nFolioReintegroCaja = ? ";
             pstmnt = conn.prepareStatement(insertQuery);
             pstmnt.setInt(1, nFolioReinegroCaja);
-            log.debug(insertQuery);
+            log.debug("Object: {}", insertQuery);
             pstmnt.execute();
         } catch (Exception e) {
             throw e;
@@ -419,7 +419,7 @@ public class ReintegrosCajaManager {
         PreparedStatement ps = null;
         String fcancelacion = "";
         String query = "SELECT fCancelacion FROM " + Encabezado + " WITH(NOLOCK) WHERE " + Folio + " = ?";
-        log.trace("Select[" + query + "]");
+        log.trace("Object: {}", "Select[" + query + "]");
         try {
             ps = conn.prepareStatement(query);
             ps.setInt(1, Integer.parseInt(nFolioReintegroCaja));

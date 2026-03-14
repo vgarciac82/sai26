@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import org.apache.log4j.LogManager;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -46,7 +45,7 @@ import org.slf4j.LoggerFactory;
 
 public class ConvenioColaboracionBussinessLogic extends DataSourceManager {
 
-    private static final Logger log = LogManager.getLogger(ConvenioColaboracionBussinessLogic.class);
+    private static final Logger log = LoggerFactory.getLogger(ConvenioColaboracionBussinessLogic.class);
 
     /**
      * Instancia un nuevo encabezado del convenio de colaboracion obteniendo los
@@ -118,9 +117,9 @@ public class ConvenioColaboracionBussinessLogic extends DataSourceManager {
     public static ConvenioColaboracion instanceFromRequest(HttpServletRequest req, int folio, Usuario u) throws ParseException {
         ConvenioColaboracionEncabezado cce = instaceHeader(req, u);
         cce.setFolioConvenioColaboracion(folio);
-        log.trace("Leido: " + cce);
+        log.trace("Object: {}", "Leido: " + cce);
         List<ConvenioColaboracionDetalle> detalle = instanceDetail(req, folio);
-        log.trace("Leido: " + detalle);
+        log.trace("Object: {}", "Leido: " + detalle);
         ConvenioColaboracion cc = new ConvenioColaboracion(cce, detalle);
         return cc;
     }
@@ -160,7 +159,7 @@ public class ConvenioColaboracionBussinessLogic extends DataSourceManager {
                 insertados += insertaPrecompromisoFinanciero(conn, convenio, folioCompromiso);
                 ae.makeAccountingApplication(conn, "PRECOMFINANCIERO", String.valueOf(folioCompromiso), "tPrecomFinancieroEncabezado", "tPrecomFinancieroDetalle", "nFolioPrecomFinanciero");
             }
-            log.info("Se insertaron: " + insertados + " registros");
+            log.info("Object: {}", "Se insertaron: " + insertados + " registros");
             return convenios;
         } catch (SQLException e) {
             throw new LayoutConvenioColaboracionException("Error de base de datos al registrar convenios: " + e.toString(), e);
@@ -195,7 +194,7 @@ public class ConvenioColaboracionBussinessLogic extends DataSourceManager {
     private int insertaCompromiso(Connection conn, Usuario u, FolioGeneratorInterface fg, ConvenioColaboracion convenio) throws NumberFormatException, Exception {
         log.trace("Generando caso");
         Caso c = CompromisoManager.generaCasoCompromiso(conn, u, fg, "VENTANILLA_COMPROMISO");
-        log.debug("Caso generado: " + c);
+        log.debug("Object: {}", "Caso generado: " + c);
         log.trace("Generando compromiso");
         CompromisoEncabezado compromisoEncabezado = CompromisoEncabezado.instanceFrom(conn, convenio);
         List<CompromisoDetalle> compromisoDetalle = CompromisoDetalle.instanceFrom(conn, convenio);
@@ -203,9 +202,9 @@ public class ConvenioColaboracionBussinessLogic extends DataSourceManager {
         compromiso.setEncabezado(compromisoEncabezado);
         compromiso.setDetalle(compromisoDetalle);
         compromiso.setFolioCompromiso(Util.folio(c));
-        log.debug("Compromiso generado: " + compromiso);
+        log.debug("Object: {}", "Compromiso generado: " + compromiso);
         int registros = CompromisoManager.insertaCompromiso(conn, compromiso);
-        log.trace("Se afectaron: " + registros + " al insertar compromiso.");
+        log.trace("Object: {}", "Se afectaron: " + registros + " al insertar compromiso.");
         return Util.folio(c);
     }
 
@@ -253,7 +252,7 @@ public class ConvenioColaboracionBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.error(e2);
+                    log.error(e2.getMessage(), e2);
                 }
             throw new ContratoException(e);
         }

@@ -118,10 +118,24 @@ public class ReporteBussinesLogic extends DataSourceManager {
 	 * ,103) AS HOY FROM IMXEXPEDIENTES imx INNER JOIN cg_bitacora_caso bc ON
 	 * imx.folio = bc.folio WHERE imx.folio = ''
 	 */
-    public StringBuffer ReporteGeneral_(String registroFechaIni, String registroFechaFin, String rem_idarea, String rem_area, String rem_id, String rem_nombre, String rem_tipoInstruccion, String rem_estatus, String rem_prioridad, String res_idarea, String res_area, String res_id, String res_nombre, // Esteban Badillo. Fecha: 11/Sep/2009.
-    // Descripcion: Se agrega un campo que condiciona la proyeccion de
-    // los campos "Recibidos de" / "Enviados a" del Reporte General.
-    String orden) {
+    public // Esteban Badillo. Fecha: 11/Sep/2009.
+    // Esteban Badillo. Fecha: 11/Sep/2009.
+    // Esteban Badillo. Fecha: 11/Sep/2009.
+    StringBuffer // Esteban Badillo. Fecha: 11/Sep/2009.
+    ReporteGeneral_(// Esteban Badillo. Fecha: 11/Sep/2009.
+    String registroFechaIni, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String registroFechaFin, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String rem_idarea, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String rem_area, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String rem_id, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String rem_nombre, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String rem_tipoInstruccion, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String rem_estatus, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String rem_prioridad, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String res_idarea, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String res_area, // Descripcion: Se agrega un campo que condiciona la proyeccion de
+    String res_id, // los campos "Recibidos de" / "Enviados a" del Reporte General.
+    String res_nombre, String orden) {
         Connection conn = null;
         StringBuffer sb = new StringBuffer();
         ResultSet rs = null;
@@ -212,9 +226,9 @@ public class ReporteBussinesLogic extends DataSourceManager {
                 where += " AND CONVERT(DATETIME, imx.DPC_F_REGISTRO, 103) BETWEEN CONVERT(DATETIME, '" + registroFechaIni + "', 103) AND CONVERT(DATETIME, '" + registroFechaFin + "', 103) ";
                 whereSubQuery += " AND CONVERT(DATETIME, maxIMX.DPC_F_REGISTRO, 103) BETWEEN CONVERT(DATETIME, '" + registroFechaIni + "', 103) AND CONVERT(DATETIME, '" + registroFechaFin + "', 103) ";
             }
-            sql = "SELECT * FROM (  " + "\rSELECT " + "\r		bo.FOLIO AS FOLIO, " + "\r		imx.REFERENCIA, " + "\r		ca1.D_DESCRIPCION AS DESC_AREA_REM, " + "\r		bo.REMITENTE_AREA, " + "\r		ce1.CE_AP_PATERNO + ' ' + ce1.CE_AP_MATERNO + ' ' + ce1.CE_NOMBRE_COMPLETO AS NOMBRE_REM, " + "\r		cerrado = CASE WHEN bo.TERMINADA = 'S' THEN  " + "\r					isNull( (select distinct " + "\r								CASE " + "\r			  						WHEN cosq.user03 ='' THEN 'NO VENCIDO' " + "\r			  						WHEN cosq.user03 =' 23:59:59' THEN 'NO VENCIDO'    " + "\r			  						WHEN cosq.user03 > GETDATE() THEN 'NO VENCIDO' " + "\r			  						WHEN cosq.user03 < GETDATE() THEN 'VENCIDO' " + "\r			  					END   " + "\r							from cg_caso_operacion cosq, cg_bitacora_operacion bosq  " + "\r							where  " + "\r								cosq.id_caso_oper = bosq.SECUENCIAL_OPERACION and " + "\r								cosq.id_caso = bosq.id_caso  " + "\r								and bosq.folio = bo.folio " + "\r								and bosq.responsable_id = bo.remitente_id   " + "\r								and bosq.remitente_id = bo.remitente_id   " + "\r								and bosq.terminada = 'N'),'CONCLUIDO')  " + "\r				ELSE " + "\r			  		CASE " + "\r			  			WHEN co.user03 ='' THEN 'NO VENCIDO' " + "\r			  			WHEN co.user03 =' 23:59:59' THEN 'NO VENCIDO'     " + "\r			  			WHEN co.user03 > GETDATE() THEN 'NO VENCIDO' " + "\r			  			WHEN co.user03 < GETDATE() THEN 'VENCIDO' " + "\r			  		END   " + "\r				END, " + "\r			isNull(CASE            " + "\r				WHEN co.USER01 LIKE '%Procedente%' THEN CO.USER01  " + "\r				WHEN co.USER01 LIKE '%Grupal%' THEN CO.USER01  " + "\r				WHEN co.USER01 LIKE '%Coordinada%' THEN CO.USER01 " + "\r				WHEN bo.id_operacion = 7 and co.USER01 LIKE '%Conocimiento%' THEN CO.USER01   " + "\r				WHEN bo.id_operacion = 7 and co.USER01 NOT LIKE '%Conocimiento%' THEN 'COPIA'   " + "\r				ELSE " + "\r					(  " + "\r					select user01 " + "\r					from cg_caso_operacion cosq WITH(NOLOCK), cg_bitacora_operacion bosq WITH(NOLOCK) " + "\r					where cosq.id_caso_oper = bosq.SECUENCIAL_OPERACION  " + "\r						and cosq.id_caso = bosq.id_caso  " + "\r						and bosq.folio = bo.folio " + "\r						and cosq.id_caso_oper IN  " + "\r						( " + "\r						   SELECT MAX(cossq.id_caso_oper) FROM cg_caso_operacion cossq WITH(NOLOCK) " + "\r						   WHERE cossq.id_caso = bosq.id_caso " + "\r								and cossq.id_caso_oper < bo.SECUENCIAL_OPERACION " + "\r								and isnull(cossq.user01,'') <> ''  " + "\r						) " + "\r					) " + "\r				END , 'Registro') AS TIPO_INSTRUCCION,  " + "\r			  CASE WHEN imx.prioridad = 'N' THEN 'NORMAL' ELSE 'URGENTE' END as prioridad, " + "\r			  co.CO_OBSERVACION AS ASUNTO,				 " + "\r			  CASE WHEN bo.id_operacion <> 3 THEN ce2.CE_AP_PATERNO + ' ' + ce2.CE_AP_MATERNO + ' ' + ce2.CE_NOMBRE_COMPLETO ELSE " + "\r			  (select ce22.CE_AP_PATERNO + ' ' + ce22.CE_AP_MATERNO + ' ' + ce22.CE_NOMBRE_COMPLETO " + "\r			   from dbo.CG_BITACORA_OPERACION AS bo2 WITH(NOLOCK), dbo.CG_CAT_EMPLEADO AS ce22 WITH(NOLOCK) " + "\r			   where  bo.id_caso = bo2.id_caso  " + "\r					and bo.secuencial_operacion+1 = bo2.secuencial_operacion  " + "\r					and ce22.CE_OS_RESPONSABLE = bo2.RESPONSABLE_ID ) " + "\r			   END as nombre_resp,	 " + "\r			  CASE WHEN bo.id_operacion <> 3 THEN ca2.D_DESCRIPCION ELSE " + "\r			  ( select cat_area.d_descripcion FROM CG_CAT_AREAS cat_area where  bo.responsable_area = cat_area.id_area ) " + "\r			   END as desc_area_resp,	 " + "\r	       CONVERT(varchar,bo.fecha_inicio,103) AS FECHAREGISTRO, " + // +"\r	       co.USER03 AS FECHALIMITE,  "
-            "\r           CONVERT(VARCHAR, CASE " + "\r			  WHEN co.user03 NOT LIKE '%__/__/____%' OR co.USER03 IS NULL THEN " + "\r				 CONVERT(VARCHAR, dbo.FnRptGenResFechaLimite(bo.ID_CASO, bo.SECUENCIAL_OPERACION), 103) " + "\r			  ELSE co.user03 " + "\r		   END, 103) AS FECHALIMITE, " + "\r           CONVERT(VARCHAR,CASE " + "\r              WHEN bo.id_operacion = 2 THEN bo.FECHA_INICIO " + "\r              ELSE dbo.FnRptGenResFechaEnvio(bo.ID_CASO, bo.SECUENCIAL_OPERACION) " + "\r           END, 103) AS fechaenvio " + // +"\r	       case when bo.id_operacion = 2 then CONVERT(varchar,bo.FECHA_INICIO,103) else null end as fechaenvio "
-            "\r 	 FROM  " + "\r	       dbo.CG_CASO_OPERACION AS co WITH(NOLOCK) LEFT OUTER JOIN " + "\r	       dbo.CG_BITACORA_OPERACION AS bo WITH(NOLOCK) ON bo.ID_CASO = co.ID_CASO AND bo.SECUENCIAL_OPERACION = co.ID_CASO_OPER INNER JOIN " + "\r	       dbo.CG_CASO AS c WITH(NOLOCK) ON c.ID_CASO = co.ID_CASO LEFT OUTER JOIN " + "\r	       dbo.IMXEXPEDIENTES AS imx WITH(NOLOCK) ON imx.ID_GABINETE = c.C_ID_GABINETE INNER JOIN " + "\r	       dbo.CG_CAT_EMPLEADO AS ce2 WITH(NOLOCK)ON ce2.CE_OS_RESPONSABLE = co.CO_RESPONSABLE INNER JOIN " + "\r	       dbo.CG_CAT_AREAS AS ca2 WITH(NOLOCK) ON ce2.ID_AREA = ca2.ID_AREA INNER JOIN " + "\r	       dbo.CAT_PUESTOS AS cp2 WITH(NOLOCK) ON ce2.ID_PUESTO = cp2.ID_PUESTO INNER JOIN " + "\r	       dbo.CG_CAT_EMPLEADO AS ce1 WITH(NOLOCK) ON ce1.CE_OS_RESPONSABLE = bo.REMITENTE_ID INNER JOIN " + "\r	       dbo.CG_CAT_AREAS AS ca1 WITH(NOLOCK) ON ce1.ID_AREA = ca1.ID_AREA " + "\r	 WHERE (c.C_FOLIO NOT LIKE 'TMP-%')  " + "\r	       AND bo.id_operacion IN (2,3,7,10,9,11)   " + where + "\r	       AND bo.SECUENCIAL_OPERACION IN ( " + "\r	               SELECT MAX(maxSO.secuencial_operacion) " + "\r	               FROM CG_BITACORA_OPERACION maxSO WITH(NOLOCK) INNER JOIN " + "\r	                dbo.IMXEXPEDIENTES AS maxIMX WITH(NOLOCK) ON maxIMX.ID_GABINETE = maxSO.ID_GABINETE " + "\r	               WHERE maxSO.folio = c.C_FOLIO " + whereSubQuery + "\r	 ) " + "\r	) T WHERE T.TIPO_INSTRUCCION NOT IN ('COPIA')  " + where_2 + "\r	ORDER BY T.FOLIO  ";
+            // +"\r	       co.USER03 AS FECHALIMITE,  "
+            // +"\r	       case when bo.id_operacion = 2 then CONVERT(varchar,bo.FECHA_INICIO,103) else null end as fechaenvio "
+            sql = "SELECT * FROM (  " + "\rSELECT " + "\r		bo.FOLIO AS FOLIO, " + "\r		imx.REFERENCIA, " + "\r		ca1.D_DESCRIPCION AS DESC_AREA_REM, " + "\r		bo.REMITENTE_AREA, " + "\r		ce1.CE_AP_PATERNO + ' ' + ce1.CE_AP_MATERNO + ' ' + ce1.CE_NOMBRE_COMPLETO AS NOMBRE_REM, " + "\r		cerrado = CASE WHEN bo.TERMINADA = 'S' THEN  " + "\r					isNull( (select distinct " + "\r								CASE " + "\r			  						WHEN cosq.user03 ='' THEN 'NO VENCIDO' " + "\r			  						WHEN cosq.user03 =' 23:59:59' THEN 'NO VENCIDO'    " + "\r			  						WHEN cosq.user03 > GETDATE() THEN 'NO VENCIDO' " + "\r			  						WHEN cosq.user03 < GETDATE() THEN 'VENCIDO' " + "\r			  					END   " + "\r							from cg_caso_operacion cosq, cg_bitacora_operacion bosq  " + "\r							where  " + "\r								cosq.id_caso_oper = bosq.SECUENCIAL_OPERACION and " + "\r								cosq.id_caso = bosq.id_caso  " + "\r								and bosq.folio = bo.folio " + "\r								and bosq.responsable_id = bo.remitente_id   " + "\r								and bosq.remitente_id = bo.remitente_id   " + "\r								and bosq.terminada = 'N'),'CONCLUIDO')  " + "\r				ELSE " + "\r			  		CASE " + "\r			  			WHEN co.user03 ='' THEN 'NO VENCIDO' " + "\r			  			WHEN co.user03 =' 23:59:59' THEN 'NO VENCIDO'     " + "\r			  			WHEN co.user03 > GETDATE() THEN 'NO VENCIDO' " + "\r			  			WHEN co.user03 < GETDATE() THEN 'VENCIDO' " + "\r			  		END   " + "\r				END, " + "\r			isNull(CASE            " + "\r				WHEN co.USER01 LIKE '%Procedente%' THEN CO.USER01  " + "\r				WHEN co.USER01 LIKE '%Grupal%' THEN CO.USER01  " + "\r				WHEN co.USER01 LIKE '%Coordinada%' THEN CO.USER01 " + "\r				WHEN bo.id_operacion = 7 and co.USER01 LIKE '%Conocimiento%' THEN CO.USER01   " + "\r				WHEN bo.id_operacion = 7 and co.USER01 NOT LIKE '%Conocimiento%' THEN 'COPIA'   " + "\r				ELSE " + "\r					(  " + "\r					select user01 " + "\r					from cg_caso_operacion cosq WITH(NOLOCK), cg_bitacora_operacion bosq WITH(NOLOCK) " + "\r					where cosq.id_caso_oper = bosq.SECUENCIAL_OPERACION  " + "\r						and cosq.id_caso = bosq.id_caso  " + "\r						and bosq.folio = bo.folio " + "\r						and cosq.id_caso_oper IN  " + "\r						( " + "\r						   SELECT MAX(cossq.id_caso_oper) FROM cg_caso_operacion cossq WITH(NOLOCK) " + "\r						   WHERE cossq.id_caso = bosq.id_caso " + "\r								and cossq.id_caso_oper < bo.SECUENCIAL_OPERACION " + "\r								and isnull(cossq.user01,'') <> ''  " + "\r						) " + "\r					) " + "\r				END , 'Registro') AS TIPO_INSTRUCCION,  " + "\r			  CASE WHEN imx.prioridad = 'N' THEN 'NORMAL' ELSE 'URGENTE' END as prioridad, " + "\r			  co.CO_OBSERVACION AS ASUNTO,				 " + "\r			  CASE WHEN bo.id_operacion <> 3 THEN ce2.CE_AP_PATERNO + ' ' + ce2.CE_AP_MATERNO + ' ' + ce2.CE_NOMBRE_COMPLETO ELSE " + "\r			  (select ce22.CE_AP_PATERNO + ' ' + ce22.CE_AP_MATERNO + ' ' + ce22.CE_NOMBRE_COMPLETO " + "\r			   from dbo.CG_BITACORA_OPERACION AS bo2 WITH(NOLOCK), dbo.CG_CAT_EMPLEADO AS ce22 WITH(NOLOCK) " + "\r			   where  bo.id_caso = bo2.id_caso  " + "\r					and bo.secuencial_operacion+1 = bo2.secuencial_operacion  " + "\r					and ce22.CE_OS_RESPONSABLE = bo2.RESPONSABLE_ID ) " + "\r			   END as nombre_resp,	 " + "\r			  CASE WHEN bo.id_operacion <> 3 THEN ca2.D_DESCRIPCION ELSE " + "\r			  ( select cat_area.d_descripcion FROM CG_CAT_AREAS cat_area where  bo.responsable_area = cat_area.id_area ) " + "\r			   END as desc_area_resp,	 " + "\r	       CONVERT(varchar,bo.fecha_inicio,103) AS FECHAREGISTRO, " + "\r           CONVERT(VARCHAR, CASE " + "\r			  WHEN co.user03 NOT LIKE '%__/__/____%' OR co.USER03 IS NULL THEN " + "\r				 CONVERT(VARCHAR, dbo.FnRptGenResFechaLimite(bo.ID_CASO, bo.SECUENCIAL_OPERACION), 103) " + "\r			  ELSE co.user03 " + "\r		   END, 103) AS FECHALIMITE, " + "\r           CONVERT(VARCHAR,CASE " + "\r              WHEN bo.id_operacion = 2 THEN bo.FECHA_INICIO " + "\r              ELSE dbo.FnRptGenResFechaEnvio(bo.ID_CASO, bo.SECUENCIAL_OPERACION) " + "\r           END, 103) AS fechaenvio " + "\r 	 FROM  " + "\r	       dbo.CG_CASO_OPERACION AS co WITH(NOLOCK) LEFT OUTER JOIN " + "\r	       dbo.CG_BITACORA_OPERACION AS bo WITH(NOLOCK) ON bo.ID_CASO = co.ID_CASO AND bo.SECUENCIAL_OPERACION = co.ID_CASO_OPER INNER JOIN " + "\r	       dbo.CG_CASO AS c WITH(NOLOCK) ON c.ID_CASO = co.ID_CASO LEFT OUTER JOIN " + "\r	       dbo.IMXEXPEDIENTES AS imx WITH(NOLOCK) ON imx.ID_GABINETE = c.C_ID_GABINETE INNER JOIN " + "\r	       dbo.CG_CAT_EMPLEADO AS ce2 WITH(NOLOCK)ON ce2.CE_OS_RESPONSABLE = co.CO_RESPONSABLE INNER JOIN " + "\r	       dbo.CG_CAT_AREAS AS ca2 WITH(NOLOCK) ON ce2.ID_AREA = ca2.ID_AREA INNER JOIN " + "\r	       dbo.CAT_PUESTOS AS cp2 WITH(NOLOCK) ON ce2.ID_PUESTO = cp2.ID_PUESTO INNER JOIN " + "\r	       dbo.CG_CAT_EMPLEADO AS ce1 WITH(NOLOCK) ON ce1.CE_OS_RESPONSABLE = bo.REMITENTE_ID INNER JOIN " + "\r	       dbo.CG_CAT_AREAS AS ca1 WITH(NOLOCK) ON ce1.ID_AREA = ca1.ID_AREA " + "\r	 WHERE (c.C_FOLIO NOT LIKE 'TMP-%')  " + "\r	       AND bo.id_operacion IN (2,3,7,10,9,11)   " + where + "\r	       AND bo.SECUENCIAL_OPERACION IN ( " + "\r	               SELECT MAX(maxSO.secuencial_operacion) " + "\r	               FROM CG_BITACORA_OPERACION maxSO WITH(NOLOCK) INNER JOIN " + "\r	                dbo.IMXEXPEDIENTES AS maxIMX WITH(NOLOCK) ON maxIMX.ID_GABINETE = maxSO.ID_GABINETE " + "\r	               WHERE maxSO.folio = c.C_FOLIO " + whereSubQuery + "\r	 ) " + "\r	) T WHERE T.TIPO_INSTRUCCION NOT IN ('COPIA')  " + where_2 + "\r	ORDER BY T.FOLIO  ";
             System.out.println("query de los reportes__ =" + sql);
             // ///////////////
             Runtime runtime = Runtime.getRuntime();
@@ -237,10 +251,25 @@ public class ReporteBussinesLogic extends DataSourceManager {
                 int row = 0;
                 for (Iterator<?> iter = gral.iterator(); iter.hasNext(); row++) {
                     General a = (General) iter.next();
-                    tr = RenglonDatoGralHTML(a.getFolio(), a.getReferencia(), a.getArea(), a.getAreaRemitente(), a.getNombreRemitente(), a.getCerrado(), a.getTipoInstruccion(), a.getPrioridad(), a.getAsunto(), a.getResponsableAreaDesc(), a.getResponsableNombre(), a.getFechaRegistro(), a.getFechaEnvio(), a.getFechaLimite(), row, // Esteban Badillo. Fecha: 10/Sep/2009.
-                    // Descripcion: Se agrega un campo condicional para
-                    // la proyección de los campos "Recibidos de" /
-                    // "Enviados a" del Reporte General
+                    // Esteban Badillo. Fecha: 10/Sep/2009.
+                    // Esteban Badillo. Fecha: 10/Sep/2009.
+                    tr = // Esteban Badillo. Fecha: 10/Sep/2009.
+                    RenglonDatoGralHTML(// Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getFolio(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getReferencia(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getArea(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getAreaRemitente(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getNombreRemitente(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getCerrado(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getTipoInstruccion(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getPrioridad(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getAsunto(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getResponsableAreaDesc(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getResponsableNombre(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getFechaRegistro(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getFechaEnvio(), // Descripcion: Se agrega un campo condicional para
+                    a.getFechaLimite(), // la proyección de los campos "Recibidos de" /
+                    row, // "Enviados a" del Reporte General
                     orden);
                     sb.append(tr);
                 }
@@ -277,10 +306,24 @@ public class ReporteBussinesLogic extends DataSourceManager {
     }
 
     /* ************************************************************************ */
-    public String ReporteGeneral(String registroFechaIni, String registroFechaFin, String rem_idarea, String rem_area, String rem_id, String rem_nombre, String rem_tipoInstruccion, String rem_estatus, String rem_prioridad, String res_idarea, String res_area, String res_id, String res_nombre, // Esteban Badillo. Fecha: 11/Sep/2009.
-    // Descripcion: Se agrega un campo que condiciona la proyeccion de
-    // los campos "Recibidos de" / "Enviados a" del Reporte General.
-    String orden) {
+    public // Esteban Badillo. Fecha: 11/Sep/2009.
+    // Esteban Badillo. Fecha: 11/Sep/2009.
+    // Esteban Badillo. Fecha: 11/Sep/2009.
+    String // Esteban Badillo. Fecha: 11/Sep/2009.
+    ReporteGeneral(// Esteban Badillo. Fecha: 11/Sep/2009.
+    String registroFechaIni, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String registroFechaFin, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String rem_idarea, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String rem_area, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String rem_id, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String rem_nombre, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String rem_tipoInstruccion, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String rem_estatus, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String rem_prioridad, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String res_idarea, // Esteban Badillo. Fecha: 11/Sep/2009.
+    String res_area, // Descripcion: Se agrega un campo que condiciona la proyeccion de
+    String res_id, // los campos "Recibidos de" / "Enviados a" del Reporte General.
+    String res_nombre, String orden) {
         Connection conn = null;
         StringBuffer sb = new StringBuffer();
         ResultSet rs = null;
@@ -380,14 +423,14 @@ public class ReporteBussinesLogic extends DataSourceManager {
 			 * whereTipoInstruccion + whereEstatus + wherePrioridad +
 			 * whereResponsableArea;
 			 */
-            sql = "SELECT" + "       vimx.folio," + "       vimx.referencia," + "       vimx.desc_area_rem, " + "		  vimx.remitente_area," + "		  vimx.nombre_rem," + "		  cerrado = " + "       CASE " + "           WHEN vimx.terminada = 'S' THEN 'CONCLUIDOS'" + "           WHEN vimx.terminada = 'N' AND vimx.fecha_compromiso < GETDATE() THEN 'VENCIDOS'" + "           WHEN vimx.terminada = 'N' AND vimx.fecha_compromiso > GETDATE() THEN 'NO VENCIDOS'" + "       END, " + "		  IsNull(vimx.tipo_instruccion, '') as tipo_instruccion," + "		  CASE WHEN vimx.prioridad = 'N' THEN 'NORMAL' ELSE 'URGENTE' END as prioridad ," + "		  vimx.asunto," + "		  vimx.nombre_resp," + "		  vimx.desc_area_resp," + "       vimx.fecharegistro, " + // Esteban Badillo. Fecha: 09/Ago/2009.
+            // Esteban Badillo. Fecha: 09/Ago/2009.
             // Descripcion: Se el campo fechalimite como fecha limite de
-            // Fecha de e al Reporte General.
-            "       vimx.fechalimite, " + "       case " + "          when vimx.id_operacion = 2 then vimx.fecha_inicio " + "          else null end as fechaenvio " + "FROM VIMX_REPORTES vimx " + // Ricardo:
-            "WHERE vimx.ID_OPERACION IN (2,3) " + // Mauricio
-            // indica
-            // que
-            // solo
+            sql = // Fecha de e al Reporte General.
+            "SELECT" + "       vimx.folio," + "       vimx.referencia," + "       vimx.desc_area_rem, " + "		  vimx.remitente_area," + "		  vimx.nombre_rem," + "		  cerrado = " + "       CASE " + "           WHEN vimx.terminada = 'S' THEN 'CONCLUIDOS'" + "           WHEN vimx.terminada = 'N' AND vimx.fecha_compromiso < GETDATE() THEN 'VENCIDOS'" + "           WHEN vimx.terminada = 'N' AND vimx.fecha_compromiso > GETDATE() THEN 'NO VENCIDOS'" + "       END, " + "		  IsNull(vimx.tipo_instruccion, '') as tipo_instruccion," + "		  CASE WHEN vimx.prioridad = 'N' THEN 'NORMAL' ELSE 'URGENTE' END as prioridad ," + "		  vimx.asunto," + "		  vimx.nombre_resp," + "		  vimx.desc_area_resp," + "       vimx.fecharegistro, " + "       vimx.fechalimite, " + "       case " + // Ricardo:
+            "          when vimx.id_operacion = 2 then vimx.fecha_inicio " + // Mauricio
+            "          else null end as fechaenvio " + // indica
+            "FROM VIMX_REPORTES vimx " + // que
+            "WHERE vimx.ID_OPERACION IN (2,3) " + // solo
             // operacion
             // 2
             // y
@@ -419,10 +462,25 @@ public class ReporteBussinesLogic extends DataSourceManager {
 					 * System.out.println("a.getFechaLimite: " +
 					 * a.getFechaLimite());
 					 */
-                    tr = RenglonDatoGralHTML(a.getFolio(), a.getReferencia(), a.getArea(), a.getAreaRemitente(), a.getNombreRemitente(), a.getCerrado(), a.getTipoInstruccion(), a.getPrioridad(), a.getAsunto(), a.getResponsableAreaDesc(), a.getResponsableNombre(), a.getFechaRegistro(), a.getFechaEnvio(), a.getFechaLimite(), row, // Esteban Badillo. Fecha: 10/Sep/2009.
-                    // Descripcion: Se agrega un campo condicional para
-                    // la proyección de los campos "Recibidos de" /
-                    // "Enviados a" del Reporte General
+                    // Esteban Badillo. Fecha: 10/Sep/2009.
+                    // Esteban Badillo. Fecha: 10/Sep/2009.
+                    tr = // Esteban Badillo. Fecha: 10/Sep/2009.
+                    RenglonDatoGralHTML(// Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getFolio(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getReferencia(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getArea(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getAreaRemitente(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getNombreRemitente(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getCerrado(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getTipoInstruccion(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getPrioridad(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getAsunto(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getResponsableAreaDesc(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getResponsableNombre(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getFechaRegistro(), // Esteban Badillo. Fecha: 10/Sep/2009.
+                    a.getFechaEnvio(), // Descripcion: Se agrega un campo condicional para
+                    a.getFechaLimite(), // la proyección de los campos "Recibidos de" /
+                    row, // "Enviados a" del Reporte General
                     orden);
                     // if(row >463)
                     // System.out.println("Tr="+tr);
@@ -502,9 +560,10 @@ public class ReporteBussinesLogic extends DataSourceManager {
         List<?> saldoList = new ArrayList<Object>();
         try {
             conn = getConnection();
-            String sql = "SELECT  s.nClaveCNA,  s.ClaveSIAFF, s.ClaveInterna, s.MontoEnero, s.MontoFebrero, s.MontoMarzo, s.MontoAbril, s.MontoMayo, s.MontoJunio, s.MontoJulio, " + "           s.MontoAgosto, s.MontoSeptiembre, s.MontoOctubre, s.MontoNoviembre, s.MontoDiciembre, s.MontoAnual " + "     FROM  vSaldosAnuales s with(nolock) " + // "           tCatalogoUnidadResponsable u  "+
+            // "           tCatalogoUnidadResponsable u  "+
+            String // "           tCatalogoUnidadResponsable u  "+
             // "    WHERE s.cUnidadEjecutora = u.cUnidadResponsable "+
-            "		WHERE s.aEjercicioFiscal = '" + EjercicioFiscal + "'";
+            sql = "SELECT  s.nClaveCNA,  s.ClaveSIAFF, s.ClaveInterna, s.MontoEnero, s.MontoFebrero, s.MontoMarzo, s.MontoAbril, s.MontoMayo, s.MontoJunio, s.MontoJulio, " + "           s.MontoAgosto, s.MontoSeptiembre, s.MontoOctubre, s.MontoNoviembre, s.MontoDiciembre, s.MontoAnual " + "     FROM  vSaldosAnuales s with(nolock) " + "		WHERE s.aEjercicioFiscal = '" + EjercicioFiscal + "'";
             sql += (Cuenta != "" && Cuenta != null ? "AND s.nCuentaP = '" + Cuenta + "'" : "");
             // tenia
             sql += (ep != "" && ep != null ? "AND s.ClaveSIAFF = '" + ep + "'" : "");
@@ -642,18 +701,18 @@ public class ReporteBussinesLogic extends DataSourceManager {
         unidadResp = ReporteManager.obtieneUR(conn, Usuario);
         role = ReporteManager.obtieneRole(conn, Usuario);
         int grupoJefatura = ReporteManager.obtieneGrupo(conn, Usuario);
-        log.info("Unidad a la que pertenece el usuaio" + unidadResp);
+        log.info("Object: {}", "Unidad a la que pertenece el usuaio" + unidadResp);
         String Cap = Capitulo;
         if (UnidadEjecutora == "" && role == 0) {
             if (!("A02".equalsIgnoreCase(unidadResp)) && grupoJefatura == 0) {
                 UnidadEjecutora = ReporteManager.obtieneVistas(conn, Usuario, modulo);
-                log.info("Unidades a las que tiene vista" + UnidadEjecutora);
+                log.info("Object: {}", "Unidades a las que tiene vista" + UnidadEjecutora);
             }
         }
         List<?> saldoList = new ArrayList<Object>();
         try {
             long tInicioCond = System.currentTimeMillis();
-            log.info("Ejecutando multireporte: Generando condiciones: Inicio[ " + (new Date()).toString() + "]");
+            log.info("Object: {}", "Ejecutando multireporte: Generando condiciones: Inicio[ " + (new Date()).toString() + "]");
             String sql = "";
             // sql+=(Cuenta !=""&&Cuenta
             // !=null?" AND s.nCuentaP = '"+Cuenta+"'":"");
@@ -679,21 +738,21 @@ public class ReporteBussinesLogic extends DataSourceManager {
             sql += (ClaveCNA != "" && ClaveCNA != null ? " AND nClaveCNA='" + ClaveCNA + "'" : "");
             sql += (Capitulo != "" && Capitulo != null ? " AND SUBSTRING(cPartida_10,1,1)='" + Capitulo + "'" : "");
             long tFinCond = System.currentTimeMillis();
-            log.info("Ejecutando multireporte: Termino de generar condiciones: Fin[ " + (new Date()).toString() + "]");
-            log.info("Ejecutando multireporte: Se genero la condicion en :[ " + (tFinCond - tInicioCond) + "ms] equivalente a [" + (tFinCond - tInicioCond) / 1000 + "s.]");
+            log.info("Object: {}", "Ejecutando multireporte: Termino de generar condiciones: Fin[ " + (new Date()).toString() + "]");
+            log.info("Object: {}", "Ejecutando multireporte: Se genero la condicion en :[ " + (tFinCond - tInicioCond) + "ms] equivalente a [" + (tFinCond - tInicioCond) / 1000 + "s.]");
             long tInicioEjec = System.currentTimeMillis();
-            log.info("Ejecutando multireporte: Inicio de llamado al SP: Inicio[ " + (new Date()).toString() + "]");
-            log.info("Capitulo: " + Cap);
-            log.debug("EXECUTE sp_pMultiReporte_syc '" + sql.replace("'", "''") + "', '" + Cuenta.replace("'", "''") + "', '" + cOrddeBy.replace("'", "''") + "', '" + cGroupBy.replace("'", "''") + "', '" + InfoRegMes.replace("'", "''") + "', '" + TipoReporte.replace("'", "''") + "', '" + Usuario.replace("'", "''") + "', @Salida OUTPUT; ");
+            log.info("Object: {}", "Ejecutando multireporte: Inicio de llamado al SP: Inicio[ " + (new Date()).toString() + "]");
+            log.info("Object: {}", "Capitulo: " + Cap);
+            log.debug("Object: {}", "EXECUTE sp_pMultiReporte_syc '" + sql.replace("'", "''") + "', '" + Cuenta.replace("'", "''") + "', '" + cOrddeBy.replace("'", "''") + "', '" + cGroupBy.replace("'", "''") + "', '" + InfoRegMes.replace("'", "''") + "', '" + TipoReporte.replace("'", "''") + "', '" + Usuario.replace("'", "''") + "', @Salida OUTPUT; ");
             saldoList = ReporteManager.callMultiReporte(conn, sql, Cuenta, cOrddeBy, cGroupBy, InfoRegMes, TipoReporte, Usuario, nCtasPresup, dCtasPresup, tipoEP);
             long tFinEjec = System.currentTimeMillis();
-            log.info("Ejecutando multireporte: Termino de ejecutarSP: Fin[ " + (new Date()).toString() + "]");
-            log.info("Ejecutando multireporte: Se ejecuto el multireporte en :[ " + (tFinEjec - tInicioEjec) + "ms] equivalente a [" + (tFinEjec - tInicioEjec) / 1000 + "s.]");
+            log.info("Object: {}", "Ejecutando multireporte: Termino de ejecutarSP: Fin[ " + (new Date()).toString() + "]");
+            log.info("Object: {}", "Ejecutando multireporte: Se ejecuto el multireporte en :[ " + (tFinEjec - tInicioEjec) + "ms] equivalente a [" + (tFinEjec - tInicioEjec) / 1000 + "s.]");
             log.debug("salida de sp_pMultiReporte_syc ");
             String tr = "";
             int row = 0;
             long tInicioRender = System.currentTimeMillis();
-            log.info("Ejecutando multireporte: Inicio de pintado de resultado: Inicio[ " + (new Date()).toString() + "]");
+            log.info("Object: {}", "Ejecutando multireporte: Inicio de pintado de resultado: Inicio[ " + (new Date()).toString() + "]");
             if (saldoList.isEmpty()) {
                 tr = "<tr class=\"alternateRow\">" + "	<td colspan=\"4\"><i>No hay informaci&oacute;n para mostrar</i></td>" + "</tr>";
                 sb.append(tr);
@@ -839,9 +898,9 @@ public class ReporteBussinesLogic extends DataSourceManager {
                     sb.append(Filtro);
                 }
                 long tFinRender = System.currentTimeMillis();
-                log.info("Ejecutando multireporte: Fin de pintado de resultado: Fin[ " + (new Date()).toString() + "]");
-                log.info("Ejecutando multireporte: Se pintaron los resultados en :[ " + (tFinRender - tInicioRender) + "ms] equivalente a [" + (tFinRender - tInicioRender) / 1000 + "s.]");
-                log.debug("Termina de cargar " + (row--) + " registros para el reporte");
+                log.info("Object: {}", "Ejecutando multireporte: Fin de pintado de resultado: Fin[ " + (new Date()).toString() + "]");
+                log.info("Object: {}", "Ejecutando multireporte: Se pintaron los resultados en :[ " + (tFinRender - tInicioRender) + "ms] equivalente a [" + (tFinRender - tInicioRender) / 1000 + "s.]");
+                log.debug("Object: {}", "Termina de cargar " + (row--) + " registros para el reporte");
             }
         } catch (SQLException exc) {
             try {
@@ -893,7 +952,7 @@ public class ReporteBussinesLogic extends DataSourceManager {
             sql += (UnidadNormativa != "" && UnidadNormativa != null ? " AND cUnidadResponsable_16='" + UnidadNormativa + "'" : "");
             sql += (UnidadEjecutora != "" && UnidadEjecutora != null ? " AND cUnidadResponsable_15='" + UnidadEjecutora + "'" : "");
             sql += (ClaveCNA != "" && ClaveCNA != null ? " AND nClaveCNA='" + ClaveCNA + "'" : "");
-            log.debug("EXECUTE sp_pMultiReporteContable_syc '" + sql.replace("'", "''") + "', '" + Cuenta.replace("'", "''") + "', '" + cOrddeBy.replace("'", "''") + "', '" + cGroupBy.replace("'", "''") + "', '" + InfoRegMes.replace("'", "''") + "', '" + TipoReporte.replace("'", "''") + "', '" + Usuario.replace("'", "''") + "', '" + cCentroContable.replace("'", "''") + "', " + "@Salida OUTPUT; ");
+            log.debug("Object: {}", "EXECUTE sp_pMultiReporteContable_syc '" + sql.replace("'", "''") + "', '" + Cuenta.replace("'", "''") + "', '" + cOrddeBy.replace("'", "''") + "', '" + cGroupBy.replace("'", "''") + "', '" + InfoRegMes.replace("'", "''") + "', '" + TipoReporte.replace("'", "''") + "', '" + Usuario.replace("'", "''") + "', '" + cCentroContable.replace("'", "''") + "', " + "@Salida OUTPUT; ");
             saldoList = ReporteManager.callMultiReporteContable(conn, sql, Cuenta, cOrddeBy, cGroupBy, InfoRegMes, TipoReporte, Usuario, nCtasPresup, cCentroContable, Componentes);
             log.debug("salida de sp_pMultiReporteContable_syc ");
             String tr = "";
@@ -926,7 +985,7 @@ public class ReporteBussinesLogic extends DataSourceManager {
                 sb.append(Filtro);
                 log.debug("Adicionando Filtro");
             }
-            log.debug("Termina de cargar " + (row--) + " registros para el reporte");
+            log.debug("Object: {}", "Termina de cargar " + (row--) + " registros para el reporte");
         } catch (SQLException exc) {
             try {
                 conn.rollback();
@@ -971,7 +1030,7 @@ public class ReporteBussinesLogic extends DataSourceManager {
             sql += (PolMontoIni != "" && PolMontoIni != null ? " AND p.mTotalCargo >= '" + PolMontoIni + "'" : "");
             sql += (PolMontoFin != "" && PolMontoFin != null ? " AND p.mTotalCargo <= '" + PolMontoFin + "'" : "");
             sql += " order by m.cCentroContable, m.cTipoPoliza, m.nFolioPoliza, m.nDocRenglon  ,m.nCuenta, m.mMovimiento ";
-            log.debug(sql);
+            log.debug("Object: {}", sql.toString());
             polizaList = ReporteManager.selectConsultaPolizas(conn, sql);
             log.debug("salida de selectConsultaPolizas ");
             String tr = "";
@@ -999,7 +1058,7 @@ public class ReporteBussinesLogic extends DataSourceManager {
                     tr += "</tr>";
                     sb.append(tr);
                 }
-                log.debug("Termina de cargar " + (row--) + " registros para el reporte");
+                log.debug("Object: {}", "Termina de cargar " + (row--) + " registros para el reporte");
             }
         } catch (SQLException exc) {
             try {
@@ -1044,7 +1103,7 @@ public class ReporteBussinesLogic extends DataSourceManager {
             sql += (PolNumeroFin != "" && PolNumeroFin != null ? " AND p.nFolioPoliza <= '" + PolNumeroFin + "'" : "");
             sql += (PolMontoIni != "" && PolMontoIni != null ? " AND p.mTotalCargo >= '" + PolMontoIni + "'" : "");
             sql += (PolMontoFin != "" && PolMontoFin != null ? " AND p.mTotalCargo <= '" + PolMontoFin + "'" : "");
-            log.debug(sql);
+            log.debug("Object: {}", sql.toString());
             polizaList = ReporteManager.selectConsultaPolizas(conn, sql);
             log.debug("salida de selectConsultaPolizas ");
             String tr = "";
@@ -1057,10 +1116,10 @@ public class ReporteBussinesLogic extends DataSourceManager {
                 for (Iterator<?> iter = polizaList.iterator(); iter.hasNext(); row++) {
                     Poliza cPoliza = (Poliza) iter.next();
                     tr = "<tr class=" + ((row % 2) == 0 ? "AlternateRow" : "NormalRow") + ">";
-                    tr += "<td align=\"center\"><li id=\"tipotrabajo\" name=\"tipotrabajo\"><input id=\"selection\" name=\"selection\" value=\"" + // + "(v.nFolioPoliza="
+                    // + "(v.nFolioPoliza="
                     // + cPoliza.getNfolioPoliza()
-                    // + " and v.cCentroContable=''"
-                    // + cPoliza.getCcentroContable()
+                    tr += // + " and v.cCentroContable=''"
+                    "<td align=\"center\"><li id=\"tipotrabajo\" name=\"tipotrabajo\"><input id=\"selection\" name=\"selection\" value=\"" + // + cPoliza.getCcentroContable()
                     // + "'' and v.cTipoPoliza=''"
                     // + cPoliza.getCtipoPoliza()
                     // + "'')"
@@ -1079,7 +1138,7 @@ public class ReporteBussinesLogic extends DataSourceManager {
                     tr += "</tr>";
                     sb.append(tr);
                 }
-                log.debug("Termina de cargar " + (row--) + " registros para el reporte");
+                log.debug("Object: {}", "Termina de cargar " + (row--) + " registros para el reporte");
             }
         } catch (SQLException exc) {
             try {
@@ -1237,7 +1296,7 @@ public class ReporteBussinesLogic extends DataSourceManager {
                 sql += (!"".equals(PolMontoFin) && PolMontoFin != null ? " AND p.mTotalCargo <= '" + PolMontoFin + "'" : "");
                 sql += " ORDER BY ctipoPoliza,nFolioPoliza";
             }
-            log.debug(sql);
+            log.debug("Object: {}", sql.toString());
             polizaList = ReporteManager.selectConsultaPolizas(conn, sql);
             log.debug("salida de selectConsultaPolizas ");
             int row = 0;
@@ -1247,10 +1306,10 @@ public class ReporteBussinesLogic extends DataSourceManager {
             for (Iterator<?> iter = polizaList.iterator(); iter.hasNext(); row++) {
                 Poliza cPoliza = (Poliza) iter.next();
                 String arrJSON = token + "[";
-                arrJSON += "\"" + "<input  id=\\\"selection\\\" " + "name=\\\"selection\\\" " + "value=\\\"" + // + "(v.nFolioPoliza=" + cPoliza.getNfolioPoliza()
+                // + "(v.nFolioPoliza=" + cPoliza.getNfolioPoliza()
                 // + " and v.cCentroContable=''"
-                // + cPoliza.getCcentroContable()
-                // + "'' and v.cTipoPoliza=''" + cPoliza.getCtipoPoliza()
+                arrJSON += // + cPoliza.getCcentroContable()
+                "\"" + "<input  id=\\\"selection\\\" " + "name=\\\"selection\\\" " + "value=\\\"" + // + "'' and v.cTipoPoliza=''" + cPoliza.getCtipoPoliza()
                 // + "'')"
                 "[" + cPoliza.getNfolioPoliza() + ",''" + cPoliza.getCcentroContable() + "'',''" + cPoliza.getCtipoPoliza() + "'',''" + cPoliza.getDocHAplicado() + "'']" + "\\\"" + " type=\\\"checkbox\\\"" + ">" + "\",";
                 arrJSON += "\"" + cPoliza.getCtipoPoliza() + "\",";
@@ -1258,10 +1317,11 @@ public class ReporteBussinesLogic extends DataSourceManager {
                 arrJSON += "\"" + cPoliza.getFcreacion() + "\",";
                 arrJSON += "\"" + cPoliza.getFaplicacion() + "\",";
                 if (cPoliza.getNpolizaAutomatica().equals("0")) {
-                    arrJSON += "\"" + (((cPoliza.getIdOper().equals("4")) && (cPoliza.getDocHAplicado().equals("C"))) ? "CANCELADA" : // CHECAR
-                    cPoliza.getIdOper().equals("1") && (cPoliza.getDocHAplicado().equals("E")) ? // CHECAR
-                    "EN CAPTURA" : // ID_OPER
-                    cPoliza.getIdOper().equals("0") && (cPoliza.getCdescripcionPoliza().equals("Cancelación de DOCPOLIZA")) ? "AUTORIZADA APLICADA" : cPoliza.getIdOper().equals("0") ? "EN REVISION" : cPoliza.getIdOper().equals("2") ? "EN REVISION" : cPoliza.getIdOper().equals("3") ? "EN AUTORIZACION" : cPoliza.getIdOper().equals("4") ? "EN CONSULTA" : "") + "\",";
+                    arrJSON += "\"" + (// CHECAR
+                    // CHECAR
+                    // CHECAR
+                    ((cPoliza.getIdOper().equals("4")) && (cPoliza.getDocHAplicado().equals("C"))) ? // ID_OPER
+                    "CANCELADA" : cPoliza.getIdOper().equals("1") && (cPoliza.getDocHAplicado().equals("E")) ? "EN CAPTURA" : cPoliza.getIdOper().equals("0") && (cPoliza.getCdescripcionPoliza().equals("Cancelación de DOCPOLIZA")) ? "AUTORIZADA APLICADA" : cPoliza.getIdOper().equals("0") ? "EN REVISION" : cPoliza.getIdOper().equals("2") ? "EN REVISION" : cPoliza.getIdOper().equals("3") ? "EN AUTORIZACION" : cPoliza.getIdOper().equals("4") ? "EN CONSULTA" : "") + "\",";
                 } else {
                     arrJSON += "\"" + (cPoliza.getDocHAplicado().equals("C") ? "CANCELADA" : cPoliza.getDocHAplicado().equals("S") ? "AUTORIZADA APLICADA" : cPoliza.getDocHAplicado().equals("A") ? "AUTORIZADA APLICADA" : cPoliza.getDocHAplicado().equals("E") ? "EDITADO" : "") + "\",";
                 }
@@ -1273,7 +1333,7 @@ public class ReporteBussinesLogic extends DataSourceManager {
                 jSonI += arrJSON;
                 token = ",";
             }
-            log.debug("Termina de cargar " + (row--) + " registros para el reporte");
+            log.debug("Object: {}", "Termina de cargar " + (row--) + " registros para el reporte");
             sb.append(jSonI);
             sb.append(jSonF);
         } catch (SQLException exc) {
@@ -1301,7 +1361,7 @@ public class ReporteBussinesLogic extends DataSourceManager {
         List<?> PAOPList = new ArrayList<Object>();
         try {
             conn = getConnection();
-            log.debug("EXECUTE sp_PAOP_syc @Salida OUTPUT, '" + aEjercicioFiscal + "', '" + mesIni + "'; ");
+            log.debug("Object: {}", "EXECUTE sp_PAOP_syc @Salida OUTPUT, '" + aEjercicioFiscal + "', '" + mesIni + "'; ");
             PAOPList = ReporteManager.callPAOP(conn, aEjercicioFiscal, mesIni);
             log.debug("salida de sp_PAOP_syc ");
             String tr = "";
@@ -1368,7 +1428,7 @@ public class ReporteBussinesLogic extends DataSourceManager {
         List<?> balanzaList = new ArrayList<Object>();
         try {
             conn = getConnection();
-            log.debug("EXECUTE sp_tBalanzaAnalitico_syc @Salida OUTPUT, '" + buscaCuentaIni + "', '" + buscaCuentaFin + "', '" + aEjercicioFiscal + "', '" + DepuraLineas + "', '" + DepuraColumnas + "', '" + cCentroContable + "', '" + TipoReporte + "', '" + mesIni + "', '" + mesFin + "', " + FiltroSubcuenta + "'; ");
+            log.debug("Object: {}", "EXECUTE sp_tBalanzaAnalitico_syc @Salida OUTPUT, '" + buscaCuentaIni + "', '" + buscaCuentaFin + "', '" + aEjercicioFiscal + "', '" + DepuraLineas + "', '" + DepuraColumnas + "', '" + cCentroContable + "', '" + TipoReporte + "', '" + mesIni + "', '" + mesFin + "', " + FiltroSubcuenta + "'; ");
             balanzaList = ReporteManager.callBalanza(conn, buscaCuentaIni, buscaCuentaFin, aEjercicioFiscal, DepuraLineas, DepuraColumnas, cCentroContable, TipoReporte, mesIni, mesFin, FiltroSubcuenta);
             log.debug("salida de sp_tBalanzaAnalitico_syc ");
             String tr = "";
@@ -1384,9 +1444,9 @@ public class ReporteBussinesLogic extends DataSourceManager {
                         if (DepuraColumnas.equals("N")) {
                             tr += "<td style='mso-number-format:\"Standard\"'>" + rBalanza.getSaldoInicial() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rBalanza.getMovimientosAcumuladosDebe() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rBalanza.getMovimientosAcumuladosHaber() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rBalanza.getSaldoMesAnterior() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rBalanza.getMovimientosMesDebe() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rBalanza.getMovimientosMesHaber() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rBalanza.getSaldoFinal() + "</td>";
                         } else {
-                            tr += "<td style='mso-number-format:\"Standard\"'>" + rBalanza.getSaldoInicialDeudor() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rBalanza.getSaldoInicialAcreedor() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rBalanza.getMovimientosMesDebe() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rBalanza.getMovimientosMesHaber() + "</td>" + // "<td>"+rBalanza.getMovimientosAcumuladosDebe()+"</td>"+
+                            // "<td>"+rBalanza.getMovimientosAcumuladosDebe()+"</td>"+
                             // "<td>"+rBalanza.getMovimientosAcumuladosHaber()+"</td>"+
-                            "<td style='mso-number-format:\"Standard\"'>" + rBalanza.getSaldoFinalDeudor() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rBalanza.getSaldoFinalAcreedor() + "</td>";
+                            tr += "<td style='mso-number-format:\"Standard\"'>" + rBalanza.getSaldoInicialDeudor() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rBalanza.getSaldoInicialAcreedor() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rBalanza.getMovimientosMesDebe() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rBalanza.getMovimientosMesHaber() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rBalanza.getSaldoFinalDeudor() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rBalanza.getSaldoFinalAcreedor() + "</td>";
                         }
                         tr += "</tr>";
                         sb.append(tr);
@@ -1416,7 +1476,7 @@ public class ReporteBussinesLogic extends DataSourceManager {
         ArrayList<String> balanzaList = new ArrayList<String>();
         try {
             conn = getConnection();
-            log.debug("EXECUTE sp_tBalanzaAnalitico_syc @Salida OUTPUT, '" + buscaCuentaIni + "', '" + buscaCuentaFin + "', '" + aEjercicioFiscal + "', '" + DepuraLineas + "', '" + DepuraColumnas + "', '" + cCentroContable + "', '" + TipoReporte + "', '" + mesIni + "', '" + mesFin + "','" + FiltroSubcuenta + "'; ");
+            log.debug("Object: {}", "EXECUTE sp_tBalanzaAnalitico_syc @Salida OUTPUT, '" + buscaCuentaIni + "', '" + buscaCuentaFin + "', '" + aEjercicioFiscal + "', '" + DepuraLineas + "', '" + DepuraColumnas + "', '" + cCentroContable + "', '" + TipoReporte + "', '" + mesIni + "', '" + mesFin + "','" + FiltroSubcuenta + "'; ");
             if (TipoReporte.equalsIgnoreCase("Balanza"))
                 balanzaList = (ArrayList<String>) ReporteManager.generaBalanza(conn, buscaCuentaIni, buscaCuentaFin, aEjercicioFiscal, DepuraLineas, DepuraColumnas, cCentroContable, TipoReporte, mesIni, mesFin, FiltroSubcuenta);
             else {
@@ -1477,7 +1537,7 @@ public class ReporteBussinesLogic extends DataSourceManager {
         List<?> auxiliaresList = new ArrayList<Object>();
         try {
             conn = getConnection();
-            log.debug("EXECUTE sp_GeneraAuxiliarCNF @Salida OUTPUT, '" + swhere + "', '" + cCentroContable + "', '" + buscaCuentaIni + "', '" + fAuxIni + "', '" + fAuxFin + "'; ");
+            log.debug("Object: {}", "EXECUTE sp_GeneraAuxiliarCNF @Salida OUTPUT, '" + swhere + "', '" + cCentroContable + "', '" + buscaCuentaIni + "', '" + fAuxIni + "', '" + fAuxFin + "'; ");
             auxiliaresList = ReporteManager.callAuxiliares(conn, swhere, cCentroContable, buscaCuentaIni, fAuxIni, fAuxFin);
             log.debug("salida de sp_GeneraAuxiliarCNF ");
             String tr = "";
@@ -1488,14 +1548,14 @@ public class ReporteBussinesLogic extends DataSourceManager {
             } else {
                 for (Iterator<?> iter = auxiliaresList.iterator(); iter.hasNext(); row++) {
                     Auxiliares rAuxiliares = (Auxiliares) iter.next();
-                    if (rAuxiliares.getAuxTipo() != null) // && !rAuxiliares.getAuxTipo().trim().equals("")
-                    {
+                    if (// && !rAuxiliares.getAuxTipo().trim().equals("")
+                    rAuxiliares.getAuxTipo() != null) {
                         // if (rAuxiliares.getNcuenta() != null
                         // && !rAuxiliares.getNcuenta().trim().equals("")) {
-                        tr = "<tr class=" + ((row % 2) == 0 ? "AlternateRow" : "NormalRow") + ">" + "<td>" + rAuxiliares.getAuxTipo() + "</td>" + "<td>" + (rAuxiliares.getAuxNum().equals("0") ? "" : rAuxiliares.getAuxNum()) + "</td>" + "<td>" + rAuxiliares.getAuxCxP() + "</td>" + "<td style='mso-number-format:\"dd/mm/yyyy\"'>" + rAuxiliares.getAuxFecha() + "</td>" + "<td>" + rAuxiliares.getAuxConcepto() + "</td>" + "<td>" + rAuxiliares.getAuxReferencia() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rAuxiliares.getAuxCargos() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rAuxiliares.getAuxAbonos() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rAuxiliares.getAuxSaldo() + "</td>" + // + rAuxiliares.getNcuenta() + "</td>" + "<td>"
+                        // + rAuxiliares.getNcuenta() + "</td>" + "<td>"
                         // + rAuxiliares.getNfolioPoliza() + "</td>"
-                        // + "<td>" + rAuxiliares.getCcentroContable()
-                        // + "</td>" + "<td>"
+                        tr = // + "<td>" + rAuxiliares.getCcentroContable()
+                        "<tr class=" + ((row % 2) == 0 ? "AlternateRow" : "NormalRow") + ">" + "<td>" + rAuxiliares.getAuxTipo() + "</td>" + "<td>" + (rAuxiliares.getAuxNum().equals("0") ? "" : rAuxiliares.getAuxNum()) + "</td>" + "<td>" + rAuxiliares.getAuxCxP() + "</td>" + "<td style='mso-number-format:\"dd/mm/yyyy\"'>" + rAuxiliares.getAuxFecha() + "</td>" + "<td>" + rAuxiliares.getAuxConcepto() + "</td>" + "<td>" + rAuxiliares.getAuxReferencia() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rAuxiliares.getAuxCargos() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rAuxiliares.getAuxAbonos() + "</td>" + "<td style='mso-number-format:\"Standard\"'>" + rAuxiliares.getAuxSaldo() + "</td>" + // + "</td>" + "<td>"
                         // + rAuxiliares.getCtipoDocumento() + "</td>"
                         // + "<td>" + rAuxiliares.getCdescripcionMovPol()
                         // + "</td>" + "<td>"
@@ -1539,7 +1599,7 @@ public class ReporteBussinesLogic extends DataSourceManager {
         ArrayList<String> auxiliaresList = new ArrayList<String>();
         try {
             conn = getConnection();
-            log.debug("EXECUTE sp_GeneraAuxiliarCNF @Salida OUTPUT, '" + swhere + "', '" + cCentroContable + "', '" + buscaCuentaIni + "', '" + fAuxIni + "', '" + fAuxFin + "'; ");
+            log.debug("Object: {}", "EXECUTE sp_GeneraAuxiliarCNF @Salida OUTPUT, '" + swhere + "', '" + cCentroContable + "', '" + buscaCuentaIni + "', '" + fAuxIni + "', '" + fAuxFin + "'; ");
             auxiliaresList = ReporteManager.generaAuxiliar(conn, swhere, cCentroContable, buscaCuentaIni, fAuxIni, fAuxFin);
             log.debug("salida de sp_GeneraAuxiliarCNF ");
         } catch (SQLException exc) {
@@ -1565,7 +1625,7 @@ public class ReporteBussinesLogic extends DataSourceManager {
         ArrayList<String> auxiliaresList = new ArrayList<String>();
         try {
             conn = getConnection();
-            log.debug("EXECUTE sp_l_GeneraAuxiliarMayor '" + buscaCuentaIni + "', '" + subCuenta + "', '" + cCentroContable + "', '" + fAuxIni + "', '" + fAuxFin + "', '" + subtot + "'; ");
+            log.debug("Object: {}", "EXECUTE sp_l_GeneraAuxiliarMayor '" + buscaCuentaIni + "', '" + subCuenta + "', '" + cCentroContable + "', '" + fAuxIni + "', '" + fAuxFin + "', '" + subtot + "'; ");
             auxiliaresList = ReporteManager.generaAuxiliarMayor(conn, buscaCuentaIni, subCuenta, cCentroContable, fAuxIni, fAuxFin, subtot);
         } catch (SQLException exc) {
             try {
@@ -1590,7 +1650,7 @@ public class ReporteBussinesLogic extends DataSourceManager {
         ArrayList<String> auxiliaresList = new ArrayList<String>();
         try {
             conn = getConnection();
-            log.debug("EXECUTE sp_l_AuxiliarMayorSaldos '" + buscaCuentaIni + "', '" + subCuenta + "', '" + cCentroContable + "', '" + fAuxIni + "', '" + fAuxFin + "'; ");
+            log.debug("Object: {}", "EXECUTE sp_l_AuxiliarMayorSaldos '" + buscaCuentaIni + "', '" + subCuenta + "', '" + cCentroContable + "', '" + fAuxIni + "', '" + fAuxFin + "'; ");
             auxiliaresList = ReporteManager.generaAuxiliarMayorSaldos(conn, buscaCuentaIni, subCuenta, cCentroContable, fAuxIni, fAuxFin);
         } catch (SQLException exc) {
             try {
@@ -1791,6 +1851,9 @@ public class ReporteBussinesLogic extends DataSourceManager {
     }
 
     private // Esteban
+    // Esteban
+    // Esteban
+    // Esteban
     String // Esteban
     RenglonDatoGralHTML(// Esteban
     String area, // Esteban
@@ -1802,13 +1865,10 @@ public class ReporteBussinesLogic extends DataSourceManager {
     String responsable_area, // Esteban
     String fecha_envio, // Esteban
     String fecha_atencion, // Esteban
-    String cerrado, // Esteban
-    String destinatario, // Esteban
-    String prioridad, // Esteban
-    String asunto, // Badillo.
-    // Fecha:
-    // 19/Feb/2010.
-    // Se
+    String cerrado, // Badillo.
+    String destinatario, // Fecha:
+    String prioridad, // 19/Feb/2010.
+    String asunto, // Se
     // agrega
     // la
     // columna
@@ -1817,11 +1877,12 @@ public class ReporteBussinesLogic extends DataSourceManager {
         // Grid de detalle de datos del Reporte Estadístico por area.
         String[] tipoCSS = { "idTh", "idTdTexto", "idTdNumero" };
         boolean total = "FIN".equals(area);
-        String renglon = "\r\n<tr class=" + ((row % 2) == 0 ? "AlternateRow" : "NormalRow") + "> \r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[1]) + "\">" + ((total) ? "" : "" + (row + 1)) + "</td>\r\n" + // + "	  <td id=\"" + ((total)? tipoCSS[0]: tipoCSS[1]) + "\">"
+        // + "	  <td id=\"" + ((total)? tipoCSS[0]: tipoCSS[1]) + "\">"
+        String // + "	  <td id=\"" + ((total)? tipoCSS[0]: tipoCSS[1]) + "\">"
         // + area + "</td>"
-        "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[1]) + "\">" + folio + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + referencia + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + remitente_nombre + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + remitente_area + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + responsable_nombre + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + responsable_area + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + this.splitFechas(fecha_envio) + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + this.splitFechas(fecha_atencion) + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + cerrado + "</td>\r\n" + // + "	  <td id=\"" + ((total)? tipoCSS[0]: tipoCSS[2]) + "\">"
-        // + destinatario + "</td>"
-        "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + prioridad + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + asunto + "</td>\r\n" + "</tr>";
+        renglon = // + "	  <td id=\"" + ((total)? tipoCSS[0]: tipoCSS[2]) + "\">"
+        "\r\n<tr class=" + ((row % 2) == 0 ? "AlternateRow" : "NormalRow") + "> \r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[1]) + "\">" + ((total) ? "" : "" + (row + 1)) + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[1]) + "\">" + folio + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + referencia + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + remitente_nombre + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + remitente_area + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + responsable_nombre + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + responsable_area + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + this.splitFechas(fecha_envio) + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + this.splitFechas(fecha_atencion) + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + // + destinatario + "</td>"
+        cerrado + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + prioridad + "</td>\r\n" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + asunto + "</td>\r\n" + "</tr>";
         return renglon;
     }
 
@@ -1960,11 +2021,12 @@ public class ReporteBussinesLogic extends DataSourceManager {
         // reporte.
         // ResultSet rs = null;
         // String tblAll = "";
-        String param = // Esteban
-        "idRptMaestro=" + GestionInterface.RPT_POR_EMPLEADO + "&area=" + area + "&idarea=" + idArea + "&empleado=" + empleado + // Badillo.
+        // Esteban
+        String // Esteban
+        // Badillo.
         // Fecha:
-        // 07/Abril/2010.
-        // Agregado.
+        param = // 07/Abril/2010.
+        "idRptMaestro=" + GestionInterface.RPT_POR_EMPLEADO + "&area=" + area + "&idarea=" + idArea + "&empleado=" + empleado + // Agregado.
         "&searea=" + searea + "&fechaini=" + fechaIni + "&fechafin=" + fechaFin + "&rn=ReporteEstadisticoPorEmpleado.jasper";
         try {
             conn = getConnection();
@@ -2123,9 +2185,10 @@ public class ReporteBussinesLogic extends DataSourceManager {
                     break;
                 case GestionInterface.RPT_CNS_CASOS:
             }
-            String sql = "" + " SELECT bo.folio " + " ,imx.REFERENCIA " + " ,convert(varchar(20), case when bo.id_operacion = 2 then bo.FECHA_INICIO else dbo.FnRptGenResFechaEnvio(bo.ID_CASO, bo.SECUENCIAL_OPERACION) end, 103) as fecha_envio " + " ,CASE WHEN imx.prioridad = 'N' THEN 'NORMAL' ELSE 'URGENTE' END  as prioridad " + " ,imx.dpc_f_registro as fecha_Registro " + " ,CASE WHEN bo.terminada = 'S' THEN 'CONCLUIDOS' ELSE  " + " CASE  " + " 	WHEN co.user03 ='' THEN 'NO VENCIDOS'  " + " 	WHEN co.user03 =' 23:59:59' THEN 'NO VENCIDOS'  " + " 	WHEN co.user03 > GETDATE() THEN 'NO VENCIDOS' " + " 	WHEN co.user03 < GETDATE() THEN 'VENCIDOS' " + " END    " + " END as CERRADO " + " ,ca1.d_descripcion AS desc_area_rem " + " ,ISNULL(ce1.ce_ap_paterno,'') + ' ' + ISNULL(ce1.ce_ap_materno,'') + ' ' + ISNULL(ce1.ce_nombre_completo,'') as nombre_rem " + " ,imx.dpc_f_limite AS fechalimite " + " ,bo.TERMINADA " + " ,substring(convert(varchar, CASE WHEN co.user03 NOT LIKE '%__/__/____%' OR co.USER03 IS NULL THEN CONVERT(VARCHAR, dbo.FnRptGenResFechaLimite(bo.ID_CASO, bo.SECUENCIAL_OPERACION), 103) ELSE co.user03 END, 103),0,12) AS USER03 " + // + " ,co.USER03 "
-            " ,co.CO_OBSERVACION AS ASUNTO " + " FROM          " + " dbo.CG_CASO_OPERACION AS co WITH(NOLOCK)  " + " LEFT OUTER JOIN dbo.CG_BITACORA_OPERACION AS bo WITH(NOLOCK) ON bo.SECUENCIAL_OPERACION = co.ID_CASO_OPER AND bo.ID_CASO = co.ID_CASO  " + " INNER JOIN  dbo.IMXEXPEDIENTES AS imx WITH(NOLOCK)ON imx.ID_GABINETE = bo.ID_GABINETE " + " INNER JOIN dbo.CG_CAT_EMPLEADO AS ce1 WITH(NOLOCK) ON ce1.CE_OS_RESPONSABLE = bo.responsable_id " + " INNER JOIN dbo.CG_CAT_AREAS AS ca1 WITH(NOLOCK) ON ca1.ID_AREA = bo.remitente_area  " + " WHERE	bo.folio NOT LIKE 'TMP-%'  " + " AND bo.id_operacion in (2,3,9,10,11) " + andLogin + // + andArea
-            whereFecha + whereBase + " AND bo.secuencial_operacion = ( " + " 	SELECT 	MAX(s2bo.secuencial_operacion) FROM 	dbo.CG_BITACORA_OPERACION  s2bo WITH(NOLOCK)  " + " 	WHERE s2bo.id_operacion  in (2,3,9,10,11) " + "        AND bo.responsable_id = s2bo.responsable_id " + "		  AND bo.Terminada = s2bo.Terminada " + "        AND bo.folio = s2bo.folio " + "   ) " + " order by bo.folio ";
+            // + " ,co.USER03 "
+            String // + " ,co.USER03 "
+            // + andArea
+            sql = "" + " SELECT bo.folio " + " ,imx.REFERENCIA " + " ,convert(varchar(20), case when bo.id_operacion = 2 then bo.FECHA_INICIO else dbo.FnRptGenResFechaEnvio(bo.ID_CASO, bo.SECUENCIAL_OPERACION) end, 103) as fecha_envio " + " ,CASE WHEN imx.prioridad = 'N' THEN 'NORMAL' ELSE 'URGENTE' END  as prioridad " + " ,imx.dpc_f_registro as fecha_Registro " + " ,CASE WHEN bo.terminada = 'S' THEN 'CONCLUIDOS' ELSE  " + " CASE  " + " 	WHEN co.user03 ='' THEN 'NO VENCIDOS'  " + " 	WHEN co.user03 =' 23:59:59' THEN 'NO VENCIDOS'  " + " 	WHEN co.user03 > GETDATE() THEN 'NO VENCIDOS' " + " 	WHEN co.user03 < GETDATE() THEN 'VENCIDOS' " + " END    " + " END as CERRADO " + " ,ca1.d_descripcion AS desc_area_rem " + " ,ISNULL(ce1.ce_ap_paterno,'') + ' ' + ISNULL(ce1.ce_ap_materno,'') + ' ' + ISNULL(ce1.ce_nombre_completo,'') as nombre_rem " + " ,imx.dpc_f_limite AS fechalimite " + " ,bo.TERMINADA " + " ,substring(convert(varchar, CASE WHEN co.user03 NOT LIKE '%__/__/____%' OR co.USER03 IS NULL THEN CONVERT(VARCHAR, dbo.FnRptGenResFechaLimite(bo.ID_CASO, bo.SECUENCIAL_OPERACION), 103) ELSE co.user03 END, 103),0,12) AS USER03 " + " ,co.CO_OBSERVACION AS ASUNTO " + " FROM          " + " dbo.CG_CASO_OPERACION AS co WITH(NOLOCK)  " + " LEFT OUTER JOIN dbo.CG_BITACORA_OPERACION AS bo WITH(NOLOCK) ON bo.SECUENCIAL_OPERACION = co.ID_CASO_OPER AND bo.ID_CASO = co.ID_CASO  " + " INNER JOIN  dbo.IMXEXPEDIENTES AS imx WITH(NOLOCK)ON imx.ID_GABINETE = bo.ID_GABINETE " + " INNER JOIN dbo.CG_CAT_EMPLEADO AS ce1 WITH(NOLOCK) ON ce1.CE_OS_RESPONSABLE = bo.responsable_id " + " INNER JOIN dbo.CG_CAT_AREAS AS ca1 WITH(NOLOCK) ON ca1.ID_AREA = bo.remitente_area  " + " WHERE	bo.folio NOT LIKE 'TMP-%'  " + " AND bo.id_operacion in (2,3,9,10,11) " + andLogin + whereFecha + whereBase + " AND bo.secuencial_operacion = ( " + " 	SELECT 	MAX(s2bo.secuencial_operacion) FROM 	dbo.CG_BITACORA_OPERACION  s2bo WITH(NOLOCK)  " + " 	WHERE s2bo.id_operacion  in (2,3,9,10,11) " + "        AND bo.responsable_id = s2bo.responsable_id " + "		  AND bo.Terminada = s2bo.Terminada " + "        AND bo.folio = s2bo.folio " + "   ) " + " order by bo.folio ";
             List<?> gral = new ArrayList<Object>();
             /*
 			 * if(login!="" && fechaini=="" & fechafin=="")
@@ -2220,9 +2283,10 @@ public class ReporteBussinesLogic extends DataSourceManager {
                     break;
                 case GestionInterface.RPT_CNS_CASOS:
             }
-            String sql = "" + " SELECT bo.folio " + " ,imx.REFERENCIA " + " ,convert(varchar(20), case when bo.id_operacion = 2 then bo.FECHA_INICIO else dbo.FnRptGenResFechaEnvio(bo.ID_CASO, bo.SECUENCIAL_OPERACION) end, 103) as fecha_envio " + " ,CASE WHEN imx.prioridad = 'N' THEN 'NORMAL' ELSE 'URGENTE' END  as prioridad " + " ,imx.dpc_f_registro as fecha_Registro " + " ,CASE WHEN bo.terminada = 'S' THEN 'CONCLUIDOS' ELSE  " + " CASE  " + " 	WHEN co.user03 ='' THEN 'NO VENCIDOS'  " + " 	WHEN co.user03 =' 23:59:59' THEN 'NO VENCIDOS'  " + " 	WHEN co.user03 > GETDATE() THEN 'NO VENCIDOS' " + " 	WHEN co.user03 < GETDATE() THEN 'VENCIDOS' " + " END    " + " END as CERRADO " + " ,ca1.d_descripcion AS desc_area_rem " + " ,ISNULL(ce1.ce_ap_paterno,'') + ' ' + ISNULL(ce1.ce_ap_materno,'') + ' ' + ISNULL(ce1.ce_nombre_completo,'') as nombre_rem " + " ,imx.dpc_f_limite AS fechalimite " + " ,bo.TERMINADA " + " ,substring(convert(varchar, CASE WHEN co.user03 NOT LIKE '%__/__/____%' OR co.USER03 IS NULL THEN CONVERT(VARCHAR, dbo.FnRptGenResFechaLimite(bo.ID_CASO, bo.SECUENCIAL_OPERACION), 103) ELSE co.user03 END, 103),0,12) AS USER03 " + // + " ,co.USER03 "
-            " ,co.CO_OBSERVACION AS ASUNTO " + " FROM          " + " dbo.CG_CASO_OPERACION AS co WITH(NOLOCK)  " + " LEFT OUTER JOIN dbo.CG_BITACORA_OPERACION AS bo WITH(NOLOCK) ON bo.SECUENCIAL_OPERACION = co.ID_CASO_OPER AND bo.ID_CASO = co.ID_CASO  " + " INNER JOIN  dbo.IMXEXPEDIENTES AS imx WITH(NOLOCK)ON imx.ID_GABINETE = bo.ID_GABINETE " + " INNER JOIN dbo.CG_CAT_EMPLEADO AS ce1 WITH(NOLOCK) ON ce1.CE_OS_RESPONSABLE = bo.responsable_id " + " INNER JOIN dbo.CG_CAT_AREAS AS ca1 WITH(NOLOCK) ON ca1.ID_AREA = bo.remitente_area  " + " WHERE	bo.folio NOT LIKE 'TMP-%'  " + " AND bo.id_operacion in (2,3,9,10,11) " + andLogin + // + andArea
-            whereFecha + whereBase + " AND bo.secuencial_operacion = ( " + " 	SELECT 	MAX(s2bo.secuencial_operacion) FROM 	dbo.CG_BITACORA_OPERACION  s2bo WITH(NOLOCK)  " + " 	WHERE s2bo.id_operacion  in (2,3,9,10,11) " + "        AND bo.responsable_id = s2bo.responsable_id " + "		  AND bo.Terminada = s2bo.Terminada " + "        AND bo.folio = s2bo.folio " + "   ) " + " order by bo.folio ";
+            // + " ,co.USER03 "
+            String // + " ,co.USER03 "
+            // + andArea
+            sql = "" + " SELECT bo.folio " + " ,imx.REFERENCIA " + " ,convert(varchar(20), case when bo.id_operacion = 2 then bo.FECHA_INICIO else dbo.FnRptGenResFechaEnvio(bo.ID_CASO, bo.SECUENCIAL_OPERACION) end, 103) as fecha_envio " + " ,CASE WHEN imx.prioridad = 'N' THEN 'NORMAL' ELSE 'URGENTE' END  as prioridad " + " ,imx.dpc_f_registro as fecha_Registro " + " ,CASE WHEN bo.terminada = 'S' THEN 'CONCLUIDOS' ELSE  " + " CASE  " + " 	WHEN co.user03 ='' THEN 'NO VENCIDOS'  " + " 	WHEN co.user03 =' 23:59:59' THEN 'NO VENCIDOS'  " + " 	WHEN co.user03 > GETDATE() THEN 'NO VENCIDOS' " + " 	WHEN co.user03 < GETDATE() THEN 'VENCIDOS' " + " END    " + " END as CERRADO " + " ,ca1.d_descripcion AS desc_area_rem " + " ,ISNULL(ce1.ce_ap_paterno,'') + ' ' + ISNULL(ce1.ce_ap_materno,'') + ' ' + ISNULL(ce1.ce_nombre_completo,'') as nombre_rem " + " ,imx.dpc_f_limite AS fechalimite " + " ,bo.TERMINADA " + " ,substring(convert(varchar, CASE WHEN co.user03 NOT LIKE '%__/__/____%' OR co.USER03 IS NULL THEN CONVERT(VARCHAR, dbo.FnRptGenResFechaLimite(bo.ID_CASO, bo.SECUENCIAL_OPERACION), 103) ELSE co.user03 END, 103),0,12) AS USER03 " + " ,co.CO_OBSERVACION AS ASUNTO " + " FROM          " + " dbo.CG_CASO_OPERACION AS co WITH(NOLOCK)  " + " LEFT OUTER JOIN dbo.CG_BITACORA_OPERACION AS bo WITH(NOLOCK) ON bo.SECUENCIAL_OPERACION = co.ID_CASO_OPER AND bo.ID_CASO = co.ID_CASO  " + " INNER JOIN  dbo.IMXEXPEDIENTES AS imx WITH(NOLOCK)ON imx.ID_GABINETE = bo.ID_GABINETE " + " INNER JOIN dbo.CG_CAT_EMPLEADO AS ce1 WITH(NOLOCK) ON ce1.CE_OS_RESPONSABLE = bo.responsable_id " + " INNER JOIN dbo.CG_CAT_AREAS AS ca1 WITH(NOLOCK) ON ca1.ID_AREA = bo.remitente_area  " + " WHERE	bo.folio NOT LIKE 'TMP-%'  " + " AND bo.id_operacion in (2,3,9,10,11) " + andLogin + whereFecha + whereBase + " AND bo.secuencial_operacion = ( " + " 	SELECT 	MAX(s2bo.secuencial_operacion) FROM 	dbo.CG_BITACORA_OPERACION  s2bo WITH(NOLOCK)  " + " 	WHERE s2bo.id_operacion  in (2,3,9,10,11) " + "        AND bo.responsable_id = s2bo.responsable_id " + "		  AND bo.Terminada = s2bo.Terminada " + "        AND bo.folio = s2bo.folio " + "   ) " + " order by bo.folio ";
             List<?> gral = new ArrayList<Object>();
             /*
 			 * if(login!="" && fechaini=="" & fechafin=="")
@@ -2373,9 +2437,9 @@ public class ReporteBussinesLogic extends DataSourceManager {
         if (orden.equals("RESPONSABLE")) {
             renglon += "	  <td id=\"" + ((total) ? tipoCSS[1] : tipoCSS[2]) + "\">" + responsable_nombre + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[1] : tipoCSS[2]) + "\">" + responsable_area_desc + "</td>";
         }
-        renglon += "	  <td id=\"" + ((total) ? tipoCSS[1] : tipoCSS[2]) + "\">" + cerrado + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[1] : tipoCSS[2]) + "\">" + splitFechas(fecha_limite) + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[1] : tipoCSS[2]) + "\">" + splitFechas(fecha_envio) + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[1] : tipoCSS[2]) + "\">" + tipo_instruccion + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[1] : tipoCSS[2]) + "\">" + splitFechas(fecha_registro) + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[1] : tipoCSS[2]) + "\">" + prioridad + "</td>" + // + "	  <td width=\"2000\" id=\"" + ((total)? tipoCSS[1]:
+        // + "	  <td width=\"2000\" id=\"" + ((total)? tipoCSS[1]:
         // tipoCSS[2]) + "\">" + asunto + "</td>"
-        "	  <td id=\"" + ((total) ? tipoCSS[1] : tipoCSS[2]) + "\"><div COLS=100 ROWS=3 style=\"FONT-FAMILY: Verdana,Tahoma,Arial;\">" + asunto + "<div></td>" + "</tr>";
+        renglon += "	  <td id=\"" + ((total) ? tipoCSS[1] : tipoCSS[2]) + "\">" + cerrado + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[1] : tipoCSS[2]) + "\">" + splitFechas(fecha_limite) + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[1] : tipoCSS[2]) + "\">" + splitFechas(fecha_envio) + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[1] : tipoCSS[2]) + "\">" + tipo_instruccion + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[1] : tipoCSS[2]) + "\">" + splitFechas(fecha_registro) + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[1] : tipoCSS[2]) + "\">" + prioridad + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[1] : tipoCSS[2]) + "\"><div COLS=100 ROWS=3 style=\"FONT-FAMILY: Verdana,Tahoma,Arial;\">" + asunto + "<div></td>" + "</tr>";
         // System.out.println("Fecha_Envio: " + fecha_envio);
         // System.out.println("Fecha_Limite: " + fecha_limite);
         return renglon;
@@ -2396,11 +2460,12 @@ public class ReporteBussinesLogic extends DataSourceManager {
     private String RenglonDatoGralHTML(String area, String folio, String referencia, String remitente_nombre, String remitente_area, String fecha_atencion, String cerrado, String destinatario, String prioridad, int row) {
         String[] tipoCSS = { "idTh", "idTdTexto", "idTdNumero" };
         boolean total = "FIN".equals(area);
-        String renglon = "<tr class=" + ((row % 2) == 0 ? "AlternateRow" : "NormalRow") + "> " + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[1]) + "\">" + ((total) ? "" : "" + (row + 1)) + "</td>" + // + "	  <td id=\"" + ((total)? tipoCSS[0]: tipoCSS[1]) + "\">"
+        // + "	  <td id=\"" + ((total)? tipoCSS[0]: tipoCSS[1]) + "\">"
+        String // + "	  <td id=\"" + ((total)? tipoCSS[0]: tipoCSS[1]) + "\">"
         // + area + "</td>"
-        "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[1]) + "\">" + folio + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + referencia + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + remitente_nombre + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + fecha_atencion + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + cerrado + "</td>" + // + "	  <td id=\"" + ((total)? tipoCSS[0]: tipoCSS[2]) + "\">"
-        // + destinatario + "</td>"
-        "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + prioridad + "</td>" + "</tr>";
+        renglon = // + "	  <td id=\"" + ((total)? tipoCSS[0]: tipoCSS[2]) + "\">"
+        "<tr class=" + ((row % 2) == 0 ? "AlternateRow" : "NormalRow") + "> " + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[1]) + "\">" + ((total) ? "" : "" + (row + 1)) + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[1]) + "\">" + folio + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + referencia + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + remitente_nombre + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + fecha_atencion + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + // + destinatario + "</td>"
+        cerrado + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + prioridad + "</td>" + "</tr>";
         // System.out.println("renglon="+ renglon);
         return renglon;
     }
@@ -2413,11 +2478,12 @@ public class ReporteBussinesLogic extends DataSourceManager {
     private String RenglonDatoGralHTML(String area, String folio, String referencia, String remitente_nombre, String remitente_area, String fecha_envio, String fecha_atencion, String cerrado, String destinatario, String prioridad, String asunto, int row) {
         String[] tipoCSS = { "idTh", "idTdTexto", "idTdNumero" };
         boolean total = "FIN".equals(area);
-        String renglon = "<tr class=" + ((row % 2) == 0 ? "AlternateRow" : "NormalRow") + "> " + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[1]) + "\">" + ((total) ? "" : "" + (row + 1)) + "</td>" + // + "	  <td id=\"" + ((total)? tipoCSS[0]: tipoCSS[1]) + "\">"
+        // + "	  <td id=\"" + ((total)? tipoCSS[0]: tipoCSS[1]) + "\">"
+        String // + "	  <td id=\"" + ((total)? tipoCSS[0]: tipoCSS[1]) + "\">"
         // + area + "</td>"
-        "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[1]) + "\">" + folio + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + referencia + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + remitente_nombre + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + remitente_area + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + fecha_envio + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + fecha_atencion + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + cerrado + "</td>" + // + "	  <td id=\"" + ((total)? tipoCSS[0]: tipoCSS[2]) + "\">"
-        // + destinatario + "</td>"
-        "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + prioridad + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + asunto + "</td>" + "</tr>";
+        renglon = // + "	  <td id=\"" + ((total)? tipoCSS[0]: tipoCSS[2]) + "\">"
+        "<tr class=" + ((row % 2) == 0 ? "AlternateRow" : "NormalRow") + "> " + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[1]) + "\">" + ((total) ? "" : "" + (row + 1)) + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[1]) + "\">" + folio + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + referencia + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + remitente_nombre + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + remitente_area + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + fecha_envio + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + fecha_atencion + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + // + destinatario + "</td>"
+        cerrado + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + prioridad + "</td>" + "	  <td id=\"" + ((total) ? tipoCSS[0] : tipoCSS[2]) + "\">" + asunto + "</td>" + "</tr>";
         // System.out.println("renglon="+ renglon);
         return renglon;
     }
@@ -2530,53 +2596,56 @@ public class ReporteBussinesLogic extends DataSourceManager {
                 whereFechas = " and CONVERT(DATETIME, imx.DPC_F_REGISTRO, 103) BETWEEN CONVERT(DATETIME, '" + regfechaini + "', 103) AND CONVERT(DATETIME, '" + regfechafin + "', 103) ";
                 whereSub += " and CONVERT(DATETIME, maxIMX.DPC_F_REGISTRO, 103) BETWEEN CONVERT(DATETIME, '" + regfechaini + "', 103) AND CONVERT(DATETIME, '" + regfechafin + "', 103) ";
             }
-            sql = "" + "SELECT  " + "		ca1.ID_AREA as responsable_area, " + "		ca1.d_descripcion AS desc_area_resp, " + "		(select count(*) from  " + "			dbo.CG_CASO_OPERACION AS coV WITH(NOLOCK) LEFT OUTER JOIN " + "			dbo.CG_BITACORA_OPERACION AS boV WITH(NOLOCK) ON boV.ID_CASO = coV.ID_CASO AND boV.SECUENCIAL_OPERACION = coV.ID_CASO_OPER INNER JOIN " + "			dbo.IMXEXPEDIENTES AS imx ON imx.ID_GABINETE = boV.ID_GABINETE " + "		where  (boV.FOLIO NOT LIKE 'TMP-%') and boV.id_operacion IN (2,3,10,9,11) " + "			and boV.secuencial_operacion IN ( " + "					SELECT MAX(maxSO.secuencial_operacion) FROM CG_BITACORA_OPERACION maxSO, IMXEXPEDIENTES maxIMX " + "					WHERE maxSO.folio = boV.folio  AND maxSO.FOLIO = maxIMX.FOLIO " + "                 and maxSO.TERMINADA = 'N' " + "                 and maxSO.responsable_area = convert(varchar,ca1.id_area)" + whereSub + "                 ) " + "			and boV.TERMINADA = 'N' and coV.user03 < GETDATE() " + // + "			and boV." + szTipoRep +
+            // + "			and boV." + szTipoRep +
             // " = convert(varchar,ca1.id_area) " //Esteban Badillo.
-            // Fecha: 04/Febrero/2010. Eliminado
-            "			and boV.responsable_area = convert(varchar,ca1.id_area) " + // Esteban
-            // Badillo.
+            sql = // Fecha: 04/Febrero/2010. Eliminado
+            "" + "SELECT  " + "		ca1.ID_AREA as responsable_area, " + "		ca1.d_descripcion AS desc_area_resp, " + "		(select count(*) from  " + "			dbo.CG_CASO_OPERACION AS coV WITH(NOLOCK) LEFT OUTER JOIN " + "			dbo.CG_BITACORA_OPERACION AS boV WITH(NOLOCK) ON boV.ID_CASO = coV.ID_CASO AND boV.SECUENCIAL_OPERACION = coV.ID_CASO_OPER INNER JOIN " + "			dbo.IMXEXPEDIENTES AS imx ON imx.ID_GABINETE = boV.ID_GABINETE " + "		where  (boV.FOLIO NOT LIKE 'TMP-%') and boV.id_operacion IN (2,3,10,9,11) " + "			and boV.secuencial_operacion IN ( " + "					SELECT MAX(maxSO.secuencial_operacion) FROM CG_BITACORA_OPERACION maxSO, IMXEXPEDIENTES maxIMX " + "					WHERE maxSO.folio = boV.folio  AND maxSO.FOLIO = maxIMX.FOLIO " + "                 and maxSO.TERMINADA = 'N' " + "                 and maxSO.responsable_area = convert(varchar,ca1.id_area)" + whereSub + "                 ) " + "			and boV.TERMINADA = 'N' and coV.user03 < GETDATE() " + // Esteban
+            "			and boV.responsable_area = convert(varchar,ca1.id_area) " + // Badillo.
             // Fecha:
             // 04/Febrero/2010.
             // Agregado.
             (// Esteban
-            areasHijas ? " AND boV.remitente_area = '" + idArea + "' " : "") + // Badillo.
-            // Fecha:
-            // 04/Febrero/2010.
-            // Agregado
-            "	     " + whereFechas + "		 ) as pendientesVencidos, " + "		(select count(*) from  " + "			dbo.CG_CASO_OPERACION AS coV WITH(NOLOCK) LEFT OUTER JOIN " + "			dbo.CG_BITACORA_OPERACION AS boV WITH(NOLOCK) ON boV.ID_CASO = coV.ID_CASO AND boV.SECUENCIAL_OPERACION = coV.ID_CASO_OPER INNER JOIN " + "			dbo.IMXEXPEDIENTES AS imx ON imx.ID_GABINETE = boV.ID_GABINETE " + "		 where  (boV.FOLIO NOT LIKE 'TMP-%') and boV.id_operacion IN (2,3,10,9,11) " + "			and boV.secuencial_operacion IN ( " + "					SELECT MAX(maxSO.secuencial_operacion) FROM CG_BITACORA_OPERACION maxSO, IMXEXPEDIENTES maxIMX " + "					WHERE maxSO.folio = boV.folio AND maxSO.FOLIO = maxIMX.FOLIO " + "                 and maxSO.TERMINADA = 'N'" + "			        and maxSO.responsable_area = convert(varchar,ca1.id_area) " + whereSub + "                 ) " + "			and boV.TERMINADA = 'N' and coV.user03 > GETDATE() " + // + "			and boV." + szTipoRep +
-            // " = convert(varchar,ca1.id_area) " //Esteban Badillo.
-            // Fecha: 04/Febrero/2010. Eliminado
-            "			and boV.responsable_area = convert(varchar,ca1.id_area) " + // Esteban
             // Badillo.
+            // Badillo.
+            areasHijas ? // Fecha:
+            " AND boV.remitente_area = '" + idArea + "' " : // 04/Febrero/2010.
+            "") + // Agregado
+            "	     " + whereFechas + "		 ) as pendientesVencidos, " + "		(select count(*) from  " + "			dbo.CG_CASO_OPERACION AS coV WITH(NOLOCK) LEFT OUTER JOIN " + "			dbo.CG_BITACORA_OPERACION AS boV WITH(NOLOCK) ON boV.ID_CASO = coV.ID_CASO AND boV.SECUENCIAL_OPERACION = coV.ID_CASO_OPER INNER JOIN " + "			dbo.IMXEXPEDIENTES AS imx ON imx.ID_GABINETE = boV.ID_GABINETE " + "		 where  (boV.FOLIO NOT LIKE 'TMP-%') and boV.id_operacion IN (2,3,10,9,11) " + "			and boV.secuencial_operacion IN ( " + "					SELECT MAX(maxSO.secuencial_operacion) FROM CG_BITACORA_OPERACION maxSO, IMXEXPEDIENTES maxIMX " + "					WHERE maxSO.folio = boV.folio AND maxSO.FOLIO = maxIMX.FOLIO " + "                 and maxSO.TERMINADA = 'N'" + "			        and maxSO.responsable_area = convert(varchar,ca1.id_area) " + // + "			and boV." + szTipoRep +
+            whereSub + // " = convert(varchar,ca1.id_area) " //Esteban Badillo.
+            "                 ) " + // Fecha: 04/Febrero/2010. Eliminado
+            "			and boV.TERMINADA = 'N' and coV.user03 > GETDATE() " + // Esteban
+            "			and boV.responsable_area = convert(varchar,ca1.id_area) " + // Badillo.
             // Fecha:
             // 04/Febrero/2010.
             // Agregado.
             (// Esteban
-            areasHijas ? " AND boV.remitente_area = '" + idArea + "' " : "") + // Badillo.
-            // Fecha:
-            // 04/Febrero/2010.
-            // Agregado
-            "	     " + whereFechas + "		 ) as pendientesNoVencidos, " + "		(select count(*) from  " + "			dbo.CG_CASO_OPERACION AS coV WITH(NOLOCK) LEFT OUTER JOIN " + "			dbo.CG_BITACORA_OPERACION AS boV WITH(NOLOCK) ON boV.ID_CASO = coV.ID_CASO AND boV.SECUENCIAL_OPERACION = coV.ID_CASO_OPER INNER JOIN " + "			dbo.IMXEXPEDIENTES AS imx WITH(NOLOCK) ON imx.ID_GABINETE = boV.ID_GABINETE " + "		 where  (boV.FOLIO NOT LIKE 'TMP-%') and boV.id_operacion IN (2,3,10,9,11) " + "			and boV.secuencial_operacion IN ( " + "					SELECT MAX(maxSO.secuencial_operacion) FROM CG_BITACORA_OPERACION maxSO, IMXEXPEDIENTES maxIMX " + "					WHERE maxSO.folio = boV.folio AND maxSO.FOLIO = maxIMX.FOLIO " + "			        and maxSO.TERMINADA = 'S'  " + "			        and maxSO.responsable_area = convert(varchar,ca1.id_area) " + whereSub + ")  " + "			and boV.TERMINADA = 'S'  " + // + "			and boV." + szTipoRep +
-            // " = convert(varchar,ca1.id_area) " //Esteban Badillo.
-            // Fecha: 04/Febrero/2010. Eliminado.
-            "			and boV.responsable_area = convert(varchar,ca1.id_area) " + // Esteban
             // Badillo.
+            // Badillo.
+            areasHijas ? // Fecha:
+            " AND boV.remitente_area = '" + idArea + "' " : // 04/Febrero/2010.
+            "") + // Agregado
+            "	     " + whereFechas + "		 ) as pendientesNoVencidos, " + "		(select count(*) from  " + "			dbo.CG_CASO_OPERACION AS coV WITH(NOLOCK) LEFT OUTER JOIN " + "			dbo.CG_BITACORA_OPERACION AS boV WITH(NOLOCK) ON boV.ID_CASO = coV.ID_CASO AND boV.SECUENCIAL_OPERACION = coV.ID_CASO_OPER INNER JOIN " + "			dbo.IMXEXPEDIENTES AS imx WITH(NOLOCK) ON imx.ID_GABINETE = boV.ID_GABINETE " + "		 where  (boV.FOLIO NOT LIKE 'TMP-%') and boV.id_operacion IN (2,3,10,9,11) " + "			and boV.secuencial_operacion IN ( " + "					SELECT MAX(maxSO.secuencial_operacion) FROM CG_BITACORA_OPERACION maxSO, IMXEXPEDIENTES maxIMX " + "					WHERE maxSO.folio = boV.folio AND maxSO.FOLIO = maxIMX.FOLIO " + "			        and maxSO.TERMINADA = 'S'  " + "			        and maxSO.responsable_area = convert(varchar,ca1.id_area) " + // + "			and boV." + szTipoRep +
+            whereSub + // " = convert(varchar,ca1.id_area) " //Esteban Badillo.
+            ")  " + // Fecha: 04/Febrero/2010. Eliminado.
+            "			and boV.TERMINADA = 'S'  " + // Esteban
+            "			and boV.responsable_area = convert(varchar,ca1.id_area) " + // Badillo.
             // Fecha:
             // 04/Febrero/2010.
             // Agregado.
             (// Esteban
-            areasHijas ? " AND boV.remitente_area = '" + idArea + "' " : "") + // Badillo.
-            // Fecha:
-            // 04/Febrero/2010.
-            // Agregado
-            "	     " + whereFechas + "		 ) as cerrado " + "		FROM dbo.CG_CAT_AREAS AS ca1 " + // + "		WHERE ca1.id_area=" + idArea +
-            // " or ca1.id_area_padre='" + idArea + "' " //Esteban
-            // Badillo. Fecha: 04/Febrero/2010. Eliminado
-            "		WHERE " + (areasHijas ? "" : "ca1.id_area=" + idArea + " or ") + " ca1.id_area_padre='" + idArea + // Esteban
-            "' " + // Badillo.
-            // Fecha:
-            // 04/Febrero/2010.
-            // Agregado.
+            // Badillo.
+            // Badillo.
+            areasHijas ? // Fecha:
+            " AND boV.remitente_area = '" + idArea + "' " : // 04/Febrero/2010.
+            "") + // Agregado
+            "	     " + // + "		WHERE ca1.id_area=" + idArea +
+            whereFechas + // " or ca1.id_area_padre='" + idArea + "' " //Esteban
+            "		 ) as cerrado " + // Badillo. Fecha: 04/Febrero/2010. Eliminado
+            "		FROM dbo.CG_CAT_AREAS AS ca1 " + "		WHERE " + // Esteban
+            (areasHijas ? "" : "ca1.id_area=" + idArea + " or ") + // Badillo.
+            " ca1.id_area_padre='" + // Fecha:
+            idArea + // 04/Febrero/2010.
+            "' " + // Agregado.
             "		ORDER BY ca1.d_descripcion ";
             System.out.println("Query Por Area:\r\n" + sql);
             conn = getConnection();
@@ -2609,8 +2678,16 @@ public class ReporteBussinesLogic extends DataSourceManager {
                     // param_tot = param + "&area=" + a.getId(); //BMEA
                     // 05/Febrero/2010
                     // param_tot = param + "&idArea=" + a.getId();
-                    tr = RenglonDatoHTML(GestionInterface.RPT_POR_AREA_DETALLE, a.getDescripcion(), a.getVencidosNumero(), a.getNovencidosNumero(), a.getPendientes(), a.getConcluidos(), a.getTotalTurnos(), row, // param + "&area=" + a.getId());
-                    param + "&searea=" + a.getDescripcion() + "&idArea=" + a.getId());
+                    // param + "&area=" + a.getId());
+                    // param + "&area=" + a.getId());
+                    tr = // param + "&area=" + a.getId());
+                    RenglonDatoHTML(// param + "&area=" + a.getId());
+                    GestionInterface.RPT_POR_AREA_DETALLE, // param + "&area=" + a.getId());
+                    a.getDescripcion(), // param + "&area=" + a.getId());
+                    a.getVencidosNumero(), // param + "&area=" + a.getId());
+                    a.getNovencidosNumero(), // param + "&area=" + a.getId());
+                    a.getPendientes(), // param + "&area=" + a.getId());
+                    a.getConcluidos(), a.getTotalTurnos(), row, param + "&searea=" + a.getDescripcion() + "&idArea=" + a.getId());
                     sb.append(tr);
                     if (grafColumnKeys.equals("") && grafVencidos.equals("") && grafNoVencidos.equals("") && grafConcluidos.equals("")) {
                         grafColumnKeys += a.getDescripcion();
@@ -2688,44 +2765,45 @@ public class ReporteBussinesLogic extends DataSourceManager {
                     // BMEA 15/10/2009
                     // whereBase =
                     // "                      AND vimx.id_operacion in(2,3,7, 9,10,11) "
-                    whereBase = "                      AND vimx.id_operacion in(2) " + // BMEA 15/10/2009
+                    // BMEA 15/10/2009
                     // + "					   AND vimx.terminada = 'N' "
-                    "					   AND vimx.cerrado = 'N' " + "					   AND vimx.fecha_compromiso < GETDATE() " + "                      AND vimx.titular = 'S' ";
+                    whereBase = "                      AND vimx.id_operacion in(2) " + "					   AND vimx.cerrado = 'N' " + "					   AND vimx.fecha_compromiso < GETDATE() " + "                      AND vimx.titular = 'S' ";
                     break;
                 case GestionInterface.RPT_CNS_NOVENCIDOS:
                     // BMEA 15/10/2009
                     // whereBase =
                     // "                      AND vimx.id_operacion in(2,3,7, 9,10,11) "
-                    whereBase = "                      AND vimx.id_operacion in(2) " + // BMEA 15/10/2009
+                    // BMEA 15/10/2009
                     // + "					   AND vimx.terminada = 'N' "
-                    "					   AND vimx.cerrado = 'N' " + "					   AND vimx.fecha_compromiso > GETDATE()" + "                      AND vimx.titular = 'S' ";
+                    whereBase = "                      AND vimx.id_operacion in(2) " + "					   AND vimx.cerrado = 'N' " + "					   AND vimx.fecha_compromiso > GETDATE()" + "                      AND vimx.titular = 'S' ";
                     break;
                 case GestionInterface.RPT_CNS_PENDIENTES:
                     // BMEA 15/10/2009
                     // whereBase =
                     // "                      AND vimx.id_operacion in(2,3,7, 9,10,11) "
-                    whereBase = "                      AND vimx.id_operacion in(2) " + // BMEA 15/10/2009
+                    // BMEA 15/10/2009
                     // + "					   AND vimx.terminada = 'N' "
-                    "					   AND vimx.cerrado = 'N' " + "                      AND vimx.titular = 'S' ";
+                    whereBase = "                      AND vimx.id_operacion in(2) " + "					   AND vimx.cerrado = 'N' " + "                      AND vimx.titular = 'S' ";
                     break;
                 case GestionInterface.RPT_CNS_CONCLUIDOS:
                     // BMEA 15/10/2009
                     // whereBase =
                     // "                      AND vimx.id_operacion in(2,3,7, 9,10,11) "
-                    whereBase = "                      AND vimx.id_operacion in(2) " + // BMEA 15/10/2009
+                    // BMEA 15/10/2009
                     // + "					   AND vimx.terminada = 'S' "
-                    "					   AND vimx.cerrado = 'S' " + "                      AND vimx.titular = 'S' ";
+                    whereBase = "                      AND vimx.id_operacion in(2) " + "					   AND vimx.cerrado = 'S' " + "                      AND vimx.titular = 'S' ";
                     break;
                 case GestionInterface.RPT_CNS_CASOS:
                     // whereBase =
                     // "                      AND vimx.id_operacion in(2,3,7, 9,10,11) "
                     whereBase = "                      AND vimx.id_operacion in(2) " + "                      AND vimx.titular = 'S' ";
             }
-            String sql = // SE
-            "" + "  SELECT DISTINCT " + "        t.folio, " + "        t.referencia, " + "        t.nombre_rem,  " + "        t.desc_area_rem,  " + "        cerrado = CASE " + "           WHEN t.CERRADO = 'S' THEN 'CONCLUIDOS'" + // CAMBIARON
+            // SE
+            String // SE
+            // CAMBIARON
             // A
-            // CERRADO
-            // EN
+            sql = // CERRADO
+            "" + "  SELECT DISTINCT " + "        t.folio, " + "        t.referencia, " + "        t.nombre_rem,  " + "        t.desc_area_rem,  " + "        cerrado = CASE " + "           WHEN t.CERRADO = 'S' THEN 'CONCLUIDOS'" + // EN
             // LUGAR
             // DE
             // TERMINADA
@@ -2773,9 +2851,9 @@ public class ReporteBussinesLogic extends DataSourceManager {
             /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 			 * Esteban Badillo. Fecha: 29/Dic/2009 Descripcion: Se modifica la
 			 */
-            sql = "EXEC ReporteAreaDetalle" + // + " @AREA = " + (area.trim().equals("") ? "NULL" : area)
+            // + " @AREA = " + (area.trim().equals("") ? "NULL" : area)
             // //BMEA 05/Febrero/2010
-            " @AREA = " + idArea + ", @FECHA_INICIAL = " + (regfechaini.trim().equals("") ? "NULL" : "'" + regfechaini + "'") + ", @FECHA_FINAL = " + (regfechafin.trim().equals("") ? "NULL" : "'" + regfechafin + "'") + ", @AREAS_HIJAS = " + (areasHijas ? "1" : "0") + ", @TIPO_ACUMULADO = " + (tipoacumulado) + ", @ID_AREA_PADRE = " + ((idAreaPadre == 0) || (!areasHijas) ? "NULL" : idAreaPadre);
+            sql = "EXEC ReporteAreaDetalle" + " @AREA = " + idArea + ", @FECHA_INICIAL = " + (regfechaini.trim().equals("") ? "NULL" : "'" + regfechaini + "'") + ", @FECHA_FINAL = " + (regfechafin.trim().equals("") ? "NULL" : "'" + regfechafin + "'") + ", @AREAS_HIJAS = " + (areasHijas ? "1" : "0") + ", @TIPO_ACUMULADO = " + (tipoacumulado) + ", @ID_AREA_PADRE = " + ((idAreaPadre == 0) || (!areasHijas) ? "NULL" : idAreaPadre);
             /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
             System.out.println("Query Por Area Detalle: \r\n" + sql);
             List<?> gral = new ArrayList<Object>();
@@ -3023,7 +3101,7 @@ public class ReporteBussinesLogic extends DataSourceManager {
             try {
                 conn.rollback();
             } catch (Exception e2) {
-                log.warn(e2);
+                log.warn(e2.getMessage(), e2);
             }
             throw e;
         } finally {

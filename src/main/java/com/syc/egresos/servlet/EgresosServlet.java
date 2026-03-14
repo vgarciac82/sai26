@@ -394,7 +394,7 @@ public class EgresosServlet extends HttpServlet implements GestionInterface {
                 ResponseJSON responseJSON = new ResponseJSON(true, null, Arrays.asList((new String[] { String.valueOf(encabezado.getContrarecibo()) })));
                 sendJSONResponse(resp, responseJSON);
             } else if (SAVE_QUESTIONNAIRE.equals(accion)) {
-                log.debug(req.getParameter("answers"));
+                log.debug("Object: {}", req.getParameter("answers"));
                 List<QuestionnaireAnswer> answers = QuestionnaireAnswer.instanceList(req.getParameter("answers").split(";"));
                 encabezado = ebl.generaInstancia(tipoEgreso, folio);
                 encabezado.setTipoPago(tipoEgreso);
@@ -403,7 +403,7 @@ public class EgresosServlet extends HttpServlet implements GestionInterface {
                 encabezado.setLogin(u.getLogin());
                 encabezado.setAplica15D("1".equals(req.getParameter("aplicaArt15D")));
                 ebl.saveAnswers(encabezado);
-                log.debug(req.getParameter("answers"));
+                log.debug("Object: {}", req.getParameter("answers"));
                 ResponseJSON responseJSON = new ResponseJSON(true, null, Arrays.asList(new String[] { "Cuestionario registrado exitosamente." }));
                 sendJSONResponse(resp, responseJSON);
             } else if (GUARDA_PAGO.equals(accion)) {
@@ -436,12 +436,12 @@ public class EgresosServlet extends HttpServlet implements GestionInterface {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 
@@ -479,7 +479,7 @@ public class EgresosServlet extends HttpServlet implements GestionInterface {
                 if (out != null)
                     out.close();
             } catch (Exception e2) {
-                log.warn("Problemas cerrando flujo: " + e2);
+                log.warn("Object: {}", "Problemas cerrando flujo: " + e2);
             }
         }
     }
@@ -500,7 +500,7 @@ public class EgresosServlet extends HttpServlet implements GestionInterface {
                 if (out != null)
                     out.close();
             } catch (Exception e2) {
-                log.warn("Problemas cerrando flujo: " + e2);
+                log.warn("Object: {}", "Problemas cerrando flujo: " + e2);
             }
         }
     }
@@ -521,7 +521,7 @@ public class EgresosServlet extends HttpServlet implements GestionInterface {
                 if (out != null)
                     out.close();
             } catch (Exception e2) {
-                log.warn("Problemas cerrando flujo: " + e2);
+                log.warn("Object: {}", "Problemas cerrando flujo: " + e2);
             }
         }
     }

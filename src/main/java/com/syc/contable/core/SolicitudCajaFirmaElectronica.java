@@ -47,7 +47,7 @@ public final class SolicitudCajaFirmaElectronica extends SolicitudFirmaElectroni
             filename = d.getFullPathFilesNames()[0];
             runReport(conn, getReportPath(), reportName, "", filename, params);
         } catch (NotEmptyDocumentException nede) {
-            log.warn("El documento no esta vacio. Se ignora" + nede);
+            log.warn("Object: {}", "El documento no esta vacio. Se ignora" + nede);
         } catch (Exception e) {
             throw new FirmaElectronicaException(e);
         }
@@ -59,7 +59,7 @@ public final class SolicitudCajaFirmaElectronica extends SolicitudFirmaElectroni
         try {
             if (tieneDelegatorioAut(conn)) {
                 String voLegend = AUT_LEGEND_PREFIX + " Firma " + getTipoSuplenciaAut() + " de " + getNombreEmpleadoSuplidoAut() + " con fundamento en el oficio: " + getFolioOficioAut() + " de fecha: " + getFechaOficioAut();
-                log.info(voLegend);
+                log.info("Object: {}", voLegend);
                 return voLegend;
             } else
                 return AUT_LEGEND_PREFIX;
@@ -263,7 +263,7 @@ public final class SolicitudCajaFirmaElectronica extends SolicitudFirmaElectroni
     public String getVoBoLegend(Connection conn) throws Exception {
         if (tieneDelegatorioVoBO(conn)) {
             String voLegend = VO_BO_LEGEND_PREFIX + " Firma " + getTipoSuplencia() + " de " + getNombreEmpleadoSuplido() + " con fundamento en el oficio: " + getFolioOficioVoBo() + " de fecha: " + getFechaOficioVoBo();
-            log.info(voLegend);
+            log.info("Object: {}", voLegend);
             return voLegend;
         } else
             return VO_BO_LEGEND_PREFIX;
@@ -361,7 +361,7 @@ public final class SolicitudCajaFirmaElectronica extends SolicitudFirmaElectroni
         String voLegend = VO_BO_LEGEND_PREFIX.concat(" Firmado por: ").concat(nombre).concat(" | ").concat(puesto);
         if (tieneDelegatorioVoBO(conn)) {
             voLegend = VO_BO_LEGEND_PREFIX + " Firma " + getTipoSuplencia() + " de " + getNombreEmpleadoSuplido() + " con fundamento en el oficio: " + getFolioOficioVoBo() + " de fecha: " + getFechaOficioVoBo();
-            log.info(voLegend);
+            log.info("Object: {}", voLegend);
         }
         return voLegend;
     }
@@ -372,7 +372,7 @@ public final class SolicitudCajaFirmaElectronica extends SolicitudFirmaElectroni
             String autLegend = AUT_LEGEND_PREFIX.concat(" Firmado por: ").concat(nombre).concat(" | ").concat(puesto);
             if (tieneDelegatorioAut(conn)) {
                 autLegend = AUT_LEGEND_PREFIX + ". Firma " + getTipoSuplenciaAut() + " de " + getNombreEmpleadoSuplidoAut() + " con fundamento en el oficio: " + getFolioOficioAut() + " de fecha: " + getFechaOficioAut();
-                log.info(autLegend);
+                log.info("Object: {}", autLegend);
             }
             return autLegend;
         } catch (Exception e) {

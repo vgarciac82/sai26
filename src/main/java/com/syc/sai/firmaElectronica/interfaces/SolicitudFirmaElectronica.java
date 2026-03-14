@@ -246,7 +246,7 @@ public abstract class SolicitudFirmaElectronica {
         oc.setNombreHija(folderName);
         oc.setTituloAplicacion(modelo.getTituloAplicacion());
         OrgCarpetaManager.insert(conn, oc);
-        log.trace("Carpeta [" + folderName + "] creada con exito.");
+        log.trace("Object: {}", "Carpeta [" + folderName + "] creada con exito.");
         return modelo;
     }
 
@@ -283,7 +283,7 @@ public abstract class SolicitudFirmaElectronica {
         parametrosReales.append("d=").append(String.valueOf(document));
         parametrosReales.append("&");
         parametrosReales.append("f=").append(StringUtils.reverse(String.valueOf(folio)));
-        log.debug("Cadena generada: " + parametrosReales);
+        log.debug("Object: {}", "Cadena generada: " + parametrosReales);
         return parametrosReales.toString();
     }
 

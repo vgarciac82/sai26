@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.core.FileItem;
 import org.apache.commons.lang.StringUtils;
 import com.syc.cfdi.utils.FacturaUtils;
 import com.syc.ejercido.pagado.core.BoletaAereoBusinessLogic;
@@ -25,8 +25,9 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
-import common.Logger;
 import jakarta.servlet.annotation.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /*
 	private void creaExcelVuelos(HttpServletRequest req, HttpServletResponse resp) throws Exception{
@@ -139,7 +140,7 @@ public class SubirPagosBoletajeServlet extends HttpServlet implements GestionInt
 
     private static final long serialVersionUID = 126320606200256721L;
 
-    private static final Logger log = Logger.getLogger(SubirPagosBoletajeServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(SubirPagosBoletajeServlet.class);
 
     private String jniName = "";
 
@@ -155,7 +156,7 @@ public class SubirPagosBoletajeServlet extends HttpServlet implements GestionInt
             try {
                 generaExcelVuelos(req, resp);
             } catch (Exception e) {
-                log.error(e, e);
+                log.error(e.getMessage(), e);
                 ServletOutputStream out = resp.getOutputStream();
                 out.println("Ocurrio el siguiente eror mientras se generaba el reporte:<br>");
                 out.println(e.getMessage());
@@ -227,7 +228,7 @@ public class SubirPagosBoletajeServlet extends HttpServlet implements GestionInt
                                 nombreArchivo = item.getName();
                                 String extension = Util.getFileExtencion(nombreArchivo);
                                 nombreDestino = FacturaUtils.generaNombreArchivoTemporal(TEMP_DIR, nombreArchivo, extension);
-                                log.info("Copiando archivo: [" + nombreArchivo + "] a [" + nombreDestino + "]");
+                                log.info("Object: {}", "Copiando archivo: [" + nombreArchivo + "] a [" + nombreDestino + "]");
                                 Util.copiaArchivo(archivoCargaStream, nombreDestino);
                                 item.delete();
                             }
@@ -240,14 +241,14 @@ public class SubirPagosBoletajeServlet extends HttpServlet implements GestionInt
                             msgRetorno = msgRetorno + CargaPagosBoletajeManager.msgRetorno;
                         }
                     } catch (Exception e) {
-                        log.error(e, e);
+                        log.error(e.getMessage(), e);
                         msgRetorno = "Ocurrio el siguiente error al cargar el archivo: <br>" + e.getMessage();
                     } finally {
                         if (archivoCargaStream != null)
                             try {
                                 archivoCargaStream.close();
                             } catch (Exception e) {
-                                log.error("Error cerrando flujo DataInputStream" + e);
+                                log.error("Error occurred", "Error cerrando flujo DataInputStream" + e);
                             }
                         archivoCargaStream = null;
                         if (!"".equals(nombreDestino)) {
@@ -287,12 +288,12 @@ public class SubirPagosBoletajeServlet extends HttpServlet implements GestionInt
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 

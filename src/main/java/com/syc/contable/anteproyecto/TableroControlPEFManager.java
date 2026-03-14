@@ -79,7 +79,7 @@ public class TableroControlPEFManager {
                 String ue = rs.getString("cunidadejecutorapef");
                 int total = rs.getInt("total");
                 int totalCapturados = rs.getInt("total_capturados");
-                log.debug("Actualizando Unidad Ejecutora: " + ue + " Unidad Normativa: " + un);
+                log.debug("Object: {}", "Actualizando Unidad Ejecutora: " + ue + " Unidad Normativa: " + un);
                 Map<String, TableroControlBean> ueMap = tablero.get(ue.trim());
                 TableroControlBean bean = ueMap.get(un.trim());
                 bean.setTotalCalendario(total);

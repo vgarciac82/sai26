@@ -32,7 +32,7 @@ public class RendicionCuentasFONDENManager {
     private static final Logger log = LoggerFactory.getLogger(RendicionCuentasFONDENManager.class);
 
     public static String rendicionCuentasFONDENManager(Connection conn, String fecha, Map<String, String> plantillas) throws Exception {
-        log.info(String.format("Iniciando calculo de póliza previa"));
+        log.info("Object: {}", String.format("Iniciando calculo de póliza previa"));
         CallableStatement cs = null;
         ResultSet rs = null;
         int mes = Integer.parseInt(fecha.substring(3, 5));
@@ -44,7 +44,7 @@ public class RendicionCuentasFONDENManager {
         try {
             cs = conn.prepareCall(query);
             cs.setInt(1, mes);
-            log.debug(String.format("Ejecutando[" + query + "]%S", mes));
+            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S", mes));
             rs = cs.executeQuery();
             fileName = generaReporteMasivo(rs, plantillas.get("VISTAPREVIA"), mes, ejFiscal);
             return fileName;

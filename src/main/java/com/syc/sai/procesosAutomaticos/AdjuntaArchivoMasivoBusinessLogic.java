@@ -85,7 +85,7 @@ public class AdjuntaArchivoMasivoBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas realizando rollback: " + e2);
+                    log.warn("Object: {}", "Problemas realizando rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -108,7 +108,7 @@ public class AdjuntaArchivoMasivoBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas realizando rollback: " + e2);
+                    log.warn("Object: {}", "Problemas realizando rollback: " + e2);
                 }
             throw e;
         } finally {

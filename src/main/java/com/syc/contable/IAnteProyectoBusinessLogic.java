@@ -56,7 +56,7 @@ public class IAnteProyectoBusinessLogic extends DataSourceManager {
                 try {
                     stream.close();
                 } catch (Exception e2) {
-                    log.warn("No se pudo cerrar el archivo de carga." + e2);
+                    log.warn("Object: {}", "No se pudo cerrar el archivo de carga." + e2);
                 }
             stream = null;
         }
@@ -89,7 +89,7 @@ public class IAnteProyectoBusinessLogic extends DataSourceManager {
                 Cell CellMOptimo = row.getCell(3);
                 Cell CellMIreductible = row.getCell(4);
                 if (Cellconsecutivo != null) {
-                    log.debug("Procesando renglon " + (renglon));
+                    log.debug("Object: {}", "Procesando renglon " + (renglon));
                     try {
                         String nFolioAnteProyecto = String.valueOf(folio);
                         NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.getDefault());
@@ -109,7 +109,7 @@ public class IAnteProyectoBusinessLogic extends DataSourceManager {
                         renglonMap.put("MCalculado", MCalculadoS);
                         renglonMap.put("MOptimo", MOptimoS);
                         renglonMap.put("MIreductible", MIreductibleS);
-                        log.debug("nFolioAnteProyecto[" + nFolioAnteProyecto + "]consecutivo[" + consecutivoS + "] EP[" + EP + "]MCalculado[" + MCalculadoS + "]MOptimo[" + MOptimoS + "]MIreductible[" + MIreductibleS);
+                        log.debug("Object: {}", "nFolioAnteProyecto[" + nFolioAnteProyecto + "]consecutivo[" + consecutivoS + "] EP[" + EP + "]MCalculado[" + MCalculadoS + "]MOptimo[" + MOptimoS + "]MIreductible[" + MIreductibleS);
                         IAnteProyectoManager.insertaRenglonValidacionAnteProyecto(conn, renglonMap);
                     } catch (Exception e) {
                         renglonInsertada = false;
@@ -128,7 +128,7 @@ public class IAnteProyectoBusinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("No se pudo realizar rollback en conexion" + e2);
+                    log.warn("Object: {}", "No se pudo realizar rollback en conexion" + e2);
                 }
             throw e;
         } finally {
@@ -234,7 +234,7 @@ public class IAnteProyectoBusinessLogic extends DataSourceManager {
             IAnteProyectoManager.borraTCorrida(conn, folio);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {
@@ -251,7 +251,7 @@ public class IAnteProyectoBusinessLogic extends DataSourceManager {
             IAnteProyectoManager.insertaIAnteproyectoValidado(conn, folio);
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             conn.rollback();
             throw new Exception(exc);
         } finally {

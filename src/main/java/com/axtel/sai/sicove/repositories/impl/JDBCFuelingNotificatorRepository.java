@@ -4,7 +4,6 @@ import java.sql.Connection;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.apache.log4j.LogManager;
 import com.axtel.sai.sicove.entities.RequestAuthChain;
 import com.axtel.sai.sicove.exceptions.SicoveException;
 import com.axtel.sai.sicove.repositories.FuelingNotificatorRepository;
@@ -13,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 public class JDBCFuelingNotificatorRepository implements FuelingNotificatorRepository {
 
-    private static final Logger log = LogManager.getLogger(JDBCFuelingNotificatorRepository.class);
+    private static final Logger log = LoggerFactory.getLogger(JDBCFuelingNotificatorRepository.class);
 
     private final QueryRunner runner = new QueryRunner();
 
@@ -32,8 +31,8 @@ public class JDBCFuelingNotificatorRepository implements FuelingNotificatorRepos
         query.append("		employee_responsible AS authorizerEmployeeNumber ");
         query.append(" FROM	vFuelingWallet ");
         query.append(" WHERE fueling_request_id = ?");
-        log.debug("Looking for authorization chain for id " + requestId);
-        log.trace("Ejecutando: \n" + query + "\n[" + requestId + "]");
+        log.debug("Object: {}", "Looking for authorization chain for id " + requestId);
+        log.trace("Object: {}", "Ejecutando: \n" + query + "\n[" + requestId + "]");
         try {
             RequestAuthChain requestAuthChain = runner.query(conn, query.toString(), resultHandler, requestId);
             return requestAuthChain;

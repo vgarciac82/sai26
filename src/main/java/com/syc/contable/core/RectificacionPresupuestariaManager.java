@@ -195,8 +195,8 @@ public class RectificacionPresupuestariaManager {
         Rectificacion rectificacion = null;
         ReintegrosBusinessLogic recPresBL = new ReintegrosBusinessLogic(GestionInterface.ATT_CONEXION);
         // Realizar conexion
-        log.debug("[SQLH]" + SqlH + "[CxP=" + criterio + "]");
-        log.debug("[SQLD]" + SqlD + "[CxP=" + criterio + "]");
+        log.debug("Object: {}", "[SQLH]" + SqlH + "[CxP=" + criterio + "]");
+        log.debug("Object: {}", "[SQLD]" + SqlD + "[CxP=" + criterio + "]");
         try {
             pstmntH = conn.prepareStatement(SqlH);
             // introducir parametros para condiciones
@@ -289,8 +289,8 @@ public class RectificacionPresupuestariaManager {
         Rectificacion rectificacion = null;
         ReintegrosBusinessLogic recPresBL = new ReintegrosBusinessLogic(GestionInterface.ATT_CONEXION);
         // Realizar conexion
-        log.debug("[SQLH]" + SqlH + "[CxP=" + criterio + "]");
-        log.debug("[SQLD]" + SqlD + "[CxP=" + criterio + "]");
+        log.debug("Object: {}", "[SQLH]" + SqlH + "[CxP=" + criterio + "]");
+        log.debug("Object: {}", "[SQLD]" + SqlD + "[CxP=" + criterio + "]");
         try {
             pstmntH = conn.prepareStatement(SqlH);
             // introducir parametros para condiciones
@@ -874,37 +874,37 @@ public class RectificacionPresupuestariaManager {
             psInsertEncabezado.setString(29, recE.getcUnidadResponsableContable());
             psInsertEncabezado.setString(30, recE.getTotalDice());
             psInsertEncabezado.setString(31, recE.getTotalDebe());
-            log.debug("[" + folio + "]");
-            log.debug("[" + recE.getnIdCaso() + "]");
-            log.debug("[" + "N" + "]");
-            log.debug("[" + recE.getaEjercicioFiscal() + "]");
-            log.debug("[" + recE.getcRamo() + "]");
-            log.debug("[" + recE.getcUnidadResponsable() + "]");
-            log.debug("[" + recE.getcCentroContable() + "]");
-            log.debug("[" + recE.getfExp() + "]");
-            log.debug("[" + recE.getfAplicacion() + "]");
-            log.debug("[" + recE.getcConceptoRectificacion() + "]");
-            log.debug("[" + recE.getcTipoMovto() + "]");
-            log.debug("[" + recE.getnOrigenPPTO() + "]");
-            log.debug("[" + recE.getnMes() + "]");
-            log.debug("[" + folioCompleto + "]");
-            log.debug("[" + recE.getCtr_int() + "]");
-            log.debug("[" + recE.getcTipoRectificacion() + "]");
-            log.debug("[" + recE.getnCLC() + "]");
-            log.debug("[" + recE.getnFolioSicop() + "]");
-            log.debug("[" + recE.getnFolioSAI() + "]");
-            log.debug("[" + recE.getnFolioSIAFF() + "]");
-            log.debug("[" + recE.getCaNoContrarrecibo().trim() + "]");
-            log.debug("[" + recE.getCaNoContrarreciboMil().trim() + "]");
-            log.debug("[" + recE.getnFolioPoliza() + "]");
-            log.debug("[" + recE.getcTipoPoliza() + "]");
-            log.debug("[" + recE.getcDescripcionPoliza() + "]");
-            log.debug("[" + recE.getnFolioPolizaCancelacion() + "]");
-            log.debug("[" + recE.getfCancelacion() + "]");
-            log.debug("[" + recE.getnFolioTramiteSicop() + "]");
-            log.debug("[" + recE.getcUnidadResponsableContable() + "]");
-            log.debug("[" + recE.getTotalDice() + "]");
-            log.debug("[" + recE.getTotalDebe() + "]");
+            log.debug("Object: {}", "[" + folio + "]");
+            log.debug("Object: {}", "[" + recE.getnIdCaso() + "]");
+            log.debug("Object: {}", "[" + "N" + "]");
+            log.debug("Object: {}", "[" + recE.getaEjercicioFiscal() + "]");
+            log.debug("Object: {}", "[" + recE.getcRamo() + "]");
+            log.debug("Object: {}", "[" + recE.getcUnidadResponsable() + "]");
+            log.debug("Object: {}", "[" + recE.getcCentroContable() + "]");
+            log.debug("Object: {}", "[" + recE.getfExp() + "]");
+            log.debug("Object: {}", "[" + recE.getfAplicacion() + "]");
+            log.debug("Object: {}", "[" + recE.getcConceptoRectificacion() + "]");
+            log.debug("Object: {}", "[" + recE.getcTipoMovto() + "]");
+            log.debug("Object: {}", "[" + recE.getnOrigenPPTO() + "]");
+            log.debug("Object: {}", "[" + recE.getnMes() + "]");
+            log.debug("Object: {}", "[" + folioCompleto + "]");
+            log.debug("Object: {}", "[" + recE.getCtr_int() + "]");
+            log.debug("Object: {}", "[" + recE.getcTipoRectificacion() + "]");
+            log.debug("Object: {}", "[" + recE.getnCLC() + "]");
+            log.debug("Object: {}", "[" + recE.getnFolioSicop() + "]");
+            log.debug("Object: {}", "[" + recE.getnFolioSAI() + "]");
+            log.debug("Object: {}", "[" + recE.getnFolioSIAFF() + "]");
+            log.debug("Object: {}", "[" + recE.getCaNoContrarrecibo().trim() + "]");
+            log.debug("Object: {}", "[" + recE.getCaNoContrarreciboMil().trim() + "]");
+            log.debug("Object: {}", "[" + recE.getnFolioPoliza() + "]");
+            log.debug("Object: {}", "[" + recE.getcTipoPoliza() + "]");
+            log.debug("Object: {}", "[" + recE.getcDescripcionPoliza() + "]");
+            log.debug("Object: {}", "[" + recE.getnFolioPolizaCancelacion() + "]");
+            log.debug("Object: {}", "[" + recE.getfCancelacion() + "]");
+            log.debug("Object: {}", "[" + recE.getnFolioTramiteSicop() + "]");
+            log.debug("Object: {}", "[" + recE.getcUnidadResponsableContable() + "]");
+            log.debug("Object: {}", "[" + recE.getTotalDice() + "]");
+            log.debug("Object: {}", "[" + recE.getTotalDebe() + "]");
             // psInsertEncabezado.setString(32, recE.getTipoConcepto()); //se
             // quitó del encabezado
             psInsertEncabezado.execute();
@@ -1168,13 +1168,13 @@ public class RectificacionPresupuestariaManager {
         BigDecimal remanente = new BigDecimal(0);
         ResultSet rs = null;
         PreparedStatement pstm = null;
-        String queryRemanente = "" + "SELECT impRect - impReint AS  Remanente\r\n" + "FROM (\r\n" + "  SELECT ISNULL((SELECT CASE WHEN cEvento LIKE 'DICE%' THEN PAGDET.mImporte - RECDET.mImporte END AS IMPORTE FROM tRectificacionAutDetalle AS RECDET WITH (NOLOCK) WHERE RECENC.nFolioRectificacionAut = RECDET.nFolioRectificacionAut AND cEvento LIKE 'DICE%' AND PAGDET.EP = RECDET.EP AND PAGDET.cMes = RECDET.cMes),PAGDET.mImporte) AS impRect\r\n" + "	, ISNULL((SELECT CASE WHEN cEvento LIKE 'DICE%' THEN RECDET.EP END AS IMPORTE FROM tRectificacionAutDetalle AS RECDET WITH (NOLOCK) WHERE RECENC.nFolioRectificacionAut = RECDET.nFolioRectificacionAut AND cEvento LIKE 'DICE%' AND PAGDET.EP = RECDET.EP AND PAGDET.cMes = RECDET.cMes), PAGDET.EP) AS EPPAG\r\n" + "	, ISNULL((SELECT CASE WHEN cEvento LIKE 'DICE%' THEN RECDET.nDocRenglon END AS ndogrenglon FROM tRectificacionAutDetalle AS RECDET WITH (NOLOCK) WHERE RECENC.nFolioRectificacionAut = RECDET.nFolioRectificacionAut AND cEvento LIKE 'DICE%' AND PAGDET.EP = RECDET.EP AND PAGDET.cMes = RECDET.cMes), PAGDET.nDocRenglon) AS ndogrenglonP\r\n" + "	, ISNULL(REINTDET.mImporte, 0) AS impReint\r\n" + "  FROM tPagadoEncabezado AS PAGENC WITH (NOLOCK)\r\n" + "  JOIN tPagadoDetalle AS PAGDET WITH (NOLOCK) ON PAGENC.nFolioPagado = PAGDET.nFolioPagado\r\n" + "  LEFT JOIN tRectificacionAutEncabezado AS RECENC WITH (NOLOCK) ON PAGENC.caNoContrarrecibo = RECENC.caNoContrarrecibo	\r\n" + "  LEFT JOIN tReintegroAutDetalle AS REINTDET WITH (NOLOCK) ON PAGENC.caNoContrarrecibo = CXP\r\n" + //1
-        "  WHERE PAGENC.caNoContrarrecibo = ?	\r\n" + "	AND (PAGDET.mPasivoDiferido = 0 OR PAGDET.mPasivoDiferido IS NULL)\r\n" + "\r\n" + "	UNION\r\n" + "\r\n" + "  SELECT \r\n" + "	ISNULL((CASE WHEN RECDET.cEvento LIKE 'DEBE%' THEN RECDET.mImporte END),0) AS impRect\r\n" + "	, ISNULL((CASE WHEN RECDET.cEvento LIKE 'DEBE%' THEN RECDET.EP END), '') AS EPPAG\r\n" + "	, ISNULL((CASE WHEN RECDET.cEvento LIKE 'DEBE%' THEN RECDET.nDocRenglon END), 0) AS ndogrenglonP	\r\n" + "	, ISNULL(REINTDET.mImporte, 0) AS impReint\r\n" + "  FROM tPagadoEncabezado AS PAGENC WITH (NOLOCK)\r\n" + "  JOIN tPagadoDetalle AS PAGDET WITH (NOLOCK) ON PAGENC.nFolioPagado = PAGDET.nFolioPagado\r\n" + "  LEFT JOIN tRectificacionAutEncabezado AS RECENC WITH (NOLOCK) ON PAGENC.caNoContrarrecibo = RECENC.caNoContrarrecibo	\r\n" + "  LEFT JOIN tRectificacionAutDetalle AS RECDET WITH (NOLOCK) ON RECENC.nFolioRectificacionAut = RECDET.nFolioRectificacionAut and RECDET.cEvento LIKE 'DEBE%'	\r\n" + "  LEFT JOIN tReintegroAutDetalle AS REINTDET WITH (NOLOCK) ON PAGENC.caNoContrarrecibo = CXP\r\n" + //2
-        "  WHERE PAGENC.caNoContrarrecibo = ?	\r\n" + "	AND (PAGDET.mPasivoDiferido = 0 OR PAGDET.mPasivoDiferido IS NULL)\r\n" + ") tbl\r\n" + //3
-        "WHERE EPPAG = ?\r\n" + //4
-        "	AND ndogrenglonP = ?";
+        String queryRemanente = //1
+        "" + "SELECT impRect - impReint AS  Remanente\r\n" + "FROM (\r\n" + "  SELECT ISNULL((SELECT CASE WHEN cEvento LIKE 'DICE%' THEN PAGDET.mImporte - RECDET.mImporte END AS IMPORTE FROM tRectificacionAutDetalle AS RECDET WITH (NOLOCK) WHERE RECENC.nFolioRectificacionAut = RECDET.nFolioRectificacionAut AND cEvento LIKE 'DICE%' AND PAGDET.EP = RECDET.EP AND PAGDET.cMes = RECDET.cMes),PAGDET.mImporte) AS impRect\r\n" + "	, ISNULL((SELECT CASE WHEN cEvento LIKE 'DICE%' THEN RECDET.EP END AS IMPORTE FROM tRectificacionAutDetalle AS RECDET WITH (NOLOCK) WHERE RECENC.nFolioRectificacionAut = RECDET.nFolioRectificacionAut AND cEvento LIKE 'DICE%' AND PAGDET.EP = RECDET.EP AND PAGDET.cMes = RECDET.cMes), PAGDET.EP) AS EPPAG\r\n" + "	, ISNULL((SELECT CASE WHEN cEvento LIKE 'DICE%' THEN RECDET.nDocRenglon END AS ndogrenglon FROM tRectificacionAutDetalle AS RECDET WITH (NOLOCK) WHERE RECENC.nFolioRectificacionAut = RECDET.nFolioRectificacionAut AND cEvento LIKE 'DICE%' AND PAGDET.EP = RECDET.EP AND PAGDET.cMes = RECDET.cMes), PAGDET.nDocRenglon) AS ndogrenglonP\r\n" + "	, ISNULL(REINTDET.mImporte, 0) AS impReint\r\n" + "  FROM tPagadoEncabezado AS PAGENC WITH (NOLOCK)\r\n" + "  JOIN tPagadoDetalle AS PAGDET WITH (NOLOCK) ON PAGENC.nFolioPagado = PAGDET.nFolioPagado\r\n" + "  LEFT JOIN tRectificacionAutEncabezado AS RECENC WITH (NOLOCK) ON PAGENC.caNoContrarrecibo = RECENC.caNoContrarrecibo	\r\n" + "  LEFT JOIN tReintegroAutDetalle AS REINTDET WITH (NOLOCK) ON PAGENC.caNoContrarrecibo = CXP\r\n" + "  WHERE PAGENC.caNoContrarrecibo = ?	\r\n" + "	AND (PAGDET.mPasivoDiferido = 0 OR PAGDET.mPasivoDiferido IS NULL)\r\n" + "\r\n" + "	UNION\r\n" + "\r\n" + "  SELECT \r\n" + "	ISNULL((CASE WHEN RECDET.cEvento LIKE 'DEBE%' THEN RECDET.mImporte END),0) AS impRect\r\n" + "	, ISNULL((CASE WHEN RECDET.cEvento LIKE 'DEBE%' THEN RECDET.EP END), '') AS EPPAG\r\n" + "	, ISNULL((CASE WHEN RECDET.cEvento LIKE 'DEBE%' THEN RECDET.nDocRenglon END), 0) AS ndogrenglonP	\r\n" + "	, ISNULL(REINTDET.mImporte, 0) AS impReint\r\n" + "  FROM tPagadoEncabezado AS PAGENC WITH (NOLOCK)\r\n" + "  JOIN tPagadoDetalle AS PAGDET WITH (NOLOCK) ON PAGENC.nFolioPagado = PAGDET.nFolioPagado\r\n" + "  LEFT JOIN tRectificacionAutEncabezado AS RECENC WITH (NOLOCK) ON PAGENC.caNoContrarrecibo = RECENC.caNoContrarrecibo	\r\n" + "  LEFT JOIN tRectificacionAutDetalle AS RECDET WITH (NOLOCK) ON RECENC.nFolioRectificacionAut = RECDET.nFolioRectificacionAut and RECDET.cEvento LIKE 'DEBE%'	\r\n" + //2
+        "  LEFT JOIN tReintegroAutDetalle AS REINTDET WITH (NOLOCK) ON PAGENC.caNoContrarrecibo = CXP\r\n" + "  WHERE PAGENC.caNoContrarrecibo = ?	\r\n" + "	AND (PAGDET.mPasivoDiferido = 0 OR PAGDET.mPasivoDiferido IS NULL)\r\n" + //3
+        ") tbl\r\n" + //4
+        "WHERE EPPAG = ?\r\n" + "	AND ndogrenglonP = ?";
         //                                                                1  2  3  4
-        log.trace(String.format("Ejecutando query para remanente. [%s][%s,%s,%s,%d]", queryRemanente, cxp, cxp, ep, nRenglon));
+        log.trace("Object: {}", String.format("Ejecutando query para remanente. [%s][%s,%s,%s,%d]", queryRemanente, cxp, cxp, ep, nRenglon));
         pstm = conn.prepareStatement(queryRemanente);
         pstm.setString(1, cxp);
         pstm.setString(2, cxp);

@@ -63,14 +63,14 @@ public class EjercidoPagadoBusinessLogic extends DataSourceManager {
         condiciones.add(new Condicion("laudos", "=", "'1'"));
         log.trace("Solicitando pagos a procesar.");
         List<Pago> pagosProcesar = obtenerPagosProcesar(condiciones);
-        log.trace("Se obtubieron " + pagosProcesar.size() + " pagos por procesar.");
+        log.trace("Object: {}", "Se obtubieron " + pagosProcesar.size() + " pagos por procesar.");
         try {
             log.trace("Obteniendo conexion a base de datos. Inicia transaccion.");
             conn = getConnection();
             log.trace("Iterando lista de pagos.");
             for (Iterator<Pago> i = pagosProcesar.iterator(); i.hasNext(); ) {
                 Pago pago = i.next();
-                log.debug(String.format("Procesando pago. Tipo [%s] Folio [%d] Estatus Ejercido [%s] Estatus Pagado [%s] Monto[%f]", pago.getTipoPago(), pago.getFolioPagado(), pago.getEstatusEjercido(), pago.getEstatusPagado(), pago.getImporteNeto().floatValue()));
+                log.debug("Object: {}", String.format("Procesando pago. Tipo [%s] Folio [%d] Estatus Ejercido [%s] Estatus Pagado [%s] Monto[%f]", pago.getTipoPago(), pago.getFolioPagado(), pago.getEstatusEjercido(), pago.getEstatusPagado(), pago.getImporteNeto().floatValue()));
                 /*
 				 * Las solicitudes de laudos devengadas seran aplicadas
 				 * manualmente.
@@ -137,7 +137,7 @@ public class EjercidoPagadoBusinessLogic extends DataSourceManager {
             try {
                 conn.rollback();
             } catch (Exception e2) {
-                log.warn("Problemas realizando rollback " + e2);
+                log.warn("Object: {}", "Problemas realizando rollback " + e2);
             }
             throw e;
         } finally {
@@ -161,14 +161,14 @@ public class EjercidoPagadoBusinessLogic extends DataSourceManager {
         condiciones.add(new Condicion("cTipoPago", "=", "'PAGOPENASCONV' "));
         log.trace("Solicitando pagos a procesar.");
         List<Pago> pagosProcesar = obtenerPagosProcesar(condiciones);
-        log.trace("Se obtubieron " + pagosProcesar.size() + " pagos por procesar.");
+        log.trace("Object: {}", "Se obtubieron " + pagosProcesar.size() + " pagos por procesar.");
         try {
             log.trace("Obteniendo conexion a base de datos. Inicia transaccion.");
             conn = getConnection();
             log.trace("Iterando lista de pagos.");
             for (Iterator<Pago> i = pagosProcesar.iterator(); i.hasNext(); ) {
                 Pago pago = i.next();
-                log.debug(String.format("Procesando pago. Tipo [%s] Folio [%d] Estatus Ejercido [%s] Estatus Pagado [%s] Monto[%f]", pago.getTipoPago(), pago.getFolioPagado(), pago.getEstatusEjercido(), pago.getEstatusPagado(), pago.getImporteNeto().floatValue()));
+                log.debug("Object: {}", String.format("Procesando pago. Tipo [%s] Folio [%d] Estatus Ejercido [%s] Estatus Pagado [%s] Monto[%f]", pago.getTipoPago(), pago.getFolioPagado(), pago.getEstatusEjercido(), pago.getEstatusPagado(), pago.getImporteNeto().floatValue()));
                 if (EjercidoPagadoBusinessLogic.EJERCIDO.equalsIgnoreCase(pago.getEstatusEjercido())) {
                     /* Inicio de la aplicacion del ejercido. */
                     /*
@@ -225,7 +225,7 @@ public class EjercidoPagadoBusinessLogic extends DataSourceManager {
             try {
                 conn.rollback();
             } catch (Exception e2) {
-                log.warn("Problemas realizando rollback " + e2);
+                log.warn("Object: {}", "Problemas realizando rollback " + e2);
             }
             throw e;
         } finally {

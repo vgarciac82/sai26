@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.egresos.firmante.core.FirmanteManager;
 import com.syc.egresos.firmante.servlet.Firmante;
@@ -72,7 +72,7 @@ public class FirmanteBussinessLogic extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback: " + e2);
+                    log.warn("Object: {}", "Problemas en rollback: " + e2);
                 }
             throw e;
         } finally {
@@ -96,10 +96,10 @@ public class FirmanteBussinessLogic extends DataSourceManager {
     public List<Firmante> obtenerFirmantes(String modulo, String tipoFirmante, String ur) throws SQLException {
         Connection conn = null;
         try {
-            log.trace("Obteniendo firmantes para Modulo: [" + modulo + "], Tipo: [" + tipoFirmante + "], Login: [" + ur + "]");
+            log.trace("Object: {}", "Obteniendo firmantes para Modulo: [" + modulo + "], Tipo: [" + tipoFirmante + "], Login: [" + ur + "]");
             conn = getConnection();
             List<Firmante> firmantes = FirmanteManager.selectByModule(conn, modulo, tipoFirmante, ur);
-            log.info("Se obtuvieron [" + (firmantes != null ? firmantes.size() : 0) + "] firmantes para Modulo: [" + modulo + "]");
+            log.info("Object: {}", "Se obtuvieron [" + (firmantes != null ? firmantes.size() : 0) + "] firmantes para Modulo: [" + modulo + "]");
             return firmantes;
         } catch (SQLException e) {
             log.error("Error al obtener firmantes para Modulo: [" + modulo + "], Tipo: [" + tipoFirmante + "], Login: [" + ur + "]", e);

@@ -68,7 +68,7 @@ public class AplicacionContableServlet extends HttpServlet {
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion Contable, Consulte a su administrador.";
         }
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         Connection conn = null;
         try {
@@ -89,9 +89,9 @@ public class AplicacionContableServlet extends HttpServlet {
             Caso sc = new Caso();
             sc.setIdCaso(c.getIdCaso());
             c = CasoManager.select(conn, sc);
-            log.debug(c.getCasoDato("APLICADO_CONT").getValor());
+            log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
         } catch (Exception e) {
-            log.error("Error en Aplicacion contable:" + e.getMessage());
+            log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
         } finally {
             try {
                 if (conn != null)
@@ -101,7 +101,7 @@ public class AplicacionContableServlet extends HttpServlet {
             }
             conn = null;
         }
-        log.debug("Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: {}", "Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
         out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
         out.println("<HTML>");
         out.println("  <HEAD><TITLE>Aplicacion Presupuestal/Contable</TITLE></HEAD>");

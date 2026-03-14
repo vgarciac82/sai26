@@ -60,7 +60,7 @@ public class AltaProveedorManager {
         JSONArray arrayObj = new JSONArray();
         JSONObject jsonObj = new JSONObject();
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             int token = 0;
@@ -98,7 +98,7 @@ public class AltaProveedorManager {
         JSONArray arrayObj = new JSONArray();
         JSONObject jsonObj = new JSONObject();
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             rsMetadata = rs.getMetaData();
@@ -132,7 +132,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "UPDATE dbo.tAltaProveedor SET cIdTipoPersona=" + datProv.getnTipoPersona() + ",cTipoRegistro='" + datProv.getcTipoPB() + "' " + ",cIdRFC='" + datProv.getRfc() + "',cRazonSocial='" + datProv.getcRazonSocial() + "',cCURP='" + datProv.getcCurp() + "',cApellidoPaterno='" + datProv.getcApellidoPat() + "',cApellidoMaterno='" + datProv.getcApellidoMat() + "',cNombre='" + datProv.getcNombre() + "'" + ",cGiro='" + datProv.getcGiro() + "',cIdEntidadFederativa=" + datProv.getnEntidadFederativa() + ",cIdMunicipio=" + datProv.getnMunicipio() + ",cCalle='" + datProv.getcCalle() + "',cNumeroExterno='" + datProv.getcNumeroExt() + "'" + ",cNumeroInterno='" + datProv.getcNumeroInt() + "',cColonia='" + datProv.getcColonia() + "',cCodigoPostal='" + datProv.getcCodigoPost() + "',cEmail='" + datProv.getcEmail() + "',cUrl='" + datProv.getcPaginaWeb() + "',nIdPyme=" + datProv.getnPyme() + ",nIdTipoTelefono=" + datProv.getnTipoTelefono() + ",cTelefono='" + datProv.getcTelefono() + "',cExtranjero=" + datProv.getnExtranjero() + ",cPais='" + datProv.getcPais() + "' " + ",nIdEmpleado=" + (datProv.getnTipoPersona() == 3 ? datProv.getnNumEmpleado() : "null") + ",cNumeroREPSE = '" + datProv.getNumRepse() + "' " + ",id_regimen_fiscal=" + datProv.getIdRegimenFiscal() + ",cIdLocalidad='" + datProv.getcLocalidad() + "' " + " WHERE cFolio='" + datProv.getcFolio() + "'";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -181,7 +181,7 @@ public class AltaProveedorManager {
             query += "," + "'" + datProv.getEsAltaRapida() + "'";
             query += "," + "'" + datProv.getcLocalidad() + "'";
             query += ")";
-            log.info("Query Insert Proveedor \n" + query);
+            log.info("Object: {}", "Query Insert Proveedor \n" + query);
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -196,7 +196,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "SELECT * FROM tAltaProveedor WITH(NOLOCK) WHERE cIdRFC='" + cIdRFC + "'";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -215,7 +215,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "SELECT * FROM tAltaProveedor WITH(NOLOCK) WHERE cIdRFC='" + cIdRFC + "' and cFolio!='" + cFolio + "'";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -234,7 +234,7 @@ public class AltaProveedorManager {
         String folio = "";
         String query = "SELECT * FROM tAltaProveedor WITH(NOLOCK) WHERE cIdRFC='" + cIdRFC + "' and cFolio!='" + cFolio + "'";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -253,7 +253,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "SELECT * FROM tAltaProveedor WITH(NOLOCK) WHERE cFolio='" + cFolio + "'";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -271,7 +271,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "UPDATE dbo.tBeneficiarioCuentasBancarias SET nBCBEnviadoSICOP=0 WHERE dRFC='" + cIdRFC + "' ";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -285,7 +285,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "UPDATE dbo.tBeneficiario SET nEnviadoSICOP=0 WHERE dRFC='" + cIdRFC + "' ";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -299,7 +299,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "UPDATE dbo.tBeneficiario SET nEnviadoSICOP=1 WHERE dRFC='" + cIdRFC + "' ";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -313,7 +313,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "UPDATE dbo.tBeneficiarioCuentasBancarias SET nBCBEnviadoSICOP=1 WHERE dRFC='" + cIdRFC + "' ";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -327,7 +327,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "UPDATE dbo.tAltaProveedor SET cDocumentoHaplicado='S' WHERE cFolio='" + cFolio + "' ";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -342,7 +342,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "SELECT * FROM tBeneficiarioCuentasBancariastmp WITH(NOLOCK) WHERE dRFC='" + datProveedor.getRfc1() + datProveedor.getRfc2() + datProveedor.getRfc3() + "' and cBanco='" + datProveedor.getCuentasBancarias().get(0).getcBanco() + "' and cPlaza='" + datProveedor.getCuentasBancarias().get(0).getcPlaza() + "' and dCuentaBancaria='" + datProveedor.getCuentasBancarias().get(0).getcCuentaBancaria() + "' ";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -361,7 +361,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "SELECT * FROM tBeneficiarioCuentasBancariastmp WITH(NOLOCK) WHERE dRFC='" + cIdRFC + "' ";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -380,7 +380,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "SELECT * FROM tBeneficiarioCuentasBancarias WITH(NOLOCK) WHERE dRFC='" + cIdRFC + "' ";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -402,7 +402,7 @@ public class AltaProveedorManager {
         String docs = "";
         String token = "";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             resp = new Respuesta();
@@ -431,7 +431,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "INSERT INTO IMX_DOCUMENTO(TITULO_APLICACION,ID_GABINETE,ID_CARPETA_PADRE,ID_DOCUMENTO,NOMBRE_DOCUMENTO,NOMBRE_USUARIO,PRIORIDAD,ID_TIPO_DOCTO,FH_CREACION," + "FH_MODIFICACION,NUMERO_ACCESOS,NUMERO_PAGINAS,MATERIA,DESCRIPCION,CLASE_DOCUMENTO,ESTADO_DOCUMENTO,TAMANO_BYTES,COMPARTIR,iEsVersion) " + "VALUES('PROVEEDORES'," + idGabinete + ",5," + idDocumento + ",replace('" + nameDoc + "','.',''),'" + login + "',3,1,getdate(),getdate(),0,0,'ORIGINAL','Comprobante de cuenta: " + nameDoc + "',0,'V',0,'N',0)";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -447,7 +447,7 @@ public class AltaProveedorManager {
         int idGabinete = -1;
         try {
             query = "SELECT ID_GABINETE FROM IMX_DOCUMENTO WITH(NOLOCK)WHERE TITULO_APLICACION='" + tituloAplicacion + "' AND NOMBRE_DOCUMENTO ='" + cFolio + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -467,7 +467,7 @@ public class AltaProveedorManager {
         int idDocumento = -1;
         try {
             query = "SELECT * FROM IMX_DOCUMENTO WITH(NOLOCK) WHERE TITULO_APLICACION='" + tituloAplicacion + "' AND ID_CARPETA_PADRE=" + carpetaPadre + " and ID_GABINETE=" + idGabinete + " and NOMBRE_DOCUMENTO=ltrim(rtrim('" + nombreDocumento + "'))";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -487,7 +487,7 @@ public class AltaProveedorManager {
         String cDocumentoHAplicado = "";
         try {
             query = "SELECT cDocumentoHaplicado FROM tAltaProveedor WITH(NOLOCK) WHERE cFolio='" + cFolio + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -507,7 +507,7 @@ public class AltaProveedorManager {
         int idDocSig = 1;
         try {
             query = "select count(*)+1 as docSiguiente from IMX_DOCUMENTO WITH(NOLOCK) where ID_CARPETA_PADRE=5 and TITULO_APLICACION='" + tituloAplicacion + "' and ID_GABINETE=" + idGabinete;
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -527,7 +527,7 @@ public class AltaProveedorManager {
         JSONObject jsonObj = new JSONObject();
         try {
             query = "select " + "(ctas.dBanco+'-'+ctas.dCuentaBancaria) nameDoc " + "from tBeneficiarioCuentasBancarias as ctas with(Nolock) " + "where ctas.dRFC='" + rfc + "' " + "and (ctas.dBanco+'-'+ctas.dCuentaBancaria) not in(SELECT NOMBRE_DOCUMENTO FROM IMX_DOCUMENTO WITH(NOLOCK) WHERE TITULO_APLICACION='" + tituloAplicacion + "' and ID_GABINETE=" + idGabinete + " and ID_CARPETA_PADRE=5)";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             int i = 0;
@@ -563,7 +563,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "UPDATE dbo.tAltaProveedor SET cIdUsuarioValida='" + cLoginValida + "',cDocumentoHaplicado='" + cDocumentoHaplicado + "',cObservaciones='" + cObservaciones + "' WHERE cFolio='" + cFolio + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -578,7 +578,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "UPDATE dbo.tAltaProveedor SET cIdUsuarioAutoriza='" + cLoginAut + "',cDocumentoHaplicado='" + cDocumentoHaplicado + "',cObservaciones='" + cObservaciones + "' WHERE cFolio='" + cFolio + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -593,7 +593,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "UPDATE dbo.tAltaProveedor SET cIdUsuaUltModif='" + cLoginMod + "',cDocumentoHaplicado='" + cDocumentoHaplicado + "',cObservaciones='" + cObservaciones + "' WHERE cFolio='" + cFolio + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -608,7 +608,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "UPDATE dbo.tAltaProveedor SET cActualizacion='" + cActualizacion + "' WHERE cFolio='" + cFolio + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -624,7 +624,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "select * from mCatalogoProveedor WITH(NOLOCK) WHERE RTRIM(LTRIM(REPLACE(cIdRFC, '-', '')))='" + cRFC.replaceAll("-", "") + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -644,7 +644,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "select nFolioPAGODIVERSO as nFolioPago from tPAGODIVERSOEncabezado with(Nolock) where cDocumentoHaplicado='S' and rfc='" + cRFC + "' and  CTAB='" + CTAB + "' " + "union select nFolioPagoDirecto as nFolioPago from tPagoDirectoEncabezado with(Nolock) where cDocumentoHaplicado='S' and cIdRFC='" + cRFC + "' and  CTAB='" + CTAB + "' " + "union select nFolioPAGOFEDERALIZADO as nFolioPago from tPAGOFEDERALIZADOEncabezado with(Nolock) where cDocumentoHaplicado='S' and RFC='" + cRFC + "' and  CTAB='" + CTAB + "' " + "union select nFolioPAGOOBRA as nFolioPago from tPAGOOBRAEncabezado with(Nolock) where cDocumentoHaplicado='S' and RFC='" + cRFC + "' and  CTAB='" + CTAB + "' ";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -664,7 +664,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "select * from tBeneficiario WITH(NOLOCK) WHERE RTRIM(LTRIM(dRFC))='" + cRFC + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -683,7 +683,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "UPDATE mCatalogoProveedor SET cRazonSocial='" + ((datProveedor.getnTipoPersona() == 1) ? datProveedor.getcRazonSocial() : datProveedor.getcNombre() + " " + datProveedor.getcApellidoPat() + " " + datProveedor.getcApellidoMat()) + "',cGiro='" + datProveedor.getcGiro() + "'" + ",cRepresentanteLegal='" + ((datProveedor.getnTipoPersona() == 1) ? datProveedor.getcNombre() + " " + datProveedor.getcApellidoPat() + " " + datProveedor.getcApellidoMat() : "") + "',cIdEntidadFederativa='" + (datProveedor.getnEntidadFederativa() < 10 ? "0" + datProveedor.getnEntidadFederativa() : datProveedor.getnEntidadFederativa()) + "'" + ",cCalle='" + datProveedor.getcCalle() + "',cNumeroExterno='" + datProveedor.getcNumeroExt() + "'" + ",cNumeroInterno='" + datProveedor.getcNumeroInt() + "',cColonia='" + datProveedor.getcColonia() + "'" + ",cMunicipio=(SELECT cat.mpo_nombre  FROM CAT_MUNICIPIO cat WITH(NOLOCK) where ID_ESTADO=" + datProveedor.getnEntidadFederativa() + " and ID_MUNICIPIO=" + datProveedor.getnMunicipio() + ")" + ",cCodigoPostal='" + datProveedor.getcCodigoPost() + "'" + ",cEmail='" + datProveedor.getcEmail() + "',cUrl='" + datProveedor.getcPaginaWeb() + "'" + ",nIdPyme=" + datProveedor.getnPyme() + ",cCURP='" + ((datProveedor.getnTipoPersona() == 1) ? "" : datProveedor.getcCurp()) + "' " + ",lHabilitado=" + datProveedor.getnProveedorHabilitado() + ",idRegimenFiscal=" + datProveedor.getIdRegimenFiscal() + ",cNumeroREPSE=" + "'" + datProveedor.getNumRepse() + "'" + ",cEsRESICO = " + "'" + Proveedor.esResico(datProveedor.getIdRegimenFiscal()) + "' " + " WHERE cIdRFC='" + datProveedor.getRfc() + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -698,7 +698,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "DELETE mCatalogoProveedor WHERE REPLACE(cIdRFC,'-','') = '" + rfc.replaceAll("-", "") + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -713,7 +713,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "UPDATE tBeneficiario SET dNombre='" + ((datProveedor.getnTipoPersona() == 1) ? datProveedor.getcRazonSocial() : datProveedor.getcNombre()) + "',dApellidoPaterno=" + ((datProveedor.getnTipoPersona() == 1) ? "null" : "'" + datProveedor.getcApellidoPat() + "'") + ",dApellidoMaterno=" + ((datProveedor.getnTipoPersona() == 1) ? "null" : "'" + datProveedor.getcApellidoMat() + "'") + ",cIdTipoPersonaRFC='" + datProveedor.getnTipoPersona() + "',dCalleActual='" + datProveedor.getcCalle() + "',dNoDomicilioActual='" + datProveedor.getcNumeroExt() + "',dNoInteriorDomicilioActual='" + datProveedor.getcNumeroInt() + "',dColoniaActual='" + datProveedor.getcColonia() + "',dCodigoPostalActual='" + datProveedor.getcCodigoPost() + "',cMunicipioActual=" + datProveedor.getnMunicipio() + ",cEstadoActual=" + datProveedor.getnEntidadFederativa() + ",dTelefonoActual='" + datProveedor.getcTelefono() + "',dEMailActual='" + datProveedor.getcEmail() + "',dCalleFiscal='" + datProveedor.getcCalle() + "',dNoDomicilioFiscal='" + datProveedor.getcNumeroExt() + "',dNoInteriorDomicilioFiscal='" + datProveedor.getcNumeroInt() + "',dColoniaFiscal='" + datProveedor.getcColonia() + "',dCodigoPostalFiscal='" + datProveedor.getcCodigoPost() + "',cMunicipioFiscal=" + datProveedor.getnMunicipio() + ",cEstadoFiscal=" + datProveedor.getnEntidadFederativa() + ",dTelefonoFiscal='" + datProveedor.getcTelefono() + "',dEMailFiscal='" + datProveedor.getcEmail() + "',dAPaternoApoderado=" + ((datProveedor.getnTipoPersona() == 1) ? "'" + datProveedor.getcApellidoPat() + "'" : "null") + ",dAMaternoApoderado=" + ((datProveedor.getnTipoPersona() == 1) ? "'" + datProveedor.getcApellidoMat() + "'" : "null") + ",dNombreApoderado=" + ((datProveedor.getnTipoPersona() == 1) ? "'" + datProveedor.getcNombre() + "'" : "null") + ",dCURP=" + ((datProveedor.getnTipoPersona() == 1) ? "null" : "'" + datProveedor.getcCurp() + "'") + ",nIdEmpleado=" + ((datProveedor.getnTipoPersona() == 3) ? datProveedor.getnNumEmpleado() : "null") + ",cExtranjero=" + datProveedor.getnExtranjero() + ",nEnviadoSICOP=0 " + " WHERE dRFC='" + datProveedor.getRfc1() + datProveedor.getRfc2() + datProveedor.getRfc3() + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -728,7 +728,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "UPDATE tBeneficiario SET CBEN='" + CBEN + "' WHERE dRFC='" + cRFC + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -743,7 +743,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "INSERT tBeneficiario (dNombre,dApellidoPaterno,dApellidoMaterno,dRFC,dCURP,cIdTipoPersonaRFC" + ",dCalleFiscal,dNoDomicilioFiscal,dNoInteriorDomicilioFiscal,dColoniaFiscal,dCodigoPostalFiscal,cMunicipioFiscal,cEstadoFiscal,dTelefonoFiscal,dEMailFiscal" + ",dCalleActual,dNoDomicilioActual,dNoInteriorDomicilioActual,dColoniaActual,dCodigoPostalActual,cMunicipioActual,cEstadoActual,dTelefonoActual,dEMailActual" + ",dAPaternoApoderado,dAMaternoApoderado,dNombreApoderado,cExtranjero,cRFCValido,nEnviadoSICOP,cBeneficiarioStatus,fBeneficiario,cIdBancario,nIdEmpleado,alta_rapida) " + "VALUES ('" + ((datProveedor.getnTipoPersona() == 1) ? datProveedor.getcRazonSocial() : datProveedor.getcNombre()) + "'," + ((datProveedor.getnTipoPersona() == 1) ? "null" : "'" + datProveedor.getcApellidoPat() + "'") + "," + ((datProveedor.getnTipoPersona() == 1) ? "null" : "'" + datProveedor.getcApellidoMat() + "'") + ",'" + datProveedor.getRfc1() + datProveedor.getRfc2() + datProveedor.getRfc3() + "'," + ((datProveedor.getnTipoPersona() == 1) ? "null" : "'" + datProveedor.getcCurp() + "'") + ",'" + datProveedor.getnTipoPersona() + "','" + datProveedor.getcCalle() + "','" + datProveedor.getcNumeroExt() + "','" + datProveedor.getcNumeroInt() + "','" + datProveedor.getcColonia() + "','" + datProveedor.getcCodigoPost() + "','" + datProveedor.getnMunicipio() + "','" + datProveedor.getnEntidadFederativa() + "','" + datProveedor.getcTelefono() + "','" + datProveedor.getcEmail() + "','" + datProveedor.getcCalle() + "','" + datProveedor.getcNumeroExt() + "','" + datProveedor.getcNumeroInt() + "','" + datProveedor.getcColonia() + "','" + datProveedor.getcCodigoPost() + "','" + datProveedor.getnMunicipio() + "','" + datProveedor.getnEntidadFederativa() + "','" + datProveedor.getcTelefono() + "','" + datProveedor.getcEmail() + "'," + ((datProveedor.getnTipoPersona() == 1) ? "'" + datProveedor.getcApellidoPat() + "'" : "null") + "," + ((datProveedor.getnTipoPersona() == 1) ? "'" + datProveedor.getcApellidoMat() + "'" : "null") + "," + ((datProveedor.getnTipoPersona() == 1) ? "'" + datProveedor.getcNombre() + "'" : "null") + "," + datProveedor.getnExtranjero() + ",1,0,1,GETDATE(),'" + datProveedor.getRfc1() + datProveedor.getRfc2() + datProveedor.getRfc3() + "'," + ((datProveedor.getnTipoPersona() == 3) ? datProveedor.getnNumEmpleado() : "null") + ",'" + datProveedor.getEsAltaRapida() + "')";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -758,7 +758,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "INSERT INTO dbo.mCatalogoProveedor (cIdRFC,cRazonSocial,cNumeroRegistro,cGiro,cRepresentanteLegal,cIdEntidadFederativa,cCalle,cNumeroExterno," + "cNumeroInterno,cColonia,cMunicipio,cCodigoPostal,cEmail,cUrl,cIdUnidadEjecutora,nIdPyme,lHabilitado,cCURP,idRegimenFiscal,cNumeroREPSE,cEsRESICO, alta_rapida)" + " VALUES('" + datProveedor.getRfc() + "','" + ((datProveedor.getnTipoPersona() == 1) ? datProveedor.getcRazonSocial() : datProveedor.getcNombre() + " " + datProveedor.getcApellidoPat() + " " + datProveedor.getcApellidoMat()) + "',' ','" + datProveedor.getcGiro() + "','" + ((datProveedor.getnTipoPersona() == 1) ? datProveedor.getcNombre() + " " + datProveedor.getcApellidoPat() + " " + datProveedor.getcApellidoMat() : "") + "','" + (datProveedor.getnEntidadFederativa() < 10 ? "0" + datProveedor.getnEntidadFederativa() : datProveedor.getnEntidadFederativa()) + "','" + datProveedor.getcCalle() + "','" + datProveedor.getcNumeroExt() + "','" + datProveedor.getcNumeroInt() + "','" + datProveedor.getcColonia() + "',(SELECT cat.mpo_nombre  FROM CAT_MUNICIPIO cat WITH(NOLOCK) where ID_ESTADO=" + datProveedor.getnEntidadFederativa() + " and ID_MUNICIPIO=" + datProveedor.getnMunicipio() + "),'" + datProveedor.getcCodigoPost() + "','" + datProveedor.getcEmail() + "','" + datProveedor.getcPaginaWeb() + "','" + unidadEjec + "'," + datProveedor.getnPyme() + "," + datProveedor.getnProveedorHabilitado() + ",'" + ((datProveedor.getnTipoPersona() == 1) ? "" : datProveedor.getcCurp()) + "'" + "," + datProveedor.getIdRegimenFiscal() + "," + "'" + datProveedor.getNumRepse() + "'" + "," + "'" + Proveedor.esResico(datProveedor.getIdRegimenFiscal()) + "','" + datProveedor.getEsAltaRapida() + "')";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -774,7 +774,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "select *from mCatalogoProveedorTelefono  WITH(NOLOCK) where cIdRFC='" + cRFC + "' and nIdTipoTelefono=" + nTipoTelefono;
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -793,7 +793,7 @@ public class AltaProveedorManager {
         int bEsActCta = 0;
         String query = "select isnull(bEsActCta,0) from tAltaProveedor with(Nolock) where cFolio='" + cFolio + "' ";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -812,7 +812,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "UPDATE mCatalogoProveedor set lHabilitado=0 where REPLACE(cIdRFC,'-','')='" + cRFC.replaceAll("-", "") + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -827,7 +827,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "UPDATE mCatalogoProveedor set lHabilitado=1 where cIdRFC='" + cRFC + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -842,7 +842,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "UPDATE mCatalogoProveedorTelefono set cTelefono='" + cNumeroTelefono + "' where cIdRFC='" + cRFC + "' and nIdTelefono=" + nIdTelefono + " and nIdTipoTelefono=" + nTipoTelefono;
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -857,7 +857,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "INSERT INTO dbo.mCatalogoProveedorTelefono (cIdRFC,nIdTelefono,nIdTipoTelefono,cTelefono)" + " VALUES('" + cRFC + "'," + nIdTelefono + "," + nTipoTelefono + ",'" + cNumeroTelefono + "')";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -872,7 +872,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "Delete dbo.mCatalogoProveedorTelefono where cIdRFC='" + cRFC + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -888,7 +888,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "SELECT case when " + nTipoPersona + "=3 then'E'+ RIGHT('00000'+CAST(nIdEmpleado AS VARCHAR(5)),5) else 'C'+ RIGHT('00000'+CAST(cBeneficiario AS VARCHAR(5)),5)end ascBeneficiario FROM tBeneficiario WITH(NOLOCK) WHERE RTRIM(LTRIM(dRFC))='" + cRFC + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -908,7 +908,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "SELECT CBEN FROM tBeneficiario WITH(NOLOCK) WHERE RTRIM(LTRIM(dRFC))='" + cRFC + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -928,7 +928,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = " SELECT cCBEN FROM tCBENAltaEmpleado WITH(NOLOCK) where nTipoCBEN=" + nTipoCBEN + " and cRFC='" + cRFC + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -948,7 +948,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "select cParametro+RIGHT('00000'+CAST(cValor AS VARCHAR(5)),5) as cben From mSistema with(nolock) where nIdParametro=34";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -967,7 +967,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "update mSistema set cValor=cValor+1	where nIdParametro=34";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -982,7 +982,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "INSERT INTO dbo.tCBENAltaEmpleado (cRFC,nTipoCBEN,cCBEN,fFechaCBEN)" + " VALUES('" + cRFC + "'," + nTipoCBEN + ",'" + cCBEN + "',GETDATE())";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -997,7 +997,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "INSERT INTO dbo.tBitacoraCBEN (nvoCBEN,CBENAnterior,dRFC,fModificacion)" + " VALUES('" + cCBENNuevo + "','" + cCBENAnterior + "','" + cRFC + "',GETDATE())";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1012,7 +1012,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "INSERT INTO dbo.tBeneficiarioCaso   ( id_caso, cRFC )" + " VALUES(" + nCaso + ",'" + cRFC + "')";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1028,7 +1028,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "select * from tBeneficiarioCaso WITH(NOLOCK) WHERE id_caso=" + nCaso + " and cRFC='" + cRFC + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -1047,7 +1047,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "SELECT isnull(cNvoCBEN,0) as cNvoCBEN FROM tAltaProveedor WITH(NOLOCK) WHERE cIdRFC='" + cIdRFC + "'";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -1070,7 +1070,7 @@ public class AltaProveedorManager {
             query.append("SELECT dRFC,cBanco,cPlaza,dCuentaBancaria,dDigitoVerificador,1,dBanco,dSucursal,cUsuarioModifico,fCuentaModifico," + nBCBEnviadoSICOP);
             query.append(", CAST(cBanco  AS VARCHAR(3) )+ CAST(cPlaza AS VARCHAR(3) ) + dCuentaBancaria + dDigitoVerificador");
             query.append(" FROM tBeneficiarioCuentasBancariasTmp WITH(NOLOCK) WHERE cFolio='" + cFolio + "'");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1085,7 +1085,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "DELETE FROM tBeneficiarioCuentasBancariasTmp WHERE cFolio='" + cFolio + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1100,7 +1100,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "DELETE tBeneficiarioCuentasBancariasTmp WHERE dRFC='" + datProv.getRfc1() + datProv.getRfc2() + datProv.getRfc3() + "' AND REPLACE(dBanco,',','')=REPLACE('" + datProv.getCuentasBancarias().get(0).getcNameBanco() + "',',','') AND cPlaza='" + datProv.getCuentasBancarias().get(0).getcPlaza() + "' AND dDigitoVerificador=" + datProv.getCuentasBancarias().get(0).getnDigitoVerificador() + " AND dSucursal='" + datProv.getCuentasBancarias().get(0).getcSucursal() + "' AND cFolio='" + datProv.getcFolio() + "' AND dCuentaBancaria='" + datProv.getCuentasBancarias().get(0).getcCuentaBancaria() + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1115,7 +1115,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "DELETE tBeneficiarioCuentasBancariasTmp WHERE dRFC='" + ctaBancaria.getRfc() + "' AND cBanco='" + ctaBancaria.getcBanco() + "' AND dCuentaBancaria='" + ctaBancaria.getcCuentaBancaria() + "'" + " AND cPlaza='" + ctaBancaria.getcPlaza() + "' AND dDigitoVerificador = " + ctaBancaria.getnDigitoVerificador() + " AND cFolio='" + ctaBancaria.getFolio() + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1130,7 +1130,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "INSERT INTO tBeneficiarioCuentasBancariasEliminadas (cFolio,cUsuarioModifico,dRFC,cBanco,cPlaza,dCuentaBancaria,dDigitoVerificador,cStatusCuenta,dBanco,dSucursal,fCuentaModifico,nBCBEnviadoSICOP)" + " SELECT '" + datProv.getcFolio() + "','" + datProv.getCuentasBancarias().get(0).getcUsuarioModifico() + "',dRFC,cBanco,cPlaza,dCuentaBancaria,dDigitoVerificador,cStatusCuenta,dBanco,dSucursal,GETDATE(),nBCBEnviadoSICOP FROM tBeneficiarioCuentasBancarias WITH(NOLOCK) WHERE dRFC='" + datProv.getRfc1() + datProv.getRfc2() + datProv.getRfc3() + "' AND dBanco=REPLACE('" + datProv.getCuentasBancarias().get(0).getcNameBanco() + "',',','') AND cPlaza='" + datProv.getCuentasBancarias().get(0).getcPlaza() + "' AND dDigitoVerificador=" + datProv.getCuentasBancarias().get(0).getnDigitoVerificador() + " AND dSucursal='" + datProv.getCuentasBancarias().get(0).getcSucursal() + "' AND dCuentaBancaria='" + datProv.getCuentasBancarias().get(0).getcCuentaBancaria() + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1145,7 +1145,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "insert into IMX_PAGINA_BORRADA " + "select *,convert(date,GETDATE())fechaBorrado from IMX_PAGINA  WITH(NOLOCK) WHERE TITULO_APLICACION='" + tituloAplicacion + "' AND ID_CARPETA_PADRE=" + idCarpetaPadre + " AND ID_GABINETE=" + idGabinete + " and ID_DOCUMENTO=" + idDocumento;
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1160,7 +1160,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "delete IMX_PAGINA WHERE TITULO_APLICACION='" + tituloAplicacion + "' AND ID_CARPETA_PADRE=" + idCarpetaPadre + " AND ID_GABINETE=" + idGabinete + " and ID_DOCUMENTO=" + idDocumento;
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1175,7 +1175,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "insert into IMX_DOCUMENTO_BORRADO " + "SELECT  " + "[TITULO_APLICACION],[ID_GABINETE] " + ",[ID_CARPETA_PADRE],[ID_DOCUMENTO] " + ",[NOMBRE_DOCUMENTO],[NOMBRE_USUARIO] " + ",[PRIORIDAD],[ID_TIPO_DOCTO] " + ",[FH_CREACION],[FH_MODIFICACION] " + ",[NUMERO_ACCESOS],[NUMERO_PAGINAS] " + ",[TITULO],[AUTOR] " + ",[MATERIA],[DESCRIPCION] " + ",[CLASE_DOCUMENTO],[ESTADO_DOCUMENTO] " + ",[TAMANO_BYTES],[COMPARTIR] " + ",[TOKEN_COMPARTIR],[FH_VIGENCIA] " + ",'" + cMotivoElimina + "'motivo,'" + cLogin + "'usuarioBorro,CONVERT(date,getdate()) fechaBorrado " + " FROM IMX_DOCUMENTO WITH(NOLOCK) WHERE TITULO_APLICACION='" + tituloAplicacion + "' AND ID_GABINETE=" + idGabinete + " AND ID_CARPETA_PADRE=" + idCarpetaPadre + " AND ID_DOCUMENTO=" + idDocumento;
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1190,7 +1190,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "delete IMX_DOCUMENTO WHERE TITULO_APLICACION='" + tituloAplicacion + "' AND ID_GABINETE=" + idGabinete + " AND ID_CARPETA_PADRE=" + idCarpetaPadre + " AND ID_DOCUMENTO=" + idDocumento;
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1205,7 +1205,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "DELETE tBeneficiarioCuentasBancarias WHERE dRFC='" + datProv.getRfc1() + datProv.getRfc2() + datProv.getRfc3() + "' AND REPLACE(dBanco,',','')=REPLACE('" + datProv.getCuentasBancarias().get(0).getcNameBanco() + "',',','') AND cPlaza='" + datProv.getCuentasBancarias().get(0).getcPlaza() + "' AND dDigitoVerificador=" + datProv.getCuentasBancarias().get(0).getnDigitoVerificador() + " AND dSucursal='" + datProv.getCuentasBancarias().get(0).getcSucursal() + "' AND dCuentaBancaria='" + datProv.getCuentasBancarias().get(0).getcCuentaBancaria() + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1220,7 +1220,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "INSERT INTO tAltaProveedorAnterior(cFolio,cIdTipoPersona,cTipoRegistro,cIdRFC,cRazonSocial,cCURP,cApellidoPaterno,cApellidoMaterno,cNombre,cGiro,cIdEntidadFederativa,cIdMunicipio,cCalle,cNumeroExterno,cNumeroInterno,cColonia,cCodigoPostal,cEmail,cUrl,nIdPyme,nIdTipoTelefono,cTelefono,cActualizacion,cDocumentoHaplicado,cObservaciones,cIdUsuarioCaptura,cIdUsuarioValida,cIdUsuarioAutoriza,cIdUsuaUltModif,cExtranjero,cPais,cNvoCBEN,cFechaModificacion)" + "SELECT cFolio,cIdTipoPersona,cTipoRegistro,cIdRFC,cRazonSocial,cCURP,cApellidoPaterno,cApellidoMaterno,cNombre,cGiro,cIdEntidadFederativa,cIdMunicipio,cCalle,cNumeroExterno,cNumeroInterno,cColonia,cCodigoPostal,cEmail,cUrl,nIdPyme,nIdTipoTelefono,cTelefono,cActualizacion,cDocumentoHaplicado,cObservaciones,cIdUsuarioCaptura,cIdUsuarioValida,cIdUsuarioAutoriza,'" + cLoginMod + "',cExtranjero,cPais,cNvoCBEN,GETDATE() FROM tAltaProveedor WITH(NOLOCK)  WHERE cFolio='" + cFolio + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1235,7 +1235,7 @@ public class AltaProveedorManager {
         int tipoPersona = 0;
         String query = "select case when SUBSTRING(CBEN,1,1)='P' then 1 when SUBSTRING(CBEN,1,1)='E' then 3 else 2 end tipoPers from tBeneficiario WITH (NOLOCK) where dRFC='" + crfc + "'";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -1254,7 +1254,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "select *from mProcedimiento proced with(nolock) inner join mProcedimientoAdjudicacion as adj with(nolock) " + " on adj.cIdProcedimiento=proced.cIdProcedimiento where proced.nIdEstado=1 and adj.cIdRFC='" + cIdRFC + "'";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -1273,7 +1273,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "select * from " + " mProcedimientoAdjudicacion as adj with(nolock) " + " WHERE REPLACE(cIdRFC,'-','')='" + cIdRFC.replace("-", "") + "'";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -1292,7 +1292,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "select cIdContrato,comEnc.totalComp,pagos.Pagado " + "			from (select " + "				cIdContrato,SUM(mImporte)totalComp from tCompromisoEncabezado as comEnc with(nolock)" + "				inner join tCompromisoDetalle comDet with(nolock)" + "				on comDet.nFolioCompromiso=comEnc.nFolioCompromiso" + "				and comEnc.cDocumentoHaplicado='S'" + "				where comEnc.cTipoContrato='DI'" + "				group by cIdContrato" + "			)comEnc" + "			inner join(" + "				select cont.cIdContratoDefinitivo from mContrato as cont with(nolock)  left join mContratoTerminacionAnticipada as terAnt with(Nolock) on terAnt.cIdContratoDefinitivo=cont.cIdContratoDefinitivo where cont.nIdEstado=4  and terAnt.cIdContratoDefinitivo is null and cIdRFC='" + cIdRFC + "'" + "				union" + "				select cIdPedidoDefinitivo  from mPedido as ped with(nolock)where ped.nIdEstado=4 and cIdRFC='" + cIdRFC + "'" + "			)cont on cont.cIdContratoDefinitivo=comEnc.cIdContrato" + "			left join(" + "				SELECT " + "					SUM(ISNULL(sub.pagos,0)-ISNULL(sub.totalReintegro,0))Pagado" + "					,sub.cFolioPAGODIVERSO folioContPed" + "					FROM	" + "						(SELECT " + "						CONVERT(VARCHAR,sum(isnull(d.mImporteMasIva,0)),1)pagos" + "						,ISNULL(reintegro.totalReintegro,0)totalReintegro" + "						,e.cFolioPAGODIVERSO" + "						FROM dbo.tPAGODIVERSOEncabezado e WITH (NOLOCK)	" + "						INNER JOIN dbo.tPAGODIVERSODetalle d WITH (NOLOCK) ON e.nFolioPAGODIVERSO = d.nFolioPAGODIVERSO AND e.cDocumentoHaplicado='S'" + "						and e.RFC=replace('" + cIdRFC + "','-','')		" + "						inner join tPagadoEncabezado as pe with(Nolock) on pe.caNoContrarrecibo=e.caNoContrarrecibo and pe.cDocumentoHaplicado='S'" + "						LEFT join (" + "									SELECT " + "									SUM(mImporte) totalReintegro,cxp" + "									FROM  tReintegroEncabezado as reintEnc with(Nolock)" + "									inner join tReintegroDetalle as reintDet with(Nolock) " + "									on reintDet.nFolioReintegro=reintEnc.nFolioReintegro and reintEnc.cDocumentoHaplicado='S'" + "									GROUP BY cxp" + "						)reintegro ON reintegro.cxp=e.caNoContrarrecibo" + "						GROUP BY reintegro.totalReintegro,e.cFolioPAGODIVERSO" + "						)sub" + "						GROUP BY sub.cFolioPAGODIVERSO	" + "			)pagos on pagos.folioContPed=cont.cIdContratoDefinitivo" + "			where comEnc.totalComp>isnull(pagos.Pagado,0) ";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -1311,7 +1311,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "select  " + "comEnc.cIdContrato,comEnc.totalComp " + ",pagos.Pagado " + "from (select  " + "	cIdContrato,SUM(mImporte)totalComp from tCompromisoEncabezado as comEnc with(nolock) " + "	inner join tCompromisoDetalle comDet with(nolock) " + "	on comDet.nFolioCompromiso=comEnc.nFolioCompromiso " + "	and comEnc.cDocumentoHaplicado='S' " + "	where comEnc.cTipoContrato='FE' " + "	group by cIdContrato " + ")comEnc " + "inner join pContratoFederalizado cont on cont.cIdContrato=comEnc.cIdContrato and cIdRFC='" + cIdRFC + "' " + "left join( " + "	SELECT  " + "		SUM(ISNULL(sub.pagos,0)-ISNULL(sub.totalReintegro,0))Pagado " + "		,sub.cFolioContratoObra folioContPed " + "		FROM	 " + "			(SELECT  " + "			CONVERT(VARCHAR,sum(isnull(d.mImporteMasIva,0)),1)pagos " + "			,ISNULL(reintegro.totalReintegro,0)totalReintegro " + "			,e.cFolioContratoObra " + "			FROM dbo.tPAGOFEDERALIZADOEncabezado e WITH (NOLOCK)	 " + "			INNER JOIN dbo.tPAGOFEDERALIZADODetalle d WITH (NOLOCK) ON e.nFolioPAGOFEDERALIZADO = d.nFolioPAGOFEDERALIZADO AND e.cDocumentoHaplicado='S' " + "			and e.RFC='" + cIdRFC + "'	 " + "			inner join tPagadoEncabezado as pe with(Nolock) on pe.caNoContrarrecibo=e.caNoContrarrecibo and pe.cDocumentoHaplicado='S' " + "			LEFT join ( " + "						SELECT  " + "						SUM(mImporte) totalReintegro,cxp " + "						FROM  tReintegroEncabezado as reintEnc with(Nolock) " + "						inner join tReintegroDetalle as reintDet with(Nolock)  " + "						on reintDet.nFolioReintegro=reintEnc.nFolioReintegro and reintEnc.cDocumentoHaplicado='S' " + "						GROUP BY cxp " + "			)reintegro ON reintegro.cxp=e.caNoContrarrecibo " + "			GROUP BY reintegro.totalReintegro,e.cFolioContratoObra " + "			)sub " + "			GROUP BY sub.cFolioContratoObra " + ")pagos on pagos.folioContPed=cont.cIdContrato " + "where comEnc.totalComp>isnull(pagos.Pagado,0) ";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -1330,7 +1330,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "select *from tLayoutVuelosDet with(Nolock) where Status='A' and RFC='" + cIdRFC + "'";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -1349,7 +1349,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "select * from tsaldos with(Nolock) where nCuenta like '11232%' and cSubCuenta = '" + cIdRFC + "' and mSaldoArrastre > 0";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -1368,7 +1368,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "select cIdTipoPersonaRFC,case when substring(CBEN,1,1)='P' then 'PROVEEDOR' else 'BENEFICIARIO' end tipoReg from tBeneficiario with(Nolock) where dRFC='" + cIdRFC + "'";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -1389,7 +1389,7 @@ public class AltaProveedorManager {
         int nIdOperAnt = 0;
         String query = "select isnull(nIdOperAnt,0) from tAltaProveedor with(Nolock) where cFolio='" + cFolio + "' ";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -1408,7 +1408,7 @@ public class AltaProveedorManager {
         int nIdOperAct = 0;
         String query = "select ID_OPER from cg_caso_operacion with(Nolock) where id_caso=" + idCaso;
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -1427,7 +1427,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "UPDATE dbo.tAltaProveedor SET nIdOperAnt=" + nIdOper + " WHERE cFolio='" + cFolio + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1442,7 +1442,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "UPDATE dbo.tAltaProveedor SET cObservaciones='" + cObservaciones + "' WHERE cFolio='" + cFolio + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1457,7 +1457,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "UPDATE dbo.tAltaProveedor SET bLiberaCaso=" + nLibCaso + " WHERE cFolio='" + cFolio + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1472,7 +1472,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "UPDATE dbo.tAltaProveedor SET bEsActCta=" + nEsActCta + " WHERE cFolio='" + cFolio + "'";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1487,7 +1487,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "select * from mCatalogoEFOS with(Nolock) where nSituacion in(1,3) and cIdRFC='" + cIdRFC + "'";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -1509,7 +1509,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "UPDATE CG_CASO_OPERACION set ID_OPER=5, CO_RESPONSABLE='CONSULTA_PROVEEDOR' WHERE ID_CASO = (SELECT ID_CASO FROM CG_CASO WITH(NOLOCK) WHERE C_FOLIO='" + cFolio + "')";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1524,7 +1524,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "insert into tBitacoraAltaProveedor (cFolio,cDescripcionMovimiento,cDocumentoHAplicadoActual,cDocumentoHAplicadoAnterior,nIdOperActual,nIdOperAnterior,cLogin,fFechaMovimiento)" + "values('" + cFolio + "','" + cDescripcionMovimiento + "','" + cDocumentoHAplicadoActual + "','" + cDocumentoHAplicadoAnterior + "'," + nIdOperActual + "," + nIdOperAnterior + ",'" + cLogin + "',GETDATE())";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1539,7 +1539,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "insert into tBitacoraAltaProveedor (cFolio,cDescripcionMovimiento,cDocumentoHAplicadoActual,cDocumentoHAplicadoAnterior,nIdOperActual,nIdOperAnterior,cLogin,fFechaMovimiento)" + " select cFolio,'" + cDescripcionMovimiento + "','" + cDocumentoHAplicadoActual + "','" + cDocumentoHAplicadoAnterior + "'," + nIdOperActual + "," + nIdOperAnterior + ",'" + cLogin + "',GETDATE() from taltaproveedor with(Nolock) where cFolio in(" + cFolios + ") group by cFolio";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
         } finally {
@@ -1814,7 +1814,7 @@ public class AltaProveedorManager {
             StringBuilder query = new StringBuilder();
             query = getQueryProveedor();
             query.append(" WHERE  REPLACE(tap.cidrfc,'-','') = REPLACE( ?,'-','') ");
-            log.trace("Executing: " + query + "[" + rfc + "]");
+            log.trace("Object: {}", "Executing: " + query + "[" + rfc + "]");
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, rfc);
             rs = ps.executeQuery();
@@ -1834,7 +1834,7 @@ public class AltaProveedorManager {
             StringBuilder query = new StringBuilder();
             query = getQueryProveedor();
             query.append("WHERE  cfolio = ?   ");
-            log.trace("Executing: " + query + "[" + folio + "]");
+            log.trace("Object: {}", "Executing: " + query + "[" + folio + "]");
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, folio);
             rs = ps.executeQuery();
@@ -1998,7 +1998,7 @@ public class AltaProveedorManager {
         boolean success = false;
         String query = "UPDATE tAltaProveedor SET cNvoCBEN = 1 WHERE REPLACE( cIdRFC, '-', '' ) = REPLACE( '" + cIdRFC + "', '-', '')";
         try {
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             success = ps.executeUpdate() > 0;
             return success;
@@ -2013,7 +2013,7 @@ public class AltaProveedorManager {
         String query = "";
         try {
             query = "UPDATE mCatalogoProveedor SET lProveedorIncumplido=1 where replace(cIdRFC,'-','')=replace(?,'-','')";
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query);
             ps.setString(1, cIdRFC);
             success = ps.executeUpdate() > 0;
@@ -2034,7 +2034,7 @@ public class AltaProveedorManager {
             query.append(",fFechaOficioSancion,fFechaTerminoFirma,cNumeroContratoCNET ");
             query.append(",cNumeroProcedimiento,cCodigoExpedienteCNET,cCodigoContratoCNET");
             query.append(",cDescripcion,cLogin,fFechaCaptura) values(?,?,?,?,convert(date,?),convert(date,?),?,?,?,?,?,?,getdate())");
-            log.info(query);
+            log.info("Object: {}", query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, datProveedorIncump.getcEjercicioFiscal());
             ps.setString(2, datProveedorIncump.getcIdRFC());

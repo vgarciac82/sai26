@@ -77,12 +77,12 @@ public class GestionServlet extends HttpServlet implements GestionInterface {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         Context initContext;
         try {
@@ -110,12 +110,12 @@ public class GestionServlet extends HttpServlet implements GestionInterface {
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
         try {
             InitialContext ic = new InitialContext();
@@ -123,7 +123,7 @@ public class GestionServlet extends HttpServlet implements GestionInterface {
             if (xmlGenerator == null) {
                 log.debug("Environment Entry \"xmlGeneratorInterface\" no definida");
             } else
-                log.info("xmlGeneratorInterface=" + xmlGenerator);
+                log.info("Object: {}", "xmlGeneratorInterface=" + xmlGenerator);
         } catch (NamingException exc) {
             xmlGenerator = null;
             log.debug("Environment Entry \"xmlGeneratorInterface\" no definida");
@@ -205,12 +205,12 @@ public class GestionServlet extends HttpServlet implements GestionInterface {
                     int eliminados = adbl.eliminaRegistrosDuplicados();
                     adbl = null;
                     long stopDepuracion = System.currentTimeMillis();
-                    log.info("Tardo " + (stopDepuracion - startDepuracion) / 1000 + " segundos en depurar Duplicados");
-                    log.info("Se eliminaron: " + eliminados + " casos repetidos");
+                    log.info("Object: {}", "Tardo " + (stopDepuracion - startDepuracion) / 1000 + " segundos en depurar Duplicados");
+                    log.info("Object: {}", "Se eliminaron: " + eliminados + " casos repetidos");
                     long startUpdateInbox = System.currentTimeMillis();
                     actualizaInbox(jniName, req);
                     long stopUpdateInbox = System.currentTimeMillis();
-                    log.info("Tardo " + (stopUpdateInbox - startUpdateInbox) / 1000 + " segundos en actualizar inbox.");
+                    log.info("Object: {}", "Tardo " + (stopUpdateInbox - startUpdateInbox) / 1000 + " segundos en actualizar inbox.");
                     String valorFiltro = req.getParameter("valorFiltro");
                     String fltr = req.getParameter(PRM_PROM_FILTER);
                     fltr = (fltr == null) ? new String() : "?" + PRM_PROM_FILTER + "=" + fltr;
@@ -220,7 +220,7 @@ public class GestionServlet extends HttpServlet implements GestionInterface {
                     refresh = (refresh == null) ? "30" : refresh;
                     session.setAttribute("refresh", refresh);
                     long stopInbox = System.currentTimeMillis();
-                    log.info("Tardo " + (stopInbox - startInbox) / 1000 + " segundos en cargar el inbox.");
+                    log.info("Object: {}", "Tardo " + (stopInbox - startInbox) / 1000 + " segundos en cargar el inbox.");
                     resp.sendRedirect("../caso/inbox2.jsp" + (valorFiltro != null ? "?valorFiltro=" + valorFiltro : ""));
                 } catch (GestionException exc) {
                     log.error("Actualizando InBox", exc);
@@ -239,12 +239,12 @@ public class GestionServlet extends HttpServlet implements GestionInterface {
                     int eliminados = adbl.eliminaRegistrosDuplicados();
                     adbl = null;
                     long stopDepuracion = System.currentTimeMillis();
-                    log.info("Tardo " + (stopDepuracion - startDepuracion) / 1000 + " segundos en depurar Duplicados");
-                    log.info("Se eliminaron: " + eliminados + " casos repetidos");
+                    log.info("Object: {}", "Tardo " + (stopDepuracion - startDepuracion) / 1000 + " segundos en depurar Duplicados");
+                    log.info("Object: {}", "Se eliminaron: " + eliminados + " casos repetidos");
                     long startUpdateInbox = System.currentTimeMillis();
                     actualizaInbox(jniName, req);
                     long stopUpdateInbox = System.currentTimeMillis();
-                    log.info("Tardo " + (stopUpdateInbox - startUpdateInbox) / 1000 + " segundos en actualizar inbox.");
+                    log.info("Object: {}", "Tardo " + (stopUpdateInbox - startUpdateInbox) / 1000 + " segundos en actualizar inbox.");
                     String valorFiltro = req.getParameter("valorFiltro");
                     String fltr = req.getParameter(PRM_PROM_FILTER);
                     fltr = (fltr == null) ? new String() : "?" + PRM_PROM_FILTER + "=" + fltr;
@@ -254,7 +254,7 @@ public class GestionServlet extends HttpServlet implements GestionInterface {
                     refresh = (refresh == null) ? "30" : refresh;
                     session.setAttribute("refresh", refresh);
                     long stopInbox = System.currentTimeMillis();
-                    log.info("Tardo " + (stopInbox - startInbox) / 1000 + " segundos en cargar el inbox.");
+                    log.info("Object: {}", "Tardo " + (stopInbox - startInbox) / 1000 + " segundos en cargar el inbox.");
                     resp.sendRedirect("../caso/inbox.jsp" + (valorFiltro != null ? "?valorFiltro=" + valorFiltro : ""));
                 } catch (GestionException exc) {
                     log.error("Actualizando InBox", exc);
@@ -309,7 +309,7 @@ public class GestionServlet extends HttpServlet implements GestionInterface {
                                 Thread.sleep(5000);
                         }
                     } catch (Exception ex) {
-                        log.debug("Tiempo de espera para refrescar inbox de adecuaciones: " + ex);
+                        log.debug("Object: {}", "Tiempo de espera para refrescar inbox de adecuaciones: " + ex);
                     }
                     actualizaInbox(jniName, req);
                     resp.sendRedirect("../caso/inbox.jsp");
@@ -545,7 +545,7 @@ public class GestionServlet extends HttpServlet implements GestionInterface {
                         if (redirect)
                             resp.sendRedirect("../caso/inbox.jsp");
                     }
-                    log.info("Caso: " + c.getFolio() + " liberado");
+                    log.info("Object: {}", "Caso: " + c.getFolio() + " liberado");
                 } catch (GestionException exc) {
                     log.error("Mensajes Enviados", exc);
                     throw new ServletException(exc);
@@ -580,7 +580,7 @@ public class GestionServlet extends HttpServlet implements GestionInterface {
                     AuditoriaBusinessLogic ABL = new AuditoriaBusinessLogic(GestionInterface.ATT_CONEXION);
                     ABL.agregaAuditoria(u.getLogin(), ea.getId(), GestionInterface.ATT_CONEXION.substring(GestionInterface.ATT_CONEXION.indexOf("/") + 1), "Acceso", "Logout", u.getLogin(), u.getLogin(), "SELECT * FROM CG_USUARIO WHERE U_LOGIN=" + u.getLogin(), u.getLogin());
                 } catch (Exception audex) {
-                    log.error("Error escribiendo en la bitacora de accesos al intentar login de:" + u.getLogin());
+                    log.error("Error occurred", "Error escribiendo en la bitacora de accesos al intentar login de:" + u.getLogin());
                     audex.printStackTrace();
                 }
                 try {
@@ -1061,7 +1061,7 @@ public class GestionServlet extends HttpServlet implements GestionInterface {
         refresh = (refresh == null) ? "30" : refresh;
         session.setAttribute("refresh", refresh);
         String strRedirect = "../caso/inbox.jsp?" + returnRequestString(request);
-        log.debug("Redirect: " + strRedirect);
+        log.debug("Object: {}", "Redirect: " + strRedirect);
         response.sendRedirect(strRedirect);
     }
 
@@ -1112,7 +1112,7 @@ public class GestionServlet extends HttpServlet implements GestionInterface {
             throw new GestionException("No se logró crear el caso");
         }
         u.getPropiedad("CCENTROCONTABLE").setValor(centroContableBackup);
-        log.info("Inicia Caso Contable con: " + u.getNombre_equipo_login());
+        log.info("Object: {}", "Inicia Caso Contable con: " + u.getNombre_equipo_login());
         c.setC_nom_equipoIni(u.getNombre_equipo_login());
         c.setC_nom_equipoUser(u.getIp_equipo_login());
         return c;

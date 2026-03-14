@@ -17,8 +17,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.core.FileItem;
 import org.jfree.util.Log;
 import com.syc.contable.core.AplicacionContable;
 import jakarta.servlet.annotation.WebServlet;
@@ -139,7 +139,7 @@ public class SubirArchivosBaseServlet extends HttpServlet {
                 mensaje = "Error: En el Orden de Columnas. Favor de verificar la columna " + valor;
             }
         } catch (Exception e) {
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
             mensaje = "Error: No Se Guardaron Los Registros Correctamente";
         } finally {
             // if (in != null){ in.close(); }
@@ -153,7 +153,7 @@ public class SubirArchivosBaseServlet extends HttpServlet {
         String pathArchivo = "";
         try {
             // Se construye un objeto para que parsee la petición
-            DiskFileUpload fu = new DiskFileUpload();
+            ServletFileUpload fu = new ServletFileUpload();
             // Tamaño máximo que aceptará el archivo
             // El tamaño no importa
             fu.setSizeMax(-1);
@@ -176,7 +176,7 @@ public class SubirArchivosBaseServlet extends HttpServlet {
                 return actual.getInputStream();
             }
         } catch (Exception e) {
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
             throw new IOException(e);
         }
         throw new IOException("No se encontro archivo alguno en la peticion");
@@ -1031,7 +1031,7 @@ public class SubirArchivosBaseServlet extends HttpServlet {
             }
             valorReturn = guardaLinea;
         } catch (Exception se) {
-            log.error("Error: " + se);
+            log.error("Error occurred", "Error: " + se);
             se.printStackTrace();
             valorReturn = "Error";
         } finally {
@@ -1054,7 +1054,7 @@ public class SubirArchivosBaseServlet extends HttpServlet {
         List<FileItem> fileItems = new ArrayList<FileItem>();
         try {
             // Se construye un objeto para que parsee la petición
-            DiskFileUpload fu = new DiskFileUpload();
+            ServletFileUpload fu = new ServletFileUpload();
             // Tamaño máximo que aceptará el archivo
             // El tamaño no importa
             fu.setSizeMax(-1);
@@ -1068,7 +1068,7 @@ public class SubirArchivosBaseServlet extends HttpServlet {
             fu.setRepositoryPath(szPath);
             fileItems = fu.parseRequest(request);
         } catch (Exception e) {
-            log.error("Error: " + e);
+            log.error("Error occurred", "Error: " + e);
             System.out.println("Error de Aplicación " + e.getMessage());
         }
         return fileItems;

@@ -8,7 +8,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.log4j.LogManager;
 import com.axtel.contratos.entities.FuelContract;
 import com.axtel.contratos.services.FuelContractService;
 import com.axtel.contratos.services.implementation.FuelContractServiceImplementation;
@@ -22,7 +21,7 @@ public class FuelContractController extends HttpServlet {
 
     private static final long serialVersionUID = 1036345358034762358L;
 
-    private static final Logger log = LogManager.getLogger(FuelContractController.class);
+    private static final Logger log = LoggerFactory.getLogger(FuelContractController.class);
 
     private String jniName;
 
@@ -37,13 +36,13 @@ public class FuelContractController extends HttpServlet {
         try {
             log.trace("Reading Contract object from request.");
             fuelContract = fuelContractService.createContract(fuelContract);
-            log.debug("Contract object obtined: " + fuelContract);
-            log.info("Successfull Saved Contract: " + fuelContract);
+            log.debug("Object: {}", "Contract object obtined: " + fuelContract);
+            log.info("Object: {}", "Successfull Saved Contract: " + fuelContract);
             String fuelContractJson = mapper.writeValueAsString(fuelContract);
-            log.trace("Response created: " + fuelContractJson);
+            log.trace("Object: {}", "Response created: " + fuelContractJson);
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
-            log.debug("Writting response: " + fuelContractJson);
+            log.debug("Object: {}", "Writting response: " + fuelContractJson);
             resp.getWriter().write(fuelContractJson);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -63,13 +62,13 @@ public class FuelContractController extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
             fuelContractService = new FuelContractServiceImplementation(jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
     }
 }

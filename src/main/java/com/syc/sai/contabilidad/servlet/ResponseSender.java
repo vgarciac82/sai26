@@ -3,9 +3,9 @@ package com.syc.sai.contabilidad.servlet;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import com.syc.sai.contabilidad.CuentaContable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +64,7 @@ public class ResponseSender {
         }
         resp.setContentType("application/json");
         ServletOutputStream out = resp.getOutputStream();
-        log.debug(res);
+        log.debug("Object: {}", res);
         out.print(res);
         out.flush();
         out.close();
@@ -91,7 +91,7 @@ public class ResponseSender {
         res += "}";
         resp.setContentType("application/json");
         ServletOutputStream out = resp.getOutputStream();
-        log.debug(res);
+        log.debug("Object: {}", res);
         out.print(res);
         out.flush();
         out.close();
@@ -122,7 +122,7 @@ public class ResponseSender {
         String respuesta = encT + buffer.toString() + endT;
         resp.setContentType("application/json");
         ServletOutputStream out = resp.getOutputStream();
-        log.debug(respuesta);
+        log.debug("Object: {}", respuesta);
         out.print(respuesta);
         out.flush();
         out.close();
@@ -149,7 +149,7 @@ public class ResponseSender {
         // String respuesta = encT + buffer.toString() + endT;
         resp.setContentType("application/json; charset=UTF-8");
         ServletOutputStream out = resp.getOutputStream();
-        log.debug(respuesta);
+        log.debug("Object: {}", respuesta);
         out.print(respuesta);
         out.flush();
         out.close();

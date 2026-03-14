@@ -66,7 +66,7 @@ public class ExtractPageContent extends Thread {
                 //System.out.println("Danger! Danger! La pagina es nula!");
             }
         } catch (Exception exc) {
-            log.warn("Error en LUCENE: " + exc.getMessage());
+            log.warn("Error occurred", "Error en LUCENE: " + exc.getMessage());
             exc.printStackTrace(System.out);
         }
         //System.out.println("FINALIZA LUCENE");

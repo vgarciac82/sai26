@@ -44,7 +44,7 @@ public class SaldoManager {
             BigDecimal restante = mesCalendario.getImporteBruto().subtract(montoRetencion);
             mesCalendario.setImporteBruto(restante);
             SaldoMensual saldoMensual = new SaldoMensual(mesCalendario.getEp(), mesCalendario.getMesPresupuesto(), montoRetencion, mesCalendario.getIdTipoConcepto(), mesCalendario.getIdTipoMovimiento());
-            log.info("Se genero saldo mensual " + saldoMensual + "");
+            log.info("Object: {}", "Se genero saldo mensual " + saldoMensual + "");
             saldos.add(saldoMensual);
             montoRetencion = new BigDecimal(0.00d);
             break;
@@ -154,7 +154,7 @@ public class SaldoManager {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            log.trace("Query Generado: " + query.toString());
+            log.trace("Object: {}", "Query Generado: " + query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, numeroContrato);
             ps.setString(2, ep);
@@ -188,7 +188,7 @@ public class SaldoManager {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            log.trace("Query Generado: " + query.toString());
+            log.trace("Object: {}", "Query Generado: " + query.toString());
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, ep);
             rs = ps.executeQuery();
@@ -231,7 +231,7 @@ public class SaldoManager {
                 String cuentaSaldo = rs.getString("nCuenta").substring(0, 5);
                 int mes = Integer.parseInt(rs.getString("nCuenta").substring(6, 11));
                 BigDecimal montoMes = rs.getBigDecimal("mSaldoArrastre");
-                log.debug("Cuenta: " + cuentaSaldo + " Mes: " + mes + " Monto: " + Util.formatNumber(montoMes));
+                log.debug("Object: {}", "Cuenta: " + cuentaSaldo + " Mes: " + mes + " Monto: " + Util.formatNumber(montoMes));
                 calendario.set(mes - 1, new SaldoMensual(cuentaSaldo, montoMes, mes));
             }
         } finally {

@@ -196,8 +196,8 @@ public class LayoutPagoDiversoRelGastosServlet extends HttpServlet {
                 ZipOutputStream outZIP = new ZipOutputStream(ouputStream);
                 for (// Compress the files
                 // Compress the files
-                int i = 0; // Compress the files
-                i < filenames.length; i++) {
+                // Compress the files
+                int i = 0; i < filenames.length; i++) {
                     FileInputStream in = new FileInputStream(filenames[i]);
                     // Add ZIP entry to output stream.
                     outZIP.putNextEntry(new ZipEntry(filenames[i]));
@@ -243,12 +243,12 @@ public class LayoutPagoDiversoRelGastosServlet extends HttpServlet {
             folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
             if (folioGenerator == null) {
                 folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-                log.info("Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
+                log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" nula usando default \"" + folioGenerator + "\"");
             } else
-                log.info("folioGeneratorInterface=" + folioGenerator);
+                log.info("Object: {}", "folioGeneratorInterface=" + folioGenerator);
         } catch (NamingException exc) {
             folioGenerator = "com.syc.gestion.custom.DefaultFolioGenerator";
-            log.info("Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
+            log.info("Object: {}", "Environment Entry \"folioGeneratorInterface\" no definida usando default \"" + folioGenerator + "\"");
         }
     }
 }

@@ -60,7 +60,7 @@ public class ConsumePAASServlet extends HttpServlet {
                 return;
             }
             Usuario usuario = (Usuario) session.getAttribute(GestionInterface.ATT_USER);
-            log.info("Usuario: " + usuario.getNombre());
+            log.info("Object: {}", "Usuario: " + usuario.getNombre());
             arrayObj = new JSONArray();
             jsonObj = new JSONObject();
             out = response.getWriter();
@@ -105,7 +105,7 @@ public class ConsumePAASServlet extends HttpServlet {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            log.error(e.getMessage().toString());
+            log.error("Object: {}", e.getMessage().toString());
             mensaje = e.getMessage().toString();
         } finally {
             try {
@@ -115,7 +115,7 @@ public class ConsumePAASServlet extends HttpServlet {
                 out.println(destino);
             } catch (JSONException e) {
                 e.printStackTrace();
-                log.error(e.getMessage());
+                log.error("Object: {}", e.getMessage());
             }
         }
     }
@@ -162,12 +162,12 @@ public class ConsumePAASServlet extends HttpServlet {
             jniName = (String) ic.lookup("java:comp/env/dataSourceRefName");
             if (jniName == null) {
                 jniName = "jdbc/gestion";
-                log.info("Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
+                log.info("Object: {}", "Environment Entry \"dataSourceRefName\" nula usando default \"" + jniName + "\"");
             } else
-                log.info("dataSourceRefName=" + jniName);
+                log.info("Object: {}", "dataSourceRefName=" + jniName);
         } catch (NamingException exc) {
             jniName = "jdbc/gestion";
-            log.info("Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
+            log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
         consumePAAS = new ConsumePAASImpl(jniName);
     }

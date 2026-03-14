@@ -4,7 +4,6 @@ import java.io.StringWriter;
 import java.sql.Connection;
 import java.util.Properties;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.LogManager;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -25,7 +24,7 @@ import org.slf4j.LoggerFactory;
 
 public class NotificationGeneratorService extends DataSourceManager {
 
-    private static final Logger log = LogManager.getLogger(NotificationGeneratorService.class);
+    private static final Logger log = LoggerFactory.getLogger(NotificationGeneratorService.class);
 
     private static final VelocityEngine velocityEngine;
 

@@ -24,7 +24,7 @@ public class EgresoDetalleManager {
     public static int borraDetalle(Connection conn, String tipoPago, int nFolioPago) throws Exception {
         String tablaDetalle = "t" + tipoPago + "detalle";
         String nombreComapo = "nFolio" + tipoPago;
-        log.info("Se eliminara detalle Tabla detalle [" + tablaDetalle + "] Nombre de Campo[" + nombreComapo + "] Folio[" + nFolioPago + "]");
+        log.info("Object: {}", "Se eliminara detalle Tabla detalle [" + tablaDetalle + "] Nombre de Campo[" + nombreComapo + "] Folio[" + nFolioPago + "]");
         String query = "DELETE FROM " + tablaDetalle + " WHERE " + nombreComapo + "= ?";
         PreparedStatement ps = null;
         try {

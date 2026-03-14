@@ -39,8 +39,8 @@ public class ViaticoClient {
     private ViaticoResponse enviarPeticion(String ruta, ViaticoRequest request) throws Exception {
         Gson gson = new Gson();
         String jsonInput = gson.toJson(request);
-        log.info("Enviando petición a: " + ruta);
-        log.info("Request JSON: " + jsonInput);
+        log.info("Object: {}", "Enviando petición a: " + ruta);
+        log.info("Object: {}", "Request JSON: " + jsonInput);
         URL url = new URL(ruta);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
@@ -51,7 +51,7 @@ public class ViaticoClient {
             wr.flush();
         }
         int responseCode = conn.getResponseCode();
-        log.info("Código de respuesta HTTP: " + responseCode);
+        log.info("Object: {}", "Código de respuesta HTTP: " + responseCode);
         BufferedReader br = new BufferedReader(new InputStreamReader((responseCode == HttpURLConnection.HTTP_OK) ? conn.getInputStream() : conn.getErrorStream(), "UTF-8"));
         StringBuilder responseStr = new StringBuilder();
         String line;
@@ -61,28 +61,28 @@ public class ViaticoClient {
         br.close();
         conn.disconnect();
         String respuesta = responseStr.toString().trim();
-        log.info("Respuesta cruda del servicio: " + respuesta);
+        log.info("Object: {}", "Respuesta cruda del servicio: " + respuesta);
         ViaticoResponse response = gson.fromJson(respuesta, ViaticoResponse.class);
-        log.info("Respuesta parseada correctamente: " + "Empleado=" + response.getIdEmpleado() + ", Success=" + response.isSuccess() + ", Mensaje=" + response.getMessage());
+        log.info("Object: {}", "Respuesta parseada correctamente: " + "Empleado=" + response.getIdEmpleado() + ", Success=" + response.isSuccess() + ", Mensaje=" + response.getMessage());
         return response;
     }
 
     public boolean verificarFormato(ViaticoRequest request, String url) throws Exception {
         String urlCompleta = String.format("%s?numeroEmpleado=%d&fechaInicio=%s&fechaFin=%s", url, request.getIdEmpleado(), request.getFechaInicio(), request.getFechaFin());
-        log.info("Llamando al servicio de verificación de formatos: " + urlCompleta);
+        log.info("Object: {}", "Llamando al servicio de verificación de formatos: " + urlCompleta);
         String respuesta = ejecutarGet(urlCompleta);
         boolean resultado = Boolean.parseBoolean(respuesta.trim());
-        log.info("Resultado parseado (formatos): " + resultado);
+        log.info("Object: {}", "Resultado parseado (formatos): " + resultado);
         return resultado;
     }
 
     public boolean verificarVacaciones(int idEmpleado, String url) throws Exception {
         String urlCompleta = String.format("%s/%d", url, idEmpleado);
-        log.info("Llamando al servicio de verificación de vacaciones: " + urlCompleta);
+        log.info("Object: {}", "Llamando al servicio de verificación de vacaciones: " + urlCompleta);
         String respuesta = ejecutarGet(urlCompleta);
         // El servicio devuelve "1" o "0"
         boolean tieneVacaciones = "1".equals(respuesta.trim());
-        log.info("✅ Resultado parseado (vacaciones): " + tieneVacaciones);
+        log.info("Object: {}", "✅ Resultado parseado (vacaciones): " + tieneVacaciones);
         return tieneVacaciones;
     }
 
@@ -95,7 +95,7 @@ public class ViaticoClient {
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Accept", "application/json");
         int responseCode = conn.getResponseCode();
-        log.info("🔁 Código HTTP: " + responseCode);
+        log.info("Object: {}", "🔁 Código HTTP: " + responseCode);
         BufferedReader br = new BufferedReader(new InputStreamReader((responseCode == HttpURLConnection.HTTP_OK) ? conn.getInputStream() : conn.getErrorStream(), "UTF-8"));
         StringBuilder responseStr = new StringBuilder();
         String line;
@@ -105,7 +105,7 @@ public class ViaticoClient {
         br.close();
         conn.disconnect();
         String respuesta = responseStr.toString().trim();
-        log.info("📥 Respuesta cruda GET: " + respuesta);
+        log.info("Object: {}", "📥 Respuesta cruda GET: " + respuesta);
         return respuesta;
     }
 }

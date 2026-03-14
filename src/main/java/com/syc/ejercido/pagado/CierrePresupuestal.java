@@ -223,7 +223,7 @@ public class CierrePresupuestal extends DataSourceManager {
                 }
             }
         } catch (Exception e) {
-            log.error("Error:" + e);
+            log.error("Error occurred", "Error:" + e);
             try {
                 json.put("estatus", "error");
                 conn.rollback();
@@ -385,7 +385,7 @@ public class CierrePresupuestal extends DataSourceManager {
                 }
             }
         } catch (Exception e) {
-            log.error("Error:" + e);
+            log.error("Error occurred", "Error:" + e);
             try {
                 json.put("estatus", "error");
                 conn.rollback();
@@ -419,7 +419,7 @@ public class CierrePresupuestal extends DataSourceManager {
                 conn.rollback();
             }
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
         } finally {
             CloseObject.closeObject(conn);
         }
@@ -479,7 +479,7 @@ public class CierrePresupuestal extends DataSourceManager {
                 }
             }
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             errorApl = exc.toString();
             try {
                 json.put("estatus", errorApl);
@@ -520,7 +520,7 @@ public class CierrePresupuestal extends DataSourceManager {
                 conn.commit();
             }
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             msg = exc.toString();
             try {
                 json.put("estatus", msg);
@@ -562,13 +562,13 @@ public class CierrePresupuestal extends DataSourceManager {
                 conn.commit();
             }
         } catch (Exception exc) {
-            log.error("Error aplicando contablemente " + exc);
+            log.error("Error occurred", "Error aplicando contablemente " + exc);
             try {
                 msg = exc.toString();
                 json.put("estatus", msg);
                 conn.rollback();
             } catch (Exception excc) {
-                log.error("Error: rollback " + excc);
+                log.error("Error occurred", "Error: rollback " + excc);
             }
         } finally {
             CloseObject.closeObject(pstmnEnc);
@@ -598,7 +598,7 @@ public class CierrePresupuestal extends DataSourceManager {
             String respuesta = importeTotal + "/" + totalDocumento;
             json.put("respuesta", respuesta);
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
         } finally {
             CloseObject.closeObject(pstmnt);
             CloseObject.closeObject(rs);
@@ -662,7 +662,7 @@ public class CierrePresupuestal extends DataSourceManager {
             String respuesta = cuantos + "/" + total;
             json.put("respuesta", respuesta);
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         } finally {
             CloseObject.closeObject(pstmntEnc);
             CloseObject.closeObject(pstmntDet);
@@ -699,7 +699,7 @@ public class CierrePresupuestal extends DataSourceManager {
                 conn.rollback();
             }
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
         } finally {
             CloseObject.closeObject(pstmnEnc);
             CloseObject.closeObject(rsEnc);
@@ -732,7 +732,7 @@ public class CierrePresupuestal extends DataSourceManager {
                 conn.rollback();
             }
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
         } finally {
             CloseObject.closeObject(pstmnEnc);
             CloseObject.closeObject(rsEnc);
@@ -1040,7 +1040,7 @@ public class CierrePresupuestal extends DataSourceManager {
 
     public JSONObject aplicarMotorPoliza(String nFoliodocPoliza, String campo, String tablaEnc, String tablaDet, String tipoAplicar) throws Exception {
         log.debug("Iniciando aplicacion de documento poliza manual");
-        log.info("Se aplicara el documento: " + nFoliodocPoliza + "," + campo + "," + tablaEnc + "," + tablaDet + "," + tipoAplicar);
+        log.info("Object: {}", "Se aplicara el documento: " + nFoliodocPoliza + "," + campo + "," + tablaEnc + "," + tablaDet + "," + tipoAplicar);
         PreparedStatement pstmnEnc = null;
         ResultSet rsEnc = null;
         Connection conn = null;
@@ -1081,7 +1081,7 @@ public class CierrePresupuestal extends DataSourceManager {
                 try {
                     conn.rollback();
                 } catch (Exception e2) {
-                    log.warn("Problemas en rollback " + e2);
+                    log.warn("Object: {}", "Problemas en rollback " + e2);
                 }
             errorApl = exc.toString();
             json.put("estatus", errorApl);
@@ -1154,7 +1154,7 @@ public class CierrePresupuestal extends DataSourceManager {
                 json.put("estatus", errorApl);
             json.put("estatus", "guardado");
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             errorApl = exc.toString();
             try {
                 json.put("estatus", errorApl);
@@ -1190,7 +1190,7 @@ public class CierrePresupuestal extends DataSourceManager {
             try {
                 conn.rollback();
             } catch (Exception x) {
-                log.warn("Error dando rollback: " + x);
+                log.warn("Error occurred", "Error dando rollback: " + x);
             }
             json.put("estatus", errorApl);
         } finally {
@@ -1217,7 +1217,7 @@ public class CierrePresupuestal extends DataSourceManager {
                 conn.commit();
             }
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             errorApl = exc.toString();
             try {
                 json.put("estatus", errorApl);
@@ -1253,7 +1253,7 @@ public class CierrePresupuestal extends DataSourceManager {
             }
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             errorApl = exc.toString();
             try {
                 json.put("estatus", errorApl);
@@ -1279,11 +1279,11 @@ public class CierrePresupuestal extends DataSourceManager {
             pstTransp = conn.prepareStatement(queryTransporte);
             pstTransp.setInt(1, folioViaticos);
             pstEnc.executeUpdate();
-            log.info("Se actualizo el encabezado " + folioViaticos);
+            log.info("Object: {}", "Se actualizo el encabezado " + folioViaticos);
             int updateBoletos = pstBoletos.executeUpdate();
-            log.info("Se Actualizaron: " + updateBoletos + " Vuelos.");
+            log.info("Object: {}", "Se Actualizaron: " + updateBoletos + " Vuelos.");
             pstTransp.executeUpdate();
-            log.info("Se borro el transporte aereo de la solicitud " + folioViaticos);
+            log.info("Object: {}", "Se borro el transporte aereo de la solicitud " + folioViaticos);
         } finally {
             CloseObject.closeObject(pstBoletos);
             CloseObject.closeObject(pstEnc);
@@ -1338,7 +1338,7 @@ public class CierrePresupuestal extends DataSourceManager {
                                         msj = "Ocurrio un error al actualizar la amortizacón.";
                                     }
                                 } catch (Exception excUpdate) {
-                                    log.error(excUpdate);
+                                    log.error("Object: {}", excUpdate);
                                     msj = excUpdate.toString();
                                 } finally {
                                     CloseObject.closeObject(psUpdate);
@@ -1348,7 +1348,7 @@ public class CierrePresupuestal extends DataSourceManager {
                             msj = "No fue posible cargar la informacion del folio: [ " + nFolio + " ].";
                         }
                     } catch (Exception excRead) {
-                        log.error(excRead);
+                        log.error("Object: {}", excRead);
                         msj = excRead.toString();
                     } finally {
                         CloseObject.closeObject(rsInfoPago);
@@ -1373,12 +1373,12 @@ public class CierrePresupuestal extends DataSourceManager {
             String query = "SELECT *FROM tPAGODIVERSOEncabezado WITH (NOLOCK) WHERE nFolioPAGODIVERSO = ? and cIdRecepMat like'RM%'";
             pstm = conn.prepareStatement(query);
             pstm.setInt(1, folio);
-            log.info("query: " + query + "\nfolioPagoDiverso: " + folio);
+            log.info("Object: {}", "query: " + query + "\nfolioPagoDiverso: " + folio);
             rs = pstm.executeQuery();
             if (rs.next()) {
                 respuesta = true;
             } else {
-                log.info("El folio del pago diverso " + folio + " está ligado a una recepción de anticipo por tal motivo no se manda llamar el web service.");
+                log.info("Object: {}", "El folio del pago diverso " + folio + " está ligado a una recepción de anticipo por tal motivo no se manda llamar el web service.");
             }
         } finally {
             CloseObject.closeObject(rs);
@@ -1395,7 +1395,7 @@ public class CierrePresupuestal extends DataSourceManager {
             String query = "select enc.cFolioPAGODIVERSO,enc.nFolioPAGODIVERSO,enc.ID_DESTINO_GASTO,det.ID_TIPO_CONCEPTO,det.OBGT from tPAGODIVERSOEncabezado as enc with(Nolock)" + " inner join tPAGODIVERSODetalle as det with(Nolock) on enc.nFolioPAGODIVERSO=det.nFolioPAGODIVERSO" + " where enc.cDocumentoHaplicado='S' and enc.ID_DESTINO_GASTO in('ALDV','ALRO') and det.ID_TIPO_CONCEPTO='AL'" + " and det.OBGT not in( select cPartida from tCatPartidaWSRestringida with(Nolock) where nActivo=1 )" + " and enc.nFolioPAGODIVERSO=?" + " group by enc.cFolioPAGODIVERSO,enc.nFolioPAGODIVERSO,enc.ID_DESTINO_GASTO,det.ID_TIPO_CONCEPTO,det.OBGT";
             pstm = conn.prepareStatement(query);
             pstm.setInt(1, folio);
-            log.info("query: " + query + "\nfolioPagoDiverso: " + folio);
+            log.info("Object: {}", "query: " + query + "\nfolioPagoDiverso: " + folio);
             rs = pstm.executeQuery();
             if (rs.next()) {
                 respuesta = true;
@@ -1417,7 +1417,7 @@ public class CierrePresupuestal extends DataSourceManager {
             String query = "select * from tPAGODIVERSOEncabezado as enc with(Nolock) " + " inner join tPAGODIVERSODetalle as det with(Nolock) on enc.nFolioPAGODIVERSO=det.nFolioPAGODIVERSO " + " where enc.cDocumentoHaplicado='S' and enc.nFolioPAGODIVERSO=? " + " and enc.cFolioPAGODIVERSO like'PE%' and det.OBGT like'2%'";
             pstm = conn.prepareStatement(query);
             pstm.setInt(1, folio);
-            log.info("query: " + query + "\nfolioPagoDiverso: " + folio);
+            log.info("Object: {}", "query: " + query + "\nfolioPagoDiverso: " + folio);
             rs = pstm.executeQuery();
             if (rs.next()) {
                 respuesta = true;
@@ -1440,7 +1440,7 @@ public class CierrePresupuestal extends DataSourceManager {
             String query = "select * from tPAGODIVERSOEncabezado as enc with(Nolock) " + " inner join tPAGODIVERSODetalle as det with(Nolock) on enc.nFolioPAGODIVERSO=det.nFolioPAGODIVERSO " + " inner join tCatUnidadEjecutora as catUE with(Nolock) on catUE.cUnidadEjecutora=SUBSTRING(det.EP,57,3) " + " where enc.cDocumentoHaplicado='S' and enc.nFolioPAGODIVERSO=? and (catUE.D_DESCRIPCION like'%Cecfor%' or catUE.D_DESCRIPCION like'%Cefofor%')";
             pstm = conn.prepareStatement(query);
             pstm.setInt(1, folio);
-            log.info("query: " + query + "\nfolioPagoDiverso: " + folio);
+            log.info("Object: {}", "query: " + query + "\nfolioPagoDiverso: " + folio);
             rs = pstm.executeQuery();
             if (rs.next()) {
                 respuesta = true;
@@ -1463,7 +1463,7 @@ public class CierrePresupuestal extends DataSourceManager {
             String query = " SELECT	* FROM tPAGODIVERSOEncabezado WITH (NOLOCK) " + " WHERE cFolioPAGODIVERSO = (SELECT cFolioPAGODIVERSO FROM tPAGODIVERSOEncabezado WITH (NOLOCK) WHERE nFolioPAGODIVERSO = ? ) " + " AND cIdRecepMat LIKE 'RM%' AND (cDocumentoHaplicado IS NULL OR cDocumentoHaplicado = 'S') ";
             pstm = conn.prepareStatement(query);
             pstm.setInt(1, folio);
-            log.info("query: " + query + "\nfolioPagoDiverso: " + folio);
+            log.info("Object: {}", "query: " + query + "\nfolioPagoDiverso: " + folio);
             rs = pstm.executeQuery();
             if (rs.next()) {
                 respuesta = true;
@@ -1496,9 +1496,9 @@ public class CierrePresupuestal extends DataSourceManager {
                     psDeleteInfoVuelos = conn.prepareStatement(sDeleteInfoVuelos);
                     psDeleteInfoVuelos.setInt(1, folio);
                     int updateVuelos = psUpdateLayoutVuelos.executeUpdate();
-                    log.info("Se Actualizaron: " + updateVuelos + " Vuelos.");
+                    log.info("Object: {}", "Se Actualizaron: " + updateVuelos + " Vuelos.");
                     int deleteVuelos = psDeleteInfoVuelos.executeUpdate();
-                    log.info("Se eliminaron: " + deleteVuelos + " Vuelos.");
+                    log.info("Object: {}", "Se eliminaron: " + deleteVuelos + " Vuelos.");
                 }
             }
         } finally {
@@ -1527,7 +1527,7 @@ public class CierrePresupuestal extends DataSourceManager {
                     psDeleteInfoVuelos = conn.prepareStatement(sDeleteInfoVuelos);
                     psDeleteInfoVuelos.setInt(1, folio);
                     int deleteVuelos = psDeleteInfoVuelos.executeUpdate();
-                    log.info("Se eliminaron: " + deleteVuelos + " Vuelos del Pago.");
+                    log.info("Object: {}", "Se eliminaron: " + deleteVuelos + " Vuelos del Pago.");
                 }
             }
         } finally {
@@ -1900,7 +1900,7 @@ public class CierrePresupuestal extends DataSourceManager {
         } catch (RuntimeException e) {
             log.error(e.getMessage(), e);
         } catch (Exception e) {
-            log.error("Error:" + e);
+            log.error("Error occurred", "Error:" + e);
             try {
                 json.put("estatus", "error");
                 conn.rollback();
@@ -1942,8 +1942,8 @@ public class CierrePresupuestal extends DataSourceManager {
                 psDetalle.setInt(2, Integer.parseInt(nFolio));
                 int insertados = psEncabezado.executeUpdate();
                 insertados += psDetalle.executeUpdate();
-                log.debug("Se insertaron " + insertados + " campos para aplicar disminucion de apartado ");
-                log.info(" Aplicando motor para el Pasivo Diferido " + Integer.parseInt(nFolio));
+                log.debug("Object: {}", "Se insertaron " + insertados + " campos para aplicar disminucion de apartado ");
+                log.info("Object: {}", " Aplicando motor para el Pasivo Diferido " + Integer.parseInt(nFolio));
                 AccountingEngine accEng = new AccountingEngine();
                 accEng.setValidaInsuficienciaDeSaldo(true);
                 accEng.makeAccountingApplication(conn, "PAGOAPARTADO", String.valueOf(nFolioPagoApartado), "tPagoApartadoEncabezado", "tPagoApartadoDetalle", "nFolioPagoApartado");
@@ -2000,7 +2000,7 @@ public class CierrePresupuestal extends DataSourceManager {
             }
             conn.commit();
         } catch (Exception exc) {
-            log.error(exc);
+            log.error(exc.getMessage(), exc);
             errorApl = exc.toString();
             try {
                 json.put("estatus", errorApl);
@@ -2222,7 +2222,7 @@ public class CierrePresupuestal extends DataSourceManager {
                                     // devengados estén bien empatado con
                                     // inventario, es temporal
                                     String sql = "select case when cCentroContable<>'10' then 1 else 10 end cCentroContableForaneo,case when fAplicacion<convert(date,'2016-08-19') then 1" + " else 0 end laFechaEsAnterior  from tPAGODIVERSOEncabezado with(nolock) where nFolioPAGODIVERSO=" + FolioPAGODIVERSO;
-                                    log.info("Obtención de datos para revisar si se ejecuta el ws de la cancelación del devengado  : " + sql);
+                                    log.info("Object: {}", "Obtención de datos para revisar si se ejecuta el ws de la cancelación del devengado  : " + sql);
                                     pstmn = conn.prepareStatement(sql);
                                     rs = pstmn.executeQuery();
                                     int ccForaneo = 0;
@@ -2244,7 +2244,7 @@ public class CierrePresupuestal extends DataSourceManager {
                                         log.info("No se ejecuta el ws para los estados si el devengado está generado antes de la fecha '2016-08-19");
                                     }
                                 } else {
-                                    log.info("El folio del pago diverso " + nFol[i] + " está ligado a una recepción de anticipo por tal motivo no se manda llamar el web service.");
+                                    log.info("Object: {}", "El folio del pago diverso " + nFol[i] + " está ligado a una recepción de anticipo por tal motivo no se manda llamar el web service.");
                                     if (!cancelaRecepcionAnticipo(conn, FolioPAGODIVERSO)) {
                                         PreparedStatement pstmncancela = null;
                                         int cancelo = 0;
@@ -2257,7 +2257,7 @@ public class CierrePresupuestal extends DataSourceManager {
                                         pstmncancela.setInt(3, FolioPAGODIVERSO);
                                         pstmncancela.setInt(4, FolioPAGODIVERSO);
                                         cancelo = pstmncancela.executeUpdate();
-                                        log.info("Se cancelaron: " + cancelo + " RM ");
+                                        log.info("Object: {}", "Se cancelaron: " + cancelo + " RM ");
                                     }
                                 }
                             }
@@ -2291,7 +2291,7 @@ public class CierrePresupuestal extends DataSourceManager {
             String query = "SELECT * FROM tPAGODIVERSOEncabezado PDIV WITH (NOLOCK) \r\n" + "JOIN mPenaltyDeduction PENA WITH (NOLOCK) ON PDIV.nFolioPenalizacion = PENA.nIdPenaltyDeduction \r\n" + "WHERE nFolioPAGODIVERSO = ? ";
             pstm = conn.prepareStatement(query);
             pstm.setInt(1, folio);
-            log.info("query: " + query + "\nfolioPagoDiverso: " + folio);
+            log.info("Object: {}", "query: " + query + "\nfolioPagoDiverso: " + folio);
             rs = pstm.executeQuery();
             if (rs.next()) {
                 respuesta = true;
@@ -2312,7 +2312,7 @@ public class CierrePresupuestal extends DataSourceManager {
             String query = "SELECT * FROM tComprobacionLaudos_Ingreso WITH (NOLOCK) WHERE nFolioRELACIONGASTOS = ?";
             pstm = conn.prepareStatement(query);
             pstm.setInt(1, folio);
-            log.info("query: " + query + "\nFolioRELACIONGASTOS: " + folio);
+            log.info("Object: {}", "query: " + query + "\nFolioRELACIONGASTOS: " + folio);
             rs = pstm.executeQuery();
             if (rs.next()) {
                 respuesta = true;

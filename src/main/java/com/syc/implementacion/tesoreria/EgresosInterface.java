@@ -150,16 +150,16 @@ public class EgresosInterface implements TipoCasoInterface {
             }
         } else if ("REINTEGROCAJA".equalsIgnoreCase(tipoPago)) {
             log.trace("Avanzando tramite de Reintegro Años Anteriores de Caja ");
-            log.info("onAvanzaCaso ---> u_login " + u_login);
-            log.info("onAvanzaCaso ---> c " + c);
-            log.info("onAvanzaCaso ---> id_caso_oper " + id_caso_oper);
+            log.info("Object: {}", "onAvanzaCaso ---> u_login " + u_login);
+            log.info("Object: {}", "onAvanzaCaso ---> c " + c);
+            log.info("Object: {}", "onAvanzaCaso ---> id_caso_oper " + id_caso_oper);
             CasoOperacion operacion = c.getCasoOperacion(0);
             int nFolio = Integer.parseInt(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1));
-            log.info("onAvanzaCaso ---> getIdOperacion " + operacion.getIdOperacion());
-            log.info("onAvanzaCaso ---> getOperacion().getIdOperacion() " + operacion.getOperacion().getIdOperacion());
-            log.info("onAvanzaCaso ---> getOperacion().getResponsable() " + operacion.getOperacion().getResponsable());
-            log.info("onAvanzaCaso ---> Tipo Pago: " + c.getTipoCaso().getGavetaAsociada());
-            log.info("onAvanzaCaso ---> Folio Pago: " + nFolio);
+            log.info("Object: {}", "onAvanzaCaso ---> getIdOperacion " + operacion.getIdOperacion());
+            log.info("Object: {}", "onAvanzaCaso ---> getOperacion().getIdOperacion() " + operacion.getOperacion().getIdOperacion());
+            log.info("Object: {}", "onAvanzaCaso ---> getOperacion().getResponsable() " + operacion.getOperacion().getResponsable());
+            log.info("Object: {}", "onAvanzaCaso ---> Tipo Pago: " + c.getTipoCaso().getGavetaAsociada());
+            log.info("Object: {}", "onAvanzaCaso ---> Folio Pago: " + nFolio);
             /*
 			 * Se carga el encabezado para saber si fue firma electronica. Si
 			 * asi fue se procesa la firma.
@@ -202,7 +202,7 @@ public class EgresosInterface implements TipoCasoInterface {
 	 * java.lang.String[], java.lang.String[], java.util.Map)
 	 */
     public void onTerminaCaso(Connection conn, String u_login, Caso c, String observ, String[] resp, String[] oper, @SuppressWarnings("rawtypes") Map data) throws SQLException {
-        log.info("Eliminando factiuras del folio " + c.getFolio() + " por el usuario " + u_login);
+        log.info("Object: {}", "Eliminando factiuras del folio " + c.getFolio() + " por el usuario " + u_login);
         String queryValidaAplicado = "SELECT  cDocumentoHaplicado FROM t" + c.getTipoCaso().getGavetaAsociada() + "encabezado WITH(nolock) WHERE nFolio" + c.getTipoCaso().getGavetaAsociada() + " = ?";
         String queryBorraCaso = " DELETE FROM tpagofactura WHERE ctipopago = ? AND nfoliopago = ?";
         PreparedStatement psSelect = null;
@@ -250,9 +250,9 @@ public class EgresosInterface implements TipoCasoInterface {
                         psDeleteInfoVuelos = conn.prepareStatement(sDeleteInfoVuelos);
                         psDeleteInfoVuelos.setInt(1, nFolio);
                         int updateVuelos = psUpdateLayoutVuelos.executeUpdate();
-                        log.debug("Se Actualizaron: " + updateVuelos + " Vuelos.");
+                        log.debug("Object: {}", "Se Actualizaron: " + updateVuelos + " Vuelos.");
                         int deleteVuelos = psDeleteInfoVuelos.executeUpdate();
-                        log.debug("Se eliminaron: " + deleteVuelos + " Vuelos.");
+                        log.debug("Object: {}", "Se eliminaron: " + deleteVuelos + " Vuelos.");
                     }
                 }
             } else if ("PAGODIVERSO".equalsIgnoreCase(c.getTipoCaso().getGavetaAsociada())) {
@@ -266,7 +266,7 @@ public class EgresosInterface implements TipoCasoInterface {
                         psDeleteInfoVuelos = conn.prepareStatement(sDeleteVuelosPago);
                         psDeleteInfoVuelos.setInt(1, nFolio);
                         int deleteVuelos = psDeleteInfoVuelos.executeUpdate();
-                        log.debug("Se eliminaron: " + deleteVuelos + " Vuelos del Pago.");
+                        log.debug("Object: {}", "Se eliminaron: " + deleteVuelos + " Vuelos del Pago.");
                     }
                 }
             }
@@ -278,7 +278,7 @@ public class EgresosInterface implements TipoCasoInterface {
                 epde.rechazaPago(conn, "Pago descartado");
             }
             int afectados = psDelete.executeUpdate();
-            log.debug("Se borraron " + afectados + " facturas");
+            log.debug("Object: {}", "Se borraron " + afectados + " facturas");
         } catch (Exception e) {
             throw new SQLException(e);
         } finally {
@@ -335,7 +335,7 @@ public class EgresosInterface implements TipoCasoInterface {
                             String subject, body;
                             subject = "Registro de " + tipoPago + " inconcluso";
                             body = "<B>Atencion</b></br>" + "Se notifica que el tramite de " + tipoPago + " con folio: " + folio + " esta por vencerse.<br><br>" + "Por lo anterior es necesario que verifique la informacion para concluir o en su defecto descartar el tramite del sistema, " + "ya que si no se atiende se descartara automaticamente perdiendo toda la informacion contenida en dicho tramite. <br><br>";
-                            log.info("Enviando Correo al siguiente destinatario: " + correo);
+                            log.info("Object: {}", "Enviando Correo al siguiente destinatario: " + correo);
                             AlarmaManager.procesaAlarmaCNF(conn, "", null, null, subject, correo, body);
                         } else /*
 							 * si no existe en bitacora se revisa si existen
@@ -368,12 +368,12 @@ public class EgresosInterface implements TipoCasoInterface {
                         String subject, body;
                         subject = "Registro de " + tipoPago + " inconcluso";
                         body = "<B>Atencion</b></br>" + "Se notifica que el tramite de " + tipoPago + " con folio: " + folio + " esta en espera de autorizacion.<br><br>" + "Por lo anterior es necesario que verifique la informacion para autorizar o en su defecto descartar el tramite del sistema. <br><br>";
-                        log.info("Enviando Correo al siguiente destinatario: " + correo);
+                        log.info("Object: {}", "Enviando Correo al siguiente destinatario: " + correo);
                         AlarmaManager.procesaAlarmaCNF(conn, "", null, null, subject, correo, body);
                     }
                     break;
                 default:
-                    log.warn("No existe tareas para esta operacion: " + tipoPago + "-" + folio + "-Operacion:" + id_oper);
+                    log.warn("Object: {}", "No existe tareas para esta operacion: " + tipoPago + "-" + folio + "-Operacion:" + id_oper);
                     break;
             }
         } catch (Exception e) {
@@ -389,7 +389,7 @@ public class EgresosInterface implements TipoCasoInterface {
             ps.setString(1, tipoPago);
             ps.setInt(2, nFolio);
             int afectados = ps.executeUpdate();
-            log.debug("Se borrarn " + afectados + " facturas");
+            log.debug("Object: {}", "Se borrarn " + afectados + " facturas");
         } catch (Exception e) {
             log.warn(e.getMessage(), e);
         } finally {
@@ -408,7 +408,7 @@ public class EgresosInterface implements TipoCasoInterface {
             ps = conn.prepareStatement(query);
             ps.setInt(1, id_tc);
             rs = ps.executeQuery();
-            log.info(ps);
+            log.info("Object: {}", ps.toString());
             if (rs.next()) {
                 id_oper = rs.getInt("ID_OPER");
                 o_responsable = rs.getString("O_RESPONSABLE");
@@ -419,7 +419,7 @@ public class EgresosInterface implements TipoCasoInterface {
             ps.setString(2, o_responsable);
             ps.setInt(3, id_caso);
             ps.setInt(4, id_tc);
-            log.info(ps);
+            log.info("Object: {}", ps.toString());
             success = ps.executeUpdate() > 0;
             if (success) {
                 query = "INSERT INTO tCasosVencidosCancelados VALUES(?,?,?,getdate())";
@@ -427,7 +427,7 @@ public class EgresosInterface implements TipoCasoInterface {
                 ps.setInt(1, id_tc);
                 ps.setInt(2, id_caso);
                 ps.setInt(3, id_operAnterior);
-                log.info(ps);
+                log.info("Object: {}", ps.toString());
                 success = ps.executeUpdate() > 0;
             }
         } catch (Exception e) {
@@ -436,7 +436,7 @@ public class EgresosInterface implements TipoCasoInterface {
             CloseObject.closeObject(rs);
             CloseObject.closeObject(ps);
         }
-        log.info("Se Mueve a Consulta el caso " + id_caso + " : " + success);
+        log.info("Object: {}", "Se Mueve a Consulta el caso " + id_caso + " : " + success);
         return success;
     }
 
@@ -447,14 +447,14 @@ public class EgresosInterface implements TipoCasoInterface {
         try {
             query = "UPDATE T" + tipoPago + "Encabezado SET cDocumentoHaplicado='C' WHERE nFolio" + tipoPago + " = " + nfolio;
             ps = conn.prepareStatement(query);
-            log.info(ps);
+            log.info("Object: {}", ps.toString());
             success = ps.executeUpdate() > 0;
         } catch (Exception e) {
             log.warn(e.getMessage(), e);
         } finally {
             CloseObject.closeObject(ps);
         }
-        log.info("Se cancela Pago: " + tipoPago + " - " + nfolio + " : " + success);
+        log.info("Object: {}", "Se cancela Pago: " + tipoPago + " - " + nfolio + " : " + success);
     }
 
     public boolean existeInfo(Connection conn, String folio, String tipoPago, int nfolio) {
@@ -465,7 +465,7 @@ public class EgresosInterface implements TipoCasoInterface {
         try {
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
-            log.info(ps);
+            log.info("Object: {}", ps.toString());
             if (rs.next()) {
                 existe = true;
             }
@@ -475,7 +475,7 @@ public class EgresosInterface implements TipoCasoInterface {
             CloseObject.closeObject(rs);
             CloseObject.closeObject(ps);
         }
-        log.info("Existe Informacion en BD: " + tipoPago + " Folio: " + nfolio + " : " + existe);
+        log.info("Object: {}", "Existe Informacion en BD: " + tipoPago + " Folio: " + nfolio + " : " + existe);
         return existe;
     }
 
@@ -488,7 +488,7 @@ public class EgresosInterface implements TipoCasoInterface {
             ps = conn.prepareStatement(query);
             ps.setInt(1, id_caso);
             ps.setInt(2, id_tc);
-            log.info(ps);
+            log.info("Object: {}", ps.toString());
             rs = ps.executeQuery();
             if (rs.next()) {
                 email = rs.getString("U_EMAIL");

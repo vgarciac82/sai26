@@ -58,40 +58,40 @@ public class MesContableManager {
                 where += token + " usuarioCerro = ?";
             }
             qry = queryBase + where;
-            log.info(qry);
+            log.info("Object: {}", qry);
             pStmnt = conn.prepareStatement(qry);
             int cnt = 1;
             if (m.getnMes() > 0) {
                 pStmnt.setInt(cnt++, m.getnMes());
-                log.info(m.getnMes());
+                log.info("Object: {}", String.valueOf(m.getnMes()));
             }
             if (m.getcCentroContable() != null && !"".equals(m.getcCentroContable())) {
                 pStmnt.setString(cnt++, m.getcCentroContable());
-                log.info(m.getcCentroContable());
+                log.info("Object: {}", m.getcCentroContable());
             }
             if (m.getaEjercicioFiscal() > 0) {
                 pStmnt.setInt(cnt++, m.getaEjercicioFiscal());
-                log.info(m.getaEjercicioFiscal());
+                log.info("Object: {}", String.valueOf(m.getaEjercicioFiscal()));
             }
             if (m.getMesAbierto() != null && !"".equals(m.getMesAbierto())) {
                 pStmnt.setString(cnt++, m.getMesAbierto());
-                log.info(m.getMesAbierto());
+                log.info("Object: {}", m.getMesAbierto());
             }
             if (m.getfCierre() != null) {
                 pStmnt.setDate(cnt++, new Date(m.getfCierre().getTime()));
-                log.info(new Date(m.getfCierre().getTime()));
+                log.info("Object: {}", String.valueOf(new Date(m.getfCierre().getTime())));
             }
             if (m.getfCierre() != null) {
                 pStmnt.setDate(cnt++, new Date(m.getfCierre().getTime()));
-                log.info(new Date(m.getfCierre().getTime()));
+                log.info("Object: {}", new Date(m.getfCierre().getTime()));
             }
             if (m.getcUnidadResponsable() != null && !"".equals(m.getcUnidadResponsable())) {
                 pStmnt.setString(cnt++, m.getcUnidadResponsable());
-                log.info(m.getcUnidadResponsable());
+                log.info("Object: {}", m.getcUnidadResponsable());
             }
             if (m.getUsuarioCerro() != null && !"".equals(m.getUsuarioCerro())) {
                 pStmnt.setString(cnt++, m.getUsuarioCerro());
-                log.info(m.getUsuarioCerro());
+                log.info("Object: {}", m.getUsuarioCerro());
             }
             rs = pStmnt.executeQuery();
             while (rs.next()) {
@@ -217,7 +217,7 @@ public class MesContableManager {
                 try {
                     pStmnt.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando el PreparedStatement " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando el PreparedStatement " + e2.toString());
                 }
             pStmnt = null;
         }
@@ -243,7 +243,7 @@ public class MesContableManager {
                 try {
                     pStmnt.close();
                 } catch (Exception e2) {
-                    log.warn("Problemas cerrando el PreparedStatement " + e2.toString());
+                    log.warn("Object: {}", "Problemas cerrando el PreparedStatement " + e2.toString());
                 }
             pStmnt = null;
         }
@@ -343,13 +343,13 @@ public class MesContableManager {
      * @throws Exception
      */
     public static int cambiaFechaAplicacion(Connection conn, String tipoPago, int nFolioPago) throws Exception {
-        log.trace("Cambiando fecha de aplicacion para el pago [" + tipoPago + "] con folio[" + nFolioPago + "]");
+        log.trace("Object: {}", "Cambiando fecha de aplicacion para el pago [" + tipoPago + "] con folio[" + nFolioPago + "]");
         int afectados = 0;
         String tableName = "t" + tipoPago + "Encabezado";
         String field = "nFolio" + tipoPago;
         String query = "UPDATE " + tableName + " set fAplicacion = GETDATE() WHERE " + field + " = " + nFolioPago;
-        log.debug("Tabla[" + tableName + "] Campo Folio[" + field + "]");
-        log.debug(query);
+        log.debug("Object: {}", "Tabla[" + tableName + "] Campo Folio[" + field + "]");
+        log.debug("Object: {}", query.toString());
         Statement stmnt = null;
         try {
             stmnt = conn.createStatement();
