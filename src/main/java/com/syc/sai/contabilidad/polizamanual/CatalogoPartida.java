@@ -1,34 +1,31 @@
 package com.syc.sai.contabilidad.polizamanual;
 
+import java.util.Base64;
+
 /**
  * TcatalogoPartida entity. @author MyEclipse Persistence Tools
  */
-
 public class CatalogoPartida implements java.io.Serializable {
 
-	// Fields
+    // Fields
+    private String cpartida;
 
-	private String cpartida;
-	private String dpartida;
+    private String dpartida;
 
+    // Property accessors
+    public String getCpartida() {
+        return this.cpartida;
+    }
 
+    public void setCpartida(String cpartida) {
+        this.cpartida = cpartida;
+    }
 
+    public String getDpartida() {
+        return this.dpartida;
+    }
 
-	// Property accessors
-
-	public String getCpartida() {
-		return this.cpartida;
-	}
-
-	public void setCpartida(String cpartida) {
-		this.cpartida = cpartida;
-	}
-
-	public String getDpartida() {
-		return this.dpartida;
-	}
-
-	public void setDpartida(String dpartida) {
-		this.dpartida = dpartida;
-	}
+    public void setDpartida(String dpartida) {
+        this.dpartida = dpartida;
+    }
 }

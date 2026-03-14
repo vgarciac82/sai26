@@ -17,6 +17,7 @@ import com.syc.solicitudviaticos.SolicitudViaticosBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "RegistroViaticos", urlPatterns = { "/viaticos/CreaViatico", "/viaticos/CreaViaticoTransporte", "/viaticos/CreaViaticoAgenda", "/viaticos/CreaFirmantes", "/viaticos/IngresoAutorizacion", "/viaticos/RegistraAutorizacion" })
 public class RegistroViaticosServlet extends HttpServlet implements GestionInterface {

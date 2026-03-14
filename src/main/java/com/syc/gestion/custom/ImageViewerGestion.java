@@ -9,6 +9,7 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.viewer.custom.ImageViewerInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class ImageViewerGestion implements GestionInterface, ImageViewerInterface {
 

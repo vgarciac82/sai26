@@ -24,6 +24,8 @@ import com.syc.contable.core.AplicacionContable;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 
 @WebServlet(name = "SubirArchivosBaseServlet", urlPatterns = { "/gstnmngr/SubirArchivosBase" })
 public class SubirArchivosBaseServlet extends HttpServlet {
@@ -152,11 +154,13 @@ public class SubirArchivosBaseServlet extends HttpServlet {
     public InputStream cargarArchivo(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String pathArchivo = "";
         try {
+            DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(pathArchivo));
             // Se construye un objeto para que parsee la petición
-            ServletFileUpload fu = new ServletFileUpload();
+            JakartaServletFileUpload fu = new JakartaServletFileUpload(factory);
             // Tamaño máximo que aceptará el archivo
             // El tamaño no importa
-            fu.setSizeMax(-1);
+            fu.setFileSizeMax(-1);
             // Si excede el 1 Gb en memoria lo escribe a disco.
             fu.setSizeThreshold(1048576);
             pathArchivo = getServletContext().getRealPath("upload/ejercidoPagado");
@@ -164,8 +168,6 @@ public class SubirArchivosBaseServlet extends HttpServlet {
             if (!file.exists()) {
                 file.mkdirs();
             }
-            //System.out.println("Ruta:" + pathArchivo);
-            fu.setRepositoryPath(pathArchivo);
             List<FileItem> fileItems = fu.parseRequest(request);
             Iterator<FileItem> i = fileItems.iterator();
             FileItem actual = null;
@@ -1053,11 +1055,13 @@ public class SubirArchivosBaseServlet extends HttpServlet {
         String szPath;
         List<FileItem> fileItems = new ArrayList<FileItem>();
         try {
+            DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(szPath));
             // Se construye un objeto para que parsee la petición
-            ServletFileUpload fu = new ServletFileUpload();
+            JakartaServletFileUpload fu = new JakartaServletFileUpload(factory);
             // Tamaño máximo que aceptará el archivo
             // El tamaño no importa
-            fu.setSizeMax(-1);
+            fu.setFileSizeMax(-1);
             // Si excede el 1 Gb en memoria lo escribe a disco
             fu.setSizeThreshold(1048576);
             szPath = getServletContext().getRealPath("/upload/ejercidoPagado");
@@ -1065,7 +1069,6 @@ public class SubirArchivosBaseServlet extends HttpServlet {
             if (!file.exists()) {
                 file.mkdirs();
             }
-            fu.setRepositoryPath(szPath);
             fileItems = fu.parseRequest(request);
         } catch (Exception e) {
             log.error("Error occurred", "Error: " + e);

@@ -2,64 +2,65 @@ package com.syc.sai.fonden;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Base64;
 
 /**
  * TfondenMoneda entity. @author MyEclipse Persistence Tools
  */
-
 public class FondenMoneda implements java.io.Serializable {
 
-	// Fields
+    // Fields
+    private String cidMoneda;
 
-	private String cidMoneda;
-	private String cdescripcion;
-	private Double ntipoCambio;
+    private String cdescripcion;
 
+    private Double ntipoCambio;
 
-	// Constructors
+    // Constructors
+    /**
+     * default constructor
+     */
+    public FondenMoneda() {
+    }
 
-	/** default constructor */
-	public FondenMoneda() {
-	}
+    /**
+     * minimal constructor
+     */
+    public FondenMoneda(String cidMoneda) {
+        this.cidMoneda = cidMoneda;
+    }
 
-	/** minimal constructor */
-	public FondenMoneda(String cidMoneda) {
-		this.cidMoneda = cidMoneda;
-	}
+    /**
+     * full constructor
+     */
+    public FondenMoneda(String cidMoneda, String cdescripcion, Double ntipoCambio, Set tfondenMovimientos) {
+        this.cidMoneda = cidMoneda;
+        this.cdescripcion = cdescripcion;
+        this.ntipoCambio = ntipoCambio;
+    }
 
-	/** full constructor */
-	public FondenMoneda(String cidMoneda, String cdescripcion,
-			Double ntipoCambio, Set tfondenMovimientos) {
-		this.cidMoneda = cidMoneda;
-		this.cdescripcion = cdescripcion;
-		this.ntipoCambio = ntipoCambio;
-		
-	}
+    // Property accessors
+    public String getCidMoneda() {
+        return this.cidMoneda;
+    }
 
-	// Property accessors
+    public void setCidMoneda(String cidMoneda) {
+        this.cidMoneda = cidMoneda;
+    }
 
-	public String getCidMoneda() {
-		return this.cidMoneda;
-	}
+    public String getCdescripcion() {
+        return this.cdescripcion;
+    }
 
-	public void setCidMoneda(String cidMoneda) {
-		this.cidMoneda = cidMoneda;
-	}
+    public void setCdescripcion(String cdescripcion) {
+        this.cdescripcion = cdescripcion;
+    }
 
-	public String getCdescripcion() {
-		return this.cdescripcion;
-	}
+    public Double getNtipoCambio() {
+        return this.ntipoCambio;
+    }
 
-	public void setCdescripcion(String cdescripcion) {
-		this.cdescripcion = cdescripcion;
-	}
-
-	public Double getNtipoCambio() {
-		return this.ntipoCambio;
-	}
-
-	public void setNtipoCambio(Double ntipoCambio) {
-		this.ntipoCambio = ntipoCambio;
-	}
-
+    public void setNtipoCambio(Double ntipoCambio) {
+        this.ntipoCambio = ntipoCambio;
+    }
 }

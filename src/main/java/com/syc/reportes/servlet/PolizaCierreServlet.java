@@ -16,6 +16,7 @@ import com.syc.reportes.PolizaCierreBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "PolizaCierreServlet", urlPatterns = { "/reportes/PolizaCierre" })
 public class PolizaCierreServlet extends HttpServlet implements GestionInterface {

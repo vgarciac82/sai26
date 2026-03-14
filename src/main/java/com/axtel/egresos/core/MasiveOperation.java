@@ -1,77 +1,81 @@
 package com.axtel.egresos.core;
 
+import java.util.Base64;
 
 public abstract class MasiveOperation {
 
-	private String	ejercicioFiscal	= "";
-	private String	centroContable	= "";
-	private String	contrarecibo;
-	private String	radicado		= "";
-	private int		folioTramiteTemporal;
+    private String ejercicioFiscal = "";
 
-	private String	application;
+    private String centroContable = "";
 
-	@Override
-	public String toString() {
-		return "MasiveOperation [ejercicioFiscal=" + ejercicioFiscal + ", centroContable=" + centroContable + ", contrarecibo=" + contrarecibo + ", radicado=" + radicado + ", folioTramiteTemporal=" + folioTramiteTemporal + ", application=" + application + ", folioTramite=" + folioTramite + "]";
-	}
+    private String contrarecibo;
 
-	public String getApplication() {
-		return application;
-	}
+    private String radicado = "";
 
-	public void setApplication( String application ) {
-		this.application = application;
-	}
+    private int folioTramiteTemporal;
 
-	public String getEjercicioFiscal() {
-		return ejercicioFiscal;
-	}
+    private String application;
 
-	public void setEjercicioFiscal( String ejercicioFiscal ) {
-		this.ejercicioFiscal = ejercicioFiscal;
-	}
+    @Override
+    public String toString() {
+        return "MasiveOperation [ejercicioFiscal=" + ejercicioFiscal + ", centroContable=" + centroContable + ", contrarecibo=" + contrarecibo + ", radicado=" + radicado + ", folioTramiteTemporal=" + folioTramiteTemporal + ", application=" + application + ", folioTramite=" + folioTramite + "]";
+    }
 
-	public String getCentroContable() {
-		return centroContable;
-	}
+    public String getApplication() {
+        return application;
+    }
 
-	public void setCentroContable( String centroContable ) {
-		this.centroContable = centroContable;
-	}
+    public void setApplication(String application) {
+        this.application = application;
+    }
 
-	public String getContrarecibo() {
-		return contrarecibo;
-	}
+    public String getEjercicioFiscal() {
+        return ejercicioFiscal;
+    }
 
-	public void setContrarecibo( String contrarecibo ) {
-		this.contrarecibo = contrarecibo;
-	}
+    public void setEjercicioFiscal(String ejercicioFiscal) {
+        this.ejercicioFiscal = ejercicioFiscal;
+    }
 
-	public String getRadicado() {
-		return radicado;
-	}
+    public String getCentroContable() {
+        return centroContable;
+    }
 
-	public void setRadicado( String radicado ) {
-		this.radicado = radicado;
-	}
+    public void setCentroContable(String centroContable) {
+        this.centroContable = centroContable;
+    }
 
-	public int getFolioTramiteTemporal() {
-		return folioTramiteTemporal;
-	}
+    public String getContrarecibo() {
+        return contrarecibo;
+    }
 
-	public void setFolioTramiteTemporal( int folioTramiteTemporal ) {
-		this.folioTramiteTemporal = folioTramiteTemporal;
-	}
+    public void setContrarecibo(String contrarecibo) {
+        this.contrarecibo = contrarecibo;
+    }
 
-	public int getFolioTramite() {
-		return folioTramite;
-	}
+    public String getRadicado() {
+        return radicado;
+    }
 
-	public void setFolioTramite( int folioTramite ) {
-		this.folioTramite = folioTramite;
-	}
+    public void setRadicado(String radicado) {
+        this.radicado = radicado;
+    }
 
-	private int folioTramite = 0;
+    public int getFolioTramiteTemporal() {
+        return folioTramiteTemporal;
+    }
 
+    public void setFolioTramiteTemporal(int folioTramiteTemporal) {
+        this.folioTramiteTemporal = folioTramiteTemporal;
+    }
+
+    public int getFolioTramite() {
+        return folioTramite;
+    }
+
+    public void setFolioTramite(int folioTramite) {
+        this.folioTramite = folioTramite;
+    }
+
+    private int folioTramite = 0;
 }

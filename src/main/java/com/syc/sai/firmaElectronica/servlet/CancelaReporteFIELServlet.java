@@ -31,6 +31,7 @@ import com.syc.sai.firmaElectronica.interfaces.SolicitudFirmaElectronica;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "CancelaReporteFIELServlet", urlPatterns = { "/firma/RechazaReporte", "/firma/rechazaTramite", "/firma/rechazaRM", "/firma/rechazaEstimacion", "/firma/rechazaENSA", "/firma/avanzaProcesoENSA" })
 public class CancelaReporteFIELServlet extends HttpServlet implements GestionInterface {

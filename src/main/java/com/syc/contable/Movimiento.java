@@ -1,244 +1,252 @@
 package com.syc.contable;
 
 import java.util.Date;
+import java.util.Base64;
 
 public class Movimiento {
-	private String ADEFAS;
-	private String aejerciciofiscal;
-	private String ccancelamovimiento;
-	private String ccentrocontable;
-	private String cdescripcionmovpol;
-	private long cfoliodocumentomovimiento;
-	private String cmoneda;
-	private String cramo;
-	private String ctipodocumento;
-	private String ctipomovimiento;
-	private String ctipopoliza;
-	private String cunidadresponsable;
-	private String dconceptomovimiento;
-	private Date fmovimiento;
-	private Date foperacionmovimiento;
-	private double mmovimiento;
-	private long nConsecutivoMovimiento;
-	private String ncuenta;
-	private int ndocrenglon;
-	private long nfoliopoliza;
-	private String nsubcuenta;
-	private int nTipoAjuste;
-	private String parcial;
-	private String periodo13;
 
-	public String getADEFAS() {
-		return ADEFAS;
-	}
+    private String ADEFAS;
 
-	public String getAejerciciofiscal() {
-		return aejerciciofiscal;
-	}
+    private String aejerciciofiscal;
 
-	public String getCcancelamovimiento() {
-		return ccancelamovimiento;
-	}
+    private String ccancelamovimiento;
 
-	public String getCcentrocontable() {
-		return ccentrocontable;
-	}
+    private String ccentrocontable;
 
-	public String getCdescripcionmovpol() {
-		return cdescripcionmovpol;
-	}
+    private String cdescripcionmovpol;
 
-	public long getCfoliodocumentomovimiento() {
-		return cfoliodocumentomovimiento;
-	}
+    private long cfoliodocumentomovimiento;
 
-	public String getCmoneda() {
-		return cmoneda;
-	}
+    private String cmoneda;
 
-	public String getCramo() {
-		return cramo;
-	}
+    private String cramo;
 
-	public String getCtipodocumento() {
-		return ctipodocumento;
-	}
+    private String ctipodocumento;
 
-	public String getCtipomovimiento() {
-		return ctipomovimiento;
-	}
+    private String ctipomovimiento;
 
-	public String getCtipopoliza() {
-		return ctipopoliza;
-	}
+    private String ctipopoliza;
 
-	public String getCunidadresponsable() {
-		return cunidadresponsable;
-	}
+    private String cunidadresponsable;
 
-	public String getDconceptomovimiento() {
-		return dconceptomovimiento;
-	}
+    private String dconceptomovimiento;
 
-	public Date getFmovimiento() {
-		return fmovimiento;
-	}
+    private Date fmovimiento;
 
-	public Date getFoperacionmovimiento() {
-		return foperacionmovimiento;
-	}
+    private Date foperacionmovimiento;
 
-	public double getMmovimiento() {
-		return mmovimiento;
-	}
+    private double mmovimiento;
 
-	public long getnConsecutivoMovimiento() {
-		return nConsecutivoMovimiento;
-	}
+    private long nConsecutivoMovimiento;
 
-	public String getNcuenta() {
-		return ncuenta;
-	}
+    private String ncuenta;
 
-	public int getNdocrenglon() {
-		return ndocrenglon;
-	}
+    private int ndocrenglon;
 
-	public long getNfoliopoliza() {
-		return nfoliopoliza;
-	}
+    private long nfoliopoliza;
 
-	public String getNsubcuenta() {
-		return nsubcuenta;
-	}
+    private String nsubcuenta;
 
-	public int getnTipoAjuste() {
-		return nTipoAjuste;
-	}
+    private int nTipoAjuste;
 
-	public String getParcial() {
-		return parcial;
-	}
+    private String parcial;
 
-	public String getPeriodo13() {
-		return periodo13;
-	}
+    private String periodo13;
 
-	public void setADEFAS(String aDEFAS) {
-		ADEFAS = aDEFAS;
-	}
+    public String getADEFAS() {
+        return ADEFAS;
+    }
 
-	public void setAejerciciofiscal(String aejerciciofiscal) {
-		this.aejerciciofiscal = aejerciciofiscal;
-	}
+    public String getAejerciciofiscal() {
+        return aejerciciofiscal;
+    }
 
-	public void setCcancelamovimiento(String ccancelamovimiento) {
-		this.ccancelamovimiento = ccancelamovimiento;
-	}
+    public String getCcancelamovimiento() {
+        return ccancelamovimiento;
+    }
 
-	public void setCcentrocontable(String ccentrocontable) {
-		this.ccentrocontable = ccentrocontable;
-	}
+    public String getCcentrocontable() {
+        return ccentrocontable;
+    }
 
-	public void setCdescripcionmovpol(String cdescripcionmovpol) {
-		this.cdescripcionmovpol = cdescripcionmovpol;
-	}
+    public String getCdescripcionmovpol() {
+        return cdescripcionmovpol;
+    }
 
-	public void setCfoliodocumentomovimiento(long cfoliodocumentomovimiento) {
-		this.cfoliodocumentomovimiento = cfoliodocumentomovimiento;
-	}
+    public long getCfoliodocumentomovimiento() {
+        return cfoliodocumentomovimiento;
+    }
 
-	public void setCmoneda(String cmoneda) {
-		this.cmoneda = cmoneda;
-	}
+    public String getCmoneda() {
+        return cmoneda;
+    }
 
-	public void setCramo(String cramo) {
-		this.cramo = cramo;
-	}
+    public String getCramo() {
+        return cramo;
+    }
 
-	public void setCtipodocumento(String ctipodocumento) {
-		this.ctipodocumento = ctipodocumento;
-	}
+    public String getCtipodocumento() {
+        return ctipodocumento;
+    }
 
-	public void setCtipomovimiento(String ctipomovimiento) {
-		this.ctipomovimiento = ctipomovimiento;
-	}
+    public String getCtipomovimiento() {
+        return ctipomovimiento;
+    }
 
-	public void setCtipopoliza(String ctipopoliza) {
-		this.ctipopoliza = ctipopoliza;
-	}
+    public String getCtipopoliza() {
+        return ctipopoliza;
+    }
 
-	public void setCunidadresponsable(String cunidadresponsable) {
-		this.cunidadresponsable = cunidadresponsable;
-	}
+    public String getCunidadresponsable() {
+        return cunidadresponsable;
+    }
 
-	public void setDconceptomovimiento(String dconceptomovimiento) {
-		this.dconceptomovimiento = dconceptomovimiento;
-	}
+    public String getDconceptomovimiento() {
+        return dconceptomovimiento;
+    }
 
-	public void setFmovimiento(Date fmovimiento) {
-		this.fmovimiento = fmovimiento;
-	}
+    public Date getFmovimiento() {
+        return fmovimiento;
+    }
 
-	public void setFoperacionmovimiento(Date foperacionmovimiento) {
-		this.foperacionmovimiento = foperacionmovimiento;
-	}
+    public Date getFoperacionmovimiento() {
+        return foperacionmovimiento;
+    }
 
-	public void setMmovimiento(double mmovimiento) {
-		this.mmovimiento = mmovimiento;
-	}
+    public double getMmovimiento() {
+        return mmovimiento;
+    }
 
-	public void setnConsecutivoMovimiento(long nConsecutivoMovimiento) {
-		this.nConsecutivoMovimiento = nConsecutivoMovimiento;
-	}
+    public long getnConsecutivoMovimiento() {
+        return nConsecutivoMovimiento;
+    }
 
-	public void setNcuenta(String ncuenta) {
-		this.ncuenta = ncuenta;
-	}
+    public String getNcuenta() {
+        return ncuenta;
+    }
 
-	public void setNdocrenglon(int ndocrenglon) {
-		this.ndocrenglon = ndocrenglon;
-	}
+    public int getNdocrenglon() {
+        return ndocrenglon;
+    }
 
-	public void setNfoliopoliza(long nfoliopoliza) {
-		this.nfoliopoliza = nfoliopoliza;
-	}
+    public long getNfoliopoliza() {
+        return nfoliopoliza;
+    }
 
-	public void setNsubcuenta(String nsubcuenta) {
-		this.nsubcuenta = nsubcuenta;
-	}
+    public String getNsubcuenta() {
+        return nsubcuenta;
+    }
 
-	public void setnTipoAjuste(int nTipoAjuste) {
-		this.nTipoAjuste = nTipoAjuste;
-	}
+    public int getnTipoAjuste() {
+        return nTipoAjuste;
+    }
 
-	public void setParcial(String parcial) {
-		this.parcial = parcial;
-	}
+    public String getParcial() {
+        return parcial;
+    }
 
-	public void setPeriodo13(String periodo13) {
-		this.periodo13 = periodo13;
-	}
+    public String getPeriodo13() {
+        return periodo13;
+    }
 
-	@Override
-	public String toString() {
-		return "Movimiento [ADEFAS=" + ADEFAS + ", aejerciciofiscal="
-				+ aejerciciofiscal + ", ccancelamovimiento="
-				+ ccancelamovimiento + ", ccentrocontable=" + ccentrocontable
-				+ ", cdescripcionmovpol=" + cdescripcionmovpol
-				+ ", cfoliodocumentomovimiento=" + cfoliodocumentomovimiento
-				+ ", cmoneda=" + cmoneda + ", cramo=" + cramo
-				+ ", ctipodocumento=" + ctipodocumento + ", ctipomovimiento="
-				+ ctipomovimiento + ", ctipopoliza=" + ctipopoliza
-				+ ", cunidadresponsable=" + cunidadresponsable
-				+ ", dconceptomovimiento=" + dconceptomovimiento
-				+ ", fmovimiento=" + fmovimiento + ", foperacionmovimiento="
-				+ foperacionmovimiento + ", mmovimiento=" + mmovimiento
-				+ ", nConsecutivoMovimiento=" + nConsecutivoMovimiento
-				+ ", ncuenta=" + ncuenta + ", ndocrenglon=" + ndocrenglon
-				+ ", nfoliopoliza=" + nfoliopoliza + ", nsubcuenta="
-				+ nsubcuenta + ", nTipoAjuste=" + nTipoAjuste + ", parcial="
-				+ parcial + ", periodo13=" + periodo13 + "]";
-	}
+    public void setADEFAS(String aDEFAS) {
+        ADEFAS = aDEFAS;
+    }
 
+    public void setAejerciciofiscal(String aejerciciofiscal) {
+        this.aejerciciofiscal = aejerciciofiscal;
+    }
+
+    public void setCcancelamovimiento(String ccancelamovimiento) {
+        this.ccancelamovimiento = ccancelamovimiento;
+    }
+
+    public void setCcentrocontable(String ccentrocontable) {
+        this.ccentrocontable = ccentrocontable;
+    }
+
+    public void setCdescripcionmovpol(String cdescripcionmovpol) {
+        this.cdescripcionmovpol = cdescripcionmovpol;
+    }
+
+    public void setCfoliodocumentomovimiento(long cfoliodocumentomovimiento) {
+        this.cfoliodocumentomovimiento = cfoliodocumentomovimiento;
+    }
+
+    public void setCmoneda(String cmoneda) {
+        this.cmoneda = cmoneda;
+    }
+
+    public void setCramo(String cramo) {
+        this.cramo = cramo;
+    }
+
+    public void setCtipodocumento(String ctipodocumento) {
+        this.ctipodocumento = ctipodocumento;
+    }
+
+    public void setCtipomovimiento(String ctipomovimiento) {
+        this.ctipomovimiento = ctipomovimiento;
+    }
+
+    public void setCtipopoliza(String ctipopoliza) {
+        this.ctipopoliza = ctipopoliza;
+    }
+
+    public void setCunidadresponsable(String cunidadresponsable) {
+        this.cunidadresponsable = cunidadresponsable;
+    }
+
+    public void setDconceptomovimiento(String dconceptomovimiento) {
+        this.dconceptomovimiento = dconceptomovimiento;
+    }
+
+    public void setFmovimiento(Date fmovimiento) {
+        this.fmovimiento = fmovimiento;
+    }
+
+    public void setFoperacionmovimiento(Date foperacionmovimiento) {
+        this.foperacionmovimiento = foperacionmovimiento;
+    }
+
+    public void setMmovimiento(double mmovimiento) {
+        this.mmovimiento = mmovimiento;
+    }
+
+    public void setnConsecutivoMovimiento(long nConsecutivoMovimiento) {
+        this.nConsecutivoMovimiento = nConsecutivoMovimiento;
+    }
+
+    public void setNcuenta(String ncuenta) {
+        this.ncuenta = ncuenta;
+    }
+
+    public void setNdocrenglon(int ndocrenglon) {
+        this.ndocrenglon = ndocrenglon;
+    }
+
+    public void setNfoliopoliza(long nfoliopoliza) {
+        this.nfoliopoliza = nfoliopoliza;
+    }
+
+    public void setNsubcuenta(String nsubcuenta) {
+        this.nsubcuenta = nsubcuenta;
+    }
+
+    public void setnTipoAjuste(int nTipoAjuste) {
+        this.nTipoAjuste = nTipoAjuste;
+    }
+
+    public void setParcial(String parcial) {
+        this.parcial = parcial;
+    }
+
+    public void setPeriodo13(String periodo13) {
+        this.periodo13 = periodo13;
+    }
+
+    @Override
+    public String toString() {
+        return "Movimiento [ADEFAS=" + ADEFAS + ", aejerciciofiscal=" + aejerciciofiscal + ", ccancelamovimiento=" + ccancelamovimiento + ", ccentrocontable=" + ccentrocontable + ", cdescripcionmovpol=" + cdescripcionmovpol + ", cfoliodocumentomovimiento=" + cfoliodocumentomovimiento + ", cmoneda=" + cmoneda + ", cramo=" + cramo + ", ctipodocumento=" + ctipodocumento + ", ctipomovimiento=" + ctipomovimiento + ", ctipopoliza=" + ctipopoliza + ", cunidadresponsable=" + cunidadresponsable + ", dconceptomovimiento=" + dconceptomovimiento + ", fmovimiento=" + fmovimiento + ", foperacionmovimiento=" + foperacionmovimiento + ", mmovimiento=" + mmovimiento + ", nConsecutivoMovimiento=" + nConsecutivoMovimiento + ", ncuenta=" + ncuenta + ", ndocrenglon=" + ndocrenglon + ", nfoliopoliza=" + nfoliopoliza + ", nsubcuenta=" + nsubcuenta + ", nTipoAjuste=" + nTipoAjuste + ", parcial=" + parcial + ", periodo13=" + periodo13 + "]";
+    }
 }

@@ -11,6 +11,7 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class EjercidoPagadoServlet extends HttpServlet implements GestionInterface {
 

@@ -22,6 +22,8 @@ import com.syc.contable.CargaNominaBussinessLogic;
 import com.syc.gestion.core.Caso;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 
 @WebServlet(name = "cargaNominaServlet", urlPatterns = { "/gstnmngr/cargaNomina" })
 public class cargaNominaServlet extends HttpServlet {
@@ -59,11 +61,13 @@ public class cargaNominaServlet extends HttpServlet {
     public InputStream cargarArchivoSCV(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String szPath = "";
         try {
+            DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(szPath));
             // Se construye un objeto para que parsee la petición
-            ServletFileUpload fu = new ServletFileUpload();
+            JakartaServletFileUpload fu = new JakartaServletFileUpload(factory);
             // Tamaño máximo que aceptará el archivo
             // El tamaño no importa
-            fu.setSizeMax(-1);
+            fu.setFileSizeMax(-1);
             // Si excede el 1 Gb en memoria lo
             fu.setSizeThreshold(1048576);
             // escribe a disco
@@ -72,7 +76,6 @@ public class cargaNominaServlet extends HttpServlet {
             if (!file.exists()) {
                 file.mkdirs();
             }
-            fu.setRepositoryPath(szPath);
             List<FileItem> fileItems = fu.parseRequest(request);
             Iterator<FileItem> i = fileItems.iterator();
             FileItem actual = null;

@@ -16,6 +16,7 @@ import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.internet.MimeMultipart;
 import com.syc.gestion.core.GestionException;
+import java.util.Base64;
 
 public class EmailTester {
 

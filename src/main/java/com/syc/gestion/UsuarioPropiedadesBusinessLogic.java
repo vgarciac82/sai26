@@ -10,6 +10,7 @@ import com.syc.gestion.core.UsuarioPropiedades;
 import com.syc.gestion.core.UsuarioPropiedadesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class UsuarioPropiedadesBusinessLogic extends DataSourceManager {
 

@@ -1,33 +1,31 @@
 package com.axtel.egresos.viaticos;
 
+import java.util.Base64;
 
-public class TransporteOficial extends Transporte{
-	
-	private String numEconomico;
-	private int tieneVales;
+public class TransporteOficial extends Transporte {
 
-	public int getTieneVales() {
-		return tieneVales;
-	}
+    private String numEconomico;
 
-	
-	public void setTieneVales( int tieneVales ) {
-		this.tieneVales = tieneVales;
-	}
+    private int tieneVales;
 
-	public String getNumEconomico() {
-		return numEconomico;
-	}
-	
-	public void setNumEconomico( String numEconomico ) {
-		this.numEconomico = numEconomico;
-	}
-	
-	
+    public int getTieneVales() {
+        return tieneVales;
+    }
 
-	@Override
-	public String toString() {
-		return "TrasporteOficial [numEconomico=" + numEconomico + ", tieneVales=" + tieneVales + "]";
-	}
-	
+    public void setTieneVales(int tieneVales) {
+        this.tieneVales = tieneVales;
+    }
+
+    public String getNumEconomico() {
+        return numEconomico;
+    }
+
+    public void setNumEconomico(String numEconomico) {
+        this.numEconomico = numEconomico;
+    }
+
+    @Override
+    public String toString() {
+        return "TrasporteOficial [numEconomico=" + numEconomico + ", tieneVales=" + tieneVales + "]";
+    }
 }

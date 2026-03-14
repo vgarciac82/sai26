@@ -25,6 +25,7 @@ import com.syc.sai.firmaElectronica.FirmaElectronicaBusinessLogic;
 import com.syc.sai.firmaElectronica.interfaces.SolicitudFirmaElectronica;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(urlPatterns = { "/FIEL/autorizaEnvioSICOPMasivo", "/FIEL/revisaEnvioSICOPMasivo" })
 public final class AutorizaEnvioSICOPMasivoServlet extends HttpServlet {

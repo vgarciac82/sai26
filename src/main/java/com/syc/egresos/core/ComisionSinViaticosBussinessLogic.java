@@ -10,6 +10,7 @@ import com.syc.sai.firmaElectronica.interfaces.SolicitudFirmaElectronica;
 import com.syc.solicitudviaticos.core.ComisionSinViaticosManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class ComisionSinViaticosBussinessLogic extends DataSourceManager {
 

@@ -1,23 +1,24 @@
 package com.syc.contable.adecuaciones.Exception;
 
+import java.util.Base64;
+
 public class IncompletRowException extends Exception {
 
-	private static final long	serialVersionUID	= -1214028493238126448L;
+    private static final long serialVersionUID = -1214028493238126448L;
 
-	public IncompletRowException() {
-		super();
-	}
+    public IncompletRowException() {
+        super();
+    }
 
-	public IncompletRowException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public IncompletRowException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	public IncompletRowException(String message) {
-		super(message);
-	}
+    public IncompletRowException(String message) {
+        super(message);
+    }
 
-	public IncompletRowException(Throwable cause) {
-		super(cause);
-	}
-
+    public IncompletRowException(Throwable cause) {
+        super(cause);
+    }
 }

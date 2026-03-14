@@ -1,27 +1,27 @@
 package com.axtel.cfdi;
 
+import java.util.Base64;
 
 public class TipoFactor {
 
-	private String	tipoFactor;
-	private String	descripcion;
+    private String tipoFactor;
 
-	public String getTipoFactor() {
-		return tipoFactor;
-	}
+    private String descripcion;
 
-	public void setTipoFactor( String tipoFactor ) {
-		this.tipoFactor = tipoFactor;
-	}
+    public String getTipoFactor() {
+        return tipoFactor;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public void setTipoFactor(String tipoFactor) {
+        this.tipoFactor = tipoFactor;
+    }
 
-	public void setDescripcion( String descripcion ) {
-		this.descripcion = descripcion;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	// Getters and Setters
-
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    // Getters and Setters
 }

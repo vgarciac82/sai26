@@ -31,6 +31,7 @@ import com.syc.sai.firmaElectronica.exceptions.EstimacionObraException;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ReporteFIELServlet", urlPatterns = { "/firma/MuestraReporte", "/rm/MuestraRM", "/rm/MuestraAnexo1A", "/rm/MuestraEstimacion", "/rm/requisitionFiles" })
 public class ReporteFIELServlet extends HttpServlet implements GestionInterface {

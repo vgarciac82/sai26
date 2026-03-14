@@ -2,6 +2,7 @@ package com.axtel.cfdi.ComplementoCombustible.vales;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import java.util.Base64;
 
 @XmlRootElement(name = "Comprobante", namespace = "http://www.sat.gob.mx/cfd/4")
 public class Comprobante {

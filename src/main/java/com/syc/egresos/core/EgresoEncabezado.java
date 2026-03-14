@@ -46,6 +46,7 @@ import com.syc.sai.interfaces.CFDIManager;
 import net.sf.jasperreports.engine.JasperRunManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public abstract class EgresoEncabezado extends DataSourceManager {
 

@@ -8,6 +8,7 @@ import com.syc.gestion.core.BitacoraCasoManager;
 import com.syc.gestion.core.GestionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class BitacoraCasoBusinessLogic extends DataSourceManager {
 

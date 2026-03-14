@@ -1,36 +1,34 @@
 package com.axtel.sisecop.entities;
 
-
 import java.io.Serializable;
-
+import java.util.Base64;
 
 public class ProyectoTipo implements Serializable {
 
-	private static final long	serialVersionUID	= -4298044940509593209L;
+    private static final long serialVersionUID = -4298044940509593209L;
 
-	private int					tipoProyectoId;
+    private int tipoProyectoId;
 
-	private String				tipoProyectoNombre;
+    private String tipoProyectoNombre;
 
-	public int getTipoProyectoId() {
-		return tipoProyectoId;
-	}
+    public int getTipoProyectoId() {
+        return tipoProyectoId;
+    }
 
-	public void setTipoProyectoId( int tipoProyectoId ) {
-		this.tipoProyectoId = tipoProyectoId;
-	}
+    public void setTipoProyectoId(int tipoProyectoId) {
+        this.tipoProyectoId = tipoProyectoId;
+    }
 
-	public String getTipoProyectoNombre() {
-		return tipoProyectoNombre;
-	}
+    public String getTipoProyectoNombre() {
+        return tipoProyectoNombre;
+    }
 
-	public void setTipoProyectoNombre( String tipoProyectoNombre ) {
-		this.tipoProyectoNombre = tipoProyectoNombre;
-	}
+    public void setTipoProyectoNombre(String tipoProyectoNombre) {
+        this.tipoProyectoNombre = tipoProyectoNombre;
+    }
 
-	@Override
-	public String toString() {
-		return "ProyectoTipo [tipoProyectoId=" + tipoProyectoId + ", tipoProyectoNombre=" + tipoProyectoNombre + "]";
-	}
-
+    @Override
+    public String toString() {
+        return "ProyectoTipo [tipoProyectoId=" + tipoProyectoId + ", tipoProyectoNombre=" + tipoProyectoNombre + "]";
+    }
 }

@@ -64,6 +64,7 @@ import com.syc.sai.contabilidad.utils.db.CloseObject;
 import com.syc.utils.mail.MailSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class AdecuacionBusinessLogic extends DataSourceManager {
 
@@ -579,8 +580,8 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                 conn.rollback();
                 to = usuario.getLogin();
                 // "Mismo que ya cuenta con estatus de autorizado en el
-                body = // SAI.<br>"+
-                (!correoProduccion ? "CORREO DE PRUEBA <br>" : "") + (!correoProduccion ? "este correo le hubiera llegado a: " + to + "<br> <br>" : "") + "Para su conocimiento y efectos correspondientes, se le informa que el folio siguiente:<br><b>" + c.getTipoCaso().getDescripcion() + "</b> No. SAI: <b>" + c.getFolio() + (nNumSicop != null ? "</b> con folio SICOP: <b>" + nNumSicop : "") + (nNumMAP != null ? "</b> con folio MAP: <b>" + nNumMAP : "") + "</b><br>" + "<b>NO PUDO SER AUTORIZADO</b>, debido a:<br>" + arrLResult;
+                // SAI.<br>"+
+                body = (!correoProduccion ? "CORREO DE PRUEBA <br>" : "") + (!correoProduccion ? "este correo le hubiera llegado a: " + to + "<br> <br>" : "") + "Para su conocimiento y efectos correspondientes, se le informa que el folio siguiente:<br><b>" + c.getTipoCaso().getDescripcion() + "</b> No. SAI: <b>" + c.getFolio() + (nNumSicop != null ? "</b> con folio SICOP: <b>" + nNumSicop : "") + (nNumMAP != null ? "</b> con folio MAP: <b>" + nNumMAP : "") + "</b><br>" + "<b>NO PUDO SER AUTORIZADO</b>, debido a:<br>" + arrLResult;
                 try {
                     if (!correoProduccion)
                         to = "" + usuario.getU_email();
@@ -1900,9 +1901,9 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                 String to = getListaCorreos(c);
                 // (motivosRechazo.get("cRecMotivMAP")!=null?"Motivo rechazo
                 String // (motivosRechazo.get("cRecMotivMAP")!=null?"Motivo rechazo
-                body = // MAP:"+motivosRechazo.get("cRecMotivMAP")+"<BR>":"")+
-                (!correoProduccion ? "CORREO DE PRUEBA <br>" : "") + (!correoProduccion ? "este correo le hubiera llegado a: " + to + "<br> <br>" : "") + "Para su conocimiento y efectos correspondientes, se les informa que <b>FUE RECHAZADO</b> el folio siguiente:<br><b>" + c.getTipoCaso().getDescripcion() + "</b><br>" + "No. SAI: <b>" + c.getFolio() + "</b><br>" + "<b>Justificación:<br>" + (motivoRechazo != null ? "Motivo rechazo:" + motivoRechazo + "<BR>" : "") + // (motivosRechazo.get("cRecMotivSicop")!=null?"Motivo rechazo
-                // SICOP:"+motivosRechazo.get("cRecMotivSicop")+"<BR>":"")+
+                // MAP:"+motivosRechazo.get("cRecMotivMAP")+"<BR>":"")+
+                body = // (motivosRechazo.get("cRecMotivSicop")!=null?"Motivo rechazo
+                (!correoProduccion ? "CORREO DE PRUEBA <br>" : "") + (!correoProduccion ? "este correo le hubiera llegado a: " + to + "<br> <br>" : "") + "Para su conocimiento y efectos correspondientes, se les informa que <b>FUE RECHAZADO</b> el folio siguiente:<br><b>" + c.getTipoCaso().getDescripcion() + "</b><br>" + "No. SAI: <b>" + c.getFolio() + "</b><br>" + "<b>Justificación:<br>" + (motivoRechazo != null ? "Motivo rechazo:" + motivoRechazo + "<BR>" : "") + // SICOP:"+motivosRechazo.get("cRecMotivSicop")+"<BR>":"")+
                 "Con base en lo anterior la afectación fue rechazada en el SAI para que procedan al replanteamiento que consideren pertinente.</b><br>" + "Saludos cordiales.";
                 try {
                     if (!correoProduccion)

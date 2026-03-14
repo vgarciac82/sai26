@@ -22,6 +22,7 @@ import com.syc.gestion.util.Util;
 import com.syc.sai.procesosAutomaticos.EstadoDeCuentaBusinessLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class TestServlet extends HttpServlet implements GestionInterface {
 

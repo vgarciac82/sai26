@@ -16,6 +16,7 @@ import com.syc.cfdi.FacturaBusinessLogic;
 import com.syc.gestion.core.Usuario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "FacturaValidacionesPreAutorizaRG", urlPatterns = { "/cfdi/validacionesPreAutorizaRelacionGastos" })
 public class FacturaValidacionesPreAutorizaRGServlet extends HttpServlet {

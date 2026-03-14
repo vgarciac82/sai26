@@ -1,92 +1,100 @@
 package com.syc.ws.inventario;
 
+import java.util.Base64;
+
 public class RespuestaWS {
-	private int		id;
-	private String	estatus;
-	private int		code;
-	private int		idRePublicWork;
-	private int		idRePublicWorkPartial;
-	private String 	regimen;
-	private String 	lastAppraisalDate;
-	
-	public int getId() {
-		return id;
-	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    private int id;
 
-	public String getEstatus() {
-		return estatus;
-	}
+    private String estatus;
 
-	public void setEstatus(String estatus) {
-		this.estatus = estatus;
-	}
+    private int code;
 
-	public int getCode() {
-		return code;
-	}
+    private int idRePublicWork;
 
-	public void setCode(int code) {
-		this.code = code;
-	}
+    private int idRePublicWorkPartial;
 
-	/**
-	 * @return the idRePublicWork
-	 */
-	public int getIdRePublicWork() {
-		return idRePublicWork;
-	}
+    private String regimen;
 
-	/**
-	 * @param idRePublicWork
-	 *            the idRePublicWork to set
-	 */
-	public void setIdRePublicWork(int idRePublicWork) {
-		this.idRePublicWork = idRePublicWork;
-	}
+    private String lastAppraisalDate;
 
-	/**
-	 * @return the idRePublicWorkPartial
-	 */
-	public int getIdRePublicWorkPartial() {
-		return idRePublicWorkPartial;
-	}
-		
-	/**
-	 * @param idRePublicWorkPartial
-	 *            the idRePublicWorkPartial to set
-	 */
-	public void setIdRePublicWorkPartial(int idRePublicWorkPartial) {
-		this.idRePublicWorkPartial = idRePublicWorkPartial;
-	}
-	
-	public String getRegimen() {		
-		return regimen;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setRegimen(String regimen) {
-		this.regimen = regimen;
-	}
-	
-	public String getLastAppraisalDate() {		
-		return lastAppraisalDate;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setLastAppraisalDate(String lastAppraisalDate) {
-		this.lastAppraisalDate = lastAppraisalDate;
-	}
+    public String getEstatus() {
+        return estatus;
+    }
 
-	/*
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    /**
+     * @return the idRePublicWork
+     */
+    public int getIdRePublicWork() {
+        return idRePublicWork;
+    }
+
+    /**
+     * @param idRePublicWork
+     *            the idRePublicWork to set
+     */
+    public void setIdRePublicWork(int idRePublicWork) {
+        this.idRePublicWork = idRePublicWork;
+    }
+
+    /**
+     * @return the idRePublicWorkPartial
+     */
+    public int getIdRePublicWorkPartial() {
+        return idRePublicWorkPartial;
+    }
+
+    /**
+     * @param idRePublicWorkPartial
+     *            the idRePublicWorkPartial to set
+     */
+    public void setIdRePublicWorkPartial(int idRePublicWorkPartial) {
+        this.idRePublicWorkPartial = idRePublicWorkPartial;
+    }
+
+    public String getRegimen() {
+        return regimen;
+    }
+
+    public void setRegimen(String regimen) {
+        this.regimen = regimen;
+    }
+
+    public String getLastAppraisalDate() {
+        return lastAppraisalDate;
+    }
+
+    public void setLastAppraisalDate(String lastAppraisalDate) {
+        this.lastAppraisalDate = lastAppraisalDate;
+    }
+
+    /*
 	 * (non-Javadoc)
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
-	@Override
-	public String toString() {
-		return "RespuestaWS [id=" + id + ", estatus=" + estatus + ", code=" + code + ", idRePublicWork=" + idRePublicWork + ", idRePublicWorkPartial=" + idRePublicWorkPartial + "]";
-	}
-
+    @Override
+    public String toString() {
+        return "RespuestaWS [id=" + id + ", estatus=" + estatus + ", code=" + code + ", idRePublicWork=" + idRePublicWork + ", idRePublicWorkPartial=" + idRePublicWorkPartial + "]";
+    }
 }

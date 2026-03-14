@@ -17,6 +17,7 @@ import com.syc.reportes.ReportePlurianualesBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @SuppressWarnings("unused")
 @WebServlet(name = "ReportePlurianualesServlet", urlPatterns = { "/reportes/ReportePlurianuales" })

@@ -1,34 +1,34 @@
 package com.axtel.sisecop.entities;
 
-
 import java.io.Serializable;
-
+import java.util.Base64;
 
 public class ProyectoEntidadFederativa implements Serializable {
 
-	private static final long	serialVersionUID	= -2317858676075982004L;
-	private int					id;
-	private String				nombre;
+    private static final long serialVersionUID = -2317858676075982004L;
 
-	public int getId() {
-		return id;
-	}
+    private int id;
 
-	public void setId( int id ) {
-		this.id = id;
-	}
+    private String nombre;
 
-	public String getNombre() {
-		return nombre;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setNombre( String nombre ) {
-		this.nombre = nombre;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	@Override
-	public String toString() {
-		return "ProyectoEntidadFederativa [id=" + id + ", nombre=" + nombre + "]";
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        return "ProyectoEntidadFederativa [id=" + id + ", nombre=" + nombre + "]";
+    }
 }

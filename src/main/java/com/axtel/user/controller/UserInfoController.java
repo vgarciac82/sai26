@@ -16,6 +16,7 @@ import com.syc.gestion.core.EmpleadoArea;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
+import java.util.Base64;
 
 @WebServlet("/user/info")
 public class UserInfoController extends HttpServlet {

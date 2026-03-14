@@ -20,6 +20,7 @@ import com.syc.contable.CadenasPBussinessLogic_PrototipoReporteExcel;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "LayoutCadenasPServlet_PrototipoReporteExcel", urlPatterns = { "/gstnmngr/generaLayoutCadenasP_PrototipoReporteExcel" })
 public class LayoutCadenasPServlet_PrototipoReporteExcel extends HttpServlet {

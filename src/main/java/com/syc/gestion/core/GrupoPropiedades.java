@@ -1,32 +1,36 @@
 package com.syc.gestion.core;
 
+import java.util.Base64;
+
 public class GrupoPropiedades {
 
-	private String g_nombre;
-	private String gp_nombre;
-	private String gp_valor;
+    private String g_nombre;
 
-	public String getGrupo() {
-		return g_nombre;
-	}
+    private String gp_nombre;
 
-	public void setGrupo(String g_nombre) {
-		this.g_nombre = g_nombre;
-	}
+    private String gp_valor;
 
-	public String getNombre() {
-		return gp_nombre;
-	}
+    public String getGrupo() {
+        return g_nombre;
+    }
 
-	public void setNombre(String gp_nombre) {
-		this.gp_nombre = gp_nombre;
-	}
+    public void setGrupo(String g_nombre) {
+        this.g_nombre = g_nombre;
+    }
 
-	public String getValor() {
-		return gp_valor;
-	}
+    public String getNombre() {
+        return gp_nombre;
+    }
 
-	public void setValor(String gp_valor) {
-		this.gp_valor = gp_valor;
-	}
+    public void setNombre(String gp_nombre) {
+        this.gp_nombre = gp_nombre;
+    }
+
+    public String getValor() {
+        return gp_valor;
+    }
+
+    public void setValor(String gp_valor) {
+        this.gp_valor = gp_valor;
+    }
 }

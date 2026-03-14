@@ -1,34 +1,36 @@
 package com.syc.rendicioncuentasFONDEN;
 
+import java.util.Base64;
 
 public class RespuestaPolizaWS {
 
-	private int		folioDocPoliza;
-	private String	estatus;
-	private int		idEstatus;
+    private int folioDocPoliza;
 
-	public int getFolioDocPoliza() {
-		return folioDocPoliza;
-	}
+    private String estatus;
 
-	public void setFolioDocPoliza( int folioDocPoliza ) {
-		this.folioDocPoliza = folioDocPoliza;
-	}
+    private int idEstatus;
 
-	public String getEstatus() {
-		return estatus;
-	}
+    public int getFolioDocPoliza() {
+        return folioDocPoliza;
+    }
 
-	public void setEstatus( String estatus ) {
-		this.estatus = estatus;
-	}
+    public void setFolioDocPoliza(int folioDocPoliza) {
+        this.folioDocPoliza = folioDocPoliza;
+    }
 
-	public int getIdEstatus() {
-		return idEstatus;
-	}
+    public String getEstatus() {
+        return estatus;
+    }
 
-	public void setIdEstatus( int idEstatus ) {
-		this.idEstatus = idEstatus;
-	}
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
 
+    public int getIdEstatus() {
+        return idEstatus;
+    }
+
+    public void setIdEstatus(int idEstatus) {
+        this.idEstatus = idEstatus;
+    }
 }

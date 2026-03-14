@@ -4,114 +4,113 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.Base64;
 
 public class DBConfigurator {
 
-	private String	userName;
-	private String	password;
-	private String	driverClassName;
-	private String	url;
-	private int ejercicio;
-	/**
-	 * @return the userName
-	 */
-	public String getUserName() {
-		return userName;
-	}
+    private String userName;
 
-	/**
-	 * @param userName
-	 *            the userName to set
-	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    private String password;
 
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
+    private String driverClassName;
 
-	/**
-	 * @param password
-	 *            the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    private String url;
 
-	/**
-	 * @return the driverClassName
-	 */
-	public String getDriverClassName() {
-		return driverClassName;
-	}
+    private int ejercicio;
 
-	/**
-	 * @param driverClassName
-	 *            the driverClassName to set
-	 */
-	public void setDriverClassName(String driverClassName) {
-		this.driverClassName = driverClassName;
-	}
+    /**
+     * @return the userName
+     */
+    public String getUserName() {
+        return userName;
+    }
 
-	/**
-	 * @return the url
-	 */
-	public String getUrl() {
-		return url;
-	}
+    /**
+     * @param userName
+     *            the userName to set
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	/**
-	 * @param url
-	 *            the url to set
-	 */
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
 
-	public static DBConfigurator instance(String propertiesFilePath) throws Exception {
+    /**
+     * @param password
+     *            the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-		DBConfigurator dbConfig = new DBConfigurator();
+    /**
+     * @return the driverClassName
+     */
+    public String getDriverClassName() {
+        return driverClassName;
+    }
 
-		Properties dbProperties = loadFileProperties(propertiesFilePath);
-		dbConfig.setDriverClassName(dbProperties.getProperty("driverClassName"));
-		dbConfig.setPassword(dbProperties.getProperty("password"));
-		dbConfig.setUrl(dbProperties.getProperty("url"));
-		dbConfig.setUserName(dbProperties.getProperty("userName"));
+    /**
+     * @param driverClassName
+     *            the driverClassName to set
+     */
+    public void setDriverClassName(String driverClassName) {
+        this.driverClassName = driverClassName;
+    }
 
-		return dbConfig;
+    /**
+     * @return the url
+     */
+    public String getUrl() {
+        return url;
+    }
 
-	}
-	
-	public static Properties loadFileProperties( String path ) throws Exception {
-		Properties prop = new Properties();
-		InputStream input = null;
+    /**
+     * @param url
+     *            the url to set
+     */
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-		try {
+    public static DBConfigurator instance(String propertiesFilePath) throws Exception {
+        DBConfigurator dbConfig = new DBConfigurator();
+        Properties dbProperties = loadFileProperties(propertiesFilePath);
+        dbConfig.setDriverClassName(dbProperties.getProperty("driverClassName"));
+        dbConfig.setPassword(dbProperties.getProperty("password"));
+        dbConfig.setUrl(dbProperties.getProperty("url"));
+        dbConfig.setUserName(dbProperties.getProperty("userName"));
+        return dbConfig;
+    }
 
-			input = new FileInputStream( path );
-			prop.load( input );
-			return prop;
-		} finally {
-			if ( input != null ) {
-				try {
-					input.close();
-				} catch ( IOException e ) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
+    public static Properties loadFileProperties(String path) throws Exception {
+        Properties prop = new Properties();
+        InputStream input = null;
+        try {
+            input = new FileInputStream(path);
+            prop.load(input);
+            return prop;
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
-	public int getEjercicio() {
-		return ejercicio;
-	}
+    public int getEjercicio() {
+        return ejercicio;
+    }
 
-	public void setEjercicio(int ejercicio) {
-		this.ejercicio = ejercicio;
-	}
-
+    public void setEjercicio(int ejercicio) {
+        this.ejercicio = ejercicio;
+    }
 }

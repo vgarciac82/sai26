@@ -18,6 +18,7 @@ import com.syc.js.core.QueryException;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "QueryServlet", urlPatterns = { "/query" })
 public class QueryServlet extends HttpServlet {

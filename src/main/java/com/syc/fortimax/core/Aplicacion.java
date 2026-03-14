@@ -2,48 +2,51 @@ package com.syc.fortimax.core;
 
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Base64;
 
 public class Aplicacion {
 
-	private String tbl_aplicacion;
-	private String titulo_aplicacion;
-	private String descripcion;
+    private String tbl_aplicacion;
 
-	private Map camposDescripcion = new Hashtable();
+    private String titulo_aplicacion;
 
-	public String getTableAplicacion() {
-		return tbl_aplicacion;
-	}
+    private String descripcion;
 
-	public void setTableAplicacion(String tbl_aplicacion) {
-		this.tbl_aplicacion = tbl_aplicacion;
-	}
+    private Map camposDescripcion = new Hashtable();
 
-	public String getTituloAplicacion() {
-		return titulo_aplicacion;
-	}
+    public String getTableAplicacion() {
+        return tbl_aplicacion;
+    }
 
-	public void setTituloAplicacion(String titulo_aplicacion) {
-		this.titulo_aplicacion = titulo_aplicacion;
-	}
+    public void setTableAplicacion(String tbl_aplicacion) {
+        this.tbl_aplicacion = tbl_aplicacion;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public String getTituloAplicacion() {
+        return titulo_aplicacion;
+    }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public void setTituloAplicacion(String titulo_aplicacion) {
+        this.titulo_aplicacion = titulo_aplicacion;
+    }
 
-	public Map getCamposDescripcion() {
-		return camposDescripcion;
-	};
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	public Descripcion getCamposDescripcion(String name) {
-		return (Descripcion) camposDescripcion.get(name);
-	}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-	public void setCamposDescripcion(Map descFields) {
-		this.camposDescripcion = descFields;
-	};
+    public Map getCamposDescripcion() {
+        return camposDescripcion;
+    }
+
+    public Descripcion getCamposDescripcion(String name) {
+        return (Descripcion) camposDescripcion.get(name);
+    }
+
+    public void setCamposDescripcion(Map descFields) {
+        this.camposDescripcion = descFields;
+    }
 }

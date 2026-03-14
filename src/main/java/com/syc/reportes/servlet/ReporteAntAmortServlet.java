@@ -18,6 +18,7 @@ import com.syc.reportes.ReporteAntAmortBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ReporteAntAmortServlet", urlPatterns = { "/reportes/ReporteAntAmort" })
 public class ReporteAntAmortServlet extends HttpServlet implements GestionInterface {

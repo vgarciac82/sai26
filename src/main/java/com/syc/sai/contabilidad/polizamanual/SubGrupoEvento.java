@@ -1,50 +1,51 @@
 package com.syc.sai.contabilidad.polizamanual;
 
+import java.util.Base64;
+
 /**
  * TsubGrupoEvento entity. @author MyEclipse Persistence Tools
  */
-
 public class SubGrupoEvento implements java.io.Serializable {
 
-	// Fields
+    // Fields
+    private GrupoEvento tgrupoEvento;
 
-	private GrupoEvento tgrupoEvento;
-	private String cnombreSubGrupo;
-	private Integer nidSubGrupoEvento;
-	private Integer nidGrupoEvento;
+    private String cnombreSubGrupo;
 
-	// Constructors
+    private Integer nidSubGrupoEvento;
 
-	public GrupoEvento getTgrupoEvento() {
-		return this.tgrupoEvento;
-	}
+    private Integer nidGrupoEvento;
 
-	public void setTgrupoEvento(GrupoEvento tgrupoEvento) {
-		this.tgrupoEvento = tgrupoEvento;
-	}
+    // Constructors
+    public GrupoEvento getTgrupoEvento() {
+        return this.tgrupoEvento;
+    }
 
-	public String getCnombreSubGrupo() {
-		return this.cnombreSubGrupo;
-	}
+    public void setTgrupoEvento(GrupoEvento tgrupoEvento) {
+        this.tgrupoEvento = tgrupoEvento;
+    }
 
-	public void setCnombreSubGrupo(String cnombreSubGrupo) {
-		this.cnombreSubGrupo = cnombreSubGrupo;
-	}
+    public String getCnombreSubGrupo() {
+        return this.cnombreSubGrupo;
+    }
 
-	public Integer getNidSubGrupoEvento() {
-		return nidSubGrupoEvento;
-	}
+    public void setCnombreSubGrupo(String cnombreSubGrupo) {
+        this.cnombreSubGrupo = cnombreSubGrupo;
+    }
 
-	public void setNidSubGrupoEvento(Integer nidSubGrupoEvento) {
-		this.nidSubGrupoEvento = nidSubGrupoEvento;
-	}
+    public Integer getNidSubGrupoEvento() {
+        return nidSubGrupoEvento;
+    }
 
-	public Integer getNidGrupoEvento() {
-		return nidGrupoEvento;
-	}
+    public void setNidSubGrupoEvento(Integer nidSubGrupoEvento) {
+        this.nidSubGrupoEvento = nidSubGrupoEvento;
+    }
 
-	public void setNidGrupoEvento(Integer nidGrupoEvento) {
-		this.nidGrupoEvento = nidGrupoEvento;
-	}
+    public Integer getNidGrupoEvento() {
+        return nidGrupoEvento;
+    }
 
+    public void setNidGrupoEvento(Integer nidGrupoEvento) {
+        this.nidGrupoEvento = nidGrupoEvento;
+    }
 }

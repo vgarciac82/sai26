@@ -5,79 +5,73 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import org.jdom.Element;
+import java.util.Base64;
 
 public class Grupo implements Serializable {
 
-	private static final long	serialVersionUID	= -1571699656344931063L;
-	private String				g_nombre;
-	private String				g_descripcion;
+    private static final long serialVersionUID = -1571699656344931063L;
 
-	private Map					grpProperties		= new Hashtable();
+    private String g_nombre;
 
-	public Grupo() {
-		super();
-	}
+    private String g_descripcion;
 
-	public Grupo(String g_nombre) {
-		super();
-		this.g_nombre = g_nombre;
-	}
+    private Map grpProperties = new Hashtable();
 
-	public String getNombre() {
-		return g_nombre;
-	}
+    public Grupo() {
+        super();
+    }
 
-	public void setNombre(String g_nombre) {
-		this.g_nombre = g_nombre;
-	}
+    public Grupo(String g_nombre) {
+        super();
+        this.g_nombre = g_nombre;
+    }
 
-	public String getDescripcion() {
-		return g_descripcion;
-	}
+    public String getNombre() {
+        return g_nombre;
+    }
 
-	public void setDescripcion(String g_descripcion) {
-		this.g_descripcion = g_descripcion;
-	}
+    public void setNombre(String g_nombre) {
+        this.g_nombre = g_nombre;
+    }
 
-	public Map getPropiedades() {
-		return grpProperties;
-	}
+    public String getDescripcion() {
+        return g_descripcion;
+    }
 
-	public GrupoPropiedades getPropiedad(String name) {
-		return (GrupoPropiedades) grpProperties.get(name);
-	}
+    public void setDescripcion(String g_descripcion) {
+        this.g_descripcion = g_descripcion;
+    }
 
-	public void setPropiedades(Map properties) {
-		this.grpProperties = properties;
-	}
+    public Map getPropiedades() {
+        return grpProperties;
+    }
 
-	public void setPropiedad(String name, GrupoPropiedades prop) {
-		grpProperties.put(name, prop);
-	}
+    public GrupoPropiedades getPropiedad(String name) {
+        return (GrupoPropiedades) grpProperties.get(name);
+    }
 
-	public Element toXML() {
+    public void setPropiedades(Map properties) {
+        this.grpProperties = properties;
+    }
 
-		Element elGrupo = new Element("grupo");
-		elGrupo.setAttribute("nombre", g_nombre);
+    public void setPropiedad(String name, GrupoPropiedades prop) {
+        grpProperties.put(name, prop);
+    }
 
-		Element elDesc = new Element("descripcion").addContent(g_descripcion);
-		elGrupo.addContent(elDesc);
+    public Element toXML() {
+        Element elGrupo = new Element("grupo");
+        elGrupo.setAttribute("nombre", g_nombre);
+        Element elDesc = new Element("descripcion").addContent(g_descripcion);
+        elGrupo.addContent(elDesc);
+        return elGrupo;
+    }
 
-		return elGrupo;
-	}
-
-	public Element toXML(List opers) {
-
-		Element elGrupo = toXML();
-		Element elOpers = new Element("opers");
-
-		for (Iterator iter = opers.iterator(); iter.hasNext();)
-			elOpers.addContent(((Operacion) iter.next()).toXML());
-
-		elGrupo.addContent(elOpers);
-
-		return elGrupo;
-	}
+    public Element toXML(List opers) {
+        Element elGrupo = toXML();
+        Element elOpers = new Element("opers");
+        for (Iterator iter = opers.iterator(); iter.hasNext(); ) elOpers.addContent(((Operacion) iter.next()).toXML());
+        elGrupo.addContent(elOpers);
+        return elGrupo;
+    }
 }

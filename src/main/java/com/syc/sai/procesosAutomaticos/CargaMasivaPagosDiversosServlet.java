@@ -24,6 +24,7 @@ import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "CargaMasivaPagosDiversosServlet", urlPatterns = { "/CargaMasivaPagosDiversos", "/CargaMasivaCompromisosDiversos" })
 public class CargaMasivaPagosDiversosServlet extends HttpServlet implements GestionInterface {

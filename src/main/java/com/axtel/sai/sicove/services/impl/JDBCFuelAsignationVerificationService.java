@@ -16,6 +16,7 @@ import com.syc.gestion.CasoBusinessLogic;
 import com.syc.gestion.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class JDBCFuelAsignationVerificationService extends DataSourceManager implements FuelAsignationVerificationService {
 

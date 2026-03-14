@@ -1,77 +1,77 @@
 package com.syc.ejercido.pagado.core;
 
-
 import java.math.BigDecimal;
-
+import java.util.Base64;
 
 public class EgresoCalendario {
 
-	private String		ep;
-	private int			folioPago;
-	private String		idTipoConcepto;
-	private String		idTipoMovimiento;
-	private BigDecimal	importeBruto	= new BigDecimal( 0.00d );
-	private int			mesPresupuesto;
-	private String		tipoPago;
+    private String ep;
 
-	
-	public String getEp() {
-		return ep;
-	}
+    private int folioPago;
 
-	
-	public int getFolioPago() {
-		return folioPago;
-	}
+    private String idTipoConcepto;
 
-	
-	public String getIdTipoConcepto() {
-		return idTipoConcepto;
-	}
+    private String idTipoMovimiento;
 
-	
-	public String getIdTipoMovimiento() {
-		return idTipoMovimiento;
-	}
+    private BigDecimal importeBruto = new BigDecimal(0.00d);
 
-	public BigDecimal getImporteBruto() {
-		return importeBruto;
-	}
+    private int mesPresupuesto;
 
-	public int getMesPresupuesto() {
-		return mesPresupuesto;
-	}
+    private String tipoPago;
 
-	public String getTipoPago() {
-		return tipoPago;
-	}
+    public String getEp() {
+        return ep;
+    }
 
-	public void setEp( String ep ) {
-		this.ep = ep;
-	}
+    public int getFolioPago() {
+        return folioPago;
+    }
 
-	public void setFolioPago( int folioPago ) {
-		this.folioPago = folioPago;
-	}
+    public String getIdTipoConcepto() {
+        return idTipoConcepto;
+    }
 
-	public void setIdTipoConcepto( String idTipoConcepto ) {
-		this.idTipoConcepto = idTipoConcepto;
-	}
+    public String getIdTipoMovimiento() {
+        return idTipoMovimiento;
+    }
 
-	public void setIdTipoMovimiento( String idTipoMovimiento ) {
-		this.idTipoMovimiento = idTipoMovimiento;
-	}
+    public BigDecimal getImporteBruto() {
+        return importeBruto;
+    }
 
-	public void setImporteBruto( BigDecimal importeBruto ) {
-		this.importeBruto = importeBruto;
-	}
+    public int getMesPresupuesto() {
+        return mesPresupuesto;
+    }
 
-	public void setMesPresupuesto( int mesPresupuesto ) {
-		this.mesPresupuesto = mesPresupuesto;
-	}
+    public String getTipoPago() {
+        return tipoPago;
+    }
 
-	public void setTipoPago( String tipoPago ) {
-		this.tipoPago = tipoPago;
-	}
+    public void setEp(String ep) {
+        this.ep = ep;
+    }
 
+    public void setFolioPago(int folioPago) {
+        this.folioPago = folioPago;
+    }
+
+    public void setIdTipoConcepto(String idTipoConcepto) {
+        this.idTipoConcepto = idTipoConcepto;
+    }
+
+    public void setIdTipoMovimiento(String idTipoMovimiento) {
+        this.idTipoMovimiento = idTipoMovimiento;
+    }
+
+    public void setImporteBruto(BigDecimal importeBruto) {
+        this.importeBruto = importeBruto;
+    }
+
+    public void setMesPresupuesto(int mesPresupuesto) {
+        this.mesPresupuesto = mesPresupuesto;
+    }
+
+    public void setTipoPago(String tipoPago) {
+        this.tipoPago = tipoPago;
+    }
 }

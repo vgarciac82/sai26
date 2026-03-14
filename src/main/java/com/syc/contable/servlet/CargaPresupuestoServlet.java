@@ -21,6 +21,7 @@ import com.syc.gestion.servlet.GestionSignFileReceiverServlet;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "CargaPresupuestoServlet", urlPatterns = { "/gstnmngr/cargaPresupuesto" })
 public class CargaPresupuestoServlet extends HttpServlet implements GestionInterface {

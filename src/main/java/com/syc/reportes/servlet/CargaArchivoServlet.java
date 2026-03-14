@@ -20,6 +20,7 @@ import com.syc.reportes.CargaArchivoBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "CargaArchivoServlet", urlPatterns = { "/reportes/CargaArchivoServlet" })
 public class CargaArchivoServlet extends HttpServlet {

@@ -10,6 +10,7 @@ import com.syc.adquisiciones.businessLogic.ProcessAgreement;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "SendEmailAgreement", urlPatterns = { "/SendEmailAgreement" })
 public class SendEmailAgreement extends HttpServlet implements Runnable {

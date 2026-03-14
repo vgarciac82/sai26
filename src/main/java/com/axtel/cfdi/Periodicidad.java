@@ -1,30 +1,31 @@
 package com.axtel.cfdi;
 
+import java.util.Base64;
 
 public class Periodicidad {
 
-	private String	periodicidad;
-	private String	descripcion;
+    private String periodicidad;
 
-	public String getPeriodicidad() {
-		return periodicidad;
-	}
+    private String descripcion;
 
-	public void setPeriodicidad( String periodicidad ) {
-		this.periodicidad = periodicidad;
-	}
+    public String getPeriodicidad() {
+        return periodicidad;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public void setPeriodicidad(String periodicidad) {
+        this.periodicidad = periodicidad;
+    }
 
-	public void setDescripcion( String descripcion ) {
-		this.descripcion = descripcion;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	@Override
-	public String toString() {
-		return "Periodicidad [periodicidad=" + periodicidad + ", descripcion=" + descripcion + "]";
-	}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
+    @Override
+    public String toString() {
+        return "Periodicidad [periodicidad=" + periodicidad + ", descripcion=" + descripcion + "]";
+    }
 }

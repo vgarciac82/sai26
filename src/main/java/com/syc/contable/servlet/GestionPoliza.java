@@ -20,6 +20,7 @@ import com.syc.gestion.core.TablasManager;
 import com.syc.contable.CancelaDocumento;
 import com.syc.contable.PolizaManager;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "GestionPoliza", urlPatterns = { "/gstn/GestionPoliza" })
 public class GestionPoliza extends HttpServlet {

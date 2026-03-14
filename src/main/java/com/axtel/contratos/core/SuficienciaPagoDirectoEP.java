@@ -1,24 +1,26 @@
 package com.axtel.contratos.core;
 
+import java.util.Base64;
 
 public class SuficienciaPagoDirectoEP {
 
-	private int		folioSuficienciaPagoDirecto;
-	private String	ep;
+    private int folioSuficienciaPagoDirecto;
 
-	public int getFolioSuficienciaPagoDirecto() {
-		return folioSuficienciaPagoDirecto;
-	}
+    private String ep;
 
-	public void setFolioSuficienciaPagoDirecto( int folioSuficienciaPagoDirecto ) {
-		this.folioSuficienciaPagoDirecto = folioSuficienciaPagoDirecto;
-	}
+    public int getFolioSuficienciaPagoDirecto() {
+        return folioSuficienciaPagoDirecto;
+    }
 
-	public String getEp() {
-		return ep;
-	}
+    public void setFolioSuficienciaPagoDirecto(int folioSuficienciaPagoDirecto) {
+        this.folioSuficienciaPagoDirecto = folioSuficienciaPagoDirecto;
+    }
 
-	public void setEp( String ep ) {
-		this.ep = ep;
-	}
+    public String getEp() {
+        return ep;
+    }
+
+    public void setEp(String ep) {
+        this.ep = ep;
+    }
 }

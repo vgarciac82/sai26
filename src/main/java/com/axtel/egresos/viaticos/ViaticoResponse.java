@@ -1,11 +1,19 @@
 package com.axtel.egresos.viaticos;
 
+import java.util.Base64;
+
 public class ViaticoResponse {
+
     private int idEmpleado;
+
     private String fechaInicio;
+
     private String fechaFin;
+
     private boolean success;
+
     private String concepto;
+
     private String message;
 
     public ViaticoResponse() {

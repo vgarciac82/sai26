@@ -15,6 +15,7 @@ import com.axtel.contratos.services.SuficienciaPagoDirectoEPBusinessLogic;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet("/api/suficiencia/ep")
 public class SuficienciaPagoDirectoEPServlet extends HttpServlet {

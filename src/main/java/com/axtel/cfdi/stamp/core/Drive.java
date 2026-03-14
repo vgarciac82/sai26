@@ -1,48 +1,51 @@
 package com.axtel.cfdi.stamp.core;
 
+import java.util.Base64;
 
 public class Drive {
 
-	private String	drive;
-	private String	basePath;
-	private int		driveStatus;
-	private String	driveType;
+    private String drive;
 
-	public String getDrive() {
-		return drive;
-	}
+    private String basePath;
 
-	public void setDrive( String drive ) {
-		this.drive = drive;
-	}
+    private int driveStatus;
 
-	public String getBasePath() {
-		return basePath;
-	}
+    private String driveType;
 
-	public void setBasePath( String basePath ) {
-		this.basePath = basePath;
-	}
+    public String getDrive() {
+        return drive;
+    }
 
-	public int getDriveStatus() {
-		return driveStatus;
-	}
+    public void setDrive(String drive) {
+        this.drive = drive;
+    }
 
-	public void setDriveStatus( int driveStatus ) {
-		this.driveStatus = driveStatus;
-	}
+    public String getBasePath() {
+        return basePath;
+    }
 
-	public String getDriveType() {
-		return driveType;
-	}
+    public void setBasePath(String basePath) {
+        this.basePath = basePath;
+    }
 
-	public void setDriveType( String driveType ) {
-		this.driveType = driveType;
-	}
+    public int getDriveStatus() {
+        return driveStatus;
+    }
 
-	@Override
-	public String toString() {
-		return "Drive [drive=" + drive + ", basePath=" + basePath + ", driveStatus=" + driveStatus + ", driveType=" + driveType + "]";
-	}
+    public void setDriveStatus(int driveStatus) {
+        this.driveStatus = driveStatus;
+    }
 
+    public String getDriveType() {
+        return driveType;
+    }
+
+    public void setDriveType(String driveType) {
+        this.driveType = driveType;
+    }
+
+    @Override
+    public String toString() {
+        return "Drive [drive=" + drive + ", basePath=" + basePath + ", driveStatus=" + driveStatus + ", driveType=" + driveType + "]";
+    }
 }

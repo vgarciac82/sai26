@@ -1,58 +1,63 @@
 package com.syc.contable.core;
 
+import java.util.Base64;
+
 public class ConciliacionContableDetalle {
-	private int		folioConciliacionContable;
-	private int		idConciliacion;
-	private int		mes;
-	private String	usuarioCarga;
 
-	public ConciliacionContableDetalle() {
-		super();
-	}
+    private int folioConciliacionContable;
 
-	public ConciliacionContableDetalle(int folioConciliacionContable, int mes, String usuarioCarga, int idConciliacion) {
-		super();
-		this.folioConciliacionContable = folioConciliacionContable;
-		this.mes = mes;
-		this.usuarioCarga = usuarioCarga;
-		this.idConciliacion = idConciliacion;
-	}
+    private int idConciliacion;
 
-	public int getFolioConciliacionContable() {
-		return folioConciliacionContable;
-	}
+    private int mes;
 
-	public int getIdConciliacion() {
-		return idConciliacion;
-	}
+    private String usuarioCarga;
 
-	public int getMes() {
-		return mes;
-	}
+    public ConciliacionContableDetalle() {
+        super();
+    }
 
-	public String getUsuarioCarga() {
-		return usuarioCarga;
-	}
+    public ConciliacionContableDetalle(int folioConciliacionContable, int mes, String usuarioCarga, int idConciliacion) {
+        super();
+        this.folioConciliacionContable = folioConciliacionContable;
+        this.mes = mes;
+        this.usuarioCarga = usuarioCarga;
+        this.idConciliacion = idConciliacion;
+    }
 
-	public void setFolioConciliacionContable(int folioConciliacionContable) {
-		this.folioConciliacionContable = folioConciliacionContable;
-	}
+    public int getFolioConciliacionContable() {
+        return folioConciliacionContable;
+    }
 
-	public void setIdConciliacion(int idConciliacion) {
-		this.idConciliacion = idConciliacion;
-	}
+    public int getIdConciliacion() {
+        return idConciliacion;
+    }
 
-	public void setMes(int mes) {
-		this.mes = mes;
-	}
+    public int getMes() {
+        return mes;
+    }
 
-	public void setUsuarioCarga(String usuarioCarga) {
-		this.usuarioCarga = usuarioCarga;
-	}
+    public String getUsuarioCarga() {
+        return usuarioCarga;
+    }
 
-	@Override
-	public String toString() {
-		return "ConciliacionContableDetalle [folioConciliacionContable=" + folioConciliacionContable + ", mes=" + mes + ", usuarioCarga=" + usuarioCarga + ", idConciliacion=" + idConciliacion + "]";
-	}
+    public void setFolioConciliacionContable(int folioConciliacionContable) {
+        this.folioConciliacionContable = folioConciliacionContable;
+    }
 
+    public void setIdConciliacion(int idConciliacion) {
+        this.idConciliacion = idConciliacion;
+    }
+
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
+
+    public void setUsuarioCarga(String usuarioCarga) {
+        this.usuarioCarga = usuarioCarga;
+    }
+
+    @Override
+    public String toString() {
+        return "ConciliacionContableDetalle [folioConciliacionContable=" + folioConciliacionContable + ", mes=" + mes + ", usuarioCarga=" + usuarioCarga + ", idConciliacion=" + idConciliacion + "]";
+    }
 }

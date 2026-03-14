@@ -30,6 +30,7 @@ import com.syc.sai.fonden.FondenMovimiento;
 import com.syc.sai.fonden.FondenMovimientoEngineException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class FondenMovimientoBusinessLogic extends DataSourceManager {
 

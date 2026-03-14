@@ -1,18 +1,20 @@
 package com.syc.contable;
 
+import java.util.Base64;
+
 public class AccountingEventProcessorException extends Exception {
 
-	private static final long serialVersionUID = 4464049807957434528L;
+    private static final long serialVersionUID = 4464049807957434528L;
 
-	public AccountingEventProcessorException(String message) {
-		super(message);
-	}
+    public AccountingEventProcessorException(String message) {
+        super(message);
+    }
 
-	public AccountingEventProcessorException(Throwable message) {
-		super(message);
-	}
+    public AccountingEventProcessorException(Throwable message) {
+        super(message);
+    }
 
-	public AccountingEventProcessorException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public AccountingEventProcessorException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

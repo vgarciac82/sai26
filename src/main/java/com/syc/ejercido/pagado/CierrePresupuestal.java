@@ -49,6 +49,7 @@ import com.syc.sai.firmaElectronica.interfaces.SolicitudFirmaElectronica;
 import com.syc.ws.inventario.WSManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class CierrePresupuestal extends DataSourceManager {
 

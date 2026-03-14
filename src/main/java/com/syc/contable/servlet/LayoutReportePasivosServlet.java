@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpSession;
 import com.syc.contable.ReportePasivosBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
+import java.util.Base64;
 
 public class LayoutReportePasivosServlet extends HttpServlet {
 

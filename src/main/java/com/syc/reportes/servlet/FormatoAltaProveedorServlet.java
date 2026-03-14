@@ -18,6 +18,7 @@ import com.syc.reportes.FormatoAltaProveedorBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "FormatoAltaProveedorServlet", urlPatterns = { "/reportes/FormatoAltaProveedor", "/servlet/FormatoAltaProveedorServlet" })
 public class FormatoAltaProveedorServlet extends HttpServlet implements GestionInterface {

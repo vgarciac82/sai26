@@ -1,72 +1,77 @@
 package com.axtel.contratos.core;
 
-
 import java.math.BigDecimal;
-
+import java.util.Base64;
 
 public class SuficienciaPagoDirectoDetalle {
 
-	private int			folioSuficienciaPagoDirecto;
-	private int			docRenglon;
-	private String		ep;
-	private BigDecimal	importe;
-	private BigDecimal	importeNegativo;
-	private int			centroContable;
-	private String		ur;
+    private int folioSuficienciaPagoDirecto;
 
-	public int getFolioSuficienciaPagoDirecto() {
-		return folioSuficienciaPagoDirecto;
-	}
+    private int docRenglon;
 
-	public void setFolioSuficienciaPagoDirecto( int folioSuficienciaPagoDirecto ) {
-		this.folioSuficienciaPagoDirecto = folioSuficienciaPagoDirecto;
-	}
+    private String ep;
 
-	public int getDocRenglon() {
-		return docRenglon;
-	}
+    private BigDecimal importe;
 
-	public void setDocRenglon( int docRenglon ) {
-		this.docRenglon = docRenglon;
-	}
+    private BigDecimal importeNegativo;
 
-	public String getEp() {
-		return ep;
-	}
+    private int centroContable;
 
-	public void setEp( String ep ) {
-		this.ep = ep;
-	}
+    private String ur;
 
-	public BigDecimal getImporte() {
-		return importe;
-	}
+    public int getFolioSuficienciaPagoDirecto() {
+        return folioSuficienciaPagoDirecto;
+    }
 
-	public void setImporte( BigDecimal importe ) {
-		this.importe = importe;
-	}
+    public void setFolioSuficienciaPagoDirecto(int folioSuficienciaPagoDirecto) {
+        this.folioSuficienciaPagoDirecto = folioSuficienciaPagoDirecto;
+    }
 
-	public BigDecimal getImporteNegativo() {
-		return importeNegativo;
-	}
+    public int getDocRenglon() {
+        return docRenglon;
+    }
 
-	public void setImporteNegativo( BigDecimal importeNegativo ) {
-		this.importeNegativo = importeNegativo;
-	}
+    public void setDocRenglon(int docRenglon) {
+        this.docRenglon = docRenglon;
+    }
 
-	public int getCentroContable() {
-		return centroContable;
-	}
+    public String getEp() {
+        return ep;
+    }
 
-	public void setCentroContable( int centroContable ) {
-		this.centroContable = centroContable;
-	}
+    public void setEp(String ep) {
+        this.ep = ep;
+    }
 
-	public String getUr() {
-		return ur;
-	}
+    public BigDecimal getImporte() {
+        return importe;
+    }
 
-	public void setUr( String ur ) {
-		this.ur = ur;
-	}
+    public void setImporte(BigDecimal importe) {
+        this.importe = importe;
+    }
+
+    public BigDecimal getImporteNegativo() {
+        return importeNegativo;
+    }
+
+    public void setImporteNegativo(BigDecimal importeNegativo) {
+        this.importeNegativo = importeNegativo;
+    }
+
+    public int getCentroContable() {
+        return centroContable;
+    }
+
+    public void setCentroContable(int centroContable) {
+        this.centroContable = centroContable;
+    }
+
+    public String getUr() {
+        return ur;
+    }
+
+    public void setUr(String ur) {
+        this.ur = ur;
+    }
 }

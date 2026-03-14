@@ -10,6 +10,7 @@ import com.syc.gestion.core.Empleado;
 import com.syc.gestion.core.EmpleadoManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class EmpleadoBusinessLogic extends DataSourceManager {
 

@@ -1,56 +1,61 @@
 package com.axtel.sai.sicove.entities;
 
+import java.util.Base64;
 
 public class EmployeeDAO {
 
-	private int		employeeNumber;
-	private String	budgetUnit;
-	private String	executiveUnit;
-	private String	employeeResponsibleName;
-	private String	position;
+    private int employeeNumber;
 
-	@Override
-	public String toString() {
-		return "EmployeeDAO [employeeNumber=" + employeeNumber + ", budgetUnit=" + budgetUnit + ", executiveUnit=" + executiveUnit + ", employeeResponsibleName=" + employeeResponsibleName + ", position=" + position + "]";
-	}
+    private String budgetUnit;
 
-	public String getExecutiveUnit() {
-		return executiveUnit;
-	}
+    private String executiveUnit;
 
-	public void setExecutiveUnit( String executiveUnit ) {
-		this.executiveUnit = executiveUnit;
-	}
+    private String employeeResponsibleName;
 
-	public String getEmployeeResponsibleName() {
-		return employeeResponsibleName;
-	}
+    private String position;
 
-	public void setEmployeeResponsibleName( String employeeResponsibleName ) {
-		this.employeeResponsibleName = employeeResponsibleName;
-	}
+    @Override
+    public String toString() {
+        return "EmployeeDAO [employeeNumber=" + employeeNumber + ", budgetUnit=" + budgetUnit + ", executiveUnit=" + executiveUnit + ", employeeResponsibleName=" + employeeResponsibleName + ", position=" + position + "]";
+    }
 
-	public String getPosition() {
-		return position;
-	}
+    public String getExecutiveUnit() {
+        return executiveUnit;
+    }
 
-	public void setPosition( String position ) {
-		this.position = position;
-	}
+    public void setExecutiveUnit(String executiveUnit) {
+        this.executiveUnit = executiveUnit;
+    }
 
-	public String getBudgetUnit() {
-		return budgetUnit;
-	}
+    public String getEmployeeResponsibleName() {
+        return employeeResponsibleName;
+    }
 
-	public void setBudgetUnit( String budgetUnit ) {
-		this.budgetUnit = budgetUnit;
-	}
+    public void setEmployeeResponsibleName(String employeeResponsibleName) {
+        this.employeeResponsibleName = employeeResponsibleName;
+    }
 
-	public int getEmployeeNumber() {
-		return employeeNumber;
-	}
+    public String getPosition() {
+        return position;
+    }
 
-	public void setEmployeeNumber( int employeeNumber ) {
-		this.employeeNumber = employeeNumber;
-	}
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getBudgetUnit() {
+        return budgetUnit;
+    }
+
+    public void setBudgetUnit(String budgetUnit) {
+        this.budgetUnit = budgetUnit;
+    }
+
+    public int getEmployeeNumber() {
+        return employeeNumber;
+    }
+
+    public void setEmployeeNumber(int employeeNumber) {
+        this.employeeNumber = employeeNumber;
+    }
 }

@@ -21,6 +21,7 @@ import com.syc.contable.PagoAcuerdosAMFBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "LayoutPagoAcuerdosAMFServlet", urlPatterns = { "/gstnmngr/generaPagoAcuerdosAMF" })
 public class LayoutPagoAcuerdosAMFServlet extends HttpServlet {

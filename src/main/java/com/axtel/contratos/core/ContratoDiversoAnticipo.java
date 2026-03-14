@@ -1,203 +1,212 @@
 package com.axtel.contratos.core;
 
-
 import java.math.BigDecimal;
 import java.util.Date;
-
+import java.util.Base64;
 
 public class ContratoDiversoAnticipo {
 
-	private String		ejercicio;
-	private String		idContrato;
-	private String		tipoContrato;
-	private String		centroContable;
-	private int			idTipoAnticipoDiverso	= 1;
-	private BigDecimal	importeAnticipo			= new BigDecimal( 0.0 );
-	private BigDecimal	importeAnticipoIVA		= new BigDecimal( 0.0 );
-	private BigDecimal	totalAnticipo			= new BigDecimal( 0.0 );
-	private int			porcAmortizacion		= 0;
-	private Date		fAnticipo				= new Date();
-	private double		porcAsignacion			= 0;
-	private BigDecimal	importeAmortizado		= new BigDecimal( 0.0 );
+    private String ejercicio;
 
-	/**
-	 * @return the ejercicio
-	 */
-	public String getEjercicio() {
-		return ejercicio;
-	}
+    private String idContrato;
 
-	/**
-	 * @param ejercicio
-	 *            the ejercicio to set
-	 */
-	public void setEjercicio( String ejercicio ) {
-		this.ejercicio = ejercicio;
-	}
+    private String tipoContrato;
 
-	/**
-	 * @return the idContrato
-	 */
-	public String getIdContrato() {
-		return idContrato;
-	}
+    private String centroContable;
 
-	/**
-	 * @param idContrato
-	 *            the idContrato to set
-	 */
-	public void setIdContrato( String idContrato ) {
-		this.idContrato = idContrato;
-	}
+    private int idTipoAnticipoDiverso = 1;
 
-	/**
-	 * @return the tipoContrato
-	 */
-	public String getTipoContrato() {
-		return tipoContrato;
-	}
+    private BigDecimal importeAnticipo = new BigDecimal(0.0);
 
-	/**
-	 * @param tipoContrato
-	 *            the tipoContrato to set
-	 */
-	public void setTipoContrato( String tipoContrato ) {
-		this.tipoContrato = tipoContrato;
-	}
+    private BigDecimal importeAnticipoIVA = new BigDecimal(0.0);
 
-	/**
-	 * @return the centroContable
-	 */
-	public String getCentroContable() {
-		return centroContable;
-	}
+    private BigDecimal totalAnticipo = new BigDecimal(0.0);
 
-	/**
-	 * @param centroContable
-	 *            the centroContable to set
-	 */
-	public void setCentroContable( String centroContable ) {
-		this.centroContable = centroContable;
-	}
+    private int porcAmortizacion = 0;
 
-	/**
-	 * @return the idTipoAnticipoDiverso
-	 */
-	public int getIdTipoAnticipoDiverso() {
-		return idTipoAnticipoDiverso;
-	}
+    private Date fAnticipo = new Date();
 
-	/**
-	 * @param idTipoAnticipoDiverso
-	 *            the idTipoAnticipoDiverso to set
-	 */
-	public void setIdTipoAnticipoDiverso( int idTipoAnticipoDiverso ) {
-		this.idTipoAnticipoDiverso = idTipoAnticipoDiverso;
-	}
+    private double porcAsignacion = 0;
 
-	/**
-	 * @return the importeAnticipo
-	 */
-	public BigDecimal getImporteAnticipo() {
-		return importeAnticipo;
-	}
+    private BigDecimal importeAmortizado = new BigDecimal(0.0);
 
-	/**
-	 * @param importeAnticipo
-	 *            the importeAnticipo to set
-	 */
-	public void setImporteAnticipo( BigDecimal importeAnticipo ) {
-		this.importeAnticipo = importeAnticipo;
-	}
+    /**
+     * @return the ejercicio
+     */
+    public String getEjercicio() {
+        return ejercicio;
+    }
 
-	/**
-	 * @return the importeAnticipoIVA
-	 */
-	public BigDecimal getImporteAnticipoIVA() {
-		return importeAnticipoIVA;
-	}
+    /**
+     * @param ejercicio
+     *            the ejercicio to set
+     */
+    public void setEjercicio(String ejercicio) {
+        this.ejercicio = ejercicio;
+    }
 
-	/**
-	 * @param importeAnticipoIVA
-	 *            the importeAnticipoIVA to set
-	 */
-	public void setImporteAnticipoIVA( BigDecimal importeAnticipoIVA ) {
-		this.importeAnticipoIVA = importeAnticipoIVA;
-	}
+    /**
+     * @return the idContrato
+     */
+    public String getIdContrato() {
+        return idContrato;
+    }
 
-	/**
-	 * @return the totalAnticipo
-	 */
-	public BigDecimal getTotalAnticipo() {
-		return totalAnticipo;
-	}
+    /**
+     * @param idContrato
+     *            the idContrato to set
+     */
+    public void setIdContrato(String idContrato) {
+        this.idContrato = idContrato;
+    }
 
-	/**
-	 * @param totalAnticipo
-	 *            the totalAnticipo to set
-	 */
-	public void setTotalAnticipo( BigDecimal totalAnticipo ) {
-		this.totalAnticipo = totalAnticipo;
-	}
+    /**
+     * @return the tipoContrato
+     */
+    public String getTipoContrato() {
+        return tipoContrato;
+    }
 
-	/**
-	 * @return the porcAmortizacion
-	 */
-	public int getPorcAmortizacion() {
-		return porcAmortizacion;
-	}
+    /**
+     * @param tipoContrato
+     *            the tipoContrato to set
+     */
+    public void setTipoContrato(String tipoContrato) {
+        this.tipoContrato = tipoContrato;
+    }
 
-	/**
-	 * @param porcAmortizacion
-	 *            the porcAmortizacion to set
-	 */
-	public void setPorcAmortizacion( int porcAmortizacion ) {
-		this.porcAmortizacion = porcAmortizacion;
-	}
+    /**
+     * @return the centroContable
+     */
+    public String getCentroContable() {
+        return centroContable;
+    }
 
-	/**
-	 * @return the fAnticipo
-	 */
-	public Date getfAnticipo() {
-		return fAnticipo;
-	}
+    /**
+     * @param centroContable
+     *            the centroContable to set
+     */
+    public void setCentroContable(String centroContable) {
+        this.centroContable = centroContable;
+    }
 
-	/**
-	 * @param fAnticipo
-	 *            the fAnticipo to set
-	 */
-	public void setfAnticipo( Date fAnticipo ) {
-		this.fAnticipo = fAnticipo;
-	}
+    /**
+     * @return the idTipoAnticipoDiverso
+     */
+    public int getIdTipoAnticipoDiverso() {
+        return idTipoAnticipoDiverso;
+    }
 
-	/**
-	 * @return the porcAsignacion
-	 */
-	public double getPorcAsignacion() {
-		return porcAsignacion;
-	}
+    /**
+     * @param idTipoAnticipoDiverso
+     *            the idTipoAnticipoDiverso to set
+     */
+    public void setIdTipoAnticipoDiverso(int idTipoAnticipoDiverso) {
+        this.idTipoAnticipoDiverso = idTipoAnticipoDiverso;
+    }
 
-	/**
-	 * @param porcAsignacion
-	 *            the porcAsignacion to set
-	 */
-	public void setPorcAsignacion( double porcAsignacion ) {
-		this.porcAsignacion = porcAsignacion;
-	}
+    /**
+     * @return the importeAnticipo
+     */
+    public BigDecimal getImporteAnticipo() {
+        return importeAnticipo;
+    }
 
-	/**
-	 * @return the importeAmortizado
-	 */
-	public BigDecimal getImporteAmortizado() {
-		return importeAmortizado;
-	}
+    /**
+     * @param importeAnticipo
+     *            the importeAnticipo to set
+     */
+    public void setImporteAnticipo(BigDecimal importeAnticipo) {
+        this.importeAnticipo = importeAnticipo;
+    }
 
-	/**
-	 * @param importeAmortizado
-	 *            the importeAmortizado to set
-	 */
-	public void setImporteAmortizado( BigDecimal importeAmortizado ) {
-		this.importeAmortizado = importeAmortizado;
-	}
+    /**
+     * @return the importeAnticipoIVA
+     */
+    public BigDecimal getImporteAnticipoIVA() {
+        return importeAnticipoIVA;
+    }
 
+    /**
+     * @param importeAnticipoIVA
+     *            the importeAnticipoIVA to set
+     */
+    public void setImporteAnticipoIVA(BigDecimal importeAnticipoIVA) {
+        this.importeAnticipoIVA = importeAnticipoIVA;
+    }
+
+    /**
+     * @return the totalAnticipo
+     */
+    public BigDecimal getTotalAnticipo() {
+        return totalAnticipo;
+    }
+
+    /**
+     * @param totalAnticipo
+     *            the totalAnticipo to set
+     */
+    public void setTotalAnticipo(BigDecimal totalAnticipo) {
+        this.totalAnticipo = totalAnticipo;
+    }
+
+    /**
+     * @return the porcAmortizacion
+     */
+    public int getPorcAmortizacion() {
+        return porcAmortizacion;
+    }
+
+    /**
+     * @param porcAmortizacion
+     *            the porcAmortizacion to set
+     */
+    public void setPorcAmortizacion(int porcAmortizacion) {
+        this.porcAmortizacion = porcAmortizacion;
+    }
+
+    /**
+     * @return the fAnticipo
+     */
+    public Date getfAnticipo() {
+        return fAnticipo;
+    }
+
+    /**
+     * @param fAnticipo
+     *            the fAnticipo to set
+     */
+    public void setfAnticipo(Date fAnticipo) {
+        this.fAnticipo = fAnticipo;
+    }
+
+    /**
+     * @return the porcAsignacion
+     */
+    public double getPorcAsignacion() {
+        return porcAsignacion;
+    }
+
+    /**
+     * @param porcAsignacion
+     *            the porcAsignacion to set
+     */
+    public void setPorcAsignacion(double porcAsignacion) {
+        this.porcAsignacion = porcAsignacion;
+    }
+
+    /**
+     * @return the importeAmortizado
+     */
+    public BigDecimal getImporteAmortizado() {
+        return importeAmortizado;
+    }
+
+    /**
+     * @param importeAmortizado
+     *            the importeAmortizado to set
+     */
+    public void setImporteAmortizado(BigDecimal importeAmortizado) {
+        this.importeAmortizado = importeAmortizado;
+    }
 }

@@ -10,6 +10,7 @@ import org.junit.Test;
 import com.syc.gestion.util.DBConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class SolicitudPagoFirmaElectronicaTest {
 

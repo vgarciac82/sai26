@@ -13,6 +13,7 @@ import com.syc.gestion.core.GestionException;
 import com.syc.gestion.core.TreeManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class BitacoraOperacionBusinessLogic extends DataSourceManager {
 
@@ -177,8 +178,9 @@ public class BitacoraOperacionBusinessLogic extends DataSourceManager {
         return l;
     }
 
-    public ITree getArbolBitacoraOperacion(//BitacoraCaso bc,
-    BitacoraOperacion bo) throws GestionException {
+    public //BitacoraCaso bc,
+    ITree //BitacoraCaso bc,
+    getArbolBitacoraOperacion(BitacoraOperacion bo) throws GestionException {
         Connection conn = null;
         ITree tree = new Tree();
         try {

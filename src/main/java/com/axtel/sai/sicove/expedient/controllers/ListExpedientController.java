@@ -27,6 +27,7 @@ import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @MultipartConfig
 @WebServlet(name = "ListExpedientController", urlPatterns = { "/SICOVE/Expedient", "/SICOVE/CapturedExpedient" })

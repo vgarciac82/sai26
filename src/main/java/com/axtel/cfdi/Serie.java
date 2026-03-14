@@ -1,48 +1,51 @@
 package com.axtel.cfdi;
 
+import java.util.Base64;
 
 public class Serie {
 
-	private boolean	exclusivaNomina;
-	private boolean	exclusivaPagos;
-	private int		idSerie;
-	private String	serie;
+    private boolean exclusivaNomina;
 
-	public int getIdSerie() {
-		return idSerie;
-	}
+    private boolean exclusivaPagos;
 
-	public String getSerie() {
-		return serie;
-	}
+    private int idSerie;
 
-	public boolean isExclusivaNomina() {
-		return exclusivaNomina;
-	}
+    private String serie;
 
-	public boolean isExclusivaPagos() {
-		return exclusivaPagos;
-	}
+    public int getIdSerie() {
+        return idSerie;
+    }
 
-	public void setExclusivaNomina( boolean exclusivaNomina ) {
-		this.exclusivaNomina = exclusivaNomina;
-	}
+    public String getSerie() {
+        return serie;
+    }
 
-	public void setExclusivaPagos( boolean exclusivaPagos ) {
-		this.exclusivaPagos = exclusivaPagos;
-	}
+    public boolean isExclusivaNomina() {
+        return exclusivaNomina;
+    }
 
-	public void setIdSerie( int idSerie ) {
-		this.idSerie = idSerie;
-	}
+    public boolean isExclusivaPagos() {
+        return exclusivaPagos;
+    }
 
-	public void setSerie( String serie ) {
-		this.serie = serie;
-	}
+    public void setExclusivaNomina(boolean exclusivaNomina) {
+        this.exclusivaNomina = exclusivaNomina;
+    }
 
-	@Override
-	public String toString() {
-		return "Serie [idSerie=" + idSerie + ", serie=" + serie + ", exclusivaNomina=" + exclusivaNomina + ", exclusivaPagos=" + exclusivaPagos + "]";
-	}
+    public void setExclusivaPagos(boolean exclusivaPagos) {
+        this.exclusivaPagos = exclusivaPagos;
+    }
 
+    public void setIdSerie(int idSerie) {
+        this.idSerie = idSerie;
+    }
+
+    public void setSerie(String serie) {
+        this.serie = serie;
+    }
+
+    @Override
+    public String toString() {
+        return "Serie [idSerie=" + idSerie + ", serie=" + serie + ", exclusivaNomina=" + exclusivaNomina + ", exclusivaPagos=" + exclusivaPagos + "]";
+    }
 }

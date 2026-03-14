@@ -1,266 +1,282 @@
 package com.syc.contable.core;
 
+import java.util.Base64;
+
 public class RectificacionIngresoFiscalEncabezado {
-	
-	
-	private int		nFolioRectificaIngreso;
-	private int		nIdCaso;
-	private String	cUnidadResponsable;
-	private String	cUnidadResponsableContable;
-	private String	aEjercicioFiscal;
-	private String	cRamo;
-	private String	cCentroContable;
-	private String	fExp;
-	private String	fAplicacion;				// fecha
-	private String	cConceptoRectificacion;
-	private String	cTipoMovto;
-	private String	nOrigenPPTO;
-	private int		nMes;
-	private String	oficioRectif;
-	private String	ctr_int;
-	private String	cTipoRectificacion;
-	
-	private String	nFolioSicop;
-	
-	private String	nFolioSIAFF;
-	private String	caNoContrarrecibo;
-	
-	private String	nFolioPoliza;
-	private String	nFolioPolizaCancelacion;
-	private String	cTipoPoliza;
-	private String	cDescripcionPoliza;
-	private String	fCancelacion;
-	
-	private String	totalDebe;
-	private String	totalDice;	
-	
-	private String	posicion1;
 
-	public int getnFolioRectificaIngreso() {
-		return nFolioRectificaIngreso;
-	}
+    private int nFolioRectificaIngreso;
 
-	public void setnFolioRectificaIngreso(int nFolioRectificaIngreso) {
-		this.nFolioRectificaIngreso = nFolioRectificaIngreso;
-	}
+    private int nIdCaso;
 
-	public int getnIdCaso() {
-		return nIdCaso;
-	}
+    private String cUnidadResponsable;
 
-	public void setnIdCaso(int nIdCaso) {
-		this.nIdCaso = nIdCaso;
-	}
+    private String cUnidadResponsableContable;
 
-	public String getcUnidadResponsable() {
-		return cUnidadResponsable;
-	}
+    private String aEjercicioFiscal;
 
-	public void setcUnidadResponsable(String cUnidadResponsable) {
-		this.cUnidadResponsable = cUnidadResponsable;
-	}
+    private String cRamo;
 
-	public String getcUnidadResponsableContable() {
-		return cUnidadResponsableContable;
-	}
+    private String cCentroContable;
 
-	public void setcUnidadResponsableContable(String cUnidadResponsableContable) {
-		this.cUnidadResponsableContable = cUnidadResponsableContable;
-	}
+    private String fExp;
 
-	public String getaEjercicioFiscal() {
-		return aEjercicioFiscal;
-	}
+    // fecha
+    private String fAplicacion;
 
-	public void setaEjercicioFiscal(String aEjercicioFiscal) {
-		this.aEjercicioFiscal = aEjercicioFiscal;
-	}
+    private String cConceptoRectificacion;
 
-	public String getcRamo() {
-		return cRamo;
-	}
+    private String cTipoMovto;
 
-	public void setcRamo(String cRamo) {
-		this.cRamo = cRamo;
-	}
+    private String nOrigenPPTO;
 
-	public String getcCentroContable() {
-		return cCentroContable;
-	}
+    private int nMes;
 
-	public void setcCentroContable(String cCentroContable) {
-		this.cCentroContable = cCentroContable;
-	}
+    private String oficioRectif;
 
-	public String getfExp() {
-		return fExp;
-	}
+    private String ctr_int;
 
-	public void setfExp(String fExp) {
-		this.fExp = fExp;
-	}
+    private String cTipoRectificacion;
 
-	public String getfAplicacion() {
-		return fAplicacion;
-	}
+    private String nFolioSicop;
 
-	public void setfAplicacion(String fAplicacion) {
-		this.fAplicacion = fAplicacion;
-	}
+    private String nFolioSIAFF;
 
-	public String getcConceptoRectificacion() {
-		return cConceptoRectificacion;
-	}
+    private String caNoContrarrecibo;
 
-	public void setcConceptoRectificacion(String cConceptoRectificacion) {
-		this.cConceptoRectificacion = cConceptoRectificacion;
-	}
+    private String nFolioPoliza;
 
-	public String getcTipoMovto() {
-		return cTipoMovto;
-	}
+    private String nFolioPolizaCancelacion;
 
-	public void setcTipoMovto(String cTipoMovto) {
-		this.cTipoMovto = cTipoMovto;
-	}
+    private String cTipoPoliza;
 
-	public String getnOrigenPPTO() {
-		return nOrigenPPTO;
-	}
+    private String cDescripcionPoliza;
 
-	public void setnOrigenPPTO(String nOrigenPPTO) {
-		this.nOrigenPPTO = nOrigenPPTO;
-	}
+    private String fCancelacion;
 
-	public int getnMes() {
-		return nMes;
-	}
+    private String totalDebe;
 
-	public void setnMes(int nMes) {
-		this.nMes = nMes;
-	}
+    private String totalDice;
 
-	public String getOficioRectif() {
-		return oficioRectif;
-	}
+    private String posicion1;
 
-	public void setOficioRectif(String oficioRectif) {
-		this.oficioRectif = oficioRectif;
-	}
+    public int getnFolioRectificaIngreso() {
+        return nFolioRectificaIngreso;
+    }
 
-	public String getCtr_int() {
-		return ctr_int;
-	}
+    public void setnFolioRectificaIngreso(int nFolioRectificaIngreso) {
+        this.nFolioRectificaIngreso = nFolioRectificaIngreso;
+    }
 
-	public void setCtr_int(String ctrInt) {
-		ctr_int = ctrInt;
-	}
+    public int getnIdCaso() {
+        return nIdCaso;
+    }
 
-	public String getcTipoRectificacion() {
-		return cTipoRectificacion;
-	}
+    public void setnIdCaso(int nIdCaso) {
+        this.nIdCaso = nIdCaso;
+    }
 
-	public void setcTipoRectificacion(String cTipoRectificacion) {
-		this.cTipoRectificacion = cTipoRectificacion;
-	}	
+    public String getcUnidadResponsable() {
+        return cUnidadResponsable;
+    }
 
-	public String getnFolioSicop() {
-		return nFolioSicop;
-	}
+    public void setcUnidadResponsable(String cUnidadResponsable) {
+        this.cUnidadResponsable = cUnidadResponsable;
+    }
 
-	public void setnFolioSicop(String nFolioSicop) {
-		this.nFolioSicop = nFolioSicop;
-	}
-	
-	public String getnFolioSIAFF() {
-		return nFolioSIAFF;
-	}
+    public String getcUnidadResponsableContable() {
+        return cUnidadResponsableContable;
+    }
 
-	public void setnFolioSIAFF(String nFolioSIAFF) {
-		this.nFolioSIAFF = nFolioSIAFF;
-	}
+    public void setcUnidadResponsableContable(String cUnidadResponsableContable) {
+        this.cUnidadResponsableContable = cUnidadResponsableContable;
+    }
 
-	public String getCaNoContrarrecibo() {
-		return caNoContrarrecibo;
-	}
+    public String getaEjercicioFiscal() {
+        return aEjercicioFiscal;
+    }
 
-	public void setCaNoContrarrecibo(String caNoContrarrecibo) {
-		this.caNoContrarrecibo = caNoContrarrecibo;
-	}
+    public void setaEjercicioFiscal(String aEjercicioFiscal) {
+        this.aEjercicioFiscal = aEjercicioFiscal;
+    }
 
-	public String getnFolioPoliza() {
-		return nFolioPoliza;
-	}
+    public String getcRamo() {
+        return cRamo;
+    }
 
-	public void setnFolioPoliza(String nFolioPoliza) {
-		this.nFolioPoliza = nFolioPoliza;
-	}
+    public void setcRamo(String cRamo) {
+        this.cRamo = cRamo;
+    }
 
-	public String getcTipoPoliza() {
-		return cTipoPoliza;
-	}
+    public String getcCentroContable() {
+        return cCentroContable;
+    }
 
-	public void setcTipoPoliza(String cTipoPoliza) {
-		this.cTipoPoliza = cTipoPoliza;
-	}
+    public void setcCentroContable(String cCentroContable) {
+        this.cCentroContable = cCentroContable;
+    }
 
-	public String getcDescripcionPoliza() {
-		return cDescripcionPoliza;
-	}
+    public String getfExp() {
+        return fExp;
+    }
 
-	public void setcDescripcionPoliza(String cDescripcionPoliza) {
-		this.cDescripcionPoliza = cDescripcionPoliza;
-	}	
+    public void setfExp(String fExp) {
+        this.fExp = fExp;
+    }
 
-	public String getTotalDebe() {
-		return totalDebe;
-	}
+    public String getfAplicacion() {
+        return fAplicacion;
+    }
 
-	public void setTotalDebe(String totalDebe) {
-		this.totalDebe = totalDebe;
-	}
+    public void setfAplicacion(String fAplicacion) {
+        this.fAplicacion = fAplicacion;
+    }
 
-	public String getTotalDice() {
-		return totalDice;
-	}
+    public String getcConceptoRectificacion() {
+        return cConceptoRectificacion;
+    }
 
-	public void setTotalDice(String totalDice) {
-		this.totalDice = totalDice;
-	}	
+    public void setcConceptoRectificacion(String cConceptoRectificacion) {
+        this.cConceptoRectificacion = cConceptoRectificacion;
+    }
 
-	public String getnFolioPolizaCancelacion() {
-		return nFolioPolizaCancelacion;
-	}
+    public String getcTipoMovto() {
+        return cTipoMovto;
+    }
 
-	public void setnFolioPolizaCancelacion(String nFolioPolizaCancelacion) {
-		this.nFolioPolizaCancelacion = nFolioPolizaCancelacion;
-	}
+    public void setcTipoMovto(String cTipoMovto) {
+        this.cTipoMovto = cTipoMovto;
+    }
 
-	public String getfCancelacion() {
-		return fCancelacion;
-	}
+    public String getnOrigenPPTO() {
+        return nOrigenPPTO;
+    }
 
-	public void setfCancelacion(String fCancelacion) {
-		this.fCancelacion = fCancelacion;
-	}
-	
-	public String getPosicion1() {
-		return posicion1;
-	}
+    public void setnOrigenPPTO(String nOrigenPPTO) {
+        this.nOrigenPPTO = nOrigenPPTO;
+    }
 
-	public void setPosicion1(String posicion1) {
-		this.posicion1 = posicion1;
-	}
+    public int getnMes() {
+        return nMes;
+    }
 
-	@Override
-	public String toString() {
-		return "RectificacionIngresoFiscalEncabezado [nFolioRectificaIngreso = " + nFolioRectificaIngreso + ", nIdCaso = " + nIdCaso + ", cUnidadResponsable = " + cUnidadResponsable 
-			+ ", cUnidadResponsableContable = " + cUnidadResponsableContable + ", aEjercicioFiscal = " + aEjercicioFiscal + ", cRamo = " + cRamo + ", cCentroContable = " + cCentroContable 
-			+ ", fExp = " + fExp + ", fAplicacion = " + fAplicacion + ", cConceptoRectificacion = " + cConceptoRectificacion + ", cTipoMovto = " + cTipoMovto + ", nOrigenPPTO = " + nOrigenPPTO 
-			+ ", nMes = " + nMes + ", oficioRectif = " + oficioRectif + ", ctr_int = " + ctr_int + ", cTipoRectificacion = " + cTipoRectificacion + ", nFolioSicop = " + nFolioSicop 
-			+ ", nFolioSIAFF = " + nFolioSIAFF + ", caNoContrarrecibo = " + caNoContrarrecibo + ", nFolioPoliza = " + nFolioPoliza + ", nFolioPolizaCancelacion = " + nFolioPolizaCancelacion 
-			+ ", cTipoPoliza = " + cTipoPoliza + ", cDescripcionPoliza = " + cDescripcionPoliza + ", fCancelacion = " + fCancelacion + ", totalDebe = " + totalDebe + ", totalDice = " + totalDice  
-			+ ", posicion1 = " + posicion1 + "]";
-	}
+    public void setnMes(int nMes) {
+        this.nMes = nMes;
+    }
 
+    public String getOficioRectif() {
+        return oficioRectif;
+    }
+
+    public void setOficioRectif(String oficioRectif) {
+        this.oficioRectif = oficioRectif;
+    }
+
+    public String getCtr_int() {
+        return ctr_int;
+    }
+
+    public void setCtr_int(String ctrInt) {
+        ctr_int = ctrInt;
+    }
+
+    public String getcTipoRectificacion() {
+        return cTipoRectificacion;
+    }
+
+    public void setcTipoRectificacion(String cTipoRectificacion) {
+        this.cTipoRectificacion = cTipoRectificacion;
+    }
+
+    public String getnFolioSicop() {
+        return nFolioSicop;
+    }
+
+    public void setnFolioSicop(String nFolioSicop) {
+        this.nFolioSicop = nFolioSicop;
+    }
+
+    public String getnFolioSIAFF() {
+        return nFolioSIAFF;
+    }
+
+    public void setnFolioSIAFF(String nFolioSIAFF) {
+        this.nFolioSIAFF = nFolioSIAFF;
+    }
+
+    public String getCaNoContrarrecibo() {
+        return caNoContrarrecibo;
+    }
+
+    public void setCaNoContrarrecibo(String caNoContrarrecibo) {
+        this.caNoContrarrecibo = caNoContrarrecibo;
+    }
+
+    public String getnFolioPoliza() {
+        return nFolioPoliza;
+    }
+
+    public void setnFolioPoliza(String nFolioPoliza) {
+        this.nFolioPoliza = nFolioPoliza;
+    }
+
+    public String getcTipoPoliza() {
+        return cTipoPoliza;
+    }
+
+    public void setcTipoPoliza(String cTipoPoliza) {
+        this.cTipoPoliza = cTipoPoliza;
+    }
+
+    public String getcDescripcionPoliza() {
+        return cDescripcionPoliza;
+    }
+
+    public void setcDescripcionPoliza(String cDescripcionPoliza) {
+        this.cDescripcionPoliza = cDescripcionPoliza;
+    }
+
+    public String getTotalDebe() {
+        return totalDebe;
+    }
+
+    public void setTotalDebe(String totalDebe) {
+        this.totalDebe = totalDebe;
+    }
+
+    public String getTotalDice() {
+        return totalDice;
+    }
+
+    public void setTotalDice(String totalDice) {
+        this.totalDice = totalDice;
+    }
+
+    public String getnFolioPolizaCancelacion() {
+        return nFolioPolizaCancelacion;
+    }
+
+    public void setnFolioPolizaCancelacion(String nFolioPolizaCancelacion) {
+        this.nFolioPolizaCancelacion = nFolioPolizaCancelacion;
+    }
+
+    public String getfCancelacion() {
+        return fCancelacion;
+    }
+
+    public void setfCancelacion(String fCancelacion) {
+        this.fCancelacion = fCancelacion;
+    }
+
+    public String getPosicion1() {
+        return posicion1;
+    }
+
+    public void setPosicion1(String posicion1) {
+        this.posicion1 = posicion1;
+    }
+
+    @Override
+    public String toString() {
+        return "RectificacionIngresoFiscalEncabezado [nFolioRectificaIngreso = " + nFolioRectificaIngreso + ", nIdCaso = " + nIdCaso + ", cUnidadResponsable = " + cUnidadResponsable + ", cUnidadResponsableContable = " + cUnidadResponsableContable + ", aEjercicioFiscal = " + aEjercicioFiscal + ", cRamo = " + cRamo + ", cCentroContable = " + cCentroContable + ", fExp = " + fExp + ", fAplicacion = " + fAplicacion + ", cConceptoRectificacion = " + cConceptoRectificacion + ", cTipoMovto = " + cTipoMovto + ", nOrigenPPTO = " + nOrigenPPTO + ", nMes = " + nMes + ", oficioRectif = " + oficioRectif + ", ctr_int = " + ctr_int + ", cTipoRectificacion = " + cTipoRectificacion + ", nFolioSicop = " + nFolioSicop + ", nFolioSIAFF = " + nFolioSIAFF + ", caNoContrarrecibo = " + caNoContrarrecibo + ", nFolioPoliza = " + nFolioPoliza + ", nFolioPolizaCancelacion = " + nFolioPolizaCancelacion + ", cTipoPoliza = " + cTipoPoliza + ", cDescripcionPoliza = " + cDescripcionPoliza + ", fCancelacion = " + fCancelacion + ", totalDebe = " + totalDebe + ", totalDice = " + totalDice + ", posicion1 = " + posicion1 + "]";
+    }
 }

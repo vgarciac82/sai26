@@ -16,6 +16,7 @@ import com.syc.reportes.CompromisosBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ExportaCompromisosServlet", urlPatterns = { "/reportes/exportaCompromisos" })
 public class ExportaCompromisosServlet extends HttpServlet implements GestionInterface {

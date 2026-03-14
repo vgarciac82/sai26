@@ -1,30 +1,31 @@
 package com.axtel.user.entities;
 
+import java.util.Base64;
 
 public class WorkCenter {
 
-	private String	description;
-	private int		id;
+    private String description;
 
-	public String getDescription() {
-		return description;
-	}
+    private int id;
 
-	public void setDescription( String description ) {
-		this.description = description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setId( int id ) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	@Override
-	public String toString() {
-		return "WorkCenter [description=" + description + ", id=" + id + "]";
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    @Override
+    public String toString() {
+        return "WorkCenter [description=" + description + ", id=" + id + "]";
+    }
 }

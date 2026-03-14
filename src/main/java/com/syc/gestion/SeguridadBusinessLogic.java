@@ -55,6 +55,7 @@ import com.syc.zip.ZipEntry;
 import com.syc.zip.ZipOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class SeguridadBusinessLogic extends DataSourceManager {
 

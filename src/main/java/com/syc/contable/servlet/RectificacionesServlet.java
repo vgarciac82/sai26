@@ -11,6 +11,7 @@ import com.syc.contable.AccountingEngine;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "RectificacionesServlet", urlPatterns = { "/servlet/RectificacionesServlet" })
 public class RectificacionesServlet extends HttpServlet {

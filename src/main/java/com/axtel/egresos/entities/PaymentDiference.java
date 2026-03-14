@@ -1,7 +1,11 @@
 package com.axtel.egresos.entities;
 
+import java.util.Base64;
+
 public class PaymentDiference {
+
     private String tipoDiferencia;
+
     private double diferencia;
 
     public PaymentDiference(String tipoDiferencia, double diferencia) {

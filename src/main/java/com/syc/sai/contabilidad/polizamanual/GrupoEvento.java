@@ -1,36 +1,34 @@
 package com.syc.sai.contabilidad.polizamanual;
 
+import java.util.Base64;
+
 /**
  * TgrupoEvento entity. @author MyEclipse Persistence Tools
  */
-
 public class GrupoEvento implements java.io.Serializable {
 
-	// Fields
+    // Fields
+    /**
+     */
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private Integer nidGrupoEvento;
-	private String cnombreGrupo;
+    private Integer nidGrupoEvento;
 
+    private String cnombreGrupo;
 
+    public Integer getNidGrupoEvento() {
+        return this.nidGrupoEvento;
+    }
 
-	public Integer getNidGrupoEvento() {
-		return this.nidGrupoEvento;
-	}
+    public void setNidGrupoEvento(Integer nidGrupoEvento) {
+        this.nidGrupoEvento = nidGrupoEvento;
+    }
 
-	public void setNidGrupoEvento(Integer nidGrupoEvento) {
-		this.nidGrupoEvento = nidGrupoEvento;
-	}
+    public String getCnombreGrupo() {
+        return this.cnombreGrupo;
+    }
 
-	public String getCnombreGrupo() {
-		return this.cnombreGrupo;
-	}
-
-	public void setCnombreGrupo(String cnombreGrupo) {
-		this.cnombreGrupo = cnombreGrupo;
-	}
-
+    public void setCnombreGrupo(String cnombreGrupo) {
+        this.cnombreGrupo = cnombreGrupo;
+    }
 }

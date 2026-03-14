@@ -1,81 +1,87 @@
 package com.axtel.cfdi;
 
-
 import java.math.BigDecimal;
-
+import java.util.Base64;
 
 public class TasaOCuota {
 
-	private int			tasaOCuotaID;
-	private String		rangoOFijo;
-	private BigDecimal	valorMinimo;
-	private BigDecimal	valorMaximo;
-	private String		impuesto;
-	private String		factor;
-	private boolean		traslado;
-	private boolean		retencion;
+    private int tasaOCuotaID;
 
-	public int getTasaOCuotaID() {
-		return tasaOCuotaID;
-	}
+    private String rangoOFijo;
 
-	public void setTasaOCuotaID( int tasaOCuotaID ) {
-		this.tasaOCuotaID = tasaOCuotaID;
-	}
+    private BigDecimal valorMinimo;
 
-	public String getRangoOFijo() {
-		return rangoOFijo;
-	}
+    private BigDecimal valorMaximo;
 
-	public void setRangoOFijo( String rangoOFijo ) {
-		this.rangoOFijo = rangoOFijo;
-	}
+    private String impuesto;
 
-	public BigDecimal getValorMinimo() {
-		return valorMinimo;
-	}
+    private String factor;
 
-	public void setValorMinimo( BigDecimal valorMinimo ) {
-		this.valorMinimo = valorMinimo;
-	}
+    private boolean traslado;
 
-	public BigDecimal getValorMaximo() {
-		return valorMaximo;
-	}
+    private boolean retencion;
 
-	public void setValorMaximo( BigDecimal valorMaximo ) {
-		this.valorMaximo = valorMaximo;
-	}
+    public int getTasaOCuotaID() {
+        return tasaOCuotaID;
+    }
 
-	public String getImpuesto() {
-		return impuesto;
-	}
+    public void setTasaOCuotaID(int tasaOCuotaID) {
+        this.tasaOCuotaID = tasaOCuotaID;
+    }
 
-	public void setImpuesto( String impuesto ) {
-		this.impuesto = impuesto;
-	}
+    public String getRangoOFijo() {
+        return rangoOFijo;
+    }
 
-	public String getFactor() {
-		return factor;
-	}
+    public void setRangoOFijo(String rangoOFijo) {
+        this.rangoOFijo = rangoOFijo;
+    }
 
-	public void setFactor( String factor ) {
-		this.factor = factor;
-	}
+    public BigDecimal getValorMinimo() {
+        return valorMinimo;
+    }
 
-	public boolean isTraslado() {
-		return traslado;
-	}
+    public void setValorMinimo(BigDecimal valorMinimo) {
+        this.valorMinimo = valorMinimo;
+    }
 
-	public void setTraslado( boolean traslado ) {
-		this.traslado = traslado;
-	}
+    public BigDecimal getValorMaximo() {
+        return valorMaximo;
+    }
 
-	public boolean isRetencion() {
-		return retencion;
-	}
+    public void setValorMaximo(BigDecimal valorMaximo) {
+        this.valorMaximo = valorMaximo;
+    }
 
-	public void setRetencion( boolean retencion ) {
-		this.retencion = retencion;
-	}
+    public String getImpuesto() {
+        return impuesto;
+    }
+
+    public void setImpuesto(String impuesto) {
+        this.impuesto = impuesto;
+    }
+
+    public String getFactor() {
+        return factor;
+    }
+
+    public void setFactor(String factor) {
+        this.factor = factor;
+    }
+
+    public boolean isTraslado() {
+        return traslado;
+    }
+
+    public void setTraslado(boolean traslado) {
+        this.traslado = traslado;
+    }
+
+    public boolean isRetencion() {
+        return retencion;
+    }
+
+    public void setRetencion(boolean retencion) {
+        this.retencion = retencion;
+    }
 }

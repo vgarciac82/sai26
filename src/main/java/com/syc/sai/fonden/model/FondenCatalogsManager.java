@@ -11,6 +11,7 @@ import com.syc.sai.fonden.FondenTipoFactura;
 import com.syc.sai.fonden.FondenTipoPago;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class FondenCatalogsManager {
 

@@ -16,6 +16,7 @@ import com.syc.gestion.core.AlarmaManager;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "PruebaMensajesServlet", urlPatterns = { "/test/mensajes" })
 public class PruebaMensajesServlet extends HttpServlet {

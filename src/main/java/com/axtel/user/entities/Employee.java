@@ -1,111 +1,121 @@
 package com.axtel.user.entities;
 
+import java.util.Base64;
 
 public class Employee {
 
-	private String	curp;
-	private String	email;
-	private String	firstSurname;
-	private int		idEmployee;
-	private Job		job;
-	private String	name;
-	private String	nss;
-	private String	rfc;
-	private String	secondSurname;
-	private int		status;
-	private int		supervisor;
+    private String curp;
 
-	public String getCurp() {
-		return curp;
-	}
+    private String email;
 
-	public String getEmail() {
-		return email;
-	}
+    private String firstSurname;
 
-	public String getFirstSurname() {
-		return firstSurname;
-	}
+    private int idEmployee;
 
-	public int getIdEmployee() {
-		return idEmployee;
-	}
+    private Job job;
 
-	public Job getJob() {
-		return job;
-	}
+    private String name;
 
-	public String getName() {
-		return name;
-	}
+    private String nss;
 
-	public String getNss() {
-		return nss;
-	}
+    private String rfc;
 
-	public String getRfc() {
-		return rfc;
-	}
+    private String secondSurname;
 
-	public String getSecondSurname() {
-		return secondSurname;
-	}
+    private int status;
 
-	public int getStatus() {
-		return status;
-	}
+    private int supervisor;
 
-	public int getSupervisor() {
-		return supervisor;
-	}
+    public String getCurp() {
+        return curp;
+    }
 
-	public void setCurp( String curp ) {
-		this.curp = curp;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail( String email ) {
-		this.email = email;
-	}
+    public String getFirstSurname() {
+        return firstSurname;
+    }
 
-	public void setFirstSurname( String firstSurname ) {
-		this.firstSurname = firstSurname;
-	}
+    public int getIdEmployee() {
+        return idEmployee;
+    }
 
-	public void setIdEmployee( int idEmployee ) {
-		this.idEmployee = idEmployee;
-	}
+    public Job getJob() {
+        return job;
+    }
 
-	public void setJob( Job job ) {
-		this.job = job;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName( String name ) {
-		this.name = name;
-	}
+    public String getNss() {
+        return nss;
+    }
 
-	public void setNss( String nss ) {
-		this.nss = nss;
-	}
+    public String getRfc() {
+        return rfc;
+    }
 
-	public void setRfc( String rfc ) {
-		this.rfc = rfc;
-	}
+    public String getSecondSurname() {
+        return secondSurname;
+    }
 
-	public void setSecondSurname( String secondSurname ) {
-		this.secondSurname = secondSurname;
-	}
+    public int getStatus() {
+        return status;
+    }
 
-	public void setStatus( int status ) {
-		this.status = status;
-	}
+    public int getSupervisor() {
+        return supervisor;
+    }
 
-	public void setSupervisor( int supervisor ) {
-		this.supervisor = supervisor;
-	}
+    public void setCurp(String curp) {
+        this.curp = curp;
+    }
 
-	@Override
-	public String toString() {
-		return "Employee [curp=" + curp + ", email=" + email + ", firstSurname=" + firstSurname + ", idEmployee=" + idEmployee + ", job=" + job + ", name=" + name + ", nss=" + nss + ", rfc=" + rfc + ", secondSurname=" + secondSurname + ", status=" + status + ", supervisor=" + supervisor + "]";
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
+    public void setFirstSurname(String firstSurname) {
+        this.firstSurname = firstSurname;
+    }
+
+    public void setIdEmployee(int idEmployee) {
+        this.idEmployee = idEmployee;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setNss(String nss) {
+        this.nss = nss;
+    }
+
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
+
+    public void setSecondSurname(String secondSurname) {
+        this.secondSurname = secondSurname;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public void setSupervisor(int supervisor) {
+        this.supervisor = supervisor;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee [curp=" + curp + ", email=" + email + ", firstSurname=" + firstSurname + ", idEmployee=" + idEmployee + ", job=" + job + ", name=" + name + ", nss=" + nss + ", rfc=" + rfc + ", secondSurname=" + secondSurname + ", status=" + status + ", supervisor=" + supervisor + "]";
+    }
 }

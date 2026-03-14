@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class GeneraLayoutManager {
 
@@ -27,21 +28,21 @@ public class GeneraLayoutManager {
             rs = pstmnt.executeQuery();
             while (rs.next()) {
                 // A
-                encabezado = // B
-                rs.getString("cHeader").trim() + "," + rs.getString("cTipoMov").trim() + // C
-                "," + rs.getString("cOrig").trim() + // D
-                "," + rs.getString("cPrecom").trim() + // E
-                "," + rs.getString("cJustificacion").trim() + // F
-                "," + rs.getString("cUnidad").trim() + // G
-                "," + rs.getString("cUnidad_creadora").trim() + // H
-                "," + rs.getString("cUnidad_receptora").trim() + // I
-                "," + rs.getString("cRamoCreador").trim() + // J
-                "," + rs.getString("cRamo").trim() + // K
-                "," + rs.getString("cRamoReceptor").trim() + // L
-                "," + rs.getString("fFechaExpedicion").trim() + // M
-                "," + rs.getString("fFechaAplicacion").trim() + // N
-                "," + rs.getString("cFolioInterno").trim() + // O
-                "," + rs.getString("cFolioInterno").trim() + "\r\n";
+                // B
+                encabezado = // C
+                rs.getString("cHeader").trim() + "," + rs.getString("cTipoMov").trim() + "," + // D
+                rs.getString("cOrig").trim() + "," + // E
+                rs.getString("cPrecom").trim() + "," + // F
+                rs.getString("cJustificacion").trim() + "," + // G
+                rs.getString("cUnidad").trim() + "," + // H
+                rs.getString("cUnidad_creadora").trim() + "," + // I
+                rs.getString("cUnidad_receptora").trim() + "," + // J
+                rs.getString("cRamoCreador").trim() + "," + // K
+                rs.getString("cRamo").trim() + "," + // L
+                rs.getString("cRamoReceptor").trim() + "," + // M
+                rs.getString("fFechaExpedicion").trim() + "," + // N
+                rs.getString("fFechaAplicacion").trim() + "," + // O
+                rs.getString("cFolioInterno").trim() + "," + rs.getString("cFolioInterno").trim() + "\r\n";
                 archivoLayout.append(encabezado);
                 archivoLayout.append(getDetalleLayout(conn, rs.getString("nIdIntegraRequi")));
             }
@@ -73,46 +74,46 @@ public class GeneraLayoutManager {
             rs = pstmnt.executeQuery();
             while (rs.next()) {
                 // A
-                detalle += // B
-                rs.getString("nEvento").trim() + "," + rs.getString("cEvento").trim() + // C
-                "," + rs.getString("cEM").trim() + // D
-                "," + rs.getString("cRamo").trim() + // E
-                "," + rs.getString("cUR_ML").trim() + // F
-                "," + rs.getString("cEjercicio").trim() + // G
-                "," + rs.getString("cGrupoFuncional").trim() + // H
-                "," + rs.getString("cFuncion").trim() + // I
-                "," + rs.getString("cSubFuncion").trim() + // J
-                "," + rs.getString("cProgramaGeneral").trim() + // K
-                "," + rs.getString("cActividadInstitucional").trim() + // L
-                "," + rs.getString("cProgramaPresupuestario").trim() + // M
-                "," + rs.getString("capitulo").trim() + // N
-                "," + rs.getString("CO").trim() + // O
-                "," + rs.getString("PG").trim() + // p
-                "," + rs.getString("PE").trim() + // Q
-                "," + rs.getString("cTipoGasto").trim() + // R
-                "," + rs.getString("cFuenteFinanciamiento").trim() + // S
-                "," + rs.getString("cEntidadFederativa").trim() + // T
-                "," + rs.getString("PPI").trim() + // U
-                "," + rs.getString("CAU").trim() + // V
-                "," + rs.getString("cop").trim() + // W
-                "," + rs.getString("pl").trim() + // X
-                "," + rs.getString("cOf").trim() + // Y
-                "," + rs.getString("aux1").trim() + // Z
-                "," + rs.getString("aux2").trim() + // AA
-                "," + rs.getString("aux3").trim() + // AB
-                "," + rs.getString("importeTotal").trim() + // AC
-                "," + rs.getString("mes01").trim() + // AD
-                "," + rs.getString("mes02").trim() + // AE
-                "," + rs.getString("mes03").trim() + // AF
-                "," + rs.getString("mes04").trim() + // AG
-                "," + rs.getString("mes05").trim() + // AH
-                "," + rs.getString("mes06").trim() + // AI
-                "," + rs.getString("mes07").trim() + // AJ
-                "," + rs.getString("mes08").trim() + // AK
-                "," + rs.getString("mes09").trim() + // AL
-                "," + rs.getString("mes10").trim() + // AM
-                "," + rs.getString("mes11").trim() + // AN
-                "," + rs.getString("mes12").trim() + "\r\n";
+                // B
+                detalle += // C
+                rs.getString("nEvento").trim() + "," + rs.getString("cEvento").trim() + "," + // D
+                rs.getString("cEM").trim() + "," + // E
+                rs.getString("cRamo").trim() + "," + // F
+                rs.getString("cUR_ML").trim() + "," + // G
+                rs.getString("cEjercicio").trim() + "," + // H
+                rs.getString("cGrupoFuncional").trim() + "," + // I
+                rs.getString("cFuncion").trim() + "," + // J
+                rs.getString("cSubFuncion").trim() + "," + // K
+                rs.getString("cProgramaGeneral").trim() + "," + // L
+                rs.getString("cActividadInstitucional").trim() + "," + // M
+                rs.getString("cProgramaPresupuestario").trim() + "," + // N
+                rs.getString("capitulo").trim() + "," + // O
+                rs.getString("CO").trim() + "," + // p
+                rs.getString("PG").trim() + "," + // Q
+                rs.getString("PE").trim() + "," + // R
+                rs.getString("cTipoGasto").trim() + "," + // S
+                rs.getString("cFuenteFinanciamiento").trim() + "," + // T
+                rs.getString("cEntidadFederativa").trim() + "," + // U
+                rs.getString("PPI").trim() + "," + // V
+                rs.getString("CAU").trim() + "," + // W
+                rs.getString("cop").trim() + "," + // X
+                rs.getString("pl").trim() + "," + // Y
+                rs.getString("cOf").trim() + "," + // Z
+                rs.getString("aux1").trim() + "," + // AA
+                rs.getString("aux2").trim() + "," + // AB
+                rs.getString("aux3").trim() + "," + // AC
+                rs.getString("importeTotal").trim() + "," + // AD
+                rs.getString("mes01").trim() + "," + // AE
+                rs.getString("mes02").trim() + "," + // AF
+                rs.getString("mes03").trim() + "," + // AG
+                rs.getString("mes04").trim() + "," + // AH
+                rs.getString("mes05").trim() + "," + // AI
+                rs.getString("mes06").trim() + "," + // AJ
+                rs.getString("mes07").trim() + "," + // AK
+                rs.getString("mes08").trim() + "," + // AL
+                rs.getString("mes09").trim() + "," + // AM
+                rs.getString("mes10").trim() + "," + // AN
+                rs.getString("mes11").trim() + "," + rs.getString("mes12").trim() + "\r\n";
             }
         } finally {
             if (rs != null) {

@@ -37,6 +37,7 @@ import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class AdecuacionManager {
 
@@ -1208,9 +1209,9 @@ public class AdecuacionManager {
         ResultSet rs = null;
         // "select
         String // "select
-        cSQlsentence = // d.*,
-        "select u.U_NOMBRE+'><'+a.D_DESCRIPCION as RESPONSABLE_AREA " + // u.U_NOMBRE,
-        // e.CARGO,
+        // d.*,
+        cSQlsentence = // u.U_NOMBRE,
+        "select u.U_NOMBRE+'><'+a.D_DESCRIPCION as RESPONSABLE_AREA " + // e.CARGO,
         // e.ID_AREA,
         // a.D_DESCRIPCION"
         " from CG_USUARIO_PROPIEDADES d" + ", CG_USUARIO_ROLE h" + ", CG_USUARIO_GRUPO g" + ", CG_USUARIO u" + ", CG_CAT_EMPLEADO e" + ", CG_CAT_AREAS a" + " where up_valor in (" + " SELECT UP_VALOR " + " FROM CG_USUARIO_PROPIEDADES " + " where U_LOGIN = upper('" + login + "') and" + " UP_NOMBRE = 'CCENTROCONTABLE')" + " and h.U_LOGIN = d.U_LOGIN" + " and h.R_NOMBRE = 'ADECUACIONES'" + " and d.U_LOGIN = g.U_LOGIN" + " and (g.G_NOMBRE = 'REVISORES_ADECUACIONES'" + " or g.G_NOMBRE = 'xREVISORES_ADECUACIONESx')" + " and d.U_LOGIN = u.U_LOGIN" + " and e.CE_OS_RESPONSABLE = u.U_LOGIN" + " and e.ID_AREA =  a.ID_AREA";
@@ -2517,9 +2518,9 @@ public class AdecuacionManager {
         String cSRInterna = "";
         // ISNULL(h.nFolioTramiteSicop,''),
         String // ISNULL(h.nFolioTramiteSicop,''),
-        cQueryA = // ISNULL(h.fSicop,''),ISNULL(h.nAutorizacionMAP,''),
-        "select isnull(h.nConsecutivoSicop,0), isnull(h.nFolioCONSOLIDACION,0), isnull(cSuperAdecuacion,''), isnull(cSRInterna,'') " + // ISNULL(h.fMAP,'')
-        "  FROM tConsolidacionEncabezado h with (nolock)   RIGHT OUTER JOIN  tAdecuacionEncabezado a with (nolock) on a.nFolioConsolidacion = h.nFolioCONSOLIDACION  " + " where a.nFolioAdecuacion = " + nFolio + " ";
+        // ISNULL(h.fSicop,''),ISNULL(h.nAutorizacionMAP,''),
+        cQueryA = // ISNULL(h.fMAP,'')
+        "select isnull(h.nConsecutivoSicop,0), isnull(h.nFolioCONSOLIDACION,0), isnull(cSuperAdecuacion,''), isnull(cSRInterna,'') " + "  FROM tConsolidacionEncabezado h with (nolock)   RIGHT OUTER JOIN  tAdecuacionEncabezado a with (nolock) on a.nFolioConsolidacion = h.nFolioCONSOLIDACION  " + " where a.nFolioAdecuacion = " + nFolio + " ";
         try {
             pstm = conn.prepareStatement(cQueryA);
             rs = pstm.executeQuery();

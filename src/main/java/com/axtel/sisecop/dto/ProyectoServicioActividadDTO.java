@@ -1,63 +1,65 @@
 package com.axtel.sisecop.dto;
 
-
 import java.io.Serializable;
-
 import com.axtel.sisecop.entities.ProyectoMes;
-
+import java.util.Base64;
 
 public class ProyectoServicioActividadDTO implements Serializable {
 
-	private static final long	serialVersionUID	= -3786325513922165869L;
+    private static final long serialVersionUID = -3786325513922165869L;
 
-	private int					servicioactividadId;
-	private int					idService;
-	private int					servicioactividadAnio;
-	private String				servicioactividadDescripcion;
-	private ProyectoMes			sisecopMes;
+    private int servicioactividadId;
 
-	public int getServicioactividadId() {
-		return servicioactividadId;
-	}
+    private int idService;
 
-	public void setServicioactividadId( int servicioactividadId ) {
-		this.servicioactividadId = servicioactividadId;
-	}
+    private int servicioactividadAnio;
 
-	public int getIdService() {
-		return idService;
-	}
+    private String servicioactividadDescripcion;
 
-	public void setIdService( int idService ) {
-		this.idService = idService;
-	}
+    private ProyectoMes sisecopMes;
 
-	public int getServicioactividadAnio() {
-		return servicioactividadAnio;
-	}
+    public int getServicioactividadId() {
+        return servicioactividadId;
+    }
 
-	public void setServicioactividadAnio( int servicioactividadAnio ) {
-		this.servicioactividadAnio = servicioactividadAnio;
-	}
+    public void setServicioactividadId(int servicioactividadId) {
+        this.servicioactividadId = servicioactividadId;
+    }
 
-	public String getServicioactividadDescripcion() {
-		return servicioactividadDescripcion;
-	}
+    public int getIdService() {
+        return idService;
+    }
 
-	public void setServicioactividadDescripcion( String servicioactividadDescripcion ) {
-		this.servicioactividadDescripcion = servicioactividadDescripcion;
-	}
+    public void setIdService(int idService) {
+        this.idService = idService;
+    }
 
-	public ProyectoMes getSisecopMes() {
-		return sisecopMes;
-	}
+    public int getServicioactividadAnio() {
+        return servicioactividadAnio;
+    }
 
-	public void setSisecopMes( ProyectoMes sisecopMes ) {
-		this.sisecopMes = sisecopMes;
-	}
+    public void setServicioactividadAnio(int servicioactividadAnio) {
+        this.servicioactividadAnio = servicioactividadAnio;
+    }
 
-	@Override
-	public String toString() {
-		return "ProyectoServicioActividadDTO [servicioactividadId=" + servicioactividadId + ", idService=" + idService + ", servicioactividadAnio=" + servicioactividadAnio + ", servicioactividadDescripcion=" + servicioactividadDescripcion + ", sisecopMes=" + sisecopMes + "]";
-	}
+    public String getServicioactividadDescripcion() {
+        return servicioactividadDescripcion;
+    }
+
+    public void setServicioactividadDescripcion(String servicioactividadDescripcion) {
+        this.servicioactividadDescripcion = servicioactividadDescripcion;
+    }
+
+    public ProyectoMes getSisecopMes() {
+        return sisecopMes;
+    }
+
+    public void setSisecopMes(ProyectoMes sisecopMes) {
+        this.sisecopMes = sisecopMes;
+    }
+
+    @Override
+    public String toString() {
+        return "ProyectoServicioActividadDTO [servicioactividadId=" + servicioactividadId + ", idService=" + idService + ", servicioactividadAnio=" + servicioactividadAnio + ", servicioactividadDescripcion=" + servicioactividadDescripcion + ", sisecopMes=" + sisecopMes + "]";
+    }
 }

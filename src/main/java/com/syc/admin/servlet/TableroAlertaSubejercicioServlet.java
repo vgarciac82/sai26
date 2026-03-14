@@ -24,6 +24,7 @@ import com.syc.utils.mail.MailSender;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 /**
  * Servlet alerta de subejercicio

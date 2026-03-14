@@ -1,41 +1,39 @@
 package com.axtel.sisecop.entities;
 
+import java.util.Base64;
 
 public enum TipoProyecto {
 
-	CONSULTORIA( 1, "Consultoría" ), 
-	ASESORIA( 2, "Asesoría" ), 
-	ESTUDIO( 3, "Estudio" ), 
-	INVESTIGACION( 4, "Investigación" ), 
-	SIN_REGISTRAR( 5, "Sin Registrar" );
+    CONSULTORIA(1, "Consultoría"), ASESORIA(2, "Asesoría"), ESTUDIO(3, "Estudio"), INVESTIGACION(4, "Investigación"), SIN_REGISTRAR(5, "Sin Registrar");
 
-	private final int		id;
-	private final String	nombre;
+    private final int id;
 
-	TipoProyecto( int id, String nombre ) {
-		this.id = id;
-		this.nombre = nombre;
-	}
+    private final String nombre;
 
-	public int getId() {
-		return id;
-	}
+    TipoProyecto(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public static TipoProyecto getById( int id ) {
-		for ( TipoProyecto tipo : values() ) {
-			if ( tipo.getId() == id ) {
-				return tipo;
-			}
-		}
-		throw new IllegalArgumentException( "Tipo de proyecto no encontrado para ID: " + id );
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	@Override
-	public String toString() {
-		return this.nombre;
-	}
+    public static TipoProyecto getById(int id) {
+        for (TipoProyecto tipo : values()) {
+            if (tipo.getId() == id) {
+                return tipo;
+            }
+        }
+        throw new IllegalArgumentException("Tipo de proyecto no encontrado para ID: " + id);
+    }
+
+    @Override
+    public String toString() {
+        return this.nombre;
+    }
 }

@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import com.syc.adquisiciones.core.UnificacionUsuariosManager;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "AgregarRolServlet", urlPatterns = { "/AgregarRolServlet" })
 public class AgregarRolServlet extends HttpServlet {

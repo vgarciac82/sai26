@@ -10,6 +10,7 @@ import com.syc.sai.fonden.Fonden;
 import com.syc.sai.fonden.FondenEngineException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class FondenBusinessLogic extends DataSourceManager {
 

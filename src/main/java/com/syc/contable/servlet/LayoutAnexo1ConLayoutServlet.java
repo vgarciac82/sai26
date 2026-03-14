@@ -14,6 +14,7 @@ import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "LayoutAnexo1ConLayoutServlet", urlPatterns = { "/gstnmngr/Anexo1ConLayoutServlet" })
 public class LayoutAnexo1ConLayoutServlet extends HttpServlet {

@@ -1,43 +1,44 @@
 package com.axtel.sisecop.entities;
 
-
 import java.io.Serializable;
-
+import java.util.Base64;
 
 public class ProyectoMunicipio implements Serializable {
 
-	private static final long	serialVersionUID	= -9143088505887916293L;
-	private int					municipioId;
-	private int					entidadFederativaId;
-	private String				municipioNombre;
+    private static final long serialVersionUID = -9143088505887916293L;
 
-	public int getMunicipioId() {
-		return municipioId;
-	}
+    private int municipioId;
 
-	public void setMunicipioId( int municipioId ) {
-		this.municipioId = municipioId;
-	}
+    private int entidadFederativaId;
 
-	public int getEntidadFederativaId() {
-		return entidadFederativaId;
-	}
+    private String municipioNombre;
 
-	public void setEntidadFederativaId( int entidadFederativaId ) {
-		this.entidadFederativaId = entidadFederativaId;
-	}
+    public int getMunicipioId() {
+        return municipioId;
+    }
 
-	public String getMunicipioNombre() {
-		return municipioNombre;
-	}
+    public void setMunicipioId(int municipioId) {
+        this.municipioId = municipioId;
+    }
 
-	public void setMunicipioNombre( String municipioNombre ) {
-		this.municipioNombre = municipioNombre;
-	}
+    public int getEntidadFederativaId() {
+        return entidadFederativaId;
+    }
 
-	@Override
-	public String toString() {
-		return "ProyectoMunicipio [municipioId=" + municipioId + ", entidadFederativaId=" + entidadFederativaId + ", municipioNombre=" + municipioNombre + "]";
-	}
+    public void setEntidadFederativaId(int entidadFederativaId) {
+        this.entidadFederativaId = entidadFederativaId;
+    }
 
+    public String getMunicipioNombre() {
+        return municipioNombre;
+    }
+
+    public void setMunicipioNombre(String municipioNombre) {
+        this.municipioNombre = municipioNombre;
+    }
+
+    @Override
+    public String toString() {
+        return "ProyectoMunicipio [municipioId=" + municipioId + ", entidadFederativaId=" + entidadFederativaId + ", municipioNombre=" + municipioNombre + "]";
+    }
 }

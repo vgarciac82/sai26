@@ -1,26 +1,27 @@
 package com.axtel.cfdi;
 
+import java.util.Base64;
 
 public class Moneda {
 
-	private String	moneda;
-	private String	descripcion;
+    private String moneda;
 
-	public String getMoneda() {
-		return moneda;
-	}
+    private String descripcion;
 
-	public void setMoneda( String moneda ) {
-		this.moneda = moneda;
-	}
+    public String getMoneda() {
+        return moneda;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public void setMoneda(String moneda) {
+        this.moneda = moneda;
+    }
 
-	public void setDescripcion( String descripcion ) {
-		this.descripcion = descripcion;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	// Getters and Setters
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    // Getters and Setters
 }

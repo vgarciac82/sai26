@@ -1,78 +1,82 @@
 package com.syc.gestion.core;
 
+import java.util.Base64;
+
 public class CasoHerramientas {
 
-	private String	guardar;
-	private String	enviar;
-	private String	cerrar;
-	private String	descartar;
+    private String guardar;
 
-	public CasoHerramientas() {
-		super();
-		setGuardar("S");
-		setEnviar("S");
-		setCerrar("S");
-		setDescartar("S");
-	}
+    private String enviar;
 
-	/**
-	 * @return the guardar
-	 */
-	public String getGuardar() {
-		return guardar;
-	}
+    private String cerrar;
 
-	/**
-	 * @param guardar
-	 *            the guardar to set
-	 */
-	public void setGuardar(String guardar) {
-		this.guardar = guardar;
-	}
+    private String descartar;
 
-	/**
-	 * @return the enviar
-	 */
-	public String getEnviar() {
-		return enviar;
-	}
+    public CasoHerramientas() {
+        super();
+        setGuardar("S");
+        setEnviar("S");
+        setCerrar("S");
+        setDescartar("S");
+    }
 
-	/**
-	 * @param enviar
-	 *            the enviar to set
-	 */
-	public void setEnviar(String enviar) {
-		this.enviar = enviar;
-	}
+    /**
+     * @return the guardar
+     */
+    public String getGuardar() {
+        return guardar;
+    }
 
-	/**
-	 * @return the cerrar
-	 */
-	public String getCerrar() {
-		return cerrar;
-	}
+    /**
+     * @param guardar
+     *            the guardar to set
+     */
+    public void setGuardar(String guardar) {
+        this.guardar = guardar;
+    }
 
-	/**
-	 * @param cerrar
-	 *            the cerrar to set
-	 */
-	public void setCerrar(String cerrar) {
-		this.cerrar = cerrar;
-	}
+    /**
+     * @return the enviar
+     */
+    public String getEnviar() {
+        return enviar;
+    }
 
-	/**
-	 * @return the descartar
-	 */
-	public String getDescartar() {
-		return descartar;
-	}
+    /**
+     * @param enviar
+     *            the enviar to set
+     */
+    public void setEnviar(String enviar) {
+        this.enviar = enviar;
+    }
 
-	/**
-	 * @param descartar
-	 *            the descartar to set
-	 */
-	public void setDescartar(String descartar) {
-		this.descartar = descartar;
-	}
+    /**
+     * @return the cerrar
+     */
+    public String getCerrar() {
+        return cerrar;
+    }
 
+    /**
+     * @param cerrar
+     *            the cerrar to set
+     */
+    public void setCerrar(String cerrar) {
+        this.cerrar = cerrar;
+    }
+
+    /**
+     * @return the descartar
+     */
+    public String getDescartar() {
+        return descartar;
+    }
+
+    /**
+     * @param descartar
+     *            the descartar to set
+     */
+    public void setDescartar(String descartar) {
+        this.descartar = descartar;
+    }
 }

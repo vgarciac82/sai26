@@ -1,82 +1,87 @@
 package com.syc.sai.fonden;
 
 import java.sql.Date;
+import java.util.Base64;
 
 /**
  * Tfonden entity. @author MyEclipse Persistence Tools
  */
-
 public class Fonden implements java.io.Serializable {
 
-	// Fields
+    // Fields
+    private Integer cidFonden;
 
-	private Integer cidFonden;
-	private String cusuarioCreador;
-	private Date dfechaCaptura;
-	private String cdescripcion;
-	private Double nimporteAnual;
+    private String cusuarioCreador;
 
-	// Constructors
+    private Date dfechaCaptura;
 
-	/** default constructor */
-	public Fonden() {
-	}
+    private String cdescripcion;
 
-	/** minimal constructor */
-	public Fonden(Integer cidFonden) {
-		this.cidFonden = cidFonden;
-	}
+    private Double nimporteAnual;
 
-	/** full constructor */
-	public Fonden(Integer cidFonden, String cusuarioCreador,
-			Date dfechaCaptura, String cdescripcion, Double nimporteAnual) {
-		this.cidFonden = cidFonden;
-		this.cusuarioCreador = cusuarioCreador;
-		this.dfechaCaptura = dfechaCaptura;
-		this.cdescripcion = cdescripcion;
-		this.nimporteAnual = nimporteAnual;
-	}
+    // Constructors
+    /**
+     * default constructor
+     */
+    public Fonden() {
+    }
 
-	// Property accessors
+    /**
+     * minimal constructor
+     */
+    public Fonden(Integer cidFonden) {
+        this.cidFonden = cidFonden;
+    }
 
-	public Integer getCidFonden() {
-		return this.cidFonden;
-	}
+    /**
+     * full constructor
+     */
+    public Fonden(Integer cidFonden, String cusuarioCreador, Date dfechaCaptura, String cdescripcion, Double nimporteAnual) {
+        this.cidFonden = cidFonden;
+        this.cusuarioCreador = cusuarioCreador;
+        this.dfechaCaptura = dfechaCaptura;
+        this.cdescripcion = cdescripcion;
+        this.nimporteAnual = nimporteAnual;
+    }
 
-	public void setCidFonden(Integer cidFonden) {
-		this.cidFonden = cidFonden;
-	}
+    // Property accessors
+    public Integer getCidFonden() {
+        return this.cidFonden;
+    }
 
-	public String getCusuarioCreador() {
-		return this.cusuarioCreador;
-	}
+    public void setCidFonden(Integer cidFonden) {
+        this.cidFonden = cidFonden;
+    }
 
-	public void setCusuarioCreador(String cusuarioCreador) {
-		this.cusuarioCreador = cusuarioCreador;
-	}
+    public String getCusuarioCreador() {
+        return this.cusuarioCreador;
+    }
 
-	public Date getDfechaCaptura() {
-		return this.dfechaCaptura;
-	}
+    public void setCusuarioCreador(String cusuarioCreador) {
+        this.cusuarioCreador = cusuarioCreador;
+    }
 
-	public void setDfechaCaptura(Date dfechaCaptura) {
-		this.dfechaCaptura = dfechaCaptura;
-	}
+    public Date getDfechaCaptura() {
+        return this.dfechaCaptura;
+    }
 
-	public String getCdescripcion() {
-		return this.cdescripcion;
-	}
+    public void setDfechaCaptura(Date dfechaCaptura) {
+        this.dfechaCaptura = dfechaCaptura;
+    }
 
-	public void setCdescripcion(String cdescripcion) {
-		this.cdescripcion = cdescripcion;
-	}
+    public String getCdescripcion() {
+        return this.cdescripcion;
+    }
 
-	public Double getNimporteAnual() {
-		return this.nimporteAnual;
-	}
+    public void setCdescripcion(String cdescripcion) {
+        this.cdescripcion = cdescripcion;
+    }
 
-	public void setNimporteAnual(Double nimporteAnual) {
-		this.nimporteAnual = nimporteAnual;
-	}
+    public Double getNimporteAnual() {
+        return this.nimporteAnual;
+    }
 
+    public void setNimporteAnual(Double nimporteAnual) {
+        this.nimporteAnual = nimporteAnual;
+    }
 }

@@ -1,40 +1,40 @@
 package com.syc.sai.tesoreria.retenciones.core;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.core.annotate.JsonProperty;
+import java.util.Base64;
 
 public class Retencion {
 
-	@JsonProperty("idRetencion")
-	int		idRetencion;
+    @JsonProperty("idRetencion")
+    int idRetencion;
 
-	@JsonProperty("descRetencion")
-	String	descRetencion;
+    @JsonProperty("descRetencion")
+    String descRetencion;
 
-	@JsonProperty("porcentaje")
-	float	porcentaje;
+    @JsonProperty("porcentaje")
+    float porcentaje;
 
-	public int getIdRetencion() {
-		return idRetencion;
-	}
+    public int getIdRetencion() {
+        return idRetencion;
+    }
 
-	public void setIdRetencion(int idRetencion) {
-		this.idRetencion = idRetencion;
-	}
+    public void setIdRetencion(int idRetencion) {
+        this.idRetencion = idRetencion;
+    }
 
-	public String getDescRetencion() {
-		return descRetencion;
-	}
+    public String getDescRetencion() {
+        return descRetencion;
+    }
 
-	public void setDescRetencion(String descRetencion) {
-		this.descRetencion = descRetencion;
-	}
+    public void setDescRetencion(String descRetencion) {
+        this.descRetencion = descRetencion;
+    }
 
-	public float getPorcentaje() {
-		return porcentaje;
-	}
+    public float getPorcentaje() {
+        return porcentaje;
+    }
 
-	public void setPorcentaje(float porcentaje) {
-		this.porcentaje = porcentaje;
-	}
-
+    public void setPorcentaje(float porcentaje) {
+        this.porcentaje = porcentaje;
+    }
 }

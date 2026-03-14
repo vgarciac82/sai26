@@ -16,6 +16,7 @@ import com.syc.reportes.ReporteRemanentePagosBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ReporteRemanentePagos", urlPatterns = { "/reportes/ReporteRemanentePagos" })
 public class ReporteRemanentePagosServlet extends HttpServlet implements GestionInterface {

@@ -11,6 +11,7 @@ import com.syc.obrapublica.ConfiguraAplicativoBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ReenviaAlertasServlet", urlPatterns = {})
 public class ReenviaAlertasServlet extends HttpServlet implements GestionInterface, Runnable {

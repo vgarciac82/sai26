@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import com.syc.contable.ProgFederalizadosBussinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "LayoutPagoProgFederalizadosConLayoutServlet", urlPatterns = { "/gstnmngr/PagoProgFederalizadosConLayout" })
 public class LayoutPagoProgFederalizadosConLayoutServlet extends HttpServlet {

@@ -3,172 +3,184 @@ package com.syc.gestion.core;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 
-public class BitacoraCaso implements Serializable{
-	private final static long serialVersionUID = 1;
+public class BitacoraCaso implements Serializable {
 
-	/*
+    private final static long serialVersionUID = 1;
+
+    /*
 	+ "(id_caso, folio, tipo_caso, status, "
 	   + " fecha_inicio, fecha_compromiso, responsable_id, responsable_area, "
 	   + " remitente_id, remitente_area, fecha_ultima_operacion, cerrado) " 
 	*/
+    private int idCaso;
 
-	private int idCaso;
-	private String folio;
-	private int tipoCaso;
-	private int status;
-	private int idGabinete;
-	private Timestamp fechaInicio;
-	private Timestamp fechaCompromiso;
-	private Timestamp fechaUltimaOperacion;
-	private String remitenteId;
-	private String remitenteArea;
-	private String responsableId;
-	private String responsableArea;
-	private String tituloAplicacion;
-	
-	private boolean cerrado;
+    private String folio;
 
-	public int getIdCaso() {
-		return idCaso;
-	}
+    private int tipoCaso;
 
-	public void setIdCaso(int idCaso) {
-		this.idCaso = idCaso;
-	}
+    private int status;
 
-	public String getFolio() {
-		return folio;
-	}
+    private int idGabinete;
 
-	public void setFolio(String folio) {
-		this.folio = folio;
-	}
+    private Timestamp fechaInicio;
 
-	public int getTipoCaso() {
-		return tipoCaso;
-	}
+    private Timestamp fechaCompromiso;
 
-	public void setTipoCaso(int tipoCaso) {
-		this.tipoCaso = tipoCaso;
-	}
+    private Timestamp fechaUltimaOperacion;
 
-	public int getStatus() {
-		return status;
-	}
+    private String remitenteId;
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
+    private String remitenteArea;
 
-	public Timestamp getFechaInicio() {
-		return fechaInicio;
-	}
+    private String responsableId;
 
-	public String getFormattedFechaInicio(String format) {
-		String retVal = null;
-		try {
-			retVal = (new SimpleDateFormat(format)).format(fechaInicio);
-		} catch (Exception e) {
-			//ignore
-		}
-		return retVal;
-	}
+    private String responsableArea;
 
-	public void setFechaInicio(Timestamp fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
+    private String tituloAplicacion;
 
-	public Timestamp getFechaCompromiso() {
-		return fechaCompromiso;
-	}
+    private boolean cerrado;
 
-	public String getFormattedFechaCompromiso(String format) {
-		String retVal = null;
-		try {
-			retVal = (new SimpleDateFormat(format)).format(fechaCompromiso);
-		} catch (Exception e) {
-			//ignore
-		}
-		return retVal;
-	}
+    public int getIdCaso() {
+        return idCaso;
+    }
 
-	public void setFechaCompromiso(Timestamp fechaCompromiso) {
-		this.fechaCompromiso = fechaCompromiso;
-	}
+    public void setIdCaso(int idCaso) {
+        this.idCaso = idCaso;
+    }
 
-	public Timestamp getFechaUltimaOperacion() {
-		return fechaUltimaOperacion;
-	}
+    public String getFolio() {
+        return folio;
+    }
 
-	public String getFormattedFechaUltimaOperacion(String format) {
-		String retVal = null;
-		try {
-			retVal = (new SimpleDateFormat(format)).format(fechaUltimaOperacion);
-		} catch (Exception e) {
-			//ignore
-		}
-		return retVal;
-	}
+    public void setFolio(String folio) {
+        this.folio = folio;
+    }
 
-	public void setFechaUltimaOperacion(Timestamp fechaUltimaOperacion) {
-		this.fechaUltimaOperacion = fechaUltimaOperacion;
-	}
+    public int getTipoCaso() {
+        return tipoCaso;
+    }
 
-	public String getRemitenteId() {
-		return remitenteId;
-	}
+    public void setTipoCaso(int tipoCaso) {
+        this.tipoCaso = tipoCaso;
+    }
 
-	public void setRemitenteId(String remitenteId) {
-		this.remitenteId = remitenteId;
-	}
+    public int getStatus() {
+        return status;
+    }
 
-	public String getRemitenteArea() {
-		return remitenteArea;
-	}
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
-	public void setRemitenteArea(String remitenteArea) {
-		this.remitenteArea = remitenteArea;
-	}
+    public Timestamp getFechaInicio() {
+        return fechaInicio;
+    }
 
-	public String getResponsableId() {
-		return responsableId;
-	}
+    public String getFormattedFechaInicio(String format) {
+        String retVal = null;
+        try {
+            retVal = (new SimpleDateFormat(format)).format(fechaInicio);
+        } catch (Exception e) {
+            //ignore
+        }
+        return retVal;
+    }
 
-	public void setResponsableId(String responsableId) {
-		this.responsableId = responsableId;
-	}
+    public void setFechaInicio(Timestamp fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
 
-	public String getResponsableArea() {
-		return responsableArea;
-	}
+    public Timestamp getFechaCompromiso() {
+        return fechaCompromiso;
+    }
 
-	public void setResponsableArea(String responsableArea) {
-		this.responsableArea = responsableArea;
-	}
+    public String getFormattedFechaCompromiso(String format) {
+        String retVal = null;
+        try {
+            retVal = (new SimpleDateFormat(format)).format(fechaCompromiso);
+        } catch (Exception e) {
+            //ignore
+        }
+        return retVal;
+    }
 
-	public boolean isCerrado() {
-		return cerrado;
-	}
+    public void setFechaCompromiso(Timestamp fechaCompromiso) {
+        this.fechaCompromiso = fechaCompromiso;
+    }
 
-	public void setCerrado(boolean cerrado) {
-		this.cerrado = cerrado;
-	}
+    public Timestamp getFechaUltimaOperacion() {
+        return fechaUltimaOperacion;
+    }
 
-	public int getIdGabinete() {
-		return idGabinete;
-	}
+    public String getFormattedFechaUltimaOperacion(String format) {
+        String retVal = null;
+        try {
+            retVal = (new SimpleDateFormat(format)).format(fechaUltimaOperacion);
+        } catch (Exception e) {
+            //ignore
+        }
+        return retVal;
+    }
 
-	public void setIdGabinete(int idGabinete) {
-		this.idGabinete = idGabinete;
-	}
+    public void setFechaUltimaOperacion(Timestamp fechaUltimaOperacion) {
+        this.fechaUltimaOperacion = fechaUltimaOperacion;
+    }
 
-	public String getTituloAplicacion() {
-		return tituloAplicacion;
-	}
+    public String getRemitenteId() {
+        return remitenteId;
+    }
 
-	public void setTituloAplicacion(String tituloAplicacion) {
-		this.tituloAplicacion = tituloAplicacion;
-	}
+    public void setRemitenteId(String remitenteId) {
+        this.remitenteId = remitenteId;
+    }
 
+    public String getRemitenteArea() {
+        return remitenteArea;
+    }
+
+    public void setRemitenteArea(String remitenteArea) {
+        this.remitenteArea = remitenteArea;
+    }
+
+    public String getResponsableId() {
+        return responsableId;
+    }
+
+    public void setResponsableId(String responsableId) {
+        this.responsableId = responsableId;
+    }
+
+    public String getResponsableArea() {
+        return responsableArea;
+    }
+
+    public void setResponsableArea(String responsableArea) {
+        this.responsableArea = responsableArea;
+    }
+
+    public boolean isCerrado() {
+        return cerrado;
+    }
+
+    public void setCerrado(boolean cerrado) {
+        this.cerrado = cerrado;
+    }
+
+    public int getIdGabinete() {
+        return idGabinete;
+    }
+
+    public void setIdGabinete(int idGabinete) {
+        this.idGabinete = idGabinete;
+    }
+
+    public String getTituloAplicacion() {
+        return tituloAplicacion;
+    }
+
+    public void setTituloAplicacion(String tituloAplicacion) {
+        this.tituloAplicacion = tituloAplicacion;
+    }
 }

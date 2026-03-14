@@ -42,6 +42,7 @@ import java.util.Map;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "LiberaCompromisoEP", urlPatterns = { "/servlet/LiberaCompromisoEP" })
 public class LiberaCompromisoEP extends HttpServlet {

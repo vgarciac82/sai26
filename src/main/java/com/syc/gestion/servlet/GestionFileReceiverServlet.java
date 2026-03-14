@@ -29,6 +29,8 @@ import com.syc.viewer.servlet.ViewerParametersInterface;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 
 @WebServlet(name = "GestionFileReceiverServlet", urlPatterns = { "/upload" })
 public class GestionFileReceiverServlet extends HttpServlet implements GestionInterface, ViewerParametersInterface {
@@ -170,11 +172,12 @@ public class GestionFileReceiverServlet extends HttpServlet implements GestionIn
     }
 
     private List parseRequest(HttpServletRequest req) throws ServletException {
-        ServletFileUpload upload = new ServletFileUpload();
-        upload.setRepositoryPath(tempDir);
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+        JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         // Directorio temporal de carga de archivos
         // -1 sin limite
-        upload.setSizeMax(-1);
+        upload.setFileSizeMax(-1);
         try {
             return upload.parseRequest(req);
         } catch (FileUploadException fe) {

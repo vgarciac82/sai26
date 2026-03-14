@@ -10,6 +10,7 @@ import com.syc.sai.fonden.FondenFacturacion;
 import com.syc.sai.fonden.FondenFacturacionEngineException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class FondenFacturacionManager {
 

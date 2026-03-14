@@ -1,202 +1,202 @@
 package com.syc.adquisiciones.core;
 
-
 import java.util.Date;
-
+import java.util.Base64;
 
 /**
  * Recepcion de material para autorizacion por base de datos.
- * 
- * @author vicente.garcia
  *
+ * @author vicente.garcia
  */
 public class DatosRecepcionFIEL extends DatosRecepcion {
 
-	/**
-	 * Numero de contrato en COMPRANET
-	 */
-	private String	contratoCNET;
-	/**
-	 * Fecha de la atenta nota.
-	 */
-	private Date	fechaNota	= new Date();
-	/**
-	 * Folio de la atenta nota.
-	 */
-	private String	folioNota;
-	/**
-	 * ID del estatus actual de la RM
-	 */
-	private int		idEstatusRM;
+    /**
+     * Numero de contrato en COMPRANET
+     */
+    private String contratoCNET;
 
-	/**
-	 * ID de atenta nota.
-	 */
-	private int		idNota;
-	
-	private int requiereAtentaNota;
-	/**
-	 * Usuario que captura la atenta nota de la RM
-	 */
-	private String	idUsuarioCaptura;
+    /**
+     * Fecha de la atenta nota.
+     */
+    private Date fechaNota = new Date();
 
-	/**
-	 * Motivo de autorizacion. Texto que se integrara a la atenta nota.
-	 */
-	private String	motivoAutorizacion;
+    /**
+     * Folio de la atenta nota.
+     */
+    private String folioNota;
 
-	/**
-	 * Numero del empleado que firmara la solicitud.
-	 */
-	private int		numeroEmpleado;
+    /**
+     * ID del estatus actual de la RM
+     */
+    private int idEstatusRM;
 
-	private int		nIdEntraAlmacen;
-	private int		nIdEstatusAtentaNotaFirmada;
-	/**
-	 * Numero del empleado que da el visto bueno de la atenta nota virtual
-	 */
-	private int		numeroEmpleadoVoBo;
-	
-	public DatosRecepcionFIEL( ) {
+    /**
+     * ID de atenta nota.
+     */
+    private int idNota;
 
-	}
+    private int requiereAtentaNota;
 
-	public String getContratoCNET() {
-		return this.contratoCNET;
-	}
+    /**
+     * Usuario que captura la atenta nota de la RM
+     */
+    private String idUsuarioCaptura;
 
-	/**
-	 * @return the fechaNota
-	 */
-	public Date getFechaNota() {
-		return fechaNota;
-	}
+    /**
+     * Motivo de autorizacion. Texto que se integrara a la atenta nota.
+     */
+    private String motivoAutorizacion;
 
-	/**
-	 * @return the folioNota
-	 */
-	public String getFolioNota() {
-		return folioNota;
-	}
+    /**
+     * Numero del empleado que firmara la solicitud.
+     */
+    private int numeroEmpleado;
 
-	public int getIdEstatusRM() {
-		return idEstatusRM;
-	}
+    private int nIdEntraAlmacen;
 
-	/**
-	 * @return the idNota
-	 */
-	public int getIdNota() {
-		return idNota;
-	}
+    private int nIdEstatusAtentaNotaFirmada;
 
-	public String getIdUsuarioCaptura() {
-		return idUsuarioCaptura;
-	}
+    /**
+     * Numero del empleado que da el visto bueno de la atenta nota virtual
+     */
+    private int numeroEmpleadoVoBo;
 
-	/**
-	 * @return the motivoAutorizacion
-	 */
-	public String getMotivoAutorizacion() {
-		return motivoAutorizacion;
-	}
+    public DatosRecepcionFIEL() {
+    }
 
-	/**
-	 * @return the numeroEmpleado
-	 */
-	public int getNumeroEmpleado() {
-		return numeroEmpleado;
-	}
+    public String getContratoCNET() {
+        return this.contratoCNET;
+    }
 
-	public void setContratoCNET( String contratoCNET ) {
-		this.contratoCNET = contratoCNET;
-	}
+    /**
+     * @return the fechaNota
+     */
+    public Date getFechaNota() {
+        return fechaNota;
+    }
 
-	/**
-	 * @param fechaNota
-	 *            the fechaNota to set
-	 */
-	public void setFechaNota( Date fechaNota ) {
-		this.fechaNota = fechaNota;
-	}
+    /**
+     * @return the folioNota
+     */
+    public String getFolioNota() {
+        return folioNota;
+    }
 
-	/**
-	 * @param folioNota
-	 *            the folioNota to set
-	 */
-	public void setFolioNota( String folioNota ) {
-		this.folioNota = folioNota;
-	}
+    public int getIdEstatusRM() {
+        return idEstatusRM;
+    }
 
-	public void setIdEstatusRM( int idEstatusRM ) {
-		this.idEstatusRM = idEstatusRM;
-	}
+    /**
+     * @return the idNota
+     */
+    public int getIdNota() {
+        return idNota;
+    }
 
-	/**
-	 * @param idNota
-	 *            the idNota to set
-	 */
-	public void setIdNota( int idNota ) {
-		this.idNota = idNota;
-	}
+    public String getIdUsuarioCaptura() {
+        return idUsuarioCaptura;
+    }
 
-	public void setIdUsuarioCaptura( String idUsuarioCaptura ) {
-		this.idUsuarioCaptura = idUsuarioCaptura;
-	}
+    /**
+     * @return the motivoAutorizacion
+     */
+    public String getMotivoAutorizacion() {
+        return motivoAutorizacion;
+    }
 
-	/**
-	 * @param motivoAutorizacion
-	 *            the motivoAutorizacion to set
-	 */
-	public void setMotivoAutorizacion( String motivoAutorizacion ) {
-		this.motivoAutorizacion = motivoAutorizacion;
-	}
+    /**
+     * @return the numeroEmpleado
+     */
+    public int getNumeroEmpleado() {
+        return numeroEmpleado;
+    }
 
-	/**
-	 * @param numeroEmpleado
-	 *            the numeroEmpleado to set
-	 */
-	public void setNumeroEmpleado( int numeroEmpleado ) {
-		this.numeroEmpleado = numeroEmpleado;
-	}
-	
-	public int getnIdEntraAlmacen() {
-		return nIdEntraAlmacen;
-	}
-	
-	public void setnIdEntraAlmacen( int nIdEntraAlmacen ) {
-		this.nIdEntraAlmacen = nIdEntraAlmacen;
-	}
-	
-	public int getnIdEstatusAtentaNotaFirmada() {
-		return nIdEstatusAtentaNotaFirmada;
-	}
-	
-	public void setnIdEstatusAtentaNotaFirmada( int nIdEstatusAtentaNotaFirmada ) {
-		this.nIdEstatusAtentaNotaFirmada = nIdEstatusAtentaNotaFirmada;
-	}
-	
-	public int getNumeroEmpleadoVoBo() {
-		return numeroEmpleadoVoBo;
-	}
-	
-	public void setNumeroEmpleadoVoBo( int numeroEmpleadoVoBo ) {
-		this.numeroEmpleadoVoBo = numeroEmpleadoVoBo;
-	}
-	
-	public int getRequiereAtentaNota() {
-		return requiereAtentaNota;
-	}
+    public void setContratoCNET(String contratoCNET) {
+        this.contratoCNET = contratoCNET;
+    }
 
-	public void setRequiereAtentaNota( int requiereAtentaNota ) {
-		this.requiereAtentaNota = requiereAtentaNota;
-	}
+    /**
+     * @param fechaNota
+     *            the fechaNota to set
+     */
+    public void setFechaNota(Date fechaNota) {
+        this.fechaNota = fechaNota;
+    }
 
-	@Override
-	public String toString() {
-		return "DatosRecepcionFIEL [contratoCNET=" + contratoCNET + ", fechaNota=" + fechaNota + ", folioNota=" + folioNota + ", idEstatusRM=" + idEstatusRM + ", idNota=" + idNota 
-				+ ", idUsuarioCaptura=" + idUsuarioCaptura + ", motivoAutorizacion=" + motivoAutorizacion + ", numeroEmpleado=" + numeroEmpleado + ", nIdEntraAlmacen=" + nIdEntraAlmacen 
-				+ ", nIdEstatusAtentaNotaFirmada=" + nIdEstatusAtentaNotaFirmada + ", numeroEmpleadoVoBo=" + numeroEmpleadoVoBo + "]";
-	}
+    /**
+     * @param folioNota
+     *            the folioNota to set
+     */
+    public void setFolioNota(String folioNota) {
+        this.folioNota = folioNota;
+    }
 
+    public void setIdEstatusRM(int idEstatusRM) {
+        this.idEstatusRM = idEstatusRM;
+    }
+
+    /**
+     * @param idNota
+     *            the idNota to set
+     */
+    public void setIdNota(int idNota) {
+        this.idNota = idNota;
+    }
+
+    public void setIdUsuarioCaptura(String idUsuarioCaptura) {
+        this.idUsuarioCaptura = idUsuarioCaptura;
+    }
+
+    /**
+     * @param motivoAutorizacion
+     *            the motivoAutorizacion to set
+     */
+    public void setMotivoAutorizacion(String motivoAutorizacion) {
+        this.motivoAutorizacion = motivoAutorizacion;
+    }
+
+    /**
+     * @param numeroEmpleado
+     *            the numeroEmpleado to set
+     */
+    public void setNumeroEmpleado(int numeroEmpleado) {
+        this.numeroEmpleado = numeroEmpleado;
+    }
+
+    public int getnIdEntraAlmacen() {
+        return nIdEntraAlmacen;
+    }
+
+    public void setnIdEntraAlmacen(int nIdEntraAlmacen) {
+        this.nIdEntraAlmacen = nIdEntraAlmacen;
+    }
+
+    public int getnIdEstatusAtentaNotaFirmada() {
+        return nIdEstatusAtentaNotaFirmada;
+    }
+
+    public void setnIdEstatusAtentaNotaFirmada(int nIdEstatusAtentaNotaFirmada) {
+        this.nIdEstatusAtentaNotaFirmada = nIdEstatusAtentaNotaFirmada;
+    }
+
+    public int getNumeroEmpleadoVoBo() {
+        return numeroEmpleadoVoBo;
+    }
+
+    public void setNumeroEmpleadoVoBo(int numeroEmpleadoVoBo) {
+        this.numeroEmpleadoVoBo = numeroEmpleadoVoBo;
+    }
+
+    public int getRequiereAtentaNota() {
+        return requiereAtentaNota;
+    }
+
+    public void setRequiereAtentaNota(int requiereAtentaNota) {
+        this.requiereAtentaNota = requiereAtentaNota;
+    }
+
+    @Override
+    public String toString() {
+        return "DatosRecepcionFIEL [contratoCNET=" + contratoCNET + ", fechaNota=" + fechaNota + ", folioNota=" + folioNota + ", idEstatusRM=" + idEstatusRM + ", idNota=" + idNota + ", idUsuarioCaptura=" + idUsuarioCaptura + ", motivoAutorizacion=" + motivoAutorizacion + ", numeroEmpleado=" + numeroEmpleado + ", nIdEntraAlmacen=" + nIdEntraAlmacen + ", nIdEstatusAtentaNotaFirmada=" + nIdEstatusAtentaNotaFirmada + ", numeroEmpleadoVoBo=" + numeroEmpleadoVoBo + "]";
+    }
 }

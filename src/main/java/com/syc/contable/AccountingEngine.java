@@ -22,6 +22,7 @@ import com.syc.contable.util.TimeFormat;
 import com.syc.dsmngr.DataSourceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class AccountingEngine extends DataSourceManager {
 
@@ -41,16 +42,16 @@ public class AccountingEngine extends DataSourceManager {
 
     private static final String sqlInsertMovto = "INSERT INTO tMovimiento (aEjercicioFiscal, cCentroContable, nCuenta, nSubCuenta, nFolioPoliza, cRamo, cUnidadResponsable, " + "nDocRenglon, mMovimiento, cTipoMovimiento, cDescripcionMovPol, cTipoDocumento, fOperacionMovimiento, cFolioDocumentoMovimiento, cCancelaMovimiento, " + "fMovimiento, dConceptoMovimiento, cMoneda, cTipoPoliza, Periodo13, ADEFAS, nTipoAjuste, parcial) " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    private static final //TENIA-->ISNULL(cSubCuenta, 'x') = ISNULL(?, 'x')
-    String //TENIA-->ISNULL(cSubCuenta, 'x') = ISNULL(?, 'x')
+    private static final String //TENIA-->ISNULL(cSubCuenta, 'x') = ISNULL(?, 'x')
+    //TENIA-->ISNULL(cSubCuenta, 'x') = ISNULL(?, 'x')
     sqlExisteSaldo = "SELECT * FROM tSaldos WITH(ROWLOCK) " + "WHERE cRamo = ?  AND cUnidadResponsable = ? AND aEjercicioFiscal = ? AND cCentroContable = ? AND nCuenta = ? AND ISNULL(cSubCuenta, '') = ISNULL(?, '')";
 
-    private static final //TENIA ? EN LUGAR DE isnull(?,'')
-    String //TENIA ? EN LUGAR DE isnull(?,'')
+    private static final String //TENIA ? EN LUGAR DE isnull(?,'')
+    //TENIA ? EN LUGAR DE isnull(?,'')
     sqlInsertSaldo = "INSERT INTO tSaldos (aEjercicioFiscal, cCentroContable, cRamo, cUnidadResponsable, nCuenta,  cSubCuenta, cMoneda, " + "nMesPrimerMovimiento, nMesArrastre, mSaldoArrastre, mSaldo0, mSaldo1, mHaber1, mDeber1, mSaldo2, mHaber2, mDeber2, mSaldo3, mHaber3, mDeber3, " + "mSaldo4, mHaber4, mDeber4, mSaldo5, mHaber5, mDeber5, mSaldo6, mHaber6, mDeber6, mSaldo7, mHaber7, mDeber7, mSaldo8, mHaber8, mDeber8, " + "mSaldo9, mHaber9, mDeber9, mSaldo10, mHaber10, mDeber10, mSaldo11, mHaber11, mDeber11, mSaldo12, mHaber12, mDeber12, mSaldo13, mHaber13, mDeber13) " + "VALUES (?, ?, ?, ?, ?, isnull(?,''), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    private static final // = ISNULL(?, 'x')
-    String // = ISNULL(?, 'x')
+    private static final String // = ISNULL(?, 'x')
+    // = ISNULL(?, 'x')
     sqlUpdateSaldo = "UPDATE tSaldos WITH(ROWLOCK) SET nMesArrastre = ?, mSaldoArrastre = ?, mSaldo1 = ?, mHaber1 = ?, mDeber1 = ?, " + "mSaldo2 = ?, mHaber2 = ?, mDeber2 = ?, mSaldo3 = ?, mHaber3 = ?, mDeber3 = ?, mSaldo4 = ?, mHaber4 = ?, mDeber4 = ?, " + "mSaldo5 = ?, mHaber5 = ?, mDeber5 = ?, mSaldo6 = ?, mHaber6 = ?, mDeber6 = ?, mSaldo7 = ?, mHaber7 = ?, mDeber7 = ?, " + "mSaldo8 = ?, mHaber8 = ?, mDeber8 = ?, mSaldo9 = ?, mHaber9 = ?, mDeber9 = ?, mSaldo10 = ?, mHaber10 = ?, mDeber10 = ?, " + "mSaldo11 = ?, mHaber11 = ?, mDeber11 = ?, mSaldo12 = ?, mHaber12 = ?, mDeber12 = ?, mSaldo13 = ?, mHaber13 = ?, mDeber13 = ?, nMesPrimerMovimiento = ? " + "WHERE cRamo = ? AND cUnidadResponsable = ? AND aEjercicioFiscal = ? AND cCentroContable = ? AND nCuenta = ? AND ISNULL(cSubCuenta, 'x') = ISNULL(?, '')";
 
     private int batchSize = 15000;

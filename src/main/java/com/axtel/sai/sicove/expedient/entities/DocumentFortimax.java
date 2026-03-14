@@ -1,48 +1,51 @@
 package com.axtel.sai.sicove.expedient.entities;
 
+import java.util.Base64;
 
 public class DocumentFortimax {
 
-	private String	fortimax;
-	private String	documentName;
-	private String	documentPath;
-	private boolean	attached;
+    private String fortimax;
 
-	public String getFortimax() {
-		return fortimax;
-	}
+    private String documentName;
 
-	public void setFortimax( String fortimax ) {
-		this.fortimax = fortimax;
-	}
+    private String documentPath;
 
-	public String getDocumentName() {
-		return documentName;
-	}
+    private boolean attached;
 
-	public void setDocumentName( String documentName ) {
-		this.documentName = documentName;
-	}
+    public String getFortimax() {
+        return fortimax;
+    }
 
-	public String getDocumentPath() {
-		return documentPath;
-	}
+    public void setFortimax(String fortimax) {
+        this.fortimax = fortimax;
+    }
 
-	public void setDocumentPath( String documentPath ) {
-		this.documentPath = documentPath;
-	}
+    public String getDocumentName() {
+        return documentName;
+    }
 
-	public boolean isAttached() {
-		return attached;
-	}
+    public void setDocumentName(String documentName) {
+        this.documentName = documentName;
+    }
 
-	public void setAttached( boolean attached ) {
-		this.attached = attached;
-	}
+    public String getDocumentPath() {
+        return documentPath;
+    }
 
-	@Override
-	public String toString() {
-		return "DocumentFortimax [fortimax=" + fortimax + ", documentName=" + documentName + ", documentPath=" + documentPath + ", attached=" + attached + "]";
-	}
+    public void setDocumentPath(String documentPath) {
+        this.documentPath = documentPath;
+    }
 
+    public boolean isAttached() {
+        return attached;
+    }
+
+    public void setAttached(boolean attached) {
+        this.attached = attached;
+    }
+
+    @Override
+    public String toString() {
+        return "DocumentFortimax [fortimax=" + fortimax + ", documentName=" + documentName + ", documentPath=" + documentPath + ", attached=" + attached + "]";
+    }
 }

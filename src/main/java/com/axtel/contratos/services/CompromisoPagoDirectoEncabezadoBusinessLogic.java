@@ -9,6 +9,7 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class CompromisoPagoDirectoEncabezadoBusinessLogic extends DataSourceManager {
 

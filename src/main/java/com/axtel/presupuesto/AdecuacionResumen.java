@@ -1,75 +1,73 @@
 package com.axtel.presupuesto;
 
-
 import java.util.List;
-
 import com.syc.contable.adecuaciones.UsuarioSiplan;
-
+import java.util.Base64;
 
 public class AdecuacionResumen {
 
-	/**
-	 * 
-	 */
-	public AdecuacionResumen( ) {
-		super();
-	}
+    /**
+     */
+    public AdecuacionResumen() {
+        super();
+    }
 
-	private List<AdecuacionDetalleResumen>	detalle;
-	private AdecuacionEncabezadoResumen		encabezado;
-	private List<UsuarioSiplan>				enlacesSai;
+    private List<AdecuacionDetalleResumen> detalle;
 
-	public List<UsuarioSiplan> getEnlacesSai() {
-		return enlacesSai;
-	}
+    private AdecuacionEncabezadoResumen encabezado;
 
-	public void setEnlacesSai( List<UsuarioSiplan> enlacesSai ) {
-		this.enlacesSai = enlacesSai;
-	}
+    private List<UsuarioSiplan> enlacesSai;
 
-	/**
-	 * @param encabezado
-	 * @param detalle
-	 */
-	public AdecuacionResumen( AdecuacionEncabezadoResumen encabezado, List<AdecuacionDetalleResumen> detalle ) {
-		super();
-		this.encabezado = encabezado;
-		this.detalle = detalle;
-	}
+    public List<UsuarioSiplan> getEnlacesSai() {
+        return enlacesSai;
+    }
 
-	/**
-	 * @return the detalle
-	 */
-	public List<AdecuacionDetalleResumen> getDetalle() {
-		return detalle;
-	}
+    public void setEnlacesSai(List<UsuarioSiplan> enlacesSai) {
+        this.enlacesSai = enlacesSai;
+    }
 
-	/**
-	 * @return the encabezado
-	 */
-	public AdecuacionEncabezadoResumen getEncabezado() {
-		return encabezado;
-	}
+    /**
+     * @param encabezado
+     * @param detalle
+     */
+    public AdecuacionResumen(AdecuacionEncabezadoResumen encabezado, List<AdecuacionDetalleResumen> detalle) {
+        super();
+        this.encabezado = encabezado;
+        this.detalle = detalle;
+    }
 
-	/**
-	 * @param detalle
-	 *            the detalle to set
-	 */
-	public void setDetalle( List<AdecuacionDetalleResumen> detalle ) {
-		this.detalle = detalle;
-	}
+    /**
+     * @return the detalle
+     */
+    public List<AdecuacionDetalleResumen> getDetalle() {
+        return detalle;
+    }
 
-	/**
-	 * @param encabezado
-	 *            the encabezado to set
-	 */
-	public void setEncabezado( AdecuacionEncabezadoResumen encabezado ) {
-		this.encabezado = encabezado;
-	}
+    /**
+     * @return the encabezado
+     */
+    public AdecuacionEncabezadoResumen getEncabezado() {
+        return encabezado;
+    }
 
-	@Override
-	public String toString() {
-		return "AdecuacionResumen [detalle=" + detalle + ", encabezado=" + encabezado + ", enlacesSai=" + enlacesSai + "]";
-	}
+    /**
+     * @param detalle
+     *            the detalle to set
+     */
+    public void setDetalle(List<AdecuacionDetalleResumen> detalle) {
+        this.detalle = detalle;
+    }
 
+    /**
+     * @param encabezado
+     *            the encabezado to set
+     */
+    public void setEncabezado(AdecuacionEncabezadoResumen encabezado) {
+        this.encabezado = encabezado;
+    }
+
+    @Override
+    public String toString() {
+        return "AdecuacionResumen [detalle=" + detalle + ", encabezado=" + encabezado + ", enlacesSai=" + enlacesSai + "]";
+    }
 }

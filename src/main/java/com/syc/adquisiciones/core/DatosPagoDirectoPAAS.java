@@ -1,149 +1,167 @@
 package com.syc.adquisiciones.core;
 
+import java.util.Base64;
+
 public class DatosPagoDirectoPAAS {
-	private int		nCapitulo;
-	private String	cPartida;
-	private String	cAlmacenEntrega;
-	private String	fFechaInicio;
-	private String	fFechaFin;
-	private int		nTipoAdjudicacion;
-	private int		nFundamentoLegal;
-	private int		nFolioPago;
-	private String	cEjercicio;
-	private String	cCabm;
-	private String	cIdUnidadEjecutora;
-	private int		nCantidadTotal;
-	private double	mPUpromedio;
-	private int		nIdIVA;
-	private int		nValorIVA;
-	private int		nLinea;				// Para eliminar lineas
 
-	public int getnCapitulo() {
-		return nCapitulo;
-	}
+    private int nCapitulo;
 
-	public void setnCapitulo(int nCapitulo) {
-		this.nCapitulo = nCapitulo;
-	}
+    private String cPartida;
 
-	public String getcPartida() {
-		return cPartida;
-	}
+    private String cAlmacenEntrega;
 
-	public void setcPartida(String cPartida) {
-		this.cPartida = cPartida;
-	}
+    private String fFechaInicio;
 
-	public String getcAlmacenEntrega() {
-		return cAlmacenEntrega;
-	}
+    private String fFechaFin;
 
-	public void setcAlmacenEntrega(String cAlmacenEntrega) {
-		this.cAlmacenEntrega = cAlmacenEntrega;
-	}
+    private int nTipoAdjudicacion;
 
-	public String getfFechaInicio() {
-		return fFechaInicio;
-	}
+    private int nFundamentoLegal;
 
-	public void setfFechaInicio(String fFechaInicio) {
-		this.fFechaInicio = fFechaInicio;
-	}
+    private int nFolioPago;
 
-	public String getfFechaFin() {
-		return fFechaFin;
-	}
+    private String cEjercicio;
 
-	public void setfFechaFin(String fFechaFin) {
-		this.fFechaFin = fFechaFin;
-	}
+    private String cCabm;
 
-	public int getnTipoAdjudicacion() {
-		return nTipoAdjudicacion;
-	}
+    private String cIdUnidadEjecutora;
 
-	public void setnTipoAdjudicacion(int nTipoAdjudicacion) {
-		this.nTipoAdjudicacion = nTipoAdjudicacion;
-	}
+    private int nCantidadTotal;
 
-	public int getnFundamentoLegal() {
-		return nFundamentoLegal;
-	}
+    private double mPUpromedio;
 
-	public void setnFundamentoLegal(int nFundamentoLegal) {
-		this.nFundamentoLegal = nFundamentoLegal;
-	}
+    private int nIdIVA;
 
-	public int getnFolioPago() {
-		return nFolioPago;
-	}
+    private int nValorIVA;
 
-	public void setnFolioPago(int nFolioPago) {
-		this.nFolioPago = nFolioPago;
-	}
+    // Para eliminar lineas
+    private int nLinea;
 
-	public String getcEjercicio() {
-		return cEjercicio;
-	}
+    public int getnCapitulo() {
+        return nCapitulo;
+    }
 
-	public void setcEjercicio(String cEjercicio) {
-		this.cEjercicio = cEjercicio;
-	}
+    public void setnCapitulo(int nCapitulo) {
+        this.nCapitulo = nCapitulo;
+    }
 
-	public String getcIdUnidadEjecutora() {
-		return cIdUnidadEjecutora;
-	}
+    public String getcPartida() {
+        return cPartida;
+    }
 
-	public void setcIdUnidadEjecutora(String cIdUnidadEjecutora) {
-		this.cIdUnidadEjecutora = cIdUnidadEjecutora;
-	}
+    public void setcPartida(String cPartida) {
+        this.cPartida = cPartida;
+    }
 
-	public String getcCabm() {
-		return cCabm;
-	}
+    public String getcAlmacenEntrega() {
+        return cAlmacenEntrega;
+    }
 
-	public void setcCabm(String cCabm) {
-		this.cCabm = cCabm;
-	}
+    public void setcAlmacenEntrega(String cAlmacenEntrega) {
+        this.cAlmacenEntrega = cAlmacenEntrega;
+    }
 
-	public int getnCantidadTotal() {
-		return nCantidadTotal;
-	}
+    public String getfFechaInicio() {
+        return fFechaInicio;
+    }
 
-	public void setnCantidadTotal(int nCantidadTotal) {
-		this.nCantidadTotal = nCantidadTotal;
-	}
+    public void setfFechaInicio(String fFechaInicio) {
+        this.fFechaInicio = fFechaInicio;
+    }
 
-	public double getmPUpromedio() {
-		return mPUpromedio;
-	}
+    public String getfFechaFin() {
+        return fFechaFin;
+    }
 
-	public void setmPUpromedio(double mPUpromedio) {
-		this.mPUpromedio = mPUpromedio;
-	}
+    public void setfFechaFin(String fFechaFin) {
+        this.fFechaFin = fFechaFin;
+    }
 
-	public int getnIdIVA() {
-		return nIdIVA;
-	}
+    public int getnTipoAdjudicacion() {
+        return nTipoAdjudicacion;
+    }
 
-	public void setnIdIVA(int nIdIVA) {
-		this.nIdIVA = nIdIVA;
-	}
+    public void setnTipoAdjudicacion(int nTipoAdjudicacion) {
+        this.nTipoAdjudicacion = nTipoAdjudicacion;
+    }
 
-	public int getnValorIVA() {
-		return nValorIVA;
-	}
+    public int getnFundamentoLegal() {
+        return nFundamentoLegal;
+    }
 
-	public void setnValorIVA(int nValorIVA) {
-		this.nValorIVA = nValorIVA;
-	}
+    public void setnFundamentoLegal(int nFundamentoLegal) {
+        this.nFundamentoLegal = nFundamentoLegal;
+    }
 
-	public int getnLinea() {
-		return nLinea;
-	}
+    public int getnFolioPago() {
+        return nFolioPago;
+    }
 
-	public void setnLinea(int nLinea) {
-		this.nLinea = nLinea;
-	}
+    public void setnFolioPago(int nFolioPago) {
+        this.nFolioPago = nFolioPago;
+    }
 
+    public String getcEjercicio() {
+        return cEjercicio;
+    }
+
+    public void setcEjercicio(String cEjercicio) {
+        this.cEjercicio = cEjercicio;
+    }
+
+    public String getcIdUnidadEjecutora() {
+        return cIdUnidadEjecutora;
+    }
+
+    public void setcIdUnidadEjecutora(String cIdUnidadEjecutora) {
+        this.cIdUnidadEjecutora = cIdUnidadEjecutora;
+    }
+
+    public String getcCabm() {
+        return cCabm;
+    }
+
+    public void setcCabm(String cCabm) {
+        this.cCabm = cCabm;
+    }
+
+    public int getnCantidadTotal() {
+        return nCantidadTotal;
+    }
+
+    public void setnCantidadTotal(int nCantidadTotal) {
+        this.nCantidadTotal = nCantidadTotal;
+    }
+
+    public double getmPUpromedio() {
+        return mPUpromedio;
+    }
+
+    public void setmPUpromedio(double mPUpromedio) {
+        this.mPUpromedio = mPUpromedio;
+    }
+
+    public int getnIdIVA() {
+        return nIdIVA;
+    }
+
+    public void setnIdIVA(int nIdIVA) {
+        this.nIdIVA = nIdIVA;
+    }
+
+    public int getnValorIVA() {
+        return nValorIVA;
+    }
+
+    public void setnValorIVA(int nValorIVA) {
+        this.nValorIVA = nValorIVA;
+    }
+
+    public int getnLinea() {
+        return nLinea;
+    }
+
+    public void setnLinea(int nLinea) {
+        this.nLinea = nLinea;
+    }
 }

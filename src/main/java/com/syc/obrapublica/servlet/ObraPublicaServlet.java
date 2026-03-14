@@ -28,6 +28,7 @@ import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ObraPublicaServlet", urlPatterns = { "/AplicaContableObraPublica", "/GeneraInformacionContrato", "/ConvenioModificatorio", "/CapturaEstimacion", "/NoContratoGenerador", "/NoConvenioGenerador" })
 public class ObraPublicaServlet extends HttpServlet implements GestionInterface {

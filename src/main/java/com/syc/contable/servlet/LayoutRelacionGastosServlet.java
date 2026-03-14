@@ -26,6 +26,7 @@ import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "LayoutRelacionGastosServlet", urlPatterns = { "/gstnmngr/generaLayoutRelacionGastos" })
 public class LayoutRelacionGastosServlet extends HttpServlet {

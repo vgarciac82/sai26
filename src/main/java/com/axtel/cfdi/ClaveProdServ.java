@@ -1,30 +1,31 @@
 package com.axtel.cfdi;
 
+import java.util.Base64;
 
 public class ClaveProdServ {
 
-	private String	claveProdServ;
-	private String	descripcion;
+    private String claveProdServ;
 
-	public String getClaveProdServ() {
-		return claveProdServ;
-	}
+    private String descripcion;
 
-	public void setClaveProdServ( String claveProdServ ) {
-		this.claveProdServ = claveProdServ;
-	}
+    public String getClaveProdServ() {
+        return claveProdServ;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public void setClaveProdServ(String claveProdServ) {
+        this.claveProdServ = claveProdServ;
+    }
 
-	public void setDescripcion( String descripcion ) {
-		this.descripcion = descripcion;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	@Override
-	public String toString() {
-		return "ClaveProdServ [claveProdServ=" + claveProdServ + ", descripcion=" + descripcion + "]";
-	}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
+    @Override
+    public String toString() {
+        return "ClaveProdServ [claveProdServ=" + claveProdServ + ", descripcion=" + descripcion + "]";
+    }
 }

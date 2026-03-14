@@ -3,6 +3,7 @@ package com.axtel.cfdi.stamp.core;
 import javax.crypto.SecretKey;
 import com.syc.cfdi.security.TripleDesEncryption;
 import jakarta.xml.bind.DatatypeConverter;
+import java.util.Base64;
 
 public class UtilSecurity {
 

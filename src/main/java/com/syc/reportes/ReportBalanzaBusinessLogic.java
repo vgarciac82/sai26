@@ -10,6 +10,7 @@ import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import com.syc.reportes.core.ReporteBalanzaManager;
+import java.util.Base64;
 
 public class ReportBalanzaBusinessLogic extends DataSourceManager {
 

@@ -15,6 +15,7 @@ import com.syc.gestion.reportes.core.ReporteTomaDeDesicionManager;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 /**
  * Logica de negocio para la generacion de reportes.

@@ -2,229 +2,201 @@ package com.syc.gestion.core;
 
 import java.io.Serializable;
 import java.util.Vector;
-
 import org.jdom.Element;
+import java.util.Base64;
 
 public class Operacion implements Serializable {
 
-	public static final long serialVersionUID = 1L;
+    public static final long serialVersionUID = 1L;
 
-	private int id_tc;
-	private int id_oper;
-	private int o_numero;
-	private String o_nombre;
-	private String o_responsable;
-	private String o_descripcion;
-	private String o_plantilla;
-	private int o_tiempo_limite;
-	private String o_alarma;
-	private String o_post_display;
-	private String o_post_submit;
-	private String o_on_load;
-	private String o_on_submit;
-	private String o_folder_docto;
-	private String o_on_cancel;
+    private int id_tc;
 
-	public String getOnCancel() {
-		return o_on_cancel;
-	}
+    private int id_oper;
 
-	public void setOnCancel(String oOnCancel) {
-		o_on_cancel = oOnCancel;
-	}
+    private int o_numero;
 
-	private Vector operacion_sgte;
+    private String o_nombre;
 
-	public int getIdTC() {
+    private String o_responsable;
 
-		return id_tc;
-	}
+    private String o_descripcion;
 
-	public void setIdTC(int id_tc) {
+    private String o_plantilla;
 
-		this.id_tc = id_tc;
-	}
+    private int o_tiempo_limite;
 
-	public int getIdOperacion() {
+    private String o_alarma;
 
-		return id_oper;
-	}
+    private String o_post_display;
 
-	public void setIdOperacion(int id_oper) {
+    private String o_post_submit;
 
-		this.id_oper = id_oper;
-	}
+    private String o_on_load;
 
-	public int getNumero() {
+    private String o_on_submit;
 
-		return o_numero;
-	}
+    private String o_folder_docto;
 
-	public void setNumero(int o_numero) {
+    private String o_on_cancel;
 
-		this.o_numero = o_numero;
-	}
+    public String getOnCancel() {
+        return o_on_cancel;
+    }
 
-	public String getNombre() {
+    public void setOnCancel(String oOnCancel) {
+        o_on_cancel = oOnCancel;
+    }
 
-		return o_nombre;
-	}
+    private Vector operacion_sgte;
 
-	public void setNombre(String o_nombre) {
+    public int getIdTC() {
+        return id_tc;
+    }
 
-		this.o_nombre = o_nombre;
-	}
+    public void setIdTC(int id_tc) {
+        this.id_tc = id_tc;
+    }
 
-	public String getResponsable() {
+    public int getIdOperacion() {
+        return id_oper;
+    }
 
-		return o_responsable;
-	}
+    public void setIdOperacion(int id_oper) {
+        this.id_oper = id_oper;
+    }
 
-	public void setResponsable(String o_responsable) {
+    public int getNumero() {
+        return o_numero;
+    }
 
-		this.o_responsable = o_responsable;
-	}
+    public void setNumero(int o_numero) {
+        this.o_numero = o_numero;
+    }
 
-	public String getDescripcion() {
+    public String getNombre() {
+        return o_nombre;
+    }
 
-		return o_descripcion;
-	}
+    public void setNombre(String o_nombre) {
+        this.o_nombre = o_nombre;
+    }
 
-	public void setDescripcion(String o_descripcion) {
+    public String getResponsable() {
+        return o_responsable;
+    }
 
-		this.o_descripcion = o_descripcion;
-	}
+    public void setResponsable(String o_responsable) {
+        this.o_responsable = o_responsable;
+    }
 
-	public String getPlantilla() {
+    public String getDescripcion() {
+        return o_descripcion;
+    }
 
-		return o_plantilla;
-	}
+    public void setDescripcion(String o_descripcion) {
+        this.o_descripcion = o_descripcion;
+    }
 
-	public void setPlantilla(String o_plantilla) {
+    public String getPlantilla() {
+        return o_plantilla;
+    }
 
-		this.o_plantilla = o_plantilla;
-	}
+    public void setPlantilla(String o_plantilla) {
+        this.o_plantilla = o_plantilla;
+    }
 
-	public int getTiempoLimite() {
-
-		return o_tiempo_limite;
-	}
-
-	public void setTiempoLimite(int o_tiempo_limite) {
-
-		this.o_tiempo_limite = o_tiempo_limite;
-	}
-
-	public String getAlarma() {
-
-		return o_alarma;
-	}
-
-	public void setAlarma(String o_alarma) {
-
-		this.o_alarma = o_alarma;
-	}
-
-	public String getPostDisplay() {
-
-		return o_post_display;
-	}
-
-	public void setPostDisplay(String o_post_display) {
-
-		this.o_post_display = o_post_display;
-	}
-
-	public String getPostSubmit() {
-
-		return o_post_submit;
-	}
-
-	public void setPostSubmit(String o_post_submit) {
-
-		this.o_post_submit = o_post_submit;
-	}
-
-	public String getOnLoad() {
-
-		return o_on_load;
-	}
-
-	public void setOnLoad(String o_on_load) {
-
-		this.o_on_load = o_on_load;
-	}
-
-	public String getOnSubmit() {
-
-		return o_on_submit;
-	}
-
-	public void setOnSubmit(String o_on_submit) {
-
-		this.o_on_submit = o_on_submit;
-	}
-
-	public Vector getOperacionSgte() {
-
-		if (operacion_sgte == null)
-			operacion_sgte = new Vector();
-
-		return operacion_sgte;
-	}
-
-	public OperacionSiguiente getOperacionSgte(int index) {
-
-		if (operacion_sgte == null)
-			operacion_sgte = new Vector();
-
-		return (OperacionSiguiente) operacion_sgte.get(index);
-	}
-
-	public void setOperacionSgte(OperacionSiguiente os) {
-
-		if (operacion_sgte == null)
-			operacion_sgte = new Vector();
-
-		operacion_sgte.add(os);
-	}
-
-	public void setOperacionSgte(Vector operacion_sgte) {
-
-		this.operacion_sgte = operacion_sgte;
-	}
-
-	public String getFolderDocto() {
-
-		return o_folder_docto;
-	}
-
-	public void setFolderDocto(String o_folder_docto) {
-
-		this.o_folder_docto = o_folder_docto;
-	}
-
-	public Element toXML() {
-
-		Element elOper = new Element("oper");
-		elOper.setAttribute("nombre", getNombre());
-		elOper.setAttribute("resp", getResponsable());
-
-		Element elDesc = new Element("descripcion").addContent(getDescripcion());
-		elOper.addContent(elDesc);
-
-		Element elOpersSgtes = new Element("opersSgtes");
-
-		for (int i = 0; i < getOperacionSgte().size(); i++) {
-			Element elOperSgte = new Element("operSgte");
-			elOperSgte.setAttribute("resp", getOperacionSgte(i).getResponsable());
-			elOperSgte.setAttribute("oper", getOperacionSgte(i).getOperacion());
-
-			elOpersSgtes.addContent(elOperSgte);
-		}
-
-		elOper.addContent(elOpersSgtes);
-
-		return elOper;
-	}
+    public int getTiempoLimite() {
+        return o_tiempo_limite;
+    }
+
+    public void setTiempoLimite(int o_tiempo_limite) {
+        this.o_tiempo_limite = o_tiempo_limite;
+    }
+
+    public String getAlarma() {
+        return o_alarma;
+    }
+
+    public void setAlarma(String o_alarma) {
+        this.o_alarma = o_alarma;
+    }
+
+    public String getPostDisplay() {
+        return o_post_display;
+    }
+
+    public void setPostDisplay(String o_post_display) {
+        this.o_post_display = o_post_display;
+    }
+
+    public String getPostSubmit() {
+        return o_post_submit;
+    }
+
+    public void setPostSubmit(String o_post_submit) {
+        this.o_post_submit = o_post_submit;
+    }
+
+    public String getOnLoad() {
+        return o_on_load;
+    }
+
+    public void setOnLoad(String o_on_load) {
+        this.o_on_load = o_on_load;
+    }
+
+    public String getOnSubmit() {
+        return o_on_submit;
+    }
+
+    public void setOnSubmit(String o_on_submit) {
+        this.o_on_submit = o_on_submit;
+    }
+
+    public Vector getOperacionSgte() {
+        if (operacion_sgte == null)
+            operacion_sgte = new Vector();
+        return operacion_sgte;
+    }
+
+    public OperacionSiguiente getOperacionSgte(int index) {
+        if (operacion_sgte == null)
+            operacion_sgte = new Vector();
+        return (OperacionSiguiente) operacion_sgte.get(index);
+    }
+
+    public void setOperacionSgte(OperacionSiguiente os) {
+        if (operacion_sgte == null)
+            operacion_sgte = new Vector();
+        operacion_sgte.add(os);
+    }
+
+    public void setOperacionSgte(Vector operacion_sgte) {
+        this.operacion_sgte = operacion_sgte;
+    }
+
+    public String getFolderDocto() {
+        return o_folder_docto;
+    }
+
+    public void setFolderDocto(String o_folder_docto) {
+        this.o_folder_docto = o_folder_docto;
+    }
+
+    public Element toXML() {
+        Element elOper = new Element("oper");
+        elOper.setAttribute("nombre", getNombre());
+        elOper.setAttribute("resp", getResponsable());
+        Element elDesc = new Element("descripcion").addContent(getDescripcion());
+        elOper.addContent(elDesc);
+        Element elOpersSgtes = new Element("opersSgtes");
+        for (int i = 0; i < getOperacionSgte().size(); i++) {
+            Element elOperSgte = new Element("operSgte");
+            elOperSgte.setAttribute("resp", getOperacionSgte(i).getResponsable());
+            elOperSgte.setAttribute("oper", getOperacionSgte(i).getOperacion());
+            elOpersSgtes.addContent(elOperSgte);
+        }
+        elOper.addContent(elOpersSgtes);
+        return elOper;
+    }
 }

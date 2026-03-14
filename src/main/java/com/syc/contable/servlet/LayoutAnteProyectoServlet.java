@@ -28,6 +28,8 @@ import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 
 @WebServlet(name = "AnteProyectoLayoutServlet", urlPatterns = { "/gstnmngr/AnteProyectoLayoutServlet" })
 public class LayoutAnteProyectoServlet extends HttpServlet {
@@ -142,9 +144,10 @@ public class LayoutAnteProyectoServlet extends HttpServlet {
             arrAnteProyecto = antProy.RecuperaAnteProyecto(cUnidadResponsable, c);
         } finally {
         }
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
         //determina el directorio temporal
-        ServletFileUpload upload = new ServletFileUpload();
-        upload.setRepositoryPath(tempDir);
+        JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         //
         String file_name = c.getFolio();
         int iPaso = c.getCasoOperacion(0).getIdOperacion();

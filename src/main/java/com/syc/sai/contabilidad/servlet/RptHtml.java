@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "ReportetoHtml", urlPatterns = { "/reports/ReportetoHtml" })
 public class RptHtml extends HttpServlet implements GestionInterface {

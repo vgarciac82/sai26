@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import com.syc.adquisiciones.core.DatosContratoCap4;
 import com.syc.gestion.core.Usuario;
+import java.util.Base64;
 
 public interface ContratoCap4Interface {
 

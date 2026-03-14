@@ -18,6 +18,7 @@ import com.syc.gestion.core.Usuario;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class CargaInboxServlet extends HttpServlet implements GestionInterface {
 

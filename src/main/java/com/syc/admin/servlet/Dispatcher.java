@@ -12,6 +12,7 @@ import com.syc.admin.AdminException;
 import com.syc.admin.core.Usuario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class Dispatcher extends javax.servlet.http.HttpServlet {
 

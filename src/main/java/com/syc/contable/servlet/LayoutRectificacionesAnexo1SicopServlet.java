@@ -19,6 +19,7 @@ import com.syc.gestion.core.Caso;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "LayoutRectificaAnexo1SicopServlet", urlPatterns = { "/gstnmngr/RectificaAnexo1Sicop" })
 public class LayoutRectificacionesAnexo1SicopServlet extends HttpServlet {

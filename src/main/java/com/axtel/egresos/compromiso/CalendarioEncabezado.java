@@ -1,12 +1,16 @@
 package com.axtel.egresos.compromiso;
 
-
 import java.util.List;
+import java.util.Base64;
 
 public class CalendarioEncabezado {
+
     private String folio;
+
     private String ep;
+
     private String tipo;
+
     private List<CalendarioDetalle> datos;
 
     // Getters y setters
@@ -34,11 +38,11 @@ public class CalendarioEncabezado {
         this.datos = datos;
     }
 
-	public String getFolio() {
-		return folio;
-	}
+    public String getFolio() {
+        return folio;
+    }
 
-	public void setFolio( String folio ) {
-		this.folio = folio;
-	}
+    public void setFolio(String folio) {
+        this.folio = folio;
+    }
 }

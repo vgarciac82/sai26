@@ -7,6 +7,7 @@ import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.ejercido.pagado.manual.core.ImpresionChequeManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class ImpresionChequeBusinessLogic extends DataSourceManager {
 

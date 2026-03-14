@@ -29,6 +29,7 @@ import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "UploadDocBancarioServlet", urlPatterns = { "/UploadDocBancario" })
 public class UploadDocBancarioServlet extends HttpServlet implements GestionInterface {

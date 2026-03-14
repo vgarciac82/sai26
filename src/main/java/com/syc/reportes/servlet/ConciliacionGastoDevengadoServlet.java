@@ -17,6 +17,7 @@ import com.syc.reportes.ConciliacionGastoDevengadoBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ConciliacionGastoDevengado", urlPatterns = { "/reportes/ConciliacionGastoDevengado" })
 public class ConciliacionGastoDevengadoServlet extends HttpServlet implements GestionInterface {

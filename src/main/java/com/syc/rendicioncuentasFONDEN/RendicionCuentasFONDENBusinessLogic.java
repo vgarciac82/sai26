@@ -14,6 +14,7 @@ import com.syc.ws.fonden.PolizaAutomatica;
 import com.syc.ws.fonden.PolizaAutomaticaDetalle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class RendicionCuentasFONDENBusinessLogic extends DataSourceManager {
 

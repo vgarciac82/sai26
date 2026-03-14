@@ -1,337 +1,356 @@
 package com.syc.ejercido.pagado;
 
+import java.util.Base64;
+
 public class EjercidoEncabezado {
-	private String	caNoContrarrecibo;
-	private String	descripcionPoliza;
-	private String	fAplicacion;
-	private String	fCancelacion;
-	private String	fechaAplicacionSicop;
-	private String	fechaPagoSicop;
-	private int		folioEjercido;
-	private int		folioPAGO;
-	private int		folioPoliza;
-	private int		folioPolizaCancelacion;
-	private int		folioSIAFF;
-	private int		folioSICOP;
-	private String	idUsuarioCaptura;
-	private String	login;
-	private String	numeroProceso;
-	private String	ramo;
-	private String	solicitudPago;
-	private String	tipoPago;
-	private String	tipoPoliza;
-	private String	unidadResponsableContable;
 
-	/**
-	 * @return the caNoContrarrecibo
-	 */
-	public String getCaNoContrarrecibo() {
-		return caNoContrarrecibo;
-	}
+    private String caNoContrarrecibo;
 
-	/**
-	 * @return the descripcionPoliza
-	 */
-	public String getDescripcionPoliza() {
-		return descripcionPoliza;
-	}
+    private String descripcionPoliza;
 
-	/**
-	 * @return the fAplicacion
-	 */
-	public String getfAplicacion() {
-		return fAplicacion;
-	}
+    private String fAplicacion;
 
-	/**
-	 * @return the fCancelacion
-	 */
-	public String getfCancelacion() {
-		return fCancelacion;
-	}
+    private String fCancelacion;
 
-	/**
-	 * @return the fechaAplicacionSicop
-	 */
-	public String getFechaAplicacionSicop() {
-		return fechaAplicacionSicop;
-	}
+    private String fechaAplicacionSicop;
 
-	/**
-	 * @return the fechaPagoSicop
-	 */
-	public String getFechaPagoSicop() {
-		return fechaPagoSicop;
-	}
+    private String fechaPagoSicop;
 
-	/**
-	 * @return the folioEjercido
-	 */
-	public int getFolioEjercido() {
-		return folioEjercido;
-	}
+    private int folioEjercido;
 
-	/**
-	 * @return the folioPAGO
-	 */
-	public int getFolioPAGO() {
-		return folioPAGO;
-	}
+    private int folioPAGO;
 
-	/**
-	 * @return the folioPoliza
-	 */
-	public int getFolioPoliza() {
-		return folioPoliza;
-	}
+    private int folioPoliza;
 
-	/**
-	 * @return the folioPolizaCancelacion
-	 */
-	public int getFolioPolizaCancelacion() {
-		return folioPolizaCancelacion;
-	}
+    private int folioPolizaCancelacion;
 
-	/**
-	 * @return the folioSIAFF
-	 */
-	public int getFolioSIAFF() {
-		return folioSIAFF;
-	}
+    private int folioSIAFF;
 
-	/**
-	 * @return the folioSICOP
-	 */
-	public int getFolioSICOP() {
-		return folioSICOP;
-	}
+    private int folioSICOP;
 
-	/**
-	 * @return the idUsuarioCaptura
-	 */
-	public String getIdUsuarioCaptura() {
-		return idUsuarioCaptura;
-	}
+    private String idUsuarioCaptura;
 
-	/**
-	 * @return the login
-	 */
-	public String getLogin() {
-		return login;
-	}
+    private String login;
 
-	/**
-	 * @return the numeroProceso
-	 */
-	public String getNumeroProceso() {
-		return numeroProceso;
-	}
+    private String numeroProceso;
 
-	/**
-	 * @return the ramo
-	 */
-	public String getRamo() {
-		return ramo;
-	}
+    private String ramo;
 
-	/**
-	 * @return the solicitudPago
-	 */
-	public String getSolicitudPago() {
-		return solicitudPago;
-	}
+    private String solicitudPago;
 
-	/**
-	 * @return the tipoPago
-	 */
-	public String getTipoPago() {
-		return tipoPago;
-	}
+    private String tipoPago;
 
-	/**
-	 * @return the tipoPoliza
-	 */
-	public String getTipoPoliza() {
-		return tipoPoliza;
-	}
+    private String tipoPoliza;
 
-	/**
-	 * @return the unidadResponsableContable
-	 */
-	public String getUnidadResponsableContable() {
-		return unidadResponsableContable;
-	}
+    private String unidadResponsableContable;
 
-	/**
-	 * @param caNoContrarrecibo
-	 *            the caNoContrarrecibo to set
-	 */
-	public void setCaNoContrarrecibo(String caNoContrarrecibo) {
-		this.caNoContrarrecibo = caNoContrarrecibo;
-	}
+    /**
+     * @return the caNoContrarrecibo
+     */
+    public String getCaNoContrarrecibo() {
+        return caNoContrarrecibo;
+    }
 
-	/**
-	 * @param descripcionPoliza
-	 *            the descripcionPoliza to set
-	 */
-	public void setDescripcionPoliza(String descripcionPoliza) {
-		this.descripcionPoliza = descripcionPoliza;
-	}
+    /**
+     * @return the descripcionPoliza
+     */
+    public String getDescripcionPoliza() {
+        return descripcionPoliza;
+    }
 
-	/**
-	 * @param fAplicacion
-	 *            the fAplicacion to set
-	 */
-	public void setfAplicacion(String fAplicacion) {
-		this.fAplicacion = fAplicacion;
-	}
+    /**
+     * @return the fAplicacion
+     */
+    public String getfAplicacion() {
+        return fAplicacion;
+    }
 
-	/**
-	 * @param fCancelacion
-	 *            the fCancelacion to set
-	 */
-	public void setfCancelacion(String fCancelacion) {
-		this.fCancelacion = fCancelacion;
-	}
+    /**
+     * @return the fCancelacion
+     */
+    public String getfCancelacion() {
+        return fCancelacion;
+    }
 
-	/**
-	 * @param fechaAplicacionSicop
-	 *            the fechaAplicacionSicop to set
-	 */
-	public void setFechaAplicacionSicop(String fechaAplicacionSicop) {
-		this.fechaAplicacionSicop = fechaAplicacionSicop;
-	}
+    /**
+     * @return the fechaAplicacionSicop
+     */
+    public String getFechaAplicacionSicop() {
+        return fechaAplicacionSicop;
+    }
 
-	/**
-	 * @param fechaPagoSicop
-	 *            the fechaPagoSicop to set
-	 */
-	public void setFechaPagoSicop(String fechaPagoSicop) {
-		this.fechaPagoSicop = fechaPagoSicop;
-	}
+    /**
+     * @return the fechaPagoSicop
+     */
+    public String getFechaPagoSicop() {
+        return fechaPagoSicop;
+    }
 
-	/**
-	 * @param folioEjercido
-	 *            the folioEjercido to set
-	 */
-	public void setFolioEjercido(int folioEjercido) {
-		this.folioEjercido = folioEjercido;
-	}
+    /**
+     * @return the folioEjercido
+     */
+    public int getFolioEjercido() {
+        return folioEjercido;
+    }
 
-	/**
-	 * @param folioPAGO
-	 *            the folioPAGO to set
-	 */
-	public void setFolioPAGO(int folioPAGO) {
-		this.folioPAGO = folioPAGO;
-	}
+    /**
+     * @return the folioPAGO
+     */
+    public int getFolioPAGO() {
+        return folioPAGO;
+    }
 
-	/**
-	 * @param folioPoliza
-	 *            the folioPoliza to set
-	 */
-	public void setFolioPoliza(int folioPoliza) {
-		this.folioPoliza = folioPoliza;
-	}
+    /**
+     * @return the folioPoliza
+     */
+    public int getFolioPoliza() {
+        return folioPoliza;
+    }
 
-	/**
-	 * @param folioPolizaCancelacion
-	 *            the folioPolizaCancelacion to set
-	 */
-	public void setFolioPolizaCancelacion(int folioPolizaCancelacion) {
-		this.folioPolizaCancelacion = folioPolizaCancelacion;
-	}
+    /**
+     * @return the folioPolizaCancelacion
+     */
+    public int getFolioPolizaCancelacion() {
+        return folioPolizaCancelacion;
+    }
 
-	/**
-	 * @param folioSIAFF
-	 *            the folioSIAFF to set
-	 */
-	public void setFolioSIAFF(int folioSIAFF) {
-		this.folioSIAFF = folioSIAFF;
-	}
+    /**
+     * @return the folioSIAFF
+     */
+    public int getFolioSIAFF() {
+        return folioSIAFF;
+    }
 
-	/**
-	 * @param folioSICOP
-	 *            the folioSICOP to set
-	 */
-	public void setFolioSICOP(int folioSICOP) {
-		this.folioSICOP = folioSICOP;
-	}
+    /**
+     * @return the folioSICOP
+     */
+    public int getFolioSICOP() {
+        return folioSICOP;
+    }
 
-	/**
-	 * @param idUsuarioCaptura
-	 *            the idUsuarioCaptura to set
-	 */
-	public void setIdUsuarioCaptura(String idUsuarioCaptura) {
-		this.idUsuarioCaptura = idUsuarioCaptura;
-	}
+    /**
+     * @return the idUsuarioCaptura
+     */
+    public String getIdUsuarioCaptura() {
+        return idUsuarioCaptura;
+    }
 
-	/**
-	 * @param login
-	 *            the login to set
-	 */
-	public void setLogin(String login) {
-		this.login = login;
-	}
+    /**
+     * @return the login
+     */
+    public String getLogin() {
+        return login;
+    }
 
-	/**
-	 * @param numeroProceso
-	 *            the numeroProceso to set
-	 */
-	public void setNumeroProceso(String numeroProceso) {
-		this.numeroProceso = numeroProceso;
-	}
+    /**
+     * @return the numeroProceso
+     */
+    public String getNumeroProceso() {
+        return numeroProceso;
+    }
 
-	/**
-	 * @param ramo
-	 *            the ramo to set
-	 */
-	public void setRamo(String ramo) {
-		this.ramo = ramo;
-	}
+    /**
+     * @return the ramo
+     */
+    public String getRamo() {
+        return ramo;
+    }
 
-	/**
-	 * @param solicitudPago
-	 *            the solicitudPago to set
-	 */
-	public void setSolicitudPago(String solicitudPago) {
-		this.solicitudPago = solicitudPago;
-	}
+    /**
+     * @return the solicitudPago
+     */
+    public String getSolicitudPago() {
+        return solicitudPago;
+    }
 
-	/**
-	 * @param tipoPago
-	 *            the tipoPago to set
-	 */
-	public void setTipoPago(String tipoPago) {
-		this.tipoPago = tipoPago;
-	}
+    /**
+     * @return the tipoPago
+     */
+    public String getTipoPago() {
+        return tipoPago;
+    }
 
-	/**
-	 * @param tipoPoliza
-	 *            the tipoPoliza to set
-	 */
-	public void setTipoPoliza(String tipoPoliza) {
-		this.tipoPoliza = tipoPoliza;
-	}
+    /**
+     * @return the tipoPoliza
+     */
+    public String getTipoPoliza() {
+        return tipoPoliza;
+    }
 
-	/**
-	 * @param unidadResponsableContable
-	 *            the unidadResponsableContable to set
-	 */
-	public void setUnidadResponsableContable(String unidadResponsableContable) {
-		this.unidadResponsableContable = unidadResponsableContable;
-	}
+    /**
+     * @return the unidadResponsableContable
+     */
+    public String getUnidadResponsableContable() {
+        return unidadResponsableContable;
+    }
 
-	/*
+    /**
+     * @param caNoContrarrecibo
+     *            the caNoContrarrecibo to set
+     */
+    public void setCaNoContrarrecibo(String caNoContrarrecibo) {
+        this.caNoContrarrecibo = caNoContrarrecibo;
+    }
+
+    /**
+     * @param descripcionPoliza
+     *            the descripcionPoliza to set
+     */
+    public void setDescripcionPoliza(String descripcionPoliza) {
+        this.descripcionPoliza = descripcionPoliza;
+    }
+
+    /**
+     * @param fAplicacion
+     *            the fAplicacion to set
+     */
+    public void setfAplicacion(String fAplicacion) {
+        this.fAplicacion = fAplicacion;
+    }
+
+    /**
+     * @param fCancelacion
+     *            the fCancelacion to set
+     */
+    public void setfCancelacion(String fCancelacion) {
+        this.fCancelacion = fCancelacion;
+    }
+
+    /**
+     * @param fechaAplicacionSicop
+     *            the fechaAplicacionSicop to set
+     */
+    public void setFechaAplicacionSicop(String fechaAplicacionSicop) {
+        this.fechaAplicacionSicop = fechaAplicacionSicop;
+    }
+
+    /**
+     * @param fechaPagoSicop
+     *            the fechaPagoSicop to set
+     */
+    public void setFechaPagoSicop(String fechaPagoSicop) {
+        this.fechaPagoSicop = fechaPagoSicop;
+    }
+
+    /**
+     * @param folioEjercido
+     *            the folioEjercido to set
+     */
+    public void setFolioEjercido(int folioEjercido) {
+        this.folioEjercido = folioEjercido;
+    }
+
+    /**
+     * @param folioPAGO
+     *            the folioPAGO to set
+     */
+    public void setFolioPAGO(int folioPAGO) {
+        this.folioPAGO = folioPAGO;
+    }
+
+    /**
+     * @param folioPoliza
+     *            the folioPoliza to set
+     */
+    public void setFolioPoliza(int folioPoliza) {
+        this.folioPoliza = folioPoliza;
+    }
+
+    /**
+     * @param folioPolizaCancelacion
+     *            the folioPolizaCancelacion to set
+     */
+    public void setFolioPolizaCancelacion(int folioPolizaCancelacion) {
+        this.folioPolizaCancelacion = folioPolizaCancelacion;
+    }
+
+    /**
+     * @param folioSIAFF
+     *            the folioSIAFF to set
+     */
+    public void setFolioSIAFF(int folioSIAFF) {
+        this.folioSIAFF = folioSIAFF;
+    }
+
+    /**
+     * @param folioSICOP
+     *            the folioSICOP to set
+     */
+    public void setFolioSICOP(int folioSICOP) {
+        this.folioSICOP = folioSICOP;
+    }
+
+    /**
+     * @param idUsuarioCaptura
+     *            the idUsuarioCaptura to set
+     */
+    public void setIdUsuarioCaptura(String idUsuarioCaptura) {
+        this.idUsuarioCaptura = idUsuarioCaptura;
+    }
+
+    /**
+     * @param login
+     *            the login to set
+     */
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    /**
+     * @param numeroProceso
+     *            the numeroProceso to set
+     */
+    public void setNumeroProceso(String numeroProceso) {
+        this.numeroProceso = numeroProceso;
+    }
+
+    /**
+     * @param ramo
+     *            the ramo to set
+     */
+    public void setRamo(String ramo) {
+        this.ramo = ramo;
+    }
+
+    /**
+     * @param solicitudPago
+     *            the solicitudPago to set
+     */
+    public void setSolicitudPago(String solicitudPago) {
+        this.solicitudPago = solicitudPago;
+    }
+
+    /**
+     * @param tipoPago
+     *            the tipoPago to set
+     */
+    public void setTipoPago(String tipoPago) {
+        this.tipoPago = tipoPago;
+    }
+
+    /**
+     * @param tipoPoliza
+     *            the tipoPoliza to set
+     */
+    public void setTipoPoliza(String tipoPoliza) {
+        this.tipoPoliza = tipoPoliza;
+    }
+
+    /**
+     * @param unidadResponsableContable
+     *            the unidadResponsableContable to set
+     */
+    public void setUnidadResponsableContable(String unidadResponsableContable) {
+        this.unidadResponsableContable = unidadResponsableContable;
+    }
+
+    /*
 	 * (non-Javadoc)
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
-	@Override
-	public String toString() {
-		return "EjercidoEncabezado [caNoContrarrecibo=" + caNoContrarrecibo + ", descripcionPoliza=" + descripcionPoliza + ", fAplicacion=" + fAplicacion + ", fCancelacion=" + fCancelacion + ", fechaAplicacionSicop=" + fechaAplicacionSicop + ", fechaPagoSicop=" + fechaPagoSicop + ", folioEjercido="
-			+ folioEjercido + ", folioPAGO=" + folioPAGO + ", folioPoliza=" + folioPoliza + ", folioPolizaCancelacion=" + folioPolizaCancelacion + ", folioSIAFF=" + folioSIAFF + ", folioSICOP=" + folioSICOP + ", idUsuarioCaptura=" + idUsuarioCaptura + ", login=" + login + ", numeroProceso="
-			+ numeroProceso + ", ramo=" + ramo + ", solicitudPago=" + solicitudPago + ", tipoPago=" + tipoPago + ", tipoPoliza=" + tipoPoliza + ", unidadResponsableContable=" + unidadResponsableContable + "]";
-	}
-
+    @Override
+    public String toString() {
+        return "EjercidoEncabezado [caNoContrarrecibo=" + caNoContrarrecibo + ", descripcionPoliza=" + descripcionPoliza + ", fAplicacion=" + fAplicacion + ", fCancelacion=" + fCancelacion + ", fechaAplicacionSicop=" + fechaAplicacionSicop + ", fechaPagoSicop=" + fechaPagoSicop + ", folioEjercido=" + folioEjercido + ", folioPAGO=" + folioPAGO + ", folioPoliza=" + folioPoliza + ", folioPolizaCancelacion=" + folioPolizaCancelacion + ", folioSIAFF=" + folioSIAFF + ", folioSICOP=" + folioSICOP + ", idUsuarioCaptura=" + idUsuarioCaptura + ", login=" + login + ", numeroProceso=" + numeroProceso + ", ramo=" + ramo + ", solicitudPago=" + solicitudPago + ", tipoPago=" + tipoPago + ", tipoPoliza=" + tipoPoliza + ", unidadResponsableContable=" + unidadResponsableContable + "]";
+    }
 }

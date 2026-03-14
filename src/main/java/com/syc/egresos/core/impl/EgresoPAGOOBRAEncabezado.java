@@ -15,6 +15,7 @@ import com.syc.contable.core.PagoObrasManager;
 import com.syc.egresos.core.Amortizacion;
 import com.syc.egresos.core.EgresoEncabezado;
 import com.syc.ejercido.pagado.core.EgresosManager;
+import java.util.Base64;
 
 /**
  * @author iccvi

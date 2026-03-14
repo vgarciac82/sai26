@@ -1,45 +1,48 @@
 package com.syc.gestion.util;
 
+import java.util.Base64;
+
 public class Condicion {
 
-	private String	nombreCampo;
-	private String	operador;
-	private String	valor;
+    private String nombreCampo;
 
-	public Condicion(String nombreCampo, String operador, String valor) {
-		super();
-		this.nombreCampo = nombreCampo;
-		this.operador = operador;
-		this.valor = valor;
-	}
+    private String operador;
 
-	public String getNombreCampo() {
-		return nombreCampo;
-	}
+    private String valor;
 
-	public void setNombreCampo(String nombreCampo) {
-		this.nombreCampo = nombreCampo;
-	}
+    public Condicion(String nombreCampo, String operador, String valor) {
+        super();
+        this.nombreCampo = nombreCampo;
+        this.operador = operador;
+        this.valor = valor;
+    }
 
-	public String getOperador() {
-		return operador;
-	}
+    public String getNombreCampo() {
+        return nombreCampo;
+    }
 
-	public void setOperador(String operador) {
-		this.operador = operador;
-	}
+    public void setNombreCampo(String nombreCampo) {
+        this.nombreCampo = nombreCampo;
+    }
 
-	public String getValor() {
-		return valor;
-	}
+    public String getOperador() {
+        return operador;
+    }
 
-	public void setValor(String valor) {
-		this.valor = valor;
-	}
+    public void setOperador(String operador) {
+        this.operador = operador;
+    }
 
-	@Override
-	public String toString() {
-		return "Condicion [nombreCampo=" + nombreCampo + ", operador=" + operador + ", valor=" + valor + "]";
-	}
+    public String getValor() {
+        return valor;
+    }
 
+    public void setValor(String valor) {
+        this.valor = valor;
+    }
+
+    @Override
+    public String toString() {
+        return "Condicion [nombreCampo=" + nombreCampo + ", operador=" + operador + ", valor=" + valor + "]";
+    }
 }

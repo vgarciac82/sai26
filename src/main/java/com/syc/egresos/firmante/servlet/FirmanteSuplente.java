@@ -1,59 +1,60 @@
 package com.syc.egresos.firmante.servlet;
 
-
 import java.util.Date;
-
+import java.util.Base64;
 
 public class FirmanteSuplente extends Firmante {
 
-	private Date	fechaOficio;
-	private String	folioOficio;
-	private String	motivoSuplencia;
-	private String	tipoSuplencia;
+    private Date fechaOficio;
 
-	public FirmanteSuplente( ) {
-		super();
-	}
+    private String folioOficio;
 
-	public FirmanteSuplente( Firmante firmante ) {
-		super( firmante.getNombreEmpleado(), firmante.getNumeroEmpleado(), firmante.getPuestoEmpleado() );
-	}
+    private String motivoSuplencia;
 
-	public Date getFechaOficio() {
-		return fechaOficio;
-	}
+    private String tipoSuplencia;
 
-	public String getFolioOficio() {
-		return folioOficio;
-	}
+    public FirmanteSuplente() {
+        super();
+    }
 
-	public String getMotivoSuplencia() {
-		return motivoSuplencia;
-	}
+    public FirmanteSuplente(Firmante firmante) {
+        super(firmante.getNombreEmpleado(), firmante.getNumeroEmpleado(), firmante.getPuestoEmpleado());
+    }
 
-	public String getTipoSuplencia() {
-		return tipoSuplencia;
-	}
+    public Date getFechaOficio() {
+        return fechaOficio;
+    }
 
-	public void setFechaOficio( Date fechaOficio ) {
-		this.fechaOficio = fechaOficio;
-	}
+    public String getFolioOficio() {
+        return folioOficio;
+    }
 
-	public void setFolioOficio( String folioOficio ) {
-		this.folioOficio = folioOficio;
-	}
+    public String getMotivoSuplencia() {
+        return motivoSuplencia;
+    }
 
-	public void setMotivoSuplencia( String motivoSuplencia ) {
-		this.motivoSuplencia = motivoSuplencia;
-	}
+    public String getTipoSuplencia() {
+        return tipoSuplencia;
+    }
 
-	public void setTipoSuplencia( String tipoSuplencia ) {
-		this.tipoSuplencia = tipoSuplencia;
-	}
+    public void setFechaOficio(Date fechaOficio) {
+        this.fechaOficio = fechaOficio;
+    }
 
-	@Override
-	public String toString() {
-		return "FirmanteSuplente [fechaOficio=" + fechaOficio + ", folioOficio=" + folioOficio + ", tipoSuplencia=" + tipoSuplencia + ", getNombreEmpleado()=" + getNombreEmpleado() + ", getNumeroEmpleado()=" + getNumeroEmpleado() + ", getPuestoEmpleado()=" + getPuestoEmpleado() + ", getTipoAutorizador()=" + getTipoAutorizador() + "]";
-	}
+    public void setFolioOficio(String folioOficio) {
+        this.folioOficio = folioOficio;
+    }
 
+    public void setMotivoSuplencia(String motivoSuplencia) {
+        this.motivoSuplencia = motivoSuplencia;
+    }
+
+    public void setTipoSuplencia(String tipoSuplencia) {
+        this.tipoSuplencia = tipoSuplencia;
+    }
+
+    @Override
+    public String toString() {
+        return "FirmanteSuplente [fechaOficio=" + fechaOficio + ", folioOficio=" + folioOficio + ", tipoSuplencia=" + tipoSuplencia + ", getNombreEmpleado()=" + getNombreEmpleado() + ", getNumeroEmpleado()=" + getNumeroEmpleado() + ", getPuestoEmpleado()=" + getPuestoEmpleado() + ", getTipoAutorizador()=" + getTipoAutorizador() + "]";
+    }
 }

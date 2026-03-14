@@ -54,6 +54,8 @@ import jxl.write.WritableWorkbook;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 
 @WebServlet(name = "FIAFServlet", urlPatterns = { "/gstnmngr/FIAFServlet" })
 public class FIAFServlet extends HttpServlet {
@@ -541,8 +543,9 @@ public class FIAFServlet extends HttpServlet {
         AdecuacionBusinessLogic adecua = new AdecuacionBusinessLogic(GestionInterface.ATT_CONEXION);
         HttpSession session = request.getSession(false);
         ArrayList arrIntegradas = new ArrayList();
-        ServletFileUpload upload = new ServletFileUpload();
-        upload.setRepositoryPath(tempDir);
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+        JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         int nConsecutivoSICOP = 0;
         Caso c = (Caso) session.getAttribute(GestionInterface.ATT_CASE);
         int nFolio = new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue();
@@ -665,8 +668,9 @@ public class FIAFServlet extends HttpServlet {
         ArrayList arrAdecAmpliacion = new ArrayList();
         ArrayList arrAdecReduccion = new ArrayList();
         String[] arrFirmantePuesto = new String[2];
-        ServletFileUpload upload = new ServletFileUpload();
-        upload.setRepositoryPath(tempDir);
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+        JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         Caso c = (Caso) session.getAttribute(GestionInterface.ATT_CASE);
         int nFolio = new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue();
         Usuario usuario = (Usuario) session.getAttribute(GestionInterface.ATT_USER);
@@ -824,8 +828,9 @@ public class FIAFServlet extends HttpServlet {
     public void creaFap(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         AdecuacionBusinessLogic adecua = new AdecuacionBusinessLogic(GestionInterface.ATT_CONEXION);
         HttpSession session = request.getSession(false);
-        ServletFileUpload upload = new ServletFileUpload();
-        upload.setRepositoryPath(tempDir);
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+        JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         Caso c = (Caso) session.getAttribute(GestionInterface.ATT_CASE);
         Usuario usuario = (Usuario) session.getAttribute(GestionInterface.ATT_USER);
         if (usuario == null) {

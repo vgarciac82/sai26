@@ -4,45 +4,38 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
+import java.util.Base64;
 
 public class CadenasPManager {
 
-	public CadenasPManager() {
-		super();
-	}
+    public CadenasPManager() {
+        super();
+    }
 
-	public static ArrayList<String> BuscaCompromisos(Connection conn,String listaIds, String listaCuentaBancaria, String listaFechas, String sUsuario , String sCadenas)throws Exception{
-		ArrayList<String> arrListaComp = new ArrayList<String>();
-		PreparedStatement pstmntH = null;
-		//PreparedStatement pstmntHLayout = null;
-		//PreparedStatement pstmntHLayoutDet = null;
-		//PreparedStatement pstmntD = null;
-		ResultSet rs = null;
-		//ResultSet rs2 = null;
-		//ResultSet rsLayout = null;
-
-		String[] arrFolios = listaIds.split(",");
-		//String[] arrCuentasBancarias = listaCuentaBancaria.split(",");
-		String[] arrFechas = listaFechas.split(",");
-		//String[] arrLeyendas = listaLeyendas.split(",");
-		//int intIndice = -1;
-		//PSC
-		String Sql = " select * from vCadenasP where CONTRA_RECIBO in (" + sCadenas + ")";  
-				
-
-		pstmntH = conn.prepareStatement(Sql);
-		//System.out.println(Sql);
-
-		//pstmntH.setString(1, listaIds);
-		rs = pstmntH.executeQuery();
-
-		while (rs.next()){
-
-			//System.out.println(arrFolios[0].trim());
-			//System.out.println(arrFolios[1].trim());
-
-		/*	String nFolio, nFolioCompromiso = rs.getString(1);
+    public static ArrayList<String> BuscaCompromisos(Connection conn, String listaIds, String listaCuentaBancaria, String listaFechas, String sUsuario, String sCadenas) throws Exception {
+        ArrayList<String> arrListaComp = new ArrayList<String>();
+        PreparedStatement pstmntH = null;
+        //PreparedStatement pstmntHLayout = null;
+        //PreparedStatement pstmntHLayoutDet = null;
+        //PreparedStatement pstmntD = null;
+        ResultSet rs = null;
+        //ResultSet rs2 = null;
+        //ResultSet rsLayout = null;
+        String[] arrFolios = listaIds.split(",");
+        //String[] arrCuentasBancarias = listaCuentaBancaria.split(",");
+        String[] arrFechas = listaFechas.split(",");
+        //String[] arrLeyendas = listaLeyendas.split(",");
+        //int intIndice = -1;
+        //PSC
+        String Sql = " select * from vCadenasP where CONTRA_RECIBO in (" + sCadenas + ")";
+        pstmntH = conn.prepareStatement(Sql);
+        //System.out.println(Sql);
+        //pstmntH.setString(1, listaIds);
+        rs = pstmntH.executeQuery();
+        while (rs.next()) {
+            //System.out.println(arrFolios[0].trim());
+            //System.out.println(arrFolios[1].trim());
+            /*	String nFolio, nFolioCompromiso = rs.getString(1);
 			for (int i = 0; i < arrFolios.length; i++) {
 				nFolio = arrFolios[i].trim();
 
@@ -52,28 +45,20 @@ public class CadenasPManager {
 					break;
 				}
 			}*/
-
-//			String vreferencia = rs.getString(22).trim();
-//			vreferencia = vreferencia.replaceAll(",", " ");
-//			vreferencia = vreferencia.replaceAll(":", "");
-//			vreferencia = vreferencia.replaceAll(";", "");
-//			vreferencia = vreferencia.replaceAll("\\(", "");
-//			vreferencia = vreferencia.replaceAll("/", "");
-//			vreferencia = vreferencia.replaceAll("\\)", "");
-//			vreferencia = vreferencia.replaceAll("%", "");
-			
-			String encabezado = rs.getString(1)+"|"+rs.getString(2).trim()+"|"+
-							rs.getString(4).trim()+"|"+rs.getString(5).trim()+"|"+rs.getString(6).trim()+"|"+rs.getString(7).trim()+"|"+rs.getString(8).trim()+"|"+
-							rs.getString(9).trim()+"|"+rs.getString(10).trim()+"|"+rs.getString(11).trim()+"|"+rs.getString(12).trim()+"|"+rs.getString(13).trim()+"|"+
-							rs.getString(15).trim();
-			
-			encabezado = encabezado + "\r\n";
-			arrListaComp.add(encabezado);
-
-			int retval;
-
-			//Aqui grabamos dentro de layouts creados encabezado
-			/*String SqlLayoutGrabado = " INSERT INTO [tLayoutsCreadosOperAjenaHeader] SELECT distinct getdate(),  tCE.nFolioOperAjenas, 'H' AS Header, CONVERT(nvarchar(10), tCE.faplicacion,103), '" + arrFechas[intIndice].trim() + "' ,tCE.cRamo,tCE.cRamo,tCE.cRamo, 'B00' UnidadResponsable,'B00' UnidadResponsable,'B00' UnidadResponsable, 'N' ID_TIPO_MOVIMIENTO, '1' AS OrigenPpto,'3' AS TipoSol, 'MXN' TipoMoneda , '1' TipoCambio, '1' TIPO_PAGO, '" + arrLeyendas[intIndice].trim().trim() + "', B.CBEN, '" + arrCuentasBancarias[intIndice].trim().trim() + "', rtrim(tCE.cIdRFC), 'FAC', '' FechaReferencia, '' Referencia1, '' Referencia2, tCE.cConcepto, '' NotasReverso, '' AMF, rtrim(caNoContrarrecibo) NO_ACMI, rtrim(caNoContrarrecibo) AuxiliarComodin, '' CTR , '' FolioDC, '0', '0', '0', '0', '0', '0', '0', '0', '0' IVAANT, 0 ID_DESTINO_GASTO, '" +  sUsuario + "' " +
+            //			String vreferencia = rs.getString(22).trim();
+            //			vreferencia = vreferencia.replaceAll(",", " ");
+            //			vreferencia = vreferencia.replaceAll(":", "");
+            //			vreferencia = vreferencia.replaceAll(";", "");
+            //			vreferencia = vreferencia.replaceAll("\\(", "");
+            //			vreferencia = vreferencia.replaceAll("/", "");
+            //			vreferencia = vreferencia.replaceAll("\\)", "");
+            //			vreferencia = vreferencia.replaceAll("%", "");
+            String encabezado = rs.getString(1) + "|" + rs.getString(2).trim() + "|" + rs.getString(4).trim() + "|" + rs.getString(5).trim() + "|" + rs.getString(6).trim() + "|" + rs.getString(7).trim() + "|" + rs.getString(8).trim() + "|" + rs.getString(9).trim() + "|" + rs.getString(10).trim() + "|" + rs.getString(11).trim() + "|" + rs.getString(12).trim() + "|" + rs.getString(13).trim() + "|" + rs.getString(15).trim();
+            encabezado = encabezado + "\r\n";
+            arrListaComp.add(encabezado);
+            int retval;
+            //Aqui grabamos dentro de layouts creados encabezado
+            /*String SqlLayoutGrabado = " INSERT INTO [tLayoutsCreadosOperAjenaHeader] SELECT distinct getdate(),  tCE.nFolioOperAjenas, 'H' AS Header, CONVERT(nvarchar(10), tCE.faplicacion,103), '" + arrFechas[intIndice].trim() + "' ,tCE.cRamo,tCE.cRamo,tCE.cRamo, 'B00' UnidadResponsable,'B00' UnidadResponsable,'B00' UnidadResponsable, 'N' ID_TIPO_MOVIMIENTO, '1' AS OrigenPpto,'3' AS TipoSol, 'MXN' TipoMoneda , '1' TipoCambio, '1' TIPO_PAGO, '" + arrLeyendas[intIndice].trim().trim() + "', B.CBEN, '" + arrCuentasBancarias[intIndice].trim().trim() + "', rtrim(tCE.cIdRFC), 'FAC', '' FechaReferencia, '' Referencia1, '' Referencia2, tCE.cConcepto, '' NotasReverso, '' AMF, rtrim(caNoContrarrecibo) NO_ACMI, rtrim(caNoContrarrecibo) AuxiliarComodin, '' CTR , '' FolioDC, '0', '0', '0', '0', '0', '0', '0', '0', '0' IVAANT, 0 ID_DESTINO_GASTO, '" +  sUsuario + "' " +
 			" FROM tOperAjenasEncabezado tCE " +
 			" LEFT JOIN tBeneficiario B ON tce.cIdRFC = B.dRFC " +
 			" INNER JOIN tBeneficiarioCuentasBancarias BCB ON tCE.cIdRFC =	BCB.dRFC " +
@@ -184,20 +169,17 @@ public class CadenasPManager {
 
 			retval = pstmntHLayoutDet.executeUpdate();
 			conn.commit();*/
-
-			//PSC Aqui termina el grabado dentro de layouts creados detalle
-
-		}
-		if(rs != null){
-			rs.close();
-		}
-		if(pstmntH != null){
-			pstmntH.close();
-		}
-		return arrListaComp;
-	}
-
-	/*public static ArrayList<String> CreaDocumentacionComprobatoria(Connection conn,String listaIds)throws Exception{
+            //PSC Aqui termina el grabado dentro de layouts creados detalle
+        }
+        if (rs != null) {
+            rs.close();
+        }
+        if (pstmntH != null) {
+            pstmntH.close();
+        }
+        return arrListaComp;
+    }
+    /*public static ArrayList<String> CreaDocumentacionComprobatoria(Connection conn,String listaIds)throws Exception{
 		ArrayList<String> arrListaComp = new ArrayList<String>();
 		PreparedStatement pstmntH = null;
 		PreparedStatement pstmntD = null;
@@ -281,9 +263,7 @@ public class CadenasPManager {
 		}
 		return arrListaComp;
 	}*/
-
-
-	/*public static int updateHeaderCompromisos(Connection conn,String listaIds) throws SQLException{
+    /*public static int updateHeaderCompromisos(Connection conn,String listaIds) throws SQLException{
 		PreparedStatement pstmnt = null;
 		int retval;
 		try
@@ -302,8 +282,7 @@ public class CadenasPManager {
 
 		return retval;
 	}*/
-
-	/*public static int UpdateStatus(Connection conn,String listaIds) throws SQLException{
+    /*public static int UpdateStatus(Connection conn,String listaIds) throws SQLException{
 		PreparedStatement pstmnt = null;
 		int retval;
 		
@@ -326,8 +305,7 @@ public class CadenasPManager {
 
 		return retval;
 	}*/
-
-	/*public static boolean updateHeaderCompromisosRealimentacion(Connection conn, Integer nEnviadoSICOP, String caNoCompromiso) throws SQLException{
+    /*public static boolean updateHeaderCompromisosRealimentacion(Connection conn, Integer nEnviadoSICOP, String caNoCompromiso) throws SQLException{
 		PreparedStatement pstmntL = null;
 		String queryUpdateEstatus = "UPDATE tOperAjenasEncabezado SET nEnviadoSICOP = " + nEnviadoSICOP +
         "                             WHERE caNoCompromiso = '" + caNoCompromiso + "'";
@@ -347,8 +325,7 @@ public class CadenasPManager {
 		}
 
 	}*/
-
-	/*public static boolean insertRegisterLayout(Connection conn, String clave, String cRamo,String cUnidadResponsable, String folioSICOP, String idProceso, String cCentroContable, java.sql.Date fExpedicion, float total, String cTipoPoliza, String nFolioPoliza, String nPolizaCancelacion, String tipoMovimiento, String origenPresupuesto, String cuentaBancaria, String noSolicitud, String tCambio, String tMoneda, String tSolicitud, String volante, String rfc, String caNoCompromiso, String codSemarnat2, String estatus, java.sql.Date fAplicacion, String documento, String nDocumento, String descripcion) throws SQLException{
+    /*public static boolean insertRegisterLayout(Connection conn, String clave, String cRamo,String cUnidadResponsable, String folioSICOP, String idProceso, String cCentroContable, java.sql.Date fExpedicion, float total, String cTipoPoliza, String nFolioPoliza, String nPolizaCancelacion, String tipoMovimiento, String origenPresupuesto, String cuentaBancaria, String noSolicitud, String tCambio, String tMoneda, String tSolicitud, String volante, String rfc, String caNoCompromiso, String codSemarnat2, String estatus, java.sql.Date fAplicacion, String documento, String nDocumento, String descripcion) throws SQLException{
 		PreparedStatement pstmnt = null;
 		boolean insertReg;
 		String queryInsert = "INSERT INTO tLayoutCompromisos(" +
@@ -385,5 +362,4 @@ public class CadenasPManager {
 		}
 		return insertReg;
 	}*/
-
 }

@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class RSToTable {
 
@@ -133,43 +134,43 @@ public class RSToTable {
                 if (// Hoja
                 // de
                 // Trabajo
-                "APLICADO".equals(column_name) || "REINTEGRO".equals(column_name) || "EJERCIDO".equals(column_name) || "Cargos".equals(column_name) || "Abonos".equals(column_name) || "mMovimiento".equals(column_name) || "Total".equals(column_name) || "SaldoInicialDeudor".equals(column_name) || "SaldoInicialAcreedor".equals(column_name) || "MovimientosAcumuladosDebe".equals(column_name) || "MovimientosAcumuladosHaber".equals(column_name) || "SaldoAntesAjusteDeudor".equals(column_name) || "SaldoAntesAjusteAcreedor".equals(column_name) || "AjustePrevDeudor".equals(column_name) || "AjustePrevAcreedor".equals(column_name) || "SaldoPreviosDeudor".equals(column_name) || "SaldoPreviosAcreedor".equals(column_name) || "AjustePresupDeudor".equals(column_name) || "AjustePresupAcreedor".equals(column_name) || "SaldoAjustadosDeudor".equals(column_name) || "SaldoAjustadosAcreedor".equals(column_name) || "AjusteResulDeudor".equals(column_name) || "AjusteResulAcreedor".equals(column_name) || // Variaciones
-                "SaldoFinalDeudor".equals(column_name) || "SaldoFinalAcreedor".equals(column_name) || "DeudorAnterior".equals(column_name) || "AcreedorAnterior".equals(column_name) || "DeudorActual".equals(column_name) || "AcreedorActual".equals(column_name) || // Cuentas
-                "variaciondeudor".equals(column_name) || // Enlace
-                "variacionacreedor".equals(column_name) || // Rectificaciones
-                "ImporteDeudor".equals(column_name) || // al
-                "ImporteAcreedor".equals(column_name) || // Ejercicio
+                // Variaciones
+                "APLICADO".equals(column_name) || "REINTEGRO".equals(column_name) || "EJERCIDO".equals(column_name) || "Cargos".equals(column_name) || "Abonos".equals(column_name) || "mMovimiento".equals(column_name) || "Total".equals(column_name) || "SaldoInicialDeudor".equals(column_name) || "SaldoInicialAcreedor".equals(column_name) || "MovimientosAcumuladosDebe".equals(column_name) || "MovimientosAcumuladosHaber".equals(column_name) || "SaldoAntesAjusteDeudor".equals(column_name) || "SaldoAntesAjusteAcreedor".equals(column_name) || "AjustePrevDeudor".equals(column_name) || "AjustePrevAcreedor".equals(column_name) || "SaldoPreviosDeudor".equals(column_name) || "SaldoPreviosAcreedor".equals(column_name) || "AjustePresupDeudor".equals(column_name) || "AjustePresupAcreedor".equals(column_name) || "SaldoAjustadosDeudor".equals(column_name) || "SaldoAjustadosAcreedor".equals(column_name) || "AjusteResulDeudor".equals(column_name) || "AjusteResulAcreedor".equals(column_name) || "SaldoFinalDeudor".equals(column_name) || "SaldoFinalAcreedor".equals(column_name) || "DeudorAnterior".equals(column_name) || "AcreedorAnterior".equals(column_name) || "DeudorActual".equals(column_name) || // Cuentas
+                "AcreedorActual".equals(column_name) || // Enlace
+                "variaciondeudor".equals(column_name) || // Rectificaciones
+                "variacionacreedor".equals(column_name) || // al
+                "ImporteDeudor".equals(column_name) || // Ejercicio
+                "ImporteAcreedor".equals(column_name) || // Afectaciones
                 "MovimientoDeudor".equals(column_name) || // Afectaciones
-                "MovimientoAcreedor".// Afectaciones
-                equals(// a
-                column_name) || // cuentas
+                "MovimientoAcreedor".// a
+                equals(// cuentas
+                column_name) || // Analisis
                 "MovimientoDebe".equals(column_name) || // Analisis
-                "MovimientoHaber".// Analisis
-                equals(// de
-                column_name) || // la
-                "TG1_Gasto_Corriente".equals(column_name) || // Incidencia
-                "TG2_Gasto_de_Inversión".equals(column_name) || "TG3_Gasto_de_Obra_Pública".equals(column_name) || "TG4".equals(column_name) || "TG5".equals(column_name) || "TG6".equals(column_name) || "TG7_Otro_Corriente".equals(column_name) || "TG8_Otro_Inversión".equals(column_name) || "TG9_Gasto_de_Inversión_a_Fideicomi".equals(column_name) || "TG0_Gasto_Corriente_a_Fideicomisos".equals(column_name) || "Corriente".equals(column_name) || "Inversion".equals(column_name) || // Integracion
-                "ObraPublica".equals(column_name) || // del
-                "Cuentas".equals(column_name) || // Costo
+                "MovimientoHaber".// de
+                equals(// la
+                column_name) || // Incidencia
+                "TG1_Gasto_Corriente".equals(column_name) || "TG2_Gasto_de_Inversión".equals(column_name) || "TG3_Gasto_de_Obra_Pública".equals(column_name) || "TG4".equals(column_name) || "TG5".equals(column_name) || "TG6".equals(column_name) || "TG7_Otro_Corriente".equals(column_name) || "TG8_Otro_Inversión".equals(column_name) || "TG9_Gasto_de_Inversión_a_Fideicomi".equals(column_name) || "TG0_Gasto_Corriente_a_Fideicomisos".equals(column_name) || "Corriente".equals(column_name) || // Integracion
+                "Inversion".equals(column_name) || // del
+                "ObraPublica".equals(column_name) || // Costo
+                "Cuentas".equals(column_name) || // Presupuestal
                 "ImportePresupuestarios".equals(column_name) || // Presupuestal
-                "ImporteNoPresupuestarios".// Presupuestal
-                equals(column_name) || "Original".equals(column_name) || "AmplPresupLiquidas".equals(column_name) || "ReduPresupLiquidas".equals(column_name) || "AmplReduCompensadas".equals(column_name) || "ModifAutorizado".equals(column_name) || "Devengado".equals(column_name) || "Ejercido".equals(column_name) || "DevengadoEjercido".equals(column_name) || // Analisis
-                "Pagado".equals(column_name) || // del
-                "Economias".equals(column_name) || // gasto
-                "TotalDevengadoEjercidoAnterior".equals(column_name) || // por
-                // Funcion
-                "OriginalAutorizado".equals(column_name) || "TotalDevengadoEjercido".equals(column_name) || "DiferenciaCB".equals(column_name) || "DiferenciaCA".equals(column_name) || // Analisis
-                "ReferenciaCB".equals(column_name) || // del
-                "ReferenciaCA".equals(column_name) || // Gatso
-                "Diferencia".equals(column_name) || // Federalizado
+                "ImporteNoPresupuestarios".equals(column_name) || "Original".equals(column_name) || "AmplPresupLiquidas".equals(column_name) || "ReduPresupLiquidas".equals(column_name) || "AmplReduCompensadas".equals(column_name) || "ModifAutorizado".equals(column_name) || "Devengado".equals(column_name) || "Ejercido".equals(column_name) || // Analisis
+                "DevengadoEjercido".equals(column_name) || // del
+                "Pagado".equals(column_name) || // gasto
+                "Economias".equals(column_name) || // por
+                "TotalDevengadoEjercidoAnterior".equals(column_name) || // Funcion
+                "OriginalAutorizado".equals(column_name) || "TotalDevengadoEjercido".equals(column_name) || "DiferenciaCB".equals(column_name) || // Analisis
+                "DiferenciaCA".equals(column_name) || // del
+                "ReferenciaCB".equals(column_name) || // Gatso
+                "ReferenciaCA".equals(column_name) || // Federalizado
+                "Diferencia".equals(column_name) || // Gasto
                 // Gasto
-                "Referencia".// Gasto
-                equals(// por
-                column_name) || // Entidad
-                "ServPersonalesOTG".equals(column_name) || // Federativa
-                "ServPersonalesTG3".equals(column_name) || "MatSuministrosOTG".equals(column_name) || "MatSuministrosTG3".equals(column_name) || "ServGeneralesOTG".equals(column_name) || "ServGeneralesTG3".equals(column_name) || "TransfAsigSubsiOtrsAyudasOTG".equals(column_name) || "TransfAsigSubsiOtrsAyudasTG3".equals(column_name) || "BienMueInmueIntanOTG".equals(column_name) || "BienMueInmueIntanTG3".equals(column_name) || "InverPúblicaOTG".equals(column_name) || "InverFinaOtrasProvOTG".equals(column_name) || "InverFinaOtrasProvTG3".equals(column_name) || // Recursos
-                "PartAportacionesOTG".equals(column_name) || // Federal
-                "PartAportacionesTG3".equals(column_name) || "OriginalGastoCorriente".equals(column_name) || "OriginalGastoCapital".equals(column_name) || "OriginalTotal".equals(column_name) || "DevengadoEjercidoGastoCorriente".equals(column_name) || "DevengadoEjercidoGastoCapital".equals(column_name) || "DevengadoEjercidoTotal".equals(column_name)) {
+                "Referencia".// por
+                equals(// Entidad
+                column_name) || // Federativa
+                "ServPersonalesOTG".equals(column_name) || "ServPersonalesTG3".equals(column_name) || "MatSuministrosOTG".equals(column_name) || "MatSuministrosTG3".equals(column_name) || "ServGeneralesOTG".equals(column_name) || "ServGeneralesTG3".equals(column_name) || "TransfAsigSubsiOtrsAyudasOTG".equals(column_name) || "TransfAsigSubsiOtrsAyudasTG3".equals(column_name) || "BienMueInmueIntanOTG".equals(column_name) || "BienMueInmueIntanTG3".equals(column_name) || "InverPúblicaOTG".equals(column_name) || "InverFinaOtrasProvOTG".equals(column_name) || // Recursos
+                "InverFinaOtrasProvTG3".equals(column_name) || // Federal
+                "PartAportacionesOTG".equals(column_name) || "PartAportacionesTG3".equals(column_name) || "OriginalGastoCorriente".equals(column_name) || "OriginalGastoCapital".equals(column_name) || "OriginalTotal".equals(column_name) || "DevengadoEjercidoGastoCorriente".equals(column_name) || "DevengadoEjercidoGastoCapital".equals(column_name) || "DevengadoEjercidoTotal".equals(column_name)) {
                     td = td.replaceAll("left", "right");
                     td = td + " style='mso-number-format:\"Standard\"' ";
                 }

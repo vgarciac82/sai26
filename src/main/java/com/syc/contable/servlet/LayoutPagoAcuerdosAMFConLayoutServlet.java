@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import com.syc.contable.PagoAcuerdosAMFBussinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "LayoutPagoAcuerdosAMFConLayoutServlet", urlPatterns = { "/gstnmngr/PagoAcuerdosAMFConLayout" })
 public class LayoutPagoAcuerdosAMFConLayoutServlet extends HttpServlet {

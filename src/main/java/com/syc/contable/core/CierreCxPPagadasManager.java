@@ -4,58 +4,42 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Base64;
 
+public class CierreCxPPagadasManager {
 
-public class CierreCxPPagadasManager{
+    public CierreCxPPagadasManager() {
+        super();
+    }
 
-	public CierreCxPPagadasManager() {
-		super();
-	}
-
-	public static ArrayList<String> BuscaCompromisos(Connection conn,String TipoDOc, String ContraR, String RFC,String sUsuario)throws Exception{
-		ArrayList<String> arrListaComp = new ArrayList<String>();
-		PreparedStatement pstmntH = null;
-		PreparedStatement pstmntH2 = null;
-		ResultSet rs = null;		
-		ResultSet rs2 = null;
-
-		String Sql = " exec sp_ReporteCierreCxPPagadas '" + TipoDOc + "','" + ContraR + "','" + RFC + "'  ";  
-		System.out.println(Sql);		
-
-		pstmntH = conn.prepareStatement(Sql);
-		rs = pstmntH.executeQuery();
-
-		String encabezado = "Documento, ContraRecibo, RFC, Beneficiarion, U. Responsable, E. Fiscal, F. Aplicacion, Importe Neto";
-		encabezado = encabezado + "\r\n";
-		arrListaComp.add(encabezado);
-		
-		while (rs.next()){
-
-			encabezado = rs.getString(1)+","+rs.getString(2).trim()+","+rs.getString(3).trim()+","+rs.getString(4).trim()+","+rs.getString(5).trim()+","+rs.getString(6).trim()+","+rs.getString(7).trim()+","+rs.getString(8).trim();
-			
-			encabezado = encabezado + "\r\n";
-			arrListaComp.add(encabezado);
-
-			int retval;
-			
-			String exportDocDetalle = "SELECT EP, isnull(mImporteNeto,(isnull(importepago,ISNULL(mtotal,'')))) as mImporte"
-	            + " FROM tCierreCuentasPorPagarDetalle "
-	            + " WHERE nFolioCierreCuentas = "+rs.getString(9)+"  ";
-			
-			pstmntH2 = conn.prepareStatement(exportDocDetalle);
-			rs2 = pstmntH2.executeQuery();
-			
-			while (rs2.next()){
-				
-				String detallesEP = rs2.getString(1)+","+rs2.getString(2);
-				
-				detallesEP = detallesEP + "\r\n";
-				arrListaComp.add(detallesEP);
-				
-				
-			}
-			//Aqui grabamos dentro de layouts creados encabezado
-			/*String SqlLayoutGrabado = " INSERT INTO [tLayoutsCreadosOperAjenaHeader] SELECT distinct getdate(),  tCE.nFolioOperAjenas, 'H' AS Header, CONVERT(nvarchar(10), tCE.faplicacion,103), '" + arrFechas[intIndice].trim() + "' ,tCE.cRamo,tCE.cRamo,tCE.cRamo, 'B00' UnidadResponsable,'B00' UnidadResponsable,'B00' UnidadResponsable, 'N' ID_TIPO_MOVIMIENTO, '1' AS OrigenPpto,'3' AS TipoSol, 'MXN' TipoMoneda , '1' TipoCambio, '1' TIPO_PAGO, '" + arrLeyendas[intIndice].trim().trim() + "', B.CBEN, '" + arrCuentasBancarias[intIndice].trim().trim() + "', rtrim(tCE.cIdRFC), 'FAC', '' FechaReferencia, '' Referencia1, '' Referencia2, tCE.cConcepto, '' NotasReverso, '' AMF, rtrim(caNoContrarrecibo) NO_ACMI, rtrim(caNoContrarrecibo) AuxiliarComodin, '' CTR , '' FolioDC, '0', '0', '0', '0', '0', '0', '0', '0', '0' IVAANT, 0 ID_DESTINO_GASTO, '" +  sUsuario + "' " +
+    public static ArrayList<String> BuscaCompromisos(Connection conn, String TipoDOc, String ContraR, String RFC, String sUsuario) throws Exception {
+        ArrayList<String> arrListaComp = new ArrayList<String>();
+        PreparedStatement pstmntH = null;
+        PreparedStatement pstmntH2 = null;
+        ResultSet rs = null;
+        ResultSet rs2 = null;
+        String Sql = " exec sp_ReporteCierreCxPPagadas '" + TipoDOc + "','" + ContraR + "','" + RFC + "'  ";
+        System.out.println(Sql);
+        pstmntH = conn.prepareStatement(Sql);
+        rs = pstmntH.executeQuery();
+        String encabezado = "Documento, ContraRecibo, RFC, Beneficiarion, U. Responsable, E. Fiscal, F. Aplicacion, Importe Neto";
+        encabezado = encabezado + "\r\n";
+        arrListaComp.add(encabezado);
+        while (rs.next()) {
+            encabezado = rs.getString(1) + "," + rs.getString(2).trim() + "," + rs.getString(3).trim() + "," + rs.getString(4).trim() + "," + rs.getString(5).trim() + "," + rs.getString(6).trim() + "," + rs.getString(7).trim() + "," + rs.getString(8).trim();
+            encabezado = encabezado + "\r\n";
+            arrListaComp.add(encabezado);
+            int retval;
+            String exportDocDetalle = "SELECT EP, isnull(mImporteNeto,(isnull(importepago,ISNULL(mtotal,'')))) as mImporte" + " FROM tCierreCuentasPorPagarDetalle " + " WHERE nFolioCierreCuentas = " + rs.getString(9) + "  ";
+            pstmntH2 = conn.prepareStatement(exportDocDetalle);
+            rs2 = pstmntH2.executeQuery();
+            while (rs2.next()) {
+                String detallesEP = rs2.getString(1) + "," + rs2.getString(2);
+                detallesEP = detallesEP + "\r\n";
+                arrListaComp.add(detallesEP);
+            }
+            //Aqui grabamos dentro de layouts creados encabezado
+            /*String SqlLayoutGrabado = " INSERT INTO [tLayoutsCreadosOperAjenaHeader] SELECT distinct getdate(),  tCE.nFolioOperAjenas, 'H' AS Header, CONVERT(nvarchar(10), tCE.faplicacion,103), '" + arrFechas[intIndice].trim() + "' ,tCE.cRamo,tCE.cRamo,tCE.cRamo, 'B00' UnidadResponsable,'B00' UnidadResponsable,'B00' UnidadResponsable, 'N' ID_TIPO_MOVIMIENTO, '1' AS OrigenPpto,'3' AS TipoSol, 'MXN' TipoMoneda , '1' TipoCambio, '1' TIPO_PAGO, '" + arrLeyendas[intIndice].trim().trim() + "', B.CBEN, '" + arrCuentasBancarias[intIndice].trim().trim() + "', rtrim(tCE.cIdRFC), 'FAC', '' FechaReferencia, '' Referencia1, '' Referencia2, tCE.cConcepto, '' NotasReverso, '' AMF, rtrim(caNoContrarrecibo) NO_ACMI, rtrim(caNoContrarrecibo) AuxiliarComodin, '' CTR , '' FolioDC, '0', '0', '0', '0', '0', '0', '0', '0', '0' IVAANT, 0 ID_DESTINO_GASTO, '" +  sUsuario + "' " +
 			" FROM tOperAjenasEncabezado tCE " +
 			" LEFT JOIN tBeneficiario B ON tce.cIdRFC = B.dRFC " +
 			" INNER JOIN tBeneficiarioCuentasBancarias BCB ON tCE.cIdRFC =	BCB.dRFC " +
@@ -166,20 +150,17 @@ public class CierreCxPPagadasManager{
 
 			retval = pstmntHLayoutDet.executeUpdate();
 			conn.commit();*/
-
-			//PSC Aqui termina el grabado dentro de layouts creados detalle
-
-		}
-		if(rs != null){
-			rs.close();
-		}
-		if(pstmntH != null){
-			pstmntH.close();
-		}
-		return arrListaComp;
-	}
-
-	/*public static ArrayList<String> CreaDocumentacionComprobatoria(Connection conn,String listaIds)throws Exception{
+            //PSC Aqui termina el grabado dentro de layouts creados detalle
+        }
+        if (rs != null) {
+            rs.close();
+        }
+        if (pstmntH != null) {
+            pstmntH.close();
+        }
+        return arrListaComp;
+    }
+    /*public static ArrayList<String> CreaDocumentacionComprobatoria(Connection conn,String listaIds)throws Exception{
 		ArrayList<String> arrListaComp = new ArrayList<String>();
 		PreparedStatement pstmntH = null;
 		PreparedStatement pstmntD = null;
@@ -263,9 +244,7 @@ public class CierreCxPPagadasManager{
 		}
 		return arrListaComp;
 	}*/
-
-
-	/*public static int updateHeaderCompromisos(Connection conn,String listaIds) throws SQLException{
+    /*public static int updateHeaderCompromisos(Connection conn,String listaIds) throws SQLException{
 		PreparedStatement pstmnt = null;
 		int retval;
 		try
@@ -284,8 +263,7 @@ public class CierreCxPPagadasManager{
 
 		return retval;
 	}*/
-
-	/*public static int UpdateStatus(Connection conn,String listaIds) throws SQLException{
+    /*public static int UpdateStatus(Connection conn,String listaIds) throws SQLException{
 		PreparedStatement pstmnt = null;
 		int retval;
 		try
@@ -325,8 +303,7 @@ public class CierreCxPPagadasManager{
 		}
 
 	}*/
-
-	/*public static boolean insertRegisterLayout(Connection conn, String clave, String cRamo,String cUnidadResponsable, String folioSICOP, String idProceso, String cCentroContable, java.sql.Date fExpedicion, float total, String cTipoPoliza, String nFolioPoliza, String nPolizaCancelacion, String tipoMovimiento, String origenPresupuesto, String cuentaBancaria, String noSolicitud, String tCambio, String tMoneda, String tSolicitud, String volante, String rfc, String caNoCompromiso, String codSemarnat2, String estatus, java.sql.Date fAplicacion, String documento, String nDocumento, String descripcion) throws SQLException{
+    /*public static boolean insertRegisterLayout(Connection conn, String clave, String cRamo,String cUnidadResponsable, String folioSICOP, String idProceso, String cCentroContable, java.sql.Date fExpedicion, float total, String cTipoPoliza, String nFolioPoliza, String nPolizaCancelacion, String tipoMovimiento, String origenPresupuesto, String cuentaBancaria, String noSolicitud, String tCambio, String tMoneda, String tSolicitud, String volante, String rfc, String caNoCompromiso, String codSemarnat2, String estatus, java.sql.Date fAplicacion, String documento, String nDocumento, String descripcion) throws SQLException{
 		PreparedStatement pstmnt = null;
 		boolean insertReg;
 		String queryInsert = "INSERT INTO tLayoutCompromisos(" +
@@ -363,5 +340,4 @@ public class CierreCxPPagadasManager{
 		}
 		return insertReg;
 	}*/
-
 }

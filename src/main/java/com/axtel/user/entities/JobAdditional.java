@@ -1,75 +1,81 @@
 package com.axtel.user.entities;
 
+import java.util.Base64;
 
 public class JobAdditional {
 
-	private String			assignment;
-	private ExecutingUnit	executingUnit;
-	private int				id;
-	private int				idDepartment;
-	private int				idStructuredProgram;
-	private String			normativeUnit;
-	private String			responsibleUnit;
+    private String assignment;
 
-	public String getAssignment() {
-		return assignment;
-	}
+    private ExecutingUnit executingUnit;
 
-	public ExecutingUnit getExecutingUnit() {
-		return executingUnit;
-	}
+    private int id;
 
-	public int getId() {
-		return id;
-	}
+    private int idDepartment;
 
-	public int getIdDepartment() {
-		return idDepartment;
-	}
+    private int idStructuredProgram;
 
-	public int getIdStructuredProgram() {
-		return idStructuredProgram;
-	}
+    private String normativeUnit;
 
-	public String getNormativeUnit() {
-		return normativeUnit;
-	}
+    private String responsibleUnit;
 
-	public String getResponsibleUnit() {
-		return responsibleUnit;
-	}
+    public String getAssignment() {
+        return assignment;
+    }
 
-	public void setAssignment( String assignment ) {
-		this.assignment = assignment;
-	}
+    public ExecutingUnit getExecutingUnit() {
+        return executingUnit;
+    }
 
-	public void setExecutingUnit( ExecutingUnit executingUnit ) {
-		this.executingUnit = executingUnit;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setId( int id ) {
-		this.id = id;
-	}
+    public int getIdDepartment() {
+        return idDepartment;
+    }
 
-	public void setIdDepartment( int idDepartment ) {
-		this.idDepartment = idDepartment;
-	}
+    public int getIdStructuredProgram() {
+        return idStructuredProgram;
+    }
 
-	public void setIdStructuredProgram( int idStructuredProgram ) {
-		this.idStructuredProgram = idStructuredProgram;
-	}
+    public String getNormativeUnit() {
+        return normativeUnit;
+    }
 
-	public void setNormativeUnit( String normativeUnit ) {
-		this.normativeUnit = normativeUnit;
-	}
+    public String getResponsibleUnit() {
+        return responsibleUnit;
+    }
 
-	public void setResponsibleUnit( String responsibleUnit ) {
-		this.responsibleUnit = responsibleUnit;
-	}
+    public void setAssignment(String assignment) {
+        this.assignment = assignment;
+    }
 
-	@Override
-	public String toString() {
-		return "JobAdditional [id=" + id + ", assignment=" + assignment + ", executingUnit=" + executingUnit + ", idStructuredProgram=" + idStructuredProgram + ", responsibleUnit=" + responsibleUnit + ", normativeUnit=" + normativeUnit + ", idDepartment=" + idDepartment + "]";
-	}
+    public void setExecutingUnit(ExecutingUnit executingUnit) {
+        this.executingUnit = executingUnit;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setIdDepartment(int idDepartment) {
+        this.idDepartment = idDepartment;
+    }
+
+    public void setIdStructuredProgram(int idStructuredProgram) {
+        this.idStructuredProgram = idStructuredProgram;
+    }
+
+    public void setNormativeUnit(String normativeUnit) {
+        this.normativeUnit = normativeUnit;
+    }
+
+    public void setResponsibleUnit(String responsibleUnit) {
+        this.responsibleUnit = responsibleUnit;
+    }
+
+    @Override
+    public String toString() {
+        return "JobAdditional [id=" + id + ", assignment=" + assignment + ", executingUnit=" + executingUnit + ", idStructuredProgram=" + idStructuredProgram + ", responsibleUnit=" + responsibleUnit + ", normativeUnit=" + normativeUnit + ", idDepartment=" + idDepartment + "]";
+    }
 }

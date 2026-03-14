@@ -1,73 +1,71 @@
 package com.syc.egresos.core;
 
-
 import java.math.BigDecimal;
-
+import java.util.Base64;
 
 public class PenaConvencional {
 
-	private int			folioPago;
-	private String		idContrato;
-	private BigDecimal	importeSancionBruto	= new BigDecimal( 0.0d );
-	private BigDecimal	importeSancionIVA	= new BigDecimal( 0.0d );
-	private BigDecimal	importeSancionNeto	= new BigDecimal( 0.0d );
-	private String		tipoPago;
-    
+    private int folioPago;
 
-	
-	public String getComponente() {
-		return "importePenalizacion";
-	}
+    private String idContrato;
 
-	
-	public int getFolioPago() {
-		return folioPago;
-	}
+    private BigDecimal importeSancionBruto = new BigDecimal(0.0d);
 
-	
-	public String getIdContrato() {
-		return idContrato;
-	}
+    private BigDecimal importeSancionIVA = new BigDecimal(0.0d);
 
-	
-	public BigDecimal getImporteSancionBruto() {
-		return importeSancionBruto;
-	}
+    private BigDecimal importeSancionNeto = new BigDecimal(0.0d);
 
-	public BigDecimal getImporteSancionIVA() {
-		return importeSancionIVA;
-	}
+    private String tipoPago;
 
-	public BigDecimal getImporteSancionNeto() {
-		return importeSancionNeto;
-	}
+    public String getComponente() {
+        return "importePenalizacion";
+    }
 
-	public String getTipoPago() {
-		return tipoPago;
-	}
+    public int getFolioPago() {
+        return folioPago;
+    }
 
-	public void setFolioPago( int folioPago ) {
-		this.folioPago = folioPago;
-	}
+    public String getIdContrato() {
+        return idContrato;
+    }
 
-	public void setIdContrato( String idContrato ) {
-		this.idContrato = idContrato;
-	}
+    public BigDecimal getImporteSancionBruto() {
+        return importeSancionBruto;
+    }
 
-	public void setImporteSancionBruto( BigDecimal importeSancionBruto ) {
-		this.importeSancionBruto = importeSancionBruto;
-	}
+    public BigDecimal getImporteSancionIVA() {
+        return importeSancionIVA;
+    }
 
-	public void setImporteSancionIVA( BigDecimal importeSancionIVA ) {
-		this.importeSancionIVA = importeSancionIVA;
-	}
+    public BigDecimal getImporteSancionNeto() {
+        return importeSancionNeto;
+    }
 
-	public void setImporteSancionNeto( BigDecimal importeSancionNeto ) {
-		this.importeSancionNeto = importeSancionNeto;
-	}
+    public String getTipoPago() {
+        return tipoPago;
+    }
 
-	public void setTipoPago( String tipoPago ) {
-		this.tipoPago = tipoPago;
-	}
+    public void setFolioPago(int folioPago) {
+        this.folioPago = folioPago;
+    }
 
+    public void setIdContrato(String idContrato) {
+        this.idContrato = idContrato;
+    }
+
+    public void setImporteSancionBruto(BigDecimal importeSancionBruto) {
+        this.importeSancionBruto = importeSancionBruto;
+    }
+
+    public void setImporteSancionIVA(BigDecimal importeSancionIVA) {
+        this.importeSancionIVA = importeSancionIVA;
+    }
+
+    public void setImporteSancionNeto(BigDecimal importeSancionNeto) {
+        this.importeSancionNeto = importeSancionNeto;
+    }
+
+    public void setTipoPago(String tipoPago) {
+        this.tipoPago = tipoPago;
+    }
 }

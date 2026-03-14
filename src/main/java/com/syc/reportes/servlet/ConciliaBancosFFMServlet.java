@@ -32,6 +32,7 @@ import com.syc.obrapublica.core.ConfiguraAplicativoManager;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ConciliaBancosFFMServlet", urlPatterns = { "/servlet/ConciliaBancosFFMServlet" })
 public class ConciliaBancosFFMServlet extends HttpServlet {

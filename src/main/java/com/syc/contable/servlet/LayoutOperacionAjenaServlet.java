@@ -20,6 +20,7 @@ import com.syc.contable.OperacionAjenaBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "LayoutOperacionAjenaServlet", urlPatterns = { "/gstnmngr/generaLayoutOperacionAjena" })
 public class LayoutOperacionAjenaServlet extends HttpServlet {

@@ -18,6 +18,7 @@ import com.syc.sai.contabilidad.polizamanual.SubGrupoEvento;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "CuentaContableServlet", urlPatterns = { "/CuentaContable/AutoCompletaCuenta", "/CuentaContable/OperacionesCuenta", "/CuentaContable/VerificaBloqueo", "/CuentaContable/autoCompletaGrupoEvento", "/CuentaContable/autoCompletaSubGrupoEvento", "/CuentaContable/selected", "/CuentaContable/autoCompletaEventoRelacion", "/CuentaContable/autoCompletaCABMS", "/CuentaContable/selectCAMBS" })
 public class CuentaContableServlet extends HttpServlet {

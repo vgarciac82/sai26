@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "PagoAnticipadoServlet", urlPatterns = { "/servlet/PagoAnticipadoServlet" })
 public class PagoAnticipadoServlet extends HttpServlet {

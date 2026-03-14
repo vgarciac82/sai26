@@ -48,6 +48,7 @@ import org.slf4j.LoggerFactory;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
+import java.util.Base64;
 
 public class FacturaBusinessLogic extends DataSourceManager {
 

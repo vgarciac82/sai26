@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import com.syc.contable.PagoObrasBussinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "LayoutPagoObrasConLayoutServlet", urlPatterns = { "/gstnmngr/PagoObrasConLayout" })
 public class LayoutPagoObrasConLayoutServlet extends HttpServlet {

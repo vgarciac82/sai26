@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
@@ -22,6 +22,7 @@ import com.syc.ws.inventario.GenericConnectionWS;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "RendicionCuentasFONDENServlet", urlPatterns = { "/rendicioncuentasFONDEN/RendicionCuentasFONDEN" })
 public class RendicionCuentasFONDENServlet extends HttpServlet implements GestionInterface {

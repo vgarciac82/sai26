@@ -13,9 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 */
-
-
-
 package com.syc.gestion.core;
 
 import java.sql.Connection;
@@ -25,18 +22,19 @@ import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import com.jenkov.prizetags.tree.impl.TreeNode;
 import com.jenkov.prizetags.tree.impl.TreeTableMapping;
 import com.jenkov.prizetags.tree.itf.IResultSetProcessor;
 import com.jenkov.prizetags.tree.itf.ITreeNode;
+import java.util.Base64;
 
 /**
  * @author Jakob Jenkov - Copyright 2005 Jenkov Development
  */
 public class DataBaseTreeReader {
 
-    private TreeTableMapping    mapping   = null;
+    private TreeTableMapping mapping = null;
+
     private IResultSetProcessor processor = null;
 
     public DataBaseTreeReader() {
@@ -53,51 +51,51 @@ public class DataBaseTreeReader {
 
     public ITreeNode readTree(Connection connection, String sql) throws SQLException {
         PreparedStatement statement = null;
-        ResultSet         result    = null;
+        ResultSet result = null;
         try {
             statement = connection.prepareStatement(sql);
             result = statement.executeQuery();
-
             return readTree(result);
-
         } finally {
-            if(result     != null) { result.close(); }
-            if(statement  != null) { statement.close(); }
-            if(connection != null) { connection.close();}
+            if (result != null) {
+                result.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
         }
     }
 
     public ITreeNode readTree(ResultSet result) throws SQLException {
-
         ITreeNode root = null;
-        Map nodes     = new LinkedHashMap();
+        Map nodes = new LinkedHashMap();
         Map parentIds = new LinkedHashMap();
-
-        while(result.next()){
+        while (result.next()) {
             ITreeNode treeNode = readTreeNode(result);
-            if(processor != null){
+            if (processor != null) {
                 processor.process(result, treeNode);
             }
             nodes.put(treeNode.getId(), treeNode);
-            if(mapping.getParentIdColumn() != null){
+            if (mapping.getParentIdColumn() != null) {
                 parentIds.put(treeNode.getId(), result.getString(mapping.getParentIdColumn()));
             }
         }
-
         Iterator nodeIds = nodes.keySet().iterator();
         while (nodeIds.hasNext()) {
             String nodeId = (String) nodeIds.next();
             ITreeNode node = (ITreeNode) nodes.get(nodeId);
             String parentId = (String) parentIds.get(node.getId());
             ITreeNode parent = (ITreeNode) nodes.get(parentId);
-            if(parent != null && parent != node){
+            if (parent != null && parent != node) {
                 parent.addChild(node);
             } else {
                 root = node;
             }
         }
-
-        while(root.getParent() != null){
+        while (root.getParent() != null) {
             root = root.getParent();
         }
         nodes.clear();
@@ -107,11 +105,14 @@ public class DataBaseTreeReader {
 
     private ITreeNode readTreeNode(ResultSet result) throws SQLException {
         ITreeNode node = new TreeNode();
-        if (mapping.getIdColumn()      != null) node.setId     (result.getString(mapping.getIdColumn()));
-        if (mapping.getNameColumn()    != null) node.setName   (result.getString(mapping.getNameColumn()));
-        if (mapping.getTypeColumn   () != null) node.setType   (result.getString(mapping.getTypeColumn   ()));
-        if (mapping.getToolTipColumn() != null) node.setToolTip(result.getString(mapping.getToolTipColumn()));
+        if (mapping.getIdColumn() != null)
+            node.setId(result.getString(mapping.getIdColumn()));
+        if (mapping.getNameColumn() != null)
+            node.setName(result.getString(mapping.getNameColumn()));
+        if (mapping.getTypeColumn() != null)
+            node.setType(result.getString(mapping.getTypeColumn()));
+        if (mapping.getToolTipColumn() != null)
+            node.setToolTip(result.getString(mapping.getToolTipColumn()));
         return node;
     }
-
 }

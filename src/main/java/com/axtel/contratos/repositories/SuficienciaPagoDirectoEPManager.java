@@ -9,6 +9,7 @@ import java.util.List;
 import com.axtel.contratos.core.SuficienciaPagoDirectoEP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class SuficienciaPagoDirectoEPManager {
 

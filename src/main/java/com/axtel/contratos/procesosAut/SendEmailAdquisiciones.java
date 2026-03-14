@@ -3,6 +3,7 @@ package com.axtel.contratos.procesosAut;
 import com.syc.adquisiciones.businessLogic.ProcessAgreement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class SendEmailAdquisiciones {
 

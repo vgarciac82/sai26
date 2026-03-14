@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import com.syc.contable.MultiReportePagosBussinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "LayoutMultiReportePagosServlet", urlPatterns = { "/gstnmngr/generaLayoutMRPagosServlet" })
 public class LayoutMultiReportePagosServlet extends HttpServlet {

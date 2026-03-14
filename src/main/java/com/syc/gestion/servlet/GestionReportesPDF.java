@@ -2,6 +2,7 @@ package com.syc.gestion.servlet;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 /*
 import net.sf.jasperreports.engine.JRException;

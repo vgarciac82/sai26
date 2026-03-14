@@ -16,6 +16,7 @@ import com.syc.reportes.ConsultaSaldosBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ExportaPolizasAuxServlet", urlPatterns = { "/reportes/exportaPoliza" })
 public class ExportaPolizasAuxServlet extends HttpServlet implements GestionInterface {

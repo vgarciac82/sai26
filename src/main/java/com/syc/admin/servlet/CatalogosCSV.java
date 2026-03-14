@@ -25,6 +25,7 @@ import com.syc.crud.dsmngr.DataSourceManager;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "CatalogosCSV", urlPatterns = { "/servlet/CatalogosCSV" })
 public class CatalogosCSV extends HttpServlet {

@@ -22,6 +22,7 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "LayoutPagoObrasServlet", urlPatterns = { "/gstnmngr/generaLayoutPagoObras" })
 public class LayoutPagoObrasServlet extends HttpServlet {
@@ -134,9 +135,9 @@ public class LayoutPagoObrasServlet extends HttpServlet {
                 // Create the ZIP file
                 ZipOutputStream outZIP = new ZipOutputStream(ouputStream);
                 for (// Compress the files
+                // Compress the files
                 int i = 0; // Compress the files
-                i < filenames.length; // Compress the files
-                i++) {
+                i < filenames.length; i++) {
                     FileInputStream in = new FileInputStream(filenames[i]);
                     // Add ZIP entry to output stream.
                     outZIP.putNextEntry(new ZipEntry(filenames[i].getName()));

@@ -8,6 +8,7 @@ import com.syc.obrapublica.core.ObraPublicaContract;
 import com.syc.obrapublica.core.ObraPublicaContractManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class ComsocAutorizacionBussinesLogic extends DataSourceManager {
 

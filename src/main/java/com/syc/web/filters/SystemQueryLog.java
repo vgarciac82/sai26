@@ -2,6 +2,7 @@ package com.syc.web.filters;
 
 import java.util.Date;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.Base64;
 
 public class SystemQueryLog {
 

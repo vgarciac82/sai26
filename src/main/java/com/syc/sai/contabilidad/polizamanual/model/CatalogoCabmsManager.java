@@ -9,6 +9,7 @@ import com.syc.sai.contabilidad.polizamanual.CatalogoCabms;
 import com.syc.sai.contabilidad.polizamanual.CatalogoCabmsEngineException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class CatalogoCabmsManager {
 

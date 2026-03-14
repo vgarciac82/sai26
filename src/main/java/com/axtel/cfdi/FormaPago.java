@@ -1,33 +1,34 @@
 package com.axtel.cfdi;
 
+import java.util.Base64;
 
 public class FormaPago {
 
-	private String	formaPago;
-	private String	descripcion;
+    private String formaPago;
 
-	public FormaPago( ) {
-	}
+    private String descripcion;
 
-	public FormaPago( String formaPago ) {
-		super();
-		this.formaPago = formaPago;
-	}
+    public FormaPago() {
+    }
 
-	public String getFormaPago() {
-		return formaPago;
-	}
+    public FormaPago(String formaPago) {
+        super();
+        this.formaPago = formaPago;
+    }
 
-	public void setFormaPago( String formaPago ) {
-		this.formaPago = formaPago;
-	}
+    public String getFormaPago() {
+        return formaPago;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public void setFormaPago(String formaPago) {
+        this.formaPago = formaPago;
+    }
 
-	public void setDescripcion( String descripcion ) {
-		this.descripcion = descripcion;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 }

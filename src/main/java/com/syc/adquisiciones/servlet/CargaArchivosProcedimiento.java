@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "CargaArchivosProcedimiento", urlPatterns = { "/servlet/CargaArchivosProcedimiento" })
 public class CargaArchivosProcedimiento extends HttpServlet {

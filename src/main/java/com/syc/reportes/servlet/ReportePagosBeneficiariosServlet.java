@@ -16,6 +16,7 @@ import com.syc.reportes.ReportePagosBeneficiariosBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ReportePagosBeneficiariosServlet", urlPatterns = { "/reportes/ReportePagosBeneficiarios" })
 public class ReportePagosBeneficiariosServlet extends HttpServlet implements GestionInterface {

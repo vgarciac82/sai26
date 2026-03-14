@@ -1,228 +1,250 @@
 package com.axtel.contratos.core;
 
-
 import java.math.BigDecimal;
 import java.util.Date;
-
+import java.util.Base64;
 
 public class SuficienciaPagoDirectoEncabezado {
 
-	public static final String	CONCTRACT_TYPE	= "PD";
+    public static final String CONCTRACT_TYPE = "PD";
 
-	private int					folioSuficienciaPagoDirecto;
-	private Date				fechaCarga		= new Date();
-	private String				idContrato;
-	private String				tipoContrato;
-	private Date				fechaAplicacion;
-	private Date				fechaCancelacion;
-	private int					centroContable;
-	private String				ramo;
-	private String				unidadResponsable;
-	private String				documentoAplicado;
-	private String				tipoPoliza;
-	private Integer				folioPoliza;
-	private Integer				folioPolizaCancelacion;
-	private int					idStatus;
-	private int					ejercicioFiscal;
-	private String				unidadResponsableContable;
-	private String				rfc;
-	private String				justificacion;
-	private String				loginCaptura;
-	private BigDecimal			importe;
-	private BigDecimal			importeIVA;
-	private BigDecimal			total;
-	private int					porcentajeIVA;
-	private String				razonSocial;
+    private int folioSuficienciaPagoDirecto;
 
-	public int getFolioSuficienciaPagoDirecto() {
-		return folioSuficienciaPagoDirecto;
-	}
+    private Date fechaCarga = new Date();
 
-	public void setFolioSuficienciaPagoDirecto( int folioSuficienciaPagoDirecto ) {
-		this.folioSuficienciaPagoDirecto = folioSuficienciaPagoDirecto;
-	}
+    private String idContrato;
 
-	public Date getFechaCarga() {
-		return fechaCarga;
-	}
+    private String tipoContrato;
 
-	public void setFechaCarga( Date fechaCarga ) {
-		this.fechaCarga = fechaCarga;
-	}
+    private Date fechaAplicacion;
 
-	public String getIdContrato() {
-		return idContrato;
-	}
+    private Date fechaCancelacion;
 
-	public void setIdContrato( String idContrato ) {
-		this.idContrato = idContrato;
-	}
+    private int centroContable;
 
-	public String getTipoContrato() {
-		return tipoContrato;
-	}
+    private String ramo;
 
-	public void setTipoContrato( String tipoContrato ) {
-		this.tipoContrato = tipoContrato;
-	}
+    private String unidadResponsable;
 
-	public Date getFechaAplicacion() {
-		return fechaAplicacion;
-	}
+    private String documentoAplicado;
 
-	public void setFechaAplicacion( Date fechaAplicacion ) {
-		this.fechaAplicacion = fechaAplicacion;
-	}
+    private String tipoPoliza;
 
-	public Date getFechaCancelacion() {
-		return fechaCancelacion;
-	}
+    private Integer folioPoliza;
 
-	public void setFechaCancelacion( Date fechaCancelacion ) {
-		this.fechaCancelacion = fechaCancelacion;
-	}
+    private Integer folioPolizaCancelacion;
 
-	public int getCentroContable() {
-		return centroContable;
-	}
+    private int idStatus;
 
-	public void setCentroContable( int centroContable ) {
-		this.centroContable = centroContable;
-	}
+    private int ejercicioFiscal;
 
-	public String getRamo() {
-		return ramo;
-	}
+    private String unidadResponsableContable;
 
-	public void setRamo( String ramo ) {
-		this.ramo = ramo;
-	}
+    private String rfc;
 
-	public String getUnidadResponsable() {
-		return unidadResponsable;
-	}
+    private String justificacion;
 
-	public void setUnidadResponsable( String unidadResponsable ) {
-		this.unidadResponsable = unidadResponsable;
-	}
+    private String loginCaptura;
 
-	public String getDocumentoAplicado() {
-		return documentoAplicado;
-	}
+    private BigDecimal importe;
 
-	public void setDocumentoAplicado( String documentoAplicado ) {
-		this.documentoAplicado = documentoAplicado;
-	}
+    private BigDecimal importeIVA;
 
-	public String getTipoPoliza() {
-		return tipoPoliza;
-	}
+    private BigDecimal total;
 
-	public void setTipoPoliza( String tipoPoliza ) {
-		this.tipoPoliza = tipoPoliza;
-	}
+    private int porcentajeIVA;
 
-	public Integer getFolioPoliza() {
-		return folioPoliza;
-	}
+    private String razonSocial;
 
-	public void setFolioPoliza( Integer folioPoliza ) {
-		this.folioPoliza = folioPoliza;
-	}
+    public int getFolioSuficienciaPagoDirecto() {
+        return folioSuficienciaPagoDirecto;
+    }
 
-	public Integer getFolioPolizaCancelacion() {
-		return folioPolizaCancelacion;
-	}
+    public void setFolioSuficienciaPagoDirecto(int folioSuficienciaPagoDirecto) {
+        this.folioSuficienciaPagoDirecto = folioSuficienciaPagoDirecto;
+    }
 
-	public void setFolioPolizaCancelacion( Integer folioPolizaCancelacion ) {
-		this.folioPolizaCancelacion = folioPolizaCancelacion;
-	}
+    public Date getFechaCarga() {
+        return fechaCarga;
+    }
 
-	public int getIdStatus() {
-		return idStatus;
-	}
+    public void setFechaCarga(Date fechaCarga) {
+        this.fechaCarga = fechaCarga;
+    }
 
-	public void setIdStatus( int idStatus ) {
-		this.idStatus = idStatus;
-	}
+    public String getIdContrato() {
+        return idContrato;
+    }
 
-	public int getEjercicioFiscal() {
-		return ejercicioFiscal;
-	}
+    public void setIdContrato(String idContrato) {
+        this.idContrato = idContrato;
+    }
 
-	public void setEjercicioFiscal( int ejercicioFiscal ) {
-		this.ejercicioFiscal = ejercicioFiscal;
-	}
+    public String getTipoContrato() {
+        return tipoContrato;
+    }
 
-	public String getUnidadResponsableContable() {
-		return unidadResponsableContable;
-	}
+    public void setTipoContrato(String tipoContrato) {
+        this.tipoContrato = tipoContrato;
+    }
 
-	public void setUnidadResponsableContable( String unidadResponsableContable ) {
-		this.unidadResponsableContable = unidadResponsableContable;
-	}
+    public Date getFechaAplicacion() {
+        return fechaAplicacion;
+    }
 
-	public String getRfc() {
-		return rfc;
-	}
+    public void setFechaAplicacion(Date fechaAplicacion) {
+        this.fechaAplicacion = fechaAplicacion;
+    }
 
-	public void setRfc( String rfc ) {
-		this.rfc = rfc;
-	}
+    public Date getFechaCancelacion() {
+        return fechaCancelacion;
+    }
 
-	public String getJustificacion() {
-		return justificacion;
-	}
+    public void setFechaCancelacion(Date fechaCancelacion) {
+        this.fechaCancelacion = fechaCancelacion;
+    }
 
-	public void setJustificacion( String justificacion ) {
-		this.justificacion = justificacion;
-	}
+    public int getCentroContable() {
+        return centroContable;
+    }
 
-	public String getLoginCaptura() {
-		return loginCaptura;
-	}
+    public void setCentroContable(int centroContable) {
+        this.centroContable = centroContable;
+    }
 
-	public void setLoginCaptura( String loginCaptura ) {
-		this.loginCaptura = loginCaptura;
-	}
+    public String getRamo() {
+        return ramo;
+    }
 
-	public BigDecimal getImporte() {
-		return importe;
-	}
+    public void setRamo(String ramo) {
+        this.ramo = ramo;
+    }
 
-	public void setImporte( BigDecimal importe ) {
-		this.importe = importe;
-	}
+    public String getUnidadResponsable() {
+        return unidadResponsable;
+    }
 
-	public BigDecimal getImporteIVA() {
-		return importeIVA;
-	}
+    public void setUnidadResponsable(String unidadResponsable) {
+        this.unidadResponsable = unidadResponsable;
+    }
 
-	public void setImporteIVA( BigDecimal importeIVA ) {
-		this.importeIVA = importeIVA;
-	}
+    public String getDocumentoAplicado() {
+        return documentoAplicado;
+    }
 
-	public BigDecimal getTotal() {
-		return total;
-	}
+    public void setDocumentoAplicado(String documentoAplicado) {
+        this.documentoAplicado = documentoAplicado;
+    }
 
-	public void setTotal( BigDecimal total ) {
-		this.total = total;
-	}
+    public String getTipoPoliza() {
+        return tipoPoliza;
+    }
 
-	public int getPorcentajeIVA() {
-		return porcentajeIVA;
-	}
+    public void setTipoPoliza(String tipoPoliza) {
+        this.tipoPoliza = tipoPoliza;
+    }
 
-	public void setPorcentajeIVA( int porcentajeIVA ) {
-		this.porcentajeIVA = porcentajeIVA;
-	}
+    public Integer getFolioPoliza() {
+        return folioPoliza;
+    }
 
-	public void setRazonSocial( String razonSocial ) {
-		this.razonSocial = razonSocial;
-	}
+    public void setFolioPoliza(Integer folioPoliza) {
+        this.folioPoliza = folioPoliza;
+    }
 
-	public String getRazonSocial() {
-		return this.razonSocial;
-	}
+    public Integer getFolioPolizaCancelacion() {
+        return folioPolizaCancelacion;
+    }
+
+    public void setFolioPolizaCancelacion(Integer folioPolizaCancelacion) {
+        this.folioPolizaCancelacion = folioPolizaCancelacion;
+    }
+
+    public int getIdStatus() {
+        return idStatus;
+    }
+
+    public void setIdStatus(int idStatus) {
+        this.idStatus = idStatus;
+    }
+
+    public int getEjercicioFiscal() {
+        return ejercicioFiscal;
+    }
+
+    public void setEjercicioFiscal(int ejercicioFiscal) {
+        this.ejercicioFiscal = ejercicioFiscal;
+    }
+
+    public String getUnidadResponsableContable() {
+        return unidadResponsableContable;
+    }
+
+    public void setUnidadResponsableContable(String unidadResponsableContable) {
+        this.unidadResponsableContable = unidadResponsableContable;
+    }
+
+    public String getRfc() {
+        return rfc;
+    }
+
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
+
+    public String getJustificacion() {
+        return justificacion;
+    }
+
+    public void setJustificacion(String justificacion) {
+        this.justificacion = justificacion;
+    }
+
+    public String getLoginCaptura() {
+        return loginCaptura;
+    }
+
+    public void setLoginCaptura(String loginCaptura) {
+        this.loginCaptura = loginCaptura;
+    }
+
+    public BigDecimal getImporte() {
+        return importe;
+    }
+
+    public void setImporte(BigDecimal importe) {
+        this.importe = importe;
+    }
+
+    public BigDecimal getImporteIVA() {
+        return importeIVA;
+    }
+
+    public void setImporteIVA(BigDecimal importeIVA) {
+        this.importeIVA = importeIVA;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public int getPorcentajeIVA() {
+        return porcentajeIVA;
+    }
+
+    public void setPorcentajeIVA(int porcentajeIVA) {
+        this.porcentajeIVA = porcentajeIVA;
+    }
+
+    public void setRazonSocial(String razonSocial) {
+        this.razonSocial = razonSocial;
+    }
+
+    public String getRazonSocial() {
+        return this.razonSocial;
+    }
 }

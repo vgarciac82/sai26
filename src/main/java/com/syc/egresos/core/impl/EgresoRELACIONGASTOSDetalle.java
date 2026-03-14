@@ -20,6 +20,7 @@ import com.syc.ejercido.pagado.core.EgresoCalendarioRG;
 import com.syc.ejercido.pagado.core.EgresoDetalleManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 /**
  * @author iccvi

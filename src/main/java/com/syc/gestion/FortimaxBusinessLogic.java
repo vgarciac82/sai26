@@ -13,6 +13,7 @@ import com.syc.gestion.core.GestionException;
 import com.syc.gestion.util.PaginaData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class FortimaxBusinessLogic extends DataSourceManager {
 

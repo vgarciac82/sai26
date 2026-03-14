@@ -16,6 +16,7 @@ import com.syc.reportes.ReporteCargaMasivaRGBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ReporteCargaMasivaRGServlet", urlPatterns = { "/reportes/ReporteCargaMasivaRG" })
 public class ReporteCargaMasivaRGServlet extends HttpServlet implements GestionInterface {

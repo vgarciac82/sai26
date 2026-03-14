@@ -1,111 +1,121 @@
 package com.axtel.egresos.compromiso;
 
+import java.util.Base64;
 
 public class CompromisoDTO {
 
-	private String	cidproceso;
-	private String	ccompromisosicop;
-	private String	tipoMov;
-	private String	ur;
-	private String	ep;
-	private String	cidcontrato;
-	private String	cdescripcion;
-	private String	origen;
-	private double	saldo;
-	private double	mimporte;
-	private double	disponible;
+    private String cidproceso;
 
-	public String getCidproceso() {
-		return cidproceso;
-	}
+    private String ccompromisosicop;
 
-	public void setCidproceso( String cidproceso ) {
-		this.cidproceso = cidproceso;
-	}
+    private String tipoMov;
 
-	public String getCcompromisosicop() {
-		return ccompromisosicop;
-	}
+    private String ur;
 
-	public void setCcompromisosicop( String ccompromisosicop ) {
-		this.ccompromisosicop = ccompromisosicop;
-	}
+    private String ep;
 
-	public String getTipoMov() {
-		return tipoMov;
-	}
+    private String cidcontrato;
 
-	public void setTipoMov( String tipoMov ) {
-		this.tipoMov = tipoMov;
-	}
+    private String cdescripcion;
 
-	public String getUr() {
-		return ur;
-	}
+    private String origen;
 
-	public void setUr( String ur ) {
-		this.ur = ur;
-	}
+    private double saldo;
 
-	public String getEp() {
-		return ep;
-	}
+    private double mimporte;
 
-	public void setEp( String ep ) {
-		this.ep = ep;
-	}
+    private double disponible;
 
-	public String getCidcontrato() {
-		return cidcontrato;
-	}
+    public String getCidproceso() {
+        return cidproceso;
+    }
 
-	public void setCidcontrato( String cidcontrato ) {
-		this.cidcontrato = cidcontrato;
-	}
+    public void setCidproceso(String cidproceso) {
+        this.cidproceso = cidproceso;
+    }
 
-	public String getCdescripcion() {
-		return cdescripcion;
-	}
+    public String getCcompromisosicop() {
+        return ccompromisosicop;
+    }
 
-	public void setCdescripcion( String cdescripcion ) {
-		this.cdescripcion = cdescripcion;
-	}
+    public void setCcompromisosicop(String ccompromisosicop) {
+        this.ccompromisosicop = ccompromisosicop;
+    }
 
-	public String getOrigen() {
-		return origen;
-	}
+    public String getTipoMov() {
+        return tipoMov;
+    }
 
-	public void setOrigen( String origen ) {
-		this.origen = origen;
-	}
+    public void setTipoMov(String tipoMov) {
+        this.tipoMov = tipoMov;
+    }
 
-	public double getSaldo() {
-		return saldo;
-	}
+    public String getUr() {
+        return ur;
+    }
 
-	public void setSaldo( double saldo ) {
-		this.saldo = saldo;
-	}
+    public void setUr(String ur) {
+        this.ur = ur;
+    }
 
-	public double getMimporte() {
-		return mimporte;
-	}
+    public String getEp() {
+        return ep;
+    }
 
-	public void setMimporte( double mimporte ) {
-		this.mimporte = mimporte;
-	}
+    public void setEp(String ep) {
+        this.ep = ep;
+    }
 
-	public double getDisponible() {
-		return disponible;
-	}
+    public String getCidcontrato() {
+        return cidcontrato;
+    }
 
-	public void setDisponible( double disponible ) {
-		this.disponible = disponible;
-	}
+    public void setCidcontrato(String cidcontrato) {
+        this.cidcontrato = cidcontrato;
+    }
 
-	@Override
-	public String toString() {
-		return "CompromisoDTO [cidproceso=" + cidproceso + ", ccompromisosicop=" + ccompromisosicop + ", tipoMov=" + tipoMov + ", ur=" + ur + ", ep=" + ep + ", cidcontrato=" + cidcontrato + ", cdescripcion=" + cdescripcion + ", origen=" + origen + ", saldo=" + saldo + ", mimporte=" + mimporte + ", disponible=" + disponible + "]";
-	}
+    public String getCdescripcion() {
+        return cdescripcion;
+    }
 
+    public void setCdescripcion(String cdescripcion) {
+        this.cdescripcion = cdescripcion;
+    }
+
+    public String getOrigen() {
+        return origen;
+    }
+
+    public void setOrigen(String origen) {
+        this.origen = origen;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+    public double getMimporte() {
+        return mimporte;
+    }
+
+    public void setMimporte(double mimporte) {
+        this.mimporte = mimporte;
+    }
+
+    public double getDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(double disponible) {
+        this.disponible = disponible;
+    }
+
+    @Override
+    public String toString() {
+        return "CompromisoDTO [cidproceso=" + cidproceso + ", ccompromisosicop=" + ccompromisosicop + ", tipoMov=" + tipoMov + ", ur=" + ur + ", ep=" + ep + ", cidcontrato=" + cidcontrato + ", cdescripcion=" + cdescripcion + ", origen=" + origen + ", saldo=" + saldo + ", mimporte=" + mimporte + ", disponible=" + disponible + "]";
+    }
 }

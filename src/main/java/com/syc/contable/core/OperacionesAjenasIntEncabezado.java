@@ -1,160 +1,177 @@
 package com.syc.contable.core;
 
 import java.util.Date;
+import java.util.Base64;
 
 public class OperacionesAjenasIntEncabezado {
-	private int		nFolioOperAjenasInt;
-	private String	cBeneficiario;
-	private Date	fCaptura;
-	private Date	fDesde;
-	private Date	FHasta;
-	private String	caNoContrarrecibo;
-	private double	mImportes;
-	private String	U_LOGIN;
-	private String	cCentroContable;
-	private String	aEjercicioFiscal;
-	private String	cUnidadResponsable;
-	private String	cRamo;
-	private Date	fCancelacion;
-	private String	nEnviadoSICOP;
-	private String	cIDRFC;
-	private String	cIdTipoDocumento;
-	private String	idDestinoGasto;
 
-	public int getnFolioOperAjenasInt() {
-		return nFolioOperAjenasInt;
-	}
+    private int nFolioOperAjenasInt;
 
-	public void setnFolioOperAjenasInt(int nFolioOperAjenasInt) {
-		this.nFolioOperAjenasInt = nFolioOperAjenasInt;
-	}
+    private String cBeneficiario;
 
-	public String getcBeneficiario() {
-		return cBeneficiario;
-	}
+    private Date fCaptura;
 
-	public void setcBeneficiario(String cBeneficiario) {
-		this.cBeneficiario = cBeneficiario;
-	}
+    private Date fDesde;
 
-	public Date getfCaptura() {
-		return fCaptura;
-	}
+    private Date FHasta;
 
-	public void setfCaptura(Date fCaptura) {
-		this.fCaptura = fCaptura;
-	}
+    private String caNoContrarrecibo;
 
-	public Date getfDesde() {
-		return fDesde;
-	}
+    private double mImportes;
 
-	public void setfDesde(Date fDesde) {
-		this.fDesde = fDesde;
-	}
+    private String U_LOGIN;
 
-	public Date getFHasta() {
-		return FHasta;
-	}
+    private String cCentroContable;
 
-	public void setFHasta(Date fHasta) {
-		FHasta = fHasta;
-	}
+    private String aEjercicioFiscal;
 
-	public String getCaNoContrarrecibo() {
-		return caNoContrarrecibo;
-	}
+    private String cUnidadResponsable;
 
-	public void setCaNoContrarrecibo(String caNoContrarrecibo) {
-		this.caNoContrarrecibo = caNoContrarrecibo;
-	}
+    private String cRamo;
 
-	public double getmImportes() {
-		return mImportes;
-	}
+    private Date fCancelacion;
 
-	public void setmImportes(double mImportes) {
-		this.mImportes = mImportes;
-	}
+    private String nEnviadoSICOP;
 
-	public String getU_LOGIN() {
-		return U_LOGIN;
-	}
+    private String cIDRFC;
 
-	public void setU_LOGIN(String u_LOGIN) {
-		U_LOGIN = u_LOGIN;
-	}
+    private String cIdTipoDocumento;
 
-	public String getcCentroContable() {
-		return cCentroContable;
-	}
+    private String idDestinoGasto;
 
-	public void setcCentroContable(String cCentroContable) {
-		this.cCentroContable = cCentroContable;
-	}
+    public int getnFolioOperAjenasInt() {
+        return nFolioOperAjenasInt;
+    }
 
-	public String getaEjercicioFiscal() {
-		return aEjercicioFiscal;
-	}
+    public void setnFolioOperAjenasInt(int nFolioOperAjenasInt) {
+        this.nFolioOperAjenasInt = nFolioOperAjenasInt;
+    }
 
-	public void setaEjercicioFiscal(String aEjercicioFiscal) {
-		this.aEjercicioFiscal = aEjercicioFiscal;
-	}
+    public String getcBeneficiario() {
+        return cBeneficiario;
+    }
 
-	public String getcUnidadResponsable() {
-		return cUnidadResponsable;
-	}
+    public void setcBeneficiario(String cBeneficiario) {
+        this.cBeneficiario = cBeneficiario;
+    }
 
-	public void setcUnidadResponsable(String cUnidadResponsable) {
-		this.cUnidadResponsable = cUnidadResponsable;
-	}
+    public Date getfCaptura() {
+        return fCaptura;
+    }
 
-	public String getcRamo() {
-		return cRamo;
-	}
+    public void setfCaptura(Date fCaptura) {
+        this.fCaptura = fCaptura;
+    }
 
-	public void setcRamo(String cRamo) {
-		this.cRamo = cRamo;
-	}
+    public Date getfDesde() {
+        return fDesde;
+    }
 
-	public Date getfCancelacion() {
-		return fCancelacion;
-	}
+    public void setfDesde(Date fDesde) {
+        this.fDesde = fDesde;
+    }
 
-	public void setfCancelacion(Date fCancelacion) {
-		this.fCancelacion = fCancelacion;
-	}
+    public Date getFHasta() {
+        return FHasta;
+    }
 
-	public String getnEnviadoSICOP() {
-		return nEnviadoSICOP;
-	}
+    public void setFHasta(Date fHasta) {
+        FHasta = fHasta;
+    }
 
-	public void setnEnviadoSICOP(String nEnviadoSICOP) {
-		this.nEnviadoSICOP = nEnviadoSICOP;
-	}
+    public String getCaNoContrarrecibo() {
+        return caNoContrarrecibo;
+    }
 
-	public String getcIDRFC() {
-		return cIDRFC;
-	}
+    public void setCaNoContrarrecibo(String caNoContrarrecibo) {
+        this.caNoContrarrecibo = caNoContrarrecibo;
+    }
 
-	public void setcIDRFC(String cIDRFC) {
-		this.cIDRFC = cIDRFC;
-	}
+    public double getmImportes() {
+        return mImportes;
+    }
 
-	public String getcIdTipoDocumento() {
-		return cIdTipoDocumento;
-	}
+    public void setmImportes(double mImportes) {
+        this.mImportes = mImportes;
+    }
 
-	public void setcIdTipoDocumento(String cIdTipoDocumento) {
-		this.cIdTipoDocumento = cIdTipoDocumento;
-	}
+    public String getU_LOGIN() {
+        return U_LOGIN;
+    }
 
-	public String getIdDestinoGasto() {
-		return idDestinoGasto;
-	}
+    public void setU_LOGIN(String u_LOGIN) {
+        U_LOGIN = u_LOGIN;
+    }
 
-	public void setIdDestinoGasto(String idDestinoGasto) {
-		this.idDestinoGasto = idDestinoGasto;
-	}
+    public String getcCentroContable() {
+        return cCentroContable;
+    }
 
+    public void setcCentroContable(String cCentroContable) {
+        this.cCentroContable = cCentroContable;
+    }
+
+    public String getaEjercicioFiscal() {
+        return aEjercicioFiscal;
+    }
+
+    public void setaEjercicioFiscal(String aEjercicioFiscal) {
+        this.aEjercicioFiscal = aEjercicioFiscal;
+    }
+
+    public String getcUnidadResponsable() {
+        return cUnidadResponsable;
+    }
+
+    public void setcUnidadResponsable(String cUnidadResponsable) {
+        this.cUnidadResponsable = cUnidadResponsable;
+    }
+
+    public String getcRamo() {
+        return cRamo;
+    }
+
+    public void setcRamo(String cRamo) {
+        this.cRamo = cRamo;
+    }
+
+    public Date getfCancelacion() {
+        return fCancelacion;
+    }
+
+    public void setfCancelacion(Date fCancelacion) {
+        this.fCancelacion = fCancelacion;
+    }
+
+    public String getnEnviadoSICOP() {
+        return nEnviadoSICOP;
+    }
+
+    public void setnEnviadoSICOP(String nEnviadoSICOP) {
+        this.nEnviadoSICOP = nEnviadoSICOP;
+    }
+
+    public String getcIDRFC() {
+        return cIDRFC;
+    }
+
+    public void setcIDRFC(String cIDRFC) {
+        this.cIDRFC = cIDRFC;
+    }
+
+    public String getcIdTipoDocumento() {
+        return cIdTipoDocumento;
+    }
+
+    public void setcIdTipoDocumento(String cIdTipoDocumento) {
+        this.cIdTipoDocumento = cIdTipoDocumento;
+    }
+
+    public String getIdDestinoGasto() {
+        return idDestinoGasto;
+    }
+
+    public void setIdDestinoGasto(String idDestinoGasto) {
+        this.idDestinoGasto = idDestinoGasto;
+    }
 }

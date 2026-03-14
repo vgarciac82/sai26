@@ -1,51 +1,56 @@
 package com.syc.adquisiciones.core;
 
+import java.util.Base64;
+
 public class DatosRecepcion {
-	private String	cIdPedContDef;
-	private String	cIdRecepAnticipo;
-	private String	cIdRecepcionMat;
-	private boolean	factorAmortizacion;
-	private boolean	recepMat;
-	
-	
-	public String getcIdPedContDef() {
-		return cIdPedContDef;
-	}
 
-	public String getcIdRecepAnticipo() {
-		return cIdRecepAnticipo;
-	}
+    private String cIdPedContDef;
 
-	public String getcIdRecepcionMat() {
-		return cIdRecepcionMat;
-	}
+    private String cIdRecepAnticipo;
 
-	public boolean isFactorAmortizacion() {
-		return factorAmortizacion;
-	}
+    private String cIdRecepcionMat;
 
-	public boolean isRecepMat() {
-		return recepMat;
-	}
+    private boolean factorAmortizacion;
 
-	public void setcIdPedContDef(String cIdPedContDef) {
-		this.cIdPedContDef = cIdPedContDef;
-	}
+    private boolean recepMat;
 
-	public void setcIdRecepAnticipo(String cIdRecepAnticipo) {
-		this.cIdRecepAnticipo = cIdRecepAnticipo;
-	}
+    public String getcIdPedContDef() {
+        return cIdPedContDef;
+    }
 
-	public void setcIdRecepcionMat(String cIdRecepcionMat) {
-		this.cIdRecepcionMat = cIdRecepcionMat;
-	}
+    public String getcIdRecepAnticipo() {
+        return cIdRecepAnticipo;
+    }
 
-	public void setFactorAmortizacion(boolean factorAmortizacion) {
-		this.factorAmortizacion = factorAmortizacion;
-	}
+    public String getcIdRecepcionMat() {
+        return cIdRecepcionMat;
+    }
 
-	public void setRecepMat(boolean recepMat) {
-		this.recepMat = recepMat;
-	}
+    public boolean isFactorAmortizacion() {
+        return factorAmortizacion;
+    }
 
+    public boolean isRecepMat() {
+        return recepMat;
+    }
+
+    public void setcIdPedContDef(String cIdPedContDef) {
+        this.cIdPedContDef = cIdPedContDef;
+    }
+
+    public void setcIdRecepAnticipo(String cIdRecepAnticipo) {
+        this.cIdRecepAnticipo = cIdRecepAnticipo;
+    }
+
+    public void setcIdRecepcionMat(String cIdRecepcionMat) {
+        this.cIdRecepcionMat = cIdRecepcionMat;
+    }
+
+    public void setFactorAmortizacion(boolean factorAmortizacion) {
+        this.factorAmortizacion = factorAmortizacion;
+    }
+
+    public void setRecepMat(boolean recepMat) {
+        this.recepMat = recepMat;
+    }
 }

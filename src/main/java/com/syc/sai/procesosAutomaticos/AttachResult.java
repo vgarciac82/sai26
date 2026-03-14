@@ -1,45 +1,48 @@
 package com.syc.sai.procesosAutomaticos;
 
+import java.util.Base64;
+
 public class AttachResult {
 
-	private String	fileName;
-	private String	result;
-	boolean			success;
+    private String fileName;
 
-	public AttachResult(String fileName, String result, boolean success) {
-		super();
-		this.fileName = fileName;
-		this.result = result;
-		this.success = success;
-	}
+    private String result;
 
-	public String getFileName() {
-		return fileName;
-	}
+    boolean success;
 
-	public String getResult() {
-		return result;
-	}
+    public AttachResult(String fileName, String result, boolean success) {
+        super();
+        this.fileName = fileName;
+        this.result = result;
+        this.success = success;
+    }
 
-	public boolean isSuccess() {
-		return success;
-	}
+    public String getFileName() {
+        return fileName;
+    }
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
+    public String getResult() {
+        return result;
+    }
 
-	public void setResult(String result) {
-		this.result = result;
-	}
+    public boolean isSuccess() {
+        return success;
+    }
 
-	public void setSuccess(boolean success) {
-		this.success = success;
-	}
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 
-	@Override
-	public String toString() {
-		return "AttachResult [fileName=" + fileName + ", result=" + result + ", success=" + success + "]";
-	}
+    public void setResult(String result) {
+        this.result = result;
+    }
 
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    @Override
+    public String toString() {
+        return "AttachResult [fileName=" + fileName + ", result=" + result + ", success=" + success + "]";
+    }
 }

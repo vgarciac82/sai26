@@ -22,6 +22,7 @@ import com.syc.contable.PagosDiversosBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 /**
  * @author Propietario

@@ -1,54 +1,59 @@
 package com.syc.sai.tesoreria.estadoDeCuenta;
 
+import java.util.Base64;
+
 public class EstadoDeCuentaSimple {
 
-	private String	fechaEmision;
-	private double	intereses;
-	private String	numeroDeCuenta;
-	private double	saldo;
+    private String fechaEmision;
 
-	public EstadoDeCuentaSimple(String numeroDeCuenta, String fechaEmision, double saldo, double intereses) {
-		super();
-		this.numeroDeCuenta = numeroDeCuenta;
-		this.fechaEmision = fechaEmision;
-		this.saldo = saldo;
-		this.intereses = intereses;
-	}
+    private double intereses;
 
-	@Override
-	public String toString() {
-		return "EstadoDeCuentaSimple [fechaEmision=" + fechaEmision + ", intereses=" + intereses + ", numeroDeCuenta=" + numeroDeCuenta + ", saldo=" + saldo + "]";
-	}
+    private String numeroDeCuenta;
 
-	public String getFechaEmision() {
-		return fechaEmision;
-	}
+    private double saldo;
 
-	public double getIntereses() {
-		return intereses;
-	}
+    public EstadoDeCuentaSimple(String numeroDeCuenta, String fechaEmision, double saldo, double intereses) {
+        super();
+        this.numeroDeCuenta = numeroDeCuenta;
+        this.fechaEmision = fechaEmision;
+        this.saldo = saldo;
+        this.intereses = intereses;
+    }
 
-	public String getNumeroDeCuenta() {
-		return numeroDeCuenta;
-	}
+    @Override
+    public String toString() {
+        return "EstadoDeCuentaSimple [fechaEmision=" + fechaEmision + ", intereses=" + intereses + ", numeroDeCuenta=" + numeroDeCuenta + ", saldo=" + saldo + "]";
+    }
 
-	public double getSaldo() {
-		return saldo;
-	}
+    public String getFechaEmision() {
+        return fechaEmision;
+    }
 
-	public void setFechaEmision(String fechaEmision) {
-		this.fechaEmision = fechaEmision;
-	}
+    public double getIntereses() {
+        return intereses;
+    }
 
-	public void setIntereses(double intereses) {
-		this.intereses = intereses;
-	}
+    public String getNumeroDeCuenta() {
+        return numeroDeCuenta;
+    }
 
-	public void setNumeroDeCuenta(String numeroDeCuenta) {
-		this.numeroDeCuenta = numeroDeCuenta;
-	}
+    public double getSaldo() {
+        return saldo;
+    }
 
-	public void setSaldo(double saldo) {
-		this.saldo = saldo;
-	}
+    public void setFechaEmision(String fechaEmision) {
+        this.fechaEmision = fechaEmision;
+    }
+
+    public void setIntereses(double intereses) {
+        this.intereses = intereses;
+    }
+
+    public void setNumeroDeCuenta(String numeroDeCuenta) {
+        this.numeroDeCuenta = numeroDeCuenta;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
 }

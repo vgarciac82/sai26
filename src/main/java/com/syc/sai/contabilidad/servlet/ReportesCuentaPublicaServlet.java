@@ -17,6 +17,7 @@ import com.syc.sai.contabilidad.CuentaPublicaCuerpoReportes;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "CuentaPublica", urlPatterns = { "/reports/CuentaPublica" })
 public class ReportesCuentaPublicaServlet extends HttpServlet implements GestionInterface {

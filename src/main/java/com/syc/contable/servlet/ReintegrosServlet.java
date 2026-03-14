@@ -44,6 +44,7 @@ import com.syc.reintcont.ReintegroContBussinesLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ReintegrosServlet", urlPatterns = { "/servlet/ReintegrosServlet" })
 public class ReintegrosServlet extends HttpServlet {

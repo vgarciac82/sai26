@@ -2,134 +2,139 @@ package com.syc.contable.caja.core;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-
 import org.apache.poi.ss.usermodel.Row;
-
 import com.syc.gestion.core.Usuario;
-
+import java.util.Base64;
 
 public class SolicitudNoPresupuestalDetalle {
 
-	private String		almacen;
-	private String		cuentaBancaria;
-	private String		cuentaBeneficiario;
-	private int			docRenglon;
-	private String		EP;
-	private String		evento;
-	private int			foliocaja;
-	private BigDecimal	importe;
-	private BigDecimal	importeNegativo;
-	private String		objetoGasto;
-	private String		rfc;
+    private String almacen;
 
-	public String getAlmacen() {
-		return almacen;
-	}
+    private String cuentaBancaria;
 
-	public String getCuentaBancaria() {
-		return cuentaBancaria;
-	}
+    private String cuentaBeneficiario;
 
-	public String getCuentaBeneficiario() {
-		return cuentaBeneficiario;
-	}
+    private int docRenglon;
 
-	public int getDocRenglon() {
-		return docRenglon;
-	}
+    private String EP;
 
-	public String getEP() {
-		return EP;
-	}
+    private String evento;
 
-	public String getEvento() {
-		return evento;
-	}
+    private int foliocaja;
 
-	public int getFoliocaja() {
-		return foliocaja;
-	}
+    private BigDecimal importe;
 
-	public BigDecimal getImporte() {
-		return importe;
-	}
+    private BigDecimal importeNegativo;
 
-	public BigDecimal getImporteNegativo() {
-		return importeNegativo;
-	}
+    private String objetoGasto;
 
-	public String getObjetoGasto() {
-		return objetoGasto;
-	}
+    private String rfc;
 
-	public String getRfc() {
-		return rfc;
-	}
+    public String getAlmacen() {
+        return almacen;
+    }
 
-	public void setAlmacen(String almacen) {
-		this.almacen = almacen;
-	}
+    public String getCuentaBancaria() {
+        return cuentaBancaria;
+    }
 
-	public void setCuentaBancaria(String cuentaBancaria) {
-		this.cuentaBancaria = cuentaBancaria;
-	}
+    public String getCuentaBeneficiario() {
+        return cuentaBeneficiario;
+    }
 
-	public void setCuentaBeneficiario(String cuentaBeneficiario) {
-		this.cuentaBeneficiario = cuentaBeneficiario;
-	}
+    public int getDocRenglon() {
+        return docRenglon;
+    }
 
-	public void setDocRenglon(int docRenglon) {
-		this.docRenglon = docRenglon;
-	}
+    public String getEP() {
+        return EP;
+    }
 
-	public void setEP(String eP) {
-		EP = eP;
-	}
+    public String getEvento() {
+        return evento;
+    }
 
-	public void setEvento(String evento) {
-		this.evento = evento;
-	}
+    public int getFoliocaja() {
+        return foliocaja;
+    }
 
-	public void setFoliocaja(int foliocaja) {
-		this.foliocaja = foliocaja;
-	}
+    public BigDecimal getImporte() {
+        return importe;
+    }
 
-	public void setImporte(BigDecimal importe) {
-		this.importe = importe;
-	}
+    public BigDecimal getImporteNegativo() {
+        return importeNegativo;
+    }
 
-	public void setImporteNegativo(BigDecimal importeNegativo) {
-		this.importeNegativo = importeNegativo;
-	}
+    public String getObjetoGasto() {
+        return objetoGasto;
+    }
 
-	public void setObjetoGasto(String objetoGasto) {
-		this.objetoGasto = objetoGasto;
-	}
+    public String getRfc() {
+        return rfc;
+    }
 
-	public void setRfc(String rfc) {
-		this.rfc = rfc;
-	}
+    public void setAlmacen(String almacen) {
+        this.almacen = almacen;
+    }
 
-	public static SolicitudNoPresupuestalDetalle instanceFromExcel( Row fila, Usuario u ) {
+    public void setCuentaBancaria(String cuentaBancaria) {
+        this.cuentaBancaria = cuentaBancaria;
+    }
 
-		SolicitudNoPresupuestalDetalle snpd = new SolicitudNoPresupuestalDetalle();
-		snpd.setDocRenglon( ( int ) ( fila.getCell( 1 ).getNumericCellValue() ) );
-		snpd.setEvento( fila.getCell( 2 ).getStringCellValue() );
-		snpd.setImporte( new BigDecimal( fila.getCell( 3 ).getNumericCellValue() ).setScale( 2, RoundingMode.HALF_UP ) );
-		snpd.setImporteNegativo( new BigDecimal( -1.0 ).multiply( snpd.getImporte() ) );
-		snpd.setCuentaBancaria( fila.getCell( 4 ).getStringCellValue() );
-		if ("5_30_1".equals(fila.getCell( 2 ).getStringCellValue()))
-			snpd.setRfc( "" );
-		else 
-			snpd.setRfc( fila.getCell( 5 ).getStringCellValue() );
-		snpd.setCuentaBeneficiario( fila.getCell( 6 ).getStringCellValue() );
-		return snpd;
+    public void setCuentaBeneficiario(String cuentaBeneficiario) {
+        this.cuentaBeneficiario = cuentaBeneficiario;
+    }
 
-	}
+    public void setDocRenglon(int docRenglon) {
+        this.docRenglon = docRenglon;
+    }
 
-	@Override
-	public String toString() {
-		return "SolicitudNoPresupuestalDetalle [almacen=" + almacen + ", cuentaBancaria=" + cuentaBancaria + ", cuentaBeneficiario=" + cuentaBeneficiario + ", docRenglon=" + docRenglon + ", EP=" + EP + ", evento=" + evento + ", foliocaja=" + foliocaja + ", importe=" + importe + ", importeNegativo=" + importeNegativo + ", objetoGasto=" + objetoGasto + ", rfc=" + rfc + "]";
-	}
+    public void setEP(String eP) {
+        EP = eP;
+    }
 
+    public void setEvento(String evento) {
+        this.evento = evento;
+    }
+
+    public void setFoliocaja(int foliocaja) {
+        this.foliocaja = foliocaja;
+    }
+
+    public void setImporte(BigDecimal importe) {
+        this.importe = importe;
+    }
+
+    public void setImporteNegativo(BigDecimal importeNegativo) {
+        this.importeNegativo = importeNegativo;
+    }
+
+    public void setObjetoGasto(String objetoGasto) {
+        this.objetoGasto = objetoGasto;
+    }
+
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
+
+    public static SolicitudNoPresupuestalDetalle instanceFromExcel(Row fila, Usuario u) {
+        SolicitudNoPresupuestalDetalle snpd = new SolicitudNoPresupuestalDetalle();
+        snpd.setDocRenglon((int) (fila.getCell(1).getNumericCellValue()));
+        snpd.setEvento(fila.getCell(2).getStringCellValue());
+        snpd.setImporte(new BigDecimal(fila.getCell(3).getNumericCellValue()).setScale(2, RoundingMode.HALF_UP));
+        snpd.setImporteNegativo(new BigDecimal(-1.0).multiply(snpd.getImporte()));
+        snpd.setCuentaBancaria(fila.getCell(4).getStringCellValue());
+        if ("5_30_1".equals(fila.getCell(2).getStringCellValue()))
+            snpd.setRfc("");
+        else
+            snpd.setRfc(fila.getCell(5).getStringCellValue());
+        snpd.setCuentaBeneficiario(fila.getCell(6).getStringCellValue());
+        return snpd;
+    }
+
+    @Override
+    public String toString() {
+        return "SolicitudNoPresupuestalDetalle [almacen=" + almacen + ", cuentaBancaria=" + cuentaBancaria + ", cuentaBeneficiario=" + cuentaBeneficiario + ", docRenglon=" + docRenglon + ", EP=" + EP + ", evento=" + evento + ", foliocaja=" + foliocaja + ", importe=" + importe + ", importeNegativo=" + importeNegativo + ", objetoGasto=" + objetoGasto + ", rfc=" + rfc + "]";
+    }
 }

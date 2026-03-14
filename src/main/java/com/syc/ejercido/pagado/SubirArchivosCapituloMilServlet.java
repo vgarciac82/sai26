@@ -26,6 +26,8 @@ import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 
 @WebServlet(name = "SubirArchivosCapituloMilServlet", urlPatterns = { "/gstnmngr/SubirArchivosCapituloMil" })
 public class SubirArchivosCapituloMilServlet extends HttpServlet implements GestionInterface {
@@ -221,11 +223,13 @@ public class SubirArchivosCapituloMilServlet extends HttpServlet implements Gest
         String szPath;
         List<FileItem> fileItems = new ArrayList<FileItem>();
         try {
+            DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(szPath));
             // Se construye un objeto para que parsee la peticiÃ³n
-            ServletFileUpload fu = new ServletFileUpload();
+            JakartaServletFileUpload fu = new JakartaServletFileUpload(factory);
             // Tamaño máximo que aceptará el archivo
             // El tamaño no importa
-            fu.setSizeMax(-1);
+            fu.setFileSizeMax(-1);
             // Si excede el 1 Gb en memoria lo
             fu.setSizeThreshold(1048576);
             // escribe a disco
@@ -234,7 +238,6 @@ public class SubirArchivosCapituloMilServlet extends HttpServlet implements Gest
             if (!file.exists()) {
                 file.mkdirs();
             }
-            fu.setRepositoryPath(szPath);
             fileItems = fu.parseRequest(request);
         } catch (Exception e) {
             log.error("Error occurred", "Error: " + e);

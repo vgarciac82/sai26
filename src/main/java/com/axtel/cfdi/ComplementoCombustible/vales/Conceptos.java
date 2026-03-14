@@ -3,6 +3,7 @@ package com.axtel.cfdi.ComplementoCombustible.vales;
 import java.util.List;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import java.util.Base64;
 
 @XmlRootElement(name = "conceptos", namespace = "http://www.edenred.com.mx/cfdi/3/")
 public class Conceptos {

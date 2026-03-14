@@ -1,177 +1,197 @@
 package com.syc.contable.core;
 
 import java.util.Date;
+import java.util.Base64;
 
 public class PenasConvIntDetalle {
-	
-	
-	private int		nFolioPagoPenasConvInt;
-	private int		nDocRenglon;
-	private int		nFolioPagoPenasConv;
-	private String	caNoContrarreciboPP;
-	private String	cUnidadResponsable;
-	private String	cIDRFC;
-	private String	cCentroContable;
-	private String	aEjercicioFiscal;
-	private String	Ep;
-	private double	mImporteMasIva;
-	private int		nFolioDoc;
-	private String	caNoContrarrecibo;
-	private String	cTipoDoc;
-	private String	cRamo;
-	private String	U_LOGIN;
-	private Date	fCaptura;
-	private int		nDocRenglonInt;
-	private double  mAjuste;
-	private String cMes;
 
-	public int getnFolioPagoPenasConvInt() {
-		return nFolioPagoPenasConvInt;
-	}
+    private int nFolioPagoPenasConvInt;
 
-	public void setnFolioPagoPenasConvInt(int nFolioPagoPenasConvInt) {
-		this.nFolioPagoPenasConvInt = nFolioPagoPenasConvInt;
-	}
+    private int nDocRenglon;
 
-	public int getnDocRenglon() {
-		return nDocRenglon;
-	}
+    private int nFolioPagoPenasConv;
 
-	public void setnDocRenglon(int nDocRenglon) {
-		this.nDocRenglon = nDocRenglon;
-	}
+    private String caNoContrarreciboPP;
 
-	public int getnFolioPagoPenasConv() {
-		return nFolioPagoPenasConv;
-	}
+    private String cUnidadResponsable;
 
-	public void setnFolioPagoPenasConv(int nFolioPagoPenasConv) {
-		this.nFolioPagoPenasConv = nFolioPagoPenasConv;
-	}
+    private String cIDRFC;
 
-	public String getcaNoContrarreciboPP() {
-		return caNoContrarreciboPP;
-	}
+    private String cCentroContable;
 
-	public void setcaNoContrarreciboPP(String caNoContrarreciboPP) {
-		this.caNoContrarreciboPP = caNoContrarreciboPP;
-	}
+    private String aEjercicioFiscal;
 
-	public String getcUnidadResponsable() {
-		return cUnidadResponsable;
-	}
+    private String Ep;
 
-	public void setcUnidadResponsable(String cUnidadResponsable) {
-		this.cUnidadResponsable = cUnidadResponsable;
-	}
+    private double mImporteMasIva;
 
-	public String getcIDRFC() {
-		return cIDRFC;
-	}
+    private int nFolioDoc;
 
-	public void setcIDRFC(String cIDRFC) {
-		this.cIDRFC = cIDRFC;
-	}
+    private String caNoContrarrecibo;
 
-	public String getcCentroContable() {
-		return cCentroContable;
-	}
+    private String cTipoDoc;
 
-	public void setcCentroContable(String cCentroContable) {
-		this.cCentroContable = cCentroContable;
-	}
+    private String cRamo;
 
-	public String getaEjercicioFiscal() {
-		return aEjercicioFiscal;
-	}
+    private String U_LOGIN;
 
-	public void setaEjercicioFiscal(String aEjercicioFiscal) {
-		this.aEjercicioFiscal = aEjercicioFiscal;
-	}
+    private Date fCaptura;
 
-	public String getEp() {
-		return Ep;
-	}
+    private int nDocRenglonInt;
 
-	public void setEp(String ep) {
-		Ep = ep;
-	}
-	public String getcMes() {
-		return cMes;
-	}
+    private double mAjuste;
 
-	public void setcMes(String cmes) {
-		cMes = cmes;
-	}
+    private String cMes;
 
-	public double getmImporteMasIva() {
-		return mImporteMasIva;
-	}
+    public int getnFolioPagoPenasConvInt() {
+        return nFolioPagoPenasConvInt;
+    }
 
-	public void setmImporteMasIva(double mImporteMasIva) {
-		this.mImporteMasIva = mImporteMasIva;
-	}
+    public void setnFolioPagoPenasConvInt(int nFolioPagoPenasConvInt) {
+        this.nFolioPagoPenasConvInt = nFolioPagoPenasConvInt;
+    }
 
-	public void setmAjuste(double mAjuste) {
-		this.mAjuste = mAjuste;
-	}
-	public double getmAjuste() {
-		return mAjuste;
-	}
-	
-	public int getnFolioDoc() {
-		return nFolioDoc;
-	}
+    public int getnDocRenglon() {
+        return nDocRenglon;
+    }
 
-	public void setnFolioDoc(int nFolioDoc) {
-		this.nFolioDoc = nFolioDoc;
-	}
+    public void setnDocRenglon(int nDocRenglon) {
+        this.nDocRenglon = nDocRenglon;
+    }
 
-	public String getCaNoContrarrecibo() {
-		return caNoContrarrecibo;
-	}
+    public int getnFolioPagoPenasConv() {
+        return nFolioPagoPenasConv;
+    }
 
-	public void setCaNoContrarrecibo(String caNoContrarrecibo) {
-		this.caNoContrarrecibo = caNoContrarrecibo;
-	}
+    public void setnFolioPagoPenasConv(int nFolioPagoPenasConv) {
+        this.nFolioPagoPenasConv = nFolioPagoPenasConv;
+    }
 
-	public String getcTipoDoc() {
-		return cTipoDoc;
-	}
+    public String getcaNoContrarreciboPP() {
+        return caNoContrarreciboPP;
+    }
 
-	public void setcTipoDoc(String cTipoDoc) {
-		this.cTipoDoc = cTipoDoc;
-	}
+    public void setcaNoContrarreciboPP(String caNoContrarreciboPP) {
+        this.caNoContrarreciboPP = caNoContrarreciboPP;
+    }
 
-	public String getcRamo() {
-		return cRamo;
-	}
+    public String getcUnidadResponsable() {
+        return cUnidadResponsable;
+    }
 
-	public void setcRamo(String cRamo) {
-		this.cRamo = cRamo;
-	}
+    public void setcUnidadResponsable(String cUnidadResponsable) {
+        this.cUnidadResponsable = cUnidadResponsable;
+    }
 
-	public String getU_LOGIN() {
-		return U_LOGIN;
-	}
+    public String getcIDRFC() {
+        return cIDRFC;
+    }
 
-	public void setU_LOGIN(String u_LOGIN) {
-		U_LOGIN = u_LOGIN;
-	}
+    public void setcIDRFC(String cIDRFC) {
+        this.cIDRFC = cIDRFC;
+    }
 
-	public Date getfCaptura() {
-		return fCaptura;
-	}
+    public String getcCentroContable() {
+        return cCentroContable;
+    }
 
-	public void setfCaptura(Date fCaptura) {
-		this.fCaptura = fCaptura;
-	}
+    public void setcCentroContable(String cCentroContable) {
+        this.cCentroContable = cCentroContable;
+    }
 
-	public int getnDocRenglonInt() {
-		return nDocRenglonInt;
-	}
+    public String getaEjercicioFiscal() {
+        return aEjercicioFiscal;
+    }
 
-	public void setnDocRenglonInt(int nDocRenglonInt) {
-		this.nDocRenglonInt = nDocRenglonInt;
-	}
+    public void setaEjercicioFiscal(String aEjercicioFiscal) {
+        this.aEjercicioFiscal = aEjercicioFiscal;
+    }
+
+    public String getEp() {
+        return Ep;
+    }
+
+    public void setEp(String ep) {
+        Ep = ep;
+    }
+
+    public String getcMes() {
+        return cMes;
+    }
+
+    public void setcMes(String cmes) {
+        cMes = cmes;
+    }
+
+    public double getmImporteMasIva() {
+        return mImporteMasIva;
+    }
+
+    public void setmImporteMasIva(double mImporteMasIva) {
+        this.mImporteMasIva = mImporteMasIva;
+    }
+
+    public void setmAjuste(double mAjuste) {
+        this.mAjuste = mAjuste;
+    }
+
+    public double getmAjuste() {
+        return mAjuste;
+    }
+
+    public int getnFolioDoc() {
+        return nFolioDoc;
+    }
+
+    public void setnFolioDoc(int nFolioDoc) {
+        this.nFolioDoc = nFolioDoc;
+    }
+
+    public String getCaNoContrarrecibo() {
+        return caNoContrarrecibo;
+    }
+
+    public void setCaNoContrarrecibo(String caNoContrarrecibo) {
+        this.caNoContrarrecibo = caNoContrarrecibo;
+    }
+
+    public String getcTipoDoc() {
+        return cTipoDoc;
+    }
+
+    public void setcTipoDoc(String cTipoDoc) {
+        this.cTipoDoc = cTipoDoc;
+    }
+
+    public String getcRamo() {
+        return cRamo;
+    }
+
+    public void setcRamo(String cRamo) {
+        this.cRamo = cRamo;
+    }
+
+    public String getU_LOGIN() {
+        return U_LOGIN;
+    }
+
+    public void setU_LOGIN(String u_LOGIN) {
+        U_LOGIN = u_LOGIN;
+    }
+
+    public Date getfCaptura() {
+        return fCaptura;
+    }
+
+    public void setfCaptura(Date fCaptura) {
+        this.fCaptura = fCaptura;
+    }
+
+    public int getnDocRenglonInt() {
+        return nDocRenglonInt;
+    }
+
+    public void setnDocRenglonInt(int nDocRenglonInt) {
+        this.nDocRenglonInt = nDocRenglonInt;
+    }
 }

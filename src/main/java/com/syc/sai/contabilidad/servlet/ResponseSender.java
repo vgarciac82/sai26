@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import com.syc.sai.contabilidad.CuentaContable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class ResponseSender {
 

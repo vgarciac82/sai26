@@ -1,78 +1,82 @@
 package com.syc.egresos;
 
-
 import java.math.BigDecimal;
-
+import java.util.Base64;
 
 public class DetallePago {
 
-	private String		ep;
-	private int			folioPago;
-	private BigDecimal	importeBruto;
-	private String		tipoPago;
-	private String		idTipoConcepto;
-	private String		idTipoMovimiento;
-	private BigDecimal	importeRetencion;
+    private String ep;
 
-	public String getIdTipoConcepto() {
-		return idTipoConcepto;
-	}
+    private int folioPago;
 
-	public void setIdTipoConcepto( String idTipoConcepto ) {
-		this.idTipoConcepto = idTipoConcepto;
-	}
+    private BigDecimal importeBruto;
 
-	public String getIdTipoMovimiento() {
-		return idTipoMovimiento;
-	}
+    private String tipoPago;
 
-	public void setIdTipoMovimiento( String idTipoMovimiento ) {
-		this.idTipoMovimiento = idTipoMovimiento;
-	}
+    private String idTipoConcepto;
 
-	public String getEp() {
-		return ep;
-	}
+    private String idTipoMovimiento;
 
-	public int getFolioPago() {
-		return folioPago;
-	}
+    private BigDecimal importeRetencion;
 
-	public BigDecimal getImporteBruto() {
-		return importeBruto;
-	}
+    public String getIdTipoConcepto() {
+        return idTipoConcepto;
+    }
 
-	public String getTipoPago() {
-		return tipoPago;
-	}
+    public void setIdTipoConcepto(String idTipoConcepto) {
+        this.idTipoConcepto = idTipoConcepto;
+    }
 
-	public void setEp( String ep ) {
-		this.ep = ep;
-	}
+    public String getIdTipoMovimiento() {
+        return idTipoMovimiento;
+    }
 
-	public void setFolioPago( int folioPago ) {
-		this.folioPago = folioPago;
-	}
+    public void setIdTipoMovimiento(String idTipoMovimiento) {
+        this.idTipoMovimiento = idTipoMovimiento;
+    }
 
-	public void setImporteBruto( BigDecimal importeBruto ) {
-		this.importeBruto = importeBruto;
-	}
+    public String getEp() {
+        return ep;
+    }
 
-	public void setTipoPago( String tipoPago ) {
-		this.tipoPago = tipoPago;
-	}
+    public int getFolioPago() {
+        return folioPago;
+    }
 
-	@Override
-	public String toString() {
-		return "DetallePago [ep=" + ep + ", folioPago=" + folioPago + ", tipoPago=" + tipoPago + ", importeBruto=" + importeBruto + "]";
-	}
+    public BigDecimal getImporteBruto() {
+        return importeBruto;
+    }
 
-	public BigDecimal getImporteRetencion() {
-		return importeRetencion;
-	}
+    public String getTipoPago() {
+        return tipoPago;
+    }
 
-	public void setImporteRetencion( BigDecimal importeRetencion ) {
-		this.importeRetencion = importeRetencion;
-	}
+    public void setEp(String ep) {
+        this.ep = ep;
+    }
 
+    public void setFolioPago(int folioPago) {
+        this.folioPago = folioPago;
+    }
+
+    public void setImporteBruto(BigDecimal importeBruto) {
+        this.importeBruto = importeBruto;
+    }
+
+    public void setTipoPago(String tipoPago) {
+        this.tipoPago = tipoPago;
+    }
+
+    @Override
+    public String toString() {
+        return "DetallePago [ep=" + ep + ", folioPago=" + folioPago + ", tipoPago=" + tipoPago + ", importeBruto=" + importeBruto + "]";
+    }
+
+    public BigDecimal getImporteRetencion() {
+        return importeRetencion;
+    }
+
+    public void setImporteRetencion(BigDecimal importeRetencion) {
+        this.importeRetencion = importeRetencion;
+    }
 }

@@ -12,6 +12,7 @@ import com.syc.subejercicio.Subejercicio;
 import com.syc.subejercicio.UsuarioUEManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class TableroAlertaSubejercicioBusinessLogic extends DataSourceManager {
 

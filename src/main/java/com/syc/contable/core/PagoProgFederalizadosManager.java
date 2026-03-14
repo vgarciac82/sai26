@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import org.jfree.util.Log;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
+import java.util.Base64;
 
 public class PagoProgFederalizadosManager {
 

@@ -14,6 +14,7 @@ import org.jfree.util.Log;
 import com.syc.utils.URIComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class CasoDatoManager {
 

@@ -9,6 +9,7 @@ import java.util.List;
 import jakarta.servlet.ServletException;
 import com.syc.adquisiciones.vo.ConexionesBD;
 import com.syc.gestion.documental.CatalogosManager;
+import java.util.Base64;
 
 public class UnificacionUsuariosManager {
 

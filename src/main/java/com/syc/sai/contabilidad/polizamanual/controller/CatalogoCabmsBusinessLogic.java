@@ -10,6 +10,7 @@ import com.syc.sai.contabilidad.polizamanual.CatalogoCabmsEngineException;
 import com.syc.sai.contabilidad.polizamanual.model.CatalogoCabmsManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class CatalogoCabmsBusinessLogic extends DataSourceManager {
 

@@ -24,6 +24,7 @@ import com.syc.sai.firmaElectronica.core.FirmaElectronicaManager;
 import com.syc.sai.firmaElectronica.exceptions.FirmaElectronicaException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class EstadosFinancierosFirma extends FirmaElectronicaReporte {
 

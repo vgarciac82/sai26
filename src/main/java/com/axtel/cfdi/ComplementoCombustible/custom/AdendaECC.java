@@ -1,100 +1,89 @@
 package com.axtel.cfdi.ComplementoCombustible.custom;
 
-
 import java.math.BigDecimal;
 import java.util.List;
-
 import com.axtel.cfdi.ComplementoCombustible.Bonificacion;
 import com.axtel.cfdi.ComplementoCombustible.CargoECC;
-
+import java.util.Base64;
 
 /**
- * 
  * @author vicente.garcia
- *
  */
 public class AdendaECC {
 
-	/**
-	 * @param bonificaciones
-	 * @param cargos
-	 */
-	public AdendaECC( List<Bonificacion> bonificaciones, List<CargoECC> cargos ) {
-		super();
-		this.bonificaciones = bonificaciones;
-		this.cargos = cargos;
-	}
+    /**
+     * @param bonificaciones
+     * @param cargos
+     */
+    public AdendaECC(List<Bonificacion> bonificaciones, List<CargoECC> cargos) {
+        super();
+        this.bonificaciones = bonificaciones;
+        this.cargos = cargos;
+    }
 
-	private List<Bonificacion>	bonificaciones;
-	private List<CargoECC>		cargos;
+    private List<Bonificacion> bonificaciones;
 
-	/**
-	 * @return the bonificaciones
-	 */
-	public List<Bonificacion> getBonificaciones() {
-		return bonificaciones;
-	}
+    private List<CargoECC> cargos;
 
-	/**
-	 * @param bonificaciones
-	 *            the bonificaciones to set
-	 */
-	public void setBonificaciones( List<Bonificacion> bonificaciones ) {
-		this.bonificaciones = bonificaciones;
-	}
+    /**
+     * @return the bonificaciones
+     */
+    public List<Bonificacion> getBonificaciones() {
+        return bonificaciones;
+    }
 
-	/**
-	 * @return the cargos
-	 */
-	public List<CargoECC> getCargos() {
-		return cargos;
-	}
+    /**
+     * @param bonificaciones
+     *            the bonificaciones to set
+     */
+    public void setBonificaciones(List<Bonificacion> bonificaciones) {
+        this.bonificaciones = bonificaciones;
+    }
 
-	/**
-	 * @param cargos
-	 *            the cargos to set
-	 */
-	public void setCargos( List<CargoECC> cargos ) {
-		this.cargos = cargos;
-	}
+    /**
+     * @return the cargos
+     */
+    public List<CargoECC> getCargos() {
+        return cargos;
+    }
 
-	public BigDecimal getSubTotal() {
-		BigDecimal importeBruto = new BigDecimal( 0.0 );
+    /**
+     * @param cargos
+     *            the cargos to set
+     */
+    public void setCargos(List<CargoECC> cargos) {
+        this.cargos = cargos;
+    }
 
-		for ( CargoECC cargo : getCargos() ) {
-			importeBruto = importeBruto.add( cargo.getImporte() );
-		}
-		return importeBruto;
-	}
+    public BigDecimal getSubTotal() {
+        BigDecimal importeBruto = new BigDecimal(0.0);
+        for (CargoECC cargo : getCargos()) {
+            importeBruto = importeBruto.add(cargo.getImporte());
+        }
+        return importeBruto;
+    }
 
-	public BigDecimal getTotal() {
-		BigDecimal importeTotal = new BigDecimal( 0.0 );
+    public BigDecimal getTotal() {
+        BigDecimal importeTotal = new BigDecimal(0.0);
+        for (CargoECC cargo : getCargos()) {
+            importeTotal = importeTotal.add(cargo.getImporte()).add(cargo.getTraslado());
+        }
+        return importeTotal;
+    }
 
-		for ( CargoECC cargo : getCargos() ) {
-			importeTotal = importeTotal.add( cargo.getImporte() ).add(cargo.getTraslado());
-		}
-		
-		return importeTotal;
-	}
+    public BigDecimal getTraslados() {
+        BigDecimal importeTraslados = new BigDecimal(0.0);
+        for (CargoECC cargo : getCargos()) {
+            importeTraslados = importeTraslados.add(cargo.getTraslado());
+        }
+        return importeTraslados;
+    }
 
-	public BigDecimal getTraslados() {
-		BigDecimal importeTraslados = new BigDecimal( 0.0 );
-
-		for ( CargoECC cargo : getCargos() ) {
-			importeTraslados = importeTraslados.add( cargo.getTraslado() );
-		}
-		
-		return importeTraslados;
-	}
-
-	public BigDecimal getDescuento() {
-		BigDecimal importeDescuento = new BigDecimal( 0.0 );
-
-		for ( CargoECC cargo : getCargos() ) {
-			importeDescuento = importeDescuento.add( cargo.getDescuento() );
-		}
-		
-		return importeDescuento;
-	}
-
+    public BigDecimal getDescuento() {
+        BigDecimal importeDescuento = new BigDecimal(0.0);
+        for (CargoECC cargo : getCargos()) {
+            importeDescuento = importeDescuento.add(cargo.getDescuento());
+        }
+        return importeDescuento;
+    }
 }

@@ -10,6 +10,7 @@ import com.axtel.sai.sicove.exceptions.SicoveException;
 import com.axtel.sai.sicove.repositories.EmployeeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class JDBCEmployeeRepository implements EmployeeRepository {
 

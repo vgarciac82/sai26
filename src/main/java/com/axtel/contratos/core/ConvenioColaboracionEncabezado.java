@@ -1,319 +1,334 @@
 package com.axtel.contratos.core;
 
-
 import java.math.BigDecimal;
 import java.util.Date;
-
+import java.util.Base64;
 
 /**
  * POJO Convenio de colaboracion.
- * 
- * @author vicente.garcia
  *
+ * @author vicente.garcia
  */
 public class ConvenioColaboracionEncabezado {
 
-	private String		conceptoConvenio;
-	private String		idTipoAdjudicacion;
-	private String		idUnidadAdministrativa;
-	private Date		fechaCaptura = new Date();
-	private Date		fechaFinConvenio;
-	private Date		fechaConvenioInicio;
-	private Date		fechaFirmaConvenio;
-	private int			folioConvenioColaboracion;
-	private String		idContrato;
-	private String		esPlurianual = "N";
-	private String		loginCaptura;
-	private BigDecimal	mImporteBruto;
-	private BigDecimal	mImporteConvenio;
-	private BigDecimal	mImporteIVA;
-	private BigDecimal	mImporteTotal;
-	private int			porcIvaAplicable;
-	private String		rfc;
-	private String		unidadEjecutora;
-	private String		setCentroContable;
+    private String conceptoConvenio;
 
-	@Override
-	public String toString() {
-		return "ConvenioColaboracion [conceptoConvenio=" + conceptoConvenio + ", idTipoAdjudicacion=" + idTipoAdjudicacion + ", idUnidadAdministrativa=" + idUnidadAdministrativa + ", fechaCaptura=" + fechaCaptura + ", fechaFinConvenio=" + fechaFinConvenio + ", fechaConvenioInicio=" + fechaConvenioInicio + ", fechaFirmaConvenio=" + fechaFirmaConvenio + ", folioConvenioColaboracion=" + folioConvenioColaboracion + ", idContrato=" + idContrato + ", esPlurianual=" + esPlurianual + ", loginCaptura=" + loginCaptura + ", mImporteBruto=" + mImporteBruto + ", mImporteConvenio=" + mImporteConvenio + ", mImporteIVA=" + mImporteIVA + ", mImporteTotal=" + mImporteTotal + ", porcIvaAplicable=" + porcIvaAplicable + ", rfc=" + rfc + ", unidadEjecutora=" + unidadEjecutora + "]";
-	}
+    private String idTipoAdjudicacion;
 
-	/**
-	 * @return the conceptoConvenio
-	 */
-	public String getConceptoConvenio() {
-		return conceptoConvenio;
-	}
+    private String idUnidadAdministrativa;
 
-	/**
-	 * @param conceptoConvenio
-	 *            the conceptoConvenio to set
-	 */
-	public void setConceptoConvenio( String conceptoConvenio ) {
-		this.conceptoConvenio = conceptoConvenio;
-	}
+    private Date fechaCaptura = new Date();
 
-	/**
-	 * @return the idTipoAdjudicacion
-	 */
-	public String getIdTipoAdjudicacion() {
-		return idTipoAdjudicacion;
-	}
+    private Date fechaFinConvenio;
 
-	/**
-	 * @param idTipoAdjudicacion
-	 *            the idTipoAdjudicacion to set
-	 */
-	public void setIdTipoAdjudicacion( String idTipoAdjudicacion ) {
-		this.idTipoAdjudicacion = idTipoAdjudicacion;
-	}
+    private Date fechaConvenioInicio;
 
-	/**
-	 * @return the idUnidadAdministrativa
-	 */
-	public String getIdUnidadAdministrativa() {
-		return idUnidadAdministrativa;
-	}
+    private Date fechaFirmaConvenio;
 
-	/**
-	 * @param idUnidadAdministrativa
-	 *            the idUnidadAdministrativa to set
-	 */
-	public void setIdUnidadAdministrativa( String idUnidadAdministrativa ) {
-		this.idUnidadAdministrativa = idUnidadAdministrativa;
-	}
+    private int folioConvenioColaboracion;
 
-	/**
-	 * @return the fechaCaptura
-	 */
-	public Date getFechaCaptura() {
-		return fechaCaptura;
-	}
+    private String idContrato;
 
-	/**
-	 * @param fechaCaptura
-	 *            the fechaCaptura to set
-	 */
-	public void setFechaCaptura( Date fechaCaptura ) {
-		this.fechaCaptura = fechaCaptura;
-	}
+    private String esPlurianual = "N";
 
-	/**
-	 * @return the fechaFinConvenio
-	 */
-	public Date getFechaFinConvenio() {
-		return fechaFinConvenio;
-	}
+    private String loginCaptura;
 
-	/**
-	 * @param fechaFinConvenio
-	 *            the fechaFinConvenio to set
-	 */
-	public void setFechaFinConvenio( Date fechaFinConvenio ) {
-		this.fechaFinConvenio = fechaFinConvenio;
-	}
+    private BigDecimal mImporteBruto;
 
-	/**
-	 * @return the fechaConvenioInicio
-	 */
-	public Date getFechaConvenioInicio() {
-		return fechaConvenioInicio;
-	}
+    private BigDecimal mImporteConvenio;
 
-	/**
-	 * @param fechaConvenioInicio
-	 *            the fechaConvenioInicio to set
-	 */
-	public void setFechaConvenioInicio( Date fechaConvenioInicio ) {
-		this.fechaConvenioInicio = fechaConvenioInicio;
-	}
+    private BigDecimal mImporteIVA;
 
-	/**
-	 * @return the fechaFirmaConvenio
-	 */
-	public Date getFechaFirmaConvenio() {
-		return fechaFirmaConvenio;
-	}
+    private BigDecimal mImporteTotal;
 
-	/**
-	 * @param fechaFirmaConvenio
-	 *            the fechaFirmaConvenio to set
-	 */
-	public void setFechaFirmaConvenio( Date fechaFirmaConvenio ) {
-		this.fechaFirmaConvenio = fechaFirmaConvenio;
-	}
+    private int porcIvaAplicable;
 
-	/**
-	 * @return the folioConvenioColaboracion
-	 */
-	public int getFolioConvenioColaboracion() {
-		return folioConvenioColaboracion;
-	}
+    private String rfc;
 
-	/**
-	 * @param folioConvenioColaboracion
-	 *            the folioConvenioColaboracion to set
-	 */
-	public void setFolioConvenioColaboracion( int folioConvenioColaboracion ) {
-		this.folioConvenioColaboracion = folioConvenioColaboracion;
-	}
+    private String unidadEjecutora;
 
-	/**
-	 * @return the idContrato
-	 */
-	public String getIdContrato() {
-		return idContrato;
-	}
+    private String setCentroContable;
 
-	/**
-	 * @param idContrato
-	 *            the idContrato to set
-	 */
-	public void setIdContrato( String idContrato ) {
-		this.idContrato = idContrato;
-	}
+    @Override
+    public String toString() {
+        return "ConvenioColaboracion [conceptoConvenio=" + conceptoConvenio + ", idTipoAdjudicacion=" + idTipoAdjudicacion + ", idUnidadAdministrativa=" + idUnidadAdministrativa + ", fechaCaptura=" + fechaCaptura + ", fechaFinConvenio=" + fechaFinConvenio + ", fechaConvenioInicio=" + fechaConvenioInicio + ", fechaFirmaConvenio=" + fechaFirmaConvenio + ", folioConvenioColaboracion=" + folioConvenioColaboracion + ", idContrato=" + idContrato + ", esPlurianual=" + esPlurianual + ", loginCaptura=" + loginCaptura + ", mImporteBruto=" + mImporteBruto + ", mImporteConvenio=" + mImporteConvenio + ", mImporteIVA=" + mImporteIVA + ", mImporteTotal=" + mImporteTotal + ", porcIvaAplicable=" + porcIvaAplicable + ", rfc=" + rfc + ", unidadEjecutora=" + unidadEjecutora + "]";
+    }
 
-	/**
-	 * @return the esPlurianual
-	 */
-	public String getEsPlurianual() {
-		return esPlurianual;
-	}
+    /**
+     * @return the conceptoConvenio
+     */
+    public String getConceptoConvenio() {
+        return conceptoConvenio;
+    }
 
-	/**
-	 * @param esPlurianual
-	 *            the esPlurianual to set
-	 */
-	public void setEsPlurianual( String esPlurianual ) {
-		this.esPlurianual = esPlurianual;
-	}
+    /**
+     * @param conceptoConvenio
+     *            the conceptoConvenio to set
+     */
+    public void setConceptoConvenio(String conceptoConvenio) {
+        this.conceptoConvenio = conceptoConvenio;
+    }
 
-	/**
-	 * @return the loginCaptura
-	 */
-	public String getLoginCaptura() {
-		return loginCaptura;
-	}
+    /**
+     * @return the idTipoAdjudicacion
+     */
+    public String getIdTipoAdjudicacion() {
+        return idTipoAdjudicacion;
+    }
 
-	/**
-	 * @param loginCaptura
-	 *            the loginCaptura to set
-	 */
-	public void setLoginCaptura( String loginCaptura ) {
-		this.loginCaptura = loginCaptura;
-	}
+    /**
+     * @param idTipoAdjudicacion
+     *            the idTipoAdjudicacion to set
+     */
+    public void setIdTipoAdjudicacion(String idTipoAdjudicacion) {
+        this.idTipoAdjudicacion = idTipoAdjudicacion;
+    }
 
-	/**
-	 * @return the mImporteBruto
-	 */
-	public BigDecimal getmImporteBruto() {
-		return mImporteBruto;
-	}
+    /**
+     * @return the idUnidadAdministrativa
+     */
+    public String getIdUnidadAdministrativa() {
+        return idUnidadAdministrativa;
+    }
 
-	/**
-	 * @param mImporteBruto
-	 *            the mImporteBruto to set
-	 */
-	public void setmImporteBruto( BigDecimal mImporteBruto ) {
-		this.mImporteBruto = mImporteBruto;
-	}
+    /**
+     * @param idUnidadAdministrativa
+     *            the idUnidadAdministrativa to set
+     */
+    public void setIdUnidadAdministrativa(String idUnidadAdministrativa) {
+        this.idUnidadAdministrativa = idUnidadAdministrativa;
+    }
 
-	/**
-	 * @return the mImporteConvenio
-	 */
-	public BigDecimal getmImporteConvenio() {
-		return mImporteConvenio;
-	}
+    /**
+     * @return the fechaCaptura
+     */
+    public Date getFechaCaptura() {
+        return fechaCaptura;
+    }
 
-	/**
-	 * @param mImporteConvenio
-	 *            the mImporteConvenio to set
-	 */
-	public void setmImporteConvenio( BigDecimal mImporteConvenio ) {
-		this.mImporteConvenio = mImporteConvenio;
-	}
+    /**
+     * @param fechaCaptura
+     *            the fechaCaptura to set
+     */
+    public void setFechaCaptura(Date fechaCaptura) {
+        this.fechaCaptura = fechaCaptura;
+    }
 
-	/**
-	 * @return the mImporteIVA
-	 */
-	public BigDecimal getmImporteIVA() {
-		return mImporteIVA;
-	}
+    /**
+     * @return the fechaFinConvenio
+     */
+    public Date getFechaFinConvenio() {
+        return fechaFinConvenio;
+    }
 
-	/**
-	 * @param mImporteIVA
-	 *            the mImporteIVA to set
-	 */
-	public void setmImporteIVA( BigDecimal mImporteIVA ) {
-		this.mImporteIVA = mImporteIVA;
-	}
+    /**
+     * @param fechaFinConvenio
+     *            the fechaFinConvenio to set
+     */
+    public void setFechaFinConvenio(Date fechaFinConvenio) {
+        this.fechaFinConvenio = fechaFinConvenio;
+    }
 
-	/**
-	 * @return the mImporteTotal
-	 */
-	public BigDecimal getmImporteTotal() {
-		return mImporteTotal;
-	}
+    /**
+     * @return the fechaConvenioInicio
+     */
+    public Date getFechaConvenioInicio() {
+        return fechaConvenioInicio;
+    }
 
-	/**
-	 * @param mImporteTotal
-	 *            the mImporteTotal to set
-	 */
-	public void setmImporteTotal( BigDecimal mImporteTotal ) {
-		this.mImporteTotal = mImporteTotal;
-	}
+    /**
+     * @param fechaConvenioInicio
+     *            the fechaConvenioInicio to set
+     */
+    public void setFechaConvenioInicio(Date fechaConvenioInicio) {
+        this.fechaConvenioInicio = fechaConvenioInicio;
+    }
 
-	/**
-	 * @return the porcIvaAplicable
-	 */
-	public int getPorcIvaAplicable() {
-		return porcIvaAplicable;
-	}
+    /**
+     * @return the fechaFirmaConvenio
+     */
+    public Date getFechaFirmaConvenio() {
+        return fechaFirmaConvenio;
+    }
 
-	/**
-	 * @param porcIvaAplicable
-	 *            the porcIvaAplicable to set
-	 */
-	public void setPorcIvaAplicable( int porcIvaAplicable ) {
-		this.porcIvaAplicable = porcIvaAplicable;
-	}
+    /**
+     * @param fechaFirmaConvenio
+     *            the fechaFirmaConvenio to set
+     */
+    public void setFechaFirmaConvenio(Date fechaFirmaConvenio) {
+        this.fechaFirmaConvenio = fechaFirmaConvenio;
+    }
 
-	/**
-	 * @return the rfc
-	 */
-	public String getRfc() {
-		return rfc;
-	}
+    /**
+     * @return the folioConvenioColaboracion
+     */
+    public int getFolioConvenioColaboracion() {
+        return folioConvenioColaboracion;
+    }
 
-	/**
-	 * @param rfc
-	 *            the rfc to set
-	 */
-	public void setRfc( String rfc ) {
-		this.rfc = rfc;
-	}
+    /**
+     * @param folioConvenioColaboracion
+     *            the folioConvenioColaboracion to set
+     */
+    public void setFolioConvenioColaboracion(int folioConvenioColaboracion) {
+        this.folioConvenioColaboracion = folioConvenioColaboracion;
+    }
 
-	/**
-	 * @return the unidadEjecutora
-	 */
-	public String getUnidadEjecutora() {
-		return unidadEjecutora;
-	}
+    /**
+     * @return the idContrato
+     */
+    public String getIdContrato() {
+        return idContrato;
+    }
 
-	/**
-	 * @param unidadEjecutora
-	 *            the unidadEjecutora to set
-	 */
-	public void setUnidadEjecutora( String unidadEjecutora ) {
-		this.unidadEjecutora = unidadEjecutora;
-	}
+    /**
+     * @param idContrato
+     *            the idContrato to set
+     */
+    public void setIdContrato(String idContrato) {
+        this.idContrato = idContrato;
+    }
 
-	public void setCentroContable( String centroContable ) {
-		this.setCentroContable = centroContable;
-	}
+    /**
+     * @return the esPlurianual
+     */
+    public String getEsPlurianual() {
+        return esPlurianual;
+    }
 
-	public String getCentroContable() {
-		return this.setCentroContable;
-	}
+    /**
+     * @param esPlurianual
+     *            the esPlurianual to set
+     */
+    public void setEsPlurianual(String esPlurianual) {
+        this.esPlurianual = esPlurianual;
+    }
 
+    /**
+     * @return the loginCaptura
+     */
+    public String getLoginCaptura() {
+        return loginCaptura;
+    }
+
+    /**
+     * @param loginCaptura
+     *            the loginCaptura to set
+     */
+    public void setLoginCaptura(String loginCaptura) {
+        this.loginCaptura = loginCaptura;
+    }
+
+    /**
+     * @return the mImporteBruto
+     */
+    public BigDecimal getmImporteBruto() {
+        return mImporteBruto;
+    }
+
+    /**
+     * @param mImporteBruto
+     *            the mImporteBruto to set
+     */
+    public void setmImporteBruto(BigDecimal mImporteBruto) {
+        this.mImporteBruto = mImporteBruto;
+    }
+
+    /**
+     * @return the mImporteConvenio
+     */
+    public BigDecimal getmImporteConvenio() {
+        return mImporteConvenio;
+    }
+
+    /**
+     * @param mImporteConvenio
+     *            the mImporteConvenio to set
+     */
+    public void setmImporteConvenio(BigDecimal mImporteConvenio) {
+        this.mImporteConvenio = mImporteConvenio;
+    }
+
+    /**
+     * @return the mImporteIVA
+     */
+    public BigDecimal getmImporteIVA() {
+        return mImporteIVA;
+    }
+
+    /**
+     * @param mImporteIVA
+     *            the mImporteIVA to set
+     */
+    public void setmImporteIVA(BigDecimal mImporteIVA) {
+        this.mImporteIVA = mImporteIVA;
+    }
+
+    /**
+     * @return the mImporteTotal
+     */
+    public BigDecimal getmImporteTotal() {
+        return mImporteTotal;
+    }
+
+    /**
+     * @param mImporteTotal
+     *            the mImporteTotal to set
+     */
+    public void setmImporteTotal(BigDecimal mImporteTotal) {
+        this.mImporteTotal = mImporteTotal;
+    }
+
+    /**
+     * @return the porcIvaAplicable
+     */
+    public int getPorcIvaAplicable() {
+        return porcIvaAplicable;
+    }
+
+    /**
+     * @param porcIvaAplicable
+     *            the porcIvaAplicable to set
+     */
+    public void setPorcIvaAplicable(int porcIvaAplicable) {
+        this.porcIvaAplicable = porcIvaAplicable;
+    }
+
+    /**
+     * @return the rfc
+     */
+    public String getRfc() {
+        return rfc;
+    }
+
+    /**
+     * @param rfc
+     *            the rfc to set
+     */
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
+
+    /**
+     * @return the unidadEjecutora
+     */
+    public String getUnidadEjecutora() {
+        return unidadEjecutora;
+    }
+
+    /**
+     * @param unidadEjecutora
+     *            the unidadEjecutora to set
+     */
+    public void setUnidadEjecutora(String unidadEjecutora) {
+        this.unidadEjecutora = unidadEjecutora;
+    }
+
+    public void setCentroContable(String centroContable) {
+        this.setCentroContable = centroContable;
+    }
+
+    public String getCentroContable() {
+        return this.setCentroContable;
+    }
 }

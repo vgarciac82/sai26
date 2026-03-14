@@ -11,6 +11,7 @@ import com.syc.sai.contabilidad.polizamanual.CuentasEngineException;
 import com.syc.sai.contabilidad.polizamanual.model.CuentasManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class CuentasBusinessLogic extends DataSourceManager {
 

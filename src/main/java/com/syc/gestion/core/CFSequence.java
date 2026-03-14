@@ -1,33 +1,36 @@
 package com.syc.gestion.core;
 
+import java.util.Base64;
+
 public class CFSequence {
 
-	public String seq_name;
-	public int seq_value;
+    public String seq_name;
 
-	public CFSequence() {
-		this.seq_name = null;
-		this.seq_value = -1;
-	}
+    public int seq_value;
 
-	public CFSequence(String seq_name, int seq_value) {
-		this.seq_name = seq_name;
-		this.seq_value = seq_value;
-	}
+    public CFSequence() {
+        this.seq_name = null;
+        this.seq_value = -1;
+    }
 
-	public String getName() {
-		return seq_name;
-	}
+    public CFSequence(String seq_name, int seq_value) {
+        this.seq_name = seq_name;
+        this.seq_value = seq_value;
+    }
 
-	public void setName(String seq_name) {
-		this.seq_name = seq_name;
-	}
+    public String getName() {
+        return seq_name;
+    }
 
-	public int getValue() {
-		return seq_value;
-	}
+    public void setName(String seq_name) {
+        this.seq_name = seq_name;
+    }
 
-	public void setValue(int seq_value) {
-		this.seq_value = seq_value;
-	}
+    public int getValue() {
+        return seq_value;
+    }
+
+    public void setValue(int seq_value) {
+        this.seq_value = seq_value;
+    }
 }

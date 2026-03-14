@@ -12,6 +12,7 @@ import com.axtel.egresos.entities.EgresoExcedeUMA;
 import com.syc.egresos.core.Amortizacion;
 import com.syc.egresos.core.EgresoEncabezado;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
+import java.util.Base64;
 
 public class EgresoREINTEGROCAJAEncabezado extends EgresoEncabezado {
 

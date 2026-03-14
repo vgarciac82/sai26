@@ -1,6 +1,7 @@
 package com.syc.gestion.core;
 
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.Base64;
 
 public class URLDocumento {
 

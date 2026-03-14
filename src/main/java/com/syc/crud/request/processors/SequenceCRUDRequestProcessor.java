@@ -3,14 +3,15 @@ package com.syc.crud.request.processors;
 import java.io.FileNotFoundException;
 import java.io.OutputStream;
 import java.util.Map;
-import org.codehaus.jackson.JsonEncoding;
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonGenerator;
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.syc.crud.CRUDException;
 import com.syc.crud.CRUDRequestProcessor;
 import com.syc.gestion.core.CFSequenceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class SequenceCRUDRequestProcessor implements CRUDRequestProcessor {
 

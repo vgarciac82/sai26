@@ -1,91 +1,91 @@
 package com.syc.gestion.reportes.anteproyecto;
 
 import java.util.Map;
+import java.util.Base64;
 
 /**
  * Relacion cuenta/monto en el reporte de clasificacion economica.
- * 
+ *
  * @author Vicente Garcia Carrillo
- * 
  */
 public class ClasificacionMonto {
 
-	private int					tipoGasto;
-	private String				descCapitulo;
-	private Map<String, Double>	cuentaMonto;
+    private int tipoGasto;
 
-	/**
-	 * 
-	 */
-	public ClasificacionMonto() {
-		super();
-	}
+    private String descCapitulo;
 
-	/**
-	 * @param tipoGasto
-	 * @param descCapitulo
-	 * @param cuentaMonto
-	 */
-	public ClasificacionMonto(int tipoGasto, String descCapitulo, Map<String, Double> cuentaMonto) {
-		super();
-		this.tipoGasto = tipoGasto;
-		this.descCapitulo = descCapitulo;
-		this.cuentaMonto = cuentaMonto;
-	}
+    private Map<String, Double> cuentaMonto;
 
-	/**
-	 * @return the tipoGasto
-	 */
-	public int getTipoGasto() {
-		return tipoGasto;
-	}
+    /**
+     */
+    public ClasificacionMonto() {
+        super();
+    }
 
-	/**
-	 * @param tipoGasto
-	 *            the tipoGasto to set
-	 */
-	public void setTipoGasto(int tipoGasto) {
-		this.tipoGasto = tipoGasto;
-	}
+    /**
+     * @param tipoGasto
+     * @param descCapitulo
+     * @param cuentaMonto
+     */
+    public ClasificacionMonto(int tipoGasto, String descCapitulo, Map<String, Double> cuentaMonto) {
+        super();
+        this.tipoGasto = tipoGasto;
+        this.descCapitulo = descCapitulo;
+        this.cuentaMonto = cuentaMonto;
+    }
 
-	/**
-	 * @return the descCapitulo
-	 */
-	public String getDescCapitulo() {
-		return descCapitulo;
-	}
+    /**
+     * @return the tipoGasto
+     */
+    public int getTipoGasto() {
+        return tipoGasto;
+    }
 
-	/**
-	 * @param descCapitulo
-	 *            the descCapitulo to set
-	 */
-	public void setDescCapitulo(String descCapitulo) {
-		this.descCapitulo = descCapitulo;
-	}
+    /**
+     * @param tipoGasto
+     *            the tipoGasto to set
+     */
+    public void setTipoGasto(int tipoGasto) {
+        this.tipoGasto = tipoGasto;
+    }
 
-	/**
-	 * @return the cuentaMonto
-	 */
-	public Map<String, Double> getCuentaMonto() {
-		return cuentaMonto;
-	}
+    /**
+     * @return the descCapitulo
+     */
+    public String getDescCapitulo() {
+        return descCapitulo;
+    }
 
-	/**
-	 * @param cuentaMonto
-	 *            the cuentaMonto to set
-	 */
-	public void setCuentaMonto(Map<String, Double> cuentaMonto) {
-		this.cuentaMonto = cuentaMonto;
-	}
+    /**
+     * @param descCapitulo
+     *            the descCapitulo to set
+     */
+    public void setDescCapitulo(String descCapitulo) {
+        this.descCapitulo = descCapitulo;
+    }
 
-	/*
+    /**
+     * @return the cuentaMonto
+     */
+    public Map<String, Double> getCuentaMonto() {
+        return cuentaMonto;
+    }
+
+    /**
+     * @param cuentaMonto
+     *            the cuentaMonto to set
+     */
+    public void setCuentaMonto(Map<String, Double> cuentaMonto) {
+        this.cuentaMonto = cuentaMonto;
+    }
+
+    /*
 	 * (non-Javadoc)
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
-	@Override
-	public String toString() {
-		return "ClasificacionMonto [tipoGasto=" + tipoGasto + ", descCapitulo=" + descCapitulo + ", cuentaMonto=" + cuentaMonto + "]";
-	}
-
+    @Override
+    public String toString() {
+        return "ClasificacionMonto [tipoGasto=" + tipoGasto + ", descCapitulo=" + descCapitulo + ", cuentaMonto=" + cuentaMonto + "]";
+    }
 }

@@ -3,6 +3,7 @@ package com.axtel.web.utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.Base64;
 
 public class ControllerUtils {
 

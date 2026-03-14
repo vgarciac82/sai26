@@ -1,61 +1,67 @@
 package com.syc.gestion.core;
 
+import java.util.Base64;
 
 public class BitacoraCorreo {
 
-	private int					id;
-	private String				destinatarios;
-	private String				mensaje;
-	private String				subject;
-	private String				estatus;
-	private java.sql.Timestamp	fechaEnvio;
+    private int id;
 
-	// Getters y Setters
-	public int getId() {
-		return id;
-	}
+    private String destinatarios;
 
-	public void setId( int id ) {
-		this.id = id;
-	}
+    private String mensaje;
 
-	public String getDestinatarios() {
-		return destinatarios;
-	}
+    private String subject;
 
-	public void setDestinatarios( String destinatarios ) {
-		this.destinatarios = destinatarios;
-	}
+    private String estatus;
 
-	public String getMensaje() {
-		return mensaje;
-	}
+    private java.sql.Timestamp fechaEnvio;
 
-	public void setMensaje( String mensaje ) {
-		this.mensaje = mensaje;
-	}
+    // Getters y Setters
+    public int getId() {
+        return id;
+    }
 
-	public String getSubject() {
-		return subject;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setSubject( String subject ) {
-		this.subject = subject;
-	}
+    public String getDestinatarios() {
+        return destinatarios;
+    }
 
-	public String getEstatus() {
-		return estatus;
-	}
+    public void setDestinatarios(String destinatarios) {
+        this.destinatarios = destinatarios;
+    }
 
-	public void setEstatus( String estatus ) {
-		this.estatus = estatus;
-	}
+    public String getMensaje() {
+        return mensaje;
+    }
 
-	public java.sql.Timestamp getFechaEnvio() {
-		return fechaEnvio;
-	}
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
 
-	public void setFechaEnvio( java.sql.Timestamp fechaEnvio ) {
-		this.fechaEnvio = fechaEnvio;
-	}
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
+
+    public java.sql.Timestamp getFechaEnvio() {
+        return fechaEnvio;
+    }
+
+    public void setFechaEnvio(java.sql.Timestamp fechaEnvio) {
+        this.fechaEnvio = fechaEnvio;
+    }
 }

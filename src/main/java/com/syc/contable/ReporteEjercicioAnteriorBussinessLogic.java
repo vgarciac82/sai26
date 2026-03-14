@@ -21,6 +21,7 @@ import com.syc.contable.core.ReporteEjercicioAnteriorManager;
 import com.syc.dsmngr.DataSourceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class ReporteEjercicioAnteriorBussinessLogic extends DataSourceManager {
 

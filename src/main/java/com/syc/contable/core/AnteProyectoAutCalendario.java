@@ -1,34 +1,57 @@
 package com.syc.contable.core;
+
 import java.io.Serializable;
+import java.util.Base64;
 
 public class AnteProyectoAutCalendario implements Serializable {
 
-	private final static long serialVersionUID = 1;
-	//Parametros de la PK
-	private String NConsecutivo;
-	private String NFolioAnteProyectoAut;
-	private String AEjercicioFiscal;
-	private String CUnidadResponsable;
-	
-	//Campos
-	private String CClaveSiaff;
-	private String CClaveInterna;
-	private String CCentroContable;
-	private String NFolioAnteProyecto;
-	private String MAnualAutorizado;
-	private String MEnero;
-	private String MFebrero;
-	private String MMarzo;
-	private String MAbril;
-	private String MMayo;
-	private String MJunio;
-	private String MJulio;
-	private String MAgosto;
-	private String MSeptiembre;
-	private String MOctubre;
-	private String MNoviembre;
-	private String MDiciembre;
-	/*
+    private final static long serialVersionUID = 1;
+
+    //Parametros de la PK
+    private String NConsecutivo;
+
+    private String NFolioAnteProyectoAut;
+
+    private String AEjercicioFiscal;
+
+    private String CUnidadResponsable;
+
+    //Campos
+    private String CClaveSiaff;
+
+    private String CClaveInterna;
+
+    private String CCentroContable;
+
+    private String NFolioAnteProyecto;
+
+    private String MAnualAutorizado;
+
+    private String MEnero;
+
+    private String MFebrero;
+
+    private String MMarzo;
+
+    private String MAbril;
+
+    private String MMayo;
+
+    private String MJunio;
+
+    private String MJulio;
+
+    private String MAgosto;
+
+    private String MSeptiembre;
+
+    private String MOctubre;
+
+    private String MNoviembre;
+
+    private String MDiciembre;
+
+    /*
 	private String ep;
 	private String UnidadEjecutora;
 	private String RamoEP;
@@ -46,154 +69,175 @@ public class AnteProyectoAutCalendario implements Serializable {
 	private String UnidadNorativa;
 	private String ClaveCNA;
 	*/
-	public String getNConsecutivo() {
-		return NConsecutivo;
-	}
-	public void setNConsecutivo( String nConsecutivo) {
-		NConsecutivo = nConsecutivo;
-	}
+    public String getNConsecutivo() {
+        return NConsecutivo;
+    }
 
-	public String getNFolioAnteProyectoAut() {
-		return NFolioAnteProyectoAut;
-	}
-	public void setNFolioAnteProyectoAut(String nFolioAnteProyectoAut) {
-		NFolioAnteProyectoAut = nFolioAnteProyectoAut;
-	}
+    public void setNConsecutivo(String nConsecutivo) {
+        NConsecutivo = nConsecutivo;
+    }
 
-	public String getAEjercicioFiscal() {
-		return AEjercicioFiscal;
-	}
-	public void setAEjercicioFiscal(String aEjercicioFiscal) {
-		AEjercicioFiscal = aEjercicioFiscal;
-	}
+    public String getNFolioAnteProyectoAut() {
+        return NFolioAnteProyectoAut;
+    }
 
-	public String getCUnidadResponsable() {
-		return CUnidadResponsable;
-	}
-	public void setCUnidadResponsable(String cUnidadResponsable) {
-		CUnidadResponsable = cUnidadResponsable;
-	}
+    public void setNFolioAnteProyectoAut(String nFolioAnteProyectoAut) {
+        NFolioAnteProyectoAut = nFolioAnteProyectoAut;
+    }
 
-	public String getCClaveSiaff() {
-		return CClaveSiaff;
-	}
-	public void setCClaveSiaff(String cClaveSiaff) {
-		CClaveSiaff = cClaveSiaff;
-	}
+    public String getAEjercicioFiscal() {
+        return AEjercicioFiscal;
+    }
 
-	public String getCClaveInterna() {
-		return CClaveInterna;
-	}
-	public void setCClaveInterna(String cClaveInterna) {
-		CClaveInterna = cClaveInterna;
-	}
+    public void setAEjercicioFiscal(String aEjercicioFiscal) {
+        AEjercicioFiscal = aEjercicioFiscal;
+    }
 
-	public String getCCentroContable() {
-		return CCentroContable;
-	}
-	public void setCCentroContable(String cCentroContable) {
-		CCentroContable = cCentroContable;
-	}
+    public String getCUnidadResponsable() {
+        return CUnidadResponsable;
+    }
 
-	public String getNFolioAnteProyecto() {
-		return NFolioAnteProyecto;
-	}
-	public void setNFolioAnteProyecto(String nFolioAnteProyecto) {
-		NFolioAnteProyecto = nFolioAnteProyecto;
-	}
+    public void setCUnidadResponsable(String cUnidadResponsable) {
+        CUnidadResponsable = cUnidadResponsable;
+    }
 
-	public String getMAnualAutorizado() {
-		return MAnualAutorizado;
-	}
-	public void setMAnualAutorizado(String mAnualAutorizado) {
-		MAnualAutorizado = mAnualAutorizado;
-	}
+    public String getCClaveSiaff() {
+        return CClaveSiaff;
+    }
 
-	public String getMEnero() {
-		return MEnero;
-	}
-	public void setMEnero(String mEnero) {
-		MEnero = mEnero;
-	}
+    public void setCClaveSiaff(String cClaveSiaff) {
+        CClaveSiaff = cClaveSiaff;
+    }
 
-	public String getMFebrero() {
-		return MFebrero;
-	}
-	public void setMFebrero(String mFebrero) {
-		MFebrero = mFebrero;
-	}
-	
-	public String getMMarzo() {
-		return MMarzo;
-	}
-	
-	public void setMMarzo(String mMarzo) {
-		MMarzo = mMarzo;
-	}
-	
-	public String getMAbril() {
-		return MAbril;
-	}
-	public void setMAbril(String mAbril) {
-		MAbril = mAbril;
-	}
+    public String getCClaveInterna() {
+        return CClaveInterna;
+    }
 
-	public String getMMayo() {
-		return MMayo;
-	}
-	public void setMMayo(String mMayo) {
-		MMayo = mMayo;
-	}
+    public void setCClaveInterna(String cClaveInterna) {
+        CClaveInterna = cClaveInterna;
+    }
 
-	public String getMJunio() {
-		return MJunio;
-	}
-	public void setMJunio(String mJunio) {
-		MJunio = mJunio;
-	}
+    public String getCCentroContable() {
+        return CCentroContable;
+    }
 
-	public String getMJulio() {
-		return MJulio;
-	}
-	public void setMJulio(String mJulio) {
-		MJulio = mJulio;
-	}
+    public void setCCentroContable(String cCentroContable) {
+        CCentroContable = cCentroContable;
+    }
 
-	public String getMAgosto() {
-		return MAgosto;
-	}
-	public void setMAgosto(String mAgosto) {
-		MAgosto = mAgosto;
-	}
+    public String getNFolioAnteProyecto() {
+        return NFolioAnteProyecto;
+    }
 
-	public String getMSeptiembre() {
-		return MSeptiembre;
-	}
-	public void setMSeptiembre(String mSeptiembre) {
-		MSeptiembre = mSeptiembre;
-	}
+    public void setNFolioAnteProyecto(String nFolioAnteProyecto) {
+        NFolioAnteProyecto = nFolioAnteProyecto;
+    }
 
-	public String getMOctubre() {
-		return MOctubre;
-	}
-	public void setMOctubre(String mOctubre) {
-		MOctubre = mOctubre;
-	}
+    public String getMAnualAutorizado() {
+        return MAnualAutorizado;
+    }
 
-	public String getMNoviembre() {
-		return MNoviembre;
-	}
-	public void setMNoviembre(String mNoviembre) {
-		MNoviembre = mNoviembre;
-	}
+    public void setMAnualAutorizado(String mAnualAutorizado) {
+        MAnualAutorizado = mAnualAutorizado;
+    }
 
-	public String getMDiciembre() {
-		return MDiciembre;
-	}
-	public void setMDiciembre(String mDiciembre) {
-		MDiciembre = mDiciembre;
-	}
-	/*
+    public String getMEnero() {
+        return MEnero;
+    }
+
+    public void setMEnero(String mEnero) {
+        MEnero = mEnero;
+    }
+
+    public String getMFebrero() {
+        return MFebrero;
+    }
+
+    public void setMFebrero(String mFebrero) {
+        MFebrero = mFebrero;
+    }
+
+    public String getMMarzo() {
+        return MMarzo;
+    }
+
+    public void setMMarzo(String mMarzo) {
+        MMarzo = mMarzo;
+    }
+
+    public String getMAbril() {
+        return MAbril;
+    }
+
+    public void setMAbril(String mAbril) {
+        MAbril = mAbril;
+    }
+
+    public String getMMayo() {
+        return MMayo;
+    }
+
+    public void setMMayo(String mMayo) {
+        MMayo = mMayo;
+    }
+
+    public String getMJunio() {
+        return MJunio;
+    }
+
+    public void setMJunio(String mJunio) {
+        MJunio = mJunio;
+    }
+
+    public String getMJulio() {
+        return MJulio;
+    }
+
+    public void setMJulio(String mJulio) {
+        MJulio = mJulio;
+    }
+
+    public String getMAgosto() {
+        return MAgosto;
+    }
+
+    public void setMAgosto(String mAgosto) {
+        MAgosto = mAgosto;
+    }
+
+    public String getMSeptiembre() {
+        return MSeptiembre;
+    }
+
+    public void setMSeptiembre(String mSeptiembre) {
+        MSeptiembre = mSeptiembre;
+    }
+
+    public String getMOctubre() {
+        return MOctubre;
+    }
+
+    public void setMOctubre(String mOctubre) {
+        MOctubre = mOctubre;
+    }
+
+    public String getMNoviembre() {
+        return MNoviembre;
+    }
+
+    public void setMNoviembre(String mNoviembre) {
+        MNoviembre = mNoviembre;
+    }
+
+    public String getMDiciembre() {
+        return MDiciembre;
+    }
+
+    public void setMDiciembre(String mDiciembre) {
+        MDiciembre = mDiciembre;
+    }
+
+    /*
 	public String getEp() {
 		return ep;
 	}
@@ -291,7 +335,7 @@ public class AnteProyectoAutCalendario implements Serializable {
 		UnidadNorativa = unidadNorativa;
 	}
 	*/
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
 }

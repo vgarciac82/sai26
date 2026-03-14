@@ -1,159 +1,172 @@
 package com.syc.egresos.core;
 
-
 import java.math.BigDecimal;
-
+import java.util.Base64;
 
 public class EgresoRetencion {
 
-	private String		componente;
-	private String		contrarecibo;
-	private int			folioPago;
-	private String		idContrato;
-	private int			idTipoRetencion;
-	private BigDecimal	importeBruto		= new BigDecimal( 0.00d );
-	private BigDecimal	importeRetencion	= new BigDecimal( 0.00d );
-	private boolean		obligatoria;
-	private String		partida;
-	private BigDecimal	porcRetencion		= new BigDecimal( 0.00d );
-	private boolean		requeridaPersonaFisica;
-	private boolean		requeridaPersonaMoral;
-	private String		tipoPago;
-	private int			tipoPersona;
-	private String		tipoRetencion;
-	private String 		cTipoDocumento;
+    private String componente;
 
-	public String getComponente() {
-		return componente;
-	}
+    private String contrarecibo;
 
-	public String getContrarecibo() {
-		return contrarecibo;
-	}
+    private int folioPago;
 
-	public int getFolioPago() {
-		return folioPago;
-	}
+    private String idContrato;
 
-	public String getIdContrato() {
-		return idContrato;
-	}
+    private int idTipoRetencion;
 
-	public int getIdTipoRetencion() {
-		return idTipoRetencion;
-	}
+    private BigDecimal importeBruto = new BigDecimal(0.00d);
 
-	public BigDecimal getImporteBruto() {
-		return importeBruto;
-	}
+    private BigDecimal importeRetencion = new BigDecimal(0.00d);
 
-	public BigDecimal getImporteRetencion() {
-		return importeRetencion;
-	}
+    private boolean obligatoria;
 
-	public String getPartida() {
-		return partida;
-	}
+    private String partida;
 
-	public BigDecimal getPorcRetencion() {
-		return porcRetencion;
-	}
+    private BigDecimal porcRetencion = new BigDecimal(0.00d);
 
-	public String getTipoPago() {
-		return tipoPago;
-	}
+    private boolean requeridaPersonaFisica;
 
-	public int getTipoPersona() {
-		return tipoPersona;
-	}
+    private boolean requeridaPersonaMoral;
 
-	public String getTipoRetencion() {
-		return tipoRetencion;
-	}
+    private String tipoPago;
 
-	public boolean isObligatoria() {
-		return obligatoria;
-	}
+    private int tipoPersona;
 
-	public boolean isRequeridaPersonaFisica() {
-		return requeridaPersonaFisica;
-	}
+    private String tipoRetencion;
 
-	public boolean isRequeridaPersonaMoral() {
-		return requeridaPersonaMoral;
-	}
+    private String cTipoDocumento;
 
-	public void setComponente( String componente ) {
-		this.componente = componente;
-	}
+    public String getComponente() {
+        return componente;
+    }
 
-	public void setContrarecibo( String contrarecibo ) {
-		this.contrarecibo = contrarecibo;
-	}
+    public String getContrarecibo() {
+        return contrarecibo;
+    }
 
-	public void setFolioPago( int folioPago ) {
-		this.folioPago = folioPago;
-	}
+    public int getFolioPago() {
+        return folioPago;
+    }
 
-	public void setIdContrato( String idContrato ) {
-		this.idContrato = idContrato;
-	}
+    public String getIdContrato() {
+        return idContrato;
+    }
 
-	public void setIdTipoRetencion( int idTipoRetencion ) {
-		this.idTipoRetencion = idTipoRetencion;
-	}
+    public int getIdTipoRetencion() {
+        return idTipoRetencion;
+    }
 
-	public void setImporteBruto( BigDecimal importeBruto ) {
-		this.importeBruto = importeBruto;
-	}
+    public BigDecimal getImporteBruto() {
+        return importeBruto;
+    }
 
-	public void setImporteRetencion( BigDecimal importeRetencion ) {
-		this.importeRetencion = importeRetencion;
-	}
+    public BigDecimal getImporteRetencion() {
+        return importeRetencion;
+    }
 
-	public void setObligatoria( boolean obligatoria ) {
-		this.obligatoria = obligatoria;
-	}
+    public String getPartida() {
+        return partida;
+    }
 
-	public void setPartida( String partida ) {
-		this.partida = partida;
-	}
+    public BigDecimal getPorcRetencion() {
+        return porcRetencion;
+    }
 
-	public void setPorcRetencion( BigDecimal porcRetencion ) {
-		this.porcRetencion = porcRetencion;
-	}
+    public String getTipoPago() {
+        return tipoPago;
+    }
 
-	public void setRequeridaPersonaFisica( boolean requeridaPersonaFisica ) {
-		this.requeridaPersonaFisica = requeridaPersonaFisica;
-	}
+    public int getTipoPersona() {
+        return tipoPersona;
+    }
 
-	public void setRequeridaPersonaMoral( boolean requeridaPersonaMoral ) {
-		this.requeridaPersonaMoral = requeridaPersonaMoral;
-	}
+    public String getTipoRetencion() {
+        return tipoRetencion;
+    }
 
-	public void setTipoPago( String tipoPago ) {
-		this.tipoPago = tipoPago;
-	}
+    public boolean isObligatoria() {
+        return obligatoria;
+    }
 
-	public void setTipoPersona( int tipoPersona ) {
-		this.tipoPersona = tipoPersona;
-	}
+    public boolean isRequeridaPersonaFisica() {
+        return requeridaPersonaFisica;
+    }
 
-	public void setTipoRetencion( String tipoRetencion ) {
-		this.tipoRetencion = tipoRetencion;
-	}
+    public boolean isRequeridaPersonaMoral() {
+        return requeridaPersonaMoral;
+    }
 
-	@Override
-	public String toString() {
-		return "EgresoRetencion [componente=" + componente + ", contrarecibo=" + contrarecibo + ", folioPago=" + folioPago + ", idContrato=" + idContrato + ", idTipoRetencion=" + idTipoRetencion + ", importeBruto=" + importeBruto + ", importeRetencion=" + importeRetencion + ", obligatoria=" + obligatoria + ", partida=" + partida + ", porcRetencion=" + porcRetencion + ", requeridaPersonaFisica=" + requeridaPersonaFisica + ", requeridaPersonaMoral=" + requeridaPersonaMoral + ", tipoPago=" + tipoPago + ", tipoPersona=" + tipoPersona + ", tipoRetencion=" + tipoRetencion + "]";
-	}
+    public void setComponente(String componente) {
+        this.componente = componente;
+    }
 
-	public String getcTipoDocumento() {
-		return cTipoDocumento;
-	}
+    public void setContrarecibo(String contrarecibo) {
+        this.contrarecibo = contrarecibo;
+    }
 
-	public void setcTipoDocumento( String cTipoDocumento ) {
-		this.cTipoDocumento = cTipoDocumento;
-	}
+    public void setFolioPago(int folioPago) {
+        this.folioPago = folioPago;
+    }
 
+    public void setIdContrato(String idContrato) {
+        this.idContrato = idContrato;
+    }
+
+    public void setIdTipoRetencion(int idTipoRetencion) {
+        this.idTipoRetencion = idTipoRetencion;
+    }
+
+    public void setImporteBruto(BigDecimal importeBruto) {
+        this.importeBruto = importeBruto;
+    }
+
+    public void setImporteRetencion(BigDecimal importeRetencion) {
+        this.importeRetencion = importeRetencion;
+    }
+
+    public void setObligatoria(boolean obligatoria) {
+        this.obligatoria = obligatoria;
+    }
+
+    public void setPartida(String partida) {
+        this.partida = partida;
+    }
+
+    public void setPorcRetencion(BigDecimal porcRetencion) {
+        this.porcRetencion = porcRetencion;
+    }
+
+    public void setRequeridaPersonaFisica(boolean requeridaPersonaFisica) {
+        this.requeridaPersonaFisica = requeridaPersonaFisica;
+    }
+
+    public void setRequeridaPersonaMoral(boolean requeridaPersonaMoral) {
+        this.requeridaPersonaMoral = requeridaPersonaMoral;
+    }
+
+    public void setTipoPago(String tipoPago) {
+        this.tipoPago = tipoPago;
+    }
+
+    public void setTipoPersona(int tipoPersona) {
+        this.tipoPersona = tipoPersona;
+    }
+
+    public void setTipoRetencion(String tipoRetencion) {
+        this.tipoRetencion = tipoRetencion;
+    }
+
+    @Override
+    public String toString() {
+        return "EgresoRetencion [componente=" + componente + ", contrarecibo=" + contrarecibo + ", folioPago=" + folioPago + ", idContrato=" + idContrato + ", idTipoRetencion=" + idTipoRetencion + ", importeBruto=" + importeBruto + ", importeRetencion=" + importeRetencion + ", obligatoria=" + obligatoria + ", partida=" + partida + ", porcRetencion=" + porcRetencion + ", requeridaPersonaFisica=" + requeridaPersonaFisica + ", requeridaPersonaMoral=" + requeridaPersonaMoral + ", tipoPago=" + tipoPago + ", tipoPersona=" + tipoPersona + ", tipoRetencion=" + tipoRetencion + "]";
+    }
+
+    public String getcTipoDocumento() {
+        return cTipoDocumento;
+    }
+
+    public void setcTipoDocumento(String cTipoDocumento) {
+        this.cTipoDocumento = cTipoDocumento;
+    }
 }

@@ -14,6 +14,7 @@ import com.syc.ws.validacionSAT.Acuse;
 import com.syc.ws.validacionSAT.impl.FacturaSATValidacion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class ActualizaEstatusSATCFDI {
 

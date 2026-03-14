@@ -3,275 +3,293 @@ package com.syc.gestion.core;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 
-public class BitacoraOperacion implements Serializable{
+public class BitacoraOperacion implements Serializable {
 
-	private final static long serialVersionUID = 1;
-	// Valores iniciales invalidos
-	private int idBitacora  = -1;
-	private int idCaso      = -1;
-	private int idTipoCaso  = -1;
-	private int idOperacion = -1;
-	private int idGabinete  = -1;
-	private int oprStack    = -2; 
+    private final static long serialVersionUID = 1;
 
-	private int secuencialAnterior  = -1;
-	private int secuencialOperacion = -1;	// Corresponde a CG_OPERACION.ID_OPER
-	private int secuencialSiguiente = -1;
+    // Valores iniciales invalidos
+    private int idBitacora = -1;
 
-	private int status;
+    private int idCaso = -1;
 
-	private Timestamp fechaInicio;
-	private Timestamp fechaCompromiso;
-	private Timestamp fechaTermino;
-	
-	private String folio;
-	private String remitenteId;
-	private String remitenteArea;
-	private String responsableId;
-	private String responsableArea;
-	private String turnadoId;
-	private String turnadoArea;
-	private String tituloAplicacion;
-	
-	private String instruccion;
-	
-	private boolean terminada;
-	private boolean leida;
-	
-	private Operacion operacion = null;
+    private int idTipoCaso = -1;
 
-	public boolean isLeida() {
-		return leida;
-	}
+    private int idOperacion = -1;
 
-	public void setLeida(boolean leida) {
-		this.leida = leida;
-	}
+    private int idGabinete = -1;
 
-	public int getIdBitacora() {
-		return idBitacora;
-	}
+    private int oprStack = -2;
 
-	public void setIdBitacora(int idBitacora) {
-		this.idBitacora = idBitacora;
-	}
+    private int secuencialAnterior = -1;
 
-	public int getIdCaso() {
-		return idCaso;
-	}
+    // Corresponde a CG_OPERACION.ID_OPER
+    private int secuencialOperacion = -1;
 
-	public void setIdCaso(int idCaso) {
-		this.idCaso = idCaso;
-	}
+    private int secuencialSiguiente = -1;
 
-	public int getIdOperacion() {
-		return idOperacion;
-	}
+    private int status;
 
-	public void setIdOperacion(int idOperacion) {
-		this.idOperacion = idOperacion;
-	}
+    private Timestamp fechaInicio;
 
-	// Corresponde a CG_OPERACION.ID_CASO_OPER
-	public int getSecuencialOperacion() {
-		return secuencialOperacion;
-	}
+    private Timestamp fechaCompromiso;
 
-	// Corresponde a CG_OPERACION.ID_CASO_OPER
-	public void setSecuencialOperacion(int secuencialOperacion) {
-		this.secuencialOperacion = secuencialOperacion;
-	}
+    private Timestamp fechaTermino;
 
-	public int getSecuencialSiguiente() {
-		return secuencialSiguiente;
-	}
+    private String folio;
 
-	public void setSecuencialSiguiente(int secuencialSiguiente) {
-		this.secuencialSiguiente = secuencialSiguiente;
-	}
+    private String remitenteId;
 
-	public int getStatus() {
-		return status;
-	}
+    private String remitenteArea;
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
+    private String responsableId;
 
-	public Timestamp getFechaInicio() {
-		return fechaInicio;
-	}
+    private String responsableArea;
 
-	public String getFormattedFechaInicio(String format) {
-		String retVal = null;
-		try {
-			retVal = (new SimpleDateFormat(format)).format(fechaInicio);
-		} catch (Exception e) {
-			//ignore
-		}
-		return retVal;
-	}
+    private String turnadoId;
 
-	public void setFechaInicio(Timestamp fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
+    private String turnadoArea;
 
-	public Timestamp getFechaCompromiso() {
-		return fechaCompromiso;
-	}
+    private String tituloAplicacion;
 
-	public String getFormattedFechaCompromiso(String format) {
-		String retVal = null;
-		try {
-			retVal = (new SimpleDateFormat(format)).format(fechaCompromiso);
-		} catch (Exception e) {
-			//ignore
-		}
-		return retVal;
-	}
+    private String instruccion;
 
-	public void setFechaCompromiso(Timestamp fechaCompromiso) {
-		this.fechaCompromiso = fechaCompromiso;
-	}
+    private boolean terminada;
 
-	public Timestamp getFechaTermino() {
-		return fechaTermino;
-	}
+    private boolean leida;
 
-	public String getFormattedFechaTermino(String format) {
-		String retVal = null;
-		try {
-			retVal = (new SimpleDateFormat(format)).format(fechaTermino);
-		} catch (Exception e) {
-			//ignore
-		}
-		return retVal;
-	}
+    private Operacion operacion = null;
 
-	public void setFechaTermino(Timestamp fechaTermino) {
-		this.fechaTermino = fechaTermino;
-	}
+    public boolean isLeida() {
+        return leida;
+    }
 
-	public String getRemitenteId() {
-		return remitenteId;
-	}
+    public void setLeida(boolean leida) {
+        this.leida = leida;
+    }
 
-	public void setRemitenteId(String remitenteId) {
-		this.remitenteId = remitenteId;
-	}
+    public int getIdBitacora() {
+        return idBitacora;
+    }
 
-	public String getRemitenteArea() {
-		return remitenteArea;
-	}
+    public void setIdBitacora(int idBitacora) {
+        this.idBitacora = idBitacora;
+    }
 
-	public void setRemitenteArea(String remitenteArea) {
-		this.remitenteArea = remitenteArea;
-	}
+    public int getIdCaso() {
+        return idCaso;
+    }
 
-	public String getResponsableId() {
-		return responsableId;
-	}
+    public void setIdCaso(int idCaso) {
+        this.idCaso = idCaso;
+    }
 
-	public void setResponsableId(String responsableId) {
-		this.responsableId = responsableId;
-	}
+    public int getIdOperacion() {
+        return idOperacion;
+    }
 
-	public String getResponsableArea() {
-		return responsableArea;
-	}
+    public void setIdOperacion(int idOperacion) {
+        this.idOperacion = idOperacion;
+    }
 
-	public void setResponsableArea(String responsableArea) {
-		this.responsableArea = responsableArea;
-	}
+    // Corresponde a CG_OPERACION.ID_CASO_OPER
+    public int getSecuencialOperacion() {
+        return secuencialOperacion;
+    }
 
-	public String getTurnadoId() {
-		return turnadoId;
-	}
+    // Corresponde a CG_OPERACION.ID_CASO_OPER
+    public void setSecuencialOperacion(int secuencialOperacion) {
+        this.secuencialOperacion = secuencialOperacion;
+    }
 
-	public void setTurnadoId(String turnadoId) {
-		this.turnadoId = turnadoId;
-	}
+    public int getSecuencialSiguiente() {
+        return secuencialSiguiente;
+    }
 
-	public String getTurnadoArea() {
-		return turnadoArea;
-	}
+    public void setSecuencialSiguiente(int secuencialSiguiente) {
+        this.secuencialSiguiente = secuencialSiguiente;
+    }
 
-	public void setTurnadoArea(String turnadoArea) {
-		this.turnadoArea = turnadoArea;
-	}
+    public int getStatus() {
+        return status;
+    }
 
-	public String getInstruccion() {
-		return instruccion;
-	}
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
-	public void setInstruccion(String instruccion) {
-		this.instruccion = instruccion;
-	}
+    public Timestamp getFechaInicio() {
+        return fechaInicio;
+    }
 
-	public boolean isTerminada() {
-		return terminada;
-	}
+    public String getFormattedFechaInicio(String format) {
+        String retVal = null;
+        try {
+            retVal = (new SimpleDateFormat(format)).format(fechaInicio);
+        } catch (Exception e) {
+            //ignore
+        }
+        return retVal;
+    }
 
-	public void setTerminada(boolean terminada) {
-		this.terminada = terminada;
-	}
+    public void setFechaInicio(Timestamp fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
 
-	public int getSecuencialAnterior() {
-		return secuencialAnterior;
-	}
+    public Timestamp getFechaCompromiso() {
+        return fechaCompromiso;
+    }
 
-	public void setSecuencialAnterior(int secuencialAnterior) {
-		this.secuencialAnterior = secuencialAnterior;
-	}
+    public String getFormattedFechaCompromiso(String format) {
+        String retVal = null;
+        try {
+            retVal = (new SimpleDateFormat(format)).format(fechaCompromiso);
+        } catch (Exception e) {
+            //ignore
+        }
+        return retVal;
+    }
 
-	public Operacion getOperacion() {
-		return operacion;
-	}
+    public void setFechaCompromiso(Timestamp fechaCompromiso) {
+        this.fechaCompromiso = fechaCompromiso;
+    }
 
-	public void setOperacion(Operacion operacion) {
-		this.operacion = operacion;
-	}
+    public Timestamp getFechaTermino() {
+        return fechaTermino;
+    }
 
-	public int getIdGabinete() {
-		return idGabinete;
-	}
+    public String getFormattedFechaTermino(String format) {
+        String retVal = null;
+        try {
+            retVal = (new SimpleDateFormat(format)).format(fechaTermino);
+        } catch (Exception e) {
+            //ignore
+        }
+        return retVal;
+    }
 
-	public void setIdGabinete(int idGabinete) {
-		this.idGabinete = idGabinete;
-	}
+    public void setFechaTermino(Timestamp fechaTermino) {
+        this.fechaTermino = fechaTermino;
+    }
 
-	public String getTituloAplicacion() {
-		return tituloAplicacion;
-	}
+    public String getRemitenteId() {
+        return remitenteId;
+    }
 
-	public void setTituloAplicacion(String tituloAplicacion) {
-		this.tituloAplicacion = tituloAplicacion;
-	}
+    public void setRemitenteId(String remitenteId) {
+        this.remitenteId = remitenteId;
+    }
 
-	public int getIdTipoCaso() {
-		return idTipoCaso;
-	}
+    public String getRemitenteArea() {
+        return remitenteArea;
+    }
 
-	public void setIdTipoCaso(int idTipoCaso) {
-		this.idTipoCaso = idTipoCaso;
-	}
+    public void setRemitenteArea(String remitenteArea) {
+        this.remitenteArea = remitenteArea;
+    }
 
-	public String getFolio() {
-		return folio;
-	}
+    public String getResponsableId() {
+        return responsableId;
+    }
 
-	public void setFolio(String folio) {
-		this.folio = folio;
-	}
+    public void setResponsableId(String responsableId) {
+        this.responsableId = responsableId;
+    }
 
-	public int getOprStack() {
-	
-		return oprStack;
-	}
-	
-	public void setOprStack(int oprStack) {
-	
-		this.oprStack = oprStack;
-	}
+    public String getResponsableArea() {
+        return responsableArea;
+    }
+
+    public void setResponsableArea(String responsableArea) {
+        this.responsableArea = responsableArea;
+    }
+
+    public String getTurnadoId() {
+        return turnadoId;
+    }
+
+    public void setTurnadoId(String turnadoId) {
+        this.turnadoId = turnadoId;
+    }
+
+    public String getTurnadoArea() {
+        return turnadoArea;
+    }
+
+    public void setTurnadoArea(String turnadoArea) {
+        this.turnadoArea = turnadoArea;
+    }
+
+    public String getInstruccion() {
+        return instruccion;
+    }
+
+    public void setInstruccion(String instruccion) {
+        this.instruccion = instruccion;
+    }
+
+    public boolean isTerminada() {
+        return terminada;
+    }
+
+    public void setTerminada(boolean terminada) {
+        this.terminada = terminada;
+    }
+
+    public int getSecuencialAnterior() {
+        return secuencialAnterior;
+    }
+
+    public void setSecuencialAnterior(int secuencialAnterior) {
+        this.secuencialAnterior = secuencialAnterior;
+    }
+
+    public Operacion getOperacion() {
+        return operacion;
+    }
+
+    public void setOperacion(Operacion operacion) {
+        this.operacion = operacion;
+    }
+
+    public int getIdGabinete() {
+        return idGabinete;
+    }
+
+    public void setIdGabinete(int idGabinete) {
+        this.idGabinete = idGabinete;
+    }
+
+    public String getTituloAplicacion() {
+        return tituloAplicacion;
+    }
+
+    public void setTituloAplicacion(String tituloAplicacion) {
+        this.tituloAplicacion = tituloAplicacion;
+    }
+
+    public int getIdTipoCaso() {
+        return idTipoCaso;
+    }
+
+    public void setIdTipoCaso(int idTipoCaso) {
+        this.idTipoCaso = idTipoCaso;
+    }
+
+    public String getFolio() {
+        return folio;
+    }
+
+    public void setFolio(String folio) {
+        this.folio = folio;
+    }
+
+    public int getOprStack() {
+        return oprStack;
+    }
+
+    public void setOprStack(int oprStack) {
+        this.oprStack = oprStack;
+    }
 }

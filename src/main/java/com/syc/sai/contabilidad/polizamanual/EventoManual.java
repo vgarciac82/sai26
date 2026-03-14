@@ -1,83 +1,90 @@
 package com.syc.sai.contabilidad.polizamanual;
 
+import java.util.Base64;
+
 /**
  * TeventoManual entity. @author MyEclipse Persistence Tools
  */
-
 public class EventoManual implements java.io.Serializable {
 
-	// Fields	
-	private String cevento;
-	private Integer ndocRenglon;
-	private Integer aejercicioFiscal;
-	private Integer cidGrupoEvento;
-	private Integer cidSubGrupoEvento;
-	private String cidEventoManual;
-	private Integer cpartida;
-	private String ncuenta;
+    // Fields
+    private String cevento;
 
-	public String getCevento() {
-		return this.cevento;
-	}
+    private Integer ndocRenglon;
 
-	public void setCevento(String cevento) {
-		this.cevento = cevento;
-	}
+    private Integer aejercicioFiscal;
 
-	public Integer getNdocRenglon() {
-		return this.ndocRenglon;
-	}
+    private Integer cidGrupoEvento;
 
-	public void setNdocRenglon(Integer ndocRenglon) {
-		this.ndocRenglon = ndocRenglon;
-	}
+    private Integer cidSubGrupoEvento;
 
-	public Integer getAejercicioFiscal() {
-		return this.aejercicioFiscal;
-	}
+    private String cidEventoManual;
 
-	public void setAejercicioFiscal(Integer aejercicioFiscal) {
-		this.aejercicioFiscal = aejercicioFiscal;
-	}
+    private Integer cpartida;
 
-	public Integer getCidGrupoEvento() {
-		return cidGrupoEvento;
-	}
+    private String ncuenta;
 
-	public void setCidGrupoEvento(Integer cidGrupoEvento) {
-		this.cidGrupoEvento = cidGrupoEvento;
-	}
+    public String getCevento() {
+        return this.cevento;
+    }
 
-	public Integer getCidSubGrupoEvento() {
-		return cidSubGrupoEvento;
-	}
+    public void setCevento(String cevento) {
+        this.cevento = cevento;
+    }
 
-	public void setCidSubGrupoEvento(Integer cidSubGrupoEvento) {
-		this.cidSubGrupoEvento = cidSubGrupoEvento;
-	}
+    public Integer getNdocRenglon() {
+        return this.ndocRenglon;
+    }
 
-	public String getCidEventoManual() {
-		return cidEventoManual;
-	}
+    public void setNdocRenglon(Integer ndocRenglon) {
+        this.ndocRenglon = ndocRenglon;
+    }
 
-	public void setCidEventoManual(String cidEventoManual) {
-		this.cidEventoManual = cidEventoManual;
-	}
+    public Integer getAejercicioFiscal() {
+        return this.aejercicioFiscal;
+    }
 
-	public Integer getCpartida() {
-		return cpartida;
-	}
+    public void setAejercicioFiscal(Integer aejercicioFiscal) {
+        this.aejercicioFiscal = aejercicioFiscal;
+    }
 
-	public void setCpartida(Integer cpartida) {
-		this.cpartida = cpartida;
-	}
+    public Integer getCidGrupoEvento() {
+        return cidGrupoEvento;
+    }
 
-	public String getNcuenta() {
-		return ncuenta;
-	}
+    public void setCidGrupoEvento(Integer cidGrupoEvento) {
+        this.cidGrupoEvento = cidGrupoEvento;
+    }
 
-	public void setNcuenta(String ncuenta) {
-		this.ncuenta = ncuenta;
-	}
+    public Integer getCidSubGrupoEvento() {
+        return cidSubGrupoEvento;
+    }
 
+    public void setCidSubGrupoEvento(Integer cidSubGrupoEvento) {
+        this.cidSubGrupoEvento = cidSubGrupoEvento;
+    }
+
+    public String getCidEventoManual() {
+        return cidEventoManual;
+    }
+
+    public void setCidEventoManual(String cidEventoManual) {
+        this.cidEventoManual = cidEventoManual;
+    }
+
+    public Integer getCpartida() {
+        return cpartida;
+    }
+
+    public void setCpartida(Integer cpartida) {
+        this.cpartida = cpartida;
+    }
+
+    public String getNcuenta() {
+        return ncuenta;
+    }
+
+    public void setNcuenta(String ncuenta) {
+        this.ncuenta = ncuenta;
+    }
 }

@@ -1,52 +1,56 @@
 package com.axtel.egresos.entities;
 
+import java.util.Base64;
 
 public class MassPaymentResult {
 
-	private String	folio;
-	private String	fileName;
-	private String	log;
-	private String	recipt;
-	private boolean	success;
+    private String folio;
 
-	public String getFileName() {
-		return fileName;
-	}
+    private String fileName;
 
-	public String getFolio() {
-		return folio;
-	}
+    private String log;
 
-	public String getLog() {
-		return log;
-	}
+    private String recipt;
 
-	public String getRecipt() {
-		return recipt;
-	}
+    private boolean success;
 
-	public boolean isSuccess() {
-		return success;
-	}
+    public String getFileName() {
+        return fileName;
+    }
 
-	public void setFileName( String fileName ) {
-		this.fileName = fileName;
-	}
+    public String getFolio() {
+        return folio;
+    }
 
-	public void setFolio( String folio ) {
-		this.folio = folio;
-	}
+    public String getLog() {
+        return log;
+    }
 
-	public void setLog( String log ) {
-		this.log = log;
-	}
+    public String getRecipt() {
+        return recipt;
+    }
 
-	public void setRecipt( String recipt ) {
-		this.recipt = recipt;
-	}
+    public boolean isSuccess() {
+        return success;
+    }
 
-	public void setSuccess( boolean success ) {
-		this.success = success;
-	}
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 
+    public void setFolio(String folio) {
+        this.folio = folio;
+    }
+
+    public void setLog(String log) {
+        this.log = log;
+    }
+
+    public void setRecipt(String recipt) {
+        this.recipt = recipt;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
 }

@@ -18,6 +18,7 @@ import com.syc.gestion.reportes.reportes;
 import com.syc.gestion.util.Util;
 import com.syc.reportes.core.ReporteAC01Manager;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
+import java.util.Base64;
 
 @SuppressWarnings("unused")
 public class ReporteAC01BusinessLogic extends DataSourceManager {

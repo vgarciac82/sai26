@@ -1,51 +1,52 @@
 package com.axtel.cfdi.ComplementoCombustible.custom;
 
-
 import java.math.BigDecimal;
-
+import java.util.Base64;
 
 public class EdrConceptoDispersion {
 
-	private String		idDocumento;
-	private BigDecimal	importePagado;
-	private BigDecimal	importeSaldoAnterior;
+    private String idDocumento;
 
-	private BigDecimal	importeSaldoInsolutoPendientePago;
+    private BigDecimal importePagado;
 
-	public String getIdDocumento() {
-		return idDocumento;
-	}
+    private BigDecimal importeSaldoAnterior;
 
-	public BigDecimal getImportePagado() {
-		return importePagado;
-	}
+    private BigDecimal importeSaldoInsolutoPendientePago;
 
-	public BigDecimal getImporteSaldoAnterior() {
-		return importeSaldoAnterior;
-	}
+    public String getIdDocumento() {
+        return idDocumento;
+    }
 
-	public BigDecimal getImporteSaldoInsolutoPendientePago() {
-		return importeSaldoInsolutoPendientePago;
-	}
+    public BigDecimal getImportePagado() {
+        return importePagado;
+    }
 
-	public void setIdDocumento( String idDocumento ) {
-		this.idDocumento = idDocumento;
-	}
+    public BigDecimal getImporteSaldoAnterior() {
+        return importeSaldoAnterior;
+    }
 
-	public void setImportePagado( BigDecimal importePagado ) {
-		this.importePagado = importePagado;
-	}
+    public BigDecimal getImporteSaldoInsolutoPendientePago() {
+        return importeSaldoInsolutoPendientePago;
+    }
 
-	public void setImporteSaldoAnterior( BigDecimal importeSaldoAnterior ) {
-		this.importeSaldoAnterior = importeSaldoAnterior;
-	}
+    public void setIdDocumento(String idDocumento) {
+        this.idDocumento = idDocumento;
+    }
 
-	public void setImporteSaldoInsolutoPendientePago( BigDecimal importeSaldoInsolutoPendientePago ) {
-		this.importeSaldoInsolutoPendientePago = importeSaldoInsolutoPendientePago;
-	}
+    public void setImportePagado(BigDecimal importePagado) {
+        this.importePagado = importePagado;
+    }
 
-	@Override
-	public String toString() {
-		return "EdrConceptoDispersion [idDocumento=" + idDocumento + ", importeSaldoAnterior=" + importeSaldoAnterior + ", importePagado=" + importePagado + ", importeSaldoInsolutoPendientePago=" + importeSaldoInsolutoPendientePago + "]";
-	}
+    public void setImporteSaldoAnterior(BigDecimal importeSaldoAnterior) {
+        this.importeSaldoAnterior = importeSaldoAnterior;
+    }
+
+    public void setImporteSaldoInsolutoPendientePago(BigDecimal importeSaldoInsolutoPendientePago) {
+        this.importeSaldoInsolutoPendientePago = importeSaldoInsolutoPendientePago;
+    }
+
+    @Override
+    public String toString() {
+        return "EdrConceptoDispersion [idDocumento=" + idDocumento + ", importeSaldoAnterior=" + importeSaldoAnterior + ", importePagado=" + importePagado + ", importeSaldoInsolutoPendientePago=" + importeSaldoInsolutoPendientePago + "]";
+    }
 }

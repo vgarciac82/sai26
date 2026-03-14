@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import com.axtel.egresos.entities.EgresoExcedeUMA;
 import com.syc.egresos.core.Amortizacion;
 import com.syc.egresos.core.EgresoEncabezado;
+import java.util.Base64;
 
 public class EgresoPOLIZAEncabezado extends EgresoEncabezado {
 

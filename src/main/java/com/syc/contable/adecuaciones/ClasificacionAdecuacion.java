@@ -1,36 +1,37 @@
 package com.syc.contable.adecuaciones;
 
+import java.util.Base64;
+
 /**
  * Bean que almacena el nivel y el tipo de una adecuacion.
- * 
+ *
  * @author Vicente Garcia Carrillo
- * 
  */
 public class ClasificacionAdecuacion {
 
-	private int		nivel;
-	private String	tipoAdecuacion;
+    private int nivel;
 
-	public int getNivel() {
-		return nivel;
-	}
+    private String tipoAdecuacion;
 
-	public void setNivel(int nivel) {
-		this.nivel = nivel;
-	}
+    public int getNivel() {
+        return nivel;
+    }
 
-	public String getTipoAdecuacion() {
-		return tipoAdecuacion;
-	}
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
 
-	public void setTipoAdecuacion(String tipoAdecuacion) {
-		this.tipoAdecuacion = tipoAdecuacion;
-	}
+    public String getTipoAdecuacion() {
+        return tipoAdecuacion;
+    }
 
-	public ClasificacionAdecuacion(int nivel, String tipoAdecuacion) {
-		super();
-		this.nivel = nivel;
-		this.tipoAdecuacion = tipoAdecuacion;
-	}
+    public void setTipoAdecuacion(String tipoAdecuacion) {
+        this.tipoAdecuacion = tipoAdecuacion;
+    }
 
+    public ClasificacionAdecuacion(int nivel, String tipoAdecuacion) {
+        super();
+        this.nivel = nivel;
+        this.tipoAdecuacion = tipoAdecuacion;
+    }
 }

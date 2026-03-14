@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpServletResponseWrapper;
+import java.util.Base64;
 
 public class CacheResponseWrapper extends HttpServletResponseWrapper {
 

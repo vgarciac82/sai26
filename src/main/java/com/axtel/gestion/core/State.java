@@ -1,8 +1,11 @@
 package com.axtel.gestion.core;
 
+import java.util.Base64;
 
 public class State {
+
     private boolean opened;
+
     private boolean selected;
 
     public State(boolean opened, boolean selected) {

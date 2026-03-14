@@ -22,6 +22,7 @@ import com.syc.obrapublica.EjercicioFiscalManager;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class ReintegrosManager {
 
@@ -510,10 +511,10 @@ public class ReintegrosManager {
         PreparedStatement pstm = null;
         //1
         String //1
-        queryRemanente = //2
-        " SELECT impRect - impReint AS  Remanente\r\n" + " FROM (\r\n" + "  SELECT ISNULL((SELECT CASE WHEN cEvento LIKE 'DICE%' THEN PAGDET.mImporte - RECDET.mImporte END AS IMPORTE FROM tRectificacionAutDetalle AS RECDET WITH (NOLOCK) WHERE RECENC.nFolioRectificacionAut = RECDET.nFolioRectificacionAut AND cEvento LIKE 'DICE%' AND PAGDET.EP = RECDET.EP AND PAGDET.cMes = RECDET.cMes),PAGDET.mImporte) AS impRect\r\n" + "	, ISNULL((SELECT CASE WHEN cEvento LIKE 'DICE%' THEN RECDET.EP END AS IMPORTE FROM tRectificacionAutDetalle AS RECDET WITH (NOLOCK) WHERE RECENC.nFolioRectificacionAut = RECDET.nFolioRectificacionAut AND cEvento LIKE 'DICE%' AND PAGDET.EP = RECDET.EP AND PAGDET.cMes = RECDET.cMes), PAGDET.EP) AS EPPAG\r\n" + "	, ISNULL((SELECT CASE WHEN cEvento LIKE 'DICE%' THEN RECDET.nDocRenglon END AS ndogrenglon FROM tRectificacionAutDetalle AS RECDET WITH (NOLOCK) WHERE RECENC.nFolioRectificacionAut = RECDET.nFolioRectificacionAut AND cEvento LIKE 'DICE%' AND PAGDET.EP = RECDET.EP AND PAGDET.cMes = RECDET.cMes), PAGDET.nDocRenglon) AS ndogrenglonP\r\n" + "	, ISNULL(REINTDET.mImporte, 0) AS impReint\r\n" + "  FROM tPagadoEncabezado AS PAGENC WITH (NOLOCK)\r\n" + "  JOIN tPagadoDetalle AS PAGDET WITH (NOLOCK) ON PAGENC.nFolioPagado = PAGDET.nFolioPagado\r\n" + "  LEFT JOIN tRectificacionAutEncabezado AS RECENC WITH (NOLOCK) ON PAGENC.caNoContrarrecibo = RECENC.caNoContrarrecibo	\r\n" + "  LEFT JOIN tReintegroAutDetalle AS REINTDET WITH (NOLOCK) ON PAGENC.caNoContrarrecibo = CXP\r\n" + "  WHERE PAGENC.caNoContrarrecibo = ?	\r\n" + "	AND (PAGDET.mPasivoDiferido = 0 OR PAGDET.mPasivoDiferido IS NULL)\r\n" + "	UNION\r\n" + "  SELECT \r\n" + "	ISNULL((CASE WHEN RECDET.cEvento LIKE 'DEBE%' THEN RECDET.mImporte END),0) AS impRect\r\n" + "	, ISNULL((CASE WHEN RECDET.cEvento LIKE 'DEBE%' THEN RECDET.EP END), '') AS EPPAG\r\n" + "	, ISNULL((CASE WHEN RECDET.cEvento LIKE 'DEBE%' THEN RECDET.nDocRenglon END), 0) AS ndogrenglonP\r\n" + "	, ISNULL(REINTDET.mImporte, 0) AS impReint\r\n" + "  FROM tPagadoEncabezado AS PAGENC WITH (NOLOCK)\r\n" + "  JOIN tPagadoDetalle AS PAGDET WITH (NOLOCK) ON PAGENC.nFolioPagado = PAGDET.nFolioPagado\r\n" + "  LEFT JOIN tRectificacionAutEncabezado AS RECENC WITH (NOLOCK) ON PAGENC.caNoContrarrecibo = RECENC.caNoContrarrecibo	\r\n" + "  LEFT JOIN tRectificacionAutDetalle AS RECDET WITH (NOLOCK) ON RECENC.nFolioRectificacionAut = RECDET.nFolioRectificacionAut and RECDET.cEvento LIKE 'DEBE%'	\r\n" + "  LEFT JOIN tReintegroAutDetalle AS REINTDET WITH (NOLOCK) ON PAGENC.caNoContrarrecibo = CXP\r\n" + "  WHERE PAGENC.caNoContrarrecibo = ?	\r\n" + //3
-        "	AND (PAGDET.mPasivoDiferido = 0 OR PAGDET.mPasivoDiferido IS NULL)" + //4
-        ") tbl " + " WHERE EPPAG = ? " + "	AND ndogrenglonP = ?";
+        //2
+        queryRemanente = //3
+        " SELECT impRect - impReint AS  Remanente\r\n" + " FROM (\r\n" + "  SELECT ISNULL((SELECT CASE WHEN cEvento LIKE 'DICE%' THEN PAGDET.mImporte - RECDET.mImporte END AS IMPORTE FROM tRectificacionAutDetalle AS RECDET WITH (NOLOCK) WHERE RECENC.nFolioRectificacionAut = RECDET.nFolioRectificacionAut AND cEvento LIKE 'DICE%' AND PAGDET.EP = RECDET.EP AND PAGDET.cMes = RECDET.cMes),PAGDET.mImporte) AS impRect\r\n" + "	, ISNULL((SELECT CASE WHEN cEvento LIKE 'DICE%' THEN RECDET.EP END AS IMPORTE FROM tRectificacionAutDetalle AS RECDET WITH (NOLOCK) WHERE RECENC.nFolioRectificacionAut = RECDET.nFolioRectificacionAut AND cEvento LIKE 'DICE%' AND PAGDET.EP = RECDET.EP AND PAGDET.cMes = RECDET.cMes), PAGDET.EP) AS EPPAG\r\n" + "	, ISNULL((SELECT CASE WHEN cEvento LIKE 'DICE%' THEN RECDET.nDocRenglon END AS ndogrenglon FROM tRectificacionAutDetalle AS RECDET WITH (NOLOCK) WHERE RECENC.nFolioRectificacionAut = RECDET.nFolioRectificacionAut AND cEvento LIKE 'DICE%' AND PAGDET.EP = RECDET.EP AND PAGDET.cMes = RECDET.cMes), PAGDET.nDocRenglon) AS ndogrenglonP\r\n" + "	, ISNULL(REINTDET.mImporte, 0) AS impReint\r\n" + "  FROM tPagadoEncabezado AS PAGENC WITH (NOLOCK)\r\n" + "  JOIN tPagadoDetalle AS PAGDET WITH (NOLOCK) ON PAGENC.nFolioPagado = PAGDET.nFolioPagado\r\n" + "  LEFT JOIN tRectificacionAutEncabezado AS RECENC WITH (NOLOCK) ON PAGENC.caNoContrarrecibo = RECENC.caNoContrarrecibo	\r\n" + "  LEFT JOIN tReintegroAutDetalle AS REINTDET WITH (NOLOCK) ON PAGENC.caNoContrarrecibo = CXP\r\n" + "  WHERE PAGENC.caNoContrarrecibo = ?	\r\n" + "	AND (PAGDET.mPasivoDiferido = 0 OR PAGDET.mPasivoDiferido IS NULL)\r\n" + "	UNION\r\n" + "  SELECT \r\n" + "	ISNULL((CASE WHEN RECDET.cEvento LIKE 'DEBE%' THEN RECDET.mImporte END),0) AS impRect\r\n" + "	, ISNULL((CASE WHEN RECDET.cEvento LIKE 'DEBE%' THEN RECDET.EP END), '') AS EPPAG\r\n" + "	, ISNULL((CASE WHEN RECDET.cEvento LIKE 'DEBE%' THEN RECDET.nDocRenglon END), 0) AS ndogrenglonP\r\n" + "	, ISNULL(REINTDET.mImporte, 0) AS impReint\r\n" + "  FROM tPagadoEncabezado AS PAGENC WITH (NOLOCK)\r\n" + "  JOIN tPagadoDetalle AS PAGDET WITH (NOLOCK) ON PAGENC.nFolioPagado = PAGDET.nFolioPagado\r\n" + "  LEFT JOIN tRectificacionAutEncabezado AS RECENC WITH (NOLOCK) ON PAGENC.caNoContrarrecibo = RECENC.caNoContrarrecibo	\r\n" + "  LEFT JOIN tRectificacionAutDetalle AS RECDET WITH (NOLOCK) ON RECENC.nFolioRectificacionAut = RECDET.nFolioRectificacionAut and RECDET.cEvento LIKE 'DEBE%'	\r\n" + "  LEFT JOIN tReintegroAutDetalle AS REINTDET WITH (NOLOCK) ON PAGENC.caNoContrarrecibo = CXP\r\n" + "  WHERE PAGENC.caNoContrarrecibo = ?	\r\n" + //4
+        "	AND (PAGDET.mPasivoDiferido = 0 OR PAGDET.mPasivoDiferido IS NULL)" + ") tbl " + " WHERE EPPAG = ? " + "	AND ndogrenglonP = ?";
         // 1 2 3 4
         log.trace("Object: {}", String.format("Ejecutando query para remanente. [%s][%s,%s,%s,%d]", queryRemanente, cxp, cxp, ep, nRenglon));
         try {
@@ -539,21 +540,21 @@ public class ReintegrosManager {
         PreparedStatement pstm = null;
         // 1
         String // 1
-        queryRemanente = // 2
-        "SELECT mimporteneto - imprect - impreint AS Remanente " + " FROM   (SELECT pd.mimporteneto, " + "               (SELECT Count(*) AS sumaRect " + "                FROM   trectificacionencabezado re WITH (nolock), " + "                       trectificaciondetalle rd WITH (nolock) " + "                WHERE  rd.ep = ? " + "                       AND re.cdocumentohaplicado = 'S' " + "                       AND re.nfoliorectificacion = rd.nfoliorectificacion " + // 3
-        "                       AND re.canocontrarrecibo = ? " + "                       AND rd.ep = pd.ep " + "                       AND rd.ndocrenglon = ?)               AS tRectificacion, " + "               (SELECT Count(*) AS sumaReint " + // 4
-        "                FROM   treintegroencabezado ree WITH (nolock), " + "                       treintegrodetalle red WITH (nolock) " + "                WHERE  red.ep = ? " + // 5
-        "                       AND ree.cdocumentohaplicado = 'S' " + "                       AND ree.nfolioreintegro = red.nfolioreintegro " + // 6
-        "                       AND red.cxp = ? " + "                       AND red.ep = pd.ep " + "                       AND red.nrenglonpagado = ?)           AS tReintegros, " + "               Isnull((SELECT Isnull(Sum(rd.mimporte), 0) AS impR " + "                       FROM   treintegroencabezado re WITH(nolock), " + "                              treintegrodetalle rd WITH(nolock) " + // 7
-        "                       WHERE  re.nfolioreintegro = rd.nfolioreintegro " + // 8
-        "                              AND re.cdocumentohaplicado = 'S' " + // 9
-        "                              AND rd.cxp = ? " + "                              AND rd.ep = ? " + "               AND rd.nrenglonpagado = ?), 0) AS impReint, " + "               Isnull((SELECT Isnull(Sum(CASE Substring(cevento, 1, 4) " + "                                           WHEN 'DICE' THEN mimporte " + "                                           WHEN 'DEBE' THEN mimportenegativo " + "                                         END), 0) AS imp " + "                       FROM   trectificaciondetalle r WITH (nolock), " + //10
-        "                              trectificacionencabezado h WITH (nolock) " + // 11
-        "                       WHERE  r.nfoliorectificacion = h.nfoliorectificacion " + "                              AND h.canocontrarrecibo = ? " + // 12
-        "                              AND r.ep =  ? " + "               AND h.cdocumentohaplicado = 'S' " + "              AND r.canocontrarrecibo =  ? " + "                       GROUP  BY r.ndocrenglon), 0)          AS impRect " + //13
-        "        FROM   tpagadoencabezado pe WITH (nolock), " + // 14
-        "               tpagadodetalle pd WITH (nolock) " + "        WHERE  canocontrarrecibo = ? " + "               AND pd.ep = ? " + //15
-        "               AND pe.cdocumentohaplicado = 'S' " + "               AND pe.nfoliopagado = pd.nfoliopagado " + "               AND pd.ndocrenglon = ?) tNueva " + " WHERE  1 = 1 ";
+        // 2
+        queryRemanente = // 3
+        "SELECT mimporteneto - imprect - impreint AS Remanente " + " FROM   (SELECT pd.mimporteneto, " + "               (SELECT Count(*) AS sumaRect " + "                FROM   trectificacionencabezado re WITH (nolock), " + "                       trectificaciondetalle rd WITH (nolock) " + "                WHERE  rd.ep = ? " + "                       AND re.cdocumentohaplicado = 'S' " + "                       AND re.nfoliorectificacion = rd.nfoliorectificacion " + "                       AND re.canocontrarrecibo = ? " + "                       AND rd.ep = pd.ep " + "                       AND rd.ndocrenglon = ?)               AS tRectificacion, " + // 4
+        "               (SELECT Count(*) AS sumaReint " + "                FROM   treintegroencabezado ree WITH (nolock), " + "                       treintegrodetalle red WITH (nolock) " + // 5
+        "                WHERE  red.ep = ? " + "                       AND ree.cdocumentohaplicado = 'S' " + // 6
+        "                       AND ree.nfolioreintegro = red.nfolioreintegro " + "                       AND red.cxp = ? " + "                       AND red.ep = pd.ep " + "                       AND red.nrenglonpagado = ?)           AS tReintegros, " + "               Isnull((SELECT Isnull(Sum(rd.mimporte), 0) AS impR " + "                       FROM   treintegroencabezado re WITH(nolock), " + // 7
+        "                              treintegrodetalle rd WITH(nolock) " + // 8
+        "                       WHERE  re.nfolioreintegro = rd.nfolioreintegro " + // 9
+        "                              AND re.cdocumentohaplicado = 'S' " + "                              AND rd.cxp = ? " + "                              AND rd.ep = ? " + "               AND rd.nrenglonpagado = ?), 0) AS impReint, " + "               Isnull((SELECT Isnull(Sum(CASE Substring(cevento, 1, 4) " + "                                           WHEN 'DICE' THEN mimporte " + "                                           WHEN 'DEBE' THEN mimportenegativo " + "                                         END), 0) AS imp " + //10
+        "                       FROM   trectificaciondetalle r WITH (nolock), " + // 11
+        "                              trectificacionencabezado h WITH (nolock) " + "                       WHERE  r.nfoliorectificacion = h.nfoliorectificacion " + // 12
+        "                              AND h.canocontrarrecibo = ? " + "                              AND r.ep =  ? " + "               AND h.cdocumentohaplicado = 'S' " + "              AND r.canocontrarrecibo =  ? " + //13
+        "                       GROUP  BY r.ndocrenglon), 0)          AS impRect " + // 14
+        "        FROM   tpagadoencabezado pe WITH (nolock), " + "               tpagadodetalle pd WITH (nolock) " + "        WHERE  canocontrarrecibo = ? " + //15
+        "               AND pd.ep = ? " + "               AND pe.cdocumentohaplicado = 'S' " + "               AND pe.nfoliopagado = pd.nfoliopagado " + "               AND pd.ndocrenglon = ?) tNueva " + " WHERE  1 = 1 ";
         // 1 2 3 4 5 6 7 8 9 10 11 12 13 14 1 2 3 4 5 6 7 8 9 10 11 12 13 14
         log.trace("Object: {}", String.format("Ejecutando query para remanente. [%s][%s,%s,%d,%s,%s,%d,%s,%s,%d,%s,%s,%s,%s,%d]", queryRemanente, ep, cxp, nRenglon, ep, cxp, nRenglon, cxp, ep, nRenglon, cxp, ep, cxp, ep, nRenglon));
         try {
@@ -2202,154 +2203,203 @@ public class ReintegrosManager {
             // A
             // B
             // B
-            encabezado.append(rs.getString("Header").trim()).append(",").append(// C
-            fechaALayout.trim()).// C
+            // C
+            encabezado.append(rs.getString("Header").trim()).append(",").// C
             append(// C
-            ",").append(// D
-            fechaLayout.trim()).// D
+            fechaALayout.trim()).// C
             append(// D
-            ",").append(// E
-            rs.getString("ID_RAMO").trim()).// E
+            ",").// D
+            append(// D
+            fechaLayout.trim()).// D
             append(// E
-            ",").append(// F
-            rs.getString("ID_RAMO_CR").trim()).// F
+            ",").// E
+            append(// E
+            rs.getString("ID_RAMO").trim()).// E
             append(// F
-            ",").append(// G
-            rs.getString("ID_RAMO_REC").trim()).// G
+            ",").// F
+            append(// F
+            rs.getString("ID_RAMO_CR").trim()).// F
             append(// G
-            ",").append(// H
-            rs.getString("ID_UNIDAD").trim()).// H
+            ",").// G
+            append(// G
+            rs.getString("ID_RAMO_REC").trim()).// G
             append(// H
-            ",").append(// I
-            rs.getString("ID_UNIDAD_CR").trim()).// I
+            ",").// H
+            append(// H
+            rs.getString("ID_UNIDAD").trim()).// H
             append(// I
-            ",").append(// J
-            rs.getString("ID_UNIDAD_REC").trim()).// J
+            ",").// I
+            append(// I
+            rs.getString("ID_UNIDAD_CR").trim()).// I
             append(// J
-            ",").append(// K
-            rs.getString("TIPO_MOVTO_49").trim()).// K
+            ",").// J
+            append(// J
+            rs.getString("ID_UNIDAD_REC").trim()).// J
             append(// K
-            ",").append(// L
-            compromiso).// L
+            ",").// K
+            append(// K
+            rs.getString("TIPO_MOVTO_49").trim()).// K
             append(// L
-            ",").append(// M
-            erogacion).// M
+            ",").// L
+            append(// L
+            compromiso).// L
             append(// M
-            ",").append(// N
-            sFolioSICOP).// N
+            ",").// M
+            append(// M
+            erogacion).// M
             append(// N
-            ",").append(// O
-            tipoOp).// O
+            ",").// N
+            append(// N
+            sFolioSICOP).// N
             append(// O
-            ",").append(// P
-            rs.getString("CTOEXT_30").trim()).// P
+            ",").// O
+            append(// O
+            tipoOp).// O
             append(// P
-            ",").append(// Q
-            rs.getString("CPAG_31").trim().replaceAll(",", " ")).// Q
+            ",").// P
+            append(// P
+            rs.getString("CTOEXT_30").trim()).// P
             append(// Q
-            ",").append(// R
-            rs.getString("CBEN_25").trim()).// R
+            ",").// Q
+            append(// Q
+            rs.getString("CPAG_31").trim().replaceAll(",", " ")).// Q
             append(// R
-            ",").append(// S
-            rs.getString("RFC_26").trim()).// S
+            ",").// R
+            append(// R
+            rs.getString("CBEN_25").trim()).// R
             append(// S
-            ",").append(// T
-            rs.getString("REPRESENTANTE_LGL_38").trim()).// T
+            ",").// S
+            append(// S
+            rs.getString("RFC_26").trim()).// S
             append(// T
-            ",").append(// U
-            rs.getString("TPROC_172")).// U
+            ",").// T
+            append(// T
+            rs.getString("REPRESENTANTE_LGL_38").trim()).// T
             append(// U
-            ",").append(// V
-            rs.getString("ESQ_PRECIO_36")).// V
+            ",").// U
+            append(// U
+            rs.getString("TPROC_172")).// U
             append(// V
-            ",").append(// W
-            rs.getString("CONTRATACION_35")).// W
+            ",").// V
+            append(// V
+            rs.getString("ESQ_PRECIO_36")).// V
             append(// W
-            ",").append(// X
-            fContratoIni.trim()).// X
+            ",").// W
+            append(// W
+            rs.getString("CONTRATACION_35")).// W
             append(// X
-            ",").append(// Y
-            fContratoFin.trim()).// Y
+            ",").// X
+            append(// X
+            fContratoIni.trim()).// X
             append(// Y
-            ",").append(// Z
-            fContratoFirma.trim()).// Z
+            ",").// Y
+            append(// Y
+            fContratoFin.trim()).// Y
             append(// Z
-            ",").append(// AA *
-            rs.getString("ES_PLURIANUAL_33")).// AA *
+            ",").// Z
+            append(// Z
+            fContratoFirma.trim()).// Z
             append(// AA *
-            ",").append(// AB*
-            rs.getString("APROB_PLA_34")).// AB*
+            ",").// AA *
+            append(// AA *
+            rs.getString("ES_PLURIANUAL_33")).// AA *
             append(// AB*
-            ",").append(// AC
-            rs.getString("ACTO_JURIDICO_32")).// AC
+            ",").// AB*
+            append(// AB*
+            rs.getString("APROB_PLA_34")).// AB*
             append(// AC
-            ",").append(// AD
-            montoMonori).// AD
+            ",").// AC
+            append(// AC
+            rs.getString("ACTO_JURIDICO_32")).// AC
             append(// AD
-            ",").append(// AE
-            rs.getString("TMON_41")).// AE
+            ",").// AD
+            append(// AD
+            montoMonori).// AD
             append(// AE
-            ",").append(// AF
-            rs.getString("TCAM_64")).// AF
+            ",").// AE
+            append(// AE
+            rs.getString("TMON_41")).// AE
             append(// AF
-            ",").append(// AG
-            montoEjer).// AG
+            ",").// AF
+            append(// AF
+            rs.getString("TCAM_64")).// AF
             append(// AG
-            ",").append(// AH
-            montoMin).// AH
+            ",").// AG
+            append(// AG
+            montoEjer).// AG
             append(// AH
-            ",").append(// AI
-            montoMax).// AI
+            ",").// AH
+            append(// AH
+            montoMin).// AH
             append(// AI
-            ",").append(// AJ
-            rs.getString("CONV_MOD_173")).// AJ
+            ",").// AI
+            append(// AI
+            montoMax).// AI
             append(// AJ
-            ",").append(// AK
-            rs.getString("NUM_CONVENIO_46")).// AK
+            ",").// AJ
+            append(// AJ
+            rs.getString("CONV_MOD_173")).// AJ
             append(// AK
-            ",").append(// AL
-            rs.getString("FECHA_MODIFICACION_47")).// AL
+            ",").// AK
+            append(// AK
+            rs.getString("NUM_CONVENIO_46")).// AK
             append(// AL
-            ",").append(// AM
-            org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("CODIGO_EXPEDIENTE_37"))).// AM
+            ",").// AL
+            append(// AL
+            rs.getString("FECHA_MODIFICACION_47")).// AL
             append(// AM
-            ",").append(// AN
-            org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("NUM_PROCEDIMIENTO_39"))).// AN
+            ",").// AM
+            append(// AM
+            org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("CODIGO_EXPEDIENTE_37"))).// AM
             append(// AN
-            ",").append(// AO
-            org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("CODIGO_CONTRATO_40"))).// AO
+            ",").// AN
+            append(// AN
+            org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("NUM_PROCEDIMIENTO_39"))).// AN
             append(// AO
-            ",").append(// AP
-            rs.getString("MES_149").trim()).// AP
+            ",").// AO
+            append(// AO
+            org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("CODIGO_CONTRATO_40"))).// AO
             append(// AP
-            ",").append(// AQ
-            rs.getString("ID_CTR_INT_301")).// AQ
+            ",").// AP
+            append(// AP
+            rs.getString("MES_149").trim()).// AP
             append(// AQ
-            ",").append(// AR
-            rs.getString("TTRANS_21")).// AR
+            ",").// AQ
+            append(// AQ
+            rs.getString("ID_CTR_INT_301")).// AQ
             append(// AR
-            ",").append(// AS
-            rs.getString("COMODIN4_500")).// AS
+            ",").// AR
+            append(// AR
+            rs.getString("TTRANS_21")).// AR
             append(// AS
-            ",").append(// AT
-            rs.getString("COMODIN4_501")).// AT
+            ",").// AS
+            append(// AS
+            rs.getString("COMODIN4_500")).// AS
             append(// AT
-            ",").append(// AU
-            rs.getString("ETIQUETA_COMPRANET_178")).// AU
+            ",").// AT
+            append(// AT
+            rs.getString("COMODIN4_501")).// AT
             append(// AU
-            ",").append(// AV
-            rs.getString("JUSTIFICA_COMPRANET_416")).// AV
+            ",").// AU
+            append(// AU
+            rs.getString("ETIQUETA_COMPRANET_178")).// AU
             append(// AV
-            ",").append(// AW
-            rs.getString("IVA_MON_ORIG_414")).// AW
+            ",").// AV
+            append(// AV
+            rs.getString("JUSTIFICA_COMPRANET_416")).// AV
             append(// AW
-            ",").append(// AX
-            rs.getString("IMP_CONT_SIVA_413")).// AX
+            ",").// AW
+            append(// AW
+            rs.getString("IVA_MON_ORIG_414")).// AW
             append(// AX
-            ",").append(// AY
-            rs.getString("IMP_CONV_MOD_415")).// AY
+            ",").// AX
+            append(// AX
+            rs.getString("IMP_CONT_SIVA_413")).// AX
             append(// AY
-            ",").append(fContratoModifica.trim()).append("\r\n");
+            ",").// AY
+            append(// AY
+            rs.getString("IMP_CONV_MOD_415")).// AY
+            append(",").append(fContratoModifica.trim()).append("\r\n");
             arrListaComp = encabezado.toString();
         }
         CloseObject.closeObject(rs);
@@ -2421,124 +2471,163 @@ public class ReintegrosManager {
             // ID_EVENTO
             // EVENTO
             // EVENTO
-            detalle.append(rs2.getString("ID_EVENTO")).append(",").append(// tCEP.cRamo
-            rs2.getString("EVENTO")).// tCEP.cRamo
+            // tCEP.cRamo
+            detalle.append(rs2.getString("ID_EVENTO")).append(",").// tCEP.cRamo
             append(// tCEP.cRamo
-            ",").append(// tCEP.cUnidadResponsableEP
-            rs2.getString("cRamo").trim()).// tCEP.cUnidadResponsableEP
+            rs2.getString("EVENTO")).// tCEP.cRamo
             append(// tCEP.cUnidadResponsableEP
-            ",").append(// tCEP.aEjercicioFiscal
-            rs2.getString("cUnidadResponsableEP").trim()).// tCEP.aEjercicioFiscal
+            ",").// tCEP.cUnidadResponsableEP
+            append(// tCEP.cUnidadResponsableEP
+            rs2.getString("cRamo").trim()).// tCEP.cUnidadResponsableEP
             append(// tCEP.aEjercicioFiscal
-            ",").append(// tCEP.cGrupoFuncional
-            rs2.getString("aEjercicioFiscal").trim()).// tCEP.cGrupoFuncional
+            ",").// tCEP.aEjercicioFiscal
+            append(// tCEP.aEjercicioFiscal
+            rs2.getString("cUnidadResponsableEP").trim()).// tCEP.aEjercicioFiscal
             append(// tCEP.cGrupoFuncional
-            ",").append(// tCEP.cFuncion
-            rs2.getString("cGrupoFuncional").trim()).// tCEP.cFuncion
+            ",").// tCEP.cGrupoFuncional
+            append(// tCEP.cGrupoFuncional
+            rs2.getString("aEjercicioFiscal").trim()).// tCEP.cGrupoFuncional
             append(// tCEP.cFuncion
-            ",").append(// tCEP.cSubFuncion
-            rs2.getString("cFuncion").trim()).// tCEP.cSubFuncion
+            ",").// tCEP.cFuncion
+            append(// tCEP.cFuncion
+            rs2.getString("cGrupoFuncional").trim()).// tCEP.cFuncion
             append(// tCEP.cSubFuncion
-            ",").append(// tCEP.cProgramaGeneral
-            rs2.getString("cSubFuncion").trim()).// tCEP.cProgramaGeneral
+            ",").// tCEP.cSubFuncion
+            append(// tCEP.cSubFuncion
+            rs2.getString("cFuncion").trim()).// tCEP.cSubFuncion
             append(// tCEP.cProgramaGeneral
-            ",").append(// tCEP.cActividadInstitucional
-            rs2.getString("cProgramaGeneral")).// tCEP.cActividadInstitucional
+            ",").// tCEP.cProgramaGeneral
+            append(// tCEP.cProgramaGeneral
+            rs2.getString("cSubFuncion").trim()).// tCEP.cProgramaGeneral
             append(// tCEP.cActividadInstitucional
-            ",").append(// tCEP.cProgramaPresupuestario
-            rs2.getString("cActividadInstitucional")).// tCEP.cProgramaPresupuestario
+            ",").// tCEP.cActividadInstitucional
+            append(// tCEP.cActividadInstitucional
+            rs2.getString("cProgramaGeneral")).// tCEP.cActividadInstitucional
             append(// tCEP.cProgramaPresupuestario
-            ",").append(// SUBSTRING(tCEP.cPartida,1,1)
-            rs2.getString("cProgramaPresupuestario")).// SUBSTRING(tCEP.cPartida,1,1)
+            ",").// tCEP.cProgramaPresupuestario
+            append(// tCEP.cProgramaPresupuestario
+            rs2.getString("cActividadInstitucional")).// tCEP.cProgramaPresupuestario
             append(// SUBSTRING(tCEP.cPartida,1,1)
-            ",").append(// SUBSTRING(tCEP.cPartida,2,1)
-            rs2.getString(12)).// SUBSTRING(tCEP.cPartida,2,1)
+            ",").// SUBSTRING(tCEP.cPartida,1,1)
+            append(// SUBSTRING(tCEP.cPartida,1,1)
+            rs2.getString("cProgramaPresupuestario")).// SUBSTRING(tCEP.cPartida,1,1)
             append(// SUBSTRING(tCEP.cPartida,2,1)
-            ",").append(// SUBSTRING(tCEP.cPartida,3,1)
-            rs2.getString(13)).// SUBSTRING(tCEP.cPartida,3,1)
+            ",").// SUBSTRING(tCEP.cPartida,2,1)
+            append(// SUBSTRING(tCEP.cPartida,2,1)
+            rs2.getString(12)).// SUBSTRING(tCEP.cPartida,2,1)
             append(// SUBSTRING(tCEP.cPartida,3,1)
-            ",").append(// SUBSTRING(tCEP.cPartida,4,2)
-            rs2.getString(14)).// SUBSTRING(tCEP.cPartida,4,2)
+            ",").// SUBSTRING(tCEP.cPartida,3,1)
+            append(// SUBSTRING(tCEP.cPartida,3,1)
+            rs2.getString(13)).// SUBSTRING(tCEP.cPartida,3,1)
             append(// SUBSTRING(tCEP.cPartida,4,2)
-            ",").append(// tCEP.cTipoGasto
-            rs2.getString(15)).// tCEP.cTipoGasto
+            ",").// SUBSTRING(tCEP.cPartida,4,2)
+            append(// SUBSTRING(tCEP.cPartida,4,2)
+            rs2.getString(14)).// SUBSTRING(tCEP.cPartida,4,2)
             append(// tCEP.cTipoGasto
-            ",").append(// tCEP.cFuenteFinanciamiento
-            rs2.getString("cTipoGasto")).// tCEP.cFuenteFinanciamiento
+            ",").// tCEP.cTipoGasto
+            append(// tCEP.cTipoGasto
+            rs2.getString(15)).// tCEP.cTipoGasto
             append(// tCEP.cFuenteFinanciamiento
-            ",").append(// tCEP.cEntidadFederativa
-            rs2.getString("cFuenteFinanciamiento")).// tCEP.cEntidadFederativa
+            ",").// tCEP.cFuenteFinanciamiento
+            append(// tCEP.cFuenteFinanciamiento
+            rs2.getString("cTipoGasto")).// tCEP.cFuenteFinanciamiento
             append(// tCEP.cEntidadFederativa
-            ",").append(// tCEP.cCartera
-            rs2.getString("cEntidadFederativa")).// tCEP.cCartera
+            ",").// tCEP.cEntidadFederativa
+            append(// tCEP.cEntidadFederativa
+            rs2.getString("cFuenteFinanciamiento")).// tCEP.cEntidadFederativa
             append(// tCEP.cCartera
-            ",").append(// CAU
-            rs2.getString("cCartera")).// CAU
+            ",").// tCEP.cCartera
+            append(// tCEP.cCartera
+            rs2.getString("cEntidadFederativa")).// tCEP.cCartera
             append(// CAU
-            ",").append(// COP
-            rs2.getString("CAU")).// COP
+            ",").// CAU
+            append(// CAU
+            rs2.getString("cCartera")).// CAU
             append(// COP
-            ",").append(// PL
-            rs2.getString("COP")).// PL
+            ",").// COP
+            append(// COP
+            rs2.getString("CAU")).// COP
             append(// PL
-            ",").append(// OF_
-            rs2.getString("PL")).// OF_
+            ",").// PL
+            append(// PL
+            rs2.getString("COP")).// PL
             append(// OF_
-            ",").append(// AUX1
-            rs2.getString("OF_")).// AUX1
+            ",").// OF_
+            append(// OF_
+            rs2.getString("PL")).// OF_
             append(// AUX1
-            ",").append(// AUX2
-            rs2.getString("AUX1")).// AUX2
+            ",").// AUX1
+            append(// AUX1
+            rs2.getString("OF_")).// AUX1
             append(// AUX2
-            ",").append(// AUX3
-            rs2.getString("AUX2")).// AUX3
+            ",").// AUX2
+            append(// AUX2
+            rs2.getString("AUX1")).// AUX2
             append(// AUX3
-            ",").append(// Suficiencia
-            rs2.getString("AUX3")).// Suficiencia
+            ",").// AUX3
+            append(// AUX3
+            rs2.getString("AUX2")).// AUX3
             append(// Suficiencia
-            ",").append(// Sol_OLI
-            rs2.getString("Suficiencia")).// Sol_OLI
+            ",").// Suficiencia
+            append(// Suficiencia
+            rs2.getString("AUX3")).// Suficiencia
             append(// Sol_OLI
-            ",").append(// Enero
-            rs2.getString("Sol_OLI")).// Enero
+            ",").// Sol_OLI
+            append(// Sol_OLI
+            rs2.getString("Suficiencia")).// Sol_OLI
             append(// Enero
-            ",").append(// Febrero
-            rs2.getString("Enero")).// Febrero
+            ",").// Enero
+            append(// Enero
+            rs2.getString("Sol_OLI")).// Enero
             append(// Febrero
-            ",").append(// Marzo
-            rs2.getString("Febrero")).// Marzo
+            ",").// Febrero
+            append(// Febrero
+            rs2.getString("Enero")).// Febrero
             append(// Marzo
-            ",").append(// Abril
-            rs2.getString("Marzo")).// Abril
+            ",").// Marzo
+            append(// Marzo
+            rs2.getString("Febrero")).// Marzo
             append(// Abril
-            ",").append(// Mayo
-            rs2.getString("Abril")).// Mayo
+            ",").// Abril
+            append(// Abril
+            rs2.getString("Marzo")).// Abril
             append(// Mayo
-            ",").append(// Junio
-            rs2.getString("Mayo")).// Junio
+            ",").// Mayo
+            append(// Mayo
+            rs2.getString("Abril")).// Mayo
             append(// Junio
-            ",").append(// Julio
-            rs2.getString("Junio")).// Julio
+            ",").// Junio
+            append(// Junio
+            rs2.getString("Mayo")).// Junio
             append(// Julio
-            ",").append(// Agosto
-            rs2.getString("Julio")).// Agosto
+            ",").// Julio
+            append(// Julio
+            rs2.getString("Junio")).// Julio
             append(// Agosto
-            ",").append(// Septiembre
-            rs2.getString("Agosto")).// Septiembre
+            ",").// Agosto
+            append(// Agosto
+            rs2.getString("Julio")).// Agosto
             append(// Septiembre
-            ",").append(// Octubre
-            rs2.getString("Septiembre")).// Octubre
+            ",").// Septiembre
+            append(// Septiembre
+            rs2.getString("Agosto")).// Septiembre
             append(// Octubre
-            ",").append(// Noviembre
-            rs2.getString("Octubre")).// Noviembre
+            ",").// Octubre
+            append(// Octubre
+            rs2.getString("Septiembre")).// Octubre
             append(// Noviembre
-            ",").append(// Diciembre
-            rs2.getString("Noviembre")).// Diciembre
+            ",").// Noviembre
+            append(// Noviembre
+            rs2.getString("Octubre")).// Noviembre
             append(// Diciembre
-            ",").append(// Importe
-            rs2.getString("Diciembre")).// Importe
+            ",").// Diciembre
+            append(// Diciembre
+            rs2.getString("Noviembre")).// Diciembre
             append(// Importe
-            ",").append(rs2.getString("Importe")).append("\r\n");
+            ",").// Importe
+            append(// Importe
+            rs2.getString("Diciembre")).// Importe
+            append(",").append(rs2.getString("Importe")).append("\r\n");
             arrListaComp = detalle.toString();
         }
         CloseObject.closeObject(rs2);

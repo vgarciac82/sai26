@@ -20,6 +20,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "LayoutEjercidoComparativoServlet", urlPatterns = { "/gstnmngr/LayoutEjercidoComparativoServlet" })
 public class LayoutEjercidoComparativoServlet extends HttpServlet {

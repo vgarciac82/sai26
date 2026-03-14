@@ -2,53 +2,57 @@ package com.axtel.cfdi.stamp.core;
 
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
+import java.util.Base64;
 
 public class DigitalSignature {
 
-	private PrivateKey key = null;
-	private String keyPassword = "";
-	private String keyString = "";
-	private X509Certificate cert = null;
-	private String certString = "";
+    private PrivateKey key = null;
 
-	public PrivateKey getKey() {
-		return key;
-	}
+    private String keyPassword = "";
 
-	public void setKey(PrivateKey key) {
-		this.key = key;
-	}
+    private String keyString = "";
 
-	public String getKeyPassword() {
-		return this.keyPassword;
-	}
+    private X509Certificate cert = null;
 
-	public void setKeyPassword(String keyPassword) {
-		this.keyPassword = keyPassword;
-	}
+    private String certString = "";
 
-	public String getKeyString() {
-		return keyString;
-	}
+    public PrivateKey getKey() {
+        return key;
+    }
 
-	public void setKeyString(String keyString) {
-		this.keyString = keyString;
-	}
+    public void setKey(PrivateKey key) {
+        this.key = key;
+    }
 
-	public X509Certificate getCert() {
-		return cert;
-	}
+    public String getKeyPassword() {
+        return this.keyPassword;
+    }
 
-	public void setCert(X509Certificate cert) {
-		this.cert = cert;
-	}
+    public void setKeyPassword(String keyPassword) {
+        this.keyPassword = keyPassword;
+    }
 
-	public String getCertString() {
-		return certString;
-	}
+    public String getKeyString() {
+        return keyString;
+    }
 
-	public void setCertString(String certString) {
-		this.certString = certString;
-	}
+    public void setKeyString(String keyString) {
+        this.keyString = keyString;
+    }
 
+    public X509Certificate getCert() {
+        return cert;
+    }
+
+    public void setCert(X509Certificate cert) {
+        this.cert = cert;
+    }
+
+    public String getCertString() {
+        return certString;
+    }
+
+    public void setCertString(String certString) {
+        this.certString = certString;
+    }
 }

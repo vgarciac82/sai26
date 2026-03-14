@@ -3,53 +3,53 @@ package com.syc.obrapublica;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Base64;
 
 public class ReporteContratosAdjudicadosBean {
 
-	String				idArea;
-	List<String[]>		info;
-	Map<String, Double>	totales;
-	String				UR;
+    String idArea;
 
-	public String getIdArea() {
-		return idArea;
-	}
+    List<String[]> info;
 
-	public void setIdArea(String idArea) {
-		this.idArea = idArea;
-	}
+    Map<String, Double> totales;
 
-	public List<String[]> getInfo() {
-		return info;
-	}
+    String UR;
 
-	public Map<String, Double> getTotales() {
-		return totales;
-	}
+    public String getIdArea() {
+        return idArea;
+    }
 
-	public String getUR() {
-		return UR;
-	}
+    public void setIdArea(String idArea) {
+        this.idArea = idArea;
+    }
 
-	public void setInfo(List<String[]> info) {
-		this.info = info;
-	}
+    public List<String[]> getInfo() {
+        return info;
+    }
 
-	public void setInfo(String[] info) {
+    public Map<String, Double> getTotales() {
+        return totales;
+    }
 
-		if (this.info == null)
-			setInfo(new ArrayList<String[]>());
+    public String getUR() {
+        return UR;
+    }
 
-		getInfo().add(info);
+    public void setInfo(List<String[]> info) {
+        this.info = info;
+    }
 
-	}
+    public void setInfo(String[] info) {
+        if (this.info == null)
+            setInfo(new ArrayList<String[]>());
+        getInfo().add(info);
+    }
 
-	public void setTotales(Map<String, Double> totales) {
-		this.totales = totales;
-	}
+    public void setTotales(Map<String, Double> totales) {
+        this.totales = totales;
+    }
 
-	public void setUR(String uR) {
-		UR = uR;
-	}
-
+    public void setUR(String uR) {
+        UR = uR;
+    }
 }

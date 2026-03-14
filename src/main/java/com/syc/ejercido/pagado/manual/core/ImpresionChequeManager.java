@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import com.syc.cfdi.utils.CloseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class ImpresionChequeManager {
 
@@ -181,17 +182,19 @@ public class ImpresionChequeManager {
         int chequeSigte;
         int insertadosEnc = 0;
         int insertadosDet = 0;
-        String queryInsertEncabezado = // Folio de encabezado
-        " INSERT INTO tChequeEncabezado (" + "	aEjercicioFiscal ," + "	cCentroContable ," + "	cUnidadResponsable ," + "	cRamo ," + "	cCuentaBancaria ," + "	nFolioCheque ," + "	nNumCheque ," + "	mImporteCheque ," + "	cIdRFC ," + "	caNoContrarrecibo ," + "	fAplicacion ," + "	fElaboracion ," + "	fEntrega ," + "	cConcepto ," + "	U_LOGIN_captura ," + "	U_LOGIN_revisa ," + "	U_LOGIN_autoriza ," + "	U_LOGIN_imprime ," + "	cDocumentoHaplicado ," + "	nFolioPoliza ," + "	cTipoPoliza ," + "	cUnidadResponsableContable ," + "	nFolioPolizaCancelacion ," + "	fCancelacion ," + "	cTransferencia ," + "	cBeneficiarioAlternativo," + "	nFoliopolizapago," + "	cDescripcionPoliza" + ")" + "SELECT aEjercicioFiscal " + "       ,cCentroContable " + "       ,cUnidadResponsable " + "       ,cRamo" + "       ,cCuentaBancaria " + // Numero de cheque
-        "       ,? " + "       ,? " + "       ,mImporteCheque" + "       ,cIdRFC" + "       ,caNoContrarrecibo" + "       , GETDATE()" + "       ,CAST(GETDATE() AS SMALLDATETIME)" + //NvoConcepto
-        "       ,CAST(GETDATE() AS SMALLDATETIME)" + "       ,? " + "       ,U_LOGIN_captura" + "       ,U_LOGIN_revisa" + "       ,U_LOGIN_autoriza" + "       ,U_LOGIN_imprime" + "       ,NULL" + "       ,NULL" + "       ,'EG'" + "       ,cUnidadResponsableContable" + "       ,null" + // "       ,'Reemplazo del Cheque ' +CAST(? AS NVARCHAR(20))+' de la cuenta ' + ?" + // Cheque Anterior Banco
-        "       ,NULL" + "       ,NULL " + "       ,cBeneficiarioAlternativo " + //NvoConcepto
-        "       ,nfoliopolizapago " + "       ,? " + //Cheque anterior
-        "FROM   tChequeEncabezado WITH(NOLOCK) " + "WHERE  nFolioCheque = ?  " + "GROUP BY aEjercicioFiscal," + "         cCentroContable," + "         cUnidadResponsable," + "         cRamo," + "         cCuentaBancaria," + "         mImporteCheque," + "         cIdRFC," + "         caNoContrarrecibo," + "         cConcepto, " + "         U_LOGIN_captura, " + "         U_LOGIN_revisa " + "         ,U_LOGIN_autoriza, " + "         U_LOGIN_imprime " + "         ,nFolioPoliza, " + "         cUnidadResponsableContable, " + "	     cBeneficiarioAlternativo" + ",nfoliopolizapago";
+        // Folio de encabezado
+        String // Folio de encabezado
+        queryInsertEncabezado = // Numero de cheque
+        " INSERT INTO tChequeEncabezado (" + "	aEjercicioFiscal ," + "	cCentroContable ," + "	cUnidadResponsable ," + "	cRamo ," + "	cCuentaBancaria ," + "	nFolioCheque ," + "	nNumCheque ," + "	mImporteCheque ," + "	cIdRFC ," + "	caNoContrarrecibo ," + "	fAplicacion ," + "	fElaboracion ," + "	fEntrega ," + "	cConcepto ," + "	U_LOGIN_captura ," + "	U_LOGIN_revisa ," + "	U_LOGIN_autoriza ," + "	U_LOGIN_imprime ," + "	cDocumentoHaplicado ," + "	nFolioPoliza ," + "	cTipoPoliza ," + "	cUnidadResponsableContable ," + "	nFolioPolizaCancelacion ," + "	fCancelacion ," + "	cTransferencia ," + "	cBeneficiarioAlternativo," + "	nFoliopolizapago," + "	cDescripcionPoliza" + ")" + "SELECT aEjercicioFiscal " + "       ,cCentroContable " + "       ,cUnidadResponsable " + "       ,cRamo" + "       ,cCuentaBancaria " + "       ,? " + "       ,? " + "       ,mImporteCheque" + "       ,cIdRFC" + "       ,caNoContrarrecibo" + "       , GETDATE()" + //NvoConcepto
+        "       ,CAST(GETDATE() AS SMALLDATETIME)" + "       ,CAST(GETDATE() AS SMALLDATETIME)" + "       ,? " + "       ,U_LOGIN_captura" + "       ,U_LOGIN_revisa" + "       ,U_LOGIN_autoriza" + "       ,U_LOGIN_imprime" + "       ,NULL" + "       ,NULL" + "       ,'EG'" + "       ,cUnidadResponsableContable" + // "       ,'Reemplazo del Cheque ' +CAST(? AS NVARCHAR(20))+' de la cuenta ' + ?" + // Cheque Anterior Banco
+        "       ,null" + "       ,NULL" + "       ,NULL " + //NvoConcepto
+        "       ,cBeneficiarioAlternativo " + "       ,nfoliopolizapago " + //Cheque anterior
+        "       ,? " + "FROM   tChequeEncabezado WITH(NOLOCK) " + "WHERE  nFolioCheque = ?  " + "GROUP BY aEjercicioFiscal," + "         cCentroContable," + "         cUnidadResponsable," + "         cRamo," + "         cCuentaBancaria," + "         mImporteCheque," + "         cIdRFC," + "         caNoContrarrecibo," + "         cConcepto, " + "         U_LOGIN_captura, " + "         U_LOGIN_revisa " + "         ,U_LOGIN_autoriza, " + "         U_LOGIN_imprime " + "         ,nFolioPoliza, " + "         cUnidadResponsableContable, " + "	     cBeneficiarioAlternativo" + ",nfoliopolizapago";
         log.debug("Object: {}", "Consulta reemplazo de cheque ENCABEZADO: [" + queryInsertEncabezado + "]");
-        String queryInsertDetalle = //numero de cheque
-        "INSERT INTO tChequeDetalle " + "SELECT cEjercicio " + "       ,cCentroContable " + "       ,cUnidadResponsable " + "       ,CTAB " + "       ,? " + "       ,nDocRenglon " + "       ,RFC " + "       ,cEvento " + "       ,mImporte " + "       ,mImporteNegativo " + // Folio Cheque Anterior
-        "FROM   tChequeDetalle WITH(NOLOCK) " + "WHERE  nFolioCheque=?";
+        //numero de cheque
+        String //numero de cheque
+        queryInsertDetalle = // Folio Cheque Anterior
+        "INSERT INTO tChequeDetalle " + "SELECT cEjercicio " + "       ,cCentroContable " + "       ,cUnidadResponsable " + "       ,CTAB " + "       ,? " + "       ,nDocRenglon " + "       ,RFC " + "       ,cEvento " + "       ,mImporte " + "       ,mImporteNegativo " + "FROM   tChequeDetalle WITH(NOLOCK) " + "WHERE  nFolioCheque=?";
         log.debug("Object: {}", "Consulta reemplazo de cheque DETALLE: [" + queryInsertDetalle + "]");
         String queryUpdateEnc = "UPDATE tChequeEncabezado SET cDocumentoHaplicado='C',fCancelacion= CAST(GETDATE() AS SMALLDATETIME),cDescripcionPoliza='Reemplazo a nuevo numero de Cheque ' +CAST(? AS NVARCHAR(20))+' de la cuenta ' + ? WHERE nFolioCheque=?";
         log.debug("Object: {}", "Consulta reemplazo de cheque Actualiza Cheque : [" + queryUpdateEnc + "]");

@@ -12,6 +12,7 @@ import com.syc.gestion.util.Util;
 import com.syc.reportes.core.ConciliacionesBienesManager;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import com.syc.sai.core.*;
+import java.util.Base64;
 
 public class ConciliacionesBienesBusinessLogic extends DataSourceManager {
 

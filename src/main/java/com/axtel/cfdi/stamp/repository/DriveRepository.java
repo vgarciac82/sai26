@@ -8,6 +8,7 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.axtel.cfdi.stamp.core.Drive;
+import java.util.Base64;
 
 public class DriveRepository implements DriveRepositoryInterface {
 

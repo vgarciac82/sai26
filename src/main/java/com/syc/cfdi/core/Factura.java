@@ -1,99 +1,105 @@
 package com.syc.cfdi.core;
 
-
 import java.math.BigDecimal;
 import java.util.Map;
-
-
+import java.util.Base64;
 
 public class Factura {
 
-	private Traslados			impuestos;
-	private String					nombreEmisor;
-	private String					nombreReceptor;
-	private Map<String, BigDecimal>	retenciones;
-	private BigDecimal				totalRetenciones;
-	private String					rfcEmisor;
-	private String					rfcReceptor;
-	private BigDecimal				subTotal;
-	private BigDecimal				total;
-	private String					UUID;
+    private Traslados impuestos;
 
-	public Traslados getImpuestos() {
-		return impuestos;
-	}
+    private String nombreEmisor;
 
-	public String getNombreEmisor() {
-		return nombreEmisor;
-	}
+    private String nombreReceptor;
 
-	public String getNombreReceptor() {
-		return nombreReceptor;
-	}
+    private Map<String, BigDecimal> retenciones;
 
-	public Map<String, BigDecimal> getRetenciones() {
-		return retenciones;
-	}
+    private BigDecimal totalRetenciones;
 
-	public String getRfcEmisor() {
-		return rfcEmisor;
-	}
+    private String rfcEmisor;
 
-	public String getRfcReceptor() {
-		return rfcReceptor;
-	}
+    private String rfcReceptor;
 
-	public BigDecimal getSubTotal() {
-		return subTotal;
-	}
+    private BigDecimal subTotal;
 
-	public BigDecimal getTotal() {
-		return total;
-	}
+    private BigDecimal total;
 
-	public String getUUID() {
-		return UUID;
-	}
+    private String UUID;
 
-	public void setImpuestos( Traslados impuestos ) {
-		this.impuestos = impuestos;
-	}
+    public Traslados getImpuestos() {
+        return impuestos;
+    }
 
-	public void setNombreEmisor( String nombreEmisor ) {
-		this.nombreEmisor = nombreEmisor;
-	}
+    public String getNombreEmisor() {
+        return nombreEmisor;
+    }
 
-	public void setNombreReceptor( String nombreReceptor ) {
-		this.nombreReceptor = nombreReceptor;
-	}
+    public String getNombreReceptor() {
+        return nombreReceptor;
+    }
 
-	public void setRetenciones( Map<String, BigDecimal> retenciones ) {
-		this.retenciones = retenciones;
-	}
+    public Map<String, BigDecimal> getRetenciones() {
+        return retenciones;
+    }
 
-	public void setRfcEmisor( String rfcEmisor ) {
-		this.rfcEmisor = rfcEmisor;
-	}
+    public String getRfcEmisor() {
+        return rfcEmisor;
+    }
 
-	public void setRfcReceptor( String rfcReceptor ) {
-		this.rfcReceptor = rfcReceptor;
-	}
+    public String getRfcReceptor() {
+        return rfcReceptor;
+    }
 
-	public void setSubTotal( BigDecimal subTotal ) {
-		this.subTotal = subTotal;
-	}
+    public BigDecimal getSubTotal() {
+        return subTotal;
+    }
 
-	public void setTotal( BigDecimal total ) {
-		this.total = total;
-	}
+    public BigDecimal getTotal() {
+        return total;
+    }
 
-	public void setUUID( String uUID ) {
-		UUID = uUID;
-	}
+    public String getUUID() {
+        return UUID;
+    }
 
-	@Override
-	public String toString() {
-		return "Factura [impuestos=" + impuestos + ", nombreEmisor=" + nombreEmisor + ", nombreReceptor=" + nombreReceptor + ", retenciones=" + retenciones + ", rfcEmisor=" + rfcEmisor + ", rfcReceptor=" + rfcReceptor + ", subTotal=" + subTotal + ", total=" + total + ", UUID=" + UUID + "]";
-	}
+    public void setImpuestos(Traslados impuestos) {
+        this.impuestos = impuestos;
+    }
 
+    public void setNombreEmisor(String nombreEmisor) {
+        this.nombreEmisor = nombreEmisor;
+    }
+
+    public void setNombreReceptor(String nombreReceptor) {
+        this.nombreReceptor = nombreReceptor;
+    }
+
+    public void setRetenciones(Map<String, BigDecimal> retenciones) {
+        this.retenciones = retenciones;
+    }
+
+    public void setRfcEmisor(String rfcEmisor) {
+        this.rfcEmisor = rfcEmisor;
+    }
+
+    public void setRfcReceptor(String rfcReceptor) {
+        this.rfcReceptor = rfcReceptor;
+    }
+
+    public void setSubTotal(BigDecimal subTotal) {
+        this.subTotal = subTotal;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public void setUUID(String uUID) {
+        UUID = uUID;
+    }
+
+    @Override
+    public String toString() {
+        return "Factura [impuestos=" + impuestos + ", nombreEmisor=" + nombreEmisor + ", nombreReceptor=" + nombreReceptor + ", retenciones=" + retenciones + ", rfcEmisor=" + rfcEmisor + ", rfcReceptor=" + rfcReceptor + ", subTotal=" + subTotal + ", total=" + total + ", UUID=" + UUID + "]";
+    }
 }

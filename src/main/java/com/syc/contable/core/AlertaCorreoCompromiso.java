@@ -1,28 +1,32 @@
 package com.syc.contable.core;
 
+import java.util.Base64;
+
 public class AlertaCorreoCompromiso {
-	private String	message;
-	private String	to;
 
-	public AlertaCorreoCompromiso(String message, String to) {
-		super();
-		this.message = message;
-		this.to = to;
-	}
+    private String message;
 
-	public String getMessage() {
-		return message;
-	}
+    private String to;
 
-	public String getTo() {
-		return to;
-	}
+    public AlertaCorreoCompromiso(String message, String to) {
+        super();
+        this.message = message;
+        this.to = to;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	public void setTo(String to) {
-		this.to = to;
-	}
+    public String getTo() {
+        return to;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
 }

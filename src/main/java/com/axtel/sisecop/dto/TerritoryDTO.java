@@ -1,42 +1,44 @@
 package com.axtel.sisecop.dto;
 
-
 import java.io.Serializable;
-
+import java.util.Base64;
 
 public class TerritoryDTO implements Serializable {
 
-	private static final long	serialVersionUID	= 3495907327418937160L;
-	int							municipalityId;
-	int							servicioId;
-	int							stateId;
+    private static final long serialVersionUID = 3495907327418937160L;
 
-	public int getMunicipalityId() {
-		return municipalityId;
-	}
+    int municipalityId;
 
-	public int getServicioId() {
-		return servicioId;
-	}
+    int servicioId;
 
-	public int getStateId() {
-		return stateId;
-	}
+    int stateId;
 
-	public void setMunicipalityId( int municipalityId ) {
-		this.municipalityId = municipalityId;
-	}
+    public int getMunicipalityId() {
+        return municipalityId;
+    }
 
-	public void setServicioId( int servicioId ) {
-		this.servicioId = servicioId;
-	}
+    public int getServicioId() {
+        return servicioId;
+    }
 
-	public void setStateId( int stateId ) {
-		this.stateId = stateId;
-	}
+    public int getStateId() {
+        return stateId;
+    }
 
-	@Override
-	public String toString() {
-		return "TerritoryDTO [stateId=" + stateId + ", municipalityId=" + municipalityId + ", servicioId=" + servicioId + "]";
-	}
+    public void setMunicipalityId(int municipalityId) {
+        this.municipalityId = municipalityId;
+    }
+
+    public void setServicioId(int servicioId) {
+        this.servicioId = servicioId;
+    }
+
+    public void setStateId(int stateId) {
+        this.stateId = stateId;
+    }
+
+    @Override
+    public String toString() {
+        return "TerritoryDTO [stateId=" + stateId + ", municipalityId=" + municipalityId + ", servicioId=" + servicioId + "]";
+    }
 }

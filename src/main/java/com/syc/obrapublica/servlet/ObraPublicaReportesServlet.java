@@ -33,6 +33,8 @@ import com.syc.sai.contabilidad.CuentaPublicaCuerpoReportes;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 
 @WebServlet(name = "ReportesOP", urlPatterns = { "/ObraPublica/reportes" })
 public class ObraPublicaReportesServlet extends HttpServlet implements GestionInterface {
@@ -83,8 +85,9 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 String reportBody = CuentaPublicaCuerpoReportes.getReportBody("OPFormato10Encabezado");
                 if (reportBody == null)
                     reportBody = CuentaPublicaCuerpoReportes.getReportBody("OPFormato10Encabezado", getReportStream("OPFormato10Encabezado"));
-                ServletFileUpload upload = new ServletFileUpload();
-                upload.setRepositoryPath(tempDir);
+                DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+                JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
                 String cFileExcel = upload.getRepositoryPath() + "\\" + "formato10.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
                 Workbook wb = new HSSFWorkbook(inp);
@@ -107,8 +110,9 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
             boolean generarVacio = false;
             try {
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
-                ServletFileUpload upload = new ServletFileUpload();
-                upload.setRepositoryPath(tempDir);
+                DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+                JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
                 String cFileExcel = upload.getRepositoryPath() + "\\" + "OPConsolidaNacionalTotal.xls";
                 System.out.println(cFileExcel);
                 InputStream inp = new FileInputStream(cFileExcel);
@@ -134,8 +138,9 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
             boolean generarVacio = false;
             try {
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
-                ServletFileUpload upload = new ServletFileUpload();
-                upload.setRepositoryPath(tempDir);
+                DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+                JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
                 String cFileExcel = upload.getRepositoryPath() + "\\" + "OPConsolidaAreaResponsable.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
                 Workbook wb = new HSSFWorkbook(inp);
@@ -158,8 +163,9 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
             boolean generarVacio = false;
             try {
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
-                ServletFileUpload upload = new ServletFileUpload();
-                upload.setRepositoryPath(tempDir);
+                DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+                JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
                 String cFileExcel = upload.getRepositoryPath() + "\\" + "OPConsolidaXProyecto.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
                 Workbook wb = new HSSFWorkbook(inp);
@@ -182,8 +188,9 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
             boolean generarVacio = false;
             try {
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
-                ServletFileUpload upload = new ServletFileUpload();
-                upload.setRepositoryPath(tempDir);
+                DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+                JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
                 String cFileExcel = upload.getRepositoryPath() + "\\" + "MultiReporteObra.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
                 Workbook wb = new HSSFWorkbook(inp);
@@ -460,8 +467,9 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
             boolean generarVacio = false;
             try {
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
-                ServletFileUpload upload = new ServletFileUpload();
-                upload.setRepositoryPath(tempDir);
+                DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+                JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
                 String cFileExcel = upload.getRepositoryPath() + "\\" + "exportaPAOPCaptura.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
                 Workbook wb = new HSSFWorkbook(inp);
@@ -483,8 +491,9 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
             boolean generarVacio = false;
             try {
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
-                ServletFileUpload upload = new ServletFileUpload();
-                upload.setRepositoryPath(tempDir);
+                DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+                JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
                 String cFileExcel = upload.getRepositoryPath() + "\\" + "OPConsolidaXProyectoXRegion.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
                 Workbook wb = new HSSFWorkbook(inp);
@@ -562,8 +571,9 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
             boolean generarVacio = false;
             try {
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
-                ServletFileUpload upload = new ServletFileUpload();
-                upload.setRepositoryPath(tempDir);
+                DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+                JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
                 String cFileExcel = upload.getRepositoryPath() + "\\" + "OPConsolidoPorAreaEjecutora.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
                 System.out.println(cFileExcel);
@@ -585,8 +595,9 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
             boolean generarVacio = false;
             try {
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
-                ServletFileUpload upload = new ServletFileUpload();
-                upload.setRepositoryPath(tempDir);
+                DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+                JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
                 String cFileExcel = upload.getRepositoryPath() + "\\" + "OPConsolidoPorAreaEjecutorayProyecto.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
                 Workbook wb = new HSSFWorkbook(inp);
@@ -697,8 +708,9 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
 
     public void excelConPlantilla(HttpServletRequest request, HttpServletResponse response, String tipoReporte, String cCentroContable, String fechaI, String fechaF, String idunidadresponsable, boolean generarVacio, String reportBody, String reportType, String strUsuario, String strCondicion, String strCondMultiR, String columnasBorrar, String strGeneral, String strResumen) throws Exception {
         HttpSession session = request.getSession(false);
-        ServletFileUpload upload = new ServletFileUpload();
-        upload.setRepositoryPath(tempDir);
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+        JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         int nConsecutivoSICOP = 0;
         Integer esPDF = 0;
         if (request.getParameter("esPDF") != null) {

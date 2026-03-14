@@ -1,52 +1,55 @@
 package com.syc.admin.core;
 
 import java.io.Serializable;
+import java.util.Base64;
 
-public class Usuario implements Serializable{
+public class Usuario implements Serializable {
 
-	private final static long serialVersionUID = 1;
+    private final static long serialVersionUID = 1;
 
-	private String u_login;
-	private String u_password;
-	private String u_nombre;
-	private String u_descripcion;
+    private String u_login;
 
-	//private Map usrProperties = new Hashtable();
-	//private Map grupos = new Hashtable();
-	//private Map roles = new Hashtable();
+    private String u_password;
 
-	public String getLogin() {
-		return u_login;
-	}
+    private String u_nombre;
 
-	public void setLogin(String u_login) {
-		this.u_login = u_login;
-	}
+    private String u_descripcion;
 
-	public String getPassword() {
-		return u_password;
-	}
+    //private Map usrProperties = new Hashtable();
+    //private Map grupos = new Hashtable();
+    //private Map roles = new Hashtable();
+    public String getLogin() {
+        return u_login;
+    }
 
-	public void setPassword(String u_password) {
-		this.u_password = u_password;
-	}
+    public void setLogin(String u_login) {
+        this.u_login = u_login;
+    }
 
-	public String getNombre() {
-		return u_nombre;
-	}
+    public String getPassword() {
+        return u_password;
+    }
 
-	public void setNombre(String u_nombre) {
-		this.u_nombre = u_nombre;
-	}
+    public void setPassword(String u_password) {
+        this.u_password = u_password;
+    }
 
-	public String getDescripcion() {
-		return u_descripcion;
-	}
+    public String getNombre() {
+        return u_nombre;
+    }
 
-	public void setDescripcion(String u_descripcion) {
-		this.u_descripcion = u_descripcion;
-	}
-	/*
+    public void setNombre(String u_nombre) {
+        this.u_nombre = u_nombre;
+    }
+
+    public String getDescripcion() {
+        return u_descripcion;
+    }
+
+    public void setDescripcion(String u_descripcion) {
+        this.u_descripcion = u_descripcion;
+    }
+    /*
 	public Map getPropiedades() {
 		return usrProperties;
 	}

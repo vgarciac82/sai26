@@ -3,6 +3,7 @@ package com.syc.web.filters;
 import java.io.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
+import java.util.Base64;
 
 public class CacheResponseStream extends ServletOutputStream {
 

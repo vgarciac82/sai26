@@ -1,103 +1,97 @@
 package com.syc.gestion.core;
 
 import java.sql.Timestamp;
+import java.util.Base64;
 
 public class Mensaje {
 
-	private int id_msg;
-	private String msg_para_login;
-	private String msg_de_login;
-	private Timestamp msg_fecha;
-	private String msg_asunto;
-	private String msg_body;
-	private int msg_status;
+    private int id_msg;
 
-	private String usr_para_nombre;
-	private String usr_de_nombre;
+    private String msg_para_login;
 
-	public int getIdMsg() {
+    private String msg_de_login;
 
-		return id_msg;
-	}
+    private Timestamp msg_fecha;
 
-	public void setIdMsg(int id_msg) {
+    private String msg_asunto;
 
-		this.id_msg = id_msg;
-	}
+    private String msg_body;
 
-	public String getAsunto() {
+    private int msg_status;
 
-		return msg_asunto;
-	}
+    private String usr_para_nombre;
 
-	public void setAsunto(String msg_asunto) {
+    private String usr_de_nombre;
 
-		this.msg_asunto = msg_asunto;
-	}
+    public int getIdMsg() {
+        return id_msg;
+    }
 
-	public String getBody() {
+    public void setIdMsg(int id_msg) {
+        this.id_msg = id_msg;
+    }
 
-		return msg_body;
-	}
+    public String getAsunto() {
+        return msg_asunto;
+    }
 
-	public void setBody(String msg_body) {
+    public void setAsunto(String msg_asunto) {
+        this.msg_asunto = msg_asunto;
+    }
 
-		this.msg_body = msg_body;
-	}
+    public String getBody() {
+        return msg_body;
+    }
 
-	public Timestamp getFecha() {
+    public void setBody(String msg_body) {
+        this.msg_body = msg_body;
+    }
 
-		return msg_fecha;
-	}
+    public Timestamp getFecha() {
+        return msg_fecha;
+    }
 
-	public void setFecha(Timestamp msg_fecha) {
+    public void setFecha(Timestamp msg_fecha) {
+        this.msg_fecha = msg_fecha;
+    }
 
-		this.msg_fecha = msg_fecha;
-	}
+    public int getStatus() {
+        return msg_status;
+    }
 
-	public int getStatus() {
+    public void setStatus(int msg_status) {
+        this.msg_status = msg_status;
+    }
 
-		return msg_status;
-	}
+    public String getParaLogin() {
+        return msg_para_login;
+    }
 
-	public void setStatus(int msg_status) {
+    public void setParaLogin(String msg_para_login) {
+        this.msg_para_login = msg_para_login;
+    }
 
-		this.msg_status = msg_status;
-	}
+    public String getDeLogin() {
+        return msg_de_login;
+    }
 
-	public String getParaLogin() {
+    public void setDeLogin(String msg_de_login) {
+        this.msg_de_login = msg_de_login;
+    }
 
-		return msg_para_login;
-	}
+    public String getParaNombre() {
+        return usr_para_nombre;
+    }
 
-	public void setParaLogin(String msg_para_login) {
+    public void setParaNombre(String usr_para_nombre) {
+        this.usr_para_nombre = usr_para_nombre;
+    }
 
-		this.msg_para_login = msg_para_login;
-	}
+    public String getDeNombre() {
+        return usr_de_nombre;
+    }
 
-	public String getDeLogin() {
-
-		return msg_de_login;
-	}
-
-	public void setDeLogin(String msg_de_login) {
-
-		this.msg_de_login = msg_de_login;
-	}
-
-	public String getParaNombre() {
-		return usr_para_nombre;
-	}
-
-	public void setParaNombre(String usr_para_nombre) {
-		this.usr_para_nombre = usr_para_nombre;
-	}
-
-	public String getDeNombre() {
-		return usr_de_nombre;
-	}
-
-	public void setDeNombre(String usr_de_nombre) {
-		this.usr_de_nombre = usr_de_nombre;
-	}
+    public void setDeNombre(String usr_de_nombre) {
+        this.usr_de_nombre = usr_de_nombre;
+    }
 }

@@ -25,6 +25,7 @@ import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 /**
  * Clase encargada de la carga de proyecto desde un archivo excel.

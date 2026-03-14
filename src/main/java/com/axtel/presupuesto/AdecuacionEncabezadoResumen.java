@@ -1,108 +1,112 @@
 package com.axtel.presupuesto;
 
+import java.util.Base64;
 
 public class AdecuacionEncabezadoResumen {
 
-	private String	afectaMetas;
-	private String	apiKey	= "#d$FZLS6Zm*yKI*LA0T*Jh5po#j4t73V0FN6s*$NxJ@V";
-	private String	fAplicacion;
-	private int		folio;
-	private String	justificacion;
-	private String	respuesta;
+    private String afectaMetas;
 
-	/**
-	 * 
-	 */
-	public AdecuacionEncabezadoResumen( ) {
-		super();
-	}
+    private String apiKey = "#d$FZLS6Zm*yKI*LA0T*Jh5po#j4t73V0FN6s*$NxJ@V";
 
-	/**
-	 * @return the afectaMetas
-	 */
-	public String getAfectaMetas() {
-		return afectaMetas;
-	}
+    private String fAplicacion;
 
-	public String getApiKey() {
-		return apiKey;
-	}
+    private int folio;
 
-	/**
-	 * @return the fAplicacion
-	 */
-	public String getfAplicacion() {
-		return fAplicacion;
-	}
+    private String justificacion;
 
-	/**
-	 * @return the folio
-	 */
-	public int getFolio() {
-		return folio;
-	}
+    private String respuesta;
 
-	/**
-	 * @return the justificacion
-	 */
-	public String getJustificacion() {
-		return justificacion;
-	}
+    /**
+     */
+    public AdecuacionEncabezadoResumen() {
+        super();
+    }
 
-	/**
-	 * @return the respuesta
-	 */
-	public String getRespuesta() {
-		return respuesta;
-	}
+    /**
+     * @return the afectaMetas
+     */
+    public String getAfectaMetas() {
+        return afectaMetas;
+    }
 
-	/**
-	 * @param afectaMetas
-	 *            the afectaMetas to set
-	 */
-	public void setAfectaMetas( String afectaMetas ) {
-		this.afectaMetas = afectaMetas;
-	}
+    public String getApiKey() {
+        return apiKey;
+    }
 
-	public void setApiKey( String apiKey ) {
-		this.apiKey = apiKey;
-	}
+    /**
+     * @return the fAplicacion
+     */
+    public String getfAplicacion() {
+        return fAplicacion;
+    }
 
-	/**
-	 * @param fAplicacion
-	 *            the fAplicacion to set
-	 */
-	public void setfAplicacion( String fAplicacion ) {
-		this.fAplicacion = fAplicacion;
-	}
+    /**
+     * @return the folio
+     */
+    public int getFolio() {
+        return folio;
+    }
 
-	/**
-	 * @param folio
-	 *            the folio to set
-	 */
-	public void setFolio( int folio ) {
-		this.folio = folio;
-	}
+    /**
+     * @return the justificacion
+     */
+    public String getJustificacion() {
+        return justificacion;
+    }
 
-	/**
-	 * @param justificacion
-	 *            the justificacion to set
-	 */
-	public void setJustificacion( String justificacion ) {
-		this.justificacion = justificacion;
-	}
+    /**
+     * @return the respuesta
+     */
+    public String getRespuesta() {
+        return respuesta;
+    }
 
-	/**
-	 * @param respuesta
-	 *            the respuesta to set
-	 */
-	public void setRespuesta( String respuesta ) {
-		this.respuesta = respuesta;
-	}
+    /**
+     * @param afectaMetas
+     *            the afectaMetas to set
+     */
+    public void setAfectaMetas(String afectaMetas) {
+        this.afectaMetas = afectaMetas;
+    }
 
-	@Override
-	public String toString() {
-		return "AdecuacionEncabezadoResumen [afectaMetas=" + afectaMetas + ", fAplicacion=" + fAplicacion + ", folio=" + folio + ", justificacion=" + justificacion + ", respuesta=" + respuesta + "]";
-	}
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
 
+    /**
+     * @param fAplicacion
+     *            the fAplicacion to set
+     */
+    public void setfAplicacion(String fAplicacion) {
+        this.fAplicacion = fAplicacion;
+    }
+
+    /**
+     * @param folio
+     *            the folio to set
+     */
+    public void setFolio(int folio) {
+        this.folio = folio;
+    }
+
+    /**
+     * @param justificacion
+     *            the justificacion to set
+     */
+    public void setJustificacion(String justificacion) {
+        this.justificacion = justificacion;
+    }
+
+    /**
+     * @param respuesta
+     *            the respuesta to set
+     */
+    public void setRespuesta(String respuesta) {
+        this.respuesta = respuesta;
+    }
+
+    @Override
+    public String toString() {
+        return "AdecuacionEncabezadoResumen [afectaMetas=" + afectaMetas + ", fAplicacion=" + fAplicacion + ", folio=" + folio + ", justificacion=" + justificacion + ", respuesta=" + respuesta + "]";
+    }
 }

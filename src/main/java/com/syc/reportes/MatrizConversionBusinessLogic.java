@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.reportes.core.MatrizConversionManager;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
+import java.util.Base64;
 
 public class MatrizConversionBusinessLogic extends DataSourceManager {
 

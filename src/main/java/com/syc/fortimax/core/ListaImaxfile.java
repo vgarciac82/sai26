@@ -1,31 +1,34 @@
 package com.syc.fortimax.core;
 
 import java.io.Serializable;
+import java.util.Base64;
 
 public class ListaImaxfile implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
-	private String consecutivo = null;
-	private String valor = null;
 
-	public ListaImaxfile(String consecutivo, String valor) {
-		this.consecutivo = consecutivo;
-		this.valor = valor;
-	}
+    private static final long serialVersionUID = 1L;
 
-	public String getValor() {
-		return valor;
-	}
+    private String consecutivo = null;
 
-	public void setValor(String valor) {
-		this.valor = valor;
-	}
+    private String valor = null;
 
-	public String getConsecutivo() {
-		return consecutivo;
-	}
+    public ListaImaxfile(String consecutivo, String valor) {
+        this.consecutivo = consecutivo;
+        this.valor = valor;
+    }
 
-	public void setConsecutivo(String consecutivo) {
-		this.consecutivo = consecutivo;
-	}
+    public String getValor() {
+        return valor;
+    }
+
+    public void setValor(String valor) {
+        this.valor = valor;
+    }
+
+    public String getConsecutivo() {
+        return consecutivo;
+    }
+
+    public void setConsecutivo(String consecutivo) {
+        this.consecutivo = consecutivo;
+    }
 }

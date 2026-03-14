@@ -1,25 +1,26 @@
 package com.axtel.cfdi;
 
+import java.util.Base64;
 
 public class TipoRelacion {
 
-	private String	tipoRelacion;
-	private String	descripcion;
+    private String tipoRelacion;
 
-	public String getTipoRelacion() {
-		return tipoRelacion;
-	}
+    private String descripcion;
 
-	public void setTipoRelacion( String tipoRelacion ) {
-		this.tipoRelacion = tipoRelacion;
-	}
+    public String getTipoRelacion() {
+        return tipoRelacion;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public void setTipoRelacion(String tipoRelacion) {
+        this.tipoRelacion = tipoRelacion;
+    }
 
-	public void setDescripcion( String descripcion ) {
-		this.descripcion = descripcion;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 }

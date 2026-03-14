@@ -1,30 +1,31 @@
 package com.axtel.cfdi;
 
+import java.util.Base64;
 
 public class UsoCFDI {
 
-	private String	usoCFDI;
-	private String	descripcion;
+    private String usoCFDI;
 
-	public String getUsoCFDI() {
-		return usoCFDI;
-	}
+    private String descripcion;
 
-	public void setUsoCFDI( String usoCFDI ) {
-		this.usoCFDI = usoCFDI;
-	}
+    public String getUsoCFDI() {
+        return usoCFDI;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public void setUsoCFDI(String usoCFDI) {
+        this.usoCFDI = usoCFDI;
+    }
 
-	public void setDescripcion( String descripcion ) {
-		this.descripcion = descripcion;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	@Override
-	public String toString() {
-		return "UsoCFDI [usoCFDI=" + usoCFDI + ", descripcion=" + descripcion + "]";
-	}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
+    @Override
+    public String toString() {
+        return "UsoCFDI [usoCFDI=" + usoCFDI + ", descripcion=" + descripcion + "]";
+    }
 }

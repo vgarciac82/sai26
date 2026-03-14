@@ -1,54 +1,55 @@
 package com.axtel.presupuesto.catalogo;
 
+import java.util.Base64;
 
 public class ProgramaPresupuestario {
 
-	private String	programaPresuestario;
-	private String	nombreProgramaPresuestario;
+    private String programaPresuestario;
 
-	/**
-	 * @return the programaPresuestario
-	 */
-	public String getProgramaPresuestario() {
-		return programaPresuestario;
-	}
+    private String nombreProgramaPresuestario;
 
-	/**
-	 * @param programaPresuestario
-	 *            the programaPresuestario to set
-	 */
-	public void setProgramaPresuestario( String programaPresuestario ) {
-		this.programaPresuestario = programaPresuestario;
-	}
+    /**
+     * @return the programaPresuestario
+     */
+    public String getProgramaPresuestario() {
+        return programaPresuestario;
+    }
 
-	/**
-	 * @return the nombreProgramaPresuestario
-	 */
-	public String getNombreProgramaPresuestario() {
-		return nombreProgramaPresuestario;
-	}
+    /**
+     * @param programaPresuestario
+     *            the programaPresuestario to set
+     */
+    public void setProgramaPresuestario(String programaPresuestario) {
+        this.programaPresuestario = programaPresuestario;
+    }
 
-	/**
-	 * @param nombreProgramaPresuestario
-	 *            the nombreProgramaPresuestario to set
-	 */
-	public void setNombreProgramaPresuestario( String nombreProgramaPresuestario ) {
-		this.nombreProgramaPresuestario = nombreProgramaPresuestario;
-	}
+    /**
+     * @return the nombreProgramaPresuestario
+     */
+    public String getNombreProgramaPresuestario() {
+        return nombreProgramaPresuestario;
+    }
 
-	@Override
-	public String toString() {
-		return "ProgramaPresupuestario [programaPresuestario=" + programaPresuestario + ", nombreProgramaPresuestario=" + nombreProgramaPresuestario + "]";
-	}
+    /**
+     * @param nombreProgramaPresuestario
+     *            the nombreProgramaPresuestario to set
+     */
+    public void setNombreProgramaPresuestario(String nombreProgramaPresuestario) {
+        this.nombreProgramaPresuestario = nombreProgramaPresuestario;
+    }
 
-	/**
-	 * @param programaPresuestario
-	 * @param nombreProgramaPresuestario
-	 */
-	public ProgramaPresupuestario( String programaPresuestario, String nombreProgramaPresuestario ) {
-		super();
-		this.programaPresuestario = programaPresuestario;
-		this.nombreProgramaPresuestario = nombreProgramaPresuestario;
-	}
+    @Override
+    public String toString() {
+        return "ProgramaPresupuestario [programaPresuestario=" + programaPresuestario + ", nombreProgramaPresuestario=" + nombreProgramaPresuestario + "]";
+    }
 
+    /**
+     * @param programaPresuestario
+     * @param nombreProgramaPresuestario
+     */
+    public ProgramaPresupuestario(String programaPresuestario, String nombreProgramaPresuestario) {
+        super();
+        this.programaPresuestario = programaPresuestario;
+        this.nombreProgramaPresuestario = nombreProgramaPresuestario;
+    }
 }

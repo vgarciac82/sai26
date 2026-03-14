@@ -17,6 +17,7 @@ import com.syc.implementacion.tesoreria.EgresosInterface;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "LoginAutorizaPagosServlet", urlPatterns = { "/egresos/VoBoPago", "/egresos/VoBoPagoMasivo", "/egresos/AutPagoMasivo", "/egresos/AutPago", "/reportes/FirmaReporte", "/egresos/AutRM", "/egresos/AutENSA", "/egresos/AutEst", "/egresos/AutRequisicion", "/egresos/RVoBoPago", "/egresos/RAutPago", "/egresos/AutViaticos", "/egresos/CompruebaViaticos", "/sicove/AutFueling", "/sicove/ValidateFueling", "/sicove/AutAccountFueling" })
 public class LoginAutorizaPagosServlet extends HttpServlet implements GestionInterface {

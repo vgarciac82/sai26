@@ -1,78 +1,83 @@
 package com.axtel.cfdi;
 
-
 import java.util.List;
-
 import com.axtel.cfdi.stamp.core.VirtualFile;
-
+import java.util.Base64;
 
 public class CFDI {
 
-	public static final int		AUTORIZADO				= 2;
-	public static final int		CANCELADO				= 4;
-	public static final int		CAPTURA					= 0;
-	public static final int		PENDIENTE_AUTORIZACION	= 1;
-	public static final int		RECHAZADO				= 5;
-	public static final int		TIMBRADO				= 3;
+    public static final int AUTORIZADO = 2;
 
-	private List<CFDIDetalle>	detalles;
-	private CFDIEncabezado		encabezado;
-	private VirtualFile			filePDF;
-	private VirtualFile			fileXML;
-	private String				xmlInvoice;
+    public static final int CANCELADO = 4;
 
-	public CFDI( ) {
+    public static final int CAPTURA = 0;
 
-	}
+    public static final int PENDIENTE_AUTORIZACION = 1;
 
-	public CFDI( CFDIEncabezado encabezado, List<CFDIDetalle> detalles ) {
-		this.encabezado = encabezado;
-		this.detalles = detalles;
-	}
+    public static final int RECHAZADO = 5;
 
-	public List<CFDIDetalle> getDetalles() {
-		return detalles;
-	}
+    public static final int TIMBRADO = 3;
 
-	public CFDIEncabezado getEncabezado() {
-		return encabezado;
-	}
+    private List<CFDIDetalle> detalles;
 
-	public VirtualFile getFileXML() {
-		return fileXML;
-	}
+    private CFDIEncabezado encabezado;
 
-	public String getXmlInvoice() {
-		return xmlInvoice;
-	}
+    private VirtualFile filePDF;
 
-	public void setDetalles( List<CFDIDetalle> detalles ) {
-		this.detalles = detalles;
-	}
+    private VirtualFile fileXML;
 
-	public void setEncabezado( CFDIEncabezado encabezado ) {
-		this.encabezado = encabezado;
-	}
+    private String xmlInvoice;
 
-	public void setFileXML( VirtualFile fileXML ) {
-		this.fileXML = fileXML;
-	}
+    public CFDI() {
+    }
 
-	public void setXmlInvoice( String xmlInvoice ) {
-		this.xmlInvoice = xmlInvoice;
-	}
+    public CFDI(CFDIEncabezado encabezado, List<CFDIDetalle> detalles) {
+        this.encabezado = encabezado;
+        this.detalles = detalles;
+    }
 
-	@Override
-	public String toString() {
-		return "CFDI [encabezado=" + encabezado + ", detalles=" + detalles + "]";
-	}
+    public List<CFDIDetalle> getDetalles() {
+        return detalles;
+    }
 
-	public VirtualFile getFilePDF() {
-		return filePDF;
-	}
+    public CFDIEncabezado getEncabezado() {
+        return encabezado;
+    }
 
-	public void setFilePDF( VirtualFile filePDF ) {
-		this.filePDF = filePDF;
-	}
+    public VirtualFile getFileXML() {
+        return fileXML;
+    }
 
+    public String getXmlInvoice() {
+        return xmlInvoice;
+    }
+
+    public void setDetalles(List<CFDIDetalle> detalles) {
+        this.detalles = detalles;
+    }
+
+    public void setEncabezado(CFDIEncabezado encabezado) {
+        this.encabezado = encabezado;
+    }
+
+    public void setFileXML(VirtualFile fileXML) {
+        this.fileXML = fileXML;
+    }
+
+    public void setXmlInvoice(String xmlInvoice) {
+        this.xmlInvoice = xmlInvoice;
+    }
+
+    @Override
+    public String toString() {
+        return "CFDI [encabezado=" + encabezado + ", detalles=" + detalles + "]";
+    }
+
+    public VirtualFile getFilePDF() {
+        return filePDF;
+    }
+
+    public void setFilePDF(VirtualFile filePDF) {
+        this.filePDF = filePDF;
+    }
 }

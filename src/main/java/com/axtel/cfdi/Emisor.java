@@ -1,79 +1,82 @@
 package com.axtel.cfdi;
 
-
 import com.axtel.cfdi.core.DomicilioFiscal;
-
+import java.util.Base64;
 
 public class Emisor {
 
-	private DomicilioFiscal	domicilio;
-	private String			domicilioFiscal;
-	private int				emisorID;
-	private String			nombre;
-	private String			regimenFiscal;
-	private String			rfc;
+    private DomicilioFiscal domicilio;
 
-	public Emisor( ) {
-	}
+    private String domicilioFiscal;
 
-	public Emisor( String rfc, String nombre, String regimenFiscal, String domicilioFiscal ) {
-		this.rfc = rfc;
-		this.nombre = nombre;
-		this.regimenFiscal = regimenFiscal;
-		this.domicilioFiscal = domicilioFiscal;
-	}
+    private int emisorID;
 
-	public DomicilioFiscal getDomicilio() {
-		return domicilio;
-	}
+    private String nombre;
 
-	public String getDomicilioFiscal() {
-		return domicilioFiscal;
-	}
+    private String regimenFiscal;
 
-	public int getEmisorID() {
-		return emisorID;
-	}
+    private String rfc;
 
-	public String getNombre() {
-		return nombre;
-	}
+    public Emisor() {
+    }
 
-	public String getRegimenFiscal() {
-		return regimenFiscal;
-	}
+    public Emisor(String rfc, String nombre, String regimenFiscal, String domicilioFiscal) {
+        this.rfc = rfc;
+        this.nombre = nombre;
+        this.regimenFiscal = regimenFiscal;
+        this.domicilioFiscal = domicilioFiscal;
+    }
 
-	public String getRfc() {
-		return rfc;
-	}
+    public DomicilioFiscal getDomicilio() {
+        return domicilio;
+    }
 
-	public void setDomicilio( DomicilioFiscal domicilio ) {
-		this.domicilio = domicilio;
-	}
+    public String getDomicilioFiscal() {
+        return domicilioFiscal;
+    }
 
-	public void setDomicilioFiscal( String domicilioFiscal ) {
-		this.domicilioFiscal = domicilioFiscal;
-	}
+    public int getEmisorID() {
+        return emisorID;
+    }
 
-	public void setEmisorID( int emisorID ) {
-		this.emisorID = emisorID;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setNombre( String nombre ) {
-		this.nombre = nombre;
-	}
+    public String getRegimenFiscal() {
+        return regimenFiscal;
+    }
 
-	public void setRegimenFiscal( String regimenFiscal ) {
-		this.regimenFiscal = regimenFiscal;
-	}
+    public String getRfc() {
+        return rfc;
+    }
 
-	public void setRfc( String rfc ) {
-		this.rfc = rfc;
-	}
+    public void setDomicilio(DomicilioFiscal domicilio) {
+        this.domicilio = domicilio;
+    }
 
-	@Override
-	public String toString() {
-		return "Emisor [domicilio=" + domicilio + ", domicilioFiscal=" + domicilioFiscal + ", emisorID=" + emisorID + ", nombre=" + nombre + ", regimenFiscal=" + regimenFiscal + ", rfc=" + rfc + "]";
-	}
+    public void setDomicilioFiscal(String domicilioFiscal) {
+        this.domicilioFiscal = domicilioFiscal;
+    }
 
+    public void setEmisorID(int emisorID) {
+        this.emisorID = emisorID;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setRegimenFiscal(String regimenFiscal) {
+        this.regimenFiscal = regimenFiscal;
+    }
+
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
+
+    @Override
+    public String toString() {
+        return "Emisor [domicilio=" + domicilio + ", domicilioFiscal=" + domicilioFiscal + ", emisorID=" + emisorID + ", nombre=" + nombre + ", regimenFiscal=" + regimenFiscal + ", rfc=" + rfc + "]";
+    }
 }

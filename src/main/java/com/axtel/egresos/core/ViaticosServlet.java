@@ -19,6 +19,7 @@ import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "AgendaServlet", urlPatterns = { "/viaticos/consultaAgenda", "/viaticos/guardarDatos", "/viaticos/actualizarDatosChecador" })
 public class ViaticosServlet extends HttpServlet implements GestionInterface {

@@ -1,79 +1,80 @@
 package com.axtel.contratos.core;
 
-
 import java.math.BigDecimal;
-
+import java.util.Base64;
 
 public class ConvenioColaboracionDetalle {
 
-	private String		ep;
-	private int			folioConvenioColaboracion;
-	private BigDecimal	importe;
-	private int			mes;
+    private String ep;
 
-	/**
-	 * @return the ep
-	 */
-	public String getEp() {
-		return ep;
-	}
+    private int folioConvenioColaboracion;
 
-	/**
-	 * @return the folioConvenioColaboracion
-	 */
-	public int getFolioConvenioColaboracion() {
-		return folioConvenioColaboracion;
-	}
+    private BigDecimal importe;
 
-	/**
-	 * @return the importe
-	 */
-	public BigDecimal getImporte() {
-		return importe;
-	}
+    private int mes;
 
-	/**
-	 * @return the mes
-	 */
-	public int getMes() {
-		return mes;
-	}
+    /**
+     * @return the ep
+     */
+    public String getEp() {
+        return ep;
+    }
 
-	/**
-	 * @param ep
-	 *            the ep to set
-	 */
-	public void setEp( String ep ) {
-		this.ep = ep;
-	}
+    /**
+     * @return the folioConvenioColaboracion
+     */
+    public int getFolioConvenioColaboracion() {
+        return folioConvenioColaboracion;
+    }
 
-	/**
-	 * @param folioConvenioColaboracion
-	 *            the folioConvenioColaboracion to set
-	 */
-	public void setFolioConvenioColaboracion( int folioConvenioColaboracion ) {
-		this.folioConvenioColaboracion = folioConvenioColaboracion;
-	}
+    /**
+     * @return the importe
+     */
+    public BigDecimal getImporte() {
+        return importe;
+    }
 
-	/**
-	 * @param importe
-	 *            the importe to set
-	 */
-	public void setImporte( BigDecimal importe ) {
-		this.importe = importe;
-	}
+    /**
+     * @return the mes
+     */
+    public int getMes() {
+        return mes;
+    }
 
-	/**
-	 * @param mes
-	 *            the mes to set
-	 */
-	public void setMes( int mes ) {
-		this.mes = mes;
-	}
+    /**
+     * @param ep
+     *            the ep to set
+     */
+    public void setEp(String ep) {
+        this.ep = ep;
+    }
 
-	@Override
-	public String toString() {
-		return "ConvenioColaboracionDetalle [folioConvenioColaboracion=" + folioConvenioColaboracion + ", ep=" + ep + ", importe=" + importe + ", mes=" + mes + "]";
-	}
+    /**
+     * @param folioConvenioColaboracion
+     *            the folioConvenioColaboracion to set
+     */
+    public void setFolioConvenioColaboracion(int folioConvenioColaboracion) {
+        this.folioConvenioColaboracion = folioConvenioColaboracion;
+    }
 
+    /**
+     * @param importe
+     *            the importe to set
+     */
+    public void setImporte(BigDecimal importe) {
+        this.importe = importe;
+    }
+
+    /**
+     * @param mes
+     *            the mes to set
+     */
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
+
+    @Override
+    public String toString() {
+        return "ConvenioColaboracionDetalle [folioConvenioColaboracion=" + folioConvenioColaboracion + ", ep=" + ep + ", importe=" + importe + ", mes=" + mes + "]";
+    }
 }

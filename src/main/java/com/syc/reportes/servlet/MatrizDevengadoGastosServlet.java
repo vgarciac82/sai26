@@ -16,6 +16,7 @@ import com.syc.reportes.MatrizDevengadoGastosBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "MatrizDevengadoGastosServlet", urlPatterns = { "/reportes/MatrizDevengado" })
 public class MatrizDevengadoGastosServlet extends HttpServlet implements GestionInterface {

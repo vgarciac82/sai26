@@ -1,75 +1,74 @@
 package com.axtel.sisecop.entities;
 
-
 import java.io.Serializable;
-
+import java.util.Base64;
 
 public class ProjectBudgetItem implements Serializable {
 
-	private static final long	serialVersionUID	= 5660261164249666674L;
-	private String				administrativeUnit;
+    private static final long serialVersionUID = 5660261164249666674L;
 
-	private String				budgetItem;
+    private String administrativeUnit;
 
-	private int					endYear;
+    private String budgetItem;
 
-	private int					id;
+    private int endYear;
 
-	private int					initialYear;
+    private int id;
 
-	private String				management;
+    private int initialYear;
 
-	public String getAdministrativeUnit() {
-		return administrativeUnit;
-	}
+    private String management;
 
-	public String getBudgetItem() {
-		return budgetItem;
-	}
+    public String getAdministrativeUnit() {
+        return administrativeUnit;
+    }
 
-	public int getEndYear() {
-		return endYear;
-	}
+    public String getBudgetItem() {
+        return budgetItem;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public int getEndYear() {
+        return endYear;
+    }
 
-	public int getInitialYear() {
-		return initialYear;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getManagement() {
-		return management;
-	}
+    public int getInitialYear() {
+        return initialYear;
+    }
 
-	public void setAdministrativeUnit( String administrativeUnit ) {
-		this.administrativeUnit = administrativeUnit;
-	}
+    public String getManagement() {
+        return management;
+    }
 
-	public void setBudgetItem( String budgetItem ) {
-		this.budgetItem = budgetItem;
-	}
+    public void setAdministrativeUnit(String administrativeUnit) {
+        this.administrativeUnit = administrativeUnit;
+    }
 
-	public void setEndYear( int endYear ) {
-		this.endYear = endYear;
-	}
+    public void setBudgetItem(String budgetItem) {
+        this.budgetItem = budgetItem;
+    }
 
-	public void setId( int id ) {
-		this.id = id;
-	}
+    public void setEndYear(int endYear) {
+        this.endYear = endYear;
+    }
 
-	public void setInitialYear( int initialYear ) {
-		this.initialYear = initialYear;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setManagement( String management ) {
-		this.management = management;
-	}
+    public void setInitialYear(int initialYear) {
+        this.initialYear = initialYear;
+    }
 
-	@Override
-	public String toString() {
-		return "ProyectoServicioClave [id=" + id + ", endYear=" + endYear + ", initialYear=" + initialYear + ", management=" + management + ", budgetItem=" + budgetItem + ", administrativeUnit=" + administrativeUnit + "]";
-	}
+    public void setManagement(String management) {
+        this.management = management;
+    }
 
+    @Override
+    public String toString() {
+        return "ProyectoServicioClave [id=" + id + ", endYear=" + endYear + ", initialYear=" + initialYear + ", management=" + management + ", budgetItem=" + budgetItem + ", administrativeUnit=" + administrativeUnit + "]";
+    }
 }

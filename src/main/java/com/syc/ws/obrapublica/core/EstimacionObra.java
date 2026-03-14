@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.util.Date;
 import jakarta.servlet.http.HttpServletRequest;
 import com.syc.gestion.util.Util;
+import java.util.Base64;
 
 public class EstimacionObra {
 

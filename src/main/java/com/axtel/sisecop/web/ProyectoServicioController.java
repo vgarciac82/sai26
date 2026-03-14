@@ -24,6 +24,7 @@ import com.syc.obrapublica.ConfiguraAplicativoBusinessLogic;
 import com.syc.obrapublica.EjercicioFiscalBusinessLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet("/SISECOP/proyectos")
 public class ProyectoServicioController extends HttpServlet {

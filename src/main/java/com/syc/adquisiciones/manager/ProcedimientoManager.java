@@ -13,6 +13,7 @@ import com.syc.adquisiciones.core.DatosProcedimiento;
 import com.syc.adquisiciones.servlet.ProcedimientoServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class ProcedimientoManager {
 

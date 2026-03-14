@@ -17,6 +17,7 @@ import com.syc.reportes.ReportesINAIBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ReportesINAIServlet", urlPatterns = { "/reportes/ReportesINAI" })
 public class ReportesINAIServlet extends HttpServlet implements GestionInterface {

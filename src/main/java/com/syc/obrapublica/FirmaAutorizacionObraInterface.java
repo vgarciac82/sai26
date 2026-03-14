@@ -5,6 +5,7 @@ import java.util.Map;
 import jakarta.servlet.http.HttpServletRequest;
 import com.syc.gestion.core.Usuario;
 import com.syc.sai.firmaElectronica.interfaces.SolicitudFirmaElectronica;
+import java.util.Base64;
 
 public interface FirmaAutorizacionObraInterface {
 

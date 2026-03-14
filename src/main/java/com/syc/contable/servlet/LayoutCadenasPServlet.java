@@ -20,6 +20,7 @@ import com.syc.contable.CadenasPBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "LayoutCadenasPServlet", urlPatterns = { "/gstnmngr/generaLayoutCadenasP" })
 public class LayoutCadenasPServlet extends HttpServlet {

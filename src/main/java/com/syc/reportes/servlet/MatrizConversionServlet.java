@@ -13,6 +13,7 @@ import com.syc.reportes.MatrizConversionBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "MatrizConversionServlet", urlPatterns = { "/reportes/MatrizConversion" })
 public class MatrizConversionServlet extends HttpServlet implements GestionInterface {

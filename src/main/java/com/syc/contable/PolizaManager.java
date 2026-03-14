@@ -17,6 +17,7 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.obrapublica.ObraPublicaContractBusinessLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class PolizaManager {
 
@@ -203,8 +204,8 @@ public class PolizaManager {
     }
 
     public static DocPolizaEncabezado cargaDocPolizaEncabezado(Connection con, long nFolioDocPoliza, String cTipoPoliza, String cCentroContable, String aEjercicioFiscal) throws PolizaException {
-        String qry = " SELECT " + "	 aEjercicioFiscal, " + " 	 cCentroContable, " + " 	 cComentarios, " + " 	 cConcepto, " + " 	 cDescripcionPoliza, " + " 	 cDocumentoHaplicado, " + " 	 cidOrigen, " + " 	 cIdUsuarioAprobacion, " + " 	 cIdUsuarioCaptura, " + " 	 cIdUsuarioRevision, " + " 	 cRamo, " + " 	 cRevisado, " + " 	 cTipoDocumento, " + " 	 cTipoPoliza, " + " 	 cUnidadResponsable, " + " 	 cUnidadResponsableContable, " + " 	 fAplicacion, " + " 	 fCancelacion, " + " 	 fCarga, " + " 	 mTotalAbonos, " + " 	 mTotalCargos, " + " 	 nCambio, " + " 	 nFolioDocPoliza, " + " 	 nFolioPoliza, " + " 	 nFolioPolizaCancelacion, " + " 	 nIdCasoOrigen, " + " 	 nMes  " + "       ,nTipoAjuste " + "       ,Periodo13 " + "       ,ADEFAS " + // + ", cReferenciaPoliza "
-        " FROM	tDocPolizaEncabezado with(nolock) " + " WHERE	nFolioDocPoliza = ? " + "    AND	cTipoPoliza = ? " + " AND	cCentroContable = ? " + " AND	aEjercicioFiscal = ? ";
+        String qry = // + ", cReferenciaPoliza "
+        " SELECT " + "	 aEjercicioFiscal, " + " 	 cCentroContable, " + " 	 cComentarios, " + " 	 cConcepto, " + " 	 cDescripcionPoliza, " + " 	 cDocumentoHaplicado, " + " 	 cidOrigen, " + " 	 cIdUsuarioAprobacion, " + " 	 cIdUsuarioCaptura, " + " 	 cIdUsuarioRevision, " + " 	 cRamo, " + " 	 cRevisado, " + " 	 cTipoDocumento, " + " 	 cTipoPoliza, " + " 	 cUnidadResponsable, " + " 	 cUnidadResponsableContable, " + " 	 fAplicacion, " + " 	 fCancelacion, " + " 	 fCarga, " + " 	 mTotalAbonos, " + " 	 mTotalCargos, " + " 	 nCambio, " + " 	 nFolioDocPoliza, " + " 	 nFolioPoliza, " + " 	 nFolioPolizaCancelacion, " + " 	 nIdCasoOrigen, " + " 	 nMes  " + "       ,nTipoAjuste " + "       ,Periodo13 " + "       ,ADEFAS " + " FROM	tDocPolizaEncabezado with(nolock) " + " WHERE	nFolioDocPoliza = ? " + "    AND	cTipoPoliza = ? " + " AND	cCentroContable = ? " + " AND	aEjercicioFiscal = ? ";
         PreparedStatement pStmnt = null;
         ResultSet rs = null;
         DocPolizaEncabezado encabezado = null;
@@ -685,8 +686,8 @@ public class PolizaManager {
 
     public static int updateDocPolizaEncabezado(Connection con, DocPolizaEncabezado dpe) throws PolizaException {
         int r = -1;
-        String qry = " UPDATE	tDocPolizaEncabezado " + " SET	cComentarios  = ?, " + "	cConcepto  = ?, " + "	cDescripcionPoliza  = ?, " + "	cDocumentoHaplicado = ?, " + "	cidOrigen  = ?, " + "	cIdUsuarioAprobacion  = ?, " + "	cIdUsuarioCaptura  = ?, " + "	cIdUsuarioRevision  = ?, " + "	cRamo = ?, " + "	cRevisado = ?, " + "	cTipoDocumento  = ?, " + "	cUnidadResponsable = ?, " + "	fAplicacion = ?, " + "	fCancelacion = ?, " + "	fCarga = ?, " + "	mTotalAbonos  = ?, " + "	mTotalCargos  = ?, " + "	nCambio  = ?, " + "	nFolioPoliza  = ?, " + "	nFolioPolizaCancelacion  = ?, " + "	nIdCasoOrigen  = ?, " + "	nMes = ? " + // + "	cUnidadResponsableContable = ? "
-        " WHERE	nFolioDocPoliza = ? " + " AND	cTipoPoliza = ? " + " AND	cCentroContable = ? " + " AND	aEjercicioFiscal = ? ";
+        String qry = // + "	cUnidadResponsableContable = ? "
+        " UPDATE	tDocPolizaEncabezado " + " SET	cComentarios  = ?, " + "	cConcepto  = ?, " + "	cDescripcionPoliza  = ?, " + "	cDocumentoHaplicado = ?, " + "	cidOrigen  = ?, " + "	cIdUsuarioAprobacion  = ?, " + "	cIdUsuarioCaptura  = ?, " + "	cIdUsuarioRevision  = ?, " + "	cRamo = ?, " + "	cRevisado = ?, " + "	cTipoDocumento  = ?, " + "	cUnidadResponsable = ?, " + "	fAplicacion = ?, " + "	fCancelacion = ?, " + "	fCarga = ?, " + "	mTotalAbonos  = ?, " + "	mTotalCargos  = ?, " + "	nCambio  = ?, " + "	nFolioPoliza  = ?, " + "	nFolioPolizaCancelacion  = ?, " + "	nIdCasoOrigen  = ?, " + "	nMes = ? " + " WHERE	nFolioDocPoliza = ? " + " AND	cTipoPoliza = ? " + " AND	cCentroContable = ? " + " AND	aEjercicioFiscal = ? ";
         PreparedStatement pStmnt = null;
         try {
             pStmnt = con.prepareStatement(qry);
@@ -733,8 +734,8 @@ public class PolizaManager {
 
     public static int updateEncabezadoPolizaAplicada(Connection con, EncabezadoPoliza encabezado) throws PolizaException {
         int r = 0;
-        String qry = "UPDATE	tPoliza " + "SET	cDescripcionPoliza = ?, " + "		mTotalCargo = ?, " + "		mTotalAbono = ?, " + "		nCuenta = ?, " + "		nMes = ?, " + "		nPolizaAutomatica = ?, " + "		aEjercicioFiscal = ?, " + "		cTipoDocumento = ?, " + "		DocHAplicado = ?, " + "		cUsuarioAutorizo = ? " + // + "		,cReferencia = ? "
-        "WHERE	nFolioPoliza = ? " + "AND	cCentroContable = ? " + "AND	cTipoPoliza = ? ";
+        String qry = // + "		,cReferencia = ? "
+        "UPDATE	tPoliza " + "SET	cDescripcionPoliza = ?, " + "		mTotalCargo = ?, " + "		mTotalAbono = ?, " + "		nCuenta = ?, " + "		nMes = ?, " + "		nPolizaAutomatica = ?, " + "		aEjercicioFiscal = ?, " + "		cTipoDocumento = ?, " + "		DocHAplicado = ?, " + "		cUsuarioAutorizo = ? " + "WHERE	nFolioPoliza = ? " + "AND	cCentroContable = ? " + "AND	cTipoPoliza = ? ";
         PreparedStatement pStmnt = null;
         try {
             pStmnt = con.prepareStatement(qry);

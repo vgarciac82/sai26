@@ -12,6 +12,7 @@ import com.syc.pasivoscontingentes.ProcesaNotificacionBusinessLogic;
 import com.syc.reportes.ReporteIngresosBusinessLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class CorreoNotificacionLaudos extends HttpServlet implements GestionInterface {
 

@@ -13,6 +13,7 @@ import com.syc.reportes.GuiasContablesBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "GuiasContablesServlet", urlPatterns = { "/reportes/GuiasContables" })
 public class GuiasContablesServlet extends HttpServlet implements GestionInterface {

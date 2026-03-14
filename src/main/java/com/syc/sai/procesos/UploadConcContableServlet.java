@@ -22,6 +22,7 @@ import com.syc.sai.procesosAutomaticos.UploadConciliacionBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "AdjuntaConContable", urlPatterns = { "/uploadConciliacionCont" })
 public class UploadConcContableServlet extends HttpServlet implements GestionInterface {

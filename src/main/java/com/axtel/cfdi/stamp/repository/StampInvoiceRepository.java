@@ -43,6 +43,7 @@ import mx.grupocorasa.sat.common.catalogos.Pagos.CTipoCadenaPago;
 import mx.grupocorasa.sat.common.donat11.Donatarias;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class StampInvoiceRepository {
 

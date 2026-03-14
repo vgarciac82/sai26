@@ -25,6 +25,8 @@ import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 
 @WebServlet(name = "SaldosInicialesServlet", urlPatterns = { "/gstnmngr/SaldosInicialesServlet" })
 public class SaldosInicialesServlet extends HttpServlet {
@@ -46,11 +48,13 @@ public class SaldosInicialesServlet extends HttpServlet {
         String szPath;
         List<FileItem> fileItems = new ArrayList<FileItem>();
         try {
+            DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(szPath));
             // Se construye un objeto para que parsee la petición
-            ServletFileUpload fu = new ServletFileUpload();
+            JakartaServletFileUpload fu = new JakartaServletFileUpload(factory);
             // Tamaño máximo que aceptará el archivo
             // El tamaño no importa
-            fu.setSizeMax(-1);
+            fu.setFileSizeMax(-1);
             // Si excede el 1 Gb en memoria lo
             fu.setSizeThreshold(1048576);
             // escribe a disco
@@ -59,7 +63,6 @@ public class SaldosInicialesServlet extends HttpServlet {
             if (!file.exists()) {
                 file.mkdirs();
             }
-            fu.setRepositoryPath(szPath);
             fileItems = fu.parseRequest(request);
         } catch (Exception e) {
             depura("Error de Aplicación " + e.getMessage());
@@ -121,11 +124,13 @@ public class SaldosInicialesServlet extends HttpServlet {
     public StringBuffer cargarArchivoXLS(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String szPath = "";
         try {
+            DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(szPath));
             // Se construye un objeto para que parsee la petición
-            ServletFileUpload fu = new ServletFileUpload();
+            JakartaServletFileUpload fu = new JakartaServletFileUpload(factory);
             // Tamaño máximo que aceptará el archivo
             // El tamaño no importa
-            fu.setSizeMax(-1);
+            fu.setFileSizeMax(-1);
             // Si excede el 1 Gb en memoria lo
             fu.setSizeThreshold(1048576);
             // escribe a disco
@@ -134,7 +139,6 @@ public class SaldosInicialesServlet extends HttpServlet {
             if (!file.exists()) {
                 file.mkdirs();
             }
-            fu.setRepositoryPath(szPath);
             List<FileItem> fileItems = fu.parseRequest(request);
             Iterator<FileItem> i = fileItems.iterator();
             FileItem actual = null;

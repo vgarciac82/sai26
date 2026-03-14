@@ -9,6 +9,7 @@ import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JasperRunManager;
+import java.util.Base64;
 
 public class Reportes {
 

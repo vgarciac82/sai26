@@ -2,52 +2,54 @@ package com.syc.sai.fonden;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Base64;
 
 /**
  * TfondenTipoPago entity. @author MyEclipse Persistence Tools
  */
-
 public class FondenTipoPago implements java.io.Serializable {
 
-	// Fields
+    // Fields
+    private Integer nidTipoPago;
 
-	private Integer nidTipoPago;
-	private String cdescripcion;
+    private String cdescripcion;
 
-	// Constructors
+    // Constructors
+    /**
+     * default constructor
+     */
+    public FondenTipoPago() {
+    }
 
-	/** default constructor */
-	public FondenTipoPago() {
-	}
+    /**
+     * minimal constructor
+     */
+    public FondenTipoPago(Integer nidTipoPago) {
+        this.nidTipoPago = nidTipoPago;
+    }
 
-	/** minimal constructor */
-	public FondenTipoPago(Integer nidTipoPago) {
-		this.nidTipoPago = nidTipoPago;
-	}
+    /**
+     * full constructor
+     */
+    public FondenTipoPago(Integer nidTipoPago, String cdescripcion, Set tfondenFacturacions) {
+        this.nidTipoPago = nidTipoPago;
+        this.cdescripcion = cdescripcion;
+    }
 
-	/** full constructor */
-	public FondenTipoPago(Integer nidTipoPago, String cdescripcion,
-			Set tfondenFacturacions) {
-		this.nidTipoPago = nidTipoPago;
-		this.cdescripcion = cdescripcion;	
-	}
+    // Property accessors
+    public Integer getNidTipoPago() {
+        return this.nidTipoPago;
+    }
 
-	// Property accessors
+    public void setNidTipoPago(Integer nidTipoPago) {
+        this.nidTipoPago = nidTipoPago;
+    }
 
-	public Integer getNidTipoPago() {
-		return this.nidTipoPago;
-	}
+    public String getCdescripcion() {
+        return this.cdescripcion;
+    }
 
-	public void setNidTipoPago(Integer nidTipoPago) {
-		this.nidTipoPago = nidTipoPago;
-	}
-
-	public String getCdescripcion() {
-		return this.cdescripcion;
-	}
-
-	public void setCdescripcion(String cdescripcion) {
-		this.cdescripcion = cdescripcion;
-	}
-
+    public void setCdescripcion(String cdescripcion) {
+        this.cdescripcion = cdescripcion;
+    }
 }

@@ -17,6 +17,7 @@ import com.syc.crud.dsmngr.DataSourceManager;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ObtienePrecioUnitarioPAA", urlPatterns = { "/servlet/ObtienePrecioUnitarioPAA" })
 public class ObtienePrecioUnitarioPAA extends HttpServlet {

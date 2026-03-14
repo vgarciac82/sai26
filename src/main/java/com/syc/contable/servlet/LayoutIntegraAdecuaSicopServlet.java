@@ -55,6 +55,8 @@ import jxl.write.WritableWorkbook;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 
 @WebServlet(name = "LayoutIntegraAdecuaSicopServlet", urlPatterns = { "/gstnmngr/IntegraAdecuaLayoutSicop" })
 public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
@@ -422,8 +424,9 @@ public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
     public void creaFap(HttpServletRequest request, HttpServletResponse response) throws Exception {
         AdecuacionBusinessLogic adecua = new AdecuacionBusinessLogic(GestionInterface.ATT_CONEXION);
         HttpSession session = request.getSession(false);
-        ServletFileUpload upload = new ServletFileUpload();
-        upload.setRepositoryPath(tempDir);
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+        JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         String responsableCompleto = request.getParameter("responsable");
         String responsable = "Responsable del Area";
         String area = "Area";
@@ -690,8 +693,9 @@ public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
         AdecuacionBusinessLogic adecua = new AdecuacionBusinessLogic(GestionInterface.ATT_CONEXION);
         HttpSession session = request.getSession(false);
         ArrayList arrIntegradas = new ArrayList();
-        ServletFileUpload upload = new ServletFileUpload();
-        upload.setRepositoryPath(tempDir);
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+        JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         //String responsableCompleto = request.getParameter("responsable");
         String hTitulo1 = "COMISIÓN NACIONAL DEL AGUA.";
         String hTitulo2 = "SISTEMA DE INFORMACIÓN FINANCIERA.";
@@ -850,8 +854,9 @@ public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
         AdecuacionBusinessLogic adecua = new AdecuacionBusinessLogic(GestionInterface.ATT_CONEXION);
         HttpSession session = request.getSession(false);
         ArrayList arrIntegradas = new ArrayList();
-        ServletFileUpload upload = new ServletFileUpload();
-        upload.setRepositoryPath(tempDir);
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+        JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         int nConsecutivoSICOP = 0;
         Caso c = (Caso) session.getAttribute(GestionInterface.ATT_CASE);
         int nFolio = new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue();
@@ -1041,8 +1046,9 @@ public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
         ArrayList<Object> arrAdecAmpliacion = new ArrayList();
         ArrayList<ArrayList> arrAdecReduccion = new ArrayList<ArrayList>();
         String[] arrFirmantePuesto = new String[] { "Ingrese el nombre", "Ingrese el puesto" };
-        ServletFileUpload upload = new ServletFileUpload();
-        upload.setRepositoryPath(tempDir);
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+        JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         Caso c = (Caso) session.getAttribute(GestionInterface.ATT_CASE);
         int nFolio = new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue();
         Usuario usuario = (Usuario) session.getAttribute(GestionInterface.ATT_USER);

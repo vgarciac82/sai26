@@ -8,6 +8,7 @@ import com.syc.reportes.core.RegeneraModificadoManager;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class RegeneraModificadoBusinessLogic extends DataSourceManager {
 

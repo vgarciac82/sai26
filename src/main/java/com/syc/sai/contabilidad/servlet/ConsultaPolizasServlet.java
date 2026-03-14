@@ -13,6 +13,7 @@ import com.syc.gestion.reportes.ReporteBussinesLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ConsultaPolizas", urlPatterns = { "/CuentaContable/ConsultaPoliza" })
 public class ConsultaPolizasServlet extends HttpServlet {
@@ -74,6 +75,7 @@ public class ConsultaPolizasServlet extends HttpServlet {
             ReporteBussinesLogic rbl = new ReporteBussinesLogic(jniName);
             //,PolIdOper);
             String //,PolIdOper);
+            //,PolIdOper);
             json = //,PolIdOper);
             rbl.//,PolIdOper);
             ConsultaPolizasResultadoJSON(//,PolIdOper);
@@ -88,8 +90,7 @@ public class ConsultaPolizasServlet extends HttpServlet {
             PolAutorizo, //,PolIdOper);
             PolNumeroIni, //,PolIdOper);
             PolNumeroFin, //,PolIdOper);
-            PolMontoIni, //,PolIdOper);
-            PolMontoFin, PolOrigen, PolAutomatica);
+            PolMontoIni, PolMontoFin, PolOrigen, PolAutomatica);
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             ServletOutputStream out = resp.getOutputStream();

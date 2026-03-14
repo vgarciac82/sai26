@@ -20,6 +20,7 @@ import com.syc.sai.fonden.model.FondenMovimientoBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "FondenServlet", urlPatterns = { "/Fonden", "/Fonden/readFonden", "/FondenMovimiento/readFondenMovimiento", "/FondenMovimiento/saveFondenMovimiento", "/FondenFacturacion/saveFondenFacturacion", "/FondenMovimiento/validateNoGreaterThanImporteAnual", "/Fonden/saveFonden", "/FondenMovimiento/getFondenReporteGeneral" })
 public class FondenServlet extends HttpServlet {

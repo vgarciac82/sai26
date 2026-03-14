@@ -1,53 +1,59 @@
 package com.syc.contable.core;
 
+import java.util.Base64;
+
 public class ManualContableEncabezado {
-	private String	centroContable;
-	private int		folioManualContable;
-	private String	folioSAI;
-	private int		idGabinete;
 
-	public ManualContableEncabezado(String centroContable, String cuentaBancaria, int folioManualContable, String folioSAI, int idGabinete) {
-		super();
-		this.centroContable = centroContable;
-		this.folioManualContable = folioManualContable;
-		this.folioSAI = folioSAI;
-		this.idGabinete = idGabinete;
-	}
+    private String centroContable;
 
-	public String getCentroContable() {
-		return centroContable;
-	}
+    private int folioManualContable;
 
-	public int getfolioManualContable() {
-		return folioManualContable;
-	}
+    private String folioSAI;
 
-	public String getFolioSAI() {
-		return folioSAI;
-	}
+    private int idGabinete;
 
-	public int getIdGabinete() {
-		return idGabinete;
-	}
+    public ManualContableEncabezado(String centroContable, String cuentaBancaria, int folioManualContable, String folioSAI, int idGabinete) {
+        super();
+        this.centroContable = centroContable;
+        this.folioManualContable = folioManualContable;
+        this.folioSAI = folioSAI;
+        this.idGabinete = idGabinete;
+    }
 
-	public void setCentroContable(String centroContable) {
-		this.centroContable = centroContable;
-	}
+    public String getCentroContable() {
+        return centroContable;
+    }
 
-	public void setfolioManualContable(int folioManualContable) {
-		this.folioManualContable = folioManualContable;
-	}
+    public int getfolioManualContable() {
+        return folioManualContable;
+    }
 
-	public void setFolioSAI(String folioSAI) {
-		this.folioSAI = folioSAI;
-	}
+    public String getFolioSAI() {
+        return folioSAI;
+    }
 
-	public void setIdGabinete(int idGabinete) {
-		this.idGabinete = idGabinete;
-	}
+    public int getIdGabinete() {
+        return idGabinete;
+    }
 
-	@Override
-	public String toString() {
-		return "ConciliacionBancoFirmadaEncabezado [centroContable=" + centroContable + ", folioConciliacionContable=" + folioManualContable + ", folioSAI=" + folioSAI + ", idGabinete=" + idGabinete + "]";
-	}
+    public void setCentroContable(String centroContable) {
+        this.centroContable = centroContable;
+    }
+
+    public void setfolioManualContable(int folioManualContable) {
+        this.folioManualContable = folioManualContable;
+    }
+
+    public void setFolioSAI(String folioSAI) {
+        this.folioSAI = folioSAI;
+    }
+
+    public void setIdGabinete(int idGabinete) {
+        this.idGabinete = idGabinete;
+    }
+
+    @Override
+    public String toString() {
+        return "ConciliacionBancoFirmadaEncabezado [centroContable=" + centroContable + ", folioConciliacionContable=" + folioManualContable + ", folioSAI=" + folioSAI + ", idGabinete=" + idGabinete + "]";
+    }
 }

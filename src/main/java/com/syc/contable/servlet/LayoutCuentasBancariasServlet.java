@@ -21,6 +21,7 @@ import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 /**
  * @author Martha Aurora Sánchez Valdivieso

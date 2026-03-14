@@ -9,6 +9,7 @@ import com.syc.sai.contabilidad.utils.db.CloseObject;
 import com.syc.sai.session.core.SessionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class SessionBussinesLogic extends DataSourceManager {
 

@@ -65,6 +65,7 @@ import com.syc.sai.contabilidad.utils.db.CloseObject;
 import com.syc.sai.procesosAutomaticos.UploadConciliacionBusinessLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class CasoBusinessLogic extends DataSourceManager {
 
@@ -1026,8 +1027,12 @@ public class CasoBusinessLogic extends DataSourceManager {
             conn = getConnection();
             Documento d = DocumentoManager.getDocumento(conn, c.getTipoCaso().getGavetaAsociada(), c.getIdGabinete(), 0, c.getFolio());
             if (d != null)
-                filename = PaginaManager.getFilenamePath(conn, d.getTituloAplicacion(), d.getIdGabinete(), // .getIdCarpetaPadre(), 1);
-                d.getIdCarpetaPadre(), d.getIdDocumento());
+                filename = // .getIdCarpetaPadre(), 1);
+                PaginaManager.// .getIdCarpetaPadre(), 1);
+                getFilenamePath(// .getIdCarpetaPadre(), 1);
+                conn, // .getIdCarpetaPadre(), 1);
+                d.getTituloAplicacion(), // .getIdCarpetaPadre(), 1);
+                d.getIdGabinete(), d.getIdCarpetaPadre(), d.getIdDocumento());
         } catch (SQLException | FortimaxException exc) {
             log.error("Obteniendo el Path del Archivo", exc);
             throw new GestionException(exc);

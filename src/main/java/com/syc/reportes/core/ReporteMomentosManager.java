@@ -22,6 +22,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import net.sf.jasperreports.engine.JasperRunManager;
+import java.util.Base64;
 
 public class ReporteMomentosManager {
 

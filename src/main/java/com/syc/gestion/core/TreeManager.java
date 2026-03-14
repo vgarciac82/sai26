@@ -18,6 +18,7 @@ import com.jenkov.prizetags.tree.itf.ITreeIteratorElement;
 import com.jenkov.prizetags.tree.itf.ITreeNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class TreeManager implements Serializable, IResultSetProcessor, ITreeFilter {
 

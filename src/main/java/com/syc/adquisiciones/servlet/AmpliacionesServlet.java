@@ -50,6 +50,7 @@ import java.util.Map;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "AmpliacionesServlet", urlPatterns = { "/servlet/AmpliacionesServlet" })
 public class AmpliacionesServlet extends HttpServlet implements GestionInterface {

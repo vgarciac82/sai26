@@ -16,6 +16,7 @@ import com.syc.reportes.Formato12BusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "Formato12Servlet", urlPatterns = { "/reportes/Formato12", "/servlet/Formato12Servlet" })
 public class Formato12Servlet extends HttpServlet implements GestionInterface {

@@ -1,6 +1,6 @@
 package com.syc.egresos.core;
 
-public class RelacionGastosVuelo {
+import java.util.Base64;
 
-	
+public class RelacionGastosVuelo {
 }

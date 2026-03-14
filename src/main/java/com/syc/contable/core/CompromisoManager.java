@@ -51,6 +51,7 @@ import com.syc.obrapublica.EjercicioFiscalManager;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 /**
  * @author Martha Aurora Sánchez Valdivieso para SYC Constructores de Sistemas
@@ -1160,170 +1161,170 @@ public class CompromisoManager {
             // B
             // B
             // C
+            // C
             encabezado.append(rs.getString("Header").trim()).append(",").// C
             append(// C
-            fechaALayout.trim()).// C
+            fechaALayout.trim()).// D
             append(// D
             ",").// D
             append(// D
-            fechaLayout.trim()).// D
+            fechaLayout.trim()).// E
             append(// E
             ",").// E
             append(// E
-            rs.getString("cRamo").trim()).// E
+            rs.getString("cRamo").trim()).// F
             append(// F
             ",").// F
             append(// F
-            rs.getString("cRamo").trim()).// F
+            rs.getString("cRamo").trim()).// G
             append(// G
             ",").// G
             append(// G
-            rs.getString("cRamo").trim()).// G
+            rs.getString("cRamo").trim()).// H
             append(// H
             ",").// H
             append(// H
-            rs.getString("cUnidadResponsableEP").trim()).// H
+            rs.getString("cUnidadResponsableEP").trim()).// I
             append(// I
             ",").// I
             append(// I
-            rs.getString("cUnidadResponsableEP").trim()).// I
+            rs.getString("cUnidadResponsableEP").trim()).// J
             append(// J
             ",").// J
             append(// J
-            rs.getString("cUnidadResponsableEP").trim()).// J
+            rs.getString("cUnidadResponsableEP").trim()).// K
             append(// K
             ",").// K
             append(// K
-            tipoMovto).// K
+            tipoMovto).// L
             append(// L
             ",").// L
             append(// L
-            compromiso).// L
+            compromiso).// M
             append(// M
             ",").// M
             append(// M
-            erogacion).// M
+            erogacion).// N
             append(// N
             ",").// N
             append(// N
-            sFolioSICOP).// N
+            sFolioSICOP).// O
             append(// O
             ",").// O
             append(// O
-            tipoOp).// O
+            tipoOp).// P
             append(// P
             ",").// P
             append(// P
-            rs.getString("cIdContrato").trim()).// P
+            rs.getString("cIdContrato").trim()).// Q
             append(// Q
             ",").// Q
             append(// Q
-            rs.getString("cConceptoContrato").trim().replaceAll(",", " ")).// Q
+            rs.getString("cConceptoContrato").trim().replaceAll(",", " ")).// R
             append(// R
             ",").// R
             append(// R
-            rs.getString("CBEN").trim()).// R
+            rs.getString("CBEN").trim()).// S
             append(// S
             ",").// S
             append(// S
-            rs.getString("cIdRFC").trim()).// S
+            rs.getString("cIdRFC").trim()).// T
             append(// T
             ",").// T
             append(// T
-            rs.getString("REPRESENTANTE_LEGAL").trim()).// T
+            rs.getString("REPRESENTANTE_LEGAL").trim()).// U
             append(// U
             ",").// U
             append(// U
-            rs.getString("TPROC")).// U
+            rs.getString("TPROC")).// V
             append(// V
             ",").// V
             append(// V
-            rs.getString("ESQ_PRECIO")).// V
+            rs.getString("ESQ_PRECIO")).// W
             append(// W
             ",").// W
             append(// W
-            rs.getString("CONTRATACION")).// W
+            rs.getString("CONTRATACION")).// X
             append(// X
             ",").// X
             append(// X
-            fContratoIni.trim()).// X
+            fContratoIni.trim()).// Y
             append(// Y
             ",").// Y
             append(// Y
-            fContratoFin.trim()).// Y
+            fContratoFin.trim()).// Z
             append(// Z
             ",").// Z
             append(// Z
-            fContratoFirma.trim()).// Z
+            fContratoFirma.trim()).// AA
             append(// AA
             ",").// AA
             append(// AA
-            pluri.trim()).// AA
+            pluri.trim()).// AB
             append(// AB
             ",").// AB
             append(// AB
-            rs.getString("APROB_PLA")).// AB
+            rs.getString("APROB_PLA")).// AC
             append(// AC
             ",").// AC
             append(// AC
-            rs.getString("ACTO_JURIDICO")).// AC
+            rs.getString("ACTO_JURIDICO")).// AD
             append(// AD
             ",").// AD
             append(// AD
-            montoMonori).// AD
+            montoMonori).// AE
             append(// AE
             ",").// AE
             append(// AE
-            rs.getString("cCodigoMonedaSiaff")).// AE
+            rs.getString("cCodigoMonedaSiaff")).// AF
             append(// AF
             ",").// AF
             append(// AF
-            rs.getString("TCAM")).// AF
+            rs.getString("TCAM")).// AG
             append(// AG
             ",").// AG
             append(// AG
-            montoEjer).// AG
+            montoEjer).// AH
             append(// AH
             ",").// AH
             append(// AH
-            montoMin).// AH
+            montoMin).// AI
             append(// AI
             ",").// AI
             append(// AI
-            montoMax).// AI
+            montoMax).// AJ
             append(// AJ
             ",").// AJ
             append(// AJ
-            rs.getString("CONV_MOD")).// AJ
+            rs.getString("CONV_MOD")).// AK
             append(// AK
             ",").// AK
             append(// AK
-            rs.getString("NUM_CONV_MOD")).// AK
+            rs.getString("NUM_CONV_MOD")).// AL
             append(// AL
             ",").// AL
             append(// AL
-            fConvenio).// AL
+            fConvenio).// AM
             append(// AM
             ",").// AM
             append(// AM
-            org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("CODIGO_EXPEDIENTE"))).// AM
+            org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("CODIGO_EXPEDIENTE"))).// AN
             append(// AN
             ",").// AN
             append(// AN
-            org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("NO_PROCEDIMIENTO"))).// AN
+            org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("NO_PROCEDIMIENTO"))).// AO
             append(// AO
             ",").// AO
             append(// AO
-            org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("CODIGO_CONTRATO"))).// AO
+            org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("CODIGO_CONTRATO"))).// AP
             append(// AP
             ",").// AP
             append(// AP
-            rs.getString("nMes").trim()).// AP
+            rs.getString("nMes").trim()).// AQ
             append(// AQ
             ",").// AQ
             append(// AQ
-            rs.getString("caNoCompromiso")).// AQ
-            append(",").append(rs.getString("TTRANS_21"));
+            rs.getString("caNoCompromiso")).append(",").append(rs.getString("TTRANS_21"));
             if (esCalendario == 0) {
                 // AR
                 encabezado.append(",").append(rs.getString("caNoCompromiso"));
@@ -1364,154 +1365,154 @@ public class CompromisoManager {
                 // tCEP.cUnidadResponsableEP
                 // tCEP.cUnidadResponsableEP
                 // tCEP.aEjercicioFiscal
+                // tCEP.aEjercicioFiscal
                 detalle.append(",").append(rs2.getString("cRamo").trim()).append(",").// tCEP.aEjercicioFiscal
                 append(// tCEP.aEjercicioFiscal
-                rs2.getString("cUnidadResponsableEP").trim()).// tCEP.aEjercicioFiscal
+                rs2.getString("cUnidadResponsableEP").trim()).// tCEP.cGrupoFuncional
                 append(// tCEP.cGrupoFuncional
                 ",").// tCEP.cGrupoFuncional
                 append(// tCEP.cGrupoFuncional
-                rs2.getString("aEjercicioFiscal").trim()).// tCEP.cGrupoFuncional
+                rs2.getString("aEjercicioFiscal").trim()).// tCEP.cFuncion
                 append(// tCEP.cFuncion
                 ",").// tCEP.cFuncion
                 append(// tCEP.cFuncion
-                rs2.getString("cGrupoFuncional").trim()).// tCEP.cFuncion
+                rs2.getString("cGrupoFuncional").trim()).// tCEP.cSubFuncion
                 append(// tCEP.cSubFuncion
                 ",").// tCEP.cSubFuncion
                 append(// tCEP.cSubFuncion
-                rs2.getString("cFuncion").trim()).// tCEP.cSubFuncion
+                rs2.getString("cFuncion").trim()).// tCEP.cProgramaGeneral
                 append(// tCEP.cProgramaGeneral
                 ",").// tCEP.cProgramaGeneral
                 append(// tCEP.cProgramaGeneral
-                rs2.getString("cSubFuncion").trim()).// tCEP.cProgramaGeneral
+                rs2.getString("cSubFuncion").trim()).// tCEP.cActividadInstitucional
                 append(// tCEP.cActividadInstitucional
                 ",").// tCEP.cActividadInstitucional
                 append(// tCEP.cActividadInstitucional
-                rs2.getString("cProgramaGeneral")).// tCEP.cActividadInstitucional
+                rs2.getString("cProgramaGeneral")).// tCEP.cProgramaPresupuestario
                 append(// tCEP.cProgramaPresupuestario
                 ",").// tCEP.cProgramaPresupuestario
                 append(// tCEP.cProgramaPresupuestario
-                rs2.getString("cActividadInstitucional")).// tCEP.cProgramaPresupuestario
+                rs2.getString("cActividadInstitucional")).// SUBSTRING(tCEP.cPartida,1,1)
                 append(// SUBSTRING(tCEP.cPartida,1,1)
                 ",").// SUBSTRING(tCEP.cPartida,1,1)
                 append(// SUBSTRING(tCEP.cPartida,1,1)
-                rs2.getString("cProgramaPresupuestario")).// SUBSTRING(tCEP.cPartida,1,1)
+                rs2.getString("cProgramaPresupuestario")).// SUBSTRING(tCEP.cPartida,2,1)
                 append(// SUBSTRING(tCEP.cPartida,2,1)
                 ",").// SUBSTRING(tCEP.cPartida,2,1)
                 append(// SUBSTRING(tCEP.cPartida,2,1)
-                rs2.getString(12)).// SUBSTRING(tCEP.cPartida,2,1)
+                rs2.getString(12)).// SUBSTRING(tCEP.cPartida,3,1)
                 append(// SUBSTRING(tCEP.cPartida,3,1)
                 ",").// SUBSTRING(tCEP.cPartida,3,1)
                 append(// SUBSTRING(tCEP.cPartida,3,1)
-                rs2.getString(13)).// SUBSTRING(tCEP.cPartida,3,1)
+                rs2.getString(13)).// SUBSTRING(tCEP.cPartida,4,2)
                 append(// SUBSTRING(tCEP.cPartida,4,2)
                 ",").// SUBSTRING(tCEP.cPartida,4,2)
                 append(// SUBSTRING(tCEP.cPartida,4,2)
-                rs2.getString(14)).// SUBSTRING(tCEP.cPartida,4,2)
+                rs2.getString(14)).// tCEP.cTipoGasto
                 append(// tCEP.cTipoGasto
                 ",").// tCEP.cTipoGasto
                 append(// tCEP.cTipoGasto
-                rs2.getString(15)).// tCEP.cTipoGasto
+                rs2.getString(15)).// tCEP.cFuenteFinanciamiento
                 append(// tCEP.cFuenteFinanciamiento
                 ",").// tCEP.cFuenteFinanciamiento
                 append(// tCEP.cFuenteFinanciamiento
-                rs2.getString("cTipoGasto")).// tCEP.cFuenteFinanciamiento
+                rs2.getString("cTipoGasto")).// tCEP.cEntidadFederativa
                 append(// tCEP.cEntidadFederativa
                 ",").// tCEP.cEntidadFederativa
                 append(// tCEP.cEntidadFederativa
-                rs2.getString("cFuenteFinanciamiento")).// tCEP.cEntidadFederativa
+                rs2.getString("cFuenteFinanciamiento")).// tCEP.cCartera
                 append(// tCEP.cCartera
                 ",").// tCEP.cCartera
                 append(// tCEP.cCartera
-                rs2.getString("cEntidadFederativa")).// tCEP.cCartera
+                rs2.getString("cEntidadFederativa")).// CAU
                 append(// CAU
                 ",").// CAU
                 append(// CAU
-                rs2.getString("cCartera")).// CAU
+                rs2.getString("cCartera")).// COP
                 append(// COP
                 ",").// COP
                 append(// COP
-                rs2.getString("CAU")).// COP
+                rs2.getString("CAU")).// PL
                 append(// PL
                 ",").// PL
                 append(// PL
-                rs2.getString("COP")).// PL
+                rs2.getString("COP")).// OF_
                 append(// OF_
                 ",").// OF_
                 append(// OF_
-                rs2.getString("PL")).// OF_
+                rs2.getString("PL")).// AUX1
                 append(// AUX1
                 ",").// AUX1
                 append(// AUX1
-                rs2.getString("OF_")).// AUX1
+                rs2.getString("OF_")).// AUX2
                 append(// AUX2
                 ",").// AUX2
                 append(// AUX2
-                rs2.getString("AUX1")).// AUX2
+                rs2.getString("AUX1")).// AUX3
                 append(// AUX3
                 ",").// AUX3
                 append(// AUX3
-                rs2.getString("AUX2")).// AUX3
+                rs2.getString("AUX2")).// Suficiencia
                 append(// Suficiencia
                 ",").// Suficiencia
                 append(// Suficiencia
-                rs2.getString("AUX3")).// Suficiencia
+                rs2.getString("AUX3")).// Sol_OLI
                 append(// Sol_OLI
                 ",").// Sol_OLI
                 append(// Sol_OLI
-                rs2.getString("Suficiencia")).// Sol_OLI
+                rs2.getString("Suficiencia")).// Enero
                 append(// Enero
                 ",").// Enero
                 append(// Enero
-                rs2.getString("Sol_OLI")).// Enero
+                rs2.getString("Sol_OLI")).// Febrero
                 append(// Febrero
                 ",").// Febrero
                 append(// Febrero
-                rs2.getString("Enero")).// Febrero
+                rs2.getString("Enero")).// Marzo
                 append(// Marzo
                 ",").// Marzo
                 append(// Marzo
-                rs2.getString("Febrero")).// Marzo
+                rs2.getString("Febrero")).// Abril
                 append(// Abril
                 ",").// Abril
                 append(// Abril
-                rs2.getString("Marzo")).// Abril
+                rs2.getString("Marzo")).// Mayo
                 append(// Mayo
                 ",").// Mayo
                 append(// Mayo
-                rs2.getString("Abril")).// Mayo
+                rs2.getString("Abril")).// Junio
                 append(// Junio
                 ",").// Junio
                 append(// Junio
-                rs2.getString("Mayo")).// Junio
+                rs2.getString("Mayo")).// Julio
                 append(// Julio
                 ",").// Julio
                 append(// Julio
-                rs2.getString("Junio")).// Julio
+                rs2.getString("Junio")).// Agosto
                 append(// Agosto
                 ",").// Agosto
                 append(// Agosto
-                rs2.getString("Julio")).// Agosto
+                rs2.getString("Julio")).// Septiembre
                 append(// Septiembre
                 ",").// Septiembre
                 append(// Septiembre
-                rs2.getString("Agosto")).// Septiembre
+                rs2.getString("Agosto")).// Octubre
                 append(// Octubre
                 ",").// Octubre
                 append(// Octubre
-                rs2.getString("Septiembre")).// Octubre
+                rs2.getString("Septiembre")).// Noviembre
                 append(// Noviembre
                 ",").// Noviembre
                 append(// Noviembre
-                rs2.getString("Octubre")).// Noviembre
+                rs2.getString("Octubre")).// Diciembre
                 append(// Diciembre
                 ",").// Diciembre
                 append(// Diciembre
-                rs2.getString("Noviembre")).// Diciembre
+                rs2.getString("Noviembre")).// Importe
                 append(// Importe
                 ",").// Importe
                 append(// Importe
-                rs2.getString("Diciembre")).// Importe
-                append(",").append(mImporteDet);
+                rs2.getString("Diciembre")).append(",").append(mImporteDet);
                 if (esCalendario == 1) {
                     detalle.append(",").append(rs2.getString("tipoCalendario"));
                 }
@@ -1643,170 +1644,170 @@ public class CompromisoManager {
             // B
             // B
             // C
+            // C
             encabezado.append(rs.getString("Header").trim()).append(",").// C
             append(// C
-            fechaALayout.trim()).// C
+            fechaALayout.trim()).// D
             append(// D
             ",").// D
             append(// D
-            fechaLayout.trim()).// D
+            fechaLayout.trim()).// E
             append(// E
             ",").// E
             append(// E
-            rs.getString("cRamo").trim()).// E
+            rs.getString("cRamo").trim()).// F
             append(// F
             ",").// F
             append(// F
-            rs.getString("cRamo").trim()).// F
+            rs.getString("cRamo").trim()).// G
             append(// G
             ",").// G
             append(// G
-            rs.getString("cRamo").trim()).// G
+            rs.getString("cRamo").trim()).// H
             append(// H
             ",").// H
             append(// H
-            rs.getString("cUnidadResponsableEP").trim()).// H
+            rs.getString("cUnidadResponsableEP").trim()).// I
             append(// I
             ",").// I
             append(// I
-            rs.getString("cUnidadResponsableEP").trim()).// I
+            rs.getString("cUnidadResponsableEP").trim()).// J
             append(// J
             ",").// J
             append(// J
-            rs.getString("cUnidadResponsableEP").trim()).// J
+            rs.getString("cUnidadResponsableEP").trim()).// K
             append(// K
             ",").// K
             append(// K
-            tipoMovto).// K
+            tipoMovto).// L
             append(// L
             ",").// L
             append(// L
-            compromiso).// L
+            compromiso).// M
             append(// M
             ",").// M
             append(// M
-            erogacion).// M
+            erogacion).// N
             append(// N
             ",").// N
             append(// N
-            sFolioSICOP).// N
+            sFolioSICOP).// O
             append(// O
             ",").// O
             append(// O
-            tipoOp).// O
+            tipoOp).// P
             append(// P
             ",").// P
             append(// P
-            rs.getString("cIdContrato").trim()).// P
+            rs.getString("cIdContrato").trim()).// Q
             append(// Q
             ",").// Q
             append(// Q
-            rs.getString("cConceptoContrato").trim().replaceAll(",", " ")).// Q
+            rs.getString("cConceptoContrato").trim().replaceAll(",", " ")).// R
             append(// R
             ",").// R
             append(// R
-            rs.getString("CBEN").trim()).// R
+            rs.getString("CBEN").trim()).// S
             append(// S
             ",").// S
             append(// S
-            rs.getString("cIdRFC").trim()).// S
+            rs.getString("cIdRFC").trim()).// T
             append(// T
             ",").// T
             append(// T
-            rs.getString("REPRESENTANTE_LEGAL").trim()).// T
+            rs.getString("REPRESENTANTE_LEGAL").trim()).// U
             append(// U
             ",").// U
             append(// U
-            rs.getString("TPROC")).// U
+            rs.getString("TPROC")).// V
             append(// V
             ",").// V
             append(// V
-            rs.getString("ESQ_PRECIO")).// V
+            rs.getString("ESQ_PRECIO")).// W
             append(// W
             ",").// W
             append(// W
-            rs.getString("CONTRATACION")).// W
+            rs.getString("CONTRATACION")).// X
             append(// X
             ",").// X
             append(// X
-            fContratoIni.trim()).// X
+            fContratoIni.trim()).// Y
             append(// Y
             ",").// Y
             append(// Y
-            fContratoFin.trim()).// Y
+            fContratoFin.trim()).// Z
             append(// Z
             ",").// Z
             append(// Z
-            fContratoFirma.trim()).// Z
+            fContratoFirma.trim()).// AA
             append(// AA
             ",").// AA
             append(// AA
-            pluri.trim()).// AA
+            pluri.trim()).// AB
             append(// AB
             ",").// AB
             append(// AB
-            rs.getString("APROB_PLA")).// AB
+            rs.getString("APROB_PLA")).// AC
             append(// AC
             ",").// AC
             append(// AC
-            rs.getString("ACTO_JURIDICO")).// AC
+            rs.getString("ACTO_JURIDICO")).// AD
             append(// AD
             ",").// AD
             append(// AD
-            montoMonori).// AD
+            montoMonori).// AE
             append(// AE
             ",").// AE
             append(// AE
-            rs.getString("cCodigoMonedaSiaff")).// AE
+            rs.getString("cCodigoMonedaSiaff")).// AF
             append(// AF
             ",").// AF
             append(// AF
-            rs.getString("TCAM")).// AF
+            rs.getString("TCAM")).// AG
             append(// AG
             ",").// AG
             append(// AG
-            montoEjer).// AG
+            montoEjer).// AH
             append(// AH
             ",").// AH
             append(// AH
-            montoMin).// AH
+            montoMin).// AI
             append(// AI
             ",").// AI
             append(// AI
-            montoMax).// AI
+            montoMax).// AJ
             append(// AJ
             ",").// AJ
             append(// AJ
-            rs.getString("CONV_MOD")).// AJ
+            rs.getString("CONV_MOD")).// AK
             append(// AK
             ",").// AK
             append(// AK
-            rs.getString("NUM_CONV_MOD")).// AK
+            rs.getString("NUM_CONV_MOD")).// AL
             append(// AL
             ",").// AL
             append(// AL
-            fConvenio).// AL
+            fConvenio).// AM
             append(// AM
             ",").// AM
             append(// AM
-            org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("CODIGO_EXPEDIENTE"))).// AM
+            org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("CODIGO_EXPEDIENTE"))).// AN
             append(// AN
             ",").// AN
             append(// AN
-            org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("NO_PROCEDIMIENTO"))).// AN
+            org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("NO_PROCEDIMIENTO"))).// AO
             append(// AO
             ",").// AO
             append(// AO
-            org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("CODIGO_CONTRATO"))).// AO
+            org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("CODIGO_CONTRATO"))).// AP
             append(// AP
             ",").// AP
             append(// AP
-            rs.getString("nMes").trim()).// AP
+            rs.getString("nMes").trim()).// AQ
             append(// AQ
             ",").// AQ
             append(// AQ
-            rs.getString("caNoIntegradaComp")).// AQ
-            append(",").append(rs.getString("TTRANS_21"));
+            rs.getString("caNoIntegradaComp")).append(",").append(rs.getString("TTRANS_21"));
             if (esCalendario == 0) {
                 // AR
                 encabezado.append(",").append(rs.getString("caNoIntegradaComp"));
@@ -1847,154 +1848,154 @@ public class CompromisoManager {
                 // tCEP.cUnidadResponsableEP
                 // tCEP.cUnidadResponsableEP
                 // tCEP.aEjercicioFiscal
+                // tCEP.aEjercicioFiscal
                 detalle.append(",").append(rs2.getString("cRamo").trim()).append(",").// tCEP.aEjercicioFiscal
                 append(// tCEP.aEjercicioFiscal
-                rs2.getString("cUnidadResponsableEP").trim()).// tCEP.aEjercicioFiscal
+                rs2.getString("cUnidadResponsableEP").trim()).// tCEP.cGrupoFuncional
                 append(// tCEP.cGrupoFuncional
                 ",").// tCEP.cGrupoFuncional
                 append(// tCEP.cGrupoFuncional
-                rs2.getString("aEjercicioFiscal").trim()).// tCEP.cGrupoFuncional
+                rs2.getString("aEjercicioFiscal").trim()).// tCEP.cFuncion
                 append(// tCEP.cFuncion
                 ",").// tCEP.cFuncion
                 append(// tCEP.cFuncion
-                rs2.getString("cGrupoFuncional").trim()).// tCEP.cFuncion
+                rs2.getString("cGrupoFuncional").trim()).// tCEP.cSubFuncion
                 append(// tCEP.cSubFuncion
                 ",").// tCEP.cSubFuncion
                 append(// tCEP.cSubFuncion
-                rs2.getString("cFuncion").trim()).// tCEP.cSubFuncion
+                rs2.getString("cFuncion").trim()).// tCEP.cProgramaGeneral
                 append(// tCEP.cProgramaGeneral
                 ",").// tCEP.cProgramaGeneral
                 append(// tCEP.cProgramaGeneral
-                rs2.getString("cSubFuncion").trim()).// tCEP.cProgramaGeneral
+                rs2.getString("cSubFuncion").trim()).// tCEP.cActividadInstitucional
                 append(// tCEP.cActividadInstitucional
                 ",").// tCEP.cActividadInstitucional
                 append(// tCEP.cActividadInstitucional
-                rs2.getString("cProgramaGeneral")).// tCEP.cActividadInstitucional
+                rs2.getString("cProgramaGeneral")).// tCEP.cProgramaPresupuestario
                 append(// tCEP.cProgramaPresupuestario
                 ",").// tCEP.cProgramaPresupuestario
                 append(// tCEP.cProgramaPresupuestario
-                rs2.getString("cActividadInstitucional")).// tCEP.cProgramaPresupuestario
+                rs2.getString("cActividadInstitucional")).// SUBSTRING(tCEP.cPartida,1,1)
                 append(// SUBSTRING(tCEP.cPartida,1,1)
                 ",").// SUBSTRING(tCEP.cPartida,1,1)
                 append(// SUBSTRING(tCEP.cPartida,1,1)
-                rs2.getString("cProgramaPresupuestario")).// SUBSTRING(tCEP.cPartida,1,1)
+                rs2.getString("cProgramaPresupuestario")).// SUBSTRING(tCEP.cPartida,2,1)
                 append(// SUBSTRING(tCEP.cPartida,2,1)
                 ",").// SUBSTRING(tCEP.cPartida,2,1)
                 append(// SUBSTRING(tCEP.cPartida,2,1)
-                rs2.getString(12)).// SUBSTRING(tCEP.cPartida,2,1)
+                rs2.getString(12)).// SUBSTRING(tCEP.cPartida,3,1)
                 append(// SUBSTRING(tCEP.cPartida,3,1)
                 ",").// SUBSTRING(tCEP.cPartida,3,1)
                 append(// SUBSTRING(tCEP.cPartida,3,1)
-                rs2.getString(13)).// SUBSTRING(tCEP.cPartida,3,1)
+                rs2.getString(13)).// SUBSTRING(tCEP.cPartida,4,2)
                 append(// SUBSTRING(tCEP.cPartida,4,2)
                 ",").// SUBSTRING(tCEP.cPartida,4,2)
                 append(// SUBSTRING(tCEP.cPartida,4,2)
-                rs2.getString(14)).// SUBSTRING(tCEP.cPartida,4,2)
+                rs2.getString(14)).// tCEP.cTipoGasto
                 append(// tCEP.cTipoGasto
                 ",").// tCEP.cTipoGasto
                 append(// tCEP.cTipoGasto
-                rs2.getString(15)).// tCEP.cTipoGasto
+                rs2.getString(15)).// tCEP.cFuenteFinanciamiento
                 append(// tCEP.cFuenteFinanciamiento
                 ",").// tCEP.cFuenteFinanciamiento
                 append(// tCEP.cFuenteFinanciamiento
-                rs2.getString("cTipoGasto")).// tCEP.cFuenteFinanciamiento
+                rs2.getString("cTipoGasto")).// tCEP.cEntidadFederativa
                 append(// tCEP.cEntidadFederativa
                 ",").// tCEP.cEntidadFederativa
                 append(// tCEP.cEntidadFederativa
-                rs2.getString("cFuenteFinanciamiento")).// tCEP.cEntidadFederativa
+                rs2.getString("cFuenteFinanciamiento")).// tCEP.cCartera
                 append(// tCEP.cCartera
                 ",").// tCEP.cCartera
                 append(// tCEP.cCartera
-                rs2.getString("cEntidadFederativa")).// tCEP.cCartera
+                rs2.getString("cEntidadFederativa")).// CAU
                 append(// CAU
                 ",").// CAU
                 append(// CAU
-                rs2.getString("cCartera")).// CAU
+                rs2.getString("cCartera")).// COP
                 append(// COP
                 ",").// COP
                 append(// COP
-                rs2.getString("CAU")).// COP
+                rs2.getString("CAU")).// PL
                 append(// PL
                 ",").// PL
                 append(// PL
-                rs2.getString("COP")).// PL
+                rs2.getString("COP")).// OF_
                 append(// OF_
                 ",").// OF_
                 append(// OF_
-                rs2.getString("PL")).// OF_
+                rs2.getString("PL")).// AUX1
                 append(// AUX1
                 ",").// AUX1
                 append(// AUX1
-                rs2.getString("OF_")).// AUX1
+                rs2.getString("OF_")).// AUX2
                 append(// AUX2
                 ",").// AUX2
                 append(// AUX2
-                rs2.getString("AUX1")).// AUX2
+                rs2.getString("AUX1")).// AUX3
                 append(// AUX3
                 ",").// AUX3
                 append(// AUX3
-                rs2.getString("AUX2")).// AUX3
+                rs2.getString("AUX2")).// Suficiencia
                 append(// Suficiencia
                 ",").// Suficiencia
                 append(// Suficiencia
-                rs2.getString("AUX3")).// Suficiencia
+                rs2.getString("AUX3")).// Sol_OLI
                 append(// Sol_OLI
                 ",").// Sol_OLI
                 append(// Sol_OLI
-                rs2.getString("Suficiencia")).// Sol_OLI
+                rs2.getString("Suficiencia")).// Enero
                 append(// Enero
                 ",").// Enero
                 append(// Enero
-                rs2.getString("Sol_OLI")).// Enero
+                rs2.getString("Sol_OLI")).// Febrero
                 append(// Febrero
                 ",").// Febrero
                 append(// Febrero
-                rs2.getString("Enero")).// Febrero
+                rs2.getString("Enero")).// Marzo
                 append(// Marzo
                 ",").// Marzo
                 append(// Marzo
-                rs2.getString("Febrero")).// Marzo
+                rs2.getString("Febrero")).// Abril
                 append(// Abril
                 ",").// Abril
                 append(// Abril
-                rs2.getString("Marzo")).// Abril
+                rs2.getString("Marzo")).// Mayo
                 append(// Mayo
                 ",").// Mayo
                 append(// Mayo
-                rs2.getString("Abril")).// Mayo
+                rs2.getString("Abril")).// Junio
                 append(// Junio
                 ",").// Junio
                 append(// Junio
-                rs2.getString("Mayo")).// Junio
+                rs2.getString("Mayo")).// Julio
                 append(// Julio
                 ",").// Julio
                 append(// Julio
-                rs2.getString("Junio")).// Julio
+                rs2.getString("Junio")).// Agosto
                 append(// Agosto
                 ",").// Agosto
                 append(// Agosto
-                rs2.getString("Julio")).// Agosto
+                rs2.getString("Julio")).// Septiembre
                 append(// Septiembre
                 ",").// Septiembre
                 append(// Septiembre
-                rs2.getString("Agosto")).// Septiembre
+                rs2.getString("Agosto")).// Octubre
                 append(// Octubre
                 ",").// Octubre
                 append(// Octubre
-                rs2.getString("Septiembre")).// Octubre
+                rs2.getString("Septiembre")).// Noviembre
                 append(// Noviembre
                 ",").// Noviembre
                 append(// Noviembre
-                rs2.getString("Octubre")).// Noviembre
+                rs2.getString("Octubre")).// Diciembre
                 append(// Diciembre
                 ",").// Diciembre
                 append(// Diciembre
-                rs2.getString("Noviembre")).// Diciembre
+                rs2.getString("Noviembre")).// Importe
                 append(// Importe
                 ",").// Importe
                 append(// Importe
-                rs2.getString("Diciembre")).// Importe
-                append(",").append(mImporteDet);
+                rs2.getString("Diciembre")).append(",").append(mImporteDet);
                 if (esCalendario == 1) {
                     detalle.append(",").append(rs2.getString("tipoCalendario"));
                 }

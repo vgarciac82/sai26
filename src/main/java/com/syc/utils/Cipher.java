@@ -1,52 +1,50 @@
 package com.syc.utils;
+
+import java.util.Base64;
+
 public class Cipher {
-	 
-    String              key;
+
+    String key;
+
     javax.crypto.Cipher Encrypter;
+
     javax.crypto.Cipher Decrypter;
- 
+
     public Cipher(String inKey, byte[] salt) {
         // Declare encryption structures
         javax.crypto.spec.PBEKeySpec pbeKeySpec;
         javax.crypto.spec.PBEParameterSpec pbeParamSpec;
         javax.crypto.SecretKeyFactory keyFac;
         int iterationCount = 55;
- 
         // use the hashed encryption key as our "password"
         key = inKey;
- 
         // Initialize the ciphers for encryption and decryption
         try {
             Encrypter = javax.crypto.Cipher.getInstance("PBEWithMD5AndDES");
             Decrypter = javax.crypto.Cipher.getInstance("PBEWithMD5AndDES");
- 
             // Create PBE parameter set
             pbeParamSpec = new javax.crypto.spec.PBEParameterSpec(salt, iterationCount);
- 
             // Convert key SecretKey object
             pbeKeySpec = new javax.crypto.spec.PBEKeySpec(inKey.toCharArray());
             keyFac = javax.crypto.SecretKeyFactory.getInstance("PBEWithMD5AndDES");
             javax.crypto.SecretKey pbeKey = keyFac.generateSecret(pbeKeySpec);
- 
             // Initialize PBE Cipher with key and parameters
             Encrypter.init(javax.crypto.Cipher.ENCRYPT_MODE, pbeKey, pbeParamSpec);
             Decrypter.init(javax.crypto.Cipher.DECRYPT_MODE, pbeKey, pbeParamSpec);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
- 
+
     public byte[] encrypt(byte[] b) {
         try {
             return Encrypter.doFinal(b);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
- 
+
     /*public String decrypt(byte[] data) {
         try {
             return new String(Decrypter.doFinal(data));
@@ -56,18 +54,15 @@ public class Cipher {
             return null;
         }
     }*/
-    
     public byte[] decrypt(byte[] data) {
         try {
             return (Decrypter.doFinal(data));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
- 
-   /*public Cipher{
+    /*public Cipher{
         Cipher authCipher;
  
         byte[] random_number = { (byte) 0xc7, (byte) 0x73, (byte) 0x21, (byte) 0x8c,

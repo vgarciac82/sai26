@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import com.syc.contable.OperacionAjenaBussinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "LayoutOperacionAjenaConLayoutServlet", urlPatterns = { "/gstnmngr/OperacionAjenaConLayout" })
 public class LayoutOperacionAjenaConLayoutServlet extends HttpServlet {

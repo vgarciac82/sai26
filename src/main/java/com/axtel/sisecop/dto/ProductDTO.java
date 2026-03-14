@@ -1,48 +1,51 @@
 package com.axtel.sisecop.dto;
 
+import java.util.Base64;
 
 public class ProductDTO {
 
-	private String	descripcion;
-	private int		productoId;
-	private int		servicioId;
-	private int		servicioproductoId;
+    private String descripcion;
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    private int productoId;
 
-	public int getProductoId() {
-		return productoId;
-	}
+    private int servicioId;
 
-	public int getServicioId() {
-		return servicioId;
-	}
+    private int servicioproductoId;
 
-	public int getServicioproductoId() {
-		return servicioproductoId;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	public void setDescripcion( String descripcion ) {
-		this.descripcion = descripcion;
-	}
+    public int getProductoId() {
+        return productoId;
+    }
 
-	public void setProductoId( int productoId ) {
-		this.productoId = productoId;
-	}
+    public int getServicioId() {
+        return servicioId;
+    }
 
-	public void setServicioId( int servicioId ) {
-		this.servicioId = servicioId;
-	}
+    public int getServicioproductoId() {
+        return servicioproductoId;
+    }
 
-	public void setServicioproductoId( int servicioproductoId ) {
-		this.servicioproductoId = servicioproductoId;
-	}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-	@Override
-	public String toString() {
-		return "ProductDTO [servicioId=" + servicioId + ", productoId=" + productoId + ", descripcion=" + descripcion + ", servicioproductoId=" + servicioproductoId + "]";
-	}
+    public void setProductoId(int productoId) {
+        this.productoId = productoId;
+    }
 
+    public void setServicioId(int servicioId) {
+        this.servicioId = servicioId;
+    }
+
+    public void setServicioproductoId(int servicioproductoId) {
+        this.servicioproductoId = servicioproductoId;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductDTO [servicioId=" + servicioId + ", productoId=" + productoId + ", descripcion=" + descripcion + ", servicioproductoId=" + servicioproductoId + "]";
+    }
 }

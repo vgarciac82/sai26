@@ -13,6 +13,7 @@ import com.syc.gestion.core.TipoCasoVariable;
 import com.syc.gestion.core.TipoCasoVariableManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class TipoCasoBusinessLogic extends DataSourceManager {
 

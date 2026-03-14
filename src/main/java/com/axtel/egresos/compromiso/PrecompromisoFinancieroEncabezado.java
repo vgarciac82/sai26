@@ -1,293 +1,304 @@
 package com.axtel.egresos.compromiso;
 
-
 import java.sql.Connection;
 import java.time.LocalDate;
-
 import com.axtel.contratos.core.ConvenioColaboracion;
 import com.syc.obrapublica.EjercicioFiscalManager;
-
+import java.util.Base64;
 
 public class PrecompromisoFinancieroEncabezado {
 
-	private String		centroContable;
-	private String		descripcionPoliza;
-	private boolean		documentoAaplicado;
-	private int			ejercicioFiscal;
-	private LocalDate	fCancelacion;
-	private LocalDate	fechaAplicacion;
-	private LocalDate	fechaCarga;
-	private int			folioPoliza;
-	private int			folioPolizaCancelacion;
-	private int			folioPrecomFinanciero;
-	private String		login;
-	private boolean		radicado	= false;
-	private String		ramo;
-	private String		tipoPoliza;
-	private String		unidadResponsable;
-	private String		unidadResponsableContable;
+    private String centroContable;
 
-	/**
-	 * @return the centroContable
-	 */
-	public String getCentroContable() {
-		return centroContable;
-	}
+    private String descripcionPoliza;
 
-	/**
-	 * @return the descripcionPoliza
-	 */
-	public String getDescripcionPoliza() {
-		return descripcionPoliza;
-	}
+    private boolean documentoAaplicado;
 
-	/**
-	 * @return the ejercicioFiscal
-	 */
-	public int getEjercicioFiscal() {
-		return ejercicioFiscal;
-	}
+    private int ejercicioFiscal;
 
-	/**
-	 * @return the fCancelacion
-	 */
-	public LocalDate getfCancelacion() {
-		return fCancelacion;
-	}
+    private LocalDate fCancelacion;
 
-	/**
-	 * @return the fechaAplicacion
-	 */
-	public LocalDate getFechaAplicacion() {
-		return fechaAplicacion;
-	}
+    private LocalDate fechaAplicacion;
 
-	/**
-	 * @return the fechaCarga
-	 */
-	public LocalDate getFechaCarga() {
-		return fechaCarga;
-	}
+    private LocalDate fechaCarga;
 
-	/**
-	 * @return the folioPoliza
-	 */
-	public int getFolioPoliza() {
-		return folioPoliza;
-	}
+    private int folioPoliza;
 
-	/**
-	 * @return the folioPolizaCancelacion
-	 */
-	public int getFolioPolizaCancelacion() {
-		return folioPolizaCancelacion;
-	}
+    private int folioPolizaCancelacion;
 
-	/**
-	 * @return the folioPrecomFinanciero
-	 */
-	public int getFolioPrecomFinanciero() {
-		return folioPrecomFinanciero;
-	}
+    private int folioPrecomFinanciero;
 
-	/**
-	 * @return the login
-	 */
-	public String getLogin() {
-		return login;
-	}
+    private String login;
 
-	/**
-	 * @return the ramo
-	 */
-	public String getRamo() {
-		return ramo;
-	}
+    private boolean radicado = false;
 
-	/**
-	 * @return the tipoPoliza
-	 */
-	public String getTipoPoliza() {
-		return tipoPoliza;
-	}
+    private String ramo;
 
-	/**
-	 * @return the unidadResponsable
-	 */
-	public String getUnidadResponsable() {
-		return unidadResponsable;
-	}
+    private String tipoPoliza;
 
-	/**
-	 * @return the unidadResponsableContable
-	 */
-	public String getUnidadResponsableContable() {
-		return unidadResponsableContable;
-	}
+    private String unidadResponsable;
 
-	/**
-	 * @return the documentoAaplicado
-	 */
-	public boolean isDocumentoAaplicado() {
-		return documentoAaplicado;
-	}
+    private String unidadResponsableContable;
 
-	/**
-	 * @return the radicado
-	 */
-	public boolean isRadicado() {
-		return radicado;
-	}
+    /**
+     * @return the centroContable
+     */
+    public String getCentroContable() {
+        return centroContable;
+    }
 
-	/**
-	 * @param centroContable
-	 *            the centroContable to set
-	 */
-	public void setCentroContable( String centroContable ) {
-		this.centroContable = centroContable;
-	}
+    /**
+     * @return the descripcionPoliza
+     */
+    public String getDescripcionPoliza() {
+        return descripcionPoliza;
+    }
 
-	/**
-	 * @param descripcionPoliza
-	 *            the descripcionPoliza to set
-	 */
-	public void setDescripcionPoliza( String descripcionPoliza ) {
-		this.descripcionPoliza = descripcionPoliza;
-	}
+    /**
+     * @return the ejercicioFiscal
+     */
+    public int getEjercicioFiscal() {
+        return ejercicioFiscal;
+    }
 
-	/**
-	 * @param documentoAaplicado
-	 *            the documentoAaplicado to set
-	 */
-	public void setDocumentoAaplicado( boolean documentoAaplicado ) {
-		this.documentoAaplicado = documentoAaplicado;
-	}
+    /**
+     * @return the fCancelacion
+     */
+    public LocalDate getfCancelacion() {
+        return fCancelacion;
+    }
 
-	/**
-	 * @param ejercicioFiscal
-	 *            the ejercicioFiscal to set
-	 */
-	public void setEjercicioFiscal( int ejercicioFiscal ) {
-		this.ejercicioFiscal = ejercicioFiscal;
-	}
+    /**
+     * @return the fechaAplicacion
+     */
+    public LocalDate getFechaAplicacion() {
+        return fechaAplicacion;
+    }
 
-	/**
-	 * @param fCancelacion
-	 *            the fCancelacion to set
-	 */
-	public void setfCancelacion( LocalDate fCancelacion ) {
-		this.fCancelacion = fCancelacion;
-	}
+    /**
+     * @return the fechaCarga
+     */
+    public LocalDate getFechaCarga() {
+        return fechaCarga;
+    }
 
-	/**
-	 * @param fechaAplicacion
-	 *            the fechaAplicacion to set
-	 */
-	public void setFechaAplicacion( LocalDate fechaAplicacion ) {
-		this.fechaAplicacion = fechaAplicacion;
-	}
+    /**
+     * @return the folioPoliza
+     */
+    public int getFolioPoliza() {
+        return folioPoliza;
+    }
 
-	/**
-	 * @param fechaCarga
-	 *            the fechaCarga to set
-	 */
-	public void setFechaCarga( LocalDate fechaCarga ) {
-		this.fechaCarga = fechaCarga;
-	}
+    /**
+     * @return the folioPolizaCancelacion
+     */
+    public int getFolioPolizaCancelacion() {
+        return folioPolizaCancelacion;
+    }
 
-	/**
-	 * @param folioPoliza
-	 *            the folioPoliza to set
-	 */
-	public void setFolioPoliza( int folioPoliza ) {
-		this.folioPoliza = folioPoliza;
-	}
+    /**
+     * @return the folioPrecomFinanciero
+     */
+    public int getFolioPrecomFinanciero() {
+        return folioPrecomFinanciero;
+    }
 
-	/**
-	 * @param folioPolizaCancelacion
-	 *            the folioPolizaCancelacion to set
-	 */
-	public void setFolioPolizaCancelacion( int folioPolizaCancelacion ) {
-		this.folioPolizaCancelacion = folioPolizaCancelacion;
-	}
+    /**
+     * @return the login
+     */
+    public String getLogin() {
+        return login;
+    }
 
-	/**
-	 * @param folioPrecomFinanciero
-	 *            the folioPrecomFinanciero to set
-	 */
-	public void setFolioPrecomFinanciero( int folioPrecomFinanciero ) {
-		this.folioPrecomFinanciero = folioPrecomFinanciero;
-	}
+    /**
+     * @return the ramo
+     */
+    public String getRamo() {
+        return ramo;
+    }
 
-	/**
-	 * @param login
-	 *            the login to set
-	 */
-	public void setLogin( String login ) {
-		this.login = login;
-	}
+    /**
+     * @return the tipoPoliza
+     */
+    public String getTipoPoliza() {
+        return tipoPoliza;
+    }
 
-	/**
-	 * @param radicado
-	 *            the radicado to set
-	 */
-	public void setRadicado( boolean radicado ) {
-		this.radicado = radicado;
-	}
+    /**
+     * @return the unidadResponsable
+     */
+    public String getUnidadResponsable() {
+        return unidadResponsable;
+    }
 
-	/**
-	 * @param ramo
-	 *            the ramo to set
-	 */
-	public void setRamo( String ramo ) {
-		this.ramo = ramo;
-	}
+    /**
+     * @return the unidadResponsableContable
+     */
+    public String getUnidadResponsableContable() {
+        return unidadResponsableContable;
+    }
 
-	/**
-	 * @param tipoPoliza
-	 *            the tipoPoliza to set
-	 */
-	public void setTipoPoliza( String tipoPoliza ) {
-		this.tipoPoliza = tipoPoliza;
-	}
+    /**
+     * @return the documentoAaplicado
+     */
+    public boolean isDocumentoAaplicado() {
+        return documentoAaplicado;
+    }
 
-	/**
-	 * @param unidadResponsable
-	 *            the unidadResponsable to set
-	 */
-	public void setUnidadResponsable( String unidadResponsable ) {
-		this.unidadResponsable = unidadResponsable;
-	}
+    /**
+     * @return the radicado
+     */
+    public boolean isRadicado() {
+        return radicado;
+    }
 
-	/**
-	 * @param unidadResponsableContable
-	 *            the unidadResponsableContable to set
-	 */
-	public void setUnidadResponsableContable( String unidadResponsableContable ) {
-		this.unidadResponsableContable = unidadResponsableContable;
-	}
+    /**
+     * @param centroContable
+     *            the centroContable to set
+     */
+    public void setCentroContable(String centroContable) {
+        this.centroContable = centroContable;
+    }
 
-	@Override
-	public String toString() {
-		return "PrecompromisoFinancieroEncabezado [folioPrecomFinanciero=" + folioPrecomFinanciero + ", fechaCarga=" + fechaCarga + ", fechaAplicacion=" + fechaAplicacion + ", centroContable=" + centroContable + ", ramo=" + ramo + ", unidadResponsable=" + unidadResponsable + ", documentoAaplicado=" + documentoAaplicado + ", folioPoliza=" + folioPoliza + ", tipoPoliza=" + tipoPoliza + ", ejercicioFiscal=" + ejercicioFiscal + ", unidadResponsableContable=" + unidadResponsableContable + ", folioPolizaCancelacion=" + folioPolizaCancelacion + ", fCancelacion=" + fCancelacion + ", descripcionPoliza=" + descripcionPoliza + ", login=" + login + ", radicado=" + radicado + "]";
-	}
+    /**
+     * @param descripcionPoliza
+     *            the descripcionPoliza to set
+     */
+    public void setDescripcionPoliza(String descripcionPoliza) {
+        this.descripcionPoliza = descripcionPoliza;
+    }
 
-	public static PrecompromisoFinancieroEncabezado instanceFrom( Connection conn, ConvenioColaboracion convenio, int folioCompromiso ) throws NumberFormatException, Exception {
-		PrecompromisoFinancieroEncabezado encabezado = new PrecompromisoFinancieroEncabezado();
-		encabezado.setCentroContable( convenio.getEncabezado().getCentroContable() );
-		encabezado.setDescripcionPoliza("Precompromiso del convenio con folio: " + convenio.getEncabezado().getFolioConvenioColaboracion() );
-		encabezado.setEjercicioFiscal( Integer.parseInt( EjercicioFiscalManager.getEjercicioFiscalActivo( conn ).getaEjercicioFiscal() ) );
-		encabezado.setFechaAplicacion(LocalDate.now());
-		encabezado.setFechaCarga(LocalDate.now());
-		encabezado.setFolioPrecomFinanciero(folioCompromiso);
-		encabezado.setLogin(convenio.getEncabezado().getLoginCaptura());
-		encabezado.setRadicado(false);
-		encabezado.setRamo("16");
-		encabezado.setTipoPoliza("PR");
-		encabezado.setUnidadResponsable(convenio.getEncabezado().getIdUnidadAdministrativa());
-		encabezado.setUnidadResponsableContable( "RHQ" );
-		return encabezado;
-	}
-	
+    /**
+     * @param documentoAaplicado
+     *            the documentoAaplicado to set
+     */
+    public void setDocumentoAaplicado(boolean documentoAaplicado) {
+        this.documentoAaplicado = documentoAaplicado;
+    }
 
+    /**
+     * @param ejercicioFiscal
+     *            the ejercicioFiscal to set
+     */
+    public void setEjercicioFiscal(int ejercicioFiscal) {
+        this.ejercicioFiscal = ejercicioFiscal;
+    }
+
+    /**
+     * @param fCancelacion
+     *            the fCancelacion to set
+     */
+    public void setfCancelacion(LocalDate fCancelacion) {
+        this.fCancelacion = fCancelacion;
+    }
+
+    /**
+     * @param fechaAplicacion
+     *            the fechaAplicacion to set
+     */
+    public void setFechaAplicacion(LocalDate fechaAplicacion) {
+        this.fechaAplicacion = fechaAplicacion;
+    }
+
+    /**
+     * @param fechaCarga
+     *            the fechaCarga to set
+     */
+    public void setFechaCarga(LocalDate fechaCarga) {
+        this.fechaCarga = fechaCarga;
+    }
+
+    /**
+     * @param folioPoliza
+     *            the folioPoliza to set
+     */
+    public void setFolioPoliza(int folioPoliza) {
+        this.folioPoliza = folioPoliza;
+    }
+
+    /**
+     * @param folioPolizaCancelacion
+     *            the folioPolizaCancelacion to set
+     */
+    public void setFolioPolizaCancelacion(int folioPolizaCancelacion) {
+        this.folioPolizaCancelacion = folioPolizaCancelacion;
+    }
+
+    /**
+     * @param folioPrecomFinanciero
+     *            the folioPrecomFinanciero to set
+     */
+    public void setFolioPrecomFinanciero(int folioPrecomFinanciero) {
+        this.folioPrecomFinanciero = folioPrecomFinanciero;
+    }
+
+    /**
+     * @param login
+     *            the login to set
+     */
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    /**
+     * @param radicado
+     *            the radicado to set
+     */
+    public void setRadicado(boolean radicado) {
+        this.radicado = radicado;
+    }
+
+    /**
+     * @param ramo
+     *            the ramo to set
+     */
+    public void setRamo(String ramo) {
+        this.ramo = ramo;
+    }
+
+    /**
+     * @param tipoPoliza
+     *            the tipoPoliza to set
+     */
+    public void setTipoPoliza(String tipoPoliza) {
+        this.tipoPoliza = tipoPoliza;
+    }
+
+    /**
+     * @param unidadResponsable
+     *            the unidadResponsable to set
+     */
+    public void setUnidadResponsable(String unidadResponsable) {
+        this.unidadResponsable = unidadResponsable;
+    }
+
+    /**
+     * @param unidadResponsableContable
+     *            the unidadResponsableContable to set
+     */
+    public void setUnidadResponsableContable(String unidadResponsableContable) {
+        this.unidadResponsableContable = unidadResponsableContable;
+    }
+
+    @Override
+    public String toString() {
+        return "PrecompromisoFinancieroEncabezado [folioPrecomFinanciero=" + folioPrecomFinanciero + ", fechaCarga=" + fechaCarga + ", fechaAplicacion=" + fechaAplicacion + ", centroContable=" + centroContable + ", ramo=" + ramo + ", unidadResponsable=" + unidadResponsable + ", documentoAaplicado=" + documentoAaplicado + ", folioPoliza=" + folioPoliza + ", tipoPoliza=" + tipoPoliza + ", ejercicioFiscal=" + ejercicioFiscal + ", unidadResponsableContable=" + unidadResponsableContable + ", folioPolizaCancelacion=" + folioPolizaCancelacion + ", fCancelacion=" + fCancelacion + ", descripcionPoliza=" + descripcionPoliza + ", login=" + login + ", radicado=" + radicado + "]";
+    }
+
+    public static PrecompromisoFinancieroEncabezado instanceFrom(Connection conn, ConvenioColaboracion convenio, int folioCompromiso) throws NumberFormatException, Exception {
+        PrecompromisoFinancieroEncabezado encabezado = new PrecompromisoFinancieroEncabezado();
+        encabezado.setCentroContable(convenio.getEncabezado().getCentroContable());
+        encabezado.setDescripcionPoliza("Precompromiso del convenio con folio: " + convenio.getEncabezado().getFolioConvenioColaboracion());
+        encabezado.setEjercicioFiscal(Integer.parseInt(EjercicioFiscalManager.getEjercicioFiscalActivo(conn).getaEjercicioFiscal()));
+        encabezado.setFechaAplicacion(LocalDate.now());
+        encabezado.setFechaCarga(LocalDate.now());
+        encabezado.setFolioPrecomFinanciero(folioCompromiso);
+        encabezado.setLogin(convenio.getEncabezado().getLoginCaptura());
+        encabezado.setRadicado(false);
+        encabezado.setRamo("16");
+        encabezado.setTipoPoliza("PR");
+        encabezado.setUnidadResponsable(convenio.getEncabezado().getIdUnidadAdministrativa());
+        encabezado.setUnidadResponsableContable("RHQ");
+        return encabezado;
+    }
 }

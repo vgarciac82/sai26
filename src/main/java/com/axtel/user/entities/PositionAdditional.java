@@ -1,30 +1,31 @@
 package com.axtel.user.entities;
 
+import java.util.Base64;
 
 public class PositionAdditional {
 
-	private int		id;
-	private String	level;
+    private int id;
 
-	public int getId() {
-		return id;
-	}
+    private String level;
 
-	public void setId( int id ) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getLevel() {
-		return level;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setLevel( String level ) {
-		this.level = level;
-	}
+    public String getLevel() {
+        return level;
+    }
 
-	@Override
-	public String toString() {
-		return "PositionAdditional [id=" + id + ", level=" + level + "]";
-	}
+    public void setLevel(String level) {
+        this.level = level;
+    }
 
+    @Override
+    public String toString() {
+        return "PositionAdditional [id=" + id + ", level=" + level + "]";
+    }
 }

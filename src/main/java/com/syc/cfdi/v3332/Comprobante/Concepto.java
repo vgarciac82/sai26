@@ -1,164 +1,168 @@
 package com.syc.cfdi.v3332.Comprobante;
 
-
 import java.math.BigDecimal;
-
+import java.util.Base64;
 
 public class Concepto {
 
-	private String		claveProdServ;
-	private BigDecimal	cantidad;
-	private String		claveUnidad;
-	private String		descripcion;
-	private BigDecimal	valorUnitario;
-	private BigDecimal	importe;
-	private Traslados	traslados;
-	private long		idConcepto;
+    private String claveProdServ;
 
-	public Concepto( Object concepto ) {
-		if ( concepto instanceof mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto ) {
-			claveProdServ = ( ( mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto ) concepto ).getClaveProdServ();
-			cantidad = ( ( mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto ) concepto ).getCantidad();
-			if ( (( mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto ) concepto ).getClaveUnidad() != null)
-				claveUnidad = ( ( mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto ) concepto ).getClaveUnidad().value();
-			else 
-				claveUnidad = "";
-			descripcion = ( ( mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto ) concepto ).getDescripcion();
-			valorUnitario = ( ( mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto ) concepto ).getValorUnitario();
-			importe = ( ( mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto ) concepto ).getImporte();
-			mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto.Impuestos impuestos = ( ( mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto ) concepto ).getImpuestos();
-			if ( impuestos != null )
-				setTraslados( new Traslados( ( ( mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto ) concepto ).getImpuestos().getTraslados() ) );
+    private BigDecimal cantidad;
 
-		} else if ( concepto instanceof mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto ) {
-			claveProdServ = ( ( mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto ) concepto ).getClaveProdServ();
-			cantidad = ( ( mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto ) concepto ).getCantidad();
-			if(  ( ( mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto ) concepto ).getClaveUnidad() != null)
-				claveUnidad = ( ( mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto ) concepto ).getClaveUnidad().value();
-			else
-				claveUnidad = "";
-			descripcion = ( ( mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto ) concepto ).getDescripcion();
-			valorUnitario = ( ( mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto ) concepto ).getValorUnitario();
-			importe = ( ( mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto ) concepto ).getImporte();
-			mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto.Impuestos impuestos = ( ( mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto ) concepto ).getImpuestos();
-			if ( impuestos != null )
-				setTraslados( new Traslados( impuestos.getTraslados() ) );
-		} else
-			throw new RuntimeException( "No es posible procesar el objeto: " + concepto.getClass() );
-	}
+    private String claveUnidad;
 
-	/**
-	 * @return the claveProdServ
-	 */
-	public String getClaveProdServ() {
-		return claveProdServ;
-	}
+    private String descripcion;
 
-	/**
-	 * @return the cantidad
-	 */
-	public BigDecimal getCantidad() {
-		return cantidad;
-	}
+    private BigDecimal valorUnitario;
 
-	/**
-	 * @return the claveUnidad
-	 */
-	public String getClaveUnidad() {
-		return claveUnidad;
-	}
+    private BigDecimal importe;
 
-	/**
-	 * @return the descripcion
-	 */
-	public String getDescripcion() {
-		return descripcion;
-	}
+    private Traslados traslados;
 
-	/**
-	 * @return the valorUnitario
-	 */
-	public BigDecimal getValorUnitario() {
-		return valorUnitario;
-	}
+    private long idConcepto;
 
-	/**
-	 * @return the importe
-	 */
-	public BigDecimal getImporte() {
-		return importe;
-	}
+    public Concepto(Object concepto) {
+        if (concepto instanceof mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto) {
+            claveProdServ = ((mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto) concepto).getClaveProdServ();
+            cantidad = ((mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto) concepto).getCantidad();
+            if (((mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto) concepto).getClaveUnidad() != null)
+                claveUnidad = ((mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto) concepto).getClaveUnidad().value();
+            else
+                claveUnidad = "";
+            descripcion = ((mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto) concepto).getDescripcion();
+            valorUnitario = ((mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto) concepto).getValorUnitario();
+            importe = ((mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto) concepto).getImporte();
+            mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto.Impuestos impuestos = ((mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto) concepto).getImpuestos();
+            if (impuestos != null)
+                setTraslados(new Traslados(((mx.grupocorasa.sat.cfd._40.Comprobante.Conceptos.Concepto) concepto).getImpuestos().getTraslados()));
+        } else if (concepto instanceof mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto) {
+            claveProdServ = ((mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto) concepto).getClaveProdServ();
+            cantidad = ((mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto) concepto).getCantidad();
+            if (((mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto) concepto).getClaveUnidad() != null)
+                claveUnidad = ((mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto) concepto).getClaveUnidad().value();
+            else
+                claveUnidad = "";
+            descripcion = ((mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto) concepto).getDescripcion();
+            valorUnitario = ((mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto) concepto).getValorUnitario();
+            importe = ((mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto) concepto).getImporte();
+            mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto.Impuestos impuestos = ((mx.grupocorasa.sat.cfd._33.Comprobante.Conceptos.Concepto) concepto).getImpuestos();
+            if (impuestos != null)
+                setTraslados(new Traslados(impuestos.getTraslados()));
+        } else
+            throw new RuntimeException("No es posible procesar el objeto: " + concepto.getClass());
+    }
 
-	public Traslados getTraslados() {
-		return traslados;
-	}
+    /**
+     * @return the claveProdServ
+     */
+    public String getClaveProdServ() {
+        return claveProdServ;
+    }
 
-	public void setTraslados( Traslados traslados ) {
-		this.traslados = traslados;
-	}
+    /**
+     * @return the cantidad
+     */
+    public BigDecimal getCantidad() {
+        return cantidad;
+    }
 
-	public void setIdConcepto( long idConcepto ) {
-		this.idConcepto = idConcepto;
-	}
+    /**
+     * @return the claveUnidad
+     */
+    public String getClaveUnidad() {
+        return claveUnidad;
+    }
 
-	/**
-	 * @return the idConcepto
-	 */
-	public long getIdConcepto() {
-		return idConcepto;
-	}
+    /**
+     * @return the descripcion
+     */
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	/**
-	 * @param claveProdServ
-	 *            the claveProdServ to set
-	 */
-	public void setClaveProdServ( String claveProdServ ) {
-		this.claveProdServ = claveProdServ;
-	}
+    /**
+     * @return the valorUnitario
+     */
+    public BigDecimal getValorUnitario() {
+        return valorUnitario;
+    }
 
-	/**
-	 * @param cantidad
-	 *            the cantidad to set
-	 */
-	public void setCantidad( BigDecimal cantidad ) {
-		this.cantidad = cantidad;
-	}
+    /**
+     * @return the importe
+     */
+    public BigDecimal getImporte() {
+        return importe;
+    }
 
-	/**
-	 * @param claveUnidad
-	 *            the claveUnidad to set
-	 */
-	public void setClaveUnidad( String claveUnidad ) {
-		this.claveUnidad = claveUnidad;
-	}
+    public Traslados getTraslados() {
+        return traslados;
+    }
 
-	/**
-	 * @param descripcion
-	 *            the descripcion to set
-	 */
-	public void setDescripcion( String descripcion ) {
-		this.descripcion = descripcion;
-	}
+    public void setTraslados(Traslados traslados) {
+        this.traslados = traslados;
+    }
 
-	/**
-	 * @param valorUnitario
-	 *            the valorUnitario to set
-	 */
-	public void setValorUnitario( BigDecimal valorUnitario ) {
-		this.valorUnitario = valorUnitario;
-	}
+    public void setIdConcepto(long idConcepto) {
+        this.idConcepto = idConcepto;
+    }
 
-	/**
-	 * @param importe
-	 *            the importe to set
-	 */
-	public void setImporte( BigDecimal importe ) {
-		this.importe = importe;
-	}
+    /**
+     * @return the idConcepto
+     */
+    public long getIdConcepto() {
+        return idConcepto;
+    }
 
-	@Override
-	public String toString() {
-		return "Concepto [claveProdServ=" + claveProdServ + ", cantidad=" + cantidad + ", claveUnidad=" + claveUnidad + ", descripcion=" + descripcion + ", valorUnitario=" + valorUnitario + ", importe=" + importe + ", traslados=" + traslados + ", idConcepto=" + idConcepto + "]";
-	}
+    /**
+     * @param claveProdServ
+     *            the claveProdServ to set
+     */
+    public void setClaveProdServ(String claveProdServ) {
+        this.claveProdServ = claveProdServ;
+    }
 
+    /**
+     * @param cantidad
+     *            the cantidad to set
+     */
+    public void setCantidad(BigDecimal cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    /**
+     * @param claveUnidad
+     *            the claveUnidad to set
+     */
+    public void setClaveUnidad(String claveUnidad) {
+        this.claveUnidad = claveUnidad;
+    }
+
+    /**
+     * @param descripcion
+     *            the descripcion to set
+     */
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    /**
+     * @param valorUnitario
+     *            the valorUnitario to set
+     */
+    public void setValorUnitario(BigDecimal valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
+
+    /**
+     * @param importe
+     *            the importe to set
+     */
+    public void setImporte(BigDecimal importe) {
+        this.importe = importe;
+    }
+
+    @Override
+    public String toString() {
+        return "Concepto [claveProdServ=" + claveProdServ + ", cantidad=" + cantidad + ", claveUnidad=" + claveUnidad + ", descripcion=" + descripcion + ", valorUnitario=" + valorUnitario + ", importe=" + importe + ", traslados=" + traslados + ", idConcepto=" + idConcepto + "]";
+    }
 }

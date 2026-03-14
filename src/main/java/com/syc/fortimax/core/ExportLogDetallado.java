@@ -1,116 +1,122 @@
 package com.syc.fortimax.core;
 
-public class ExportLogDetallado extends ExportLog{
+import java.util.Base64;
 
-	String	cuentaPorPagar;
-	String	carpeta;
-	String	documento;
-	String	pathDocumento;
-	boolean	cumple;
-	String	log = "";
+public class ExportLogDetallado extends ExportLog {
 
-	/**
-	 * @return the cuentaPorPagar
-	 */
-	public String getCuentaPorPagar() {
-		return cuentaPorPagar;
-	}
+    String cuentaPorPagar;
 
-	/**
-	 * @param cuentaPorPagar
-	 *            the cuentaPorPagar to set
-	 */
-	public void setCuentaPorPagar(String cuentaPorPagar) {
-		this.cuentaPorPagar = cuentaPorPagar;
-	}
+    String carpeta;
 
-	/**
-	 * @return the carpeta
-	 */
-	public String getCarpeta() {
-		return carpeta;
-	}
+    String documento;
 
-	/**
-	 * @param carpeta
-	 *            the carpeta to set
-	 */
-	public void setCarpeta(String carpeta) {
-		this.carpeta = carpeta;
-	}
+    String pathDocumento;
 
-	/**
-	 * @return the documento
-	 */
-	public String getDocumento() {
-		return documento;
-	}
+    boolean cumple;
 
-	/**
-	 * @param documento
-	 *            the documento to set
-	 */
-	public void setDocumento(String documento) {
-		this.documento = documento;
-	}
+    String log = "";
 
-	/**
-	 * @return the pathDocumento
-	 */
-	public String getPathDocumento() {
-		return pathDocumento;
-	}
+    /**
+     * @return the cuentaPorPagar
+     */
+    public String getCuentaPorPagar() {
+        return cuentaPorPagar;
+    }
 
-	/**
-	 * @param pathDocumento
-	 *            the pathDocumento to set
-	 */
-	public void setPathDocumento(String pathDocumento) {
-		this.pathDocumento = pathDocumento;
-	}
+    /**
+     * @param cuentaPorPagar
+     *            the cuentaPorPagar to set
+     */
+    public void setCuentaPorPagar(String cuentaPorPagar) {
+        this.cuentaPorPagar = cuentaPorPagar;
+    }
 
-	/**
-	 * @return the cumple
-	 */
-	public boolean isCumple() {
-		return cumple;
-	}
+    /**
+     * @return the carpeta
+     */
+    public String getCarpeta() {
+        return carpeta;
+    }
 
-	/**
-	 * @param cumple
-	 *            the cumple to set
-	 */
-	public void setCumple(boolean cumple) {
-		this.cumple = cumple;
-	}
+    /**
+     * @param carpeta
+     *            the carpeta to set
+     */
+    public void setCarpeta(String carpeta) {
+        this.carpeta = carpeta;
+    }
 
-	/**
-	 * @return the log
-	 */
-	public String getLog() {
-		return log;
-	}
+    /**
+     * @return the documento
+     */
+    public String getDocumento() {
+        return documento;
+    }
 
-	/**
-	 * @param log
-	 *            the log to set
-	 */
-	public void setLog(String log) {
-		this.log = log;
-	}
+    /**
+     * @param documento
+     *            the documento to set
+     */
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
 
-	public String toCSV() {
-		return cuentaPorPagar.replaceAll(",", "") + "," + carpeta.replaceAll(",", "") + "," + documento.replaceAll(",", "") + "," + pathDocumento.replaceAll(",", "") + "," + cumple + "," + log;
-	}
+    /**
+     * @return the pathDocumento
+     */
+    public String getPathDocumento() {
+        return pathDocumento;
+    }
 
-	/*
+    /**
+     * @param pathDocumento
+     *            the pathDocumento to set
+     */
+    public void setPathDocumento(String pathDocumento) {
+        this.pathDocumento = pathDocumento;
+    }
+
+    /**
+     * @return the cumple
+     */
+    public boolean isCumple() {
+        return cumple;
+    }
+
+    /**
+     * @param cumple
+     *            the cumple to set
+     */
+    public void setCumple(boolean cumple) {
+        this.cumple = cumple;
+    }
+
+    /**
+     * @return the log
+     */
+    public String getLog() {
+        return log;
+    }
+
+    /**
+     * @param log
+     *            the log to set
+     */
+    public void setLog(String log) {
+        this.log = log;
+    }
+
+    public String toCSV() {
+        return cuentaPorPagar.replaceAll(",", "") + "," + carpeta.replaceAll(",", "") + "," + documento.replaceAll(",", "") + "," + pathDocumento.replaceAll(",", "") + "," + cumple + "," + log;
+    }
+
+    /*
 	 * (non-Javadoc)
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
-	@Override
-	public String toString() {
-		return "ExportLogDetallado [cuentaPorPagar=" + cuentaPorPagar + ", carpeta=" + carpeta + ", documento=" + documento + ", pathDocumento=" + pathDocumento + ", cumple=" + cumple + ", log=" + log + "]";
-	}
-
+    @Override
+    public String toString() {
+        return "ExportLogDetallado [cuentaPorPagar=" + cuentaPorPagar + ", carpeta=" + carpeta + ", documento=" + documento + ", pathDocumento=" + pathDocumento + ", cumple=" + cumple + ", log=" + log + "]";
+    }
 }

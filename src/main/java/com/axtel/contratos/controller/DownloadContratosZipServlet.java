@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import com.syc.contable.ContratoDiversoBusinessLogic;
+import java.util.Base64;
 
 @WebServlet(name = "DownloadContratosZipServlet", urlPatterns = { "/contratos/downloadzip" }, initParams = { @WebInitParam(name = "jndiName", value = "jdbc/gestion") })
 public class DownloadContratosZipServlet extends HttpServlet {

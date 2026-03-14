@@ -12,6 +12,7 @@ import com.syc.contable.core.OperacionAjenaManager;
 import com.syc.egresos.core.Amortizacion;
 import com.syc.egresos.core.EgresoEncabezado;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
+import java.util.Base64;
 
 public class EgresoOPERAJENASEncabezado extends EgresoEncabezado {
 

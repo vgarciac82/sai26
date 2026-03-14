@@ -27,6 +27,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import net.sf.jasperreports.engine.JasperRunManager;
+import java.util.Base64;
 
 @SuppressWarnings("unused")
 public class reporteSIIWebDisFinancierasManager implements Serializable {

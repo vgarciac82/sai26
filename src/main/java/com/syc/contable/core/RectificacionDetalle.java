@@ -1,175 +1,192 @@
 package com.syc.contable.core;
 
 import java.math.BigDecimal;
+import java.util.Base64;
 
 public class RectificacionDetalle {
-	private int		folio;
-	private int		renglon;
-	private String	evento;
-	private String	ep;
-	private String	epRectifica;
-	private double	importe;
-	private double	importeneg;
-	private int		mes;
-	private String	centro;
-	private String	capitulo;
-	private String	movimiento;
-	private String	concepto;
-	private double	importeRemanente	= 0d;
-	private String	nidprograma;
-	private String  cSubPrograma;
-	private String  caNoContrarrecibo;
-	private BigDecimal	Remanente;
-	private BigDecimal	importeNeto;
 
-	public BigDecimal getimporteNeto() {
-		return importeNeto;
-	}
+    private int folio;
 
-	public void setimporteNeto(BigDecimal importeNeto) {
-		this.importeNeto = importeNeto;
-	}
-	
-	public BigDecimal getRemanente() {
-		return Remanente;
-	}
+    private int renglon;
 
-	public void setRemanente(BigDecimal Remanente) {
-		this.Remanente = Remanente;
-	}
-	
-	public String getEpRectifica() {
-		return epRectifica;
-	}
+    private String evento;
 
-	public void setEpRectifica(String epRectifica) {
-		this.epRectifica = epRectifica;
-	}
+    private String ep;
 
-	public double getImporteRemanente() {
-		return importeRemanente;
-	}
+    private String epRectifica;
 
-	public void setImporteRemanente(double importeRemanente) {
-		this.importeRemanente = importeRemanente;
-	}
+    private double importe;
 
-	public int getFolio() {
-		return folio;
-	}
+    private double importeneg;
 
-	public void setFolio(int folio) {
-		this.folio = folio;
-	}
+    private int mes;
 
-	public int getRenglon() {
-		return renglon;
-	}
+    private String centro;
 
-	public void setRenglon(int renglon) {
-		this.renglon = renglon;
-	}
+    private String capitulo;
 
-	public String getEvento() {
-		return evento;
-	}
+    private String movimiento;
 
-	public void setEvento(String evento) {
-		this.evento = evento;
-	}
+    private String concepto;
 
-	public String getEp() {
-		return ep;
-	}
+    private double importeRemanente = 0d;
 
-	public void setEp(String ep) {
-		this.ep = ep;
-	}
+    private String nidprograma;
 
-	public double getImporte() {
-		return importe;
-	}
+    private String cSubPrograma;
 
-	public void setImporte(double importe) {
-		this.importe = importe;
-	}
+    private String caNoContrarrecibo;
 
-	public double getImporteneg() {
-		return importeneg;
-	}
+    private BigDecimal Remanente;
 
-	public void setImporteneg(double importeneg) {
-		this.importeneg = importeneg;
-	}
+    private BigDecimal importeNeto;
 
-	public int getMes() {
-		return mes;
-	}
+    public BigDecimal getimporteNeto() {
+        return importeNeto;
+    }
 
-	public void setMes(int mes) {
-		this.mes = mes;
-	}
+    public void setimporteNeto(BigDecimal importeNeto) {
+        this.importeNeto = importeNeto;
+    }
 
-	public String getCentro() {
-		return centro;
-	}
+    public BigDecimal getRemanente() {
+        return Remanente;
+    }
 
-	public void setCentro(String centro) {
-		this.centro = centro;
-	}
+    public void setRemanente(BigDecimal Remanente) {
+        this.Remanente = Remanente;
+    }
 
-	public String getCapitulo() {
-		return capitulo;
-	}
+    public String getEpRectifica() {
+        return epRectifica;
+    }
 
-	public void setCapitulo(String capitulo) {
-		this.capitulo = capitulo;
-	}
+    public void setEpRectifica(String epRectifica) {
+        this.epRectifica = epRectifica;
+    }
 
-	public String getMovimiento() {
-		return movimiento;
-	}
+    public double getImporteRemanente() {
+        return importeRemanente;
+    }
 
-	public void setMovimiento(String movimiento) {
-		this.movimiento = movimiento;
-	}
+    public void setImporteRemanente(double importeRemanente) {
+        this.importeRemanente = importeRemanente;
+    }
 
-	public String getConcepto() {
-		return concepto;
-	}
+    public int getFolio() {
+        return folio;
+    }
 
-	public void setConcepto(String concepto) {
-		this.concepto = concepto;
-	}
-	
-	public String getnidprograma() {
-		return nidprograma;
-	}
+    public void setFolio(int folio) {
+        this.folio = folio;
+    }
 
-	public void setnidprograma(String nidprograma) {
-		this.nidprograma = nidprograma;
-	}
-	
-	public String getcSubPrograma() {
-		return cSubPrograma;
-	}
+    public int getRenglon() {
+        return renglon;
+    }
 
-	public void setcSubPrograma(String cSubPrograma) {
-		this.cSubPrograma = cSubPrograma;
-	}
-	
-	public String getcaNoContrarrecibo() {
-		return caNoContrarrecibo;
-	}
+    public void setRenglon(int renglon) {
+        this.renglon = renglon;
+    }
 
-	public void setcaNoContrarrecibo(String caNoContrarrecibo) {
-		this.caNoContrarrecibo = caNoContrarrecibo;
-	}
+    public String getEvento() {
+        return evento;
+    }
 
-	@Override
-	public String toString() {
-		return "RectificacionDetalle [folio=" + folio + ", renglon=" + renglon + ", evento=" + evento + ", ep=" + ep + ", epRectifica=" + epRectifica + ", importe=" + importe + ", importeneg=" + importeneg + ", mes=" + mes + ", centro=" + centro + ", capitulo=" + capitulo + ", movimiento="
-			+ movimiento + ", concepto=" + concepto + ", importeRemanente=" + importeRemanente + ", nidprograma=" + nidprograma + ", cSubPrograma=" + cSubPrograma + ", caNoContrarrecibo=" + caNoContrarrecibo + "]";
-	}
+    public void setEvento(String evento) {
+        this.evento = evento;
+    }
 
+    public String getEp() {
+        return ep;
+    }
+
+    public void setEp(String ep) {
+        this.ep = ep;
+    }
+
+    public double getImporte() {
+        return importe;
+    }
+
+    public void setImporte(double importe) {
+        this.importe = importe;
+    }
+
+    public double getImporteneg() {
+        return importeneg;
+    }
+
+    public void setImporteneg(double importeneg) {
+        this.importeneg = importeneg;
+    }
+
+    public int getMes() {
+        return mes;
+    }
+
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
+
+    public String getCentro() {
+        return centro;
+    }
+
+    public void setCentro(String centro) {
+        this.centro = centro;
+    }
+
+    public String getCapitulo() {
+        return capitulo;
+    }
+
+    public void setCapitulo(String capitulo) {
+        this.capitulo = capitulo;
+    }
+
+    public String getMovimiento() {
+        return movimiento;
+    }
+
+    public void setMovimiento(String movimiento) {
+        this.movimiento = movimiento;
+    }
+
+    public String getConcepto() {
+        return concepto;
+    }
+
+    public void setConcepto(String concepto) {
+        this.concepto = concepto;
+    }
+
+    public String getnidprograma() {
+        return nidprograma;
+    }
+
+    public void setnidprograma(String nidprograma) {
+        this.nidprograma = nidprograma;
+    }
+
+    public String getcSubPrograma() {
+        return cSubPrograma;
+    }
+
+    public void setcSubPrograma(String cSubPrograma) {
+        this.cSubPrograma = cSubPrograma;
+    }
+
+    public String getcaNoContrarrecibo() {
+        return caNoContrarrecibo;
+    }
+
+    public void setcaNoContrarrecibo(String caNoContrarrecibo) {
+        this.caNoContrarrecibo = caNoContrarrecibo;
+    }
+
+    @Override
+    public String toString() {
+        return "RectificacionDetalle [folio=" + folio + ", renglon=" + renglon + ", evento=" + evento + ", ep=" + ep + ", epRectifica=" + epRectifica + ", importe=" + importe + ", importeneg=" + importeneg + ", mes=" + mes + ", centro=" + centro + ", capitulo=" + capitulo + ", movimiento=" + movimiento + ", concepto=" + concepto + ", importeRemanente=" + importeRemanente + ", nidprograma=" + nidprograma + ", cSubPrograma=" + cSubPrograma + ", caNoContrarrecibo=" + caNoContrarrecibo + "]";
+    }
 }

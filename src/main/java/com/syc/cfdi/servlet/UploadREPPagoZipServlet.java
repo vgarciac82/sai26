@@ -28,6 +28,7 @@ import com.syc.obrapublica.ConfiguraAplicativoBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "UploadREPPagoZipServlet", urlPatterns = { "/AdjuntaREPPago" })
 public class UploadREPPagoZipServlet extends HttpServlet implements GestionInterface {

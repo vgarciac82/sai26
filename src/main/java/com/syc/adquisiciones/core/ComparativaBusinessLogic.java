@@ -9,6 +9,7 @@ import java.util.List;
 import com.syc.dsmngr.DataSourceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class ComparativaBusinessLogic extends DataSourceManager {
 
@@ -123,8 +124,8 @@ public class ComparativaBusinessLogic extends DataSourceManager {
                                 for (int i = 0; i < ProveedorComparativaList.size(); i++) {
                                     rProveedorComparativa = null;
                                     rProveedorComparativa = (ProcedimientoComparativa) ProveedorComparativaList.get(i);
-                                    Partida += //style='border-right:0.1pt solid black;border-bottom:0.1pt solid black'
-                                    "<td >Cantidad</td>" + "<td>Precio Unitario</td>" + "<td>Tipo de Cambio</td>" + "<td style='border-right:1.0pt solid black'>Total</td>";
+                                    //style='border-right:0.1pt solid black;border-bottom:0.1pt solid black'
+                                    Partida += "<td >Cantidad</td>" + "<td>Precio Unitario</td>" + "<td>Tipo de Cambio</td>" + "<td style='border-right:1.0pt solid black'>Total</td>";
                                 }
                                 Partida += "</tr><tr>";
                                 float montoUnit = 0;

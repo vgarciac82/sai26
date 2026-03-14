@@ -1,290 +1,326 @@
 package com.syc.contable.core;
 
+import java.util.Base64;
+
 public class ReintegroDetalle {
-	private int		nDocRenglon;
-	private int		noCLC;
-	private int		secCLC;
-	private int		codigoSaf;
-	private String	EP;
-	private int		cop;
-	private double	mImporteCLC;
-	private String	mImporteCLCFormat;
-	private String	nCompromiso;
-	private String	beneficiario;
-	private String	suficiencia;
-	private int		solOli;
-	private String	tipoCon;
-	private String	tipoDeCon;
-	private int		mes;
-	private int		mvto;
-	private double	isr;
-	private double	iva;
-	private double	millar;
-	private double	ivaDes;
-	private Evento	cEvento;
-	private String	nPartida;
-	private String	cxp;
-	private String	clcSicop;
-	private String	tpag;
-	private String	nres;
-	private String	ncom;
-	private String	obgt;
-	private String	nFolioDependencia;
-	private String cProgramaGeneral;
-	private String cPasivo;
-	private String rfc;
 
-	public String getnFolioDependencia() {
-		return nFolioDependencia;
-	}
+    private int nDocRenglon;
 
-	public String getObgt() {
-		return obgt;
-	}
+    private int noCLC;
 
-	public void setObgt(String obgt) {
-		this.obgt = obgt;
-	}
+    private int secCLC;
 
-	public int getnDocRenglon() {
-		return nDocRenglon;
-	}
+    private int codigoSaf;
 
-	public void setnDocRenglon(int nDocRenglon) {
-		this.nDocRenglon = nDocRenglon;
-	}
+    private String EP;
 
-	public int getNoCLC() {
-		return noCLC;
-	}
+    private int cop;
 
-	public void setNoCLC(int noCLC) {
-		this.noCLC = noCLC;
-	}
+    private double mImporteCLC;
 
-	public int getSecCLC() {
-		return secCLC;
-	}
+    private String mImporteCLCFormat;
 
-	public void setSecCLC(int secCLC) {
-		this.secCLC = secCLC;
-	}
+    private String nCompromiso;
 
-	public int getCodigoSaf() {
-		return codigoSaf;
-	}
+    private String beneficiario;
 
-	public void setCodigoSaf(int codigoSaf) {
-		this.codigoSaf = codigoSaf;
-	}
+    private String suficiencia;
 
-	public String getEP() {
-		return EP;
-	}
+    private int solOli;
 
-	public void setEP(String eP) {
-		EP = eP;
-	}
+    private String tipoCon;
 
-	public int getCop() {
-		return cop;
-	}
+    private String tipoDeCon;
 
-	public void setCop(int cop) {
-		this.cop = cop;
-	}
+    private int mes;
 
-	public double getmImporteCLC() {
-		return mImporteCLC;
-	}
+    private int mvto;
 
-	public void setmImporteCLC(double mImporteCLC) {
-		this.mImporteCLC = mImporteCLC;
-	}
+    private double isr;
 
-	public String getmImporteCLCFormat() {
-		return mImporteCLCFormat;
-	}
+    private double iva;
 
-	public void setmImporteCLCFormat(String mImporteCLCFormat) {
-		this.mImporteCLCFormat = mImporteCLCFormat;
-	}
+    private double millar;
 
-	public String getnCompromiso() {
-		return nCompromiso;
-	}
+    private double ivaDes;
 
-	public void setnCompromiso(String nCompromiso) {
-		this.nCompromiso = nCompromiso;
-	}
+    private Evento cEvento;
 
-	public String getBeneficiario() {
-		return beneficiario;
-	}
+    private String nPartida;
 
-	public void setBeneficiario(String beneficiario) {
-		this.beneficiario = beneficiario;
-	}
+    private String cxp;
 
-	public String getSuficiencia() {
-		return suficiencia;
-	}
+    private String clcSicop;
 
-	public void setSuficiencia(String suficiencia) {
-		this.suficiencia = suficiencia;
-	}
+    private String tpag;
 
-	public int getSolOli() {
-		return solOli;
-	}
+    private String nres;
 
-	public void setSolOli(int solOli) {
-		this.solOli = solOli;
-	}
+    private String ncom;
 
-	public String getTipoCon() {
-		return tipoCon;
-	}
+    private String obgt;
 
-	public void setTipoCon(String tipoCon) {
-		this.tipoCon = tipoCon;
-	}
+    private String nFolioDependencia;
 
-	public String getTipoDeCon() {
-		return tipoDeCon;
-	}
+    private String cProgramaGeneral;
 
-	public void setTipoDeCon(String tipoDeCon) {
-		this.tipoDeCon = tipoDeCon;
-	}
+    private String cPasivo;
 
-	public int getMes() {
-		return mes;
-	}
+    private String rfc;
 
-	public void setMes(int mes) {
-		this.mes = mes;
-	}
+    public String getnFolioDependencia() {
+        return nFolioDependencia;
+    }
 
-	public int getMvto() {
-		return mvto;
-	}
+    public String getObgt() {
+        return obgt;
+    }
 
-	public void setMvto(int mvto) {
-		this.mvto = mvto;
-	}
+    public void setObgt(String obgt) {
+        this.obgt = obgt;
+    }
 
-	public double getIsr() {
-		return isr;
-	}
+    public int getnDocRenglon() {
+        return nDocRenglon;
+    }
 
-	public void setIsr(double isr) {
-		this.isr = isr;
-	}
+    public void setnDocRenglon(int nDocRenglon) {
+        this.nDocRenglon = nDocRenglon;
+    }
 
-	public double getIva() {
-		return iva;
-	}
+    public int getNoCLC() {
+        return noCLC;
+    }
 
-	public void setIva(double iva) {
-		this.iva = iva;
-	}
+    public void setNoCLC(int noCLC) {
+        this.noCLC = noCLC;
+    }
 
-	public double getMillar() {
-		return millar;
-	}
+    public int getSecCLC() {
+        return secCLC;
+    }
 
-	public void setMillar(double millar) {
-		this.millar = millar;
-	}
+    public void setSecCLC(int secCLC) {
+        this.secCLC = secCLC;
+    }
 
-	public double getIvaDes() {
-		return ivaDes;
-	}
+    public int getCodigoSaf() {
+        return codigoSaf;
+    }
 
-	public void setIvaDes(double ivaDes) {
-		this.ivaDes = ivaDes;
-	}
+    public void setCodigoSaf(int codigoSaf) {
+        this.codigoSaf = codigoSaf;
+    }
 
-	public Evento getcEvento() {
-		return cEvento;
-	}
+    public String getEP() {
+        return EP;
+    }
 
-	public void setcEvento(Evento cEvento) {
-		this.cEvento = cEvento;
-	}
+    public void setEP(String eP) {
+        EP = eP;
+    }
 
-	public String getnPartida() {
-		return nPartida;
-	}
+    public int getCop() {
+        return cop;
+    }
 
-	public void setnPartida(String nPartida) {
-		this.nPartida = nPartida;
-	}
+    public void setCop(int cop) {
+        this.cop = cop;
+    }
 
-	public String getCxp() {
-		return cxp;
-	}
+    public double getmImporteCLC() {
+        return mImporteCLC;
+    }
 
-	public void setCxp(String cxp) {
-		this.cxp = cxp;
-	}
+    public void setmImporteCLC(double mImporteCLC) {
+        this.mImporteCLC = mImporteCLC;
+    }
 
-	public String getClcSicop() {
-		return clcSicop;
-	}
+    public String getmImporteCLCFormat() {
+        return mImporteCLCFormat;
+    }
 
-	public void setClcSicop(String clcSicop) {
-		this.clcSicop = clcSicop;
-	}
+    public void setmImporteCLCFormat(String mImporteCLCFormat) {
+        this.mImporteCLCFormat = mImporteCLCFormat;
+    }
 
-	public String getTpag() {
-		return tpag;
-	}
+    public String getnCompromiso() {
+        return nCompromiso;
+    }
 
-	public void setTpag(String tpag) {
-		this.tpag = tpag;
-	}
+    public void setnCompromiso(String nCompromiso) {
+        this.nCompromiso = nCompromiso;
+    }
 
-	public String getNres() {
-		return nres;
-	}
-	public String getrfc() {
-		return rfc;
-	}
+    public String getBeneficiario() {
+        return beneficiario;
+    }
 
-	public void setNres(String nres) {
-		this.nres = nres;
-	}
+    public void setBeneficiario(String beneficiario) {
+        this.beneficiario = beneficiario;
+    }
 
-	public String getNcom() {
-		return ncom;
-	}
+    public String getSuficiencia() {
+        return suficiencia;
+    }
 
-	public void setNcom(String ncom) {
-		this.ncom = ncom;
-	}
+    public void setSuficiencia(String suficiencia) {
+        this.suficiencia = suficiencia;
+    }
 
-	public void setnFolioDependencia(String nFolioDependencia) {
-		this.nFolioDependencia = nFolioDependencia;
-	}
-	
-	public String getcProgramaGeneral() {
-		return cProgramaGeneral;
-	}
+    public int getSolOli() {
+        return solOli;
+    }
 
-	public void setcProgramaGeneral(String cProgramaGeneral) {
-		this.cProgramaGeneral = cProgramaGeneral;
-	}
+    public void setSolOli(int solOli) {
+        this.solOli = solOli;
+    }
 
-	public String getcPasivo() {
-		return cPasivo;
-	}
+    public String getTipoCon() {
+        return tipoCon;
+    }
 
-	public void setcPasivo(String cPasivo) {
-		this.cPasivo = cPasivo;
-	}
-	public void setrfc(String rfc) {
-		this.rfc = rfc;
-	}
+    public void setTipoCon(String tipoCon) {
+        this.tipoCon = tipoCon;
+    }
+
+    public String getTipoDeCon() {
+        return tipoDeCon;
+    }
+
+    public void setTipoDeCon(String tipoDeCon) {
+        this.tipoDeCon = tipoDeCon;
+    }
+
+    public int getMes() {
+        return mes;
+    }
+
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
+
+    public int getMvto() {
+        return mvto;
+    }
+
+    public void setMvto(int mvto) {
+        this.mvto = mvto;
+    }
+
+    public double getIsr() {
+        return isr;
+    }
+
+    public void setIsr(double isr) {
+        this.isr = isr;
+    }
+
+    public double getIva() {
+        return iva;
+    }
+
+    public void setIva(double iva) {
+        this.iva = iva;
+    }
+
+    public double getMillar() {
+        return millar;
+    }
+
+    public void setMillar(double millar) {
+        this.millar = millar;
+    }
+
+    public double getIvaDes() {
+        return ivaDes;
+    }
+
+    public void setIvaDes(double ivaDes) {
+        this.ivaDes = ivaDes;
+    }
+
+    public Evento getcEvento() {
+        return cEvento;
+    }
+
+    public void setcEvento(Evento cEvento) {
+        this.cEvento = cEvento;
+    }
+
+    public String getnPartida() {
+        return nPartida;
+    }
+
+    public void setnPartida(String nPartida) {
+        this.nPartida = nPartida;
+    }
+
+    public String getCxp() {
+        return cxp;
+    }
+
+    public void setCxp(String cxp) {
+        this.cxp = cxp;
+    }
+
+    public String getClcSicop() {
+        return clcSicop;
+    }
+
+    public void setClcSicop(String clcSicop) {
+        this.clcSicop = clcSicop;
+    }
+
+    public String getTpag() {
+        return tpag;
+    }
+
+    public void setTpag(String tpag) {
+        this.tpag = tpag;
+    }
+
+    public String getNres() {
+        return nres;
+    }
+
+    public String getrfc() {
+        return rfc;
+    }
+
+    public void setNres(String nres) {
+        this.nres = nres;
+    }
+
+    public String getNcom() {
+        return ncom;
+    }
+
+    public void setNcom(String ncom) {
+        this.ncom = ncom;
+    }
+
+    public void setnFolioDependencia(String nFolioDependencia) {
+        this.nFolioDependencia = nFolioDependencia;
+    }
+
+    public String getcProgramaGeneral() {
+        return cProgramaGeneral;
+    }
+
+    public void setcProgramaGeneral(String cProgramaGeneral) {
+        this.cProgramaGeneral = cProgramaGeneral;
+    }
+
+    public String getcPasivo() {
+        return cPasivo;
+    }
+
+    public void setcPasivo(String cPasivo) {
+        this.cPasivo = cPasivo;
+    }
+
+    public void setrfc(String rfc) {
+        this.rfc = rfc;
+    }
 }

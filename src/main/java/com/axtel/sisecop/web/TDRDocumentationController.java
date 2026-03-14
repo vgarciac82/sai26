@@ -25,6 +25,7 @@ import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(urlPatterns = { "/SISECOP/tdrExpedient" })
 @MultipartConfig

@@ -12,6 +12,7 @@ import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "BajaPasivosContingentesServlet", urlPatterns = { "/reportes/BajaPasivosContingentes" })
 public class BajaPasivosContingentesServlet extends HttpServlet implements GestionInterface {

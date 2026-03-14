@@ -18,6 +18,7 @@ import com.syc.viewer.servlet.ViewerParametersInterface;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "GestionDelPageDocumentServlet", urlPatterns = { "/imgmng/delpagekeeper" })
 public class GestionDelPageDocumentServlet extends HttpServlet implements GestionInterface, ViewerParametersInterface {

@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import com.syc.gestion.documental.CatalogosBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "AvisoUsuariosServlet", urlPatterns = { "/avisoUsuarios" })
 public class AvisoUsuariosServlet extends HttpServlet {

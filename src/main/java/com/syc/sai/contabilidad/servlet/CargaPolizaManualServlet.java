@@ -22,6 +22,7 @@ import com.syc.sai.contabilidad.CargaPolizaManualBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "CargaMasPolizaManualServlet", urlPatterns = { "/gstnmngr/CargaPoliza/CargaMasiva" })
 public class CargaPolizaManualServlet extends HttpServlet {

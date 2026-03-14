@@ -1,213 +1,232 @@
 package com.axtel.contratos.penalties.core;
 
-
 import java.util.ArrayList;
-
+import java.util.Base64;
 
 public class PenaltyAndDeduction {
 
-	private int							nIdPenaltyDeduction;
-	private String						cFolio;
-	private String						cIdContratoDefinitivo;
-	private int							nIdEstate;
-	private String						fCaptureDate;
-	private String						cCaptureUsser;
-	private int							lPenalty;
-	private int							lDeduction;
-	private int							lExist;
-	private String						cTipoContrato;
-	private String						cDocumentHAplicado;
-	private String						cValidatingUser;
-	private String						cObservations;
-	private int							nIdOper;
-	private String						cConcepto;
-	private String						cOficio;
-	private int							nPeriodo;
-	private String						cNumContratoCNET;
-	private String						cProveedor;
-	private String						cEmailCaptureUsser;
-	private ArrayList<PenaltyItems>		penaltyItems;
-	private ArrayList<DeductionItems>	deductionItems;
+    private int nIdPenaltyDeduction;
 
-	public int getnIdPenaltyDeduction() {
-		return nIdPenaltyDeduction;
-	}
+    private String cFolio;
 
-	public void setnIdPenaltyDeduction( int nIdPenaltyDeduction ) {
-		this.nIdPenaltyDeduction = nIdPenaltyDeduction;
-	}
+    private String cIdContratoDefinitivo;
 
-	public String getcFolio() {
-		return cFolio;
-	}
+    private int nIdEstate;
 
-	public void setcFolio( String cFolio ) {
-		this.cFolio = cFolio;
-	}
+    private String fCaptureDate;
 
-	public String getcIdContratoDefinitivo() {
-		return cIdContratoDefinitivo;
-	}
+    private String cCaptureUsser;
 
-	public void setcIdContratoDefinitivo( String cIdContratoDefinitivo ) {
-		this.cIdContratoDefinitivo = cIdContratoDefinitivo;
-	}
+    private int lPenalty;
 
-	public int getnIdEstate() {
-		return nIdEstate;
-	}
+    private int lDeduction;
 
-	public void setnIdEstate( int nIdEstate ) {
-		this.nIdEstate = nIdEstate;
-	}
+    private int lExist;
 
-	public String getfCaptureDate() {
-		return fCaptureDate;
-	}
+    private String cTipoContrato;
 
-	public void setfCaptureDate( String fCaptureDate ) {
-		this.fCaptureDate = fCaptureDate;
-	}
+    private String cDocumentHAplicado;
 
-	public String getcCaptureUsser() {
-		return cCaptureUsser;
-	}
+    private String cValidatingUser;
 
-	public void setcCaptureUsser( String cCaptureUsser ) {
-		this.cCaptureUsser = cCaptureUsser;
-	}
+    private String cObservations;
 
-	public int getlPenalty() {
-		return lPenalty;
-	}
+    private int nIdOper;
 
-	public void setlPenalty( int lPenalty ) {
-		this.lPenalty = lPenalty;
-	}
+    private String cConcepto;
 
-	public int getlDeduction() {
-		return lDeduction;
-	}
+    private String cOficio;
 
-	public void setlDeduction( int lDeduction ) {
-		this.lDeduction = lDeduction;
-	}
+    private int nPeriodo;
 
-	public int getlExist() {
-		return lExist;
-	}
+    private String cNumContratoCNET;
 
-	public void setlExist( int lExist ) {
-		this.lExist = lExist;
-	}
+    private String cProveedor;
 
-	public String getcTipoContrato() {
-		return cTipoContrato;
-	}
+    private String cEmailCaptureUsser;
 
-	public void setcTipoContrato( String cTipoContrato ) {
-		this.cTipoContrato = cTipoContrato;
-	}
+    private ArrayList<PenaltyItems> penaltyItems;
 
-	public String getcDocumentHAplicado() {
-		return cDocumentHAplicado;
-	}
+    private ArrayList<DeductionItems> deductionItems;
 
-	public void setcDocumentHAplicado( String cDocumentHAplicado ) {
-		this.cDocumentHAplicado = cDocumentHAplicado;
-	}
+    public int getnIdPenaltyDeduction() {
+        return nIdPenaltyDeduction;
+    }
 
-	public String getcValidatingUser() {
-		return cValidatingUser;
-	}
+    public void setnIdPenaltyDeduction(int nIdPenaltyDeduction) {
+        this.nIdPenaltyDeduction = nIdPenaltyDeduction;
+    }
 
-	public void setcValidatingUser( String cValidatingUser ) {
-		this.cValidatingUser = cValidatingUser;
-	}
+    public String getcFolio() {
+        return cFolio;
+    }
 
-	public String getcObservations() {
-		return cObservations;
-	}
+    public void setcFolio(String cFolio) {
+        this.cFolio = cFolio;
+    }
 
-	public void setcObservations( String cObservations ) {
-		this.cObservations = cObservations;
-	}
+    public String getcIdContratoDefinitivo() {
+        return cIdContratoDefinitivo;
+    }
 
-	public int getnIdOper() {
-		return nIdOper;
-	}
+    public void setcIdContratoDefinitivo(String cIdContratoDefinitivo) {
+        this.cIdContratoDefinitivo = cIdContratoDefinitivo;
+    }
 
-	public void setnIdOper( int nIdOper ) {
-		this.nIdOper = nIdOper;
-	}
+    public int getnIdEstate() {
+        return nIdEstate;
+    }
 
-	public String getcConcepto() {
-		return cConcepto;
-	}
+    public void setnIdEstate(int nIdEstate) {
+        this.nIdEstate = nIdEstate;
+    }
 
-	public void setcConcepto( String cConcepto ) {
-		this.cConcepto = cConcepto;
-	}
+    public String getfCaptureDate() {
+        return fCaptureDate;
+    }
 
-	public String getcOficio() {
-		return cOficio;
-	}
+    public void setfCaptureDate(String fCaptureDate) {
+        this.fCaptureDate = fCaptureDate;
+    }
 
-	public void setcOficio( String cOficio ) {
-		this.cOficio = cOficio;
-	}
+    public String getcCaptureUsser() {
+        return cCaptureUsser;
+    }
 
-	public int getnPeriodo() {
-		return nPeriodo;
-	}
+    public void setcCaptureUsser(String cCaptureUsser) {
+        this.cCaptureUsser = cCaptureUsser;
+    }
 
-	public void setnPeriodo( int nPeriodo ) {
-		this.nPeriodo = nPeriodo;
-	}
+    public int getlPenalty() {
+        return lPenalty;
+    }
 
-	public String getcNumContratoCNET() {
-		return cNumContratoCNET;
-	}
+    public void setlPenalty(int lPenalty) {
+        this.lPenalty = lPenalty;
+    }
 
-	public void setcNumContratoCNET( String cNumContratoCNET ) {
-		this.cNumContratoCNET = cNumContratoCNET;
-	}
+    public int getlDeduction() {
+        return lDeduction;
+    }
 
-	public String getcProveedor() {
-		return cProveedor;
-	}
+    public void setlDeduction(int lDeduction) {
+        this.lDeduction = lDeduction;
+    }
 
-	public void setcProveedor( String cProveedor ) {
-		this.cProveedor = cProveedor;
-	}
+    public int getlExist() {
+        return lExist;
+    }
 
-	public String getcEmailCaptureUsser() {
-		return cEmailCaptureUsser;
-	}
+    public void setlExist(int lExist) {
+        this.lExist = lExist;
+    }
 
-	public void setcEmailCaptureUsser( String cEmailCaptureUsser ) {
-		this.cEmailCaptureUsser = cEmailCaptureUsser;
-	}
+    public String getcTipoContrato() {
+        return cTipoContrato;
+    }
 
-	public ArrayList<PenaltyItems> getPenaltyItems() {
-		return penaltyItems;
-	}
+    public void setcTipoContrato(String cTipoContrato) {
+        this.cTipoContrato = cTipoContrato;
+    }
 
-	public void setPenaltyItems( ArrayList<PenaltyItems> penaltyItems ) {
-		this.penaltyItems = penaltyItems;
-	}
+    public String getcDocumentHAplicado() {
+        return cDocumentHAplicado;
+    }
 
-	public ArrayList<DeductionItems> getDeductionItems() {
-		return deductionItems;
-	}
+    public void setcDocumentHAplicado(String cDocumentHAplicado) {
+        this.cDocumentHAplicado = cDocumentHAplicado;
+    }
 
-	public void setDeductionItems( ArrayList<DeductionItems> deductionItems ) {
-		this.deductionItems = deductionItems;
-	}
+    public String getcValidatingUser() {
+        return cValidatingUser;
+    }
 
-	@Override
-	public String toString() {
-		return "PenaltyAndDeduction [nIdPenaltyDeduction=" + nIdPenaltyDeduction + ", cFolio=" + cFolio + ", cIdContratoDefinitivo=" + cIdContratoDefinitivo + ", nIdEstate=" + nIdEstate + ", fCaptureDate=" + fCaptureDate + ", cCaptureUsser=" + cCaptureUsser + ", lPenalty=" + lPenalty + ", lDeduction=" + lDeduction + ", lExist=" + lExist + ", cTipoContrato=" + cTipoContrato + ", cDocumentHAplicado=" + cDocumentHAplicado + ", cValidatingUser=" + cValidatingUser + ", cObservations=" + cObservations + ", nIdOper=" + nIdOper + ", cConcepto=" + cConcepto + ", cOficio=" + cOficio + ", nPeriodo=" + nPeriodo + ", cNumContratoCNET=" + cNumContratoCNET + ", cProveedor=" + cProveedor + ", cEmailCaptureUsser=" + cEmailCaptureUsser + "]";
-	}
+    public void setcValidatingUser(String cValidatingUser) {
+        this.cValidatingUser = cValidatingUser;
+    }
 
+    public String getcObservations() {
+        return cObservations;
+    }
+
+    public void setcObservations(String cObservations) {
+        this.cObservations = cObservations;
+    }
+
+    public int getnIdOper() {
+        return nIdOper;
+    }
+
+    public void setnIdOper(int nIdOper) {
+        this.nIdOper = nIdOper;
+    }
+
+    public String getcConcepto() {
+        return cConcepto;
+    }
+
+    public void setcConcepto(String cConcepto) {
+        this.cConcepto = cConcepto;
+    }
+
+    public String getcOficio() {
+        return cOficio;
+    }
+
+    public void setcOficio(String cOficio) {
+        this.cOficio = cOficio;
+    }
+
+    public int getnPeriodo() {
+        return nPeriodo;
+    }
+
+    public void setnPeriodo(int nPeriodo) {
+        this.nPeriodo = nPeriodo;
+    }
+
+    public String getcNumContratoCNET() {
+        return cNumContratoCNET;
+    }
+
+    public void setcNumContratoCNET(String cNumContratoCNET) {
+        this.cNumContratoCNET = cNumContratoCNET;
+    }
+
+    public String getcProveedor() {
+        return cProveedor;
+    }
+
+    public void setcProveedor(String cProveedor) {
+        this.cProveedor = cProveedor;
+    }
+
+    public String getcEmailCaptureUsser() {
+        return cEmailCaptureUsser;
+    }
+
+    public void setcEmailCaptureUsser(String cEmailCaptureUsser) {
+        this.cEmailCaptureUsser = cEmailCaptureUsser;
+    }
+
+    public ArrayList<PenaltyItems> getPenaltyItems() {
+        return penaltyItems;
+    }
+
+    public void setPenaltyItems(ArrayList<PenaltyItems> penaltyItems) {
+        this.penaltyItems = penaltyItems;
+    }
+
+    public ArrayList<DeductionItems> getDeductionItems() {
+        return deductionItems;
+    }
+
+    public void setDeductionItems(ArrayList<DeductionItems> deductionItems) {
+        this.deductionItems = deductionItems;
+    }
+
+    @Override
+    public String toString() {
+        return "PenaltyAndDeduction [nIdPenaltyDeduction=" + nIdPenaltyDeduction + ", cFolio=" + cFolio + ", cIdContratoDefinitivo=" + cIdContratoDefinitivo + ", nIdEstate=" + nIdEstate + ", fCaptureDate=" + fCaptureDate + ", cCaptureUsser=" + cCaptureUsser + ", lPenalty=" + lPenalty + ", lDeduction=" + lDeduction + ", lExist=" + lExist + ", cTipoContrato=" + cTipoContrato + ", cDocumentHAplicado=" + cDocumentHAplicado + ", cValidatingUser=" + cValidatingUser + ", cObservations=" + cObservations + ", nIdOper=" + nIdOper + ", cConcepto=" + cConcepto + ", cOficio=" + cOficio + ", nPeriodo=" + nPeriodo + ", cNumContratoCNET=" + cNumContratoCNET + ", cProveedor=" + cProveedor + ", cEmailCaptureUsser=" + cEmailCaptureUsser + "]";
+    }
 }

@@ -18,6 +18,7 @@ import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "CapturaRectificaAnexo1Servlet", urlPatterns = { "/gstnmngr/CapturaRectificaAnexo1" })
 public class CapturaRectificaAnexo1Servlet extends HttpServlet {

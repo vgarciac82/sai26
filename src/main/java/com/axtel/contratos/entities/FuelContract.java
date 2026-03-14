@@ -1,88 +1,93 @@
 package com.axtel.contratos.entities;
 
-
 import java.math.BigDecimal;
 import java.util.Date;
-
+import java.util.Base64;
 
 public class FuelContract {
 
-	private int			id;
-	private String		contractNumber;
-	private BigDecimal	totalMaxAmount;
-	private boolean		active;
-	private Date		registrationDate;
-	private String		employeeRegistration;
-	private boolean		byLiters;
-	private String		employeeAdministrator;
+    private int id;
 
-	public int getId() {
-		return id;
-	}
+    private String contractNumber;
 
-	public void setId( int id ) {
-		this.id = id;
-	}
+    private BigDecimal totalMaxAmount;
 
-	public String getContractNumber() {
-		return contractNumber;
-	}
+    private boolean active;
 
-	public void setContractNumber( String contractNumber ) {
-		this.contractNumber = contractNumber;
-	}
+    private Date registrationDate;
 
-	public BigDecimal getTotalMaxAmount() {
-		return totalMaxAmount;
-	}
+    private String employeeRegistration;
 
-	public void setTotalMaxAmount( BigDecimal totalMaxAmount ) {
-		this.totalMaxAmount = totalMaxAmount;
-	}
+    private boolean byLiters;
 
-	public boolean isActive() {
-		return active;
-	}
+    private String employeeAdministrator;
 
-	public void setActive( boolean active ) {
-		this.active = active;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public Date getRegistrationDate() {
-		return registrationDate;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setRegistrationDate( Date registrationDate ) {
-		this.registrationDate = registrationDate;
-	}
+    public String getContractNumber() {
+        return contractNumber;
+    }
 
-	public String getEmployeeRegistration() {
-		return employeeRegistration;
-	}
+    public void setContractNumber(String contractNumber) {
+        this.contractNumber = contractNumber;
+    }
 
-	public void setEmployeeRegistration( String employeeRegistration ) {
-		this.employeeRegistration = employeeRegistration;
-	}
+    public BigDecimal getTotalMaxAmount() {
+        return totalMaxAmount;
+    }
 
-	public boolean isByLiters() {
-		return byLiters;
-	}
+    public void setTotalMaxAmount(BigDecimal totalMaxAmount) {
+        this.totalMaxAmount = totalMaxAmount;
+    }
 
-	public void setByLiters( boolean byLiters ) {
-		this.byLiters = byLiters;
-	}
+    public boolean isActive() {
+        return active;
+    }
 
-	@Override
-	public String toString() {
-		return "FuelContract [id=" + id + ", contractNumber=" + contractNumber + ", totalMaxAmount=" + totalMaxAmount + ", active=" + active + ", registrationDate=" + registrationDate + ", employeeRegistration=" + employeeRegistration + ", byLiters=" + byLiters + "]";
-	}
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
-	public String getEmployeeAdministrator() {
-		return employeeAdministrator;
-	}
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
 
-	public void setEmployeeAdministrator( String employeeAdministrator ) {
-		this.employeeAdministrator = employeeAdministrator;
-	}
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
 
+    public String getEmployeeRegistration() {
+        return employeeRegistration;
+    }
+
+    public void setEmployeeRegistration(String employeeRegistration) {
+        this.employeeRegistration = employeeRegistration;
+    }
+
+    public boolean isByLiters() {
+        return byLiters;
+    }
+
+    public void setByLiters(boolean byLiters) {
+        this.byLiters = byLiters;
+    }
+
+    @Override
+    public String toString() {
+        return "FuelContract [id=" + id + ", contractNumber=" + contractNumber + ", totalMaxAmount=" + totalMaxAmount + ", active=" + active + ", registrationDate=" + registrationDate + ", employeeRegistration=" + employeeRegistration + ", byLiters=" + byLiters + "]";
+    }
+
+    public String getEmployeeAdministrator() {
+        return employeeAdministrator;
+    }
+
+    public void setEmployeeAdministrator(String employeeAdministrator) {
+        this.employeeAdministrator = employeeAdministrator;
+    }
 }

@@ -68,6 +68,7 @@ import mx.grupocorasa.sat.cfdi.v4.CFDv40;
 import mx.grupocorasa.sat.common.CfdCommon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class FacturaManager {
 

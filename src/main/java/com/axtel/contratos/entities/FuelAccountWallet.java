@@ -1,96 +1,100 @@
 package com.axtel.contratos.entities;
 
-
 import java.util.Date;
 import java.util.Objects;
-
+import java.util.Base64;
 
 public class FuelAccountWallet {
 
-	private int		idFuelAccountWallet;
-	private int		idContractAccount;
-	private String	walletNumber;
-	private Integer	vehicleInventoryId;
-	private Date	registrationDate;
-	private String	userRegistration;
-	private int		status;
+    private int idFuelAccountWallet;
 
-	public int getIdFuelAccountWallet() {
-		return idFuelAccountWallet;
-	}
+    private int idContractAccount;
 
-	public void setIdFuelAccountWallet( int idFuelAccountWallet ) {
-		this.idFuelAccountWallet = idFuelAccountWallet;
-	}
+    private String walletNumber;
 
-	public int getIdContractAccount() {
-		return idContractAccount;
-	}
+    private Integer vehicleInventoryId;
 
-	public void setIdContractAccount( int idContractAccount ) {
-		this.idContractAccount = idContractAccount;
-	}
+    private Date registrationDate;
 
-	public String getWalletNumber() {
-		return walletNumber;
-	}
+    private String userRegistration;
 
-	public void setWalletNumber( String walletNumber ) {
-		this.walletNumber = walletNumber;
-	}
+    private int status;
 
-	public Integer getVehicleInventoryId() {
-		return vehicleInventoryId;
-	}
+    public int getIdFuelAccountWallet() {
+        return idFuelAccountWallet;
+    }
 
-	public void setVehicleInventoryId( Integer vehicleInventoryId ) {
-		this.vehicleInventoryId = vehicleInventoryId;
-	}
+    public void setIdFuelAccountWallet(int idFuelAccountWallet) {
+        this.idFuelAccountWallet = idFuelAccountWallet;
+    }
 
-	public Date getRegistrationDate() {
-		return registrationDate;
-	}
+    public int getIdContractAccount() {
+        return idContractAccount;
+    }
 
-	public void setRegistrationDate( Date registrationDate ) {
-		this.registrationDate = registrationDate;
-	}
+    public void setIdContractAccount(int idContractAccount) {
+        this.idContractAccount = idContractAccount;
+    }
 
-	public String getUserRegistration() {
-		return userRegistration;
-	}
+    public String getWalletNumber() {
+        return walletNumber;
+    }
 
-	public void setUserRegistration( String userRegistration ) {
-		this.userRegistration = userRegistration;
-	}
+    public void setWalletNumber(String walletNumber) {
+        this.walletNumber = walletNumber;
+    }
 
-	public int getStatus() {
-		return status;
-	}
+    public Integer getVehicleInventoryId() {
+        return vehicleInventoryId;
+    }
 
-	public void setStatus( int status ) {
-		this.status = status;
-	}
+    public void setVehicleInventoryId(Integer vehicleInventoryId) {
+        this.vehicleInventoryId = vehicleInventoryId;
+    }
 
-	@Override
-	public String toString() {
-		return "FuelAccountWallet [idFuelAccountWallet=" + idFuelAccountWallet + ", idContractAccount=" + idContractAccount + ", walletNumber=" + walletNumber + ", vehicleInventoryId=" + vehicleInventoryId + ", registrationDate=" + registrationDate + ", userRegistration=" + userRegistration + ", status=" + status + "]";
-	}
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash( idContractAccount, idFuelAccountWallet, registrationDate, status, userRegistration, vehicleInventoryId, walletNumber );
-	}
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
 
-	@Override
-	public boolean equals( Object obj ) {
-		if ( this == obj )
-			return true;
-		if ( obj == null )
-			return false;
-		if ( getClass() != obj.getClass() )
-			return false;
-		FuelAccountWallet other = ( FuelAccountWallet ) obj;
-		return idContractAccount == other.idContractAccount && idFuelAccountWallet == other.idFuelAccountWallet && Objects.equals( registrationDate, other.registrationDate ) && status == other.status && Objects.equals( userRegistration, other.userRegistration ) && Objects.equals( vehicleInventoryId, other.vehicleInventoryId ) && Objects.equals( walletNumber, other.walletNumber );
-	}
+    public String getUserRegistration() {
+        return userRegistration;
+    }
 
+    public void setUserRegistration(String userRegistration) {
+        this.userRegistration = userRegistration;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "FuelAccountWallet [idFuelAccountWallet=" + idFuelAccountWallet + ", idContractAccount=" + idContractAccount + ", walletNumber=" + walletNumber + ", vehicleInventoryId=" + vehicleInventoryId + ", registrationDate=" + registrationDate + ", userRegistration=" + userRegistration + ", status=" + status + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idContractAccount, idFuelAccountWallet, registrationDate, status, userRegistration, vehicleInventoryId, walletNumber);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        FuelAccountWallet other = (FuelAccountWallet) obj;
+        return idContractAccount == other.idContractAccount && idFuelAccountWallet == other.idFuelAccountWallet && Objects.equals(registrationDate, other.registrationDate) && status == other.status && Objects.equals(userRegistration, other.userRegistration) && Objects.equals(vehicleInventoryId, other.vehicleInventoryId) && Objects.equals(walletNumber, other.walletNumber);
+    }
 }

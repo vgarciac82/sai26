@@ -38,6 +38,7 @@ import mx.grupocorasa.sat.cfd._40.Comprobante;
 import mx.grupocorasa.sat.cfdi.v4.CFDv40;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class CFDIService extends DataSourceManager {
 

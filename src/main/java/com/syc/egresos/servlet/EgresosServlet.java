@@ -39,6 +39,7 @@ import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "EgresosServlet", urlPatterns = { "/egresos/validaPAAS", "/egresos/saveHeader", "/egresos/avanzaEstatus", "/egresos/updateHeader", "/egresos/resumenConcepto", "/egresos/resumenRetenciones", "/egresos/generaRetenciones", "/egresos/eliminaRetencion", "/egresos/actualizaRetencion", "/egresos/updateMontoRetenciones", "/egresos/guardaCalendario", "/egresos/resumenCalendario", "/egresos/resumenFinalPago", "/egresos/generaContrarecibo", "/egresos/RechazaPago", "/egresos/AutorizaPago", "/egresos/ConsultaFirmante", "/egresos/imprimeSolPago", "/egresos/apartadoPago", "/egresos/guardarPago", "/egresos/saveQuestionnaire", "/egresos/validaREPSE", "/egresos/validaMontoTotalizado" })
 public class EgresosServlet extends HttpServlet implements GestionInterface {

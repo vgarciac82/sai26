@@ -1,25 +1,26 @@
 package com.axtel.cfdi;
 
+import java.util.Base64;
 
 public class TipoDeComprobante {
 
-	private String	tipoDeComprobante;
-	private String	descripcion;
+    private String tipoDeComprobante;
 
-	public String getTipoDeComprobante() {
-		return tipoDeComprobante;
-	}
+    private String descripcion;
 
-	public void setTipoDeComprobante( String tipoDeComprobante ) {
-		this.tipoDeComprobante = tipoDeComprobante;
-	}
+    public String getTipoDeComprobante() {
+        return tipoDeComprobante;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public void setTipoDeComprobante(String tipoDeComprobante) {
+        this.tipoDeComprobante = tipoDeComprobante;
+    }
 
-	public void setDescripcion( String descripcion ) {
-		this.descripcion = descripcion;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 }

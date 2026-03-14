@@ -20,6 +20,7 @@ import com.syc.contable.ExtraeOABussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "LayoutExtraeOAServlet", urlPatterns = { "/gstnmngr/generaLayoutOAServlet" })
 public class LayoutExtraeOAServlet extends HttpServlet {

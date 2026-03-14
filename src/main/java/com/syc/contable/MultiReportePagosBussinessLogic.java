@@ -9,6 +9,7 @@ import com.syc.crud.dsmngr.DataSourceManager;
 import com.syc.gestion.core.GestionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class MultiReportePagosBussinessLogic extends DataSourceManager {
 

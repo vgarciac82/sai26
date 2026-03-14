@@ -1,74 +1,79 @@
 package com.axtel.cfdi;
 
-
 import java.math.BigDecimal;
-
+import java.util.Base64;
 
 public class CFDIImpuesto {
 
-	private int			cfdiImpuestoId;
-	private int			cfdiDetalleId;
-	private String		tipo;			// 'R' para Retenciones, 'T' para
-										// Traslados
-	private Impuesto	impuesto;
-	private TipoFactor	tipoFactor;
-	private BigDecimal	tasaOCuota;
-	private BigDecimal	importe;
+    private int cfdiImpuestoId;
 
-	public int getCfdiImpuestoId() {
-		return cfdiImpuestoId;
-	}
+    private int cfdiDetalleId;
 
-	public void setCfdiImpuestoId( int cfdiImpuestoId ) {
-		this.cfdiImpuestoId = cfdiImpuestoId;
-	}
+    // 'R' para Retenciones, 'T' para
+    private String tipo;
 
-	public int getCfdiDetalleId() {
-		return cfdiDetalleId;
-	}
+    // Traslados
+    private Impuesto impuesto;
 
-	public void setCfdiDetalleId( int cfdiDetalleId ) {
-		this.cfdiDetalleId = cfdiDetalleId;
-	}
+    private TipoFactor tipoFactor;
 
-	public String getTipo() {
-		return tipo;
-	}
+    private BigDecimal tasaOCuota;
 
-	public void setTipo( String tipo ) {
-		this.tipo = tipo;
-	}
+    private BigDecimal importe;
 
-	public Impuesto getImpuesto() {
-		return impuesto;
-	}
+    public int getCfdiImpuestoId() {
+        return cfdiImpuestoId;
+    }
 
-	public void setImpuesto( Impuesto impuesto ) {
-		this.impuesto = impuesto;
-	}
+    public void setCfdiImpuestoId(int cfdiImpuestoId) {
+        this.cfdiImpuestoId = cfdiImpuestoId;
+    }
 
-	public TipoFactor getTipoFactor() {
-		return tipoFactor;
-	}
+    public int getCfdiDetalleId() {
+        return cfdiDetalleId;
+    }
 
-	public void setTipoFactor( TipoFactor tipoFactor ) {
-		this.tipoFactor = tipoFactor;
-	}
+    public void setCfdiDetalleId(int cfdiDetalleId) {
+        this.cfdiDetalleId = cfdiDetalleId;
+    }
 
-	public BigDecimal getTasaOCuota() {
-		return tasaOCuota;
-	}
+    public String getTipo() {
+        return tipo;
+    }
 
-	public void setTasaOCuota( BigDecimal tasaOCuota ) {
-		this.tasaOCuota = tasaOCuota;
-	}
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
-	public BigDecimal getImporte() {
-		return importe;
-	}
+    public Impuesto getImpuesto() {
+        return impuesto;
+    }
 
-	public void setImporte( BigDecimal importe ) {
-		this.importe = importe;
-	}
+    public void setImpuesto(Impuesto impuesto) {
+        this.impuesto = impuesto;
+    }
 
+    public TipoFactor getTipoFactor() {
+        return tipoFactor;
+    }
+
+    public void setTipoFactor(TipoFactor tipoFactor) {
+        this.tipoFactor = tipoFactor;
+    }
+
+    public BigDecimal getTasaOCuota() {
+        return tasaOCuota;
+    }
+
+    public void setTasaOCuota(BigDecimal tasaOCuota) {
+        this.tasaOCuota = tasaOCuota;
+    }
+
+    public BigDecimal getImporte() {
+        return importe;
+    }
+
+    public void setImporte(BigDecimal importe) {
+        this.importe = importe;
+    }
 }

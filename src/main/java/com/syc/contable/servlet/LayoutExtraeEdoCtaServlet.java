@@ -20,6 +20,7 @@ import com.syc.contable.ExtraeEdoCtaBussinessLogic;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "LayoutExtraeEdoCtaServlet", urlPatterns = { "/gstnmngr/generaLayoutEdoCtaServlet" })
 public class LayoutExtraeEdoCtaServlet extends HttpServlet {

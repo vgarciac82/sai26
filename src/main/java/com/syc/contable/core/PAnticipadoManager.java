@@ -20,6 +20,7 @@ import com.syc.gestion.core.Caso;
 import com.syc.gestion.core.CasoDatoManager;
 import com.syc.gestion.core.GestionException;
 import com.syc.gestion.servlet.GestionInterface;
+import java.util.Base64;
 
 public class PAnticipadoManager {
 

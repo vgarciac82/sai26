@@ -1,12 +1,10 @@
 package com.axtel.sisecop.services;
 
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
-
 import com.axtel.sisecop.entities.ProyectoServicio;
 import com.axtel.sisecop.repostories.ProductRepository;
 import com.axtel.sisecop.repostories.ProjectActivityRepository;
@@ -27,177 +25,182 @@ import com.syc.gestion.core.UsuarioManager;
 import com.syc.gestion.custom.FolioGeneratorInterface;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;
-
+import java.util.Base64;
 
 public abstract class ProyectoServicioGeneral extends DataSourceManager {
 
-	private static final FolioGeneratorInterface	FOLIO_GENERATOR	= Util.getFolioGenerator( GestionInterface.FOLIO_GENERATOR );
+    private static final FolioGeneratorInterface FOLIO_GENERATOR = Util.getFolioGenerator(GestionInterface.FOLIO_GENERATOR);
 
-	private ProjectBudgetRepository					budgetRepository;
-	private ProyectoConfidencialidadRepositorio		confidencialidadRepositorio;
-	private ProyectoEstatusRepositorio				estatusRepositorio;
-	private ProjectObservationsRepository			observationReporitory;
-	private ProductRepository						productRepository;
-	private ProjectActivityRepository				projectActivityRepository;
-	private ProjectPaymentRepository				projectPaymentRepository;
-	private CFSequenceManager						sequenceManager;
-	private ProyectoServicioRepositorio				servicioRepositorio;
-	private ProjectProcurementProcessRepository		tdrRepositorio;
-	private ProyectoTerritorioRepositorio			territorioRepositorio;
-	private ProyectoTipoRepositorio					tipoRepositorio;
-	private ProyectoExcepcionRepository				excepcionRepository;
+    private ProjectBudgetRepository budgetRepository;
 
-	public ProyectoServicioGeneral( ) {
-		super.init();
-		createObjects();
-		sequenceManager = CFSequenceManager.getInstance();
+    private ProyectoConfidencialidadRepositorio confidencialidadRepositorio;
 
-	}
+    private ProyectoEstatusRepositorio estatusRepositorio;
 
-	public ProyectoServicioGeneral( String jniName ) {
-		super.init( jniName );
-		createObjects();
-		sequenceManager = CFSequenceManager.getInstance( jniName );
+    private ProjectObservationsRepository observationReporitory;
 
-	}
+    private ProductRepository productRepository;
 
-	private final void createObjects() {
-		this.servicioRepositorio = new ProyectoServicioRepositorio();
-		setServicioRepositorio( servicioRepositorio );
-		
-		this.confidencialidadRepositorio = new ProyectoConfidencialidadRepositorio();
-		this.estatusRepositorio = new ProyectoEstatusRepositorio();
-		this.tipoRepositorio = new ProyectoTipoRepositorio();
-		this.territorioRepositorio = new ProyectoTerritorioRepositorio();
-		this.productRepository = new ProductRepository();
-		this.tdrRepositorio = new ProjectProcurementProcessRepository();
-		this.projectActivityRepository = new ProjectActivityRepository();
-		this.projectPaymentRepository = new ProjectPaymentRepository();
-		this.observationReporitory = new ProjectObservationsRepository();
-		this.budgetRepository = new ProjectBudgetRepository();
-		this.excepcionRepository = new ProyectoExcepcionRepository();
+    private ProjectActivityRepository projectActivityRepository;
 
-		getServicioRepositorio().setConfidencialidadRepositorio( confidencialidadRepositorio );
-		getServicioRepositorio().setEstatusRepositorio( estatusRepositorio );
-		getServicioRepositorio().setTipoRepositorio( tipoRepositorio );
-		getServicioRepositorio().setTerritorioRepositorio( territorioRepositorio );
-		getServicioRepositorio().setProductRepository( productRepository );
-		getServicioRepositorio().setTdrRepositorio( tdrRepositorio );
-		getServicioRepositorio().setBudgetRepository( budgetRepository );
-		getServicioRepositorio().setProjectActivityRepository( projectActivityRepository );
-		getServicioRepositorio().setProjectPaymentRepository( projectPaymentRepository );
-		getServicioRepositorio().setExcepcionRepositorio( excepcionRepository );
-	}
+    private ProjectPaymentRepository projectPaymentRepository;
 
-	public int createProyectoServicio( Connection connection, ProyectoServicio proyectoServicio ) throws SQLException {
-		Caso c = initProcess( connection, proyectoServicio );
+    private CFSequenceManager sequenceManager;
 
-		proyectoServicio.setIdProcess( c.getIdCaso() );
-		proyectoServicio.setServicioModificacion( new Timestamp( System.currentTimeMillis() ) );
-		proyectoServicio.setServicioCreacion( new Timestamp( System.currentTimeMillis() ) );
-		proyectoServicio.setServicioFolioNum( sequenceManager.nextVal( connection, "PROJECT_" + proyectoServicio.getServicioFolioAnio() ) );
+    private ProyectoServicioRepositorio servicioRepositorio;
 
-		return getServicioRepositorio().create( connection, proyectoServicio );
-	}
+    private ProjectProcurementProcessRepository tdrRepositorio;
 
-	public ProjectBudgetRepository getBudgetRepository() {
-		return budgetRepository;
-	}
+    private ProyectoTerritorioRepositorio territorioRepositorio;
 
-	public ProyectoConfidencialidadRepositorio getConfidencialidadRepositorio() {
-		return confidencialidadRepositorio;
-	}
+    private ProyectoTipoRepositorio tipoRepositorio;
 
-	public ProyectoEstatusRepositorio getEstatusRepositorio() {
-		return estatusRepositorio;
-	}
+    private ProyectoExcepcionRepository excepcionRepository;
 
-	public ProjectObservationsRepository getObservationReporitory() {
-		return observationReporitory;
-	}
+    public ProyectoServicioGeneral() {
+        super.init();
+        createObjects();
+        sequenceManager = CFSequenceManager.getInstance();
+    }
 
-	public ProductRepository getProductRepository() {
-		return productRepository;
-	}
+    public ProyectoServicioGeneral(String jniName) {
+        super.init(jniName);
+        createObjects();
+        sequenceManager = CFSequenceManager.getInstance(jniName);
+    }
 
-	public ProjectActivityRepository getProjectActivityRepository() {
-		return projectActivityRepository;
-	}
+    private final void createObjects() {
+        this.servicioRepositorio = new ProyectoServicioRepositorio();
+        setServicioRepositorio(servicioRepositorio);
+        this.confidencialidadRepositorio = new ProyectoConfidencialidadRepositorio();
+        this.estatusRepositorio = new ProyectoEstatusRepositorio();
+        this.tipoRepositorio = new ProyectoTipoRepositorio();
+        this.territorioRepositorio = new ProyectoTerritorioRepositorio();
+        this.productRepository = new ProductRepository();
+        this.tdrRepositorio = new ProjectProcurementProcessRepository();
+        this.projectActivityRepository = new ProjectActivityRepository();
+        this.projectPaymentRepository = new ProjectPaymentRepository();
+        this.observationReporitory = new ProjectObservationsRepository();
+        this.budgetRepository = new ProjectBudgetRepository();
+        this.excepcionRepository = new ProyectoExcepcionRepository();
+        getServicioRepositorio().setConfidencialidadRepositorio(confidencialidadRepositorio);
+        getServicioRepositorio().setEstatusRepositorio(estatusRepositorio);
+        getServicioRepositorio().setTipoRepositorio(tipoRepositorio);
+        getServicioRepositorio().setTerritorioRepositorio(territorioRepositorio);
+        getServicioRepositorio().setProductRepository(productRepository);
+        getServicioRepositorio().setTdrRepositorio(tdrRepositorio);
+        getServicioRepositorio().setBudgetRepository(budgetRepository);
+        getServicioRepositorio().setProjectActivityRepository(projectActivityRepository);
+        getServicioRepositorio().setProjectPaymentRepository(projectPaymentRepository);
+        getServicioRepositorio().setExcepcionRepositorio(excepcionRepository);
+    }
 
-	public ProjectPaymentRepository getProjectPaymentRepository() {
-		return projectPaymentRepository;
-	}
+    public int createProyectoServicio(Connection connection, ProyectoServicio proyectoServicio) throws SQLException {
+        Caso c = initProcess(connection, proyectoServicio);
+        proyectoServicio.setIdProcess(c.getIdCaso());
+        proyectoServicio.setServicioModificacion(new Timestamp(System.currentTimeMillis()));
+        proyectoServicio.setServicioCreacion(new Timestamp(System.currentTimeMillis()));
+        proyectoServicio.setServicioFolioNum(sequenceManager.nextVal(connection, "PROJECT_" + proyectoServicio.getServicioFolioAnio()));
+        return getServicioRepositorio().create(connection, proyectoServicio);
+    }
 
-	public ProyectoServicioRepositorio getServicioRepositorio() {
-		return servicioRepositorio;
-	}
+    public ProjectBudgetRepository getBudgetRepository() {
+        return budgetRepository;
+    }
 
-	public ProjectProcurementProcessRepository getTdrRepositorio() {
-		return tdrRepositorio;
-	}
+    public ProyectoConfidencialidadRepositorio getConfidencialidadRepositorio() {
+        return confidencialidadRepositorio;
+    }
 
-	public ProyectoTerritorioRepositorio getTerritorioRepositorio() {
-		return territorioRepositorio;
-	}
+    public ProyectoEstatusRepositorio getEstatusRepositorio() {
+        return estatusRepositorio;
+    }
 
-	public ProyectoTipoRepositorio getTipoRepositorio() {
-		return tipoRepositorio;
-	}
+    public ProjectObservationsRepository getObservationReporitory() {
+        return observationReporitory;
+    }
 
-	public Caso initProcess( Connection conn, ProyectoServicio proyectoServicio ) {
-		try {
-			Usuario u = new Usuario( proyectoServicio.getLoginUsuario() );
-			u = UsuarioManager.select( conn, u );
-			u = UsuarioManager.getRamoUR( conn, u );
-			Map<String, String> variables = new HashMap<>();
-			return Util.generaCaso( conn, u, 97, FOLIO_GENERATOR, "PROJECT_REGISTER", variables );
-		} catch ( Exception e ) {
-			throw new RuntimeException( e );
-		}
-	}
+    public ProductRepository getProductRepository() {
+        return productRepository;
+    }
 
-	public void setBudgetRepository( ProjectBudgetRepository budgetRepository ) {
-		this.budgetRepository = budgetRepository;
-	}
+    public ProjectActivityRepository getProjectActivityRepository() {
+        return projectActivityRepository;
+    }
 
-	public void setConfidencialidadRepositorio( ProyectoConfidencialidadRepositorio confidencialidadRepositorio ) {
-		this.confidencialidadRepositorio = confidencialidadRepositorio;
-	}
+    public ProjectPaymentRepository getProjectPaymentRepository() {
+        return projectPaymentRepository;
+    }
 
-	public void setEstatusRepositorio( ProyectoEstatusRepositorio estatusRepositorio ) {
-		this.estatusRepositorio = estatusRepositorio;
-	}
+    public ProyectoServicioRepositorio getServicioRepositorio() {
+        return servicioRepositorio;
+    }
 
-	public void setObservationReporitory( ProjectObservationsRepository observationReporitory ) {
-		this.observationReporitory = observationReporitory;
-	}
+    public ProjectProcurementProcessRepository getTdrRepositorio() {
+        return tdrRepositorio;
+    }
 
-	public void setProductRepository( ProductRepository productRepository ) {
-		this.productRepository = productRepository;
-	}
+    public ProyectoTerritorioRepositorio getTerritorioRepositorio() {
+        return territorioRepositorio;
+    }
 
-	public void setProjectActivityRepository( ProjectActivityRepository projectActivityRepository ) {
-		this.projectActivityRepository = projectActivityRepository;
-	}
+    public ProyectoTipoRepositorio getTipoRepositorio() {
+        return tipoRepositorio;
+    }
 
-	public void setProjectPaymentRepository( ProjectPaymentRepository projectPaymentRepository ) {
-		this.projectPaymentRepository = projectPaymentRepository;
-	}
+    public Caso initProcess(Connection conn, ProyectoServicio proyectoServicio) {
+        try {
+            Usuario u = new Usuario(proyectoServicio.getLoginUsuario());
+            u = UsuarioManager.select(conn, u);
+            u = UsuarioManager.getRamoUR(conn, u);
+            Map<String, String> variables = new HashMap<>();
+            return Util.generaCaso(conn, u, 97, FOLIO_GENERATOR, "PROJECT_REGISTER", variables);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-	public void setServicioRepositorio( ProyectoServicioRepositorio servicioRepositorio ) {
-		this.servicioRepositorio = servicioRepositorio;
-	}
+    public void setBudgetRepository(ProjectBudgetRepository budgetRepository) {
+        this.budgetRepository = budgetRepository;
+    }
 
-	public void setTdrRepositorio( ProjectProcurementProcessRepository tdrRepositorio ) {
-		this.tdrRepositorio = tdrRepositorio;
-	}
+    public void setConfidencialidadRepositorio(ProyectoConfidencialidadRepositorio confidencialidadRepositorio) {
+        this.confidencialidadRepositorio = confidencialidadRepositorio;
+    }
 
-	public void setTerritorioRepositorio( ProyectoTerritorioRepositorio territorioRepositorio ) {
-		this.territorioRepositorio = territorioRepositorio;
-	}
+    public void setEstatusRepositorio(ProyectoEstatusRepositorio estatusRepositorio) {
+        this.estatusRepositorio = estatusRepositorio;
+    }
 
-	public void setTipoRepositorio( ProyectoTipoRepositorio tipoRepositorio ) {
-		this.tipoRepositorio = tipoRepositorio;
-	}
+    public void setObservationReporitory(ProjectObservationsRepository observationReporitory) {
+        this.observationReporitory = observationReporitory;
+    }
 
+    public void setProductRepository(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
+    public void setProjectActivityRepository(ProjectActivityRepository projectActivityRepository) {
+        this.projectActivityRepository = projectActivityRepository;
+    }
+
+    public void setProjectPaymentRepository(ProjectPaymentRepository projectPaymentRepository) {
+        this.projectPaymentRepository = projectPaymentRepository;
+    }
+
+    public void setServicioRepositorio(ProyectoServicioRepositorio servicioRepositorio) {
+        this.servicioRepositorio = servicioRepositorio;
+    }
+
+    public void setTdrRepositorio(ProjectProcurementProcessRepository tdrRepositorio) {
+        this.tdrRepositorio = tdrRepositorio;
+    }
+
+    public void setTerritorioRepositorio(ProyectoTerritorioRepositorio territorioRepositorio) {
+        this.territorioRepositorio = territorioRepositorio;
+    }
+
+    public void setTipoRepositorio(ProyectoTipoRepositorio tipoRepositorio) {
+        this.tipoRepositorio = tipoRepositorio;
+    }
 }

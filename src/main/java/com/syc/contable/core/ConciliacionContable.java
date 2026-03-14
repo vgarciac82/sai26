@@ -1,31 +1,33 @@
 package com.syc.contable.core;
 
 import java.util.List;
+import java.util.Base64;
 
 public class ConciliacionContable {
-	private List<ConciliacionContableDetalle>	detalle;
-	private ConciliacionContableEncabezado		encabezado;
 
-	public ConciliacionContable(ConciliacionContableEncabezado encabezado, List<ConciliacionContableDetalle> detalle) {
-		super();
-		this.encabezado = encabezado;
-		this.detalle = detalle;
-	}
+    private List<ConciliacionContableDetalle> detalle;
 
-	public List<ConciliacionContableDetalle> getDetalle() {
-		return detalle;
-	}
+    private ConciliacionContableEncabezado encabezado;
 
-	public ConciliacionContableEncabezado getEncabezado() {
-		return encabezado;
-	}
+    public ConciliacionContable(ConciliacionContableEncabezado encabezado, List<ConciliacionContableDetalle> detalle) {
+        super();
+        this.encabezado = encabezado;
+        this.detalle = detalle;
+    }
 
-	public void setDetalle(List<ConciliacionContableDetalle> detalle) {
-		this.detalle = detalle;
-	}
+    public List<ConciliacionContableDetalle> getDetalle() {
+        return detalle;
+    }
 
-	public void setEncabezado(ConciliacionContableEncabezado encabezado) {
-		this.encabezado = encabezado;
-	}
+    public ConciliacionContableEncabezado getEncabezado() {
+        return encabezado;
+    }
 
+    public void setDetalle(List<ConciliacionContableDetalle> detalle) {
+        this.detalle = detalle;
+    }
+
+    public void setEncabezado(ConciliacionContableEncabezado encabezado) {
+        this.encabezado = encabezado;
+    }
 }

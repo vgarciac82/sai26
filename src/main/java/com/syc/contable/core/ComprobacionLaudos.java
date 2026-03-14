@@ -1,152 +1,154 @@
 package com.syc.contable.core;
 
 import java.sql.ResultSet;
+import java.util.Base64;
 
 public class ComprobacionLaudos {
 
-	private String	esDevengado;
-	private String	esLiquidacion;
-	private String	esRetencionSicop;
-	private int		folioCaja;
-	private int		folioRelacionGastos;
-	private double	importeNeto;
-	private double	importeCaja;
-	private double	importeRetencion;
+    private String esDevengado;
 
-	/**
-	 * @return the esDevengado
-	 */
-	public String getEsDevengado() {
-		return esDevengado;
-	}
+    private String esLiquidacion;
 
-	/**
-	 * @return the esLiquidacion
-	 */
-	public String getEsLiquidacion() {
-		return esLiquidacion;
-	}
+    private String esRetencionSicop;
 
-	/**
-	 * @return the esRetencionSicop
-	 */
-	public String getEsRetencionSicop() {
-		return esRetencionSicop;
-	}
+    private int folioCaja;
 
-	/**
-	 * @return the folioCaja
-	 */
-	public int getFolioCaja() {
-		return folioCaja;
-	}
+    private int folioRelacionGastos;
 
-	/**
-	 * @return the folioRelacionGastos
-	 */
-	public int getFolioRelacionGastos() {
-		return folioRelacionGastos;
-	}
+    private double importeNeto;
 
-	/**
-	 * @return the importeNeto
-	 */
-	public double getImporteNeto() {
-		return importeNeto;
-	}
+    private double importeCaja;
 
-	/**
-	 * @return the importeRetencion
-	 */
-	public double getImporteRetencion() {
-		return importeRetencion;
-	}
+    private double importeRetencion;
 
-	/**
-	 * @param esDevengado
-	 *            the esDevengado to set
-	 */
-	public void setEsDevengado(String esDevengado) {
-		this.esDevengado = esDevengado;
-	}
+    /**
+     * @return the esDevengado
+     */
+    public String getEsDevengado() {
+        return esDevengado;
+    }
 
-	/**
-	 * @param esLiquidacion
-	 *            the esLiquidacion to set
-	 */
-	public void setEsLiquidacion(String esLiquidacion) {
-		this.esLiquidacion = esLiquidacion;
-	}
+    /**
+     * @return the esLiquidacion
+     */
+    public String getEsLiquidacion() {
+        return esLiquidacion;
+    }
 
-	/**
-	 * @param esRetencionSicop
-	 *            the esRetencionSicop to set
-	 */
-	public void setEsRetencionSicop(String esRetencionSicop) {
-		this.esRetencionSicop = esRetencionSicop;
-	}
+    /**
+     * @return the esRetencionSicop
+     */
+    public String getEsRetencionSicop() {
+        return esRetencionSicop;
+    }
 
-	/**
-	 * @param folioCaja
-	 *            the folioCaja to set
-	 */
-	public void setFolioCaja(int folioCaja) {
-		this.folioCaja = folioCaja;
-	}
+    /**
+     * @return the folioCaja
+     */
+    public int getFolioCaja() {
+        return folioCaja;
+    }
 
-	/**
-	 * @param folioRelacionGastos
-	 *            the folioRelacionGastos to set
-	 */
-	public void setFolioRelacionGastos(int folioRelacionGastos) {
-		this.folioRelacionGastos = folioRelacionGastos;
-	}
+    /**
+     * @return the folioRelacionGastos
+     */
+    public int getFolioRelacionGastos() {
+        return folioRelacionGastos;
+    }
 
-	/**
-	 * @param importeNeto
-	 *            the importeNeto to set
-	 */
-	public void setImporteNeto(double importeNeto) {
-		this.importeNeto = importeNeto;
-	}
+    /**
+     * @return the importeNeto
+     */
+    public double getImporteNeto() {
+        return importeNeto;
+    }
 
-	/**
-	 * @param importeRetencion
-	 *            the importeRetencion to set
-	 */
-	public void setImporteRetencion(double importeRetencion) {
-		this.importeRetencion = importeRetencion;
-	}
+    /**
+     * @return the importeRetencion
+     */
+    public double getImporteRetencion() {
+        return importeRetencion;
+    }
 
-	public static ComprobacionLaudos instance(ResultSet rs) throws Exception {
+    /**
+     * @param esDevengado
+     *            the esDevengado to set
+     */
+    public void setEsDevengado(String esDevengado) {
+        this.esDevengado = esDevengado;
+    }
 
-		ComprobacionLaudos comprobacion = new ComprobacionLaudos();
-		
-		comprobacion.setFolioRelacionGastos(rs.getInt("nFolioRELACIONGASTOS"));
-		comprobacion.setFolioCaja(rs.getInt("nFolioCaja"));
-		comprobacion.setImporteRetencion(rs.getDouble("mImporteRet"));
-		comprobacion.setImporteNeto(rs.getDouble("mImporteNeto"));
-		comprobacion.setEsRetencionSicop(rs.getString("cRetSICOP"));
-		comprobacion.setEsDevengado(rs.getString("cEsDevengado"));
-		comprobacion.setEsLiquidacion(rs.getString("cEsLiquidacion"));
-		
-		return comprobacion;
-	}
+    /**
+     * @param esLiquidacion
+     *            the esLiquidacion to set
+     */
+    public void setEsLiquidacion(String esLiquidacion) {
+        this.esLiquidacion = esLiquidacion;
+    }
 
-	/**
-	 * @return the importeCaja
-	 */
-	public double getImporteCaja() {
-		return importeCaja;
-	}
+    /**
+     * @param esRetencionSicop
+     *            the esRetencionSicop to set
+     */
+    public void setEsRetencionSicop(String esRetencionSicop) {
+        this.esRetencionSicop = esRetencionSicop;
+    }
 
-	/**
-	 * @param importeCaja the importeCaja to set
-	 */
-	public void setImporteCaja(double importeCaja) {
-		this.importeCaja = importeCaja;
-	}
-	
-	
+    /**
+     * @param folioCaja
+     *            the folioCaja to set
+     */
+    public void setFolioCaja(int folioCaja) {
+        this.folioCaja = folioCaja;
+    }
 
+    /**
+     * @param folioRelacionGastos
+     *            the folioRelacionGastos to set
+     */
+    public void setFolioRelacionGastos(int folioRelacionGastos) {
+        this.folioRelacionGastos = folioRelacionGastos;
+    }
+
+    /**
+     * @param importeNeto
+     *            the importeNeto to set
+     */
+    public void setImporteNeto(double importeNeto) {
+        this.importeNeto = importeNeto;
+    }
+
+    /**
+     * @param importeRetencion
+     *            the importeRetencion to set
+     */
+    public void setImporteRetencion(double importeRetencion) {
+        this.importeRetencion = importeRetencion;
+    }
+
+    public static ComprobacionLaudos instance(ResultSet rs) throws Exception {
+        ComprobacionLaudos comprobacion = new ComprobacionLaudos();
+        comprobacion.setFolioRelacionGastos(rs.getInt("nFolioRELACIONGASTOS"));
+        comprobacion.setFolioCaja(rs.getInt("nFolioCaja"));
+        comprobacion.setImporteRetencion(rs.getDouble("mImporteRet"));
+        comprobacion.setImporteNeto(rs.getDouble("mImporteNeto"));
+        comprobacion.setEsRetencionSicop(rs.getString("cRetSICOP"));
+        comprobacion.setEsDevengado(rs.getString("cEsDevengado"));
+        comprobacion.setEsLiquidacion(rs.getString("cEsLiquidacion"));
+        return comprobacion;
+    }
+
+    /**
+     * @return the importeCaja
+     */
+    public double getImporteCaja() {
+        return importeCaja;
+    }
+
+    /**
+     * @param importeCaja the importeCaja to set
+     */
+    public void setImporteCaja(double importeCaja) {
+        this.importeCaja = importeCaja;
+    }
 }

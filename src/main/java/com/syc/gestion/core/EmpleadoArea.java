@@ -1,89 +1,87 @@
 package com.syc.gestion.core;
 
 import java.io.Serializable;
+import java.util.Base64;
 
-public class EmpleadoArea implements Serializable{
+public class EmpleadoArea implements Serializable {
 
-	private final static long serialVersionUID = 1;
+    private final static long serialVersionUID = 1;
 
-	private String id;
-	private String descripcion;
-	private String prefijoFolio;
-	private int tipoArea =-1;
-	private String areaPadre;
-	private boolean bandejaEntradaCompartida;
-	private boolean bandejaSalidaCompartida;
-	
-	
-	public String getId() {
-		return id;
-	}
+    private String id;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    private String descripcion;
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    private String prefijoFolio;
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    private int tipoArea = -1;
 
-	public String getPrefijoFolio() {
-		return prefijoFolio;
-	}
+    private String areaPadre;
 
-	public void setPrefijoFolio(String folio) {
-		this.prefijoFolio = folio;
-	}
+    private boolean bandejaEntradaCompartida;
 
-	public int getTipoArea() {
-		return tipoArea;
-	}
+    private boolean bandejaSalidaCompartida;
 
-	public void setTipoArea(int tipoArea) {
-		this.tipoArea = tipoArea;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public EmpleadoArea() {
-		super();
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getAreaPadre() {
-		return areaPadre;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	public void setAreaPadre(String areaPadre) {
-		this.areaPadre = areaPadre;
-	}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-	public boolean isBandejaEntradaCompartida() {
-		return bandejaEntradaCompartida;
-	}
+    public String getPrefijoFolio() {
+        return prefijoFolio;
+    }
 
-	public void setBandejaEntradaCompartida(boolean bandejaEntradaCompartida) {
-		this.bandejaEntradaCompartida = bandejaEntradaCompartida;
-	}
+    public void setPrefijoFolio(String folio) {
+        this.prefijoFolio = folio;
+    }
 
-	public boolean isBandejaSalidaCompartida() {
-		return bandejaSalidaCompartida;
-	}
+    public int getTipoArea() {
+        return tipoArea;
+    }
 
-	public void setBandejaSalidaCompartida(boolean bandejaSalidaCompartida) {
-		this.bandejaSalidaCompartida = bandejaSalidaCompartida;
-	}
-	
-	public String toString() {
-		return "com.syc.gestion.core.EmpleadoArea {\n" +
-		"\t\tid=["+this.id+"],\n"+
-		"\t\tdescripcion=["+this.descripcion+"],\n"+
-		"\t\tprefijoFolio=["+this.prefijoFolio+"],\n"+
-		"\t\ttipoArea=["+this.tipoArea+"],\n"+
-		"\t\tareaPadre=["+this.areaPadre+"],\n"+
-		"\t\tbandejaEntradaCompartida=["+this.bandejaEntradaCompartida+"],\n"+
-		"\t\tbandejaSalidaCompartida=["+this.bandejaSalidaCompartida+"],\n"+
-		"}"; 
-	}
+    public void setTipoArea(int tipoArea) {
+        this.tipoArea = tipoArea;
+    }
+
+    public EmpleadoArea() {
+        super();
+    }
+
+    public String getAreaPadre() {
+        return areaPadre;
+    }
+
+    public void setAreaPadre(String areaPadre) {
+        this.areaPadre = areaPadre;
+    }
+
+    public boolean isBandejaEntradaCompartida() {
+        return bandejaEntradaCompartida;
+    }
+
+    public void setBandejaEntradaCompartida(boolean bandejaEntradaCompartida) {
+        this.bandejaEntradaCompartida = bandejaEntradaCompartida;
+    }
+
+    public boolean isBandejaSalidaCompartida() {
+        return bandejaSalidaCompartida;
+    }
+
+    public void setBandejaSalidaCompartida(boolean bandejaSalidaCompartida) {
+        this.bandejaSalidaCompartida = bandejaSalidaCompartida;
+    }
+
+    public String toString() {
+        return "com.syc.gestion.core.EmpleadoArea {\n" + "\t\tid=[" + this.id + "],\n" + "\t\tdescripcion=[" + this.descripcion + "],\n" + "\t\tprefijoFolio=[" + this.prefijoFolio + "],\n" + "\t\ttipoArea=[" + this.tipoArea + "],\n" + "\t\tareaPadre=[" + this.areaPadre + "],\n" + "\t\tbandejaEntradaCompartida=[" + this.bandejaEntradaCompartida + "],\n" + "\t\tbandejaSalidaCompartida=[" + this.bandejaSalidaCompartida + "],\n" + "}";
+    }
 }

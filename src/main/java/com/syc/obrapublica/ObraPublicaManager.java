@@ -22,6 +22,7 @@ import com.syc.ws.obrapublica.core.EstimacionObra;
 import sun.security.rsa.RSACore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class ObraPublicaManager {
 

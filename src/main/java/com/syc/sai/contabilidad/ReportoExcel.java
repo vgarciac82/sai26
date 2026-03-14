@@ -16,6 +16,7 @@ import com.syc.gestion.reportes.ReporteBussinesLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ReportetoExcel", urlPatterns = { "/reports/ReportetoExcel" })
 public class ReportoExcel extends DtableToExcel {

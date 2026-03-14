@@ -14,6 +14,7 @@ import com.syc.sai.contabilidad.utils.db.CloseObject;
 import com.syc.sai.ingresos.core.ConsolidacionRGManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 /**
  * Se encarga de realizar el proceso de Ejercido/Pagado segun los estatus de los

@@ -31,6 +31,7 @@ import com.syc.sai.contabilidad.utils.db.CloseObject;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "EnviaMailFechaVigenciaCP", urlPatterns = { "/servlet/EnviaMailFechaVigenciaCP" })
 public class EnviaMailFechaVigenciaCP extends HttpServlet implements Runnable {

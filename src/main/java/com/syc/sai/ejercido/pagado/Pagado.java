@@ -1,61 +1,61 @@
 package com.syc.sai.ejercido.pagado;
 
 import java.util.List;
+import java.util.Base64;
 
 public class Pagado {
 
-	private List<PagadoDetalle>	detalle;
-	private PagadoEncabezado	encabezado;
+    private List<PagadoDetalle> detalle;
 
-	public Pagado(PagadoEncabezado encabezado, List<PagadoDetalle> detalle) {
-		this.encabezado = encabezado;
-		this.detalle = detalle;
-	}
+    private PagadoEncabezado encabezado;
 
-	/**
-	 * @return the detalle
-	 */
-	public List<PagadoDetalle> getDetalle() {
-		return detalle;
-	}
+    public Pagado(PagadoEncabezado encabezado, List<PagadoDetalle> detalle) {
+        this.encabezado = encabezado;
+        this.detalle = detalle;
+    }
 
-	/**
-	 * @return the encabezado
-	 */
-	public PagadoEncabezado getEncabezado() {
-		return encabezado;
-	}
+    /**
+     * @return the detalle
+     */
+    public List<PagadoDetalle> getDetalle() {
+        return detalle;
+    }
 
-	/**
-	 * @param detalle
-	 *            the detalle to set
-	 */
-	public void setDetalle(List<PagadoDetalle> detalle) {
-		this.detalle = detalle;
-	}
+    /**
+     * @return the encabezado
+     */
+    public PagadoEncabezado getEncabezado() {
+        return encabezado;
+    }
 
-	/**
-	 * @param encabezado
-	 *            the encabezado to set
-	 */
-	public void setEncabezado(PagadoEncabezado encabezado) {
-		this.encabezado = encabezado;
-	}
+    /**
+     * @param detalle
+     *            the detalle to set
+     */
+    public void setDetalle(List<PagadoDetalle> detalle) {
+        this.detalle = detalle;
+    }
 
-	public void setFolioPagado(int nFolioPagado) {
-		this.encabezado.setFolioPagado(nFolioPagado);
-		for (int i = 0; i < this.detalle.size(); i++)
-			this.detalle.get(i).setFolioPagado(nFolioPagado);
-	}
+    /**
+     * @param encabezado
+     *            the encabezado to set
+     */
+    public void setEncabezado(PagadoEncabezado encabezado) {
+        this.encabezado = encabezado;
+    }
 
-	/*
+    public void setFolioPagado(int nFolioPagado) {
+        this.encabezado.setFolioPagado(nFolioPagado);
+        for (int i = 0; i < this.detalle.size(); i++) this.detalle.get(i).setFolioPagado(nFolioPagado);
+    }
+
+    /*
 	 * (non-Javadoc)
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
-	@Override
-	public String toString() {
-		return "Pagado [detalle=" + detalle + ", encabezado=" + encabezado + "]";
-	}
-
+    @Override
+    public String toString() {
+        return "Pagado [detalle=" + detalle + ", encabezado=" + encabezado + "]";
+    }
 }

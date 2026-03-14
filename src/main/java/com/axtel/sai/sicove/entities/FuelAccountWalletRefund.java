@@ -1,79 +1,83 @@
 package com.axtel.sai.sicove.entities;
 
-
 import java.math.BigDecimal;
 import java.util.Date;
-
+import java.util.Base64;
 
 public class FuelAccountWalletRefund {
 
-	private Integer		idRefund;
-	private Integer		idFuelAccountWallets;
-	private String		walletNumber;
-	private BigDecimal	refundAmount;
-	private Date		registrationDate;
-	private String		userCapture;
-	private boolean		supplierRefund;
+    private Integer idRefund;
 
-	public Integer getIdRefund() {
-		return idRefund;
-	}
+    private Integer idFuelAccountWallets;
 
-	public void setIdRefund( Integer idRefund ) {
-		this.idRefund = idRefund;
-	}
+    private String walletNumber;
 
-	public Integer getIdFuelAccountWallets() {
-		return idFuelAccountWallets;
-	}
+    private BigDecimal refundAmount;
 
-	public void setIdFuelAccountWallets( Integer idFuelAccountWallets ) {
-		this.idFuelAccountWallets = idFuelAccountWallets;
-	}
+    private Date registrationDate;
 
-	public String getWalletNumber() {
-		return walletNumber;
-	}
+    private String userCapture;
 
-	public void setWalletNumber( String walletNumber ) {
-		this.walletNumber = walletNumber;
-	}
+    private boolean supplierRefund;
 
-	public BigDecimal getRefundAmount() {
-		return refundAmount;
-	}
+    public Integer getIdRefund() {
+        return idRefund;
+    }
 
-	public void setRefundAmount( BigDecimal refundAmount ) {
-		this.refundAmount = refundAmount;
-	}
+    public void setIdRefund(Integer idRefund) {
+        this.idRefund = idRefund;
+    }
 
-	public Date getRegistrationDate() {
-		return registrationDate;
-	}
+    public Integer getIdFuelAccountWallets() {
+        return idFuelAccountWallets;
+    }
 
-	public void setRegistrationDate( Date registrationDate ) {
-		this.registrationDate = registrationDate;
-	}
+    public void setIdFuelAccountWallets(Integer idFuelAccountWallets) {
+        this.idFuelAccountWallets = idFuelAccountWallets;
+    }
 
-	public String getUserCapture() {
-		return userCapture;
-	}
+    public String getWalletNumber() {
+        return walletNumber;
+    }
 
-	public void setUserCapture( String userCapture ) {
-		this.userCapture = userCapture;
-	}
+    public void setWalletNumber(String walletNumber) {
+        this.walletNumber = walletNumber;
+    }
 
-	public boolean isSupplierRefund() {
-		return supplierRefund;
-	}
+    public BigDecimal getRefundAmount() {
+        return refundAmount;
+    }
 
-	public void setSupplierRefund( boolean supplierRefund ) {
-		this.supplierRefund = supplierRefund;
-	}
+    public void setRefundAmount(BigDecimal refundAmount) {
+        this.refundAmount = refundAmount;
+    }
 
-	@Override
-	public String toString() {
-		return "FuelAccountWalletRefund [idRefund=" + idRefund + ", idFuelAccountWallets=" + idFuelAccountWallets + ", walletNumber=" + walletNumber + ", refundAmount=" + refundAmount + ", registrationDate=" + registrationDate + ", userCapture=" + userCapture + ", supplierRefund=" + supplierRefund + "]";
-	}
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
 
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public String getUserCapture() {
+        return userCapture;
+    }
+
+    public void setUserCapture(String userCapture) {
+        this.userCapture = userCapture;
+    }
+
+    public boolean isSupplierRefund() {
+        return supplierRefund;
+    }
+
+    public void setSupplierRefund(boolean supplierRefund) {
+        this.supplierRefund = supplierRefund;
+    }
+
+    @Override
+    public String toString() {
+        return "FuelAccountWalletRefund [idRefund=" + idRefund + ", idFuelAccountWallets=" + idFuelAccountWallets + ", walletNumber=" + walletNumber + ", refundAmount=" + refundAmount + ", registrationDate=" + registrationDate + ", userCapture=" + userCapture + ", supplierRefund=" + supplierRefund + "]";
+    }
 }

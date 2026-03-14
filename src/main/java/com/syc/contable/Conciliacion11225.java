@@ -18,6 +18,7 @@ import com.syc.reportes.servlet.ReportePolizasServlet;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "Conciliacion11225", urlPatterns = { "/reportes/conciliacion11225" })
 public class Conciliacion11225 extends HttpServlet implements GestionInterface {

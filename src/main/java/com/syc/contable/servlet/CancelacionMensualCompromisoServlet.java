@@ -16,6 +16,7 @@ import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "CancelacionCompromisoServlet", urlPatterns = { "/compromiso/cancelacionMasivaMensual" })
 public class CancelacionMensualCompromisoServlet extends HttpServlet implements GestionInterface {

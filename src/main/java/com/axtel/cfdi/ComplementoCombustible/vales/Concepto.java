@@ -6,6 +6,7 @@ import java.text.ParseException;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlValue;
+import java.util.Base64;
 
 @XmlRootElement(name = "concepto", namespace = "http://www.edenred.com.mx/cfdi/3/")
 public class Concepto {

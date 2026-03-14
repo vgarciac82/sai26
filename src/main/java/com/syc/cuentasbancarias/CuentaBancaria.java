@@ -1,151 +1,157 @@
 package com.syc.cuentasbancarias;
 
+import java.util.Base64;
 
 public class CuentaBancaria {
 
-	private String	banco;
-	private String	clabe;
-	private String	cuenta;
-	private String	cuentaBancaria;
-	private String	digVerificador;
-	private String	folio;
-	private String	idBanco;
-	private String	plaza;
-	private String	RFC;
-	private int		statusCuenta;
-	private int		statusSICOP;
-	private String	sucursal;
+    private String banco;
 
-	public CuentaBancaria( String clabeInterbancaria, String RFC ) {
+    private String clabe;
 
-		if ( clabeInterbancaria.length() != 18 ) {
-			throw new IllegalArgumentException( "La CLABE Interbancaria debe tener 18 caracteres." );
-		}
+    private String cuenta;
 
-		this.clabe = clabeInterbancaria;
-		this.idBanco = clabeInterbancaria.substring( 0, 3 );
-		this.plaza = clabeInterbancaria.substring( 3, 6 );
-		this.cuentaBancaria = clabeInterbancaria.substring( 6, 17 );
-		this.digVerificador = clabeInterbancaria.substring( 17, 18 );
-		this.RFC = RFC;
+    private String cuentaBancaria;
 
-	}
+    private String digVerificador;
 
-	public CuentaBancaria( String cuenta, String RFC, String banco, String plaza, String idBanco, String cuentaBancaria, String digVerificador, int statusCuenta, String sucursal, int statusSICOP, String folio ) {
-		this.cuenta = cuenta;
-		this.RFC = RFC;
-		this.banco = banco;
-		this.plaza = plaza;
-		this.idBanco = idBanco;
-		this.cuentaBancaria = cuentaBancaria;
-		this.digVerificador = digVerificador;
-		this.statusCuenta = statusCuenta;
-		this.sucursal = sucursal;
-		this.statusSICOP = statusSICOP;
-		this.folio = folio;
-	}
+    private String folio;
 
-	
-	public String getBanco() {
-		return banco;
-	}
+    private String idBanco;
 
-	
-	public String getClabe() {
-		return clabe;
-	}
+    private String plaza;
 
-	public String getCuenta() {
-		return cuenta;
-	}
+    private String RFC;
 
-	public String getCuentaBancaria() {
-		return cuentaBancaria;
-	}
+    private int statusCuenta;
 
-	public String getDigVerificador() {
-		return digVerificador;
-	}
+    private int statusSICOP;
 
-	public String getFolio() {
-		return folio;
-	}
+    private String sucursal;
 
-	public String getIdBanco() {
-		return idBanco;
-	}
+    public CuentaBancaria(String clabeInterbancaria, String RFC) {
+        if (clabeInterbancaria.length() != 18) {
+            throw new IllegalArgumentException("La CLABE Interbancaria debe tener 18 caracteres.");
+        }
+        this.clabe = clabeInterbancaria;
+        this.idBanco = clabeInterbancaria.substring(0, 3);
+        this.plaza = clabeInterbancaria.substring(3, 6);
+        this.cuentaBancaria = clabeInterbancaria.substring(6, 17);
+        this.digVerificador = clabeInterbancaria.substring(17, 18);
+        this.RFC = RFC;
+    }
 
-	public String getPlaza() {
-		return plaza;
-	}
+    public CuentaBancaria(String cuenta, String RFC, String banco, String plaza, String idBanco, String cuentaBancaria, String digVerificador, int statusCuenta, String sucursal, int statusSICOP, String folio) {
+        this.cuenta = cuenta;
+        this.RFC = RFC;
+        this.banco = banco;
+        this.plaza = plaza;
+        this.idBanco = idBanco;
+        this.cuentaBancaria = cuentaBancaria;
+        this.digVerificador = digVerificador;
+        this.statusCuenta = statusCuenta;
+        this.sucursal = sucursal;
+        this.statusSICOP = statusSICOP;
+        this.folio = folio;
+    }
 
-	public String getRFC() {
-		return RFC;
-	}
+    public String getBanco() {
+        return banco;
+    }
 
-	public int getStatusCuenta() {
-		return statusCuenta;
-	}
+    public String getClabe() {
+        return clabe;
+    }
 
-	public int getStatusSICOP() {
-		return statusSICOP;
-	}
+    public String getCuenta() {
+        return cuenta;
+    }
 
-	public String getSucursal() {
-		return sucursal;
-	}
+    public String getCuentaBancaria() {
+        return cuentaBancaria;
+    }
 
-	public void setBanco( String banco ) {
-		this.banco = banco;
-	}
+    public String getDigVerificador() {
+        return digVerificador;
+    }
 
-	public void setClabe( String clabe ) {
-		this.clabe = clabe;
-	}
+    public String getFolio() {
+        return folio;
+    }
 
-	public void setCuenta( String cuenta ) {
-		this.cuenta = cuenta;
-	}
+    public String getIdBanco() {
+        return idBanco;
+    }
 
-	public void setCuentaBancaria( String cuentaBancaria ) {
-		this.cuentaBancaria = cuentaBancaria;
-	}
+    public String getPlaza() {
+        return plaza;
+    }
 
-	public void setDigVerificador( String digVerificador ) {
-		this.digVerificador = digVerificador;
-	}
+    public String getRFC() {
+        return RFC;
+    }
 
-	public void setFolio( String folio ) {
-		this.folio = folio;
-	}
+    public int getStatusCuenta() {
+        return statusCuenta;
+    }
 
-	public void setIdBanco( String idBanco ) {
-		this.idBanco = idBanco;
-	}
+    public int getStatusSICOP() {
+        return statusSICOP;
+    }
 
-	public void setPlaza( String plaza ) {
-		this.plaza = plaza;
-	}
+    public String getSucursal() {
+        return sucursal;
+    }
 
-	public void setRFC( String RFC ) {
-		this.RFC = RFC;
-	}
+    public void setBanco(String banco) {
+        this.banco = banco;
+    }
 
-	public void setStatusCuenta( int statusCuenta ) {
-		this.statusCuenta = statusCuenta;
-	}
+    public void setClabe(String clabe) {
+        this.clabe = clabe;
+    }
 
-	public void setStatusSICOP( int statusSICOP ) {
-		this.statusSICOP = statusSICOP;
-	}
+    public void setCuenta(String cuenta) {
+        this.cuenta = cuenta;
+    }
 
-	public void setSucursal( String sucursal ) {
-		this.sucursal = sucursal;
-	}
+    public void setCuentaBancaria(String cuentaBancaria) {
+        this.cuentaBancaria = cuentaBancaria;
+    }
 
-	@Override
-	public String toString() {
-		return "CuentaBancaria [cuenta=" + cuenta + ", RFC=" + RFC + ", banco=" + banco + ", plaza=" + plaza + ", idBanco=" + idBanco + ", cuentaBancaria=" + cuentaBancaria + ", digVerificador=" + digVerificador + ", sucursal=" + sucursal + ", folio=" + folio + ", statusCuenta=" + statusCuenta + ", statusSICOP=" + statusSICOP + "]";
-	}
+    public void setDigVerificador(String digVerificador) {
+        this.digVerificador = digVerificador;
+    }
 
+    public void setFolio(String folio) {
+        this.folio = folio;
+    }
+
+    public void setIdBanco(String idBanco) {
+        this.idBanco = idBanco;
+    }
+
+    public void setPlaza(String plaza) {
+        this.plaza = plaza;
+    }
+
+    public void setRFC(String RFC) {
+        this.RFC = RFC;
+    }
+
+    public void setStatusCuenta(int statusCuenta) {
+        this.statusCuenta = statusCuenta;
+    }
+
+    public void setStatusSICOP(int statusSICOP) {
+        this.statusSICOP = statusSICOP;
+    }
+
+    public void setSucursal(String sucursal) {
+        this.sucursal = sucursal;
+    }
+
+    @Override
+    public String toString() {
+        return "CuentaBancaria [cuenta=" + cuenta + ", RFC=" + RFC + ", banco=" + banco + ", plaza=" + plaza + ", idBanco=" + idBanco + ", cuentaBancaria=" + cuentaBancaria + ", digVerificador=" + digVerificador + ", sucursal=" + sucursal + ", folio=" + folio + ", statusCuenta=" + statusCuenta + ", statusSICOP=" + statusSICOP + "]";
+    }
 }

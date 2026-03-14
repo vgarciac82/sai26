@@ -1,36 +1,37 @@
 package com.axtel.contratos.core;
 
-
 import java.math.BigDecimal;
-
+import java.util.Base64;
 
 public class SuficienciaPagoDirectoRetencion {
 
-	private int			folioSuficienciaPagoDirecto;
-	private int			idTipoRetencion;
-	private BigDecimal	importeRetencion;
+    private int folioSuficienciaPagoDirecto;
 
-	public int getFolioSuficienciaPagoDirecto() {
-		return folioSuficienciaPagoDirecto;
-	}
+    private int idTipoRetencion;
 
-	public void setFolioSuficienciaPagoDirecto( int folioSuficienciaPagoDirecto ) {
-		this.folioSuficienciaPagoDirecto = folioSuficienciaPagoDirecto;
-	}
+    private BigDecimal importeRetencion;
 
-	public int getIdTipoRetencion() {
-		return idTipoRetencion;
-	}
+    public int getFolioSuficienciaPagoDirecto() {
+        return folioSuficienciaPagoDirecto;
+    }
 
-	public void setIdTipoRetencion( int idTipoRetencion ) {
-		this.idTipoRetencion = idTipoRetencion;
-	}
+    public void setFolioSuficienciaPagoDirecto(int folioSuficienciaPagoDirecto) {
+        this.folioSuficienciaPagoDirecto = folioSuficienciaPagoDirecto;
+    }
 
-	public BigDecimal getImporteRetencion() {
-		return importeRetencion;
-	}
+    public int getIdTipoRetencion() {
+        return idTipoRetencion;
+    }
 
-	public void setImporteRetencion( BigDecimal importeRetencion ) {
-		this.importeRetencion = importeRetencion;
-	}
+    public void setIdTipoRetencion(int idTipoRetencion) {
+        this.idTipoRetencion = idTipoRetencion;
+    }
+
+    public BigDecimal getImporteRetencion() {
+        return importeRetencion;
+    }
+
+    public void setImporteRetencion(BigDecimal importeRetencion) {
+        this.importeRetencion = importeRetencion;
+    }
 }

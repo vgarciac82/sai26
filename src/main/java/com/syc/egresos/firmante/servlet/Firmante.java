@@ -1,96 +1,101 @@
 package com.syc.egresos.firmante.servlet;
 
+import java.util.Base64;
 
 public class Firmante {
 
-	public static final String	ELABORA	= "Elabora";
-	private String				nombreEmpleado;
-	private int					numeroEmpleado;
-	private String				puestoEmpleado;
-	private String				correoEmpleado;
-	private String				areaEmpleado;
-	private String				tipoAutorizador;
+    public static final String ELABORA = "Elabora";
 
-	public Firmante( ) {
+    private String nombreEmpleado;
 
-	}
+    private int numeroEmpleado;
 
-	public Firmante( String nombreEmpleado, int numeroEmpleado, String puestoEmpleado ) {
-		super();
-		this.nombreEmpleado = nombreEmpleado;
-		this.numeroEmpleado = numeroEmpleado;
-		this.puestoEmpleado = puestoEmpleado;
-	}
+    private String puestoEmpleado;
 
-	public Firmante( int employeeNumber ) {
-		this.numeroEmpleado = employeeNumber;
-	}
+    private String correoEmpleado;
 
-	public String getNombreEmpleado() {
-		return nombreEmpleado;
-	}
+    private String areaEmpleado;
 
-	public void setNombreEmpleado( String nombreEmpleado ) {
-		this.nombreEmpleado = nombreEmpleado;
-	}
+    private String tipoAutorizador;
 
-	public int getNumeroEmpleado() {
-		return numeroEmpleado;
-	}
+    public Firmante() {
+    }
 
-	public void setNumeroEmpleado( int numeroEmpleado ) {
-		this.numeroEmpleado = numeroEmpleado;
-	}
+    public Firmante(String nombreEmpleado, int numeroEmpleado, String puestoEmpleado) {
+        super();
+        this.nombreEmpleado = nombreEmpleado;
+        this.numeroEmpleado = numeroEmpleado;
+        this.puestoEmpleado = puestoEmpleado;
+    }
 
-	public String getPuestoEmpleado() {
-		return puestoEmpleado;
-	}
+    public Firmante(int employeeNumber) {
+        this.numeroEmpleado = employeeNumber;
+    }
 
-	public void setPuestoEmpleado( String puestoEmpleado ) {
-		this.puestoEmpleado = puestoEmpleado;
-	}
+    public String getNombreEmpleado() {
+        return nombreEmpleado;
+    }
 
-	public String getTipoAutorizador() {
-		return tipoAutorizador;
-	}
+    public void setNombreEmpleado(String nombreEmpleado) {
+        this.nombreEmpleado = nombreEmpleado;
+    }
 
-	public void setTipoAutorizador( String tipoAutorizador ) {
-		this.tipoAutorizador = tipoAutorizador;
-	}
+    public int getNumeroEmpleado() {
+        return numeroEmpleado;
+    }
 
-	/**
-	 * @return the correoEmpleado
-	 */
-	public String getCorreoEmpleado() {
-		return correoEmpleado;
-	}
+    public void setNumeroEmpleado(int numeroEmpleado) {
+        this.numeroEmpleado = numeroEmpleado;
+    }
 
-	/**
-	 * @param correoEmpleado
-	 *            the correoEmpleado to set
-	 */
-	public void setCorreoEmpleado( String correoEmpleado ) {
-		this.correoEmpleado = correoEmpleado;
-	}
+    public String getPuestoEmpleado() {
+        return puestoEmpleado;
+    }
 
-	/**
-	 * @return the areaEmpleado
-	 */
-	public String getAreaEmpleado() {
-		return areaEmpleado;
-	}
+    public void setPuestoEmpleado(String puestoEmpleado) {
+        this.puestoEmpleado = puestoEmpleado;
+    }
 
-	/**
-	 * @param areaEmpleado
-	 *            the areaEmpleado to set
-	 */
-	public void setAreaEmpleado( String areaEmpleado ) {
-		this.areaEmpleado = areaEmpleado;
-	}
+    public String getTipoAutorizador() {
+        return tipoAutorizador;
+    }
 
-	@Override
-	public String toString() {
-		return "Firmante [nombreEmpleado=" + nombreEmpleado + ", numeroEmpleado=" + numeroEmpleado + ", puestoEmpleado=" + puestoEmpleado + ", correoEmpleado=" + correoEmpleado + ", areaEmpleado=" + areaEmpleado + ", tipoAutorizador=" + tipoAutorizador + "]";
-	}
+    public void setTipoAutorizador(String tipoAutorizador) {
+        this.tipoAutorizador = tipoAutorizador;
+    }
 
+    /**
+     * @return the correoEmpleado
+     */
+    public String getCorreoEmpleado() {
+        return correoEmpleado;
+    }
+
+    /**
+     * @param correoEmpleado
+     *            the correoEmpleado to set
+     */
+    public void setCorreoEmpleado(String correoEmpleado) {
+        this.correoEmpleado = correoEmpleado;
+    }
+
+    /**
+     * @return the areaEmpleado
+     */
+    public String getAreaEmpleado() {
+        return areaEmpleado;
+    }
+
+    /**
+     * @param areaEmpleado
+     *            the areaEmpleado to set
+     */
+    public void setAreaEmpleado(String areaEmpleado) {
+        this.areaEmpleado = areaEmpleado;
+    }
+
+    @Override
+    public String toString() {
+        return "Firmante [nombreEmpleado=" + nombreEmpleado + ", numeroEmpleado=" + numeroEmpleado + ", puestoEmpleado=" + puestoEmpleado + ", correoEmpleado=" + correoEmpleado + ", areaEmpleado=" + areaEmpleado + ", tipoAutorizador=" + tipoAutorizador + "]";
+    }
 }

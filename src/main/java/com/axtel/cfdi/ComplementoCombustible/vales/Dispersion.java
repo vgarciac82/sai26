@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import jakarta.xml.bind.annotation.XmlAttribute;
+import java.util.Base64;
 
 public class Dispersion {
 

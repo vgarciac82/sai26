@@ -1,24 +1,26 @@
 package com.syc.contable.adecuaciones;
 
+import java.util.Base64;
 
 public class UsuarioSiplan {
 
-	private String	nombre;
-	private String	correo;
+    private String nombre;
 
-	public String getNombre() {
-		return nombre;
-	}
+    private String correo;
 
-	public void setNombre( String nombre ) {
-		this.nombre = nombre;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public String getCorreo() {
-		return correo;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public void setCorreo( String correo ) {
-		this.correo = correo;
-	}
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
 }

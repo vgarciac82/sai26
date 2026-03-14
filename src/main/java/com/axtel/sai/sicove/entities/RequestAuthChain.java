@@ -1,105 +1,112 @@
 package com.axtel.sai.sicove.entities;
 
-
 import com.syc.gestion.core.Usuario;
-
+import java.util.Base64;
 
 public class RequestAuthChain {
 
-	private String	walletNumber;
-	private String	accountNumber;
-	private String	applicantName;
-	private String	applicantPosition;
-	private String	applicantMail;
-	private String	authorizerName;
-	private String	authorizerPosition;
-	private String	authorizerMail;
-	private int		authorizerEmployeeNumber;
-	private Usuario	initiatingUser;
+    private String walletNumber;
 
-	public String getAccountNumber() {
-		return accountNumber;
-	}
+    private String accountNumber;
 
-	public void setAccountNumber( String accountNumber ) {
-		this.accountNumber = accountNumber;
-	}
+    private String applicantName;
 
-	public int getAuthorizerEmployeeNumber() {
-		return authorizerEmployeeNumber;
-	}
+    private String applicantPosition;
 
-	public void setAuthorizerEmployeeNumber( int authorizerEmployeeNumber ) {
-		this.authorizerEmployeeNumber = authorizerEmployeeNumber;
-	}
+    private String applicantMail;
 
-	public String getWalletNumber() {
-		return walletNumber;
-	}
+    private String authorizerName;
 
-	public void setWalletNumber( String walletNumber ) {
-		this.walletNumber = walletNumber;
-	}
+    private String authorizerPosition;
 
-	public String getApplicantName() {
-		return applicantName;
-	}
+    private String authorizerMail;
 
-	public void setApplicantName( String applicantName ) {
-		this.applicantName = applicantName;
-	}
+    private int authorizerEmployeeNumber;
 
-	public String getApplicantPosition() {
-		return applicantPosition;
-	}
+    private Usuario initiatingUser;
 
-	public void setApplicantPosition( String applicantPosition ) {
-		this.applicantPosition = applicantPosition;
-	}
+    public String getAccountNumber() {
+        return accountNumber;
+    }
 
-	public String getApplicantMail() {
-		return applicantMail;
-	}
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
 
-	public void setApplicantMail( String applicantMail ) {
-		this.applicantMail = applicantMail;
-	}
+    public int getAuthorizerEmployeeNumber() {
+        return authorizerEmployeeNumber;
+    }
 
-	public String getAuthorizerName() {
-		return authorizerName;
-	}
+    public void setAuthorizerEmployeeNumber(int authorizerEmployeeNumber) {
+        this.authorizerEmployeeNumber = authorizerEmployeeNumber;
+    }
 
-	public void setAuthorizerName( String authorizerName ) {
-		this.authorizerName = authorizerName;
-	}
+    public String getWalletNumber() {
+        return walletNumber;
+    }
 
-	public String getAuthorizerPosition() {
-		return authorizerPosition;
-	}
+    public void setWalletNumber(String walletNumber) {
+        this.walletNumber = walletNumber;
+    }
 
-	public void setAuthorizerPosition( String authorizerPosition ) {
-		this.authorizerPosition = authorizerPosition;
-	}
+    public String getApplicantName() {
+        return applicantName;
+    }
 
-	public String getAuthorizerMail() {
-		return authorizerMail;
-	}
+    public void setApplicantName(String applicantName) {
+        this.applicantName = applicantName;
+    }
 
-	public void setAuthorizerMail( String authorizerMail ) {
-		this.authorizerMail = authorizerMail;
-	}
+    public String getApplicantPosition() {
+        return applicantPosition;
+    }
 
-	public Usuario getInitiatingUser() {
-		return initiatingUser;
-	}
+    public void setApplicantPosition(String applicantPosition) {
+        this.applicantPosition = applicantPosition;
+    }
 
-	public void setInitiatingUser( Usuario initiatingUser ) {
-		this.initiatingUser = initiatingUser;
-	}
+    public String getApplicantMail() {
+        return applicantMail;
+    }
 
-	@Override
-	public String toString() {
-		return "RequestAuthChain [walletNumber=" + walletNumber + ", accountNumber=" + accountNumber + ", applicantName=" + applicantName + ", applicantPosition=" + applicantPosition + ", applicantMail=" + applicantMail + ", authorizerName=" + authorizerName + ", authorizerPosition=" + authorizerPosition + ", authorizerMail=" + authorizerMail + ", authorizerEmployeeNumber=" + authorizerEmployeeNumber + ", initiatingUser=" + initiatingUser + "]";
-	}
-	
+    public void setApplicantMail(String applicantMail) {
+        this.applicantMail = applicantMail;
+    }
+
+    public String getAuthorizerName() {
+        return authorizerName;
+    }
+
+    public void setAuthorizerName(String authorizerName) {
+        this.authorizerName = authorizerName;
+    }
+
+    public String getAuthorizerPosition() {
+        return authorizerPosition;
+    }
+
+    public void setAuthorizerPosition(String authorizerPosition) {
+        this.authorizerPosition = authorizerPosition;
+    }
+
+    public String getAuthorizerMail() {
+        return authorizerMail;
+    }
+
+    public void setAuthorizerMail(String authorizerMail) {
+        this.authorizerMail = authorizerMail;
+    }
+
+    public Usuario getInitiatingUser() {
+        return initiatingUser;
+    }
+
+    public void setInitiatingUser(Usuario initiatingUser) {
+        this.initiatingUser = initiatingUser;
+    }
+
+    @Override
+    public String toString() {
+        return "RequestAuthChain [walletNumber=" + walletNumber + ", accountNumber=" + accountNumber + ", applicantName=" + applicantName + ", applicantPosition=" + applicantPosition + ", applicantMail=" + applicantMail + ", authorizerName=" + authorizerName + ", authorizerPosition=" + authorizerPosition + ", authorizerMail=" + authorizerMail + ", authorizerEmployeeNumber=" + authorizerEmployeeNumber + ", initiatingUser=" + initiatingUser + "]";
+    }
 }

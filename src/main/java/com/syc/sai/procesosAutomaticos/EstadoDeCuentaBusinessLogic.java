@@ -16,6 +16,7 @@ import com.syc.sai.tesoreria.estadoDeCuenta.EstadoDeCuentaSimple;
 import com.syc.utils.zip.ZipManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class EstadoDeCuentaBusinessLogic extends DataSourceManager {
 

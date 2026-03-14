@@ -1,30 +1,31 @@
 package com.syc.sai.procesos;
 
+import java.util.Base64;
 
 public class ExpedienteInfo {
 
-	String	tituloAplicacion;
-	int		idGabinete;
+    String tituloAplicacion;
 
-	public String getTituloAplicacion() {
-		return tituloAplicacion;
-	}
+    int idGabinete;
 
-	public void setTituloAplicacion( String tituloAplicacion ) {
-		this.tituloAplicacion = tituloAplicacion;
-	}
+    public String getTituloAplicacion() {
+        return tituloAplicacion;
+    }
 
-	public int getIdGabinete() {
-		return idGabinete;
-	}
+    public void setTituloAplicacion(String tituloAplicacion) {
+        this.tituloAplicacion = tituloAplicacion;
+    }
 
-	public void setIdGabinete( int idGabinete ) {
-		this.idGabinete = idGabinete;
-	}
+    public int getIdGabinete() {
+        return idGabinete;
+    }
 
-	@Override
-	public String toString() {
-		return "ExpedienteInfo [tituloAplicacion=" + tituloAplicacion + ", idGabinete=" + idGabinete + "]";
-	}
+    public void setIdGabinete(int idGabinete) {
+        this.idGabinete = idGabinete;
+    }
 
+    @Override
+    public String toString() {
+        return "ExpedienteInfo [tituloAplicacion=" + tituloAplicacion + ", idGabinete=" + idGabinete + "]";
+    }
 }

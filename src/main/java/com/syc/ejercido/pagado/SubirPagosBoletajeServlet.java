@@ -28,6 +28,7 @@ import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 /*
 	private void creaExcelVuelos(HttpServletRequest req, HttpServletResponse resp) throws Exception{

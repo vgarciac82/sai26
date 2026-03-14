@@ -1,33 +1,32 @@
 package com.syc.sai.contabilidad;
 
 import java.sql.Connection;
-
 import com.syc.contable.AccountingEngineException;
+import java.util.Base64;
 
 public abstract class CondicionCuentaContable extends CondicionContable {
 
-	private String grupo;
-	private String mensaje;
+    private String grupo;
 
-	public void setGrupo(String grupo) {
-		this.grupo = grupo;
-	}
+    private String mensaje;
 
-	public String getGrupo() {
-		return grupo;
-	}
+    public void setGrupo(String grupo) {
+        this.grupo = grupo;
+    }
 
-	public abstract void preEjecucion(Connection con)
-			throws AccountingEngineException;
+    public String getGrupo() {
+        return grupo;
+    }
 
-	public abstract boolean CumpleCondicion(Connection conn,
-			CuentaContable cuenta) throws AccountingEngineException;
+    public abstract void preEjecucion(Connection con) throws AccountingEngineException;
 
-	public void setMensaje(String mensaje) {
-		this.mensaje = mensaje;
-	}
+    public abstract boolean CumpleCondicion(Connection conn, CuentaContable cuenta) throws AccountingEngineException;
 
-	public String getMensaje() {
-		return mensaje;
-	}
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
 }

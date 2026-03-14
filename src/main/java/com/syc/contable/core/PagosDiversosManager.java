@@ -23,6 +23,7 @@ import com.syc.sai.contabilidad.utils.db.CloseObject;
 import com.syc.sai.contabilidad.utils.db.RSToTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class PagosDiversosManager {
 
@@ -85,45 +86,45 @@ public class PagosDiversosManager {
                 // A
                 String // A
                 // B
-                encabezado = // C
-                rs.getString(2) + "," + arrFechas[intIndice].trim() + "," + // D
-                rs.getString(4).trim() + "," + // E
-                rs.getString(5).trim() + "," + // F
-                rs.getString(6).trim() + "," + // G
-                rs.getString(7).trim() + "," + // H
-                rs.getString(8).trim() + "," + // I
-                rs.getString(9).trim() + "," + // J
-                rs.getString(10).trim() + "," + // K
-                rs.getString(11).trim() + "," + // L
-                rs.getString(12).trim() + "," + // M
-                rs.getString(13).trim() + "," + // N
-                rs.getString(14).trim() + "," + // O
-                vtipoPago + "," + // P
-                rs.getString(16).trim() + "," + // Q
-                vcLeyenda + "," + // R
-                vcBenef + "," + // S
-                vcCtaBancaria + "," + // T
-                vRFC + "," + // U
-                rs.getString(21).trim() + "," + // V
-                rs.getString(22).trim() + "," + // W
-                rs.getString(23).trim() + "," + // X
-                rs.getString(24).trim() + "," + // Y
-                rs.getString(25).trim().replaceAll("[\r\n]{2,}", " ") + "," + // Z
-                rs.getString(26).trim() + "," + // AA
-                rs.getString(27).trim() + "," + // AB
-                StringUtils.trimToEmpty(rs.getString(28)) + "," + // AC
-                StringUtils.trimToEmpty(rs.getString(29)) + "," + // AD
-                StringUtils.trimToEmpty(rs.getString(30)) + "," + // AE
-                StringUtils.trimToEmpty(rs.getString(31)) + "," + // AF
-                rs.getString(32).trim() + "," + // AG
-                rs.getString(33).trim() + "," + // AH
-                rs.getString(34).trim() + "," + // AI
-                rs.getString(35).trim() + "," + // AJ
-                rs.getString(36).trim() + "," + // AK
-                rs.getString(37).trim() + "," + // AL
-                rs.getString(38).trim() + "," + // AM
-                rs.getString(39).trim() + "," + // AN
-                rs.getString(40).trim() + "," + rs.getString(41);
+                // C
+                encabezado = // D
+                rs.getString(2) + "," + arrFechas[intIndice].trim() + "," + rs.getString(4).trim() + // E
+                "," + rs.getString(5).trim() + // F
+                "," + rs.getString(6).trim() + // G
+                "," + rs.getString(7).trim() + // H
+                "," + rs.getString(8).trim() + // I
+                "," + rs.getString(9).trim() + // J
+                "," + rs.getString(10).trim() + // K
+                "," + rs.getString(11).trim() + // L
+                "," + rs.getString(12).trim() + // M
+                "," + rs.getString(13).trim() + // N
+                "," + rs.getString(14).trim() + // O
+                "," + vtipoPago + // P
+                "," + rs.getString(16).trim() + // Q
+                "," + vcLeyenda + // R
+                "," + vcBenef + // S
+                "," + vcCtaBancaria + // T
+                "," + vRFC + // U
+                "," + rs.getString(21).trim() + // V
+                "," + rs.getString(22).trim() + // W
+                "," + rs.getString(23).trim() + // X
+                "," + rs.getString(24).trim() + // Y
+                "," + rs.getString(25).trim().replaceAll("[\r\n]{2,}", " ") + // Z
+                "," + rs.getString(26).trim() + // AA
+                "," + rs.getString(27).trim() + // AB
+                "," + StringUtils.trimToEmpty(rs.getString(28)) + // AC
+                "," + StringUtils.trimToEmpty(rs.getString(29)) + // AD
+                "," + StringUtils.trimToEmpty(rs.getString(30)) + // AE
+                "," + StringUtils.trimToEmpty(rs.getString(31)) + // AF
+                "," + rs.getString(32).trim() + // AG
+                "," + rs.getString(33).trim() + // AH
+                "," + rs.getString(34).trim() + // AI
+                "," + rs.getString(35).trim() + // AJ
+                "," + rs.getString(36).trim() + // AK
+                "," + rs.getString(37).trim() + // AL
+                "," + rs.getString(38).trim() + // AM
+                "," + rs.getString(39).trim() + // AN
+                "," + rs.getString(40).trim() + "," + rs.getString(41);
                 encabezado = encabezado + "\r\n";
                 arrListaComp.add(encabezado);
                 // Aqui grabamos dentro de layouts creados encabezado

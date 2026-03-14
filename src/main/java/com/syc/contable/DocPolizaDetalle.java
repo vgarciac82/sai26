@@ -1,153 +1,161 @@
 package com.syc.contable;
 
+import java.util.Base64;
+
 public class DocPolizaDetalle {
-	private String ADEFAS;
-	private String aEjercicioFiscal;
-	private String cCentroContable;
-	private String cConcepto;
-	private String cEvento;
-	private String cTipoPoliza;
-	private double mImporte;
-	private String nCuenta;
-	private int nDocRenglon;
-	private long nFolioDocPoliza;
-	private String nSubCuenta;
-	private int nTipoAjuste;
-	private String parcial;
-	private String periodo13;
-	private String referencia;
 
-	public String getADEFAS() {
-		return ADEFAS;
-	}
+    private String ADEFAS;
 
-	public String getaEjercicioFiscal() {
-		return aEjercicioFiscal;
-	}
+    private String aEjercicioFiscal;
 
-	public String getcCentroContable() {
-		return cCentroContable;
-	}
+    private String cCentroContable;
 
-	public String getcConcepto() {
-		return cConcepto;
-	}
+    private String cConcepto;
 
-	public String getcEvento() {
-		return cEvento;
-	}
+    private String cEvento;
 
-	public String getcTipoPoliza() {
-		return cTipoPoliza;
-	}
+    private String cTipoPoliza;
 
-	public double getmImporte() {
-		return mImporte;
-	}
+    private double mImporte;
 
-	public String getnCuenta() {
-		return nCuenta;
-	}
+    private String nCuenta;
 
-	public int getnDocRenglon() {
-		return nDocRenglon;
-	}
+    private int nDocRenglon;
 
-	public long getnFolioDocPoliza() {
-		return nFolioDocPoliza;
-	}
+    private long nFolioDocPoliza;
 
-	public String getnSubCuenta() {
-		return nSubCuenta;
-	}
+    private String nSubCuenta;
 
-	public int getnTipoAjuste() {
-		return nTipoAjuste;
-	}
+    private int nTipoAjuste;
 
-	public String getParcial() {
-		return parcial;
-	}
+    private String parcial;
 
-	public String getPeriodo13() {
-		return periodo13;
-	}
+    private String periodo13;
 
-	public String getReferencia() {
-		return referencia;
-	}
+    private String referencia;
 
-	public void setADEFAS(String aDEFAS) {
-		ADEFAS = aDEFAS;
-	}
+    public String getADEFAS() {
+        return ADEFAS;
+    }
 
-	public void setaEjercicioFiscal(String aEjercicioFiscal) {
-		this.aEjercicioFiscal = aEjercicioFiscal;
-	}
+    public String getaEjercicioFiscal() {
+        return aEjercicioFiscal;
+    }
 
-	public void setcCentroContable(String cCentroContable) {
-		this.cCentroContable = cCentroContable;
-	}
+    public String getcCentroContable() {
+        return cCentroContable;
+    }
 
-	public void setcConcepto(String cConcepto) {
-		this.cConcepto = cConcepto;
-	}
+    public String getcConcepto() {
+        return cConcepto;
+    }
 
-	public void setcEvento(String cEvento) {
-		this.cEvento = cEvento;
-	}
+    public String getcEvento() {
+        return cEvento;
+    }
 
-	public void setcTipoPoliza(String cTipoPoliza) {
-		this.cTipoPoliza = cTipoPoliza;
-	}
+    public String getcTipoPoliza() {
+        return cTipoPoliza;
+    }
 
-	public void setmImporte(double mImporte) {
-		this.mImporte = mImporte;
-	}
+    public double getmImporte() {
+        return mImporte;
+    }
 
-	public void setnCuenta(String nCuenta) {
-		this.nCuenta = nCuenta;
-	}
+    public String getnCuenta() {
+        return nCuenta;
+    }
 
-	public void setnDocRenglon(int nDocRenglon) {
-		this.nDocRenglon = nDocRenglon;
-	}
+    public int getnDocRenglon() {
+        return nDocRenglon;
+    }
 
-	public void setnFolioDocPoliza(long nFolioDocPoliza) {
-		this.nFolioDocPoliza = nFolioDocPoliza;
-	}
+    public long getnFolioDocPoliza() {
+        return nFolioDocPoliza;
+    }
 
-	public void setnSubCuenta(String nSubCuenta) {
-		this.nSubCuenta = nSubCuenta;
-	}
+    public String getnSubCuenta() {
+        return nSubCuenta;
+    }
 
-	public void setnTipoAjuste(int nTipoAjuste) {
-		this.nTipoAjuste = nTipoAjuste;
-	}
+    public int getnTipoAjuste() {
+        return nTipoAjuste;
+    }
 
-	public void setParcial(String parcial) {
-		this.parcial = parcial;
-	}
+    public String getParcial() {
+        return parcial;
+    }
 
-	public void setPeriodo13(String periodo13) {
-		this.periodo13 = periodo13;
-	}
+    public String getPeriodo13() {
+        return periodo13;
+    }
 
-	public void setReferencia(String referencia) {
-		this.referencia = referencia;
-	}
+    public String getReferencia() {
+        return referencia;
+    }
 
-	@Override
-	public String toString() {
-		return "DocPolizaDetalle [ADEFAS=" + ADEFAS + ", aEjercicioFiscal="
-				+ aEjercicioFiscal + ", cCentroContable=" + cCentroContable
-				+ ", cConcepto=" + cConcepto + ", cEvento=" + cEvento
-				+ ", cTipoPoliza=" + cTipoPoliza + ", mImporte=" + mImporte
-				+ ", nCuenta=" + nCuenta + ", nDocRenglon=" + nDocRenglon
-				+ ", nFolioDocPoliza=" + nFolioDocPoliza + ", nSubCuenta="
-				+ nSubCuenta + ", nTipoAjuste=" + nTipoAjuste + ", parcial="
-				+ parcial + ", periodo13=" + periodo13 + ", referencia="
-				+ referencia + "]";
-	}
+    public void setADEFAS(String aDEFAS) {
+        ADEFAS = aDEFAS;
+    }
 
+    public void setaEjercicioFiscal(String aEjercicioFiscal) {
+        this.aEjercicioFiscal = aEjercicioFiscal;
+    }
+
+    public void setcCentroContable(String cCentroContable) {
+        this.cCentroContable = cCentroContable;
+    }
+
+    public void setcConcepto(String cConcepto) {
+        this.cConcepto = cConcepto;
+    }
+
+    public void setcEvento(String cEvento) {
+        this.cEvento = cEvento;
+    }
+
+    public void setcTipoPoliza(String cTipoPoliza) {
+        this.cTipoPoliza = cTipoPoliza;
+    }
+
+    public void setmImporte(double mImporte) {
+        this.mImporte = mImporte;
+    }
+
+    public void setnCuenta(String nCuenta) {
+        this.nCuenta = nCuenta;
+    }
+
+    public void setnDocRenglon(int nDocRenglon) {
+        this.nDocRenglon = nDocRenglon;
+    }
+
+    public void setnFolioDocPoliza(long nFolioDocPoliza) {
+        this.nFolioDocPoliza = nFolioDocPoliza;
+    }
+
+    public void setnSubCuenta(String nSubCuenta) {
+        this.nSubCuenta = nSubCuenta;
+    }
+
+    public void setnTipoAjuste(int nTipoAjuste) {
+        this.nTipoAjuste = nTipoAjuste;
+    }
+
+    public void setParcial(String parcial) {
+        this.parcial = parcial;
+    }
+
+    public void setPeriodo13(String periodo13) {
+        this.periodo13 = periodo13;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+
+    @Override
+    public String toString() {
+        return "DocPolizaDetalle [ADEFAS=" + ADEFAS + ", aEjercicioFiscal=" + aEjercicioFiscal + ", cCentroContable=" + cCentroContable + ", cConcepto=" + cConcepto + ", cEvento=" + cEvento + ", cTipoPoliza=" + cTipoPoliza + ", mImporte=" + mImporte + ", nCuenta=" + nCuenta + ", nDocRenglon=" + nDocRenglon + ", nFolioDocPoliza=" + nFolioDocPoliza + ", nSubCuenta=" + nSubCuenta + ", nTipoAjuste=" + nTipoAjuste + ", parcial=" + parcial + ", periodo13=" + periodo13 + ", referencia=" + referencia + "]";
+    }
 }

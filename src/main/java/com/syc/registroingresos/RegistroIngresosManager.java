@@ -36,6 +36,7 @@ import com.syc.obrapublica.core.ConfiguraAplicativoManager;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 //import com.syc.ws.inventario.WSManager;
 public class RegistroIngresosManager {

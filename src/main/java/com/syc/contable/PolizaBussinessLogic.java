@@ -10,6 +10,7 @@ import com.syc.gestion.core.CasoOperacion;
 import com.syc.gestion.core.CasoOperacionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class PolizaBussinessLogic extends DataSourceManager {
 

@@ -15,6 +15,7 @@ import com.axtel.contratos.services.SuficienciaPagoDirectoEncabezadoBusinessLogi
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "FinalizarSuficienciaPagoDirectoServlet", urlPatterns = { "/api/suficiencia/finalizar" })
 public class FinalizarSuficienciaPagoDirectoServlet extends HttpServlet {

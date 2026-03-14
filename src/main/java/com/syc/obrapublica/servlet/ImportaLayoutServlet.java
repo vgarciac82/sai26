@@ -37,6 +37,8 @@ import com.syc.obrapublica.ConfiguraAplicativoBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 
 @WebServlet(name = "ImportaLayoutServlet", urlPatterns = { "/gstnmngr/ImportaLayoutServlet" })
 public class ImportaLayoutServlet extends HttpServlet {
@@ -103,9 +105,11 @@ public class ImportaLayoutServlet extends HttpServlet {
             String pathURL = request.getContextPath();
             String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + pathURL + "/";
             String path = "";
-            ServletFileUpload fu = new ServletFileUpload();
+            DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(path));
+            JakartaServletFileUpload fu = new JakartaServletFileUpload(factory);
             // tamaño máximo que aceptará el archivo
-            fu.setSizeMax(-1);
+            fu.setFileSizeMax(-1);
             Long date = System.currentTimeMillis();
             SimpleDateFormat fecha = new SimpleDateFormat("yyyyMMddhhmmssS");
             String sufijo = fecha.format(date);
@@ -116,7 +120,6 @@ public class ImportaLayoutServlet extends HttpServlet {
             if (!file.exists()) {
                 file.mkdirs();
             }
-            fu.setRepositoryPath(path);
             List<FileItem> fileItems = new ArrayList<FileItem>();
             Map<String, String> fieldMap = new Hashtable<String, String>();
             List<FileItem> fileList = new ArrayList<FileItem>();
@@ -227,8 +230,9 @@ public class ImportaLayoutServlet extends HttpServlet {
     }
 
     public ArrayList<String> cargaExcel(String archivo, String tipo) throws SQLException {
-        ServletFileUpload upload = new ServletFileUpload();
-        upload.setRepositoryPath(tempDir);
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+        JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         String cFileExcel = upload.getRepositoryPath() + "/TechosAnteProyecto.xls";
         ArrayList<String> un = new ArrayList<String>();
         AnteProyectoBusinessLogic apBL = new AnteProyectoBusinessLogic("");
@@ -466,11 +470,13 @@ public class ImportaLayoutServlet extends HttpServlet {
         String szPath;
         List<FileItem> fileItems = new ArrayList<FileItem>();
         try {
+            DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(szPath));
             // Se construye un objeto para que parsee la petición
-            ServletFileUpload fu = new ServletFileUpload();
+            JakartaServletFileUpload fu = new JakartaServletFileUpload(factory);
             // Tamaño máximo que aceptará el archivo
             // El tamaño no importa
-            fu.setSizeMax(-1);
+            fu.setFileSizeMax(-1);
             // Si excede el 1 Gb en memoria lo
             fu.setSizeThreshold(1048576);
             // escribe a disco
@@ -479,7 +485,6 @@ public class ImportaLayoutServlet extends HttpServlet {
             if (!file.exists()) {
                 file.mkdirs();
             }
-            fu.setRepositoryPath(szPath);
             fileItems = fu.parseRequest(request);
         } catch (Exception e) {
         }

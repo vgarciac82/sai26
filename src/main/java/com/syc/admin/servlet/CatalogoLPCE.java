@@ -26,6 +26,8 @@ import com.syc.crud.dsmngr.DataSourceManager;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 
 @WebServlet(name = "CatalogoLPCE", urlPatterns = { "/servlet/CatalogoLPCE" })
 public class CatalogoLPCE extends HttpServlet {
@@ -67,13 +69,13 @@ public class CatalogoLPCE extends HttpServlet {
     }
 
     private List parseRequest(HttpServletRequest req) throws ServletException {
-        ServletFileUpload upload = new ServletFileUpload();
-        // Directorio temporal de carga de archivos
-        upload.setRepositoryPath(tempDir);
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+        JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         // Si el archivo excede este tama?o, ocurre un excepcion FileUploadException
         //con -1 le indicamos que acepte archivos de cualquier tamaño
         // -1 sin limite
-        upload.setSizeMax(-1);
+        upload.setFileSizeMax(-1);
         try {
             return upload.parseRequest(req);
         } catch (FileUploadException fe) {

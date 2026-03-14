@@ -18,6 +18,7 @@ import com.syc.contable.CompromisoBussinessLogic;
 import com.syc.gestion.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "CompromisosExcelServlet", urlPatterns = { "/compromisos/excel" })
 public class SolicitaAutCompromisosReportServlet extends HttpServlet {

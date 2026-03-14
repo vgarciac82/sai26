@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import com.syc.contable.ReporteEjercicioAnteriorBussinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "ReporteEjercicioAnteriorServlet", urlPatterns = { "/servlet/ReporteEjercicioAnteriorServlet" })
 public class ReporteEjercicioAnteriorServlet extends HttpServlet {

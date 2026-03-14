@@ -1,80 +1,86 @@
 package com.axtel.cfdi.core;
 
+import java.util.Base64;
 
 public class DomicilioFiscal {
 
-	private String	calle;
-	private String	noExterior;
-	private String	colonia;
-	private String	municipio;
-	private String	estado;
-	private String	pais	= "México";
-	private int		codigoPostal;
+    private String calle;
 
-	public DomicilioFiscal( String calle, String noExterior, String colonia, String municipio, String estado, int codigoPostal ) {
-		super();
-		this.calle = calle;
-		this.noExterior = noExterior;
-		this.colonia = colonia;
-		this.municipio = municipio;
-		this.estado = estado;
-		this.codigoPostal = codigoPostal;
-	}
+    private String noExterior;
 
-	public String getCalle() {
-		return calle;
-	}
+    private String colonia;
 
-	public void setCalle( String calle ) {
-		this.calle = calle;
-	}
+    private String municipio;
 
-	public String getNoExterior() {
-		return noExterior;
-	}
+    private String estado;
 
-	public void setNoExterior( String noExterior ) {
-		this.noExterior = noExterior;
-	}
+    private String pais = "México";
 
-	public String getColonia() {
-		return colonia;
-	}
+    private int codigoPostal;
 
-	public void setColonia( String colonia ) {
-		this.colonia = colonia;
-	}
+    public DomicilioFiscal(String calle, String noExterior, String colonia, String municipio, String estado, int codigoPostal) {
+        super();
+        this.calle = calle;
+        this.noExterior = noExterior;
+        this.colonia = colonia;
+        this.municipio = municipio;
+        this.estado = estado;
+        this.codigoPostal = codigoPostal;
+    }
 
-	public String getMunicipio() {
-		return municipio;
-	}
+    public String getCalle() {
+        return calle;
+    }
 
-	public void setMunicipio( String municipio ) {
-		this.municipio = municipio;
-	}
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
 
-	public String getEstado() {
-		return estado;
-	}
+    public String getNoExterior() {
+        return noExterior;
+    }
 
-	public void setEstado( String estado ) {
-		this.estado = estado;
-	}
+    public void setNoExterior(String noExterior) {
+        this.noExterior = noExterior;
+    }
 
-	public String getPais() {
-		return pais;
-	}
+    public String getColonia() {
+        return colonia;
+    }
 
-	public void setPais( String pais ) {
-		this.pais = pais;
-	}
+    public void setColonia(String colonia) {
+        this.colonia = colonia;
+    }
 
-	public int getCodigoPostal() {
-		return codigoPostal;
-	}
+    public String getMunicipio() {
+        return municipio;
+    }
 
-	public void setCodigoPostal( int codigoPostal ) {
-		this.codigoPostal = codigoPostal;
-	}
+    public void setMunicipio(String municipio) {
+        this.municipio = municipio;
+    }
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public int getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public void setCodigoPostal(int codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
 }

@@ -1,133 +1,146 @@
 package com.syc.altaproveedor;
 
+import java.util.Base64;
 
 public class DatosCtaBancaria {
 
-	String			cBanco;
-	String			cNameBanco;
-	String			cPlaza;
-	int				nDigitoVerificador;
-	String			cSucursal;
-	String			cCuentaBancaria;
-	String			cClabeInterbancaria;
-	int				nBCBEnviadoSICOP;
-	int				nEstatusCta;
-	String			cEstatusCta;
-	String			cUsuarioModifico;
-	String			cMotivoEliminaCta;
-	private String	folio;
-	private String	rfc;
+    String cBanco;
 
-	public String getcBanco() {
-		return cBanco;
-	}
+    String cNameBanco;
 
-	public void setcBanco( String cBanco ) {
-		this.cBanco = cBanco;
-	}
+    String cPlaza;
 
-	public String getcNameBanco() {
-		return cNameBanco;
-	}
+    int nDigitoVerificador;
 
-	public void setcNameBanco( String cNameBanco ) {
-		this.cNameBanco = cNameBanco;
-	}
+    String cSucursal;
 
-	public String getcPlaza() {
-		return cPlaza;
-	}
+    String cCuentaBancaria;
 
-	public void setcPlaza( String cPlaza ) {
-		this.cPlaza = cPlaza;
-	}
+    String cClabeInterbancaria;
 
-	public int getnDigitoVerificador() {
-		return nDigitoVerificador;
-	}
+    int nBCBEnviadoSICOP;
 
-	public void setnDigitoVerificador( int nDigitoVerificador ) {
-		this.nDigitoVerificador = nDigitoVerificador;
-	}
+    int nEstatusCta;
 
-	public String getcSucursal() {
-		return cSucursal;
-	}
+    String cEstatusCta;
 
-	public void setcSucursal( String cSucursal ) {
-		this.cSucursal = cSucursal;
-	}
+    String cUsuarioModifico;
 
-	public String getcCuentaBancaria() {
-		return cCuentaBancaria;
-	}
+    String cMotivoEliminaCta;
 
-	public void setcCuentaBancaria( String cCuentaBancaria ) {
-		this.cCuentaBancaria = cCuentaBancaria;
-	}
+    private String folio;
 
-	public String getcClabeInterbancaria() {
-		return cClabeInterbancaria;
-	}
+    private String rfc;
 
-	public void setcClabeInterbancaria( String cClabeInterbancaria ) {
-		this.cClabeInterbancaria = cClabeInterbancaria;
-	}
+    public String getcBanco() {
+        return cBanco;
+    }
 
-	public int getnBCBEnviadoSICOP() {
-		return nBCBEnviadoSICOP;
-	}
+    public void setcBanco(String cBanco) {
+        this.cBanco = cBanco;
+    }
 
-	public void setnBCBEnviadoSICOP( int nBCBEnviadoSICOP ) {
-		this.nBCBEnviadoSICOP = nBCBEnviadoSICOP;
-	}
+    public String getcNameBanco() {
+        return cNameBanco;
+    }
 
-	public int getnEstatusCta() {
-		return nEstatusCta;
-	}
+    public void setcNameBanco(String cNameBanco) {
+        this.cNameBanco = cNameBanco;
+    }
 
-	public void setnEstatusCta( int nEstatusCta ) {
-		this.nEstatusCta = nEstatusCta;
-	}
+    public String getcPlaza() {
+        return cPlaza;
+    }
 
-	public String getcUsuarioModifico() {
-		return cUsuarioModifico;
-	}
+    public void setcPlaza(String cPlaza) {
+        this.cPlaza = cPlaza;
+    }
 
-	public void setcUsuarioModifico( String cUsuarioModifico ) {
-		this.cUsuarioModifico = cUsuarioModifico;
-	}
+    public int getnDigitoVerificador() {
+        return nDigitoVerificador;
+    }
 
-	public String getcEstatusCta() {
-		return cEstatusCta;
-	}
+    public void setnDigitoVerificador(int nDigitoVerificador) {
+        this.nDigitoVerificador = nDigitoVerificador;
+    }
 
-	public void setcEstatusCta( String cEstatusCta ) {
-		this.cEstatusCta = cEstatusCta;
-	}
+    public String getcSucursal() {
+        return cSucursal;
+    }
 
-	public String getcMotivoEliminaCta() {
-		return cMotivoEliminaCta;
-	}
+    public void setcSucursal(String cSucursal) {
+        this.cSucursal = cSucursal;
+    }
 
-	public void setcMotivoEliminaCta( String cMotivoEliminaCta ) {
-		this.cMotivoEliminaCta = cMotivoEliminaCta;
-	}
+    public String getcCuentaBancaria() {
+        return cCuentaBancaria;
+    }
 
-	public String getFolio() {
-		return folio;
-	}
+    public void setcCuentaBancaria(String cCuentaBancaria) {
+        this.cCuentaBancaria = cCuentaBancaria;
+    }
 
-	public void setFolio( String folio ) {
-		this.folio = folio;
-	}
+    public String getcClabeInterbancaria() {
+        return cClabeInterbancaria;
+    }
 
-	public String getRfc() {
-		return rfc;
-	}
+    public void setcClabeInterbancaria(String cClabeInterbancaria) {
+        this.cClabeInterbancaria = cClabeInterbancaria;
+    }
 
-	public void setRfc( String rfc ) {
-		this.rfc = rfc;
-	}
+    public int getnBCBEnviadoSICOP() {
+        return nBCBEnviadoSICOP;
+    }
 
+    public void setnBCBEnviadoSICOP(int nBCBEnviadoSICOP) {
+        this.nBCBEnviadoSICOP = nBCBEnviadoSICOP;
+    }
+
+    public int getnEstatusCta() {
+        return nEstatusCta;
+    }
+
+    public void setnEstatusCta(int nEstatusCta) {
+        this.nEstatusCta = nEstatusCta;
+    }
+
+    public String getcUsuarioModifico() {
+        return cUsuarioModifico;
+    }
+
+    public void setcUsuarioModifico(String cUsuarioModifico) {
+        this.cUsuarioModifico = cUsuarioModifico;
+    }
+
+    public String getcEstatusCta() {
+        return cEstatusCta;
+    }
+
+    public void setcEstatusCta(String cEstatusCta) {
+        this.cEstatusCta = cEstatusCta;
+    }
+
+    public String getcMotivoEliminaCta() {
+        return cMotivoEliminaCta;
+    }
+
+    public void setcMotivoEliminaCta(String cMotivoEliminaCta) {
+        this.cMotivoEliminaCta = cMotivoEliminaCta;
+    }
+
+    public String getFolio() {
+        return folio;
+    }
+
+    public void setFolio(String folio) {
+        this.folio = folio;
+    }
+
+    public String getRfc() {
+        return rfc;
+    }
+
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
 }

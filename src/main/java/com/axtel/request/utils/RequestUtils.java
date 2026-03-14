@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.fileupload2.core.FileItem;
 import com.axtel.request.MultipartObject;
 import com.syc.gestion.util.Util;
+import java.util.Base64;
 
 public class RequestUtils {
 

@@ -38,6 +38,8 @@ import com.syc.gestion.servlet.GestionFileReceiverServlet;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 
 // fin del metodo
 @WebServlet(name = "InfoSemestralServlet", urlPatterns = { "/gstnmngr/InformeSemestral" })
@@ -126,8 +128,9 @@ public class InformeSemestralServlet extends HttpServlet {
     }
 
     public void datosPlantilla(HttpServletRequest request, HttpServletResponse response, String tReporte) throws ServletException, IOException, SQLException, ClassNotFoundException, ParseException {
-        ServletFileUpload upload = new ServletFileUpload();
-        upload.setRepositoryPath(tempDir);
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+        JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         cFileExcel = upload.getRepositoryPath() + "\\" + "InformeSemestral.xls";
         if (tReporte.equals("1")) {
             //Es Reporte Avanc del ejercido de Contratos GENERAL

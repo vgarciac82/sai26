@@ -1,99 +1,105 @@
 package com.syc.fortimax.core;
 
+import java.util.Base64;
+
 public class ExportLogGeneral extends ExportLog {
-	private int		cfdis				= 0;
-	private String	cuentaPorPagar;
-	private String	log;
-	private int		oficiosDeTransito	= 0;
-	private int		solicitudesDePago	= 0;
 
-	/**
-	 * @return the cfdis
-	 */
-	public int getCfdis() {
-		return cfdis;
-	}
+    private int cfdis = 0;
 
-	/**
-	 * @return the cuentaPorPagar
-	 */
-	public String getCuentaPorPagar() {
-		return cuentaPorPagar;
-	}
+    private String cuentaPorPagar;
 
-	/**
-	 * @return the log
-	 */
-	public String getLog() {
-		return log;
-	}
+    private String log;
 
-	/**
-	 * @return the oficiosDeTransito
-	 */
-	public int getOficiosDeTransito() {
-		return oficiosDeTransito;
-	}
+    private int oficiosDeTransito = 0;
 
-	/**
-	 * @return the solicitudesDePago
-	 */
-	public int getSolicitudesDePago() {
-		return solicitudesDePago;
-	}
+    private int solicitudesDePago = 0;
 
-	/**
-	 * @param cfdis
-	 *            the cfdis to set
-	 */
-	public void setCfdis(int cfdis) {
-		this.cfdis = cfdis;
-	}
+    /**
+     * @return the cfdis
+     */
+    public int getCfdis() {
+        return cfdis;
+    }
 
-	/**
-	 * @param cuentaPorPagar
-	 *            the cuentaPorPagar to set
-	 */
-	public void setCuentaPorPagar(String cuentaPorPagar) {
-		this.cuentaPorPagar = cuentaPorPagar;
-	}
+    /**
+     * @return the cuentaPorPagar
+     */
+    public String getCuentaPorPagar() {
+        return cuentaPorPagar;
+    }
 
-	/**
-	 * @param log
-	 *            the log to set
-	 */
-	public void setLog(String log) {
-		this.log = log;
-	}
+    /**
+     * @return the log
+     */
+    public String getLog() {
+        return log;
+    }
 
-	/**
-	 * @param oficiosDeTransito
-	 *            the oficiosDeTransito to set
-	 */
-	public void setOficiosDeTransito(int oficiosDeTransito) {
-		this.oficiosDeTransito = oficiosDeTransito;
-	}
+    /**
+     * @return the oficiosDeTransito
+     */
+    public int getOficiosDeTransito() {
+        return oficiosDeTransito;
+    }
 
-	/**
-	 * @param solicitudesDePago
-	 *            the solicitudesDePago to set
-	 */
-	public void setSolicitudesDePago(int solicitudesDePago) {
-		this.solicitudesDePago = solicitudesDePago;
-	}
+    /**
+     * @return the solicitudesDePago
+     */
+    public int getSolicitudesDePago() {
+        return solicitudesDePago;
+    }
 
-	public String toCSV() {
-		return cuentaPorPagar + "," + solicitudesDePago + "," + cfdis + "," + oficiosDeTransito + "," + log;
-	}
+    /**
+     * @param cfdis
+     *            the cfdis to set
+     */
+    public void setCfdis(int cfdis) {
+        this.cfdis = cfdis;
+    }
 
-	/*
+    /**
+     * @param cuentaPorPagar
+     *            the cuentaPorPagar to set
+     */
+    public void setCuentaPorPagar(String cuentaPorPagar) {
+        this.cuentaPorPagar = cuentaPorPagar;
+    }
+
+    /**
+     * @param log
+     *            the log to set
+     */
+    public void setLog(String log) {
+        this.log = log;
+    }
+
+    /**
+     * @param oficiosDeTransito
+     *            the oficiosDeTransito to set
+     */
+    public void setOficiosDeTransito(int oficiosDeTransito) {
+        this.oficiosDeTransito = oficiosDeTransito;
+    }
+
+    /**
+     * @param solicitudesDePago
+     *            the solicitudesDePago to set
+     */
+    public void setSolicitudesDePago(int solicitudesDePago) {
+        this.solicitudesDePago = solicitudesDePago;
+    }
+
+    public String toCSV() {
+        return cuentaPorPagar + "," + solicitudesDePago + "," + cfdis + "," + oficiosDeTransito + "," + log;
+    }
+
+    /*
 	 * (non-Javadoc)
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
-	@Override
-	public String toString() {
-		return "ExportLogGeneral [cuentaPorPagar=" + cuentaPorPagar + ", solicitudesDePago=" + solicitudesDePago + ", cfdis=" + cfdis + ", oficiosDeTransito=" + oficiosDeTransito + ", log=" + log + "]";
-	}
-
+    @Override
+    public String toString() {
+        return "ExportLogGeneral [cuentaPorPagar=" + cuentaPorPagar + ", solicitudesDePago=" + solicitudesDePago + ", cfdis=" + cfdis + ", oficiosDeTransito=" + oficiosDeTransito + ", log=" + log + "]";
+    }
 }

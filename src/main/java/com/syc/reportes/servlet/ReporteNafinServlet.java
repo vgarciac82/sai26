@@ -17,6 +17,7 @@ import com.syc.reportes.ReporteNafinBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ReporteNafinServlet", urlPatterns = { "/reportes/ReporteNafin", "/reportes/FinalizarProveedor" })
 public class ReporteNafinServlet extends HttpServlet implements GestionInterface {

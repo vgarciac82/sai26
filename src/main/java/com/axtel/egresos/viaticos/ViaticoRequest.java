@@ -1,9 +1,15 @@
 package com.axtel.egresos.viaticos;
 
+import java.util.Base64;
+
 public class ViaticoRequest {
+
     private int idEmpleado;
+
     private String fechaInicio;
+
     private String fechaFin;
+
     private String concepto;
 
     public ViaticoRequest() {
@@ -19,7 +25,7 @@ public class ViaticoRequest {
     public ViaticoRequest(int idEmpleado, String fechaInicio, String fechaFin) {
         this(idEmpleado, fechaInicio, fechaFin, null);
     }
-    
+
     public int getIdEmpleado() {
         return idEmpleado;
     }

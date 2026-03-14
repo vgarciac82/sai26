@@ -1,179 +1,186 @@
 package com.syc.contable;
 
+import java.util.Base64;
+
 public class AccountingMovement {
 
-	private String cuenta;
-	private String subCuenta;
-	private double movimiento;
-	private boolean cargo;
-	private boolean naturaleza;
-	private boolean verificaSaldo;
-	private String centroContable;
-	private String ejercicioFiscal;
-	private int folioPoliza;
-	private int docRenglon;
-	private String descCuenta;
-	private String parcial;
-	private boolean bPresupuesto;
-	private String unidadResponsable;
-	
-	public AccountingMovement(String cuenta, double movimiento, boolean cargo, boolean naturaleza, boolean varificaSaldo, String centroContable, String ejercicioFiscal,
-	        int docRenglon, String descCuenta, boolean bPresupuesto, String unidadResponsable) {
-		this(cuenta, null, movimiento, cargo, naturaleza, varificaSaldo, centroContable, ejercicioFiscal, docRenglon, descCuenta, bPresupuesto, unidadResponsable);
-	}
+    private String cuenta;
 
-	public AccountingMovement(String cuenta, String subCuenta, double movimiento, boolean cargo, boolean naturaleza, boolean verificaSaldo, String centroContable,
-	        String ejercicioFiscal, int docRenglon, String descCuenta, boolean bPresupuesto, String unidadResponsable ) {
-		this.cuenta = cuenta;
-		this.subCuenta = subCuenta;
-		this.movimiento = movimiento;
-		this.cargo = cargo;
-		this.naturaleza = naturaleza;
-		this.verificaSaldo = verificaSaldo;
-		this.centroContable = centroContable;
-		this.ejercicioFiscal = ejercicioFiscal;
-		this.docRenglon = docRenglon;
-		this.descCuenta = descCuenta;
-		this.bPresupuesto = bPresupuesto;
-		this.unidadResponsable = unidadResponsable;
-	}
+    private String subCuenta;
 
-	public String getCuenta() {
-		return cuenta;
-	}
+    private double movimiento;
 
-	public void setCuenta(String cuenta) {
-		this.cuenta = cuenta;
-	}
+    private boolean cargo;
 
-	public String getSubCuenta() {
-		return subCuenta;
-	}
+    private boolean naturaleza;
 
-	public void setSubCuenta(String subCuenta) {
-		this.subCuenta = subCuenta;
-	}
+    private boolean verificaSaldo;
 
-	public double getMovimiento() {
-		return movimiento;
-	}
+    private String centroContable;
 
-	public void setMovimiento(double movimiento) {
-		this.movimiento = movimiento;
-	}
+    private String ejercicioFiscal;
 
-	public boolean isCargo() {
-		return cargo;
-	}
+    private int folioPoliza;
 
-	public String getTipoMovimiento() {
-		return isCargo() ? "C" : "A";
-	}
+    private int docRenglon;
 
-	public void setCargo(boolean esCargo) {
-		this.cargo = esCargo;
-	}
+    private String descCuenta;
 
-	public boolean esDeudora() {
-		return naturaleza;
-	}
+    private String parcial;
 
-	public String getNaturaleza() {
-		return esDeudora() ? "D" : "A";
-	}
+    private boolean bPresupuesto;
 
-	public void setNaturaleza(boolean naturaleza) {
-		this.naturaleza = naturaleza;
-	}
+    private String unidadResponsable;
 
-	public boolean seVarificaSaldo() {
-		return verificaSaldo;
-	}
+    public AccountingMovement(String cuenta, double movimiento, boolean cargo, boolean naturaleza, boolean varificaSaldo, String centroContable, String ejercicioFiscal, int docRenglon, String descCuenta, boolean bPresupuesto, String unidadResponsable) {
+        this(cuenta, null, movimiento, cargo, naturaleza, varificaSaldo, centroContable, ejercicioFiscal, docRenglon, descCuenta, bPresupuesto, unidadResponsable);
+    }
 
-	public String getVarificaSaldo() {
-		return verificaSaldo ? "S" : "N";
-	}
+    public AccountingMovement(String cuenta, String subCuenta, double movimiento, boolean cargo, boolean naturaleza, boolean verificaSaldo, String centroContable, String ejercicioFiscal, int docRenglon, String descCuenta, boolean bPresupuesto, String unidadResponsable) {
+        this.cuenta = cuenta;
+        this.subCuenta = subCuenta;
+        this.movimiento = movimiento;
+        this.cargo = cargo;
+        this.naturaleza = naturaleza;
+        this.verificaSaldo = verificaSaldo;
+        this.centroContable = centroContable;
+        this.ejercicioFiscal = ejercicioFiscal;
+        this.docRenglon = docRenglon;
+        this.descCuenta = descCuenta;
+        this.bPresupuesto = bPresupuesto;
+        this.unidadResponsable = unidadResponsable;
+    }
 
-	public void setVerificaSaldo(boolean verificaSaldo) {
-		this.verificaSaldo = verificaSaldo;
-	}
+    public String getCuenta() {
+        return cuenta;
+    }
 
-	public String getCentroContable() {
-		return centroContable;
-	}
+    public void setCuenta(String cuenta) {
+        this.cuenta = cuenta;
+    }
 
-	public void setCentroContable(String centroContable) {
-		this.centroContable = centroContable;
-	}
+    public String getSubCuenta() {
+        return subCuenta;
+    }
 
-	public void setEjercicioFiscal(String ejercicioFiscal) {
-		this.ejercicioFiscal = ejercicioFiscal;
-	}
+    public void setSubCuenta(String subCuenta) {
+        this.subCuenta = subCuenta;
+    }
 
-	public String getEjercicioFiscal() {
-		return ejercicioFiscal;
-	}
+    public double getMovimiento() {
+        return movimiento;
+    }
 
-	public void setFolioPoliza(int folioPoliza) {
-		this.folioPoliza = folioPoliza;
-	}
+    public void setMovimiento(double movimiento) {
+        this.movimiento = movimiento;
+    }
 
-	public int getFolioPoliza() {
-		return folioPoliza;
-	}
+    public boolean isCargo() {
+        return cargo;
+    }
 
-	public boolean isVerificaSaldo() {
-		return verificaSaldo;
-	}
+    public String getTipoMovimiento() {
+        return isCargo() ? "C" : "A";
+    }
 
-	public int getDocRenglon() {
-		return docRenglon;
-	}
+    public void setCargo(boolean esCargo) {
+        this.cargo = esCargo;
+    }
 
-	public String getDescCuenta() {
-		return descCuenta;
-	}
+    public boolean esDeudora() {
+        return naturaleza;
+    }
 
-	public void setDescCuenta(String descCuenta) {
-		this.descCuenta = descCuenta;
-	}
+    public String getNaturaleza() {
+        return esDeudora() ? "D" : "A";
+    }
 
-	public String getPK() {
-		return centroContable + cuenta + (subCuenta == null ? "" : subCuenta);
-	}
+    public void setNaturaleza(boolean naturaleza) {
+        this.naturaleza = naturaleza;
+    }
 
-	public boolean getbPresupuesto() {
-		return bPresupuesto;
-	}
+    public boolean seVarificaSaldo() {
+        return verificaSaldo;
+    }
 
-	public void setbPresupuesto(boolean bPresupuesto) {
-		this.bPresupuesto = bPresupuesto;
-	}
+    public String getVarificaSaldo() {
+        return verificaSaldo ? "S" : "N";
+    }
 
-	@Override
-	public String toString() {
-		return "[ejercicioFiscal = " + ejercicioFiscal + ", centroContable=" + centroContable + ", cuenta=" + cuenta + ", subCuenta=" + subCuenta + ", movimiento=" + movimiento
-		        + ", tipoMovimiento=" + getTipoMovimiento() + "(" + cargo + ")" + ", naturaleza=" + getNaturaleza() + "(" + naturaleza + ")" + ", verificaSaldo="
-		        + getVarificaSaldo() + "(" + verificaSaldo + ")" + ", folioPoliza=" + folioPoliza + ", docRenglon=" + docRenglon + ", descCuenta=" + descCuenta + ", Unidad Responsable=" + unidadResponsable + "]";
-	}
+    public void setVerificaSaldo(boolean verificaSaldo) {
+        this.verificaSaldo = verificaSaldo;
+    }
 
-	public String getParcial() {
-		return parcial;
-	}
+    public String getCentroContable() {
+        return centroContable;
+    }
 
-	public void setParcial(String parcial) {
-		this.parcial = parcial;
-	}
+    public void setCentroContable(String centroContable) {
+        this.centroContable = centroContable;
+    }
 
-	
-	public String getUnidadResponsable() {
-		return unidadResponsable;
-	}
+    public void setEjercicioFiscal(String ejercicioFiscal) {
+        this.ejercicioFiscal = ejercicioFiscal;
+    }
 
-	
-	public void setUnidadResponsable( String unidadResponsable ) {
-		this.unidadResponsable = unidadResponsable;
-	}
+    public String getEjercicioFiscal() {
+        return ejercicioFiscal;
+    }
 
-	
+    public void setFolioPoliza(int folioPoliza) {
+        this.folioPoliza = folioPoliza;
+    }
+
+    public int getFolioPoliza() {
+        return folioPoliza;
+    }
+
+    public boolean isVerificaSaldo() {
+        return verificaSaldo;
+    }
+
+    public int getDocRenglon() {
+        return docRenglon;
+    }
+
+    public String getDescCuenta() {
+        return descCuenta;
+    }
+
+    public void setDescCuenta(String descCuenta) {
+        this.descCuenta = descCuenta;
+    }
+
+    public String getPK() {
+        return centroContable + cuenta + (subCuenta == null ? "" : subCuenta);
+    }
+
+    public boolean getbPresupuesto() {
+        return bPresupuesto;
+    }
+
+    public void setbPresupuesto(boolean bPresupuesto) {
+        this.bPresupuesto = bPresupuesto;
+    }
+
+    @Override
+    public String toString() {
+        return "[ejercicioFiscal = " + ejercicioFiscal + ", centroContable=" + centroContable + ", cuenta=" + cuenta + ", subCuenta=" + subCuenta + ", movimiento=" + movimiento + ", tipoMovimiento=" + getTipoMovimiento() + "(" + cargo + ")" + ", naturaleza=" + getNaturaleza() + "(" + naturaleza + ")" + ", verificaSaldo=" + getVarificaSaldo() + "(" + verificaSaldo + ")" + ", folioPoliza=" + folioPoliza + ", docRenglon=" + docRenglon + ", descCuenta=" + descCuenta + ", Unidad Responsable=" + unidadResponsable + "]";
+    }
+
+    public String getParcial() {
+        return parcial;
+    }
+
+    public void setParcial(String parcial) {
+        this.parcial = parcial;
+    }
+
+    public String getUnidadResponsable() {
+        return unidadResponsable;
+    }
+
+    public void setUnidadResponsable(String unidadResponsable) {
+        this.unidadResponsable = unidadResponsable;
+    }
 }

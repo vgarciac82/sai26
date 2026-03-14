@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import com.syc.gestion.servlet.GestionInterface;
+import java.util.Base64;
 
 public class generaXML extends HttpServlet {
 

@@ -26,6 +26,7 @@ import com.syc.contable.core.PresupuestoManager;
 import com.syc.contable.core.AplicacionContable.AplicarContableReturn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class PresupuestoBusinessLogic extends DataSourceManager {
 

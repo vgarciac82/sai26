@@ -12,6 +12,7 @@ import com.syc.gestion.core.Caso;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "RetencionServlet", urlPatterns = { "/gstnmngr/RetencionServlet" })
 public class RetencionServlet extends HttpServlet {

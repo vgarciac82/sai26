@@ -1,70 +1,76 @@
 package com.syc.fortimax.core;
 
+import java.util.Base64;
 
 public class ExpedientNode {
 
-	private String		path;
-	private String		tituloAplicacion;
-	private int			idGabinete;
-	private int			idCarpetaPadre;
-	private int			idDocumento;
-	private String	    fortimax;
-	private String		nombreDocumento;
+    private String path;
 
-	public String getNombreDocumento() {
-		return nombreDocumento;
-	}
+    private String tituloAplicacion;
 
-	public void setNombreDocumento( String nombreDocumento ) {
-		this.nombreDocumento = nombreDocumento;
-	}
+    private int idGabinete;
 
-	public String getFortimax() {
-		return fortimax;
-	}
+    private int idCarpetaPadre;
 
-	public void setFortimax( String fortimax ) {
-		this.fortimax = fortimax;
-	}
+    private int idDocumento;
 
-	public String getPath() {
-		return path;
-	}
+    private String fortimax;
 
-	public void setPath( String path ) {
-		this.path = path;
-	}
+    private String nombreDocumento;
 
-	public String getTituloAplicacion() {
-		return tituloAplicacion;
-	}
+    public String getNombreDocumento() {
+        return nombreDocumento;
+    }
 
-	public void setTituloAplicacion( String tituloAplicacion ) {
-		this.tituloAplicacion = tituloAplicacion;
-	}
+    public void setNombreDocumento(String nombreDocumento) {
+        this.nombreDocumento = nombreDocumento;
+    }
 
-	public int getIdGabinete() {
-		return idGabinete;
-	}
+    public String getFortimax() {
+        return fortimax;
+    }
 
-	public void setIdGabinete( int idGabinete ) {
-		this.idGabinete = idGabinete;
-	}
+    public void setFortimax(String fortimax) {
+        this.fortimax = fortimax;
+    }
 
-	public int getIdCarpetaPadre() {
-		return idCarpetaPadre;
-	}
+    public String getPath() {
+        return path;
+    }
 
-	public void setIdCarpetaPadre( int idCarpetaPadre ) {
-		this.idCarpetaPadre = idCarpetaPadre;
-	}
+    public void setPath(String path) {
+        this.path = path;
+    }
 
-	public int getIdDocumento() {
-		return idDocumento;
-	}
+    public String getTituloAplicacion() {
+        return tituloAplicacion;
+    }
 
-	public void setIdDocumento( int idDocumento ) {
-		this.idDocumento = idDocumento;
-	}
+    public void setTituloAplicacion(String tituloAplicacion) {
+        this.tituloAplicacion = tituloAplicacion;
+    }
 
+    public int getIdGabinete() {
+        return idGabinete;
+    }
+
+    public void setIdGabinete(int idGabinete) {
+        this.idGabinete = idGabinete;
+    }
+
+    public int getIdCarpetaPadre() {
+        return idCarpetaPadre;
+    }
+
+    public void setIdCarpetaPadre(int idCarpetaPadre) {
+        this.idCarpetaPadre = idCarpetaPadre;
+    }
+
+    public int getIdDocumento() {
+        return idDocumento;
+    }
+
+    public void setIdDocumento(int idDocumento) {
+        this.idDocumento = idDocumento;
+    }
 }

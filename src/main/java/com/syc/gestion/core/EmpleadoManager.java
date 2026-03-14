@@ -9,6 +9,7 @@ import com.syc.cfdi.utils.CloseObject;
 import com.syc.dbms.DBMS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class EmpleadoManager {
 
@@ -179,9 +180,10 @@ public class EmpleadoManager {
         int retval = -1;
         PreparedStatement pstmnt = null;
         try {
-            pstmnt = conn.prepareStatement(//OJO: Esto se pone como CE_OS_RESPONSABLE
-            "UPDATE cg_cat_empleado " + "SET ID_AREA = ?, " + "CE_AP_PATERNO = ?, " + "CE_AP_MATERNO = ?, " + "CE_NOMBRE_COMPLETO = ?, " + "SALUTACION = ?, " + "CARGO = ? " + //Para salir del compromiso, pero hace falta
-            //Revisarlo y cuando menos crear un indice
+            pstmnt = //OJO: Esto se pone como CE_OS_RESPONSABLE
+            conn.//OJO: Esto se pone como CE_OS_RESPONSABLE
+            prepareStatement(//Para salir del compromiso, pero hace falta
+            "UPDATE cg_cat_empleado " + "SET ID_AREA = ?, " + "CE_AP_PATERNO = ?, " + "CE_AP_MATERNO = ?, " + "CE_NOMBRE_COMPLETO = ?, " + "SALUTACION = ?, " + "CARGO = ? " + //Revisarlo y cuando menos crear un indice
             //unico por CE_OS_RESPONSABLE
             "WHERE CE_OS_RESPONSABLE = ?");
             pstmnt.setString(1, e.getClaveArea());
@@ -208,9 +210,10 @@ public class EmpleadoManager {
         int retval = -1;
         PreparedStatement pstmnt = null;
         try {
-            pstmnt = conn.prepareStatement(//OJO: Esto se pone como CE_OS_RESPONSABLE
-            "UPDATE cg_cat_empleado " + "SET ID_AREA = ?, " + "CE_AP_PATERNO = ?, " + "CE_AP_MATERNO = ?, " + "CE_NOMBRE_COMPLETO = ?, " + "SALUTACION = ?, " + "CARGO = ?, " + "CE_OS_RESPONSABLE = ? " + //Para salir del compromiso, pero hace falta
-            //Revisarlo y cuando menos crear un indice
+            pstmnt = //OJO: Esto se pone como CE_OS_RESPONSABLE
+            conn.//OJO: Esto se pone como CE_OS_RESPONSABLE
+            prepareStatement(//Para salir del compromiso, pero hace falta
+            "UPDATE cg_cat_empleado " + "SET ID_AREA = ?, " + "CE_AP_PATERNO = ?, " + "CE_AP_MATERNO = ?, " + "CE_NOMBRE_COMPLETO = ?, " + "SALUTACION = ?, " + "CARGO = ?, " + "CE_OS_RESPONSABLE = ? " + //Revisarlo y cuando menos crear un indice
             //unico por CE_OS_RESPONSABLE
             "WHERE CE_OS_RESPONSABLE = ?");
             pstmnt.setString(1, eTo.getClaveArea());

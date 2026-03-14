@@ -1,83 +1,85 @@
 package com.syc.admin;
 
+import java.util.Base64;
+
 /**
  * Tablero de control. Alerta Subejercicio
  */
 public class TableroAlertaSubejercicio {
 
-	/**
-	 * Unidad Normativa
-	 */
-	private String	unidadNormativa;
-	/**
-	 * Total de registros en calendario para la convinacion UE/UN
-	 */
-	private int		totalCalendario;
-	/**
-	 * Total de registros capturados
-	 */
-	private int		totalCapturado;
+    /**
+     * Unidad Normativa
+     */
+    private String unidadNormativa;
 
-	/**
-	 * Construye una nueva instancia de este objeto
-	 * @param unidadNormativa
-	 *            Unidad Normativa
-	 * @param totalCalendario
-	 *            Total de registros en calendario
-	 * @param totalCapturado
-	 *            Total de registros capturados.
-	 */
-	public TableroAlertaSubejercicio(String unidadNormativa, int totalCalendario, int totalCapturado) {
-		super();
-		this.unidadNormativa = unidadNormativa;
-		this.totalCalendario = totalCalendario;
-		this.totalCapturado = totalCapturado;
-	}
+    /**
+     * Total de registros en calendario para la convinacion UE/UN
+     */
+    private int totalCalendario;
 
+    /**
+     * Total de registros capturados
+     */
+    private int totalCapturado;
 
-	/**
-	 * @return the unidadNormativa
-	 */
-	public String getUnidadNormativa() {
-		return unidadNormativa;
-	}
+    /**
+     * Construye una nueva instancia de este objeto
+     * @param unidadNormativa
+     *            Unidad Normativa
+     * @param totalCalendario
+     *            Total de registros en calendario
+     * @param totalCapturado
+     *            Total de registros capturados.
+     */
+    public TableroAlertaSubejercicio(String unidadNormativa, int totalCalendario, int totalCapturado) {
+        super();
+        this.unidadNormativa = unidadNormativa;
+        this.totalCalendario = totalCalendario;
+        this.totalCapturado = totalCapturado;
+    }
 
-	/**
-	 * @param unidadNormativa
-	 *            the unidadNormativa to set
-	 */
-	public void setUnidadNormativa(String unidadNormativa) {
-		this.unidadNormativa = unidadNormativa;
-	}
+    /**
+     * @return the unidadNormativa
+     */
+    public String getUnidadNormativa() {
+        return unidadNormativa;
+    }
 
-	/**
-	 * @return the totalCalendario
-	 */
-	public int getTotalCalendario() {
-		return totalCalendario;
-	}
+    /**
+     * @param unidadNormativa
+     *            the unidadNormativa to set
+     */
+    public void setUnidadNormativa(String unidadNormativa) {
+        this.unidadNormativa = unidadNormativa;
+    }
 
-	/**
-	 * @param totalCalendario
-	 *            the totalCalendario to set
-	 */
-	public void setTotalCalendario(int totalCalendario) {
-		this.totalCalendario = totalCalendario;
-	}
+    /**
+     * @return the totalCalendario
+     */
+    public int getTotalCalendario() {
+        return totalCalendario;
+    }
 
-	/**
-	 * @return the totalCapturado
-	 */
-	public int getTotalCapturado() {
-		return totalCapturado;
-	}
+    /**
+     * @param totalCalendario
+     *            the totalCalendario to set
+     */
+    public void setTotalCalendario(int totalCalendario) {
+        this.totalCalendario = totalCalendario;
+    }
 
-	/**
-	 * @param totalCapturado
-	 *            the totalCapturado to set
-	 */
-	public void setTotalCapturado(int totalCapturado) {
-		this.totalCapturado = totalCapturado;
-	}
+    /**
+     * @return the totalCapturado
+     */
+    public int getTotalCapturado() {
+        return totalCapturado;
+    }
 
+    /**
+     * @param totalCapturado
+     *            the totalCapturado to set
+     */
+    public void setTotalCapturado(int totalCapturado) {
+        this.totalCapturado = totalCapturado;
+    }
 }

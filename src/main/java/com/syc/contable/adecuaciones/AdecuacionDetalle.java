@@ -2,163 +2,170 @@ package com.syc.contable.adecuaciones;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Base64;
 
 public class AdecuacionDetalle implements Serializable {
 
-	private static final long	serialVersionUID	= -1499227133082953192L;
-	private String				claveInterna;
-	private String				claveSIAFF;
-	private List<Double>		montos;
-	private int					secuencia;
-	private String				tipo;
-	private String				cEvento;
-	private String				EP;
-	private int					nFolioAdecuacion;
-	private String				proyecto;
+    private static final long serialVersionUID = -1499227133082953192L;
 
-	public String getProyecto() {
-		return proyecto;
-	}
+    private String claveInterna;
 
-	public void setProyecto(String proyecto) {
-		this.proyecto = proyecto;
-	}
+    private String claveSIAFF;
 
-	public int getnFolioAdecuacion() {
-		return nFolioAdecuacion;
-	}
+    private List<Double> montos;
 
-	public void setnFolioAdecuacion(int nFolioAdecuacion) {
-		this.nFolioAdecuacion = nFolioAdecuacion;
-	}
+    private int secuencia;
 
-	public String getEP() {
-		return EP;
-	}
+    private String tipo;
 
-	public void setEP(String eP) {
-		EP = eP;
-		if (getEP() != null && getEP().length() == 63) {
-			setClaveSIAFF(getEP().substring(0, 55));
-			setClaveInterna(getEP().substring(56));
-		}
+    private String cEvento;
 
-	}
+    private String EP;
 
-	public String getcEvento() {
-		return cEvento;
-	}
+    private int nFolioAdecuacion;
 
-	public void setcEvento(String cEvento) {
-		this.cEvento = cEvento;
-	}
+    private String proyecto;
 
-	/**
-	 * @param claveInterna
-	 * @param claveSIAFF
-	 * @param montos
-	 * @param secuencia
-	 * @param tipo
-	 */
-	public AdecuacionDetalle(String claveInterna, String claveSIAFF, List<Double> montos, int secuencia, String tipo) {
-		super();
-		this.claveInterna = claveInterna;
-		this.claveSIAFF = claveSIAFF;
-		this.montos = montos;
-		this.secuencia = secuencia;
-		this.tipo = tipo;
-	}
+    public String getProyecto() {
+        return proyecto;
+    }
 
-	/**
-	 * 
-	 */
-	public AdecuacionDetalle() {
-		super();
-	}
+    public void setProyecto(String proyecto) {
+        this.proyecto = proyecto;
+    }
 
-	/**
-	 * @return the claveInterna
-	 */
-	public String getClaveInterna() {
-		return claveInterna;
-	}
+    public int getnFolioAdecuacion() {
+        return nFolioAdecuacion;
+    }
 
-	/**
-	 * @return the claveSIAFF
-	 */
-	public String getClaveSIAFF() {
-		return claveSIAFF;
-	}
+    public void setnFolioAdecuacion(int nFolioAdecuacion) {
+        this.nFolioAdecuacion = nFolioAdecuacion;
+    }
 
-	/**
-	 * @return the montos
-	 */
-	public List<Double> getMontos() {
-		return montos;
-	}
+    public String getEP() {
+        return EP;
+    }
 
-	/**
-	 * @return the secuencia
-	 */
-	public int getSecuencia() {
-		return secuencia;
-	}
+    public void setEP(String eP) {
+        EP = eP;
+        if (getEP() != null && getEP().length() == 63) {
+            setClaveSIAFF(getEP().substring(0, 55));
+            setClaveInterna(getEP().substring(56));
+        }
+    }
 
-	/**
-	 * @return the tipo
-	 */
-	public String getTipo() {
-		return tipo;
-	}
+    public String getcEvento() {
+        return cEvento;
+    }
 
-	/**
-	 * @param claveInterna
-	 *            the claveInterna to set
-	 */
-	public void setClaveInterna(String claveInterna) {
-		this.claveInterna = claveInterna;
-	}
+    public void setcEvento(String cEvento) {
+        this.cEvento = cEvento;
+    }
 
-	/**
-	 * @param claveSIAFF
-	 *            the claveSIAFF to set
-	 */
-	public void setClaveSIAFF(String claveSIAFF) {
-		this.claveSIAFF = claveSIAFF;
-	}
+    /**
+     * @param claveInterna
+     * @param claveSIAFF
+     * @param montos
+     * @param secuencia
+     * @param tipo
+     */
+    public AdecuacionDetalle(String claveInterna, String claveSIAFF, List<Double> montos, int secuencia, String tipo) {
+        super();
+        this.claveInterna = claveInterna;
+        this.claveSIAFF = claveSIAFF;
+        this.montos = montos;
+        this.secuencia = secuencia;
+        this.tipo = tipo;
+    }
 
-	/**
-	 * @param montos
-	 *            the montos to set
-	 */
-	public void setMontos(List<Double> montos) {
-		this.montos = montos;
-	}
+    /**
+     */
+    public AdecuacionDetalle() {
+        super();
+    }
 
-	/**
-	 * @param secuencia
-	 *            the secuencia to set
-	 */
-	public void setSecuencia(int secuencia) {
-		this.secuencia = secuencia;
-	}
+    /**
+     * @return the claveInterna
+     */
+    public String getClaveInterna() {
+        return claveInterna;
+    }
 
-	/**
-	 * @param tipo
-	 *            the tipo to set
-	 */
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
+    /**
+     * @return the claveSIAFF
+     */
+    public String getClaveSIAFF() {
+        return claveSIAFF;
+    }
 
-	/*
+    /**
+     * @return the montos
+     */
+    public List<Double> getMontos() {
+        return montos;
+    }
+
+    /**
+     * @return the secuencia
+     */
+    public int getSecuencia() {
+        return secuencia;
+    }
+
+    /**
+     * @return the tipo
+     */
+    public String getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param claveInterna
+     *            the claveInterna to set
+     */
+    public void setClaveInterna(String claveInterna) {
+        this.claveInterna = claveInterna;
+    }
+
+    /**
+     * @param claveSIAFF
+     *            the claveSIAFF to set
+     */
+    public void setClaveSIAFF(String claveSIAFF) {
+        this.claveSIAFF = claveSIAFF;
+    }
+
+    /**
+     * @param montos
+     *            the montos to set
+     */
+    public void setMontos(List<Double> montos) {
+        this.montos = montos;
+    }
+
+    /**
+     * @param secuencia
+     *            the secuencia to set
+     */
+    public void setSecuencia(int secuencia) {
+        this.secuencia = secuencia;
+    }
+
+    /**
+     * @param tipo
+     *            the tipo to set
+     */
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    /*
 	 * (non-Javadoc)
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
-	@Override
-	public String toString() {
-		return "AdecuacionDetalle [claveInterna=" + claveInterna + ", claveSIAFF=" + claveSIAFF + ", montos=" + montos + ", secuencia=" + secuencia + ", tipo=" + tipo + "]";
-	}
-
+    @Override
+    public String toString() {
+        return "AdecuacionDetalle [claveInterna=" + claveInterna + ", claveSIAFF=" + claveSIAFF + ", montos=" + montos + ", secuencia=" + secuencia + ", tipo=" + tipo + "]";
+    }
 }

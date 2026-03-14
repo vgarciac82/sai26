@@ -45,6 +45,7 @@ import java.util.Map;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ContratoServlet", urlPatterns = { "/servlet/ContratoServlet" })
 public class ContratoServlet extends HttpServlet implements GestionInterface {

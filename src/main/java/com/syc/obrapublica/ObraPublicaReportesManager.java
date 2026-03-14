@@ -23,6 +23,7 @@ import com.syc.sai.contabilidad.utils.db.CloseObject;
 import com.syc.sai.contabilidad.utils.db.RSToTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class ObraPublicaReportesManager {
 
@@ -1454,8 +1455,8 @@ public class ObraPublicaReportesManager {
                             sheet.addMergedRegion(new // mention first row here
                             //mention last row here, it is 1 as we are doing a column wise merging
                             //mention first column of merging
-                            CellRangeAddress(//mention last column to include in merge
-                            rowDesde, rowHasta - 1, numCol, numCol));
+                            //mention last column to include in merge
+                            CellRangeAddress(rowDesde, rowHasta - 1, numCol, numCol));
                         }
                         rowDesde = rowHasta;
                         //rowHasta--;

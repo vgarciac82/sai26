@@ -1,53 +1,53 @@
 package com.syc.sai.contabilidad.polizamanual;
 
+import java.util.Base64;
+
 /**
  * TeventoRelacion entity. @author MyEclipse Persistence Tools
  */
-
 public class EventoRelacion implements java.io.Serializable {
 
+    /**
+     */
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    private String devento;
 
-	private String devento;	
-	
-	private String cevento;
-	private Integer nidGrupoEvento;
-	private Integer nidSubGrupoEvento;
+    private String cevento;
 
+    private Integer nidGrupoEvento;
 
-	public String getDevento() {
-		return this.devento;
-	}
+    private Integer nidSubGrupoEvento;
 
-	public void setDevento(String devento) {
-		this.devento = devento;
-	}
+    public String getDevento() {
+        return this.devento;
+    }
 
-	public String getCevento() {
-		return cevento;
-	}
+    public void setDevento(String devento) {
+        this.devento = devento;
+    }
 
-	public void setCevento(String cevento) {
-		this.cevento = cevento;
-	}
+    public String getCevento() {
+        return cevento;
+    }
 
-	public Integer getNidGrupoEvento() {
-		return nidGrupoEvento;
-	}
+    public void setCevento(String cevento) {
+        this.cevento = cevento;
+    }
 
-	public void setNidGrupoEvento(Integer nidGrupoEvento) {
-		this.nidGrupoEvento = nidGrupoEvento;
-	}
+    public Integer getNidGrupoEvento() {
+        return nidGrupoEvento;
+    }
 
-	public Integer getNidSubGrupoEvento() {
-		return nidSubGrupoEvento;
-	}
+    public void setNidGrupoEvento(Integer nidGrupoEvento) {
+        this.nidGrupoEvento = nidGrupoEvento;
+    }
 
-	public void setNidSubGrupoEvento(Integer nidSubGrupoEvento) {
-		this.nidSubGrupoEvento = nidSubGrupoEvento;
-	}	
+    public Integer getNidSubGrupoEvento() {
+        return nidSubGrupoEvento;
+    }
+
+    public void setNidSubGrupoEvento(Integer nidSubGrupoEvento) {
+        this.nidSubGrupoEvento = nidSubGrupoEvento;
+    }
 }

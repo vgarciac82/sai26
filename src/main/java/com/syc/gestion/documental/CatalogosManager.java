@@ -12,6 +12,7 @@ import com.syc.adquisiciones.manager.BaseSACManager;
 import com.syc.adquisiciones.vo.ConexionesBD;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class CatalogosManager {
 

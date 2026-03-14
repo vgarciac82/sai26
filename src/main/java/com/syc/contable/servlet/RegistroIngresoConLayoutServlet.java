@@ -14,6 +14,7 @@ import com.syc.registroingresos.RegistroIngresosBussinesLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "RegistroIngresoConLayoutServlet", urlPatterns = { "/gstnmngr/RegistroIngresoConLayoutServlet" })
 public class RegistroIngresoConLayoutServlet extends HttpServlet {

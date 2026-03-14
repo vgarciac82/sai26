@@ -20,6 +20,7 @@ import com.axtel.cfdi.stamp.core.VirtualFile;
 import com.axtel.cfdi.stamp.core.Volumen;
 import com.axtel.cfdi.stamp.core.VolumenRepositoryInterface;
 import com.axtel.cfdi.stamp.repository.DriveRepositoryInterface;
+import java.util.Base64;
 
 public class VolumenService implements VolumenServiceInterface {
 

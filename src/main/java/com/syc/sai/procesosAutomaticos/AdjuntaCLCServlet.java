@@ -26,6 +26,7 @@ import com.syc.sai.procesosAutomaticos.core.ProcesoAdjuntaBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "AdjuntaCLCServlet", urlPatterns = { "/AdjuntaCLCServlet" })
 public class AdjuntaCLCServlet extends HttpServlet implements GestionInterface, Runnable {

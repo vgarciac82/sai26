@@ -1,138 +1,143 @@
 package com.syc.info.cfdi;
 
-
 import java.math.BigDecimal;
-
+import java.util.Base64;
 
 public class ComprobanteDetalle {
 
-	private int			idFacturaDet;
-	private int			idFactura;
-	private BigDecimal	cantidad;
-	private String		unidad;
-	private String		numIdentif;
-	private String		descripcion;
-	private BigDecimal	valorUnitario;
-	private BigDecimal	mImporte;
+    private int idFacturaDet;
 
-	/**
-	 * @return the idFacturaDet
-	 */
-	public int getIdFacturaDet() {
-		return idFacturaDet;
-	}
+    private int idFactura;
 
-	/**
-	 * @param idFacturaDet
-	 *            the idFacturaDet to set
-	 */
-	public void setIdFacturaDet( int idFacturaDet ) {
-		this.idFacturaDet = idFacturaDet;
-	}
+    private BigDecimal cantidad;
 
-	/**
-	 * @return the idFactura
-	 */
-	public int getIdFactura() {
-		return idFactura;
-	}
+    private String unidad;
 
-	/**
-	 * @param idFactura
-	 *            the idFactura to set
-	 */
-	public void setIdFactura( int idFactura ) {
-		this.idFactura = idFactura;
-	}
+    private String numIdentif;
 
-	/**
-	 * @return the cantidad
-	 */
-	public BigDecimal getCantidad() {
-		return cantidad;
-	}
+    private String descripcion;
 
-	/**
-	 * @param cantidad
-	 *            the cantidad to set
-	 */
-	public void setCantidad( BigDecimal cantidad ) {
-		this.cantidad = cantidad;
-	}
+    private BigDecimal valorUnitario;
 
-	/**
-	 * @return the unidad
-	 */
-	public String getUnidad() {
-		return unidad;
-	}
+    private BigDecimal mImporte;
 
-	/**
-	 * @param unidad
-	 *            the unidad to set
-	 */
-	public void setUnidad( String unidad ) {
-		this.unidad = unidad;
-	}
+    /**
+     * @return the idFacturaDet
+     */
+    public int getIdFacturaDet() {
+        return idFacturaDet;
+    }
 
-	/**
-	 * @return the numIdentif
-	 */
-	public String getNumIdentif() {
-		return numIdentif;
-	}
+    /**
+     * @param idFacturaDet
+     *            the idFacturaDet to set
+     */
+    public void setIdFacturaDet(int idFacturaDet) {
+        this.idFacturaDet = idFacturaDet;
+    }
 
-	/**
-	 * @param numIdentif
-	 *            the numIdentif to set
-	 */
-	public void setNumIdentif( String numIdentif ) {
-		this.numIdentif = numIdentif;
-	}
+    /**
+     * @return the idFactura
+     */
+    public int getIdFactura() {
+        return idFactura;
+    }
 
-	/**
-	 * @return the descripcion
-	 */
-	public String getDescripcion() {
-		return descripcion;
-	}
+    /**
+     * @param idFactura
+     *            the idFactura to set
+     */
+    public void setIdFactura(int idFactura) {
+        this.idFactura = idFactura;
+    }
 
-	/**
-	 * @param descripcion
-	 *            the descripcion to set
-	 */
-	public void setDescripcion( String descripcion ) {
-		this.descripcion = descripcion;
-	}
+    /**
+     * @return the cantidad
+     */
+    public BigDecimal getCantidad() {
+        return cantidad;
+    }
 
-	/**
-	 * @return the valorUnitario
-	 */
-	public BigDecimal getValorUnitario() {
-		return valorUnitario;
-	}
+    /**
+     * @param cantidad
+     *            the cantidad to set
+     */
+    public void setCantidad(BigDecimal cantidad) {
+        this.cantidad = cantidad;
+    }
 
-	/**
-	 * @param valorUnitario
-	 *            the valorUnitario to set
-	 */
-	public void setValorUnitario( BigDecimal valorUnitario ) {
-		this.valorUnitario = valorUnitario;
-	}
+    /**
+     * @return the unidad
+     */
+    public String getUnidad() {
+        return unidad;
+    }
 
-	/**
-	 * @return the mImporte
-	 */
-	public BigDecimal getmImporte() {
-		return mImporte;
-	}
+    /**
+     * @param unidad
+     *            the unidad to set
+     */
+    public void setUnidad(String unidad) {
+        this.unidad = unidad;
+    }
 
-	/**
-	 * @param mImporte
-	 *            the mImporte to set
-	 */
-	public void setmImporte( BigDecimal mImporte ) {
-		this.mImporte = mImporte;
-	}
+    /**
+     * @return the numIdentif
+     */
+    public String getNumIdentif() {
+        return numIdentif;
+    }
 
+    /**
+     * @param numIdentif
+     *            the numIdentif to set
+     */
+    public void setNumIdentif(String numIdentif) {
+        this.numIdentif = numIdentif;
+    }
+
+    /**
+     * @return the descripcion
+     */
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    /**
+     * @param descripcion
+     *            the descripcion to set
+     */
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    /**
+     * @return the valorUnitario
+     */
+    public BigDecimal getValorUnitario() {
+        return valorUnitario;
+    }
+
+    /**
+     * @param valorUnitario
+     *            the valorUnitario to set
+     */
+    public void setValorUnitario(BigDecimal valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
+
+    /**
+     * @return the mImporte
+     */
+    public BigDecimal getmImporte() {
+        return mImporte;
+    }
+
+    /**
+     * @param mImporte
+     *            the mImporte to set
+     */
+    public void setmImporte(BigDecimal mImporte) {
+        this.mImporte = mImporte;
+    }
 }

@@ -16,6 +16,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "InsertServlet", urlPatterns = { "/export/Insert" })
 public class InsertServlet extends HttpServlet implements GestionInterface {

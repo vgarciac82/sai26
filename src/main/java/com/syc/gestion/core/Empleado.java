@@ -1,125 +1,112 @@
 package com.syc.gestion.core;
 
-
 import java.io.Serializable;
-
+import java.util.Base64;
 
 public class Empleado implements Serializable {
 
-	private static final long	serialVersionUID	= -7740203864511747270L;
+    private static final long serialVersionUID = -7740203864511747270L;
 
-	private String				id					= null;
-	private String				apellidoPaterno		= null;
-	private String				apellidoMaterno		= null;
-	private String				nombre				= null;
-	private String				salutacion			= null;
-	private String				claveUsuario		= null;
-	private String				cargo				= null;
-	private String				claveArea			= null;
+    private String id = null;
 
-	public Empleado( ) {
+    private String apellidoPaterno = null;
 
-		super();
-	}
+    private String apellidoMaterno = null;
 
-	public String getId() {
+    private String nombre = null;
 
-		return id;
-	}
+    private String salutacion = null;
 
-	public void setId( String id ) {
+    private String claveUsuario = null;
 
-		this.id = id;
-	}
+    private String cargo = null;
 
-	public String getApellidoPaterno() {
+    private String claveArea = null;
 
-		return apellidoPaterno;
-	}
+    public Empleado() {
+        super();
+    }
 
-	public void setApellidoPaterno( String apellidoPaterno ) {
+    public String getId() {
+        return id;
+    }
 
-		this.apellidoPaterno = apellidoPaterno;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getApellidoMaterno() {
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
+    }
 
-		return apellidoMaterno;
-	}
+    public void setApellidoPaterno(String apellidoPaterno) {
+        this.apellidoPaterno = apellidoPaterno;
+    }
 
-	public void setApellidoMaterno( String apellidoMaterno ) {
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
+    }
 
-		this.apellidoMaterno = apellidoMaterno;
-	}
+    public void setApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
+    }
 
-	public String getNombre() {
+    public String getNombre() {
+        return nombre;
+    }
 
-		return nombre;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public void setNombre( String nombre ) {
+    public String getNombreCompleto() {
+        String nombreCompleto = ((apellidoPaterno == null) ? "" : apellidoPaterno + " ") + ((apellidoMaterno == null) ? "" : apellidoMaterno + ", ") + ((nombre == null) ? "" : nombre);
+        return ("".equals(nombreCompleto) ? null : nombreCompleto);
+    }
 
-		this.nombre = nombre;
-	}
+    public String getSalutacion() {
+        return salutacion;
+    }
 
-	public String getNombreCompleto() {
+    public void setSalutacion(String salutacion) {
+        this.salutacion = salutacion;
+    }
 
-		String nombreCompleto = ( ( apellidoPaterno == null ) ? "" : apellidoPaterno + " " ) + ( ( apellidoMaterno == null ) ? "" : apellidoMaterno + ", " ) + ( ( nombre == null ) ? "" : nombre );
+    public String getClaveUsuario() {
+        return claveUsuario;
+    }
 
-		return ( "".equals( nombreCompleto ) ? null : nombreCompleto );
-	}
+    public void setClaveUsuario(String claveUsuario) {
+        this.claveUsuario = claveUsuario;
+    }
 
-	public String getSalutacion() {
+    public String getCargo() {
+        return cargo;
+    }
 
-		return salutacion;
-	}
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
 
-	public void setSalutacion( String salutacion ) {
+    public String getClaveArea() {
+        return claveArea;
+    }
 
-		this.salutacion = salutacion;
-	}
+    public void setClaveArea(String claveArea) {
+        this.claveArea = claveArea;
+    }
 
-	public String getClaveUsuario() {
+    public String toString() {
+        return "com.syc.gestion.core.Empleado {\n" + "\t\tid=[" + this.id + "],\n" + "\t\tapellidoPaterno=[" + this.apellidoPaterno + "],\n" + "\t\tapellidoMaterno=[" + this.apellidoMaterno + "],\n" + "\t\tnombre=[" + this.nombre + "],\n" + "\t\tsalutacion=[" + this.salutacion + "],\n" + "\t\tclaveUsuario=[" + this.claveUsuario + "],\n" + "\t\tcargo=[" + this.cargo + "],\n" + "\t\tclaveArea=[" + this.claveArea + "],\n" + "}";
+    }
 
-		return claveUsuario;
-	}
+    public void setArea(EmpleadoArea ea) {
+        this.area = ea;
+    }
 
-	public void setClaveUsuario( String claveUsuario ) {
+    private EmpleadoArea area;
 
-		this.claveUsuario = claveUsuario;
-	}
-
-	public String getCargo() {
-
-		return cargo;
-	}
-
-	public void setCargo( String cargo ) {
-
-		this.cargo = cargo;
-	}
-
-	public String getClaveArea() {
-
-		return claveArea;
-	}
-
-	public void setClaveArea( String claveArea ) {
-
-		this.claveArea = claveArea;
-	}
-
-	public String toString() {
-		return "com.syc.gestion.core.Empleado {\n" + "\t\tid=[" + this.id + "],\n" + "\t\tapellidoPaterno=[" + this.apellidoPaterno + "],\n" + "\t\tapellidoMaterno=[" + this.apellidoMaterno + "],\n" + "\t\tnombre=[" + this.nombre + "],\n" + "\t\tsalutacion=[" + this.salutacion + "],\n" + "\t\tclaveUsuario=[" + this.claveUsuario + "],\n" + "\t\tcargo=[" + this.cargo + "],\n" + "\t\tclaveArea=[" + this.claveArea + "],\n" + "}";
-	}
-
-	public void setArea( EmpleadoArea ea ) {
-		this.area = ea;
-	}
-
-	private EmpleadoArea area;
-
-	public EmpleadoArea getArea() {
-		return this.area;
-	}
+    public EmpleadoArea getArea() {
+        return this.area;
+    }
 }

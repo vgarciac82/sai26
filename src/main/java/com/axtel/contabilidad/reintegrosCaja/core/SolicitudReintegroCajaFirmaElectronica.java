@@ -23,6 +23,7 @@ import com.syc.sai.firmaElectronica.exceptions.NotEmptyDocumentException;
 import com.syc.sai.firmaElectronica.interfaces.SolicitudFirmaElectronica;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public final class SolicitudReintegroCajaFirmaElectronica extends SolicitudFirmaElectronica {
 

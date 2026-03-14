@@ -1,25 +1,26 @@
 package com.axtel.cfdi;
 
+import java.util.Base64;
 
 public class ClaveUnidad {
 
-	private String	claveUnidad;
-	private String	descripcion;
+    private String claveUnidad;
 
-	public String getClaveUnidad() {
-		return claveUnidad;
-	}
+    private String descripcion;
 
-	public void setClaveUnidad( String claveUnidad ) {
-		this.claveUnidad = claveUnidad;
-	}
+    public String getClaveUnidad() {
+        return claveUnidad;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public void setClaveUnidad(String claveUnidad) {
+        this.claveUnidad = claveUnidad;
+    }
 
-	public void setDescripcion( String descripcion ) {
-		this.descripcion = descripcion;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 }

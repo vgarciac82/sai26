@@ -12,6 +12,7 @@ import java.util.Map;
 import org.jfree.util.Log;
 import com.syc.gestion.core.Caso;
 import com.syc.gestion.core.Usuario;
+import java.util.Base64;
 
 public class AnteProyectoManager {
 

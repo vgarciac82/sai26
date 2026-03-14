@@ -60,6 +60,7 @@ import com.syc.sai.firmaElectronica.interfaces.SolicitudFirmaElectronica;
 import com.syc.sai.procesos.CambiaEPRelacionGastos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class PagosDiversosBussinessLogic extends DataSourceManager {
 

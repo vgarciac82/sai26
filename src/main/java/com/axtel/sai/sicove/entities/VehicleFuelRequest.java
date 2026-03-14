@@ -1,152 +1,162 @@
 package com.axtel.sai.sicove.entities;
 
-
 import java.math.BigDecimal;
-
+import java.util.Base64;
 
 public class VehicleFuelRequest {
 
-	private int						fuelingRequestId;
-	private int						vehicleId;
-	private String					employeeResponsible;
-	private String					userRequest;
-	private FuelingJustification	justification;
-	private BigDecimal				fuelingAmount;
-	private BigDecimal				estimatedKilometers;
-	private BigDecimal				authorizedAmount;
-	private int						idProcess;
-	private int						justificationId;
-	private int						idStatus;
-	private String					walletNumber;
-	private String					walletSupplierName;
-	private String					rejectJustification;
-	private int						idWallet;
+    private int fuelingRequestId;
 
-	public int getFuelingRequestId() {
-		return fuelingRequestId;
-	}
+    private int vehicleId;
 
-	public void setFuelingRequestId( int fuelingRequestId ) {
-		this.fuelingRequestId = fuelingRequestId;
-	}
+    private String employeeResponsible;
 
-	public int getVehicleId() {
-		return vehicleId;
-	}
+    private String userRequest;
 
-	public void setVehicleId( int vehicleId ) {
-		this.vehicleId = vehicleId;
-	}
+    private FuelingJustification justification;
 
-	public String getEmployeeResponsible() {
-		return employeeResponsible;
-	}
+    private BigDecimal fuelingAmount;
 
-	public void setEmployeeResponsible( String employeeResponsible ) {
-		this.employeeResponsible = employeeResponsible;
-	}
+    private BigDecimal estimatedKilometers;
 
-	public String getUserRequest() {
-		return userRequest;
-	}
+    private BigDecimal authorizedAmount;
 
-	public void setUserRequest( String userRequest ) {
-		this.userRequest = userRequest;
-	}
+    private int idProcess;
 
-	public FuelingJustification getJustification() {
-		return justification;
-	}
+    private int justificationId;
 
-	public void setJustification( FuelingJustification justification ) {
-		this.justification = justification;
-	}
+    private int idStatus;
 
-	public BigDecimal getFuelingAmount() {
-		return fuelingAmount;
-	}
+    private String walletNumber;
 
-	public void setFuelingAmount( BigDecimal fuelingAmount ) {
-		this.fuelingAmount = fuelingAmount;
-	}
+    private String walletSupplierName;
 
-	public BigDecimal getEstimatedKilometers() {
-		return estimatedKilometers;
-	}
+    private String rejectJustification;
 
-	public void setEstimatedKilometers( BigDecimal estimatedKilometers ) {
-		this.estimatedKilometers = estimatedKilometers;
-	}
+    private int idWallet;
 
-	public int getIdProcess() {
-		return this.idProcess;
-	}
+    public int getFuelingRequestId() {
+        return fuelingRequestId;
+    }
 
-	public void setIdProcess( int idProcess ) {
-		this.idProcess = idProcess;
-	}
+    public void setFuelingRequestId(int fuelingRequestId) {
+        this.fuelingRequestId = fuelingRequestId;
+    }
 
-	public int getJustificationId() {
-		return justificationId;
-	}
+    public int getVehicleId() {
+        return vehicleId;
+    }
 
-	public void setJustificationId( int justificationId ) {
-		this.justificationId = justificationId;
-	}
+    public void setVehicleId(int vehicleId) {
+        this.vehicleId = vehicleId;
+    }
 
-	public int getIdStatus() {
-		return idStatus;
-	}
+    public String getEmployeeResponsible() {
+        return employeeResponsible;
+    }
 
-	public void setIdStatus( int idStatus ) {
-		this.idStatus = idStatus;
-	}
+    public void setEmployeeResponsible(String employeeResponsible) {
+        this.employeeResponsible = employeeResponsible;
+    }
 
-	public String getWalletNumber() {
-		return walletNumber;
-	}
+    public String getUserRequest() {
+        return userRequest;
+    }
 
-	public void setWalletNumber( String walletNumber ) {
-		this.walletNumber = walletNumber;
-	}
+    public void setUserRequest(String userRequest) {
+        this.userRequest = userRequest;
+    }
 
-	public BigDecimal getAuthorizedAmount() {
-		return authorizedAmount;
-	}
+    public FuelingJustification getJustification() {
+        return justification;
+    }
 
-	public void setAuthorizedAmount( BigDecimal authorizedAmount ) {
-		this.authorizedAmount = authorizedAmount;
-	}
+    public void setJustification(FuelingJustification justification) {
+        this.justification = justification;
+    }
 
-	public String getRejectJustification() {
-		return this.rejectJustification;
-	}
+    public BigDecimal getFuelingAmount() {
+        return fuelingAmount;
+    }
 
-	public void setRejectJustification( String rejectJustification ) {
-		this.rejectJustification = rejectJustification;
-	}
+    public void setFuelingAmount(BigDecimal fuelingAmount) {
+        this.fuelingAmount = fuelingAmount;
+    }
 
-	public int getIdWallet() {
-		return idWallet;
-	}
+    public BigDecimal getEstimatedKilometers() {
+        return estimatedKilometers;
+    }
 
-	public void setIdWallet( int idWallet ) {
-		this.idWallet = idWallet;
-	}
+    public void setEstimatedKilometers(BigDecimal estimatedKilometers) {
+        this.estimatedKilometers = estimatedKilometers;
+    }
 
-	
-	public String getWalletSupplierName() {
-		return walletSupplierName;
-	}
+    public int getIdProcess() {
+        return this.idProcess;
+    }
 
-	
-	public void setWalletSupplierName( String walletSupplierName ) {
-		this.walletSupplierName = walletSupplierName;
-	}
+    public void setIdProcess(int idProcess) {
+        this.idProcess = idProcess;
+    }
 
-	@Override
-	public String toString() {
-		return "VehicleFuelRequest [fuelingRequestId=" + fuelingRequestId + ", vehicleId=" + vehicleId + ", employeeResponsible=" + employeeResponsible + ", userRequest=" + userRequest + ", justification=" + justification + ", fuelingAmount=" + fuelingAmount + ", estimatedKilometers=" + estimatedKilometers + ", authorizedAmount=" + authorizedAmount + ", idProcess=" + idProcess + ", justificationId=" + justificationId + ", idStatus=" + idStatus + ", walletNumber=" + walletNumber + ", walletSupplierName=" + walletSupplierName + ", rejectJustification=" + rejectJustification + ", idWallet=" + idWallet + "]";
-	}
+    public int getJustificationId() {
+        return justificationId;
+    }
 
+    public void setJustificationId(int justificationId) {
+        this.justificationId = justificationId;
+    }
+
+    public int getIdStatus() {
+        return idStatus;
+    }
+
+    public void setIdStatus(int idStatus) {
+        this.idStatus = idStatus;
+    }
+
+    public String getWalletNumber() {
+        return walletNumber;
+    }
+
+    public void setWalletNumber(String walletNumber) {
+        this.walletNumber = walletNumber;
+    }
+
+    public BigDecimal getAuthorizedAmount() {
+        return authorizedAmount;
+    }
+
+    public void setAuthorizedAmount(BigDecimal authorizedAmount) {
+        this.authorizedAmount = authorizedAmount;
+    }
+
+    public String getRejectJustification() {
+        return this.rejectJustification;
+    }
+
+    public void setRejectJustification(String rejectJustification) {
+        this.rejectJustification = rejectJustification;
+    }
+
+    public int getIdWallet() {
+        return idWallet;
+    }
+
+    public void setIdWallet(int idWallet) {
+        this.idWallet = idWallet;
+    }
+
+    public String getWalletSupplierName() {
+        return walletSupplierName;
+    }
+
+    public void setWalletSupplierName(String walletSupplierName) {
+        this.walletSupplierName = walletSupplierName;
+    }
+
+    @Override
+    public String toString() {
+        return "VehicleFuelRequest [fuelingRequestId=" + fuelingRequestId + ", vehicleId=" + vehicleId + ", employeeResponsible=" + employeeResponsible + ", userRequest=" + userRequest + ", justification=" + justification + ", fuelingAmount=" + fuelingAmount + ", estimatedKilometers=" + estimatedKilometers + ", authorizedAmount=" + authorizedAmount + ", idProcess=" + idProcess + ", justificationId=" + justificationId + ", idStatus=" + idStatus + ", walletNumber=" + walletNumber + ", walletSupplierName=" + walletSupplierName + ", rejectJustification=" + rejectJustification + ", idWallet=" + idWallet + "]";
+    }
 }

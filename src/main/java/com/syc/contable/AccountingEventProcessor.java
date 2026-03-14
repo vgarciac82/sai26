@@ -10,6 +10,7 @@ import java.util.Map;
 import com.scottlogic.util.SortedList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class AccountingEventProcessor implements AccountingEventProcessorInterface {
 

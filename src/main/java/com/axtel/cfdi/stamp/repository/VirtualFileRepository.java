@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.axtel.cfdi.exceptions.FileManagmentException;
 import com.axtel.cfdi.stamp.core.VirtualFile;
+import java.util.Base64;
 
 public class VirtualFileRepository implements VirtualFileRepositoryInterface {
 

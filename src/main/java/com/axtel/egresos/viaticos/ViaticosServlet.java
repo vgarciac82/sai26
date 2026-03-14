@@ -33,6 +33,7 @@ import com.syc.sai.contabilidad.servlet.ResponseSender;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ViaticosServlet", urlPatterns = { "/viaticos/guardarAgenda", "/viaticos/eliminarAgenda", "/viaticos/guardarTransporte", "/viaticos/eliminarTransporte", "/viaticos/guardarTramite", "/viaticos/resumenViaticos", "/viaticos/avanzaFirmante", "/viaticos/generaSolicitud", "/viaticos/iniciaCasoRG", "/viaticos/actualizarAgenda", "/viaticos/agregaBoletoAvion", "/viaticos/eliminarBoletoAvion", "/viaticos/borrarTodo", "/viaticos/autorizarViaticos", "/viaticos/rechazarViaticos", "/viaticos/rechazarAgenda", "/viaticos/actualizaNombreComision", "/viaticos/adjuntaJustificacion", "/viaticos/adjuntaBoletos", "/viaticos/actualizarJustificacion", "/viaticos/actualizarOtraJustif", "/viaticos/actualizarJustTickets", "/viaticos/actualizarJustGasolina", "/viaticos/agregaRetenciones", "/viaticos/finalizaTramite", "/viaticos/guardaCalendario", "/viaticos/actualizarTransporte", "/viaticos/enviarFirmarAgenda", "/viaticos/enviarFirmar", "/viaticos/cancelaComision", "/viaticos/validaPartidasViatico", "/viaticos/agregaDetalle" })
 public class ViaticosServlet extends HttpServlet implements GestionInterface {

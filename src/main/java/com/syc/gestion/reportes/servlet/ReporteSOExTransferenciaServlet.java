@@ -49,6 +49,8 @@ import com.syc.gestion.servlet.GestionFileReceiverServlet;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 
 // fin del metodo
 @WebServlet(name = "ReporteSOExTransferencia", urlPatterns = { "/gstnmngr/ReporteSOExTransferencia" })
@@ -132,8 +134,9 @@ public class ReporteSOExTransferenciaServlet extends HttpServlet {
     }
 
     public void datosPlantilla(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException, ParseException {
-        ServletFileUpload upload = new ServletFileUpload();
-        upload.setRepositoryPath(tempDir);
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+        JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
         cFileExcel = upload.getRepositoryPath() + "\\" + "ReporteSOExTransferencia.xls";
         String soe = request.getParameter("ParamRep");
         //procedimiento para la consulta a base de datos

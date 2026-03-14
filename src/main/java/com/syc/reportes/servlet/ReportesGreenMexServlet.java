@@ -18,6 +18,7 @@ import com.syc.reportes.ReportesGreenMexBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ReportesGreenMexServlet", urlPatterns = { "/reportes/ReportesGreenMex" })
 public class ReportesGreenMexServlet extends HttpServlet implements GestionInterface {

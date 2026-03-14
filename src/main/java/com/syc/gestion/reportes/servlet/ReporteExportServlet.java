@@ -32,6 +32,7 @@ import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ReporteExportServlet", urlPatterns = { "/reportes/reporte_export.jsp" })
 public class ReporteExportServlet extends HttpServlet implements GestionInterface {
@@ -690,14 +691,14 @@ public class ReporteExportServlet extends HttpServlet implements GestionInterfac
         JFreeChart // Show legend
         // Show legend
         // Show legend
+        // Show legend
         chart = // Show legend
         ChartFactory.// Show legend
         createBarChart3D(// Show legend
         titulo_rpt, // Show legend
         "\u00e1reas", // Show legend
         "N\u00famero de Asuntos", // Show legend
-        dataset, // Show legend
-        PlotOrientation.VERTICAL, true, true, true);
+        dataset, PlotOrientation.VERTICAL, true, true, true);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         CategoryAxis domainAxis = plot.getDomainAxis();
         domainAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 3.0));

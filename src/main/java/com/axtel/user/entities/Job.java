@@ -1,39 +1,41 @@
 package com.axtel.user.entities;
 
+import java.util.Base64;
 
 public class Job {
 
-	private String			description;
-	private int				id;
-	private JobAdditional	jobAdditional;
+    private String description;
 
-	public String getDescription() {
-		return description;
-	}
+    private int id;
 
-	public int getId() {
-		return id;
-	}
+    private JobAdditional jobAdditional;
 
-	public JobAdditional getJobAdditional() {
-		return jobAdditional;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription( String description ) {
-		this.description = description;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setId( int id ) {
-		this.id = id;
-	}
+    public JobAdditional getJobAdditional() {
+        return jobAdditional;
+    }
 
-	public void setJobAdditional( JobAdditional jobAdditional ) {
-		this.jobAdditional = jobAdditional;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	@Override
-	public String toString() {
-		return "Job [id=" + id + ", description=" + description + ", jobAdditional=" + jobAdditional + "]";
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    public void setJobAdditional(JobAdditional jobAdditional) {
+        this.jobAdditional = jobAdditional;
+    }
+
+    @Override
+    public String toString() {
+        return "Job [id=" + id + ", description=" + description + ", jobAdditional=" + jobAdditional + "]";
+    }
 }

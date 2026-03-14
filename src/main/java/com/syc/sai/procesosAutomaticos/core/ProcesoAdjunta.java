@@ -1,84 +1,87 @@
 /**
- * 
  */
 package com.syc.sai.procesosAutomaticos.core;
 
 import java.util.Date;
+import java.util.Base64;
 
 /**
  * @author Vicente Garcia Carrillo
- * 
  */
 public class ProcesoAdjunta {
 
-	private Date	fechaProceso;
-	private int		idEstatus;
-	private String	idProceso;
-	private String	resultadoProceso;
-	private String	uLogin;
-	private String	unidadEjecutora;
+    private Date fechaProceso;
 
-	public ProcesoAdjunta(Date fechaProceso, int idEstatus, String idProceso, String resultadoProceso, String uLogin, String unidadEjecutora) {
-		super();
-		this.fechaProceso = fechaProceso;
-		this.idEstatus = idEstatus;
-		this.idProceso = idProceso;
-		this.resultadoProceso = resultadoProceso;
-		this.uLogin = uLogin;
-		this.unidadEjecutora = unidadEjecutora;
-	}
+    private int idEstatus;
 
-	public Date getFechaProceso() {
-		return fechaProceso;
-	}
+    private String idProceso;
 
-	public int getIdEstatus() {
-		return idEstatus;
-	}
+    private String resultadoProceso;
 
-	public String getIdProceso() {
-		return idProceso;
-	}
+    private String uLogin;
 
-	public String getResultadoProceso() {
-		return resultadoProceso;
-	}
+    private String unidadEjecutora;
 
-	public String getuLogin() {
-		return uLogin;
-	}
+    public ProcesoAdjunta(Date fechaProceso, int idEstatus, String idProceso, String resultadoProceso, String uLogin, String unidadEjecutora) {
+        super();
+        this.fechaProceso = fechaProceso;
+        this.idEstatus = idEstatus;
+        this.idProceso = idProceso;
+        this.resultadoProceso = resultadoProceso;
+        this.uLogin = uLogin;
+        this.unidadEjecutora = unidadEjecutora;
+    }
 
-	public String getUnidadEjecutora() {
-		return unidadEjecutora;
-	}
+    public Date getFechaProceso() {
+        return fechaProceso;
+    }
 
-	public void setFechaProceso(Date fechaProceso) {
-		this.fechaProceso = fechaProceso;
-	}
+    public int getIdEstatus() {
+        return idEstatus;
+    }
 
-	public void setIdEstatus(int idEstatus) {
-		this.idEstatus = idEstatus;
-	}
+    public String getIdProceso() {
+        return idProceso;
+    }
 
-	public void setIdProceso(String idProceso) {
-		this.idProceso = idProceso;
-	}
+    public String getResultadoProceso() {
+        return resultadoProceso;
+    }
 
-	public void setResultadoProceso(String resultadoProceso) {
-		this.resultadoProceso = resultadoProceso;
-	}
+    public String getuLogin() {
+        return uLogin;
+    }
 
-	public void setuLogin(String uLogin) {
-		this.uLogin = uLogin;
-	}
+    public String getUnidadEjecutora() {
+        return unidadEjecutora;
+    }
 
-	public void setUnidadEjecutora(String unidadEjecutora) {
-		this.unidadEjecutora = unidadEjecutora;
-	}
+    public void setFechaProceso(Date fechaProceso) {
+        this.fechaProceso = fechaProceso;
+    }
 
-	@Override
-	public String toString() {
-		return "ProcesoAdjunta [fechaProceso=" + fechaProceso + ", idEstatus=" + idEstatus + ", idProceso=" + idProceso + ", resultadoProceso=" + resultadoProceso + ", uLogin=" + uLogin + ", unidadEjecutora=" + unidadEjecutora + "]";
-	}
+    public void setIdEstatus(int idEstatus) {
+        this.idEstatus = idEstatus;
+    }
 
+    public void setIdProceso(String idProceso) {
+        this.idProceso = idProceso;
+    }
+
+    public void setResultadoProceso(String resultadoProceso) {
+        this.resultadoProceso = resultadoProceso;
+    }
+
+    public void setuLogin(String uLogin) {
+        this.uLogin = uLogin;
+    }
+
+    public void setUnidadEjecutora(String unidadEjecutora) {
+        this.unidadEjecutora = unidadEjecutora;
+    }
+
+    @Override
+    public String toString() {
+        return "ProcesoAdjunta [fechaProceso=" + fechaProceso + ", idEstatus=" + idEstatus + ", idProceso=" + idProceso + ", resultadoProceso=" + resultadoProceso + ", uLogin=" + uLogin + ", unidadEjecutora=" + unidadEjecutora + "]";
+    }
 }

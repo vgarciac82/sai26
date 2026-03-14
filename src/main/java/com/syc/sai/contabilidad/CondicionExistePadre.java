@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import org.jfree.util.Log;
 import com.syc.contable.AccountingEngineException;
+import java.util.Base64;
 
 public class CondicionExistePadre extends CondicionCuentaContable {
 

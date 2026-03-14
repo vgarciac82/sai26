@@ -16,6 +16,7 @@ import com.syc.reportes.ReporteAuxiliarCRIBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ReporteAuxiliarCRIServlet", urlPatterns = { "/reportes/ReporteAuxiliarCRI" })
 public class ReporteAuxiliarCRIServlet extends HttpServlet implements GestionInterface {

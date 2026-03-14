@@ -18,6 +18,7 @@ import com.syc.gestion.core.Caso;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.Base64;
 
 @WebServlet(name = "LayOutRectificaIngresoFiscal", urlPatterns = { "/gstnmngr/LayoutRectificaIngresoFiscalServlet" })
 public class LayoutRectificaIngresoFiscalServlet extends HttpServlet {

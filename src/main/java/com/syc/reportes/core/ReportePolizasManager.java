@@ -25,6 +25,7 @@ import com.syc.gestion.util.Util;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class ReportePolizasManager {
 
@@ -296,9 +297,9 @@ public class ReportePolizasManager {
                         //valor = valor.replace("\"", "");
                         // reemplaza con espacio
                         // colapsa múltiples espacios
+                        // colapsa múltiples espacios
                         valor = // colapsa múltiples espacios
-                        valor.replaceAll("[\\r\\n\\u00A0\\u2028\\u2029\\u200B\\t]", " ").// colapsa múltiples espacios
-                        replaceAll(" +", " ").trim();
+                        valor.replaceAll("[\\r\\n\\u00A0\\u2028\\u2029\\u200B\\t]", " ").replaceAll(" +", " ").trim();
                     }
                     // PreparedStatement es 1-based
                     ps.setString(i + 1, valor);

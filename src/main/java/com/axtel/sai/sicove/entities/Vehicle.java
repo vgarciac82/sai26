@@ -1,196 +1,213 @@
 package com.axtel.sai.sicove.entities;
 
-
 import java.math.BigDecimal;
 import java.util.Date;
-
+import java.util.Base64;
 
 public class Vehicle {
 
-	private int			id;
-	private int			idInventory;
-	private String		inventoryCode;
-	private String		description;
-	private String		type;
-	private String		brand;
-	private String		subBrand;
-	private int			model;
-	private String		color;
-	private Integer		doors;
-	private String		cylinders;
-	private String		transmissionType;
-	private Date		registeredDate;
-	private String		serial;
-	private BigDecimal	unitCostTotal;
-	private Integer		agencyId;
-	private Integer		useId;
-	private String		licensePlate;
-	private String		currentKilometers;
-	private int			statusId;
+    private int id;
 
-	public int getId() {
-		return id;
-	}
+    private int idInventory;
 
-	public void setId( int id ) {
-		this.id = id;
-	}
+    private String inventoryCode;
 
-	public int getIdInventory() {
-		return idInventory;
-	}
+    private String description;
 
-	public void setIdInventory( int idInventory ) {
-		this.idInventory = idInventory;
-	}
+    private String type;
 
-	public String getInventoryCode() {
-		return inventoryCode;
-	}
+    private String brand;
 
-	public void setInventoryCode( String inventoryCode ) {
-		this.inventoryCode = inventoryCode;
-	}
+    private String subBrand;
 
-	public String getDescription() {
-		return description;
-	}
+    private int model;
 
-	public void setDescription( String description ) {
-		this.description = description;
-	}
+    private String color;
 
-	public String getType() {
-		return type;
-	}
+    private Integer doors;
 
-	public void setType( String type ) {
-		this.type = type;
-	}
+    private String cylinders;
 
-	public String getBrand() {
-		return brand;
-	}
+    private String transmissionType;
 
-	public void setBrand( String brand ) {
-		this.brand = brand;
-	}
+    private Date registeredDate;
 
-	public String getSubBrand() {
-		return subBrand;
-	}
+    private String serial;
 
-	public void setSubBrand( String subBrand ) {
-		this.subBrand = subBrand;
-	}
+    private BigDecimal unitCostTotal;
 
-	public int getModel() {
-		return model;
-	}
+    private Integer agencyId;
 
-	public void setModel( int model ) {
-		this.model = model;
-	}
+    private Integer useId;
 
-	public String getColor() {
-		return color;
-	}
+    private String licensePlate;
 
-	public void setColor( String color ) {
-		this.color = color;
-	}
+    private String currentKilometers;
 
-	public Integer getDoors() {
-		return doors;
-	}
+    private int statusId;
 
-	public void setDoors( Integer doors ) {
-		this.doors = doors;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getCylinders() {
-		return cylinders;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setCylinders( String cylinders ) {
-		this.cylinders = cylinders;
-	}
+    public int getIdInventory() {
+        return idInventory;
+    }
 
-	public String getTransmissionType() {
-		return transmissionType;
-	}
+    public void setIdInventory(int idInventory) {
+        this.idInventory = idInventory;
+    }
 
-	public void setTransmissionType( String transmissionType ) {
-		this.transmissionType = transmissionType;
-	}
+    public String getInventoryCode() {
+        return inventoryCode;
+    }
 
-	public Date getRegisteredDate() {
-		return registeredDate;
-	}
+    public void setInventoryCode(String inventoryCode) {
+        this.inventoryCode = inventoryCode;
+    }
 
-	public void setRegisteredDate( Date registeredDate ) {
-		this.registeredDate = registeredDate;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public String getSerial() {
-		return serial;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setSerial( String serial ) {
-		this.serial = serial;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public BigDecimal getUnitCostTotal() {
-		return unitCostTotal;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public void setUnitCostTotal( BigDecimal unitCostTotal ) {
-		this.unitCostTotal = unitCostTotal;
-	}
+    public String getBrand() {
+        return brand;
+    }
 
-	public Integer getAgencyId() {
-		return agencyId;
-	}
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
 
-	public void setAgencyId( Integer agencyId ) {
-		this.agencyId = agencyId;
-	}
+    public String getSubBrand() {
+        return subBrand;
+    }
 
-	public Integer getUseId() {
-		return useId;
-	}
+    public void setSubBrand(String subBrand) {
+        this.subBrand = subBrand;
+    }
 
-	public void setUseId( Integer useId ) {
-		this.useId = useId;
-	}
+    public int getModel() {
+        return model;
+    }
 
-	public String getLicensePlate() {
-		return licensePlate;
-	}
+    public void setModel(int model) {
+        this.model = model;
+    }
 
-	public void setLicensePlate( String licensePlate ) {
-		this.licensePlate = licensePlate;
-	}
+    public String getColor() {
+        return color;
+    }
 
-	public String getCurrentKilometers() {
-		return currentKilometers;
-	}
+    public void setColor(String color) {
+        this.color = color;
+    }
 
-	public void setCurrentKilometers( String currentKilometers ) {
-		this.currentKilometers = currentKilometers;
-	}
+    public Integer getDoors() {
+        return doors;
+    }
 
-	public int getStatusId() {
-		return statusId;
-	}
+    public void setDoors(Integer doors) {
+        this.doors = doors;
+    }
 
-	public void setStatusId( int statusId ) {
-		this.statusId = statusId;
-	}
+    public String getCylinders() {
+        return cylinders;
+    }
 
-	@Override
-	public String toString() {
-		return "Vehicle [id=" + id + ", idInventory=" + idInventory + ", inventoryCode=" + inventoryCode + ", description=" + description + ", type=" + type + ", brand=" + brand + ", subBrand=" + subBrand + ", model=" + model + ", color=" + color + ", doors=" + doors + ", cylinders=" + cylinders + ", transmissionType=" + transmissionType + ", registeredDate=" + registeredDate + ", serial=" + serial + ", unitCostTotal=" + unitCostTotal + ", agencyId=" + agencyId + ", useId=" + useId + ", licensePlate=" + licensePlate + ", currentKilometers=" + currentKilometers + ", statusId=" + statusId + "]";
-	}
+    public void setCylinders(String cylinders) {
+        this.cylinders = cylinders;
+    }
 
+    public String getTransmissionType() {
+        return transmissionType;
+    }
+
+    public void setTransmissionType(String transmissionType) {
+        this.transmissionType = transmissionType;
+    }
+
+    public Date getRegisteredDate() {
+        return registeredDate;
+    }
+
+    public void setRegisteredDate(Date registeredDate) {
+        this.registeredDate = registeredDate;
+    }
+
+    public String getSerial() {
+        return serial;
+    }
+
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
+
+    public BigDecimal getUnitCostTotal() {
+        return unitCostTotal;
+    }
+
+    public void setUnitCostTotal(BigDecimal unitCostTotal) {
+        this.unitCostTotal = unitCostTotal;
+    }
+
+    public Integer getAgencyId() {
+        return agencyId;
+    }
+
+    public void setAgencyId(Integer agencyId) {
+        this.agencyId = agencyId;
+    }
+
+    public Integer getUseId() {
+        return useId;
+    }
+
+    public void setUseId(Integer useId) {
+        this.useId = useId;
+    }
+
+    public String getLicensePlate() {
+        return licensePlate;
+    }
+
+    public void setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
+    }
+
+    public String getCurrentKilometers() {
+        return currentKilometers;
+    }
+
+    public void setCurrentKilometers(String currentKilometers) {
+        this.currentKilometers = currentKilometers;
+    }
+
+    public int getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(int statusId) {
+        this.statusId = statusId;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicle [id=" + id + ", idInventory=" + idInventory + ", inventoryCode=" + inventoryCode + ", description=" + description + ", type=" + type + ", brand=" + brand + ", subBrand=" + subBrand + ", model=" + model + ", color=" + color + ", doors=" + doors + ", cylinders=" + cylinders + ", transmissionType=" + transmissionType + ", registeredDate=" + registeredDate + ", serial=" + serial + ", unitCostTotal=" + unitCostTotal + ", agencyId=" + agencyId + ", useId=" + useId + ", licensePlate=" + licensePlate + ", currentKilometers=" + currentKilometers + ", statusId=" + statusId + "]";
+    }
 }

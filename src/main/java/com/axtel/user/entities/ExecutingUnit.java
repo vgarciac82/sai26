@@ -1,48 +1,51 @@
 package com.axtel.user.entities;
 
+import java.util.Base64;
 
 public class ExecutingUnit {
 
-	private String		budgetExecutingUnit;
-	private String		description;
-	private String		id;
-	private WorkCenter	workCenter;
+    private String budgetExecutingUnit;
 
-	public String getBudgetExecutingUnit() {
-		return budgetExecutingUnit;
-	}
+    private String description;
 
-	public String getDescription() {
-		return description;
-	}
+    private String id;
 
-	public String getId() {
-		return id;
-	}
+    private WorkCenter workCenter;
 
-	public WorkCenter getWorkCenter() {
-		return workCenter;
-	}
+    public String getBudgetExecutingUnit() {
+        return budgetExecutingUnit;
+    }
 
-	public void setBudgetExecutingUnit( String budgetExecutingUnit ) {
-		this.budgetExecutingUnit = budgetExecutingUnit;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription( String description ) {
-		this.description = description;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setId( String id ) {
-		this.id = id;
-	}
+    public WorkCenter getWorkCenter() {
+        return workCenter;
+    }
 
-	public void setWorkCenter( WorkCenter workCenter ) {
-		this.workCenter = workCenter;
-	}
+    public void setBudgetExecutingUnit(String budgetExecutingUnit) {
+        this.budgetExecutingUnit = budgetExecutingUnit;
+    }
 
-	@Override
-	public String toString() {
-		return "ExecutingUnit [id=" + id + ", description=" + description + ", budgetExecutingUnit=" + budgetExecutingUnit + ", workCenter=" + workCenter + "]";
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setWorkCenter(WorkCenter workCenter) {
+        this.workCenter = workCenter;
+    }
+
+    @Override
+    public String toString() {
+        return "ExecutingUnit [id=" + id + ", description=" + description + ", budgetExecutingUnit=" + budgetExecutingUnit + ", workCenter=" + workCenter + "]";
+    }
 }

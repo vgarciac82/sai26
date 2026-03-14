@@ -16,6 +16,7 @@ import com.syc.reportes.CedulaObraPublicaBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "CedulaObraPublicaServlet", urlPatterns = { "/reportes/CedulaObraPublica", "/servlet/CedulaObraPublicaServlet" })
 public class CedulaObraPublicaServlet extends HttpServlet implements GestionInterface {

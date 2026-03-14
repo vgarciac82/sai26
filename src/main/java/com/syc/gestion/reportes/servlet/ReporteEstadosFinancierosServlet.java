@@ -18,6 +18,7 @@ import com.syc.reportes.ReportePolizasBusinessLogic;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "ReporteEstadosFinancieros", urlPatterns = { "/reportes/ReporteEstadosFinancieros" })
 public class ReporteEstadosFinancierosServlet extends HttpServlet implements GestionInterface {

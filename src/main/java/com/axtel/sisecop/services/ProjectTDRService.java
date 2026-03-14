@@ -1,11 +1,9 @@
 package com.axtel.sisecop.services;
 
-
 import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-
 import com.axtel.sai.sicove.expedient.repositories.ExpedientRepository;
 import com.axtel.sisecop.entities.ProyectoServicioTDR;
 import com.axtel.sisecop.repostories.ProjectProcurementProcessRepository;
@@ -14,82 +12,68 @@ import com.syc.dsmngr.DataSourceManager;
 import com.syc.fortimax.core.Fortimax;
 import com.syc.fortimax.exceptions.FortimaxException;
 import com.syc.gestion.util.Util;
-
+import java.util.Base64;
 
 public class ProjectTDRService extends DataSourceManager {
 
-	private ProjectProcurementProcessRepository	projectTDRRepository;
-	private ExpedientRepository		expedientRepository;
+    private ProjectProcurementProcessRepository projectTDRRepository;
 
-	public ProjectTDRService( String jniName ) {
-		super.init( jniName );
-		this.projectTDRRepository = new ProjectProcurementProcessRepository();
+    private ExpedientRepository expedientRepository;
 
-	}
+    public ProjectTDRService(String jniName) {
+        super.init(jniName);
+        this.projectTDRRepository = new ProjectProcurementProcessRepository();
+    }
 
-	public ProyectoServicioTDR addProjectTDR( int idProcess, int servicioID, String fileDescription, String folderName, File file, String userName ) throws SQLException, FortimaxException {
+    public ProyectoServicioTDR addProjectTDR(int idProcess, int servicioID, String fileDescription, String folderName, File file, String userName) throws SQLException, FortimaxException {
+        Connection conn = null;
+        Fortimax fmx = null;
+        try {
+            conn = getConnection();
+            fmx = expedientRepository.saveDocument(conn, idProcess, folderName, userName, fileDescription, file);
+            ProyectoServicioTDR projectTDR = new ProyectoServicioTDR();
+            projectTDR.setTdrArchivo(fileDescription);
+            projectTDR.setTdrRuta(fmx.toString());
+            projectTDR = projectTDRRepository.createServicioTermino(conn, servicioID, projectTDR);
+            conn.commit();
+            return projectTDR;
+        } catch (SQLException e) {
+            Util.rollback(conn);
+            throw e;
+        } finally {
+            CloseObject.closeObject(conn);
+        }
+    }
 
-		Connection conn = null;
-		Fortimax fmx = null;
+    public void deleteProjectTDR(int idTDR) throws SQLException {
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            projectTDRRepository.deleteServicioTermino(connection, idTDR);
+            connection.commit();
+        } catch (SQLException e) {
+            Util.rollback(connection);
+            throw e;
+        } finally {
+            CloseObject.closeObject(connection);
+        }
+    }
 
-		try {
+    public List<ProyectoServicioTDR> readByProjectID(int projectID) throws SQLException {
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            return projectTDRRepository.readByServicioId(connection, projectID);
+        } finally {
+            CloseObject.closeObject(connection);
+        }
+    }
 
-			conn = getConnection();
-			fmx = expedientRepository.saveDocument( conn, idProcess, folderName, userName, fileDescription, file );
+    public ExpedientRepository getExpedientRepository() {
+        return expedientRepository;
+    }
 
-			ProyectoServicioTDR projectTDR = new ProyectoServicioTDR();
-			projectTDR.setTdrArchivo( fileDescription );
-			projectTDR.setTdrRuta( fmx.toString() );
-
-			projectTDR = projectTDRRepository.createServicioTermino( conn, servicioID, projectTDR );
-
-			conn.commit();
-			return projectTDR;
-		} catch ( SQLException e ) {
-			Util.rollback( conn );
-			throw e;
-		} finally {
-			CloseObject.closeObject( conn );
-		}
-
-	}
-
-	public void deleteProjectTDR( int idTDR ) throws SQLException {
-		Connection connection = null;
-		try {
-			connection = getConnection();
-
-			projectTDRRepository.deleteServicioTermino( connection, idTDR );
-
-			connection.commit();
-
-		} catch ( SQLException e ) {
-			Util.rollback( connection );
-			throw e;
-		} finally {
-			CloseObject.closeObject( connection );
-		}
-
-	}
-
-	public List<ProyectoServicioTDR> readByProjectID( int projectID ) throws SQLException {
-		Connection connection = null;
-		try {
-			connection = getConnection();
-
-			return projectTDRRepository.readByServicioId( connection, projectID );
-
-		} finally {
-			CloseObject.closeObject( connection );
-		}
-	}
-
-	public ExpedientRepository getExpedientRepository() {
-		return expedientRepository;
-	}
-
-	public void setExpedientRepository( ExpedientRepository expedientRepository ) {
-		this.expedientRepository = expedientRepository;
-	}
-
+    public void setExpedientRepository(ExpedientRepository expedientRepository) {
+        this.expedientRepository = expedientRepository;
+    }
 }

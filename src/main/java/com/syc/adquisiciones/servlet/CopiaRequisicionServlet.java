@@ -20,6 +20,7 @@ import com.syc.dsmngr.DataSourceManager;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 @WebServlet(name = "CopiaRequisicionServlet", urlPatterns = { "/servlet/CopiaRequisicionServlet" })
 public class CopiaRequisicionServlet extends HttpServlet {

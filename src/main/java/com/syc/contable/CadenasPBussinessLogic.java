@@ -7,6 +7,7 @@ import com.syc.contable.core.CadenasPManager;
 import com.syc.crud.dsmngr.DataSourceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class CadenasPBussinessLogic extends DataSourceManager {
 

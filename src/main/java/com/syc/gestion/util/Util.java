@@ -21,7 +21,6 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -94,7 +93,7 @@ import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import com.axtel.ws.clients.NotificaAdecuacionMetasCliente;
@@ -139,10 +138,10 @@ import jcifs.smb.NtlmPasswordAuthentication;
 import jcifs.smb.SmbFile;
 import jcifs.smb.SmbFileOutputStream;
 import net.sf.jasperreports.engine.JasperRunManager;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 
 public class Util {
 
@@ -374,7 +373,7 @@ public class Util {
 
     public static String decrypt(SecretKey key, String str) {
         try {
-            byte[] dec = new BASE64Decoder().decodeBuffer(str);
+            byte[] dec = new BASE64Decoder().decode(str);
             Cipher dcipher = Cipher.getInstance(algorithm);
             dcipher.init(Cipher.DECRYPT_MODE, key);
             byte[] utf8 = dcipher.doFinal(dec);
@@ -412,7 +411,7 @@ public class Util {
 
     public static SecretKey stringToSecretKey(String str) {
         try {
-            return new SecretKeySpec(new BASE64Decoder().decodeBuffer(str), algorithm);
+            return new SecretKeySpec(new BASE64Decoder().decode(str), algorithm);
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }
@@ -457,9 +456,10 @@ public class Util {
      *             si ocurre un error en la extraccion.
      */
     public static List<?> parseRequest(HttpServletRequest req, String tempDir, long maxFileSize) throws ServletException {
-        ServletFileUpload upload = new ServletFileUpload();
-        upload.setRepositoryPath(tempDir);
-        upload.setSizeMax(maxFileSize);
+        DiskFileItemFactory factory = DiskFileItemFactory.builder().setBufferSize(1024).get();
+        factory.setRepository(new File(tempDir));
+        JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
+        upload.setFileSizeMax(maxFileSize);
         try {
             return upload.parseRequest(req);
         } catch (FileUploadException fe) {

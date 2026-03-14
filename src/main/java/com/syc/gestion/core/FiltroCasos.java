@@ -1,207 +1,160 @@
 package com.syc.gestion.core;
 
+import java.util.Base64;
 
 public class FiltroCasos {
-	private String tipoAsunto = null;
 
-	private String remitenteInternoLogin = null;
-	private String remitenteInternoNombre = null;
-	private String remitenteInternoPuesto = null;
-	private String remitenteInternoArea = null;
+    private String tipoAsunto = null;
 
-	private String remitenteExternoId = null;
-	private String remitenteExternoNombre = null;
-	private String remitenteExternoProcedencia = null;
-	private String remitenteExternoCargo = null;
-	private String remitenteExternoEstado = null;
-	private String remitenteExternoMunicipio = null;
-	private String remitenteExternoLocalidad = null;
-	
-	private String fechaInicial = null;
-	private String fechaFinal  = null;
-	private String palabrasClave = null;
-	
-	public FiltroCasos() {
-		super();
-	}
+    private String remitenteInternoLogin = null;
 
-	
-	public String getTipoAsunto() {
-	
-		return tipoAsunto;
-	}
+    private String remitenteInternoNombre = null;
 
-	
-	public void setTipoAsunto(String tipoAsunto) {
-	
-		this.tipoAsunto = tipoAsunto.trim();
-	}
+    private String remitenteInternoPuesto = null;
 
-	
-	public String getRemitenteInternoLogin() {
-	
-		return remitenteInternoLogin;
-	}
+    private String remitenteInternoArea = null;
 
-	
-	public void setRemitenteInternoLogin(String remitenteInternoLogin) {
-	
-		this.remitenteInternoLogin = remitenteInternoLogin.trim();
-	}
+    private String remitenteExternoId = null;
 
-	
-	public String getRemitenteInternoNombre() {
-	
-		return remitenteInternoNombre;
-	}
+    private String remitenteExternoNombre = null;
 
-	
-	public void setRemitenteInternoNombre(String remitenteInternoNombre) {
-	
-		this.remitenteInternoNombre = remitenteInternoNombre.trim();
-	}
+    private String remitenteExternoProcedencia = null;
 
-	
-	public String getRemitenteInternoPuesto() {
-	
-		return remitenteInternoPuesto;
-	}
+    private String remitenteExternoCargo = null;
 
-	
-	public void setRemitenteInternoPuesto(String remitenteInternoPuesto) {
-	
-		this.remitenteInternoPuesto = remitenteInternoPuesto.trim();
-	}
+    private String remitenteExternoEstado = null;
 
-	
-	public String getRemitenteInternoArea() {
-	
-		return remitenteInternoArea;
-	}
+    private String remitenteExternoMunicipio = null;
 
-	
-	public void setRemitenteInternoArea(String remitenteInternoArea) {
-	
-		this.remitenteInternoArea = remitenteInternoArea.trim();
-	}
+    private String remitenteExternoLocalidad = null;
 
-	
-	public String getRemitenteExternoId() {
-	
-		return remitenteExternoId;
-	}
+    private String fechaInicial = null;
 
-	
-	public void setRemitenteExternoId(String remitenteExternoId) {
-	
-		this.remitenteExternoId = remitenteExternoId.trim();
-	}
+    private String fechaFinal = null;
 
-	
-	public String getRemitenteExternoNombre() {
-	
-		return remitenteExternoNombre;
-	}
+    private String palabrasClave = null;
 
-	
-	public void setRemitenteExternoNombre(String remitenteExternoNombre) {
-	
-		this.remitenteExternoNombre = remitenteExternoNombre.trim();
-	}
+    public FiltroCasos() {
+        super();
+    }
 
-	
-	public String getRemitenteExternoProcedencia() {
-	
-		return remitenteExternoProcedencia;
-	}
+    public String getTipoAsunto() {
+        return tipoAsunto;
+    }
 
-	
-	public void setRemitenteExternoProcedencia(String remitenteExternoProcedencia) {
-	
-		this.remitenteExternoProcedencia = remitenteExternoProcedencia.trim();
-	}
+    public void setTipoAsunto(String tipoAsunto) {
+        this.tipoAsunto = tipoAsunto.trim();
+    }
 
-	
-	public String getRemitenteExternoCargo() {
-	
-		return remitenteExternoCargo;
-	}
+    public String getRemitenteInternoLogin() {
+        return remitenteInternoLogin;
+    }
 
-	
-	public void setRemitenteExternoCargo(String remitenteExternoCargo) {
-	
-		this.remitenteExternoCargo = remitenteExternoCargo.trim();
-	}
+    public void setRemitenteInternoLogin(String remitenteInternoLogin) {
+        this.remitenteInternoLogin = remitenteInternoLogin.trim();
+    }
 
-	
-	public String getRemitenteExternoEstado() {
-	
-		return remitenteExternoEstado;
-	}
+    public String getRemitenteInternoNombre() {
+        return remitenteInternoNombre;
+    }
 
-	
-	public void setRemitenteExternoEstado(String remitenteExternoEstado) {
-	
-		this.remitenteExternoEstado = remitenteExternoEstado.trim();
-	}
+    public void setRemitenteInternoNombre(String remitenteInternoNombre) {
+        this.remitenteInternoNombre = remitenteInternoNombre.trim();
+    }
 
-	
-	public String getRemitenteExternoMunicipio() {
-	
-		return remitenteExternoMunicipio;
-	}
+    public String getRemitenteInternoPuesto() {
+        return remitenteInternoPuesto;
+    }
 
-	
-	public void setRemitenteExternoMunicipio(String remitenteExternoMunicipio) {
-	
-		this.remitenteExternoMunicipio = remitenteExternoMunicipio.trim();
-	}
+    public void setRemitenteInternoPuesto(String remitenteInternoPuesto) {
+        this.remitenteInternoPuesto = remitenteInternoPuesto.trim();
+    }
 
-	
-	public String getRemitenteExternoLocalidad() {
-	
-		return remitenteExternoLocalidad;
-	}
+    public String getRemitenteInternoArea() {
+        return remitenteInternoArea;
+    }
 
-	
-	public void setRemitenteExternoLocalidad(String remitenteExternoLocalidad) {
-	
-		this.remitenteExternoLocalidad = remitenteExternoLocalidad.trim();
-	}
+    public void setRemitenteInternoArea(String remitenteInternoArea) {
+        this.remitenteInternoArea = remitenteInternoArea.trim();
+    }
 
-	
-	public String getFechaInicial() {
-	
-		return fechaInicial;
-	}
+    public String getRemitenteExternoId() {
+        return remitenteExternoId;
+    }
 
-	
-	public void setFechaInicial(String fechaInicial) {
-	
-		this.fechaInicial = fechaInicial.trim();
-	}
+    public void setRemitenteExternoId(String remitenteExternoId) {
+        this.remitenteExternoId = remitenteExternoId.trim();
+    }
 
-	
-	public String getFechaFinal() {
-	
-		return fechaFinal;
-	}
+    public String getRemitenteExternoNombre() {
+        return remitenteExternoNombre;
+    }
 
-	
-	public void setFechaFinal(String fechaFinal) {
-	
-		this.fechaFinal = fechaFinal.trim();
-	}
+    public void setRemitenteExternoNombre(String remitenteExternoNombre) {
+        this.remitenteExternoNombre = remitenteExternoNombre.trim();
+    }
 
-	
-	public String getPalabrasClave() {
-	
-		return palabrasClave;
-	}
+    public String getRemitenteExternoProcedencia() {
+        return remitenteExternoProcedencia;
+    }
 
-	
-	public void setPalabrasClave(String palabrasClave) {
-	
-		this.palabrasClave = palabrasClave.trim();
-	}
+    public void setRemitenteExternoProcedencia(String remitenteExternoProcedencia) {
+        this.remitenteExternoProcedencia = remitenteExternoProcedencia.trim();
+    }
+
+    public String getRemitenteExternoCargo() {
+        return remitenteExternoCargo;
+    }
+
+    public void setRemitenteExternoCargo(String remitenteExternoCargo) {
+        this.remitenteExternoCargo = remitenteExternoCargo.trim();
+    }
+
+    public String getRemitenteExternoEstado() {
+        return remitenteExternoEstado;
+    }
+
+    public void setRemitenteExternoEstado(String remitenteExternoEstado) {
+        this.remitenteExternoEstado = remitenteExternoEstado.trim();
+    }
+
+    public String getRemitenteExternoMunicipio() {
+        return remitenteExternoMunicipio;
+    }
+
+    public void setRemitenteExternoMunicipio(String remitenteExternoMunicipio) {
+        this.remitenteExternoMunicipio = remitenteExternoMunicipio.trim();
+    }
+
+    public String getRemitenteExternoLocalidad() {
+        return remitenteExternoLocalidad;
+    }
+
+    public void setRemitenteExternoLocalidad(String remitenteExternoLocalidad) {
+        this.remitenteExternoLocalidad = remitenteExternoLocalidad.trim();
+    }
+
+    public String getFechaInicial() {
+        return fechaInicial;
+    }
+
+    public void setFechaInicial(String fechaInicial) {
+        this.fechaInicial = fechaInicial.trim();
+    }
+
+    public String getFechaFinal() {
+        return fechaFinal;
+    }
+
+    public void setFechaFinal(String fechaFinal) {
+        this.fechaFinal = fechaFinal.trim();
+    }
+
+    public String getPalabrasClave() {
+        return palabrasClave;
+    }
+
+    public void setPalabrasClave(String palabrasClave) {
+        this.palabrasClave = palabrasClave.trim();
+    }
 }

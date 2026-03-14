@@ -1,108 +1,117 @@
 package com.syc.sai.fonden;
 
+import java.util.Base64;
+
 /**
  * TfondenFacturacion entity. @author MyEclipse Persistence Tools
  */
-
 public class FondenFacturacion implements java.io.Serializable {
 
-	// Fields
+    // Fields
+    private Integer cidFonden;
 
-	private Integer cidFonden;
-	private Integer nidFondenMovimiento;
-	private Integer nidFondenFacturacion;
-	private String cnumero;
-	private Long ncantidad;
-	private Double nimporteFactura;
-	private Double nTipoCambio;
-	private Integer nIdTipoPago;
-	private Integer nIdTipoFactura;
-	private String cDescripcionFactura;
+    private Integer nidFondenMovimiento;
 
-	// Constructors
+    private Integer nidFondenFacturacion;
 
-	public Double getnTipoCambio() {
-		return nTipoCambio;
-	}
+    private String cnumero;
 
-	public void setnTipoCambio(Double nTipoCambio) {
-		this.nTipoCambio = nTipoCambio;
-	}
+    private Long ncantidad;
 
-	public Integer getnIdTipoPago() {
-		return nIdTipoPago;
-	}
+    private Double nimporteFactura;
 
-	public void setnIdTipoPago(Integer nIdTipoPago) {
-		this.nIdTipoPago = nIdTipoPago;
-	}
+    private Double nTipoCambio;
 
-	public Integer getnIdTipoFactura() {
-		return nIdTipoFactura;
-	}
+    private Integer nIdTipoPago;
 
-	public void setnIdTipoFactura(Integer nIdTipoFactura) {
-		this.nIdTipoFactura = nIdTipoFactura;
-	}
+    private Integer nIdTipoFactura;
 
-	public String getcDescripcionFactura() {
-		return cDescripcionFactura;
-	}
+    private String cDescripcionFactura;
 
-	public void setcDescripcionFactura(String cDescripcionFactura) {
-		this.cDescripcionFactura = cDescripcionFactura;
-	}
+    // Constructors
+    public Double getnTipoCambio() {
+        return nTipoCambio;
+    }
 
-	/** default constructor */
-	public FondenFacturacion() {
-	}
+    public void setnTipoCambio(Double nTipoCambio) {
+        this.nTipoCambio = nTipoCambio;
+    }
 
-	public String getCnumero() {
-		return this.cnumero;
-	}
+    public Integer getnIdTipoPago() {
+        return nIdTipoPago;
+    }
 
-	public void setCnumero(String cnumero) {
-		this.cnumero = cnumero;
-	}
+    public void setnIdTipoPago(Integer nIdTipoPago) {
+        this.nIdTipoPago = nIdTipoPago;
+    }
 
-	public Long getNcantidad() {
-		return this.ncantidad;
-	}
+    public Integer getnIdTipoFactura() {
+        return nIdTipoFactura;
+    }
 
-	public void setNcantidad(Long ncantidad) {
-		this.ncantidad = ncantidad;
-	}
+    public void setnIdTipoFactura(Integer nIdTipoFactura) {
+        this.nIdTipoFactura = nIdTipoFactura;
+    }
 
-	public Double getNimporteFactura() {
-		return this.nimporteFactura;
-	}
+    public String getcDescripcionFactura() {
+        return cDescripcionFactura;
+    }
 
-	public void setNimporteFactura(Double nimporteFactura) {
-		this.nimporteFactura = nimporteFactura;
-	}
+    public void setcDescripcionFactura(String cDescripcionFactura) {
+        this.cDescripcionFactura = cDescripcionFactura;
+    }
 
-	public Integer getCidFonden() {
-		return cidFonden;
-	}
+    /**
+     * default constructor
+     */
+    public FondenFacturacion() {
+    }
 
-	public void setCidFonden(Integer cidFonden) {
-		this.cidFonden = cidFonden;
-	}
+    public String getCnumero() {
+        return this.cnumero;
+    }
 
-	public Integer getNidFondenMovimiento() {
-		return nidFondenMovimiento;
-	}
+    public void setCnumero(String cnumero) {
+        this.cnumero = cnumero;
+    }
 
-	public void setNidFondenMovimiento(Integer nidFondenMovimiento) {
-		this.nidFondenMovimiento = nidFondenMovimiento;
-	}
+    public Long getNcantidad() {
+        return this.ncantidad;
+    }
 
-	public Integer getNidFondenFacturacion() {
-		return nidFondenFacturacion;
-	}
+    public void setNcantidad(Long ncantidad) {
+        this.ncantidad = ncantidad;
+    }
 
-	public void setNidFondenFacturacion(Integer nidFondenFacturacion) {
-		this.nidFondenFacturacion = nidFondenFacturacion;
-	}
+    public Double getNimporteFactura() {
+        return this.nimporteFactura;
+    }
 
+    public void setNimporteFactura(Double nimporteFactura) {
+        this.nimporteFactura = nimporteFactura;
+    }
+
+    public Integer getCidFonden() {
+        return cidFonden;
+    }
+
+    public void setCidFonden(Integer cidFonden) {
+        this.cidFonden = cidFonden;
+    }
+
+    public Integer getNidFondenMovimiento() {
+        return nidFondenMovimiento;
+    }
+
+    public void setNidFondenMovimiento(Integer nidFondenMovimiento) {
+        this.nidFondenMovimiento = nidFondenMovimiento;
+    }
+
+    public Integer getNidFondenFacturacion() {
+        return nidFondenFacturacion;
+    }
+
+    public void setNidFondenFacturacion(Integer nidFondenFacturacion) {
+        this.nidFondenFacturacion = nidFondenFacturacion;
+    }
 }

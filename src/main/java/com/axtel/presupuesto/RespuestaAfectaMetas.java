@@ -1,60 +1,62 @@
 package com.axtel.presupuesto;
 
+import java.util.Base64;
 
 public class RespuestaAfectaMetas {
 
-	private String	acciones;
-	private String	afectaMetas;
-	private int		folioAdecuacion;
+    private String acciones;
 
-	/**
-	 * @return the acciones
-	 */
-	public String getAcciones() {
-		return acciones;
-	}
+    private String afectaMetas;
 
-	/**
-	 * @return the afectaMetas
-	 */
-	public String getAfectaMetas() {
-		return afectaMetas;
-	}
+    private int folioAdecuacion;
 
-	/**
-	 * @return the folioAdecuacion
-	 */
-	public int getFolioAdecuacion() {
-		return folioAdecuacion;
-	}
+    /**
+     * @return the acciones
+     */
+    public String getAcciones() {
+        return acciones;
+    }
 
-	/**
-	 * @param acciones
-	 *            the acciones to set
-	 */
-	public void setAcciones( String acciones ) {
-		this.acciones = acciones;
-	}
+    /**
+     * @return the afectaMetas
+     */
+    public String getAfectaMetas() {
+        return afectaMetas;
+    }
 
-	/**
-	 * @param afectaMetas
-	 *            the afectaMetas to set
-	 */
-	public void setAfectaMetas( String afectaMetas ) {
-		this.afectaMetas = afectaMetas;
-	}
+    /**
+     * @return the folioAdecuacion
+     */
+    public int getFolioAdecuacion() {
+        return folioAdecuacion;
+    }
 
-	/**
-	 * @param folioAdecuacion
-	 *            the folioAdecuacion to set
-	 */
-	public void setFolioAdecuacion( int folioAdecuacion ) {
-		this.folioAdecuacion = folioAdecuacion;
-	}
+    /**
+     * @param acciones
+     *            the acciones to set
+     */
+    public void setAcciones(String acciones) {
+        this.acciones = acciones;
+    }
 
-	@Override
-	public String toString() {
-		return "RespuestaAfectaMetas [afectaMetas=" + afectaMetas + ", acciones=" + acciones + ", folioAdecuacion=" + folioAdecuacion + "]";
-	}
+    /**
+     * @param afectaMetas
+     *            the afectaMetas to set
+     */
+    public void setAfectaMetas(String afectaMetas) {
+        this.afectaMetas = afectaMetas;
+    }
 
+    /**
+     * @param folioAdecuacion
+     *            the folioAdecuacion to set
+     */
+    public void setFolioAdecuacion(int folioAdecuacion) {
+        this.folioAdecuacion = folioAdecuacion;
+    }
+
+    @Override
+    public String toString() {
+        return "RespuestaAfectaMetas [afectaMetas=" + afectaMetas + ", acciones=" + acciones + ", folioAdecuacion=" + folioAdecuacion + "]";
+    }
 }

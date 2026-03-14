@@ -1,24 +1,26 @@
 package com.axtel.cfdi;
 
+import java.util.Base64;
 
 public class RegimenFiscal {
 
-	private String	regimenFiscal;
-	private String	descripcion;
+    private String regimenFiscal;
 
-	public String getRegimenFiscal() {
-		return regimenFiscal;
-	}
+    private String descripcion;
 
-	public void setRegimenFiscal( String regimenFiscal ) {
-		this.regimenFiscal = regimenFiscal;
-	}
+    public String getRegimenFiscal() {
+        return regimenFiscal;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public void setRegimenFiscal(String regimenFiscal) {
+        this.regimenFiscal = regimenFiscal;
+    }
 
-	public void setDescripcion( String descripcion ) {
-		this.descripcion = descripcion;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 }

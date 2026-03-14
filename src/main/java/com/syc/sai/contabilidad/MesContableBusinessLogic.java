@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.syc.cfdi.utils.CloseObject;
 import com.syc.crud.dsmngr.DataSourceManager;
 import org.slf4j.Logger;
+import java.util.Base64;
 
 public class MesContableBusinessLogic extends DataSourceManager {
 

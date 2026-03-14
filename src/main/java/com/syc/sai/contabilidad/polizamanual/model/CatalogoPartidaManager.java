@@ -9,6 +9,7 @@ import com.syc.sai.contabilidad.polizamanual.CatalogoPartida;
 import com.syc.sai.contabilidad.polizamanual.CatalogoPartidaEngineException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 public class CatalogoPartidaManager {
 

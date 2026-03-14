@@ -1,69 +1,74 @@
 package com.axtel.sisecop.dto;
 
-
 import java.io.Serializable;
-
+import java.util.Base64;
 
 public class ProjectBudgetItemDTO implements Serializable {
 
-	private static final long	serialVersionUID	= -898128868812639658L;
-	private String				administrativeUnit;
-	private String				budgetItem;
-	private int					endYear;
-	private int					idService;
-	private int					initialYear;
-	private String				management;
+    private static final long serialVersionUID = -898128868812639658L;
 
-	public String getAdministrativeUnit() {
-		return administrativeUnit;
-	}
+    private String administrativeUnit;
 
-	public String getBudgetItem() {
-		return budgetItem;
-	}
+    private String budgetItem;
 
-	public int getEndYear() {
-		return endYear;
-	}
+    private int endYear;
 
-	public int getIdService() {
-		return idService;
-	}
+    private int idService;
 
-	public int getInitialYear() {
-		return initialYear;
-	}
+    private int initialYear;
 
-	public String getManagement() {
-		return management;
-	}
+    private String management;
 
-	public void setAdministrativeUnit( String administrativeUnit ) {
-		this.administrativeUnit = administrativeUnit;
-	}
+    public String getAdministrativeUnit() {
+        return administrativeUnit;
+    }
 
-	public void setBudgetItem( String budgetItem ) {
-		this.budgetItem = budgetItem;
-	}
+    public String getBudgetItem() {
+        return budgetItem;
+    }
 
-	public void setEndYear( int endYear ) {
-		this.endYear = endYear;
-	}
+    public int getEndYear() {
+        return endYear;
+    }
 
-	public void setIdService( int idService ) {
-		this.idService = idService;
-	}
+    public int getIdService() {
+        return idService;
+    }
 
-	public void setInitialYear( int initialYear ) {
-		this.initialYear = initialYear;
-	}
+    public int getInitialYear() {
+        return initialYear;
+    }
 
-	public void setManagement( String management ) {
-		this.management = management;
-	}
+    public String getManagement() {
+        return management;
+    }
 
-	@Override
-	public String toString() {
-		return "ProyectoServicioClaveDTO [idService=" + idService + ", endYear=" + endYear + ", initialYear=" + initialYear + ", management=" + management + ", budgetItem=" + budgetItem + ", administrativeUnit=" + administrativeUnit + "]";
-	}
+    public void setAdministrativeUnit(String administrativeUnit) {
+        this.administrativeUnit = administrativeUnit;
+    }
+
+    public void setBudgetItem(String budgetItem) {
+        this.budgetItem = budgetItem;
+    }
+
+    public void setEndYear(int endYear) {
+        this.endYear = endYear;
+    }
+
+    public void setIdService(int idService) {
+        this.idService = idService;
+    }
+
+    public void setInitialYear(int initialYear) {
+        this.initialYear = initialYear;
+    }
+
+    public void setManagement(String management) {
+        this.management = management;
+    }
+
+    @Override
+    public String toString() {
+        return "ProyectoServicioClaveDTO [idService=" + idService + ", endYear=" + endYear + ", initialYear=" + initialYear + ", management=" + management + ", budgetItem=" + budgetItem + ", administrativeUnit=" + administrativeUnit + "]";
+    }
 }
