@@ -2,11 +2,11 @@
 <%@page import="com.syc.gestion.UsuarioBusinessLogic"%>
 <%@page import="com.syc.gestion.servlet.GestionInterface"%>
 <%@page import="com.syc.gestion.core.Usuario"%>
-<%@page import="org.apache.log4j.LogManager"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.LoggerFactory"%>
+<%@page import="org.slf4j.Logger"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%!private static final Logger log = LogManager.getLogger("AccountFuelRequest.jsp");%>
+<%!private static final Logger log = LoggerFactory.getLogger("AccountFuelRequest.jsp");%>
 <%
 boolean initError = false;
 

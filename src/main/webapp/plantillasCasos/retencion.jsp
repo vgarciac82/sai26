@@ -11,7 +11,7 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="com.syc.gestion.core.Usuario"%>
 <%@ page import="com.syc.gestion.servlet.GestionInterface"%>
-<%@ page import="org.apache.log4j.Logger"%>
+<%@ page import="org.slf4j.Logger"%>
 <%@ page import="java.io.File"%>
 <%@ page import="com.syc.contable.AdecuacionBusinessLogic"%>
 <%@ page import="com.syc.contable.core.RetencionEncabezado"%>

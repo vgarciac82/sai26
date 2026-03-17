@@ -11,11 +11,12 @@
 <%@ page import="com.syc.gestion.core.Usuario"%>
 <%@ page import="com.syc.gestion.servlet.GestionInterface"%>
 <%@ page import="java.io.File"%>
-<%@ page import="org.apache.log4j.Logger"%>
+<%@ page import="org.slf4j.Logger"%>
 <%@ page import="com.syc.contable.AdecuacionBusinessLogic"%>
 <%@ page import="com.syc.contable.core.RectificacionIngresoFiscalEncabezado"%>
 <%@ page import="com.syc.contable.core.RectificacionIngresoFiscalDetalle"%>
-<%!private static Logger log = Logger.getLogger("com.syc.plantillas.casos.RectificacionIngreso.jsp");%>
+<%@page import="org.slf4j.LoggerFactory"%>
+<%!private static Logger log = LoggerFactory.getLogger("com.syc.plantillas.casos.RectificacionIngreso.jsp");%>
 <%
 	boolean cGrupoUSR = false;
 	String cCentroContable = "";

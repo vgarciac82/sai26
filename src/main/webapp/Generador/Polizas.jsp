@@ -7,8 +7,9 @@
 <%@page import="com.syc.contable.core.Saldo"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.sql.Connection"%>
-<%@page import="org.apache.log4j.Logger"%>
-<%!private Logger log = Logger.getLogger(getClass());%>
+<%@page import="org.slf4j.Logger"%>
+<%@page import="org.slf4j.LoggerFactory"%>
+<%!private Logger log = LoggerFactory.getLogger(getClass());%>
 <%
 	boolean bAplicadoCont = false;
 	String DATE_FORMAT = "dd/MM/yyyy";

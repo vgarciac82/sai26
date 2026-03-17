@@ -1,5 +1,5 @@
 
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
 <%@page import="com.syc.obrapublica.ConfiguraAplicativoBusinessLogic"%>
 <%@page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
 <%@page import="com.syc.gestion.core.*,com.syc.gestion.servlet.*,com.syc.gestion.util.*"%>
@@ -9,7 +9,8 @@
 <%@page import="com.syc.contable.AdecuacionBusinessLogic"%>
 <%@page import="com.syc.contable.core.Saldo"%>
 <%@page import="java.text.DecimalFormat"%>
-<%!Logger log = Logger.getLogger( "Generador/OperacionesAjenas.jsp" ); %>
+<%@page import="org.slf4j.LoggerFactory"%>
+<%!Logger log = LoggerFactory.getLogger( "Generador/OperacionesAjenas.jsp" ); %>
 <%
 	boolean bAplicadoCont = false;
 	String DATE_FORMAT = "dd/MM/yyyy";

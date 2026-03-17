@@ -1,14 +1,15 @@
 <%@page pageEncoding="iso-8859-1" contentType="text/html; charset=iso-8859-1" language="java"%>
 
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.NamingException"%>
 <%@page import="com.syc.gestion.core.Usuario"%>
 <%@page import="com.syc.gestion.servlet.GestionInterface"%>
 <%@page import="com.syc.gestion.reportes.ReporteBussinesLogic" %>
 <%@page import="com.syc.gestion.reportes.core.ReporteConf" %>
+<%@page import="org.slf4j.LoggerFactory"%>
 <%!
-	private Logger log = Logger.getLogger(getClass());
+	private Logger log = LoggerFactory.getLogger(getClass());
 
 	private String jniName = null;
 

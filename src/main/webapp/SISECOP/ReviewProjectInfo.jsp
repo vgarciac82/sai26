@@ -8,9 +8,10 @@
 <%@page import="com.syc.gestion.core.UsuarioVistaBusinessLogic"%>
 <%@page import="com.syc.gestion.servlet.GestionInterface"%>
 <%@page import="com.syc.gestion.core.Usuario"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
+<%@page import="org.slf4j.LoggerFactory"%>
 
-<%!Logger log = Logger.getLogger("RegisterProject.jsp");%>
+<%!Logger log = LoggerFactory.getLogger("RegisterProject.jsp");%>
 <%
 
 Usuario u = (Usuario) session.getAttribute(GestionInterface.ATT_USER);

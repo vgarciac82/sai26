@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.NamingException"%>
 <%@page import="com.syc.gestion.core.Usuario"%>
@@ -13,8 +13,9 @@
 <%@ page import="com.syc.gestion.core.Empleado"%>
 <%@ page import="com.syc.gestion.EmpleadoBusinessLogic"%>
 <%@ page import="com.syc.gestion.core.EmpleadoArea"%>
+<%@page import="org.slf4j.LoggerFactory"%>
 <%!
-	private Logger log = Logger.getLogger(getClass());
+	private Logger log = LoggerFactory.getLogger(getClass());
 	String headerParameterHtml = "";
 	private String jniName = null;
 	public String tipo_consulta =null;

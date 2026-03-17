@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Configuración de contexto para SAI-GRP en Tomcat 10.1.x (Jakarta EE 10)
+  Ajusta los parámetros de conexión a SQL Server antes de desplegar.
+-->
+<Context>
+
+    <!--
+      Pool de conexiones JNDI para SQL Server
+      Cambia: url, username, password según tu entorno
+    -->
+    <Resource name="jdbc/gestion"
+              auth="Container"
+              type="jakarta.sql.DataSource"
+              driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+              url="jdbc:sqlserver://localhost:1433;databaseName=NOMBRE_BD;encrypt=false;trustServerCertificate=true"
+              username="USUARIO_BD"
+              password="PASSWORD_BD"
+              maxTotal="20"
+              maxIdle="10"
+              minIdle="2"
+              maxWaitMillis="10000"
+              validationQuery="SELECT 1"
+              testOnBorrow="true"
+              removeAbandonedOnBorrow="true"
+              removeAbandonedTimeout="60"
+              logAbandoned="true"
+              factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"/>
+
+</Context>

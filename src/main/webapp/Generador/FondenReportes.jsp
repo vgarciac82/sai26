@@ -14,14 +14,15 @@
 <%@page import="com.syc.contable.core.Saldo"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.sql.Connection"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
 <%@page import="java.util.Calendar"%>
+<%@page import="org.slf4j.LoggerFactory"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 
-<%!private Logger log = Logger.getLogger(getClass());%>
+<%!private Logger log = LoggerFactory.getLogger(getClass());%>
 
 <%
 	FondenBusinessLogic fbl = new FondenBusinessLogic();

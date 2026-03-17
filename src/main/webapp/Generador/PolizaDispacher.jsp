@@ -10,11 +10,12 @@
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="com.syc.sai.contabilidad.polizamanual.*"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
+<%@page import="org.slf4j.LoggerFactory"%>
 
 <%!private final int POLIZA_POR_CUENTAS = 1;%>
 <%!private final int POLIZA_POR_EVENTOS = 2;%>
-<%!private Logger log = Logger.getLogger(getClass());%>
+<%!private Logger log = LoggerFactory.getLogger(getClass());%>
 <%
 	if (request.getMethod().equals("POST")) {
 

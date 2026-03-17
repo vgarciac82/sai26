@@ -1,10 +1,10 @@
-<%@page import="org.apache.log4j.LogManager"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.LoggerFactory"%>
+<%@page import="org.slf4j.Logger"%>
 <%@page import="com.syc.gestion.servlet.GestionInterface"%>
 <%@page import="com.syc.gestion.core.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
-<%!private static final Logger log = LogManager.getLogger("AccountAsignationReport.jsp");%>
+<%!private static final Logger log = LoggerFactory.getLogger("AccountAsignationReport.jsp");%>
 <%
 Usuario u = (Usuario) session.getAttribute(GestionInterface.ATT_USER);
 if (u == null) {

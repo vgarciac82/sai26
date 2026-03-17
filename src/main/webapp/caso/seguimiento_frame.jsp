@@ -1,9 +1,10 @@
 <%@page pageEncoding="iso-8859-1" contentType="text/html; charset=iso-8859-1" language="java"%>
 
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
+<%@page import="org.slf4j.LoggerFactory"%>
 
 <%!
-	private Logger log = Logger.getLogger(getClass());
+	private Logger log = LoggerFactory.getLogger(getClass());
 %>
 
 <%

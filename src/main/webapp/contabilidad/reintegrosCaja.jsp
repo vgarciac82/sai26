@@ -18,12 +18,13 @@
 <%@ page import="com.syc.gestion.servlet.GestionInterface"%>
 <%@ page import="com.syc.gestion.servlet.GestionServlet"%>
 <%@ page import="java.io.File"%>
-<%@ page import="org.apache.log4j.Logger"%>
+<%@ page import="org.slf4j.Logger"%>
 <%@ page import="com.syc.contable.AdecuacionBusinessLogic"%>
 <%@ page import="com.syc.obrapublica.EjercicioFiscalBusinessLogic"%>
 <%@ page import="com.syc.sai.contabilidad.caja.CajaBusinessLogic"%>
+<%@page import="org.slf4j.LoggerFactory"%>
 
-<%!private static Logger log = Logger.getLogger("ReintegrosCaja.jsp");%>
+<%!private static Logger log = LoggerFactory.getLogger("ReintegrosCaja.jsp");%>
 
 <%
 	Caso caso = (Caso) session.getAttribute(GestionInterface.ATT_CASE);

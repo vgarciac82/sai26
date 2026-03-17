@@ -5,10 +5,10 @@
 <%@page import="com.axtel.user.entities.ExecutiveUnit"%>
 <%@page import="com.syc.gestion.servlet.GestionInterface"%>
 <%@page import="com.syc.gestion.core.Usuario"%>
-<%@page import="org.apache.log4j.LogManager"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.LoggerFactory"%>
+<%@page import="org.slf4j.Logger"%>
 
-<%!private static final Logger log = LogManager.getLogger("PendingFuelRequestVerification.jsp");%>
+<%!private static final Logger log = LoggerFactory.getLogger("PendingFuelRequestVerification.jsp");%>
 
 <%
 boolean initError = false;

@@ -1,4 +1,4 @@
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
 <%@page import="org.apache.commons.lang.StringUtils"%>
 <%@page import="java.io.File"%>
 <%@page import="com.syc.gestion.core.*,com.syc.gestion.servlet.*,com.syc.gestion.util.*"%>
@@ -14,8 +14,9 @@
 <%@page import="java.io.BufferedInputStream"%>
 <%@page import="java.io.BufferedOutputStream"%>
 <%@page import="java.io.ByteArrayInputStream"%>
+<%@page import="org.slf4j.LoggerFactory"%>
 
-<%!private Logger log = Logger.getLogger(getClass());%>
+<%!private Logger log = LoggerFactory.getLogger(getClass());%>
 <%
 String reportPath = getServletContext().getRealPath("Reportes" + File.separator);
 Usuario usuario = (Usuario)session.getAttribute(GestionInterface.ATT_USER);

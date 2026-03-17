@@ -4,13 +4,14 @@
 <%@page import="java.util.*,com.syc.gestion.*,com.syc.gestion.core.*,com.syc.gestion.servlet.*,com.syc.gestion.util.Util" %>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="com.syc.gestion.documental.Documental"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.NamingException"%>
 <%@page import="com.syc.gestion.util.PaginaData"%>
 <%@page import="com.syc.gestion.util.Util"%>
+<%@page import="org.slf4j.LoggerFactory"%>
 <html>
-<%!private Logger log = Logger.getLogger(getClass());
+<%!private Logger log = LoggerFactory.getLogger(getClass());
 	private String jniName = null;
 
 	public void jspInit() {

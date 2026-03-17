@@ -1,9 +1,9 @@
 <%@page import="com.syc.gestion.servlet.GestionInterface"%>
 <%@page import="com.syc.gestion.core.Usuario"%>
-<%@page import="org.apache.log4j.LogManager"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.LoggerFactory"%>
+<%@page import="org.slf4j.Logger"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%!Logger log = LogManager.getLogger( "AltaFirmanteRM.jsp" ); %>
+<%!Logger log = LoggerFactory.getLogger( "AltaFirmanteRM.jsp" ); %>
 <%
 
 	if( session == null ){

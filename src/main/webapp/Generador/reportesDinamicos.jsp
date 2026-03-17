@@ -6,10 +6,11 @@
 <%@page import="com.syc.contable.AdecuacionBusinessLogic"%>
 <%@page import="com.syc.contable.core.Saldo"%>
 <%@page import="java.text.DecimalFormat"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.NamingException"%>
 <%@page import="com.syc.gestion.TablasBusinessLogic" %>
+<%@page import="org.slf4j.LoggerFactory"%>
 <%
 	Usuario usuario = (Usuario) session
 			.getAttribute(GestionInterface.ATT_USER);
@@ -27,7 +28,7 @@
 	String CentroContable = usuario.getPropiedad("CCENTROCONTABLE")
 			.getValor();
 %>
-<%!private Logger log = Logger.getLogger(getClass());
+<%!private Logger log = LoggerFactory.getLogger(getClass());
 	String headerParameterHtml = "";
 	private String jniName = null;
 

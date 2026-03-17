@@ -10,12 +10,13 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.syc.contable.AdecuacionBusinessLogic"%>
 <%@page import="com.syc.contable.ArchivoExcel"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.io.File"%>
 <%@page import="javax.swing.text.MaskFormatter"%>
 <%@page import="com.syc.contable.core.Saldo"%>
-<%! private static Logger log = Logger.getLogger("com.syc.plantillas.casos.integraAdecuaciones.jsp"); %>
+<%@page import="org.slf4j.LoggerFactory"%>
+<%! private static Logger log = LoggerFactory.getLogger("com.syc.plantillas.casos.integraAdecuaciones.jsp"); %>
 <%
 	ArrayList arrDatsoGuardados = new ArrayList();
 	ArrayList arrResultadoIntegrado = new ArrayList();

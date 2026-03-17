@@ -6,10 +6,11 @@
 <%@page import="com.syc.gestion.core.UsuarioVistaBusinessLogic"%>
 <%@page import="com.syc.gestion.servlet.GestionInterface"%>
 <%@page import="com.syc.gestion.core.Usuario"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
+<%@page import="org.slf4j.LoggerFactory"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%!Logger log = Logger.getLogger("inboxPreautorizaFIEL.jsp");%>
+<%!Logger log = LoggerFactory.getLogger("inboxPreautorizaFIEL.jsp");%>
 <%
 Usuario usuario = (Usuario) session.getAttribute(GestionInterface.ATT_USER);
 

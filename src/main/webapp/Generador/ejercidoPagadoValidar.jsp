@@ -1,7 +1,7 @@
 <%@page import="java.io.File"%>
 <%@page import="com.syc.egresos.firmante.servlet.Firmante"%>
 <%@page import="com.syc.egresos.firmante.FirmanteBussinessLogic"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
 <%@page import="com.syc.gestion.core.*,com.syc.gestion.servlet.*,com.syc.gestion.util.*"%>
 <%@page language="java" contentType="application/json"%>
 <%@page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
@@ -11,11 +11,12 @@
 <%@page import="org.json.JSONObject"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="com.syc.gestion.custom.FolioGeneratorInterface"%>
+<%@page import="org.slf4j.LoggerFactory"%>
 <%
 	// Para Generar Caso Tramite
 	InitialContext ic = new InitialContext();
 	String folioGenerator = (String) ic.lookup("java:comp/env/folioGeneratorInterface");
-	final Logger log = Logger.getLogger( "ejercidoPagadoValidar" );
+	final Logger log = LoggerFactory.getLogger( "ejercidoPagadoValidar" );
 	String reportPath = getServletContext().getRealPath("Reportes" + File.separator);
 %>
 <%

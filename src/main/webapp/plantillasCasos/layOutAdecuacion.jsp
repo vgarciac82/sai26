@@ -1,4 +1,4 @@
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
 <%@page import="com.syc.contable.adecuaciones.AdecuacionDetalle"%>
 <%@page import="com.syc.contable.adecuaciones.Adecuacion"%>
 <%@page import="com.syc.contable.AdecuacionBusinessLogic"%>
@@ -8,8 +8,9 @@
 <%@page import="com.syc.gestion.servlet.GestionInterface"%>
 <%@page import="com.syc.contable.core.Saldo"%>
 <%@page import="com.syc.gestion.core.*,com.syc.gestion.servlet.*,com.syc.gestion.util.*"%>
+<%@page import="org.slf4j.LoggerFactory"%>
 <%!
-	private static final Logger log = Logger.getLogger("layOutAdecuacion.jsp");
+	private static final Logger log = LoggerFactory.getLogger("layOutAdecuacion.jsp");
 %>
 <%
 

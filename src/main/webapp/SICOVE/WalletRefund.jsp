@@ -6,9 +6,9 @@
 <%@page import="com.syc.gestion.UsuarioBusinessLogic"%>
 <%@page import="com.syc.gestion.servlet.GestionInterface"%>
 <%@page import="com.syc.gestion.core.Usuario"%>
-<%@page import="org.apache.log4j.LogManager"%>
-<%@page import="org.apache.log4j.Logger"%>
-<%!private static final Logger log = LogManager.getLogger("WalletRefund.jsp");%>
+<%@page import="org.slf4j.LoggerFactory"%>
+<%@page import="org.slf4j.Logger"%>
+<%!private static final Logger log = LoggerFactory.getLogger("WalletRefund.jsp");%>
 <%
 boolean initError = false;
 

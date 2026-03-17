@@ -1,5 +1,5 @@
-<%@page import="org.apache.log4j.LogManager"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.LoggerFactory"%>
+<%@page import="org.slf4j.Logger"%>
 <%@page language="java" contentType="application/json"%>
 <%@page import="com.syc.gestion.documental.CatalogosBusinessLogic"%>
 <%@page import="javax.servlet.ServletException"%>
@@ -10,7 +10,7 @@
 <%@page import="com.syc.gestion.core.Empleado"%>
 
 <%!
-private static final Logger log = LogManager.getLogger("DeleteJson.jsp");
+private static final Logger log = LoggerFactory.getLogger("DeleteJson.jsp");
  %>
 <%
 	String strQuery = "";

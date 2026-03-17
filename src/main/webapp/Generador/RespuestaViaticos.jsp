@@ -1,9 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
+<%@page import="org.slf4j.LoggerFactory"%>
 <html>
 <head>
 <title>Autoriza Solicitud de Viaticos</title>
-<%!Logger log = Logger.getLogger("ResumenViaticos.jsp");%>
+<%!Logger log = LoggerFactory.getLogger("ResumenViaticos.jsp");%>
 <%
 	/*
 		1) Exito

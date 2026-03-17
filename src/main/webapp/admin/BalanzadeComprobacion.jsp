@@ -6,11 +6,12 @@
 <%@page import="com.syc.gestion.reportes.ReporteBussinesLogic"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.NamingException"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
 <%@page import="com.syc.gestion.servlet.GestionInterface"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="com.syc.contable.AdecuacionBusinessLogic"%>
+<%@page import="org.slf4j.LoggerFactory"%>
 
 
 <%  
@@ -30,7 +31,7 @@
 	System.out.println(efa);	
 	
 %>
-<%!private Logger log = Logger.getLogger(getClass());
+<%!private Logger log = LoggerFactory.getLogger(getClass());
 	String headerParameterHtml = "";
 	private String jniName = null;
 

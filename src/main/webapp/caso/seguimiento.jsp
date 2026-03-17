@@ -1,5 +1,5 @@
 <%@page import="java.util.List"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.NamingException"%>
 <%@page import="com.syc.gestion.util.PaginaData"%>
@@ -17,9 +17,10 @@
 <%@page import="java.util.Date"%>
 <%@page import="com.syc.gestion.core.TipoCaso"%>
 <%@page import="java.util.Hashtable"%>
+<%@page import="org.slf4j.LoggerFactory"%>
 
 
-<%!	private Logger log = Logger.getLogger(getClass());
+<%!	private Logger log = LoggerFactory.getLogger(getClass());
 	private String jniName = null;
 
 	public void jspInit() {

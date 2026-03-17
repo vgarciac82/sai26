@@ -2,7 +2,7 @@
 <%@page import="com.syc.gestion.reportes.ReporteBussinesLogic"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.NamingException"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
 <%@page import="com.syc.gestion.servlet.GestionInterface"%>
 <%@page import="com.syc.gestion.core.*,com.syc.gestion.servlet.*,com.syc.gestion.util.*"%>
 <%@page import="com.syc.contable.core.ReportePrespuestal"%>
@@ -15,13 +15,14 @@
 <%@page import="org.apache.poi.ss.usermodel.Sheet"%>
 <%@page import="org.apache.poi.ss.usermodel.Workbook"%>
 <%@page import="java.io.BufferedOutputStream"%>
+<%@page import="org.slf4j.LoggerFactory"%>
 
 <%!
 
 
 /***********************************V ersion 1.0 de MultiReporte Presupuestal****************************************************/
 
-private Logger log = Logger.getLogger(getClass());
+private Logger log = LoggerFactory.getLogger(getClass());
 	String headerParameterHtml = "";
 	private String jniName = null;
 

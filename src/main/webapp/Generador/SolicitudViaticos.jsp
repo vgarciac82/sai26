@@ -1,12 +1,13 @@
 <%@page import="com.syc.obrapublica.EjercicioFiscalBusinessLogic"%>
 <%@page import="com.syc.gestion.util.Util"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
 <%@page import="com.syc.gestion.core.Caso"%>
 <%@page import="com.syc.gestion.servlet.GestionInterface"%>
 <%@page import="com.syc.gestion.core.Usuario"%>
+<%@page import="org.slf4j.LoggerFactory"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%!Logger log = Logger.getLogger("SolicitudViaticos.jsp"); %>
+<%!Logger log = LoggerFactory.getLogger("SolicitudViaticos.jsp"); %>
 <%
   Usuario u = ( Usuario ) session.getAttribute( GestionInterface.ATT_USER );
   

@@ -7,11 +7,11 @@
 <%@page import="com.syc.gestion.UsuarioBusinessLogic"%>
 <%@page import="com.syc.gestion.servlet.GestionInterface"%>
 <%@page import="com.syc.gestion.core.Usuario"%>
-<%@page import="org.apache.log4j.LogManager"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.LoggerFactory"%>
+<%@page import="org.slf4j.Logger"%>
 <% request.setCharacterEncoding("utf-8"); %>
 <%!
-	private static final Logger log = LogManager.getLogger( "VehicleFuelRequest.jsp" );
+	private static final Logger log = LoggerFactory.getLogger( "VehicleFuelRequest.jsp" );
 %>
 <%
 	boolean initError = false;

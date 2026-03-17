@@ -13,13 +13,14 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.syc.contable.AdecuacionBusinessLogic"%>
 <%@page import="com.syc.contable.ArchivoExcel"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@page import="org.slf4j.Logger"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.io.File"%>
 <%@page import="javax.swing.text.MaskFormatter"%>
 <%@page import="com.syc.contable.core.Saldo"%>
 <%@page import="java.sql.Connection"%>
-<%!private static Logger log = Logger.getLogger("AdecuacioPresupuestal.jsp");%>
+<%@page import="org.slf4j.LoggerFactory"%>
+<%!private static Logger log = LoggerFactory.getLogger("AdecuacioPresupuestal.jsp");%>
 <%
 	//ARLA 22/09/2014 Mensajes resultado de la validacion. 
 	ResultadoValidacionAdecuacion resultadoCarga = null;
