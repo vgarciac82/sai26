@@ -104,7 +104,7 @@
     <artifactId>scottlogic-utils</artifactId>
     <version>1.4</version>
 </dependency>
-	
+
         <dependency>
     <groupId>legacy.local</groupId>
     <artifactId>jenkov-prizetags</artifactId>
@@ -2724,6 +2724,11 @@
           <artifactId>xml-apis-ext</artifactId>
           				
         </exclusion>
+
+        <exclusion>
+          <groupId>javax.xml.stream</groupId>
+          <artifactId>stax-api</artifactId>
+        </exclusion>
         			
       </exclusions>
       		
@@ -2755,6 +2760,11 @@
           					
           <artifactId>xml-apis-ext</artifactId>
           				
+        </exclusion>
+
+        <exclusion>
+          <groupId>javax.xml.stream</groupId>
+          <artifactId>stax-api</artifactId>
         </exclusion>
         			
       </exclusions>
@@ -3785,39 +3795,6 @@
       <artifactId>json</artifactId>
       			
       <version>20190722</version>
-      		
-			
-      <exclusions>
-        				
-        <exclusion>
-          					
-          <groupId>xml-apis</groupId>
-          					
-          <artifactId>xml-apis</artifactId>
-          				
-        </exclusion>
-        			
-				
-        <exclusion>
-          					
-          <groupId>xml-apis</groupId>
-          					
-          <artifactId>xml-apis-ext</artifactId>
-          				
-        </exclusion>
-        			
-      </exclusions>
-      		
-    </dependency>
-    		
-		
-    <dependency>
-      			
-      <groupId>stax</groupId>
-      			
-      <artifactId>stax-api</artifactId>
-      			
-      <version>1.0.1</version>
       		
 			
       <exclusions>

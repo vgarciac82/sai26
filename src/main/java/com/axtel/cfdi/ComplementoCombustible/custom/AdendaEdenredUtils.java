@@ -3,12 +3,16 @@ package com.axtel.cfdi.ComplementoCombustible.custom;
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.Iterator;
-import javax.xml.namespace.NamespaceContext;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.*;
-import org.w3c.dom.*;
-import java.util.Base64;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 
 public class AdendaEdenredUtils {
 
@@ -24,7 +28,7 @@ public class AdendaEdenredUtils {
         Document doc = builder.parse(xmlFile);
         XPathFactory xPathFactory = XPathFactory.newInstance();
         XPath xpath = xPathFactory.newXPath();
-        xpath.setNamespaceContext(new NamespaceContext() {
+        xpath.setNamespaceContext(new javax.xml.namespace.NamespaceContext() {
 
             public String getNamespaceURI(String prefix) {
                 return "edr".equals(prefix) ? "http://www.edenred.com.mx/cfdi/3/" : null;

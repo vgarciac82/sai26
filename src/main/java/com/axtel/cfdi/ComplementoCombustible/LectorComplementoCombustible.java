@@ -6,7 +6,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -27,7 +26,7 @@ public class LectorComplementoCombustible {
 
     private static final String XPATH_EXPRESSION = "//edr:Concepto";
 
-    private class ContextReader implements NamespaceContext {
+    private class ContextReader implements javax.xml.namespace.NamespaceContext {
 
         public String getNamespaceURI(String prefix) {
             String uri;
@@ -55,7 +54,7 @@ public class LectorComplementoCombustible {
 
     public LectorComplementoCombustible() throws CFDIReadException {
         try {
-            NamespaceContext ctx = new ContextReader();
+            javax.xml.namespace.NamespaceContext ctx = new ContextReader();
             factory = DocumentBuilderFactory.newInstance();
             factory.setNamespaceAware(true);
             builder = factory.newDocumentBuilder();
