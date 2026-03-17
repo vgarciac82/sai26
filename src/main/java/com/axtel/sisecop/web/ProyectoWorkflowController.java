@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import com.axtel.sisecop.entities.ProyectoServicio;
 import com.axtel.sisecop.services.ProyectoServicioService;
 import com.axtel.web.utils.WebUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;

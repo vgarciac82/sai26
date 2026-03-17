@@ -66,7 +66,7 @@
 		idSolicitud = requisition.getIdSolicitud(  );
 		ueSolicitud = requisition.getIdUnidadEjecutora(  );
 	}catch(Exception e ){
-		log.error(e,e);
+		log.error(e.getMessage(), e);
 		msg += "Error buscando apartado: " + e;
 	}
 

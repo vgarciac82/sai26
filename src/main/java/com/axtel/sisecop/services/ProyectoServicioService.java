@@ -15,7 +15,7 @@ import com.axtel.sisecop.dto.ProyectoDTO;
 import com.axtel.sisecop.dto.TerritoryDTO;
 import com.axtel.sisecop.entities.ProyectoServicio;
 import com.axtel.sisecop.entities.ProyectoServicioTerritorio;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.syc.cfdi.db.CloseObject;
 import com.syc.gestion.CasoBusinessLogic;
 import com.syc.gestion.core.Caso;

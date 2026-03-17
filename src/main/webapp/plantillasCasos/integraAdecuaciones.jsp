@@ -139,7 +139,7 @@
 		}
 
 	}catch(Exception ex){
-		log.warn(ex,ex);
+		log.warn(ex.getMessage(), ex);
 		mensaje = Util.encodeJS(ex.getMessage());
 	}
 	//Valida Centro de Costos
@@ -159,7 +159,7 @@
 			session.setAttribute("objIntegraAdecuacion", arrIntegradoDetalle);
 		}
 	}catch (Exception ex) {
-			log.warn(ex,ex);
+			log.warn(ex.getMessage(), ex);
 			mensaje = Util.encodeJS(ex.getMessage());
 	}
 	if ( muchosFolios  != "" && request.getParameter("AgregaDatos") != null && "SI".equals(request.getParameter("AgregaDatos") )){
@@ -199,7 +199,7 @@
 		}catch( IADEClavesNeteadasException iacne ){
 			mensaje = iacne.getMessage();
 		}catch (Exception ex) {
-			log.warn(ex,ex);
+			log.warn(ex.getMessage(), ex);
 			mensaje = Util.encodeJS(ex.getMessage());
 		}
 	}	// Autorizacion
@@ -263,7 +263,7 @@
 			}
 		}
 	} catch (Exception ex) {
-		log.warn(ex,ex);
+		log.warn(ex.getMessage(), ex);
 		adecua.ErrorAdecuacuines(c, ex.getMessage(), usuario.getLogin(), id_oper, m, prefixPath);
 	}
 

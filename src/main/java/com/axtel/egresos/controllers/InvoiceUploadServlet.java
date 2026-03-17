@@ -20,7 +20,7 @@ import com.axtel.egresos.entities.InvoiceSubmissionRequest;
 import com.axtel.egresos.entities.MassPaymentResult;
 import com.axtel.egresos.services.MassPaymentSupplierService;
 import com.axtel.egresos.services.impl.MassPaymentSupplierServiceImpl;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.syc.egresos.firmante.servlet.Firmante;
 import com.syc.egresos.firmante.servlet.FirmanteSuplente;
 import com.syc.gestion.UsuarioBusinessLogic;

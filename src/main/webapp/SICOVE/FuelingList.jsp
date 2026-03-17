@@ -29,7 +29,7 @@
 		processType = request.getParameter( SICOVE.PARAM_INBOX_TYPE );
 		
 	}catch(Exception e){
-		log.error(e,e);
+		log.error(e.getMessage(), e);
 		initError = true;
 	}
 	

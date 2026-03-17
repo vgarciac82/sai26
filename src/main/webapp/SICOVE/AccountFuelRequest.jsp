@@ -23,7 +23,7 @@ try {
 	UsuarioBusinessLogic ubl = new UsuarioBusinessLogic(GestionInterface.ATT_CONEXION);
 	executiveUnit = ubl.getExecutiveUnit(u);
 } catch (Exception e) {
-	log.error(e, e);
+	log.error(e.getMessage(), e);
 	initError = true;
 }
 %>

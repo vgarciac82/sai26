@@ -12,7 +12,7 @@ import com.axtel.contratos.entities.FuelAccountWallet;
 import com.axtel.contratos.repositories.JDBCFuelAccountWalletRepository;
 import com.axtel.contratos.services.FuelAccountWalletService;
 import com.axtel.contratos.services.implementation.JDBCFuelAccountWalletService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;

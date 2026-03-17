@@ -101,7 +101,7 @@ public class GestionSetupServlet extends HttpServlet implements GestionInterface
             InputStream is = config.getServletContext().getResourceAsStream("/WEB-INF/log4j.properties");
             props.load(is);
             is.close();
-            // // // // // PropertyConfigurator.configure(props);
+            // // // // // // // PropertyConfigurator.configure(props);
             log = LoggerFactory.getLogger(GestionSetupServlet.class);
             if (baseLevel != null) {
                 if (baseLevel.equalsIgnoreCase("debug"))

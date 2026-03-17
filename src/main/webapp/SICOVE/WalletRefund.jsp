@@ -29,7 +29,7 @@ try {
 
 	executiveUnit = ubl.getExecutiveUnit(u);
 } catch (Exception e) {
-	log.error(e, e);
+	log.error(e.getMessage(), e);
 	initError = true;
 }
 %>

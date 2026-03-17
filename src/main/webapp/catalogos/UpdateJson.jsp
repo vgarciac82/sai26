@@ -1135,7 +1135,7 @@
 		
 	}
 	catch (Exception exc)
-	{	log.error(exc,exc);
+	{	log.error(exc.getMessage(), exc);
 		strError = exc.getMessage();
 		strError = strError.replaceAll("'","");
 		strError = strError.replaceAll(":","");

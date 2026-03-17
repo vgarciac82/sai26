@@ -24,7 +24,7 @@ import org.apache.commons.fileupload2.core.DiskFileItem;
 import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
 import org.apache.commons.fileupload2.core.FileItem;
 import org.apache.commons.fileupload2.core.FileUploadException;
-// // // // import org.apache.commons.ssl.PKCS8Key;
+// // // // // // import org.apache.commons.ssl.PKCS8Key;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfSignatureAppearance;
@@ -174,7 +174,7 @@ public class GestionSignFileReceiverServlet extends HttpServlet implements Gesti
                 in.read(fileBytes);
                 char[] pass = uPassword.toCharArray();
                 try {
-                    pkcs = null; // null; // null; // new PKCS8Key(fileBytes, pass);
+                    pkcs = null; // null; // null; // null; // null; // new PKCS8Key(fileBytes, pass);
                 } catch (Exception e) {
                     throw new Exception("El Password de la llave privada es incorrecto");
                 }

@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import jakarta.servlet.ServletConfig;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.axtel.contratos.exception.ContratoException;
 import com.axtel.sai.sicove.SICOVE;
 import com.axtel.sai.sicove.entities.VehicleFuelRequest;
@@ -29,13 +29,15 @@ import com.axtel.sai.sicove.services.FuelingNotificatorService;
 import com.axtel.sai.sicove.services.FuelingRequestService;
 import com.axtel.sai.sicove.services.impl.JBCFuelingRequestService;
 import com.axtel.sai.sicove.services.impl.MailFuelingNotificatorService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.syc.gestion.util.Util;
+
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.util.Base64;
-import java.nio.file.Paths;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import tools.jackson.databind.json.JsonMapper;
 
 @WebServlet(name = "FuelingRequestController", urlPatterns = { "/SICOVE/FuelProvisioningWallet", "/SICOVE/FuelProvisioningWallet/nextStatus", "/SICOVE/FuelProvisioningWallet/authRequest", "/SICOVE/FuelProvisioningWallet/finishRequest", "/SICOVE/FuelProvisioningWallet/discardRequest", "/SICOVE/FuelProvisioningWallet/rejectRequest", "/SICOVE/FuelProvisioningWallet/validatingVerification" })
 public class FuelingRequestController extends HttpServlet {
@@ -46,7 +48,7 @@ public class FuelingRequestController extends HttpServlet {
 
     private static final Logger log = LoggerFactory.getLogger(FuelingRequestController.class);
 
-    private com.fasterxml.jackson.databind.ObjectMapper objectMapper;
+    private tools.jackson.databind.ObjectMapper objectMapper;
 
     private String jniName;
 
@@ -86,8 +88,9 @@ public class FuelingRequestController extends HttpServlet {
         employeeRepository = new JDBCEmployeeRepository();
         fuelingRequestService = new JBCFuelingRequestService(jniName, fuelingRequestRepository, fuelingJustificationRepository, vehicleRepository, employeeRepository);
         fuelingNotificatorService = new MailFuelingNotificatorService(jniName, "REQFUELWALLET", fuelingNotificatorRepository);
-        objectMapper = new ObjectMapper();
-        objectMapper.setTimeZone(GMT_MINUS_6);
+        objectMapper = JsonMapper.builder()
+            .defaultTimeZone(GMT_MINUS_6)
+            .build();
     }
 
     @Override

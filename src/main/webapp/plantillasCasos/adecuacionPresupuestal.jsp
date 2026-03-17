@@ -196,7 +196,7 @@
 				adecuacion = adecua.cargaAdecuacion(nFolio);
 			} catch (Exception ex) {
 
-				log.error(ex, ex);
+				log.error(ex.getMessage(), ex);
 				if (resultadoCarga == null)
 					resultadoCarga = new ResultadoValidacionAdecuacion();
 
@@ -218,7 +218,7 @@
 
 			} catch (Exception ex) {
 
-				log.error(ex, ex);
+				log.error(ex.getMessage(), ex);
 				if (resultadoCarga == null)
 					resultadoCarga = new ResultadoValidacionAdecuacion();
 
@@ -250,7 +250,7 @@
 				adecuacion = adecua.cargaAdecuacion(nFolio);
 			} catch (Exception ex) {
 
-				log.error(ex, ex);
+				log.error(ex.getMessage(), ex);
 				if (resultadoCarga == null)
 					resultadoCarga = new ResultadoValidacionAdecuacion();
 
@@ -263,7 +263,7 @@
 
 		}
 	} catch (Exception ex) {
-		log.warn(ex, ex);
+		log.warn(ex.getMessage(), ex);
 		bErrorAdec = true;
 		adecua.ErrorAdecuacuines(c, ex.getMessage(), usuario.getLogin(), id_oper, m, prefixPath);
 	}

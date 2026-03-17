@@ -13,7 +13,7 @@ import com.axtel.sai.sicove.entities.FuelAsignationVerification;
 import com.axtel.sai.sicove.entities.WalletFuelRequestVerificationDetail;
 import com.axtel.sai.sicove.repositories.impl.JDBCFuelAsignationVerificationRepository;
 import com.axtel.sai.sicove.services.impl.JDBCFuelAsignationVerificationService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;

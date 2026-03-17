@@ -14,7 +14,7 @@ import com.axtel.sisecop.entities.ProyectoServicio;
 import com.axtel.sisecop.services.ProyectoExcepcionRepository;
 import com.axtel.sisecop.services.ProyectoExcepcionService;
 import com.axtel.web.utils.WebUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.syc.gestion.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

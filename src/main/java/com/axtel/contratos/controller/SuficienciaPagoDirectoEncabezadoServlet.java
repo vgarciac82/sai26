@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import com.axtel.contratos.core.SuficienciaPagoDirectoEncabezado;
 import com.axtel.contratos.services.SuficienciaPagoDirectoEncabezadoBusinessLogic;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.syc.gestion.CasoBusinessLogic;
 import com.syc.gestion.core.Caso;

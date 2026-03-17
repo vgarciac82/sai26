@@ -1033,7 +1033,7 @@ private static final Logger log = LoggerFactory.getLogger("DeleteJson.jsp");
 	}
 	catch (Exception exc) 
 	{	exc.printStackTrace();
-		log.error(exc,exc);
+		log.error(exc.getMessage(), exc);
 		strError = exc.getMessage();
 		strError = strError.replaceAll("'","");
 		strError = strError.replaceAll(":","");

@@ -9,7 +9,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.axtel.contratos.entities.FuelContractAccount;
 import com.axtel.contratos.services.FuelContractService;
 import com.axtel.contratos.services.implementation.FuelContractServiceImplementation;

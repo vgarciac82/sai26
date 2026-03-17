@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import com.axtel.contratos.core.SuficienciaPagoDirectoRetencion;
 import com.axtel.contratos.services.SuficienciaPagoDirectoRetencionBusinessLogic;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;

@@ -14,7 +14,7 @@ import java.sql.Connection;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import com.axtel.egresos.services.dto.OpinionResolveResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.syc.cfdi.core.FacturaManager;
 import com.syc.fortimax.core.Carpeta;
 import com.syc.fortimax.core.DocumentoManager;

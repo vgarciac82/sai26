@@ -15,7 +15,7 @@ import com.axtel.sisecop.dto.ProjectPaymentDTO;
 import com.axtel.sisecop.entities.ProyectoServicioPago;
 import com.axtel.sisecop.services.ProjectPaymentService;
 import com.axtel.web.utils.WebUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.syc.gestion.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

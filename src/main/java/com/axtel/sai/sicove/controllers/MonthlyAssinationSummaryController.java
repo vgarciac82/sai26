@@ -16,7 +16,7 @@ import com.axtel.sai.sicove.entities.MonthlyDetailAssinationSummary;
 import com.axtel.sai.sicove.repositories.impl.JDBCMonthlyAssinationRepository;
 import com.axtel.sai.sicove.services.MonthlyAssinationService;
 import com.axtel.sai.sicove.services.impl.JDBCMonthlyAssinationService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletContext;

@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import com.axtel.sisecop.dto.ProductDTO;
 import com.axtel.sisecop.entities.ProyectoProducto;
 import com.axtel.sisecop.services.ProductService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.syc.gestion.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

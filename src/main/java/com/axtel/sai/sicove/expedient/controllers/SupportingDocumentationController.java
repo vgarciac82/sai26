@@ -26,7 +26,7 @@ import com.axtel.sai.sicove.expedient.repositories.impl.JDBCExpedientRepostory;
 import com.axtel.sai.sicove.repositories.impl.JDBCFuelAsignationVerificationRepository;
 import com.axtel.sai.sicove.services.FuelAsignationVerificationService;
 import com.axtel.sai.sicove.services.impl.JDBCFuelAsignationVerificationService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.gestion.util.Util;

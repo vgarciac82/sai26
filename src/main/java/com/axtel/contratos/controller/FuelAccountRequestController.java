@@ -19,7 +19,7 @@ import com.axtel.sai.sicove.SICOVE;
 import com.axtel.sai.sicove.repositories.impl.JDBCFuelAccountNotificatorRepository;
 import com.axtel.sai.sicove.services.FuelAccountNotificatorService;
 import com.axtel.sai.sicove.services.impl.MailFuelAccountNotificatorService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.syc.gestion.util.Util;
 import jakarta.servlet.annotation.WebServlet;
 import org.slf4j.Logger;

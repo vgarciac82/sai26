@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import com.axtel.contratos.services.CompromisoPagoDirectoEncabezadoBusinessLogic;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.syc.gestion.core.Caso;
 import com.syc.gestion.core.Usuario;
 import com.syc.gestion.servlet.GestionInterface;

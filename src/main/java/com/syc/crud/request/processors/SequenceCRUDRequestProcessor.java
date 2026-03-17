@@ -3,9 +3,9 @@ package com.syc.crud.request.processors;
 import java.io.FileNotFoundException;
 import java.io.OutputStream;
 import java.util.Map;
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
+import tools.jackson.core.JsonEncoding;
+import tools.jackson.core.json.JsonFactory;
+import tools.jackson.core.JsonGenerator;
 import com.syc.crud.CRUDException;
 import com.syc.crud.CRUDRequestProcessor;
 import com.syc.gestion.core.CFSequenceManager;
@@ -45,15 +45,15 @@ public class SequenceCRUDRequestProcessor implements CRUDRequestProcessor {
             String seqName = params.get("n")[0];
             if ((seqName == null) || (seqName.trim().isEmpty()))
                 throw new CRUDException("El parametro nombre de secuencia no debe ser nulo o vacio");
-            jsonGenerator = jsonFactory.createJsonGenerator(out, JsonEncoding.UTF8);
+            jsonGenerator = jsonFactory.createGenerator(out, JsonEncoding.UTF8);
             jsonGenerator.writeStartObject();
             String nextVal = String.valueOf(CFSequenceManager.getInstance().nextVal(seqName));
-            jsonGenerator.writeStringField("nextVal", nextVal);
+            jsonGenerator.writeStringProperty("nextVal", nextVal);
             success = true;
         } catch (Exception exc) {
             success = false;
             try {
-                jsonGenerator.writeStringField("message", exc.getLocalizedMessage());
+                jsonGenerator.writeStringProperty("message", exc.getLocalizedMessage());
             } catch (Exception e) {
                 log.warn("Enviando JSON message", e);
             }
@@ -64,7 +64,7 @@ public class SequenceCRUDRequestProcessor implements CRUDRequestProcessor {
         } finally {
             if (jsonGenerator != null)
                 try {
-                    jsonGenerator.writeStringField("success", String.valueOf(success));
+                    jsonGenerator.writeStringProperty("success", String.valueOf(success));
                     jsonGenerator.writeEndObject();
                     jsonGenerator.close();
                 } catch (Exception exc) {

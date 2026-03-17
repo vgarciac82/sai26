@@ -21,7 +21,7 @@ import java.util.List;
 // Utilidades estándar
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-// // // // import org.apache.commons.ssl.PKCS8Key;
+// // // // // // import org.apache.commons.ssl.PKCS8Key;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import com.axtel.contratos.ProcesoEnteraSatisfaccionBusinessLogic;
 import com.axtel.contratos.QuestionnaireBussinessLogic;
@@ -832,7 +832,7 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
     }
 
     private void readPrivateKey(File f, String pass) throws Exception {
-        this.privateKey = null; // null; // null; // new PKCS8Key(FileUtils.readFileToByteArray(f), pass.toCharArray());
+        this.privateKey = null; // null; // null; // null; // null; // new PKCS8Key(FileUtils.readFileToByteArray(f), pass.toCharArray());
     }
 
     public List<String> rechazaConciliacion(ConciliacionFirma fer) {

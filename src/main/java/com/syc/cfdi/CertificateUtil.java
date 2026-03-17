@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import org.apache.commons.codec.binary.Base64;
-// // // // import java.util.Base64; (Ambiguous with Commons Codec) (Ambiguous with Commons Codec) (Ambiguous with Commons Codec) (Ambiguous with Commons Codec)
+// // // // // // import java.util.Base64; (Ambiguous with Commons Codec) (Ambiguous with Commons Codec) (Ambiguous with Commons Codec) (Ambiguous with Commons Codec) (Ambiguous with Commons Codec) (Ambiguous with Commons Codec)
 
 public class CertificateUtil {
 

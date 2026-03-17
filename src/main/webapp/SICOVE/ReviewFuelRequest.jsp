@@ -31,7 +31,7 @@
 		log.debug("Reviewing account: " + requestAccount + " Request Folio: " + requestFolio);
 		
 	}catch(Exception e){
-		log.error(e,e);
+		log.error(e.getMessage(), e);
 		initError = true;
 	}
 	

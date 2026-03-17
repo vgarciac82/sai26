@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.syc.sai.contabilidad.utils.db.CloseObject;
 import com.syc.sai.tesoreria.retenciones.core.Retencion;
 import org.slf4j.Logger;
