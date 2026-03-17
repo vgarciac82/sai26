@@ -86,7 +86,7 @@ public class ContratoDiversoManager {
             ps.setDouble(10, anticipo.getPorcAsignacion());
             ps.setBigDecimal(11, anticipo.getImporteAmortizado());
             insertados += ps.executeUpdate();
-            log.debug("Object: {}", "Registros insertados (Anticipo Convenio) " + insertados);
+            log.debug("Object: " + String.valueOf("Registros insertados (Anticipo Convenio) " + insertados));
             return insertados;
         } catch (SQLException e) {
             throw new ContratoException("No fue posible insertar renglon debido al error: " + e.toString());
@@ -102,7 +102,7 @@ public class ContratoDiversoManager {
         log.trace("Object: {}", "Insertando Contrato Diverso. Query: " + query);
         PreparedStatement ps = null;
         try {
-            log.debug("Object: {}", "Insertando objeto: " + contrato);
+            log.debug("Object: " + String.valueOf("Insertando objeto: " + contrato));
             ps = conn.prepareStatement(query.toString());
             int param = 1;
             ps.setString(param++, contrato.getEjercicioFiscal());
@@ -203,10 +203,10 @@ public class ContratoDiversoManager {
                 ps.setString(4, renglon.getEp());
                 ps.setString(5, renglon.getCentroContable());
                 insertados += ps.executeUpdate();
-                log.debug("Object: {}", "Se inserto renglon! " + renglon);
+                log.debug("Object: " + String.valueOf("Se inserto renglon! " + renglon));
                 ps.clearParameters();
             }
-            log.debug("Object: {}", "Registros insertados (contratoep) " + insertados);
+            log.debug("Object: " + String.valueOf("Registros insertados (contratoep) " + insertados));
             return insertados;
         } catch (SQLException e) {
             throw new ContratoException("No fue posible insertar renglon debido al error: " + e.toString());
@@ -243,7 +243,7 @@ public class ContratoDiversoManager {
                     insertaContratoRetencion(conn, retencion);
                     insertados++;
                 }
-                log.debug("Object: {}", "Registros insertados (Retenciones) " + insertados);
+                log.debug("Object: " + String.valueOf("Registros insertados (Retenciones) " + insertados));
                 return insertados;
             } catch (SQLException e) {
                 throw new ContratoException("No fue posible insertar renglon debido al error: " + e.toString());
@@ -362,7 +362,7 @@ public class ContratoDiversoManager {
             ps.setString(3, justification);
             ps.setString(4, login);
             int inserted = ps.executeUpdate();
-            log.debug("Object: {}", "Inserted " + inserted + " withholding deleted");
+            log.debug("Object: " + String.valueOf("Inserted " + inserted + " withholding deleted"));
         } finally {
             CloseObject.closeObject(ps);
         }

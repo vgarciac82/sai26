@@ -161,7 +161,7 @@ public class LayoutRectificacionesAnexo1SicopServlet extends HttpServlet {
         }
         archivo += detalles.replace(" ", "");
         try {
-            bw.write(archivo.toPath());
+            bw.write(archivo);
             bw.flush();
             bw.close();
         } catch (Exception ex) {

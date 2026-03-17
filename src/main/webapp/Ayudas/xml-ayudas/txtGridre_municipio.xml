@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!-- Ayuda Municipios - desde la pantalla de Remitente Externo -->
+
+<Ayuda>
+	<titulo>Municipios</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>543</altoWin>
+	<altoAreaCaptura>160</altoAreaCaptura>
+	<tabla>CAT_MUNICIPIO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+
+	<grid>
+		<columna campo="E.EDO_NOMBRE"		control="txtGridre_estado"		dependencia="No"	ctrlsDependientes=""  limpiaOnKeypress=""   header="Estado"				ancho="50"	maxlen="50"		tipo="string"	visible="Si"	clase="AyudaSyC"/>
+		<columna campo="M.MPO_NOMBRE"		control="txtGridre_municipio"	dependencia="No"	ctrlsDependientes=""  limpiaOnKeypress=""	header="Municipio"			ancho="100"	maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="E.ID_ESTADO"		control="txtGridide"			dependencia="No"	ctrlsDependientes=""  limpiaOnKeypress=""	header="Clave Estado"		ancho="6"	maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+		<columna campo="M.ID_MUNICIPIO"		control="txtGrididm"			dependencia="No"	ctrlsDependientes=""  limpiaOnKeypress=""	header="Clave Municipio"	ancho="6"	maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+
+		<!-- 
+		<columna campo="M.MPO_ABREVIATURA"	control="txtGridmpo_abr"		dependencia="No"	ctrlsDependientes=""  limpiaOnKeypress=""	header="Abreviatura"		ancho="10"	maxlen="10"		tipo="string"	visible="Si"	clase=""/>
+		 -->
+	</grid>
+</Ayuda>

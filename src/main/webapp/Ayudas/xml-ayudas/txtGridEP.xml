@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Ayuda Catalogo EPs</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>CG_CAT_EP_COB</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="nCuenta"					control="nCuenta"					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Cuenta"						ancho="20"	maxlen="20"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cSubCuenta"					control="txtGridEP"					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="EP"							ancho="60"	maxlen="500"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="mSaldoArrastre"				control="mSaldoArrastre"			dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Saldo"						ancho="10"	maxlen="20"		tipo="doble"	visible="Si"	clase=""/>
+		<columna campo="cUnidadEjecutora"			control="cUnidadEjecutora"			dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Unidad Ejecutora"			ancho="4"	maxlen="8"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="nClaveCNA"					control="nClaveCNA"					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Clave CNA"					ancho="5"	maxlen="10"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="nMes"						control="nMes"						dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Mes"						ancho="3"	maxlen="8"		tipo="int"		visible="No"	clase=""/>
+<!-- 
+		<columna campo="cRamo"						control="cRamo"						dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Ramo"						ancho="4"	maxlen="4"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cUnidadResponsable"			control="cUnidadResponsable"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Unidad Responsable"			ancho="3"	maxlen="3"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="aEjercicioFiscal"			control="aEjercicioFiscal"			dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Ejercicio Fiscal"			ancho="4"	maxlen="4"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cRamoEP"					control="cRamoEP"					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Ramo EP"					ancho="3"	maxlen="3"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cUnidadResponsableEP"		control="cUnidadResponsableEP"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Unidad Responsable EP"		ancho="4"	maxlen="4"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cGrupoFuncional"			control="cGrupoFuncional"			dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Grupo Funcional"			ancho="2"	maxlen="8"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cFuncion"					control="cFuncion"					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Funcion"					ancho="2"	maxlen="8"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cSubFuncion"				control="cSubFuncion"				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="SubFuncion"					ancho="3"	maxlen="8"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cProgramaGeneral"			control="cProgramaGeneral"			dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Programa General"			ancho="4"	maxlen="8"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cProgramaPresupuestario"	control="cProgramaPresupuestario"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Programa Presupuestario"	ancho="4"	maxlen="8"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cActividadInstitucional"	control="cActividadInstitucional"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Actividad Institucional"	ancho="4"	maxlen="8"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cPartida"					control="cPartida"					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Partida"					ancho="5"	maxlen="8"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cTipoGasto"					control="cTipoGasto"				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Tipo Gasto"					ancho="2"	maxlen="8"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cFuenteFinanciamiento"		control="cFuenteFinanciamiento"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Fuente Financiamiento"		ancho="2"	maxlen="8"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cEntidadFederativa"			control="cEntidadFederativa"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Entidad Federativa"			ancho="3"	maxlen="8"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cCartera"					control="cCartera"					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Cartera"					ancho="12"	maxlen="15"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cUnidadNorativa"			control="cUnidadNorativa"			dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Unidad Norativa"			ancho="4"	maxlen="8"		tipo="string"	visible="No"	clase=""/>
+		-->
+	</grid>  
+</Ayuda>

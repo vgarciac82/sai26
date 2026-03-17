@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ConciliacionCONAC" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="315a0014-0f91-4d19-ae17-aba0f536126a">
+	<property name="ireport.zoom" value="3.1384283767210097"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="311"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\SyC\\Clientes\\CONAFOR\\DesarrolloLocal\\Workspace\\sai\\WebContent\\Reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nfirmas" class="java.lang.Integer"/>
+	<parameter name="nombre1" class="java.lang.String"/>
+	<parameter name="puesto1" class="java.lang.String"/>
+	<parameter name="nombre2" class="java.lang.String"/>
+	<parameter name="puesto2" class="java.lang.String"/>
+	<parameter name="nombre3" class="java.lang.String"/>
+	<parameter name="puesto3" class="java.lang.String"/>
+	<parameter name="mes" class="java.lang.Integer"/>
+	<parameter name="anio" class="java.lang.Integer"/>
+	<parameter name="miles" class="java.lang.Integer"/>
+	<parameter name="nombre4" class="java.lang.String"/>
+	<parameter name="puesto4" class="java.lang.String"/>
+	<parameter name="NOMBRE_REP" class="java.lang.String">
+		<defaultValueExpression><![CDATA["logotipo-usuario.png"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[EXEC sp_FlujoObgtCE
+	@mes =  $P{mes}]]>
+	</queryString>
+	<field name="Descripcion" class="java.lang.String"/>
+	<field name="concepto" class="java.lang.String"/>
+	<field name="Original" class="java.math.BigDecimal"/>
+	<field name="Ampred" class="java.math.BigDecimal"/>
+	<field name="Modificado" class="java.math.BigDecimal"/>
+	<field name="Devengado" class="java.math.BigDecimal"/>
+	<field name="Pagado" class="java.math.BigDecimal"/>
+	<field name="Subejer" class="java.math.BigDecimal"/>
+	<field name="esTotal" class="java.lang.Integer"/>
+	<field name="cfe" class="java.lang.String"/>
+	<variable name="sumOrig" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Original}]]></variableExpression>
+	</variable>
+	<variable name="sumAdec" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Ampred}]]></variableExpression>
+	</variable>
+	<variable name="sumMod" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{Modificado}]]></variableExpression>
+	</variable>
+	<variable name="sumDev" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Devengado}]]></variableExpression>
+	</variable>
+	<variable name="sumPag" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{Pagado}]]></variableExpression>
+	</variable>
+	<variable name="sumDif" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Subejer}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<group name="Ingresos">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="11">
+				<line>
+					<reportElement x="0" y="0" width="554" height="1" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="18fb44b1-9e19-41fb-b913-c267c67ee52e"/>
+				</line>
+				<staticText>
+					<reportElement x="0" y="1" width="262" height="10" uuid="1472abd6-422f-48f3-8207-5fa65cbbb023"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Fuente: Sistema de registro de la Comisión Nacional Forestal.]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<pageHeader>
+		<band height="112" splitType="Stretch">
+			<image>
+				<reportElement x="9" y="2" width="124" height="43" uuid="58799fcf-73f9-4315-a9f8-8070ed4d93c7"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + $P{NOMBRE_REP}]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="0" y="45" width="554" height="66" backcolor="#CCCCCC" uuid="dc75ab10-4964-49eb-b079-1b77b7305f1e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="45" width="554" height="13" backcolor="#CCCCCC" uuid="9cea5e2e-21ba-467e-b5be-bb0eaeb0f41d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Noto Sans" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Comisión Nacional Forestal]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="84" width="554" height="13" uuid="d76bb53f-130b-4666-ae78-f41b3701649d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Noto Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(
+    $P{mes}==1 ? "Del 01 de Enero al 31 de Enero de " +$P{anio}.toString():
+    $P{mes}==2 && ($P{anio}%400 == 0 || ($P{anio}%100 != 0 && $P{anio}%4 == 0)) ? "Del 01 de Enero al 29 de Febrero de " +$P{anio}.toString():
+    $P{mes}==2 ? "Del 01 de Enero al 28 de Febrero de " +$P{anio}.toString():
+    $P{mes}==3 ? "Del 01 de Enero al 31 de Marzo de " +$P{anio}.toString():
+    $P{mes}==4 ? "Del 01 de Enero al 30 de Abril de " +$P{anio}.toString():
+    $P{mes}==5 ? "Del 01 de Enero al 31 de Mayo de " +$P{anio}.toString():
+    $P{mes}==6 ? "Del 01 de Enero al 30 de Junio de " +$P{anio}.toString():
+    $P{mes}==7 ? "Del 01 de Enero al 31 de Julio de " +$P{anio}.toString():
+    $P{mes}==8 ? "Del 01 de Enero al 31 de Agosto de " +$P{anio}.toString():
+    $P{mes}==9 ? "Del 01 de Enero al 30 de Septiembre de " +$P{anio}.toString():
+    $P{mes}==10 ? "Del 01 de Enero al 31 de Octubre de " +$P{anio}.toString():
+    $P{mes}==11 ? "Del 01 de Enero al 30 de Noviembre de " +$P{anio}.toString():
+    $P{mes}==12 ? "Del 01 de Enero al 31 de Diciembre de " +$P{anio}.toString():
+    ""
+)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="97" width="554" height="13" backcolor="#CCCCCC" uuid="578658c0-5e90-4449-94c2-8359a39bba57"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Noto Sans" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Pesos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="58" width="554" height="13" backcolor="#CCCCCC" uuid="56df2308-8488-4c29-bac8-88496fa3a77f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Noto Sans" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Estado Analítico del Ejercicio del Presupuesto de Egresos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="71" width="554" height="13" backcolor="#CCCCCC" uuid="9822d094-4d3c-4cee-b734-550e511ba066"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Noto Sans" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Clasificación Económica y por Objeto del Gasto]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="46">
+			<rectangle>
+				<reportElement x="0" y="-1" width="554" height="47" backcolor="#CCCCCC" uuid="6502ddf9-43e3-47a0-b026-acc338406808"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="487" y="8" width="65" height="12" uuid="ca208e1a-4247-4d08-aefc-d418dbaa07ce"/>
+				<textElement textAlignment="Center">
+					<font fontName="Noto Sans" size="8"/>
+				</textElement>
+				<text><![CDATA[Economias]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="20" width="65" height="20" uuid="f6b88442-77ff-41d3-ae49-317ca0fc9b1f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Noto Sans" size="8"/>
+				</textElement>
+				<text><![CDATA[Aprobado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="20" width="65" height="20" uuid="85ee2bfa-1cb1-4757-9228-dcaf967f378d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Noto Sans" size="8"/>
+				</textElement>
+				<text><![CDATA[Modificado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="352" y="19" width="65" height="19" uuid="8a493673-237b-42ef-bbfd-37f6b15d7e1d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Noto Sans" size="8"/>
+				</textElement>
+				<text><![CDATA[Devengado]]></text>
+			</staticText>
+			<line>
+				<reportElement x="224" y="11" width="261" height="1" uuid="43c3c909-add4-44aa-a22f-2d699b1aec51"/>
+			</line>
+			<staticText>
+				<reportElement x="418" y="18" width="65" height="20" uuid="3b67fc33-19e0-410b-ab32-7142f7e03d2b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Noto Sans" size="8"/>
+				</textElement>
+				<text><![CDATA[Pagado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="11" width="100" height="20" uuid="5996dc59-612b-4542-92b4-066a3a5a562e"/>
+				<textElement>
+					<font fontName="Noto Sans" size="8"/>
+				</textElement>
+				<text><![CDATA[Concepto]]></text>
+			</staticText>
+			<line>
+				<reportElement x="223" y="0" width="1" height="46" uuid="d58ded73-6189-4119-a288-b61a27c384ca"/>
+			</line>
+			<line>
+				<reportElement x="485" y="0" width="1" height="46" uuid="70acbb9a-6e5d-4fe4-b0c8-36528458113b"/>
+			</line>
+			<line>
+				<reportElement x="416" y="12" width="1" height="33" uuid="3b564641-ed94-499b-a700-f7a72d9108e5"/>
+			</line>
+			<line>
+				<reportElement x="351" y="11" width="1" height="34" uuid="22127d2f-83f8-45da-a79c-977db4bef260"/>
+			</line>
+			<line>
+				<reportElement x="287" y="13" width="1" height="33" uuid="bfffc097-cdff-49fd-95fa-ea9bf46163b8"/>
+			</line>
+			<staticText>
+				<reportElement x="224" y="-1" width="262" height="13" uuid="095c90e3-0803-45df-9143-d456ee8bffa2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Noto Sans" size="8"/>
+				</textElement>
+				<text><![CDATA[Egresos]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="11">
+			<textField pattern="###,###,##0.00" isBlankWhenNull="true">
+				<reportElement x="227" y="2" width="57" height="9" uuid="92f42fc6-3c18-4818-951a-d8956b77f8a6"/>
+				<textElement textAlignment="Right">
+					<font fontName="Noto Sans" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Original}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###,##0.00">
+				<reportElement x="288" y="1" width="62" height="9" uuid="7de2b685-547f-4eaa-bfbf-6b87432bd47f"/>
+				<textElement textAlignment="Right">
+					<font fontName="Noto Sans" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Modificado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###,##0.00">
+				<reportElement x="353" y="1" width="59" height="9" uuid="7347814c-299c-4e97-851a-bbb0f19d872b"/>
+				<textElement textAlignment="Right">
+					<font fontName="Noto Sans" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Devengado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###,##0.00">
+				<reportElement x="421" y="1" width="59" height="9" uuid="d3633ce8-668b-4f42-954c-ddece7e48ca6"/>
+				<textElement textAlignment="Right">
+					<font fontName="Noto Sans" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Pagado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###,##0.00">
+				<reportElement x="493" y="1" width="59" height="9" uuid="d25c1a70-7073-4356-bc44-1c4d119d783a"/>
+				<textElement textAlignment="Right">
+					<font fontName="Noto Sans" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Subejer}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="485" y="-1" width="1" height="12" isPrintWhenDetailOverflows="true" uuid="dfbd0516-afe8-45a4-a6f1-e779777782f8"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="223" y="-1" width="1" height="12" isPrintWhenDetailOverflows="true" uuid="08199b78-f164-4746-992f-abe2c0676210"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="287" y="-1" width="1" height="12" isPrintWhenDetailOverflows="true" uuid="22cff7a9-5a58-467a-920f-ae8260006b9b"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="351" y="-2" width="1" height="13" isPrintWhenDetailOverflows="true" uuid="3cb5bc09-00d6-4cfe-98e3-3c1c1559fc6c"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="416" y="-2" width="1" height="13" isPrintWhenDetailOverflows="true" uuid="9ae619e8-cae1-4648-958c-7db59cba71b0"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="-1" y="-1" width="1" height="12" isPrintWhenDetailOverflows="true" uuid="daf7825b-8516-497b-85a0-ecdfe28389d6"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="553" y="-1" width="1" height="12" isPrintWhenDetailOverflows="true" uuid="aadd375b-83b1-4122-987e-04b11d2a555a"/>
+			</line>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="36" y="1" width="142" height="9" uuid="3ce5d9ca-6810-427b-b6e8-a6f454011a02">
+					<printWhenExpression><![CDATA[$F{esTotal}==0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Noto Sans" size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="1" width="173" height="9" uuid="23c30136-e413-4b55-9d24-0f879ef29083">
+					<printWhenExpression><![CDATA[$F{esTotal}==2||$F{esTotal}==3]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Noto Sans" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="0" width="19" height="10" uuid="94b08288-3e2b-4dea-a982-c88be0931231">
+					<printWhenExpression><![CDATA[$F{esTotal}==0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Noto Sans" size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{concepto}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="28" y="0" width="142" height="9" uuid="593794bb-9e3a-4da6-bd3b-d60412c9de30">
+					<printWhenExpression><![CDATA[$F{esTotal}==1]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Noto Sans" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="11" y="0" width="19" height="10" uuid="1355bab1-a60d-4d9a-b1ee-55f94ad54716">
+					<printWhenExpression><![CDATA[$F{esTotal}==1]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Noto Sans" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{concepto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="18" splitType="Stretch">
+			<textField>
+				<reportElement x="463" y="1" width="80" height="17" uuid="1177bd0c-aa3f-4a98-8f63-f06b187b3332"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Noto Sans" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="-6" width="554" height="1" uuid="fd764da9-b9c9-4ac8-9366-6098fed11604"/>
+			</line>
+			<textField evaluationTime="Report">
+				<reportElement x="543" y="1" width="10" height="17" uuid="a4fdd98f-465d-4e0f-968f-f45d0d031542"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Noto Sans" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="107">
+			<subreport>
+				<reportElement x="1" y="2" width="552" height="82" uuid="6c52e727-462a-4626-ac30-76488e955962"/>
+				<subreportParameter name="anio">
+					<subreportParameterExpression><![CDATA[$P{anio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="puesto4">
+					<subreportParameterExpression><![CDATA[$P{puesto4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="puesto2">
+					<subreportParameterExpression><![CDATA[$P{puesto2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="puesto3">
+					<subreportParameterExpression><![CDATA[$P{puesto3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nombre2">
+					<subreportParameterExpression><![CDATA[$P{nombre2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="puesto1">
+					<subreportParameterExpression><![CDATA[$P{puesto1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nombre1">
+					<subreportParameterExpression><![CDATA[$P{nombre1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nombre4">
+					<subreportParameterExpression><![CDATA[$P{nombre4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nombre3">
+					<subreportParameterExpression><![CDATA[$P{nombre3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nfirmas">
+					<subreportParameterExpression><![CDATA[$P{nfirmas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\firmasEdosFinVConac.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="433" y="90" width="80" height="17" uuid="09141935-fcdd-4d93-96e2-0d28ad9045f4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Noto Sans" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="513" y="90" width="40" height="17" uuid="1f552d11-8795-405e-a377-3f35b7d3ec7f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Noto Sans" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

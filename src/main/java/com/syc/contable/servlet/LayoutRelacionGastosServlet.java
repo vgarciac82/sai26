@@ -120,7 +120,7 @@ public class LayoutRelacionGastosServlet extends HttpServlet {
                     archivoPago.append(arrListPago.get(i));
                 }
                 String outTextPago = archivoPago.toString();
-                out.write(outTextPago.toPath());
+                out.write(outTextPago);
                 // fin de guarda pago
                 out.close();
                 BufferedWriter outDocu = new BufferedWriter(new FileWriter(layoutDocu));
@@ -129,7 +129,7 @@ public class LayoutRelacionGastosServlet extends HttpServlet {
                     archivoDocu.append(arrListDocu.get(i));
                 }
                 String outTextDocu = archivoDocu.toString();
-                outDocu.write(outTextDocu.toPath());
+                outDocu.write(outTextDocu);
                 // fin de guarda documento
                 outDocu.close();
                 File[] filenames = new File[] { layoutPago, layoutDocu };

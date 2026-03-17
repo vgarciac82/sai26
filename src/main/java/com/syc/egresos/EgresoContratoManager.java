@@ -25,7 +25,7 @@ public class EgresoContratoManager {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            log.debug("Object: {}", "Query generado: \n" + query + "\n Folio[" + folioPago + "]");
+            log.debug("Object: " + String.valueOf("Query generado: \n" + query + "\n Folio[" + folioPago + "]"));
             ps = conn.prepareStatement(query);
             ps.setInt(1, folioPago);
             rs = ps.executeQuery();

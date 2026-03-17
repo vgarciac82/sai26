@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="concentradoPagoDirecto"  pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nFolioPago" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="hoja" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="totalHojas" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select ROW_NUMBER() OVER (ORDER BY cidpartida) orden, SUBSTRING(claveEp,0,41) claveSiaff, SUBSTRING(claveEp, 42,len(claveEp))cartera, claveEp,cidPartida,
+ /*sum(montoBruto)*(1+d.nPorcentajeIVA)*/ SUM(montoNeto) subTotal, case when d.ID_DESTINO_GASTO='AL' THEN
+  SUBSTRING(ALTAALMACENARIA,0,CHARINDEX('|',altaAlmacenaria))
+   ELSE
+  '' END altaAlmacenaria
+,isnull(x.cNombre,'FALTA FIRMANTE') autorizo, ISNULL(x.cPuesto,'FALTA FIRMANTE') puestoAutorizo, ISNULL(y.cNombre,'FALTA FIRMANTE') elaboro, ISNULL(y.cPuesto,'FALTA FIRMANTE') puestoElaboro
+ ,(select /*sum(montoBruto)*(1+d.nPorcentajeIVA)*/ SUM(montoNeto) as totalDocumento from mPagoDirectoFacturaDetalle where nFolioPago=a.nFolioPago group by nFolioPago) totalDocumento
+ from mPagoDirectoFacturaDetalle a inner join mpagodirectoMateriales d on a.nFolioPago=d.C_CONSECUTIVO_PAGODIRECTO left join
+ (select d.cNombre+' '+d.cPaterno+' '+d.cMaterno cNombre,d.cPuesto, b.C_CONSECUTIVO_PAGODIRECTO from
+  mPagoDirectoMateriales b inner join mPagoDirectoFirmantes c
+  on c.cIdDocumento=b.cIdDocumento
+  inner join mCatalogoFirmantes d on c.nIdFirmante=d.nIdFirmante and c.cIdUnidadEjecutora=d.cIdUnidadEjecutora
+  where c.nNumeroFirmante=2) x on x.C_CONSECUTIVO_PAGODIRECTO=a.nFolioPago
+ left join
+ ( select d.cNombre+' '+d.cPaterno+' '+d.cMaterno cNombre,d.cPuesto, b.C_CONSECUTIVO_PAGODIRECTO from
+  mPagoDirectoMateriales b inner join mPagoDirectoFirmantes c
+  on c.cIdDocumento=b.cIdDocumento
+  inner join mCatalogoFirmantes d on c.nIdFirmante=d.nIdFirmante and c.cIdUnidadEjecutora=d.cIdUnidadEjecutora
+  where c.nNumeroFirmante=1) y on y.C_CONSECUTIVO_PAGODIRECTO=a.nFolioPago
+where nFolioPago=$P{nFolioPago} group by cIdPartida, claveEp,altaAlmacenaria, x.cNombre, y.cNombre, x.cPuesto, y.cPuesto, nFolioPago,nPorcentajeIVA ,d.ID_DESTINO_GASTO order by cIdPartida]]>
+	</queryString>
+	<field name="orden" class="java.lang.Long"/>
+	<field name="claveSiaff" class="java.lang.String"/>
+	<field name="cartera" class="java.lang.String"/>
+	<field name="claveEp" class="java.lang.String"/>
+	<field name="cidPartida" class="java.lang.String"/>
+	<field name="subTotal" class="java.math.BigDecimal"/>
+	<field name="altaAlmacenaria" class="java.lang.String"/>
+	<field name="autorizo" class="java.lang.String"/>
+	<field name="puestoAutorizo" class="java.lang.String"/>
+	<field name="elaboro" class="java.lang.String"/>
+	<field name="puestoElaboro" class="java.lang.String"/>
+	<field name="totalDocumento" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="31">
+			<textField>
+				<reportElement x="491" y="11" width="26" height="13"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{PAGE_NUMBER}.intValue()+$P{hoja}.intValue()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="539" y="11" width="24" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{PAGE_NUMBER}+ $P{hoja}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="448" y="11" width="40" height="13"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Página]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="522" y="11" width="14" height="13"/>
+				<textElement/>
+				<text><![CDATA[de]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="156" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="27" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="570" y="0" width="1" height="21"/>
+			</line>
+			<staticText>
+				<reportElement x="75" y="0" width="47" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[C.SIAFF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="0" width="47" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[C.MAP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="500" y="0" width="70" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[IMPORTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="0" width="123" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[CLAVE CARTERA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="27" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[N°]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="157" y="0" width="221" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[CLAVE SIAFF]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="570" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="20" width="570" height="1"/>
+			</line>
+			<line>
+				<reportElement x="74" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="377" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="500" y="0" width="1" height="21"/>
+			</line>
+			<staticText>
+				<reportElement x="122" y="1" width="33" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[AA]]></text>
+			</staticText>
+			<line>
+				<reportElement x="122" y="0" width="1" height="21"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<line>
+				<reportElement x="500" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="27" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="377" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="156" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="74" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="21"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="1" width="27" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{orden}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="27" y="1" width="47" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="75" y="1" width="47" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="157" y="1" width="221" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{claveSiaff}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="377" y="1" width="123" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cartera}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="500" y="1" width="68" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{subTotal}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="20" width="570" height="1"/>
+			</line>
+			<line>
+				<reportElement x="570" y="0" width="1" height="21"/>
+			</line>
+			<textField>
+				<reportElement x="122" y="1" width="33" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{altaAlmacenaria}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="122" y="0" width="1" height="21"/>
+			</line>
+		</band>
+	</detail>
+	<summary>
+		<band height="120" splitType="Stretch">
+			<staticText>
+				<reportElement x="98" y="32" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[ELABORO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="32" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[AUTORIZO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="352" y="52" width="150" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{puestoAutorizo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="76" y="53" width="150" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{puestoElaboro}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="74" y="100" width="150" height="1"/>
+			</line>
+			<line>
+				<reportElement x="351" y="99" width="150" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="368" y="99" width="121" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{autorizo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="88" y="99" width="121" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{elaboro}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="570" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="0" y="20" width="571" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="400" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[TOTAL CON IVA]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="500" y="0" width="68" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{totalDocumento}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="500" y="0" width="1" height="20"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PolizaPago" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="37c4334a-d5b0-4971-bb75-d57e5a6596ad">
+	<property name="ireport.zoom" value="1.6500000000000088"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="192"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sai_2024"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="idComision" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT NOMBREN + ' ' + NOMBREP + ' '  + NOMBREM NombreCompleto
+, RFC , CLAVE, NIVEL,DESCRIPCION_PUESTO, UNIDAD,cUejecutora
+, isnull(mTotalAgenda,0) mTotalAgenda
+, isnull(mTotalTransporte,0) mTotalTransporte, CTAB
+, isnull(mTotalAgenda,0) + isnull(mTotalTransporte,0) total
+, dbo.fnCantidadLetra( isnull(mTotalAgenda,0) + isnull(mTotalTransporte,0) ) cantLetraTotal
+, nIdComision
+, ISNULL(dbo.fn_diasNacional (comision.nidEmpleado, nIdComision), 0) diasNacional
+, ISNULL(dbo.fn_diasInternacional (comision.nidEmpleado, nIdComision),0) diasInter
+, ISNULL(dbo.fn_diasPendientes( comision.nidEmpleado, nIdComision ),0)	diasPendientes
+, ISNULL(dbo.fn_diasNacional (comision.nidEmpleado, nIdComision), 0) + 
+ISNULL(dbo.fn_diasInternacional (comision.nidEmpleado, nIdComision),0) + 
+ISNULL(dbo.fn_diasPendientes( comision.nidEmpleado, nIdComision),0) totalDias
+ FROM tComision COMISION (NOLOCK)
+INNER JOIN v_empleados_giro EMP (NOLOCK)
+ON EMP.CLAVE = COMISION.nIdEmpleado
+WHERE nIdComision =  $P{idComision}]]>
+	</queryString>
+	<field name="NombreCompleto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NombreCompleto"/>
+		<property name="com.jaspersoft.studio.field.label" value="NombreCompleto"/>
+	</field>
+	<field name="RFC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RFC"/>
+		<property name="com.jaspersoft.studio.field.label" value="RFC"/>
+	</field>
+	<field name="CLAVE" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="CLAVE"/>
+		<property name="com.jaspersoft.studio.field.label" value="CLAVE"/>
+	</field>
+	<field name="NIVEL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NIVEL"/>
+		<property name="com.jaspersoft.studio.field.label" value="NIVEL"/>
+	</field>
+	<field name="DESCRIPCION_PUESTO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DESCRIPCION_PUESTO"/>
+		<property name="com.jaspersoft.studio.field.label" value="DESCRIPCION_PUESTO"/>
+	</field>
+	<field name="UNIDAD" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="UNIDAD"/>
+		<property name="com.jaspersoft.studio.field.label" value="UNIDAD"/>
+	</field>
+	<field name="cUejecutora" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cUejecutora"/>
+		<property name="com.jaspersoft.studio.field.label" value="cUejecutora"/>
+	</field>
+	<field name="mTotalAgenda" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mTotalAgenda"/>
+		<property name="com.jaspersoft.studio.field.label" value="mTotalAgenda"/>
+	</field>
+	<field name="mTotalTransporte" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mTotalTransporte"/>
+		<property name="com.jaspersoft.studio.field.label" value="mTotalTransporte"/>
+	</field>
+	<field name="CTAB" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CTAB"/>
+		<property name="com.jaspersoft.studio.field.label" value="CTAB"/>
+	</field>
+	<field name="total" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="total"/>
+		<property name="com.jaspersoft.studio.field.label" value="total"/>
+	</field>
+	<field name="cantLetraTotal" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cantLetraTotal"/>
+		<property name="com.jaspersoft.studio.field.label" value="cantLetraTotal"/>
+	</field>
+	<field name="nIdComision" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="nIdComision"/>
+		<property name="com.jaspersoft.studio.field.label" value="nIdComision"/>
+	</field>
+	<field name="diasNacional" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="diasNacional"/>
+		<property name="com.jaspersoft.studio.field.label" value="diasNacional"/>
+	</field>
+	<field name="diasInter" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="diasInter"/>
+		<property name="com.jaspersoft.studio.field.label" value="diasInter"/>
+	</field>
+	<field name="diasPendientes" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="diasPendientes"/>
+		<property name="com.jaspersoft.studio.field.label" value="diasPendientes"/>
+	</field>
+	<field name="totalDias" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="totalDias"/>
+		<property name="com.jaspersoft.studio.field.label" value="totalDias"/>
+	</field>
+	<group name="caNoContrarrecibo">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="114" splitType="Stretch">
+				<rectangle>
+					<reportElement key="rectangle" x="2" y="0" width="548" height="18" uuid="cf94db50-b06e-4298-b832-1c15144c96c8">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="2" y="18" width="548" height="93" uuid="2b1aaa36-32c0-4158-ab2f-db7ebbb91ff1">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="289" y="86" width="61" height="25" backcolor="#D7D7D9" uuid="f161e5f2-a780-41ad-88b1-c9a3179eda6a">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="417" y="86" width="75" height="25" backcolor="#D7D7D9" uuid="405bd4bf-e0f2-4228-8d47-7c1095319a42">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="2" y="86" width="35" height="25" backcolor="#D7D7D9" uuid="f52cb83d-b50a-4ac6-be4e-2c612a7a0594">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="2" y="0" width="109" height="18" backcolor="#D7D7D9" uuid="a1148bbb-e453-4675-8a22-d5fd4a2cfb8d">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText" x="6" y="20" width="76" height="16" uuid="36f22ce0-8b93-4a52-9e77-d3f1a673376c"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<text><![CDATA[Importe total:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="289" y="90" width="45" height="17" uuid="0e0f4be1-c101-48a4-92f3-0c9bc36c1613"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Geomanist" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Nivel]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="7" y="88" width="34" height="17" uuid="24062d91-99ba-4b14-be15-25d1b18fe05b"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Geomanist" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Plaza:]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line" x="282" y="86" width="268" height="1" uuid="d4877d9b-37e6-48ca-a75c-5af79a1cb529">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+				</line>
+				<line>
+					<reportElement key="line" x="289" y="67" width="1" height="19" uuid="5b619d30-1700-45a2-8ec9-5caf62d76057"/>
+				</line>
+				<staticText>
+					<reportElement key="staticText" x="8" y="52" width="100" height="13" uuid="5eb35013-1a1d-484e-8414-f948a059211d"/>
+					<textElement>
+						<font fontName="Geomanist" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Datos Empleado:]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line" x="2" y="49" width="548" height="1" uuid="4313b278-1d11-4738-ab5a-01e5a0df39bc">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+				</line>
+				<textField>
+					<reportElement x="130" y="3" width="48" height="15" uuid="8ca94a88-1b75-48a7-bb93-bf3381bf4f5a"/>
+					<textElement>
+						<font fontName="Geomanist" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cUejecutora}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="177" y="3" width="356" height="15" uuid="83065a54-d19a-4668-81ea-09aac57e6bed"/>
+					<textElement textAlignment="Center">
+						<font fontName="Geomanist" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{UNIDAD}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="131" y="20" width="110" height="16" uuid="03733156-f9d9-4455-98b2-c987b777671a"/>
+					<textElement textAlignment="Center">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="134" y="53" width="148" height="13" uuid="c39729f7-9887-440b-ab55-a3c467af101a"/>
+					<textElement>
+						<font fontName="Geomanist"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{RFC}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="8" y="68" width="275" height="18" uuid="59709933-f4ec-4f16-afda-aa4c6203b235"/>
+					<textElement>
+						<font fontName="Geomanist"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NombreCompleto}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="39" y="89" width="251" height="25" isPrintWhenDetailOverflows="true" uuid="2bc41f2a-5fd4-44ad-97a3-08d3e1abac27"/>
+					<textElement>
+						<font fontName="Geomanist" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DESCRIPCION_PUESTO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="296" y="69" width="254" height="18" uuid="8d86fe1f-6301-4714-9eb3-4495f2538e0f"/>
+					<textElement>
+						<font fontName="Geomanist" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CTAB}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line" x="2" y="86" width="282" height="1" uuid="041ad58e-9f02-4a13-97ea-39f421fce4aa"/>
+				</line>
+				<staticText>
+					<reportElement key="staticText" x="7" y="3" width="104" height="16" uuid="08beb2a6-c342-4353-b29c-23240a65db3a"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Geomanist" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Unidad Administrativa:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="417" y="90" width="75" height="17" uuid="177ccea2-8f99-4df7-a7cb-6c8d51ee924b"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Geomanist" isBold="false"/>
+					</textElement>
+					<text><![CDATA[No Empleado]]></text>
+				</staticText>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="339" y="92" width="78" height="16" uuid="cfeb776d-49fe-43a6-a1b2-95bfd98a7bf8"/>
+					<textElement textAlignment="Center">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NIVEL}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="492" y="92" width="58" height="16" uuid="27f3ae00-ec00-4496-83de-4b76d3b3dc37"/>
+					<textElement textAlignment="Center">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CLAVE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="6" y="36" width="538" height="13" uuid="1bb209a3-45ea-4ebb-b008-2f96f4536006"/>
+					<textElement>
+						<font fontName="Geomanist" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cantLetraTotal}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement key="rectangle" x="289" y="49" width="261" height="18" backcolor="#D7D7D9" uuid="05e5fb8e-a7fa-4ac1-bb96-602e52aa1630">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText" x="296" y="51" width="100" height="13" uuid="c03fd60e-e901-4bf0-9531-06d9b2a62365"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<text><![CDATA[Información Bancaria:]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="166">
+				<rectangle>
+					<reportElement key="rectangle" x="8" y="6" width="142" height="21" backcolor="#D7D7D9" uuid="dcac200c-cd47-4a47-98a8-89164f8c2e99"/>
+				</rectangle>
+				<rectangle radius="0">
+					<reportElement key="rectangle" x="289" y="41" width="261" height="20" backcolor="#D7D7D9" uuid="a0d20d2d-59b0-4bca-b0b7-bbf2c9aad1d2">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="289" y="5" width="261" height="33" uuid="70b631fc-791d-4ed5-967d-6254a283b4af">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText" x="294" y="5" width="100" height="17" uuid="c3ebb96d-c596-447c-b53b-eeb13db8b4c8"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<text><![CDATA[Importe Agenda:]]></text>
+				</staticText>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="419" y="5" width="122" height="17" uuid="281009b3-ba89-4a77-9ee7-5ca49448d215"/>
+					<textElement textAlignment="Right">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{mTotalAgenda}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText" x="294" y="22" width="100" height="17" uuid="5d9b405b-146c-434d-af1b-848ec753c990"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<text><![CDATA[Transporte:]]></text>
+				</staticText>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="419" y="22" width="122" height="17" uuid="b26bd141-ca79-4b55-b77e-71695a2b2591"/>
+					<textElement textAlignment="Right">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{mTotalTransporte}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText" x="294" y="41" width="100" height="17" uuid="c0333ad9-93e4-4764-a9a5-7fa485536951"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<text><![CDATA[Total:]]></text>
+				</staticText>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="419" y="41" width="122" height="17" uuid="d97f811a-9f42-4f2f-acfa-998f45674734"/>
+					<textElement textAlignment="Right">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line" x="415" y="5" width="1" height="33" uuid="b0d95dc5-97a3-4dd1-ab70-808d900aaaae">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+				</line>
+				<line>
+					<reportElement key="line" x="289" y="22" width="261" height="1" uuid="a9fe8db2-bfc2-4f97-aa87-215da3411ebe">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+				</line>
+				<rectangle>
+					<reportElement key="rectangle" x="8" y="25" width="142" height="72" uuid="f5044b4f-256d-4c9f-8c10-5d5c82263bbc"/>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText" x="9" y="26" width="76" height="17" uuid="24c227af-ad6d-4080-86c8-d09c4f44a710"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<text><![CDATA[Nacional]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="103" y="27" width="37" height="17" uuid="16a65016-8523-4c02-90af-7f236e14a530"/>
+					<textElement textAlignment="Right">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{diasNacional}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText" x="9" y="44" width="76" height="17" uuid="15736818-1de6-4043-9fe6-9130c033a096"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<text><![CDATA[Internacional]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="103" y="44" width="37" height="17" uuid="cfbce1c1-fb3f-4438-8de1-5db9a736da64"/>
+					<textElement textAlignment="Right">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{diasInter}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText" x="9" y="62" width="76" height="17" uuid="da5daf1f-33d7-4c1d-8e94-8a7020269435"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<text><![CDATA[Pendientes]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="103" y="62" width="37" height="17" uuid="a549af3c-37bf-4e66-85ba-12fed1490ae4"/>
+					<textElement textAlignment="Right">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{diasPendientes}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line" x="87" y="25" width="1" height="72" uuid="d104cf55-b0ff-4caf-8180-00c3742e4908"/>
+				</line>
+				<line>
+					<reportElement key="line" x="8" y="43" width="142" height="1" uuid="f4700b5f-3214-4c43-9be2-b9765af0fb63"/>
+				</line>
+				<line>
+					<reportElement key="line" x="8" y="61" width="142" height="1" uuid="ebee3e9c-6da8-4492-bd17-31041e1ab401"/>
+				</line>
+				<staticText>
+					<reportElement key="staticText" x="9" y="81" width="76" height="17" uuid="94cc2a51-13b1-4bc3-a8b7-5cdbb121c316"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<text><![CDATA[Total:]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line" x="8" y="81" width="142" height="1" uuid="148c12de-4cf4-49fe-b647-5c2834757b8f"/>
+				</line>
+				<staticText>
+					<reportElement key="staticText" x="9" y="8" width="139" height="17" uuid="bd8fd71b-11c8-401b-a29e-52cbc023703c"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<text><![CDATA[DIAS ACUMULADOS]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line" x="415" y="41" width="1" height="20" uuid="82ad4cc3-67cc-4616-b6f8-23bd36748670">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+				</line>
+				<textField>
+					<reportElement x="103" y="81" width="37" height="15" uuid="0f2e2fe3-c26a-460a-ae1a-fbf47419b539"/>
+					<textElement textAlignment="Right">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{totalDias}]]></textFieldExpression>
+				</textField>
+				<subreport>
+					<reportElement positionType="Float" x="1" y="113" width="549" height="51" uuid="2e92d943-10d6-42f3-8659-72f95e3e0ac4"/>
+					<subreportParameter name="idComision">
+						<subreportParameterExpression><![CDATA[$P{idComision}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\PolizaViaticosFirmas.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="67" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<image>
+				<reportElement x="1" y="0" width="173" height="60" uuid="25814870-b495-4981-a94c-bea7476fbc8f"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\nuevo_logoconafor.jpg"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement key="rectangle" x="289" y="48" width="261" height="19" uuid="c59489d3-20cf-4044-8069-43fb119fc67e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement key="rectangle" x="289" y="25" width="261" height="23" backcolor="#D7D7D9" uuid="b2c36421-062c-4ec2-b510-544a7f9c7d65"/>
+			</rectangle>
+			<staticText>
+				<reportElement key="staticText" x="415" y="28" width="137" height="13" uuid="70521185-5e49-45df-9995-650e33be6e77"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Geomanist"/>
+				</textElement>
+				<text><![CDATA[Tipo de Documento.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="301" y="29" width="96" height="13" uuid="ec1dcb20-c02a-476e-8572-2d79c8931468"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Geomanist"/>
+				</textElement>
+				<text><![CDATA[No. Folio
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="303" y="52" width="96" height="13" uuid="a7487202-2546-46e4-8075-76ac36527c01"/>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nIdComision}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="415" y="52" width="137" height="13" uuid="2a6280f5-2080-4dc9-8890-4097444a30ab"/>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist"/>
+				</textElement>
+				<text><![CDATA[Solicitud de Viaticos]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line" x="415" y="26" width="1" height="40" uuid="f0f42326-6b8b-4a17-8ea1-bcd0095ebf94"/>
+			</line>
+			<staticText>
+				<reportElement x="2" y="0" width="549" height="23" uuid="bf39c191-9d40-4244-b557-c03a938d9864"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Geomanist" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Oficio de Comisión]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="60">
+			<subreport>
+				<reportElement x="-1" y="1" width="552" height="59" uuid="56321eaf-4e83-40e2-976d-b2d1b66f7374"/>
+				<subreportParameter name="idComision">
+					<subreportParameterExpression><![CDATA[$P{idComision}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\PolizaViaticosDet.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

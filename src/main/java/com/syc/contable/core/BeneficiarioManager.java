@@ -38,9 +38,9 @@ public class BeneficiarioManager {
                 String // cRamo
                 // CBEN
                 // clabe
-                detalleCuentas = // CBAN
-                fechaEfectiva + ",S" + "," + rsBCB.getString(2) + "," + rsBCB.getString(3) + "," + rsBCB.getString(4) + // sucursal
-                "," + rsBCB.getString(5) + "," + rsBCB.getString(6);
+                // CBAN
+                detalleCuentas = // sucursal
+                fechaEfectiva + ",S" + "," + rsBCB.getString(2) + "," + rsBCB.getString(3) + "," + rsBCB.getString(4) + "," + rsBCB.getString(5) + "," + rsBCB.getString(6);
                 detalleCuentas = detalleCuentas + "\r\n";
                 archivoBenCtasBan.append(detalleCuentas);
             }
@@ -66,26 +66,26 @@ public class BeneficiarioManager {
                 String // FECHA_EFECTIVA
                 // + rsDC.getString(1) + //ACTIVO
                 // ID_RAMO
-                detalle2 = // CBEN
-                fechaEfectiva + ",S" + "," + rsDC.getString(2) + // TIPOPER
-                "," + rsDC.getString(3).trim() + // TBEN
-                "," + rsDC.getString(4).trim() + // RFC
-                "," + rsDC.getString(5).trim() + // CURP
-                "," + rsDC.getString(6).trim() + // RAZON_SOC
-                "," + rsDC.getString(7).trim() + // CALLE
-                "," + rsDC.getString(8).trim() + // NO_EXT
-                "," + rsDC.getString(9).trim() + // NO_INT
-                "," + rsDC.getString(10).trim() + // COLONIA
-                "," + rsDC.getString(11).trim() + // MUNICIPIO
-                "," + rsDC.getString(12).trim() + // ESTADO_BEN
-                "," + rsDC.getString(13).trim() + // CIUDAD
-                "," + rsDC.getString(14).trim() + // PAIS
-                "," + rsDC.getString(15).trim() + // CP
-                "," + rsDC.getString(16).trim() + // TELEFONO
-                "," + rsDC.getString(17) + // FAX
-                "," + rsDC.getString(18) + // MOVIL
-                "," + rsDC.getString(19) + // MAIL
-                "," + rsDC.getString(20) + "," + rsDC.getString(21);
+                // CBEN
+                detalle2 = // TIPOPER
+                fechaEfectiva + ",S" + "," + rsDC.getString(2) + "," + // TBEN
+                rsDC.getString(3).trim() + "," + // RFC
+                rsDC.getString(4).trim() + "," + // CURP
+                rsDC.getString(5).trim() + "," + // RAZON_SOC
+                rsDC.getString(6).trim() + "," + // CALLE
+                rsDC.getString(7).trim() + "," + // NO_EXT
+                rsDC.getString(8).trim() + "," + // NO_INT
+                rsDC.getString(9).trim() + "," + // COLONIA
+                rsDC.getString(10).trim() + "," + // MUNICIPIO
+                rsDC.getString(11).trim() + "," + // ESTADO_BEN
+                rsDC.getString(12).trim() + "," + // CIUDAD
+                rsDC.getString(13).trim() + "," + // PAIS
+                rsDC.getString(14).trim() + "," + // CP
+                rsDC.getString(15).trim() + "," + // TELEFONO
+                rsDC.getString(16).trim() + "," + // FAX
+                rsDC.getString(17) + "," + // MOVIL
+                rsDC.getString(18) + "," + // MAIL
+                rsDC.getString(19) + "," + rsDC.getString(20) + "," + rsDC.getString(21);
                 detalle2 = detalle2 + "\r\n";
                 archivoBenDC.append(detalle2);
             }
@@ -105,9 +105,9 @@ public class BeneficiarioManager {
         String // "
         // ,RTRIM(LTRIM(ISNULL(tB.dTelefonoFiscal,'NA')))
         // as
-        SqlBen = // TELEFONO"
-        "SELECT " + "		'S' AS ACTIVO" + "		,'16' as ID_RAMO" + "		,RTRIM(LTRIM(ISNULL(tB.CBEN,''))) as CBEN" + "		,CASE tPer.cTipoPersonaRFC WHEN 'PERSONA MORAL' THEN 'MORAL' " + "			WHEN 'PERSONA FISICA' THEN 'FISICA' " + "			WHEN 'EMPLEADO CNF' THEN 'FISICA' " + "			WHEN 'AREA CNF' THEN 'MORAL' " + "			WHEN 'COMISIÓN NACIONAL FORESTAL' THEN 'MORAL' " + "			ELSE '' END AS TIPOPER " + "		,CASE tB.cExtranjero " + "			WHEN 0 THEN '04'" + "			WHEN 1 THEN '05'" + "			ELSE '00' END AS TBEN" + "		,'16' as RAMO_SIAFF" + "		,RTRIM(LTRIM(ISNULL(tB.dRFC,''))) as RFC" + "		,RTRIM(LTRIM(ISNULL(tB.dCURP,''))) as CURP" + "		,RTRIM(LTRIM(ISNULL(tB.dApellidoPaterno,''))) as APEPAT" + "		,RTRIM(LTRIM(ISNULL(tB.dApellidoMaterno,''))) as APEMAT" + "		,CASE WHEN tB.cIdTipoPersonaRFC IN ('0','1','4') THEN '' ELSE RTRIM(LTRIM(ISNULL(tB.dNombre,''))) END as NOMBRE" + "		,RTRIM(LTRIM(ISNULL(tB.dApellidoPaterno,'') + ' ' + ISNULL(tB.dApellidoMaterno,'') + ' ' + ISNULL(tB.dNombre,'') )) as RAZON_SOC" + "		,RTRIM(LTRIM(ISNULL(tB.dCalleFiscal,''))) as CALLE" + "		,SUBSTRING( RTRIM(LTRIM(ISNULL(tB.dNoDomicilioFiscal,''))), 1, 20) as NO_EXT" + "		,SUBSTRING( RTRIM(LTRIM(ISNULL(tB.dNoInteriorDomicilioFiscal,''))), 1, 20) as NO_INT" + "		,RTRIM(LTRIM(ISNULL(tB.dColoniaFiscal,''))) as COLONIA" + "		,RTRIM(LTRIM(ISNULL(tB.cMunicipioActual,''))) as MUNICIPIO" + "		,RTRIM(LTRIM(ISNULL(catE.EDO_NOMBRE,''))) as ESTADO_BEN" + "		,RTRIM(LTRIM(ISNULL(tB.cMunicipioActual,''))) AS CIUDAD" + "		,'MEX' as PAIS" + "		,RTRIM(LTRIM(ISNULL(tB.dCodigoPostalFiscal,''))) as COD_POSTAL" + "		,CASE WHEN RTRIM(LTRIM(ISNULL(tB.dTelefonoFiscal,'37777000')))='' THEN '37777000' ELSE ISNULL(tB.dTelefonoFiscal,'37777000') END as TELEFONO" + // +
-        // //URVP
+        // TELEFONO"
+        SqlBen = // +
+        "SELECT " + "		'S' AS ACTIVO" + "		,'16' as ID_RAMO" + "		,RTRIM(LTRIM(ISNULL(tB.CBEN,''))) as CBEN" + "		,CASE tPer.cTipoPersonaRFC WHEN 'PERSONA MORAL' THEN 'MORAL' " + "			WHEN 'PERSONA FISICA' THEN 'FISICA' " + "			WHEN 'EMPLEADO CNF' THEN 'FISICA' " + "			WHEN 'AREA CNF' THEN 'MORAL' " + "			WHEN 'COMISIÓN NACIONAL FORESTAL' THEN 'MORAL' " + "			ELSE '' END AS TIPOPER " + "		,CASE tB.cExtranjero " + "			WHEN 0 THEN '04'" + "			WHEN 1 THEN '05'" + "			ELSE '00' END AS TBEN" + "		,'16' as RAMO_SIAFF" + "		,RTRIM(LTRIM(ISNULL(tB.dRFC,''))) as RFC" + "		,RTRIM(LTRIM(ISNULL(tB.dCURP,''))) as CURP" + "		,RTRIM(LTRIM(ISNULL(tB.dApellidoPaterno,''))) as APEPAT" + "		,RTRIM(LTRIM(ISNULL(tB.dApellidoMaterno,''))) as APEMAT" + "		,CASE WHEN tB.cIdTipoPersonaRFC IN ('0','1','4') THEN '' ELSE RTRIM(LTRIM(ISNULL(tB.dNombre,''))) END as NOMBRE" + "		,RTRIM(LTRIM(ISNULL(tB.dApellidoPaterno,'') + ' ' + ISNULL(tB.dApellidoMaterno,'') + ' ' + ISNULL(tB.dNombre,'') )) as RAZON_SOC" + "		,RTRIM(LTRIM(ISNULL(tB.dCalleFiscal,''))) as CALLE" + "		,SUBSTRING( RTRIM(LTRIM(ISNULL(tB.dNoDomicilioFiscal,''))), 1, 20) as NO_EXT" + "		,SUBSTRING( RTRIM(LTRIM(ISNULL(tB.dNoInteriorDomicilioFiscal,''))), 1, 20) as NO_INT" + "		,RTRIM(LTRIM(ISNULL(tB.dColoniaFiscal,''))) as COLONIA" + "		,RTRIM(LTRIM(ISNULL(tB.cMunicipioActual,''))) as MUNICIPIO" + "		,RTRIM(LTRIM(ISNULL(catE.EDO_NOMBRE,''))) as ESTADO_BEN" + "		,RTRIM(LTRIM(ISNULL(tB.cMunicipioActual,''))) AS CIUDAD" + "		,'MEX' as PAIS" + "		,RTRIM(LTRIM(ISNULL(tB.dCodigoPostalFiscal,''))) as COD_POSTAL" + "		,CASE WHEN RTRIM(LTRIM(ISNULL(tB.dTelefonoFiscal,'37777000')))='' THEN '37777000' ELSE ISNULL(tB.dTelefonoFiscal,'37777000') END as TELEFONO" + // //URVP
         // SE
         // PONE
         // EL
@@ -139,134 +139,134 @@ public class BeneficiarioManager {
                 // ID_RAMO
                 // ID_RAMO
                 // CBEN
+                // CBEN
                 archivoBen.append(fechaEfectiva).append(",").append(rs.getString("ACTIVO")).append(",").// CBEN
                 append(// CBEN
-                rs.getString("ID_RAMO")).// CBEN
+                rs.getString("ID_RAMO")).// TIPOPER
                 append(// TIPOPER
                 ",").// TIPOPER
                 append(// TIPOPER
-                rs.getString("CBEN")).// TIPOPER
+                rs.getString("CBEN")).// TBEN
                 append(// TBEN
                 ",").// TBEN
                 append(// TBEN
-                rs.getString("TIPOPER")).// TBEN
+                rs.getString("TIPOPER")).// RAM_SIAFF
                 append(// RAM_SIAFF
                 ",").// RAM_SIAFF
                 append(// RAM_SIAFF
-                rs.getString("TBEN")).// RAM_SIAFF
+                rs.getString("TBEN")).// RFC
                 append(// RFC
                 ",").// RFC
                 append(// RFC
-                rs.getString("RAMO_SIAFF")).// RFC
+                rs.getString("RAMO_SIAFF")).// CURP
                 append(// CURP
                 ",").// CURP
                 append(// CURP
-                rs.getString("RFC")).// CURP
+                rs.getString("RFC")).// APEPAT
                 append(// APEPAT
                 ",").// APEPAT
                 append(// APEPAT
-                rs.getString("CURP")).// APEPAT
+                rs.getString("CURP")).// APEMAT
                 append(// APEMAT
                 ",").// APEMAT
                 append(// APEMAT
-                rs.getString("APEPAT")).// APEMAT
+                rs.getString("APEPAT")).// NOMBRE
                 append(// NOMBRE
                 ",").// NOMBRE
                 append(// NOMBRE
-                rs.getString("APEMAT")).// NOMBRE
+                rs.getString("APEMAT")).// RAZON_SOC
                 append(// RAZON_SOC
                 ",").// RAZON_SOC
                 append(// RAZON_SOC
-                rs.getString("NOMBRE")).// RAZON_SOC
+                rs.getString("NOMBRE")).// CALLE
                 append(// CALLE
                 ",").// CALLE
                 append(// CALLE
-                rs.getString("RAZON_SOC")).// CALLE
+                rs.getString("RAZON_SOC")).// NO_EXT
                 append(// NO_EXT
                 ",").// NO_EXT
                 append(// NO_EXT
-                rs.getString("CALLE")).// NO_EXT
+                rs.getString("CALLE")).// NO_INT
                 append(// NO_INT
                 ",").// NO_INT
                 append(// NO_INT
-                rs.getString("NO_EXT")).// NO_INT
+                rs.getString("NO_EXT")).// COLONIA
                 append(// COLONIA
                 ",").// COLONIA
                 append(// COLONIA
-                rs.getString("NO_INT")).// COLONIA
+                rs.getString("NO_INT")).// MUNICIPIO
                 append(// MUNICIPIO
                 ",").// MUNICIPIO
                 append(// MUNICIPIO
-                rs.getString("COLONIA")).// MUNICIPIO
+                rs.getString("COLONIA")).// ESTADO_BEN
                 append(// ESTADO_BEN
                 ",").// ESTADO_BEN
                 append(// ESTADO_BEN
-                rs.getString("MUNICIPIO")).// ESTADO_BEN
+                rs.getString("MUNICIPIO")).// CIUDAD
                 append(// CIUDAD
                 ",").// CIUDAD
                 append(// CIUDAD
-                rs.getString("ESTADO_BEN")).// CIUDAD
+                rs.getString("ESTADO_BEN")).// PAIS
                 append(// PAIS
                 ",").// PAIS
                 append(// PAIS
-                rs.getString("CIUDAD")).// PAIS
+                rs.getString("CIUDAD")).// CP
                 append(// CP
                 ",").// CP
                 append(// CP
-                rs.getString("PAIS")).// CP
+                rs.getString("PAIS")).// TELEFONO
                 append(// TELEFONO
                 ",").// TELEFONO
                 append(// TELEFONO
-                rs.getString("COD_POSTAL")).// TELEFONO
+                rs.getString("COD_POSTAL")).// FAX
                 append(// FAX
                 ",").// FAX
                 append(// FAX
-                rs.getString("TELEFONO")).// FAX
+                rs.getString("TELEFONO")).// MOVIL
                 append(// MOVIL
                 ",").// MOVIL
                 append(// MOVIL
-                rs.getString("FAX")).// MOVIL
+                rs.getString("FAX")).// MAIL
                 append(// MAIL
                 ",").// MAIL
                 append(// MAIL
-                rs.getString("MOVIL")).// MAIL
+                rs.getString("MOVIL")).// APEPAT_CON
                 append(// APEPAT_CON
                 ",").// APEPAT_CON
                 append(// APEPAT_CON
-                rs.getString("MAIL")).// APEPAT_CON
+                rs.getString("MAIL")).// APEMAT_CON
                 append(// APEMAT_CON
                 ",").// APEMAT_CON
                 append(// APEMAT_CON
-                rs.getString("APEPAT_CON")).// APEMAT_CON
+                rs.getString("APEPAT_CON")).// NOMBRE_CON
                 append(// NOMBRE_CON
                 ",").// NOMBRE_CON
                 append(// NOMBRE_CON
-                rs.getString("APEMAT_CON")).// NOMBRE_CON
+                rs.getString("APEMAT_CON")).// TELEFONO_CON
                 append(// TELEFONO_CON
                 ",").// TELEFONO_CON
                 append(// TELEFONO_CON
-                rs.getString("NOMBRE_CON")).// TELEFONO_CON
+                rs.getString("NOMBRE_CON")).// FAX_CON
                 append(// FAX_CON
                 ",").// FAX_CON
                 append(// FAX_CON
-                rs.getString("TELEFONO_CON")).// FAX_CON
+                rs.getString("TELEFONO_CON")).// MOVIL_CON
                 append(// MOVIL_CON
                 ",").// MOVIL_CON
                 append(// MOVIL_CON
-                rs.getString("FAX_CON")).// MOVIL_CON
+                rs.getString("FAX_CON")).// MAIL_CON
                 append(// MAIL_CON
                 ",").// MAIL_CON
                 append(// MAIL_CON
-                rs.getString("MOVIL_CON")).// MAIL_CON
+                rs.getString("MOVIL_CON")).// SUSCE
                 append(// SUSCE
                 ",").// SUSCE
                 append(// SUSCE
-                rs.getString("MAIL_CON")).// SUSCE
+                rs.getString("MAIL_CON")).// TIPO
                 append(// TIPO
                 ",").// TIPO
                 append(// TIPO
-                rs.getString("SUSCE")).// TIPO
-                append(",").append(rs.getString("TIPO")).append("\r\n");
+                rs.getString("SUSCE")).append(",").append(rs.getString("TIPO")).append("\r\n");
             }
         } finally {
             CloseObject.closeObject(rs);
@@ -314,10 +314,10 @@ public class BeneficiarioManager {
                 String queryDatosAlta = "SELECT cFolio, cIdRFC, " + "CASE WHEN crazonsocial = '' THEN capellidopaterno + ' ' + capellidomaterno + ' '+ cnombre ELSE crazonsocial END as RazonSocial " + " FROM tAltaProveedor WITH (nolock) WHERE REPLACE (cIdRFC,'-','') " + "IN (" + queryRFC + ") ";
                 String queryCorreos = "SELECT U_EMAIL FROM CG_USUARIO WITH (nolock) WHERE U_LOGIN IN (SELECT cIdUsuarioCaptura FROM tAltaProveedor WITH (nolock) WHERE REPLACE (cIdRFC,'-','') IN (" + queryRFC + ") )";
                 ps = conn.prepareStatement(queryCorreos);
-                log.debug("Object: {}", ps.toString());
+                log.debug("Object: " + String.valueOf(ps.toString()));
                 rs = ps.executeQuery();
                 ps2 = conn.prepareStatement(queryDatosAlta);
-                log.debug("Object: {}", ps2.toString());
+                log.debug("Object: " + String.valueOf(ps2.toString()));
                 rs2 = ps2.executeQuery();
                 while (rs.next() && rs2.next()) {
                     body = "<B>Atencion</b></br>" + "Se notifica que fue incorporada la información solicitada en trámite con folio [" + rs2.getString("cFolio") + " ] a nombre de " + rs2.getString("RazonSocial") + " con RFC: " + rs2.getString("cIdRFC") + " al catálogo de beneficiarios y cuentas bancarias de la CONAFOR.<br><br>" + "Por lo anterior es necesario que verifique que la información en el  sistema coincide antes de efectuar un trámite de pago a dicho beneficiario/proveedor, " + "en caso de que existiera alguna inconsistencia o cambio favor de realizar trámite de proceso de actualización de proveedor/beneficiario. <br><br>" + "Le recuerdo que es responsabilidad del área que solicita el pago la información contenida en la “solicitud de pago” emitida en el SAI, " + "incluyendo nombre y cuenta bancaria del beneficiario del pago.<br><br>" + "Gracias<br> ";

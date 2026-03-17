@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Tipo de Anticipo Contrato Diverso</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>PCATALOGOTIPORETENCION</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cIdTipoRetencion"	control="cIdTipoRetencion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave"	ancho="40"	maxlen="40"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cTipoRetencion"	control="cTipoRetencion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Nombre"	ancho="60"	maxlen="60"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="nPorcRetencion"	control="nPorcRetencion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Nombre"	ancho="60"	maxlen="60"		tipo="string"	visible="Si"	clase=""/>
+		
+   </grid>  
+</Ayuda>

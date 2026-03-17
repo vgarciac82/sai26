@@ -1,0 +1,745 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OficioMetasFiscal" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e685704a-a3ae-49cb-9b2a-6dd7b55cda9c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="localhost"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="whereUE" class="java.lang.String">
+		<defaultValueExpression><![CDATA["AND CU.cCoordinacion = 'P00'"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="mes" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[3]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT cUnidadEjecutora
+		, CASE WHEN SUBSTRING(CU.Descripcion,1,33) = 'PROMOTORIA DE DESARROLLO FORESTAL' THEN 'PROMOTORIAS DE DESARROLLO FORESTAL' ELSE CU.Descripcion END AS Descripcion
+		, Adscripcion
+		, SUM(ISNULL(E014_ORGIF,0)) AS E014_ORGIF
+		, SUM(ISNULL(E014_MODIF,0)) AS E014_MODIF
+		, SUM(ISNULL(E014_MODIF,0)) - SUM(ISNULL(E014_ORGIF,0)) AS E014_VAR
+		, SUM(ISNULL(S219_ORGIF,0)) AS S219_ORGIF
+		, SUM(ISNULL(S219_MODIF,0)) AS S219_MODIF
+		, SUM(ISNULL(S219_MODIF,0)) - SUM(ISNULL(S219_ORGIF,0)) AS S219_VAR
+		, SUM(ISNULL(K138_ORGIF,0)) AS K138_ORGIF
+		, SUM(ISNULL(K138_MODIF,0)) AS K138_MODIF
+		, SUM(ISNULL(K138_MODIF,0)) - SUM(ISNULL(K138_ORGIF,0)) AS K138_VAR
+	FROM v_coordinacionUnidad CU
+	JOIN v_coordinacionesTitular C ON CU.cCoordinacion = C.Unidad
+	LEFT JOIN (SELECT Unidad, ISNULL(E014,0) E014_ORGIF, ISNULL(S219,0) S219_ORGIF, ISNULL(K138,0) K138_ORGIF
+		FROM
+		(SELECT SUBSTRING(ORG.cSubCuenta,57,3) AS Unidad
+			, SUBSTRING(cSubCuenta,27,4) AS Programa
+			, CASE $P!{mes}
+				WHEN 1 THEN SUM(mSaldo1)
+				WHEN 2 THEN SUM(mSaldo2)
+				WHEN 3 THEN SUM(mSaldo3)
+				WHEN 4 THEN SUM(mSaldo4)
+				WHEN 5 THEN SUM(mSaldo5)
+				WHEN 6 THEN SUM(mSaldo6)
+				WHEN 7 THEN SUM(mSaldo7)
+				WHEN 8 THEN SUM(mSaldo8)
+				WHEN 9 THEN SUM(mSaldo9)
+				WHEN 10 THEN SUM(mSaldo10)
+				WHEN 11 THEN SUM(mSaldo11)
+				WHEN 12 THEN SUM(mSaldo12)
+			END OriginalIF
+		 FROM tSaldos ORG WITH(NOLOCK) 
+		WHERE nCuenta LIKE '81101%' --ORIGINAL
+			AND SUBSTRING(cSubCuenta,27,4) IN ('E014','S219','K138') --PROGRAMA PRESUPUESTARIO			
+			AND SUBSTRING(cSubCuenta,40,1) <> 4 --FUENTE FINANCIAMIENTO
+			AND SUBSTRING(cSubCuenta,32,1) <> 1 --CAPITULO
+		GROUP BY SUBSTRING(ORG.cSubCuenta,57,3), SUBSTRING(cSubCuenta,27,4)
+		)sub
+		PIVOT(
+			SUM(OriginalIF)
+		FOR Programa IN ([E014],[S219],[K138])
+		)AS PivotORG) ORG_IF ON CU.cUnidadEjecutora = ORG_IF.Unidad AND ORG_IF.Unidad = CU.cUnidadEjecutora --UNIDAD EJECUTORA
+	LEFT JOIN (SELECT Unidad, ISNULL(E014,0) E014_MODIF, ISNULL(S219,0) S219_MODIF, ISNULL(K138,0) K138_MODIF 
+		FROM
+		(SELECT SUBSTRING(MODI.cSubCuenta,57,3) AS Unidad
+			, SUBSTRING(MODI.cSubCuenta,27,4) AS Programa
+			, SUM(ModEnero) + SUM(ModFebrero) + SUM(ModMarzo) + SUM(ModAbril) + SUM(ModMayo) + SUM(ModJunio) + 
+			  SUM(ModJulio) + SUM(ModAgosto) + SUM(ModSeptiembre) + SUM(ModOctubre) + SUM(ModNoviembre) + SUM(ModDiciembre) AS ModificadoIF
+		FROM tModificadoSAI MODI
+		WHERE SUBSTRING(MODI.cSubCuenta,27,4) IN ('E014','S219','K138') --PROGRAMA PRESUPUESTARIO			
+			AND SUBSTRING(MODI.cSubCuenta,40,1) <> 4 --FUENTE FINANCIAMIENTO
+			AND SUBSTRING(MODI.cSubCuenta,32,1) <> 1 --CAPITULO	
+			AND nMes = $P!{mes}
+		GROUP BY SUBSTRING(MODI.cSubCuenta,57,3), SUBSTRING(MODI.cSubCuenta,27,4)
+		)sub
+		PIVOT(
+			SUM(ModificadoIF)
+		FOR Programa IN ([E014],[S219],[K138])
+		)AS PivotMODIF) MOD_IF ON  CU.cUnidadEjecutora = MOD_IF.Unidad AND MOD_IF.Unidad = CU.cUnidadEjecutora --UNIDAD EJECUTORA
+	WHERE 1 = 1	 
+	 $P!{whereUE}
+	 GROUP BY cUnidadEjecutora, CASE WHEN SUBSTRING(CU.Descripcion,1,33) = 'PROMOTORIA DE DESARROLLO FORESTAL' THEN 'PROMOTORIAS DE DESARROLLO FORESTAL' ELSE CU.Descripcion END, Adscripcion]]>
+	</queryString>
+	<field name="cUnidadEjecutora" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cUnidadEjecutora"/>
+		<property name="com.jaspersoft.studio.field.label" value="cUnidadEjecutora"/>
+	</field>
+	<field name="Descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Descripcion"/>
+		<property name="com.jaspersoft.studio.field.label" value="Descripcion"/>
+	</field>
+	<field name="Adscripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Adscripcion"/>
+		<property name="com.jaspersoft.studio.field.label" value="Adscripcion"/>
+	</field>
+	<field name="E014_ORGIF" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="E014_ORGIF"/>
+		<property name="com.jaspersoft.studio.field.label" value="E014_ORGIF"/>
+	</field>
+	<field name="E014_MODIF" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="E014_MODIF"/>
+		<property name="com.jaspersoft.studio.field.label" value="E014_MODIF"/>
+	</field>
+	<field name="E014_VAR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="E014_VAR"/>
+		<property name="com.jaspersoft.studio.field.label" value="E014_VAR"/>
+	</field>
+	<field name="S219_ORGIF" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="S219_ORGIF"/>
+		<property name="com.jaspersoft.studio.field.label" value="S219_ORGIF"/>
+	</field>
+	<field name="S219_MODIF" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="S219_MODIF"/>
+		<property name="com.jaspersoft.studio.field.label" value="S219_MODIF"/>
+	</field>
+	<field name="S219_VAR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="S219_VAR"/>
+		<property name="com.jaspersoft.studio.field.label" value="S219_VAR"/>
+	</field>
+	<field name="K138_ORGIF" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="K138_ORGIF"/>
+		<property name="com.jaspersoft.studio.field.label" value="K138_ORGIF"/>
+	</field>
+	<field name="K138_MODIF" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="K138_MODIF"/>
+		<property name="com.jaspersoft.studio.field.label" value="K138_MODIF"/>
+	</field>
+	<field name="K138_VAR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="K138_VAR"/>
+		<property name="com.jaspersoft.studio.field.label" value="K138_VAR"/>
+	</field>
+	<variable name="E014_ORGIF_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{E014_ORGIF}]]></variableExpression>
+	</variable>
+	<variable name="E014_MODIF_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{E014_MODIF}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="E014_VAR_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{E014_VAR}]]></variableExpression>
+	</variable>
+	<variable name="S219_ORGIF_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{S219_ORGIF}]]></variableExpression>
+	</variable>
+	<variable name="S219_MODIF_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{S219_MODIF}]]></variableExpression>
+	</variable>
+	<variable name="S219_VAR_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{S219_VAR}]]></variableExpression>
+	</variable>
+	<variable name="K138_ORGIF_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{K138_ORGIF}]]></variableExpression>
+	</variable>
+	<variable name="K138_MODIF_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{K138_MODIF}]]></variableExpression>
+	</variable>
+	<variable name="K138_VAR_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{K138_VAR}]]></variableExpression>
+	</variable>
+	<columnHeader>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="11" width="86" height="34" forecolor="#595959" backcolor="#D9D9D9" uuid="f91bd184-c9db-4576-a2b4-904893f6459e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidad Responsable]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="87" y="11" width="453" height="11" forecolor="#595959" backcolor="#D9D9D9" uuid="6e996580-bdc6-455f-8020-0f937d2c7f9e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Presupuesto Recursos Fiscales (*)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="87" y="22" width="151" height="11" forecolor="#595959" backcolor="#D9D9D9" uuid="bacae938-8962-49f8-a8d3-3122a2e61625">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E014]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="87" y="33" width="50" height="12" forecolor="#595959" backcolor="#D9D9D9" uuid="2687f324-3bbc-419d-a640-a8da96e8ab98">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Original]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="238" y="22" width="151" height="11" forecolor="#595959" backcolor="#D9D9D9" uuid="1f4db1dc-c5df-49e6-a48b-1e2fefb6a989">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[S219]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="137" y="33" width="50" height="12" forecolor="#595959" backcolor="#D9D9D9" uuid="8aca2871-f87f-4a3b-a731-92202bd3ef58">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modificado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="187" y="33" width="51" height="12" forecolor="#595959" backcolor="#D9D9D9" uuid="2eef4693-874a-4c92-9192-cbe390436cca">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Variación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="238" y="33" width="50" height="12" forecolor="#595959" backcolor="#D9D9D9" uuid="b039e27c-18d5-4f91-9bce-6625d31a17e0">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Original]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="288" y="33" width="50" height="12" forecolor="#595959" backcolor="#D9D9D9" uuid="f714c2fb-dd84-4f8c-a420-fa3aeeff6c8a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modificado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="389" y="33" width="50" height="12" forecolor="#595959" backcolor="#D9D9D9" uuid="c19f78eb-02a5-4792-a061-502c6ad44e25">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Original]]></text>
+			</staticText>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="1" y="1" width="539" height="10" forecolor="#595959" backcolor="#D9D9D9" uuid="5c5ea7fa-cd70-4511-9907-67db5d42adb3"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Adscripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="338" y="33" width="51" height="12" forecolor="#595959" backcolor="#D9D9D9" uuid="a75046ad-aa4d-45c3-a92b-84c7da913b0d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Variación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="439" y="33" width="52" height="12" forecolor="#595959" backcolor="#D9D9D9" uuid="1e753bac-c052-4fd6-a327-f163ce13b404">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modificado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="491" y="33" width="49" height="12" forecolor="#595959" backcolor="#D9D9D9" uuid="778792e2-de91-4ed0-9ce5-cb2bcd88146c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Variación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="389" y="22" width="151" height="11" forecolor="#595959" backcolor="#D9D9D9" uuid="8bff0a42-097a-406d-97aa-9ee58da4fd0c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[K138]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField textAdjust="StretchHeight">
+				<reportElement isPrintRepeatedValues="false" x="3" y="6" width="80" height="12" forecolor="#595959" uuid="4535cbf7-251a-4ffb-b0cd-ba04a1fb5ce4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="84c3750b-87c7-4dfa-95dc-ecb26b545eab"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Descripcion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement positionType="Float" x="90" y="6" width="46" height="10" isPrintWhenDetailOverflows="true" forecolor="#595959" uuid="986843ea-cd42-4782-baab-d77c25ff8072">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d78026c6-e6a3-4bac-a5a4-e85b4b783faa"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{E014_ORGIF}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement positionType="Float" x="140" y="6" width="46" height="10" isPrintWhenDetailOverflows="true" forecolor="#595959" uuid="6e8151b0-6c1c-4d09-afae-b885e458796f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c9270566-3512-461e-aa4f-92df76fed12d"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{E014_MODIF}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement x="190" y="6" width="46" height="10" forecolor="#595959" uuid="c8e4f70d-9cbb-4d1a-b5dc-65866a21a296">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="02076881-2673-4607-aa99-ec6588f98969"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{E014_VAR}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement x="240" y="6" width="46" height="10" forecolor="#595959" uuid="67252b6d-f9d6-468a-a90f-a0054a0f22f2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e350f2e8-e4bb-4489-8192-f36ac37f2dde"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{S219_ORGIF}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement x="290" y="6" width="46" height="10" forecolor="#595959" uuid="21e88c1d-f2e3-4162-9d27-2b82e7d76edf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="67c326c5-745d-4e2a-9ef7-529094f171e5"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{S219_MODIF}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="1" y="-1" width="1" height="24" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="566cc81b-e5bd-4d1c-9167-711404a3a31f"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="87" y="-1" width="1" height="25" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="94cec16b-9fd3-41ed-b04b-628dd8d18e74"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="137" y="-1" width="1" height="24" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="0a6891f8-d353-4d6b-bb34-01eb6866b5f2"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="187" y="-1" width="1" height="25" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="ea8bc256-e0fb-4a1a-9bea-66e1fb64f839"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="237" y="-1" width="1" height="25" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="7ff7e21c-4404-482e-bf42-eec8fd895f13"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="287" y="-1" width="1" height="25" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="acd0c996-a697-483d-a810-e04d4f7923f7"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="337" y="-1" width="1" height="25" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="6fd4d67f-b5bd-4e74-9269-c26da6bfe944"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="438" y="-1" width="1" height="25" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="3bb40c13-5016-4f38-8bc0-7a76c4f5370f"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="1" y="23" width="540" height="1" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="004af2f9-5883-4050-9b07-ea9c4d1e5847"/>
+			</line>
+			<textField pattern="#,##0.00#">
+				<reportElement x="340" y="6" width="46" height="10" forecolor="#595959" uuid="f2777b6d-b417-459f-96d3-a2f2063196ac">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e350f2e8-e4bb-4489-8192-f36ac37f2dde"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{S219_ORGIF}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="388" y="-1" width="1" height="25" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="89ed40a7-78f3-4b73-b982-ae0e008c685a"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="491" y="-1" width="1" height="25" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="f03fe549-a224-44d1-be53-714a0af9b8a4"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="540" y="-1" width="1" height="25" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="44075774-dc76-4277-bd20-143959d46aa5"/>
+			</line>
+			<textField pattern="#,##0.00#;-#,##0.00#">
+				<reportElement x="391" y="6" width="46" height="10" forecolor="#595959" uuid="38670170-6dbc-4d1d-826b-70d87e7f2152">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{K138_ORGIF}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;-#,##0.00#">
+				<reportElement x="442" y="6" width="46" height="10" forecolor="#595959" uuid="301b0885-2636-45fe-a9a4-6b7ea19a33e6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="19f82728-d40c-497f-893f-0cca2685e3a2"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{K138_MODIF}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement x="493" y="6" width="46" height="10" forecolor="#595959" uuid="b2e5b528-53fc-4c64-9058-4b9f2c1c0b5f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9e7114ea-2d04-499a-8da3-c06e2305f1f8"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{K138_VAR}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="31">
+			<staticText>
+				<reportElement x="1" y="22" width="97" height="9" forecolor="#595959" uuid="6b03d5b6-3426-4625-a4db-516407165c70"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Montserrat" size="7"/>
+				</textElement>
+				<text><![CDATA[*No incluye Servicios Personales.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="2" y="0" width="86" height="21" forecolor="#595959" backcolor="#B5B3B3" uuid="241c6e8f-28dd-4f74-9eba-51b4a2efb0da"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Totales]]></text>
+			</staticText>
+			<textField pattern="#,##0.00#">
+				<reportElement mode="Transparent" x="89" y="5" width="47" height="10" forecolor="#595959" backcolor="#B5B3B3" uuid="241b845e-85b8-43cd-876d-e2c34b41a189">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Montserrat" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{E014_ORGIF_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement mode="Transparent" x="139" y="5" width="47" height="10" forecolor="#595959" backcolor="#B5B3B3" uuid="efc8f13c-c437-4c56-9392-9b429a99e4d3">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Montserrat" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{E014_MODIF_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement mode="Transparent" x="189" y="5" width="47" height="10" forecolor="#595959" backcolor="#B5B3B3" uuid="77ccb007-4bf0-4738-b5e4-1c44bc47c699">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{E014_VAR_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement mode="Transparent" x="239" y="5" width="47" height="10" forecolor="#595959" backcolor="#B5B3B3" uuid="793247f1-2b56-4e44-9f15-3e21802cefd6">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{S219_ORGIF_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement mode="Transparent" x="289" y="5" width="47" height="10" forecolor="#595959" backcolor="#B5B3B3" uuid="36e70849-dcaf-4d28-9eb6-30a8a62baba5">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{S219_MODIF_1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="1" y="21" width="540" height="1" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="10ccd603-171e-45a7-b2a8-63c7b1cd714f"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="1" y="0" width="1" height="22" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="b40edbc0-df6d-41a5-9db7-9d70300804e6"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="87" y="-1" width="1" height="22" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="d0ed7c61-344a-4bc9-a6c0-b0bd6af9e918"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="137" y="0" width="1" height="22" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="a654ce8b-fa6c-49e9-9305-68e36afa46c6"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="187" y="-1" width="1" height="22" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="b57ed070-15c2-4a8c-b415-908b967b0f10"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="237" y="0" width="1" height="22" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="5e05f7e0-703c-4e94-a037-78e61c906f55"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="287" y="0" width="1" height="22" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="d1fb29d6-0237-4645-825e-f8907cfe2e5d"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="337" y="-1" width="1" height="22" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="87f997b8-3e54-4195-90d0-6d8c28fc7fc6"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="438" y="0" width="1" height="22" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="ba26bb86-b5a7-4d39-bf4e-187da8e01160"/>
+			</line>
+			<textField pattern="#,##0.00#">
+				<reportElement mode="Transparent" x="339" y="5" width="47" height="10" forecolor="#595959" backcolor="#B5B3B3" uuid="bda234ee-8e87-4456-9d30-eb2a50bb52b6">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{S219_ORGIF_1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="388" y="0" width="1" height="22" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="a98a8700-5358-4f57-8a52-9330eeb52ae4"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="491" y="-1" width="1" height="22" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="b5c9a7f7-4e00-4e7a-b3b4-f9824b60911a"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="540" y="0" width="1" height="22" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="882ba615-5119-4648-8edb-9c1867546bc8"/>
+			</line>
+			<textField pattern="#,##0.00#">
+				<reportElement x="392" y="5" width="44" height="10" forecolor="#595959" uuid="2796d83c-e73c-4674-8681-629ef1bdb640">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{K138_ORGIF_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;-#,##0.00#">
+				<reportElement x="441" y="5" width="47" height="10" forecolor="#595959" uuid="2423d939-7366-4aa2-aaea-7f63e6097418">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{K138_MODIF_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;-#,##0.00#">
+				<reportElement x="492" y="5" width="47" height="10" forecolor="#595959" uuid="baaac2fb-796c-4ad2-a760-76d4392558aa">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{K138_VAR_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

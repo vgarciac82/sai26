@@ -55,7 +55,7 @@ public class SaldosInicialesServlet extends HttpServlet {
             // El tamaño no importa
             fu.setFileSizeMax(-1);
             // Si excede el 1 Gb en memoria lo
-            fu.setSizeThreshold(1048576);
+            // setSizeThreshold movido a DiskFileItemFactory.builder().setBufferSize(1048576)
             // escribe a disco
             szPath = getServletContext().getRealPath("/upload/compromisos");
             File file = new File(szPath);
@@ -130,7 +130,7 @@ public class SaldosInicialesServlet extends HttpServlet {
             // El tamaño no importa
             fu.setFileSizeMax(-1);
             // Si excede el 1 Gb en memoria lo
-            fu.setSizeThreshold(1048576);
+            // setSizeThreshold movido a DiskFileItemFactory.builder().setBufferSize(1048576)
             // escribe a disco
             szPath = getServletContext().getRealPath("/upload/saldos");
             File file = new File(szPath);

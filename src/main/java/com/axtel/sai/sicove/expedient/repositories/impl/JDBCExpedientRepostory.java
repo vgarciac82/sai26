@@ -86,7 +86,7 @@ public class JDBCExpedientRepostory implements ExpedientRepository {
                 documents = run.query(conn, query.toString(), resultListHandler, idProcess, folderExclude);
             else
                 documents = run.query(conn, query.toString(), resultListHandler, idProcess);
-            log.debug("Object: {}", "Retriving " + documents);
+            log.debug("Object: " + String.valueOf("Retriving " + documents));
             return documents;
         } catch (SQLException e) {
             throw new SicoveException(e);
@@ -113,7 +113,7 @@ public class JDBCExpedientRepostory implements ExpedientRepository {
                 documents = run.query(conn, query.toString(), resultListHandler, idProcess, folderExclude);
             else
                 documents = run.query(conn, query.toString(), resultListHandler, idProcess);
-            log.debug("Object: {}", "Retriving " + documents);
+            log.debug("Object: " + String.valueOf("Retriving " + documents));
             return documents;
         } catch (SQLException e) {
             throw new SicoveException(e);

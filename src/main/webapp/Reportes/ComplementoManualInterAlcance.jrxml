@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ComplementoManualInterAlcance" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="21699cdd-3319-43f0-9f46-e7cc0c8c39da">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idVersion" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="final" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="consulta" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipoManual" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[EXEC dbo.sp_complementoManual @idVersion = $P{idVersion}, -- int
+	    @final = $P{final}, -- int
+	    @consulta = $P{consulta}, -- int
+	    @tipoManual = $P{tipoManual} -- int]]>
+	</queryString>
+	<field name="cParrafo1" class="java.lang.String"/>
+	<field name="cParrafo2" class="java.lang.String"/>
+	<field name="aEjercicioFiscal" class="java.lang.String"/>
+	<field name="idVersion" class="java.lang.String"/>
+	<field name="fAplicacion" class="java.lang.String"/>
+	<pageHeader>
+		<band height="80" splitType="Stretch">
+			<image>
+				<reportElement x="10" y="5" width="141" height="50" uuid="3029d3c1-9f5a-4058-b404-5b94ac64728c"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="166" y="12" width="230" height="39" uuid="cbfa6bdd-1c38-4aeb-b179-f1b3db6ea0fc"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISION NACIONAL FORESTAL
+MANUAL DE CONTABILIDAD GUBERNAMENTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="407" y="64" width="100" height="12" uuid="12b7f2b2-2cea-40cd-90fd-3e9a44dc5ee6">
+					<printWhenExpression><![CDATA[!$F{idVersion}.equals( "0" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idVersion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="43" y="64" width="100" height="12" uuid="65f44403-e230-45d8-bf25-16b28535976a">
+					<printWhenExpression><![CDATA[!$F{fAplicacion}.equals( "" )]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fAplicacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="110" y="7" width="345" height="21" uuid="94437061-b109-4fed-ad50-30b25642bb1f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INTERPRETACIÓN Y ALCANCE INSTITUCIONAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="152" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="111" y="27" width="345" height="21" uuid="598b517a-a356-4b41-a96e-1044ba5001a2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INTERPRETACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="111" y="91" width="345" height="21" uuid="594e6520-a545-453a-9542-4d93baec0434"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ALCANCE INSTITUCIONAL]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="42" y="63" width="464" height="13" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="c7800f53-0400-4c92-9b26-e5ff4406bdeb"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="styled">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo1}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="43" y="119" width="464" height="14" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="ead351bd-0988-4daa-9d00-7f52ab7bdc28"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="styled">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="32">
+			<staticText>
+				<reportElement x="233" y="11" width="32" height="12" uuid="07d147fa-63bf-481a-89cc-58b6c3161468"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Vigencia]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="521" y="12" width="19" height="10" uuid="622859b8-e1c3-42f9-9432-ac5e6de80cac"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="266" y="12" width="55" height="11" uuid="312e4c86-be12-4be3-b413-1cd62ef7f913"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aEjercicioFiscal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

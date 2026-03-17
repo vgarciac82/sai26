@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ComplementoManualAspectosGenerales" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="41120a43-7e24-41cb-be5d-a6bb56467706">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idVersion" class="java.lang.Integer"/>
+	<parameter name="final" class="java.lang.Integer"/>
+	<parameter name="consulta" class="java.lang.Integer"/>
+	<parameter name="tipoManual" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[EXEC dbo.sp_complementoManual @idVersion = $P{idVersion}, -- int
+	    @final = $P{final}, -- int
+	    @consulta = $P{consulta}, -- int
+	    @tipoManual = $P{tipoManual} -- int]]>
+	</queryString>
+	<field name="cParrafo1" class="java.lang.String"/>
+	<field name="cParrafo2" class="java.lang.String"/>
+	<field name="cParrafo3" class="java.lang.String"/>
+	<field name="aEjercicioFiscal" class="java.lang.String"/>
+	<field name="fAplicacion" class="java.lang.String"/>
+	<field name="idVersion" class="java.lang.String"/>
+	<field name="cParrafo4" class="java.lang.String"/>
+	<field name="cParrafo5" class="java.lang.String"/>
+	<field name="cParrafo6" class="java.lang.String"/>
+	<pageHeader>
+		<band height="93" splitType="Stretch">
+			<image>
+				<reportElement x="10" y="5" width="141" height="50" uuid="036c4dc2-3e51-451e-8f68-7b25fdfeddbd"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="163" y="11" width="230" height="39" uuid="af9b91ee-e28e-4538-90bb-5936ac620f7b"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISION NACIONAL FORESTAL
+MANUAL DE CONTABILIDAD GUBERNAMENTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="407" y="62" width="100" height="12" uuid="a2583a6c-4345-48e4-b002-c855c41f46e0">
+					<printWhenExpression><![CDATA[!$F{idVersion}.equals( "0" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idVersion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="45" y="62" width="140" height="12" uuid="7018f6dd-8bb2-437c-b7d5-ed4dbfa23025">
+					<printWhenExpression><![CDATA[!$F{fAplicacion}.equals( "" )]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fAplicacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="12" width="400" height="32" uuid="d8946fcd-8190-4024-8ca5-10c933a391b8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ASPECTOS DEL SISTEMA DE CONTABILIDAD GUBERNAMENTAL PARA EL SECTOR PARAESTATAL FEDERAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="241" splitType="Stretch">
+			<staticText>
+				<reportElement x="117" y="7" width="345" height="17" uuid="714b7eae-54d5-4145-a030-d0a899af6adf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ASPECTOS GENERALES Y ESPECIFICOS]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="45" y="65" width="462" height="16" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="2bcf7dfc-d116-4bf4-90b9-073d836f2a52"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="html">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo1}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="91" y="91" width="416" height="16" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="986da276-aaa9-4ea2-a458-51d0477ebd1c"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="html">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo2}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="45" y="117" width="462" height="14" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="18ca6b71-184a-48bd-a91b-8cd227d53d5c"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="html">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo3}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="118" y="31" width="345" height="17" uuid="9f387688-bd6f-4042-b855-ff0d679d66f7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A. Aspectos Generales]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="45" y="172" width="462" height="14" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="8aeaeeed-d0a0-4add-a2e2-06abc8c461cb"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="html">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo4}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="45" y="196" width="462" height="14" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="dcf817df-6242-4e13-83b3-514c3faf5444"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="html">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo5}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="45" y="220" width="462" height="14" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="fbc976b0-0b0f-49a0-8017-5053a4b0a351"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="html">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo6}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="118" y="144" width="345" height="17" uuid="e8f88a8b-ac77-424d-9d74-bf1c4f23df99"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[B. Aspectos Específicos]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="31">
+			<textField>
+				<reportElement x="264" y="12" width="55" height="11" uuid="3df88e94-6950-48cd-adda-f2729556c633"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aEjercicioFiscal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="522" y="12" width="19" height="10" uuid="be996913-3a73-4200-b919-fdb70e5f8447"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="231" y="11" width="32" height="12" uuid="4abb622e-1a6c-41ac-bdf6-4e605ab8b789"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Vigencia]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!-- Ayuda Agente Financiero -->
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Entidad Ejecutora Externa</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>D_CATAREAEXECUTORAEXT</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	<grid>
+		<columna campo="ID_EntidadEjecResp"		control="ID_EntidadEjecResp"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="*Clave"				rowCol="1,1" ancho="5"	maxlen="3"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="EntidadEjecRespCorto"	control="EntidadEjecRespCorto"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="*Descripción Corta"	rowCol="2,1" ancho="50"	maxlen="50"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="EntidadEjecRespLargo"	control="EntidadEjecRespLargo"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="*Descripción Larga"	rowCol="3,1" ancho="50"	maxlen="150"	tipo="string"	visible="Si"	clase=""/>		
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="ID_EntidadEjecResp"	control="txtGridID_EntidadEjecResp"		llave="Si"	identity="Si"	requerido=""	requeridoFocus=""	tipo="string" />
+		<campo field="EntidadEjecRespCorto" control="txtGridEntidadEjecRespCorto"	llave="No"	identity="No"	requerido="El campo Descripción corta es requerido."	requeridoFocus="txtGridEntidadEjecRespCorto"	tipo="string" />
+		<campo field="EntidadEjecRespLargo" control="txtGridEntidadEjecRespLargo"	llave="No"	identity="No"	requerido="El campo Descripción larga es requerido."	requeridoFocus="txtGridEntidadEjecRespLargo"	tipo="string" />		
+	</insertaRegistro>
+
+</Ayuda>
+

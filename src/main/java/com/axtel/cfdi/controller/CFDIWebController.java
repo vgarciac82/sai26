@@ -83,7 +83,7 @@ public class CFDIWebController extends HttpServlet {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             String jsonResponse = gson.toJson(cfdi);
-            response.getWriter().write(jsonResponse.toPath());
+            response.getWriter().write(jsonResponse);
             log.info("Object: {}", "CFDI obtenido y enviado correctamente para idInvoice: " + idInvoice);
         } catch (Exception e) {
             log.error("Error inesperado en doGet", e);
@@ -97,7 +97,7 @@ public class CFDIWebController extends HttpServlet {
         log.trace("Inicio de procesamiento de CFDI en método POST.");
         try {
             String json = ControllerUtils.readJsonFromRequest(request);
-            log.debug("Object: {}", "JSON recibido: " + json);
+            log.debug("Object: " + String.valueOf("JSON recibido: " + json));
             CFDI cfdi = gson.fromJson(json, CFDI.class);
             log.info("Object: {}", "Objeto CFDI deserializado: " + cfdi);
             log.info("Insertando encabezado del CFDI.");
@@ -107,13 +107,13 @@ public class CFDIWebController extends HttpServlet {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             String jsonResponse = gson.toJson(cfdi);
-            log.debug("Object: {}", "Respuesta JSON generada: " + jsonResponse);
-            response.getWriter().write(jsonResponse.toPath());
+            log.debug("Object: " + String.valueOf("Respuesta JSON generada: " + jsonResponse));
+            response.getWriter().write(jsonResponse);
             log.info("CFDI procesado y respuesta enviada correctamente.");
         } catch (Exception e) {
             log.error("Error al procesar el CFDI en método POST: " + e.getMessage(), e);
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("{\"error\": \"Error al procesar el CFDI. Por favor verifique los datos.\"}".toPath());
+            response.getWriter().write("{\"error\": \"Error al procesar el CFDI. Por favor verifique los datos.\"}");
         }
     }
 
@@ -122,7 +122,7 @@ public class CFDIWebController extends HttpServlet {
         log.info("Inicio de actualización de CFDI en método PUT.");
         try {
             String json = ControllerUtils.readJsonFromRequest(request);
-            log.debug("Object: {}", "JSON recibido: " + json);
+            log.debug("Object: " + String.valueOf("JSON recibido: " + json));
             CFDI cfdi = gson.fromJson(json, CFDI.class);
             log.info("Object: {}", "Objeto CFDI deserializado: " + cfdi);
             log.info("Actualizando CFDI en base de datos.");
@@ -131,13 +131,13 @@ public class CFDIWebController extends HttpServlet {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             String jsonResponse = gson.toJson(cfdi);
-            log.debug("Object: {}", "Respuesta JSON generada: " + jsonResponse);
-            response.getWriter().write(jsonResponse.toPath());
+            log.debug("Object: " + String.valueOf("Respuesta JSON generada: " + jsonResponse));
+            response.getWriter().write(jsonResponse);
             log.info("CFDI actualizado y respuesta enviada correctamente.");
         } catch (Exception e) {
             log.error("Error al procesar el CFDI en método PUT: " + e.getMessage(), e);
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("{\"error\": \"Error al procesar el CFDI. Por favor verifique los datos.\"}".toPath());
+            response.getWriter().write("{\"error\": \"Error al procesar el CFDI. Por favor verifique los datos.\"}");
         }
     }
 

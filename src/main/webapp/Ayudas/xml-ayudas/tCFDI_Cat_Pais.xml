@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de CFDI</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_tCFDI_Cat_Pais</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cPais"									control=""	dependencia="No"	limpiaOnKeypress=""		header="Pais"					rowCol="1,1" 	ancho="11"	maxlen="11"	 tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cDescripcion"							control=""	dependencia="No"	limpiaOnKeypress=""		header="Descripción"			rowCol="1,2" 	ancho="100"	maxlen="100" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cFormatoCodigoPostal"					control=""	dependencia="No"	limpiaOnKeypress=""		header="Formato Codigo Postal"	rowCol="1,3" 	ancho="40"	maxlen="40"	 tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cFormatoRegistroIdentidadTributaria"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Formato Registro"		rowCol="2,1" 	ancho="40"	maxlen="40"	 tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cValidacionRegistroIdentidadTributaria"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Validacion Registro"	rowCol="2,2" 	ancho="50"	maxlen="50"	 tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cAgrupaciones"							control=""	dependencia="No"	limpiaOnKeypress=""		header="Agrupaciones"			rowCol="2,3" 	ancho="50"	maxlen="50"	 tipo="string"	visible="Si"	clase=""/>
+	</grid> 
+
+</Ayuda>

@@ -237,7 +237,7 @@ public class LiberaCompromisoEP extends HttpServlet {
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion Contable, Consulte a su administrador.";
         }
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis())));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         Connection conn = null;
         AplicarContableReturn acr = null;
@@ -264,9 +264,9 @@ public class LiberaCompromisoEP extends HttpServlet {
                     Caso sc = new Caso();
                     sc.setIdCaso(c.getIdCaso());
                     c = CasoManager.select(conn1, sc);
-                    log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: " + String.valueOf(c.getCasoDato("APLICADO_CONT").getValor()));
                     avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-                    log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+                    log.debug("Object: " + String.valueOf("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis())));
                     mensaje = "DOCUMENTO DE APARTADO APLICADO CONTABLEMENTE";
                     conn.commit();
                 } else {

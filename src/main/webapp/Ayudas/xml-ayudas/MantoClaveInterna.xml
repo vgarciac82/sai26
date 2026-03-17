@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Ayuda>
+	<titulo>Mantenimiento Catálogo Clave Interna</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_TCATALOGOCLAVEINTERNA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>
+		<columna campo="cClaveInterna"	control="txtGridcClaveInterna"	dependencia="No"	limpiaOnKeypress=""	header="Clave Interna"	ancho="7"	maxlen="7"	tipo="string"	visible="Si"	clase=""/>		
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="cClaveInterna"	control="txtGridcClaveInterna"	llave="Si"	identity="No" requerido="La combinacion de clave interna es un dato requerido."	requeridoFocus="txtGridcClaveInterna"	tipo="string" />	
+	</insertaRegistro>
+	
+</Ayuda>

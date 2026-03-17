@@ -44,7 +44,7 @@ public class ImageValidator extends Thread {
         myLogFile = new File(LOG_FILE_PATH + "IMAGE_VALIDATOR.log");
         try {
             myLogFileWriter = new FileWriter(myLogFile, false);
-            myLogFileWriter.write("[" + new Date() + "] INICIA PROCESO\n".toPath());
+            myLogFileWriter.write("[" + new Date() + "] INICIA PROCESO\n");
         } catch (IOException ioe) {
             //ignore
         }
@@ -95,13 +95,13 @@ public class ImageValidator extends Thread {
                             if (tmpFile.exists()) {
                                 String logLine = "Si existe el archivo clave=[" + claveExpediente + "] nombre archivo=[" + nombreArchivoImg + "] nombre documento=[" + rs2.getString("NOMBRE_DOCUMENTO") + "]\n";
                                 //System.out.print(logLine);
-                                myLogFileWriter.write(logLine.toPath());
+                                myLogFileWriter.write(logLine);
                             }
                         } else {
                             if (!tmpFile.exists()) {
                                 String logLine = "No existe el archivo clave=[" + claveExpediente + "] nombre archivo=[" + nombreArchivoImg + "] nombre documento=[" + rs2.getString("NOMBRE_DOCUMENTO") + "]\n";
                                 //System.out.println(logLine);
-                                myLogFileWriter.write(logLine.toPath());
+                                myLogFileWriter.write(logLine);
                             }
                         }
                         /*
@@ -143,26 +143,26 @@ public class ImageValidator extends Thread {
             conn.close();
             conn = null;
             //Ahora solo se optimiza al final del proceso
-            myLogFileWriter.write("[" + new Date() + "] FIN DEL PROCESO\n".toPath());
+            myLogFileWriter.write("[" + new Date() + "] FIN DEL PROCESO\n");
             myLogFileWriter.flush();
             myLogFileWriter.close();
         } catch (SQLException sqle) {
             try {
-                myLogFileWriter.write("Excepcion=[" + sqle.toString() + "]".toPath());
+                myLogFileWriter.write("Excepcion=[" + sqle.toString() + "]");
             } catch (Exception e) {
                 //ignore!
             }
             sqle.printStackTrace();
         } catch (IOException ioe) {
             try {
-                myLogFileWriter.write("Excepcion=[" + ioe.toString() + "]".toPath());
+                myLogFileWriter.write("Excepcion=[" + ioe.toString() + "]");
             } catch (Exception e) {
                 //ignore!
             }
             ioe.printStackTrace();
         } catch (Exception e1) {
             try {
-                myLogFileWriter.write("Excepcion=[" + e1.toString() + "]".toPath());
+                myLogFileWriter.write("Excepcion=[" + e1.toString() + "]");
             } catch (Exception e) {
                 //ignore!
             }

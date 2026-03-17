@@ -69,7 +69,7 @@ public class TableroAlertaSubejercicioServlet extends HttpServlet implements Ges
         String entre = req.getParameter("entre");
         String hasta = req.getParameter("hasta");
         if ("ASIGNA_CONSULTA".equals(accion)) {
-            log.debug("Object: {}", "asignando valores y realizando consulta: " + accion);
+            log.debug("Object: " + String.valueOf("asignando valores y realizando consulta: " + accion));
             TableroAlertaSubejercicioBusinessLogic tasebl = new TableroAlertaSubejercicioBusinessLogic(jniName);
             List<Map<String, String>> table = null;
             try {
@@ -81,7 +81,7 @@ public class TableroAlertaSubejercicioServlet extends HttpServlet implements Ges
             resp.sendRedirect("../plantillasCasos/tableroAlertaSubejercicio.jsp?entre=" + entre + "&hasta=" + hasta);
         }
         if ("ENVIA_CORREOS".equals(accion)) {
-            log.debug("Object: {}", "entra a envia correo: " + accion);
+            log.debug("Object: " + String.valueOf("entra a envia correo: " + accion));
             TableroAlertaSubejercicioBusinessLogic tasebl = new TableroAlertaSubejercicioBusinessLogic(jniName);
             Connection conn = null;
             String ipNombreServidor = java.net.InetAddress.getByName(req.getServerName()).toString();
@@ -96,7 +96,7 @@ public class TableroAlertaSubejercicioServlet extends HttpServlet implements Ges
                     String destinatario = "";
                     String mensaje = "";
                     String token = ";";
-                    log.debug("Object: {}", "Procesando U.E. " + ue);
+                    log.debug("Object: " + String.valueOf("Procesando U.E. " + ue));
                     Subejercicio sub2 = correos.get(ue);
                     List<UsuarioCorreo> usuarios = sub2.getUsuarios();
                     List<String> claves = sub2.getClaves();
@@ -104,7 +104,7 @@ public class TableroAlertaSubejercicioServlet extends HttpServlet implements Ges
                         UsuarioCorreo uc = uIter.next();
                         if (uc.getCorreo() == null || "".equals(uc.getCorreo()))
                             continue;
-                        log.debug("Object: {}", "llegaria correo a " + uc.getNombreCompleto() + " correo " + uc.getCorreo());
+                        log.debug("Object: " + String.valueOf("llegaria correo a " + uc.getNombreCompleto() + " correo " + uc.getCorreo()));
                         destinatario += uc.getCorreo();
                         destinatario += token;
                     }
@@ -112,7 +112,7 @@ public class TableroAlertaSubejercicioServlet extends HttpServlet implements Ges
                         mensaje += (!correoProduccion ? "CORREO DE PRUEBA <br>" : "") + (!correoProduccion ? "este correo le hubiera llegado a: " + destinatario + "<br> <br>" : "") + " Claves con Subejercicio de la Unidad ejecutora: " + ue + "<br>";
                         for (Iterator<String> claveIter = claves.iterator(); claveIter.hasNext(); ) {
                             mensaje += claveIter.next() + "<br>";
-                            log.debug("Object: {}", mensaje);
+                            log.debug("Object: " + String.valueOf(mensaje));
                         }
                     }
                     if (!correoProduccion)

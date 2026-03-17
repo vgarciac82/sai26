@@ -145,7 +145,7 @@ public class LayoutCadenasPServlet extends HttpServlet {
                 archivoPago.append(arrListPago.get(i));
             }
             String outTextPago = archivoPago.toString();
-            out.write(outTextPago.toPath());
+            out.write(outTextPago);
             // fin de guarda pago
             out.close();
             // envío de archivo CSV

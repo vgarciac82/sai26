@@ -29,9 +29,9 @@ public class ReintegrosContablesManager {
         boolean retval = false;
         try {
             String sSQL = "UPDATE tReintegroEncabezado SET fAplicacion=? WHERE nFolioReintegro=?";
-            log.debug("Object: {}", sSQL);
+            log.debug("Object: " + String.valueOf(sSQL));
             pstmntUp = conn.prepareStatement(sSQL);
-            log.debug("Object: {}", fAplicacion + " " + folio);
+            log.debug("Object: " + String.valueOf(fAplicacion + " " + folio));
             pstmntUp.setString(1, fAplicacion);
             pstmntUp.setInt(2, folio);
             retval = pstmntUp.execute();
@@ -55,14 +55,14 @@ public class ReintegrosContablesManager {
         try {
             String sSQL = "SELECT mesAbierto FROM dbo.tMesesContables WITH (NOLOCK) WHERE cCentroContable = (SELECT TOP 1 cCentroContable FROM dbo.tReintegroDetalle WHERE nFolioReintegro = ?) AND nMes = ?";
             pstmnt = conn.prepareStatement(sSQL);
-            log.debug("Object: {}", sSQL);
+            log.debug("Object: " + String.valueOf(sSQL));
             pstmnt.setInt(1, folio);
             pstmnt.setInt(2, mes);
-            log.debug("Object: {}", "Folio: " + folio + " Mes: " + mes);
+            log.debug("Object: " + String.valueOf("Folio: " + folio + " Mes: " + mes));
             rs = pstmnt.executeQuery();
             if (rs.next()) {
                 retval = rs.getString(1);
-                log.debug("Object: {}", "Mes " + mes + " abierto: " + retval);
+                log.debug("Object: " + String.valueOf("Mes " + mes + " abierto: " + retval));
             }
         } catch (SQLException s) {
             log.warn("Object: {}", s);
@@ -83,16 +83,16 @@ public class ReintegrosContablesManager {
         try {
             nIdCaso = new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue();
             String sSQL = "INSERT INTO tReintegroAutEncabezado (nFolioReintegroaut, fSolicitud, cTipoReintegro, cRamo, cUnidadResponsable, cDocumentoHaplicado, aEjercicioFiscal, observaciones, concepto, u_login, " + "cUnidadResponsableContable,nFolioTramiteSicop, cTipoPoliza, fAplicacion,cdescripcionpoliza, formaDePago, clvRastreo,fichaDeposito, clvBanco,cuentaBancaria,lc,importeLC,clcSicop,folioDependencia,mvto,aviso,tipoAviso,causaAviso) " + "SELECT nFolioReintegro, fSolicitud, cTipoReintegro, cRamo,cUnidadResponsable, 'N', aEjercicioFiscal, observaciones, concepto, " + "u_login, 'RHQ',nFolioTramiteSicop, CASE WHEN ID_TIPOREINTEGRO = 3 THEN 'DI'ELSE 'EG' END,'" + fAcredit + "','AUTORIZACION DE REINTEGRO CONTABLE FOLIO ' + CAST(nFolioReintegro as varchar),formaDePago, clvRastreo,fichaDeposito, clvBanco,cuentaBancaria,lc,importeLC,clcSicop,folioDependencia,mvto,aviso,tipoAviso,causaAviso FROM tReintegroEncabezado WITH (NOLOCK) WHERE nFolioReintegro = ?";
-            log.debug("Object: {}", sSQL);
+            log.debug("Object: " + String.valueOf(sSQL));
             pstmnt = conn.prepareStatement(sSQL);
             pstmnt.setInt(1, nIdCaso);
-            log.debug("Object: {}", "idCaso: " + nIdCaso);
+            log.debug("Object: " + String.valueOf("idCaso: " + nIdCaso));
             pstmnt.execute();
             String sSQL2 = "SELECT tipoAviso FROM tReintegroEncabezado WITH (NOLOCK) WHERE nFolioReintegro = ?";
             pstmnt = conn.prepareStatement(sSQL2);
-            log.debug("Object: {}", sSQL2);
+            log.debug("Object: " + String.valueOf(sSQL2));
             pstmnt.setInt(1, nIdCaso);
-            log.debug("Object: {}", "idCaso: " + nIdCaso);
+            log.debug("Object: " + String.valueOf("idCaso: " + nIdCaso));
             rs = pstmnt.executeQuery();
             String tipoRein = "";
             if (rs.next()) {
@@ -115,10 +115,10 @@ public class ReintegrosContablesManager {
 			tipoRG = rs.getString(1);
 			}*/
             String query = "INSERT INTO tReintegroAutDetalle(nFolioReintegroaut,nDocRenglon,noCLC,secCLC,EP,mImporteCLC,cMes,movto,cEvento, mImporte, mImporteNegativo, cCentroContable, nCapitulo,cxp,RFC,nFolioDependencia,ALM,nRenglonPagado,obgt,ctab,nidprograma,cSubPrograma,FFM,mAmortizacionAnticipo,mPasivoDiferido,cPasivo,mImportePC) " + " SELECT rd.nfolioreintegro, " + "       rd.ndocrenglon, " + "       rd.noclc, " + "       rd.secclc, " + "       rd.ep, " + "       rd.mimporteclc, " + "       rd.cmes, " + "       rd.movto, " + "       (SELECT CASE  " + "                 WHEN ctipopago = 'PAGOOBRA' THEN CASE WHEN SUBSTRING(EP,40,1) = '4' THEN 'RNGIP' ELSE 'RNC' END " + "                 WHEN ctipopago = 'PAGODIVERSO' THEN CASE WHEN SUBSTRING(EP,40,1) = '4' THEN 'RNGIP' ELSE 'RNC' END " + "                 WHEN ctipopago = 'PAGODIRECTO' THEN cat_re.cPREFIJO_EVENTO " + "                 WHEN ctipopago = 'RELACIONGASTOS' THEN cat_re.cPREFIJO_EVENTO " + "                 WHEN ctipopago = 'NOMINA' THEN cat_re.cPREFIJO_EVENTO " + "                 WHEN ctipopago = 'AJENAS' THEN CASE WHEN SUBSTRING(EP,40,1) = '4' THEN 'RNGIP' ELSE 'RN' END " + "                 WHEN ctipopago = 'FEDERALIZADO' THEN CASE WHEN SUBSTRING(EP,40,1) = '4' THEN 'RNGIP' ELSE 'RNC' END " + "                 ELSE '' " + "               END AS dTipoPago " + "        FROM   tpagadoencabezado WITH(nolock) " + "        WHERE  canocontrarrecibo = rd.cxp)" + "         " + "       + Substring( (SELECT DISTINCT cevento FROM tPagadoDetalle ed WITH(NOLOCK) WHERE " + "       ed.ep=rd.ep " + "       AND ed.nfoliopago=(SELECT nfoliopago FROM tpagadoencabezado WITH(NOLOCK) WHERE " + "       canocontrarrecibo=rd.cxp) AND ed.ctipopago=(SELECT ctipopago FROM " + "       tpagadoencabezado WITH(NOLOCK) WHERE canocontrarrecibo=rd.cxp)) , 2, " + "       " + "       Len((SELECT " + "       DISTINCT " + "       cevento FROM tPagadoDetalle ed WITH(NOLOCK) WHERE ed.ep=rd.ep AND " + "       ed.nfoliopago=(SELECT " + "       nfoliopago FROM tpagadoencabezado WITH(NOLOCK) WHERE canocontrarrecibo=rd.cxp) AND " + "       ed.ctipopago=(SELECT ctipopago FROM tpagadoencabezado WITH(NOLOCK) WHERE " + "       canocontrarrecibo=rd.cxp)))), " + "       rd.mimporte, " + "       rd.mimportenegativo, " + "       rd.ccentrocontable, " + "       rd.ncapitulo, " + "       rd.cxp, " + "       rd.rfc, " + "       rd.nfoliodependencia, " + "       (SELECT TOP(1) alm " + "        FROM   tpagadodetalle WITH(nolock), " + "               tpagadoencabezado WITH(nolock) " + "        WHERE  ep = rd.ep " + "               AND nfoliosiaff = rd.noclc " + "               AND tpagadodetalle.nfoliopagado = tpagadoencabezado.nfoliopagado " + "               AND tpagadoencabezado.canocontrarrecibo = rd.cxp) AS ALM, " + "       rd.nrenglonpagado," + "       rd.obgt, " + "		 rd.ctab, " + "       nidprograma, " + "       cSubPrograma, " + "		 rd.OBGT + CASE WHEN RIGHT('00' + LTRIM(RTRIM(nidprograma)),2) = '13' THEN '0000' ELSE '" + year + "' END + RIGHT('00' + LTRIM(RTRIM(nidprograma)),2) + RIGHT('00' + LTRIM(RTRIM(cSubPrograma)),2) + '00' AS ffm, 0 AS mAmortizacionAnticipo, " + " 		 rd.mPasivoDiferido*-1," + " 		 rd.cPasivo, " + " 		 rd.mImportePC " + "FROM   treintegrodetalle rd WITH (nolock) " + "INNER JOIN tReintegroEncabezado re WITH(nolock) " + "ON re.nFolioReintegro = rd.nFolioReintegro " + "INNER JOIN tCatalogo_Reintegros cat_re WITH(nolock) " + "ON re.id_tiporeintegro = cat_re.id_reintegro " + "WHERE  rd.nfolioreintegro = ?";
-            log.debug("Object: {}", query.toString());
+            log.debug("Object: " + String.valueOf(query.toString()));
             pstmnt = conn.prepareStatement(query);
             pstmnt.setInt(1, nIdCaso);
-            log.debug("Object: {}", "idCaso: " + nIdCaso);
+            log.debug("Object: " + String.valueOf("idCaso: " + nIdCaso));
             pstmnt.execute();
             conn.commit();
         } catch (SQLException s) {
@@ -140,7 +140,7 @@ public class ReintegrosContablesManager {
         PreparedStatement pstm = null;
         ReintegroContEncabezado re = null;
         pstm = conn.prepareStatement("SELECT * FROM tReintegroEncabezado with(nolock) WHERE nFolioReintegro = ?");
-        log.debug("Object: {}", "Leyendo tReintegroEncabezado del Folio: " + folio);
+        log.debug("Object: " + String.valueOf("Leyendo tReintegroEncabezado del Folio: " + folio));
         pstm.setInt(1, folio);
         res = pstm.executeQuery();
         if (res.next()) {
@@ -208,7 +208,7 @@ public class ReintegrosContablesManager {
         PreparedStatement pstmnt = null;
         ResultSet rs = null;
         String sSQL = "select top(1) u_email from CG_USUARIO where U_LOGIN in (select distinct(B_CO_RESPONSABLE_EJEC) from CG_BITACORA where B_C_FOLIO=? and B_ID_OPER=2)";
-        log.debug("Object: {}", sSQL);
+        log.debug("Object: " + String.valueOf(sSQL));
         pstmnt = conn.prepareStatement(sSQL);
         if (c != null && c.getFolio() != null)
             pstmnt.setString(1, c.getFolio());
@@ -293,7 +293,7 @@ public class ReintegrosContablesManager {
             psInsertEncabezado.setString(26, reinE.getfAcreditacion());
             psInsertEncabezado.setInt(27, reinE.getnId_TipoReintegro());
             psInsertEncabezado.execute();
-            log.debug("Object: {}", psInsertEncabezado.toString());
+            log.debug("Object: " + String.valueOf(psInsertEncabezado.toString()));
             psInsertDetalle = conn.prepareStatement("INSERT INTO tReintegroDetalle(nFolioReintegro,nDocRenglon,noCLC,secCLC,cEvento,EP,mImporteCLC,mImporte,mImporteNegativo,cMes,cCentroContable,nCapitulo,cxp,RFC,nRenglonPagado,nFolioDependencia,ALM,obgt,ctab)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             for (Iterator<ReintegroContDetalle> i = reinDetalles.iterator(); i.hasNext(); ) {
                 ReintegroContDetalle rd = i.next();
@@ -317,7 +317,7 @@ public class ReintegrosContablesManager {
                 psInsertDetalle.setString(18, rd.getObgt());
                 psInsertDetalle.setString(19, rd.getCtab());
                 psInsertDetalle.addBatch();
-                log.debug("Object: {}", psInsertDetalle.toString());
+                log.debug("Object: " + String.valueOf(psInsertDetalle.toString()));
             }
             psInsertDetalle.executeBatch();
             conn.commit();

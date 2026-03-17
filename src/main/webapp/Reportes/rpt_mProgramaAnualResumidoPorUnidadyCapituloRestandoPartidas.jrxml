@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpt_mProgramaAnualResumidoPorUnidadyCapituloRestandoPartidas" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8f06226d-ca76-4276-b137-fa8724ea35d1">
+	<property name="ireport.zoom" value="1.366026910730141"/>
+	<property name="ireport.x" value="65"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cIdUnidadEjecutora" class="java.lang.String"/>
+	<parameter name="formato" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM fn_mProgramaAnualMontosPorCapituloRestandoPartidas ()
+where 1=1 $P!{cIdUnidadEjecutora}]]>
+	</queryString>
+	<field name="cEjercicio" class="java.lang.String"/>
+	<field name="_Unidad_RM" class="java.lang.String"/>
+	<field name="d_descripcion" class="java.lang.String"/>
+	<field name="cIdSubPartida" class="java.lang.String"/>
+	<field name="cSubPartida" class="java.lang.String"/>
+	<field name="MontoPC2" class="java.math.BigDecimal"/>
+	<field name="MontoPC3" class="java.math.BigDecimal"/>
+	<field name="MontoPC5" class="java.math.BigDecimal"/>
+	<field name="Total" class="java.math.BigDecimal"/>
+	<variable name="MontoPC2_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Sub_Rep1" calculation="Sum">
+		<variableExpression><![CDATA[$F{MontoPC2}]]></variableExpression>
+	</variable>
+	<variable name="MontoPC3_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Sub_Rep1" calculation="Sum">
+		<variableExpression><![CDATA[$F{MontoPC3}]]></variableExpression>
+	</variable>
+	<variable name="MontoPC5_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Sub_Rep1" calculation="Sum">
+		<variableExpression><![CDATA[$F{MontoPC5}]]></variableExpression>
+	</variable>
+	<variable name="Total_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Sub_Rep1" calculation="Sum">
+		<variableExpression><![CDATA[$F{Total}]]></variableExpression>
+	</variable>
+	<variable name="MontoPC2_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{MontoPC2}]]></variableExpression>
+	</variable>
+	<variable name="MontoPC3_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{MontoPC3}]]></variableExpression>
+	</variable>
+	<variable name="MontoPC5_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{MontoPC5}]]></variableExpression>
+	</variable>
+	<variable name="Total_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{Total}]]></variableExpression>
+	</variable>
+	<group name="Sub_Rep1">
+		<groupExpression><![CDATA[$F{_Unidad_RM}]]></groupExpression>
+		<groupHeader>
+			<band height="14">
+				<textField>
+					<reportElement x="0" y="1" width="71" height="13" uuid="08270a00-4ad5-4f3e-95b2-8f8d41742334"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{_Unidad_RM}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement x="71" y="2" width="254" height="12" uuid="3e3a4e89-9978-4f84-bdf6-65c587259ff7"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{d_descripcion}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="18">
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="540" y="1" width="110" height="13" uuid="9ac0055f-f673-4315-82c2-16039f6be7b9"/>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{MontoPC5_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="652" y="1" width="97" height="13" uuid="b3834935-28ca-4bca-8603-d83358db7f66"/>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Total_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="283" y="2" width="42" height="12" uuid="821c4aca-6f8d-4e82-91ef-926ec8794a23"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{_Unidad_RM}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="204" y="2" width="79" height="12" uuid="24437299-9664-4787-8981-4c273b82712e"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Totales de la Unidad]]></text>
+				</staticText>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="326" y="1" width="99" height="13" uuid="ccd3e38b-ba0e-4935-b291-a25e64530590"/>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{MontoPC2_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="427" y="1" width="112" height="13" uuid="8a4f8f17-17b9-45c2-9d72-059db67c57a3"/>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{MontoPC3_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Sub_Rep2">
+		<groupExpression><![CDATA[$F{cIdSubPartida}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="3"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="4" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="72" splitType="Stretch">
+			<printWhenExpression><![CDATA[($P{formato}.equals("csv"))?new Integer($V{PAGE_NUMBER})==1  : ($P{formato}.equals("xls")c)? new Integer($V{PAGE_NUMBER})==1 :  $V{PAGE_NUMBER}]]></printWhenExpression>
+			<staticText>
+				<reportElement x="146" y="10" width="393" height="13" uuid="ab35b255-b29a-4972-ab90-284e443c84b3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="10" width="125" height="57" uuid="71f9cdba-6008-4f4a-9875-14cb830983b7"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"\\CONAFOR_NvoLogoDic2013_HD_Horizontal.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="540" y="36" width="110" height="13" uuid="c58ac05d-62d7-4da9-9bf7-ea17071d3732"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Página]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="683" y="36" width="26" height="13" uuid="6114eae2-c807-4cb8-b8a7-73f97f43e2fa"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[de ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="652" y="36" width="31" height="13" uuid="4819d68d-acaf-4e2a-a2e1-76077235a587"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="713" y="36" width="35" height="13" uuid="b6c2d9fb-45ea-4e2f-8f40-fea5f05a37e5"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="146" y="23" width="393" height="13" uuid="d9bcee38-855d-41fa-822f-a467d1082ab7"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GERENCIA DE RECURSOS MATERIALES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="146" y="36" width="393" height="13" uuid="8af4eaac-5158-4705-b04c-52fc02af75f9"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROGRAMA ANUAL DE ADQUISICIONES ARRENDAMIENTOS Y SERVICIOS]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="652" y="10" width="57" height="13" uuid="067f01b6-806a-4985-aa1e-21cc01d94823"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="540" y="10" width="110" height="13" uuid="b77e7c75-59f7-4828-a351-244346cf9788"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Fecha de Impresión]]></text>
+			</staticText>
+			<textField pattern="h.mm.ss a">
+				<reportElement x="713" y="10" width="35" height="13" uuid="b44654a7-7c30-4988-b1d0-18ffa03e9716"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="146" y="49" width="393" height="13" uuid="8b5b66c0-7666-41ff-86b9-a3c648d0fb07"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cEjercicio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="37" width="750" height="1" uuid="42fe2fdb-803a-400a-82ab-ece2f4a5171f"/>
+			</line>
+			<staticText>
+				<reportElement x="540" y="5" width="110" height="13" uuid="426df4cc-2f4c-4649-b51d-62c82ecd5cd6"/>
+				<text><![CDATA[Capitulo]]></text>
+			</staticText>
+			<line>
+				<reportElement x="326" y="19" width="424" height="1" uuid="65a79beb-f2bf-4751-851e-90a8cccba7a5"/>
+			</line>
+			<staticText>
+				<reportElement x="326" y="22" width="100" height="13" uuid="018248d2-9367-40f5-b343-cef23332e6c7"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[2000]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="22" width="112" height="13" uuid="3b5940f8-eac4-4db6-8fba-bec52c388d20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[3000]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="540" y="22" width="110" height="13" uuid="5755cd4f-53dc-4b2e-a9f1-670fee4ffe75"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[5000]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="651" y="22" width="98" height="13" uuid="0012d991-25ac-40f5-9872-fb8bd15bd993"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="22" width="71" height="12" uuid="cc7e6276-c957-4276-ab1e-f15868263b0d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Partida]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="1" width="71" height="13" uuid="1c34d4cf-e346-478c-ad03-09e512125f37"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cIdSubPartida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="427" y="1" width="112" height="13" uuid="2f180651-aa4a-4916-a55b-f3a45f270938"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MontoPC3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="326" y="1" width="100" height="13" uuid="e701522b-3264-4342-b61c-e2f4d57a36b6"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MontoPC2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="540" y="1" width="110" height="13" uuid="2624f64b-983c-460f-854d-5311c22a1351"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MontoPC5}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="652" y="0" width="96" height="13" uuid="0fa5c8cb-7e80-44ee-84df-8dc99f4eb39b"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="71" y="1" width="254" height="13" uuid="82d5b99a-d6ed-4ab8-8d6c-b7a30b0230c8"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cSubPartida}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="2" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="1" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="15" splitType="Stretch">
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="540" y="2" width="110" height="11" uuid="03f441c6-8845-4fe8-a8cb-67d0d1341868"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{MontoPC5_2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="652" y="2" width="98" height="11" uuid="9599ce99-b5e4-4124-8cff-fab04e94b4d1"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Total_2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="427" y="2" width="112" height="11" uuid="2afd0e89-6b30-4179-b65b-a9156dd2203c"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{MontoPC3_2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="326" y="2" width="100" height="11" uuid="ea63e062-8100-4651-a6ef-7b97db3b52a2"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{MontoPC2_2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="283" y="1" width="42" height="12" uuid="70c8f21a-e48c-4bb2-a0e9-23ca6140798c"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Totales]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteCompromisosRef" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="86527ea0-8035-4411-893e-f1665e15706e">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sai_2025"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<parameter name="where2" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="concepto" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[DECLARE @ANIO INT
+DECLARE @MESANT INT
+SET @ANIO = (SELECT aEjercicioFiscal - 1 FROM tEjercicioFiscal WHERE cActivo = 1)
+SET @MESANT  = @ANIO - 1
+create table #pagadoMA(importe money, partida varchar(5) )
+
+INSERT INTO #pagadoMA
+exec sp_pagadoAAporPartida @MESANT
+
+
+		SELECT cIdContrato,comp.caNoCompromiso, cPartida, dPartida
+		,  SUM(DET.mImporte) importe
+		,  CASE WHEN EXISTS (
+            SELECT 1
+            FROM tLayoutsCreadosRelacionGastosHeader l WITH (NOLOCK)
+            INNER JOIN tRelacionGastosEncabezado rg WITH (NOLOCK)
+                ON rg.caNoContrarrecibo = l.sNoContrarrecibo
+            WHERE l.sAuxiliarComodin = COMP.cIdContrato
+              AND (
+                    rg.ID_DESTINO_GASTO IN ('CPRP')
+                    OR (rg.CTAB = 'Pago_Referenciado' AND rg.ID_DESTINO_GASTO NOT IN ('2NRQ'))
+                  )
+              AND rg.cDocumentoHaplicado = 'S'
+        ) THEN 		
+			'Por lo anterior, solicito de su apoyo para autorizar el presente compromiso por ' 
+			+  cast((select FORMAT(sum(mImporte), 'C', 'es-MX') from tCompromisoDetalle WITH (NOLOCK) where nFolioCompromiso= COMP.nFolioCompromiso group by nFolioCompromiso ) as varchar(20)) + ' (' +
+			 dbo.CantidadConLetra((select SUM(mImporte) from tCompromisoDetalle WITH (NOLOCK) where nFolioCompromiso= COMP.nFolioCompromiso group by nFolioCompromiso )) + ' )'
+			 + ' por concepto de ' + $P{concepto} + ' el cual se integra de las siguientes partidas que se desglosan en el cuadro siguiente:'  
+        ELSE
+		'Por lo anterior, solicito de su apoyo para autorizar el presente compromiso por ' 
+		+  cast((select FORMAT(sum(mImporte), 'C', 'es-MX') from tCompromisoDetalle WITH (NOLOCK) where nFolioCompromiso= COMP.nFolioCompromiso group by nFolioCompromiso ) as varchar(20)) + ' (' +
+		 dbo.CantidadConLetra((select SUM(mImporte) from tCompromisoDetalle WITH (NOLOCK) where nFolioCompromiso= COMP.nFolioCompromiso group by nFolioCompromiso )) + ' )'
+		 + ' por concepto de ' + $P{concepto} +  ' necesarios para la operación de la institución, el cual se integra de las siguientes partidas que se desglosan en el cuadro siguiente:'  
+    END parrafo
+ , (select top 1 cFolioOficio  from tLayoutsCreadosRelacionGastosHeader WITH (NOLOCK) where sAuxiliarComodin = COMP.cIdContrato) cFolioOficio
+ , importe importeAA
+ , (select FORMAT(sum(mImporte), 'C', 'es-MX') from tCompromisoDetalle WITH (NOLOCK) where nFolioCompromiso= COMP.nFolioCompromiso group by nFolioCompromiso )  importeTotal
+ ,  CASE WHEN EXISTS (
+            SELECT 1
+            FROM tLayoutsCreadosRelacionGastosHeader l WITH (NOLOCK)
+            INNER JOIN tRelacionGastosEncabezado rg WITH (NOLOCK)
+                ON rg.caNoContrarrecibo = l.sNoContrarrecibo
+            WHERE l.sAuxiliarComodin = COMP.cIdContrato
+              AND (
+                    rg.ID_DESTINO_GASTO IN ('CPRP')
+                    OR (rg.CTAB = 'Pago_Referenciado' AND rg.ID_DESTINO_GASTO NOT IN ('2NRQ'))
+                  )
+              AND rg.cDocumentoHaplicado = 'S'
+        ) THEN 1
+        ELSE   0		
+    END esProveedor
+FROM tCompromisoEncabezado COMP WITH (NOLOCK)
+INNER JOIN TCOMPROMISODETALLE DET WITH (NOLOCK)
+ON DET.nfoliocompromiso = comp.nfoliocompromiso
+INNER JOIN TCATALOGOPARTIDA partida WITH (NOLOCK)
+on partida.cpartida = substring(ep, 32,5)
+inner  JOIN #pagadoMA pagadoAA
+ON pagadoAA.partida = partida.cpartida
+WHERE  COMP.caNoCompromiso = $P{where2}
+GROUP BY  cIdContrato,  comp.caNoCompromiso,  COMP.nFolioCompromiso, importe, cPartida, dPartida
+drop table #pagadoMA]]>
+	</queryString>
+	<field name="cIdContrato" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cIdContrato"/>
+		<property name="com.jaspersoft.studio.field.label" value="cIdContrato"/>
+	</field>
+	<field name="caNoCompromiso" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="caNoCompromiso"/>
+		<property name="com.jaspersoft.studio.field.label" value="caNoCompromiso"/>
+	</field>
+	<field name="cPartida" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cPartida"/>
+		<property name="com.jaspersoft.studio.field.label" value="cPartida"/>
+	</field>
+	<field name="dPartida" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dPartida"/>
+		<property name="com.jaspersoft.studio.field.label" value="dPartida"/>
+	</field>
+	<field name="importe" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="importe"/>
+		<property name="com.jaspersoft.studio.field.label" value="importe"/>
+	</field>
+	<field name="parrafo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="parrafo"/>
+		<property name="com.jaspersoft.studio.field.label" value="parrafo"/>
+	</field>
+	<field name="cFolioOficio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cFolioOficio"/>
+		<property name="com.jaspersoft.studio.field.label" value="cFolioOficio"/>
+	</field>
+	<field name="importeAA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="importeAA"/>
+		<property name="com.jaspersoft.studio.field.label" value="importeAA"/>
+	</field>
+	<field name="importeTotal" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="importeTotal"/>
+		<property name="com.jaspersoft.studio.field.label" value="importeTotal"/>
+	</field>
+	<field name="esProveedor" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="esProveedor"/>
+		<property name="com.jaspersoft.studio.field.label" value="esProveedor"/>
+	</field>
+	<variable name="mImporteMasIva1" class="java.math.BigDecimal" resetType="Column" incrementType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{importe}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="228" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="418" y="6" width="121" height="15" uuid="56627aee-eda2-446d-a548-eeec69832b9b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist"/>
+				</textElement>
+				<text><![CDATA[No de Documento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="44" width="551" height="39" backcolor="#CCCCCC" uuid="7e6d7664-dd2e-4625-8b04-63ead4ec267b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL
+ATENTA NOTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="110" width="535" height="60" uuid="e0cda941-50e8-4c69-b894-7455eb6b6b33"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Geomanist"/>
+				</textElement>
+				<text><![CDATA[Con fundamento en el oficio No. 411/UPCP/2025/0055, a través del cual la Unidad de Política y Control Presupuestario, de la Subsecretaría de Egresos, señala las “Reglas Específicas del Ciclo Presupuestario Aplicables a los Ejecutores de Gasto en la Administración Pública Federal”. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="89" width="121" height="15" uuid="dc62c585-990e-4c24-be76-24c68cbd2a40"/>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist"/>
+				</textElement>
+				<text><![CDATA[A quien corresponda:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="14" y="154" width="534" height="73" uuid="21ae2c73-a329-45f8-ad12-13814b4098a2"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Geomanist"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parrafo}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="11" y="0" width="167" height="67" uuid="ab0710b9-7ac7-49d3-9f98-ee1e925f5871"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\nuevo_logoconafor.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="400" y="21" width="154" height="23" uuid="4f1cbeba-5d54-44f7-8ef0-7d0a0368172e"/>
+				<textElement>
+					<font fontName="Geomanist" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cFolioOficio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="84" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} > 1]]></printWhenExpression>
+			<staticText>
+				<reportElement x="420" y="30" width="121" height="15" uuid="29a03efc-b390-4f32-a6ac-45a21047e73c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist"/>
+				</textElement>
+				<text><![CDATA[No de Documento]]></text>
+			</staticText>
+			<image>
+				<reportElement x="13" y="0" width="167" height="67" uuid="e69191ac-190f-4372-9f29-8c30c4522921"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\nuevo_logoconafor.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="400" y="45" width="154" height="23" uuid="e9b36188-2215-4a4c-9de5-51f5576836eb"/>
+				<textElement>
+					<font fontName="Geomanist" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cFolioOficio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<rectangle>
+				<reportElement x="10" y="-3" width="543" height="31" backcolor="#784D1D" uuid="23b915ac-44fa-4209-9d3b-aecc44ce2099"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="11" y="3" width="54" height="15" forecolor="#FFFFFF" uuid="1a35a6e2-6a84-4e84-a4a7-9a75822b7e4b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a7560493-ed31-4e2e-8fec-200b6979bb8a"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Partida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="3" width="74" height="18" forecolor="#FFFFFF" uuid="151104d3-1272-4008-97a6-63e5b1ad82ea">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9087139b-32b4-487a-91f8-e4b4e1409ec8"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Denominación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="351" y="0" width="100" height="29" forecolor="#FFFFFF" uuid="41175612-2d6e-4e64-a3c7-294cc35fe89f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="48ef93b4-91b1-451c-9ab2-902731ddbdc3"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pago Realizado año anterior (pesos)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="456" y="-1" width="94" height="29" forecolor="#FFFFFF" uuid="93a76949-5097-4413-a7c8-0959e2b5c827">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0578b53b-2a17-44d0-93e4-e685b0206364"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Provision compromiso (pesos)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="10" y="2" width="50" height="20" uuid="a5dbea8d-fa7c-45aa-a671-076868bf2913">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a7560493-ed31-4e2e-8fec-200b6979bb8a"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cPartida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="0" width="310" height="24" uuid="ce982b54-f8b9-4b2b-a900-254e1a0eb454">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9087139b-32b4-487a-91f8-e4b4e1409ec8"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dPartida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(#,##0.00)">
+				<reportElement stretchType="ContainerHeight" x="370" y="2" width="70" height="20" isPrintWhenDetailOverflows="true" uuid="b67221e0-658a-4ec5-9f81-f856bbfcbe9a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="48ef93b4-91b1-451c-9ab2-902731ddbdc3"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{importeAA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;(-#,##0.00#)">
+				<reportElement x="450" y="2" width="95" height="20" uuid="54eea21d-a39f-4aa2-b510-6b49653d3782">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0578b53b-2a17-44d0-93e4-e685b0206364"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{importe}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="24" splitType="Immediate">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<rectangle>
+				<reportElement x="10" y="0" width="543" height="23" backcolor="#784D1D" uuid="737df743-fe03-406b-bf2d-44019db41c23">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="18" y="5" width="54" height="15" forecolor="#FFFFFF" uuid="4423bb6e-ce20-4e28-8a3f-bd2e08a37f24">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a7560493-ed31-4e2e-8fec-200b6979bb8a"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;(#,##0.00)">
+				<reportElement x="433" y="3" width="112" height="18" forecolor="#FFFFFF" uuid="7123cda6-8f50-4412-8b43-cd3242fabb58"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{importeTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="184">
+			<staticText>
+				<reportElement x="1" y="141" width="552" height="15" uuid="b93ec3c6-fd52-4967-8260-43324da5232a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TANIA ANANÍ LIMÓN MAGAÑA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="153" width="553" height="15" uuid="bbc41c52-4f72-4269-bd79-91e553a9241a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GERENTE DE PROGRAMACIÓN Y PRESUPUESTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="53" width="557" height="15" uuid="cfc1e0f2-4274-4c8e-a0c1-fa7d9a61fcfe"/>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist"/>
+				</textElement>
+				<text><![CDATA[Atentamente,]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="8" y="0" width="543" height="54" uuid="67ff8af7-2f91-454d-926f-41d8b4803488">
+					<printWhenExpression><![CDATA[$F{esProveedor} == 1]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="where2">
+					<subreportParameterExpression><![CDATA[$P{where2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/subreporteCompromisos.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement x="164" y="140" width="245" height="1" uuid="5ef3e6af-d85c-4b44-afbc-597b82d85c2a"/>
+			</line>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

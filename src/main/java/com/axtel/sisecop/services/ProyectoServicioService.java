@@ -123,7 +123,7 @@ public class ProyectoServicioService extends ProyectoServicioGeneral {
         try {
             connection = getConnection();
             int deleted = getTerritorioRepositorio().delete(connection, idTerritory);
-            log.debug("Object: {}", deleted + " rows have benn deleted from territory ");
+            log.debug("Object: " + String.valueOf(deleted + " rows have benn deleted from territory "));
             connection.commit();
         } catch (SQLException e) {
             Util.rollback(connection);
@@ -190,10 +190,10 @@ public class ProyectoServicioService extends ProyectoServicioGeneral {
         conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
         log.info("Se ha configurado el Content-Type a 'application/json; charset=UTF-8'");
         ProyectoDTO proyectoDTO = new ProyectoDTO(proyecto.getServicioId(), proyecto.getServicioTitulo(), proyecto.getServicioObjetivos(), proyecto.getServicioFolioPre() + "/" + proyecto.getServicioFolioAnio() + "/" + String.format("%04d", proyecto.getServicioFolioNum()));
-        log.debug("Object: {}", "Generado el objeto proyecto: " + proyectoDTO);
+        log.debug("Object: " + String.valueOf("Generado el objeto proyecto: " + proyectoDTO));
         ObjectMapper mapper = new ObjectMapper();
         String jsonInputString = mapper.writeValueAsString(proyectoDTO);
-        log.debug("Object: {}", "JSON generado para el proyecto: " + jsonInputString);
+        log.debug("Object: " + String.valueOf("JSON generado para el proyecto: " + jsonInputString));
         try (OutputStream os = conn.getOutputStream()) {
             byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);

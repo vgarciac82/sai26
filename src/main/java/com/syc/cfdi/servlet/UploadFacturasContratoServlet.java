@@ -1,4 +1,5 @@
 package com.syc.cfdi.servlet;
+import java.nio.charset.StandardCharsets;
 
 import java.io.DataInputStream;
 import java.io.File;
@@ -103,7 +104,7 @@ public class UploadFacturasContratoServlet extends HttpServlet implements Gestio
                         if ("TipoContrato".equals(item.getFieldName()))
                             tipoContrato = item.getString();
                         else if ("cIdRFC".equals(item.getFieldName()))
-                            rfc = StringUtils.trimToEmpty(item.getString("UTF-8"));
+                            rfc = StringUtils.trimToEmpty(item.getString(java.nio.charset.StandardCharsets.UTF_8));
                         else if ("IDContrato".equals(item.getFieldName()))
                             idContrato = item.getString();
                         else if ("montoConIVA".equals(item.getFieldName()) && null != item.getString() && !"null".equalsIgnoreCase(item.getString()))

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Servidores Públicos</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>EMPLEADOS_NOMINA</tabla>
+	<maxRegistros>250</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="ServidoresPublicos"	control="ServidoresPublicos"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Servidor Público"	ancho="40"	maxlen="100"		tipo="string"	visible="si"	clase=""/>
+		<columna campo="c_empleado"	control="NumEmpleado"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Num Empleado"	ancho="40"	maxlen="15"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="d_emplrfc"	control="rfcEmpleado"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="RFC"	ancho="40"	maxlen="15"		tipo="string"	visible="Si"	clase=""/>
+        <columna campo ="d_emplnombre" control="nombreEmpleado"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Nombre "	ancho="40"	maxlen="50"		tipo="string"	visible="Si"	clase=""/>
+       	<columna campo ="d_emplap" control="apellidoPatEmpleado"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Apellido Pat"	ancho="40"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+       	<columna campo ="d_emplam" control="apellidoMatEmpleado"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Apellido Mat"	ancho="40"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+       	<columna campo ="c_plaza" control="numPlazaEmpleado"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="No. Plaza"	ancho="40"	maxlen="5"		tipo="string"	visible="Si"	clase=""/>
+       	<columna campo ="d_plaza" control="puestoEmpleado"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Puesto"	ancho="40"	maxlen="80"		tipo="string"	visible="Si"	clase=""/>
+       	
+   </grid>  
+</Ayuda>

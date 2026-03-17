@@ -1,7 +1,8 @@
 package com.syc.sai.tesoreria.retenciones;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
-import com.fasterxml.jackson.core.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.syc.sai.tesoreria.retenciones.core.Retencion;
 import java.util.Base64;
 

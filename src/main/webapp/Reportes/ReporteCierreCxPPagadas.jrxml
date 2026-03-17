@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OperAjenas"  pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.210000000000001"/>
+	<property name="ireport.x" value="233"/>
+	<property name="ireport.y" value="31"/>
+	<parameter name="TipoDoc" class="java.lang.String"/>
+	<parameter name="contra" class="java.lang.String"/>
+	<parameter name="RFC" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[exec sp_ReporteCierreCxPPagadas $P{TipoDoc},$P{contra},$P{RFC}]]>
+	</queryString>
+	<field name="tipoDocumento" class="java.lang.String"/>
+	<field name="caNoContrarrecibo" class="java.lang.String"/>
+	<field name="RFC" class="java.lang.String"/>
+	<field name="cnombre" class="java.lang.String"/>
+	<field name="cIdEntidadContable" class="java.lang.String"/>
+	<field name="aEjercicioFiscal" class="java.lang.String"/>
+	<field name="fAplicacion" class="java.lang.String"/>
+	<field name="mImporteNeto" class="java.math.BigDecimal"/>
+	<group name="tiporetencion">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupFooter>
+			<band height="27"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement key="image" x="2" y="2" width="131" height="36"/>
+				<imageExpression class="java.lang.String"><![CDATA["report\\images\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement key="staticText-5" x="252" y="32" width="292" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true" />
+				</textElement>
+				<text><![CDATA[SISTEMA DE ADMINISTRACION INTEGRAL (SAI)
+REPORTE CIERRE CUENTAS POR PAGAR PAGADAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-24" x="252" y="7" width="292" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="41" splitType="Stretch">
+			<line>
+				<reportElement x="2" y="39" width="800" height="1"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="34" splitType="Stretch">
+			<line>
+				<reportElement x="2" y="33" width="800" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="4" y="7" width="89" height="20"/>
+				<textElement/>
+				<text><![CDATA[Tipo de Documento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="105" y="7" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Cuenta Por Pagar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="7" width="26" height="20"/>
+				<textElement/>
+				<text><![CDATA[RFC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="319" y="7" width="54" height="20"/>
+				<textElement/>
+				<text><![CDATA[Beneficiario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="403" y="7" width="79" height="20"/>
+				<textElement/>
+				<text><![CDATA[Unidad Ejecutora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="502" y="7" width="75" height="20"/>
+				<textElement/>
+				<text><![CDATA[Ejercicio Fiscal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="590" y="7" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha de Aplicacion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="707" y="7" width="60" height="20"/>
+				<textElement/>
+				<text><![CDATA[Importe Neto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="16" y="4" width="59" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tipoDocumento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="4" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{caNoContrarrecibo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="209" y="4" width="82" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{RFC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="301" y="4" width="90" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cnombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="424" y="3" width="33" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cIdEntidadContable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="516" y="4" width="48" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{aEjercicioFiscal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="602" y="4" width="72" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fAplicacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="706" y="4" width="79" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mImporteNeto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="17" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

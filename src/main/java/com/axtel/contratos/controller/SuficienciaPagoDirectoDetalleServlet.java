@@ -83,7 +83,7 @@ public class SuficienciaPagoDirectoDetalleServlet extends HttpServlet {
             logic.deleteByFolio(folio);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("{\"mensaje\":\"Eliminados correctamente\"}".toPath());
+            response.getWriter().write("{\"mensaje\":\"Eliminados correctamente\"}");
         } catch (Exception ex) {
             log.error("Error al eliminar Detalles", ex);
             enviarError(response, "Error al eliminar Detalles.");
@@ -108,6 +108,6 @@ public class SuficienciaPagoDirectoDetalleServlet extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"error\": \"" + mensaje + "\"}".toPath());
+        response.getWriter().write("{\"error\": \"" + mensaje + "\"}");
     }
 }

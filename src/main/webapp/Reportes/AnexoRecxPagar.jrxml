@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AnexoRecxPagar"  pageWidth="551" pageHeight="752" columnWidth="551" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="4.594972986357241"/>
+	<property name="ireport.x" value="1446"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="whereFolio" class="java.lang.String">
+		<defaultValueExpression><![CDATA["CR.caNoContrarrecibo = '10DD2015100001'"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT encabezado.nfolioanexo1,
+       CASE
+         WHEN encabezado.ccentrocontable = '10' THEN 'OFICINAS CENTRALES'
+         ELSE 'GERENCIA ESTATAL'
+       END                                      cDescripcion,
+       encabezado.cunidadresponsable + ' - '
+       + d_descripcion                          AS cUnidadResponsable,
+       faplicacion,
+       canocontrarrecibo,
+       ctipoanexo,
+       cconcepto,
+       encabezado.mimporte,
+       dbo.Fncantidadletra(encabezado.mimporte) AS cantLetras,
+       encabezado.cunidadresponsable,
+       ''                                       RfcContrato,
+       ''                                       NombreContrato,
+       ''                                       cIdContrato,
+       ep,
+       detalle.mimporte                         ImporteDetalle,
+       cmes,
+       sfirmantevobo,
+       spuestovobo,
+       sfirmanteaut,
+       spuestoaut
+FROM   dbo.tanexo1encabezado encabezado WITH ( nolock )
+       INNER JOIN dbo.tanexo1detalle detalle WITH ( nolock )
+               ON encabezado.nfolioanexo1 = detalle.nfolioanexo1
+       INNER JOIN dbo.tcatunidadresponsable UR
+               ON encabezado.cunidadresponsable = UR.cunidadresponsable
+WHERE  encabezado.caNoContrarrecibo = $P{whereFolio}]]>
+	</queryString>
+	<field name="nfolioanexo1" class="java.lang.Integer"/>
+	<field name="cDescripcion" class="java.lang.String"/>
+	<field name="cUnidadResponsable" class="java.lang.String"/>
+	<field name="faplicacion" class="java.lang.String"/>
+	<field name="canocontrarrecibo" class="java.lang.String"/>
+	<field name="ctipoanexo" class="java.lang.String"/>
+	<field name="cconcepto" class="java.lang.String"/>
+	<field name="mimporte" class="java.math.BigDecimal"/>
+	<field name="cantLetras" class="java.lang.String"/>
+	<field name="RfcContrato" class="java.lang.String"/>
+	<field name="NombreContrato" class="java.lang.String"/>
+	<field name="cIdContrato" class="java.lang.String"/>
+	<field name="ep" class="java.lang.String"/>
+	<field name="ImporteDetalle" class="java.math.BigDecimal"/>
+	<field name="cmes" class="java.lang.Integer"/>
+	<field name="sfirmantevobo" class="java.lang.String"/>
+	<field name="spuestovobo" class="java.lang.String"/>
+	<field name="sfirmanteaut" class="java.lang.String"/>
+	<field name="spuestoaut" class="java.lang.String"/>
+	<columnHeader>
+		<band height="1" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="551" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="1" height="12"/>
+			</line>
+			<line>
+				<reportElement x="551" y="0" width="1" height="12"/>
+			</line>
+			<textField>
+				<reportElement x="6" y="0" width="334" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ep}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="340" y="0" width="116" height="11"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{ImporteDetalle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="458" y="0" width="93" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{cmes}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="339" y="0" width="1" height="12"/>
+			</line>
+			<line>
+				<reportElement x="459" y="0" width="1" height="12"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="1" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="551" height="1"/>
+			</line>
+		</band>
+	</columnFooter>
+</jasperReport>

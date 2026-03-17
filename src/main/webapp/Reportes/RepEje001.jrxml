@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RepEje001" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="732" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.502629601803156"/>
+	<property name="ireport.x" value="241"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<queryString>
+		<![CDATA[declare @Salida varchar(100);
+EXECUTE sp_pMultiReporte_syc '', '''81102'',''81107'',''81108''', 'cUnidadResponsable_15', 'cSubCuenta', 'mSaldo12', 'GENERAL', 'EMULGADO', @Salida OUTPUT,'select  cUnidadResponsable_15 UNIDAD_EJECUTORA, Substring(cPartida_10,1,1) CAPITULO, isnull(sum(MODIFICADO),0) MODIFICADO, isnull(sum(EJERCIDO_PAGADO),0) EJERCIDO_PAGADO, isnull(sum(DISPONIBLE_BRUTO),0) DISPONIBLE_BRUTO from tSaldosPresupuesto WITH (NOLOCK) where Usuario=''EMULGADO'' group by  cUnidadResponsable_15, Substring(cPartida_10,1,1) order by cUnidadResponsable_15, Substring(cPartida_10,1,1);';
+print (@Salida);]]>
+	</queryString>
+	<field name="UNIDAD_EJECUTORA" class="java.lang.String"/>
+	<field name="CAPITULO" class="java.lang.String"/>
+	<field name="MODIFICADO" class="java.math.BigDecimal"/>
+	<field name="EJERCIDO_PAGADO" class="java.math.BigDecimal"/>
+	<field name="DISPONIBLE_BRUTO" class="java.math.BigDecimal"/>
+	<variable name="nombreMes" class="java.lang.String">
+		<variableExpression><![CDATA[new String("")]]></variableExpression>
+	</variable>
+	<variable name="fecha" class="java.util.Date">
+		<initialValueExpression><![CDATA[new Date()]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch">
+			<textField evaluationTime="Page" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-1" x="312" y="-459" width="34" height="18"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-17" x="279" y="-459" width="34" height="19"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Página:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-2" x="366" y="-459" width="99" height="17"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-18" x="346" y="-459" width="20" height="19"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[de]]></text>
+			</staticText>
+			<textField evaluationTime="Page" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-3" x="312" y="-459" width="34" height="18"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-19" x="279" y="-459" width="34" height="19"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Página:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-4" x="366" y="-459" width="99" height="17"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-20" x="346" y="-459" width="20" height="19"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[de]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="90" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-14" mode="Transparent" x="220" y="4" width="281" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true" />
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-16" mode="Transparent" x="220" y="33" width="281" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[SISTEMA DE ADMINISTRACIÓN INTEGRAL]]></text>
+			</staticText>
+			<image>
+				<reportElement key="image-2" mode="Transparent" x="40" y="35" width="0" height="0"/>
+				<imageExpression class="java.lang.String"><![CDATA[]]></imageExpression>
+			</image>
+			<image>
+				<reportElement key="image-3" mode="Transparent" x="40" y="35" width="0" height="0"/>
+				<imageExpression class="java.lang.String"><![CDATA[]]></imageExpression>
+			</image>
+			<image>
+				<reportElement key="image-4" x="3" y="4" width="131" height="36"/>
+				<imageExpression class="java.lang.String"><![CDATA["report\\images\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement key="staticText-34" mode="Transparent" x="220" y="19" width="281" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[GERENCIA DE RECURSOS FINANCIEROS]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
+				<reportElement key="textField" x="580" y="20" width="100" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<line>
+				<reportElement key="line-1" x="1" y="1" width="730" height="1"/>
+			</line>
+			<line>
+				<reportElement key="line-2" x="1" y="19" width="730" height="1"/>
+			</line>
+			<staticText>
+				<reportElement key="" x="0" y="0" width="146" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[UNIDAD EJECUTORA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="146" y="0" width="146" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[CAPITULO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="292" y="0" width="146" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[MODIFICADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="438" y="0" width="146" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[EJERCIDO PAGADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="584" y="0" width="146" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[DISPONIBLE BRUTO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<printWhenExpression><![CDATA[1==1]]></printWhenExpression>
+			<textField>
+				<reportElement key="textField" x="0" y="0" width="146" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{UNIDAD_EJECUTORA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="146" y="0" width="146" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CAPITULO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="292" y="0" width="146" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{MODIFICADO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="438" y="0" width="146" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{EJERCIDO_PAGADO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="584" y="0" width="146" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{DISPONIBLE_BRUTO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-21" mode="Transparent" x="293" y="1" width="37" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[Página:]]></text>
+			</staticText>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement key="textField-6" mode="Transparent" x="380" y="1" width="31" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-22" mode="Transparent" x="360" y="1" width="20" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[de]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-5" mode="Transparent" x="330" y="1" width="30" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="18" splitType="Stretch">
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement key="textField-6" mode="Transparent" x="380" y="1" width="31" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-22" mode="Transparent" x="360" y="1" width="20" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[de]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-21" mode="Transparent" x="293" y="1" width="37" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[Página:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-5" mode="Transparent" x="330" y="1" width="30" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

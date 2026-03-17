@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de CFDI</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_tCFDI_Cat_TasaCuota</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cEsRangoOFijo"			control=""	dependencia="No"	limpiaOnKeypress=""		header="Rango Fijo"			rowCol="1,1" 	ancho="10"	maxlen="10"	 tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cTasaOCuotaVMinimo"		control=""	dependencia="No"	limpiaOnKeypress=""		header="Valor tasa minimno"	rowCol="1,2" 	ancho="10"	maxlen="10"  tipo="integer"	visible="Si"	clase=""/>
+		<columna campo="cTasaOCuotaVMaximo"		control=""	dependencia="No"	limpiaOnKeypress=""		header="Valor tasa maximo"	rowCol="1,3" 	ancho="20"	maxlen="20"	 tipo="integer"	visible="Si"	clase=""/>
+		<columna campo="cImpuesto"				control=""	dependencia="No"	limpiaOnKeypress=""		header="Tipo Impuesto"		rowCol="2,1" 	ancho="5"	maxlen="5"	 tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cFactor"				control=""	dependencia="No"	limpiaOnKeypress=""		header="Factor"				rowCol="2,2" 	ancho="5"	maxlen="5"	 tipo="string"	visible="Si"	clase=""/>		
+		<columna campo="cEsTraslado"			control=""	dependencia="No"	limpiaOnKeypress=""		header="Es Traslado"		rowCol="2,3" 	ancho="5"	maxlen="5"	 tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cEsRetencion"			control=""	dependencia="No"	limpiaOnKeypress=""		header="Es Retencion"		rowCol="3,1" 	ancho="5"	maxlen="5"	 tipo="string"	visible="Si"	clase=""/>
+		<columna campo="fFechaInicioVigencia"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Inicio Vigencia"	rowCol="3,2" 	ancho="15"	maxlen="15"	 tipo="date"	visible="Si"	clase=""/>
+		<columna campo="fFechaFinVigencia"		control=""	dependencia="No"	limpiaOnKeypress=""		header="Fin Vigencia"		rowCol="3,3" 	ancho="15"	maxlen="15"	 tipo="date"	visible="Si"	clase=""/>
+	</grid>  
+
+</Ayuda>

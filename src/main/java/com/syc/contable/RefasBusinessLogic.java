@@ -749,14 +749,14 @@ public class RefasBusinessLogic extends DataSourceManager {
                 fechaAplicacion = (String) numerosSicopSiaff.get(2);
             }
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis())));
             AplicarContableReturn acr;
             if (!"2012".equals(adecProy.obtenEjercicioFiscal()))
                 acr = conInt.aplicarContableNuevo(conn, c, "tReintegroAutEncabezado", "tReintegroAutDetalle", "nFolioReintegroaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGROAUT", m, prefixPath, uLogin, "");
             else
                 acr = conInt.aplicarContableNuevo(conn, c, "tReintegroAutEncabezado", "tReintegroAutDetalle", "nFolioReintegroaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGROAUT", m, prefixPath, uLogin, "SI");
             arrLResult = acr.getMessageList();
-            log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis())));
             Calendar cal = new GregorianCalendar();
             String mesActual = Util.NOMBRE_MESES_MX[cal.get(Calendar.MONTH)];
             Caso cReloaded = new Caso();
@@ -941,7 +941,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             CasoBusinessLogic cbl = new CasoBusinessLogic(GestionInterface.ATT_CONEXION);
             conn = cbl.getConnection();
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis())));
             // AplicarContableReturn acr;
             // if (!"2012".equals(adecProy.obtenEjercicioFiscal()))
             // acr = conInt.aplicarContableNuevo(conn, c,
@@ -954,7 +954,7 @@ public class RefasBusinessLogic extends DataSourceManager {
             // new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-')
             // + 1)).intValue(), "REINTEGRO", m, prefixPath, uLogin, "SI");
             // arrLResult = acr.getMessageList();
-            log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis())));
             Caso cReloaded = new Caso();
             cReloaded.setIdCaso(c.getIdCaso());
             cReloaded = CasoManager.select(conn, cReloaded);

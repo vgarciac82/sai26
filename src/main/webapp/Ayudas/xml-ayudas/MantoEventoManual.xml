@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--  -->
+<Ayuda>
+	<titulo>Mantenimiento Evento Manual</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>M_TEVENTOMANUAL</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>3,6</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	
+	<grid>	
+		<columna campo="cIdGrupoEvento"		control="txtGridnIdGrupoEvento"			dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridnIdGrupoEvento"	header="cIdGrupoEvento"			rowCol="1,1" 	ancho="10"		maxlen="10"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cIdSubGrupoEvento"	control="txtGridnIdSubGrupoEvento"		dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridnIdSubGrupoEvento"	header="cIdSubGrupoEvento"		rowCol="1,2" 	ancho="10"		maxlen="10"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cIdEventoManual"	control="txtGridcEventoRelacion"		dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcEventoRelacion"	header="cIdEventoManual"		rowCol="1,3" 	ancho="10"		maxlen="10"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cPartida"			control="txtGridcPartida"				dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcPartida"			header="Partida"				rowCol="1,4" 	ancho="5"		maxlen="10"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="nCuenta"			control="txtGridnCuenta"				dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridnCuenta"			header="Numero de Cuenta"		rowCol="2,1" 	ancho="30"		maxlen="30"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cEvento"			control="txtGridcEvento"				dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcPartida"			header="cEvento"				rowCol="2,2" 	ancho="10"		maxlen="10"	  	tipo="string"		visible="Si"	clase=""/>
+		<columna campo="nDocRenglon"		control="txtGridnDocRenglon"			dependencia="No"								limpiaOnKeypress=""							header="nDocRenglon"	 		rowCol="2,3"	ancho="5"		maxlen="5" 		tipo="string"		visible="Si"	clase=""/>
+		<columna campo="aEjercicioFiscal"	control="txtGridaEjercicioFiscal"		dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridaEjercicioFiscal"	header="aEjercicioFiscal"		rowCol="2,4" 	ancho="15"		maxlen="12"		tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC" defaultValue="" anioDinamic="1"/>
+	</grid>  
+
+	<insertaRegistro>
+		<campo field="cIdGrupoEvento" 		control="txtGridnIdGrupoEvento"		llave="SI"	identity="No" requerido=""	requeridoFocus="txtGridnIdGrupoEvento"		tipo="string" />
+		<campo field="cIdSubGrupoEvento" 	control="txtGridnIdSubGrupoEvento"	llave="SI"	identity="No" requerido=""	requeridoFocus="txtGridnIdSubGrupoEvento"	tipo="string" />
+		<campo field="cIdEventoManual" 		control="txtGridcEventoRelacion"	llave="SI"	identity="No" requerido=""	requeridoFocus="txtGridcEventoRelacion"		tipo="string" />
+		<campo field="cPartida"				control="txtGridcPartida"			llave="SI"	identity="No" requerido=""	requeridoFocus="txtGridcPartida"			tipo="string" />
+		<campo field="nCuenta" 				control="txtGridnCuenta"			llave="No"	identity="No" requerido=""	requeridoFocus="txtGridnCuenta"				tipo="string" />
+		<campo field="cEvento" 				control="txtGridcEvento"			llave="No"	identity="No" requerido=""	requeridoFocus="txtGridcEvento"				tipo="string" />
+		<campo field="nDocRenglon" 			control="txtGridnDocRenglon"		llave="SI"	identity="No" requerido=""	requeridoFocus="txtGridnDocRenglon"			tipo="string" />
+		<campo field="aEjercicioFiscal"		control="txtGridaEjercicioFiscal"	llave="SI"	identity="No" requerido=""	requeridoFocus="txtGridaEjercicioFiscal"	tipo="string" />
+	</insertaRegistro>
+	
+</Ayuda>

@@ -337,7 +337,7 @@ public class DtableToExcel extends HttpServlet implements GestionInterface {
         try {
             response.setContentType("application/vnd.ms-excel");
             response.addHeader("Content-Disposition", "attachment; filename=\"reporte" + "rpt" + "_" + System.currentTimeMillis() + ".xls\";");
-            wb.write(response.getOutputStream().toPath());
+            wb.write(response.getOutputStream());
             response.getOutputStream().flush();
             response.getOutputStream().close();
         } catch (Exception e) {

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--  -->
+<Ayuda>
+	<titulo>Mantenimiento OLI</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>800</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_TCATALOGOOLI</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>1</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>			
+		<columna campo="idOLIOf"		control="txtGrididOLIOf"		dependencia="No" limpiaOnKeypress="" header="Oficio"	 			rowCol="1,1"	ancho="15"	maxlen="20"  tipo="string" visible="Si" clase=""/>		
+		<columna campo="idProyecto"		control="txtGrididProyecto"		dependencia="No" limpiaOnKeypress="" header="Proyecto"	 			rowCol="1,2"	ancho="15"	maxlen="13"  tipo="string" visible="Si" clase=""/>
+		<columna campo="idCvePres"		control="txtGrididCvePres"		dependencia="No" limpiaOnKeypress="" header="Partida"	 			rowCol="1,3"	ancho="5"	maxlen="5"  tipo="string" visible="Si" clase=""/>
+		<columna campo="idEstado"		control="txtGrididEstado"		dependencia="No" limpiaOnKeypress="" header="Id Estado"				rowCol="1,4"	ancho="2"	maxlen="2"  tipo="string" visible="Si" clase=""/>
+		<columna campo="Monto"			control="txtGridMonto"			dependencia="No" limpiaOnKeypress="" header="Monto"					rowCol="2,1"	ancho="20"	maxlen="100"  tipo="string" visible="Si" clase=""/>
+		<columna campo="idUAN"			control="txtGrididUAN"			dependencia="No" limpiaOnKeypress="" header="Unidad Normativa"		rowCol="2,2"	ancho="5"	maxlen="3" tipo="string" visible="Si" clase=""/>
+		<columna campo="idUAE"			control="txtGrididUAE"			dependencia="No" limpiaOnKeypress="" header="Unidad Ejecutora"		rowCol="2,3"	ancho="5"	maxlen="3"  tipo="string" visible="Si" clase=""/>
+		<columna campo="lHabilitada"	control="txtGridlHabilitada"	dependencia="No" limpiaOnKeypress="" header="Habilitada 1-SI|0-NO"	rowCol="2,4"	ancho="2"	maxlen="1"  tipo="string" visible="Si" clase=""/>		
+	</grid>  
+	
+	<insertaRegistro>		
+		<campo field="idOLIOf"		control="txtGrididOLIOf"		llave="No"	identity="No" requerido="El Oficio es un dato requerido."				requeridoFocus="txtGridcRubro"	tipo="string" />
+		<campo field="idProyecto"	control="txtGrididProyecto"		llave="No"	identity="No" requerido="El Proyecto es un dato requerido."				requeridoFocus=""				tipo="string" />
+		<campo field="idCvePres"	control="txtGrididCvePres"		llave="No"	identity="No" requerido="La Partida es un dato requerido."				requeridoFocus=""				tipo="string" />
+		<campo field="idEstado"		control="txtGrididEstado"		llave="No"	identity="No" requerido="El Id Estado es un dato requerido."			requeridoFocus=""				tipo="string" />
+		<campo field="Monto"		control="txtGridMonto"			llave="No"	identity="No" requerido="El Monto es un dato requerido."				requeridoFocus=""				tipo="string" />
+		<campo field="idUAN"		control="txtGrididUAN"			llave="No"	identity="No" requerido="La Unidad Normativa es un dato requerido."		requeridoFocus=""				tipo="string" />
+		<campo field="idUAE"		control="txtGrididUAE"			llave="No"	identity="No" requerido="La Unidad Ejecutora es un dato requerido."		requeridoFocus=""				tipo="string" />
+		<campo field="lHabilitada"	control="txtGridlHabilitada"	llave="No"	identity="No" requerido=""												requeridoFocus=""				tipo="string" />		
+	</insertaRegistro>
+	
+</Ayuda>

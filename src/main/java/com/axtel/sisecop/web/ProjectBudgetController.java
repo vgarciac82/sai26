@@ -47,7 +47,7 @@ public class ProjectBudgetController extends HttpServlet {
         ProjectBudgetItemDTO budgetItem = readBudgetItem(request);
         log.trace("Object: {}", "JSON recibido correctamente y mapeado a objeto BudgetItem. " + budgetItem);
         try {
-            log.debug("Object: {}", "Saving budgetItem: " + budgetItem);
+            log.debug("Object: " + String.valueOf("Saving budgetItem: " + budgetItem));
             ProjectBudgetItem projectBudgetItem = budgetService.createProjectBudget(budgetItem);
             log.info("Object: {}", "Territory saved: " + projectBudgetItem);
             Util.sendJSONResponse(response, projectBudgetItem);

@@ -80,7 +80,7 @@ public class CargaExcelProyectoServlet extends HttpServlet implements GestionInt
                 log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                 Util.copiaArchivo(archivoCargaStream, nombreDestino);
                 item.delete();
-                log.debug("Object: {}", "Procesando archivo:" + nombreArchivo);
+                log.debug("Object: " + String.valueOf("Procesando archivo:" + nombreArchivo));
                 CargaProyectoBusinessLogic cpbl = new CargaProyectoBusinessLogic(u.getLogin());
                 cpbl.cargaExcelProyecto(nombreDestino);
                 mensajeRetorno = "Archivo cargado exitosamente";

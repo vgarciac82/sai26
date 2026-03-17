@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteCompromiso" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="86527ea0-8035-4411-893e-f1665e15706e">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sai_2025"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="where2" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT DISTINCT CASE WHEN CPARTIDA = '31301' 
+	THEN '•	31301 Contratos de Servicio de agua potable' 
+	WHEN CPARTIDA = '31101'  
+	THEN '•	31101 Medidores de la CFE ' 
+	WHEN CPARTIDA = '35701'  
+	THEN '•	35701-39202 Parque Vehicular ' 
+	WHEN CPARTIDA = '39202'  
+	THEN '•	35701-39202 Parque Vehicular ' 
+	ELSE ''
+	END adjunto
+	FROM tCompromisoEncabezado COMP WITH (NOLOCK)
+INNER JOIN TCOMPROMISODETALLE DET WITH (NOLOCK)
+ON DET.nfoliocompromiso = comp.nfoliocompromiso
+INNER JOIN TCATALOGOPARTIDA partida WITH (NOLOCK)
+on partida.cpartida = substring(ep, 32,5)
+WHERE  COMP.caNoCompromiso = $P{where2}
+AND CPARTIDA IN (31301,31101,35701,39202)]]>
+	</queryString>
+	<field name="adjunto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="adjunto"/>
+		<property name="com.jaspersoft.studio.field.label" value="adjunto"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} > 1]]></printWhenExpression>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="10" y="6" width="340" height="14" uuid="1a7c9e2d-710a-4784-9325-8b01c6b62b37"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Se adjunta información complementaria en los listados siguientes:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="10" y="0" width="360" height="15" uuid="ce982b54-f8b9-4b2b-a900-254e1a0eb454">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9087139b-32b4-487a-91f8-e4b4e1409ec8"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{adjunto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Immediate">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band/>
+	</lastPageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

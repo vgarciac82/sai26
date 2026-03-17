@@ -311,7 +311,7 @@ public class GestionServlet extends HttpServlet implements GestionInterface {
                                 Thread.sleep(5000);
                         }
                     } catch (Exception ex) {
-                        log.debug("Object: {}", "Tiempo de espera para refrescar inbox de adecuaciones: " + ex);
+                        log.debug("Object: " + String.valueOf("Tiempo de espera para refrescar inbox de adecuaciones: " + ex));
                     }
                     actualizaInbox(jniName, req);
                     resp.sendRedirect("../caso/inbox.jsp");
@@ -489,7 +489,7 @@ public class GestionServlet extends HttpServlet implements GestionInterface {
                     resp.setContentLength(objeto.length);
                     resp.setHeader("Content-Disposition", "attachment; filename=" + (isKey ? "llaveprivada" : "certificadopublico") + "cgitam" + u.getLogin() + ".key");
                     ServletOutputStream sos = resp.getOutputStream();
-                    sos.write(objeto.toPath());
+                    sos.write(objeto);
                     sos.flush();
                     sos.close();
                 } else {
@@ -1063,7 +1063,7 @@ public class GestionServlet extends HttpServlet implements GestionInterface {
         refresh = (refresh == null) ? "30" : refresh;
         session.setAttribute("refresh", refresh);
         String strRedirect = "../caso/inbox.jsp?" + returnRequestString(request);
-        log.debug("Object: {}", "Redirect: " + strRedirect);
+        log.debug("Object: " + String.valueOf("Redirect: " + strRedirect));
         response.sendRedirect(strRedirect);
     }
 

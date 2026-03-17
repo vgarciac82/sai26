@@ -86,7 +86,7 @@ public class LayoutBancoRGServlet extends HttpServlet {
                 archivoBanorte.append(LayoutBanorte.get(i));
             }
             String outTextBanorte = archivoBanorte.toString();
-            out.write(outTextBanorte.toPath());
+            out.write(outTextBanorte);
             // fin Layout BANORTE
             out.close();
             // Guarda el layout SPEI
@@ -96,7 +96,7 @@ public class LayoutBancoRGServlet extends HttpServlet {
                 archivoSpei.append(LayoutSpei.get(i));
             }
             String outTextSpei = archivoSpei.toString();
-            outSpei.write(outTextSpei.toPath());
+            outSpei.write(outTextSpei);
             // fin Layout SPEI
             outSpei.close();
             // These are the files to include in the ZIP file

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mantenimiento Usuarios -->
+<Ayuda>
+	<titulo>Ayuda Catalogo de Tipos de Procedencia</titulo>
+	<anchoWin>400</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_CG_TIPO_PROCEDENCIA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	<grid>
+		<columna campo="ID_TIPO_PROCEDENCIA"	control="txtGridMantoIdTp"			dependencia="No"	limpiaOnKeypress=""		header="Clave"					ancho="6"	maxlen="6"		tipo="numero"	visible="Si"	clase="Protegido"/>
+		<columna campo="TP_DESCRIPCION"			control="txtGridMantoTpDescripcion"	dependencia="No"	limpiaOnKeypress=""		header="Descripcion"			ancho="50"	maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+	</grid>	  
+	<insertaRegistro>
+		<campo field="ID_TIPO_PROCEDENCIA"	control="txtGridMantoIdTp"			llave="Si"	identity="Si"	requerido=""										requeridoFocus=""	 						tipo="numero" />
+		<campo field="TP_DESCRIPCION"		control="txtGridMantoTpDescripcion"	llave="No"	identity="No"	requerido="La descripcion es un dato requerido."	requeridoFocus="txtGridMantoTpDescripcion"	tipo="string" />		
+	</insertaRegistro>
+</Ayuda>

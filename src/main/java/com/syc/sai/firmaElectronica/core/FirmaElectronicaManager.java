@@ -169,9 +169,9 @@ public class FirmaElectronicaManager {
             ps.setInt(1, estatusRM);
             ps.setString(2, rmfiel.getRecepcionMaterial().getcIdPedContDef());
             ps.setString(3, rmfiel.getRecepcionMaterial().getcIdRecepcionMat());
-            log.debug("Object: {}", "Ejecutando: " + query.toString() + " [" + rmfiel.getRecepcionMaterial().getcIdPedContDef() + "][" + rmfiel.getRecepcionMaterial().getcIdRecepcionMat() + "]");
+            log.debug("Object: " + String.valueOf("Ejecutando: " + query.toString() + " [" + rmfiel.getRecepcionMaterial().getcIdPedContDef() + "][" + rmfiel.getRecepcionMaterial().getcIdRecepcionMat() + "]"));
             int actualizados = ps.executeUpdate();
-            log.debug("Object: {}", "Se actualizaron: " + actualizados + " registros.");
+            log.debug("Object: " + String.valueOf("Se actualizaron: " + actualizados + " registros."));
             return true;
         } finally {
             CloseObject.closeObject(ps);
@@ -193,9 +193,9 @@ public class FirmaElectronicaManager {
             ps.setString(2, rmfiel.getRecepcionMaterial().getcIdPedContDef());
             ps.setString(3, rmfiel.getRecepcionMaterial().getcIdRecepcionMat());
             ps.setInt(4, rmfiel.getRecepcionMaterial().getIdNota());
-            log.debug("Object: {}", "Ejecutando: " + query.toString() + " [" + rmfiel.getRecepcionMaterial().getcIdPedContDef() + "][" + rmfiel.getRecepcionMaterial().getcIdRecepcionMat() + "]" + "[" + rmfiel.getRecepcionMaterial().getIdNota() + "]");
+            log.debug("Object: " + String.valueOf("Ejecutando: " + query.toString() + " [" + rmfiel.getRecepcionMaterial().getcIdPedContDef() + "][" + rmfiel.getRecepcionMaterial().getcIdRecepcionMat() + "]" + "[" + rmfiel.getRecepcionMaterial().getIdNota() + "]"));
             int actualizados = ps.executeUpdate();
-            log.debug("Object: {}", "Se actualizaron: " + actualizados + " registros.");
+            log.debug("Object: " + String.valueOf("Se actualizaron: " + actualizados + " registros."));
             return true;
         } finally {
             CloseObject.closeObject(ps);

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--  -->
+<Ayuda>
+	<titulo>Seleccion de Eventos</titulo>
+	<anchoWin>750</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>R_SELECCIONA_EVENTO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>	
+	
+	<grid>	
+		<columna campo="cEvento"	    control="cEvento"	      dependencia="No"	limpiaOnKeypress=""		header="Evento"	           ancho="10"	    maxlen="10"  tipo="string"	visible="Si"	clase=""/>		
+		<columna campo="dEvento"	    control="dEvento"	      dependencia="No"	limpiaOnKeypress=""		header="Descripción"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="nidgrupoevento"	control="nidgrupoevento"  dependencia="Si"	limpiaOnKeypress=""		header="Grupo"	         ancho="4"	    maxlen="4"   tipo="string"	visible="No"	clase=""/>
+		<columna campo="evento.cUR "	control="ue"  			  dependencia="Si"	limpiaOnKeypress=""		header="UR"	         ctrlsDependientes="ue" ancho="4"	    maxlen="4"   tipo="string"	visible="No"	clase=""/>
+		
+	</grid>  
+	
+</Ayuda>

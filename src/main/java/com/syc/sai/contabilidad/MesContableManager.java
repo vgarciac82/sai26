@@ -349,8 +349,8 @@ public class MesContableManager {
         String tableName = "t" + tipoPago + "Encabezado";
         String field = "nFolio" + tipoPago;
         String query = "UPDATE " + tableName + " set fAplicacion = GETDATE() WHERE " + field + " = " + nFolioPago;
-        log.debug("Object: {}", "Tabla[" + tableName + "] Campo Folio[" + field + "]");
-        log.debug("Object: {}", query.toString());
+        log.debug("Object: " + String.valueOf("Tabla[" + tableName + "] Campo Folio[" + field + "]"));
+        log.debug("Object: " + String.valueOf(query.toString()));
         Statement stmnt = null;
         try {
             stmnt = conn.createStatement();

@@ -249,7 +249,7 @@ public abstract class EgresoEncabezado extends DataSourceManager {
         query.append("UPDATE	t").append(getTipoPago()).append("Encabezado ");
         query.append("   SET	canocontrarrecibo = ?");
         query.append(" WHERE nFolio").append(getTipoPago()).append(" = ?");
-        log.debug("Object: {}", "Query generado para actualizar contrarecibo:\n" + query.toString());
+        log.debug("Object: " + String.valueOf("Query generado para actualizar contrarecibo:\n" + query.toString()));
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement(query.toString());
@@ -273,7 +273,7 @@ public abstract class EgresoEncabezado extends DataSourceManager {
             ps.setString(1, getIdTipoMovimiento());
             ps.setString(2, getIdTipoConcepto());
             ps.setInt(3, getFolioPago());
-            log.debug("Object: {}", query.toString());
+            log.debug("Object: " + String.valueOf(query.toString()));
             return ps.executeUpdate();
         } finally {
             CloseObject.closeObject(ps);
@@ -292,7 +292,7 @@ public abstract class EgresoEncabezado extends DataSourceManager {
             ps.setString(1, getIdTipoMovimiento());
             ps.setString(2, getIdTipoConcepto());
             ps.setInt(3, getFolioPago());
-            log.debug("Object: {}", query.toString());
+            log.debug("Object: " + String.valueOf(query.toString()));
             return ps.executeUpdate();
         } finally {
             CloseObject.closeObject(ps);

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--  -->
+<Ayuda>
+	<titulo>Mantenimiento Subcuenta FFM</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>800</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_TSUBCUENTASFFM</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>1</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>			
+		<columna campo="cSubcuenta"		control="txtGridcSubcuenta"		dependencia="No" limpiaOnKeypress="" header="Subcuenta FFM"	 	rowCol="1,1"	ancho="15"	maxlen="20"  tipo="string" visible="Si" clase=""/>		
+		<columna campo="cDescripcion"	control="txtGridcDescripcion"	dependencia="No" limpiaOnKeypress="" header="Descripcion"	 	rowCol="1,2"	ancho="65"	maxlen="65"  tipo="string" visible="Si" clase=""/>			
+	</grid>  
+	
+	<insertaRegistro>		
+		<campo field="cSubcuenta"		control="txtGridcSubcuenta"		llave="No"	identity="No" requerido="La Subcuenta es un dato requerido."		requeridoFocus="txtGridcSubcuenta"	tipo="string" />
+		<campo field="cDescripcion"		control="txtGridcDescripcion"	llave="No"	identity="No" requerido="La Descripcion es un dato requerido."		requeridoFocus=""					tipo="string" />			
+	</insertaRegistro>
+	
+</Ayuda>

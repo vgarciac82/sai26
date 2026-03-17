@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="saldosCapituloMil"  pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.771561000000001"/>
+	<property name="ireport.x" value="266"/>
+	<property name="ireport.y" value="57"/>
+	<parameter name="caNoContrarrecibo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[" caNoContrarreciboTxt = '' "]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT caNoContrarreciboTxt, EPTxt, cMesTxt, ID_TIPO_MOVIMIENTO, ID_TIPO_CONCEPTO, importeNeto, caNoCompromisoTxt, estatus
+FROM v_NominaCapituloMilDev WITH(NOLOCK)
+WHERE $P!{caNoContrarrecibo}]]>
+	</queryString>
+	<field name="caNoContrarreciboTxt" class="java.lang.String"/>
+	<field name="EPTxt" class="java.lang.String"/>
+	<field name="cMesTxt" class="java.lang.String"/>
+	<field name="ID_TIPO_MOVIMIENTO" class="java.lang.String"/>
+	<field name="ID_TIPO_CONCEPTO" class="java.lang.String"/>
+	<field name="importeNeto" class="java.math.BigDecimal"/>
+	<field name="caNoCompromisoTxt" class="java.lang.String"/>
+	<field name="estatus" class="java.lang.String"/>
+	<variable name="importeNeto_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{importeNeto}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="89" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText" x="165" y="10" width="267" height="50"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL
+GERENCIA DE RECURSOS FINANCIEROS
+SUBGERENCIA DE OPERACIÓN FINANCIERA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="165" y="66" width="267" height="23"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte Capitulo Mil]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="59" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[CXPr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="113" y="0" width="131" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Estructura Programatica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="0" width="28" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Mes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="318" y="0" width="32" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Mov]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="0" width="43" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Concepto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="393" y="0" width="64" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Importe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="457" y="0" width="54" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Compromiso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="511" y="0" width="44" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Estatus]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="59" y="0" width="231" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{EPTxt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="59" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{caNoContrarreciboTxt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="0" width="28" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cMesTxt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="318" y="0" width="32" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ID_TIPO_MOVIMIENTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="353" y="0" width="30" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ID_TIPO_CONCEPTO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="393" y="0" width="64" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{importeNeto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="457" y="0" width="64" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{caNoCompromisoTxt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="521" y="0" width="34" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{estatus}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="341" y="13" width="42" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[TOTAL:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="383" y="13" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{importeNeto_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

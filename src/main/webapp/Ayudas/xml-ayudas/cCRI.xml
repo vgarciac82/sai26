@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Catálogo CRI</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>CCRI</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+<!--	<ColSort>0</ColSort>-->
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>		
+		<columna campo="cCRI"					control="cCRI"					dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""	header="CRI"	 				ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cNombre"				control="cNombre"				dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""	header="Nombre"	 				ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>		
+	</grid>  
+
+</Ayuda>

@@ -1,0 +1,66 @@
+<%@ page contentType="text/html; charset=iso-8859-1" language="java"%>
+<%@ page import="com.syc.gestion.core.Usuario, com.syc.gestion.servlet.GestionInterface" %>
+<%
+Usuario u = (Usuario) session.getAttribute(GestionInterface.ATT_USER);
+if (u == null) {
+	session.invalidate();
+	response.sendRedirect("../index.jsp");
+	return;
+}
+String ses = session.getId();
+String url =
+	request.getScheme()
+		+ "://"
+		+ request.getServerName()
+		+ ":"
+		+ request.getServerPort()
+		+ request.getContextPath()
+		+ "/gstnmngr/ReceivePublicKey"	
+		+ "?cve_unica="
+		+ u.getLogin();
+url = response.encodeURL(url);//este es VITAL en WAS, previa activacion del encode en opciones de session		
+if(url.indexOf("jsessionid")!=-1){
+	ses = url.substring(url.indexOf(";jsessionid"));
+	ses = ses.substring(ses.indexOf("=")+1);
+	if(ses.indexOf("?")!=-1){
+		ses = ses.substring(0,ses.indexOf("?"));
+	}
+}
+		
+
+//../gstnmngr/ReceivePublicKey
+%>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>CG-Flow / ITAM</title>
+		<link href="../css/gestion.css" rel="stylesheet" type="text/css" media="all" />
+	</head>
+	<body>
+		<table width="100%"  height="100%" border="1" align="center" cellpadding="0" cellspacing="0" id="texto">					
+			<tr>
+				<td width="100%" height="100%" align="center" valign="middle">
+					<jsp:plugin type="applet"
+							name="appletcreallaves"
+							width="600px"
+							height="200px"
+							codebase="../jars"
+							archive="fortimax_itam_creallaves.jar"
+							code="com.syc.applet.keys.GeneraLlaves"
+							jreversion="1.5.0_03"
+							iepluginurl="http://java.sun.com/update/1.5.0/jinstall-1_5_0_03-windows-i586.cab#Version=1,5,0,0"
+							nspluginurl="http://java.sun.com/update/1.5.0/jinstall-1_5_0_03-windows-i586.cab#Version=1,5,0,0">
+						<jsp:params>
+							<jsp:param name="scriptable" value="true" />
+							<jsp:param name="toUrl" value="<%=url %>" />							
+							<jsp:param name="nombre" value="<%=u.getNombre() %>" />
+							<jsp:param name="departamento" value="DEPARTAMENTO" />
+							<jsp:param name="cve_unica" value="<%=u.getLogin() %>" />							
+						</jsp:params>
+						<jsp:fallback>Su Browser no soporta Applets!</jsp:fallback>
+					</jsp:plugin>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

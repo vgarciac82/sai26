@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento del Tipo de Tasa y Cuota para el CFDI</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_tCFDI_Cat_TasaCuota</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cEsRangoOFijo"			control=""	dependencia="No"	limpiaOnKeypress=""		header="Rango Fijo"			rowCol="1,1" 	ancho="10"	maxlen="10"	 tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cTasaOCuotaVMinimo"		control=""	dependencia="No"	limpiaOnKeypress=""		header="Valor tasa minimno"	rowCol="1,2" 	ancho="10"	maxlen="10"  tipo="integer"	visible="Si"	clase=""/>
+		<columna campo="cTasaOCuotaVMaximo"		control=""	dependencia="No"	limpiaOnKeypress=""		header="Valor tasa maximo"	rowCol="1,3" 	ancho="20"	maxlen="20"	 tipo="integer"	visible="Si"	clase=""/>
+		<columna campo="cImpuesto"				control=""	dependencia="No"	limpiaOnKeypress=""		header="Tipo Impuesto"		rowCol="2,1" 	ancho="5"	maxlen="5"	 tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cFactor"				control=""	dependencia="No"	limpiaOnKeypress=""		header="Factor"				rowCol="2,2" 	ancho="5"	maxlen="5"	 tipo="string"	visible="Si"	clase=""/>		
+		<columna campo="cEsTraslado"			control=""	dependencia="No"	limpiaOnKeypress=""		header="Es Traslado"		rowCol="2,3" 	ancho="5"	maxlen="5"	 tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cEsRetencion"			control=""	dependencia="No"	limpiaOnKeypress=""		header="Es Retencion"		rowCol="3,1" 	ancho="5"	maxlen="5"	 tipo="string"	visible="Si"	clase=""/>
+		<columna campo="fFechaInicioVigencia"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Inicio Vigencia"	rowCol="3,2" 	ancho="15"	maxlen="15"	 tipo="date"	visible="Si"	clase=""/>
+		<columna campo="fFechaFinVigencia"		control=""	dependencia="No"	limpiaOnKeypress=""		header="Fin Vigencia"		rowCol="3,3" 	ancho="15"	maxlen="15"	 tipo="date"	visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="cEsRangoOFijo"		control="txtGridCol0"	llave="No"	identity="No"	requerido="Rango fijo es un dato requerido."			requeridoFocus="txtGridCol0"	tipo="string" />
+		<campo field="cTasaOCuotaVMinimo"	control="txtGridCol1"	llave="No"	identity="No"	requerido=""											requeridoFocus="txtGridCol1"	tipo="integer" />
+		<campo field="cTasaOCuotaVMaximo"	control="txtGridCol2"	llave="No"	identity="No"	requerido="Valor tasa maximo es un dato requerido."		requeridoFocus="txtGridCol2"	tipo="integer" />
+		<campo field="cImpuesto"			control="txtGridCol3"	llave="No"	identity="No"	requerido="Tipo impuesto es un dato requerido."			requeridoFocus="txtGridCol3"	tipo="string" />		
+		<campo field="cFactor"				control="txtGridCol4"	llave="No"	identity="No"	requerido="Factor es un dato requerido."				requeridoFocus="txtGridCol4"	tipo="string" />
+		<campo field="cEsTraslado"			control="txtGridCol5"	llave="No"	identity="No"	requerido="Es traslado es un dato requerido."			requeridoFocus="txtGridCol5"	tipo="string" />
+		<campo field="cEsRetencion"			control="txtGridCol6"	llave="No"	identity="No"	requerido="Es retencion es un dato requerido."			requeridoFocus="txtGridCol6"	tipo="string" />
+		<campo field="fFechaInicioVigencia"	control="txtGridCol7"	llave="No"	identity="No"	requerido="Inicio de vigencia es un dato requerido."	requeridoFocus="txtGridCol7"	tipo="date" />
+		<campo field="fFechaFinVigencia"	control="txtGridCol8"	llave="No"	identity="No"	requerido=""											requeridoFocus="txtGridCol8"	tipo="date" />		
+	</insertaRegistro>
+	
+</Ayuda>

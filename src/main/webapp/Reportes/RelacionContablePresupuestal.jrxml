@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelacionContablePresupuestal"  pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.8150000000000008"/>
+	<property name="ireport.x" value="1"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT ROW_NUMBER() OVER ( PARTITION BY nCuenta, cPartida ORDER BY nCuenta, cPartida ) AS row
+	, CASE WHEN LEN(nCuenta) = 4 THEN '<b>' ELSE '' END + nCuenta + CASE WHEN LEN(nCuenta) = 4 THEN '</b>' ELSE '' END AS nCuenta
+	, CASE WHEN LEN(nCuenta) = 4 THEN '<b>' ELSE '' END + dCuenta + CASE WHEN LEN(nCuenta) = 4 THEN '</b>' ELSE '' END AS dCuenta
+	, CASE WHEN LEN(cPartida) = 4 THEN '<b>' ELSE '' END + cPartida + CASE WHEN LEN(cPartida) = 4 THEN '</b>' ELSE '' END AS cPartida
+	, CASE WHEN LEN(cPartida) = 4 THEN '<b>' ELSE '' END + dPartida + CASE WHEN LEN(cPartida) = 4 THEN '</b>' ELSE '' END AS dPartida
+FROM tRelacionContablePresupeustal rcs
+ORDER BY 1]]>
+	</queryString>
+	<field name="row" class="java.lang.Long"/>
+	<field name="nCuenta" class="java.lang.String"/>
+	<field name="dCuenta" class="java.lang.String"/>
+	<field name="cPartida" class="java.lang.String"/>
+	<field name="dPartida" class="java.lang.String"/>
+	<columnHeader>
+		<band height="24">
+			<staticText>
+				<reportElement x="0" y="0" width="252" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUBCUENTAS ARMONIZADAS PARA DAR CUMPLIMIENTO CON LA LEY DE CONTABILIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="252" y="0" width="259" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUBCUENTAS ARMONIZADAS PARA DAR CUMPLIMIENTO CON LA LEY DE CONTABILIDAD]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="511" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="24"/>
+			</line>
+			<line>
+				<reportElement x="251" y="1" width="1" height="23"/>
+			</line>
+			<line>
+				<reportElement x="510" y="1" width="1" height="23"/>
+			</line>
+			<line>
+				<reportElement x="1" y="23" width="509" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<line>
+				<reportElement x="251" y="-1" width="1" height="24" isPrintWhenDetailOverflows="true"/>
+			</line>
+			<line>
+				<reportElement x="510" y="-1" width="1" height="24" isPrintWhenDetailOverflows="true"/>
+			</line>
+			<line>
+				<reportElement x="0" y="-1" width="1" height="24" isPrintWhenDetailOverflows="true"/>
+			</line>
+			<line>
+				<reportElement x="1" y="22" width="509" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="52" y="1" width="194" height="20"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dCuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="1" width="48" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nCuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="254" y="1" width="46" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cPartida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="301" y="1" width="209" height="20"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dPartida}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

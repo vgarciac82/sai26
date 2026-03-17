@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptJuntaAclaracion"  pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.1269722013523709"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cIdProcedimiento" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DIR_REPORT" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="REQUISICIONES" class="java.lang.String"/>
+	<parameter name="UNIDAD_EJECUTORA" class="java.lang.String"/>
+	<parameter name="CATEGORIA_PROCEDIMIENTO" class="java.lang.String"/>
+	<parameter name="DESCRIPCION_PROCEDIMIENTO" class="java.lang.String"/>
+	<parameter name="DIRECCION" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Faviola\\gestion_conagua_sif_pruebas\\WebContent\\Reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT cNumeroPregunta, cIdRFC, cRazonSocial FROM
+(SELECT cp.cIdRFC, cp.cRazonSocial, MAX(pp.ConsecutivoPreg) AS cNumeroPregunta
+FROM mCatalogoProveedor cp WITH(NOLOCK), mProcedimientoPreguntas pp WITH(NOLOCK)
+WHERE cp.cIdRFC = pp.cIdRFC AND pp.cIdProcedimiento=$P{cIdProcedimiento}
+GROUP BY cp.cIdRFC, cRazonSocial
+) AS tab
+GROUP BY tab.cNumeroPregunta, tab.cIdRFC, tab.cRazonSocial ORDER BY tab.cNumeroPregunta]]>
+	</queryString>
+	<field name="cNumeroPregunta" class="java.lang.Integer"/>
+	<field name="cIdRFC" class="java.lang.String"/>
+	<field name="cRazonSocial" class="java.lang.String"/>
+	<title>
+		<band height="153">
+			<staticText>
+				<reportElement x="270" y="2" width="299" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<image onErrorType="Blank">
+				<reportElement x="3" y="3" width="150" height="42"/>
+				<imageExpression class="java.lang.String"><![CDATA["C:\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="3" y="49" width="566" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ACTA DE JUNTA DE ACLARACIONES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="367" y="80" width="202" height="16"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Requisición de Compra No.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="367" y="97" width="202" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REQUISICIONES}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="94" width="262" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Escriba la Cobertura]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="270" y="18" width="299" height="15"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{UNIDAD_EJECUTORA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="77" width="262" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{CATEGORIA_PROCEDIMIENTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="109" width="261" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DESCRIPCION_PROCEDIMIENTO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="24">
+			<subreport>
+				<reportElement x="0" y="0" width="572" height="22"/>
+				<subreportParameter name="cIdProcedimiento">
+					<subreportParameterExpression><![CDATA[$P{cIdProcedimiento}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="cRazonSocial">
+					<subreportParameterExpression><![CDATA[$F{cRazonSocial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="cIdRFC">
+					<subreportParameterExpression><![CDATA[$F{cIdRFC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{DIR_REPORT} + "\\subJuntaAclaracion.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement x="0" y="0" width="572" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DIRECCION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

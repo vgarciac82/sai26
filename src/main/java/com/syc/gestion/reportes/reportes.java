@@ -403,7 +403,7 @@ public class reportes implements Serializable {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -664,7 +664,7 @@ public class reportes implements Serializable {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -681,9 +681,9 @@ public class reportes implements Serializable {
         FirmaElectronicaReporte fer = new EstadosFinancierosFirma(reportPath, reportName, parms);
         fer.setIdTipoReporte(idReporte);
         String pathReporte = fer.generaArchivoFirma(conn, volumen, null, false);
-        log.debug("Object: {}", "Generado reporte para firma electronica en: " + pathReporte);
+        log.debug("Object: " + String.valueOf("Generado reporte para firma electronica en: " + pathReporte));
         String pathAcuse = ((EstadosFinancierosFirma) fer).generaAcuse(conn, volumen, null, false);
-        log.debug("Object: {}", "Generado reporte para acuse en: " + pathAcuse);
+        log.debug("Object: " + String.valueOf("Generado reporte para acuse en: " + pathAcuse));
         fer.setPathReporte(pathReporte);
         fer.setOrden(1);
         fer.setFirmantesReporte(firmantesReporte);
@@ -725,9 +725,9 @@ public class reportes implements Serializable {
         cf.setIdTipoReporte(5);
         cf.setIdConciliacion(Integer.parseInt(idConciliacion));
         String pathReporte = cf.generaArchivoFirma(conn, volumen, null, false);
-        log.debug("Object: {}", "Generado reporte para firma electronica en: " + pathReporte);
+        log.debug("Object: " + String.valueOf("Generado reporte para firma electronica en: " + pathReporte));
         String pathAcuse = ((ConciliacionFirma) cf).generaAcuse(conn, volumen, null, false);
-        log.debug("Object: {}", "Generado reporte para acuse en: " + pathAcuse);
+        log.debug("Object: " + String.valueOf("Generado reporte para acuse en: " + pathAcuse));
         cf.setPathReporte(pathReporte);
         cf.setOrden(1);
         cf.setFirmantesReporte(firmantesReporte);

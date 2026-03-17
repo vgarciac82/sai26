@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EdoActividades" pageWidth="612" pageHeight="792" columnWidth="528" leftMargin="42" rightMargin="42" topMargin="42" bottomMargin="21" uuid="cd31aed1-b3b3-43f3-9cd9-139557f50de5">
+	<property name="ireport.zoom" value="2.3579476910001596"/>
+	<property name="ireport.x" value="624"/>
+	<property name="ireport.y" value="554"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sai_pruebas"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="cd5d9c7e-8147-4df1-8a2d-1a9c7c908f25"/>
+	<parameter name="mes" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="anio" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nivel" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[4]]></defaultValueExpression>
+	</parameter>
+	<parameter name="miles" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nfirmas" class="java.lang.Integer"/>
+	<parameter name="nombre1" class="java.lang.String"/>
+	<parameter name="puesto1" class="java.lang.String"/>
+	<parameter name="nombre2" class="java.lang.String"/>
+	<parameter name="puesto2" class="java.lang.String"/>
+	<parameter name="nombre3" class="java.lang.String"/>
+	<parameter name="puesto3" class="java.lang.String"/>
+	<parameter name="nombre4" class="java.lang.String"/>
+	<parameter name="puesto4" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="centroContable" class="java.lang.String"/>
+	<parameter name="nombreCentro" class="java.lang.String"/>
+	<parameter name="esConac" class="java.lang.String"/>
+	<parameter name="esMesAA" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[EXEC sp_u_estadoactividades
+	@mes =  $P{mes},
+    @año =  $P{anio},
+    @nivel =  $P{nivel},
+    @miles =  $P{miles},
+    @cc = $P{centroContable},
+    @esConac = $P{esConac},
+    @esMesAA = $P{esMesAA}]]>
+	</queryString>
+	<field name="cuenta" class="java.lang.String"/>
+	<field name="dCuenta" class="java.lang.String"/>
+	<field name="Actual" class="java.math.BigDecimal"/>
+	<field name="Anterior" class="java.math.BigDecimal"/>
+	<field name="N3" class="java.lang.String"/>
+	<field name="D3" class="java.lang.String"/>
+	<field name="N2" class="java.lang.String"/>
+	<field name="D2" class="java.lang.String"/>
+	<field name="N1" class="java.lang.String"/>
+	<field name="D1" class="java.lang.String"/>
+	<field name="TotActual" class="java.math.BigDecimal"/>
+	<field name="TotAnterior" class="java.math.BigDecimal"/>
+	<variable name="Actual_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Nivel1" calculation="Sum">
+		<variableExpression><![CDATA[$F{Actual}]]></variableExpression>
+	</variable>
+	<variable name="Anterior_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Nivel1" calculation="Sum">
+		<variableExpression><![CDATA[$F{Anterior}]]></variableExpression>
+	</variable>
+	<variable name="Actual_2" class="java.math.BigDecimal" resetType="Group" resetGroup="Nivel2" calculation="Sum">
+		<variableExpression><![CDATA[$F{Actual}]]></variableExpression>
+	</variable>
+	<variable name="Anterior_2" class="java.math.BigDecimal" resetType="Group" resetGroup="Nivel2" calculation="Sum">
+		<variableExpression><![CDATA[$F{Anterior}]]></variableExpression>
+	</variable>
+	<variable name="Actual_3" class="java.math.BigDecimal" resetType="Group" resetGroup="Nivel3" calculation="Sum">
+		<variableExpression><![CDATA[$F{Actual}]]></variableExpression>
+	</variable>
+	<variable name="Anterior_3" class="java.math.BigDecimal" resetType="Group" resetGroup="Nivel3" calculation="Sum">
+		<variableExpression><![CDATA[$F{Anterior}]]></variableExpression>
+	</variable>
+	<group name="Grupo">
+		<groupExpression><![CDATA[1==1]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="34">
+				<staticText>
+					<reportElement mode="Transparent" x="8" y="0" width="371" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="89705835-c3ef-4033-996b-672812e84f44"/>
+					<textElement verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Resultado del Ejercicio (Ahorro / Desahorro) ]]></text>
+				</staticText>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="15" uuid="5454b14f-8ee1-4c6b-9f95-877cc52a6886"/>
+				</line>
+				<line>
+					<reportElement x="0" y="15" width="528" height="1" uuid="6802e328-b1d7-4295-a466-f36e9486e0ec"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="389" y="0" width="1" height="15" uuid="8aba5295-4287-4c20-bb37-d3dd0f6ab4d4"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="459" y="0" width="1" height="15" uuid="3a9cb8e6-c943-4f6a-bee0-b5d47e4aa036"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="527" y="0" width="1" height="15" uuid="a8b4a501-0eac-40a9-b63e-f4ddc7888308"/>
+				</line>
+				<textField pattern="#,##0.00">
+					<reportElement x="392" y="0" width="64" height="10" uuid="a22d2746-9761-4d3e-9459-a26f8cc9f1a1">
+						<printWhenExpression><![CDATA[$P{miles}==0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TotActual}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="461" y="0" width="64" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="33879d4c-c973-4709-b1ef-09f16b31eb20">
+						<printWhenExpression><![CDATA[$P{miles}==0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TotAnterior}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.0">
+					<reportElement x="392" y="0" width="64" height="10" uuid="4339a0bf-38a7-436e-b89f-16691c2acce0">
+						<printWhenExpression><![CDATA[$P{miles}==1]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TotActual}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.0" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="461" y="0" width="64" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="1689836a-cb3f-4b61-8d27-c2a067a356db">
+						<printWhenExpression><![CDATA[$P{miles}==1]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TotAnterior}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="16" width="266" height="10" uuid="6c6418a5-b93d-4bbc-ada3-48dd3b1f9e81">
+						<printWhenExpression><![CDATA[$P{miles}==1]]></printWhenExpression>
+					</reportElement>
+					<textElement>
+						<font fontName="Arial" size="6"/>
+					</textElement>
+					<text><![CDATA[*La suma de los parciales puede no coincidir con los totales debido al redondeo de las cifras.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2" y="26" width="469" height="8" uuid="dd835784-99e2-486e-b5f4-aec724c1771f"/>
+					<textElement>
+						<font fontName="Arial" size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Bajo protesta de decir verdad declaramos que los Estados Financieros y sus notas, son razonablemente correctos y son responsabilidad del emisor.]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Nivel1">
+		<groupExpression><![CDATA[$F{N1}]]></groupExpression>
+		<groupHeader>
+			<band height="10">
+				<printWhenExpression><![CDATA[$P{nivel}==4]]></printWhenExpression>
+				<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="11" y="0" width="351" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="236bccb2-2084-48aa-aadd-d385409ba749"/>
+					<textElement verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{D1}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="10" uuid="b479f8a6-8a01-4cc5-9c4f-f1b8467357ff"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="389" y="0" width="1" height="10" uuid="45a9712d-2e61-476f-90a9-dce937cab726"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="459" y="0" width="1" height="10" uuid="c22be257-9aa1-43b3-94a8-cf0dc97d5414"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="527" y="0" width="1" height="10" uuid="82c34ce6-5f29-4d25-8fa4-673a7883351d"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="13">
+				<printWhenExpression><![CDATA[$P{nivel}==4]]></printWhenExpression>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="table_TH" mode="Transparent" x="8" y="1" width="371" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="3455f1d7-60bc-4eca-ab74-916751cf136f"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="true" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[("4".equals($F{N1}) ? "Total de Ingresos y Otros Beneficios" : "Total de Gastos y Otras Pérdidas" )]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="0" width="1" height="13" uuid="3a119fa5-937f-4e54-b273-1f3e4b1bef48"/>
+				</line>
+				<line>
+					<reportElement x="389" y="0" width="1" height="13" uuid="3945d34b-9ce9-40cf-bad9-5875d8e50338"/>
+				</line>
+				<line>
+					<reportElement x="459" y="0" width="1" height="13" uuid="abdb15cc-0ba0-442f-9cc5-6b332bb13c81"/>
+				</line>
+				<line>
+					<reportElement x="527" y="0" width="1" height="13" uuid="a2509eb6-6a48-4ced-a96f-eab7068de704"/>
+				</line>
+				<textField pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="392" y="1" width="64" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="95547a3e-dbc9-4237-90d2-d38092f5b88e">
+						<printWhenExpression><![CDATA[$P{miles}==0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Actual_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="461" y="1" width="64" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="e9a9f2ab-9ee6-43c1-975b-a838eae54e5a">
+						<printWhenExpression><![CDATA[$P{miles}==0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Anterior_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.0" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="392" y="1" width="64" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="264f3220-07b5-4740-a243-5bf22c2b3733">
+						<printWhenExpression><![CDATA[$P{miles}==1]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Actual_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.0" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="461" y="1" width="64" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="1afbfcc5-9dd2-44f8-bce7-8557bda738ad">
+						<printWhenExpression><![CDATA[$P{miles}==1]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Anterior_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Nivel2">
+		<groupExpression><![CDATA[$F{D2}]]></groupExpression>
+		<groupHeader>
+			<band height="10">
+				<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="11" y="0" width="351" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="e72a6117-1e83-4397-a554-afebe463fb59"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{D2}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="10" uuid="937f99fc-35d0-4775-af1f-ac4e88a3c2e1"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="389" y="0" width="1" height="10" uuid="ad2e029e-5811-40c1-9b9d-49717c619ea8"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="459" y="0" width="1" height="10" uuid="dfde26ff-b706-4546-8d80-b97d2edcbebe"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="527" y="0" width="1" height="10" uuid="6346c2e5-7b65-41e5-8f56-ea400038f426"/>
+				</line>
+				<textField evaluationTime="Group" evaluationGroup="Nivel2" pattern="#,##0.00">
+					<reportElement x="392" y="0" width="64" height="10" uuid="b8ef2d01-7ea3-4ad4-9a47-65be2edb8d2b">
+						<printWhenExpression><![CDATA[$P{miles}==0 && $P{nivel}==4]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Actual_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="Nivel2" pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="461" y="0" width="64" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="06267cfd-e828-4f83-a9b5-7a93dfaa36d5">
+						<printWhenExpression><![CDATA[$P{miles}==0 && $P{nivel}==4]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Anterior_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="Nivel2" pattern="#,##0.0" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="461" y="0" width="64" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="0956d069-debf-4501-97d3-a6e0950e46eb">
+						<printWhenExpression><![CDATA[$P{miles}==1 && $P{nivel}==4]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Anterior_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="Nivel2" pattern="#,##0.0">
+					<reportElement x="392" y="0" width="64" height="10" uuid="5110b345-5aca-449a-ae36-86a06b7a20f7">
+						<printWhenExpression><![CDATA[$P{miles}==1 && $P{nivel}==4]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Actual_2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="13">
+				<printWhenExpression><![CDATA[$P{nivel}==3]]></printWhenExpression>
+				<line>
+					<reportElement x="0" y="0" width="1" height="13" uuid="8c545f13-dbc9-4517-9bf0-dcfabf66dca8"/>
+				</line>
+				<line>
+					<reportElement x="389" y="0" width="1" height="13" uuid="82766ea6-606c-4eec-86b4-81af3f4b92de"/>
+				</line>
+				<line>
+					<reportElement x="459" y="0" width="1" height="13" uuid="081c41e9-b437-40db-ba76-2042f0fa6a97"/>
+				</line>
+				<line>
+					<reportElement x="527" y="0" width="1" height="13" uuid="4d3efb6a-8450-4bd5-9c4e-d5ad5e032742"/>
+				</line>
+				<textField textAdjust="StretchHeight">
+					<reportElement mode="Transparent" x="8" y="1" width="371" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="d836e10c-1564-47bb-9843-b7174cb4703e"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="true" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[("4".equals($F{N2}) ? "Total de Ingresos y Otros Beneficios" : "Total de Gastos y Otras Pérdidas" )]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="392" y="1" width="64" height="10" uuid="82ba8eff-490d-4f55-8166-3ed867479ad0">
+						<printWhenExpression><![CDATA[$P{miles}==0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Actual_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="461" y="1" width="64" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="03909d6b-15fc-403d-8188-85cab21739d4">
+						<printWhenExpression><![CDATA[$P{miles}==0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Anterior_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.0" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="461" y="1" width="64" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="4d0213fa-051d-4243-8392-a95025c2becf">
+						<printWhenExpression><![CDATA[$P{miles}==1]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Anterior_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.0">
+					<reportElement x="392" y="1" width="64" height="10" uuid="70ac09b2-50d4-4834-8c1c-1a65c9ff78e3">
+						<printWhenExpression><![CDATA[$P{miles}==1]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Actual_2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Nivel3">
+		<groupExpression><![CDATA[$F{N3}]]></groupExpression>
+		<groupHeader>
+			<band height="10">
+				<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="11" y="0" width="351" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="7217bbda-7d7d-4599-9d8a-6d33e52e7fa1"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{D3}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="10" uuid="e5aa09fb-8a82-4fd5-8d47-8f65fcc2c2bf"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="389" y="0" width="1" height="10" uuid="934ebae0-dc88-4027-9e19-35d0c5f287fa"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="459" y="0" width="1" height="10" uuid="b1a97fbf-daf0-45bf-b6a6-d78a4a3f89a0"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="527" y="0" width="1" height="10" uuid="3c8c65c6-e55f-42b2-9df4-c3f0c3bc090e"/>
+				</line>
+				<textField evaluationTime="Group" evaluationGroup="Nivel3" pattern="#,##0.0" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="392" y="0" width="64" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="8e8b60ea-2fd8-49e2-b199-7a4aaa287994">
+						<printWhenExpression><![CDATA[$P{miles}==1]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Actual_3}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="Nivel3" pattern="#,##0.0" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="461" y="0" width="64" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="7a4922b4-65c3-44ae-b66d-612be3320235">
+						<printWhenExpression><![CDATA[$P{miles}==1]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Anterior_3}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="Nivel3" pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="392" y="0" width="64" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="cdf74fad-8395-4548-9aa1-1cebebb5b946">
+						<printWhenExpression><![CDATA[$P{miles}==0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Actual_3}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="Nivel3" pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="461" y="0" width="64" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="904c67bc-1f6b-4772-a6bb-8f42146b0c97">
+						<printWhenExpression><![CDATA[$P{miles}==0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Anterior_3}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="Nivel4">
+		<groupExpression><![CDATA[$F{cuenta}]]></groupExpression>
+	</group>
+	<pageHeader>
+		<band height="104" splitType="Stretch">
+			<image>
+				<reportElement x="1" y="0" width="121" height="57" uuid="d94aea12-4090-4527-9d6e-68c8e00377a0"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="0" y="57" width="528" height="47" backcolor="#CCCCCC" uuid="f36d8a62-9e91-436b-a9b5-57cc1031f17d"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="144" y="57" width="221" height="12" uuid="c60ae63b-bd7e-4780-8702-7ad5bb9cdec3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Comisión Nacional Forestal
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="144" y="91" width="221" height="13" uuid="0c4854a0-740f-4a41-af3f-575849471fd5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{miles}==1 ? "(miles de pesos)" : "(en pesos)" )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="144" y="80" width="221" height="13" uuid="4dfa4cf5-11f2-4387-a2fd-edf2078e1b2d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(
+    $P{mes}==1 ? "Del 01 de Enero al 31 de Enero de " +$P{anio}.toString():
+    $P{mes}==2 && ($P{anio}%400 == 0 || ($P{anio}%100 != 0 && $P{anio}%4 == 0)) ? "Al 29 de Febrero de " +$P{anio}.toString():
+    $P{mes}==2 ? "Del 01 de Enero al 28 de Febrero de " +$P{anio}.toString():
+    $P{mes}==3 ? "Del 01 de Enero al 31 de Marzo de " +$P{anio}.toString():
+    $P{mes}==4 ? "Del 01 de Enero al 30 de Abril de " +$P{anio}.toString():
+    $P{mes}==5 ? "Del 01 de Enero al 31 de Mayo de " +$P{anio}.toString():
+    $P{mes}==6 ? "Del 01 de Enero al 30 de Junio de " +$P{anio}.toString():
+    $P{mes}==7 ? "Del 01 de Enero al 31 de Julio de " +$P{anio}.toString():
+    $P{mes}==8 ? "Del 01 de Enero al 31 de Agosto de " +$P{anio}.toString():
+    $P{mes}==9 ? "Del 01 de Enero al 30 de Septiembre de " +$P{anio}.toString():
+    $P{mes}==10 ? "Del 01 de Enero al 31 de Octubre de " +$P{anio}.toString():
+    $P{mes}==11 ? "Del 01 de Enero al 30 de Noviembre de " +$P{anio}.toString():
+    $P{mes}==12 ? "Del 01 de Enero al 31 de Diciembre de " +$P{anio}.toString():
+    ""
+)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="144" y="69" width="221" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="87f75d87-d7c3-4c29-ada5-71f2344aeb5c"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{nivel}==3 ? "Estado de Actividades" : "Estado de Actividades (Detallado)")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="144" y="44" width="221" height="13" uuid="70d7f4fd-287d-41c2-a5fc-7d9a7245a044"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $P{nombreCentro}.equals( " " ) ? "" : $P{nombreCentro} )]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="528" height="24" backcolor="#CCCCCC" uuid="baa4322a-9982-4282-914f-1edcee5cea12"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="1" y="0" width="388" height="24" uuid="22caed55-45ae-4e3a-b0d3-c1a093ef598c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Concepto]]></text>
+			</staticText>
+			<line>
+				<reportElement x="389" y="0" width="1" height="24" uuid="13bb30ce-8c5d-41a0-893b-6508a0285ffb"/>
+			</line>
+			<line>
+				<reportElement x="459" y="0" width="1" height="24" uuid="a04151f2-6c76-4fe2-bef3-54c2f73979ad"/>
+			</line>
+			<textField>
+				<reportElement x="391" y="0" width="68" height="24" uuid="1fc759e3-1d5f-4518-9125-f74d99f8b0c6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{anio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="459" y="0" width="68" height="24" uuid="f6b83fbb-43cb-4e4d-9c8b-14d262b131bc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{anio}-1]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="28" y="0" width="351" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="ed562f89-2a97-4af0-bbf5-6167f90d1ad4"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Arial" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dCuenta}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="12" uuid="7bc58f91-c13d-46df-9f12-df888c0b349f"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="389" y="0" width="1" height="12" uuid="21a1598e-b4c5-4a6d-99d1-f9fb77f85c2f"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="459" y="0" width="1" height="12" uuid="ecacbb2c-ab5a-4edc-8fa4-41c11d6b0357"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="527" y="0" width="1" height="12" uuid="3521bafd-d5f6-48f7-8a88-dd0de4875819"/>
+			</line>
+			<textField pattern="#,##0.00">
+				<reportElement x="392" y="0" width="64" height="10" uuid="afd05f30-d9da-43b4-9222-7bf0dbf4afcb">
+					<printWhenExpression><![CDATA[$P{miles}==0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Actual}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="461" y="0" width="64" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="3ef2fb52-9331-44e4-ae82-c5c686da4556">
+					<printWhenExpression><![CDATA[$P{miles}==0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Anterior}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.0">
+				<reportElement x="392" y="0" width="64" height="10" uuid="8727f5c3-1fdd-4364-a2ee-2dab9289fe38">
+					<printWhenExpression><![CDATA[$P{miles}==1]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Actual}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.0" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="461" y="0" width="64" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="3d4bf9a6-2692-4105-a51e-00f1f2b22a78">
+					<printWhenExpression><![CDATA[$P{miles}==1]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Anterior}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="9" splitType="Stretch">
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="410" y="1" width="98" height="8" forecolor="#000000" backcolor="#FFFFFF" uuid="6400bb4f-5403-4f80-8c75-ce267b5e1377"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página: "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="-3" width="527" height="1" isRemoveLineWhenBlank="true" uuid="934ed22e-2f75-4319-b773-318932d59840"/>
+			</line>
+			<textField evaluationTime="Report" pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="509" y="1" width="10" height="8" forecolor="#000000" backcolor="#FFFFFF" uuid="b8d5b9d6-b256-4f04-b843-4a7770ddbd57"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="98">
+			<subreport>
+				<reportElement x="0" y="0" width="528" height="90" uuid="f56e52c9-0bbc-4ed7-996f-ada14f298580"/>
+				<subreportParameter name="anio">
+					<subreportParameterExpression><![CDATA[$P{anio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nfirmas">
+					<subreportParameterExpression><![CDATA[$P{nfirmas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\firmasEdosFinV_acuse.jasper"]]></subreportExpression>
+			</subreport>
+			<textField evaluationTime="Report" pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="508" y="90" width="10" height="8" forecolor="#000000" backcolor="#FFFFFF" uuid="5fb58b07-fab6-46c0-b7f3-3f47b8f9fe25"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="409" y="90" width="98" height="8" forecolor="#000000" backcolor="#FFFFFF" uuid="8ee9ca52-cc26-4bfb-afc7-5739a8830e76"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página: "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

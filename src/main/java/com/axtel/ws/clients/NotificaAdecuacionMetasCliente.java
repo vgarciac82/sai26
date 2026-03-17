@@ -62,7 +62,7 @@ public class NotificaAdecuacionMetasCliente extends WSClient {
     }
 
     public AdecuacionRespuesta enviaNotificacionCancelacion(Connection conn, AdecuacionCancelacion adecuacionCancelacion) throws WSException {
-        log.debug("Object: {}", "Iniciando envio de cancelacion de adecuacion: " + adecuacionCancelacion.getFolio());
+        log.debug("Object: " + String.valueOf("Iniciando envio de cancelacion de adecuacion: " + adecuacionCancelacion.getFolio()));
         WebTarget target = getClient().target(getUrlService());
         Builder requestBuilder = target.request(MediaType.APPLICATION_JSON);
         Entity<AdecuacionCancelacion> msgJSON = Entity.json(adecuacionCancelacion);
@@ -85,7 +85,7 @@ public class NotificaAdecuacionMetasCliente extends WSClient {
     }
 
     public AdecuacionRespuesta enviaNotificacion(Connection conn, AdecuacionResumen adecuacionNotificar) throws WSException {
-        log.debug("Object: {}", "Iniciando envio de registro de adecuacion: " + adecuacionNotificar.getEncabezado().getFolio());
+        log.debug("Object: " + String.valueOf("Iniciando envio de registro de adecuacion: " + adecuacionNotificar.getEncabezado().getFolio()));
         log.info("Object: {}", "Se consumira servicio en: " + getUrlService());
         WebTarget target = getClient().target(getUrlService());
         Builder requestBuilder = target.request(MediaType.APPLICATION_JSON);

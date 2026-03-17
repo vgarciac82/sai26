@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ComplementoManualNACG01_P12" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="14e90fec-c87b-4866-ae30-7e31986e8c11">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="localhost"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="325"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="668"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="idVersion" class="java.lang.Integer"/>
+	<parameter name="final" class="java.lang.Integer"/>
+	<parameter name="consulta" class="java.lang.Integer"/>
+	<parameter name="tipoManual" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[DECLARE @idVersion INT = $P{idVersion}
+DECLARE @final INT = $P{final}
+DECLARE @consulta INT = $P{consulta}
+DECLARE @tipoManual INT = $P{tipoManual}
+
+IF @final = 0 AND @consulta = 0 --TEMPORAL
+BEGIN
+	SELECT RTRIM(LTRIM(cParrafo15)) AS cParrafo15
+			, RTRIM(LTRIM(cParrafo16)) AS cParrafo16
+			, RTRIM(LTRIM(cParrafo17)) AS cParrafo17
+		FROM tComplementoManualContable
+		WHERE idComplemento = @tipoManual
+END
+
+ELSE IF @final = 1 AND @consulta = 1 --CUANDO SE CONULTA UNA VERSION
+BEGIN
+	SELECT RTRIM(LTRIM(cParrafo15)) AS cParrafo15
+			, RTRIM(LTRIM(cParrafo16)) AS cParrafo16
+			, RTRIM(LTRIM(cParrafo17)) AS cParrafo17
+		FROM tComplementoManualContableVersion
+		WHERE idComplemento = @tipoManual
+		AND idVersion = @idVersion
+END]]>
+	</queryString>
+	<field name="cParrafo15" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo5"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo5"/>
+	</field>
+	<field name="cParrafo16" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo6"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo6"/>
+	</field>
+	<field name="cParrafo17" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo7"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo7"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="3" y="4" width="20" height="13" isRemoveLineWhenBlank="true" uuid="ecc48ff0-8294-4575-a115-9f7b3b75575a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[12]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" x="23" y="4" width="436" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="5b5b95e2-b5c5-4ef4-8529-d73d1fb4a5da">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo15}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="22">
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" x="53" y="4" width="406" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="b74f3ef5-82b7-47d0-b037-be365a368b8c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo16}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="23">
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" x="23" y="5" width="436" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="bf2f38a3-b4c3-41c6-a727-7def379aaf9c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo17}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

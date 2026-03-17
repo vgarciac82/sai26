@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Ayuda Catálogo Sub-Función</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_CAT_SUBFUNCION</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cSubFuncion"	control="txtGridcSubFuncion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Clave"	ancho="6"	maxlen="6"		tipo="numero"	visible="Si"	clase=""/>
+		<columna campo="dSubFuncion"	control="txtGriddSubFuncion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Descripción"	ancho="100"	maxlen="100"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cFuncion"		control="txtGridcFuncion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Función"	ancho="6"	maxlen="6"		tipo="numero"	visible="Si"	clase=""/>		
+		<columna campo="cGrupoFuncional"	control="txtGridcGrupoFuncional"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Grupo Funcional"	ancho="6"	maxlen="6"	tipo="numero"	visible="Si"	clase=""/>
+	</grid>  
+</Ayuda>

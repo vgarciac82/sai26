@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Ayuda Municipios - desde la pantalla de Remitente Externo -->
+<Ayuda>
+	<titulo>Municipios</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>543</altoWin>
+	<altoAreaCaptura>135</altoAreaCaptura>
+	<tabla>M_MCATALOGOUNIDADMEDIDA</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+	
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>
+		<columna campo="cIdUnidadMedida"			control="txtGridcIdUnidadMedida"		dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""											header="Unidad Medida"				rowCol="1,1" 	ancho="70"		maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cUnidadMedida"				control="txtGridcUnidadMedida"		dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""											header="Descripción"				rowCol="2,1" 	ancho="70"		maxlen="200"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cIdClave"					control="txtGridcIdClave"			dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""											header="Clave"						rowCol="3,1" 	ancho="70"		maxlen="100"	tipo="string"	visible="Si"	clase=""/>		
+	</grid>  
+</Ayuda>

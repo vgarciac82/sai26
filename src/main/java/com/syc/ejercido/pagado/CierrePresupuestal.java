@@ -1943,7 +1943,7 @@ public class CierrePresupuestal extends DataSourceManager {
                 psDetalle.setInt(2, Integer.parseInt(nFolio));
                 int insertados = psEncabezado.executeUpdate();
                 insertados += psDetalle.executeUpdate();
-                log.debug("Object: {}", "Se insertaron " + insertados + " campos para aplicar disminucion de apartado ");
+                log.debug("Object: " + String.valueOf("Se insertaron " + insertados + " campos para aplicar disminucion de apartado "));
                 log.info("Object: {}", " Aplicando motor para el Pasivo Diferido " + Integer.parseInt(nFolio));
                 AccountingEngine accEng = new AccountingEngine();
                 accEng.setValidaInsuficienciaDeSaldo(true);

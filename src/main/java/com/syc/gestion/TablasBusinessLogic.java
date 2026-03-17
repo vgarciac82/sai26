@@ -173,7 +173,7 @@ public class TablasBusinessLogic extends DataSourceManager {
         c.setIdTC(41);
         c.getTipoCaso().setGavetaAsociada("DOCPOLIZACANCEL");
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis())));
         try {
             String[] Querys = new String[3];
             Querys[0] = " insert into tdocpolizaCancelEncabezado select nFolioDocPoliza,fCarga,fAplicacion,cCentroContable,cRamo,cUnidadResponsable," + " cDocumentoHaplicado,nFolioPoliza,'XX' cTipoPoliza,nMes,cRevisado,aEjercicioFiscal,cUnidadResponsableContable,nFolioPolizaCancelacion" + " ,fCancelacion,cDescripcionPoliza,cConcepto,cIdUsuarioCaptura,cIdUsuarioRevision,cIdUsuarioAprobacion,cidOrigen,mTotalCargos*(-1)" + " mTotalCargos,mTotalAbonos*(-1)mTotalAbonos,cTipoDocumento,cComentarios,nCambio,nIdCasoOrigen,Periodo13,ADEFAS,nTipoAjuste," + " nFormatoPoliza from tDocPolizaEncabezado with(nolock) where nFolioDocPoliza=" + nFolioDocPoliza;
@@ -231,7 +231,7 @@ public class TablasBusinessLogic extends DataSourceManager {
             Caso sc = new Caso();
             sc.setIdCaso(c.getIdCaso());
             c = CasoManager.select(conn, sc);
-            log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+            log.debug("Object: " + String.valueOf(c.getCasoDato("APLICADO_CONT").getValor()));
         } catch (Exception e) {
             log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
         } finally {
@@ -255,7 +255,7 @@ public class TablasBusinessLogic extends DataSourceManager {
         } catch (Exception exc) {
             log.error("Actualizando Mensaje", exc);
         } finally {
-            log.debug("Object: {}", "***************Obtenido el folio del documento " + nFolioDocPoliza + " con Folio de Poliza:" + nFolioPoliza + " , centro contable:" + cCentroContable + " y tipo de Poliza:" + cTipoPoliza + " ");
+            log.debug("Object: " + String.valueOf("***************Obtenido el folio del documento " + nFolioDocPoliza + " con Folio de Poliza:" + nFolioPoliza + " , centro contable:" + cCentroContable + " y tipo de Poliza:" + cTipoPoliza + " "));
             try {
                 if (conn != null)
                     conn.close();

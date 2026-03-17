@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Roles</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>M_CG_ROLES</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="R_NOMBRE"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Nombre"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="R_DESCRIPCION"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Descripcion"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="ADMIN_DUENO"	control="MantoRolesSup"	dependencia="No"	limpiaOnKeypress=""		header="Rol Dueño"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+
+		<columna campo="EFISCAL" control="aEjercicioFiscal"		dependencia="No"		ctrlsDependientes="" limpiaOnKeypress="txtGridaEjercicioFiscal"	header="* Ejercicio Fiscal"		rowCol="11,1" 	ancho="15"		maxlen="12"		tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC" defaultValue="" anioDinamic="1"/>
+	
+
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="R_NOMBRE"	control="txtGridCol0"	llave="Si"			identity="No"	requerido="El Nombre es un dato requerido."	requeridoFocus="txtGridCol0"	tipo="string" />
+		<campo field="R_DESCRIPCION"	control="txtGridCol1"	llave="No"	identity="No"	requerido="El Puesto es un dato requerido."	requeridoFocus="txtGridCol1"	tipo="string" />	
+		<campo field="ADMIN_DUENO"	control="txtGridMantoRolesSup"	llave="No"	identity="No"	requerido="El Dueño es un dato requerido."	requeridoFocus=""	tipo="string" />	
+		
+		<campo field="EFISCAL"				control="txtGridaEjercicioFiscal"			llave="Si"	identity="No"	requerido="El Ejercicio Fiscal es Requerido"			requeridoFocus="txtGridaEjercicioFiscal"	tipo="string" />
+	
+		
+	
+	</insertaRegistro>
+	
+</Ayuda>

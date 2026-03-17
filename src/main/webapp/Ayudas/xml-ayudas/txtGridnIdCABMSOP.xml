@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Ayuda>
+		<titulo>CABMSOP</titulo>
+	<anchoWin>800</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>210</altoAreaCaptura>
+	<tabla>M_MCATALOGOCABMSOP</tabla>
+	<maxRegistros>500</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+			<columna campo="mc.nidCABMSOP" 		control="txtGridnIdCABMSOP"				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""			header="nidCABMSOP"			rowCol="1,1"	ancho="5"		maxlen="5"		tipo="string"	visible="Si"	clase=""/>
+			<columna campo="mc.cDescripcion"			control="txtGridcDescripcion"				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""			header="Descripción"		rowCol="2,1"	ancho="150"		maxlen="80"	tipo="string"	visible="Si"	clase=""/>						
+											
+	</grid>  
+</Ayuda>

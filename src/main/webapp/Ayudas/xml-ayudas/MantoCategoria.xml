@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--  -->
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Categorías</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_CG_CATEGORIA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	
+	<grid>	
+		<columna campo="CONSECUTIVO"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Id"	 ancho="3"	maxlen="0" tipo="string"	visible="Si"	clase=""/>		
+		<columna campo="VALOR"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Nombre"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="CONSECUTIVO" control="txtGridCol0"	llave="Si"	identity="Si" requerido=""	requeridoFocus=""	tipo="string" />
+		<campo field="VALOR" control="txtGridCol1"	llave="No"	identity="No"	requerido="El Nombre de la Categoría es un dato requerido."	requeridoFocus="txtGridCol1"	tipo="string" />				
+	</insertaRegistro>
+	
+</Ayuda>

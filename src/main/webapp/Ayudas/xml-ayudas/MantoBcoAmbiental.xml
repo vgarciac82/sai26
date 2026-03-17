@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- Ayuda Beneficiarios ambiental -->
+<Ayuda>
+	<titulo>Mantenimiento del catalogo de Beneficiarios bancarios ambiental</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>TBANCOAMBIENTAL</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	<grid>
+		<columna campo="DRFC"			control=""	dependencia="No"	limpiaOnKeypress=""		header="Rfc"	 	ancho="13"	maxlen="15" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="IDBANCARIO"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Id Bancario"	 ancho="13"	maxlen="20"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="CTAB"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Cuenta Bancaria"	 ancho="18"	maxlen="20"	tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="DRFC"	control="txtGridCol0"	llave="Si"	identity="No"	requerido="El rfc es un dato requerido."	requeridoFocus="txtGridCol0"	tipo="string" />
+		<campo field="IDBANCARIO"	control="txtGridCol1"	llave="Si"	identity="No"	requerido="El ID bancario es un dato requerido"	requeridoFocus="txtGridCol1"	tipo="string" />
+		<campo field="CTAB"	control="txtGridCol2"	llave="No"	identity="No"	requerido="La cuenta bancaria es un dato requerido"	requeridoFocus=""	tipo="string" />
+	</insertaRegistro>
+	
+</Ayuda>

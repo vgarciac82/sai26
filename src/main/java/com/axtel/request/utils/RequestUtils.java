@@ -1,4 +1,5 @@
 package com.axtel.request.utils;
+import java.nio.charset.StandardCharsets;
 
 import java.io.DataInputStream;
 import java.io.File;
@@ -30,7 +31,7 @@ public class RequestUtils {
         while (iter.hasNext()) {
             FileItem item = (FileItem) iter.next();
             if (item.isFormField()) {
-                result.getParams().put(item.getFieldName(), item.getString("UTF-8"));
+                result.getParams().put(item.getFieldName(), item.getString(java.nio.charset.StandardCharsets.UTF_8));
                 item.delete();
                 continue;
             }
@@ -57,7 +58,7 @@ public class RequestUtils {
             if (item.isFormField()) {
                 if (result.getParams().get(item.getFieldName()) == null)
                     result.getParams().put(item.getFieldName(), new ArrayList<>());
-                result.getParams().get(item.getFieldName()).add(item.getString("UTF-8"));
+                result.getParams().get(item.getFieldName()).add(item.getString(java.nio.charset.StandardCharsets.UTF_8));
                 item.delete();
                 continue;
             }

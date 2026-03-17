@@ -84,7 +84,7 @@ public class SuficienciaPagoDirectoEPServlet extends HttpServlet {
             logic.deleteByFolio(folio, ep);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("{\"mensaje\":\"Eliminados correctamente\"}".toPath());
+            response.getWriter().write("{\"mensaje\":\"Eliminados correctamente\"}");
         } catch (Exception ex) {
             log.error("Error al eliminar EPs", ex);
             enviarError(response, "Error al eliminar EPs.");
@@ -109,6 +109,6 @@ public class SuficienciaPagoDirectoEPServlet extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"error\": \"" + mensaje + "\"}".toPath());
+        response.getWriter().write("{\"error\": \"" + mensaje + "\"}");
     }
 }

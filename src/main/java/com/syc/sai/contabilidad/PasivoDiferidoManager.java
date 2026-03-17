@@ -39,7 +39,7 @@ public class PasivoDiferidoManager {
                 psDetalle = conn.prepareStatement(queryInsertaDetalle);
                 int insertados = psEncabezado.executeUpdate();
                 insertados += psDetalle.executeUpdate();
-                log.debug("Object: {}", "Se insertaron " + insertados + " campos para aplicar Pasivo Diferido ");
+                log.debug("Object: " + String.valueOf("Se insertaron " + insertados + " campos para aplicar Pasivo Diferido "));
                 log.info("Object: {}", " Aplicando motor para el Pasivo Diferido " + nFolioPasivoDiferido);
                 AccountingEngine accEng = new AccountingEngine();
                 accEng.setValidaInsuficienciaDeSaldo(true);
@@ -176,7 +176,7 @@ public class PasivoDiferidoManager {
             psDetalle = conn.prepareStatement(queryInsertaDetalle);
             int insertados = psEncabezado.executeUpdate();
             insertados += psDetalle.executeUpdate();
-            log.debug("Object: {}", "Se insertaron " + insertados + " campos para aplicar Pasivo Diferido ");
+            log.debug("Object: " + String.valueOf("Se insertaron " + insertados + " campos para aplicar Pasivo Diferido "));
             log.info("Object: {}", " Aplicando motor para el Pasivo Diferido " + nFolioPasivoDiferido);
             AccountingEngine accEng = new AccountingEngine();
             accEng.setValidaInsuficienciaDeSaldo(true);
@@ -271,7 +271,7 @@ public class PasivoDiferidoManager {
                 psDetalle = conn.prepareStatement(queryInsertaDetalle);
                 int insertados = psEncabezado.executeUpdate();
                 insertados += psDetalle.executeUpdate();
-                log.debug("Object: {}", "Se insertaron " + insertados + " campos para aplicar Pasivo Diferido ");
+                log.debug("Object: " + String.valueOf("Se insertaron " + insertados + " campos para aplicar Pasivo Diferido "));
                 log.info("Object: {}", " Aplicando motor para el Pasivo Diferido " + nFolioPasivoDiferido);
                 AccountingEngine accEng = new AccountingEngine();
                 accEng.setValidaInsuficienciaDeSaldo(true);
@@ -336,7 +336,7 @@ public class PasivoDiferidoManager {
                 psDetalle = conn.prepareStatement(queryInsertaDetalle);
                 int insertados = psEncabezado.executeUpdate();
                 insertados += psDetalle.executeUpdate();
-                log.debug("Object: {}", "Se insertaron " + insertados + " campos para aplicar Pasivo Diferido ");
+                log.debug("Object: " + String.valueOf("Se insertaron " + insertados + " campos para aplicar Pasivo Diferido "));
                 log.info("Object: {}", " Aplicando motor para el Pasivo Diferido " + nFolioPasivoDiferido);
                 AccountingEngine accEng = new AccountingEngine();
                 accEng.setValidaInsuficienciaDeSaldo(true);

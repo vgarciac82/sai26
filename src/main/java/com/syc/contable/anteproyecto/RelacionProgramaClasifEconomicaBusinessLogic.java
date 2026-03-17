@@ -91,7 +91,7 @@ public class RelacionProgramaClasifEconomicaBusinessLogic extends DataSourceMana
                 Cell CellcTipoGasto = row.getCell(2);
                 Cell CellcFuenteFinanciamiento = row.getCell(3);
                 if (CellcProgramaPresupuestario != null) {
-                    log.debug("Object: {}", "Procesando renglon " + (renglon));
+                    log.debug("Object: " + String.valueOf("Procesando renglon " + (renglon)));
                     try {
                         String cProgramaPresupuestario = CellcProgramaPresupuestario.getStringCellValue();
                         String cPartida = CellcPartida.getStringCellValue();
@@ -102,7 +102,7 @@ public class RelacionProgramaClasifEconomicaBusinessLogic extends DataSourceMana
                         renglonMap.put("cPartida", cPartida);
                         renglonMap.put("cTipoGasto", cTipoGasto);
                         renglonMap.put("cFuenteFinanciamiento", cFuenteFinanciamiento);
-                        log.debug("Object: {}", "cProgramaPresupuestario[" + cProgramaPresupuestario + "] cPartida[" + cPartida + "]cSubFuncion[" + cTipoGasto + "]cTipoGasto[" + cFuenteFinanciamiento + "]cFuenteFinanciamiento[");
+                        log.debug("Object: " + String.valueOf("cProgramaPresupuestario[" + cProgramaPresupuestario + "] cPartida[" + cPartida + "]cSubFuncion[" + cTipoGasto + "]cTipoGasto[" + cFuenteFinanciamiento + "]cFuenteFinanciamiento["));
                         RelacionProgramaClasifEconomicaManager.insertaRenglonProgramaClasifEconomica(conn, renglonMap);
                     } catch (Exception e) {
                         renglonInsertada = false;

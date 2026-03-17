@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Tipos de Contratos</titulo>
+	<anchoWin>530</anchoWin>
+	<altoWin>543</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>mCatalogoTipoContrato</tabla>
+	<maxRegistros>50</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cIdTipoContrato"	control=""	dependencia="No"	limpiaOnKeypress=""	header="Tipo de Contrato"	ancho="20"	maxlen="20"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cTipoContrato" 		control=""	dependencia="No"	limpiaOnKeypress=""	header="Descripcion"			ancho="100"	maxlen="100"		tipo="string"	visible="Si"	clase=""/>
+	</grid> 
+	
+	
+</Ayuda>

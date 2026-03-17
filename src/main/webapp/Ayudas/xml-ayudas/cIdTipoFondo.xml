@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Tipo de Fondo</titulo>
+	<anchoWin>600</anchoWin>
+	<altoWin>300</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>PCATALOGOTIPOFONDO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+
+	<grid>
+		<columna campo="cIdTipoFondo"	control="cIdTipoFondo"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave"	ancho="4"	maxlen="4"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cTipoFondo"	control="cTipoFondo"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Nombre"	ancho="40"	maxlen="40"		tipo="string"	visible="Si"	clase=""/>
+		
+   </grid>  
+</Ayuda>

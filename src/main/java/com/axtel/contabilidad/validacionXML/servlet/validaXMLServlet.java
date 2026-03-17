@@ -76,7 +76,7 @@ public class validaXMLServlet extends HttpServlet implements GestionInterface {
                 log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                 Util.copiaArchivo(archivoCargaStream, nombreDestino);
                 item.delete();
-                log.debug("Object: {}", "Procesando archivo:" + nombreArchivo);
+                log.debug("Object: " + String.valueOf("Procesando archivo:" + nombreArchivo));
                 mensajeRetorno = "Archivo cargado exitosamente";
                 break;
             }

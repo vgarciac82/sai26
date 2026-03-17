@@ -1,0 +1,45 @@
+
+
+<body>
+    
+	<div class="container">
+		<h1 class="mt-3 mb-3">Dictamenes Emitidos</h1>
+		
+		<div id="filterDiv" class="mt-4">
+			<label for="executiveUnit" class="form-label">Unidad Responsable</label>
+			<select class="form-select" id="executiveUnit" onChange="filterTable()">
+			</select>
+		</div>
+        
+        <div class="mt-4">Seleccione una solicitud para mostrar su contenido.:</div>
+		
+		<div id="divTable" class="mt-4">
+			<table id="autProjects" class="table table-striped table-bordered" style="width: 100%">
+				<thead>
+					<tr>
+						<th>Folio</th>
+						<th>Titulo</th>
+						<th>Capturista</th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+
+        <div class="mt-4">
+            <button class="btn btn-primary" id="btnUpdate" onClick="filterTable()">Actualizar </button>
+        </div>
+
+	</div>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<script src="https://cdn.datatables.net/2.0.6/js/dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/2.0.6/js/dataTables.bootstrap5.min.js"></script>
+	<script src="js/sisecop_commons.js"></script>
+	<script src="js/InboxAuthorized.js"></script>
+    <script src="../Generador/js/jquery.blockUI-2.70.0.js"></script>
+
+
+</body>
+

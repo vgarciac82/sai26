@@ -55,7 +55,7 @@ public class PolizaManualServlet extends HttpServlet {
         bl.saveOrUpdateDocPolizaEncabezado(req);
         String arr = "";
         arr = "[" + arr + "]";
-        log.debug("Object: {}", arr);
+        log.debug("Object: " + String.valueOf(arr));
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);
@@ -89,7 +89,7 @@ public class PolizaManualServlet extends HttpServlet {
         } else {
             arr += token + String.format(json, "0", "Debe seleccionar un grupo", "Debe seleccionar un grupo");
         }
-        log.debug("Object: {}", arr);
+        log.debug("Object: " + String.valueOf(arr));
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);
@@ -134,7 +134,7 @@ public class PolizaManualServlet extends HttpServlet {
         /// fin del else
         arr = "[" + arr + "]";
         arr = new String(arr.getBytes("ISO-8859-1"), "UTF-8");
-        log.debug("Object: {}", arr);
+        log.debug("Object: " + String.valueOf(arr));
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);
@@ -153,7 +153,7 @@ public class PolizaManualServlet extends HttpServlet {
             token = ",";
         }
         arr = "[" + arr + "]";
-        log.debug("Object: {}", arr);
+        log.debug("Object: " + String.valueOf(arr));
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);

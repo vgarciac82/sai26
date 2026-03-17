@@ -144,7 +144,7 @@ public class ConsultaSaldosServlet extends HttpServlet implements GestionInterfa
             CloseObject.closeObject(rs);
             CloseObject.closeObject(pstmt);
             CloseObject.closeObject(conn);
-            out.write(jsonObj.toString().toPath());
+            out.write(jsonObj.toString());
             out.flush();
             out.close();
             out = null;

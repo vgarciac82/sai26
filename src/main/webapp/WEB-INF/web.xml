@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app id="WebApp_1423624076314">
+	<display-name>ControlDeGestion</display-name>
+	<description>Módulo de Control de Gestion FortImax</description>
+	<distributable />
+	 
+	       
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	<taglib>
+		<taglib-uri>/WEB-INF/tlds/imagetag.tld</taglib-uri>
+		<taglib-location>/WEB-INF/tlds/imagetag.tld</taglib-location>
+	</taglib>
+	 
+	<resource-ref>
+		<res-ref-name>jdbc/gestion</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>CONTAINER</res-auth>
+		<res-sharing-scope>Shareable</res-sharing-scope>
+	</resource-ref>
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
+	<env-entry>
+		<description>Nombre del DataSource para conexion a base de datos
+			(tambien cambiar en resource-ref)</description>
+		<env-entry-name>dataSourceRefName</env-entry-name>
+		<env-entry-value>jdbc/gestion</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+	<env-entry>
+		<description>Generador de folios</description>
+		<env-entry-name>folioGeneratorInterface</env-entry-name>
+		<env-entry-value>com.syc.gestion.custom.DefaultFolioGenerator</env-entry-value>
+		<!-- env-entry-value>com.afirme.gestion.AfirmeFolioGenerator</env-entry-value -->
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+	<env-entry>
+		<description>Generador y/o modificador de XML de Responsable-Operacion
+			siguiente</description>
+		<env-entry-name>xmlGeneratorInterface</env-entry-name>
+		<env-entry-value>com.afirme.gestion.AfirmeXmlGenerator</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+	<env-entry>
+		<description>Prefijo de URL a FortImax (ejem.:
+			http://company.name/fortimax, http://company.name:#puerto/fortimax)</description>
+		<env-entry-name>FortImaxUrl</env-entry-name>
+		<env-entry-value>http://localhost:8080/fortimax</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+	<env-entry>
+		<description>Usuario FortImax de Gestion</description>
+		<env-entry-name>FortImaxUser</env-entry-name>
+		<env-entry-value>gestion</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+	<env-entry>
+		<description>Password FortImax de Gestion</description>
+		<env-entry-name>FortImaxPwd</env-entry-name>
+		<env-entry-value>GESTION</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+	<env-entry>
+		<description>Intervalo de espera entre cada verificacion de tiempos
+			limite de Casos (milisegundos)</description>
+		<env-entry-name>sleepIntervalProcess</env-entry-name>
+		<env-entry-value>60000</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+	<env-entry>
+		<env-entry-name>imageViewerInterface</env-entry-name>
+		<env-entry-value>com.syc.gestion.custom.ImageViewerGestion</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+	<env-entry>
+		<description>Directorio temporal para carga de archivos</description>
+		<env-entry-name>TemporaryDirectory</env-entry-name>
+		<env-entry-value>/tmp/upload/</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+</web-app>

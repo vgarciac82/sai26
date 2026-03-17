@@ -94,7 +94,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
             if (!dirCLC.isDirectory())
                 throw new Exception("La ruta[" + outputDir + "] no corresponde a un directorio. Reporte al administrador del sistema.");
             int extraidos = CLCAttachmentManager.extractZipCLC(zipFilePath, outputDir, arrList);
-            log.debug("Object: {}", "El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos");
+            log.debug("Object: " + String.valueOf("El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos"));
             log.trace("Iniciando adjuntamiento de archivos.");
             File[] files = arrList.toArray(new File[arrList.size()]);
             for (int i = 0; i < files.length; i++) {
@@ -148,7 +148,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
             if (!dirCLC.isDirectory())
                 throw new Exception("La ruta[" + outputDir + "] no corresponde a un directorio. Reporte al administrador del sistema.");
             int extraidos = CLCAttachmentManager.extractZipCLC(zipFilePath, outputDir, arrList);
-            log.debug("Object: {}", "El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos");
+            log.debug("Object: " + String.valueOf("El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos"));
             log.trace("Iniciando adjuntamiento de archivos.");
             File[] files = arrList.toArray(new File[arrList.size()]);
             for (int i = 0; i < files.length; i++) {
@@ -240,7 +240,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
                 throw new Exception("La ruta[" + outputDir + "] no corresponde a un directorio. Reporte al administrador del sistema.");
             }
             int extraidos = CLCAttachmentManager.extractZipCLC(zipFilePath, outputDir, arrList);
-            log.debug("Object: {}", "El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos");
+            log.debug("Object: " + String.valueOf("El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos"));
             log.trace("Iniciando adjuntamiento de archivos.");
             File[] files = arrList.toArray(new File[arrList.size()]);
             for (int i = 0; i < files.length; i++) {
@@ -294,7 +294,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
                 throw new Exception("La ruta[" + carpetaExtraccion + "] no corresponde a un directorio. Reporte al administrador del sistema.");
             }
             int extraidos = CLCAttachmentManager.extractZipCLC(zipFilePath, carpetaExtraccion, filesList);
-            log.debug("Object: {}", "El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos");
+            log.debug("Object: " + String.valueOf("El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos"));
             log.trace("Iniciando adjuntamiento de archivos.");
             File[] files = filesList.toArray(new File[filesList.size()]);
             for (int i = 0; i < files.length; i++) {
@@ -391,7 +391,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
                 throw new Exception("La ruta[" + outputDir + "] no corresponde a un directorio. Reporte al administrador del sistema.");
             }
             int extraidos = CLCAttachmentManager.extractZipCLC(zipFilePath, outputDir, arrList);
-            log.debug("Object: {}", "El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos");
+            log.debug("Object: " + String.valueOf("El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos"));
             log.trace("Iniciando adjuntamiento de archivos.");
             File[] files = arrList.toArray(new File[arrList.size()]);
             for (int i = 0; i < files.length; i++) {
@@ -448,7 +448,7 @@ public class CLCAttachmentBusinessLogic extends DataSourceManager {
                 throw new Exception("La ruta[" + outputDir + "] no corresponde a un directorio. Reporte al administrador del sistema.");
             }
             int extraidos = CLCAttachmentManager.extractZipCLC(zipFilePath, outputDir, arrList);
-            log.debug("Object: {}", "El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos");
+            log.debug("Object: " + String.valueOf("El archivo [" + zipFilePath + "] contiene [" + extraidos + "] archivos"));
             log.trace("Iniciando adjuntamiento de archivos.");
             File[] files = arrList.toArray(new File[arrList.size()]);
             for (int i = 0; i < files.length; i++) {

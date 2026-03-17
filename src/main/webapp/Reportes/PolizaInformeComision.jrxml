@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteInformeBoletos" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="9e613b08-37b6-4f96-9e27-f6eb55355ea6">
+	<property name="ireport.zoom" value="1.33100000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sai_pruebas"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="16"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="977"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="whereFolio" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT DISTINCT CAST(nFolioComision AS VARCHAR(9)) nFolioComision, CONVERT(VARCHAR(12), fInforme,103) fInforme, 'Objeto e Informe: ' +  cInformeComision cInformeComision
+, COM.RFC, rTRIM(emp.NOMBREN) + ' ' + RTRIM(emp.NOMBREP) + ' ' + RTRIM(emp.NOMBREM) Beneficiario
+, com.cConcepto_Comision, CONVERT(VARCHAR(12),com.fInicio,103) fInicio, CONVERT(VARCHAR(12),com.fFin,103) fFin
+, mImporteNeto, cPais, EDO_NOMBRE, MPO_NOMBRE, cLocalidad, Ubicacion
+, DESCRIPCION_PUESTO, emp.CARGO, UNIDAD
+,dbo.fnCantidadLetra(mImporteNeto) cantLetras
+,com.sFirmanteVoBo, com.sPuestoVoBo, com.sFirmanteAut, sPuestoAut
+, sFirmanteElabora, sPuestoElabora
+, coalesce (dele.cNombreTitular + ' ' + dele.cApellidoPaternoTitular+ ' ' +  dele.cApellidoMaternoTitular, (select nombreN + ' ' + nombreP + ' ' + nombreM from v_empleados_giro where clave = dele.cnumeroEmpleado))
+NombreTitular
+, dele.cPuestoTitular
+, isnull( 'Firma ' + Sup.cTipoSuplencia + ' de: ' + sFirmanteAut + ', con fundamento en el oficio: ' + dele.cFolioOficio + ', de fecha: ' + CAST(dele.dFechaOficio AS VARCHAR(10)),'') Leyenda
+, coalesce (delevb.cNombreTitular + ' ' + delevb.cApellidoPaternoTitular+ ' ' +  delevb.cApellidoMaternoTitular ,
+(select nombreN + ' ' + nombreP + ' ' + nombreM from v_empleados_giro where clave = DeleVb.cnumeroEmpleado)) NombreTitularvb
+, delevb.cPuestoTitular PuestoTitularvb
+, isnull('Firma ' + SupVb.cTipoSuplencia +' de: ' + sFirmanteVoBo + ', con fundamento en el oficio: ' + delevb.cFolioOficio + ', de fecha: ' + CAST(delevb.dFechaOficio AS VARCHAR(10)), '') LeyendaVb
+, nidComisionModulo AS nFolioAgenda
+FROM dbo.vw_ComisionesSinComprobacion com
+INNER JOIN dbo.v_ViaticosComisiones via
+ON com.nIdComision = via.nIdComision
+LEFT JOIN dbo.v_empleados_giro emp
+ON emp.RFC  = com.RFC COLLATE SQL_Latin1_General_CP1_CI_AS
+LEFT JOIN dbo.tPagoFirmanteDelagatorio Dele
+ON dele.nFolioPago = com.nFolioComision AND  cTipoPago = 'COMSINVIATICOS'
+LEFT JOIN dbo.tPagoFirmanteDelegatorioVoBo DeleVb
+ON delevb.nFolioPago = com.nFolioComision AND  DeleVb.cTipoPago = 'COMSINVIATICOS'
+left JOIN tCatTipoSuplencia Sup WITH (NOLOCK)
+				ON Dele.nTipoSuplencia = Sup.ntiposuplencia
+LEFT JOIN tCatTipoSuplencia SupVb WITH (NOLOCK)
+				ON DeleVb.nTipoSuplencia = Supvb.ntiposuplencia
+LEFT JOIN tRelacionComprobacionComisiones COMPCOM WITH (NOLOCK)
+				ON com.nfoliocomision = nFolioTramite AND cTipoTramite = 'COMSINVIATICOS'
+where nFolioComision = $P{whereFolio}]]>
+	</queryString>
+	<field name="nFolioComision" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nFolioComision"/>
+		<property name="com.jaspersoft.studio.field.label" value="nFolioComision"/>
+	</field>
+	<field name="fInforme" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fInforme"/>
+		<property name="com.jaspersoft.studio.field.label" value="fInforme"/>
+	</field>
+	<field name="cInformeComision" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cInformeComision"/>
+		<property name="com.jaspersoft.studio.field.label" value="cInformeComision"/>
+	</field>
+	<field name="RFC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RFC"/>
+		<property name="com.jaspersoft.studio.field.label" value="RFC"/>
+	</field>
+	<field name="Beneficiario" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Beneficiario"/>
+		<property name="com.jaspersoft.studio.field.label" value="Beneficiario"/>
+	</field>
+	<field name="cConcepto_Comision" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cConcepto_Comision"/>
+		<property name="com.jaspersoft.studio.field.label" value="cConcepto_Comision"/>
+	</field>
+	<field name="fInicio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fInicio"/>
+		<property name="com.jaspersoft.studio.field.label" value="fInicio"/>
+	</field>
+	<field name="fFin" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fFin"/>
+		<property name="com.jaspersoft.studio.field.label" value="fFin"/>
+	</field>
+	<field name="mImporteNeto" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mImporteNeto"/>
+		<property name="com.jaspersoft.studio.field.label" value="mImporteNeto"/>
+	</field>
+	<field name="cPais" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cPais"/>
+		<property name="com.jaspersoft.studio.field.label" value="cPais"/>
+	</field>
+	<field name="EDO_NOMBRE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EDO_NOMBRE"/>
+		<property name="com.jaspersoft.studio.field.label" value="EDO_NOMBRE"/>
+	</field>
+	<field name="MPO_NOMBRE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="MPO_NOMBRE"/>
+		<property name="com.jaspersoft.studio.field.label" value="MPO_NOMBRE"/>
+	</field>
+	<field name="cLocalidad" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cLocalidad"/>
+		<property name="com.jaspersoft.studio.field.label" value="cLocalidad"/>
+	</field>
+	<field name="Ubicacion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Ubicacion"/>
+		<property name="com.jaspersoft.studio.field.label" value="Ubicacion"/>
+	</field>
+	<field name="DESCRIPCION_PUESTO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DESCRIPCION_PUESTO"/>
+		<property name="com.jaspersoft.studio.field.label" value="DESCRIPCION_PUESTO"/>
+	</field>
+	<field name="CARGO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CARGO"/>
+		<property name="com.jaspersoft.studio.field.label" value="CARGO"/>
+	</field>
+	<field name="UNIDAD" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="UNIDAD"/>
+		<property name="com.jaspersoft.studio.field.label" value="UNIDAD"/>
+	</field>
+	<field name="cantLetras" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cantLetras"/>
+		<property name="com.jaspersoft.studio.field.label" value="cantLetras"/>
+	</field>
+	<field name="sFirmanteVoBo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sFirmanteVoBo"/>
+		<property name="com.jaspersoft.studio.field.label" value="sFirmanteVoBo"/>
+	</field>
+	<field name="sPuestoVoBo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sPuestoVoBo"/>
+		<property name="com.jaspersoft.studio.field.label" value="sPuestoVoBo"/>
+	</field>
+	<field name="sFirmanteAut" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sFirmanteAut"/>
+		<property name="com.jaspersoft.studio.field.label" value="sFirmanteAut"/>
+	</field>
+	<field name="sPuestoAut" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sPuestoAut"/>
+		<property name="com.jaspersoft.studio.field.label" value="sPuestoAut"/>
+	</field>
+	<field name="sFirmanteElabora" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sFirmanteElabora"/>
+		<property name="com.jaspersoft.studio.field.label" value="sFirmanteElabora"/>
+	</field>
+	<field name="sPuestoElabora" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sPuestoElabora"/>
+		<property name="com.jaspersoft.studio.field.label" value="sPuestoElabora"/>
+	</field>
+	<field name="NombreTitular" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NombreTitular"/>
+		<property name="com.jaspersoft.studio.field.label" value="NombreTitular"/>
+	</field>
+	<field name="cPuestoTitular" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cPuestoTitular"/>
+		<property name="com.jaspersoft.studio.field.label" value="cPuestoTitular"/>
+	</field>
+	<field name="Leyenda" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Leyenda"/>
+		<property name="com.jaspersoft.studio.field.label" value="Leyenda"/>
+	</field>
+	<field name="NombreTitularvb" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NombreTitularvb"/>
+		<property name="com.jaspersoft.studio.field.label" value="NombreTitularvb"/>
+	</field>
+	<field name="PuestoTitularvb" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PuestoTitularvb"/>
+		<property name="com.jaspersoft.studio.field.label" value="PuestoTitularvb"/>
+	</field>
+	<field name="LeyendaVb" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LeyendaVb"/>
+		<property name="com.jaspersoft.studio.field.label" value="LeyendaVb"/>
+	</field>
+	<field name="nFolioAgenda" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="nFolioAgenda"/>
+		<property name="com.jaspersoft.studio.field.label" value="nFolioAgenda"/>
+	</field>
+	<variable name="laEP" class="java.lang.String">
+		<initialValueExpression><![CDATA["VARIAS"]]></initialValueExpression>
+	</variable>
+	<variable name="mImporteRetencion" class="java.lang.String"/>
+	<group name="caNoContrarrecibo">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="605" splitType="Stretch">
+				<rectangle>
+					<reportElement key="rectangle" x="0" y="100" width="551" height="447" uuid="9ace3120-ad38-4d70-91ed-c8e17c85819c"/>
+				</rectangle>
+				<textField textAdjust="StretchHeight">
+					<reportElement x="68" y="118" width="231" height="18" uuid="82a604cd-61f7-4d08-81cb-9e790681e60c"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CARGO}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line" x="0" y="195" width="551" height="1" uuid="2b11a499-d980-4626-98d4-68cfea3567f1"/>
+				</line>
+				<staticText>
+					<reportElement key="staticText" x="6" y="198" width="112" height="14" uuid="9c745c2d-17e1-4664-87fe-a8f392a162a3"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Motivo de la comisión:]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line" x="0" y="174" width="551" height="1" uuid="69faac35-b1f0-476d-b0c0-3740d0053b8f"/>
+				</line>
+				<textField textAdjust="StretchHeight" isBlankWhenNull="false">
+					<reportElement key="textField" x="5" y="212" width="539" height="23" uuid="f6253e51-fb56-4010-88fd-e4bc14e0c32d"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cConcepto_Comision}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement key="rectangle" x="298" y="35" width="128" height="50" uuid="1ff00b48-8edb-4379-a76b-60225c902be3"/>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="425" y="35" width="126" height="50" uuid="5c6838fe-6448-4c97-8df1-b8e9e326744a"/>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="172" y="35" width="127" height="50" uuid="a39751d6-ce7b-4532-af3e-a850a8b26b39"/>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="172" y="2" width="379" height="36" uuid="17724c41-7bf7-49f7-bffa-6a29ee283c62"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="172" y="38" width="379" height="16" backcolor="#CCCCCC" uuid="519e1c13-d815-4268-b759-6cdf7867845e">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+				</rectangle>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField" x="425" y="62" width="128" height="16" uuid="d3ea774f-f5c1-4499-91b2-8b0700bd255a"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fInforme}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement key="rectangle" x="0" y="84" width="551" height="16" backcolor="#CCCCCC" uuid="bb31bf55-ffb7-49c8-9605-27b18d9bcee4"/>
+				</rectangle>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField" x="68" y="103" width="357" height="16" uuid="161ac2a1-76b7-47ff-9030-67bfd597122a"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Beneficiario}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText" x="171" y="38" width="128" height="16" uuid="7f19ad69-e371-4255-8d6c-b1dc86d80cec"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[No. documento]]></text>
+				</staticText>
+				<image>
+					<reportElement key="image" x="1" y="4" width="165" height="68" uuid="1d4fa42a-ce32-460c-95a2-aa976380d971"/>
+					<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"\\logotipo-usuario.png"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement key="staticText" x="172" y="3" width="381" height="33" uuid="d604ff58-82b8-48b7-a059-e7023ba462df"/>
+					<textElement textAlignment="Center">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[COMISION NACIONAL FORESTAL
+INFORME DE COMISIÓN SIN VIÁTICOS]]></text>
+				</staticText>
+				<textField textAdjust="StretchHeight">
+					<reportElement x="335" y="118" width="211" height="19" uuid="2cdb4d65-7443-4ebd-a97f-ee0902aaf456"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{UNIDAD}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement key="rectangle" x="0" y="138" width="551" height="16" backcolor="#CCCCCC" uuid="374016b6-35a4-4868-9f40-0690cd15aa0e"/>
+				</rectangle>
+				<textField isBlankWhenNull="true">
+					<reportElement x="175" y="64" width="126" height="14" uuid="55a173a7-690c-428c-9b5f-2e008e4b1f30"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nFolioComision}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText" x="1" y="142" width="551" height="14" uuid="b5b2fef5-d828-41cb-a654-632db76b1ffa"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DATOS DEL VIAJE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="5" y="103" width="63" height="16" uuid="dcaa3e82-fd55-4c62-a76b-6733f362f4a4"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Nombre:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="5" y="120" width="63" height="16" uuid="969365c7-e53f-4ea0-a94c-25d8e4cbd90d"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Cargo:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="301" y="120" width="34" height="16" uuid="96d77260-3c7d-4e21-8385-95aae1a19498"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Unidad:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="5" y="158" width="25" height="14" uuid="2106e55b-e7a6-4faa-93e1-55a359122a9c"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[País:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="0" y="88" width="551" height="14" uuid="398f9003-9491-4144-a0e8-c93fad1ba0d3"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DATOS DEL COMISIONADO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="298" y="38" width="128" height="16" uuid="49bbec9f-cbc3-4ebb-a8cb-79b8d597791a"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Tipo de documento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="424" y="41" width="128" height="14" uuid="731c1d0e-e7b7-44d1-9cb3-61d5d007e4ef"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Fecha de Captura]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="120" y="158" width="37" height="14" uuid="6d09bc4d-89c8-48fd-ab79-f2f36b2b6fcd"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Estado:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="305" y="158" width="59" height="14" uuid="06e7af0a-fb98-45c3-a0ab-f18864e6e9a0"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Municipio:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="6" y="178" width="59" height="14" uuid="77fa7a1d-abd7-4160-b4c9-e873b1a835cf"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Localidad:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="307" y="178" width="56" height="14" uuid="8123daf2-bda3-4227-a2b7-d29d6380a0fa"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Ubicación:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="32" y="158" width="88" height="14" uuid="ca370b61-e280-4ed1-ab91-5d45b1ceb735"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cPais}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="159" y="158" width="140" height="14" uuid="659ef3e2-de44-486e-ad39-4304cf15bf31"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EDO_NOMBRE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="66" y="178" width="232" height="14" uuid="13e07d42-81ac-491f-84c4-4619ff74852e"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cLocalidad}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="360" y="178" width="185" height="14" uuid="3005b726-b66d-4c8f-83ac-75babbb37bb2"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Ubicacion}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="359" y="158" width="187" height="14" uuid="d4ca1630-3d0f-4921-a77b-d66ec48dd94f"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{MPO_NOMBRE}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line" x="301" y="154" width="1" height="41" uuid="eab86323-e7db-4504-b475-1cdbf61e792c"/>
+				</line>
+				<line>
+					<reportElement key="line" x="117" y="154" width="1" height="20" uuid="d1eccb04-2f93-45fe-9605-471c06f4b5ca"/>
+				</line>
+				<rectangle>
+					<reportElement key="rectangle" x="0" y="547" width="551" height="19" backcolor="#CCCCCC" uuid="a90e24d2-31a7-4001-bad3-f1a06e1353e3"/>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText" x="5" y="553" width="540" height="11" uuid="3525fd3a-8bf5-4db2-b726-edae7a8f3579"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[BOLETOS DE AVIÓN]]></text>
+				</staticText>
+				<subreport>
+					<reportElement x="-1" y="566" width="551" height="38" uuid="e1787a1b-b9a8-4e48-a63f-d869f2b62175"/>
+					<subreportParameter name="swhere">
+						<subreportParameterExpression><![CDATA[$P{whereFolio}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubReporteBoletos.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement key="staticText" x="299" y="62" width="128" height="16" uuid="9f56d672-4b18-412c-a2cd-2c9848228fe7"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[INFORME DE COMISIÓN]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement x="425" y="100" width="126" height="18" uuid="51af39c5-52f7-4015-811d-3c8b9d4ed10e"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="430" y="102" width="69" height="16" uuid="74c7ab01-d60b-4839-bd0d-f7f90abb2ab2"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Folio de la Agenda:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="502" y="102" width="44" height="16" uuid="bf57fc6c-0e64-4c31-bdc1-3064c9127dca"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nFolioAgenda}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line" x="0" y="287" width="551" height="2" uuid="e312d94d-9254-4a02-b919-ca6edcc85ad7"/>
+				</line>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false">
+					<reportElement key="textField" x="130" y="251" width="131" height="18" uuid="bb6d45bc-76d0-41cd-b5a5-cbb0c9d620d9"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{mImporteNeto}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField" x="4" y="268" width="544" height="19" uuid="3def9ca2-386e-4f44-9b65-139f3f909175"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cantLetras}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText" x="5" y="251" width="124" height="18" uuid="dfff9638-7df7-4265-9d06-6ef6dcf9b556"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Importe Neto de Pasajes Aéreos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="4" y="289" width="112" height="14" uuid="b7c84bdf-2690-4ea8-82c4-ce22b10f754b"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Informe de la comisión:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField" x="2" y="301" width="546" height="252" uuid="fa153343-4eda-465b-b2f5-7a6dc02c3166"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cInformeComision}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement x="281" y="251" width="270" height="16" uuid="219a6283-a7a5-498a-aba7-f8ef7abc1001"/>
+				</rectangle>
+				<textField>
+					<reportElement x="326" y="255" width="84" height="14" uuid="60088079-2ca3-4022-bcea-edcfa309d53a"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fInicio}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText" x="415" y="255" width="46" height="14" uuid="206dcc8d-c64c-41f9-9de6-ebd6728b97de"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Regreso:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="289" y="255" width="46" height="14" uuid="908c1f0c-ceb2-405f-a299-0ebdc768eaea"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Salida:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="462" y="255" width="84" height="14" uuid="177e82ef-775b-4586-bfe7-0bda0ff3c37d"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fFin}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement x="0" y="236" width="281" height="16" backcolor="#CCCCCC" uuid="9865426c-94ff-47cb-82be-c941b0dc4738">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+				</rectangle>
+				<rectangle>
+					<reportElement x="281" y="236" width="270" height="16" backcolor="#CCCCCC" uuid="98845f01-93eb-4227-a1eb-dbddcf603a47">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText" x="1" y="240" width="269" height="14" uuid="405e9a91-46de-4afc-a36c-e32725687db2"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total pasajes aereos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="281" y="240" width="269" height="14" uuid="5c866282-efc7-4185-84ba-80be9f1087e6"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[FECHAS]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<pageFooter>
+		<band height="128" splitType="Stretch">
+			<staticText>
+				<reportElement x="386" y="32" width="163" height="95" uuid="7f0dcef7-c603-43d2-8b54-36d1f6cff144"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[   Autorizó]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="198" y="93" width="163" height="13" uuid="9adae250-6ac7-490f-9db4-abeff38063ca"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LeyendaVb}.equals( "" ) ? $F{sFirmanteVoBo} : $F{NombreTitularvb}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="386" y="104" width="162" height="20" isPrintWhenDetailOverflows="true" uuid="85a5fc4c-9b51-4ea0-85e3-f5ecc7fa8a12"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Leyenda}.equals( "" )? $F{sPuestoAut}: $F{cPuestoTitular}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="198" y="32" width="163" height="95" uuid="fe638168-e673-4f48-9a42-929ea31e4999"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Comisionado]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="386" y="93" width="162" height="12" uuid="18728a34-93dc-4eba-95d1-74e6acd9adf7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $F{Leyenda}.equals( "" )) ? $F{sFirmanteAut} : $F{NombreTitular}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="8" y="93" width="163" height="13" uuid="9d5fc259-c5b7-4122-aec5-0d6288ecfe15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sFirmanteElabora}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="198" y="104" width="163" height="21" uuid="5c7fd5de-ec22-4760-bc78-021cce395edd"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LeyendaVb}.equals( "" ) ? $F{sPuestoVoBo} :$F{PuestoTitularvb}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="8" y="0" width="542" height="20" uuid="f6ea7ce9-3cc3-4712-bd28-70f6d8c70dc4"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="12" y="0" width="542" height="32" uuid="34de636d-f8ed-44fa-b9e9-70b313fb9500"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Declaro por medio del presente documento una comisión oficial sin viaticos y pasajes terrestres.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="32" width="163" height="95" uuid="2fcde748-186f-49c2-9067-b6c5e467142e"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Elaboró]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="8" y="104" width="163" height="21" uuid="fe62aba9-36d6-43e0-9fee-ab4a14c3a9bb"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sPuestoElabora}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="386" y="73" width="160" height="31" uuid="d1eef4b4-a9d6-450c-bc41-f7466e413abf"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Leyenda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="198" y="73" width="162" height="31" uuid="b8e280fb-c027-4526-9593-8b2f247a5123"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LeyendaVb}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

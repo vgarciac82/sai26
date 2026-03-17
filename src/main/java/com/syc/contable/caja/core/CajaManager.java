@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import org.apache.commons.lang.StringUtils;
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
+
 import com.syc.fortimax.core.Aplicacion;
 import com.syc.fortimax.core.AplicacionManager;
 import com.syc.gestion.core.Caso;
@@ -733,10 +733,10 @@ public class CajaManager {
         query.append("WHERE ENC.nIdIntegracion = '" + nIDIntegracion + "'\r\n");
         query.append("GROUP BY ENC.fAplicacion, ENC.fAplicacion, MONTH(ENC.fAplicacion), ccentrocontable, cUnidadResponsableContable, aEjercicioFiscal, cRamo, ENC.cUnidadResponsable, sNoContrarrecibo");
         try {
-            log.debug("Object: {}", query.toString());
+            log.debug("Object: " + String.valueOf(query.toString()));
             psInsert = conn.prepareStatement(query.toString());
             int insertados = psInsert.executeUpdate();
-            log.debug("Object: {}", "Se insertaron " + insertados + " regsitros. ");
+            log.debug("Object: " + String.valueOf("Se insertaron " + insertados + " regsitros. "));
         } finally {
             CloseObject.closeObject(psInsert);
         }
@@ -772,10 +772,10 @@ public class CajaManager {
         queryInsert.append("WHERE ENC.nIdIntegracion = '" + nIDIntegracion + "'\r\n");
         queryInsert.append("GROUP BY ENC.cUnidadResponsable, CTAB");
         try {
-            log.debug("Object: {}", queryInsert.toString());
+            log.debug("Object: " + String.valueOf(queryInsert.toString()));
             psInsert = conn.prepareStatement(queryInsert.toString());
             int insertados = psInsert.executeUpdate();
-            log.debug("Object: {}", "Se insertaron " + insertados + " regsitros. ");
+            log.debug("Object: " + String.valueOf("Se insertaron " + insertados + " regsitros. "));
         } finally {
             CloseObject.closeObject(psInsert);
         }
@@ -792,10 +792,10 @@ public class CajaManager {
         queryInsert.append("JOIN tLayoutsCreadosRelacionGastosHeader L WITH (NOLOCK) ON ENC.nIdIntegracion = L.sAuxiliarComodin\r\n");
         queryInsert.append("WHERE ENC.nIdIntegracion = '" + nIDIntegracion + "'");
         try {
-            log.debug("Object: {}", queryInsert.toString());
+            log.debug("Object: " + String.valueOf(queryInsert.toString()));
             psInsert = conn.prepareStatement(queryInsert.toString());
             int insertados = psInsert.executeUpdate();
-            log.debug("Object: {}", "Se insertaron " + insertados + " regsitros. ");
+            log.debug("Object: " + String.valueOf("Se insertaron " + insertados + " regsitros. "));
         } finally {
             CloseObject.closeObject(psInsert);
         }
@@ -825,9 +825,9 @@ public class CajaManager {
             pst2.setString(2, nFolio);
             pst2.setInt(3, folioAnticipo);
             pst2.setDouble(4, importe);
-            log.debug("Object: {}", pst.toString());
+            log.debug("Object: " + String.valueOf(pst.toString()));
             pst2.executeUpdate();
-            log.debug("Object: {}", pst2.toString());
+            log.debug("Object: " + String.valueOf(pst2.toString()));
             pst.executeUpdate();
         } finally {
             CloseObject.closeObject(pst, false);

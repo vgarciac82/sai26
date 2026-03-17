@@ -230,7 +230,7 @@ public class CargaProyectoManager {
         try {
             log.trace("Iniciando insercion de renglon");
             stmnt = conn.createStatement();
-            log.debug("Object: {}", Util.genInsertUpdateFromMap("tProyecto_Calendario", infoRenglon, new String[] { "EP" }));
+            log.debug("Object: " + String.valueOf(Util.genInsertUpdateFromMap("tProyecto_Calendario", infoRenglon, new String[] { "EP" })));
             r = stmnt.executeUpdate(Util.genInsertFromMap("tProyecto_Calendario", infoRenglon));
             log.trace("Object: {}", "Se inserto " + r + "registros");
             return r;

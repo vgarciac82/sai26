@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="representantesPedidoModificado"  pageWidth="360" pageHeight="200" orientation="Landscape" columnWidth="360" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idPedidoDefinitivo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cIdRFC" class="java.lang.String"/>
+	<parameter name="FECHA_MOD" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[declare @IdPedido varchar(40)
+set @IdPedido=$P{idPedidoDefinitivo}
+declare @numEP int;
+select @numEP=dbo.fn_mEP(@IdPedido)
+if (@numEP>0)
+begin
+select distinct cast(convert(date,fFormalizacion,103) as varchar(15)) as fFormalizacion, pr.cIdpedido,pr.cRepresentanteLegal,cCargoRepresentante,cActaConstitutiva,cNoEscritura,cTelefono,cAutorizacion, cFechaAutorizacion,
+case when dbo.fn_mEP(@IdPedido)>1 then 'Ver anexo' else EP end  as EP from    tPreCompromisoDetalle a  inner join tPreCompromisoEncabezado b on a.nFolioPreCompromiso=b.nFolioPreCompromiso inner join mpedido mp
+on mp.cIdPedidoDefinitivo=b.cIdContrato
+inner join mPedidoRepresentante pr on pr.cIdPedido=mp.cIdPedidoDefinitivo where pr.cIdPedido=@IdPedido
+end
+else
+begin
+select distinct cast(convert(date,fFormalizacion,103) as varchar(15)) as fFormalizacion, pr.cIdpedido,pr.cRepresentanteLegal,cCargoRepresentante,cActaConstitutiva,cNoEscritura,cTelefono,cAutorizacion, cFechaAutorizacion,' ' as EP
+from mpedido mp
+inner join mPedidoRepresentante pr on pr.cIdPedido=mp.cIdPedidoDefinitivo where pr.cIdPedido=@IdPedido
+end]]>
+	</queryString>
+	<field name="fFormalizacion" class="java.lang.String"/>
+	<field name="cIdpedido" class="java.lang.String"/>
+	<field name="cRepresentanteLegal" class="java.lang.String"/>
+	<field name="cCargoRepresentante" class="java.lang.String"/>
+	<field name="cActaConstitutiva" class="java.lang.String"/>
+	<field name="cNoEscritura" class="java.lang.String"/>
+	<field name="cTelefono" class="java.lang.String"/>
+	<field name="cAutorizacion" class="java.lang.String"/>
+	<field name="cFechaAutorizacion" class="java.lang.String"/>
+	<field name="EP" class="java.lang.String"/>
+	<detail>
+		<band height="200" splitType="Prevent">
+			<rectangle>
+				<reportElement x="1" y="1" width="302" height="122"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="154" y="97" width="148" height="11"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cTelefono}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="154" y="84" width="149" height="9">
+					<printWhenExpression><![CDATA[($P{cIdRFC}.replaceAll( " ", "" ).substring(3,4)).equals( "-" ) ? Boolean.TRUE:Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cNoEscritura}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="149" y="56" width="150" height="1"/>
+			</line>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="3" y="45" width="139" height="11"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[FIRMA]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="153" y="71" width="149" height="12"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cActaConstitutiva}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="3" y="58" width="139" height="11"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[CARGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="84" width="139" height="9">
+					<printWhenExpression><![CDATA[($P{cIdRFC}.replaceAll( " ", "" ).substring(3,4)).equals( "-" ) ? Boolean.TRUE:Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[No. ESCRITURA PODER NOTARIAL]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="1" y="154" width="302" height="45"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="163" y="111" width="118" height="10"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{FECHA_MOD}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="153" y="29" width="150" height="13"/>
+				<textElement>
+					<font size="7" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cRepresentanteLegal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="3" y="2" width="300" height="25"/>
+				<textElement>
+					<font size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[EL PROVEEDOR SE OBLIGA A ENTREGAR LOS BIENES EN LOS TERMINOS PACTADOS EN ESTE PEDIDO Y SE SUJETA A LAS DISPOSICIONES DE LA LEY DE ADQUISICIONES, ARRENDAMIENTOS Y SERVICIOS DEL SECTOR PUBLICO Y SU REGLAMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="111" width="139" height="10"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="153" y="58" width="149" height="12"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cCargoRepresentante}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="2" y="175" width="300" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="208" y="177" width="95" height="12"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[FECHA:   DIA    MES    AÑO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="155" width="124" height="21"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[PARTIDA PRESUPUESTAL(No. Y NOMBRE)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="28" width="139" height="13"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[NOMBRE DEL REPRESENTANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="98" width="139" height="9"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[TELEFONO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="177" width="135" height="11"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[AUTORIZACION PARA INVERSION ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="142" y="153" width="1" height="46"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="218" y="187" width="79" height="12"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cFechaAutorizacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="162" y="177" width="31" height="10"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[No. oficio]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="143" y="187" width="66" height="12"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cAutorizacion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="149" y="157" width="148" height="13"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{EP}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="149" y="108" width="150" height="1"/>
+			</line>
+			<line>
+				<reportElement x="149" y="93" width="150" height="1">
+					<printWhenExpression><![CDATA[($P{cIdRFC}.replaceAll( " ", "" ).substring(3,4)).equals( "-" ) ? Boolean.TRUE:Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="149" y="81" width="150" height="1"/>
+			</line>
+			<line>
+				<reportElement x="149" y="68" width="150" height="1"/>
+			</line>
+			<line>
+				<reportElement x="149" y="38" width="150" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="4" y="70" width="138" height="13"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(($P{cIdRFC}.replaceAll( " ", "" ).substring(3,4)).equals( "-" ) ? "NO. ESCRITURA ACTA CONSTITUTIVA" : "ACTA DE NACIMIENTO" )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="128" width="299" height="10"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[DEBEN LLENARSE LOS DOS RENGLONES QUE SIGUEN SOLAMENTE CUANDO EXISTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="137" width="299" height="11"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[AUMENTO AL IMPORTE ANTERIOR DEL PEDIDO:]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

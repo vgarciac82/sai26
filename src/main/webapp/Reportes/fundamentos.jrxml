@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fundamentos"  pageWidth="396" pageHeight="425" columnWidth="396" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="tamanoLetra">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{numClausula}.equals(22)|| $F{numClausula}.equals(21)|| $F{numClausula}.equals(20)|| $F{numClausula}.equals(19)|| $F{numClausula}.equals(18)]]></conditionExpression>
+			<style fontSize="4"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{numClausula}.equals(17)|| $F{numClausula}.equals(16)|| $F{numClausula}.equals(15)|| $F{numClausula}.equals(14)|| $F{numClausula}.equals(13)]]></conditionExpression>
+			<style fontSize="5"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{numClausula}.equals(12)||$F{numClausula}.equals(11)||$F{numClausula}.equals(10)||$F{numClausula}.equals(9)||$F{numClausula}.equals(8)]]></conditionExpression>
+			<style fontSize="6"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{numClausula}.equals(7)||$F{numClausula}.equals(6)||$F{numClausula}.equals(5)||$F{numClausula}.equals(4)||$F{numClausula}.equals(3)||$F{numClausula}.equals(2)||$F{numClausula}.equals(1)]]></conditionExpression>
+			<style fontSize="6"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="cIdPedido" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[declare @IdPedido varchar(40)
+set @IdPedido=$P{cIdPedido}
+select fundamento,(select COUNT (nIdClausula) from mpedidoClausula  where cIdPedidoDefinitivo=@IdPedido) as numClausula
+ from mPedidoFundamentos where cIdPedidoDefinitivo=@IdPedido]]>
+	</queryString>
+	<field name="fundamento" class="java.lang.String"/>
+	<field name="numClausula" class="java.lang.Integer"/>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement style="tamanoLetra" mode="Opaque" x="0" y="1" width="366" height="18"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fundamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

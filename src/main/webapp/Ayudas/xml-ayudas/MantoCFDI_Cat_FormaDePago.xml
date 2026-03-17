@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento de formas de pago CFDI</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>tCFDI_Cat_FormaDePago</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cFormaPago"									control=""	dependencia="No"	limpiaOnKeypress=""		header="Usuario"	 	 			ancho="2"	maxlen="2"  tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cDescripcion"								control=""	dependencia="No"	limpiaOnKeypress=""		header="Descripcion"	 			ancho="48"	maxlen="48" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cBancarizado"								control=""	dependencia="No"	limpiaOnKeypress=""		header="Banco"	 					ancho="8"	maxlen="8" 	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cNumeroOperacion" 							control=""	dependencia="No"	limpiaOnKeypress=""		header="NumOperacion"	 			ancho="8"	maxlen="8" 	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cRFCEmisorCuentaOrdenante"					control=""	dependencia="No" 	limpiaOnKeypress=""		header="RFC Emisor"	 				ancho="15"	maxlen="15" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cCuentaOrdenante"							control=""	dependencia="No"	limpiaOnKeypress=""		header="Cuenta Emisor"	 			ancho="20"	maxlen="20" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cPatronCuentaOrdenante" 					control=""	dependencia="No"	limpiaOnKeypress=""		header="Patron Emisor"	 			ancho="56"	maxlen="56" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cRFCEmisorCuentaBeneficiario"				control=""	dependencia="No"	limpiaOnKeypress=""		header="RFC Beneficiario"	 		ancho="15"	maxlen="15" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cCuentaBenenficiario"						control=""	dependencia="No"	limpiaOnKeypress=""		header="Cuenta Beneficiario"	 	ancho="20"	maxlen="20" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cPatronCuentaBeneficiaria" 					control=""	dependencia="No"	limpiaOnKeypress=""		header="Patron Beneficiario"	 	ancho="56"	maxlen="56" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cTipoCadenaPago"							control=""	dependencia="No"	limpiaOnKeypress=""		header="CadenaPago"	 				ancho="15"	maxlen="15" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cNombreBancoEmisorCtaOrdenanteExtranjero"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Nombre Banco Extranjero"	ancho="88"	maxlen="88" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="fFechaInicioVigencia" 						control=""	dependencia="No"	limpiaOnKeypress=""		header="Fecha Inicio"	 			ancho="30"	maxlen="30" tipo="date"		visible="Si"	clase=""/>
+		<columna campo="fFechaFinVigencia" 							control=""	dependencia="No"	limpiaOnKeypress=""		header="Fecha Fin"	 				ancho="30"	maxlen="30" tipo="date"		visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="cFormaPago"								control="txtGridCol0"	llave="Si"	identity="No"	requerido="La forma de pago es un dato requerido."						requeridoFocus="txtGridCol0"	tipo="string" />		
+		<campo field="cDescripcion"								control="txtGridCol1"	llave="No"	identity="No"	requerido="La descripcion es un dato requerido."						requeridoFocus="txtGridCol1"	tipo="string" />
+		<campo field="cBancarizado"								control="txtGridCol2"	llave="No"	identity="No"	requerido="Bancarizado es un dato requerido"							requeridoFocus="txtGridCol2"	tipo="string" />
+		<campo field="cNumeroOperacion"							control="txtGridCol3"	llave="No"	identity="No"	requerido="Numero de operacion es un dato requerido."					requeridoFocus="txtGridCol3"	tipo="string" />
+		<campo field="cRFCEmisorCuentaOrdenante"				control="txtGridCol4"	llave="No"	identity="No"	requerido="RFC Emisor es un dato requerido"								requeridoFocus="txtGridCol4"	tipo="string" />
+		<campo field="cCuentaOrdenante"							control="txtGridCol5"	llave="No"	identity="No"	requerido="La cuenta del emisor es un dato requerido."					requeridoFocus="txtGridCol5"	tipo="string" />
+		<campo field="cPatronCuentaOrdenante"					control="txtGridCol6"	llave="No"	identity="No"	requerido="El patron de la cuenta del emisor es un dato requerido"		requeridoFocus="txtGridCol6"	tipo="string" />
+		<campo field="cRFCEmisorCuentaBeneficiario"				control="txtGridCol7"	llave="No"	identity="No"	requerido=""															requeridoFocus="txtGridCol7"	tipo="string" />
+		<campo field="cCuentaBenenficiario"						control="txtGridCol8"	llave="No"	identity="No"	requerido=""															requeridoFocus="txtGridCol8"	tipo="string" />
+		<campo field="cPatronCuentaBeneficiaria"				control="txtGridCol9"	llave="No"	identity="No"	requerido="El patron de la cuenta beneficiaria es un dato requerido."	requeridoFocus="txtGridCol9"	tipo="string" />
+		<campo field="cTipoCadenaPago"							control="txtGridCol10"	llave="No"	identity="No"	requerido=""															requeridoFocus="txtGridCol10"	tipo="string" />
+		<campo field="cNombreBancoEmisorCtaOrdenanteExtranjero"	control="txtGridCol11"	llave="No"	identity="No"	requerido=""															requeridoFocus="txtGridCol11"	tipo="string" />
+		<campo field="fFechaInicioVigencia"						control="txtGridCol12"	llave="No"	identity="No"	requerido=""															requeridoFocus="txtGridCol12"	tipo="date" />
+		<campo field="fFechaFinVigencia"						control="txtGridCol13"	llave="No"	identity="No"	requerido=""															requeridoFocus="txtGridCol13"	tipo="date" />
+		
+	</insertaRegistro>
+	
+</Ayuda>

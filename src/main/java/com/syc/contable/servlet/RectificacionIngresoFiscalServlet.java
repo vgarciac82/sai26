@@ -175,7 +175,7 @@ public class RectificacionIngresoFiscalServlet extends HttpServlet {
             celda = fila.createCell(4);
             celda.setCellValue(valuesImporte[i]);
         }
-        wb.write(response.getOutputStream().toPath());
+        wb.write(response.getOutputStream());
         wb.close();
     }
 }

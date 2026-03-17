@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportePagoAnticipado"  pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nFolio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="NoOficio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Unormativa" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="noEncabezado" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[Select
+
+isnull((SELECT D_DESCRIPCION FROM tCatUnidadResponsable WHERE cUnidadResponsable =$P{Unormativa} ),'') as direccion,
+
+
+(select cNombreDestinatario from tReportePagoAnticipado where nClave = $P{noEncabezado}) as nomDes,
+(select cPuestoDestinatario from tReportePagoAnticipado where nClave = $P{noEncabezado} ) as PuestoDes,
+(select cNombreRemitente from tReportePagoAnticipado where nClave = $P{noEncabezado}) as NomRem,
+(select cPuestoRemitente from tReportePagoAnticipado where nClave = $P{noEncabezado}) as PuestoRem,
+
+justificacion from tPAnticipadoEncanbezado
+where nFolioPagoAnticipado= $P{nFolio}]]>
+	</queryString>
+	<field name="direccion" class="java.lang.String"/>
+	<field name="nomDes" class="java.lang.String"/>
+	<field name="PuestoDes" class="java.lang.String"/>
+	<field name="NomRem" class="java.lang.String"/>
+	<field name="PuestoRem" class="java.lang.String"/>
+	<field name="justificacion" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="111" splitType="Stretch">
+			<image>
+				<reportElement x="3" y="2" width="239" height="50"/>
+				<imageExpression class="java.lang.String"><![CDATA["report\\images\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="3" y="66" width="258" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{direccion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="86" width="56" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[OFICIO No. ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="59" y="86" width="202" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NoOficio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="103" splitType="Stretch">
+			<staticText>
+				<reportElement x="302" y="71" width="156" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Mexico D.F ,  ]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="458" y="71" width="96" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="71" width="100" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[PRESENTE]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="3" y="17" width="229" height="38"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PuestoDes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="0" width="229" height="17"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nomDes}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="55" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="534" height="44" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{justificacion}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="41">
+			<subreport>
+				<reportElement isPrintRepeatedValues="false" x="0" y="0" width="552" height="38" isPrintWhenDetailOverflows="true"/>
+				<subreportParameter name="nFolio">
+					<subreportParameterExpression><![CDATA[$P{nFolio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA["C:\\SYC\\Clientes\\CONAGUA\\workspace\\sai\\WebContent\\Reportes\\ReportePagoAnticipadoDetalle.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="91">
+			<staticText>
+				<reportElement x="1" y="4" width="554" height="82"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[	Al respecto de conformidad con lo dispuesto en el último párrafo de artículo 13 de la Ley de Aquisiciones, Arrendamientos y Servicio del Sector Público que a  la letra dice: " Las dependencias y entidades podrán, dentro de su presupuesto autorizado, bajo su responsabilidad y por razones fundadas y motivadas, autorizar el pago de suscripciones, seguros o de otros servicios, en los que no sea posible pactar que su costo sea cubierto después de que la prestación del servicio se realice."; Con la finalidad de emitir la respuesta correspondiente, le solicito la autorización del pago anticipado de referencia.
+
+Sin otro  particular, aprovechando la ocasión para enviarle un cordial saludo.
+	]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="102" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="202" height="17"/>
+				<textElement>
+					<font fontName="Arial" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[A T E N T A M E N T E
+LA GERENTE
+
+
+
+
+
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="3" y="31" width="214" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{NomRem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="3" y="51" width="214" height="39"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PuestoRem}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

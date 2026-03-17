@@ -94,7 +94,7 @@ public class ObraPublicaReportesManager {
             totalCNA[7] = formato.format(totalGeneral.get("avance_financiero"));
             totalCNA[8] = formato.format(totalGeneral.get("avance_financiero_total"));
             excelFile.append(RSToTable.ConvertArrayToRow(totalCNA, new int[] { 3 }));
-            log.debug("Object: {}", excelFile.toString());
+            log.debug("Object: " + String.valueOf(excelFile.toString()));
             return excelFile.toString();
         } else {
             return "";
@@ -167,7 +167,7 @@ public class ObraPublicaReportesManager {
             totalCNA[12] = formato.format(totalGeneral.get("monto_asignado"));
             totalCNA[13] = formato.format(totalGeneral.get("monto_ejercido"));
             excelFile.append(RSToTable.ConvertArrayToRow(totalCNA, new int[] { 1, 2 }));
-            log.debug("Object: {}", excelFile.toString());
+            log.debug("Object: " + String.valueOf(excelFile.toString()));
             return excelFile.toString();
         } else {
             return "";
@@ -249,7 +249,7 @@ public class ObraPublicaReportesManager {
             totalCNA[12] = df.format(totalGeneral.get("monto_asignado"));
             totalCNA[13] = df.format(totalGeneral.get("monto_ejercido"));
             excelFile.append(RSToTable.ConvertArrayToRow(totalCNA, new int[] { 1, 2 }) + "\n");
-            log.debug("Object: {}", excelFile.toString());
+            log.debug("Object: " + String.valueOf(excelFile.toString()));
             return excelFile.toString();
         } else {
             return "";

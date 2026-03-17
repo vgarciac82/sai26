@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Entidad Federativa</titulo>
+	<anchoWin>900</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>130</altoAreaCaptura>
+	<tabla>M_MCATALOGOENTIDADFEDERATIVA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>		
+		<columna campo="cIdEntidadFederativa"			control=""	dependencia="No"	limpiaOnKeypress=""		header="Entidad Federativa"		rowCol="1,1" 	ancho="2"	maxlen="4"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cEntidadFederativa"			control=""	dependencia="No"	limpiaOnKeypress=""		header="Descripción"	 		rowCol="2,1" 	ancho="50"	maxlen="60" 	tipo="string"	visible="Si"	clase=""/>
+		
+	</grid>  	
+</Ayuda>

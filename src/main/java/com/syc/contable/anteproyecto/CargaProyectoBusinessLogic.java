@@ -116,7 +116,7 @@ public class CargaProyectoBusinessLogic extends DataSourceManager {
 				 */
                 Cell cellEP = row.getCell(0);
                 if (cellEP != null) {
-                    log.debug("Object: {}", "Procesando renglon " + (renglon));
+                    log.debug("Object: " + String.valueOf("Procesando renglon " + (renglon)));
                     try {
                         /*
 						 * Desagrega la ep. Si algo sale mal desagregandola
@@ -240,7 +240,7 @@ public class CargaProyectoBusinessLogic extends DataSourceManager {
                 Cell cellEP = row.getCell(0);
                 Cell cellMonto = row.getCell(1);
                 if (cellEP != null) {
-                    log.debug("Object: {}", "Procesando renglon " + (renglon++));
+                    log.debug("Object: " + String.valueOf("Procesando renglon " + (renglon++)));
                     String ep = cellEP.getStringCellValue();
                     Map<String, String> epMap = EPManager.desagregaEP(conn, ep);
                     double monto = cellMonto.getNumericCellValue();
@@ -248,7 +248,7 @@ public class CargaProyectoBusinessLogic extends DataSourceManager {
                     String montoFormateado = fmt.format(monto);
                     epMap.put("EP", ep);
                     epMap.put("MONTO", montoFormateado);
-                    log.debug("Object: {}", "EP[" + ep + "] Monto[" + montoFormateado + "]");
+                    log.debug("Object: " + String.valueOf("EP[" + ep + "] Monto[" + montoFormateado + "]"));
                     CargaProyectoManager.insertaRenglonProyecto(conn, epMap);
                 }
             }

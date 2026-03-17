@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--  -->
+<Ayuda>
+	<titulo>Mantenimiento SubGrupo Evento</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>M_TSUBGRUPOEVENTO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	
+	<grid>	
+		<columna campo="nIdSubGrupoEvento"	control="txtGridnIdSubGrupoEvento"	dependencia="No"	limpiaOnKeypress=""		header="nIdSubGrupoEvento"	 ancho="3"	maxlen="3" tipo="string"	visible="Si"	clase=""/>		
+		<columna campo="nIdGrupoEvento"	control="txtGridnIdGrupoEvento"	dependencia="No"	limpiaOnKeypress=""		header="nIdGrupoEvento"	 ancho="3"	maxlen="3" tipo="string"	visible="Si"	clase=""/>		
+		<columna campo="cNombreSubGrupo"	control="txtGridcNombreSubGrupo"	dependencia="No"	limpiaOnKeypress=""		header="cNombreSubGrupo"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="nIdSubGrupoEvento" control="txtGridnIdSubGrupoEvento"	llave="Si"	identity="No" requerido=""	requeridoFocus="txtGridnIdSubGrupoEvento"	tipo="string" />
+		<campo field="nIdGrupoEvento" control="txtGridnIdGrupoEvento"	llave="Si"	identity="No" requerido=""	requeridoFocus=""	tipo="string" />
+		<campo field="cNombreSubGrupo" control="txtGridcNombreSubGrupo"	llave="No"	identity="No"	requerido="El Nombre del SubGrupo es un dato requerido."	requeridoFocus=""	tipo="string" />				
+	</insertaRegistro>
+	
+</Ayuda>

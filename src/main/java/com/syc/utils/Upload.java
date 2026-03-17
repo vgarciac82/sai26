@@ -77,7 +77,7 @@ public class Upload extends HttpServlet {
             JakartaServletFileUpload fu = new JakartaServletFileUpload(factory);
             //tamaño máximo que aceptará el archivo
             //fu.setSizeMax(1024*64);
-            path = req.getRealPath("/upload");
+            path = req.getServletContext().getRealPath("/upload");
             File file = new File(path);
             if (!file.exists()) {
                 file.mkdirs();
@@ -91,7 +91,7 @@ public class Upload extends HttpServlet {
             while (i.hasNext()) {
                 actual = (FileItem) i.next();
                 String fileName = actual.getName();
-                File archivo = new File(fu.getRepositoryPath() + "\\" + fileName);
+                File archivo = new File(path + "\\" + fileName);
                 actual.write(archivo.toPath());
             }
         } catch (Exception e) {

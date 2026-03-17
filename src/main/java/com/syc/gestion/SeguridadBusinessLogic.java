@@ -1238,7 +1238,7 @@ public class SeguridadBusinessLogic extends DataSourceManager {
         CharsetEncoder encoder = Charset.forName(charEnc).newEncoder();
         try {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(originalXMLFile), encoder));
-            bw.write(sbOut.toString().toPath());
+            bw.write(sbOut.toString());
             bw.flush();
             bw.close();
             bw = null;

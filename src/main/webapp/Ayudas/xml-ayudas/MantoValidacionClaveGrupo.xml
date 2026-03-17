@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Validaciones Clave Grupo </titulo>
+	<anchoWin>100</anchoWin>
+	<altoWin>100</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_TVALIDACION_ADECUACION_CLAVE_GRUPO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>1</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>		
+		<columna campo="TIPO"		control="TIPO"		dependencia="No"	limpiaOnKeypress=""		header="Tipo"		rowCol="1,1"	ancho="20"	maxlen="3" 		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="CLAVE"		control="CLAVE"		dependencia="No"	limpiaOnKeypress=""		header="Clave"		rowCol="1,2"	ancho="20"	maxlen="11"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="GRUPO"		control="GRUPO"		dependencia="No"	limpiaOnKeypress=""		header="Grupo"		rowCol="1,3"	ancho="25"	maxlen="10" 	tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="TIPO"		control="txtGridTIPO"		llave="Si"		identity="No"	requerido="El Campo tipo es un dato requerido."		requeridoFocus="txtGridTIPO"		tipo="string" />
+		<campo field="CLAVE"	control="txtGridCLAVE"		llave="Si"		identity="No"	requerido="El Campo clave es un dato requerido."	requeridoFocus="txtGridCLAVE"		tipo="string" />		
+		<campo field="GRUPO"	control="txtGridGRUPO"		llave="Si"		identity="No"	requerido="El Campo Grupo es un dato requerido."	requeridoFocus="txtGridGRUPO"		tipo="string" />		
+	</insertaRegistro>
+	
+</Ayuda>

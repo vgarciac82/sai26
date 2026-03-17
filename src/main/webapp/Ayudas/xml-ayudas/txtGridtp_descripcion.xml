@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!-- Ayuda Estados - desde la pantalla de Remitente Externo -->
+
+<Ayuda>
+	<titulo>Tipo de Procedencia</titulo>
+	<anchoWin>437</anchoWin>
+	<altoWin>500</altoWin>
+	<altoAreaCaptura>110</altoAreaCaptura>
+	<tabla>CG_TIPO_PROCEDENCIA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+		
+	<grid>
+		<columna campo="ID_TIPO_PROCEDENCIA"	control="txtGrididtp"			dependencia="No"	ctrlsDependientes=""									limpiaOnKeypress=""										header="Clave Tipo de Procedencia"	ancho="10"	maxlen="10"	tipo="numero"	visible="No"	clase=""/>
+		<columna campo="TP_DESCRIPCION"			control="txtGridtp_descripcion"	dependencia="No"	ctrlsDependientes="txtGrididtp,txtGridtp_descripcion"	limpiaOnKeypress="txtGrididtp,txtGridtp_descripcion"	header="Tipo Procedencia"			ancho="50"	maxlen="50"	tipo="string"	visible="Si"	clase=""/>
+	</grid>
+  
+  	<insertaRegistro>
+  		<campo field="ID_TIPO_PROCEDENCIA"	    control="txtGrididtp"			llave="Si"	        identity="Si"	        requerido=""										        requeridoFocus=""	 					tipo="numero" />
+		<campo field="TP_DESCRIPCION"		    control="txtGridtp_descripcion"	llave="No"	        identity="No"	        requerido="La descripcion es un dato requerido."	        requeridoFocus="txtGridtp_descripcion"	tipo="string" />
+  	</insertaRegistro>
+  
+  
+</Ayuda>

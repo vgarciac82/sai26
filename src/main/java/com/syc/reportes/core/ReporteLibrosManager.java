@@ -91,7 +91,7 @@ public class ReporteLibrosManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         workbook.close();
         bos.flush();

@@ -116,7 +116,7 @@ public class CFDIService extends DataSourceManager {
         log.info("Object: {}", pacInfo.getUrl());
         sdk = new Stamp(pacInfo.getUrl(), usuario, password, null, 0);
         response = (StampResponseV2) sdk.timbrarV2(xml, false);
-        log.debug("Object: {}", response.getStatus());
+        log.debug("Object: " + String.valueOf(response.getStatus()));
         return response;
     }
 
@@ -156,7 +156,7 @@ public class CFDIService extends DataSourceManager {
     public VirtualFile generateXML(Connection conn, String cfdiXml) throws FileManagmentException {
         try {
             VirtualFile volumenFile = volumenService.generateFileLocation(conn, "xml");
-            log.debug("Object: {}", "Escribiendo : =======================================================\n\n" + cfdiXml + "\n\n===================================================================");
+            log.debug("Object: " + String.valueOf("Escribiendo : =======================================================\n\n" + cfdiXml + "\n\n==================================================================="));
             File f = volumenFile.getFilePath().toFile();
             boolean created = f.createNewFile();
             log.info("Object: {}", "Archivo " + (created ? "creado" : "no se pudo crear") + " en " + f.getAbsolutePath());
@@ -269,12 +269,12 @@ public class CFDIService extends DataSourceManager {
             toStamp.sellar(digitalSignature.getKey(), digitalSignature.getCert());
             StampResponseV2 response = firmaCFDI(conn, toStamp);
             if ("success".equals(String.valueOf(response.getStatus()))) {
-                log.debug("Object: {}", response.getData().getTFD());
-                log.debug("Object: {}", response.getData().getCFDI());
+                log.debug("Object: " + String.valueOf(response.getData().getTFD()));
+                log.debug("Object: " + String.valueOf(response.getData().getCFDI()));
                 xml = response.getMessageDetail();
             } else {
-                log.debug("Object: {}", response.getMessage());
-                log.debug("Object: {}", response.getMessageDetail());
+                log.debug("Object: " + String.valueOf(response.getMessage()));
+                log.debug("Object: " + String.valueOf(response.getMessageDetail()));
                 if ("307. El comprobante contiene un timbre previo.".equalsIgnoreCase(response.getMessage())) {
                     xml = response.getData().getCFDI();
                 } else {

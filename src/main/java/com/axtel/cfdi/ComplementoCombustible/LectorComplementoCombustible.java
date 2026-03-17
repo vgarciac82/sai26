@@ -29,7 +29,6 @@ public class LectorComplementoCombustible {
 
     private class ContextReader implements NamespaceContext {
 
-        @Override
         public String getNamespaceURI(String prefix) {
             String uri;
             if (prefix.equals("edr"))
@@ -39,13 +38,11 @@ public class LectorComplementoCombustible {
             return uri;
         }
 
-        @Override
         public String getPrefix(String uri) {
             return null;
         }
 
-        @Override
-        public Iterator<?> getPrefixes(String val) {
+        public java.util.Iterator getPrefixes(String val) {
             return null;
         }
     }

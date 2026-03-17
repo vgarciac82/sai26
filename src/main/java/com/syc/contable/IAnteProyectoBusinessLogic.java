@@ -90,7 +90,7 @@ public class IAnteProyectoBusinessLogic extends DataSourceManager {
                 Cell CellMOptimo = row.getCell(3);
                 Cell CellMIreductible = row.getCell(4);
                 if (Cellconsecutivo != null) {
-                    log.debug("Object: {}", "Procesando renglon " + (renglon));
+                    log.debug("Object: " + String.valueOf("Procesando renglon " + (renglon)));
                     try {
                         String nFolioAnteProyecto = String.valueOf(folio);
                         NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.getDefault());
@@ -110,7 +110,7 @@ public class IAnteProyectoBusinessLogic extends DataSourceManager {
                         renglonMap.put("MCalculado", MCalculadoS);
                         renglonMap.put("MOptimo", MOptimoS);
                         renglonMap.put("MIreductible", MIreductibleS);
-                        log.debug("Object: {}", "nFolioAnteProyecto[" + nFolioAnteProyecto + "]consecutivo[" + consecutivoS + "] EP[" + EP + "]MCalculado[" + MCalculadoS + "]MOptimo[" + MOptimoS + "]MIreductible[" + MIreductibleS);
+                        log.debug("Object: " + String.valueOf("nFolioAnteProyecto[" + nFolioAnteProyecto + "]consecutivo[" + consecutivoS + "] EP[" + EP + "]MCalculado[" + MCalculadoS + "]MOptimo[" + MOptimoS + "]MIreductible[" + MIreductibleS));
                         IAnteProyectoManager.insertaRenglonValidacionAnteProyecto(conn, renglonMap);
                     } catch (Exception e) {
                         renglonInsertada = false;

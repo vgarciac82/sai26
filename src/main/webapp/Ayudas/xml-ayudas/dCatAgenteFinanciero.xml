@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!-- Ayuda Agente Financiero -->
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Agente Financiero</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>D_CATAGENTEFINANCIERO</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	<grid>
+		<columna campo="ID_AgenteFinanciero"	control="ID_AgenteFinanciero"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="*Clave"				rowCol="1,1" ancho="5"	maxlen="3"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="AgenteFinancieroCorto"	control="AgenteFinancieroCorto"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="*Descripción Corta"	rowCol="2,1" ancho="50"	maxlen="50"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="AgenteFinancieroLargo"	control="AgenteFinancieroLargo"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="*Descripción Larga"	rowCol="3,1" ancho="50"	maxlen="150"	tipo="string"	visible="Si"	clase=""/>		
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="ID_AgenteFinanciero"		control="txtGridID_AgenteFinanciero"		llave="Si"	identity="Si"	requerido=""	requeridoFocus=""	tipo="string" />
+		<campo field="AgenteFinancieroCorto" control="txtGridAgenteFinancieroCorto"	llave="No"	identity="No"	requerido="El campo Descripción corta es requerido."	requeridoFocus="txtGridAgenteFinancieroCorto"	tipo="string" />
+		<campo field="AgenteFinancieroLargo" control="txtGridAgenteFinancieroLargo"	llave="No"	identity="No"	requerido="El campo Descripción larga es requerido."	requeridoFocus="txtGridAgenteFinancieroLargo"	tipo="string" />		
+	</insertaRegistro>
+	
+</Ayuda>
+

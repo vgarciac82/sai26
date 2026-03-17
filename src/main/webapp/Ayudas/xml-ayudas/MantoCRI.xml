@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--  -->
+<Ayuda>
+	<titulo>Mantenimiento CRI - Clasificador por Rubros de Ingresos</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>800</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>M_TCATALOGOCRI</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>4</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>			
+		<columna campo="cRubro"					control="txtGridcRubro"					dependencia="No" limpiaOnKeypress="" header="Rubro"	 				rowCol="1,1"	ancho="10"	maxlen="10"  tipo="string" visible="Si" clase=""/>		
+		<columna campo="cTipo"					control="txtGridcTipo"					dependencia="No" limpiaOnKeypress="" header="Tipo"	 				rowCol="1,2"	ancho="10"	maxlen="10"  tipo="string" visible="Si" clase=""/>
+		<columna campo="cClase"					control="txtGridcClase"					dependencia="No" limpiaOnKeypress="" header="Clase"	 				rowCol="1,3"	ancho="10"	maxlen="10"  tipo="string" visible="Si" clase=""/>
+		<columna campo="cConcepto"				control="txtGridcConcepto"				dependencia="No" limpiaOnKeypress="" header="Concepto"				rowCol="1,4" 	ancho="10"	maxlen="10"  tipo="string" visible="Si" clase=""/>
+		<columna campo="cClaveCRI"				control="txtGridcClaveCRI"				dependencia="No" limpiaOnKeypress="" header="Clave CRI"				rowCol="1,5"	ancho="10"	maxlen="10"  tipo="string" visible="Si" clase=""/>
+		<columna campo="cNombre"				control="txtGridcNombre"				dependencia="No" limpiaOnKeypress="" header="Nombre"				rowCol="2,1"	ancho="30"	maxlen="500" tipo="string" visible="Si" clase=""/>
+		<columna campo="cTipoGasto"				control="txtGridcTipoGasto"				dependencia="No" limpiaOnKeypress="" header="Tipo Gasto"			rowCol="2,2"	ancho="10"	maxlen="10"  tipo="string" visible="Si" clase=""/>
+		<columna campo="cFuenteFinanciamiento"	control="txtGridcFuenteFinanciamiento"	dependencia="No" limpiaOnKeypress="" header="Fuente Financiamiento"	rowCol="2,3"	ancho="10"	maxlen="10"  tipo="string" visible="Si" clase=""/>
+		<columna campo="cPartida"				control="txtGridcPartida"				dependencia="No" limpiaOnKeypress="" header="Partida"				rowCol="3,1"	ancho="30"	maxlen="50"  tipo="string" visible="Si" clase=""/>		
+		<columna campo="cCuentaIngreso"			control="txtGridcCuentaIngreso"			dependencia="No" limpiaOnKeypress="" header="Cuenta Ingreso"		rowCol="3,2"	ancho="15"	maxlen="15"  tipo="string" visible="Si" clase=""/>
+		<columna campo="cAplica"				control="txtGridcAplica"				dependencia="No" limpiaOnKeypress="" header="Aplica"	 			rowCol="3,3"	ancho="10"	maxlen="10"  tipo="string" visible="Si" clase=""/>
+	</grid>  
+		
+</Ayuda>

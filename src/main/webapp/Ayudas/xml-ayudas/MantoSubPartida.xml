@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Partida</titulo>
+	<anchoWin>800</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>210</altoAreaCaptura>
+	<tabla>M_MCATALOGOSUBPARTIDA</tabla>
+	<maxRegistros>500</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	<grid>
+			<columna campo="sp.cIdSubPartida" 		control="cIdSubPartida"				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""			header="*Partida"							rowCol="1,1"	ancho="5"		maxlen="5"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+			<columna campo="sp.cSubPartida"			control="cSubPartida"				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""			header="*Descripción"						rowCol="2,1"	ancho="150"		maxlen="2000"	tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+			<columna campo="c.cCapitulo"			control="cCapitulo"					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""			header="*Capitulo(2000,3000,5000)"			rowCol="3,1"	ancho="150"		maxlen="1000"	tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+			<columna campo="sp.cSubPartidaCorto"	control="cSubPartidaCorto"			dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""			header="*Descripcion Corta"					rowCol="4,1"	ancho="40"		maxlen="40"	tipo="string"	visible="Si"	clase=""/>
+			<columna campo="sp.lRestaPresupuesto"	control="RestaPresupuesto"			dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""			header="*Resta del Presupuesto(0,1)"		rowCol="5,1"	ancho="1"	maxlen="1"		tipo="string"	visible="Si"	clase=""/>								
+	</grid>
+
+	<insertaRegistro>
+		<campo field="cIdSubPartida"		control="txtGridcIdSubPartida"			llave="Si"	identity="No"	requerido="El campo Partida es requerido."					requeridoFocus="txtGridcIdSubPartida"			tipo="string" />
+		<campo field="cSubPartida"			control="txtGridcSubPartida"			llave="No"	identity="No"	requerido="El campo Descripción es requerido."				requeridoFocus="txtGridcSubPartida"			tipo="string" />						
+		<!--<campo field="cSubPartidaCorto"		control="txtGridcSubPartidaCorto"		llave="No"	identity="No"	requerido="El campo Descripcion Corta es requerido."		requeridoFocus="cSubPartidaCorto"			tipo="string" />-->
+		<campo field="lRestaPresupuesto"	control="txtGridRestaPresupuesto"		llave="No"	identity="No"	requerido="El campo Resta del Presupuesto es requerido."	requeridoFocus="txtGridRestaPresupuesto"			tipo="string" />									
+	</insertaRegistro>
+
+</Ayuda>

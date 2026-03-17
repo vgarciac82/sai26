@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!-- Ayuda UNIDAD MEDIDA -->
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Organismo Financiero Internacional</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>D_CATOFI</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	<grid>
+		<columna campo="id_OFI"		control="id_OFI"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="*Clave"				rowCol="1,1" ancho="3"	maxlen="5"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="OFICorto"	control="OFICorto"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="*Descripción Corta"	rowCol="2,1" ancho="50"	maxlen="50"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="OFILargo"	control="OFILargo"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="*Descripción Larga"	rowCol="3,1" ancho="50"	maxlen="150"	tipo="string"	visible="Si"	clase=""/>		
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="id_OFI"		control="txtGridid_OFI"	llave="Si"	identity="Si"	requerido=""	requeridoFocus=""	tipo="string" />
+		<campo field="OFICorto"	control="txtGridOFICorto"	llave="No"	identity="No"	requerido="El campo Descripción Corta es requerida."	requeridoFocus="txtGridOFICorto"	tipo="string" />
+		<campo field="OFILargo"	control="txtGridOFILargo"	llave="No"	identity="No"	requerido="El campo Descripción Larga es requerida."	requeridoFocus="txtGridOFILargo"	tipo="string" />		
+	</insertaRegistro>
+	
+</Ayuda>
+

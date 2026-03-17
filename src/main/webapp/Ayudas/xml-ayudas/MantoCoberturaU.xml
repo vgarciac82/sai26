@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!-- Mantenimiento Periles de Usuario -->
+<Ayuda>
+	<titulo>Mantenimiento Cobertura por Usuario</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>500</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>M_CAT_UCOBERTURA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>
+		<columna campo="UC.U_LOGIN"			control="MantoLogin"			dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Usuario"		ancho="20"		maxlen="32"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="CO.CO_DESCRIPCION"	control="MantoCobertura"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Cobertura"		ancho="30"		maxlen="50"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="UC.ID_COBERTURA"	control="MantoIdCobertura"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Id. cobertura"		ancho="6"		maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+		<columna campo="UC.ID_TABLA"		control="MantoIdTabla"			dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Id. tabla"		ancho="6"		maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+		<columna campo="UC.ID_PRODUCTO"		control="MantoIdProducto"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Id. producto"		ancho="6"		maxlen="6"		tipo="numero"	visible="No"	clase=""/>		
+	</grid>
+
+	<insertaRegistro>
+		<campo field="U_LOGIN"		control="txtGridMantoLogin"			llave="Si"	identity="No"	requerido="El usuario es un dato requerido."	requeridoFocus="txtGridMantoLogin"			tipo="string" />
+		<campo field="ID_COBERTURA"	control="txtGridMantoIdCobertura" 	llave="Si"	identity="No"	requerido="La cobertura es un dato requerido."	requeridoFocus="txtGridMantoIdCobertura"	tipo="numero" />
+		<campo field="ID_TABLA"		control="txtGridMantoIdTabla"		llave="Si"	identity="No"	requerido="La tabla es un dato requerido."		requeridoFocus="txtGridMantoIdTabla"		tipo="numero" />
+		<campo field="ID_PRODUCTO"	control="txtGridMantoIdProducto"	llave="Si"	identity="No"	requerido="El producto es un dato requerido."	requeridoFocus="txtGridMantoIdProducto"		tipo="numero" />
+	</insertaRegistro>
+	  
+</Ayuda>

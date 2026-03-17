@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento de formas de pago CFDI</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>tCFDI_Cat_FormaDePago</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cFormaPago"				control=""	dependencia="No"	limpiaOnKeypress=""		header="Usuario"	 	 ancho="2"		maxlen="2"  tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cDescripcion"			control=""	dependencia="No"	limpiaOnKeypress=""		header="Descripcion"	 ancho="48"	maxlen="48" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cBancarizado"			control=""	dependencia="No"	limpiaOnKeypress=""		header="Banco"	 ancho="8"	maxlen="8" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cNumeroOperacion" 		control=""	dependencia="No"	limpiaOnKeypress=""		header="NumOperacion"	 ancho="8"	maxlen="8" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cRFCEmisorCuentaOrdenante"	control=""	dependencia="No" limpiaOnKeypress=""		header="RFC Emisor"	 ancho="15"	maxlen="15" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cCuentaOrdenante"		control=""	dependencia="No"	limpiaOnKeypress=""		header="Cuenta Emisor"	 ancho="20"	maxlen="20" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cPatronCuentaOrdenante" control=""	dependencia="No"	limpiaOnKeypress=""		header="Patron Emisor"	 ancho="56"	maxlen="56" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cRFCEmisorCuentaBeneficiario" control=""	dependencia="No"	limpiaOnKeypress=""		header="RFC Beneficiario"	 ancho="15"	maxlen="15" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cCuentaBenenficiario"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Cuenta Beneficiario"	 ancho="20"	maxlen="20" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cPatronCuentaBeneficiaria" control=""	dependencia="No"	limpiaOnKeypress=""		header="Patron Beneficiario"	 ancho="56"	maxlen="56" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cTipoCadenaPago"		control=""	dependencia="No"	limpiaOnKeypress=""		header="CadenaPago"	 ancho="15"	maxlen="15" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cNombreBancoEmisorCtaOrdenanteExtranjero"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Nombre Banco Extranjero"	 ancho="88"	maxlen="88" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="fFechaInicioVigencia" 	control=""	dependencia="No"	limpiaOnKeypress=""		header="Fecha Inicio"	 ancho="30"	maxlen="30" tipo="date"	visible="Si"	clase=""/>
+		<columna campo="fFechaFinVigencia" 		control=""	dependencia="No"	limpiaOnKeypress=""		header="Fecha Fin"	 ancho="30"	maxlen="30" tipo="date"	visible="Si"	clase=""/>
+	</grid>  
+	
+
+	
+</Ayuda>

@@ -749,9 +749,9 @@ public class ReintegrosMilManager {
         query = "select distinct d.nDocRenglon, e.cRamoEP, e.cUnidadResponsableEP, e.aEjercicioFiscal, e.cGrupoFuncional, e.cFuncion " + ", e.cSubFuncion, e.cProgramaGeneral, e.cActividadInstitucional, e.cProgramaPresupuestario, substring(e.cPartida,1,1) as cCapitulo " + ", substring(e.cPartida,2,1) as cConcepto, substring(e.cPartida,3,1) as cPartida, substring(e.cPartida,4,2) as cPartidaEspecifica " + ", e.cTipoGasto, e.cFuenteFinanciamiento, e.cEntidadFederativa, e.cCartera, left(replicate('0', 7)+e.cUnidadEjecutora,10) as cUnidadEjecutora " + ", substring(e.cUnidadNorativa,2,2) as cUnidadNormativa, '0','0','0','0','0', CONVERT(VARCHAR,d.mImporte) as mImporte, d.cMes, CASE WHEN NCOM_15 is null OR NCOM_15 ='' THEN '' ELSE REPLICATE('0',6-LEN(LTRIM(NCOM_15)))+LTRIM(CAST(NCOM_15 AS VARCHAR(6))) END as NCOM_15 " + ", b.sSicop, '' as cFillRellen2 , " + " CASE WHEN NOIF_18 IS NULL OR '' = NOIF_18 THEN '0' ELSE CONVERT( VARCHAR(32), NOIF_18) END as sol_oli, " + "TPAG_117, CASE rclc.CONC_MOV_50 WHEN '0' THEN '000'ELSE rclc.CONC_MOV_50 END ID_TIPO_CONCEPTO " + ", 0 as retencion_isr, '0', d.cEvento, p.nFolioSICOP,d.EP,rclc.SECU_86 AS secclc,SPAG_176,TCONC_49,isnull(NRES_17,'') as NRES_17 " + " from tReintegroDetalleMil d with (nolock), tReintegroEncabezadoMil r with (nolock), tCatalogoEP e with (nolock), tPagadoEncabezado P with (nolock), tPagadoDetalle dp  with (nolock), tBeneficiarioCapituloMil b with (nolock), vReintegrosCLCSICOP rclc with(nolock)" + " WHERE d.nFolioReintegroMil =  r.nFolioReintegroMil" + " and d.EP =  e.EP and d.cxpnomina = P.caNoContrarrecibo and p.nFolioPagado = dp.nFolioPagado and dp.RFC = b.sCodigoEntidad  and rclc.EP=SUBSTRING(d.EP, 1, 55-11) + '00000000000' and rclc.EP=SUBSTRING(d.EP, 1, 55-11) + '00000000000' and rclc.FolioSIAFF=d.noCLC and rclc.FolioSIAFF=p.nFolioSIAFF and d.mPasivoDiferido = 0" + /*rclc.SEC=d.secCLC " +*/
         //" and rclc.CONC_MOV_50=d.tipoMovimiento " + //esta linea es importante para discriminar
         " and d.nFolioReintegroMil=? and r.nFolioReintegroMil=?";
-        log.debug("Object: {}", query.toString());
-        log.debug("Object: {}", "[1]:[" + folio + "]");
-        log.debug("Object: {}", "[2]:[" + folio + "]");
+        log.debug("Object: " + String.valueOf(query.toString()));
+        log.debug("Object: " + String.valueOf("[1]:[" + folio + "]"));
+        log.debug("Object: " + String.valueOf("[2]:[" + folio + "]"));
         pstm = conn.prepareStatement(query);
         pstm.setInt(1, folio);
         pstm.setInt(2, folio);
@@ -1559,8 +1559,8 @@ public class ReintegrosMilManager {
             pst2 = conn.prepareStatement(evento);
             pst2.setInt(1, folio);
             pst2.executeUpdate();
-            log.debug("Object: {}", poliza);
-            log.debug("Object: {}", evento);
+            log.debug("Object: " + String.valueOf(poliza));
+            log.debug("Object: " + String.valueOf(evento));
         } finally {
             CloseObject.closeObject(pst);
             CloseObject.closeObject(pst2);

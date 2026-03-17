@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EstadodeCuenta" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="782" leftMargin="5" rightMargin="5" topMargin="10" bottomMargin="10">
+	<property name="ireport.zoom" value="1.8150000000000004"/>
+	<property name="ireport.x" value="370"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="cWhereList" class="java.lang.String">
+		<defaultValueExpression><![CDATA[" Docto = 'Directo' AND Estatus = 'Pagado'"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select	docto,
+	ID_DESTINO_GASTO,
+	nFolioPago  ,
+	cUnidadResponsable,
+	cIdDocumento,
+	caNoContrarrecibo,
+	ISNULL(nFolioSICOP, 0) AS nFolioSICOP,
+	ISNULL(nFolioSIAFF, 0) AS nFolioSIAFF,
+	ISNULL(SolicitudPago, 0) AS SolicitudPago,
+	ISNULL(NumeroProceso, 0) AS NumeroProceso,
+	ISNULL(FechaPagado, '') AS FechaPagado,
+	cIdRFC,
+	cnombre,
+	mImporteTotal,
+	mImporteRetencion,
+	mImporteNeto,
+	fAplicacion,
+	Estatus
+from vMultilistadorPagos
+where $P!{cWhereList}]]>
+	</queryString>
+	<field name="docto" class="java.lang.String"/>
+	<field name="ID_DESTINO_GASTO" class="java.lang.String"/>
+	<field name="nFolioPago" class="java.lang.Integer"/>
+	<field name="cUnidadResponsable" class="java.lang.String"/>
+	<field name="cIdDocumento" class="java.lang.String"/>
+	<field name="caNoContrarrecibo" class="java.lang.String"/>
+	<field name="nFolioSICOP" class="java.lang.Integer"/>
+	<field name="nFolioSIAFF" class="java.lang.Integer"/>
+	<field name="SolicitudPago" class="java.lang.Integer"/>
+	<field name="NumeroProceso" class="java.lang.Integer"/>
+	<field name="FechaPagado" class="java.lang.String"/>
+	<field name="cIdRFC" class="java.lang.String"/>
+	<field name="cnombre" class="java.lang.String"/>
+	<field name="mImporteTotal" class="java.lang.String"/>
+	<field name="mImporteRetencion" class="java.lang.String"/>
+	<field name="mImporteNeto" class="java.lang.String"/>
+	<field name="fAplicacion" class="java.lang.String"/>
+	<field name="Estatus" class="java.lang.String"/>
+	<variable name="mImporteTotal_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{mImporteTotal}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="1" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-24" positionType="Float" x="237" y="8" width="296" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-5" positionType="Float" x="237" y="22" width="296" height="28"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true" />
+				</textElement>
+				<text><![CDATA[GERENCIA DE RECURSOS FINANCIEROS
+SUBGERENCIA DE OPERACIÓN FINANCIERA]]></text>
+			</staticText>
+			<image>
+				<reportElement x="1" y="3" width="150" height="42"/>
+				<imageExpression class="java.lang.String"><![CDATA["report\\images\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="55" width="36" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Tipo Documento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="36" y="55" width="22" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Tipo Destino]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="55" width="24" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Folio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="101" y="55" width="119" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Contrato]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="55" width="26" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Folio SICOP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="246" y="55" width="25" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Folio SIAFF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="272" y="55" width="36" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Solicitud Pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="55" width="36" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Proceso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="55" width="42" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[R.F.C]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="567" y="55" width="45" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Importe Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="344" y="55" width="36" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Fecha Pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="613" y="55" width="42" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Importe Retención]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="422" y="55" width="145" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Beneficiario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="82" y="55" width="19" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[UR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="656" y="55" width="45" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Importe Neto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="702" y="55" width="34" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Fecha Aplicación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="737" y="55" width="44" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Estatus]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="11" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="36" height="10"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{docto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="0" width="22" height="10"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ID_DESTINO_GASTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="58" y="0" width="24" height="10"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{nFolioPago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="82" y="0" width="19" height="10"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cUnidadResponsable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="101" y="0" width="119" height="10"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cIdDocumento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="0" width="26" height="10"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{nFolioSICOP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="246" y="0" width="25" height="10"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{nFolioSIAFF}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="272" y="0" width="36" height="10"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{SolicitudPago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="308" y="0" width="36" height="10"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{NumeroProceso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="344" y="0" width="36" height="10"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{FechaPagado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="42" height="10"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cIdRFC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="422" y="0" width="145" height="10"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cnombre}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="613" y="0" width="42" height="10"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mImporteRetencion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="656" y="0" width="45" height="10"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mImporteNeto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="702" y="0" width="34" height="10"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fAplicacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="737" y="0" width="44" height="10"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Estatus}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="567" y="0" width="45" height="10"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mImporteTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="11" splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="7" splitType="Stretch"/>
+	</summary>
+</jasperReport>

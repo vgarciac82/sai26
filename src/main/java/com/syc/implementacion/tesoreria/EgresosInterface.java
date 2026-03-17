@@ -251,9 +251,9 @@ public class EgresosInterface implements TipoCasoInterface {
                         psDeleteInfoVuelos = conn.prepareStatement(sDeleteInfoVuelos);
                         psDeleteInfoVuelos.setInt(1, nFolio);
                         int updateVuelos = psUpdateLayoutVuelos.executeUpdate();
-                        log.debug("Object: {}", "Se Actualizaron: " + updateVuelos + " Vuelos.");
+                        log.debug("Object: " + String.valueOf("Se Actualizaron: " + updateVuelos + " Vuelos."));
                         int deleteVuelos = psDeleteInfoVuelos.executeUpdate();
-                        log.debug("Object: {}", "Se eliminaron: " + deleteVuelos + " Vuelos.");
+                        log.debug("Object: " + String.valueOf("Se eliminaron: " + deleteVuelos + " Vuelos."));
                     }
                 }
             } else if ("PAGODIVERSO".equalsIgnoreCase(c.getTipoCaso().getGavetaAsociada())) {
@@ -267,7 +267,7 @@ public class EgresosInterface implements TipoCasoInterface {
                         psDeleteInfoVuelos = conn.prepareStatement(sDeleteVuelosPago);
                         psDeleteInfoVuelos.setInt(1, nFolio);
                         int deleteVuelos = psDeleteInfoVuelos.executeUpdate();
-                        log.debug("Object: {}", "Se eliminaron: " + deleteVuelos + " Vuelos del Pago.");
+                        log.debug("Object: " + String.valueOf("Se eliminaron: " + deleteVuelos + " Vuelos del Pago."));
                     }
                 }
             }
@@ -279,7 +279,7 @@ public class EgresosInterface implements TipoCasoInterface {
                 epde.rechazaPago(conn, "Pago descartado");
             }
             int afectados = psDelete.executeUpdate();
-            log.debug("Object: {}", "Se borraron " + afectados + " facturas");
+            log.debug("Object: " + String.valueOf("Se borraron " + afectados + " facturas"));
         } catch (Exception e) {
             throw new SQLException(e);
         } finally {
@@ -390,7 +390,7 @@ public class EgresosInterface implements TipoCasoInterface {
             ps.setString(1, tipoPago);
             ps.setInt(2, nFolio);
             int afectados = ps.executeUpdate();
-            log.debug("Object: {}", "Se borrarn " + afectados + " facturas");
+            log.debug("Object: " + String.valueOf("Se borrarn " + afectados + " facturas"));
         } catch (Exception e) {
             log.warn(e.getMessage(), e);
         } finally {

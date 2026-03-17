@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="conciliaBancos" pageWidth="612" pageHeight="792" columnWidth="567" leftMargin="20" rightMargin="25" topMargin="25" bottomMargin="20" uuid="580dc36a-0658-4ea6-8d5a-e874bf2533fb">
+	<property name="ireport.zoom" value="1.1"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sai_2022"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\Axtel\\Clientes\\CONAFOR\\Workspaces\\sai\\WebContent\\Reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nConciliacion" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[declare @mes int
+declare @cban varchar(20)
+declare @saldoBanco money, @msaldoLibros money
+declare @fecha date
+declare @NombreFirmanteElab varchar (100)
+declare @NombreFirmanteVobo varchar (100) 
+declare @NombreFirmanteAut varchar (100)
+declare @PuestoFirmanteElab varchar (100)
+declare @PuestoFirmanteVobo varchar (100)
+declare @PuestoFirmanteAut varchar (100)
+declare @BancoA money, @BancoC money, @ContaA money, @contaC money
+
+select @mes = nMes, @cban = nCban, @saldoBanco = mSaldoFinal, @fecha = fConciliacion, @msaldoLibros = mSaldoLibros from tconciliacion (nolock)
+where nConciliacion = $P{nConciliacion}
+
+select SUM(mmonto) Monto, cOrigen+ cTipo id
+into #tblConciliados
+from fn_l_noConciliados ( $P{nConciliacion}, @mes, @cban)
+group by cOrigen, cTipo
+
+set @BancoA = (select monto from #tblConciliados where id = 'BancoA')
+set @BancoC = (select monto from #tblConciliados where id = 'BancoC')
+set @ContaA = (select monto from #tblConciliados where id = 'ContabilidadA')
+set @contaC = (select monto from #tblConciliados where id = 'ContabilidadC')
+
+
+select @NombreFirmanteElab = isnull(NOMBREN, '') + ' ' +  isnull(NOMBREP, '') + ' ' +  isnull(NOMBREM, '') ,
+@PuestoFirmanteElab = DESCRIPCION_PUESTO
+from TFIRMANTECONCILIACION  firma (nolock)
+inner join v_empleados_giro emp (nolock)
+on firma.cnumeroEmpleado = emp.CLAVE
+where nconciliacion = $P{nConciliacion} and nidtipofirmante = 1
+
+select @NombreFirmanteVobo = isnull(NOMBREN, '') + ' ' +  isnull(NOMBREP, '') + ' ' +  isnull(NOMBREM, '') ,
+@PuestoFirmanteVobo = DESCRIPCION_PUESTO
+from TFIRMANTECONCILIACION  firma (nolock)
+inner join v_empleados_giro emp (nolock)
+on firma.cnumeroEmpleado = emp.CLAVE
+where nconciliacion = $P{nConciliacion} and nidtipofirmante =3
+
+select @NombreFirmanteAut =  isnull(NOMBREN, '') + ' ' +  isnull(NOMBREP, '') + ' ' +  isnull(NOMBREM, '') ,
+@PuestoFirmanteAut = DESCRIPCION_PUESTO
+from TFIRMANTECONCILIACION  firma (nolock)
+inner join v_empleados_giro emp (nolock)
+on firma.cnumeroEmpleado = emp.CLAVE
+where nconciliacion = $P{nConciliacion} and nidtipofirmante =4
+
+select @mes mes,  @cban cBan, isnull(@saldoBanco,0) saldoBanco , @fecha fecha
+,isnull(@BancoA,0) BancoA, isnull(@BancoC,0) BancoC, isnull(@ContaA,0) ContaA, isnull(@contaC,0) contaC, isnull(@msaldoLibros,0) msaldoLibros,
+@NombreFirmanteElab NombreFirmanteElab,
+@NombreFirmanteVobo NombreFirmanteVobo,
+@NombreFirmanteAut NombreFirmanteAut,
+@PuestoFirmanteElab PuestoFirmanteElab,
+@PuestoFirmanteVobo PuestoFirmanteVobo,
+@PuestoFirmanteAut PuestoFirmanteAut
+
+
+drop table #tblConciliados]]>
+	</queryString>
+	<field name="mes" class="java.lang.Integer"/>
+	<field name="cBan" class="java.lang.String"/>
+	<field name="saldoBanco" class="java.math.BigDecimal"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="BancoA" class="java.math.BigDecimal"/>
+	<field name="BancoC" class="java.math.BigDecimal"/>
+	<field name="ContaA" class="java.math.BigDecimal"/>
+	<field name="contaC" class="java.math.BigDecimal"/>
+	<field name="msaldoLibros" class="java.math.BigDecimal"/>
+	<field name="NombreFirmanteElab" class="java.lang.String"/>
+	<field name="NombreFirmanteVobo" class="java.lang.String"/>
+	<field name="NombreFirmanteAut" class="java.lang.String"/>
+	<field name="PuestoFirmanteElab" class="java.lang.String"/>
+	<field name="PuestoFirmanteVobo" class="java.lang.String"/>
+	<field name="PuestoFirmanteAut" class="java.lang.String"/>
+	<variable name="saldoChequera" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{saldoBanco}.subtract($F{ContaA}).add($F{contaC}).subtract($F{BancoC}).add($F{BancoA})]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="diferencia" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{saldoChequera}.subtract( $F{msaldoLibros})]]></variableExpression>
+	</variable>
+	<group name="abonos">
+		<groupHeader>
+			<band height="47" splitType="Stretch">
+				<rectangle>
+					<reportElement mode="Opaque" x="1" y="2" width="566" height="15" forecolor="#999999" backcolor="#999999" uuid="d529b9b7-fa50-41d4-aa1d-b02e435df2fa"/>
+				</rectangle>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="487" y="2" width="75" height="15" forecolor="#FFFFFF" uuid="d9cae575-c192-471d-8ef8-7b82996d46c3"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ContaA}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="3" width="556" height="15" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" uuid="c3d10f8d-7e75-4044-befd-14b50a74d969"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<text><![CDATA[(-) ABONOS CONTABLES NO CONSIDERADOS POR EL BANCO]]></text>
+				</staticText>
+				<subreport>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="18" width="567" height="27" isPrintWhenDetailOverflows="true" uuid="44c2bd60-0433-4ba5-b41d-ffbf24eb9141"/>
+					<subreportParameter name="cOrigen">
+						<subreportParameterExpression><![CDATA["Contabilidad"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="nConciliacion">
+						<subreportParameterExpression><![CDATA[$P{nConciliacion}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="tipo">
+						<subreportParameterExpression><![CDATA["A"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\conciliaBancos_subreport.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="45">
+				<rectangle>
+					<reportElement mode="Opaque" x="1" y="0" width="566" height="15" forecolor="#999999" backcolor="#999999" uuid="d2fa4686-685a-492f-88e7-88c66e7cedee"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="1" y="0" width="556" height="15" forecolor="#FFFFFF" uuid="bbc41c79-37c6-4637-bc01-d5044e3c458f"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<text><![CDATA[(-) ABONOS BANCARIOS NO CONSIDERADOS POR CONTABILIDAD]]></text>
+				</staticText>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="487" y="0" width="75" height="15" forecolor="#FFFFFF" uuid="b5e560dc-ab7a-4c35-b16e-6b70d7f97dbc"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{BancoA}]]></textFieldExpression>
+				</textField>
+				<subreport>
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="15" width="567" height="27" isPrintWhenDetailOverflows="true" uuid="6bff134c-a427-4983-85f9-cbfbb902da8a"/>
+					<subreportParameter name="cOrigen">
+						<subreportParameterExpression><![CDATA["Banco"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="nConciliacion">
+						<subreportParameterExpression><![CDATA[$P{nConciliacion}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="tipo">
+						<subreportParameterExpression><![CDATA["C"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\conciliaBancos_subreport.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="45" splitType="Stretch">
+				<rectangle>
+					<reportElement mode="Opaque" x="1" y="0" width="566" height="15" forecolor="#999999" backcolor="#999999" uuid="06d4b047-c79e-4dfe-a9fb-08d6c34dc224"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="1" y="0" width="556" height="15" forecolor="#FFFFFF" uuid="57483b31-dfc0-44e4-997e-fd9564bcf19a"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<text><![CDATA[(+) CARGOS BANCARIOS NO CONSIDERADOS POR CONTABILIDAD]]></text>
+				</staticText>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="487" y="0" width="75" height="15" forecolor="#FFFFFF" uuid="09b4523e-7ce6-481d-a59d-12ee6ee9bc96"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{BancoC}]]></textFieldExpression>
+				</textField>
+				<subreport>
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="15" width="567" height="27" isPrintWhenDetailOverflows="true" uuid="e7aca8ce-f4e8-4f6e-9b47-aa94d621af40"/>
+					<subreportParameter name="cOrigen">
+						<subreportParameterExpression><![CDATA["Banco"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="nConciliacion">
+						<subreportParameterExpression><![CDATA[$P{nConciliacion}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="tipo">
+						<subreportParameterExpression><![CDATA["A"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\conciliaBancos_subreport.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="70"/>
+		</groupFooter>
+	</group>
+	<pageHeader>
+		<band height="118" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="7" width="572" height="39" backcolor="#CCCCCC" uuid="30d0eb2f-3439-49c6-88d8-16c79b3581e2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL
+
+Conciliacion Bancaria]]></text>
+			</staticText>
+			<image>
+				<reportElement x="443" y="4" width="118" height="48" uuid="2cfed948-bffb-4bde-99bf-807141d6c771"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\nuevo_logoconafor.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="4" y="9" width="161" height="37" uuid="9650a84a-f652-41c8-9214-a57b8050af27"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\LogoSemarnat.png"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement mode="Opaque" x="355" y="87" width="106" height="22" forecolor="#999999" backcolor="#999999" uuid="2b71d23f-efee-42e2-bd71-ba62d813d418"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="461" y="87" width="106" height="22" forecolor="#999999" backcolor="#FFFFFF" uuid="4f49f269-2e65-4f53-b01d-26e918e1aeb3"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="4" y="57" width="176" height="53" forecolor="#999999" uuid="05a8b828-01a1-4b2e-8d5d-f4e06e72709b"/>
+			</rectangle>
+			<textField>
+				<reportElement x="59" y="60" width="115" height="15" uuid="a5c927d9-e3f1-4eb1-ae96-b821fd0e23fa"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="76" width="115" height="15" uuid="c3f411f2-b3a7-4774-a618-5dcc6b33d712"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cBan}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="76" width="51" height="15" uuid="4dd50228-69d3-4bcb-b744-e2ce3aaafdd9"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Cuenta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="60" width="51" height="15" uuid="b2ef1246-c9f6-4cc4-bb5f-14bf21810ae2"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Mes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="93" width="51" height="15" uuid="183ed023-d28c-49cb-928b-5beec45ab3ad"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="59" y="93" width="115" height="15" uuid="05e131ee-905a-4ef1-913d-0a08a5264bb4"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###,##0.00">
+				<reportElement x="460" y="91" width="100" height="19" uuid="cd0ea68b-414d-46d9-afe4-f08cf66a2cab"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saldoBanco}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="365" y="91" width="90" height="20" forecolor="#FFFFFF" uuid="697de24a-b861-4e8a-b546-12b0c72a834c"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saldo en Bancos]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="46" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="1" width="566" height="15" forecolor="#999999" backcolor="#999999" uuid="154a7f4c-33eb-41a1-827f-61e565ca525c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="1" y="0" width="556" height="15" forecolor="#FFFFFF" uuid="07f300c9-4c70-4d90-ac72-88f4d2b6a3c3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[(+) CARGOS CONTABLES NO CONSIDERADOS POR EL BANCO]]></text>
+			</staticText>
+			<textField pattern="###,###,##0.00">
+				<reportElement x="487" y="0" width="75" height="15" forecolor="#FFFFFF" uuid="d2cbae8d-8250-45e2-baf2-abf3d614340d"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contaC}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="16" width="567" height="27" isPrintWhenDetailOverflows="true" uuid="de00a90b-ffa5-4f39-8953-366a13e7ba4c"/>
+				<subreportParameter name="cOrigen">
+					<subreportParameterExpression><![CDATA["Contabilidad"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nConciliacion">
+					<subreportParameterExpression><![CDATA[$P{nConciliacion}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tipo">
+					<subreportParameterExpression><![CDATA["C"]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\conciliaBancos_subreport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="183" splitType="Stretch">
+			<textField>
+				<reportElement x="-2" y="136" width="192" height="15" uuid="3f733a88-05aa-4d24-9342-1500dd643e52"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreFirmanteElab}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-2" y="152" width="192" height="26" isPrintWhenDetailOverflows="true" uuid="f468c1c3-759c-4cdd-a421-1d312289eec3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PuestoFirmanteElab}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="136" width="192" height="15" uuid="eabcac5d-0885-427f-8920-3ba8cf4bcbd4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreFirmanteVobo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="394" y="136" width="176" height="15" uuid="b015805d-cab5-49b6-aeb2-45cc76201298"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreFirmanteAut}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="394" y="152" width="176" height="26" isPrintWhenDetailOverflows="true" uuid="2fe961d1-338e-4a57-bb78-338ab3efb99c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PuestoFirmanteAut}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Opaque" x="358" y="-71" width="105" height="22" forecolor="#999999" backcolor="#999999" uuid="4d0c85da-7471-4571-bf3b-07b10e93e400"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="460" y="-71" width="106" height="22" forecolor="#999999" backcolor="#FFFFFF" uuid="99fd2aa6-57e0-4de1-89ec-78e2fc98f783"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="358" y="-51" width="106" height="22" forecolor="#999999" backcolor="#999999" uuid="deb3681f-d5c9-4287-b861-1735f1bc0c64"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="460" y="-51" width="106" height="22" forecolor="#999999" backcolor="#FFFFFF" uuid="da5968f2-7d19-4721-b2a5-aa5ccc67488f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="358" y="-29" width="106" height="22" forecolor="#999999" backcolor="#999999" uuid="5665d50f-0094-4c53-abdd-b80b4209a72f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="460" y="-29" width="106" height="22" forecolor="#999999" backcolor="#FFFFFF" uuid="5454de72-ceb8-4ff3-a73e-0c1b24380f82"/>
+			</rectangle>
+			<line>
+				<reportElement x="6" y="132" width="175" height="1" uuid="8177924e-e191-4aa2-a34e-6ebb49bd0e92"/>
+			</line>
+			<line>
+				<reportElement x="394" y="132" width="173" height="1" uuid="57d7d824-0556-40eb-a721-22c8943b61f5"/>
+			</line>
+			<line>
+				<reportElement x="204" y="132" width="175" height="1" uuid="0f09df59-1ff0-44e2-891d-e0375eac6477"/>
+			</line>
+			<staticText>
+				<reportElement x="358" y="-69" width="106" height="20" forecolor="#FFFFFF" uuid="01d1b02c-5dac-46b1-b91c-9298d7b547c8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[= Saldo en Chequera]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="358" y="-49" width="103" height="20" forecolor="#FFFFFF" uuid="ae81432d-a9cc-4674-8095-5e88e2851fa9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saldo en Libros]]></text>
+			</staticText>
+			<textField pattern="###,###,##0.00">
+				<reportElement x="460" y="-47" width="100" height="19" uuid="679c02a9-877e-4d56-adaa-8af402ab35e2"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{msaldoLibros}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="359" y="-29" width="103" height="20" forecolor="#FFFFFF" uuid="0629a383-4f2e-4794-a46c-2e1844ba96a6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diferencia]]></text>
+			</staticText>
+			<textField pattern="###,###,##0.00">
+				<reportElement x="461" y="-25" width="100" height="19" uuid="8b7cd6ae-37a3-43e9-8d3f-7c1461d9e866"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{diferencia}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###,##0.00">
+				<reportElement x="461" y="-71" width="100" height="20" uuid="2deb6f6a-cb4c-43e3-90c0-b52e6c684c77"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{saldoChequera}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="152" width="192" height="26" isPrintWhenDetailOverflows="true" uuid="6418e9e6-6e48-4653-a790-bcf6dd2cf326"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PuestoFirmanteVobo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

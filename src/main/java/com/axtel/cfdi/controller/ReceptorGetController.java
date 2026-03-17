@@ -67,21 +67,21 @@ public class ReceptorGetController extends HttpServlet {
             if (rfc == null || rfc.isEmpty()) {
                 throw new RuntimeException("El RFC es obligatorio.");
             }
-            log.debug("Object: {}", "Looking for: " + rfc);
+            log.debug("Object: " + String.valueOf("Looking for: " + rfc));
             Receptor receptor = receptorService.obtenerReceptorPorRfc(rfc);
             if (receptor == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                response.getWriter().write("{\"error\": \"Receptor no encontrado\"}".toPath());
+                response.getWriter().write("{\"error\": \"Receptor no encontrado\"}");
             } else {
                 String json = gson.toJson(receptor);
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(json.toPath());
+                response.getWriter().write(json);
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("{\"error\": \"Error al obtener el receptor\"}".toPath());
+            response.getWriter().write("{\"error\": \"Error al obtener el receptor\"}");
         }
     }
 }

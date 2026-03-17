@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Complejidad Fuente Financiamiento</titulo>
+	<anchoWin>815</anchoWin>
+	<altoWin>700</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>M_TCATALOGOCOMPLEJIDADFF</tabla>
+	<!--El nombre de la tabla tine que ser el nombre de la tabla en base de datos con el prefijo "M_" y todo en mayusculas
+	-->
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cReglasFF"						control="cReglasFF"				dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""		header="Consecutivo"	rowCol="1,1" 	ancho="10"	maxlen="11"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cFuenteFinanciamientoOrigen"	control="FuenteFinanciamiento"	dependencia="No"	ctrlsDependientes="MantoFuenteFinanciamiento"	limpiaOnKeypress=""		header="FF Origen"		rowCol="1,2" 	ancho="10"	maxlen="20"	tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cFuenteFinanciamientoDestino"	control="FuenteFinanciamiento1"	dependencia="No"	ctrlsDependientes="MantoFuenteFinanciamiento"	limpiaOnKeypress=""		header="FF Destino"		rowCol="1,3" 	ancho="10"	maxlen="20"	tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="nNivelReglaFF"					control="nNivelReglaFF"			dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""		header="Nivel"			rowCol="1,4" 	ancho="10"	maxlen="20"	tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="cReglasFF"					control="txtGridcReglasFF"				llave="Si"	identity="No"	requerido="Consecutivo es un dato requerido."								requeridoFocus="txtGridcReglasFF"					tipo="string" />
+		<campo field="cFuenteFinanciamientoOrigen"	control="txtGridFuenteFinanciamiento"	llave="No"	identity="No"	requerido="Clave de Fuente Financiamiento Origen es un dato requerido."		requeridoFocus="txtGridFuenteFinanciamiento"	tipo="string" />
+		<campo field="cFuenteFinanciamientoDestino"	control="txtGridFuenteFinanciamiento1"	llave="No"	identity="No"	requerido="Clave de Fuente Financiamiento Destino es un dato requerido."	requeridoFocus="txtGridFuenteFinanciamiento1"	tipo="string" />
+		<campo field="nNivelReglaFF"				control="txtGridnNivelReglaFF"			llave="No"	identity="No"	requerido="Nivel es un dato requerido."										requeridoFocus="txtGridnNivelReglaFF"					tipo="string" />		
+	</insertaRegistro>
+	
+</Ayuda>

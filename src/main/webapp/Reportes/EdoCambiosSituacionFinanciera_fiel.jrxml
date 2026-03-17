@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EdoSituacionFinanciera" pageWidth="612" pageHeight="792" columnWidth="528" leftMargin="42" rightMargin="42" topMargin="40" bottomMargin="40" uuid="285e03c0-2ca7-458f-b723-9a3d66719da8">
+	<property name="ireport.zoom" value="1.862763969177468"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="110"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sai_pruebas"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="0b927569-b9b4-48bf-8d26-892e732ddd4b"/>
+	<parameter name="mes" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="anio" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nivel" class="java.lang.Integer"/>
+	<parameter name="miles" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nfirmas" class="java.lang.Integer"/>
+	<parameter name="nombre1" class="java.lang.String"/>
+	<parameter name="puesto1" class="java.lang.String"/>
+	<parameter name="nombre2" class="java.lang.String"/>
+	<parameter name="puesto2" class="java.lang.String"/>
+	<parameter name="nombre3" class="java.lang.String"/>
+	<parameter name="puesto3" class="java.lang.String"/>
+	<parameter name="nombre4" class="java.lang.String"/>
+	<parameter name="puesto4" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="centroContable" class="java.lang.String"/>
+	<parameter name="nombreCentro" class="java.lang.String"/>
+	<parameter name="esConac" class="java.lang.String"/>
+	<parameter name="esMesAA" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT top 1 nCuenta FROM dbo.tCuentas]]>
+	</queryString>
+	<field name="nCuenta" class="java.lang.String"/>
+	<group name="Grupo">
+		<groupExpression><![CDATA[1==1]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<line>
+					<reportElement x="0" y="0" width="528" height="1" uuid="d7603985-b5b0-4bb9-8775-b7c1a050dd6f"/>
+				</line>
+				<staticText>
+					<reportElement x="1" y="3" width="266" height="8" uuid="7c0a104b-312b-44f7-b262-0f687c3e8217">
+						<printWhenExpression><![CDATA[$P{miles}==1]]></printWhenExpression>
+					</reportElement>
+					<textElement>
+						<font fontName="Arial" size="6"/>
+					</textElement>
+					<text><![CDATA[*La suma de los parciales puede no coincidir con los totales debido al redondeo de las cifras.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2" y="11" width="469" height="8" uuid="4202b5af-5268-4d79-8270-ff87d62e29d5"/>
+					<textElement>
+						<font fontName="Arial" size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Bajo protesta de decir verdad declaramos que los Estados Financieros y sus notas, son razonablemente correctos y son responsabilidad del emisor.]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Nivel4">
+		<groupExpression><![CDATA[]]></groupExpression>
+	</group>
+	<pageHeader>
+		<band height="108" splitType="Stretch">
+			<textField>
+				<reportElement x="135" y="46" width="252" height="13" uuid="d2f0e693-f2ac-40a5-ad23-56ccdccd46b6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $P{nombreCentro}.equals( " " ) ? "" : $P{nombreCentro} )]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="59" width="528" height="49" backcolor="#CCCCCC" uuid="204bfc4f-9a74-4586-8bb8-eeb07a9e54b1"/>
+			</rectangle>
+			<textField>
+				<reportElement x="1" y="82" width="526" height="13" uuid="7437788d-13f8-471c-b5b9-7f3a32bd055e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(
+    $P{mes}==1 ? "Del 01 de Enero al 31 de Enero de " +$P{anio}.toString():
+    $P{mes}==2 && ($P{anio}%400 == 0 || ($P{anio}%100 != 0 && $P{anio}%4 == 0)) ? "Al 29 de Febrero de " +$P{anio}.toString():
+    $P{mes}==2 ? "Del 01 de Enero al 28 de Febrero de " +$P{anio}.toString():
+    $P{mes}==3 ? "Del 01 de Enero al 31 de Marzo de " +$P{anio}.toString():
+    $P{mes}==4 ? "Del 01 de Enero al 30 de Abril de " +$P{anio}.toString():
+    $P{mes}==5 ? "Del 01 de Enero al 31 de Mayo de " +$P{anio}.toString():
+    $P{mes}==6 ? "Del 01 de Enero al 30 de Junio de " +$P{anio}.toString():
+    $P{mes}==7 ? "Del 01 de Enero al 31 de Julio de " +$P{anio}.toString():
+    $P{mes}==8 ? "Del 01 de Enero al 31 de Agosto de " +$P{anio}.toString():
+    $P{mes}==9 ? "Del 01 de Enero al 30 de Septiembre de " +$P{anio}.toString():
+    $P{mes}==10 ? "Del 01 de Enero al 31 de Octubre de " +$P{anio}.toString():
+    $P{mes}==11 ? "Del 01 de Enero al 30 de Noviembre de " +$P{anio}.toString():
+    $P{mes}==12 ? "Del 01 de Enero al 31 de Diciembre de " +$P{anio}.toString():
+    ""
+)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="95" width="526" height="13" uuid="33407204-6f09-40ce-a6a8-029c516c2c19"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{miles}==1 ? "(miles de pesos)" : "(en pesos)" )]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="1" y="1" width="121" height="57" uuid="71282611-661a-4ed9-9446-270cbbf83d19"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="1" y="59" width="527" height="12" uuid="3cdb6125-0ed9-4a56-94c5-e5bc141fcd01"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="1" y="71" width="526" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="fbf151c1-170c-4daf-87d1-190d482f1788"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{nivel}==3 ? "Estado de Cambios en la Situación Financiera" : "Estado de Cambios en la Situación Financiera (Detallado)")]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="14" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="528" height="14" backcolor="#CCCCCC" uuid="7ebf00a2-88be-41d2-809f-c2c2293c2dfc"/>
+			</rectangle>
+			<line>
+				<reportElement x="433" y="0" width="1" height="14" isPrintWhenDetailOverflows="true" uuid="c407ca3e-8368-45f6-8067-30a5c6ff9c9b"/>
+			</line>
+			<staticText>
+				<reportElement x="343" y="3" width="82" height="10" uuid="28f855d3-fbcc-4969-9f98-38dd432df0dc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Origen]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="443" y="3" width="82" height="10" uuid="d4c97f21-d3cc-42ee-8293-3b17c0ea1956"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aplicación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="3" width="327" height="10" uuid="7b6a91ae-e738-489f-b25a-8cedd4b8364d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Concepto]]></text>
+			</staticText>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="344" y="1" width="1" height="12" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="19200ede-e5e5-4120-a714-e9245ca362d4"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="11" splitType="Stretch">
+			<subreport>
+				<reportElement x="-1" y="1" width="529" height="10" uuid="6ad9bd39-9f8d-4917-b8fb-dbbf7d54af02"/>
+				<subreportParameter name="anio">
+					<subreportParameterExpression><![CDATA[$P{anio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="mes">
+					<subreportParameterExpression><![CDATA[$P{mes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="esConac">
+					<subreportParameterExpression><![CDATA[$P{esConac}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="miles">
+					<subreportParameterExpression><![CDATA[$P{miles}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nivel">
+					<subreportParameterExpression><![CDATA[$P{nivel}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="centroContable">
+					<subreportParameterExpression><![CDATA[$P{centroContable}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="esMesAA">
+					<subreportParameterExpression><![CDATA[$P{esMesAA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\CambiosSituacionFinancieraDet2.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="11" isPrintWhenDetailOverflows="true" uuid="9ce92f4c-890e-4faa-b545-e10310ca3d79"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="527" y="0" width="1" height="11" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="7a690aad-c31b-4cf6-88f3-b9d5921a03f5"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="433" y="0" width="1" height="11" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="710b460f-1886-4b6b-8379-07f5be4f538c"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="344" y="0" width="1" height="11" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="ec46428f-bad7-4ae0-95fd-6e2a1d3b96eb"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="9" splitType="Stretch">
+			<textField evaluationTime="Report" pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="507" y="1" width="21" height="8" forecolor="#000000" backcolor="#FFFFFF" uuid="10472dd6-e393-45d2-98d5-c37e7f8810bc"/>
+				<textElement verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="409" y="1" width="98" height="8" forecolor="#000000" backcolor="#FFFFFF" uuid="cd46ce5e-c2a7-47a1-a309-0f4520045a04"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página: "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="101">
+			<subreport>
+				<reportElement x="0" y="1" width="528" height="92" uuid="c953f409-3b0c-4456-8faf-62bda8d0270d"/>
+				<subreportParameter name="anio">
+					<subreportParameterExpression><![CDATA[$P{anio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nfirmas">
+					<subreportParameterExpression><![CDATA[$P{nfirmas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\firmasEdosFinV_acuse.jasper"]]></subreportExpression>
+			</subreport>
+			<textField evaluationTime="Report" pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="508" y="93" width="21" height="8" forecolor="#000000" backcolor="#FFFFFF" uuid="ed816cf6-c48d-45c6-90c7-7ffb9a3f7057"/>
+				<textElement verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="410" y="93" width="98" height="8" forecolor="#000000" backcolor="#FFFFFF" uuid="0b432bab-e88c-4b8c-b423-126e759d857c"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página: "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

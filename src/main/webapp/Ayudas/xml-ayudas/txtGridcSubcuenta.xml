@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Catálogo Sub Cuenta</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>CG_CAT_SUBCUENTA_COB</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cSubcuenta"			control="txtGridcSubcuenta"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave"	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+</Ayuda>

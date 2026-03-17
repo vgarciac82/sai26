@@ -211,9 +211,9 @@ public class ReintegrosCajaBusinessLogic extends DataSourceManager {
                 //Actualiza fecha de aplicacion
                 ReintegrosCajaManager.actializaFecha(conn, folio, cFechaAplicacion);
                 //Aplicación contable de la retencion
-                log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + folio);
+                log.debug("Object: " + String.valueOf("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + folio));
                 ae.makeAccountingApplication(conn, documento, folio, tablaEncabezado, tablaDetalle, campoFolio);
-                log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + folio);
+                log.debug("Object: " + String.valueOf("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + folio));
                 conn.commit();
             } else {
                 mensaje = "El mes contable esta cerrado. Notifique al administrador";
@@ -360,9 +360,9 @@ public class ReintegrosCajaBusinessLogic extends DataSourceManager {
         try {
             conn = getConnection();
             //Cancelacion contable de Reintegro Caja
-            log.debug("Object: {}", "Inicia cacelacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nFolioReinegroCaja);
+            log.debug("Object: " + String.valueOf("Inicia cacelacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nFolioReinegroCaja));
             ae.cancelAccountingApplication(conn, "REINTEGROCAJA", nFolioReinegroCaja, "tReintegroCajaEncabezado", "tReintegroCajaDetalle", "nFolioReintegroCaja");
-            log.debug("Object: {}", "Termina Cancelacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nFolioReinegroCaja);
+            log.debug("Object: " + String.valueOf("Termina Cancelacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nFolioReinegroCaja));
             conn.commit();
         } catch (Exception exc) {
             mensaje = exc.getMessage();

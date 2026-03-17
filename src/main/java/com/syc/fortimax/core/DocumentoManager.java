@@ -57,7 +57,7 @@ public class DocumentoManager extends DataSourceManager {
         queryUpdate.append("       AND id_documento = ? ");
         PreparedStatement psUpdate = null;
         try {
-            log.debug("Object: {}", "actualizando Documento: " + d);
+            log.debug("Object: " + String.valueOf("actualizando Documento: " + d));
             psUpdate = conn.prepareStatement(queryUpdate.toString());
             psUpdate.setString(1, d.getPaginaDocumento(0).getNomArchivoVol());
             psUpdate.setString(2, d.getPaginaDocumento(0).getNomArchivoOrg());
@@ -1705,7 +1705,7 @@ public class DocumentoManager extends DataSourceManager {
      * @throws SQLException
      */
     public static void respaldaPagina(Connection conn, Documento d) throws SQLException {
-        log.debug("Object: {}", "Respaldando paginas de documento: " + d);
+        log.debug("Object: " + String.valueOf("Respaldando paginas de documento: " + d));
         StringBuilder queryInsertaLogPagina = new StringBuilder();
         queryInsertaLogPagina.append("INSERT INTO dbo.imx_pagina_borrada ");
         queryInsertaLogPagina.append("            (titulo_aplicacion, ");

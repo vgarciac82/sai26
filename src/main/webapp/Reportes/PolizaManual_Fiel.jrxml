@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PolizaManual" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="c88ec585-6f25-4455-bdf6-85194f604495">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SAI Produccion"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="poliza" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cc" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[DECLARE @centrocontable VARCHAR(2) = $P{cc}
+DECLARE @npoliza INT =  $P{poliza}
+
+EXEC dbo.sp_FormatoPolizaManual
+    @poliza =  @npoliza,
+    @centroContable = @centrocontable,
+    @tipoPoliza = 'DI']]>
+	</queryString>
+	<field name="cxp" class="java.lang.String"/>
+	<field name="nFolioPoliza" class="java.lang.Integer"/>
+	<field name="nDocRenglon" class="java.lang.Integer"/>
+	<field name="cDescripcionPoliza" class="java.lang.String"/>
+	<field name="nCuenta" class="java.lang.String"/>
+	<field name="cuenta" class="java.lang.String"/>
+	<field name="subcuenta" class="java.lang.String"/>
+	<field name="subscuenta" class="java.lang.String"/>
+	<field name="nomCuenta" class="java.lang.String"/>
+	<field name="nomSubCuenta" class="java.lang.String"/>
+	<field name="nomSubSCuenta" class="java.lang.String"/>
+	<field name="fAplicacion" class="java.lang.String"/>
+	<field name="cCentroContable" class="java.lang.String"/>
+	<field name="cDescripcion" class="java.lang.String"/>
+	<field name="aEjercicioFiscal" class="java.lang.String"/>
+	<field name="cTipoPoliza" class="java.lang.String"/>
+	<field name="cDescripcionTipoPoliza" class="java.lang.String"/>
+	<field name="cTipoDocumento" class="java.lang.String"/>
+	<field name="cUsuarioAutorizo" class="java.lang.String"/>
+	<field name="nSubCuenta" class="java.lang.String"/>
+	<field name="mMovimientoC" class="java.math.BigDecimal"/>
+	<field name="mMovimientoA" class="java.math.BigDecimal"/>
+	<field name="cUnidadResponsable" class="java.lang.String"/>
+	<field name="area" class="java.lang.String"/>
+	<field name="cIdUsuarioAprobacion" class="java.lang.String"/>
+	<field name="cIdUsuarioCaptura" class="java.lang.String"/>
+	<field name="cIdUsuarioRevision" class="java.lang.String"/>
+	<field name="nParciales" class="java.lang.Integer"/>
+	<field name="sPuestoCap" class="java.lang.String"/>
+	<field name="sPuestoRev" class="java.lang.String"/>
+	<field name="sPuestoAut" class="java.lang.String"/>
+	<variable name="PAGINA_FOLIO" class="java.lang.Integer" resetType="Page" incrementType="Page" calculation="Count"/>
+	<variable name="SUMA_DEBE" class="java.lang.Double" resetType="Group" resetGroup="FolioPoliza" calculation="Sum">
+		<variableExpression><![CDATA[$F{mMovimientoC}.doubleValue()]]></variableExpression>
+	</variable>
+	<variable name="SUMA_HABER" class="java.lang.Double" resetType="Group" resetGroup="FolioPoliza" calculation="Sum">
+		<variableExpression><![CDATA[$F{mMovimientoA}.doubleValue()]]></variableExpression>
+	</variable>
+	<variable name="nParciales" class="java.lang.Integer" resetType="None">
+		<variableExpression><![CDATA[$F{nParciales} == (new Integer(0)) ? $V{nParciales} : $F{nParciales}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{nParciales}]]></initialValueExpression>
+	</variable>
+	<variable name="cDescripcionPoliza" class="java.lang.String">
+		<variableExpression><![CDATA[$F{cDescripcionPoliza}]]></variableExpression>
+	</variable>
+	<group name="FolioPoliza" isStartNewPage="true" isResetPageNumber="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{nFolioPoliza}+$F{cTipoPoliza}+$F{cCentroContable}]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<group name="cCentroContable" isStartNewPage="true" isResetPageNumber="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{nFolioPoliza}+$F{cTipoPoliza}+$F{cCentroContable}]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<group name="TipoPoliza" isStartNewPage="true" isResetPageNumber="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{nFolioPoliza}+$F{cTipoPoliza}+$F{cCentroContable}]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band height="752" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="114" width="551" height="449" uuid="a0e31dbc-8eca-4fde-8839-311a262267f9"/>
+			</rectangle>
+			<line>
+				<reportElement key="line-30" mode="Transparent" x="485" y="115" width="1" height="448" isRemoveLineWhenBlank="true" uuid="0dec5fe6-34a3-4bcd-b441-46fed187b814"/>
+			</line>
+			<line>
+				<reportElement key="line-31" mode="Transparent" x="420" y="115" width="1" height="448" isRemoveLineWhenBlank="true" uuid="3173c067-1923-4be8-97fc-339779ec2c09"/>
+			</line>
+			<line>
+				<reportElement key="line-33" mode="Transparent" x="170" y="115" width="1" height="448" isRemoveLineWhenBlank="true" uuid="fe7629b5-9a6a-4510-b092-0d18ef03c8e0"/>
+			</line>
+			<line>
+				<reportElement key="line-34" mode="Transparent" x="117" y="115" width="1" height="448" isRemoveLineWhenBlank="true" uuid="bbe24cb5-169e-4b9f-8057-808a3735754c"/>
+			</line>
+			<line>
+				<reportElement key="line-35" mode="Transparent" x="60" y="115" width="1" height="448" isRemoveLineWhenBlank="true" uuid="dfc33df0-d535-43c3-89d3-0a389ecc58b4"/>
+			</line>
+		</band>
+	</background>
+	<title>
+		<band splitType="Stretch">
+			<textField evaluationTime="Page" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-1" x="312" y="-459" width="34" height="18" uuid="b6d1cebb-37a7-43b3-8aa9-3e0170764176"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-17" x="279" y="-459" width="34" height="19" uuid="bb33a222-b3a5-4569-b9f7-8d885747c18e"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Página:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-2" x="366" y="-459" width="99" height="17" uuid="00db8022-771c-47f1-8b2b-7b12afbd18d4"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-18" x="346" y="-459" width="20" height="19" uuid="f2ee3924-1d28-44ea-a6f9-8517b1bdb0c0"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[de]]></text>
+			</staticText>
+			<textField evaluationTime="Page" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-3" x="312" y="-459" width="34" height="18" uuid="07f75484-751a-4b1f-b872-a71c1dbfbb30"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-19" x="279" y="-459" width="34" height="19" uuid="ad5ffe6d-7ab3-4ca7-ba0c-d55abb9dcab8"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Página:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-4" x="366" y="-459" width="99" height="17" uuid="d5595803-4187-45b9-a2f7-774b0e27de6b"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-20" x="346" y="-459" width="20" height="19" uuid="4e07fd41-3cf9-4b45-baa0-29bd60a5b203"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[de]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="94" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-12" mode="Transparent" x="175" y="14" width="222" height="14" uuid="40b3a7e9-602f-41c5-9ea8-b5bde6ff96d3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-13" mode="Transparent" x="120" y="72" width="100" height="11" uuid="08381629-e804-4409-9dd6-5a40af929ee7"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[CENTRO CONTABLE:]]></text>
+			</staticText>
+			<image>
+				<reportElement key="image-2" mode="Transparent" x="40" y="35" width="0" height="0" uuid="d256db98-aa3b-4b8c-ab42-95f633e75ae6"/>
+				<imageExpression><![CDATA[]]></imageExpression>
+			</image>
+			<image>
+				<reportElement key="image-3" mode="Transparent" x="40" y="35" width="0" height="0" uuid="4ac4da8f-6257-4b36-a59d-8fc0d14c745c"/>
+				<imageExpression><![CDATA[]]></imageExpression>
+			</image>
+			<textField evaluationTime="Group" evaluationGroup="FolioPoliza" isBlankWhenNull="false">
+				<reportElement key="textField" mode="Transparent" x="220" y="72" width="146" height="11" uuid="008f8423-6b0c-4776-b495-4dc44480f18a"/>
+				<textElement markup="styled">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cDescripcion}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement key="rectangle-1" mode="Transparent" x="0" y="70" width="551" height="20" uuid="fed0e9ad-7680-4849-b5c5-a57ff01784b9"/>
+			</rectangle>
+			<staticText>
+				<reportElement key="staticText-4" mode="Transparent" x="6" y="72" width="54" height="16" uuid="6429ba20-c8b7-4596-b4e4-f4618d064b12"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[POLIZA DE: ]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-3" mode="Transparent" x="372" y="71" width="1" height="18" uuid="192a181e-eabd-44b6-adc5-2ddf07e20af6"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-5" mode="Transparent" x="375" y="71" width="39" height="11" uuid="39997a04-4eb1-42aa-b1b4-73ae7087703c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-4" mode="Transparent" x="464" y="70" width="1" height="20" uuid="0bf73f92-6208-40a1-b6f6-db76713bf318"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-3" mode="Transparent" x="467" y="71" width="38" height="11" uuid="2e656244-337a-4ac1-8454-eb48e200289d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[POLIZA:]]></text>
+			</staticText>
+			<textField evaluationTime="Group" evaluationGroup="FolioPoliza" isBlankWhenNull="false">
+				<reportElement key="textField" mode="Transparent" x="505" y="72" width="41" height="10" uuid="a6776ab1-4e3a-49cd-8dc3-2d0628518ce8"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nFolioPoliza}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="FolioPoliza" isBlankWhenNull="false">
+				<reportElement key="textField" mode="Transparent" x="413" y="72" width="49" height="10" uuid="d5278954-1594-4914-8590-eadedaa16892"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fAplicacion}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="FolioPoliza" isBlankWhenNull="false">
+				<reportElement key="textField" mode="Transparent" x="61" y="72" width="54" height="10" uuid="214a2523-349a-41e5-b26c-24d475dbe3f5"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cDescripcionTipoPoliza}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-3" mode="Transparent" x="116" y="70" width="1" height="20" uuid="d0a2f9be-cd18-457c-a7b5-a399c195d8b9"/>
+			</line>
+			<textField>
+				<reportElement x="176" y="30" width="221" height="14" uuid="b4851b9e-ee12-412e-967b-807a5c914307"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="styled">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{area}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="2" y="0" width="154" height="64" uuid="a2ae6fb6-3736-4268-9fec-d999d25484e0"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Prevent">
+			<rectangle>
+				<reportElement key="rectangle-4" mode="Transparent" x="0" y="0" width="551" height="20" uuid="94348619-3790-48b6-952e-51fce3267ac2"/>
+			</rectangle>
+			<staticText>
+				<reportElement key="staticText" mode="Transparent" x="430" y="3" width="44" height="15" uuid="47b6ee4e-328e-481a-bf35-d7de0fed0852"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[DEBE]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-5" mode="Transparent" x="420" y="0" width="1" height="21" uuid="040b2683-8f0c-4a40-8f9f-bbae5983a7e6"/>
+			</line>
+			<line>
+				<reportElement key="line-6" mode="Transparent" x="485" y="0" width="1" height="20" uuid="9899183b-6bc5-4665-8193-72502528ea4a"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText" mode="Transparent" x="179" y="3" width="170" height="13" uuid="1165bd18-8353-4c67-baa1-bad63d5484ab"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" mode="Transparent" x="65" y="3" width="47" height="13" uuid="e87980f5-9e13-4841-a831-22d5fc947770"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[SUB-CTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" mode="Transparent" x="7" y="2" width="44" height="14" uuid="25cf08ba-370d-4af4-b859-128925a5937f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[CUENTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" mode="Transparent" x="492" y="3" width="52" height="15" uuid="50f799e0-b109-4c3f-91d9-43d7853f928a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[HABER]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-8" mode="Transparent" x="60" y="0" width="1" height="20" uuid="5c2ef315-e2a4-4a34-aa7d-f2ac85365a05"/>
+			</line>
+			<line>
+				<reportElement key="line-14" mode="Transparent" x="117" y="0" width="1" height="20" uuid="4406bb54-3468-49a0-beff-027b4d5f47e1"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-30" mode="Transparent" x="120" y="3" width="47" height="13" uuid="eb42e552-af64-4410-ad67-8d0fb4c090ef"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[SUB-SCTA]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-26" mode="Transparent" x="170" y="1" width="1" height="20" uuid="4b8bcec4-7b50-48fe-ab2a-27a6cf09a7ce"/>
+			</line>
+			<staticText>
+				<reportElement x="188" y="0" width="100" height="20" uuid="b1c08e5a-58e3-4fbf-b718-8fd416c4da01"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="51" splitType="Stretch">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="false">
+				<reportElement key="textField" x="175" y="2" width="245" height="10" isPrintWhenDetailOverflows="true" uuid="62317a28-9119-4dfd-87ac-2be1cb0748ad"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomCuenta}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="false">
+				<reportElement key="textField" x="64" y="19" width="49" height="11" isRemoveLineWhenBlank="true" uuid="8358795c-565d-4746-8c07-ef8f468c8d31"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subcuenta}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="false">
+				<reportElement key="textField" x="175" y="19" width="244" height="10" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="8a345dda-829b-4696-bfb5-2f17486fa903"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomSubCuenta}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="false">
+				<reportElement key="textField" x="120" y="34" width="49" height="10" isRemoveLineWhenBlank="true" uuid="2436b1a9-12cc-4238-ae13-cb5b21d0509c"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subscuenta}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="false">
+				<reportElement key="textField" isPrintRepeatedValues="false" x="175" y="34" width="237" height="10" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="afc28372-db02-4d04-ac09-9cb544e4c60d"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomSubSCuenta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="423" y="2" width="59" height="10" uuid="52d0142e-76a6-4291-a67f-a0b9fcf1be72"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mMovimientoC}.doubleValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="490" y="2" width="58" height="10" uuid="306b8415-09e9-4132-aee0-49ffd78ae918"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mMovimientoA}.doubleValue()]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="false">
+				<reportElement key="textField" x="3" y="2" width="50" height="10" uuid="57e8caa1-8f4f-4fb5-8518-fb5e2adb342c"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuenta}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="14">
+			<textField>
+				<reportElement x="175" y="1" width="97" height="11" uuid="69a979cf-cfd3-46d5-80d5-8a351c9bb780"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nSubCuenta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Prevent"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="190" splitType="Prevent">
+			<staticText>
+				<reportElement key="staticText-23" mode="Transparent" x="329" y="1" width="88" height="20" uuid="c84a680f-17d5-4e3a-9c2a-c9bf8b84f49e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[SUMAS IGUALES:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-24" mode="Transparent" x="1" y="20" width="93" height="12" uuid="acdab58e-e339-4157-a6c0-92952b077d1a"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONCEPTO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement key="rectangle-6" mode="Transparent" x="0" y="32" width="552" height="66" uuid="a2c7f8dd-8004-406b-8256-ac3e85eee34d"/>
+			</rectangle>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="3" y="36" width="537" height="48" uuid="312cdf78-36d0-4058-9878-110dad073a07"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{cDescripcionPoliza}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="FolioPoliza" pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="490" y="6" width="58" height="10" uuid="e5a3dea2-d862-44a6-be8f-c08cadf40e70"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SUMA_HABER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="FolioPoliza" pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="427" y="6" width="55" height="10" uuid="d8fbbf51-1a19-4883-af9f-8a61bc035485"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SUMA_DEBE}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-20" mode="Transparent" x="485" y="0" width="1" height="21" uuid="e2623fdf-7081-47ba-b3e8-b6e40e5083ab"/>
+			</line>
+			<elementGroup>
+				<rectangle>
+					<reportElement key="rectangle-5" mode="Transparent" x="421" y="1" width="130" height="20" uuid="c2c0290c-1f87-4bbe-a5ae-e091c3bf0884"/>
+				</rectangle>
+			</elementGroup>
+			<textField pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="true">
+				<reportElement key="textField" x="444" y="180" width="100" height="10" uuid="0d558a15-28ce-45f1-9caa-4504fa2dff96"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Page" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-5" mode="Transparent" x="467" y="163" width="30" height="17" uuid="baf500dc-fd66-4f7f-844d-36b0e7ef564c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-21" mode="Transparent" x="430" y="163" width="37" height="17" uuid="9dcbe26d-4851-47ac-a211-e4d02cb8aea7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Página:]]></text>
+			</staticText>
+			<textField evaluationTime="Group" evaluationGroup="FolioPoliza" isBlankWhenNull="false">
+				<reportElement key="textField-6" mode="Transparent" x="517" y="163" width="31" height="17" uuid="71848ceb-7a76-439a-8783-e7891456c75f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-22" mode="Transparent" x="497" y="163" width="20" height="17" uuid="8ce2853b-6725-4b90-b46c-814752879f22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[de]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

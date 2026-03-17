@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catalogo nCABMS</titulo>
+	<anchoWin>600</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>TCATALOGOCABMS</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cIdGrupoEvento"  	control="nGrupo"	dependencia="Si"	ctrlsDependientes="nGrupo"			limpiaOnKeypress=""	header="Grupo"			    rowCol="3,1" ancho="50"	    maxlen="100"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cIdSubGrupoEvento"	control="nSubGrupo"	dependencia="Si"	ctrlsDependientes="nSubGrupo"	    limpiaOnKeypress=""	header="SubGrupo"		    rowCol="3,2" ancho="50"  	maxlen="100"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cIdEventoManual"	control="nEvento"	dependencia="Si"	ctrlsDependientes="nEvento"	        limpiaOnKeypress=""	header="Evento"			    rowCol="3,3" ancho="50" 	maxlen="100"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cPartida"	        control="nCOG"	    dependencia="Si"	ctrlsDependientes="nCOG"			limpiaOnKeypress=""	header="Partida"	        rowCol="3,4" ancho="50"	    maxlen="100"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cCABMS"	            control="nCABMS"	dependencia="No"	ctrlsDependientes="nCABMS"			limpiaOnKeypress=""	header="Folio CABMS"	    rowCol="1,1" ancho="50"	    maxlen="100"		tipo="string"	visible="No"	clase=""/>        
+	    <columna campo="cCUCOP"	            control="nCUCOP"	dependencia="Si"	ctrlsDependientes="nCUCOP"	        limpiaOnKeypress=""	header="Folio CUCOP"	    rowCol="2,1" ancho="40"	    maxlen="100"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cDescripcion"	    control=""			dependencia="No"	ctrlsDependientes=""	            limpiaOnKeypress=""	header="Folio CABMS"	    rowCol="1,1" ancho="50"  	maxlen="100"		tipo="string"	visible="Si"	clase=""/>        
+		<!-- <columna campo="nIdUnidadMedida"    control=""	        dependencia="No"	ctrlsDependientes=""	            limpiaOnKeypress=""	header="Unidad de Medida"	rowCol="2,2" ancho="50" 	maxlen="100"		tipo="string"	visible="No"	clase=""/> --> 
+				
+	</grid>  
+</Ayuda>

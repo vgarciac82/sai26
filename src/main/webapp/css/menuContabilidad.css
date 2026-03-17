@@ -1,0 +1,348 @@
+#horizontalmenu ul 
+{
+padding:1; 
+margin:1; 
+list-style-type:none;
+
+}
+
+#horizontalmenu li 
+{
+float:left; 
+position:relative; 
+/*padding-right:100px;*/ 
+display:inline-block;
+margin-left:4px;
+}
+
+#horizontalmenu li ul 
+{
+display:none;
+position:absolute;
+
+}
+
+#horizontalmenu li:hover ul
+{
+display:block;
+top: 100%;
+left: -40px;
+position:absolute;
+float:right;
+
+}
+
+
+#horizontalmenu li ul li
+{
+clear:both;
+border-style:none;
+}
+
+.Enlace
+{
+display: block;
+}
+
+
+.Enlace:hover {
+background-color: #3ebcef;
+}
+
+
+
+
+
+#balanza 
+{
+background-image:url("../imagenes/menu/balanza.png");
+height:32px;
+width:32px;
+background-repeat:no-repeat;
+
+}
+
+#consultaP 
+{
+background-image:url("../imagenes/menu/consultaPoliza.png");
+height:32px;
+width:32px;
+background-repeat:no-repeat;
+
+}
+#crearP 
+{
+background-image:url("../imagenes/menu/crearPoliza.png");
+height:32px;
+width:32px;
+background-repeat:no-repeat;
+
+}
+
+#consultaRfc 
+{
+background-image:url("../imagenes/menu/rfc.png");
+height:32px;
+width:32px;
+background-repeat:no-repeat;
+
+}
+#analitico 
+{
+background-image:url("../imagenes/menu/analitico.png");
+height:32px;
+width:32px;
+background-repeat:no-repeat;
+
+}
+#auxiliar 
+{
+background-image:url("../imagenes/menu/auxiliar.png");
+height:32px;
+width:32px;
+background-repeat:no-repeat;
+
+}
+#detalle 
+{
+background-image:url("../imagenes/menu/detalleCtas.png");
+height:32px;
+width:32px;
+background-repeat:no-repeat;
+
+}
+
+#catalogos
+{
+background-image:url("../imagenes/menu/catalogos.png");
+height:32px;
+width:32px;
+background-repeat:no-repeat;
+
+}
+
+
+#catalogoRfc
+{
+background-image:url("../imagenes/menu/rfc.png");
+height:32px;
+width:32px;
+background-repeat:no-repeat;
+}
+
+#almacen
+{
+background-image:url("../imagenes/menu/almacen.png");
+height:32px;
+width:32px;
+background-repeat:no-repeat;
+}
+
+#cuentas_bancarias
+{
+background-image:url("../imagenes/menu/cuentas_bancarias.png");
+height:32px;
+width:32px;
+background-repeat:no-repeat;
+}
+
+#notificacion 
+{
+background-image:url("../imagenes/menu/notificacion.png");
+height:32px;
+width:32px;
+background-repeat:no-repeat;
+background-color: #cccbcb; 
+}
+
+
+
+
+
+#hPolCtroContableC
+{
+size: 25px;
+font-size: 9pt;
+color: white;
+background-color:#0000FF;
+font: bold ;
+
+}
+
+#title
+{
+background-image:url("../imagenes/bckgnd-header3.png");
+background-repeat:repeat;
+font-size: 12pt;
+color: #00709e;
+font: bold ;
+}
+
+.separar
+{
+padding-top:15px;
+color:#00709e;
+}
+
+
+
+
+#cConcepto
+{
+border:1px solid #999999;
+    width:100%;
+    height:100px;
+    margin:5px 0;
+    padding:3px;
+	
+}
+
+
+.types
+{
+color:#000000;
+font-size: 12pt;
+}
+
+
+.navegar
+{
+cursor:pointer;
+width: 25px;
+height: 25px;
+border: none;
+}
+
+#btSiguiente
+{
+background:url("../imagenes/iconos/siguiente.png") no-repeat;
+}
+#btAnterior
+{
+background:url("../imagenes/iconos/anterior.png") no-repeat;
+}
+
+.typesEnc
+{
+width: 70px;
+height: 20px;
+border:0px;
+}
+
+#encabezado, tr, td
+{
+border: 0px ;
+}
+
+#encabezado
+{
+font-size: 12pt;
+font-weight:bold;
+width:100%;
+background-color:#ffffff;
+border: solid 0px #000000;
+}
+
+
+#izquierda{
+ float: left; 
+ overflow: hidden;
+ width:850px;
+ background-color: #cccbcb; 
+}
+
+#derecha{
+   float: left;  
+   margin-left:50px; 
+  
+}
+
+
+#ContenedorDtables
+{
+display: inline-block;
+ clear:both; 
+margin-left:100px;
+}   
+
+.lineaImpar
+{
+
+background-color:#cdcdcd;
+} 
+
+#tdocs tr:hover { 
+  background-color: #9a9a9a; 
+}
+
+.fondotableTitle
+{
+background:url("../imagenes/bckgnd-header3.png") repeat-x;
+height:30px;
+color:#808080;
+}
+
+.tablaContenedora
+{
+border: 1px solid black;
+}
+
+#bloque
+{
+	 
+width:400px;
+height:50px;
+text-align:center;
+position:absolute;
+z-index:15;
+top:50%;
+left:50%;
+margin:-100px 0 0 -150px;
+
+}
+
+.dataTablex
+{
+
+ clear: both;
+}
+
+.centerContent
+{
+width: 50%;
+margin: 0px auto 0px auto
+}
+
+
+#dt_reporte tr:hover {
+background-color: #3ebcef;
+}
+
+
+#mensaje{
+
+position: absolute;
+top: 40%;
+left: 0%;
+width: 400 px;
+height: 100px;
+background-color:#cdcdcd;
+text-align: center;
+vertical-align: middle;
+line-height: 100px;
+font-weight:bold;
+font-style:italic
+
+}
+
+#nNotifiacion{
+position: absolute;
+top: 50%;
+left: 80%;
+width: 10px;
+height: 15px;
+background-color: #D8270F;
+color: #ffffff;
+align-content: center;
+border: 1
+}

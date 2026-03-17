@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Relacion de Gastos</titulo>
+	<anchoWin>815</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>PFACTURARELACIONGASTO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cIdRFC_RelacionGasto"	control="cIdRFC_RelacionGasto"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave"	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cnombre"	control="cnombre"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Descripcion"	ancho="100"	maxlen="100"		tipo="string"	visible="Si"	clase=""/>
+	    <columna campo ="DCD_TBEN" control="DCD_TBEN"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Ripo Benef"	 rowCol="2,1" ancho="20"	maxlen="20"		tipo="string"	visible="No"	clase=""/>
+        <columna campo ="DCD_CBEN" control="DCD_CBEN"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Benef"	 rowCol="2,2" ancho="20"	maxlen="20"		tipo="string"	visible="No"	clase=""/>
+	
+	</grid>  
+</Ayuda>

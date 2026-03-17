@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptNotaMateriales" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true" uuid="591ab60a-7153-46e0-81db-cde66d593808">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="desa_2025"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="309"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="684"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\Axt3l\\Workspace\\sai\\WebContent\\Reportes"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cFolio" class="java.lang.String">
+		<parameterDescription><![CDATA[Folio del flujo]]></parameterDescription>
+		<defaultValueExpression><![CDATA["ENSA-A04-9"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT *FROM fn_procesoEnteraSatisfaccion('$P!{cFolio}' )]]>
+	</queryString>
+	<field name="pedidoContratoCompromiso" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="pedidoContratoCompromiso"/>
+		<property name="com.jaspersoft.studio.field.label" value="pedidoContratoCompromiso"/>
+	</field>
+	<field name="cNumCNET" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cNumCNET"/>
+		<property name="com.jaspersoft.studio.field.label" value="cNumCNET"/>
+	</field>
+	<field name="lblContratoCNET" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblContratoCNET"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblContratoCNET"/>
+	</field>
+	<field name="catMesPago" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="catMesPago"/>
+		<property name="com.jaspersoft.studio.field.label" value="catMesPago"/>
+	</field>
+	<field name="numFirmanteResponsable" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="numFirmanteResponsable"/>
+		<property name="com.jaspersoft.studio.field.label" value="numFirmanteResponsable"/>
+	</field>
+	<field name="firmanteResponsable" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="firmanteResponsable"/>
+		<property name="com.jaspersoft.studio.field.label" value="firmanteResponsable"/>
+	</field>
+	<field name="prestacionServicio" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="prestacionServicio"/>
+		<property name="com.jaspersoft.studio.field.label" value="prestacionServicio"/>
+	</field>
+	<field name="nPartidaCont" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="nPartidaCont"/>
+		<property name="com.jaspersoft.studio.field.label" value="nPartidaCont"/>
+	</field>
+	<field name="nServicioPrestado" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="nServicioPrestado"/>
+		<property name="com.jaspersoft.studio.field.label" value="nServicioPrestado"/>
+	</field>
+	<field name="nIdEstatus" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="nIdEstatus"/>
+		<property name="com.jaspersoft.studio.field.label" value="nIdEstatus"/>
+	</field>
+	<field name="cObservations" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cObservations"/>
+		<property name="com.jaspersoft.studio.field.label" value="cObservations"/>
+	</field>
+	<field name="cIdRFC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cIdRFC"/>
+		<property name="com.jaspersoft.studio.field.label" value="cIdRFC"/>
+	</field>
+	<field name="processInDB" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="processInDB"/>
+		<property name="com.jaspersoft.studio.field.label" value="processInDB"/>
+	</field>
+	<field name="lblDia" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="lblDia"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblDia"/>
+	</field>
+	<field name="lblMesFormalizado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblMesFormalizado"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblMesFormalizado"/>
+	</field>
+	<field name="lblEjercicio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblEjercicio"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblEjercicio"/>
+	</field>
+	<field name="lblProveedor" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblProveedor"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblProveedor"/>
+	</field>
+	<field name="lblDeclaracion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblDeclaracion"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblDeclaracion"/>
+	</field>
+	<field name="lblSatisfaccion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblSatisfaccion"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblSatisfaccion"/>
+	</field>
+	<field name="lblInmueble" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblInmueble"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblInmueble"/>
+	</field>
+	<field name="lblMes" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblMes"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblMes"/>
+	</field>
+	<field name="lblEjercioPago" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblEjercioPago"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblEjercioPago"/>
+	</field>
+	<field name="lblLucharHechos" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblLucharHechos"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblLucharHechos"/>
+	</field>
+	<field name="lblFechaHechos" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblFechaHechos"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblFechaHechos"/>
+	</field>
+	<field name="lblNombreJefeDirecto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblNombreJefeDirecto"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblNombreJefeDirecto"/>
+	</field>
+	<field name="lblPuestoFirmante" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblPuestoFirmante"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblPuestoFirmante"/>
+	</field>
+	<field name="lblFolioJefe" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblFolioJefe"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblFolioJefe"/>
+	</field>
+	<field name="testigo1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="testigo1"/>
+		<property name="com.jaspersoft.studio.field.label" value="testigo1"/>
+	</field>
+	<field name="lblTestigo1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblTestigo1"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblTestigo1"/>
+	</field>
+	<field name="lblPuestoTestigo1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblPuestoTestigo1"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblPuestoTestigo1"/>
+	</field>
+	<field name="numEmpTestigo1" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="numEmpTestigo1"/>
+		<property name="com.jaspersoft.studio.field.label" value="numEmpTestigo1"/>
+	</field>
+	<field name="lblFolioTestigo1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblFolioTestigo1"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblFolioTestigo1"/>
+	</field>
+	<field name="testigo2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="testigo2"/>
+		<property name="com.jaspersoft.studio.field.label" value="testigo2"/>
+	</field>
+	<field name="lblTestigo2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblTestigo2"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblTestigo2"/>
+	</field>
+	<field name="lblPuestoTestigo2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblPuestoTestigo2"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblPuestoTestigo2"/>
+	</field>
+	<field name="numEmpTestigo2" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="numEmpTestigo2"/>
+		<property name="com.jaspersoft.studio.field.label" value="numEmpTestigo2"/>
+	</field>
+	<field name="lblFolioTestigo2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblFolioTestigo2"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblFolioTestigo2"/>
+	</field>
+	<field name="lblPromotoriaHechos" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblPromotoriaHechos"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblPromotoriaHechos"/>
+	</field>
+	<field name="textAreaHechos" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="textAreaHechos"/>
+		<property name="com.jaspersoft.studio.field.label" value="textAreaHechos"/>
+	</field>
+	<field name="lblCierreActa" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lblCierreActa"/>
+		<property name="com.jaspersoft.studio.field.label" value="lblCierreActa"/>
+	</field>
+	<field name="nombreGerenteMateriales" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombreGerenteMateriales"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombreGerenteMateriales"/>
+	</field>
+	<field name="parrafo1_anexo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="parrafo1_anexo"/>
+		<property name="com.jaspersoft.studio.field.label" value="parrafo1_anexo"/>
+	</field>
+	<field name="cParrafo1ActaHechos" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo1ActaHechos"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo1ActaHechos"/>
+	</field>
+	<field name="cUltimoParrafoActaHechos" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cUltimoParrafoActaHechos"/>
+		<property name="com.jaspersoft.studio.field.label" value="cUltimoParrafoActaHechos"/>
+	</field>
+	<field name="emailFirmante" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="emailFirmante"/>
+		<property name="com.jaspersoft.studio.field.label" value="emailFirmante"/>
+	</field>
+	<field name="emailTestigo1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="emailTestigo1"/>
+		<property name="com.jaspersoft.studio.field.label" value="emailTestigo1"/>
+	</field>
+	<field name="emailTestigo2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="emailTestigo2"/>
+		<property name="com.jaspersoft.studio.field.label" value="emailTestigo2"/>
+	</field>
+	<field name="nServicioEnteraSatisfaccion" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="nServicioEnteraSatisfaccion"/>
+		<property name="com.jaspersoft.studio.field.label" value="nServicioEnteraSatisfaccion"/>
+	</field>
+	<field name="emailUserCapture" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="emailUserCapture"/>
+		<property name="com.jaspersoft.studio.field.label" value="emailUserCapture"/>
+	</field>
+	<field name="nameUserCapture" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nameUserCapture"/>
+		<property name="com.jaspersoft.studio.field.label" value="nameUserCapture"/>
+	</field>
+	<field name="emailUserValidate" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="emailUserValidate"/>
+		<property name="com.jaspersoft.studio.field.label" value="emailUserValidate"/>
+	</field>
+	<field name="nameUserValidate" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nameUserValidate"/>
+		<property name="com.jaspersoft.studio.field.label" value="nameUserValidate"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="55" splitType="Stretch">
+			<image>
+				<reportElement x="100" y="3" width="357" height="52" uuid="67103335-42a9-46ca-a4f6-02f645d1277f"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\LogoCNF_2023.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="86" splitType="Prevent">
+			<staticText>
+				<reportElement x="230" y="0" width="70" height="18" uuid="7f108122-bcc8-4d15-a2f1-143e9f669974">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ANEXO 1 A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="18" width="357" height="20" uuid="8965f768-7ca0-445d-a909-5306c3f4d40c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESCRITO DE CONFORMIDAD DE LA PRESTACIÓN DEL SERVICIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="64" width="190" height="15" uuid="e8d64b2d-6e27-49e3-95e2-92deb9429e37">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gerente de Recursos Materiales]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="51" width="190" height="13" isPrintWhenDetailOverflows="true" uuid="4168f0b2-bec4-46c4-9d9c-7e327ef6c565">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreGerenteMateriales}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="284" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="30" y="66" width="540" height="134" uuid="29c1afeb-5726-44a4-b448-8723cdba0caa"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[1. La planilla con el nombre del supervisor que sea contratado por éste, de manera mensual y en caso de existir terminación de la relación laboral con alguno de los trabajadores que integran la plantilla “EL PROVEEDOR” deberá exhibir el convenio finiquito o renuncia ratificada ante la autoridad laboral competente.
+2. Lista de asistencia del personal que realiza la prestación de los servicios.
+3. Las Constancias que acrediten el cumplimiento de las obligaciones laborales a cargo del proveedor a que se refiere el numeral XVI “Relaciones Laborales” de este documento, respecto de los recursos humanos que se empleen para la prestación de los servicios a favor de LA CONAFOR.
+4. Las constancias documentales de inscripción y pago a las instituciones de seguridad social, al Instituto Mexicano del Seguro Social (IMSS) e Instituto del Fondo Nacional para la Vivienda de los Trabajadores (INFONAVIT) de manera mensual.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="200" width="570" height="41" uuid="6fce6122-4abe-4e21-a69b-097349e76a03"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Se remite anexo al presente el soporte documental establecidos en la cláusula TERCERA.-FORMA Y LUGAR DE PAGO del contrato correspondiente, entre ellos el soporte de cumplimiento de las obligaciones laborales del proveedor con sus empleados.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="245" width="570" height="30" uuid="460b62b8-63b1-4606-b4c7-ed0836232311"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Lo anterior a efecto de que se solicite la factura correspondiente a “EL PROVEEDOR”, para iniciar el trámite de pago correspondiente.]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="570" height="60" isPrintWhenDetailOverflows="true" uuid="1957ea2c-eb6c-4eb9-bfa6-65a482c19cca">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="19e0488b-d284-470d-82b2-97b6018746ed"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{parrafo1_anexo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="137" splitType="Immediate">
+			<staticText>
+				<reportElement x="230" y="0" width="81" height="13" uuid="71c2dfed-cab4-4fa5-8128-bd69073760a8"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FIRMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="21" width="515" height="47" uuid="06e86a21-f6ff-408a-aafc-2231a4b16581"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[El presente acto administrativo ha sido firmado mediante el uso de la firma electrónica avanzada del funcionario competente, amparada por un certificado vigente a la fecha de su elaboración; y es válido de conformidad con lo dispuesto en los artículos 7 º y 10 º de la Ley de Firma Electrónica Avanzada, y el artículo 12 de su Reglamento. Por un uso responsable del papel, las copias de conocimiento se enviarán de forma electrónica, de conformidad con lo establecido en la fracción V y VI del artículo 11 del “Decreto que establece las medidas para el uso eficiente, transparente y eficaz de los recursos públicos, y las acciones de disciplina presupuestaría en el ejercicio del gasto público, así como para la modernización de la Administración Pública Federal”]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="51" splitType="Stretch">
+			<image>
+				<reportElement x="10" y="0" width="546" height="48" uuid="54258f0d-ae96-4785-a1e5-dfd37e677ee3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+ "\\LogoPiePagina_2023.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>

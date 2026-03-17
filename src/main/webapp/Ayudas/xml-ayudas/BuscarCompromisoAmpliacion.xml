@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+<titulo>Ayuda Compromiso Nómina</titulo>
+	<anchoWin>600</anchoWin>
+	<altoWin>900</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>COMPROMISONOMINAAMPLIACION</tabla>
+	<maxRegistros>250</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="caNoCompromiso"	control="BuscarCompromisoAmpliacion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Compromiso"	 ancho="40"	maxlen="40"		tipo="string"	visible="si"	clase=""/>
+		<columna campo="cIdContrato"	control="cIdContrato"					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Concepto"	 ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+   </grid>  
+</Ayuda>

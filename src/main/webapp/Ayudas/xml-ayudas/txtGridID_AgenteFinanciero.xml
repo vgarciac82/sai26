@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- Ayuda Estados - desde la pantalla de Remitente Externo -->
+
+<Ayuda>
+	<titulo>Agente Financiero</titulo>
+	<anchoWin>437</anchoWin>
+	<altoWin>500</altoWin>
+	<altoAreaCaptura>110</altoAreaCaptura>
+	<tabla>D_HELPCATAGENTEFINANCIERO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>
+		<columna campo="ID_AgenteFinanciero"	control="txtGridID_AgenteFinanciero"	dependencia="Si"	ctrlsDependientes=""	limpiaOnKeypress=""	header="ID_AgenteFinanciero"	ancho="5"	maxlen="50"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="AgenteFinancieroCorto"	control="txtGridAgenteFinancieroCorto"	dependencia="No"	ctrlsDependientes=""    limpiaOnKeypress=""	header="AgenteFinancieroCorto"		ancho="50"	maxlen="50"	tipo="string"	visible="Si"	clase=""/>
+	</grid>
+  
+</Ayuda>

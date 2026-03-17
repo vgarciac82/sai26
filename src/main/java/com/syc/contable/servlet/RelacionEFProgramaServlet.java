@@ -79,7 +79,7 @@ public class RelacionEFProgramaServlet extends HttpServlet implements GestionInt
                     log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                     Util.copiaArchivo(archivoCargaStream, nombreDestino);
                     item.delete();
-                    log.debug("Object: {}", "Procesando archivo:" + nombreArchivo);
+                    log.debug("Object: " + String.valueOf("Procesando archivo:" + nombreArchivo));
                     RelacionEFProgramaBusinessLogic refpbl = new RelacionEFProgramaBusinessLogic(u.getLogin());
                     List<String> mensajes = refpbl.cargaExcelRelacionEFPrograma(nombreDestino);
                     if (mensajes.size() > 0) {
@@ -127,7 +127,7 @@ public class RelacionEFProgramaServlet extends HttpServlet implements GestionInt
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            log.debug("Object: {}", "Redirect: " + strRedirect);
+            log.debug("Object: " + String.valueOf("Redirect: " + strRedirect));
             resp.sendRedirect(strRedirect);
             log.debug("SALE  DE LA CapturaManual");
         }

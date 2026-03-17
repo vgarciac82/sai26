@@ -42,7 +42,7 @@ public class CacheResponseStream extends ServletOutputStream {
         if (closed) {
             throw new IOException("No se puede escribir en un output stream cerrado");
         }
-        cache.write((byte) b.toPath());
+        cache.write((byte) b);
     }
 
     public void write(byte[] b) throws IOException {

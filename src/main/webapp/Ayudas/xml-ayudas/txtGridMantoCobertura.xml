@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mantenimiento Usuarios -->
+<Ayuda>
+	<titulo>Ayuda Catalogo de Cobertura</titulo>
+	<anchoWin>300</anchoWin>
+	<altoWin>500</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>M_CAT_COBERTURA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="ID_COBERTURA"			control="txtGridMantoIdCobertura"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave"			ancho="5"		maxlen="5"		tipo="numero"	visible="Si"	clase=""/>
+		<columna campo="CO_DESCRIPCION"			control="txtGridMantoCobertura"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Id Descripción"	ancho="40"		maxlen="50"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="DESCRIPCION"			control=""							dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Descripción"	ancho="40"		maxlen="50"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="ID_TABLA"				control="txtGridMantoIdTabla"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Tabla"			ancho="5"		maxlen="5"		tipo="numero"	visible="No"	clase=""/>
+		<columna campo="ID_PRODUCTO"			control="txtGridMantoIdProducto"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Producto"		ancho="5"		maxlen="5"		tipo="numero"	visible="No"	clase=""/>
+	</grid>	  
+</Ayuda>

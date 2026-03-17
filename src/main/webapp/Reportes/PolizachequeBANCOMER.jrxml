@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PolizaPago" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="10">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="323"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="whereFolio" class="java.lang.String">
+		<defaultValueExpression><![CDATA["14"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[DECLARE @laPoliza varchar(10)
+DECLARE @cUnidadResponsable varchar(10)
+DECLARE @cTipoPoliza varchar(10)
+DECLARE @cTipoObra varchar(10)
+DECLARE @cIdTipoPago varchar(1)
+
+select @laPoliza= nFolioPoliza, @cTipoPoliza = cTipoPoliza, @cTipoObra = tipoObra, @cUnidadResponsable = cCentroContable
+		from (select nFolioPoliza, cTipoPoliza, 'CHEQUE' tipoObra, nFolioCheque,  cCentroContable from tChequeEncabezado e with(NOLOCK) ) CR where nFolioCheque = $P!{whereFolio}
+
+
+
+select c.mImporteCheque,
+       c.cCuentaBancaria,
+	   c.cConcepto,
+	   b.dNombre  + ' ' + isnull(b.dApellidoPaterno, '') + ' ' + isnull(b.dApellidoMaterno, '') as cBeneficiario,
+	   c.fElaboracion,
+	   c.nFolioPoliza,
+	   c.cTipoPoliza,
+	   dbo.fnCantidadLetra(c.mImporteCheque) cantLetras,
+	   c.caNOcontrarrecibo,
+	   upper(c.u_login_captura) as nombre_ela,
+	   upper(c.u_login_revisa) as nombre_rev,
+	   upper(c.u_login_autoriza) as nombre_aut,
+	   nNumCheque,
+	   cTransferencia,
+	   (select strNombreBeneficiario from tUECuentasBancarias where strClabe = c.cTransferencia) as nombretrans
+into #tmp_detalle2
+from  tChequeEncabezado c, tBeneficiario b, cg_usuario e, cg_usuario r, cg_usuario a
+WHERE LTRIM(RTRIM(c.cIdRFC)) = LTRIM(RTRIM(b.dRFC))  and
+      c.u_login_captura = e.u_login and
+      c.u_login_revisa = r.u_login and
+      c.u_login_autoriza = a.u_login and
+      nFolioCheque = $P!{whereFolio}
+
+
+select mImporteCheque
+, cConcepto
+, case isnull(cTransferencia, '') when '' then cbeneficiario else nombretrans end as cbeneficiario
+, dbo.Fn_FechaCheques( fElaboracion ) fElaboracion
+, nFolioPoliza
+,cTipoPoliza
+, '' Cuenta
+, '' subCuenta
+, '' subSubCuenta
+, '' ctipomovimiento
+, '' calmacen
+, '' dCuenta
+, '' nCuenta
+, '' cnombre
+, '' descripcion
+, 0 debe
+, 0 haber
+, '(' + cantLetras + ')' cantLetras
+, caNoContrarrecibo
+, nombre_ela
+, nombre_rev
+, nombre_aut
+, nNumCheque
+ from #tmp_detalle2
+ order by ctipomovimiento desc, ncuenta, cuenta desc, subcuenta desc, subsubcuenta
+
+if exists(select 1 from sysobjects where name = 'tmp_detalle2') drop table  tmp_detalle2
+if exists(select 1 from sysobjects where name = 'tmp_polizapagos') drop table  tmp_polizapagos]]>
+	</queryString>
+	<field name="mImporteCheque" class="java.math.BigDecimal"/>
+	<field name="cConcepto" class="java.lang.String"/>
+	<field name="cbeneficiario" class="java.lang.String"/>
+	<field name="fElaboracion" class="java.lang.String"/>
+	<field name="nFolioPoliza" class="java.lang.Integer"/>
+	<field name="cTipoPoliza" class="java.lang.String"/>
+	<field name="Cuenta" class="java.lang.String"/>
+	<field name="subCuenta" class="java.lang.String"/>
+	<field name="subSubCuenta" class="java.lang.String"/>
+	<field name="ctipomovimiento" class="java.lang.String"/>
+	<field name="calmacen" class="java.lang.String"/>
+	<field name="dCuenta" class="java.lang.String"/>
+	<field name="nCuenta" class="java.lang.String"/>
+	<field name="cnombre" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="debe" class="java.lang.Integer"/>
+	<field name="haber" class="java.lang.Integer"/>
+	<field name="cantLetras" class="java.lang.String"/>
+	<field name="caNoContrarrecibo" class="java.lang.String"/>
+	<field name="nombre_ela" class="java.lang.String"/>
+	<field name="nombre_rev" class="java.lang.String"/>
+	<field name="nombre_aut" class="java.lang.String"/>
+	<field name="nNumCheque" class="java.lang.Integer"/>
+	<variable name="Debe_1" class="java.math.BigDecimal" resetType="Group" resetGroup="caNoContrarrecibo" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="Haber_1" class="java.math.BigDecimal" resetType="Group" resetGroup="caNoContrarrecibo" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="noPoliza" class="java.lang.String">
+		<initialValueExpression><![CDATA[$F{cTipoPoliza} + "-" + $F{nFolioPoliza}.toString()]]></initialValueExpression>
+	</variable>
+	<group name="caNoContrarrecibo">
+		<groupExpression><![CDATA[$F{caNoContrarrecibo}]]></groupExpression>
+		<groupHeader>
+			<band height="380" splitType="Stretch">
+				<textField pattern="#,##0.00">
+					<reportElement x="465" y="100" width="119" height="20"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mImporteCheque}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="27" y="290" width="423" height="53"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cConcepto}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="12" y="99" width="423" height="16"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cbeneficiario}]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement x="450" y="44" width="134" height="16"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fElaboracion}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="12" y="125" width="572" height="20"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cantLetras}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText" x="127" y="49" width="256" height="21"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[NO NEGOCIABLE]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="36" splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="27" y="0" width="36" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Cuenta}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="78" y="0" width="39" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{subCuenta}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="132" y="0" width="72" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{subSubCuenta}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField" x="204" y="0" width="178" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="64" y="6" width="65" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre_ela}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="6" width="65" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre_rev}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="6" width="65" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre_aut}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="13" y="7" width="50" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{nNumCheque}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

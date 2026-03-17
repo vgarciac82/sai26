@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Catálogo Grupo Evento</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>CG_CAT_TGRUPOEVENTO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="nIdGrupoEvento"	control="txtGridnIdGrupoEvento"	dependencia="No"	limpiaOnKeypress=""		header="nIdGrupoEvento"	 ancho="3"	maxlen="3" tipo="string"	visible="Si"	clase=""/>		
+		<columna campo="cNombreGrupo"	control="txtGridcNombreGrupo"	dependencia="No"	limpiaOnKeypress=""		header="cNombreGrupo"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+</Ayuda>

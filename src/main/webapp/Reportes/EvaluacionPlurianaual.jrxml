@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EvaluacionPlurianaual"  pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.1269722013523666"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="479"/>
+	<parameter name="folioPlurianual" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\SYC\\Clientes\\CONAGUA\\workspace\\sai\\WebContent\\Reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select cDescripcion as a,cJustificacionCompromiso as b,cJustificacionPlazo as c,
+cp.lAbierto,
+(Select D_DESCRIPCION from tCatUnidadResponsable ur where ur.cUnidadResponsable = cp.cUnidadResponsable) as Direccion_Responsable,
+nMontoTotalxContrato,
+nValorComparativoAnual,
+(select COUNT(cd.aEjercicioFiscal) from tContratoPlurianualDetalle cd WITH(NOLOCK) where cd.nFolioContratoPlurianual = cp.nFolioContratoPlurianual ) as nAnios,
+abs(nValorComparativoAnual - nMontoTotalxContrato) AS Comparativo,
+cp.FundamentoMotivacion as e
+
+from tContratoPlurianualEncabezado cp WITH(NOLOCK)
+where nFolioContratoPlurianual =$P{folioPlurianual}]]>
+	</queryString>
+	<field name="a" class="java.lang.String"/>
+	<field name="b" class="java.lang.String"/>
+	<field name="c" class="java.lang.String"/>
+	<field name="lAbierto" class="java.lang.String"/>
+	<field name="Direccion_Responsable" class="java.lang.String"/>
+	<field name="nMontoTotalxContrato" class="java.math.BigDecimal"/>
+	<field name="nValorComparativoAnual" class="java.math.BigDecimal"/>
+	<field name="nAnios" class="java.lang.Integer"/>
+	<field name="Comparativo" class="java.math.BigDecimal"/>
+	<field name="e" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="143" splitType="Stretch">
+			<textField>
+				<reportElement x="252" y="0" width="281" height="55"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Direccion_Responsable}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="74" width="555" height="53" isPrintInFirstWholeBand="true"/>
+				<textElement textAlignment="Justified">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Evaluación sobre los mejores términos y condiciones respecto a la celebración de un contrato plurianual para dar  cumplimiento  a lo señalado en el artículo 14, fracción I, incisos a), b), c), d) Del Reglamento de la ley Federal de Presupuesto y Responsabilidad Hacendaria:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="242" height="55"/>
+				<imageExpression class="java.lang.String"><![CDATA["report\\images\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="7" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="91" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement isPrintRepeatedValues="false" x="0" y="40" width="545" height="47" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Justified">
+					<font isBold="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{a}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="545" height="30"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[a)	Especificación de las obras, adquisiciones, arrendamientos,  o servicios, señalando  si corresponden  a  inversión  o a gasto corriente.]]></text>
+			</staticText>
+		</band>
+		<band height="286">
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="0" y="47" width="545" height="117" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{b}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="545" height="47"/>
+				<textElement textAlignment="Justified">
+					<font isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[b)	Justificación  de  que la celebración de dichos compromisos  representa ventajas  económicas o que sus términos o condiciones  son más favorables respecto a la celebración  de  representa ventajas económicas  o que en sus  términos y condiciones son más favorables  con respecto a la  celebración de dichos contratos  por un solo ejercicio fiscal;]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="200" width="254" height="82"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{b}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="254" y="178" width="81" height="23"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[PLURIANUAL]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="448" y="200" width="97" height="82"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{Comparativo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="448" y="178" width="97" height="23"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[AHORRO EN PESOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="178" width="254" height="23"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[CONCEPTO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="388" y="178" width="17" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{nAnios}.equals(0) ? 1 : $F{nAnios}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="335" y="200" width="113" height="82"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{nValorComparativoAnual}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="335" y="178" width="113" height="23"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[ANUAL POR            AÑO(S)]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="254" y="200" width="81" height="82"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{nMontoTotalxContrato}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="47">
+			<staticText>
+				<reportElement x="0" y="0" width="545" height="26"/>
+				<textElement>
+					<font isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[c)	Justificación del plazo de la contratación y de que el mismo no afectará negativamente  la competencia económica del SEMERNAT.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="26" width="545" height="16"/>
+				<textElement>
+					<font isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{c}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="162">
+			<staticText>
+				<reportElement x="0" y="12" width="545" height="43"/>
+				<textElement>
+					<font isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[d)	El desglose  del gasto que debe consignarse a precios del año,  tanto  para el ejercicio fiscal como para los subsecuentes , así como el caso de obra pública, los avances físicos esperados. Los montos  deberán presentarse,  en moneda nacional y en su caso,  en la moneda prevista para su contratación.]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="64" width="545" height="41">
+					<printWhenExpression><![CDATA[$F{lAbierto}.equals("C")]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="FolioPlu">
+					<subreportParameterExpression><![CDATA[$P{folioPlurianual}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA["..\\..\\Reportes\\DetalleMontosCerrados.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="3" y="62" width="363" height="100">
+					<printWhenExpression><![CDATA[$F{lAbierto}.equals("A")]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="FolioPlu">
+					<subreportParameterExpression><![CDATA[$P{folioPlurianual}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA["..\\..\\Reportes\\DetallePlurianualAbierto.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="81">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="48" width="545" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{e}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="11" width="545" height="26"/>
+				<textElement>
+					<font isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[e) Fundamento y Motivación]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="54" splitType="Stretch"/>
+	</columnFooter>
+</jasperReport>

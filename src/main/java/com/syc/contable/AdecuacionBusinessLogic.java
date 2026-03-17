@@ -379,8 +379,8 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
 			 */
             int xnEpInsertadas = AdecuacionManager.insertaEpsNuevas(conn, folioAdecuacion);
             conn.commit();
-            log.debug("Object: {}", "Se insertaron " + xnInsertados + " elementos de la adecuacion");
-            log.debug("Object: {}", "Se insertaron " + xnEpInsertadas + " EP's al catalogo");
+            log.debug("Object: " + String.valueOf("Se insertaron " + xnInsertados + " elementos de la adecuacion"));
+            log.debug("Object: " + String.valueOf("Se insertaron " + xnEpInsertadas + " EP's al catalogo"));
         } catch (Exception e) {
             try {
                 conn.rollback();
@@ -442,7 +442,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             }
             if (nIdCaso > 0) {
                 AplicacionContable conInt = new AplicacionContable();
-                log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
+                log.debug("Object: " + String.valueOf("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso));
                 if ("NO".equals(cSuperReduccion) && ("SI".equals(cSRInterna))) {
                     cSuperReduccion = "SI";
                 }
@@ -451,7 +451,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                     acr = conInt.aplicarContableNuevo(conn, c, "", "", "", 0, "", m, prefixPath, UserID, cSuperReduccion);
                 }
                 arrLResult = (ArrayList<String>) acr.getMessageList();
-                log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
+                log.debug("Object: " + String.valueOf("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso));
                 Caso cReloaded = new Caso();
                 cReloaded.setIdCaso(c.getIdCaso());
                 cReloaded = CasoManager.select(conn, cReloaded);
@@ -543,13 +543,13 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             conn = cbl.getConnection();
             AdecuacionManager.autorizaAdecuacion(conn, c, nNumSicop, fSicop, nNumMAP, fMAP, cSuperReduccion, prefixPath, usuario.getLogin(), cCentroContable);
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis())));
             if (!"SI".equals(cSuperReduccion) && "SI".equals(cSRInterna)) {
                 cSuperReduccion = "SI";
             }
             AplicarContableReturn acr = conInt.aplicarContableNuevo(conn, c, "tADECUACIONAUTEncabezado", "tADECUACIONAUTDetalle", "nFolioAdecuacionaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "ADECUACIONAUT", m, prefixPath, usuario.getLogin(), cSuperReduccion);
             arrLResult = (ArrayList<String>) acr.getMessageList();
-            log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis())));
             Caso cReloaded = new Caso();
             cReloaded.setIdCaso(c.getIdCaso());
             cReloaded = CasoManager.select(conn, cReloaded);
@@ -628,10 +628,10 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             conn = getConnection();
             AdecuacionManager.autorizaAdecuacion(conn, c, nNumSicop, fSicop, nNumMAP, fMAP, cSuperReduccion, prefixPath, uLogin, cCentroContable);
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Object: {}", "Inicia Autorización aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " para Folio: " + nIdCaso);
+            log.debug("Object: " + String.valueOf("Inicia Autorización aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " para Folio: " + nIdCaso));
             // el
             arrLResult.addAll(conInt.aplicarContable(conn, c, "tADECUACIONAUTEncabezado", "tADECUACIONAUTDetalle", "nFolioAdecuacionaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "ADECUACIONAUTE", m, prefixPath, uLogin));
-            log.debug("Object: {}", "Termina Autorización Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Termina Autorización Aplicacion contable" + new Timestamp(System.currentTimeMillis())));
         } catch (Exception exc) {
             log.error(exc.getMessage(), exc);
             conn.rollback();
@@ -1576,7 +1576,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             AplicarContableReturn acr = null;
             CasoBusinessLogic cbl = new CasoBusinessLogic(GestionInterface.ATT_CONEXION);
             String resultadoFIAF = "";
-            log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis())));
             if (c.getFolio().contains("FIAF")) {
                 resultadoFIAF = autorizaIntegracionFIAF(c, nNumSicop, "", nNumMAP, "", m, prefixPath, uLogin, cCentroContable, u);
                 if ("".equals(resultadoFIAF)) {
@@ -1615,7 +1615,7 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             // aqui
             // adentro
             arrLResult = (ArrayList<String>) acr.getMessageList();
-            log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis())));
             try {
                 cbl.avanzaCaso(c, uLogin, "", new String[] { "CONSULTA_INTEGRAADECUA" }, new String[] { "consulta_integadec" }, m, prefixPath);
             } catch (Exception exc) {
@@ -1731,11 +1731,11 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             conn = getConnection();
             AdecuacionManager.autorizaFIAF(conn, c, nNumSicop, cRecMotivSicop, nNumMAP, cRecMotivMAP, u.getLogin(), prefixPath);
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis())));
             // el
             AplicarContableReturn acr = conInt.aplicarContableNuevo(conn, c, "tFIAFAUTEncabezado", "v_AdecuacionAutDetFIAF", "nFolioFIAFaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "ADECUACIONAUT", m, prefixPath, uLogin, "NO");
             arrLResult = acr.getMessageList();
-            log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis())));
             if (acr.isSuccess()) {
                 String to = getListaCorreos(c);
                 String body = (!correoProduccion ? "CORREO DE PRUEBA <br>" : "") + (!correoProduccion ? "este correo le hubiera llegado a: " + to + "<br> <br>" : "") + "Para su conocimiento y efectos correspondientes, se le informa que <b>fue autorizado</b> el folio siguiente:<br>" + c.getTipoCaso().getDescripcion() + " No. SAI: <b>" + c.getFolio() + (nNumSicop != null ? "</b> con folio SICOP: <b>" + nNumSicop : "") + (nNumMAP != null ? "</b> con folio MAP: <b>" + nNumMAP : "") + "</b><br>" + "Mismo que ya cuenta con estatus de autorizado en el SAI. Para obtener el folio de autorización MAP, revisar en consulta su afectación<br>" + "<b>Nota importante<br>" + "Los calendarios del Folio de Adecuación MAP, no necesariamente coinciden con los registrados en las " + "afectaciones del SAI y el SICOP, dado que su política de operación es diferente al de éstos. Por lo anterior, " + "se les recuerda que los calendarios para la operación de sus adecuaciones y pagos, son los registrados tanto " + "en el SAI como en el SICOP.</b>.";
@@ -1826,10 +1826,10 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
             AdecuacionManager.agregaFechaAplicacionFIAF(conn, nIdCaso);
             if (nIdCaso > 0) {
                 ContableInterface conInt = new AplicacionContable();
-                log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
+                log.debug("Object: " + String.valueOf("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso));
                 AplicarContableReturn acr = conInt.aplicarContableNuevo(conn, c, "tFIAFEncabezado", "v_AdecuacionDetFIAF", "nFolioFIAF", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "ADECUACION", m, prefixPath, userID, "NO");
                 arrLResult = acr.getMessageList();
-                log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
+                log.debug("Object: " + String.valueOf("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso));
                 Caso cReloaded = new Caso();
                 cReloaded.setIdCaso(c.getIdCaso());
                 cReloaded = CasoManager.select(conn, cReloaded);
@@ -1902,9 +1902,9 @@ public class AdecuacionBusinessLogic extends DataSourceManager {
                 // (motivosRechazo.get("cRecMotivMAP")!=null?"Motivo rechazo
                 String // (motivosRechazo.get("cRecMotivMAP")!=null?"Motivo rechazo
                 // MAP:"+motivosRechazo.get("cRecMotivMAP")+"<BR>":"")+
-                body = // (motivosRechazo.get("cRecMotivSicop")!=null?"Motivo rechazo
-                (!correoProduccion ? "CORREO DE PRUEBA <br>" : "") + (!correoProduccion ? "este correo le hubiera llegado a: " + to + "<br> <br>" : "") + "Para su conocimiento y efectos correspondientes, se les informa que <b>FUE RECHAZADO</b> el folio siguiente:<br><b>" + c.getTipoCaso().getDescripcion() + "</b><br>" + "No. SAI: <b>" + c.getFolio() + "</b><br>" + "<b>Justificación:<br>" + (motivoRechazo != null ? "Motivo rechazo:" + motivoRechazo + "<BR>" : "") + // SICOP:"+motivosRechazo.get("cRecMotivSicop")+"<BR>":"")+
-                "Con base en lo anterior la afectación fue rechazada en el SAI para que procedan al replanteamiento que consideren pertinente.</b><br>" + "Saludos cordiales.";
+                // (motivosRechazo.get("cRecMotivSicop")!=null?"Motivo rechazo
+                body = // SICOP:"+motivosRechazo.get("cRecMotivSicop")+"<BR>":"")+
+                (!correoProduccion ? "CORREO DE PRUEBA <br>" : "") + (!correoProduccion ? "este correo le hubiera llegado a: " + to + "<br> <br>" : "") + "Para su conocimiento y efectos correspondientes, se les informa que <b>FUE RECHAZADO</b> el folio siguiente:<br><b>" + c.getTipoCaso().getDescripcion() + "</b><br>" + "No. SAI: <b>" + c.getFolio() + "</b><br>" + "<b>Justificación:<br>" + (motivoRechazo != null ? "Motivo rechazo:" + motivoRechazo + "<BR>" : "") + "Con base en lo anterior la afectación fue rechazada en el SAI para que procedan al replanteamiento que consideren pertinente.</b><br>" + "Saludos cordiales.";
                 try {
                     if (!correoProduccion)
                         to = "" + objUsuario.getU_email();

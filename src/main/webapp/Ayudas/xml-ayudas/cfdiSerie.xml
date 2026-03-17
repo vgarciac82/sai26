@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento de Serie y Folio CFDI</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>tCFDI_Cat_FolioSerie</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cSerie"	control="cfdiSerie"	dependencia="No"	limpiaOnKeypress=""	header="Serie"	ancho="20"	maxlen="25"	tipo="string"	visible="Si"	clase=""	rowCol= "1,1"/>
+		<columna campo="cFolio"	control="cfdiFolio"	dependencia="No"	limpiaOnKeypress=""	header="Folio"	ancho="20"	maxlen="40"	tipo="string"	visible="Si"	clase=""	rowCol= "1,2"/>
+	</grid>  
+	
+</Ayuda>

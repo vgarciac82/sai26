@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catalogo de SubGrupos para polizas Manuales</titulo>
+	<anchoWin>700</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>TCATALOGOSUBGRUPO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>
+		<columna campo="nIdGrupoEvento"  	control="nGrupo"	dependencia="Si"	ctrlsDependientes="nGrupo"			limpiaOnKeypress=""	header="Grupo"			rowCol="1,1" ancho="50"	maxlen="100"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="nIdSubGrupoEvento"	control="nSubGrupo"	dependencia="No"	ctrlsDependientes=""				limpiaOnKeypress=""	header="SubGrupo"		rowCol="1,2" ancho="50"	maxlen="100"		tipo="string"	visible="Si"	clase=""/>        
+		<columna campo="cNombreSubGrupo"	control=""	        dependencia="No"	ctrlsDependientes=""				limpiaOnKeypress=""	header="descripción"	rowCol="2,1" ancho="50"	maxlen="100"		tipo="string"	visible="Si"	clase=""/> 
+		
+	</grid>  
+</Ayuda>

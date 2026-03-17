@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Tipo de Sub Cuentas</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_TTIPOSUBCUENTA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cSubcuenta"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Tipo de Sub Cuenta"	 ancho="20"	maxlen="20" tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="cSubcuenta"	control="txtGridCol0"	llave="Si"			identity="No"	requerido="Tipo de Sub Cuenta es un dato requerido."	requeridoFocus="txtGridCol0"	tipo="string" />
+	</insertaRegistro>
+	
+</Ayuda>

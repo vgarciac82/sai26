@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cadenasp"  pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.3310000000000008"/>
+	<property name="ireport.x" value="287"/>
+	<property name="ireport.y" value="30"/>
+	<parameter name="pFechaIni" class="java.lang.String"/>
+	<parameter name="pFechaFin" class="java.lang.String"/>
+	<parameter name="cClaveProv" class="java.lang.String"/>
+	<parameter name="cEstatus" class="java.lang.String"/>
+	<parameter name="cCentroContable" class="java.lang.String"/>
+	<parameter name="cDigitoIde" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[exec sp_ReporteCadenasProductivas $P{cClaveProv},$P{cEstatus},$P{cCentroContable},$P{cDigitoIde},$P{pFechaIni},$P{pFechaFin}]]>
+	</queryString>
+	<field name="cNombreProv" class="java.lang.String"/>
+	<field name="caNoContrarrecibo" class="java.lang.String"/>
+	<field name="fVencimiento" class="java.lang.String"/>
+	<field name="mMonto" class="java.math.BigDecimal"/>
+	<field name="cEstatus" class="java.lang.String"/>
+	<field name="cCentroContable" class="java.lang.String"/>
+	<field name="RFC" class="java.lang.String"/>
+	<field name="nNumIdentificador" class="java.lang.String"/>
+	<field name="partida" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="95" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-24" x="254" y="10" width="292" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-5" x="254" y="23" width="292" height="66"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true" />
+				</textElement>
+				<text><![CDATA[SISTEMA DE ADMINISTRACION INTEGRAL (SAI)
+REPORTE CADENAS PRODUCTIVAS]]></text>
+			</staticText>
+			<image>
+				<reportElement key="image" x="10" y="13" width="131" height="36"/>
+				<imageExpression class="java.lang.String"><![CDATA["report\\images\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement x="563" y="12" width="81" height="19"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No.Proveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="13" width="58" height="18"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estatus]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="246" y="12" width="108" height="19"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Vencimiento]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="43" width="800" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="752" y="12" width="48" height="19"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Partida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="14" width="123" height="18"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre del Provedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="13" width="62" height="18"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="2" width="800" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="645" y="8" width="100" height="30"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Digito Identificador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="159" y="13" width="80" height="18"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No.Documento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="510" y="8" width="52" height="29"/>
+				<textElement textAlignment="Left">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Entidad Contable]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="748" y="5" width="52" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{partida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="643" y="5" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nNumIdentificador}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="417" y="5" width="93" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cEstatus}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="253" y="4" width="84" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fVencimiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="560" y="5" width="83" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{RFC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="346" y="5" width="69" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mMonto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="12" y="5" width="141" height="32"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cNombreProv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="520" y="5" width="36" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cCentroContable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="6" width="86" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{caNoContrarrecibo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

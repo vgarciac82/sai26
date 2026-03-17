@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!-- Ayuda UNIDAD MEDIDA -->
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Unidad Responsable</titulo>
+	<anchoWin>915</anchoWin>
+	<altoWin>800</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>D_DCATUNIDADRESPONSABLE</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>  
+	<grid>
+		<columna campo="ID_ur"		control="ID_ur"					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave"					rowCol="1,1" 	ancho="10"	maxlen="50"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="UnidadResponsable"			control="UnidadResponsable"					dependencia="No" 	ctrlsDependientes=""	limpiaOnKeypress=""	header="Unidad Responsable"			rowCol="3,1" 	ancho="100"	maxlen="150"		tipo="string"	visible="Si"	clase=""/>		
+	</grid>  
+	<insertaRegistro>
+		<campo field="ID_ur"				control="txtGridID_ur"				llave="No"	identity="No"	requerido=""	requeridoFocus=""	tipo="string" />
+		<campo field="UnidadResponsable"	control="txtGridUnidadResponsable"	llave="No"	identity="No"	requerido=""	requeridoFocus=""	tipo="string" />		
+	</insertaRegistro>
+</Ayuda>
+

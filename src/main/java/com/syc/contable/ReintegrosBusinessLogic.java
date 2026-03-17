@@ -669,7 +669,7 @@ public class ReintegrosBusinessLogic extends DataSourceManager {
                     ReintegrosManager.updateReintegroFA(conn, folio);
                 }
                 ContableInterface conInt = new AplicacionContable();
-                log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+                log.debug("Object: " + String.valueOf("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis())));
                 AplicarContableReturn acr;
                 if (!"2012".equals(adecProy.obtenEjercicioFiscal()))
                     acr = conInt.aplicarContableNuevo(conn, c, "tReintegroAutEncabezado", "tReintegroAutDetalle", "nFolioReintegroaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGROAUT", m, prefixPath, uLogin, "");
@@ -677,7 +677,7 @@ public class ReintegrosBusinessLogic extends DataSourceManager {
                     acr = conInt.aplicarContableNuevo(conn, c, "tReintegroAutEncabezado", "tReintegroAutDetalle", "nFolioReintegroaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGROAUT", m, prefixPath, uLogin, "SI");
                 // arrLResult = acr.getMessageList();
                 arrLResult = (ArrayList<String>) acr.getMessageList();
-                log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+                log.debug("Object: " + String.valueOf("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis())));
                 Calendar cal = new GregorianCalendar();
                 String mesActual = Util.NOMBRE_MESES_MX[cal.get(Calendar.MONTH)];
                 Caso cReloaded = new Caso();
@@ -743,14 +743,14 @@ public class ReintegrosBusinessLogic extends DataSourceManager {
             CasoBusinessLogic cbl = new CasoBusinessLogic(GestionInterface.ATT_CONEXION);
             conn = cbl.getConnection();
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis())));
             AplicarContableReturn acr;
             if (!"2012".equals(adecProy.obtenEjercicioFiscal()))
                 acr = conInt.aplicarContableNuevo(conn, c, "tReintegroAutEncabezado", "tReintegroAutDetalle", "nFolioReintegroaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGROAUT", m, prefixPath, uLogin, "");
             else
                 acr = conInt.aplicarContableNuevo(conn, c, "tReintegroAutEncabezado", "tReintegroAutDetalle", "nFolioReintegroaut", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGROAUT", m, prefixPath, uLogin, "SI");
             arrLResult = (ArrayList<String>) acr.getMessageList();
-            log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis())));
             Caso cReloaded = new Caso();
             cReloaded.setIdCaso(c.getIdCaso());
             cReloaded = CasoManager.select(conn, cReloaded);
@@ -826,14 +826,14 @@ public class ReintegrosBusinessLogic extends DataSourceManager {
             CasoBusinessLogic cbl = new CasoBusinessLogic(GestionInterface.ATT_CONEXION);
             conn = cbl.getConnection();
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis())));
             AplicarContableReturn acr;
             if (!"2012".equals(adecProy.obtenEjercicioFiscal()))
                 acr = conInt.aplicarContableNuevo(conn, c, "tReintegroEncabezado", "tReintegroDetalle", "nFolioReintegro", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGRO", m, prefixPath, uLogin, "");
             else
                 acr = conInt.aplicarContableNuevo(conn, c, "tReintegroEncabezado", "tReintegroDetalle", "nFolioReintegro", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REINTEGRO", m, prefixPath, uLogin, "SI");
             arrLResult = acr.getMessageList();
-            log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis())));
             Caso cReloaded = new Caso();
             cReloaded.setIdCaso(c.getIdCaso());
             cReloaded = CasoManager.select(conn, cReloaded);
@@ -1557,7 +1557,7 @@ public class ReintegrosBusinessLogic extends DataSourceManager {
         try {
             conn = getConnection();
             int registros = ReintegrosManager.insertaDetalleCompleto(conn, cxp, nfolio);
-            log.debug("Object: {}", "Se insertaron " + registros + "registros");
+            log.debug("Object: " + String.valueOf("Se insertaron " + registros + "registros"));
             conn.commit();
             return true;
         } catch (Exception e) {

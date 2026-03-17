@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Prestamos</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>PRESTAMO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+<!--	<ColSort>0</ColSort>-->
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="NumeroPrestamo"	control="hPrestamo"	dependencia="No"	ctrlsDependientes="Prestamo" limpiaOnKeypress=""		header="Folio Prestamo"	 ancho="100"	maxlen="" tipo="string" 	visible="Si"	clase=""/>
+		<columna campo="NombrePrestamo"	control="NombrePrestamo"	dependencia="No"	ctrlsDependientes=""          limpiaOnKeypress=""		header="Descripción"	 ancho="100"	maxlen="30" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="Objetivo"	    control="Objetivo"       	dependencia="No"	ctrlsDependientes="Prestamo" limpiaOnKeypress=""		header="Objetivo"	     ancho="100"	maxlen="30" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="id_prestamo"	control="Prestamo"   dependencia="No"	ctrlsDependientes="idPrestamo" limpiaOnKeypress=""		header="idPrestamo"	     ancho="100"	maxlen="30" tipo="string"	visible="No"	clase=""/>
+	</grid>  
+
+</Ayuda>

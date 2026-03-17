@@ -62,30 +62,30 @@ public class CalculaImpuestosRetencionesManager {
     private static final Logger log = LoggerFactory.getLogger(CalculaImpuestosRetencionesManager.class);
 
     private static BigDecimal[] actualizaIVARetenciones(Connection conn, int renglon, BigDecimal montoIVA, BigDecimal montoOtrosImpuestos, BigDecimal ivaAcumulado, BigDecimal otrosImpuestosAcumulado, PreparedStatement psUpdateDetalle, PreparedStatement psUpdateImpuestosDetalle, int nFolioPago) throws Exception {
-        log.debug("Object: {}", "Iniciando calculo del IVA final para el renglon [" + renglon + "] Importe de IVA [" + montoIVA + "] IVA Acumulado[" + ivaAcumulado + "]");
+        log.debug("Object: " + String.valueOf("Iniciando calculo del IVA final para el renglon [" + renglon + "] Importe de IVA [" + montoIVA + "] IVA Acumulado[" + ivaAcumulado + "]"));
         BigDecimal ivaResultado = montoIVA.subtract(ivaAcumulado).setScale(2, RoundingMode.HALF_UP);
         log.trace("Object: {}", "Monto de IVA restante[" + ivaResultado + "]");
-        log.debug("Object: {}", "Iniciando calculo de Otros Impuestos final para el renglon [" + renglon + "] Importe de Otros Impuestos [" + montoOtrosImpuestos + "] Otros impuestos acumulado[" + otrosImpuestosAcumulado + "]");
+        log.debug("Object: " + String.valueOf("Iniciando calculo de Otros Impuestos final para el renglon [" + renglon + "] Importe de Otros Impuestos [" + montoOtrosImpuestos + "] Otros impuestos acumulado[" + otrosImpuestosAcumulado + "]"));
         BigDecimal otrosImpuestosResultado = montoOtrosImpuestos.subtract(otrosImpuestosAcumulado).setScale(2, RoundingMode.HALF_UP);
         log.trace("Object: {}", "Monto de Otros Impuestos restante[" + otrosImpuestosResultado + "]");
         psUpdateDetalle.setBigDecimal(1, ivaResultado);
         psUpdateDetalle.setInt(2, nFolioPago);
         psUpdateDetalle.setInt(3, renglon);
-        log.debug("Object: {}", "Actualizando renglon [" + renglon + "] con monto de IVA [" + ivaResultado + "] con folio [" + nFolioPago + "]");
+        log.debug("Object: " + String.valueOf("Actualizando renglon [" + renglon + "] con monto de IVA [" + ivaResultado + "] con folio [" + nFolioPago + "]"));
         int afectados = psUpdateDetalle.executeUpdate();
-        log.debug("Object: {}", "Se actualizaron [" + afectados + "] renglones");
+        log.debug("Object: " + String.valueOf("Se actualizaron [" + afectados + "] renglones"));
         psUpdateImpuestosDetalle.setBigDecimal(1, otrosImpuestosResultado);
         psUpdateImpuestosDetalle.setInt(2, nFolioPago);
         psUpdateImpuestosDetalle.setInt(3, renglon);
-        log.debug("Object: {}", "Actualizando renglon [" + renglon + "] con monto de Otros Impuestos [" + otrosImpuestosResultado + "] con folio [" + nFolioPago + "]");
+        log.debug("Object: " + String.valueOf("Actualizando renglon [" + renglon + "] con monto de Otros Impuestos [" + otrosImpuestosResultado + "] con folio [" + nFolioPago + "]"));
         afectados = psUpdateImpuestosDetalle.executeUpdate();
-        log.debug("Object: {}", "Se actualizaron [" + afectados + "] renglones");
+        log.debug("Object: " + String.valueOf("Se actualizaron [" + afectados + "] renglones"));
         return new BigDecimal[] { ivaResultado, otrosImpuestosResultado };
     }
 
     private static BigDecimal[] actualizaIVARetencionesRenglon(Connection conn, int renglon, BigDecimal porcentajeImpuestos, BigDecimal importeMasIVA, BigDecimal porcentajeIVA, BigDecimal porcentajeOtrosImpuestos, PreparedStatement psUpdateDetalle, PreparedStatement psUpdateImpuestosDetalle, int folioPago) throws Exception {
         BigDecimal montoOtrosImpuestos = new BigDecimal("0.00");
-        log.debug("Object: {}", "Iniciando calculo del IVA para el renglon [" + renglon + "] Importe con IVA (Renglon) [" + importeMasIVA + "] Porcentaje IVA [" + porcentajeIVA + "] Porcentaje Impuestos[" + porcentajeImpuestos + "]");
+        log.debug("Object: " + String.valueOf("Iniciando calculo del IVA para el renglon [" + renglon + "] Importe con IVA (Renglon) [" + importeMasIVA + "] Porcentaje IVA [" + porcentajeIVA + "] Porcentaje Impuestos[" + porcentajeImpuestos + "]"));
         log.trace("Object: {}", "Calculando total de impuestos del renglon [" + renglon + "]");
         BigDecimal dividendoTotalImpuestos = (new BigDecimal("1").add(porcentajeImpuestos)).setScale(8, RoundingMode.HALF_UP);
         log.trace("Object: {}", String.format("Porcentaje total impuestos [%f]", dividendoTotalImpuestos));
@@ -97,18 +97,18 @@ public class CalculaImpuestosRetencionesManager {
         log.trace("Object: {}", "Monto de IVA[" + montoIVA + "]");
         montoOtrosImpuestos = importeMasIVA.setScale(2, RoundingMode.HALF_UP).subtract(totalSinImpuestosRenglon.setScale(2, RoundingMode.HALF_UP)).subtract(montoIVA.setScale(2, RoundingMode.HALF_UP));
         log.trace("Object: {}", "Monto de Otros Impuestos[" + montoOtrosImpuestos + "]");
-        log.debug("Object: {}", "Actualizando renglon [" + renglon + "] con monto de IVA [" + montoIVA + "] con folio [" + folioPago + "]");
+        log.debug("Object: " + String.valueOf("Actualizando renglon [" + renglon + "] con monto de IVA [" + montoIVA + "] con folio [" + folioPago + "]"));
         psUpdateDetalle.setBigDecimal(1, montoIVA);
         psUpdateDetalle.setInt(2, folioPago);
         psUpdateDetalle.setInt(3, renglon);
         int afectados = psUpdateDetalle.executeUpdate();
-        log.debug("Object: {}", "Se actualizaron [" + afectados + "] renglones");
-        log.debug("Object: {}", "Actualizando renglon [" + renglon + "] con monto de Otros Impuestos [" + montoOtrosImpuestos + "] con folio [" + folioPago + "]");
+        log.debug("Object: " + String.valueOf("Se actualizaron [" + afectados + "] renglones"));
+        log.debug("Object: " + String.valueOf("Actualizando renglon [" + renglon + "] con monto de Otros Impuestos [" + montoOtrosImpuestos + "] con folio [" + folioPago + "]"));
         psUpdateImpuestosDetalle.setBigDecimal(1, montoOtrosImpuestos);
         psUpdateImpuestosDetalle.setInt(2, folioPago);
         psUpdateImpuestosDetalle.setInt(3, renglon);
         afectados = psUpdateImpuestosDetalle.executeUpdate();
-        log.debug("Object: {}", "Se actualizaron [" + afectados + "] renglones");
+        log.debug("Object: " + String.valueOf("Se actualizaron [" + afectados + "] renglones"));
         return new BigDecimal[] { montoIVA, montoOtrosImpuestos };
     }
 
@@ -124,7 +124,7 @@ public class CalculaImpuestosRetencionesManager {
             porcentajeImpuestos = totalImpuestos.divide(importeSinImpuestos, 8, RoundingMode.HALF_UP);
             impuestos = cirm.new Impuesto(porcentajeImpuestos, totalImpuestos.setScale(2, RoundingMode.HALF_UP));
         }
-        log.debug("Object: {}", "Importe de Otros Impuestos [" + totalImpuestos + "] Porcentaje de Otros Impuestos [" + porcentajeImpuestos + "]");
+        log.debug("Object: " + String.valueOf("Importe de Otros Impuestos [" + totalImpuestos + "] Porcentaje de Otros Impuestos [" + porcentajeImpuestos + "]"));
         return impuestos;
     }
 
@@ -201,7 +201,7 @@ public class CalculaImpuestosRetencionesManager {
             return cirm.new Impuesto(new BigDecimal(0), new BigDecimal(0));
         BigDecimal porcentajeOtrosImpuestos = importeSinIVA.divide(otrosImpuestos, 8, RoundingMode.HALF_UP);
         Impuesto otros = cirm.new Impuesto(porcentajeOtrosImpuestos, importeSinIVA.setScale(2, RoundingMode.HALF_UP));
-        log.debug("Object: {}", "Importe de Otros Impuestos [" + importeSinIVA + "] Porcentaje de Otros Impuestos [" + porcentajeOtrosImpuestos + "]");
+        log.debug("Object: " + String.valueOf("Importe de Otros Impuestos [" + importeSinIVA + "] Porcentaje de Otros Impuestos [" + porcentajeOtrosImpuestos + "]"));
         return otros;
     }
 
@@ -306,7 +306,7 @@ public class CalculaImpuestosRetencionesManager {
         log.trace("Object: {}", String.format("Iniciando recalculo de detalle. Tabla Encabezado[%s] Tabla Detalle [%s]  Campo Llave[%s] Folio[%d]", tablaPagoEncabezado, tablaPagoDetalle, nombreCampo, nFolioPago));
         final String ncImporteMasIVAEnc = (CalculaImpuestosRetencionesManager.campoMasIVA.get(tablaPagoEncabezado.toUpperCase()) == null ? "mImporteMasIVA" : CalculaImpuestosRetencionesManager.campoMasIVA.get(tablaPagoEncabezado.toUpperCase()));
         final String ncImporteIVADet = (CalculaImpuestosRetencionesManager.campoMasIVA.get(tablaPagoDetalle.toUpperCase()) == null ? "mIVA" : CalculaImpuestosRetencionesManager.campoMasIVA.get(tablaPagoDetalle.toUpperCase()));
-        log.debug("Object: {}", "Column mapping -> Encabezado.masIVA=" + ncImporteMasIVAEnc + " | Detalle.IVA=" + ncImporteIVADet);
+        log.debug("Object: " + String.valueOf("Column mapping -> Encabezado.masIVA=" + ncImporteMasIVAEnc + " | Detalle.IVA=" + ncImporteIVADet));
         final String queryTotalRenglones = "SELECT COUNT(*) AS renglones FROM " + tablaPagoDetalle + " WITH(NOLOCK) WHERE " + nombreCampo + " = ?";
         final String queryEncabezadoPago = "SELECT " + nombreCampo + ", mimportebruto AS importeSinIVA, mimporteiva AS pctIVA, " + ncImporteMasIVAEnc + " AS importeMasIVA, motrosimpuestos AS otrosImpuestos " + "FROM " + tablaPagoEncabezado + " WITH(NOLOCK) WHERE " + nombreCampo + " = ?";
         final String queryDetallePago = "SELECT " + nombreCampo + ", mimportebruto, mimporteiva, mimporteneto, mimportemasiva, " + "motrosimpuestos, " + ncImporteIVADet + ", nDocRenglon " + "FROM " + tablaPagoDetalle + " WITH(NOLOCK) WHERE " + nombreCampo + " = ?";
@@ -365,9 +365,9 @@ public class CalculaImpuestosRetencionesManager {
             Impuesto impuestos = calculaImpuestos(importeSinImpuestos, importeMasImpuestos);
             Impuesto otros = calculaOtrosImpuestos(otrosImpuestos, importeSinImpuestos);
             Impuesto iva = cirm.new Impuesto(impuestos.getPorcentajeImpuesto().subtract(otros.getPorcentajeImpuesto()), importeMasImpuestos.subtract(importeSinImpuestos).subtract(otros.getMontoImpuesto()));
-            log.debug("Object: {}", String.format("Porcentaje de Impuestos [%s] Monto[%s]", impuestos.getPorcentajeImpuesto(), impuestos.getMontoImpuesto()));
-            log.debug("Object: {}", String.format("Porcentaje de Otros Impuestos [%s] Monto[%s]", otros.getPorcentajeImpuesto(), otros.getMontoImpuesto()));
-            log.debug("Object: {}", String.format("Porcentaje de IVA [%s] Monto[%s]", iva.getPorcentajeImpuesto(), iva.getMontoImpuesto()));
+            log.debug("Object: " + String.valueOf(String.format("Porcentaje de Impuestos [%s] Monto[%s]", impuestos.getPorcentajeImpuesto(), impuestos.getMontoImpuesto())));
+            log.debug("Object: " + String.valueOf(String.format("Porcentaje de Otros Impuestos [%s] Monto[%s]", otros.getPorcentajeImpuesto(), otros.getMontoImpuesto())));
+            log.debug("Object: " + String.valueOf(String.format("Porcentaje de IVA [%s] Monto[%s]", iva.getPorcentajeImpuesto(), iva.getMontoImpuesto())));
             // Detalle
             log.trace("Object: {}", "Ejecutando detalle [" + queryDetallePago + "][" + nFolioPago + "]");
             psDetallePago.setInt(1, nFolioPago);

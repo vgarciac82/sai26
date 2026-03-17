@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!-- Ayuda Firmante - desde la pantalla de Firmante -->
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Firmantes</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>M_CAT_FIRMANTE</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+ 	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	 
+	<grid>
+   		<columna campo="ca.D_DESCRIPCION"	control="MantoPFirmante2"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	  header="Area"				rowCol="1,1" 	ancho="100"		maxlen="110"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+   		<columna campo="NombreCompl1"		control="MantoPFirmante"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	  header="Firmante"			rowCol="2,1" 	ancho="70"		maxlen="110"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="f.U_LOGIN"			control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	  header="Clave Usuario"	rowCol="2,2" 	ancho="15"		maxlen="30"			tipo="string"	visible="Si"	clase="Protegido"/>
+		<columna campo="f.ID_AREA"			control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	  header="Clave Area"		rowCol="3,1" 	ancho="5"		maxlen="20"			tipo="int"		visible="No"	clase=""/>
+   		<columna campo="f.ID_FIRMANTE"		control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	  header="Clave Firmante"	rowCol="3,2" 	ancho="5"		maxlen="20"			tipo="int"		visible="No"	clase="Protegido"/>
+	</grid> 
+
+	<insertaRegistro>
+		<campo field="ID_FIRMANTE"	control="txtGridCol4"	llave="Si"	identity="Si"	requerido=""									requeridoFocus=""						tipo="int" />
+		<campo field="ID_AREA"		control="txtGridCol3"	llave="No"	identity="No"	requerido="El área es un dato requerido"		requeridoFocus="txtGridMantoPFirmante2"	tipo="int" />
+		<campo field="U_LOGIN"		control="txtGridCol2"	llave="No"	identity="No"	requerido="El firmante es un dato requerido"	requeridoFocus="txtGridMantoPFirmante"	tipo="string" />
+	</insertaRegistro>
+	
+</Ayuda>

@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OP_AvanceContratacion" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="5" bottomMargin="5" uuid="736df2fa-79a9-45b9-9356-ecb3ac5dee5f">
+	<property name="ireport.zoom" value="1.363636363636364"/>
+	<property name="ireport.x" value="221"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fIni" class="java.lang.String"/>
+	<parameter name="fFin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select 'NADA' tipoArea, uEjecutora, ORIGINAL, Modificado, ISNULL(techonormal,0) techonormal,ISNULL(asignadonormal,0) asignadonormal,ISNULL(ejecutadonormal,0) ejecutadonormal
+  ,ISNULL(techoanor,0) techoanor,ISNULL(asignadoanor,0) asignadoanor,ISNULL(ejecutadoanor,0) ejecutadoanor
+ ,ISNULL(techonormal,0) +ISNULL(techoanor,0) techoTotal ,ISNULL(asignadonormal,0) + ISNULL(asignadoanor,0 ) asignadoTotal
+ ,case when Modificado = 0 then 0 else ( ISNULL(asignadonormal,0) + ISNULL(asignadoanor,0 ) )/ Modificado end AvanceAsignado
+ , case when case when Modificado = 0 then 0 else ( ISNULL(asignadonormal,0) + ISNULL(asignadoanor,0 ) )/ Modificado end < .39 then 'ROJO'
+   when case when Modificado = 0 then 0 else ( ISNULL(asignadonormal,0) + ISNULL(asignadoanor,0 ) )/ Modificado end between .4 and .5999999 then 'AMARILLO'
+   else 'VERDE' end semaforo
+ ,ISNULL(ejecutadonormal,0) +ISNULL(ejecutadoanor,0) ejecutadoTotal
+ , case when (ISNULL(asignadonormal,0) + ISNULL(asignadoanor,0 )) = 0 then 0 else ( ISNULL(ejecutadonormal,0) +ISNULL(ejecutadoanor,0)) / (ISNULL(asignadonormal,0) + ISNULL(asignadoanor,0 ))  end AvanceEjecutado
+ , ISNULL(AD,0) AD_Nor
+ , ISNULL(CC,0) CC_Nor
+ , ISNULL(LP,0) LP_Nor
+ , ISNULL(I3P,0) I3P_Nor
+ , ISNULL(EME,0) EME_Nor
+ , ISNULL(MOC,0) MOC_Nor
+
+ , ISNULL(AD,0) +ISNULL(AD_Anor,0) AD
+ , ISNULL(CC,0)+ ISNULL(CC_Anor,0) CC
+ , ISNULL(LP,0)+ISNULL(LP_Anor,0) LP
+ , ISNULL(I3P,0) +ISNULL(I3P_Anor,0) I3P
+ , ISNULL(EME,0) + ISNULL(EME_Anor,0) EME
+ , ISNULL(MOC,0)+ ISNULL(MOC_Anor,0) MOC
+ , ISNULL(AD,0) + ISNULL(CC,0) + ISNULL(LP,0) + ISNULL(I3P,0) + ISNULL(EME,0) + ISNULL(MOC,0) TOTNOR
+ , ISNULL(AD_Anor,0) AD_Anor
+ , ISNULL(CC_Anor,0) CC_Anor
+ , ISNULL(LP_Anor,0) LP_Anor
+ , ISNULL(I3P_Anor,0) I3P_Anor
+ , ISNULL(EME_Anor,0) EME_Anor
+ , ISNULL(MOC_Anor,0) MOC_Anor
+ , ISNULL(AD_Anor,0) + ISNULL(CC_Anor,0) + ISNULL(LP_Anor,0) + ISNULL(I3P_Anor,0) + ISNULL(EME_Anor,0) + ISNULL(MOC,0) TOT_Anor
+ , ISNULL(AD,0) + ISNULL(CC,0) + ISNULL(LP,0) + ISNULL(I3P,0) + ISNULL(EME,0) + ISNULL(MOC,0)
+ + ISNULL(AD_Anor,0) + ISNULL(CC_Anor,0) + ISNULL(LP_Anor,0) + ISNULL(I3P_Anor,0) + ISNULL(EME_Anor,0) + ISNULL(MOC,0) TOTTipos
+, 'Acumulado del ' + $P{fIni} + ' al ' + $P{fFin} lbAcumuladoAl
+, 'Acumulado del ' + $P{fIni} + ' al ' + $P{fFin} lbAcumuladoAl
+, cast(year(convert(date, $P{fFin}, 103)) as varchar(4)) anio  from (select
+ unor.D_DESCRIPCION uEjecutora
+ , Unor.cUnidadResponsable UniEjec
+,sum(case when substring(s.nCuenta,1,5) = '81101' then s.mSaldoarrastre else 0 end)/1000.00 Original
+,sum(case when substring(s.nCuenta,1,5) = '81102' then s.mSaldoarrastre else 0 end)/1000.00 Modificado
+ from tSaldos S with(nolock)
+, tcatalogoep catEP  with(nolock)
+, tCatalogoCentroContable CC with(nolock)
+, tCatUnidadResponsable UResp with(nolock)
+, tCatUnidadResponsable UNor with(nolock)
+, tCatUnidadResponsable Ueje with(nolock)
+ where catep.EP = s.cSubCuenta and  CC.CcENTROcONTABLE = S.cCentroContable
+ and UResp.cUnidadResponsable = s.cUnidadResponsable
+  and unor.cUnidadResponsable = cUnidadNorativa
+  and Ueje.cUnidadResponsable = cUnidadEjecutora
+  AND (nCuenta like '81101%' or nCuenta like '81102%')--substring(nCuenta,1,5) in  ('81101', '81102')
+  and cPartida like '6%'
+  group by
+  unor.D_DESCRIPCION
+ , Unor.cUnidadResponsable ) Tsal left join
+(select isnull(pasEnc.cU_UE, isnull(comEnc.cU_Ue, isnull(preEnc.cU_Ue, apaEnc.cU_Ue))) UEjec
+,tr.cDescripcion
+, case tr.cDescripcion when 'fiscales' then (sum(ISNULL(pasEnc.mMontoConIVA,ISNULL(comEnc.nMontoConIVA,ISNULL(preEnc.nMontoConIVA,ISNULL(apaEnc.nMontoConIVA,0)))) +isnull(conmod.mMontoconIva, 0)))/1000.00 else 0 end techoNormal
+, case tr.cDescripcion when 'fiscales' then (sum(ISNULL(mmontoestimacion, 0)))/1000.00  else 0 end asignadoNormal
+, case tr.cDescripcion when 'fiscales' then sum(isnull(mmontoFisicoEjecutado, 0))/1000.00 else 0 end ejecutadoNormal
+, case when tr.cDescripcion  != 'fiscales' then (sum(ISNULL(pasEnc.mMontoConIVA,ISNULL(comEnc.nMontoConIVA,ISNULL(preEnc.nMontoConIVA,ISNULL(apaEnc.nMontoConIVA,0)))) +isnull(conmod.mMontoconIva, 0)))/1000.00 else 0 end techoAnor
+, case when tr.cDescripcion  != 'fiscales' then (sum(ISNULL(mmontoestimacion, 0)))/1000.00  else 0 end asignadoAnor
+, case when tr.cDescripcion  != 'fiscales' then sum(isnull(mmontoFisicoEjecutado, 0))/1000.00 else 0 end ejecutadoAnor
+, sum(Case tr.cDescripcion when 'fiscales' then case when ta.siglasTAdjudicacion = 'A.D.' then 1 else 0 end else 0 end) AD
+, sum(Case tr.cDescripcion when 'fiscales' then case when ta.siglasTAdjudicacion = 'C.C.' then 1 else 0 end else 0 end) CC
+, sum(Case tr.cDescripcion when 'fiscales' then case when ta.siglasTAdjudicacion = 'L.P.' then 1 else 0 end else 0 end) LP
+, sum(Case tr.cDescripcion when 'fiscales' then case when ta.siglasTAdjudicacion = 'I3P' then 1 else 0 end else 0 end) I3P
+, sum(Case tr.cDescripcion when 'fiscales' then case when ta.siglasTAdjudicacion = 'EME' then 1 else 0 end else 0 end) EME
+, sum(Case tr.cDescripcion when 'fiscales' then case when ta.siglasTAdjudicacion = 'MOC' then 1 else 0 end else 0 end) MOC
+
+, sum(Case when tr.cDescripcion  != 'fiscales' then case when ta.siglasTAdjudicacion = 'A.D.' then 1 else 0 end else 0 end) AD_Anor
+, sum(Case when tr.cDescripcion  != 'fiscales' then case when ta.siglasTAdjudicacion = 'C.C.' then 1 else 0 end else 0 end) CC_Anor
+, sum(Case when tr.cDescripcion  != 'fiscales' then case when ta.siglasTAdjudicacion = 'L.P.' then 1 else 0 end else 0 end) LP_Anor
+, sum(Case when tr.cDescripcion  != 'fiscales' then case when ta.siglasTAdjudicacion = 'I3P' then 1 else 0 end else 0 end) I3P_Anor
+, sum(Case when tr.cDescripcion  != 'fiscales' then case when ta.siglasTAdjudicacion = 'EME' then 1 else 0 end else 0 end) EME_Anor
+, sum(Case when tr.cDescripcion  != 'fiscales' then case when ta.siglasTAdjudicacion = 'MOC' then 1 else 0 end else 0 end) MOC_Anor
+   from
+ tObraPublicaApartadoEncabezado apaEnc with(nolock)
+ left join tObraPublicaApartadoEncabezado preEnc with(nolock) on apaEnc.foliosai = preenc.FolioSAI
+ left join tObraPublicaCompromisoEncabezado comEnc with(nolock) on apaEnc.foliosai = comEnc.FolioSAI
+	left join pCatalogoTipoContratoObra tc with(nolock) on tc.cidtipocontratoobra = comEnc.cTipoContrato
+	left join tCatalogoTipoObra tob with(nolock) on tob.cidtobra = comEnc.cTipoObra
+	left join tCatalogoAdjudicacion ta with(nolock) on ta.cIdTAdjudicacion = comEnc.cTipoAdjudica
+	left join tCatalogoTipoRecursos tr with(nolock) on tr.cIdTRercursos= comEnc.cTipoRecurso
+ left join tObraPublicaPagoPasivoEncabezado pasEnc with(nolock) on apaEnc.foliosai = pasEnc.FolioSAI
+ left join ( select af.foliosai,sum(isnull(af.mmontoestimacion,0)) mmontoestimacion, af.efiscalpago
+ , sum(isnull(af.nporceavancefisicoejecutado,0)) nporceavancefisicoejecutado
+ , sum(isnull(af.nporceavancefisicoestimado,0)) nporceavancefisicoestimado
+ , sum(isnull(af.mmontoFisicoEjecutado,0)) mmontoFisicoEjecutado
+ , sum(isnull(af.nporceavancefisicoprogramado,0)) nporceavancefisicoprogramado
+ , sum(isnull(
+ CASE WHEN siaff.FOLIO_CLC = sicop.FOLIO_SIAFF_112 and sicop.FOLIO_SIAFF_112 = pe.nFolioSIAFF and obrae.cDocumentoHaplicado = 'S' and siaff.ESTATUS_CLC = 'Pagada' THEN CAST(SIAFF.TOTAL_MN AS MONEY) ELSE 0 END
+ ,0)) TOTAL_MN
+  FROM tObraPublicaAvanceFisico AF with(nolock)
+							 left join tpagoobraencabezado obrae with(nolock) on AF.noestimacion = obrae.cNoEstimacion and AF.mmontoestimacion = obrae.mImporteMasIva and obrae.cDocumentoHaplicado != 'C'
+							 left join tpagoobraencabezado poe with(nolock) on poe.cFolioContratoObra = AF.ccvecontrato and poe.cnoestimacion = AF.noestimacion and poe.cDocumentoHaplicado ='S'
+							 left join tpagadoencabezado pe with(nolock) on pe.nFolioPAGO = obrae.nFolioPAGOOBRA and pe.cTipoPago ='PAGOOBRA'
+							 left join clc_sicop sicop with(nolock) on sicop.FOLIO_SIAFF_112 = pe.nFolioSIAFF
+							 left join CLC_SIAFF_ENC siaff with(nolock) on siaff.FOLIO_CLC = sicop.FOLIO_SIAFF_112
+							  group by af.foliosai,af.efiscalpago
+) avfEnc on apaEnc.foliosai = avfEnc.FolioSAI and avfEnc.efiscalpago = (SELECT aejerciciofiscal AS cEjercicio
+				FROM   tejerciciofiscal WITH(NOLOCK)
+				WHERE  cactivo = 1 )
+left join (select epe.ccvecontrato, sum(epe.mMontoconIva) mMontoconIva, epe.cU_UR, epe.aEjercicioFiscal
+   from tObraPublicaConvModifEncabezado epe with(nolock) where epe.cDocumentoHaplicado = 'S' and epe.aEjercicioFiscal =(SELECT aejerciciofiscal AS cEjercicio
+				FROM   tejerciciofiscal WITH(NOLOCK)
+				WHERE  cactivo = 1 )
+    group by epe.cCveContrato, epe.cU_UR, epe.aEjercicioFiscal ) conMod
+      on conmod.cCveContrato = comEnc.cCveContrato
+ where apaEnc.cDocumentoHaplicado = 'S'
+ and preEnc.cDocumentoHaplicado = 'S'
+ and comEnc.cDocumentoHaplicado = 'S'
+and comEnc.fFechaOficio >= cast($P{fIni} as datetime)
+and comEnc.fFechaOficio <= cast($P{fFin} as datetime)
+
+ group by  tr.cDescripcion, isnull(pasEnc.cU_Ue, isnull(comEnc.cU_Ue, isnull(preEnc.cU_Ue, apaEnc.cU_Ue)))) tabContr
+ on tabContr.UEjec = Tsal.UniEjec
+ order by uEjecutora]]>
+	</queryString>
+	<field name="tipoArea" class="java.lang.String"/>
+	<field name="uEjecutora" class="java.lang.String"/>
+	<field name="ORIGINAL" class="java.math.BigDecimal"/>
+	<field name="Modificado" class="java.math.BigDecimal"/>
+	<field name="techonormal" class="java.math.BigDecimal"/>
+	<field name="asignadonormal" class="java.math.BigDecimal"/>
+	<field name="ejecutadonormal" class="java.math.BigDecimal"/>
+	<field name="techoanor" class="java.math.BigDecimal"/>
+	<field name="asignadoanor" class="java.math.BigDecimal"/>
+	<field name="ejecutadoanor" class="java.math.BigDecimal"/>
+	<field name="techoTotal" class="java.math.BigDecimal"/>
+	<field name="asignadoTotal" class="java.math.BigDecimal"/>
+	<field name="AvanceAsignado" class="java.math.BigDecimal"/>
+	<field name="semaforo" class="java.lang.String"/>
+	<field name="ejecutadoTotal" class="java.math.BigDecimal"/>
+	<field name="AvanceEjecutado" class="java.math.BigDecimal"/>
+	<field name="AD_Nor" class="java.lang.Integer"/>
+	<field name="CC_Nor" class="java.lang.Integer"/>
+	<field name="LP_Nor" class="java.lang.Integer"/>
+	<field name="I3P_Nor" class="java.lang.Integer"/>
+	<field name="EME_Nor" class="java.lang.Integer"/>
+	<field name="MOC_Nor" class="java.lang.Integer"/>
+	<field name="AD" class="java.lang.Integer"/>
+	<field name="CC" class="java.lang.Integer"/>
+	<field name="LP" class="java.lang.Integer"/>
+	<field name="I3P" class="java.lang.Integer"/>
+	<field name="EME" class="java.lang.Integer"/>
+	<field name="MOC" class="java.lang.Integer"/>
+	<field name="TOTNOR" class="java.lang.Integer"/>
+	<field name="AD_Anor" class="java.lang.Integer"/>
+	<field name="CC_Anor" class="java.lang.Integer"/>
+	<field name="LP_Anor" class="java.lang.Integer"/>
+	<field name="I3P_Anor" class="java.lang.Integer"/>
+	<field name="EME_Anor" class="java.lang.Integer"/>
+	<field name="MOC_Anor" class="java.lang.Integer"/>
+	<field name="TOT_Anor" class="java.lang.Integer"/>
+	<field name="TOTTipos" class="java.lang.Integer"/>
+	<field name="lbAcumuladoAl" class="java.lang.String"/>
+	<field name="anio" class="java.lang.String"/>
+	<variable name="totalTipoAdjud" class="java.lang.String">
+		<variableExpression><![CDATA[$F{AD}+$F{CC}+$F{LP}+$F{I3P}+$F{EME}+$F{MOC}]]></variableExpression>
+	</variable>
+	<variable name="ORIGINAL_1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{ORIGINAL}]]></variableExpression>
+	</variable>
+	<variable name="Modificado_1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{Modificado}]]></variableExpression>
+	</variable>
+	<variable name="techoTotal_1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{techoTotal}]]></variableExpression>
+	</variable>
+	<variable name="asignadoTotal_1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{asignadoTotal}]]></variableExpression>
+	</variable>
+	<variable name="ejecutadoTotal_1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{ejecutadoTotal}]]></variableExpression>
+	</variable>
+	<variable name="porAvaTot" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[new BigDecimal(0).compareTo($F{ORIGINAL})== 0 ? new BigDecimal(0) : $V{asignadoTotal_1}.divide($V{Modificado_1} )]]></variableExpression>
+	</variable>
+	<variable name="porEjetotal" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[new BigDecimal( 0 ).compareTo( $V{asignadoTotal_1}  ) == 0  ? new BigDecimal( 0)  :$F{AvanceEjecutado}.divide($V{asignadoTotal_1} )]]></variableExpression>
+	</variable>
+	<variable name="TOTTipos_1" class="java.lang.Integer" resetType="Group" resetGroup="PorTipodeArea" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTTipos}]]></variableExpression>
+	</variable>
+	<variable name="TOTTipos_2" class="java.lang.Integer" resetType="Group" resetGroup="PorTipodeArea" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTTipos}]]></variableExpression>
+	</variable>
+	<variable name="TOTTipos_3" class="java.lang.Integer" resetType="Group" resetGroup="PorTipodeArea" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTTipos}]]></variableExpression>
+	</variable>
+	<variable name="lbAsignacoAnio" class="java.lang.String">
+		<variableExpression><![CDATA["ASIGNACION FINAL " + $F{anio}]]></variableExpression>
+		<initialValueExpression><![CDATA["ASIGNACION FINAL " + $F{anio}]]></initialValueExpression>
+	</variable>
+	<variable name="lbEjecutadoAnio" class="java.lang.String">
+		<variableExpression><![CDATA["EJECUTADO EN " + $F{anio}]]></variableExpression>
+		<initialValueExpression><![CDATA["EJECUTADO EN " + $F{anio}]]></initialValueExpression>
+	</variable>
+	<group name="PorTipodeArea" isStartNewPage="true" isReprintHeaderOnEachPage="true" keepTogether="true">
+		<groupExpression><![CDATA[$F{tipoArea}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<staticText>
+					<reportElement x="358" y="0" width="75" height="47" uuid="292de90b-ed77-4d72-acad-8601ddfcd3f7"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[MONTO TOTAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="577" y="0" width="48" height="47" uuid="5b071cb9-bfba-4d19-9527-235f77204bf9"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[Avance Asignado %]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="433" y="0" width="70" height="47" uuid="29d4f709-429b-43b0-9f1c-c775e62f7fe7"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[TIPO DE ADJUDICACIÓN Y NÚM. DE CONTRATOS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="277" y="0" width="81" height="47" uuid="3b23fa0e-8957-41c6-9893-236c217885cb"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[PRESUPUESTO MODIFICADO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="194" y="0" width="83" height="47" uuid="77a9e2a4-e8f8-4ce4-83c7-bf5b924d7b27"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[PRESUPUESTO ORIGINAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="6" y="0" width="187" height="47" uuid="0307e987-467b-4097-84e8-8d43f0cf38f9"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[AREA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="754" y="0" width="45" height="47" uuid="90671db1-10be-4bbc-b2df-8140b7e94800"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[Avance Ejecutado %]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="625" y="0" width="59" height="47" uuid="67076652-6987-4b1c-8567-5162684e0e61"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[AVANCE DE LA ASIGNACIÓN FINAL SEMÁFORO */]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Transparent" x="503" y="0" width="74" height="47" forecolor="#000000" backcolor="#FFFFFF" uuid="53e26770-84a1-4428-a431-5406768dae93"/>
+					<box leftPadding="3" rightPadding="3">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{lbAsignacoAnio}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="684" y="0" width="70" height="47" forecolor="#000000" backcolor="#FFFFFF" uuid="7762d2ba-f858-4e6f-8b49-4e2079b52fd7"/>
+					<box leftPadding="3" rightPadding="3">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{lbEjecutadoAnio}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="34" splitType="Stretch">
+				<textField pattern="#,##0">
+					<reportElement x="433" y="8" width="70" height="20" uuid="be7fcbc3-5d05-40c6-b258-ab0843e2e2d1"/>
+					<box leftPadding="3" rightPadding="3">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TOTTipos_3}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="194" y="8" width="83" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="237919e2-8417-4bc7-93a7-3526b950db7c"/>
+					<box leftPadding="3" rightPadding="3">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{ORIGINAL_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="6" y="8" width="187" height="20" uuid="5d61baa8-9681-4726-9785-ce84669da2f3"/>
+					<box leftPadding="3" rightPadding="3">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[TOTALES]]></text>
+				</staticText>
+				<textField pattern="#,##0" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="358" y="8" width="75" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="79936915-63de-46e1-8248-92eac26be535"/>
+					<box leftPadding="3" rightPadding="3">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{techoTotal_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="277" y="8" width="81" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="e794e288-784e-4816-9546-033d2ee0a548"/>
+					<box leftPadding="3" rightPadding="3">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Modificado_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="503" y="8" width="74" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="4aba0b82-aaca-42ee-97c6-f2d8a3a3af01"/>
+					<box leftPadding="3" rightPadding="3">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{asignadoTotal_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="684" y="8" width="70" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="2f563408-ef69-4a29-8af9-50b489e7403b"/>
+					<box leftPadding="3" rightPadding="3">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{ejecutadoTotal_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00 %">
+					<reportElement x="577" y="8" width="48" height="20" uuid="70f83bb8-1e6f-4ef0-8248-75039121444f"/>
+					<box leftPadding="3" rightPadding="3">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( new BigDecimal (0).compareTo($V{Modificado_1})== 0 ? 0 : $V{asignadoTotal_1}.divide($V{Modificado_1}) )]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement x="625" y="8" width="59" height="20" uuid="6170b21b-4752-4253-b99c-a01589947168"/>
+				</rectangle>
+				<textField pattern="#,##0.00 %" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="754" y="8" width="45" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="d020adec-2e8d-4ee0-920f-1be1c4154639"/>
+					<box leftPadding="3" rightPadding="3">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( new BigDecimal (0).compareTo($V{asignadoTotal_1}) == 0 ? 0 : $V{ejecutadoTotal_1}.divide($V{asignadoTotal_1}) )]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="84">
+			<staticText>
+				<reportElement x="154" y="22" width="569" height="47" uuid="2136642d-da78-4127-9a9c-12dfdea314f5"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GERENCIA DE RECURSOS FINANCIEROS
+AVANCE DE LA CONTRATACIÓN DE OBRA PÚBLICA, CONSOLIDADO POR UNIDAD CENTRAL NORMATIVA
+capítulo 6000 (Transferencias para el apoyo de Obras Públicas)
+(Cifras en Miles de Pesos IVA Incluido)
+
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="566" y="72" width="136" height="10" uuid="9e6e906d-0069-43ea-b9f8-8db43b66606a"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lbAcumuladoAl}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="154" y="2" width="569" height="20" uuid="1386959c-6811-4c1b-a975-b770c9b29856"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="7" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="52" splitType="Stretch">
+			<rectangle>
+				<reportElement x="433" y="4" width="70" height="46" uuid="f819cc73-ae9b-4b1a-ba69-98e38fcebfd1"/>
+			</rectangle>
+			<textField>
+				<reportElement x="6" y="4" width="187" height="46" uuid="eabcb09e-ab0b-4eef-9364-cc0d47b0e5bf"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{uEjecutora}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="194" y="4" width="83" height="46" uuid="8d304850-50b6-4d4e-a830-6958ecb75aa2"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ORIGINAL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="277" y="4" width="81" height="46" uuid="e243e0a0-1dc6-498c-8a16-40599de6efe7"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Modificado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="358" y="4" width="75" height="46" forecolor="#000000" backcolor="#FFFFFF" uuid="b32c4b1d-488f-46f0-bdfd-52f6aceca55e"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{techoTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="475" y="4" width="22" height="8" uuid="3bc83829-46a5-4cd0-9493-c2286adc9399"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="475" y="13" width="22" height="8" uuid="ddb08843-9a7f-4d6d-8a29-5ef1bbd98680"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="475" y="22" width="22" height="8" uuid="9af2b3be-bbc0-4e38-afab-d661bb143259"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="475" y="31" width="22" height="8" uuid="15a4cc89-5307-4cc5-9c46-aaba3df3c142"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{I3P}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="453" y="5" width="22" height="8" uuid="3a8ccc0c-ce54-4f10-81b5-ec48cb95a10f"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[A.D   =   ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="453" y="14" width="22" height="8" uuid="66a93b8b-dcb8-445a-a50d-a19d1599b6a0"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[C.C.   =   ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="453" y="23" width="22" height="8" uuid="29cf2736-5997-4928-854c-15299b05115f"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[L.P.   =   ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="453" y="32" width="22" height="8" uuid="121905d6-afbf-4ffe-859e-db864c27f0d0"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[I3P   =   ]]></text>
+			</staticText>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="577" y="4" width="48" height="46" uuid="1a155cf4-6889-4b64-9938-920a4b6ee63d"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AvanceAsignado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="503" y="4" width="74" height="46" forecolor="#000000" backcolor="#FFFFFF" uuid="13506e57-0688-4c5a-a030-e6b9bc53ed2a"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{asignadoTotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="684" y="4" width="70" height="46" forecolor="#000000" backcolor="#FFFFFF" uuid="33f4fad7-6837-489c-a734-ca3fec408744"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ejecutadoTotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="754" y="4" width="45" height="46" forecolor="#000000" backcolor="#FFFFFF" uuid="6add55e1-7b07-4f87-b58d-57be4cfc72fb"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AvanceEjecutado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="475" y="41" width="22" height="8" uuid="90438403-afa9-4e52-8ddc-dd2a3ee38376"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalTipoAdjud}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="443" y="41" width="29" height="8" uuid="36a8be48-392f-4df3-a7fb-1766ab9f8340"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[TOTAL  =   ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="625" y="4" width="59" height="46" uuid="18c03688-5f06-4084-8075-c1860a68931d"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{semaforo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="41" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="760" y="39" width="40" height="15" uuid="3f4ff0cc-2948-496f-a5cb-ffae114225dd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" de" + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="680" y="39" width="80" height="15" uuid="96d5739b-8f24-4899-90dc-a4fe4888acb6"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

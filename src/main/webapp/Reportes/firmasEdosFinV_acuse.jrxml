@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="firmasEdosFinV" pageWidth="528" pageHeight="792" columnWidth="528" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c6b8934d-cd60-4978-9fb8-13807410b7bb">
+	<property name="ireport.zoom" value="1.4641000000000088"/>
+	<property name="ireport.x" value="73"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nfirmas" class="java.lang.Integer"/>
+	<parameter name="anio" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT '1' AS '1']]>
+	</queryString>
+	<field name="1" class="java.lang.String"/>
+	<detail>
+		<band height="85">
+			<printWhenExpression><![CDATA[$P{nfirmas}==3]]></printWhenExpression>
+		</band>
+		<band height="85">
+			<printWhenExpression><![CDATA[$P{nfirmas}==4]]></printWhenExpression>
+		</band>
+	</detail>
+</jasperReport>

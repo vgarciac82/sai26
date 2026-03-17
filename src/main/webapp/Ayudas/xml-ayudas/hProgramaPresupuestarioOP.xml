@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Programa Presupuestario</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>PROGRAMAPRESUPUESTARIOOP</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+<!--	<ColSort>0</ColSort>-->
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="id"	control="ProgramaPresupuestario"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="id"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+<!--		<columna campo="dPartida"	control=""	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="Descripción"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>-->
+		<columna campo="descripcion"	control="hProgramaPresupuestarioOP"	dependencia="No"	ctrlsDependientes="ProgramaPresupuestario" limpiaOnKeypress=""		header="Descripción"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="uUR"	control="uUR"	dependencia="Si"	ctrlsDependientes="uUR" limpiaOnKeypress=""		header="Unidad Ejecutora"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+		<columna campo="Partida"	control="Partida"	dependencia="Si"	ctrlsDependientes="Partida" limpiaOnKeypress=""		header="Partida"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+		<columna campo="Cartera"	control="Cartera"	dependencia="Si"	ctrlsDependientes="Cartera" limpiaOnKeypress=""		header="Cartera"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+	</grid>  
+
+</Ayuda>

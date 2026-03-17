@@ -104,7 +104,7 @@ public class generaCierrePresupuestalAMFServlet extends HttpServlet {
                 archivoPago.append(arrListPago.get(i));
             }
             String outTextPago = archivoPago.toString();
-            out.write(outTextPago.toPath());
+            out.write(outTextPago);
             out.close();
             // envío de archivo CSV
             ServletOutputStream outS = null;

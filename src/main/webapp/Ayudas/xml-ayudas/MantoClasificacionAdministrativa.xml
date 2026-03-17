@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--  -->
+<Ayuda>
+	<titulo>Mantenimiento Clasificacion Administrativa</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>800</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_TCATCLASIFICACIONADMINISTRATIVA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>1</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+		
+	<grid>			
+		<columna campo="cClave"			control="txtGridcClave"			dependencia="No" limpiaOnKeypress="" header="Clave"	 		rowCol="1,1"		ancho="10"	maxlen="50" tipo="string" visible="Si" clase=""/>		
+		<columna campo="cDescripcion"	control="txtGridcDescripcion"	dependencia="No" limpiaOnKeypress="" header="Descripcion"	rowCol="1,2"		ancho="50"	maxlen="50" tipo="string" visible="Si" clase=""/>
+		<columna campo="cRamo"			control="txtGridcRamo"			dependencia="No" limpiaOnKeypress="" header="Ramo"			rowCol="2,1"		ancho="10"	maxlen="50" tipo="string" visible="Si" clase=""/>
+		<columna campo="cUR"			control="txtGridcUR"			dependencia="No" limpiaOnKeypress="" header="UR"			rowCol="2,2"		ancho="10"	maxlen="50" tipo="string" visible="Si" clase=""/>
+	</grid>  
+	
+	<insertaRegistro>		
+		<campo field="cClave" 			control="txtGridcClave"			llave="SI"	identity="No" requerido="La Clave es un dato requerido."		requeridoFocus="txtGridcClave"	tipo="string" />
+		<campo field="cDescripcion"		control="txtGridcDescripcion"	llave="No"	identity="No" requerido="La descripcion es un dato requerido."	requeridoFocus=""				tipo="string" />
+		<campo field="cRamo"			control="txtGridcRamo"			llave="SI"	identity="No" requerido=""										requeridoFocus=""				tipo="string" />
+		<campo field="cUR"				control="txtGridcUR"			llave="SI"	identity="No" requerido=""										requeridoFocus=""				tipo="string" />
+	</insertaRegistro>
+	
+</Ayuda>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Listado de Unidades Responsables</titulo>
+	<anchoWin>650</anchoWin>
+	<altoWin>700</altoWin>
+	<altoAreaCaptura>130</altoAreaCaptura>
+	<tabla>M_TUNIDADRESPONSABLE</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+
+	<grid>
+		<columna campo="cUnidadResponsable" control="txtGridUR" dependencia="No" limpiaOnKeypress="" header="UR"						ancho="100" maxlen="200" tipo="string" visible="Si" clase=""/>
+		<columna campo="D_DESCRIPCION"		control="txtGridD_DESCRIPCION" dependencia="No" limpiaOnKeypress="" header="Descripción"	ancho="100" maxlen="200" tipo="string" visible="Si" clase=""/>
+	</grid>
+</Ayuda>

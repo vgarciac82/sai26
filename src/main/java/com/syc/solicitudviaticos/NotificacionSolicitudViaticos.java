@@ -298,7 +298,7 @@ public class NotificacionSolicitudViaticos {
         totalDias = 0;
         for (Iterator<AgendaNotificacion> i = getAgenda().iterator(); i.hasNext(); ) {
             AgendaNotificacion agendaDia = i.next();
-            log.debug("Object: {}", "Sumando dias de viaticos: " + agendaDia.getDias());
+            log.debug("Object: " + String.valueOf("Sumando dias de viaticos: " + agendaDia.getDias()));
             totalDias = totalDias + agendaDia.getDias();
         }
         return totalDias;
@@ -312,7 +312,7 @@ public class NotificacionSolicitudViaticos {
         totalViatico.setScale(2, RoundingMode.HALF_UP);
         for (Iterator<AgendaNotificacion> i = getAgenda().iterator(); i.hasNext(); ) {
             AgendaNotificacion agendaDia = i.next();
-            log.debug("Object: {}", "Sumando monto de viatico: " + agendaDia.getTotal());
+            log.debug("Object: " + String.valueOf("Sumando monto de viatico: " + agendaDia.getTotal()));
             totalViatico = totalViatico.add(agendaDia.getTotal());
         }
         return totalViatico;
@@ -559,7 +559,7 @@ public class NotificacionSolicitudViaticos {
             parametrosReales.append("autorizacion=").append(String.valueOf(true));
             parametrosReales.append("&");
             parametrosReales.append("IdRenglonAutorizador=").append(getIdRenglonAutorizador());
-            log.debug("Object: {}", "Cadena generada: " + parametrosReales);
+            log.debug("Object: " + String.valueOf("Cadena generada: " + parametrosReales));
             return parametrosReales.toString();
         } catch (Exception e) {
             throw new Exception("FMX-SEC-10001 Error generando Token", e);

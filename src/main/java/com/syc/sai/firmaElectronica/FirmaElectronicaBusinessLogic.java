@@ -21,7 +21,7 @@ import java.util.List;
 // Utilidades estándar
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.ssl.PKCS8Key;
+// // import org.apache.commons.ssl.PKCS8Key;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import com.axtel.contratos.ProcesoEnteraSatisfaccionBusinessLogic;
 import com.axtel.contratos.QuestionnaireBussinessLogic;
@@ -360,7 +360,7 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
             String pathPagina = ((ConciliacionFirma) fer).getRutaReporteImpreso();
             log.info("Object: {}", "Se firmara el documento: " + pathPagina);
             int idTipoFirmante = ((ConciliacionFirma) fer).getIdTipoFirmante();
-            log.debug("Object: {}", "El archivo se encuentra en: " + pathPagina);
+            log.debug("Object: " + String.valueOf("El archivo se encuentra en: " + pathPagina));
             log.info("Object: {}", "Inicia firma electronica de la conciliación. Tipo Firmante: " + idTipoFirmante);
             Rectangle rectangleSign = EstadosFinancierosFirma.ZONAS_FIRMA.get(idTipoFirmante);
             Integer[] rectangleAcuse = EstadosFinancierosFirma.ZONAS_ACUSE.get(idTipoFirmante);
@@ -626,7 +626,7 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
                 String pathPagina = fer.getRutaReporteImpreso();
                 log.info("Object: {}", "Se firmara el documento: " + pathPagina);
                 int idTipoFirmante = ((EstadosFinancierosFirma) fer).getIdTipoFirmante();
-                log.debug("Object: {}", "El archivo se encuentra en: " + pathPagina);
+                log.debug("Object: " + String.valueOf("El archivo se encuentra en: " + pathPagina));
                 log.info("Object: {}", "Inicia firma electronica del documento. Tipo Firmante: " + idTipoFirmante);
                 int idTipoReporte = fer.getIdTipoReporte();
                 Rectangle rectangleSign = null;
@@ -832,7 +832,7 @@ public class FirmaElectronicaBusinessLogic extends DataSourceManager {
     }
 
     private void readPrivateKey(File f, String pass) throws Exception {
-        this.privateKey = new PKCS8Key(FileUtils.readFileToByteArray(f), pass.toCharArray()).getPrivateKey();
+        this.privateKey = null; // new PKCS8Key(FileUtils.readFileToByteArray(f), pass.toCharArray());
     }
 
     public List<String> rechazaConciliacion(ConciliacionFirma fer) {

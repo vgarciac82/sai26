@@ -44,7 +44,7 @@ public class ServiceProductController extends HttpServlet {
         ProductDTO product = readServicioProducto(request);
         log.trace("Object: {}", "JSON recibido correctamente y mapeado a objeto ServicioProductoDTO. " + product);
         try {
-            log.debug("Object: {}", "Saving servicioProducto: " + product);
+            log.debug("Object: " + String.valueOf("Saving servicioProducto: " + product));
             ProyectoProducto createdProduct = productService.create(product);
             log.info("Object: {}", "ServicioProducto saved: " + createdProduct);
             Util.sendJSONResponse(response, createdProduct);
@@ -58,7 +58,7 @@ public class ServiceProductController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             int projectID = Integer.parseInt(request.getParameter("servicioId"));
-            log.debug("Object: {}", "Looking for products in project: " + projectID);
+            log.debug("Object: " + String.valueOf("Looking for products in project: " + projectID));
             List<ProyectoProducto> products = productService.readByProjectID(projectID);
             Util.sendJSONResponse(response, products);
         } catch (Exception e) {

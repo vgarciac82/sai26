@@ -38,7 +38,7 @@ public class ComisionSinViaticosManager {
     }
 
     public static void liberaVuelos(Connection conn, int nFolioComision) throws Exception {
-        log.debug("Object: {}", "Se liberaran los vuelos en el Com. sin Viat. " + nFolioComision);
+        log.debug("Object: " + String.valueOf("Se liberaran los vuelos en el Com. sin Viat. " + nFolioComision));
         StringBuilder query = new StringBuilder();
         query.append(" UPDATE	tLayoutVuelosDet ");
         query.append("    SET	tLayoutVuelosDet.Status = 'A' ");

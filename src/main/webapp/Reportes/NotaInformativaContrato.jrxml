@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="NotaInformativa" pageWidth="612" pageHeight="792" columnWidth="550" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="86527ea0-8035-4411-893e-f1665e15706e">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sai_2025"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<parameter name="where2" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="esIntegrada" class="java.lang.Integer"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="puesto" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[declare @compromiso varchar(20) =$P{where2} 
+declare @contrato varchar(50) = (SELECT cIdContrato from tCompromisoEncabezado where caNoCompromiso = @compromiso )
+declare @esIntegrada int = $P{esIntegrada} 
+
+
+create table #CONTRATO  (
+PARTIDA int,
+TOTAL_ANUAL money,
+cesCalendario varchar(1),
+TIPO varchar(1),
+cTipoContrato varchar(4),
+cIdContrato varchar(100)
+)
+
+IF (@esIntegrada = 0)
+BEGIN
+
+INSERT INTO #CONTRATO
+SELECT  PARTIDA, SUM(TOTAL_ANUAL) TOTAL_ANUAL
+, cesCalendario 
+, TIPO 
+, cTipoContrato
+,cIdContrato
+FROM
+ (
+	SELECT SUBSTRING(EP,32,5) PARTIDA
+	, SUM(DET.mImporte) TOTAL_ANUAL
+	, comp.cesCalendario
+	, case WHEN SUM(MIMPORTE) > 0 THEN 'A' ELSE 'R' END TIPO
+	, cTipoContrato
+	, comp.cIdContrato
+	FROM tCompromisoEncabezado comp 
+	INNER JOIN tCompromisoDetalle DET
+	ON comp.nFolioCompromiso = DET.nFolioCompromiso
+	WHERE caNoCompromiso =  @compromiso
+	GROUP BY SUBSTRING(EP,32,5) , cMes, comp.cesCalendario, cTipoContrato, comp.cIdContrato
+	 ) AS CONTRATO
+	 GROUP BY PARTIDA, cesCalendario, TIPO, cTipoContrato, cIdContrato
+END 
+ELSE
+BEGIN 
+
+SET @contrato = ( SELECT top 1 cIdContrato FROM tCompromisoEncabezado C INNER JOIN tIntegraFoliosCompromiso I ON C.nFolioCompromiso = I.nFolioCompromiso AND I.caNoIntegradaComp = @compromiso )
+
+
+INSERT INTO #CONTRATO
+SELECT  PARTIDA, SUM(TOTAL_ANUAL) TOTAL_ANUAL
+, cesCalendario
+, TIPO
+, cTipoContrato
+,cIdContrato
+FROM
+ (
+	SELECT SUBSTRING(EP,32,5) PARTIDA
+	, SUM(DET.mImporte) TOTAL_ANUAL
+	, comp.cesCalendario
+	, case WHEN SUM(MIMPORTE) > 0 THEN 'A' ELSE 'R' END TIPO
+	, cTipoContrato
+	, comp.cIdContrato
+	FROM tCompromisoEncabezado comp 
+	INNER JOIN tCompromisoDetalle DET
+	ON comp.nFolioCompromiso = DET.nFolioCompromiso
+	INNER JOIN tIntegraFoliosCompromiso Integra
+	on comp.nFolioCompromiso = Integra.nFolioCompromiso
+	WHERE Integra.caNoIntegradaComp =  @compromiso
+	GROUP BY SUBSTRING(EP,32,5) , cMes, comp.cesCalendario, cTipoContrato, comp.cIdContrato
+	 ) AS CONTRATO
+	 GROUP BY PARTIDA, cesCalendario, TIPO, cTipoContrato, cIdContrato
+	  
+END
+	  
+
+DECLARE @noConvenio varchar(200), @fInicioConv date, @fFinConv date 
+select 
+                @noConvenio = MIN(cNoConvenio),
+                @fInicioConv = MIN(fInicio),
+                @fFinConv = MAX(fTermino)
+		
+from 
+(              select cont.cIdContratoDefinitivo,cont.nConsecutivoModificacion
+                      ,cont.nEstado,cont.cNoConvenio,cContratoDefinitivo
+                from mContratoModificado cont with(Nolock)
+				UNION 
+                select contCap4.cIdContratoDefinitivo,contCap4.nConsecutivoModificacion
+                      ,contCap4.nEstatus nEstado,contCap4.cNoConvenio,cContratoDefinitivo
+                from mContratoModificadoCap4 contCap4 with(Nolock)
+)cont
+inner join  pContratoDiversoConvenio conv with(Nolock)
+on cont.cIdContratoDefinitivo=conv.cIdContrato
+and cont.nConsecutivoModificacion=conv.nConsecutivoModificacion
+and cont.cContratoDefinitivo=conv.cIdModificacion
+where cont.nEstado=4
+AND cont.cIdContratoDefinitivo LIKE  @contrato
+group by cont.cIdContratoDefinitivo
+
+
+
+declare @parrafo1 as varchar(max),@parrafo2 as varchar(max),@parrafoDisminucion as varchar(max), @parrafoConvenio as varchar(max),
+		@proveedor varchar(1000), @vigencia varchar (100), @cnet varchar(100)
+
+select @parrafo1 = 'Se solicita la autorización del contrato <b>' + cNoContratoCNET + '</b> correspondiente al concepto de <b>"' + DescripcionPedCont 
++ '"</b>, de la partida especifica  ' + REPLACE(partida, ';', ',') 
++ ' y adjudicado al proveedor con RFC: <b>'  + cidrfc
++ '</b> y Nombre: ' + razonsocial 
++ ' durante el presente ejercicio fiscal actual, por el monto de <b>' + importe + '</b> (' + cantidadLetra + ').' ,
+ @parrafo2 = 'Se solicita la autorización del pedido <b>' + cNoContratoCNET + '</b> correspondiente al concepto de  <b>"' + DescripcionPedCont 
+ + '"</b>, de la partida especifica  ' + REPLACE(partida, ';', ',') 
+ + ' y adjudicado al proveedor con RFC: <b>'  + cidrfc 
+ + '</b> y Nombre: ' + razonsocial 
+ + ' durante el presente ejercicio fiscal actual, por el monto de <b>' + importe + '</b> (' + cantidadLetra + ').',
+  @parrafoDisminucion = 'Se solicita la autorización del <b>DECREMENTO</b> del  ' +
+  case when cTipoContrato = 'PD' THEN 'pedido ' ELSE 'contrato ' end
+ + '<b>'+ cNoContratoCNET + '</b> derivado del concepto <b>"No se logró concretar la entrega del bien/servicio" </b>, de la partida especifica  ' + REPLACE(partida, ';', ',') 
+ + ' y adjudicado al proveedor con RFC: <b>'  + cidrfc 
+ + '</b> y Nombre: ' + razonsocial 
+ + ' durante el presente ejercicio fiscal actual, por el monto de <b>' + importe + '</b> (' + cantidadLetra + ').',
+@parrafoConvenio = 'Se solicita la autorización del <b>CONTRATO MODIFICATORIO</b> ' + @noConvenio + ' del contrato  <b>' + cNoContratoCNET 
++ '</b> correspondiente al concepto de <b>"' + DescripcionPedCont + '"</b>, de la partida especifica  ' + REPLACE(partida, ';', ',') 
++ ' y adjudicado al proveedor con RFC: <b>' + cidrfc 
++ '</b> y Nombre: ' + razonsocial 
++ ' durante el presente ejercicio fiscal actual, por el monto de <b>' + importe + '</b> (' + cantidadLetra + ')',
+@proveedor = RazonSocial,
+@cnet = cNoContratoCnet
+from (
+
+--SELECT [Contrato CNET] cNoContratoCNET, REPLACE([CONCEPTO DEL CONTRATO], '"', '') DescripcionPedCont, [Partida Presupuestal] partida, [Razón Social] razonsocial, [Fecha Inicio] fechainicio, [Fecha Fin] fechafin
+--, cidrfc,  '$' + CONVERT(VARCHAR, CAST("Monto Neto máximo"  AS MONEY), 1)  importe,  dbo.fnCantidadLetra("Monto Neto máximo") cantidadLetra
+--FROM [v_mMontoMaximoContratoPartPresupuestal] 
+--WHERE  [Contrato SAI]  = @contrato
+--UNION
+
+select comp.cIdContrato cNoContratoCnet
+, cConceptoContrato DescripcionPedCont
+, isnull((select dbo.fn_mCadenaPartidasContrato(PD.cIdContrato)),'')partida
+, ISNULL(BEN.dNombre, '') + ' ' + ISNULL(BEN.dApellidoPaterno, '') + ' '+ ISNULL(BEN.dApellidoMaterno, '') razonsocial
+--,  CONVERT(varchar(10), fContratoIni, 103) fContratoIni,  CONVERT(varchar(10), fContratoFin, 103) fContratoFin
+, cidrfc, '$' + CONVERT(VARCHAR, CAST(mimportetotal  AS MONEY), 1)  importe, dbo.fnCantidadLetra(mimporteTotal) cantidadLetra
+, cTipoContrato
+from pContratoDiverso PD WITH (NOLOCK)
+INNER JOIN tBeneficiario BEN WITH (NOLOCK)
+ON PD.cIdRFC = BEN.dRFC
+INNER JOIN #CONTRATO comp WITH (NOLOCK)
+ON  comp.cIdContrato = PD.cIdContrato 
+where   comp.cIdContrato = @contrato
+
+UNION
+
+select comp.cIdContrato
+, cObjetoContrato
+, isnull((select dbo.fn_mCadenaPartidasContrato(PD.cIdContrato)),'')partida
+, ISNULL(BEN.dNombre, '') + ' ' + ISNULL(BEN.dApellidoPaterno, '') + ' '+ ISNULL(BEN.dApellidoMaterno, '') NOMBRE
+--,  CONVERT(varchar(10), fContratoIni, 103) fContratoIni,  CONVERT(varchar(10), fContratoFin, 103) fContratoFin
+, cidrfc, '$' + CONVERT(VARCHAR, CAST(mTotal  AS MONEY), 1)  importe, dbo.fnCantidadLetra(mTotal) cantidadLetra
+, comp.cTipoContrato
+from pContratoFederalizado PD WITH (NOLOCK)
+INNER JOIN tBeneficiario BEN WITH (NOLOCK)
+ON PD.cIdRFC = BEN.dRFC
+INNER JOIN #CONTRATO comp WITH (NOLOCK)
+ON  comp.cIdContrato = PD.cIdContrato 
+where   comp.cIdContrato = @contrato
+
+UNION
+
+select comp.cIdContrato
+, cObjetoContrato
+, isnull((select dbo.fn_mCadenaPartidasContrato(PD.cIdContrato)),'')partida
+, ISNULL(BEN.dNombre, '') + ' ' + ISNULL(BEN.dApellidoPaterno, '') + ' '+ ISNULL(BEN.dApellidoMaterno, '') NOMBRE
+--,  CONVERT(varchar(10), fContratoIni, 103) fContratoIni,  CONVERT(varchar(10), fContratoFin, 103) fContratoFin
+, cidrfc, '$' + CONVERT(VARCHAR, CAST(mTotal  AS MONEY), 1)  importe, dbo.fnCantidadLetra(mTotal) cantidadLetra
+, comp.cTipoContrato
+from pContratoObra PD WITH (NOLOCK)
+INNER JOIN tBeneficiario BEN WITH (NOLOCK)
+ON PD.cIdRFC = BEN.dRFC
+INNER JOIN #CONTRATO comp WITH (NOLOCK)
+ON  comp.cIdContrato = PD.cIdContrato 
+where   comp.cIdContrato = @contrato
+
+) as tbl
+
+
+SELECT  PARTIDA, ISNULL(TOTAL_ANUAL,0) TOTAL_ANUAL
+, case WHEN @noConvenio !='' THEN @parrafoConvenio
+WHEN tipo = 'R' THEN @parrafoDisminucion
+WHEN tipo = 'A' and cTipoContrato = 'PD' THEN @parrafo2
+else @parrafo1  end parrafo1
+, @proveedor proveedor
+, @cnet cnet
+, isnull(@noConvenio, '') folioConvenio
+, isnull(@fInicioConv, '') inicioConv
+, isnull(@fFinConv, '') finConvenio
+FROM #CONTRATO CONTRATO
+
+
+DROP TABLE #CONTRATO]]>
+	</queryString>
+	<field name="PARTIDA" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="PARTIDA"/>
+		<property name="com.jaspersoft.studio.field.label" value="PARTIDA"/>
+	</field>
+	<field name="TOTAL_ANUAL" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="TOTAL_ANUAL"/>
+		<property name="com.jaspersoft.studio.field.label" value="TOTAL_ANUAL"/>
+	</field>
+	<field name="parrafo1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="parrafo1"/>
+		<property name="com.jaspersoft.studio.field.label" value="parrafo1"/>
+	</field>
+	<field name="proveedor" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="proveedor"/>
+		<property name="com.jaspersoft.studio.field.label" value="proveedor"/>
+	</field>
+	<field name="cnet" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cnet"/>
+		<property name="com.jaspersoft.studio.field.label" value="cnet"/>
+	</field>
+	<field name="folioConvenio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="folioConvenio"/>
+		<property name="com.jaspersoft.studio.field.label" value="folioConvenio"/>
+	</field>
+	<field name="inicioConv" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="inicioConv"/>
+		<property name="com.jaspersoft.studio.field.label" value="inicioConv"/>
+	</field>
+	<field name="finConvenio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="finConvenio"/>
+		<property name="com.jaspersoft.studio.field.label" value="finConvenio"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="413" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="40" y="115" width="490" height="19" backcolor="#CCCCCC" uuid="7e6d7664-dd2e-4625-8b04-63ead4ec267b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N O T A   I N F O R M A T I V A]]></text>
+			</staticText>
+			<image>
+				<reportElement x="-1" y="33" width="459" height="50" uuid="ab0710b9-7ac7-49d3-9f98-ee1e925f5871"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\OficioEnc.jpg"]]></imageExpression>
+			</image>
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="40" y="248" width="490" height="144" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="fc11e8e2-2a89-42c9-8aee-188cee4f4274"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="SansSerif" size="12"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parrafo1}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="500" y="28" width="65" height="68" uuid="952fd58f-decf-43a9-a998-d39d1dadf2f4"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\OficioEnc2.jpg"]]></imageExpression>
+			</image>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="40" y="155" width="490" height="90" uuid="6b63896d-b9f7-47dc-8d49-de9d8f8aa322"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="SansSerif" size="12"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="1.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Con fundamento en el oficio con No. 411/UPCP/2025/0055 en el que se comunican las “Reglas Específicas del Ciclo Presupuestario Aplicables a los Ejecutores de Gasto en la Administración Pública Federal” en el punto 39, se requiere que la Titular de la UAF gestione el compromiso presupuestal a través del SICOP ante la DGPyP. \n"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} > 1]]></printWhenExpression>
+		</band>
+	</pageHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<pageFooter>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="290">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<image>
+				<reportElement x="-3" y="200" width="573" height="89" uuid="ba2e0b5a-dda4-4b6c-891e-204f5f837589"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\OficioPiePagina.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="40" y="105" width="490" height="19" uuid="0a6e1bfc-f198-4059-8c85-d0c5fe75d30d">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{puesto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="88" width="490" height="19" uuid="d1272966-f7ae-4197-a97d-722949a490b4">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="134" y="85" width="298" height="1" uuid="954b8f1e-ff19-48f8-b637-bdb018511616"/>
+			</line>
+			<staticText>
+				<reportElement x="40" y="2" width="490" height="28" uuid="cfc1e0f2-4274-4c8e-a0c1-fa7d9a61fcfe">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[Atentamente,]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

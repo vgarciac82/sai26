@@ -462,7 +462,7 @@ public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
         Date date = new java.util.Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String fecha = sdf.format(date);
-        String cFileExcel = upload.getRepositoryPath() + "/plantillaFAP01.xls";
+        String cFileExcel = getServletContext().getRealPath("/upload") + "/plantillaFAP01.xls";
         InputStream inp = new FileInputStream(cFileExcel);
         Workbook wb = new HSSFWorkbook(inp);
         Sheet sheet = wb.getSheetAt(0);
@@ -541,7 +541,7 @@ public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
         imprimeFAP02(wb, fiscal, arrAdecAmpliacion, arrAdecReduccion, fecha, c.getFolio());
         imprimeMETA(wb, arrActividadInstitucional);
         //imprimeResponsable(sheet, numfilas + 8, responsable, area);
-        wb.write(response.getOutputStream().toPath());
+        wb.write(response.getOutputStream());
     }
 
     public int imprimeSaldos(Sheet sheet, List<Fap01> saldoR, double[] suma, int numfila, char tipo, int secuencia, CellStyle estiloBordeDerecho) {
@@ -739,7 +739,7 @@ public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
         //Date date = new java.util.Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String fecha = sdf.format(dSubtitulo3);
-        String cFileExcel = upload.getRepositoryPath() + "/PlantillaIntegracion.xls";
+        String cFileExcel = getServletContext().getRealPath("/upload") + "/PlantillaIntegracion.xls";
         String cTituloFor = "FOLIO INTERNO:" + nConsecutivoSICOP + "  Fecha Generación :" + fecha;
         InputStream inp = new FileInputStream(cFileExcel);
         Workbook wb = new HSSFWorkbook(inp);
@@ -843,7 +843,7 @@ public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
         cellPieR4.setCellValue(mTotalAmpliaciones);
         cellPieR5.setCellValue(mTotalReducciones);
         cellPieR6.setCellValue(mTotalAmpliaciones - mTotalReducciones);
-        wb.write(response.getOutputStream().toPath());
+        wb.write(response.getOutputStream());
         wb.close();
     }
 
@@ -1018,7 +1018,7 @@ public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         workbook.close();
         bos.flush();
@@ -1155,7 +1155,7 @@ public class LayoutIntegraAdecuaSicopServlet extends HttpServlet {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         workbook.close();
         /* Cierra Flujos */
         bos.flush();

@@ -93,7 +93,7 @@ public class RelacionEFProgramaBusinessLogic extends DataSourceManager {
                 Cell CellcActividadInstitucional = row.getCell(4);
                 Cell CellcProgramaPresupuestario = row.getCell(5);
                 if (CellcgrupoFuncional != null) {
-                    log.debug("Object: {}", "Procesando renglon " + (renglon));
+                    log.debug("Object: " + String.valueOf("Procesando renglon " + (renglon)));
                     try {
                         String cgrupoFuncional = CellcgrupoFuncional.getStringCellValue();
                         String cFuncion = CellcFuncion.getStringCellValue();
@@ -108,7 +108,7 @@ public class RelacionEFProgramaBusinessLogic extends DataSourceManager {
                         renglonMap.put("cProgramaGeneral", cProgramaGeneral);
                         renglonMap.put("cActividadInstitucional", cActividadInstitucional);
                         renglonMap.put("cProgramaPresupuestario", cProgramaPresupuestario);
-                        log.debug("Object: {}", "cgrupoFuncional[" + cgrupoFuncional + "] cFuncion[" + cFuncion + "]cSubFuncion[" + cSubFuncion + "]cProgramaGeneral[" + cProgramaGeneral + "]cActividadInstitucional[" + cActividadInstitucional + "]cProgramaPresupuestario[" + cProgramaPresupuestario + "]");
+                        log.debug("Object: " + String.valueOf("cgrupoFuncional[" + cgrupoFuncional + "] cFuncion[" + cFuncion + "]cSubFuncion[" + cSubFuncion + "]cProgramaGeneral[" + cProgramaGeneral + "]cActividadInstitucional[" + cActividadInstitucional + "]cProgramaPresupuestario[" + cProgramaPresupuestario + "]"));
                         RelacionEFProgramaManager.insertaRenglonRelacionEFPrograma(conn, renglonMap);
                     } catch (Exception e) {
                         renglonInsertada = false;

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN" "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+
+<taglib>
+    <tlibversion>2.0</tlibversion>
+    <jspversion>1.2</jspversion>
+    <shortname>Prize Tags - Alternate Tag</shortname>
+    <uri>http://www.jenkov.com/projects/prizetags</uri>
+
+    <!--
+    <displayname>Prize Tags</displayname>
+
+    <description>
+    This little tag library can generate html trees from an com.jenkov.prizetags.tree.itf.ITreeNode tree.
+    It can expand/collapse nodes in the tree, and manage links on the nodes.
+
+    It can also generate nice calendar style tables containing events etc.
+    </description>
+    -->
+
+
+
+    <!-- These tags are for the calendar tags -->
+    <tag>
+        <name>alternateDefinition</name>
+        <tagclass>com.jenkov.prizetags.alternate.impl.AlternateDefinitionTag</tagclass>
+        <bodycontent>Empty</bodycontent>
+
+        <attribute>
+            <name>altId</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>scope</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>from</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>to</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>altValues</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>startAt</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+    </tag>
+
+    <tag>
+        <name>alternate</name>
+        <tagclass>com.jenkov.prizetags.alternate.impl.AlternateTag</tagclass>
+        <bodycontent>Empty</bodycontent>
+
+        <attribute>
+            <name>altId</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>scope</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>alternateMatch</name>
+        <tagclass>com.jenkov.prizetags.alternate.impl.AlternateMatchTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+
+        <attribute>
+            <name>altId</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>altValues</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>scope</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>alternateValue</name>
+        <tagclass>com.jenkov.prizetags.alternate.impl.AlternateValueTag</tagclass>
+        <bodycontent>Empty</bodycontent>
+
+        <attribute>
+            <name>altId</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>scope</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+</taglib>

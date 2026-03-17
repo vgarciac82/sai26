@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MatrizConversionDevengado"  pageWidth="830" pageHeight="595" orientation="Landscape" columnWidth="790" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5026296018031589"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT m.ID_TIPO_CONCEPTO
+	, TIPO_CONCEPTO
+	, cPartida
+	, cTipoGasto
+	, cFuenteFinanciamiento
+	, 'Banco Moned.Nac.' AS metodoPago
+	, cEvento
+	, SUBSTRING(cCtaCargo,1,5) AS cCtaCargo
+	, ctasc.dCuenta AS dCtaCargo
+	, SUBSTRING(cCtaAbono,1,5) AS cCtaAbono
+	, ctasa.dCuenta as dCtaAbono
+	, CASE WHEN cRetenciones = '0' THEN '' ELSE cRetenciones  END cRetenciones
+	, m.ID_DESTINO_GASTO
+	, (SELECT DESTINO_GASTO FROM CAT_DESTINO_GASTO AS dg WITH (NOLOCK) WHERE m.ID_DESTINO_GASTO = dg.ID_DESTINO_GASTO AND m.cFuenteFinanciamiento = dg.FuenteFinanciamiento ) AS DESTINO_GASTO
+	, ISNULL(MODULO,'RELACIONGASTOS') AS MODULO
+FROM tMatrizContable AS m WITH (NOLOCK)
+JOIN CAT_TIPO_CONCEPTO AS tc WITH (NOLOCK) ON m.ID_TIPO_CONCEPTO = tc.ID_TIPO_CONCEPTO
+LEFT OUTER JOIN tDestinoGastoModulo AS dgm WITH (NOLOCK) ON m.ID_DESTINO_GASTO = dgm.ID_DESTINO_GASTO
+JOIN tCuentas ctasc WITH(NOLOCK) ON m.cCtaCargo = ctasc.nCuenta
+JOIN tCuentas ctasa WITH(NOLOCK) ON m.cCtaAbono = ctasa.nCuenta
+WHERE idTipoMatriz = 2
+ORDER BY MODULO, m.ID_TIPO_CONCEPTO, cPartida, cEvento, cCtaCargo]]>
+	</queryString>
+	<field name="ID_TIPO_CONCEPTO" class="java.lang.String"/>
+	<field name="TIPO_CONCEPTO" class="java.lang.String"/>
+	<field name="cPartida" class="java.lang.String"/>
+	<field name="cTipoGasto" class="java.lang.Integer"/>
+	<field name="cFuenteFinanciamiento" class="java.lang.Integer"/>
+	<field name="metodoPago" class="java.lang.String"/>
+	<field name="cEvento" class="java.lang.String"/>
+	<field name="cCtaCargo" class="java.lang.String"/>
+	<field name="dCtaCargo" class="java.lang.String"/>
+	<field name="cCtaAbono" class="java.lang.String"/>
+	<field name="dCtaAbono" class="java.lang.String"/>
+	<field name="cRetenciones" class="java.lang.String"/>
+	<field name="ID_DESTINO_GASTO" class="java.lang.String"/>
+	<field name="DESTINO_GASTO" class="java.lang.String"/>
+	<field name="MODULO" class="java.lang.String"/>
+	<pageHeader>
+		<band height="22">
+			<staticText>
+				<reportElement positionType="Float" x="246" y="4" width="289" height="15" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[2 MATRIZ DE PAGADO DE GASTOS]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="34" splitType="Stretch">
+			<line>
+				<reportElement x="501" y="19" width="1" height="14"/>
+			</line>
+			<staticText>
+				<reportElement x="256" y="6" width="76" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fuente Financiamiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="6" width="44" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo Concepto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="457" y="19" width="44" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuenta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="501" y="19" width="117" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuenta Cargo]]></text>
+			</staticText>
+			<line>
+				<reportElement x="45" y="4" width="1" height="29"/>
+			</line>
+			<line>
+				<reportElement x="457" y="18" width="329" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="157" y="6" width="67" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Partida]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="4" width="1" height="29"/>
+			</line>
+			<staticText>
+				<reportElement x="224" y="6" width="31" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo Gasto]]></text>
+			</staticText>
+			<line>
+				<reportElement x="456" y="4" width="1" height="29"/>
+			</line>
+			<staticText>
+				<reportElement x="665" y="19" width="121" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuenta Abono]]></text>
+			</staticText>
+			<line>
+				<reportElement x="255" y="5" width="1" height="29"/>
+			</line>
+			<line>
+				<reportElement x="156" y="4" width="1" height="29"/>
+			</line>
+			<line>
+				<reportElement x="665" y="19" width="1" height="14"/>
+			</line>
+			<staticText>
+				<reportElement x="619" y="19" width="47" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuenta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="6" width="56" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Evento]]></text>
+			</staticText>
+			<line>
+				<reportElement x="618" y="19" width="1" height="14"/>
+			</line>
+			<line>
+				<reportElement x="1" y="4" width="786" height="1"/>
+			</line>
+			<line>
+				<reportElement x="223" y="5" width="1" height="29"/>
+			</line>
+			<staticText>
+				<reportElement x="46" y="6" width="110" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Concepto]]></text>
+			</staticText>
+			<line>
+				<reportElement x="332" y="5" width="1" height="29"/>
+			</line>
+			<line>
+				<reportElement x="786" y="5" width="1" height="28"/>
+			</line>
+			<staticText>
+				<reportElement x="457" y="5" width="329" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuentas Contables]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="7" width="67" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Medio de Pago]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="33" width="787" height="1"/>
+			</line>
+			<line>
+				<reportElement x="400" y="5" width="1" height="29"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="619" y="1" width="46" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cCtaAbono}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="458" y="1" width="43" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cCtaCargo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="224" y="1" width="31" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{cTipoGasto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="51" y="1" width="100" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TIPO_CONCEPTO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="3" y="1" width="42" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ID_TIPO_CONCEPTO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="158" y="1" width="65" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cPartida}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="400" y="1" width="56" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cEvento}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="256" y="1" width="75" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{cFuenteFinanciamiento}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="671" y="1" width="112" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dCtaAbono}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="665" y="-1" width="1" height="23" isPrintWhenDetailOverflows="true"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="618" y="-1" width="1" height="23" isPrintWhenDetailOverflows="true"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="786" y="0" width="1" height="22" isPrintWhenDetailOverflows="true"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="506" y="1" width="112" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dCtaCargo}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="501" y="-1" width="1" height="23" isPrintWhenDetailOverflows="true"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="456" y="-1" width="1" height="23" isPrintWhenDetailOverflows="true"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="400" y="0" width="1" height="22"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="332" y="0" width="1" height="22"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="255" y="0" width="1" height="22"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="223" y="0" width="1" height="22"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="156" y="0" width="1" height="22"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="45" y="0" width="1" height="22"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="22"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="336" y="1" width="60" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{metodoPago}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

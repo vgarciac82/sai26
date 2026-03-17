@@ -48,7 +48,7 @@ public class ProyectoServicioExcepcionController extends HttpServlet {
             int idTipoExcepcion = Integer.parseInt(req.getParameter("tipo_excepcion"));
             log.info("Error occurred", "Looking for last version to project with id: " + req.getParameter("id") + " AND exception type id: " + idTipoExcepcion);
             int consecutivo = proyectoExcepcionService.getMaxConsecutivo(idProyecto, idTipoExcepcion);
-            log.debug("Object: {}", "version founded: " + consecutivo);
+            log.debug("Object: " + String.valueOf("version founded: " + consecutivo));
             Map<String, Integer> result = new HashMap<String, Integer>();
             result.put("version", consecutivo);
             Util.sendJSONResponse(response, result);
@@ -62,7 +62,7 @@ public class ProyectoServicioExcepcionController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProyectoExcepcionDTO proyectoExcepcionDTO = mapper.readValue(req.getInputStream(), ProyectoExcepcionDTO.class);
         ProyectoServicio project = proyectoExcepcionService.creaCopiaInicial(proyectoExcepcionDTO);
-        log.debug("Object: {}", "Project founded: " + project);
+        log.debug("Object: " + String.valueOf("Project founded: " + project));
         Util.sendJSONResponse(resp, project);
         log.info("Object: {}", "Creando clon de proyecto: " + proyectoExcepcionDTO);
     }

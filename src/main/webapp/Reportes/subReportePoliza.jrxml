@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subReportePoliza" pageWidth="707" pageHeight="612" orientation="Landscape" columnWidth="707" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="f020db60-339c-44ed-bb56-e064de97f228">
+	<property name="ireport.zoom" value="2.1435888100000122"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sai_2022"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="contrarrecibo" class="java.lang.String">
+		<defaultValueExpression><![CDATA["10CP2022118300"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[-- Detalle poliza
+DECLARE @laPoliza varchar(10)
+DECLARE @cUnidadResponsable varchar(10)
+DECLARE @cTipoPoliza varchar(10)
+DECLARE @cTipoObra varchar(10)
+DECLARE @cIdTipoPago varchar(1)
+declare @cuantos smallint
+DECLARE @noFolio INT
+DECLARE @ctaBanc VARCHAR(100)
+DECLARE @laPolizaCancelacion varchar(10)
+DECLARE @estatus varchar(10)
+DECLARE @cTipoPago VARCHAR(64)
+DECLARE @nFolioPago INT
+
+
+select @noFolio = nFolioPago
+    , @laPoliza= nFolioPoliza
+    , @cTipoPoliza = cTipoPoliza
+    , @cUnidadResponsable = cIDEntidadContable
+    , @cTipoObra = tipoObra
+    , @cIdTipoPago = cIdTipoPago
+    , @ctaBanc = CTAB
+    , @laPolizaCancelacion = nFolioPolizaCancelacion
+    , @estatus=cDocumentoHaplicado
+    , @cTipoPago = cTipoDePago
+from (
+    select nFolioRELACIONGASTOS nFolioPago
+        ,nFolioPoliza
+        , cTipoPoliza
+        , cconcepto
+        , canocontrarrecibo
+        ,'RELGASTO' tipoObra
+        , cUnidadResponsable
+        , cast('' as varchar(5)) cnoEstimacion
+        , '' Periodo
+        , cCentroContable cIdEntidadContable
+        , TIPO_OPERACION cIdTipoPago
+        , CASE WHEN cPagoReferenciado = 'S' THEN (CTAB + '-' + ISNULL(cReferenciaBancaria, '') ) ELSE CTAB END AS CTAB
+        , nFolioPolizaCancelacion
+        , cDocumentoHaplicado
+        , 'RELACIONGASTOS' as cTipoDePago
+  from trelaciongastosencabezado  with(NOLOCK) 
+	where 1 = 1  
+ 	and canocontrarrecibo =$P{contrarrecibo} 
+	
+) CR 
+ 
+
+ SET @nFolioPago = @noFolio
+
+--las de mayor
+IF (SELECT OBJECT_ID('tempdb..#tmp_polizapagos'))   IS NOT NULL	DROP TABLE #tmp_polizapagos
+IF (SELECT OBJECT_ID('tempdb..#tmp_detalle2'))      IS NOT NULL	DROP TABLE #tmp_detalle2
+IF (SELECT OBJECT_ID('tempdb..#tmp_TablaFinal')) 	IS NOT NULL	DROP TABLE #tmp_TablaFinal
+
+
+select * into #tmp_polizapagos 
+from (  -- 1er nivel
+		select substring(m.nCuenta, 1,5) Cuenta
+				, '' subCuenta
+				, '' subSubCuenta
+				, calmacen
+				, dCuenta cnombre
+				, dCuenta descripcion
+				, dCuenta
+				, m.ctipomovimiento
+				, m.nCuenta
+				, sum(mMovimiento) mMovimiento2
+		FROM tcuentas c with(NOLOCK)
+			, tmovimiento m with(NOLOCK)
+			left join cat_almacen a with(NOLOCK) 
+				on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+		where  substring(m.ncuenta,1,5)+'-00000-00000-00000'= c.ncuenta  
+				and nFolioPoliza = @laPoliza 
+				AND m.cCentroContable = @cUnidadResponsable 
+				and cTipopoliza =@cTipoPoliza 
+				and mmovimiento != 0  
+				AND not(c.TipoBalance='P' and c.TipoCuenta='P')
+			group by substring(m.nCuenta, 1,5) 
+				,calmacen
+				, dCuenta
+				,dCuenta
+				,dCuenta, m.ctipomovimiento, m.nCuenta
+			
+	union
+		--2o nivel
+		select '' Cuenta
+			, substring(m.nCuenta, 7,5)  subCuenta
+			, '' subSubCuenta
+			, calmacen
+			, dcuenta cnombre
+			, '  ' + dCuenta descripcion
+			, dCuenta
+			, m.ctipomovimiento
+			, m.nCuenta/*, m.**/, 0 mMovimiento2
+		from tcuentas c with(NOLOCK)
+		   , tmovimiento m with(NOLOCK)
+		left join cat_almacen a with(NOLOCK) 
+			on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+		where substring(m.ncuenta,1,11)+'-00000-00000'= c.ncuenta 
+			and nFolioPoliza = @laPoliza 
+			AND m.cCentroContable = @cUnidadResponsable 
+			and cTipopoliza =@cTipoPoliza 
+			and mmovimiento != 0
+			and substring(m.nCuenta, 7,5) != '00000' 
+			AND not(c.TipoBalance='P' and c.TipoCuenta='P')
+		group by substring(m.nCuenta, 7,5)
+			,	calmacen
+			, dcuenta
+			,'  ' + dCuenta
+			, dCuenta
+			, m.ctipomovimiento
+			, m.nCuenta
+
+	union
+		--3er nivel
+		select '' Cuenta
+			, ''  subCuenta
+			, substring(m.nCuenta, 13,5) subSubCuenta
+			, calmacen
+			, dCuenta cnombre
+			, '    ' + dCuenta descripcion
+			, dCuenta
+			, m.ctipomovimiento
+			, m.nCuenta
+			, 0 mMovimiento2
+		from tcuentas c with(NOLOCK)
+			, tmovimiento m with(NOLOCK)
+		left join cat_almacen a with(NOLOCK) 
+			on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+		where substring(m.ncuenta,1,17)+'-00000'= c.ncuenta 
+			and nFolioPoliza = @laPoliza 
+			AND m.cCentroContable = @cUnidadResponsable 
+			and cTipopoliza =@cTipoPoliza 
+			and mmovimiento != 0 
+			and substring(m.nCuenta, 13,5) != '00000' 
+			AND not(c.TipoBalance='P' and c.TipoCuenta='P')
+		group by substring(m.nCuenta, 13,5)
+			, calmacen
+			, dCuenta
+			, '    ' + dCuenta
+			, dCuenta
+			, m.ctipomovimiento
+			, m.nCuenta
+		
+	union
+		select '' Cuenta
+			, ''subCuenta
+			, case when nSubCuenta = ''
+				then substring(m.nCuenta, 13,5) 
+				else case when cnombre is null 
+						then calmacen 
+						else nSubCuenta 
+					 end 
+			  end subSubCuenta
+			, calmacen
+			, cnombre
+			, '      ' + case when nSubCuenta = ''
+							  then substring(m.nCuenta, 13,5) 
+							  else case when cnombre is null 
+							  			then calmacen 
+										else '[' + nSubCuenta+']'+cNombre 
+								   end 
+						end descripcion
+			, dCuenta
+			, m.ctipomovimiento
+			, m.nCuenta
+			, 0 mMovimiento2
+		from tcuentas c (nolock)
+			,  tmovimiento m (nolock)
+			left join cat_almacen a  (nolock) 
+				on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+			left join v_pcatalogorfc rfc (nolock)
+				on cidrfc=nsubcuenta
+		where m.nSubcuenta != '' 
+			and m.ncuenta = c.ncuenta 
+			and nFolioPoliza = @laPoliza 
+			AND m.cCentroContable = @cUnidadResponsable 
+			and cTipopoliza =@cTipoPoliza 
+			and mmovimiento != 0 
+			AND not(c.TipoBalance='P' and c.TipoCuenta='P')
+		group by case when nSubCuenta = ''
+					  then substring(m.nCuenta, 13,5) 
+					  else case when cnombre is null 
+							    then calmacen 
+								else nSubCuenta 
+						   end 
+				end
+			, calmacen
+			, cnombre
+			, '      ' + case when nSubCuenta = ''
+							  then substring(m.nCuenta, 13,5) 
+							  else case when cnombre is null 
+							  		 	then calmacen 
+										else '[' + nSubCuenta+']'+cNombre 
+								   end 
+						 end
+			, dCuenta
+			, m.ctipomovimiento
+			, m.nCuenta  ) detalle
+		order by ncuenta
+			, cuenta desc
+			, subcuenta desc
+			, subsubcuenta
+			, ctipomovimiento desc
+
+set @cuantos = 0
+select @cuantos = count(*) from #tmp_polizapagos with(NOLOCK)
+
+if @cuantos = 0
+	BEGIN
+		insert into #tmp_polizapagos
+			select * 
+			from (	-- 1er nivel
+					select substring(m.nCuenta, 1,5) Cuenta
+						, '' subCuenta
+						, '' subSubCuenta
+						, calmacen
+						, dCuenta cnombre
+						, dCuenta descripcion
+						, dCuenta
+						, m.ctipomovimiento
+						, m.nCuenta/*,  m.**/
+						, sum(mMovimiento) mMovimiento2
+					from tcuentas c with(NOLOCK)
+						, tmovimiento m with(NOLOCK)
+						left join cat_almacen a (nolock) on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+						--left join v_pcatalogorfc rfc (nolock) on cidrfc=nsubcuenta
+					where /*m.ncuenta = c.ncuenta */ substring(m.ncuenta,1,5)+'-00000-00000-00000'= c.ncuenta  
+						and nFolioPoliza = @laPoliza 
+						AND m.cCentroContable = @cUnidadResponsable 
+						and cTipopoliza =@cTipoPoliza 
+						and mmovimiento != 0
+					group by substring(m.nCuenta, 1,5) 
+						, calmacen
+						, dCuenta
+						, dCuenta
+						, dCuenta
+						, m.ctipomovimiento
+						, m.nCuenta
+				union
+					--2o nivel
+					select '' Cuenta,substring(m.nCuenta, 7,5)  subCuenta
+						, '' subSubCuenta
+						, calmacen
+						, dcuenta cnombre
+						, '  ' + dCuenta descripcion
+						, dCuenta
+						, m.ctipomovimiento
+						, m.nCuenta/*, m.**/
+						, 0 mMovimiento2
+					from tcuentas c with(NOLOCK)
+					   	, tmovimiento m with(NOLOCK)
+						left join cat_almacen a (nolock) 
+							on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+						--left join v_pcatalogorfc rfc on cidrfc=nsubcuenta
+					where /*m.ncuenta*/  substring(m.ncuenta,1,11)+'-00000-00000'= c.ncuenta 
+						and nFolioPoliza = @laPoliza 
+						AND m.cCentroContable = @cUnidadResponsable 
+						and cTipopoliza =@cTipoPoliza 
+						and mmovimiento != 0 
+						and substring(m.nCuenta, 7,5) != '00000'
+					group by substring(m.nCuenta, 7,5)
+						, calmacen, dcuenta
+						, '  ' + dCuenta
+						, dCuenta
+						, m.ctipomovimiento
+						, m.nCuenta
+				union
+					--3er nivel
+					select '' Cuenta
+						, ''  subCuenta
+						, substring(m.nCuenta, 13,5) subSubCuenta
+						, calmacen
+						, dCuenta cnombre
+						, '    ' + dCuenta descripcion
+						, dCuenta
+						, m.ctipomovimiento
+						, m.nCuenta/*, m.**/
+						, 0 mMovimiento2
+					from tcuentas c with(NOLOCK)
+						, tmovimiento m with(NOLOCK)
+						left join cat_almacen a (nolock) 
+							on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+					where substring(m.ncuenta,1,17)+'-00000'= c.ncuenta 
+						and nFolioPoliza = @laPoliza 
+						AND m.cCentroContable = @cUnidadResponsable 
+						and cTipopoliza =@cTipoPoliza 
+						and mmovimiento != 0 
+						and substring(m.nCuenta, 13,5) != '00000'
+					group by substring(m.nCuenta, 13,5)
+						, calmacen, dCuenta
+						, '    ' + dCuenta
+						, dCuenta
+						, m.ctipomovimiento
+						, m.nCuenta
+				union
+					select '' Cuenta
+						, ''subCuenta
+						, case when nSubCuenta = ''
+							   then substring(m.nCuenta, 13,5) 
+							   else case when cnombre is null 
+							   			 then calmacen 
+										 else nSubCuenta 
+								    end 
+						  end subSubCuenta
+						, calmacen
+						, cnombre
+						, '      ' + case when nSubCuenta = ''
+										  then substring(m.nCuenta, 13,5) 
+										  else case when cnombre is null 
+										  			then calmacen 
+													else '[' + nSubCuenta+']'+cNombre 
+											   end 
+									 end descripcion
+						, dCuenta
+						, m.ctipomovimiento
+						, m.nCuenta/*, m.**/
+						, 0 mMovimiento2
+					from tcuentas c (nolock)
+						,  tmovimiento m (nolock)
+						left join cat_almacen a (nolock) on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+						left join v_pcatalogorfc rfc (nolock) on cidrfc=nsubcuenta
+					where m.nSubcuenta != '' 
+						and m.ncuenta = c.ncuenta 
+						and nFolioPoliza = @laPoliza 
+						AND m.cCentroContable = @cUnidadResponsable 
+						and cTipopoliza =@cTipoPoliza 
+						and mmovimiento != 0
+					group by case when nSubCuenta = ''
+								  then substring(m.nCuenta, 13,5) 
+								  else case when cnombre is null 
+								  	   		then calmacen 
+									   		else nSubCuenta 
+								   	   end 
+							 end
+						, calmacen
+						, cnombre
+						, '      ' + case when nSubCuenta = ''
+										 then substring(m.nCuenta, 13,5) 
+										 else case when cnombre is null 
+										 		   then calmacen 
+												   else '[' + nSubCuenta+']'+cNombre 
+											  end 
+									end
+						, dCuenta
+						, m.ctipomovimiento
+						, m.nCuenta   ) Detalle
+				order by ncuenta
+					, cuenta desc
+					, subcuenta desc
+					, subsubcuenta
+					, ctipomovimiento desc
+	END
+
+	select @cTipoObra + ' -' + cast(@noFolio as varchar(8)) cIdDocumento ,@laPoliza nPolizaAP 
+	, Cuenta, subCuenta, isnull(subsubCuenta, '') subsubCuenta,isnull(descripcion, '') descripcion, nCuenta, cTipoMovimiento
+	, case when cTipoMovimiento = 'C' 
+			then (mMovimiento2 )
+			else 0 
+		end Debe
+		, case when cTipoMovimiento = 'A' 
+			then (mMovimiento2 )
+			else 0 
+		end Haber
+	 from #tmp_polizapagos
+	 where Cuenta <> '' or subSubCuenta <> '' or subCuenta <> '']]>
+	</queryString>
+	<field name="cIdDocumento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cIdDocumento"/>
+		<property name="com.jaspersoft.studio.field.label" value="cIdDocumento"/>
+	</field>
+	<field name="nPolizaAP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nPolizaAP"/>
+		<property name="com.jaspersoft.studio.field.label" value="nPolizaAP"/>
+	</field>
+	<field name="Cuenta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Cuenta"/>
+		<property name="com.jaspersoft.studio.field.label" value="Cuenta"/>
+	</field>
+	<field name="subCuenta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="subCuenta"/>
+		<property name="com.jaspersoft.studio.field.label" value="subCuenta"/>
+	</field>
+	<field name="subSubCuenta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="subSubCuenta"/>
+		<property name="com.jaspersoft.studio.field.label" value="subSubCuenta"/>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="descripcion"/>
+		<property name="com.jaspersoft.studio.field.label" value="descripcion"/>
+	</field>
+	<field name="nCuenta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nCuenta"/>
+		<property name="com.jaspersoft.studio.field.label" value="nCuenta"/>
+	</field>
+	<field name="cTipoMovimiento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cTipoMovimiento"/>
+		<property name="com.jaspersoft.studio.field.label" value="cTipoMovimiento"/>
+	</field>
+	<field name="Debe" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Debe"/>
+		<property name="com.jaspersoft.studio.field.label" value="Debe"/>
+	</field>
+	<field name="Haber" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Haber"/>
+		<property name="com.jaspersoft.studio.field.label" value="Haber"/>
+	</field>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField>
+				<reportElement x="11" y="0" width="36" height="9" uuid="98357781-5675-43a3-905a-deb88e1f91a2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="77bcab0c-a72b-4c25-8a38-32891074f6db"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="57" y="0" width="46" height="9" uuid="7674380c-8f0c-4a37-91ec-13463f8121d1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ed5ab209-1398-4d7d-8cd7-68caf12bafca"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subCuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="0" width="50" height="9" uuid="633e47a4-3a9d-4051-9bef-3f89c7d6734b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8299cc24-82f7-4990-a0dd-787a25b7fd2d"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subSubCuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="162" y="0" width="240" height="9" isPrintWhenDetailOverflows="true" uuid="5ddefafa-f4f9-4558-b234-86edd47d1b2d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f2e4a5b7-0071-4b9c-ac8b-bbcba2167cc3"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="398" y="0" width="68" height="9" uuid="9abce5c0-1d52-499d-a16d-ad75a36bcd27">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e3b95d77-f03d-42a3-83f5-4169fea7eec4"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Debe}]]></textFieldExpression>
+				<patternExpression><![CDATA["#,###,##0.00"]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="0" width="68" height="9" uuid="3a95cbdd-893a-4487-9cfd-8c10ed275d6e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="723d3288-6e30-4504-b34e-90c160f85ce4"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Haber}]]></textFieldExpression>
+				<patternExpression><![CDATA["#,###,##0.00"]]></patternExpression>
+			</textField>
+			<line>
+				<reportElement key="line" x="0" y="0" width="1" height="10" isPrintWhenDetailOverflows="true" uuid="0a7f264d-addf-46d7-8292-d194bd8fff47">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement key="line" x="42" y="0" width="1" height="10" isPrintWhenDetailOverflows="true" uuid="30af2f0e-067b-407b-8f37-8e4f5b591345"/>
+			</line>
+			<line>
+				<reportElement key="line" x="89" y="0" width="1" height="10" isPrintWhenDetailOverflows="true" uuid="178e8c42-9ae1-44df-b67d-4ee832194058"/>
+			</line>
+			<line>
+				<reportElement key="line" x="149" y="0" width="1" height="10" isPrintWhenDetailOverflows="true" uuid="c9b90829-2320-4161-8681-efa5782506c1"/>
+			</line>
+			<line>
+				<reportElement key="line" x="399" y="0" width="1" height="10" isPrintWhenDetailOverflows="true" uuid="7377d9a1-75e7-4693-81e4-f3840723b93c"/>
+			</line>
+			<line>
+				<reportElement key="line" x="474" y="0" width="1" height="10" isPrintWhenDetailOverflows="true" uuid="4e517c1e-b4e6-4dde-a6da-02781396471f"/>
+			</line>
+			<line>
+				<reportElement key="line" x="552" y="0" width="1" height="10" isPrintWhenDetailOverflows="true" uuid="e227c49f-c2d3-4096-a168-6155ad073df9"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

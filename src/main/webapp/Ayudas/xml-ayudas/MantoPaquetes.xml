@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--  -->
+<Ayuda>
+	<titulo>Mantenimiento Paquetes Viaticos</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_TPAQUETESCOMISION</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>	
+	
+	<grid>
+		<columna campo="nIdPaquete"		control="txtGridnIdPaquete"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="IdPaquete"		rowCol="1,1" 	ancho="3"		maxlen="3"	  	tipo="numero"		visible="Si"	clase=""/>	
+		<columna campo="cNombre"		control="txtGridcNombre"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Nombre"			rowCol="1,2" 	ancho="100"		maxlen="100"	  	tipo="string"		visible="Si"	clase=""/>
+		<columna campo="cDescripcion"	control="txtGridcDescripcion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Descripcion"	rowCol="1,3" 	ancho="300"		maxlen="300"	  	tipo="string"		visible="Si"	clase=""/>
+		<columna campo="nPorcentaje"	control="txtGridnProcentaje"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Porcentaje"		rowCol="2,1" 	ancho="5"		maxlen="5"	  	tipo="string"		visible="Si"	clase=""/>
+		<columna campo="nActivo"		control="txtGridnActivo"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Activo"			rowCol="2,2" 	ancho="1"		maxlen="1"	  	tipo="numero"		visible="Si"	clase=""/>
+	</grid>  
+
+	<insertaRegistro>
+		<campo field="nIdPaquete" 		control="txtGridnIdPaquete"		llave="SI"	identity="No" requerido=""	requeridoFocus="txtGridnIdPaquete"		tipo="string" />
+		<campo field="cNombre" 			control="txtGridcNombre"		llave="No"	identity="No" requerido=""	requeridoFocus="txtGridcNombre"			tipo="string" />
+		<campo field="cDescripcion" 	control="txtGridcDescripcion"	llave="No"	identity="No" requerido=""	requeridoFocus="txtGridcDescripcion"	tipo="string" />
+		<campo field="nPorcentaje" 		control="txtGridnProcentaje"	llave="No"	identity="No" requerido=""	requeridoFocus="txtGridnProcentaje"		tipo="string" />
+		<campo field="nActivo"			control="txtGridnActivo"		llave="No"	identity="No" requerido=""	requeridoFocus="txtGridnActivo"			tipo="string" />
+	</insertaRegistro>
+	
+</Ayuda>

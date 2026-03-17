@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Cartera</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_TCATALOGOCARTERA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cCartera"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Cartera"			rowCol="1,1" 	ancho="11"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="dCartera"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Descripción"		rowCol="1,2" 	ancho="100"	maxlen="500"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="esMeta"		control=""	dependencia="No"	limpiaOnKeypress=""		header="Es meta? 1-Si 0-No"	rowCol="2,1" 	ancho="5"	maxlen="5"		tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="cCartera"	control="txtGridCol0"	llave="Si"	identity="No"	requerido="Clave de la Cartera es un dato requerido."	requeridoFocus="txtGridCol0"	tipo="string" />
+		<campo field="dCartera"	control="txtGridCol1"	llave="No"	identity="No"	requerido="Descripción es un dato requerido."			requeridoFocus="txtGridCol1"	tipo="string" />
+		<campo field="esMeta"	control="txtGridCol2"	llave="No"	identity="No"	requerido="1 Si es Meta 0 si es Cartera."				requeridoFocus="txtGridCol2"	tipo="string" />		
+	</insertaRegistro>
+	
+</Ayuda>

@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.omg.PortableServer.ID_UNIQUENESS_POLICY_ID;
+// import org.omg.PortableServer.ID_UNIQUENESS_POLICY_ID;
 import com.syc.contable.ControlAccesoBusinessLogic;
 import com.syc.gestion.servlet.GestionInterface;
 import com.syc.sai.contabilidad.servlet.ResponseSender;

@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.Map;
 import jakarta.servlet.ServletOutputStream;
-//import javax.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -87,7 +87,7 @@ public class ReporteMomentosManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         workbook.close();
         /* Cierra Flujos */
         bos.flush();

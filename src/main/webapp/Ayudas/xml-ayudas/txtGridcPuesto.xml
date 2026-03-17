@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Ayuda Municipios - desde la pantalla de Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Firmantes</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>110</altoAreaCaptura>	
+	<tabla>M_MCATALOGOFIRMANTES_P</tabla>
+	<maxRegistros>250</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+ 	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	 
+	<grid>
+	<columna campo="cPuesto"		control="txtGridcPuesto"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	  header="Puesto"					rowCol="1,1" 	ancho="110"		maxlen="150"		tipo="string"	visible="Si"	clase=""/>   		   		
+	</grid> 
+
+</Ayuda>

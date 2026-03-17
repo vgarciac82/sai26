@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="conciliaBancos_subreport" pageWidth="566" pageHeight="752" columnWidth="566" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="9bb32ef7-210e-4e4a-8c1a-7b055eb9d3a1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nConciliacion" class="java.lang.String"/>
+	<parameter name="cOrigen" class="java.lang.String"/>
+	<parameter name="tipo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[declare @mes int
+declare @cban varchar(20)
+declare @saldoBanco money
+declare @fecha date
+declare @NombreFirmanteElab varchar (100)
+declare @NombreFirmanteVobo varchar (100)
+declare @NombreFirmanteAut varchar (100)
+declare @PuestoFirmanteElab varchar (100)
+declare @PuestoFirmanteVobo varchar (100)
+declare @PuestoFirmanteAut varchar (100)
+
+select @mes = nMes, @cban = nCban, @saldoBanco = mSaldoFinal, @fecha = fConciliacion from tconciliacion (nolock)
+where nConciliacion = $P{nConciliacion}
+
+select nConciliacion, nFolioOrigen, cOrigen, fFecha, cReferencia, cCheque, cDescripcion, cTipo, mMonto, Conciliado, idDetalle
+into #tblConciliados
+from fn_l_noConciliados ( $P{nConciliacion}, @mes, @cban)
+
+
+
+select *,@mes mes,  @cban cBan, @saldoBanco saldoBanco , @fecha fecha
+from #tblConciliados tbl
+where corigen = $P{cOrigen} and ctipo = $P{tipo}
+order by cOrigen, ctipo
+
+ drop table #tblConciliados]]>
+	</queryString>
+	<field name="nConciliacion" class="java.lang.Integer"/>
+	<field name="nFolioOrigen" class="java.lang.Integer"/>
+	<field name="cOrigen" class="java.lang.String"/>
+	<field name="fFecha" class="java.lang.String"/>
+	<field name="cReferencia" class="java.lang.String"/>
+	<field name="cCheque" class="java.lang.String"/>
+	<field name="cDescripcion" class="java.lang.String"/>
+	<field name="cTipo" class="java.lang.String"/>
+	<field name="mMonto" class="java.math.BigDecimal"/>
+	<field name="Conciliado" class="java.lang.Boolean"/>
+	<field name="idDetalle" class="java.lang.Integer"/>
+	<field name="mes" class="java.lang.Integer"/>
+	<field name="cBan" class="java.lang.String"/>
+	<field name="saldoBanco" class="java.math.BigDecimal"/>
+	<field name="fecha" class="java.lang.String"/>
+	<columnHeader>
+		<band height="17" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="0" width="566" height="17" forecolor="#999999" backcolor="#999999" uuid="837bd08f-000b-45b9-94c1-27885425aa56"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="175" y="2" width="264" height="15" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" uuid="3080c8c1-1e36-4ec3-91e6-90fb59bd77f7"/>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="2" width="47" height="15" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" uuid="562ddbd8-0bce-4128-9fa2-383a5ca2dc5d"/>
+				<text><![CDATA[Cheque]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="2" width="65" height="15" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" uuid="d6d2eb4c-2c87-40b7-a59a-1540cdc34077"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="439" y="2" width="93" height="15" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" uuid="7feee586-5496-4f9f-ae1a-a5b9d5c7e823"/>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="69" y="2" width="59" height="15" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" uuid="8ebf9a11-0e41-4cdf-a8ca-a4037492d963"/>
+				<text><![CDATA[Referencia]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="0" width="566" height="13" forecolor="#999999" backcolor="#FFFFFF" uuid="8ca1839f-d713-4474-8e88-72bf4f28a4b7"/>
+			</rectangle>
+			<textField>
+				<reportElement x="123" y="0" width="47" height="13" uuid="2f936022-f6ac-4a98-b594-19507fde25d0"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{cCheque}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###,##0.00">
+				<reportElement x="439" y="0" width="93" height="13" uuid="73c04fe9-ab4e-487a-a23b-8d5c8b07d010"/>
+				<textFieldExpression><![CDATA[$F{mMonto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="68" y="0" width="53" height="13" uuid="10338cc2-bf2e-41f1-a3b6-30070a51b71e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{cReferencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="175" y="0" width="264" height="13" uuid="9d39ebb6-484d-48b6-beea-1c6627d42829"/>
+				<textFieldExpression><![CDATA[$F{cDescripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="0" width="65" height="13" uuid="ac628968-62a8-4545-8718-7e00c1229a3d"/>
+				<textFieldExpression><![CDATA[$F{fFecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -420,7 +420,7 @@ public class SolicitudContratoPlurianualManager {
         File filesalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(filesalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -684,7 +684,7 @@ public class SolicitudContratoPlurianualManager {
         File filesalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(filesalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -742,7 +742,7 @@ public class SolicitudContratoPlurianualManager {
                 ZipEntry ze = new ZipEntry(pdfName);
                 zos.putNextEntry(ze);
                 JasperRunManager.runReportToPdfStream(in, zos, parametrosReporte, conn);
-                log.debug("Object: {}", "Procesando reporte del folio" + folio + " y el contrato anterior fue " + folioAnterior);
+                log.debug("Object: " + String.valueOf("Procesando reporte del folio" + folio + " y el contrato anterior fue " + folioAnterior));
                 if (in != null)
                     try {
                         in.close();

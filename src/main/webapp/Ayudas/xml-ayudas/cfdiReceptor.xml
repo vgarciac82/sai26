@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento de productos y servicios</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>CAT_RECEPTOR_CFDI</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cfdiReceptor"	control="cfdiReceptor"	dependencia="No"	limpiaOnKeypress=""		header="RFC Receptor"		ancho="13"	maxlen="13"  	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cNombre"		control="cfdiReceptorName"	dependencia="No"	limpiaOnKeypress=""		header="Nombre"				ancho="150"	maxlen="150" 	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cTipoPersonaRFC"	control=""		dependencia="No"	limpiaOnKeypress=""		header="Tipo Persona"	ancho="10"	maxlen="10" 	tipo="string"		visible="No"	clase=""/>
+		<columna campo="cIdTipoPersonaRFC"	control="cfdiReceptorTipoPersona"	dependencia="No"	limpiaOnKeypress=""		header="Tipo Persona"	ancho="10"	maxlen="10" 	tipo="string"		visible="Si"	clase=""/>
+	</grid>  
+	
+	
+</Ayuda>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Ejercicio Fiscal</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_TEJERCICIOFISCAL</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>		
+		<columna campo="aEjercicioFiscal"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Ejercicio Fiscal"	 ancho="20"	maxlen="40" tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="aEjercicioFiscal"	control="txtGridCol0"	llave="Si"			identity="No"	requerido="Ejercicio Fiscal es un dato requerido."	requeridoFocus="txtGridCol0"	tipo="string" />
+	</insertaRegistro>
+	
+</Ayuda>

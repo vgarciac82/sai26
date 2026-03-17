@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Base64;
 import java.nio.file.Paths;
 
-public class Dispatcher extends javax.servlet.http.HttpServlet {
+public class Dispatcher extends jakarta.servlet.http.HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
@@ -77,7 +77,7 @@ public class Dispatcher extends javax.servlet.http.HttpServlet {
         StringBuffer xmlResp = getRespuesta("status");
         response.setContentType("text/xml");
         response.setHeader("Cache-Control", "no-cache");
-        response.getWriter().write(xmlResp.toString().toPath());
+        response.getWriter().write(xmlResp.toString());
         System.out.println(xmlResp.toString());
     }
 

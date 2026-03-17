@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN" "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+
+<taglib>
+    <tlibversion>2.0</tlibversion>
+    <jspversion>1.2</jspversion>
+    <shortname>Prize Tags - Bean Tags</shortname>
+    <uri>urn:www.jenkov.com/projects/prizetags</uri>
+
+    <!--
+    <displayname>Prize Tags - Bean Tags</displayname>
+
+    <description>
+    </description>
+    -->
+
+    <tag>
+        <name>navigator</name>
+        <tagclass>com.jenkov.prizetags.navigator.impl.NavigatorTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+
+        <attribute>
+            <name>id</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>name</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>property</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>key</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>keyedObjectProperty</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>scope</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>linkId</name>
+        <tagclass>com.jenkov.prizetags.navigator.impl.LinkIdTag</tagclass>
+        <bodycontent>empty</bodycontent>
+
+        <attribute>
+            <name>name</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>linkText</name>
+        <tagclass>com.jenkov.prizetags.navigator.impl.LinkTextTag</tagclass>
+        <bodycontent>empty</bodycontent>
+
+        <attribute>
+            <name>name</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>linkUrl</name>
+        <tagclass>com.jenkov.prizetags.navigator.impl.LinkUrlTag</tagclass>
+        <bodycontent>empty</bodycontent>
+
+        <attribute>
+            <name>name</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>linkMatch</name>
+        <tagclass>com.jenkov.prizetags.navigator.impl.LinkMatchTag</tagclass>
+        <bodycontent>empty</bodycontent>
+
+        <attribute>
+            <name>name</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>linkId</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+</taglib>

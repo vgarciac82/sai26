@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Catálogo de Cuentas</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>CG_CAT_TCUENTAS</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="nCuenta"			control="txtGridnCuenta"				dependencia="No"		ctrlsDependientes=""						limpiaOnKeypress=""							header="* Numero de Cuenta"		rowCol="1,1" 	ancho="30"		maxlen="30"	  	tipo="string"		visible="Si"	clase=""/>
+		<columna campo="dCuenta"			control="txtGriddCuenta"				dependencia="No"		ctrlsDependientes=""						limpiaOnKeypress=""							header="* Descripcion " 		rowCol="2,1" 	ancho="100"		maxlen="200"	tipo="string"		visible="Si"	clase=""/>
+	</grid>  
+</Ayuda>

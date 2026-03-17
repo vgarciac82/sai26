@@ -390,11 +390,11 @@ public final class AplicacionContable implements ContableInterface, TipoCasoInte
                 cdm.update(conn, cd);
                 conn.commit();
                 retVal = cTipoDocumento + " APLICADO CONTABLEMENTE CANCELADO";
-                log.debug("Object: {}", "DOCUMENTO DE " + cTipoDocumento + " APLICADO CONTABLEMENTE CANCELADO");
+                log.debug("Object: " + String.valueOf("DOCUMENTO DE " + cTipoDocumento + " APLICADO CONTABLEMENTE CANCELADO"));
             } else {
                 retVal = cTipoDocumento + " APLICADO CONTABLEMENTE CANCELADO";
                 conn.commit();
-                log.debug("Object: {}", "DOCUMENTO DE " + cTipoDocumento + " APLICADO CONTABLEMENTE CANCELADO");
+                log.debug("Object: " + String.valueOf("DOCUMENTO DE " + cTipoDocumento + " APLICADO CONTABLEMENTE CANCELADO"));
             }
         } catch (SQLException e) {
             retVal = e.getSQLState();
@@ -791,7 +791,7 @@ public final class AplicacionContable implements ContableInterface, TipoCasoInte
                         arrcCuentaDet.add(new String[] { cEventoID });
                     iTotCuentasConfig = 0;
                     iSecSuma = 0;
-                    log.debug("Object: {}", "Numero de Line:" + iNumeroLinea);
+                    log.debug("Object: " + String.valueOf("Numero de Line:" + iNumeroLinea));
                     for (Iterator<String[]> iter = arrcCuentaDet.iterator(); iter.hasNext(); ) {
                         if (!cTipoDocumento.equals("PRESUPUESTO")) {
                             if (arrcCuentaDet.size() == iTotCuentasConfig)

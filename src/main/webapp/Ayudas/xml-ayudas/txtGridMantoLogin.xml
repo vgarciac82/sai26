@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mantenimiento Usuarios -->
+<Ayuda>
+	<titulo>Ayuda Catalogo de Login</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>700</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>M_CAT_LOGIN</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="E.CE_OS_RESPONSABLE"	control="txtGridMantoLogin"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Login"				ancho="10"		maxlen="32"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="E.SALUTACION"			control="txtGridCol2"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Titulo"				ancho="10"		maxlen="10"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="NombreCompl"			control="txtGridCol3"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Nombre"				ancho="100"		maxlen="200"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="A.D_DESCRIPCION"		control="txtGridCol5"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Area"				ancho="100"		maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="E.ID_PUESTO"			control="txtGridCol6"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave Cargo"		ancho="6"		maxlen="10"		tipo="numero"	visible="Si"	clase=""/>
+		<columna campo="E.CARGO"				control="txtGridCol7"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Cargo"				ancho="100"		maxlen="200"	tipo="string"	visible="Si"	clase=""/>
+
+	</grid>	  
+</Ayuda>

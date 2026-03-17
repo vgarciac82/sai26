@@ -642,7 +642,7 @@ public class ReemplazoCFDIManager {
             try {
                 String query = "SELECT * FROM " + table + " WHERE ctipopago = ? AND nfoliopago = ?";
                 ps = conn.prepareStatement(query);
-                log.debug("Object: {}", "Executing: " + query);
+                log.debug("Object: " + String.valueOf("Executing: " + query));
                 ps.setString(1, tipoPago);
                 ps.setInt(2, folioPago);
                 rs = ps.executeQuery();

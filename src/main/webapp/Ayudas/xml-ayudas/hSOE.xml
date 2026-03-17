@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de SOE</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>SOE</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+<!--	<ColSort>0</ColSort>-->
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="Folio SOE"	control="hSOE"	dependencia="No"	ctrlsDependientes="SOE" limpiaOnKeypress=""		header="Folio SOE"	 ancho="100"	maxlen="" tipo="string" 	visible="Si"	clase=""/>
+		<columna campo="Estatus"	control=""	dependencia="No"	ctrlsDependientes=""          limpiaOnKeypress=""		header="Estatus"	 ancho="100"	maxlen="30" tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+
+</Ayuda>

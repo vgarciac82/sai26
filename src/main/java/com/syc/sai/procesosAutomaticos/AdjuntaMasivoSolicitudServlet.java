@@ -80,7 +80,7 @@ public class AdjuntaMasivoSolicitudServlet extends HttpServlet implements Gestio
                 log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                 Util.copiaArchivo(archivoCargaStream, nombreDestino);
                 item.delete();
-                log.debug("Object: {}", "Procesando archivo:" + nombreArchivo);
+                log.debug("Object: " + String.valueOf("Procesando archivo:" + nombreArchivo));
                 AdjuntaArchivoMasivoBusinessLogic aambl = new AdjuntaArchivoMasivoBusinessLogic(jniName);
                 String logAdjuntos = "";
                 if (!"1".equals(sCertifTransito)) {

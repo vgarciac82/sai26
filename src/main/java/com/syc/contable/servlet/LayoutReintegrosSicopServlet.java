@@ -342,7 +342,7 @@ public class LayoutReintegrosSicopServlet extends HttpServlet {
                 //AP
                 archivo += "," + reintegroDetalleB.getSuficiencia();
             }
-            bw.write(archivo.toPath());
+            bw.write(archivo);
             bw.flush();
             bw.close();
         } catch (Exception ex) {
@@ -547,7 +547,7 @@ public class LayoutReintegrosSicopServlet extends HttpServlet {
                 //AQ
                 archivo += "," + reintegroDetalleB.getSuficiencia();
             }
-            bw.write(archivo.toPath());
+            bw.write(archivo);
             bw.flush();
             bw.close();
         } catch (Exception ex) {
@@ -751,7 +751,7 @@ public class LayoutReintegrosSicopServlet extends HttpServlet {
                 //AQ
                 archivo += "," + reintegroDetalleB.getSuficiencia();
             }
-            bw.write(archivo.toPath());
+            bw.write(archivo);
             bw.flush();
             bw.close();
         } catch (Exception ex) {
@@ -788,7 +788,7 @@ public class LayoutReintegrosSicopServlet extends HttpServlet {
             archivo = decrementoEncabezado;
             ;
             archivo += decrementoDetalle;
-            bw.write(archivo.toPath());
+            bw.write(archivo);
             bw.flush();
             bw.close();
         } catch (Exception ex) {

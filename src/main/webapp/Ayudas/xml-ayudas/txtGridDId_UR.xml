@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- Ayuda Estados - desde la pantalla de Remitente Externo -->
+
+<Ayuda>
+	<titulo>Unidad Responsable</titulo>
+	<anchoWin>437</anchoWin>
+	<altoWin>500</altoWin>
+	<altoAreaCaptura>110</altoAreaCaptura>
+	<tabla>D_HELPCATUNIDADRESP</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>
+		<columna campo="Id_UR"	control="txtGridDId_UR"	dependencia="Si"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Id_UR"	ancho="5"	maxlen="50"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="UnidadResponsable"	control="txtGridUnidadResponsable"	dependencia="No"	ctrlsDependientes=""    limpiaOnKeypress=""	header="Unidad Responsable"		ancho="50"	maxlen="50"	tipo="string"	visible="Si"	clase=""/>
+	</grid>
+  
+</Ayuda>

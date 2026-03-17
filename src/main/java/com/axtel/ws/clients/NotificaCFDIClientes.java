@@ -71,7 +71,7 @@ public class NotificaCFDIClientes extends WSClient {
     }
 
     public ViaticoCFDIRespuesta generaCFDI(Connection conn, InvoiceDTO generarCFDIViaticos) throws Exception {
-        log.debug("Object: {}", "Iniciando envio de registro de creacion de CFDI: " + generarCFDIViaticos.getViaticoCFDI().getContraRecibo());
+        log.debug("Object: " + String.valueOf("Iniciando envio de registro de creacion de CFDI: " + generarCFDIViaticos.getViaticoCFDI().getContraRecibo()));
         log.info("Object: {}", "Se consumira servicio en: " + getUrlService());
         WebTarget target = getClient().target(getUrlService());
         Builder requestBuilder = target.request(MediaType.APPLICATION_JSON);
@@ -148,7 +148,7 @@ public class NotificaCFDIClientes extends WSClient {
     }
 
     public RespuestaTimbradoCFDI timbrarCFDI(Connection conn, TimbrarCFDIViaticos timbreCFDI, String cxp) throws Exception {
-        log.debug("Object: {}", "Iniciando envio de registro de timbrado de CFDI del periodo: " + timbreCFDI.getPeriodo());
+        log.debug("Object: " + String.valueOf("Iniciando envio de registro de timbrado de CFDI del periodo: " + timbreCFDI.getPeriodo()));
         log.info("Object: {}", "Se consumira servicio en: " + getUrlService());
         WebTarget target = getClient().target(getUrlService());
         Builder requestBuilder = target.request(MediaType.APPLICATION_JSON);

@@ -69,7 +69,7 @@ public class GenericConnectionWS {
             String input = inputJson.toString();
             log.info("Object: {}", "Datos enviados:\n" + input);
             OutputStream os = conn.getOutputStream();
-            os.write(input.getBytes("UTF-8").toPath());
+            os.write(input.getBytes("UTF-8"));
             os.flush();
             BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
             log.info("Output from Server ....");

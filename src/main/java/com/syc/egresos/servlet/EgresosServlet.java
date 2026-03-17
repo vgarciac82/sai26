@@ -395,7 +395,7 @@ public class EgresosServlet extends HttpServlet implements GestionInterface {
                 ResponseJSON responseJSON = new ResponseJSON(true, null, Arrays.asList((new String[] { String.valueOf(encabezado.getContrarecibo()) })));
                 sendJSONResponse(resp, responseJSON);
             } else if (SAVE_QUESTIONNAIRE.equals(accion)) {
-                log.debug("Object: {}", req.getParameter("answers"));
+                log.debug("Object: " + String.valueOf(req.getParameter("answers")));
                 List<QuestionnaireAnswer> answers = QuestionnaireAnswer.instanceList(req.getParameter("answers").split(";"));
                 encabezado = ebl.generaInstancia(tipoEgreso, folio);
                 encabezado.setTipoPago(tipoEgreso);
@@ -404,7 +404,7 @@ public class EgresosServlet extends HttpServlet implements GestionInterface {
                 encabezado.setLogin(u.getLogin());
                 encabezado.setAplica15D("1".equals(req.getParameter("aplicaArt15D")));
                 ebl.saveAnswers(encabezado);
-                log.debug("Object: {}", req.getParameter("answers"));
+                log.debug("Object: " + String.valueOf(req.getParameter("answers")));
                 ResponseJSON responseJSON = new ResponseJSON(true, null, Arrays.asList(new String[] { "Cuestionario registrado exitosamente." }));
                 sendJSONResponse(resp, responseJSON);
             } else if (GUARDA_PAGO.equals(accion)) {

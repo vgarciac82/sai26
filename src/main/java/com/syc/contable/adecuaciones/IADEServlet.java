@@ -50,12 +50,12 @@ public class IADEServlet extends HttpServlet implements GestionInterface {
         int nFolio = Integer.parseInt(folioIntegracion.substring(folioIntegracion.lastIndexOf('-') + 1));
         String[] foliosAdec = req.getParameterValues("folioAdecuacion");
         String foliosAdecuacion = "";
-        log.debug("Object: {}", "Folio integracion: " + folioIntegracion);
+        log.debug("Object: " + String.valueOf("Folio integracion: " + folioIntegracion));
         if (foliosAdec == null)
             ResponseSender.sendClientSimpleMessage(resp, false, "No se seleccionaron adecuaciones a integrar");
         else {
             for (int i = 0; i < foliosAdec.length; i++) {
-                log.debug("Object: {}", foliosAdec[i]);
+                log.debug("Object: " + String.valueOf(foliosAdec[i]));
                 folioadec = Integer.parseInt(foliosAdec[i].substring(foliosAdec[i].lastIndexOf('-') + 1));
                 foliosAdecuacion = folioadec + "," + foliosAdecuacion;
             }

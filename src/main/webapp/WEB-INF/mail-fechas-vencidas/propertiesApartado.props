@@ -1,0 +1,6 @@
+smtphost=172.29.150.2
+smtpuser=cna\\incidenciassaigrm
+smtppasswd=sacel2
+smtpport=25
+smtpauth=true
+smtpfrom=incidencias.sai.grm@conagua.gob.mx

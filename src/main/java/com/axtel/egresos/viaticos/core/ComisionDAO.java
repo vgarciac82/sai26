@@ -38,7 +38,7 @@ public class ComisionDAO {
             ps.setString(cnt++, comision.getCuentaBancariaCNF());
             ps.setString(cnt++, comision.getRFC());
             ps.setInt(cnt++, comision.getIdNombre());
-            log.debug("Object: {}", queryInsert.toString());
+            log.debug("Object: " + String.valueOf(queryInsert.toString()));
             insertados = ps.executeUpdate();
             return insertados;
         } finally {
@@ -72,7 +72,7 @@ public class ComisionDAO {
             ps.setBigDecimal(cnt++, comision.getMaritimoLocal());
             ps.setBigDecimal(cnt++, comision.getAereoLocal());
             ps.setString(cnt++, comision.getEvento());
-            log.debug("Object: {}", queryInsert.toString());
+            log.debug("Object: " + String.valueOf(queryInsert.toString()));
             insertados = ps.executeUpdate();
             return insertados;
         } finally {
@@ -197,7 +197,7 @@ public class ComisionDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Comision comision = new Comision();
-        log.debug("Object: {}", "Consultando folio de comision: " + folio);
+        log.debug("Object: " + String.valueOf("Consultando folio de comision: " + folio));
         try {
             ps = conn.prepareStatement(query);
             ps.setInt(1, folio);

@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AcumuladoFONDEN" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1e939b21-f78e-476d-8afd-9b49f51731ab">
+	<property name="ireport.zoom" value="1.2100000000000022"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="64"/>
+	<subDataset name="Facturacion" uuid="2d7c4dc7-8838-42d2-b1c2-03e506418812">
+		<queryString language="SQL">
+			<![CDATA[SELECT
+     tFondenFacturacion."cIdFonden" AS tFondenFacturacion_cIdFonden,
+     tFondenFacturacion."nIdFondenMovimiento" AS tFondenFacturacion_nIdFondenMovimiento,
+     tFondenFacturacion."nIdFondenFacturacion" AS tFondenFacturacion_nIdFondenFacturacion,
+     tFondenFacturacion."cNumero" AS tFondenFacturacion_cNumero,
+     tFondenFacturacion."nCantidad" AS tFondenFacturacion_nCantidad,
+     tFondenFacturacion."nImporteFactura" AS tFondenFacturacion_nImporteFactura,
+     tFondenFacturacion."nTipoCambio" AS tFondenFacturacion_nTipoCambio,
+     tFondenFacturacion."nIdTipoPago" AS tFondenFacturacion_nIdTipoPago,
+     tFondenFacturacion."nIdTipoFactura" AS tFondenFacturacion_nIdTipoFactura,
+     tFondenFacturacion."cDescripcionFactura" AS tFondenFacturacion_cDescripcionFactura,
+     tFondenTipoFactura."nIdTipoFactura" AS tFondenTipoFactura_nIdTipoFactura,
+     tFondenTipoFactura."cDescripcion" AS tFondenTipoFactura_cDescripcion,
+     tFondenTipoPago."nIdTipoPago" AS tFondenTipoPago_nIdTipoPago,
+     tFondenTipoPago."cDescripcion" AS tFondenTipoPago_cDescripcion
+FROM
+     "dbo"."tFondenTipoFactura" tFondenTipoFactura INNER JOIN "dbo"."tFondenFacturacion" tFondenFacturacion ON tFondenTipoFactura."nIdTipoFactura" = tFondenFacturacion."nIdTipoFactura"
+     INNER JOIN "dbo"."tFondenTipoPago" tFondenTipoPago ON tFondenFacturacion."nIdTipoPago" = tFondenTipoPago."nIdTipoPago"]]>
+		</queryString>
+		<field name="tFondenFacturacion_cIdFonden" class="java.lang.Integer"/>
+		<field name="tFondenFacturacion_nIdFondenMovimiento" class="java.lang.Integer"/>
+		<field name="tFondenFacturacion_nIdFondenFacturacion" class="java.lang.Integer"/>
+		<field name="tFondenFacturacion_cNumero" class="java.lang.String"/>
+		<field name="tFondenFacturacion_nCantidad" class="java.lang.Double"/>
+		<field name="tFondenFacturacion_nImporteFactura" class="java.lang.Double"/>
+		<field name="tFondenFacturacion_nTipoCambio" class="java.lang.Double"/>
+		<field name="tFondenFacturacion_nIdTipoPago" class="java.lang.Integer"/>
+		<field name="tFondenFacturacion_nIdTipoFactura" class="java.lang.Integer"/>
+		<field name="tFondenFacturacion_cDescripcionFactura" class="java.lang.String"/>
+		<field name="tFondenTipoFactura_nIdTipoFactura" class="java.lang.Integer"/>
+		<field name="tFondenTipoFactura_cDescripcion" class="java.lang.String"/>
+		<field name="tFondenTipoPago_nIdTipoPago" class="java.lang.Integer"/>
+		<field name="tFondenTipoPago_cDescripcion" class="java.lang.String"/>
+		<group name="tFondenFacturacion_cIdFonden">
+			<groupExpression><![CDATA[$F{tFondenFacturacion_cIdFonden}]]></groupExpression>
+		</group>
+		<group name="tFondenFacturacion_nIdFondenMovimiento">
+			<groupExpression><![CDATA[$F{tFondenFacturacion_nIdFondenMovimiento}]]></groupExpression>
+		</group>
+		<group name="tFondenFacturacion_nIdFondenFacturacion">
+			<groupExpression><![CDATA[$F{tFondenFacturacion_nIdFondenFacturacion}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="TC_ESTIMADO" class="java.lang.Double"/>
+	<parameter name="cIdFonden" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+
+(
+	SELECT ISNULL(SUM(nImporteFactura),0)
+	FROM "dbo"."tFondenFacturacion"
+	WHERE tFondenFacturacion.nIdFondenMovimiento = tFondenMovimiento.nIdFondenMovimiento
+	AND tFondenFacturacion.cIdFonden = tFondenMovimiento.cIdFonden
+	AND tFondenFacturacion.nIdTipoPago = 2
+	AND tFondenFacturacion.nIdTipofactura = 1 ) AS SUMA,
+     (
+SELECT ISNULL(SUM(
+    ISNULL(
+        CASE tFondenFacturacion.nIdTipoFactura
+            WHEN 1 then
+                0.0
+
+            WHEN 2 then
+                tFondenFacturacion.nImporteFactura * tFondenMovimiento.nTipoCambio
+
+            WHEN 3 then
+                -tFondenFacturacion.nImporteFactura * tFondenMovimiento.nTipoCambio
+        END
+    ,0.0)),0.0) FROM tFondenFacturacion INNER JOIN tFondenMovimiento ON tFondenFacturacion.cIdFonden = tFondenMovimiento.cIdFonden AND tFondenFacturacion.nIdFondenMovimiento = tFondenMovimiento.nIdFondenMovimiento )  AS SUMA_NOTA_CREDITO,
+
+     tFondenMovimiento."cIdFonden" AS tFondenMovimiento_cIdFonden,
+     tFondenMovimiento."nIdFondenMovimiento" AS tFondenMovimiento_nIdFondenMovimiento,
+     tFondenMovimiento."cConcepto" AS tFondenMovimiento_cConcepto,
+     tFondenMovimiento."nPrecioUnitario" AS tFondenMovimiento_nPrecioUnitario,
+     tFondenMovimiento."nCantidad" AS tFondenMovimiento_nCantidad,
+     tFondenMovimiento."nImporte" AS tFondenMovimiento_nImporte,
+     tFondenMovimiento."cRFC" AS tFondenMovimiento_cRFC,
+     tFondenMovimiento."cNumPedido" AS tFondenMovimiento_cNumPedido,
+     tFondenMovimiento."nNetoPedido" AS tFondenMovimiento_nNetoPedido,
+     tFondenMovimiento."nPrecio" AS tFondenMovimiento_nPrecio,
+     tFondenMovimiento."nTotal" AS tFondenMovimiento_nTotal,
+     tFondenMovimiento."cProveedor" AS tFondenMovimiento_cProveedor,
+     tFondenMovimiento."ACTIVO" AS tFondenMovimiento_ACTIVO,
+     tFondenMovimiento."ID_GABINETE" AS tFondenMovimiento_ID_GABINETE,
+     tFondenMovimiento."cFolio" AS tFondenMovimiento_cFolio,
+     tFondenMovimiento."cCentroContable" AS tFondenMovimiento_cCentroContable,
+     tFondenMovimiento."cUnidadResponsable" AS tFondenMovimiento_cUnidadResponsable,
+     tFondenMovimiento."nNumCaso" AS tFondenMovimiento_nNumCaso,
+     tFondenMovimiento."nCantidadTotal" AS tFondenMovimiento_nCantidadTotal,
+     tFondenMovimiento."nTechoDef" AS tFondenMovimiento_nTechoDef,
+     tFondenMovimiento."cIdMoneda" AS tFondenMovimiento_cIdMoneda,
+     tFondenMovimiento."nTipoCambio" AS tFondenMovimiento_nTipoCambio,
+     tFondenMovimiento."nIdFondenMovEstatus" AS tFondenMovimiento_nIdFondenMovEstatus,
+     tFonden."cIdFonden" AS tFonden_cIdFonden,
+     tFonden."cUsuarioCreador" AS tFonden_cUsuarioCreador,
+     tFonden."dFechaCaptura" AS tFonden_dFechaCaptura,
+     tFonden."cDescripcion" AS tFonden_cDescripcion,
+     tFonden."nImporteAnual" AS tFonden_nImporteAnual,
+     tFondenMoneda."cIdMoneda" AS tFondenMoneda_cIdMoneda,
+     tFondenMoneda."cDescripcion" AS tFondenMoneda_cDescripcion,
+     tFondenMoneda."nTipoCambio" AS tFondenMoneda_nTipoCambio,
+     tFondenMovEstatus."nIdFondenMovEstatus" AS tFondenMovEstatus_nIdFondenMovEstatus,
+     tFondenMovEstatus."cDescripcion" AS tFondenMovEstatus_cDescripcion
+FROM
+     "dbo"."tFonden" tFonden INNER JOIN "dbo"."tFondenMovimiento" tFondenMovimiento ON tFonden."cIdFonden" = tFondenMovimiento."cIdFonden"
+     INNER JOIN "dbo"."tFondenMoneda" tFondenMoneda ON tFondenMovimiento."cIdMoneda" = tFondenMoneda."cIdMoneda"
+     INNER JOIN "dbo"."tFondenMovEstatus" tFondenMovEstatus ON tFondenMovimiento."nIdFondenMovEstatus" = tFondenMovEstatus."nIdFondenMovEstatus"
+WHERE
+     tFondenMovimiento.cIdFonden = $P{cIdFonden}
+     AND tFondenMovimiento."nIdFondenMovEstatus" = 2
+ORDER BY tFondenMovimiento.cIdMoneda ASC, tFondenMovimiento."nNumCaso" ASC]]>
+	</queryString>
+	<field name="SUMA" class="java.lang.Double"/>
+	<field name="SUMA_NOTA_CREDITO" class="java.lang.Double"/>
+	<field name="tFondenMovimiento_cIdFonden" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_nIdFondenMovimiento" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_cConcepto" class="java.lang.String"/>
+	<field name="tFondenMovimiento_nPrecioUnitario" class="java.lang.Double"/>
+	<field name="tFondenMovimiento_nCantidad" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_nImporte" class="java.lang.Double"/>
+	<field name="tFondenMovimiento_cRFC" class="java.lang.String"/>
+	<field name="tFondenMovimiento_cNumPedido" class="java.lang.String"/>
+	<field name="tFondenMovimiento_nNetoPedido" class="java.lang.Double"/>
+	<field name="tFondenMovimiento_nPrecio" class="java.lang.Double"/>
+	<field name="tFondenMovimiento_nTotal" class="java.lang.Double"/>
+	<field name="tFondenMovimiento_cProveedor" class="java.lang.String"/>
+	<field name="tFondenMovimiento_ACTIVO" class="java.lang.String"/>
+	<field name="tFondenMovimiento_ID_GABINETE" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_cFolio" class="java.lang.String"/>
+	<field name="tFondenMovimiento_cCentroContable" class="java.lang.String"/>
+	<field name="tFondenMovimiento_cUnidadResponsable" class="java.lang.String"/>
+	<field name="tFondenMovimiento_nNumCaso" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_nCantidadTotal" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_nTechoDef" class="java.lang.Double"/>
+	<field name="tFondenMovimiento_cIdMoneda" class="java.lang.String"/>
+	<field name="tFondenMovimiento_nTipoCambio" class="java.lang.Double"/>
+	<field name="tFondenMovimiento_nIdFondenMovEstatus" class="java.lang.Integer"/>
+	<field name="tFonden_cIdFonden" class="java.lang.Integer"/>
+	<field name="tFonden_cUsuarioCreador" class="java.lang.String"/>
+	<field name="tFonden_dFechaCaptura" class="java.sql.Timestamp"/>
+	<field name="tFonden_cDescripcion" class="java.lang.String"/>
+	<field name="tFonden_nImporteAnual" class="java.lang.Double"/>
+	<field name="tFondenMoneda_cIdMoneda" class="java.lang.String"/>
+	<field name="tFondenMoneda_cDescripcion" class="java.lang.String"/>
+	<field name="tFondenMoneda_nTipoCambio" class="java.lang.Double"/>
+	<field name="tFondenMovEstatus_nIdFondenMovEstatus" class="java.lang.Integer"/>
+	<field name="tFondenMovEstatus_cDescripcion" class="java.lang.String"/>
+	<variable name="ANTICIPO_FACTURA" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
+	</variable>
+	<variable name="RESTA_ANTICIPO" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{tFondenMovimiento_nTotal} - $F{SUMA}]]></variableExpression>
+	</variable>
+	<variable name="TC_X_TOTAL" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{tFondenMovimiento_nTipoCambio}*$F{tFondenMovimiento_nTotal}]]></variableExpression>
+	</variable>
+	<variable name="SUM_TC_X_TOTAL" class="java.lang.Double" resetType="Group" resetGroup="TIPO MONEDA" calculation="Sum">
+		<variableExpression><![CDATA[$F{SUMA}.doubleValue()==0.0?$F{tFondenMovimiento_nTotal}*$F{tFondenMovimiento_nTipoCambio} : 0.0 +
++ $F{SUMA}*$F{tFondenMovimiento_nTipoCambio} + $V{RESTA_ANTICIPO}* ($P{TC_ESTIMADO})]]></variableExpression>
+	</variable>
+	<variable name="TC_X_ANTICIPO" class="java.lang.Double" resetType="None" calculation="Sum">
+		<variableExpression><![CDATA[$F{SUMA}*$F{tFondenMovimiento_nTipoCambio}]]></variableExpression>
+	</variable>
+	<variable name="SUMA_TOTAL_ANTICIPO" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{SUMA}!=0.0?$V{TC_X_ANTICIPO} : 0.0]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_ESTIMADO" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{SUMA}==0.0?$F{tFondenMovimiento_nTotal}*$F{tFondenMovimiento_nTipoCambio} : 0.0 +
++ $F{SUMA}*$F{tFondenMovimiento_nTipoCambio} + $V{RESTA_ANTICIPO}* $P{TC_ESTIMADO}]]></variableExpression>
+	</variable>
+	<variable name="SALDO" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{tFonden_nImporteAnual} - $V{TOTAL_ESTIMADO}]]></variableExpression>
+	</variable>
+	<variable name="FECHA_ACTUAL" class="java.util.Date"/>
+	<group name="TIPO MONEDA">
+		<groupExpression><![CDATA[$F{tFondenMoneda_cIdMoneda}.equals( "MXN" )]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<staticText>
+					<reportElement x="0" y="0" width="133" height="20" uuid="020176dc-feb1-4774-8ed6-fecada07f02e"/>
+					<textElement>
+						<font fontName="Arial" size="9" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[IMPORTE DE PEDIDOS MONEDA]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="133" y="0" width="100" height="20" uuid="bb108392-7526-4241-b29d-34aef1e94c61"/>
+					<textElement>
+						<font fontName="Arial" size="9" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tFondenMoneda_cIdMoneda}.equals( "MXN" )?"NACIONAL":"EXTRANJERA"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="14" splitType="Stretch">
+				<textField evaluationTime="Group" evaluationGroup="TIPO MONEDA" pattern="¤ #,##0.00">
+					<reportElement x="455" y="0" width="100" height="13" printWhenGroupChanges="TIPO MONEDA" uuid="82aa16fa-99f4-49f9-b467-4d3c87f4a32e"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{SUM_TC_X_TOTAL}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="355" y="0" width="200" height="1" uuid="54337ee8-5f1a-43cb-82a6-1f8fcf71b2f8"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="113" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="0" width="319" height="21" printWhenGroupChanges="TIPO MONEDA" forecolor="#000000" backcolor="#FFFFFF" uuid="4691b7b9-8392-4581-b84a-373cff1262d6"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="21" width="319" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="eed526b0-3d80-4387-bce5-76bbeb9fbdd4"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[GERENCIA DE RECURSOS FINANCIEROS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="42" width="319" height="21" uuid="2f38d353-f920-463c-b47c-a309496dd597"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[SUBGERENCIA DE OPERACIÓN FINANCIERA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="73" width="802" height="20" uuid="c4906b23-8486-4200-8189-613d463c3934"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[LIQUIDACIÓN DE LA SOLICITUD SEGÚN RECURSOS AUTORIZADOS A LA CONAFOR POR EL COMITÉ TÉCNICO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="93" width="802" height="20" uuid="a0c4685f-b517-4e97-92b0-318a56522bf3"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DEL FIDEICOMISO "+$F{tFonden_cDescripcion}+" FONDEN POR "+new java.text.DecimalFormat("\\$ #,##0.00").format($F{tFonden_nImporteAnual})+" PARA EL EJERCICIO "+$F{tFonden_cIdFonden}+" ( REGISTRO DE FACTURAS AL "+(new SimpleDateFormat("dd/MMM/yyyy").format(new Date())).toUpperCase()+")"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="42">
+			<staticText>
+				<reportElement x="0" y="0" width="44" height="14" uuid="b5da82f7-f0eb-408f-9c3f-41b989afc372"/>
+				<text><![CDATA[PEDIDO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="44" y="0" width="56" height="14" uuid="8473c0fd-71ff-4f62-b7b6-9d0e9d669a52"/>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nNumCaso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="100" y="0" width="100" height="14" uuid="5d9fe856-1789-49e2-b07d-67a7b5126fea"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="14" width="100" height="14" isRemoveLineWhenBlank="true" uuid="7b904429-456c-4a70-84dc-77499c5fa2ec">
+					<printWhenExpression><![CDATA[$F{SUMA}.doubleValue() != 0.0]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA["ANTICIPO PAGADO"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="100" y="28" width="100" height="1" isRemoveLineWhenBlank="true" uuid="5a0822d9-5abb-460b-83b3-89e6afa56a1e">
+					<printWhenExpression><![CDATA[$F{SUMA}.doubleValue() != 0.0]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="100" y="28" width="100" height="14" isRemoveLineWhenBlank="true" uuid="93db0eeb-9908-4374-ab52-8c8cf79a5238">
+					<printWhenExpression><![CDATA[$F{SUMA}.doubleValue() != 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{RESTA_ANTICIPO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="233" y="16" width="22" height="13" isRemoveLineWhenBlank="true" uuid="b53d1aee-4a66-48c2-83a1-7f648ae7b28a">
+					<printWhenExpression><![CDATA[$F{SUMA}.doubleValue() != 0.0 && !$F{tFondenMovimiento_cIdMoneda}.equals( "MXN" )]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[TC]]></text>
+			</staticText>
+			<textField pattern="###0.0000">
+				<reportElement x="255" y="16" width="100" height="13" isRemoveLineWhenBlank="true" uuid="4ad3052e-1af6-47af-a421-1a6597eb4341">
+					<printWhenExpression><![CDATA[$F{SUMA}.doubleValue() != 0.0 && !$F{tFondenMovimiento_cIdMoneda}.equals( "MXN" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nTipoCambio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="355" y="0" width="100" height="14" isRemoveLineWhenBlank="true" uuid="25764a47-74a0-42b4-9d40-b0550bc9d54a">
+					<printWhenExpression><![CDATA[$F{SUMA}.doubleValue() == 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{TC_X_TOTAL}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="233" y="0" width="22" height="14" isRemoveLineWhenBlank="true" uuid="236bee02-4bc7-4c54-9a4f-8391c186fd8e">
+					<printWhenExpression><![CDATA[$F{SUMA}.doubleValue() == 0.0 && !$F{tFondenMovimiento_cIdMoneda}.equals( "MXN" )]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[TC]]></text>
+			</staticText>
+			<textField pattern="###0.0000">
+				<reportElement x="255" y="0" width="100" height="14" isRemoveLineWhenBlank="true" uuid="ec7247c4-eee6-426b-a1f3-fc0ce9f4b8bc">
+					<printWhenExpression><![CDATA[$F{SUMA}.doubleValue() == 0.0 && !$F{tFondenMovimiento_cIdMoneda}.equals( "MXN" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nTipoCambio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="355" y="16" width="100" height="13" isRemoveLineWhenBlank="true" uuid="cd51dd34-75c8-40a9-85ec-8fced719b1d6">
+					<printWhenExpression><![CDATA[$F{SUMA}.doubleValue() != 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{SUMA}*$F{tFondenMovimiento_nTipoCambio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="233" y="28" width="70" height="14" isRemoveLineWhenBlank="true" uuid="d8d7cca2-9519-44e0-b7c6-10c2c66347db">
+					<printWhenExpression><![CDATA[$F{SUMA}.doubleValue() != 0.0 && !$F{tFondenMovimiento_cIdMoneda}.equals( "MXN" )]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[TC ESTIMADO]]></text>
+			</staticText>
+			<textField pattern="###0.0000">
+				<reportElement x="303" y="28" width="52" height="13" isRemoveLineWhenBlank="true" uuid="2048cb11-4ac6-46cf-8529-2b79ef7a16bf">
+					<printWhenExpression><![CDATA[$F{SUMA}.doubleValue() != 0.0 && !$F{tFondenMovimiento_cIdMoneda}.equals( "MXN" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new Double($P{TC_ESTIMADO})]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="355" y="29" width="100" height="13" isRemoveLineWhenBlank="true" uuid="00dc5b84-85da-4a92-bbe8-4679e91e06ed">
+					<printWhenExpression><![CDATA[$F{SUMA}.doubleValue() != 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{RESTA_ANTICIPO}*new Double($P{TC_ESTIMADO})]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement stretchType="RelativeToBandHeight" x="100" y="14" width="100" height="14" isRemoveLineWhenBlank="true" uuid="fa8d9f94-c0ca-4a07-87ff-ce099626cd51">
+					<printWhenExpression><![CDATA[$F{SUMA}.doubleValue() != 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{SUMA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="91">
+			<staticText>
+				<reportElement x="233" y="0" width="122" height="14" uuid="dd93c217-2693-4353-a5ae-a42de5e6f2f5"/>
+				<text><![CDATA[TOTAL ESTIMADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="14" width="122" height="14" uuid="93d02b80-9c5d-426c-bda4-9a4b4f0bd145"/>
+				<text><![CDATA[TECHO AUTORIZADO]]></text>
+			</staticText>
+			<textField evaluationTime="Report" pattern="¤ #,##0.00">
+				<reportElement x="455" y="0" width="100" height="14" uuid="143841bd-55ac-4762-b35e-5ee3cc41a5cb"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{TOTAL_ESTIMADO}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="355" y="0" width="200" height="1" uuid="303389f4-80d1-4708-96f1-afc9a0af39fa"/>
+			</line>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="455" y="14" width="100" height="14" uuid="98ec21b4-db55-48cc-9760-0bdf23b05802"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{tFonden_nImporteAnual}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="233" y="29" width="122" height="13" uuid="18299df8-bafa-4639-881f-6b7b4d3e0e59"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALDO]]></text>
+			</staticText>
+			<line>
+				<reportElement x="355" y="28" width="200" height="1" uuid="16e9e7b8-641d-4632-90ff-aba4e7039b3a"/>
+			</line>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="455" y="29" width="100" height="13" uuid="73d714f7-6cad-4c1a-b02a-5839186ffeeb"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SALDO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="233" y="41" width="122" height="15" uuid="c8f12251-def9-4de8-b678-e5388ba04b92"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Notas de crédito/débito]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="455" y="42" width="100" height="14" uuid="b711ed2c-8b93-447b-abbd-3bea648996bf"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{SUMA_NOTA_CREDITO}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="355" y="55" width="200" height="1" uuid="a5a184b6-69d7-4c4d-a38f-bd96bec26e71"/>
+			</line>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="455" y="56" width="100" height="14" uuid="5cf2666d-305e-4b69-9c4a-48b3004dddf0"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{SUMA_NOTA_CREDITO}+$V{SALDO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

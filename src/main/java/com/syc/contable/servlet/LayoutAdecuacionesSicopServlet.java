@@ -511,7 +511,7 @@ public class LayoutAdecuacionesSicopServlet extends HttpServlet {
         Date date = new java.util.Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String fecha = sdf.format(date);
-        String cFileExcel = upload.getRepositoryPath() + "/plantillaFAP01.xls";
+        String cFileExcel = getServletContext().getRealPath("/upload") + "/plantillaFAP01.xls";
         InputStream inp = new FileInputStream(cFileExcel);
         Workbook wb = new HSSFWorkbook(inp);
         Sheet sheet = wb.getSheetAt(0);
@@ -576,7 +576,7 @@ public class LayoutAdecuacionesSicopServlet extends HttpServlet {
         // numfilas - 24, estiloBordeDerecho);
         // imprimeSumas(sheet, numfilas + 3, sumaA, estiloBordeDerecho);
         // imprimeResponsable(sheet, numfilas + 8, responsable, area);
-        wb.write(response.getOutputStream().toPath());
+        wb.write(response.getOutputStream());
     }
 
     public void creaFap02(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -729,7 +729,7 @@ public class LayoutAdecuacionesSicopServlet extends HttpServlet {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -1041,7 +1041,7 @@ public class LayoutAdecuacionesSicopServlet extends HttpServlet {
         Date date = new java.util.Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String fecha = sdf.format(date);
-        String cFileExcel = upload.getRepositoryPath() + "/plantillaFAP01.xls";
+        String cFileExcel = getServletContext().getRealPath("/upload") + "/plantillaFAP01.xls";
         InputStream inp = new FileInputStream(cFileExcel);
         Workbook wb = new HSSFWorkbook(inp);
         Sheet sheet = wb.getSheetAt(0);
@@ -1108,7 +1108,7 @@ public class LayoutAdecuacionesSicopServlet extends HttpServlet {
         fecha, c.getFolio());
         imprimeMETA(wb, arrActividadInstitucional);
         // imprimeResponsable(sheet, numfilas + 8, responsable, area);
-        wb.write(response.getOutputStream().toPath());
+        wb.write(response.getOutputStream());
     }
 
     public void imprimeFAP02(Workbook wb, String fiscal, ArrayList<ArrayList> arrAdecAmpliacion, /*, ArrayList<ArrayList> arrAdecReduccion*/

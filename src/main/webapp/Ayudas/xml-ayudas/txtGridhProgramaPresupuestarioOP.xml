@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Programa Presupuestario</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>PROGRAMAPRESUPUESTARIOOP</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+<!--	<ColSort>0</ColSort>-->
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cUnidadEjecutora"	control="cUnidadEjecutora"	dependencia="Si"	ctrlsDependientes="uUR" limpiaOnKeypress=""		header="id"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="descripcion"	control="hProgramaPresupuestario"	dependencia="No"	ctrlsDependientes="ProgramaPresupuestario" limpiaOnKeypress=""		header="Descripción"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+
+</Ayuda>

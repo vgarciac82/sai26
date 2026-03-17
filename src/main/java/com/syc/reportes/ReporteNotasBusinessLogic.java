@@ -49,7 +49,7 @@ public class ReporteNotasBusinessLogic extends DataSourceManager {
             String tipo = req.getParameter("Moneda");
             String fechaFin = req.getParameter("Fecha");
             int miles = Integer.parseInt(tipo);
-            log.debug("Object: {}", "Parametros para las notas: " + tipo + ", " + fechaFin + ", " + miles);
+            log.debug("Object: " + String.valueOf("Parametros para las notas: " + tipo + ", " + fechaFin + ", " + miles));
             // int mesFin = Integer.parseInt(fechaFin.substring(5,7));
             // int anio = Integer.parseInt(fechaFin.substring(0,4));
             log.debug("Llamando el reporte");
@@ -124,7 +124,7 @@ public class ReporteNotasBusinessLogic extends DataSourceManager {
             ReporteNotasManager.generaReporteNotasWord(conn, fechaFin, miles, document, efectivo, derechos, derAnt, almacen, cxp, otrascxp, pasivo, pasivo2, eventos, eventos2, eventos3, fechaAut);
             fGenerado = File.createTempFile("Notas_Estados_Financieros", ".docx", new File(System.getProperty("java.io.tmpdir")));
             FileOutputStream word = new FileOutputStream(fGenerado);
-            document.write(word.toPath());
+            document.write(word);
             word.close();
             Util.doDownload(resp, fGenerado.getAbsolutePath(), "Notas_Estados_Financieros.docx", "application/vnd.openxmlformats-");
         } catch (FileNotFoundException ex) {

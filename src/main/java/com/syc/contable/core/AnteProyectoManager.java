@@ -564,8 +564,8 @@ public class AnteProyectoManager {
                     clSIAFF = cSIAFF.substring(0, 55);
                 }
             }
-            Log.debug("Object: {}", cQueryCrea);
-            Log.debug("Object: {}", nConsecutivo + ',' + nFolio + ',' + cEjercicioFiscal + ',' + cUnidadResponsable + ',' + cSIAFF + ',' + cInterna + ',' + mCalculado + ',' + mOptimo + ',' + mIreductible + ',' + iReduccion + ',' + iIncremento);
+            Log.debug("Object: " + String.valueOf(cQueryCrea));
+            Log.debug("Object: " + String.valueOf(nConsecutivo + ',' + nFolio + ',' + cEjercicioFiscal + ',' + cUnidadResponsable + ',' + cSIAFF + ',' + cInterna + ',' + mCalculado + ',' + mOptimo + ',' + mIreductible + ',' + iReduccion + ',' + iIncremento));
             pstm = conn.prepareStatement(cQueryCrea);
             pstm.setInt(1, nConsecutivo);
             pstm.setInt(2, nFolio);
@@ -600,9 +600,9 @@ public class AnteProyectoManager {
         //cQueryCrea+="nFolioAnteProyecto,aEjercicioFiscal,cUnidadResponsable,cClaveSiaff,cClaveInterna,mCalculado,"
         cQueryCrea += " WHERE  nFolioAnteProyecto = ? AND cClaveSiaff =? AND cClaveInterna =?";
         try {
-            Log.debug("Object: {}", cQueryCrea);
+            Log.debug("Object: " + String.valueOf(cQueryCrea));
             System.out.println(cQueryCrea);
-            Log.debug("Object: {}", nConsecutivo + ',' + nFolio + ',' + cEjercicioFiscal + ',' + cUnidadResponsable + ',' + cSIAFF + ',' + cInterna + ',' + mCalculado + ',' + mOptimo + ',' + mIreductible + ',' + iReduccion + ',' + iIncremento);
+            Log.debug("Object: " + String.valueOf(nConsecutivo + ',' + nFolio + ',' + cEjercicioFiscal + ',' + cUnidadResponsable + ',' + cSIAFF + ',' + cInterna + ',' + mCalculado + ',' + mOptimo + ',' + mIreductible + ',' + iReduccion + ',' + iIncremento));
             System.out.println(nConsecutivo + ',' + nFolio + ',' + cEjercicioFiscal + ',' + cUnidadResponsable + ',' + cSIAFF + ',' + cInterna + ',' + mCalculado + ',' + mOptimo + ',' + mIreductible + ',' + iReduccion + ',' + iIncremento);
             pstm = conn.prepareStatement(cQueryCrea);
             pstm.setDouble(1, mOptimo);
@@ -1290,11 +1290,11 @@ public class AnteProyectoManager {
             if (rs.next()) {
                 cSIAFF = rs.getString(1);
                 cInterna = rs.getString(2);
-                Log.debug("Object: {}", cQuery);
+                Log.debug("Object: " + String.valueOf(cQuery));
                 System.out.println(cQuery);
-                Log.debug("Object: {}", "Folio" + nFolio);
+                Log.debug("Object: " + String.valueOf("Folio" + nFolio));
                 System.out.println("Folio" + nFolio);
-                Log.debug("Object: {}", "cSIAFF:" + cSIAFF + " cInterna:" + cInterna.trim());
+                Log.debug("Object: " + String.valueOf("cSIAFF:" + cSIAFF + " cInterna:" + cInterna.trim()));
                 System.out.println("cSIAFF:" + cSIAFF + " cInterna:" + cInterna.trim());
                 pstm = conn.prepareStatement(cQuery);
                 pstm.setString(1, cMotivoRechazo);

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Carteras</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>CARTERAOP</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+<!--	<ColSort>0</ColSort>-->
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>		
+		<columna campo="ID"	control="Cartera"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="ID"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+		<columna campo="Descripcion"	control="hCarteraOP"	dependencia="No"	ctrlsDependientes="Cartera" limpiaOnKeypress=""		header="Descripción"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="uUR"	control="uUR"	dependencia="Si"	ctrlsDependientes="uUR" limpiaOnKeypress=""		header="Unidad Ejecutora"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+		<columna campo="Partida"	control="Partida"	dependencia="Si"	ctrlsDependientes="Partida" limpiaOnKeypress=""		header="Partida"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+		<columna campo="ProgramaPresupuestario"	control="ProgramaPresupuestario"	dependencia="Si"	ctrlsDependientes="ProgramaPresupuestario" limpiaOnKeypress=""		header="ProgramaPresupuestario"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+	</grid>  
+
+</Ayuda>

@@ -1,0 +1,372 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>Solicitud Autoplazo Persona Física</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link href="../css/afirme.css" rel="stylesheet">
+		<script type="text/javascript" src="js/sapf.js"></script>
+		<script type="text/javascript" src="js/prototype.js"></script>
+		<script type="text/javascript" src="js/event-selectors.js"></script>
+		<script type="text/javascript" src="js/rules.js"></script>
+		<script type="text/javascript" src="js/formchek.js"></script>
+	</head>
+
+	<body onload="EventSelectors.start(Rules)">
+	<form name="sapf">
+		<h4>
+			Datos Generales
+		</h4>
+		<table class="tableinfo">
+			<tr>
+				<td nowrap>
+					<table cellspacing="0" cellpadding="2" border="0" align="center" width="100%">
+						<tr id="trdark">
+							<td nowrap align="right">
+								Nombre (s):
+							</td>
+							<td nowrap>
+								<input name="nombre" type="text" id="nombre" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td nowrap align="right">
+								Apellido Paterno:
+							</td>
+							<td nowrap>
+								<input name="apPaterno" type="text" id="apPaterno" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td nowrap align="right">
+								Apellido Materno:
+							</td>
+							<td nowrap>
+								<input name="apMaterno" type="text" id="apMaterno" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td nowrap align="right">
+								R.F.C (Con homoclave):
+							</td>
+							<td nowrap>
+								<input name="rfc" type="text" id="rfc" class="reqWhiteRfc">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td nowrap align="right">
+								Nacionalidad:
+							</td>
+							<td nowrap>
+								<select name="nacionalidad" id="nacionalidad">
+									<option value="mx">Mexicana</option>
+									<option value="us">Estadounidense</option>
+								</select>
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td nowrap align="right">
+								C.U.R.P.:
+							</td>
+							<td nowrap>
+								<input name="curp" type="text" id="curp" class="reqWhiteAlfNum">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td nowrap align="right">
+								Estado Civil:
+							</td>
+							<td nowrap>
+								<select name="edoCivil" id="edoCivil">
+									<option value="sol">Soltero</option>
+									<option value="cas">Casado</option>
+									<option value="unl">Union Libre</option>
+								</select>
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td nowrap align="right">
+								Sexo:
+							</td>
+							<td nowrap>
+								<input name="sexo" type="radio" value="m">
+								Masculino
+								<input name="sexo" type="radio" value="f">
+								Femenino
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td align="right">
+								Grado Máximo de Estudios:
+							</td>
+							<td>
+								<select name="grdoMaxEstudio" id="grdoMaxEstudio">
+									<option value="pri">Primaria</option>
+									<option value="sec">Secundaria</option>
+									<option value="pre">Preparatoria</option>
+									<option value="tec">Tecnica</option>
+									<option value="bac">Bachillerato</option>
+									<option value="pro">Profesional</option>
+								</select>
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td nowrap align="right">
+								Tipo de Institución:
+							</td>
+							<td nowrap>
+								<input name="tipoInst" type="radio" value="pub">
+								Pública
+								<input name="tipoInst" type="radio" value="pri">
+								Privada
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td nowrap align="right">&nbsp;
+
+							</td>
+							<td nowrap>&nbsp;
+
+							</td>
+							<td nowrap align="right">
+								Origen:
+							</td>
+							<td nowrap>
+								<input name="origen" type="radio" value="nac">
+								Nacional
+								<input name="origen" type="radio" value="ext">
+								Extranjera
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td align="right">
+								Número de integrantes de la familia:
+							</td>
+							<td>
+								<input name="numIntFam" type="text" id="numIntFam" class="reqWhiteNum">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td align="right">
+								Número de integrantes de la familia económicamente activos:
+							</td>
+							<td>
+								<input name="numIntFamEcoAct" type="text" id="numIntFamEcoAct" class="reqWhiteNum">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td align="right">
+								Número de dependientes económicos:
+							</td>
+							<td nowrap>
+								<input name="numDependtesEco" type="text" id="numDependtesEco" class="reqWhiteNum">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td align="right">
+								Domicilio particular Actual(Calle y número):
+							</td>
+							<td>
+								<input name="domicilioActual" type="text" id="domicilioActual" class="reqWhiteAlfNum">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td align="right">
+								Colonia:
+							</td>
+							<td nowrap>
+								<input name="coloniaActual" type="text" id="coloniaActual" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td align="right">
+								Código Postal:
+							</td>
+							<td>
+								<input name="cpActual" type="text" id="cpActual" class="reqWhiteNum">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td align="right">
+								Municipio o delegación:
+							</td>
+							<td nowrap>
+								<input name="municipioActual" type="text" id="municipioActual" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td align="right">
+								Estado:
+							</td>
+							<td>
+								<input name="estadoActual" type="text" id="estadoActual" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td align="right">
+								Años de residencia:
+							</td>
+							<td nowrap>
+								<input name="aniosRecidenciaActual" type="text" id="aniosRecidenciaActual" class="reqWhiteNum">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td align="right">
+								Teléfono(s) particular(es):
+							</td>
+							<td>
+								<input name="telPartActual" type="text" id="telPartActual" class="reqWhiteNum">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td align="right">
+								Situación de la vivienda:
+							</td>
+							<td nowrap>
+								<input name="situVivienda" type="text" id="situVivienda" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td align="right">
+								Nombre completo del propietario:
+							</td>
+							<td>
+								<input name="nomPropietario" type="text" id="nomPropietario" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<h4>
+			Datos del Domicilio Anterior. Sólo si tiene menos de 3 años en su domicilio actual
+		</h4>
+		<table class="tableinfo">
+			<tr>
+				<td nowrap>
+					<table cellspacing="0" cellpadding="2" border="0" align="center" width="100%">
+						<tr id="trdark">
+							<td align="right">
+								Domicilio (Calle y número):
+							</td>
+							<td nowrap>
+								<input name="domicilioAnterior" type="text" id="domicilioAnterior" class="reqWhiteAlfNum">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td align="right">
+								Colonia:
+							</td>
+							<td>
+								<input name="coloniaAnterior" type="text" id="coloniaAnterior" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td align="right">
+								Código Postal:
+							</td>
+							<td nowrap>
+								<input name="cpAnterior" type="text" id="cpAnterior" class="reqWhiteNum">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td align="right">
+								Municipio o Delegación:
+							</td>
+							<td>
+								<input name="municipioAnterior" type="text" id="municipioAnterior" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td align="right">
+								Estado:
+							</td>
+							<td nowrap>
+								<input name="estadoAnterior" type="text" id="estadoAnterior" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td align="right">
+								Años de Residencia:
+							</td>
+							<td>
+								<input name="aniosRecidenciaAnterior" type="text" id="aniosRecidenciaAnterior" class="reqWhiteNum">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<h4>
+			Datos del Cónyuge
+		</h4>
+		<table class="tableinfo">
+			<tr>
+				<td nowrap>
+					<table cellspacing="0" cellpadding="2" border="0" align="center" width="100%">
+						<tr id="trdark">
+							<td nowrap align="right">
+								Nombre (s):
+							</td>
+							<td nowrap>
+								<input name="nombreConyuge" type="text" id="nombreConyuge" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td nowrap align="right">
+								Apellido Paterno:
+							</td>
+							<td nowrap>
+								<input name="apPaternoConyuge" type="text" id="apPaternoConyuge" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td nowrap align="right">
+								Apellido Materno:
+							</td>
+							<td nowrap>
+								<input name="apMaternoConyuge" type="text" id="apMaternoConyuge" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td nowrap align="right">
+								R.F.C (Con homoclave):
+							</td>
+							<td nowrap>
+								<input name="rfcConyuge" type="text" id="rfcConyuge" class="reqWhiteRfc">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td nowrap align="right">
+								Nacionalidad:
+							</td>
+							<td nowrap>
+								<select name="nacionalidadConyuge" id="nacionalidadConyuge">
+									<option value="mx">Mexicana</option>
+									<option value="us">Estadounidense</option>
+								</select>
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td nowrap align="right">
+								C.U.R.P.:
+							</td>
+							<td nowrap>
+								<input name="curpConyuge" type="text" id="curpConyuge" class="reqWhiteAlfNum">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td nowrap align="right">
+								Autorizado
+							</td>
+							<td nowrap>
+								<input name="completo" type=checkbox value="1" id="completo">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		</form>
+	</body>
+</html>
+

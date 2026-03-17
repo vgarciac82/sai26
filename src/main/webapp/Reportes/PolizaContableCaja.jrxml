@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PolizaPago" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="580" leftMargin="2" rightMargin="30" topMargin="6" bottomMargin="20" uuid="f7ff73e0-3b2a-4228-a7d1-6886c349a3a3">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="380"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="whereFolio" class="java.lang.String">
+		<defaultValueExpression><![CDATA["and Ce.nfoliocaja=2"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[DECLARE @laPoliza varchar(10)
+DECLARE @cUnidadResponsable varchar(10)
+DECLARE @cTipoPoliza varchar(10)
+DECLARE @cTipoObra varchar(10)
+DECLARE @cIdTipoPago varchar(1)
+declare @cuantos smallint
+DECLARE @noFolio INT
+
+--set @laPoliza=2
+--set @cUnidadResponsable=10
+--set @cTipoPoliza='EG'
+
+select @noFolio = nFolioCaja, @laPoliza= nFolioPoliza, @cTipoPoliza = cTipoPoliza
+, @cUnidadResponsable = cIDEntidadContable, @cTipoObra = tipoObra, @cIdTipoPago = cIdTipoPagoDirecto
+from (select nfoliocaja, nFolioPoliza, cTipoPoliza, cdescripcionpoliza, ''canocontrarrecibo,'DIRECTO' tipoObra, cunidadresponsablecontable, cast('' as varchar(5)) cnoEstimacion, '' Periodo,cCentrocontable cIdEntidadContable, ''cIdTipoPagoDirecto
+   from tcajaencabezado e with(NOLOCK)-- where e.cdocumentohaplicado='S'
+--union select nFolioRELACIONGASTOS,nFolioPoliza, cTipoPoliza, cconcepto, canocontrarrecibo,'RELGASTO' tipoObra, --cUnidadResponsable, cast('' as varchar(5)) cnoEstimacion, '' Periodo, cCentroContable cIdEntidadContable, --TIPO_OPERACION
+ -- from trelaciongastosencabezado ee with(NOLOCK)  --where ee.cDocumentoHaplicado='S'
+  ) Ce where 1 = 1
+ -- and Ce.nfoliocaja=2
+  $P!{whereFolio}
+
+--select @laPoliza,@cUnidadResponsable,@cTipoPoliza
+
+if object_id('tempdb..#tmp_polizapagos') is not null drop table #tmp_polizapagos;
+
+-----------------------Poliza Contabl----------------------
+select * into #tmp_polizapagos from (
+		select substring(m.nCuenta, 1,5) Cuenta,'' subCuenta,'' subSubCuenta,
+''dSubCuenta,calmacen, dCuenta cnombre,dCuenta descripcion,dCuenta, m.ctipomovimiento, m.nCuenta, sum(mMovimiento) mMovimiento2
+   from tcuentas c with(NOLOCK), tmovimiento m with(NOLOCK)
+   left join cat_almacen a on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+   --left join v_pcatalogorfc rfc on cidrfc=nsubcuenta
+   where /*m.ncuenta = c.ncuenta */ substring(m.ncuenta,1,5)+'-00000-00000-00000'= c.ncuenta  and nFolioPoliza = @laPoliza AND m.cCentroContable = @cUnidadResponsable and cTipopoliza =@cTipoPoliza and mmovimiento != 0  AND not(c.TipoBalance='P' and c.TipoCuenta='P')
+group by substring(m.nCuenta, 1,5) ,calmacen, dCuenta
+,dCuenta
+,dCuenta, m.ctipomovimiento, m.nCuenta
+--order by m.ncuenta, ctipomovimiento desc
+union
+--2o nivel
+ select '' Cuenta,substring(m.nCuenta, 7,5)  subCuenta,'' subSubCuenta,' ' dSubCuenta,calmacen, dcuenta cnombre,'  ' + dCuenta descripcion,dCuenta, m.ctipomovimiento, m.nCuenta, ' ' mMovimiento2
+   from tcuentas c with(NOLOCK), tmovimiento m with(NOLOCK)
+   left join cat_almacen a on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+   --left join v_pcatalogorfc rfc on cidrfc=nsubcuenta
+   where /*m.ncuenta*/  substring(m.ncuenta,1,11)+'-00000-00000'= c.ncuenta and nFolioPoliza = @laPoliza AND m.cCentroContable = @cUnidadResponsable and cTipopoliza =@cTipoPoliza and mmovimiento != 0
+   and substring(m.nCuenta, 7,5) != '00000' AND not(c.TipoBalance='P' and c.TipoCuenta='P')
+group by substring(m.nCuenta, 7,5)
+,calmacen, dcuenta
+,'  ' + dCuenta
+,dCuenta, m.ctipomovimiento, m.nCuenta
+--order by m.ncuenta, ctipomovimiento desc
+union
+--3er nivel
+	  select '' Cuenta,''  subCuenta,substring(m.nCuenta, 13,5) subSubCuenta,' 'dSubCuenta,calmacen, dCuenta cnombre,'    ' + dCuenta descripcion,dCuenta, m.ctipomovimiento, m.nCuenta, '' mMovimiento2
+  from tcuentas c with(NOLOCK), tmovimiento m with(NOLOCK)
+   left join cat_almacen a on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+  -- left join v_pcatalogorfc rfc on cidrfc=nsubcuenta
+   where /*m.ncuenta*/  substring(m.ncuenta,1,17)+'-00000'= c.ncuenta and nFolioPoliza = @laPoliza AND m.cCentroContable = @cUnidadResponsable and cTipopoliza =@cTipoPoliza and mmovimiento != 0 and substring(m.nCuenta, 13,5) != '00000' AND not(c.TipoBalance='P' and c.TipoCuenta='P')
+group by substring(m.nCuenta, 13,5)
+,calmacen, dCuenta
+,'    ' + dCuenta
+,dCuenta, m.ctipomovimiento, m.nCuenta
+--order by m.ncuenta, ctipomovimiento desc
+
+union
+
+select '' Cuenta, ''subCuenta,' ' subSubCuenta, case when nSubCuenta = '' then substring(m.nCuenta, 13,5) else nSubCuenta  end dSubCuenta
+,calmacen,cnombre,'      ' +ISNULL(' ', case when nSubCuenta = ''then substring(m.nCuenta, 13,5) else case when cnombre is null then calmacen else '[' + nSubCuenta+']'+cNombre end end) descripcion,dCuenta, m.ctipomovimiento, m.nCuenta, '' mMovimiento2
+  from tcuentas c,  tmovimiento m
+   left join cat_almacen a on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+   left join v_pcatalogorfc rfc on cidrfc=nsubcuenta
+   where m.nSubcuenta != '' and m.ncuenta = c.ncuenta and nFolioPoliza = @laPoliza AND m.cCentroContable = @cUnidadResponsable and cTipopoliza =@cTipoPoliza and mmovimiento != 0 AND not(c.TipoBalance='P' and c.TipoCuenta='P')
+group by case when nSubCuenta = ''
+then substring(m.nCuenta, 13,5) else case when cnombre is null then calmacen else nSubCuenta end end
+,calmacen, cnombre
+,'      ' + case when nSubCuenta = ''
+then substring(m.nCuenta, 13,5) else case when cnombre is null then calmacen else '[' + nSubCuenta+']'+cNombre end end
+,dCuenta, m.ctipomovimiento, m.nCuenta,nSubCuenta
+
+
+   )kk
+--order by m.ncuenta, cuenta desc, subcuenta desc,subsubcuenta, ctipomovimiento desc
+order by  ctipomovimiento DESC,ncuenta, cuenta desc, subcuenta desc, subsubcuenta desc
+
+
+set @cuantos = 0
+select @cuantos = count(*) from #tmp_polizapagos
+
+
+if @cuantos = 0
+begin
+insert into #tmp_polizapagos
+select * from (
+select substring(m.nCuenta, 1,5) Cuenta,'' subCuenta,'' subSubCuenta,''dSubCuenta ,calmacen, dCuenta cnombre,dCuenta descripcion,dCuenta, m.ctipomovimiento, m.nCuenta, sum(mMovimiento) mMovimiento2
+   from tcuentas c with(NOLOCK), tmovimiento m with(NOLOCK)
+   left join cat_almacen a on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+   --left join v_pcatalogorfc rfc on cidrfc=nsubcuenta
+   where /*m.ncuenta = c.ncuenta */ substring(m.ncuenta,1,5)+'-00000-00000-00000'= c.ncuenta  and nFolioPoliza = @laPoliza AND m.cCentroContable = @cUnidadResponsable and cTipopoliza =@cTipoPoliza and mmovimiento != 0
+group by substring(m.nCuenta, 1,5) ,calmacen, dCuenta
+,dCuenta
+,dCuenta, m.ctipomovimiento, m.nCuenta,m.nsubcuenta
+--order by m.ncuenta, ctipomovimiento desc
+union
+--2o nivel
+	  select '' Cuenta,substring(m.nCuenta, 7,5)  subCuenta,'' subSubCuenta,' ' dSubCuenta,calmacen, dcuenta cnombre,'  ' + dCuenta descripcion,dCuenta, m.ctipomovimiento, m.nCuenta, ' ' mMovimiento2
+  from tcuentas c with(NOLOCK), tmovimiento m with(NOLOCK)
+   left join cat_almacen a on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+   --left join v_pcatalogorfc rfc on cidrfc=nsubcuenta
+   where /*m.ncuenta*/  substring(m.ncuenta,1,11)+'-00000-00000'= c.ncuenta and nFolioPoliza = @laPoliza AND m.cCentroContable = @cUnidadResponsable and cTipopoliza =@cTipoPoliza and mmovimiento != 0 and substring(m.nCuenta, 7,5) != '00000'
+group by substring(m.nCuenta, 7,5)
+,calmacen, dcuenta
+,'  ' + dCuenta
+,dCuenta, m.ctipomovimiento, m.nCuenta
+--order by m.ncuenta, ctipomovimiento desc
+union
+--3er nivel
+ select '' Cuenta,''  subCuenta,substring(m.nCuenta, 13,5) subSubCuenta,' 'dSubCuenta,calmacen, dCuenta cnombre,'    ' + dCuenta descripcion,dCuenta, m.ctipomovimiento, m.nCuenta, '' mMovimiento2
+   from tcuentas c with(NOLOCK), tmovimiento m with(NOLOCK)
+   left join cat_almacen a on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+  -- left join v_pcatalogorfc rfc on cidrfc=nsubcuenta
+   where /*m.ncuenta*/  substring(m.ncuenta,1,17)+'-00000'= c.ncuenta and nFolioPoliza = @laPoliza AND m.cCentroContable = @cUnidadResponsable and cTipopoliza =@cTipoPoliza and mmovimiento != 0 and substring(m.nCuenta, 13,5) != '00000'
+group by substring(m.nCuenta, 13,5)
+,calmacen, dCuenta
+,'    ' + dCuenta
+,dCuenta, m.ctipomovimiento, m.nCuenta
+--order by m.ncuenta, ctipomovimiento desc
+union
+select '' Cuenta, ''subCuenta,' ' subSubCuenta, case when nSubCuenta = '' then substring(m.nCuenta, 13,5) else nSubCuenta  end dSubCuenta,calmacen,cnombre,'      ' +ISNULL(' ', case when nSubCuenta = ''then substring(m.nCuenta, 13,5) else case when cnombre is null then calmacen else '[' + nSubCuenta+']'+cNombre end end) descripcion,dCuenta, m.ctipomovimiento, m.nCuenta, '' mMovimiento2
+ from tcuentas c,  tmovimiento m
+   left join cat_almacen a on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+   left join v_pcatalogorfc rfc on cidrfc=nsubcuenta
+   where m.nSubcuenta != '' and m.ncuenta = c.ncuenta and nFolioPoliza = @laPoliza AND m.cCentroContable = @cUnidadResponsable and cTipopoliza =@cTipoPoliza and mmovimiento != 0
+group by case when nSubCuenta = ''
+then substring(m.nCuenta, 13,5) else case when cnombre is null then calmacen else nSubCuenta end end
+,calmacen, cnombre
+,'      ' + case when nSubCuenta = ''
+then substring(m.nCuenta, 13,5) else case when cnombre is null then calmacen else '[' + nSubCuenta+']'+cNombre end end
+,dCuenta, m.ctipomovimiento, m.nCuenta,nSubCuenta
+
+
+   )kk
+--order by m.ncuenta, cuenta desc, subcuenta desc, subsubcuenta, ctipomovimiento desc
+order by  ctipomovimiento DESC,ncuenta, cuenta desc, subcuenta desc, subsubcuenta desc
+end
+
+
+select @cTipoPoliza+'-'+@laPoliza as Poliza,*
+,case when cTipoMovimiento = 'C' then mMovimiento2 else 0 end Debe, case when cTipoMovimiento = 'A' then mMovimiento2 else 0 end Haber
+ from #tmp_polizapagos
+if object_id('tempdb..#tmp_polizapagos') is not null drop table #tmp_polizapagos;]]>
+	</queryString>
+	<field name="Poliza" class="java.lang.String"/>
+	<field name="Cuenta" class="java.lang.String"/>
+	<field name="subCuenta" class="java.lang.String"/>
+	<field name="subSubCuenta" class="java.lang.String"/>
+	<field name="dSubCuenta" class="java.lang.String"/>
+	<field name="calmacen" class="java.lang.String"/>
+	<field name="cnombre" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="dCuenta" class="java.lang.String"/>
+	<field name="ctipomovimiento" class="java.lang.String"/>
+	<field name="nCuenta" class="java.lang.String"/>
+	<field name="mMovimiento2" class="java.math.BigDecimal"/>
+	<field name="Debe" class="java.math.BigDecimal"/>
+	<field name="Haber" class="java.math.BigDecimal"/>
+	<variable name="porcIva" class="java.lang.String">
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="laEP" class="java.lang.String">
+		<initialValueExpression><![CDATA["VARIAS"]]></initialValueExpression>
+	</variable>
+	<variable name="Debe_1" class="java.math.BigDecimal" resetType="Group" resetGroup="caNoContrarrecibo" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="Haber_1" class="java.math.BigDecimal" resetType="Group" resetGroup="caNoContrarrecibo" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="noPoliza" class="java.lang.String">
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="Debe_2" class="java.math.BigDecimal" resetType="Group" resetGroup="caNoContrarrecibo" calculation="Sum">
+		<variableExpression><![CDATA[$F{Debe}]]></variableExpression>
+	</variable>
+	<variable name="Haber_2" class="java.math.BigDecimal" resetType="Group" resetGroup="caNoContrarrecibo" calculation="Sum">
+		<variableExpression><![CDATA[$F{Haber}]]></variableExpression>
+	</variable>
+	<group name="caNoContrarrecibo">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="37" splitType="Stretch">
+				<rectangle>
+					<reportElement key="rectangle" x="409" y="16" width="74" height="21" uuid="002cccd8-8fd1-42e6-b96a-02744199412e"/>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="483" y="16" width="65" height="21" uuid="e5318523-3251-4ceb-aa0b-f4634baeaefb"/>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="149" y="16" width="260" height="21" uuid="74b5545a-7ab1-4189-a36e-3c86492939b8"/>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="89" y="16" width="60" height="21" uuid="659e4a48-1d74-4516-9c96-8c860c063146"/>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="42" y="16" width="47" height="21" uuid="fe856db0-7ca4-411d-a4fc-d2e9e0030a97"/>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="1" y="16" width="44" height="21" uuid="b1d3a29a-dcf3-45e5-896c-2996dc60ac4f"/>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText" x="-1" y="17" width="45" height="20" uuid="ae8c765b-662b-4805-8ef7-7c21a202dd9a"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[Cuenta]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="45" y="17" width="44" height="20" uuid="da669b58-6027-4999-886b-ff1996c75298"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[SubCta]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="89" y="17" width="60" height="20" uuid="a1f7c793-bfd8-4c7a-b6f9-2a1f7494640b"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[SubSCta]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="152" y="17" width="243" height="20" uuid="984731ed-907b-485a-ae59-d92eee0c5f64"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[NOMBRE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="427" y="16" width="45" height="19" uuid="b36a0471-0b62-46fc-9064-aad3d140c99a"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[DEBE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="481" y="15" width="64" height="20" uuid="39466c41-51c1-4921-b760-453144ddfae1"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[HABER]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="-1" y="0" width="354" height="14" uuid="b4928479-ae3a-4d89-9840-314b20aede12"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<text><![CDATA[P O L I Z A   C O N T A B L E   A U T O M A T I C A   N O.: ]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="353" y="1" width="56" height="12" uuid="36d8cae3-8627-4d49-82c6-8d9cdf85ba4e"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Poliza}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="17" splitType="Stretch">
+				<rectangle>
+					<reportElement key="rectangle" x="482" y="0" width="66" height="16" uuid="dbaf63bd-d3de-4f7e-ab4d-5e9d4ebfa142"/>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="409" y="0" width="74" height="16" uuid="99d59461-01c4-4a0b-aff4-719e3a1ff9d8"/>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="293" y="0" width="116" height="16" uuid="99adae28-328b-469c-8b70-3b299d7afa42"/>
+				</rectangle>
+				<line>
+					<reportElement key="line" x="0" y="0" width="293" height="1" uuid="6357a901-2ee1-4dd1-9793-1b9f6674c9ac"/>
+				</line>
+				<staticText>
+					<reportElement key="staticText" x="302" y="2" width="93" height="15" uuid="c5574a23-ccb5-4af8-bd25-2ae5435f252f"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<text><![CDATA[SUMAS IGUALES:]]></text>
+				</staticText>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="407" y="1" width="63" height="16" uuid="cf3c81f0-092b-4a61-925b-1a846783a06b"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{Debe_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="482" y="1" width="63" height="14" uuid="594b71e6-ffb0-40ba-adde-99219373917e"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{Haber_2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="1" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="1" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="2" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<line>
+				<reportElement key="line" x="88" y="0" width="1" height="19" uuid="5a0e0d6c-be28-4827-bbd6-d4942e736982"/>
+			</line>
+			<line>
+				<reportElement key="line" x="149" y="0" width="1" height="19" uuid="38b12ef2-d0d2-4b30-ba3c-b37470e6ca00"/>
+			</line>
+			<line>
+				<reportElement key="line" x="409" y="0" width="1" height="19" uuid="7e53c496-ed31-448e-b96b-4659c391b2f8"/>
+			</line>
+			<textField>
+				<reportElement x="2" y="1" width="41" height="10" uuid="f22d5f2d-bb81-4c30-83dc-9fd54ce7289e"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cuenta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="43" y="0" width="45" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="7f94f61a-d70b-42c9-8d6a-e0c7c6299627"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subCuenta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="152" y="0" width="257" height="19" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="fdfa22f2-3afb-4184-be78-f6a2cf57732d"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cnombre}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="416" y="1" width="63" height="9" forecolor="#000000" backcolor="#FFFFFF" uuid="e16b278c-3a46-485b-9872-fb5aa91fb018">
+					<printWhenExpression><![CDATA[$F{Debe}!=$F{Haber}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Debe}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="484" y="1" width="63" height="9" forecolor="#000000" backcolor="#FFFFFF" uuid="ad726206-cb2f-472d-9284-94f99b5d773b"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Haber}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="89" y="0" width="60" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="49451e31-aa4c-4e4d-aa93-4fea8a15fbb9"/>
+				<textElement textAlignment="Justified" verticalAlignment="Bottom" rotation="None" markup="none">
+					<font fontName="SansSerif" size="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subSubCuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="89" y="10" width="60" height="9" uuid="640f8c91-06a5-4aa8-a159-b79fde02ce86"/>
+				<textElement textAlignment="Center">
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dSubCuenta}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line" x="482" y="0" width="1" height="19" uuid="819cbf23-8d58-4428-b9ef-1e73a0d1eb86"/>
+			</line>
+			<line>
+				<reportElement key="line" x="548" y="0" width="1" height="19" uuid="56363a56-252b-428f-a290-025566ae3339"/>
+			</line>
+			<line>
+				<reportElement key="line" x="0" y="0" width="1" height="19" uuid="76d96af1-3332-465a-8b58-654daa2f36fa"/>
+			</line>
+			<line>
+				<reportElement key="line" x="44" y="0" width="1" height="19" uuid="c83f3b4c-86c3-422d-9036-59817614fc02"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

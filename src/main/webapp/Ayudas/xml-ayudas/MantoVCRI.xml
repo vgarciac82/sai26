@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--  -->
+<Ayuda>
+	<titulo>Relación CRI-Objeto de Gasto</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>1500</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_VCRI</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>3</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>	
+		<columna campo="OBGT"		control="txtGridOBGT"		dependencia="No"	limpiaOnKeypress="" header="OBGT"	 					rowCol="1,1"	ancho="10"	maxlen="10" tipo="string" visible="Si" clase=""/>		
+		<columna campo="TG"			control="txtGridTG"			dependencia="No" 	limpiaOnKeypress="" header="TG"	 				rowCol="1,2"	ancho="10"	maxlen="10" tipo="string" visible="Si" clase=""/>
+		<columna campo="TG"			control="txtGridFF"			dependencia="No" 	limpiaOnKeypress="" header="FF"	 	rowCol="1,3"	ancho="10"	maxlen="10" tipo="string" visible="Si" clase=""/>
+		<columna campo="cri"		control="txtGridcri"		dependencia="No" 	limpiaOnKeypress="" header="CRI"	 					rowCol="2,1"	ancho="50"	maxlen="50" tipo="string" visible="Si" clase=""/>
+		<columna campo="cNombre"	control="txtGridcNombre"	dependencia="No" 	limpiaOnKeypress=""	header="Nombre CRI"					rowCol="2,2"	ancho="50"	maxlen="50" tipo="string" visible="Si" clase=""/>		
+	</grid>  
+		
+</Ayuda>

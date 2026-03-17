@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Mensajes</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>TCAT_MENSAJES</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	<grid>
+		<columna campo="NOMBRE"		control=""	dependencia="No"	limpiaOnKeypress=""		header="Nombre"	 	ancho="10"	maxlen="10" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="MENSAJE"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Mensaje"	ancho="100"	maxlen="800"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="NANIO"		control=""	dependencia="No"	limpiaOnKeypress=""		header="Año"	 	ancho="10"	maxlen="10"	tipo="numero"	visible="Si"	clase=""/>
+		<columna campo="idMensaje"	control=""	dependencia="No"	limpiaOnKeypress=""		header="idMensaje"	ancho="10"	maxlen="10" tipo="numero"	visible="No"	clase="Protegido"/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="NOMBRE"	control="txtGridCol0"	llave="No"	identity="No"	requerido="El Nombre es un dato requerido."	requeridoFocus="txtGridCol0"	tipo="string" />
+		<campo field="MENSAJE"	control="txtGridCol1"	llave="No"	identity="No"	requerido="El mensaje es un dato requerido"	requeridoFocus="txtGridCol1"	tipo="string" />
+		<campo field="NANIO"	control="txtGridCol2"	llave="No"	identity="No"	requerido="El año es un dato requerido"		requeridoFocus="txtGridCol2"	tipo="numero" />
+		<campo field="idMensaje" control="txtGridCol3"	llave="Si"	identity="Si"	requerido=""								requeridoFocus="txtGridCol2"	tipo="numero" />
+	</insertaRegistro>
+	
+</Ayuda>

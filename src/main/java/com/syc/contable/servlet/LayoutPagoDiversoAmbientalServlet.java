@@ -80,7 +80,7 @@ public class LayoutPagoDiversoAmbientalServlet extends HttpServlet implements Ge
                 archivoBanorte.append(LayoutBanorte.get(i));
             }
             String outTextBanorte = archivoBanorte.toString();
-            out.write(outTextBanorte.toPath());
+            out.write(outTextBanorte);
             // fin Layout BANORTE
             out.close();
             // Guarda el layout SPEI
@@ -90,7 +90,7 @@ public class LayoutPagoDiversoAmbientalServlet extends HttpServlet implements Ge
                 archivoSpei.append(LayoutSpei.get(i));
             }
             String outTextSpei = archivoSpei.toString();
-            outSpei.write(outTextSpei.toPath());
+            outSpei.write(outTextSpei);
             // fin Layout SPEI
             outSpei.close();
             // Guarda el layout BANORTE IP
@@ -100,7 +100,7 @@ public class LayoutPagoDiversoAmbientalServlet extends HttpServlet implements Ge
                 archivoBanorteIP.append(LayoutBanorteIP.get(i));
             }
             String outTextBanorteIP = archivoBanorteIP.toString();
-            outIP.write(outTextBanorteIP.toPath());
+            outIP.write(outTextBanorteIP);
             // fin Layout BANORTE
             outIP.close();
             // Guarda el layout SPEI IP
@@ -110,7 +110,7 @@ public class LayoutPagoDiversoAmbientalServlet extends HttpServlet implements Ge
                 archivoSpeiIP.append(LayoutSpeiIP.get(i));
             }
             String outTextSpeiIP = archivoSpeiIP.toString();
-            outSpeiIP.write(outTextSpeiIP.toPath());
+            outSpeiIP.write(outTextSpeiIP);
             // fin Layout SPEI
             outSpeiIP.close();
             // These are the files to include in the ZIP file

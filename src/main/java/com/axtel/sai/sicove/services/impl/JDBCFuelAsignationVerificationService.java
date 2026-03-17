@@ -178,9 +178,9 @@ public class JDBCFuelAsignationVerificationService extends DataSourceManager imp
         CasoBusinessLogic processService = new CasoBusinessLogic(jniName);
         try {
             conn = getConnection();
-            log.debug("Object: {}", "Deleting document from expedient: " + detail.getTicketReference());
+            log.debug("Object: " + String.valueOf("Deleting document from expedient: " + detail.getTicketReference()));
             processService.deleteDocument(conn, detail.getTicketReference());
-            log.debug("Object: {}", "Deleting verification detail info: " + detail);
+            log.debug("Object: " + String.valueOf("Deleting verification detail info: " + detail));
             fuelAsignationVerificationRepository.deleteFuelingVerificationDetail(conn, detail);
             detail.setTicketAmount(detail.getTicketAmount().negate());
             fuelAsignationVerificationRepository.updatePendingAmount(conn, detail);

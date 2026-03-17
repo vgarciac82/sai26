@@ -75,7 +75,7 @@ public class ReporteNafinManager {
         try {
             pst = conn.prepareStatement(query);
             int num = pst.executeUpdate();
-            log.debug("Object: {}", "Se actualizaron " + num + " registros.");
+            log.debug("Object: " + String.valueOf("Se actualizaron " + num + " registros."));
         } finally {
             CloseObject.closeObject(pst);
         }
@@ -127,7 +127,7 @@ public class ReporteNafinManager {
         try {
             pst = conn.prepareStatement(query);
             rs = pst.executeQuery();
-            log.debug("Object: {}", "Consulta el consecutivo para el id del documento: " + query);
+            log.debug("Object: " + String.valueOf("Consulta el consecutivo para el id del documento: " + query));
             if (rs.next()) {
                 consecutivo = rs.getInt("seq_value");
             }
@@ -282,7 +282,7 @@ public class ReporteNafinManager {
         query.append(" WHERE cDocumentoHaplicado = 's' AND convert(date,fAplicacion,113) between @fechaini AND @fechaFin ");
         query.append(" AND dRFC not in (SELECT cIdRFC FROM tproveedorNafin (nolock))");
         try {
-            log.debug("Object: {}", query.toString());
+            log.debug("Object: " + String.valueOf(query.toString()));
             pst = conn.prepareStatement(query.toString());
             pst.setString(1, fini);
             pst.setString(2, ffin);
@@ -360,7 +360,7 @@ public class ReporteNafinManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         workbook.close();
         /* Cierra Flujos */
         bos.flush();

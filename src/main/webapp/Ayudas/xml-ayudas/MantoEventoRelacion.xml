@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--  -->
+<Ayuda>
+	<titulo>Mantenimiento Evento Relacion</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>800</altoWin>
+	<altoAreaCaptura>120</altoAreaCaptura>
+	<tabla>M_TEVENTORELACION</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>4</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>				
+		<columna campo="nIdGrupoEvento"		control="txtGridnIdGrupoEvento"		dependencia="No"	limpiaOnKeypress=""		header="GrupoEvento"	 	ancho="3"	maxlen="3" 		tipo="string"	visible="Si"	clase=""	rowCol="1,1"/>		
+		<columna campo="nIdSubGrupoEvento"	control="txtGridnIdSubGrupoEvento"	dependencia="No"	limpiaOnKeypress=""		header="SubGrupoEvento"		ancho="3"	maxlen="3" 		tipo="string"	visible="Si"	clase=""	rowCol="1,2"/>
+		<columna campo="cEvento"			control="txtGridcEvento"			dependencia="No"	limpiaOnKeypress=""		header="Evento"				ancho="3"	maxlen="3" 		tipo="string"	visible="Si"	clase=""	rowCol="1,3"/>		
+		<columna campo="dEvento"			control="txtGriddEvento"			dependencia="No"	limpiaOnKeypress=""		header="dEvento"	 		ancho="100"	maxlen="100" 	tipo="string"	visible="Si"	clase=""	rowCol="2,1"/>
+		<columna campo="cUR"				control="txtGridcUR"				dependencia="No"	limpiaOnKeypress=""		header="UR"	 				ancho="3"	maxlen="3" 		tipo="string"	visible="Si"	clase=""	rowCol="3,1"/>
+	</grid>  
+	
+	<insertaRegistro>		
+		<campo field="nIdGrupoEvento" 		control="txtGridnIdGrupoEvento"		llave="Si"	identity="No" 	requerido=""	requeridoFocus=""	tipo="string" />
+		<campo field="nIdSubGrupoEvento"	control="txtGridnIdSubGrupoEvento"	llave="Si"	identity="No" 	requerido=""	requeridoFocus=""	tipo="string" />		
+		<campo field="cEvento" 				control="txtGridcEvento"			llave="Si"	identity="No" 	requerido="Si"	requeridoFocus=""	tipo="string" />
+		<campo field="dEvento" 				control="txtGriddEvento"			llave="No"	identity="No"	requerido="El Nombre del Evento es un dato requerido."	requeridoFocus="txtGriddEvento"	tipo="string" />				
+		<campo field="cUR" 					control="txtGridcUR"				llave="Si"	identity="No" 	requerido="Si"	requeridoFocus=""	tipo="string" />
+	</insertaRegistro>
+	
+</Ayuda>

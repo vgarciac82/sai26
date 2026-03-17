@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DetalleFONDEN" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6254d915-0d76-4257-80aa-84feccc9d2d0">
+	<property name="ireport.zoom" value="1.7715610000000022"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["..\\..\\Reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cIdFonden" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     tFondenMovimiento."cIdFonden" AS tFondenMovimiento_cIdFonden,
+     tFondenMovimiento."nIdFondenMovimiento" AS tFondenMovimiento_nIdFondenMovimiento,
+     tFondenMovimiento."cConcepto" AS tFondenMovimiento_cConcepto,
+     tFondenMovimiento."nPrecioUnitario" AS tFondenMovimiento_nPrecioUnitario,
+     tFondenMovimiento."nCantidad" AS tFondenMovimiento_nCantidad,
+     tFondenMovimiento."nImporte" AS tFondenMovimiento_nImporte,
+     tFondenMovimiento."cRFC" AS tFondenMovimiento_cRFC,
+     tFondenMovimiento."cNumPedido" AS tFondenMovimiento_cNumPedido,
+     tFondenMovimiento."nNetoPedido" AS tFondenMovimiento_nNetoPedido,
+     tFondenMovimiento."nPrecio" AS tFondenMovimiento_nPrecio,
+     tFondenMovimiento."nTotal" AS tFondenMovimiento_nTotal,
+     tFondenMovimiento."cProveedor" AS tFondenMovimiento_cProveedor,
+     tFondenMovimiento."ACTIVO" AS tFondenMovimiento_ACTIVO,
+     tFondenMovimiento."ID_GABINETE" AS tFondenMovimiento_ID_GABINETE,
+     tFondenMovimiento."cFolio" AS tFondenMovimiento_cFolio,
+     tFondenMovimiento."cCentroContable" AS tFondenMovimiento_cCentroContable,
+     tFondenMovimiento."cUnidadResponsable" AS tFondenMovimiento_cUnidadResponsable,
+     tFondenMovimiento."nNumCaso" AS tFondenMovimiento_nNumCaso,
+     tFondenMovimiento."nCantidadTotal" AS tFondenMovimiento_nCantidadTotal,
+     tFondenMovimiento."nTechoDef" AS tFondenMovimiento_nTechoDef,
+     tFondenMovimiento."cIdMoneda" AS tFondenMovimiento_cIdMoneda,
+     tFondenMovimiento."nTipoCambio" AS tFondenMovimiento_nTipoCambio,
+     tFondenMovimiento."nIdFondenMovEstatus" AS tFondenMovimiento_nIdFondenMovEstatus,
+     tFondenMovEstatus."nIdFondenMovEstatus" AS tFondenMovEstatus_nIdFondenMovEstatus,
+     tFondenMovEstatus."cDescripcion" AS tFondenMovEstatus_cDescripcion,
+     tFondenMoneda."cIdMoneda" AS tFondenMoneda_cIdMoneda,
+     tFondenMoneda."cDescripcion" AS tFondenMoneda_cDescripcion,
+     tFondenMoneda."nTipoCambio" AS tFondenMoneda_nTipoCambio,
+     tFonden."cIdFonden" AS tFonden_cIdFonden,
+     tFonden."cUsuarioCreador" AS tFonden_cUsuarioCreador,
+     tFonden."dFechaCaptura" AS tFonden_dFechaCaptura,
+     tFonden."cDescripcion" AS tFonden_cDescripcion,
+     tFonden."nImporteAnual" AS tFonden_nImporteAnual
+FROM
+     "dbo"."tFondenMovEstatus" tFondenMovEstatus INNER JOIN "dbo"."tFondenMovimiento" tFondenMovimiento ON tFondenMovEstatus."nIdFondenMovEstatus" = tFondenMovimiento."nIdFondenMovEstatus"
+     INNER JOIN "dbo"."tFondenMoneda" tFondenMoneda ON tFondenMovimiento."cIdMoneda" = tFondenMoneda."cIdMoneda"
+     INNER JOIN "dbo"."tFonden" tFonden ON tFondenMovimiento."cIdFonden" = tFonden."cIdFonden"
+WHERE  tFondenMovimiento."cIdFonden" = $P{cIdFonden}]]>
+	</queryString>
+	<field name="tFondenMovimiento_cIdFonden" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_nIdFondenMovimiento" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_cConcepto" class="java.lang.String"/>
+	<field name="tFondenMovimiento_nPrecioUnitario" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_nCantidad" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_nImporte" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_cRFC" class="java.lang.String"/>
+	<field name="tFondenMovimiento_cNumPedido" class="java.lang.String"/>
+	<field name="tFondenMovimiento_nNetoPedido" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_nPrecio" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_nTotal" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_cProveedor" class="java.lang.String"/>
+	<field name="tFondenMovimiento_ACTIVO" class="java.lang.String"/>
+	<field name="tFondenMovimiento_ID_GABINETE" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_cFolio" class="java.lang.String"/>
+	<field name="tFondenMovimiento_cCentroContable" class="java.lang.String"/>
+	<field name="tFondenMovimiento_cUnidadResponsable" class="java.lang.String"/>
+	<field name="tFondenMovimiento_nNumCaso" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_nCantidadTotal" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_nTechoDef" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_cIdMoneda" class="java.lang.String"/>
+	<field name="tFondenMovimiento_nTipoCambio" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_nIdFondenMovEstatus" class="java.lang.Integer"/>
+	<field name="tFondenMovEstatus_nIdFondenMovEstatus" class="java.lang.Integer"/>
+	<field name="tFondenMovEstatus_cDescripcion" class="java.lang.String"/>
+	<field name="tFondenMoneda_cIdMoneda" class="java.lang.String"/>
+	<field name="tFondenMoneda_cDescripcion" class="java.lang.String"/>
+	<field name="tFondenMoneda_nTipoCambio" class="java.math.BigDecimal"/>
+	<field name="tFonden_cIdFonden" class="java.lang.Integer"/>
+	<field name="tFonden_cUsuarioCreador" class="java.lang.String"/>
+	<field name="tFonden_dFechaCaptura" class="java.sql.Timestamp"/>
+	<field name="tFonden_cDescripcion" class="java.lang.String"/>
+	<field name="tFonden_nImporteAnual" class="java.math.BigDecimal"/>
+	<variable name="IMPORTE_TOTAL" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{tFondenMovimiento_nImporte}.multiply( $F{tFondenMovimiento_nTipoCambio} )]]></variableExpression>
+	</variable>
+	<variable name="TECHO_TOTAL" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{tFondenMovimiento_nTechoDef}.multiply( $F{tFondenMovimiento_nTipoCambio} )]]></variableExpression>
+	</variable>
+	<variable name="IMPORTE_TECHO" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{IMPORTE_TOTAL}-$V{TECHO_TOTAL}]]></variableExpression>
+	</variable>
+	<variable name="SUM_IMPORTE_FACTURA" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="65" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="27" width="319" height="11" uuid="e7847c0a-303d-4475-9b79-88ce7db557c1"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[SUBGERENCIA DE OPERACIÓN FINANCIERA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="319" height="14" uuid="32847120-2e11-4308-8404-7b7ecafffa17"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="14" width="319" height="11" uuid="0a70b802-595e-4bc6-977f-f588c499d892"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[GERENCIA DE RECURSOS FINANCIEROS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="53" width="802" height="10" uuid="a70dac21-aaf0-4b79-b037-2712d000f4ed"/>
+				<textElement markup="none">
+					<font fontName="Arial" size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DEL FIDEICOMISO "+$F{tFonden_cDescripcion}+" FONDEN POR "+new java.text.DecimalFormat("\\$ #,##0.00").format($F{tFonden_nImporteAnual})+" PARA EL EJERCICIO "+$F{tFonden_cIdFonden}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="43" width="802" height="10" uuid="2e9ddcfd-7897-43ba-8e30-c904a812be00"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[DETALLE DE LA SOLICITUD SEGÚN RECURSOS AUTORIZADOS A LA CONAFOR POR EL COMITÉ TÉCNICO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="49" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="0" width="19" height="49" uuid="40588dee-5498-4b69-944d-07bddcbe68a1"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[CASO NUM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="0" width="116" height="49" uuid="fa7ecd18-1bfa-4a29-b4ee-ea116c8493f4"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[CONCEPTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="136" y="0" width="100" height="29" uuid="5918e396-52d4-4c23-a3b9-ef2653a9d078"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[MODIFICACIONES DE LA SOLICITUD DE RECURSOS AUTORIZADOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="236" y="0" width="43" height="49" uuid="bc5979da-5879-4710-ade8-335dd68a51eb"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[PROVEEDOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="0" width="31" height="49" uuid="623ab274-7ad5-4029-b37b-5634fce03c84"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[NUM. PEDIDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="0" width="30" height="49" uuid="ae970806-d9fb-462f-ad12-9c50e619ee2c"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[NETO PEDIDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="0" width="42" height="49" uuid="296baa8d-dabb-48a3-ae86-50c7a89b1d92"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[PRECIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="382" y="0" width="38" height="49" uuid="3b850afb-f029-42b6-9901-eb04cd49a7ce"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="0" width="40" height="49" uuid="81545767-c01b-4043-97cf-e2d594b8abe9"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[TECHO DEF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="0" width="200" height="14" uuid="bd10d21c-b4ea-4b4c-9dd3-c11711fc466f"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[EQUIPO Y SUMINISTRO AGUA LIMPIA SA DE CV]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="136" y="29" width="33" height="20" uuid="f80656a3-5621-43d2-b752-70a2a7ddff72"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[PRECIO UNITARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="169" y="29" width="31" height="20" uuid="e2cc7f53-17de-4c60-bfdc-e28dd63690ac"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="29" width="36" height="20" uuid="59198c90-d7dc-4494-a46a-0e0ad29eff5f"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[IMPORTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="14" width="42" height="15" uuid="e819b743-beab-498c-b6a1-7811a31910da"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[NO. PEDIDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="502" y="14" width="42" height="15" uuid="13768b25-880d-4991-a2be-3b59d07e5d73"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[NETO PEDIDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="544" y="14" width="116" height="15" uuid="b78818ec-2c9f-4c2b-8e34-7276dc68821e"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[FACTURACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="660" y="0" width="76" height="29" uuid="2902f3e3-8a1a-451e-9157-9ea88c59402b"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[IMPORTE FACTURA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="544" y="29" width="63" height="20" uuid="e184ebd9-1d08-416a-919f-05689c694dba"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[NUM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="607" y="29" width="53" height="20" uuid="f3e8ec0d-9495-444a-9d63-2b58c9fdfb7f"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="736" y="0" width="66" height="29" uuid="2ce37d2d-0cc2-449d-9044-7220b40ae647"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[SALDO PEDIDO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="460" y="29" width="42" height="20" uuid="f82d2b43-7a6a-492a-afc3-cf1cc7ba05aa"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="502" y="29" width="42" height="20" uuid="5c84bf24-e25c-4f9e-b9c7-624edc85c440"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="660" y="29" width="76" height="20" uuid="80e9d4bd-40d1-4fcc-a494-1f552dca36d5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="736" y="29" width="66" height="20" uuid="2d8ecfae-98d2-42af-aa89-5a388fb23d06"/>
+			</rectangle>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<elementGroup/>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="1" y="0" width="19" height="20" uuid="077b0206-2824-4ab1-af76-c2f4aec2d7e3"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nNumCaso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="20" y="0" width="116" height="20" uuid="fcab29d5-fe69-46bd-8578-b235d1198d4b"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_cConcepto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement stretchType="RelativeToBandHeight" x="136" y="0" width="33" height="20" uuid="f213a7cf-e1f6-4149-a3ee-4eaa40a85be2"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nPrecioUnitario}.multiply( $F{tFondenMovimiento_nTipoCambio} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="169" y="0" width="31" height="20" uuid="ccd119d2-241e-4080-a4f1-85b58ebc17d8"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nCantidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement stretchType="RelativeToBandHeight" x="200" y="0" width="36" height="20" uuid="8ded6852-a942-4e88-bc73-75771d770cbc"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nImporte}.multiply( $F{tFondenMovimiento_nTipoCambio} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="236" y="0" width="43" height="20" uuid="e13913fa-b005-412f-96fe-8f406cb4e01b"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_cProveedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="279" y="0" width="31" height="20" uuid="cee6d277-488a-41ef-8078-36b10a6f4c09"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_cNumPedido}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement stretchType="RelativeToBandHeight" x="310" y="0" width="30" height="20" uuid="cf0010cd-51e9-4caa-bed2-09121decc11d"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nNetoPedido}.multiply( $F{tFondenMovimiento_nTipoCambio} )]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement stretchType="RelativeToBandHeight" x="340" y="0" width="42" height="20" uuid="d6e315d0-9d65-423c-be04-3c2708700eed"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nPrecio}.multiply( $F{tFondenMovimiento_nTipoCambio} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="382" y="0" width="38" height="20" uuid="00f19f7b-4622-4d68-b2be-aa746ca073a2"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nCantidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement stretchType="RelativeToBandHeight" x="420" y="0" width="40" height="20" uuid="984c870d-82db-4a5f-9ae9-8617a2aa4ac2"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nTechoDef}.multiply( $F{tFondenMovimiento_nTipoCambio} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="460" y="0" width="42" height="20" uuid="cbf46f5f-20ac-4397-aa5c-9ff8ca692644"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_cNumPedido}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement stretchType="RelativeToBandHeight" x="502" y="0" width="42" height="20" uuid="ea4abc59-12f2-4dcb-b256-89293a86409a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nNetoPedido}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="544" y="0" width="258" height="20" uuid="37597b4c-4128-4af1-89bd-bf21bb1b622e"/>
+			</rectangle>
+			<subreport>
+				<reportElement x="544" y="0" width="258" height="20" uuid="0eb0ab45-cb8d-4d98-b6fd-ecc478c7a0b7"/>
+				<subreportParameter name="netoPedido">
+					<subreportParameterExpression><![CDATA[$F{tFondenMovimiento_nNetoPedido}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="cIdFonden">
+					<subreportParameterExpression><![CDATA[$F{tFondenMovimiento_cIdFonden}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nIdFondenMovimiento">
+					<subreportParameterExpression><![CDATA[$F{tFondenMovimiento_nIdFondenMovimiento}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="SUM_IMPORTE_FACTURA" toVariable="SUM_IMPORTE_FACTURA"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "DetalleFONDEN_facturacion.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="20" y="0" width="116" height="12" backcolor="#CCCCCC" uuid="fc179a9f-2f8a-41b5-a722-36c936411378"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="20" y="12" width="116" height="12" backcolor="#CCCCCC" uuid="1f465813-b399-4144-800d-01db8daaa845"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[DIFERENCIA POR APLICAR A OTROS CONCEPTOS]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement mode="Opaque" x="200" y="0" width="36" height="12" backcolor="#CCCCCC" uuid="af3550e5-09be-438f-a33b-f57bcc0536b5"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{IMPORTE_TOTAL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement mode="Opaque" x="420" y="0" width="40" height="12" backcolor="#CCCCCC" uuid="df6517de-9f26-456f-8e0b-7095705199a5"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TECHO_TOTAL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement mode="Opaque" x="420" y="12" width="40" height="12" backcolor="#CCCCCC" uuid="f7857b25-ef2c-432e-afb0-c534c9c47601"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{IMPORTE_TECHO}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="236" y="0" width="43" height="24" backcolor="#CCCCCC" uuid="f6399e5c-0aa2-411a-8a4b-8f91e8951a43"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="279" y="0" width="31" height="24" backcolor="#CCCCCC" uuid="ae8435f3-5b91-4924-ae73-0f698fe2e0e7"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="310" y="0" width="30" height="24" backcolor="#CCCCCC" uuid="ba49c615-270e-4639-bba9-75e5e023b019"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="340" y="0" width="42" height="24" backcolor="#CCCCCC" uuid="07017510-3a15-4010-be42-f05fb0a3588b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="382" y="0" width="38" height="24" backcolor="#CCCCCC" uuid="ec9926fa-c62b-4ea8-913a-7477e9875ad1"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="136" y="0" width="33" height="24" backcolor="#CCCCCC" uuid="95550dc5-38a7-4fe1-9d97-52ba61186a34"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="169" y="0" width="31" height="24" backcolor="#CCCCCC" uuid="a382ac59-f1bc-4356-a8ce-91b78bebb91c"/>
+			</rectangle>
+			<textField>
+				<reportElement mode="Opaque" x="200" y="12" width="36" height="12" backcolor="#CCCCCC" uuid="26d069f2-ddb9-4966-a7b5-52f11b01359a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement mode="Opaque" x="660" y="0" width="76" height="12" backcolor="#CCCCCC" uuid="e537ba79-dc99-4950-bb5e-e44ea8eedcff"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SUM_IMPORTE_FACTURA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

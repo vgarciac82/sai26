@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Busca Acuerdos de Administracion</titulo>
+	<anchoWin>1000</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>REGISTROPASIVO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+	    <columna campo="clavePasivo" control="clavePasivo" dependencia="No" ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave Pasivo"	ancho="20"	maxlen="20"	tipo="string" visible="Si" clase=""/>
+		<columna campo="referenciaAMF" control="referenciaAMF"	dependencia="No" ctrlsDependientes=""	limpiaOnKeypress=""	header="Referencia AMF"	ancho="20"	maxlen="20"	tipo="string"	visible="Si" clase=""/>
+		<columna campo="rfcAMF" control="rfcAMF"	dependencia="No" ctrlsDependientes=""	limpiaOnKeypress=""	header="Rfc AMF"	ancho="20"	maxlen="20"	tipo="string"	visible="Si" clase=""/>
+		<columna campo="cuentaBancaria" control="cIdCuentasBancarias1"	dependencia="No" ctrlsDependientes=""	limpiaOnKeypress=""	header="Cuenta Bancaria"	ancho="20"	maxlen="20"	tipo="string"	visible="Si" clase=""/>
+		<columna campo="fechaCaptura" control="fechaCaptura"	dependencia="No" ctrlsDependientes=""	limpiaOnKeypress=""	header="fecha Captura"	ancho="20"	maxlen="20"	tipo="string"	visible="No" clase=""/>
+		<columna campo="fechaPago" control="fechaPago"	dependencia="No" ctrlsDependientes=""	limpiaOnKeypress=""	header="fecha Pago"	ancho="20"	maxlen="20"	tipo="string"	visible="No" clase=""/>
+		<columna campo="importePago" control="importePago"	dependencia="No" ctrlsDependientes=""	limpiaOnKeypress=""	header="importePago"	ancho="20"	maxlen="20"	tipo="string"	visible="No" clase=""/>
+		<columna campo="estatus" control="estatus"	dependencia="No" ctrlsDependientes=""	limpiaOnKeypress=""	header="estatus" ancho="20"	maxlen="20"	tipo="string"	visible="No" clase=""/>						
+	</grid>  
+</Ayuda>

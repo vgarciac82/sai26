@@ -816,13 +816,13 @@ public class AdecuacionManager {
             rs = pstmnt.executeQuery();
             if (rs.next()) {
                 iexistenvII = rs.getInt(1);
-                log.debug("Object: {}", "tiene: " + iexistenvII + " de nivel II");
+                log.debug("Object: " + String.valueOf("tiene: " + iexistenvII + " de nivel II"));
             }
             pstmntii = conn.prepareStatement(cQueryConstructorII);
             rsii = pstmntii.executeQuery();
             if (rsii.next()) {
                 iexistenvSup = rsii.getInt(1);
-                log.debug("Object: {}", "tiene: " + iexistenvSup + " de nivel superior a II");
+                log.debug("Object: " + String.valueOf("tiene: " + iexistenvSup + " de nivel superior a II"));
             }
         } finally {
             CloseObject.closeObject(pstmnt);
@@ -1210,9 +1210,9 @@ public class AdecuacionManager {
         // "select
         String // "select
         // d.*,
-        cSQlsentence = // u.U_NOMBRE,
-        "select u.U_NOMBRE+'><'+a.D_DESCRIPCION as RESPONSABLE_AREA " + // e.CARGO,
-        // e.ID_AREA,
+        // u.U_NOMBRE,
+        cSQlsentence = // e.CARGO,
+        "select u.U_NOMBRE+'><'+a.D_DESCRIPCION as RESPONSABLE_AREA " + // e.ID_AREA,
         // a.D_DESCRIPCION"
         " from CG_USUARIO_PROPIEDADES d" + ", CG_USUARIO_ROLE h" + ", CG_USUARIO_GRUPO g" + ", CG_USUARIO u" + ", CG_CAT_EMPLEADO e" + ", CG_CAT_AREAS a" + " where up_valor in (" + " SELECT UP_VALOR " + " FROM CG_USUARIO_PROPIEDADES " + " where U_LOGIN = upper('" + login + "') and" + " UP_NOMBRE = 'CCENTROCONTABLE')" + " and h.U_LOGIN = d.U_LOGIN" + " and h.R_NOMBRE = 'ADECUACIONES'" + " and d.U_LOGIN = g.U_LOGIN" + " and (g.G_NOMBRE = 'REVISORES_ADECUACIONES'" + " or g.G_NOMBRE = 'xREVISORES_ADECUACIONESx')" + " and d.U_LOGIN = u.U_LOGIN" + " and e.CE_OS_RESPONSABLE = u.U_LOGIN" + " and e.ID_AREA =  a.ID_AREA";
         try {
@@ -1287,7 +1287,7 @@ public class AdecuacionManager {
         PreparedStatement psValidaVistas = null;
         ResultSet rsValidaVistas = null;
         try {
-            log.debug("Object: {}", "Verifica si es Administrador de Adecuaciones " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Verifica si es Administrador de Adecuaciones " + new Timestamp(System.currentTimeMillis())));
             pstmnt = conn.prepareStatement(cQueryAdminAdec);
             rs = pstmnt.executeQuery();
             if (rs.next()) {
@@ -1303,36 +1303,36 @@ public class AdecuacionManager {
                     cMensajeError += "\\r\\n";
                 }
             }
-            log.debug("Object: {}", "Adecuacion:" + nFolio + " Valida EP's para ver si existen " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Adecuacion:" + nFolio + " Valida EP's para ver si existen " + new Timestamp(System.currentTimeMillis())));
             pstmne = conn.prepareStatement(cQueryEPnExite);
             rsne = pstmne.executeQuery();
             while (rsne.next()) {
                 cMensajeError += "Error: En la " + rsne.getString(2) + " de la clave  (" + rsne.getString(1) + ") No Existe.";
                 cMensajeError += "\\r\\n";
             }
-            log.debug("Object: {}", "Adecuacion:" + nFolio + " Inicia Verificadion de EP Duplicadas: " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Adecuacion:" + nFolio + " Inicia Verificadion de EP Duplicadas: " + new Timestamp(System.currentTimeMillis())));
             pstmDupliEP = conn.prepareStatement(cBuscaEPDuplicada);
             rsDupliEP = pstmDupliEP.executeQuery();
             while (rsDupliEP.next()) {
                 cMensajeError += "Error: Mes " + rsDupliEP.getString(1) + " afectado " + rsDupliEP.getString(2) + " veces por la clave " + rsDupliEP.getString(3) + ". Se debe netear el calendario del mes.";
                 cMensajeError += "\\r\\n";
             }
-            log.debug("Object: {}", "Adecuacion:" + nFolio + " Finaliza Verificadion de EP Duplicadas: " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Adecuacion:" + nFolio + " Finaliza Verificadion de EP Duplicadas: " + new Timestamp(System.currentTimeMillis())));
             // valida Suficiencia de saldo
             // if (!"SI".equals(cSuperReduccion) || !"SI".equals(cSRInterna)){
             if (!"SI".equals(cSuperReduccion) && !"SI".equals(cSRInterna)) {
-                log.debug("Object: {}", "Adecuacion:" + nFolio + " Inicia Suficiencia de saldo en Cuenta Disponible Neto: " + new Timestamp(System.currentTimeMillis()));
+                log.debug("Object: " + String.valueOf("Adecuacion:" + nFolio + " Inicia Suficiencia de saldo en Cuenta Disponible Neto: " + new Timestamp(System.currentTimeMillis())));
                 pstmvs = conn.prepareStatement(cQueryvSaldo);
                 rsvs = pstmvs.executeQuery();
                 while (rsvs.next()) {
                     cMensajeError += rsvs.getString(1);
                     cMensajeError += "\\r\\n";
                 }
-                log.debug("Object: {}", "Adecuacion:" + nFolio + " Finaliza Suficiencia de saldo en Cuenta Disponible Neto: " + new Timestamp(System.currentTimeMillis()));
+                log.debug("Object: " + String.valueOf("Adecuacion:" + nFolio + " Finaliza Suficiencia de saldo en Cuenta Disponible Neto: " + new Timestamp(System.currentTimeMillis())));
             } else {
                 // int g = 0;
                 if (!"SI".equals(cSRInterna)) {
-                    log.debug("Object: {}", "Adecuacion:" + nFolio + " Inicia Suficiencia de saldo  en Cuenta Disponible Bruto: " + new Timestamp(System.currentTimeMillis()));
+                    log.debug("Object: " + String.valueOf("Adecuacion:" + nFolio + " Inicia Suficiencia de saldo  en Cuenta Disponible Bruto: " + new Timestamp(System.currentTimeMillis())));
                     pstmvs = conn.prepareStatement(cQueryvSaldoBruto);
                     rsvs = pstmvs.executeQuery();
                     log.debug("Error occurred", "Se ha obtenido todos los errores he inicia el formateo de estos:" + new Timestamp(System.currentTimeMillis()));
@@ -1359,7 +1359,7 @@ public class AdecuacionManager {
                     // System.out.println( g );
                     // g++;
                 }
-                log.debug("Object: {}", "Adecuacion:" + nFolio + " Finaliza Suficiencia de saldo en Cuenta Disponible Bruto: " + new Timestamp(System.currentTimeMillis()));
+                log.debug("Object: " + String.valueOf("Adecuacion:" + nFolio + " Finaliza Suficiencia de saldo en Cuenta Disponible Bruto: " + new Timestamp(System.currentTimeMillis())));
             }
             // Valida Montos Negativos en EXCEL
             System.out.println("Adecuacion:" + nFolio + " Importes en Negativo: " + new Timestamp(System.currentTimeMillis()));
@@ -2519,8 +2519,8 @@ public class AdecuacionManager {
         // ISNULL(h.nFolioTramiteSicop,''),
         String // ISNULL(h.nFolioTramiteSicop,''),
         // ISNULL(h.fSicop,''),ISNULL(h.nAutorizacionMAP,''),
-        cQueryA = // ISNULL(h.fMAP,'')
-        "select isnull(h.nConsecutivoSicop,0), isnull(h.nFolioCONSOLIDACION,0), isnull(cSuperAdecuacion,''), isnull(cSRInterna,'') " + "  FROM tConsolidacionEncabezado h with (nolock)   RIGHT OUTER JOIN  tAdecuacionEncabezado a with (nolock) on a.nFolioConsolidacion = h.nFolioCONSOLIDACION  " + " where a.nFolioAdecuacion = " + nFolio + " ";
+        // ISNULL(h.fMAP,'')
+        cQueryA = "select isnull(h.nConsecutivoSicop,0), isnull(h.nFolioCONSOLIDACION,0), isnull(cSuperAdecuacion,''), isnull(cSRInterna,'') " + "  FROM tConsolidacionEncabezado h with (nolock)   RIGHT OUTER JOIN  tAdecuacionEncabezado a with (nolock) on a.nFolioConsolidacion = h.nFolioCONSOLIDACION  " + " where a.nFolioAdecuacion = " + nFolio + " ";
         try {
             pstm = conn.prepareStatement(cQueryA);
             rs = pstm.executeQuery();

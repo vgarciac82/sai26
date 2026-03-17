@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Territory" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="a78d6a8d-67ce-4ff8-9d39-c31f6ad8d1b1">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SISECOVE"/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<parameter name="REPORT_DIR" class="java.lang.String" evaluationTime="Early">
+		<parameterDescription><![CDATA[Directorio de Reportes y Subreportes]]></parameterDescription>
+	</parameter>
+	<queryString language="JSON">
+		<![CDATA[territorios]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="entidadFederativa.nombre"/>
+		<fieldDescription><![CDATA[entidadFederativa.nombre]]></fieldDescription>
+	</field>
+	<field name="municipioNombre" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="municipio.municipioNombre"/>
+		<fieldDescription><![CDATA[municipio.municipioNombre]]></fieldDescription>
+	</field>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<rectangle>
+				<reportElement x="0" y="0" width="750" height="30" backcolor="#235B4E" uuid="997c51bb-baf2-4448-afa6-2602816bd108">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="7" width="227" height="20" forecolor="#FFFFFF" uuid="b7bae61d-e654-4353-b9b4-95f52631f8d3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[5. TERRITORIO DE APLICACIÓN]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<rectangle>
+				<reportElement x="0" y="0" width="750" height="20" uuid="f90f65f8-f295-4628-9d5b-35e984745e55">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<textField>
+				<reportElement x="7" y="3" width="141" height="13" uuid="29a614e0-d987-485c-b65c-a9b26fb2f3b1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c1d9ebe3-edd7-47a9-a017-9fb222a651d8"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="3" width="269" height="13" uuid="374f38fa-85fc-4e41-b22d-d8f7f41da57e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f071f5d9-1c90-4ad2-a9bd-e0a5986eb5d2"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{municipioNombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -42,12 +42,12 @@ public class ValidaCert {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
             log.trace("Object: {}", "HTTP Client generado exitosamente: " + httpclient);
             File testCert = new File(filePath);
-            log.debug("Object: {}", "Se validara el archivo: " + testCert.getAbsolutePath());
+            log.debug("Object: " + String.valueOf("Se validara el archivo: " + testCert.getAbsolutePath()));
             HttpEntity data = MultipartEntityBuilder.create().setMode(HttpMultipartMode.BROWSER_COMPATIBLE).addBinaryBody("file", testCert, ContentType.DEFAULT_BINARY, testCert.getName()).addTextBody("text", StringUtils.trimToEmpty(key), ContentType.DEFAULT_BINARY).build();
             log.trace("DATA para envio creado.");
             log.trace("Creando request ... ");
             HttpUriRequest request = RequestBuilder.post(urlEndPoint).setEntity(data).build();
-            log.debug("Object: {}", "Executing request " + request.getRequestLine());
+            log.debug("Object: " + String.valueOf("Executing request " + request.getRequestLine()));
             ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
 
                 @Override

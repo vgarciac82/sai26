@@ -122,7 +122,7 @@ public class ReportesManager implements GestionInterface {
             File fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
         } catch (Exception e) {
             // TODO: handle exception

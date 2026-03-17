@@ -51,7 +51,7 @@ public class GetFolioCasoServlet extends HttpServlet {
             log.info("Object: {}", "[GetFolioCasoServlet] folio=" + c.getFolio());
             res.setContentType("text/xml");
             res.setHeader("Cache-Control", "no-cache");
-            res.getWriter().write("<folio>" + c.getFolio() + "</folio>".toPath());
+            res.getWriter().write("<folio>" + c.getFolio() + "</folio>");
         } catch (GestionException e) {
             log.warn("Error al leer folio para id=" + sid, e);
         }

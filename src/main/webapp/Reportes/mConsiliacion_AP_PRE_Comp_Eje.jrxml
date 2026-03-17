@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mConsiliacion_AP_PRE_Comp_Eje" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5b11f0b8-5f19-4fa1-9644-413930915645">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="185"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="formato" class="java.lang.String"/>
+	<parameter name="cIdUnidadEjecutora" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select *from [v_mSolicitudPrecompromisoComprometidoEjercido]  where 1=1 $P!{cIdUnidadEjecutora}
+order by cidtipoPedido,_Unidad_RM,nidconsecutivo]]>
+	</queryString>
+	<field name="cEjercicio" class="java.lang.String"/>
+	<field name="cIdPedidoDefinitivo" class="java.lang.String"/>
+	<field name="_Unidad_RM" class="java.lang.String"/>
+	<field name="cIdSubPartida" class="java.lang.String"/>
+	<field name="Total_Sol" class="java.math.BigDecimal"/>
+	<field name="Apartado" class="java.math.BigDecimal"/>
+	<field name="importeprecompromiso" class="java.math.BigDecimal"/>
+	<field name="asTotalComprometido" class="java.math.BigDecimal"/>
+	<field name="Pagado" class="java.math.BigDecimal"/>
+	<field name="cIdContrato" class="java.lang.String"/>
+	<field name="DiferenciaPrecompromiso_Comprometido" class="java.math.BigDecimal"/>
+	<field name="nIdConsecutivo" class="java.lang.Integer"/>
+	<field name="cIdTipoPedido" class="java.lang.String"/>
+	<field name="D_DESCRIPCION" class="java.lang.String"/>
+	<group name="UE">
+		<groupExpression><![CDATA[$F{_Unidad_RM}]]></groupExpression>
+		<groupHeader>
+			<band height="13">
+				<textField>
+					<reportElement x="0" y="0" width="84" height="13" uuid="6fcab13c-4172-4aa0-903a-d089704a73c7"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{_Unidad_RM}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="90" y="1" width="504" height="12" uuid="f6b8f888-c266-4105-8faf-bada33cac22a"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{D_DESCRIPCION}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="2"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="4" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="106" splitType="Stretch">
+			<printWhenExpression><![CDATA[($P{formato}.equals("csv"))?new Integer($V{PAGE_NUMBER})==1  : ($P{formato}.equals("xls"))? new Integer($V{PAGE_NUMBER})==1 :  $V{PAGE_NUMBER}]]></printWhenExpression>
+			<textField evaluationTime="Report">
+				<reportElement x="667" y="26" width="87" height="13" uuid="8070b152-e52f-4c48-82d8-3cd517193f4e"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="649" y="26" width="18" height="13" uuid="ef69a772-781a-42e9-82f6-af1d20c0f37f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[de ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="13" width="371" height="13" uuid="13bfbddc-81f5-44b3-8068-29ece624e91d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="13" width="138" height="54" uuid="286fc7ed-22e8-4c21-a779-fbf31f7c5106"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"\\CONAFOR_NvoLogoDic2013_HD_Horizontal.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement mode="Transparent" x="138" y="54" width="371" height="13" forecolor="#000000" backcolor="#FFFFFF" uuid="72986808-8fde-4b53-9fbf-1a2e7ee0a968"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cEjercicio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="138" y="27" width="371" height="13" forecolor="#000000" backcolor="#FFFFFF" uuid="4803afb8-ea37-419f-b60c-9d50e31aa88d"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[GERENCIA DE RECURSOS MATERIALES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="513" y="13" width="100" height="13" uuid="76e757e9-2c85-44b2-a425-756bac585dcf"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha de Impresión]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="513" y="26" width="100" height="13" uuid="26beafa0-6484-41e3-babc-6449fe82b8ae"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Página]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="138" y="40" width="371" height="13" forecolor="#000000" backcolor="#FFFFFF" uuid="72c1672a-7026-48fb-ae6f-e62d802bbe57"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[CONCILIACIÓN REQUISICIONES VS PEDIDOS/CONTRATOS]]></text>
+			</staticText>
+			<textField pattern="h.mm.ss a">
+				<reportElement x="667" y="13" width="87" height="13" uuid="972398af-7a9f-48ab-bc96-4dda5a7a18b0"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="613" y="26" width="36" height="13" uuid="4d2a2a3e-10de-4145-b934-b6752bbc46d7"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="613" y="13" width="54" height="13" uuid="7108b5e3-66bc-43ab-b97c-d47250dc7dce"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="90" y="93" width="51" height="13" uuid="6418a6dc-faa8-4647-aece-dba88bb4fcd6"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Partida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="82" width="84" height="24" uuid="a0dbf629-b717-4115-b4ea-5c26af308cc0"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Pedido/Contrato Definitivo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="257" y="82" width="119" height="24" uuid="5b0e2b69-a84d-4fac-9759-f04f8df57841"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Monto Pre-Comprometido Requisiciones/Pedido/Contrato]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="159" y="82" width="86" height="24" uuid="c9ba4fdb-81b0-40a4-a238-779296130d3f"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Monto Apartado Requisiciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="383" y="82" width="100" height="24" uuid="3c7153cf-5111-481b-8ca8-5abfda5affa7"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Monto Comprometido Pedido/Contrato]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="494" y="82" width="100" height="24" uuid="817fb46e-d1b5-4529-ab77-2baf3d21a2a0"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Monto Ejercido Pedido/Contrato]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="613" y="82" width="113" height="24" uuid="438dced0-65d2-41a9-a6ee-db2e18b9a7d8"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Diferencia Pre-Comprometido menos Comprometido]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="3" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="84" height="11" uuid="f12a759d-84d5-4ef6-a4b4-e2a4534fade5"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cIdPedidoDefinitivo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="0" width="51" height="11" uuid="843e5837-7d79-414e-9f50-f54fa353bdc5"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cIdSubPartida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="159" y="0" width="86" height="11" uuid="bc21b933-6117-4d55-9881-f7dc4ee9305a"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Apartado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="257" y="0" width="119" height="11" uuid="b0e10b7a-31d0-4b0a-95f9-2ebc36ac61a6"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{importeprecompromiso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="383" y="0" width="100" height="11" uuid="ac0a1ee2-7182-41aa-9a0b-d07fe8c932a1"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{asTotalComprometido}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="494" y="0" width="100" height="11" uuid="5f898818-ce89-4357-9e86-510345cb65d7"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Pagado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="613" y="0" width="113" height="11" uuid="937d21cc-0c20-405f-b140-7cf0f5aae367"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DiferenciaPrecompromiso_Comprometido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="2" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="2" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="2" splitType="Stretch"/>
+	</summary>
+</jasperReport>

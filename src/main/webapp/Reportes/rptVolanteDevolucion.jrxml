@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptVolanteDevolucion"  pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.331000000000003"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="427"/>
+	<parameter name="cIdContrato" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select ISNULL((select u.U_NOMBRE from cg_usuario u with(nolock), mPedido p with(nolock)
+where u.U_LOGIN=p.cIdUsuarioCreacion and p.cIdPedidoDefinitivo=$P{cIdContrato}
+union
+select u.U_NOMBRE from cg_usuario u with(nolock), mContrato c with(nolock)
+where u.U_LOGIN=c.cIdUsuarioCreacion and c.cIdContratoDefinitivo=$P{cIdContrato}),'') as cNombreResponsable,
+ISNULL((select ce.CARGO from CG_CAT_EMPLEADO ce with(nolock), mPedido p with(nolock)
+where ce.CE_OS_RESPONSABLE=p.cIdUsuarioCreacion and p.cIdPedidoDefinitivo=$P{cIdContrato}
+union
+select ce.CARGO from CG_CAT_EMPLEADO ce with(nolock), mContrato c with(nolock)
+where ce.CE_OS_RESPONSABLE=c.cIdUsuarioCreacion and c.cIdContratoDefinitivo=$P{cIdContrato}),'') as cPuestoResponsable, v.cIdContrato, cRazonSocial,
+case(convert(varchar,cmotivorechazo)) when '' then 'NO ESPECIFICADO' else cmotivorechazo end as cMotivoRechazo,
+UPPER(DATENAME(day, fDevolucion))+' DE '+ UPPER(DATENAME(month,fDevolucion))+' DE '+UPPER(DATENAME(YEAR, fDevolucion)) as fDevolucion,
+cc.cDescripcion
+from tPrecompromisoVolanteDevolucion v, tPreCompromisoEncabezado e, tCatalogoURCC ue,tCatalogoCentroContable cc
+where v.cIdContrato=e.cIdContrato
+and e.cUnidadResponsable=ue.cUnidadResponsable
+and ue.cCentroContable=cc.cCentroContable
+and v.cIdContrato=$P{cIdContrato}
+and nFolioVolante in( select MAX(nFolioVolante) from tPrecompromisoVolanteDevolucion where cIdContrato=$P{cIdContrato} group by cIdContrato)
+and e.nFolioPreCompromiso=(select MAX(nfolioprecompromiso) from tPreCompromisoEncabezado where cIdContrato=$P{cIdContrato} group by cIdContrato)]]>
+	</queryString>
+	<field name="cNombreResponsable" class="java.lang.String"/>
+	<field name="cPuestoResponsable" class="java.lang.String"/>
+	<field name="cIdContrato" class="java.lang.String"/>
+	<field name="cRazonSocial" class="java.lang.String"/>
+	<field name="cMotivoRechazo" class="java.lang.String"/>
+	<field name="fDevolucion" class="java.lang.String"/>
+	<field name="cDescripcion" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="752" splitType="Stretch">
+			<rectangle>
+				<reportElement x="5" y="60" width="555" height="302"/>
+			</rectangle>
+			<textField>
+				<reportElement x="21" y="110" width="322" height="20"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cPuestoResponsable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="21" y="90" width="322" height="20"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cNombreResponsable}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="192" width="74" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Beneficiario:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="150" width="531" height="22"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[De acuerdo con la validación automática del sistema y el cotejo de la infomación de los documentos fincados, se ha determindado que no es
+factible dar trámite al contrato suministrado a través del SAI módulo de adquisiciones y servicios, por los motivos que se anotan a continuación:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="70" width="100" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Señor(a)(ita)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="172" width="74" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Contrato No.:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="95" y="192" width="248" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cRazonSocial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="408" y="69" width="132" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fDevolucion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="130" width="100" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Presente]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="95" y="172" width="248" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cIdContrato}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="212" width="100" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Motivos de rechazo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="197" y="40" width="167" height="20"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VOLANTE DE DEVOLUCIÓN]]></text>
+			</staticText>
+			<image>
+				<reportElement x="1" y="1" width="118" height="22"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"\\CONAFOR_NvoLogoDic2013_HD_Horizontal.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="21" y="299" width="201" height="32"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Nota: La solventación de la observación efectuada en este
+volante, únicamente será aceptada siempre y cuando contenga el
+Vo.Bo. del área técnica respectiva.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="347" y="319" width="193" height="18"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EL JEFE DE PROYECTO DE TRAMITE DE PAGOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="404" y="299" width="100" height="20"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Atentamente]]></text>
+			</staticText>
+			<line>
+				<reportElement x="347" y="357" width="193" height="1"/>
+			</line>
+			<line>
+				<reportElement x="333" y="733" width="223" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="333" y="696" width="193" height="18"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EL JEFE DE PROYECTO DE TRAMITE DE PAGOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="527" width="531" height="32"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[De acuerdo con la validación automática del sistema y el cotejo de la infomación de los documentos fincados,
+se ha determindado que no es factible dar trámite al contrato sumistrado a través del SAI módulo de
+requisiciones, por los motivos que se antoan a continuación:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="9" y="437" width="555" height="302"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="25" y="447" width="100" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Señor(a)(ita)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="404" y="676" width="100" height="20"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Atentamente]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="25" y="467" width="322" height="20"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cNombreResponsable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="412" y="446" width="132" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fDevolucion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="99" y="549" width="248" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cIdContrato}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="25" y="569" width="74" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Beneficiario:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="676" width="197" height="32"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Nota: La solventación de la observación efectuada en este
+volante, únicamente será aceptada siempre y cuando contenga el
+Vo.Bo. del área técnica respectiva.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="99" y="569" width="248" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cRazonSocial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="25" y="487" width="322" height="20"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cPuestoResponsable}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="201" y="417" width="167" height="20"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VOLANTE DE DEVOLUCIÓN]]></text>
+			</staticText>
+			<image>
+				<reportElement x="5" y="378" width="118" height="22"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"\\CONAFOR_NvoLogoDic2013_HD_Horizontal.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="25" y="589" width="100" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Motivos de rechazo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="400" width="344" height="17"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUMINISTRADO POR SAI MODULO DE ADQUISICIONES Y SERVICIOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="507" width="100" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Presente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="549" width="74" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Contrato No.:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="369" width="570" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="351" y="696" width="193" height="18"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EL JEFE DE PROYECTO DE TRAMITE DE PAGOS]]></text>
+			</staticText>
+			<line>
+				<reportElement x="350" y="731" width="194" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="110" y="23" width="344" height="17"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUMINISTRADO POR SAI MODULO DE ADQUISICIONES Y SERVICIOS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="5" y="40" width="100" height="20"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cDescripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="417" width="100" height="20"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cDescripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="25" y="527" width="531" height="22"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[De acuerdo con la validación automática del sistema y el cotejo de la infomación de los documentos fincados, se ha determindado que no es
+factible dar trámite al contrato suministrado a través del SAI módulo de adquisiciones y servicios, por los motivos que se anotan a continuación:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="25" y="608" width="515" height="49"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cMotivoRechazo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="21" y="231" width="519" height="51"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cMotivoRechazo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

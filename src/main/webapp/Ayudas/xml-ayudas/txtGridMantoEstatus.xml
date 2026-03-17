@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento Catálogo Estatus</titulo>
+	<anchoWin>500</anchoWin>
+	<altoWin>350</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_CAT_ESTATUS</tabla>
+	<maxRegistros>10</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+
+
+	<grid>
+
+		<columna campo="c_estatus"			control="txtGridMantoEstatus"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave"			ancho="5"		maxlen="2"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="d_estatus"			control="txtGridMantoIdEstatus"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Descripción"	ancho="40"		maxlen="50"		tipo="string"	visible="Si"	clase=""/>
+
+	</grid>  
+	
+
+</Ayuda>	  

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Beneficiarios</titulo>
+	<anchoWin>800</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>TBENEFICIARIO1000</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="sCodigoEntidad"	control="cIDRFC1000"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="RFC"	rowCol="1,1" ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="sBeneficiario"	control="cnombre"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Nombre Beneficiario"	rowCol="1,2" ancho="80"	maxlen="80"		tipo="string"	visible="Si"	clase=""/>
+        <columna campo ="nCuenta" control="cCuentaBancaria"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="CLABE"	 rowCol="2,1" ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+        <columna campo ="sSicop" control="cBen"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="CBEN"	 rowCol="2,2" ancho="10"	maxlen="10"		tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+</Ayuda>

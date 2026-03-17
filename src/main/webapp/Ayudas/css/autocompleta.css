@@ -1,0 +1,81 @@
+
+	input.autoCompleta {
+		POSITION: relative;
+	}	
+	div.divAutoCompleta {
+		border: gray 1px solid; 
+		padding: 5px; 
+		font-family: Verdana, Arial, Tahoma, sans-serif; 
+		font-size: 8pt; 
+		POSITION: absolute;
+		background: WhiteSmoke;
+	}	
+	
+	/* estilos del sort table */
+	table.tblAcompleta {
+		border: gray 1px solid;
+		/*table-layout: fixed;*/
+		background-color: white;
+	}
+	th.ColConsultaAC {				
+		padding: 3px;
+		border-right: 1px solid #CBC7B8;
+		border-bottom: 1px solid #CBC7B8;
+		text-align: left;
+		font-family: Verdana, Arial, Tahoma, sans-serif; 
+		font-size: 8pt; 
+		font-weight: normal;
+		background: Gainsboro;
+		color: gray;
+	}
+	td.tdDetalle_AC {
+		padding: 3px; 
+		COLOR: gray; 
+		cursor:default;
+		border-right: 1px solid #D4D0C8;
+		border-bottom: 1px solid #D4D0C8;
+		font-family: Verdana, Arial, Tahoma, sans-serif; 
+		font-size: 8pt; 
+	}
+
+	.even {
+		BACKGROUND-COLOR: whitesmoke;
+	}
+	.odd {
+		BACKGROUND-COLOR: white;
+	}
+	
+	.highlight {
+		FONT-WEIGHT: bold; 
+		BACKGROUND-COLOR: #3d3d3d
+	}
+
+	.header {
+		PADDING-LEFT: 20px;   
+		BACKGROUND-IMAGE: url(imagenes/dash.jpg);   
+		BACKGROUND-REPEAT: no-repeat; 
+	}
+	.headerSortUp {
+		PADDING-LEFT: 20px; 
+		BACKGROUND-IMAGE: url(imagenes/header-asc.jpg); 
+		BACKGROUND-REPEAT: no-repeat; 
+	}
+	.headerSortDown {
+		PADDING-LEFT: 20px; 
+		BACKGROUND-IMAGE: url(imagenes/header-desc.jpg); 
+		BACKGROUND-REPEAT: no-repeat;
+	}
+
+
+	thead.fixedHeader tr {
+		position: relative;
+		top: expression(document.getElementById("divTableContainer").scrollTop );
+	}
+			                                    
+	head:first-child + body thead[class].fixedHeader tr {
+		display: block;
+	}
+
+	tr.hover  {
+		background: #E0E3EF;
+	}

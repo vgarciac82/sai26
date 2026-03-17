@@ -951,7 +951,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                 //autoriza_precomp
                 nombre = new String[] { "consulta_precomp" };
                 Util.avanzaCaso(request, caso, usuario, prefixPath, responsable, nombre, jndiName);
-                log.debug("Object: {}", caso.getCasoDato("APLICADO_CONT").getValor());
+                log.debug("Object: " + String.valueOf(caso.getCasoDato("APLICADO_CONT").getValor()));
             }
             usuario.setU_UR(ueOriginal);
             usuario.getPropiedad("CCENTROCONTABLE").setValor(cCentroContableOrig);
@@ -1017,7 +1017,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             //autoriza_precomp
             nombre = new String[] { "consulta_precomp" };
             Util.avanzaCaso(request, caso, usuario, prefixPath, responsable, nombre, jndiName);
-            log.debug("Object: {}", caso.getCasoDato("APLICADO_CONT").getValor());
+            log.debug("Object: " + String.valueOf(caso.getCasoDato("APLICADO_CONT").getValor()));
         } catch (Exception e) {
             throw new Exception(e);
         } finally {
@@ -1135,7 +1135,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     //autoriza_precomp
                     nombre = new String[] { "consulta_precomp" };
                     Util.avanzaCaso(request, caso, usuario, conv.getPrefixPath(), responsable, nombre, conv.getJndiName());
-                    log.debug("Object: {}", caso.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: " + String.valueOf(caso.getCasoDato("APLICADO_CONT").getValor()));
                     //Guardaar en bitacora los movimientos
                     Util.bitacoraMovimientos(conv.getcIdContratoDefinitivo() + "#M" + conv.getnConsecutivoModificacion(), "Generación de precompromiso para convenios con Folio=" + folio, usuario.getLogin(), conn);
                     //Guarda la relación de precompromisos
@@ -1234,7 +1234,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
             //autoriza_precomp
             nombre = new String[] { "consulta_precomp" };
             Util.avanzaCaso(request, caso, usuario, prefixPath, responsable, nombre, jndiName);
-            log.debug("Object: {}", caso.getCasoDato("APLICADO_CONT").getValor());
+            log.debug("Object: " + String.valueOf(caso.getCasoDato("APLICADO_CONT").getValor()));
             conv.setcFolioPre(caso.getFolio());
             conv.setnConsecutivoPrecom(Integer.parseInt(folio));
             conv.setnEstatus(ContractStatus.BUDGET);
@@ -2539,7 +2539,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                     //autoriza_precomp
                     String[] nombre = new String[] { "consulta_precomp" };
                     Util.avanzaCaso(request, c, usuario, prefixPath, responsable, nombre, jndiName);
-                    log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: " + String.valueOf(c.getCasoDato("APLICADO_CONT").getValor()));
                 }
             }
         } catch (Exception e) {
@@ -2674,7 +2674,7 @@ public class ContratacionFormalizadaBusinessLogic extends DataSourceManager {
                 }
                 // Una vez que ha hecho la aplicación contable avanza el caso
                 Util.avanzaCaso(request, caso, usuario, prefixPath, new String[] { "CONSULTA_PAGOS" }, new String[] { "consulta_compromiso" }, jndiName);
-                log.debug("Object: {}", caso.getCasoDato("APLICADO_CONT").getValor());
+                log.debug("Object: " + String.valueOf(caso.getCasoDato("APLICADO_CONT").getValor()));
             }
             if (listFoliosComp.size() > 1) {
                 Util.integraFoliosCompromiso(conn, param[0], param[2]);

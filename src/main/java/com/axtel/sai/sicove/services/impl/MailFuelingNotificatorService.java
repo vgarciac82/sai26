@@ -244,7 +244,7 @@ public class MailFuelingNotificatorService extends DataSourceManager implements 
         parametrosReales.append("d=").append(String.valueOf(processName));
         parametrosReales.append("&");
         parametrosReales.append("f=").append(StringUtils.reverse(String.valueOf(id)));
-        log.debug("Object: {}", "Cadena generada: " + parametrosReales);
+        log.debug("Object: " + String.valueOf("Cadena generada: " + parametrosReales));
         return parametrosReales.toString();
     }
 

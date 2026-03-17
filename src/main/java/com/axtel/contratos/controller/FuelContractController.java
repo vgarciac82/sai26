@@ -38,21 +38,21 @@ public class FuelContractController extends HttpServlet {
         try {
             log.trace("Reading Contract object from request.");
             fuelContract = fuelContractService.createContract(fuelContract);
-            log.debug("Object: {}", "Contract object obtined: " + fuelContract);
+            log.debug("Object: " + String.valueOf("Contract object obtined: " + fuelContract));
             log.info("Object: {}", "Successfull Saved Contract: " + fuelContract);
             String fuelContractJson = mapper.writeValueAsString(fuelContract);
             log.trace("Object: {}", "Response created: " + fuelContractJson);
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
-            log.debug("Object: {}", "Writting response: " + fuelContractJson);
-            resp.getWriter().write(fuelContractJson.toPath());
+            log.debug("Object: " + String.valueOf("Writting response: " + fuelContractJson));
+            resp.getWriter().write(fuelContractJson);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             String errorJson = mapper.writeValueAsString(e.getMessage());
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().write(errorJson.toPath());
+            resp.getWriter().write(errorJson);
         }
     }
 

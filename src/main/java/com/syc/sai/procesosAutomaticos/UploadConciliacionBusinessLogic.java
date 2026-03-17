@@ -147,7 +147,7 @@ public class UploadConciliacionBusinessLogic extends DataSourceManager {
             NumberFormat nf = NumberFormat.getInstance(locale);
             if (mSaldo.find()) {
                 String saldoStr = mSaldo.group(1);
-                log.debug("Object: {}", "Saldo Final: " + saldoStr);
+                log.debug("Object: " + String.valueOf("Saldo Final: " + saldoStr));
                 double saldo = nf.parse(saldoStr).doubleValue();
                 log.info("Object: {}", "Saldo Final: " + saldo);
                 saldoEdoCta = new SaldosEdoCta(saldo, saldo);
@@ -175,7 +175,7 @@ public class UploadConciliacionBusinessLogic extends DataSourceManager {
             NumberFormat nf = NumberFormat.getInstance(locale);
             if (mSaldo.find()) {
                 String saldoStr = mSaldo.group(1);
-                log.debug("Object: {}", "Saldo Final: " + saldoStr);
+                log.debug("Object: " + String.valueOf("Saldo Final: " + saldoStr));
                 double saldo = nf.parse(saldoStr).doubleValue();
                 log.info("Object: {}", "Saldo Final: " + saldo);
                 saldoEdoCta = new SaldosEdoCta(saldo, saldo);

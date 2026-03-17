@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PolizaPago" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="1a88fbaa-8ea6-4b07-8b00-b789243249b2">
+	<property name="ireport.zoom" value="1.652892561983471"/>
+	<property name="ireport.x" value="193"/>
+	<property name="ireport.y" value="1065"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SAI_2022_produccion"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="whereFolio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+		Folio, (aEjercicioFiscal + '/' + CAST(Folio AS VARCHAR)) AS cFolio, cDescripcionProyecto, cJustifSolicitud,
+		cJustifSolicitud AS JustificacionSolicitud,
+		compJustificacion,
+		cDocumentoHaplicado, aEjercicioFiscal,
+		cRamo, cUnidadResponsable, cCentroContable,
+		fCaptura, fAplicacion, fInicio, fFin, fCancelacion, U_Login,
+		nTipoContrato, cTipoContrato, cFolioMASCP, cOficioDG,
+		nSolicitud, cSolicitud, nEspecificacion, cEspecificacionContrato,
+		nTipoMoneda, cTipoMoneda,
+		mMontoMinimo, MontoMinimo, mMontoMaximo, MontoMaximo, mTotalContrato, TotalContrato, cantLetrasTotalContrato,
+		cEstatus, cFundamentoMotivacion, cEspecificacion, cJustificacionEconomica, cJustificacionPlazo, cMotivoRechazo,
+		sFirmanteEla, sPuestoEla, sFirmanteVoBo, sPuestoVoBo,
+		sFirmanteAut, sPuestoAut, sFirmanteSol, sPuestoSol
+	FROM vw_ContratosPlurianualEncabezado WITH (NOLOCK)
+	WHERE Folio = $P!{whereFolio}]]>
+	</queryString>
+	<field name="Folio" class="java.lang.Integer"/>
+	<field name="cFolio" class="java.lang.String"/>
+	<field name="cDescripcionProyecto" class="java.lang.String"/>
+	<field name="cJustifSolicitud" class="java.lang.String"/>
+	<field name="JustificacionSolicitud" class="java.lang.String"/>
+	<field name="compJustificacion" class="java.lang.String"/>
+	<field name="cDocumentoHaplicado" class="java.lang.String"/>
+	<field name="aEjercicioFiscal" class="java.lang.String"/>
+	<field name="cRamo" class="java.lang.String"/>
+	<field name="cUnidadResponsable" class="java.lang.String"/>
+	<field name="cCentroContable" class="java.lang.String"/>
+	<field name="fCaptura" class="java.lang.String"/>
+	<field name="fAplicacion" class="java.lang.String"/>
+	<field name="fInicio" class="java.lang.String"/>
+	<field name="fFin" class="java.lang.String"/>
+	<field name="fCancelacion" class="java.lang.String"/>
+	<field name="U_Login" class="java.lang.String"/>
+	<field name="nTipoContrato" class="java.lang.Integer"/>
+	<field name="cTipoContrato" class="java.lang.String"/>
+	<field name="cFolioMASCP" class="java.lang.String"/>
+	<field name="cOficioDG" class="java.lang.String"/>
+	<field name="nSolicitud" class="java.lang.Integer"/>
+	<field name="cSolicitud" class="java.lang.String"/>
+	<field name="nEspecificacion" class="java.lang.Integer"/>
+	<field name="cEspecificacionContrato" class="java.lang.String"/>
+	<field name="nTipoMoneda" class="java.lang.Integer"/>
+	<field name="cTipoMoneda" class="java.lang.String"/>
+	<field name="mMontoMinimo" class="java.math.BigDecimal"/>
+	<field name="MontoMinimo" class="java.lang.String"/>
+	<field name="mMontoMaximo" class="java.math.BigDecimal"/>
+	<field name="MontoMaximo" class="java.lang.String"/>
+	<field name="mTotalContrato" class="java.math.BigDecimal"/>
+	<field name="TotalContrato" class="java.lang.String"/>
+	<field name="cantLetrasTotalContrato" class="java.lang.String"/>
+	<field name="cEstatus" class="java.lang.String"/>
+	<field name="cFundamentoMotivacion" class="java.lang.String"/>
+	<field name="cEspecificacion" class="java.lang.String"/>
+	<field name="cJustificacionEconomica" class="java.lang.String"/>
+	<field name="cJustificacionPlazo" class="java.lang.String"/>
+	<field name="cMotivoRechazo" class="java.lang.String"/>
+	<field name="sFirmanteEla" class="java.lang.String"/>
+	<field name="sPuestoEla" class="java.lang.String"/>
+	<field name="sFirmanteVoBo" class="java.lang.String"/>
+	<field name="sPuestoVoBo" class="java.lang.String"/>
+	<field name="sFirmanteAut" class="java.lang.String"/>
+	<field name="sPuestoAut" class="java.lang.String"/>
+	<field name="sFirmanteSol" class="java.lang.String"/>
+	<field name="sPuestoSol" class="java.lang.String"/>
+	<variable name="porcIva" class="java.lang.String">
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="laEP" class="java.lang.String">
+		<initialValueExpression><![CDATA["VARIAS"]]></initialValueExpression>
+	</variable>
+	<variable name="Debe_1" class="java.math.BigDecimal" resetType="Group" resetGroup="caNoContrarrecibo" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="Haber_1" class="java.math.BigDecimal" resetType="Group" resetGroup="caNoContrarrecibo" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="noPoliza" class="java.lang.String">
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="FirmanteAutoriza" class="java.lang.String"/>
+	<variable name="PuestoFirmanteAutoriza" class="java.lang.String"/>
+	<group name="caNoContrarrecibo">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="114" splitType="Stretch">
+				<staticText>
+					<reportElement key="staticText" x="30" y="17" width="500" height="13" uuid="a0c14154-97dd-425c-9e97-70e05fbbe772"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Por este conducto me permito solicitar el trámite para la autorización de la plurianualidad: ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="30" y="28" width="27" height="13" uuid="331192d6-07ec-40a7-9066-87b65b0a8abb"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Folio: ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="30" y="40" width="99" height="13" uuid="e0df82f8-1a01-4d6d-939c-d7ceba9e2cbd"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Importe en número: ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="30" y="52" width="82" height="13" uuid="323ffa4e-7f77-4096-b173-0c0159a46c28"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Importe en letra: ]]></text>
+				</staticText>
+				<line>
+					<reportElement x="27" y="70" width="502" height="1" uuid="f07c0a05-4799-4de8-bed2-07dc0b9f14d5"/>
+				</line>
+				<staticText>
+					<reportElement key="staticText" mode="Opaque" x="30" y="73" width="100" height="13" backcolor="#999999" uuid="8ff1aee1-a72f-4d2d-aaf5-ab07f53eabf2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fundamento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="30" y="87" width="496" height="23" uuid="a486085f-5b7d-4bbb-b782-3b40f9fd62b6"/>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" size="8" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Con fundamento en lo dispuesto en el artículo 58 Fracción VII de la Ley Federal de las Entidades Paraestatales y de conformidad con los artículos 32 y 50 de la Ley Federal de Presupuesto y Responsabilidad Hacendaria (LFPRH) y los artículos 147 y 148 de su Reglamento. ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="59" y="28" width="93" height="13" uuid="2ffec286-28f5-4e0b-8bae-1a5dc497eed5"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cFolio}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="131" y="40" width="157" height="13" uuid="bfb87ac6-d05f-4c34-8366-096daf6d3fc4"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TotalContrato}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="113" y="56" width="417" height="13" uuid="6216725b-d78b-49f1-9764-c2bd6a489d2d"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cantLetrasTotalContrato}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText" mode="Opaque" x="31" y="2" width="100" height="13" backcolor="#999999" uuid="364c5fe1-1f10-4667-8062-a035417a9c75"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Datos generales]]></text>
+				</staticText>
+				<line>
+					<reportElement x="26" y="70" width="502" height="1" uuid="7957c112-17d9-41b8-a59e-9c4196f63ee5"/>
+				</line>
+				<line>
+					<reportElement x="27" y="110" width="502" height="1" uuid="52fca104-7b82-40d9-be08-11491fe8b292"/>
+				</line>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band height="752">
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="25" y="15" width="503" height="614" isPrintWhenDetailOverflows="true" uuid="f89d1084-503b-4402-9f9d-c7df4ad4e1b4"/>
+			</rectangle>
+		</band>
+	</background>
+	<title>
+		<band height="4" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="126" splitType="Stretch">
+			<image>
+				<reportElement x="28" y="10" width="302" height="67" uuid="bbbe9082-357c-43c6-9347-68214013fe3a"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\MEDIO AMBIENTE - CONAFOR.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement key="staticText" x="25" y="62" width="500" height="15" uuid="fccd9119-9916-4af5-b834-95ffbdd28978"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOLICITUD DE AUTORIZACIÓN DE PLURIANUALIDADES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="62" y="81" width="100" height="13" uuid="0328d1f7-00c7-4e11-b81a-cfe8aee40363"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Zapopan, Jalisco]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="29" y="95" width="33" height="13" uuid="ad706e6f-5ba3-43e4-aa07-224f469e6540"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="30" y="109" width="27" height="13" uuid="05a824ef-98ce-4505-9280-faa2713e0e6f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Para: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="59" y="109" width="348" height="13" uuid="94efc07f-4ebd-4b6e-8aa7-44de6b60d2f0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[M.B.A. Tania Limón Magaña, Gerente de Programación y Presupuesto]]></text>
+			</staticText>
+			<line>
+				<reportElement x="26" y="80" width="502" height="1" uuid="fb817a01-a0a9-449a-98d7-f5c9cf9afff1"/>
+			</line>
+			<line>
+				<reportElement x="26" y="77" width="502" height="1" uuid="5910142c-7a82-4540-90a4-64b2defb4b7a"/>
+			</line>
+			<textField>
+				<reportElement x="63" y="97" width="100" height="13" uuid="8b2c3676-f298-4a40-841f-36738f049a02"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fCaptura}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText" x="29" y="81" width="31" height="13" uuid="76095dd9-576b-4dea-ae41-c0896bfd3e6c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lugar: ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="26" y="122" width="502" height="1" uuid="11c30fd5-4b02-4670-b5d2-4c5a4adb9d78"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="101">
+			<textField textAdjust="StretchHeight">
+				<reportElement isPrintRepeatedValues="false" x="29" y="14" width="491" height="87" isPrintWhenDetailOverflows="true" uuid="4b165898-e3c0-49ec-86c6-df4e4b121616"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{JustificacionSolicitud}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText" mode="Opaque" x="27" y="0" width="100" height="13" backcolor="#999999" uuid="912dc5b6-ecc3-44fd-af90-12918c9e9fef"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Justificación]]></text>
+			</staticText>
+		</band>
+		<band height="43">
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="28" y="0" width="489" height="41" isPrintWhenDetailOverflows="true" uuid="3c7497a3-c01a-4ed5-b578-5626039e7aff"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{compJustificacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="150"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="248">
+			<rectangle>
+				<reportElement x="26" y="1" width="503" height="90" uuid="2896be6c-d7a5-468b-b82d-eec22769775c"/>
+			</rectangle>
+			<staticText>
+				<reportElement key="staticText" mode="Opaque" x="29" y="1" width="100" height="13" isPrintWhenDetailOverflows="true" backcolor="#999999" uuid="19e36d67-3edc-445b-9fb4-ac9dba8c14a8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Seguimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="130" y="4" width="390" height="11" isPrintWhenDetailOverflows="true" uuid="fe5ddfb7-f8e9-4965-8989-e269afed1869"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Adjunto el formato de contratos plurianuales de obra pública, adquisiciones, arrendamientos o servicios. ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="26" y="31" width="502" height="1" uuid="9f787db0-9468-4d68-b025-b2052a1057da"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText" mode="Opaque" x="28" y="18" width="100" height="13" backcolor="#999999" uuid="37a34cea-3099-43af-85a4-1f8fe341f881"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Contrato]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="27" width="48" height="30" uuid="08d3b70b-09cc-4465-bf66-5dc98c508594"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cTipoContrato}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText" x="27" y="59" width="34" height="27" uuid="a593269b-d62e-49e3-8340-f4baf8eefa79"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Monto Total :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="63" y="71" width="82" height="13" uuid="c3f878f9-441b-4973-9b3b-eb6b8a2239bd"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalContrato}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement positionType="Float" x="148" y="33" width="325" height="57" uuid="20a2d615-9091-4c7b-b4ef-c1d057f387fb">
+					<printWhenExpression><![CDATA[$F{cTipoContrato}.equals( "ABIERTO" )]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="folio">
+					<subreportParameterExpression><![CDATA[$F{Folio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\SolicitudContratoPlurianual_ejercicios.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement x="77" y="32" width="1" height="32" uuid="0dee0f7f-9cf8-4477-bcd5-42b365611534">
+					<printWhenExpression><![CDATA[$F{cTipoContrato}.equals( "ABIERTO" )]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="91" y="35" width="40" height="26" uuid="1a52769a-e707-482c-ac6f-dd4cf42e7cb4">
+					<printWhenExpression><![CDATA[$F{cTipoContrato}.equals( "ABIERTO" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto Mínimo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="34" width="40" height="26" uuid="d0b3cf3c-1b0e-45bc-9f05-dc2b4101a404">
+					<printWhenExpression><![CDATA[$F{cTipoContrato}.equals( "ABIERTO" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto Máximoo:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="147" y="32" width="1" height="58" uuid="199c4142-7dd6-46f6-a7b2-505a097afa49"/>
+			</line>
+			<line>
+				<reportElement x="25" y="64" width="122" height="1" uuid="30af6a62-eedd-4380-a36e-bff79f96244f"/>
+			</line>
+			<line>
+				<reportElement x="288" y="32" width="1" height="58" uuid="3d33b80d-5c8b-4c43-bd7a-e2b5d37bb7bc">
+					<printWhenExpression><![CDATA[$F{cTipoContrato}.equals( "ABIERTO" )]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="347" y="33" width="1" height="58" uuid="981d4813-f412-4ae7-ad1f-ca9a656422e4">
+					<printWhenExpression><![CDATA[$F{cTipoContrato}.equals( "ABIERTO" )]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<textField>
+				<reportElement x="86" y="207" width="364" height="13" uuid="64d850fc-b3e0-4cb1-a73f-f2caa82b19b4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sFirmanteSol}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="86" y="218" width="364" height="30" isPrintWhenDetailOverflows="true" uuid="1a51690f-bb91-46c8-9b35-6738f31b0aaf"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sPuestoSol}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="143" y="207" width="249" height="1" uuid="d9f742a6-23f5-44fe-9702-c341f68eff53"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText" mode="Transparent" x="212" y="138" width="106" height="13" backcolor="#FFFFFF" uuid="a4009589-bf6d-4695-9e25-38028759952b"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOLICITA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="29" y="91" width="484" height="54" uuid="0fee23f0-2ae2-47e4-8f44-e0b8948e1394"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Quedo en el entendido de que el Programa a mi cargo, se compromete a ejercer el recurso estimado para el presente ejercicio fiscal, así como a realizar las previsiones de los recursos en los subsecuentes ejercicios fiscales, los cuales estarán sujetos para su ejecución y pago, conforme al presupuesto que apruebe la H. Cámara de Diputados.
+
+Sin más por el momento, agradezco de antemano su colaboración para el trámite respectivo.]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+</jasperReport>

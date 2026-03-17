@@ -83,7 +83,7 @@ public class GestionXMLReceiverServlet extends HttpServlet implements GestionInt
                     sb.append("<error>" + msg + "</error>");
                 }
                 sb.append("</errors></resp-gestion>");
-                out.write(sb.toString().toPath());
+                out.write(sb.toString());
                 return;
             }
             c = cbl.actualizaCasoDato(c, data);
@@ -94,7 +94,7 @@ public class GestionXMLReceiverServlet extends HttpServlet implements GestionInt
             session.setAttribute(ATT_CASE, c);
             session.setAttribute("tree.model", tree);
             sb.append("<status>ok</status></resp-gestion>");
-            out.write(sb.toString().toPath());
+            out.write(sb.toString());
         } catch (GestionException exc) {
             exc.printStackTrace(System.out);
             resp.setContentType("text/xml");
@@ -102,7 +102,7 @@ public class GestionXMLReceiverServlet extends HttpServlet implements GestionInt
             sb.append("<error>" + exc.getMessage() + "</error>");
             sb.append("<error>" + exc.getCause().getMessage() + "</error>");
             sb.append("</errors></resp-gestion>");
-            out.write(sb.toString().toPath());
+            out.write(sb.toString());
             //log.error("No se logro recibir el archivo gestion.xml", exc);
         } catch (Exception exc) {
             exc.printStackTrace(System.out);

@@ -186,7 +186,7 @@ public class CompromisoManager {
             log.trace("Creando caso compromiso.");
             Caso caso = Util.generaCaso(u, 7, fg, "VENTANILLA_COMPROMISO", GestionInterface.ATT_CONEXION, conn);
             int nFolioCompromiso = Integer.parseInt(caso.getFolio().substring(caso.getFolio().lastIndexOf('-') + 1));
-            log.debug("Object: {}", "Se creo el caso de Compromiso. Folio: " + caso.getFolio());
+            log.debug("Object: " + String.valueOf("Se creo el caso de Compromiso. Folio: " + caso.getFolio()));
             /* Paso 2 Insertar encabezado */
             String caNoCompromiso = generateCaNoCompromiso(u.getPropiedad("CCENTROCONTABLE").getValor(), String.valueOf(ejercicioFiscal));
             String cDescripcion = "CIERRE ANUAL " + ejercicioFiscal + " CANCELACION TOTAL DE COMPROMETIDO";
@@ -1044,7 +1044,7 @@ public class CompromisoManager {
         Sql.append("			tCE.cidcontrato,  tCE.cidcontrato,  pCTM.ccodigomonedasiaff,  ");
         Sql.append("			tCE.canocompromiso,  tCE.nmes,  tCE.canocompromiso,  ");
         Sql.append("			tCE.cUnidadResponsableContable, tCE.ccentrocontable,  tce.cDescripcionPoliza, PDIR.cIdRFC ");
-        log.debug("Object: {}", Sql.toString());
+        log.debug("Object: " + String.valueOf(Sql.toString()));
         pst = conn.prepareStatement(Sql.toString());
         rs = pst.executeQuery();
         return rs;
@@ -1162,169 +1162,169 @@ public class CompromisoManager {
             // B
             // C
             // C
+            // C
             encabezado.append(rs.getString("Header").trim()).append(",").// C
-            append(// C
+            append(// D
             fechaALayout.trim()).// D
             append(// D
             ",").// D
-            append(// D
+            append(// E
             fechaLayout.trim()).// E
             append(// E
             ",").// E
-            append(// E
+            append(// F
             rs.getString("cRamo").trim()).// F
             append(// F
             ",").// F
-            append(// F
+            append(// G
             rs.getString("cRamo").trim()).// G
             append(// G
             ",").// G
-            append(// G
+            append(// H
             rs.getString("cRamo").trim()).// H
             append(// H
             ",").// H
-            append(// H
+            append(// I
             rs.getString("cUnidadResponsableEP").trim()).// I
             append(// I
             ",").// I
-            append(// I
+            append(// J
             rs.getString("cUnidadResponsableEP").trim()).// J
             append(// J
             ",").// J
-            append(// J
+            append(// K
             rs.getString("cUnidadResponsableEP").trim()).// K
             append(// K
             ",").// K
-            append(// K
+            append(// L
             tipoMovto).// L
             append(// L
             ",").// L
-            append(// L
+            append(// M
             compromiso).// M
             append(// M
             ",").// M
-            append(// M
+            append(// N
             erogacion).// N
             append(// N
             ",").// N
-            append(// N
+            append(// O
             sFolioSICOP).// O
             append(// O
             ",").// O
-            append(// O
+            append(// P
             tipoOp).// P
             append(// P
             ",").// P
-            append(// P
+            append(// Q
             rs.getString("cIdContrato").trim()).// Q
             append(// Q
             ",").// Q
-            append(// Q
+            append(// R
             rs.getString("cConceptoContrato").trim().replaceAll(",", " ")).// R
             append(// R
             ",").// R
-            append(// R
+            append(// S
             rs.getString("CBEN").trim()).// S
             append(// S
             ",").// S
-            append(// S
+            append(// T
             rs.getString("cIdRFC").trim()).// T
             append(// T
             ",").// T
-            append(// T
+            append(// U
             rs.getString("REPRESENTANTE_LEGAL").trim()).// U
             append(// U
             ",").// U
-            append(// U
+            append(// V
             rs.getString("TPROC")).// V
             append(// V
             ",").// V
-            append(// V
+            append(// W
             rs.getString("ESQ_PRECIO")).// W
             append(// W
             ",").// W
-            append(// W
+            append(// X
             rs.getString("CONTRATACION")).// X
             append(// X
             ",").// X
-            append(// X
+            append(// Y
             fContratoIni.trim()).// Y
             append(// Y
             ",").// Y
-            append(// Y
+            append(// Z
             fContratoFin.trim()).// Z
             append(// Z
             ",").// Z
-            append(// Z
+            append(// AA
             fContratoFirma.trim()).// AA
             append(// AA
             ",").// AA
-            append(// AA
+            append(// AB
             pluri.trim()).// AB
             append(// AB
             ",").// AB
-            append(// AB
+            append(// AC
             rs.getString("APROB_PLA")).// AC
             append(// AC
             ",").// AC
-            append(// AC
+            append(// AD
             rs.getString("ACTO_JURIDICO")).// AD
             append(// AD
             ",").// AD
-            append(// AD
+            append(// AE
             montoMonori).// AE
             append(// AE
             ",").// AE
-            append(// AE
+            append(// AF
             rs.getString("cCodigoMonedaSiaff")).// AF
             append(// AF
             ",").// AF
-            append(// AF
+            append(// AG
             rs.getString("TCAM")).// AG
             append(// AG
             ",").// AG
-            append(// AG
+            append(// AH
             montoEjer).// AH
             append(// AH
             ",").// AH
-            append(// AH
+            append(// AI
             montoMin).// AI
             append(// AI
             ",").// AI
-            append(// AI
+            append(// AJ
             montoMax).// AJ
             append(// AJ
             ",").// AJ
-            append(// AJ
+            append(// AK
             rs.getString("CONV_MOD")).// AK
             append(// AK
             ",").// AK
-            append(// AK
+            append(// AL
             rs.getString("NUM_CONV_MOD")).// AL
             append(// AL
             ",").// AL
-            append(// AL
+            append(// AM
             fConvenio).// AM
             append(// AM
             ",").// AM
-            append(// AM
+            append(// AN
             org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("CODIGO_EXPEDIENTE"))).// AN
             append(// AN
             ",").// AN
-            append(// AN
+            append(// AO
             org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("NO_PROCEDIMIENTO"))).// AO
             append(// AO
             ",").// AO
-            append(// AO
+            append(// AP
             org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("CODIGO_CONTRATO"))).// AP
             append(// AP
             ",").// AP
-            append(// AP
+            append(// AQ
             rs.getString("nMes").trim()).// AQ
             append(// AQ
             ",").// AQ
-            append(// AQ
-            rs.getString("caNoCompromiso")).append(",").append(rs.getString("TTRANS_21"));
+            append(rs.getString("caNoCompromiso")).append(",").append(rs.getString("TTRANS_21"));
             if (esCalendario == 0) {
                 // AR
                 encabezado.append(",").append(rs.getString("caNoCompromiso"));
@@ -1366,153 +1366,153 @@ public class CompromisoManager {
                 // tCEP.cUnidadResponsableEP
                 // tCEP.aEjercicioFiscal
                 // tCEP.aEjercicioFiscal
+                // tCEP.aEjercicioFiscal
                 detalle.append(",").append(rs2.getString("cRamo").trim()).append(",").// tCEP.aEjercicioFiscal
-                append(// tCEP.aEjercicioFiscal
+                append(// tCEP.cGrupoFuncional
                 rs2.getString("cUnidadResponsableEP").trim()).// tCEP.cGrupoFuncional
                 append(// tCEP.cGrupoFuncional
                 ",").// tCEP.cGrupoFuncional
-                append(// tCEP.cGrupoFuncional
+                append(// tCEP.cFuncion
                 rs2.getString("aEjercicioFiscal").trim()).// tCEP.cFuncion
                 append(// tCEP.cFuncion
                 ",").// tCEP.cFuncion
-                append(// tCEP.cFuncion
+                append(// tCEP.cSubFuncion
                 rs2.getString("cGrupoFuncional").trim()).// tCEP.cSubFuncion
                 append(// tCEP.cSubFuncion
                 ",").// tCEP.cSubFuncion
-                append(// tCEP.cSubFuncion
+                append(// tCEP.cProgramaGeneral
                 rs2.getString("cFuncion").trim()).// tCEP.cProgramaGeneral
                 append(// tCEP.cProgramaGeneral
                 ",").// tCEP.cProgramaGeneral
-                append(// tCEP.cProgramaGeneral
+                append(// tCEP.cActividadInstitucional
                 rs2.getString("cSubFuncion").trim()).// tCEP.cActividadInstitucional
                 append(// tCEP.cActividadInstitucional
                 ",").// tCEP.cActividadInstitucional
-                append(// tCEP.cActividadInstitucional
+                append(// tCEP.cProgramaPresupuestario
                 rs2.getString("cProgramaGeneral")).// tCEP.cProgramaPresupuestario
                 append(// tCEP.cProgramaPresupuestario
                 ",").// tCEP.cProgramaPresupuestario
-                append(// tCEP.cProgramaPresupuestario
+                append(// SUBSTRING(tCEP.cPartida,1,1)
                 rs2.getString("cActividadInstitucional")).// SUBSTRING(tCEP.cPartida,1,1)
                 append(// SUBSTRING(tCEP.cPartida,1,1)
                 ",").// SUBSTRING(tCEP.cPartida,1,1)
-                append(// SUBSTRING(tCEP.cPartida,1,1)
+                append(// SUBSTRING(tCEP.cPartida,2,1)
                 rs2.getString("cProgramaPresupuestario")).// SUBSTRING(tCEP.cPartida,2,1)
                 append(// SUBSTRING(tCEP.cPartida,2,1)
                 ",").// SUBSTRING(tCEP.cPartida,2,1)
-                append(// SUBSTRING(tCEP.cPartida,2,1)
+                append(// SUBSTRING(tCEP.cPartida,3,1)
                 rs2.getString(12)).// SUBSTRING(tCEP.cPartida,3,1)
                 append(// SUBSTRING(tCEP.cPartida,3,1)
                 ",").// SUBSTRING(tCEP.cPartida,3,1)
-                append(// SUBSTRING(tCEP.cPartida,3,1)
+                append(// SUBSTRING(tCEP.cPartida,4,2)
                 rs2.getString(13)).// SUBSTRING(tCEP.cPartida,4,2)
                 append(// SUBSTRING(tCEP.cPartida,4,2)
                 ",").// SUBSTRING(tCEP.cPartida,4,2)
-                append(// SUBSTRING(tCEP.cPartida,4,2)
+                append(// tCEP.cTipoGasto
                 rs2.getString(14)).// tCEP.cTipoGasto
                 append(// tCEP.cTipoGasto
                 ",").// tCEP.cTipoGasto
-                append(// tCEP.cTipoGasto
+                append(// tCEP.cFuenteFinanciamiento
                 rs2.getString(15)).// tCEP.cFuenteFinanciamiento
                 append(// tCEP.cFuenteFinanciamiento
                 ",").// tCEP.cFuenteFinanciamiento
-                append(// tCEP.cFuenteFinanciamiento
+                append(// tCEP.cEntidadFederativa
                 rs2.getString("cTipoGasto")).// tCEP.cEntidadFederativa
                 append(// tCEP.cEntidadFederativa
                 ",").// tCEP.cEntidadFederativa
-                append(// tCEP.cEntidadFederativa
+                append(// tCEP.cCartera
                 rs2.getString("cFuenteFinanciamiento")).// tCEP.cCartera
                 append(// tCEP.cCartera
                 ",").// tCEP.cCartera
-                append(// tCEP.cCartera
+                append(// CAU
                 rs2.getString("cEntidadFederativa")).// CAU
                 append(// CAU
                 ",").// CAU
-                append(// CAU
+                append(// COP
                 rs2.getString("cCartera")).// COP
                 append(// COP
                 ",").// COP
-                append(// COP
+                append(// PL
                 rs2.getString("CAU")).// PL
                 append(// PL
                 ",").// PL
-                append(// PL
+                append(// OF_
                 rs2.getString("COP")).// OF_
                 append(// OF_
                 ",").// OF_
-                append(// OF_
+                append(// AUX1
                 rs2.getString("PL")).// AUX1
                 append(// AUX1
                 ",").// AUX1
-                append(// AUX1
+                append(// AUX2
                 rs2.getString("OF_")).// AUX2
                 append(// AUX2
                 ",").// AUX2
-                append(// AUX2
+                append(// AUX3
                 rs2.getString("AUX1")).// AUX3
                 append(// AUX3
                 ",").// AUX3
-                append(// AUX3
+                append(// Suficiencia
                 rs2.getString("AUX2")).// Suficiencia
                 append(// Suficiencia
                 ",").// Suficiencia
-                append(// Suficiencia
+                append(// Sol_OLI
                 rs2.getString("AUX3")).// Sol_OLI
                 append(// Sol_OLI
                 ",").// Sol_OLI
-                append(// Sol_OLI
+                append(// Enero
                 rs2.getString("Suficiencia")).// Enero
                 append(// Enero
                 ",").// Enero
-                append(// Enero
+                append(// Febrero
                 rs2.getString("Sol_OLI")).// Febrero
                 append(// Febrero
                 ",").// Febrero
-                append(// Febrero
+                append(// Marzo
                 rs2.getString("Enero")).// Marzo
                 append(// Marzo
                 ",").// Marzo
-                append(// Marzo
+                append(// Abril
                 rs2.getString("Febrero")).// Abril
                 append(// Abril
                 ",").// Abril
-                append(// Abril
+                append(// Mayo
                 rs2.getString("Marzo")).// Mayo
                 append(// Mayo
                 ",").// Mayo
-                append(// Mayo
+                append(// Junio
                 rs2.getString("Abril")).// Junio
                 append(// Junio
                 ",").// Junio
-                append(// Junio
+                append(// Julio
                 rs2.getString("Mayo")).// Julio
                 append(// Julio
                 ",").// Julio
-                append(// Julio
+                append(// Agosto
                 rs2.getString("Junio")).// Agosto
                 append(// Agosto
                 ",").// Agosto
-                append(// Agosto
+                append(// Septiembre
                 rs2.getString("Julio")).// Septiembre
                 append(// Septiembre
                 ",").// Septiembre
-                append(// Septiembre
+                append(// Octubre
                 rs2.getString("Agosto")).// Octubre
                 append(// Octubre
                 ",").// Octubre
-                append(// Octubre
+                append(// Noviembre
                 rs2.getString("Septiembre")).// Noviembre
                 append(// Noviembre
                 ",").// Noviembre
-                append(// Noviembre
+                append(// Diciembre
                 rs2.getString("Octubre")).// Diciembre
                 append(// Diciembre
                 ",").// Diciembre
-                append(// Diciembre
+                append(// Importe
                 rs2.getString("Noviembre")).// Importe
                 append(// Importe
                 ",").// Importe
-                append(// Importe
-                rs2.getString("Diciembre")).append(",").append(mImporteDet);
+                append(rs2.getString("Diciembre")).append(",").append(mImporteDet);
                 if (esCalendario == 1) {
                     detalle.append(",").append(rs2.getString("tipoCalendario"));
                 }
@@ -1645,169 +1645,169 @@ public class CompromisoManager {
             // B
             // C
             // C
+            // C
             encabezado.append(rs.getString("Header").trim()).append(",").// C
-            append(// C
+            append(// D
             fechaALayout.trim()).// D
             append(// D
             ",").// D
-            append(// D
+            append(// E
             fechaLayout.trim()).// E
             append(// E
             ",").// E
-            append(// E
+            append(// F
             rs.getString("cRamo").trim()).// F
             append(// F
             ",").// F
-            append(// F
+            append(// G
             rs.getString("cRamo").trim()).// G
             append(// G
             ",").// G
-            append(// G
+            append(// H
             rs.getString("cRamo").trim()).// H
             append(// H
             ",").// H
-            append(// H
+            append(// I
             rs.getString("cUnidadResponsableEP").trim()).// I
             append(// I
             ",").// I
-            append(// I
+            append(// J
             rs.getString("cUnidadResponsableEP").trim()).// J
             append(// J
             ",").// J
-            append(// J
+            append(// K
             rs.getString("cUnidadResponsableEP").trim()).// K
             append(// K
             ",").// K
-            append(// K
+            append(// L
             tipoMovto).// L
             append(// L
             ",").// L
-            append(// L
+            append(// M
             compromiso).// M
             append(// M
             ",").// M
-            append(// M
+            append(// N
             erogacion).// N
             append(// N
             ",").// N
-            append(// N
+            append(// O
             sFolioSICOP).// O
             append(// O
             ",").// O
-            append(// O
+            append(// P
             tipoOp).// P
             append(// P
             ",").// P
-            append(// P
+            append(// Q
             rs.getString("cIdContrato").trim()).// Q
             append(// Q
             ",").// Q
-            append(// Q
+            append(// R
             rs.getString("cConceptoContrato").trim().replaceAll(",", " ")).// R
             append(// R
             ",").// R
-            append(// R
+            append(// S
             rs.getString("CBEN").trim()).// S
             append(// S
             ",").// S
-            append(// S
+            append(// T
             rs.getString("cIdRFC").trim()).// T
             append(// T
             ",").// T
-            append(// T
+            append(// U
             rs.getString("REPRESENTANTE_LEGAL").trim()).// U
             append(// U
             ",").// U
-            append(// U
+            append(// V
             rs.getString("TPROC")).// V
             append(// V
             ",").// V
-            append(// V
+            append(// W
             rs.getString("ESQ_PRECIO")).// W
             append(// W
             ",").// W
-            append(// W
+            append(// X
             rs.getString("CONTRATACION")).// X
             append(// X
             ",").// X
-            append(// X
+            append(// Y
             fContratoIni.trim()).// Y
             append(// Y
             ",").// Y
-            append(// Y
+            append(// Z
             fContratoFin.trim()).// Z
             append(// Z
             ",").// Z
-            append(// Z
+            append(// AA
             fContratoFirma.trim()).// AA
             append(// AA
             ",").// AA
-            append(// AA
+            append(// AB
             pluri.trim()).// AB
             append(// AB
             ",").// AB
-            append(// AB
+            append(// AC
             rs.getString("APROB_PLA")).// AC
             append(// AC
             ",").// AC
-            append(// AC
+            append(// AD
             rs.getString("ACTO_JURIDICO")).// AD
             append(// AD
             ",").// AD
-            append(// AD
+            append(// AE
             montoMonori).// AE
             append(// AE
             ",").// AE
-            append(// AE
+            append(// AF
             rs.getString("cCodigoMonedaSiaff")).// AF
             append(// AF
             ",").// AF
-            append(// AF
+            append(// AG
             rs.getString("TCAM")).// AG
             append(// AG
             ",").// AG
-            append(// AG
+            append(// AH
             montoEjer).// AH
             append(// AH
             ",").// AH
-            append(// AH
+            append(// AI
             montoMin).// AI
             append(// AI
             ",").// AI
-            append(// AI
+            append(// AJ
             montoMax).// AJ
             append(// AJ
             ",").// AJ
-            append(// AJ
+            append(// AK
             rs.getString("CONV_MOD")).// AK
             append(// AK
             ",").// AK
-            append(// AK
+            append(// AL
             rs.getString("NUM_CONV_MOD")).// AL
             append(// AL
             ",").// AL
-            append(// AL
+            append(// AM
             fConvenio).// AM
             append(// AM
             ",").// AM
-            append(// AM
+            append(// AN
             org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("CODIGO_EXPEDIENTE"))).// AN
             append(// AN
             ",").// AN
-            append(// AN
+            append(// AO
             org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("NO_PROCEDIMIENTO"))).// AO
             append(// AO
             ",").// AO
-            append(// AO
+            append(// AP
             org.apache.commons.lang.StringUtils.trimToEmpty(rs.getString("CODIGO_CONTRATO"))).// AP
             append(// AP
             ",").// AP
-            append(// AP
+            append(// AQ
             rs.getString("nMes").trim()).// AQ
             append(// AQ
             ",").// AQ
-            append(// AQ
-            rs.getString("caNoIntegradaComp")).append(",").append(rs.getString("TTRANS_21"));
+            append(rs.getString("caNoIntegradaComp")).append(",").append(rs.getString("TTRANS_21"));
             if (esCalendario == 0) {
                 // AR
                 encabezado.append(",").append(rs.getString("caNoIntegradaComp"));
@@ -1849,153 +1849,153 @@ public class CompromisoManager {
                 // tCEP.cUnidadResponsableEP
                 // tCEP.aEjercicioFiscal
                 // tCEP.aEjercicioFiscal
+                // tCEP.aEjercicioFiscal
                 detalle.append(",").append(rs2.getString("cRamo").trim()).append(",").// tCEP.aEjercicioFiscal
-                append(// tCEP.aEjercicioFiscal
+                append(// tCEP.cGrupoFuncional
                 rs2.getString("cUnidadResponsableEP").trim()).// tCEP.cGrupoFuncional
                 append(// tCEP.cGrupoFuncional
                 ",").// tCEP.cGrupoFuncional
-                append(// tCEP.cGrupoFuncional
+                append(// tCEP.cFuncion
                 rs2.getString("aEjercicioFiscal").trim()).// tCEP.cFuncion
                 append(// tCEP.cFuncion
                 ",").// tCEP.cFuncion
-                append(// tCEP.cFuncion
+                append(// tCEP.cSubFuncion
                 rs2.getString("cGrupoFuncional").trim()).// tCEP.cSubFuncion
                 append(// tCEP.cSubFuncion
                 ",").// tCEP.cSubFuncion
-                append(// tCEP.cSubFuncion
+                append(// tCEP.cProgramaGeneral
                 rs2.getString("cFuncion").trim()).// tCEP.cProgramaGeneral
                 append(// tCEP.cProgramaGeneral
                 ",").// tCEP.cProgramaGeneral
-                append(// tCEP.cProgramaGeneral
+                append(// tCEP.cActividadInstitucional
                 rs2.getString("cSubFuncion").trim()).// tCEP.cActividadInstitucional
                 append(// tCEP.cActividadInstitucional
                 ",").// tCEP.cActividadInstitucional
-                append(// tCEP.cActividadInstitucional
+                append(// tCEP.cProgramaPresupuestario
                 rs2.getString("cProgramaGeneral")).// tCEP.cProgramaPresupuestario
                 append(// tCEP.cProgramaPresupuestario
                 ",").// tCEP.cProgramaPresupuestario
-                append(// tCEP.cProgramaPresupuestario
+                append(// SUBSTRING(tCEP.cPartida,1,1)
                 rs2.getString("cActividadInstitucional")).// SUBSTRING(tCEP.cPartida,1,1)
                 append(// SUBSTRING(tCEP.cPartida,1,1)
                 ",").// SUBSTRING(tCEP.cPartida,1,1)
-                append(// SUBSTRING(tCEP.cPartida,1,1)
+                append(// SUBSTRING(tCEP.cPartida,2,1)
                 rs2.getString("cProgramaPresupuestario")).// SUBSTRING(tCEP.cPartida,2,1)
                 append(// SUBSTRING(tCEP.cPartida,2,1)
                 ",").// SUBSTRING(tCEP.cPartida,2,1)
-                append(// SUBSTRING(tCEP.cPartida,2,1)
+                append(// SUBSTRING(tCEP.cPartida,3,1)
                 rs2.getString(12)).// SUBSTRING(tCEP.cPartida,3,1)
                 append(// SUBSTRING(tCEP.cPartida,3,1)
                 ",").// SUBSTRING(tCEP.cPartida,3,1)
-                append(// SUBSTRING(tCEP.cPartida,3,1)
+                append(// SUBSTRING(tCEP.cPartida,4,2)
                 rs2.getString(13)).// SUBSTRING(tCEP.cPartida,4,2)
                 append(// SUBSTRING(tCEP.cPartida,4,2)
                 ",").// SUBSTRING(tCEP.cPartida,4,2)
-                append(// SUBSTRING(tCEP.cPartida,4,2)
+                append(// tCEP.cTipoGasto
                 rs2.getString(14)).// tCEP.cTipoGasto
                 append(// tCEP.cTipoGasto
                 ",").// tCEP.cTipoGasto
-                append(// tCEP.cTipoGasto
+                append(// tCEP.cFuenteFinanciamiento
                 rs2.getString(15)).// tCEP.cFuenteFinanciamiento
                 append(// tCEP.cFuenteFinanciamiento
                 ",").// tCEP.cFuenteFinanciamiento
-                append(// tCEP.cFuenteFinanciamiento
+                append(// tCEP.cEntidadFederativa
                 rs2.getString("cTipoGasto")).// tCEP.cEntidadFederativa
                 append(// tCEP.cEntidadFederativa
                 ",").// tCEP.cEntidadFederativa
-                append(// tCEP.cEntidadFederativa
+                append(// tCEP.cCartera
                 rs2.getString("cFuenteFinanciamiento")).// tCEP.cCartera
                 append(// tCEP.cCartera
                 ",").// tCEP.cCartera
-                append(// tCEP.cCartera
+                append(// CAU
                 rs2.getString("cEntidadFederativa")).// CAU
                 append(// CAU
                 ",").// CAU
-                append(// CAU
+                append(// COP
                 rs2.getString("cCartera")).// COP
                 append(// COP
                 ",").// COP
-                append(// COP
+                append(// PL
                 rs2.getString("CAU")).// PL
                 append(// PL
                 ",").// PL
-                append(// PL
+                append(// OF_
                 rs2.getString("COP")).// OF_
                 append(// OF_
                 ",").// OF_
-                append(// OF_
+                append(// AUX1
                 rs2.getString("PL")).// AUX1
                 append(// AUX1
                 ",").// AUX1
-                append(// AUX1
+                append(// AUX2
                 rs2.getString("OF_")).// AUX2
                 append(// AUX2
                 ",").// AUX2
-                append(// AUX2
+                append(// AUX3
                 rs2.getString("AUX1")).// AUX3
                 append(// AUX3
                 ",").// AUX3
-                append(// AUX3
+                append(// Suficiencia
                 rs2.getString("AUX2")).// Suficiencia
                 append(// Suficiencia
                 ",").// Suficiencia
-                append(// Suficiencia
+                append(// Sol_OLI
                 rs2.getString("AUX3")).// Sol_OLI
                 append(// Sol_OLI
                 ",").// Sol_OLI
-                append(// Sol_OLI
+                append(// Enero
                 rs2.getString("Suficiencia")).// Enero
                 append(// Enero
                 ",").// Enero
-                append(// Enero
+                append(// Febrero
                 rs2.getString("Sol_OLI")).// Febrero
                 append(// Febrero
                 ",").// Febrero
-                append(// Febrero
+                append(// Marzo
                 rs2.getString("Enero")).// Marzo
                 append(// Marzo
                 ",").// Marzo
-                append(// Marzo
+                append(// Abril
                 rs2.getString("Febrero")).// Abril
                 append(// Abril
                 ",").// Abril
-                append(// Abril
+                append(// Mayo
                 rs2.getString("Marzo")).// Mayo
                 append(// Mayo
                 ",").// Mayo
-                append(// Mayo
+                append(// Junio
                 rs2.getString("Abril")).// Junio
                 append(// Junio
                 ",").// Junio
-                append(// Junio
+                append(// Julio
                 rs2.getString("Mayo")).// Julio
                 append(// Julio
                 ",").// Julio
-                append(// Julio
+                append(// Agosto
                 rs2.getString("Junio")).// Agosto
                 append(// Agosto
                 ",").// Agosto
-                append(// Agosto
+                append(// Septiembre
                 rs2.getString("Julio")).// Septiembre
                 append(// Septiembre
                 ",").// Septiembre
-                append(// Septiembre
+                append(// Octubre
                 rs2.getString("Agosto")).// Octubre
                 append(// Octubre
                 ",").// Octubre
-                append(// Octubre
+                append(// Noviembre
                 rs2.getString("Septiembre")).// Noviembre
                 append(// Noviembre
                 ",").// Noviembre
-                append(// Noviembre
+                append(// Diciembre
                 rs2.getString("Octubre")).// Diciembre
                 append(// Diciembre
                 ",").// Diciembre
-                append(// Diciembre
+                append(// Importe
                 rs2.getString("Noviembre")).// Importe
                 append(// Importe
                 ",").// Importe
-                append(// Importe
-                rs2.getString("Diciembre")).append(",").append(mImporteDet);
+                append(rs2.getString("Diciembre")).append(",").append(mImporteDet);
                 if (esCalendario == 1) {
                     detalle.append(",").append(rs2.getString("tipoCalendario"));
                 }
@@ -2314,7 +2314,7 @@ public class CompromisoManager {
                 log.trace("La EP se ha utilizado con compromiso radicado. El evento debe ser radicado");
             } else
                 cEvento = "CMP001";
-            log.debug("Object: {}", "Se calculo el evento[" + cEvento + "] para la EP[" + ep + "]");
+            log.debug("Object: " + String.valueOf("Se calculo el evento[" + cEvento + "] para la EP[" + ep + "]"));
             return cEvento;
         } finally {
             CloseObject.closeObject(rs);
@@ -2392,7 +2392,7 @@ public class CompromisoManager {
             log.trace("Object: {}", "Ejecutando Insert: " + psInsert);
             log.trace("Object: {}", String.format("Valores:[%d,%S,%S,%S,%S,%S,%S,%S,%d,%S,%S,%S]", nFolioCompromiso, cIdContrato, cTipoContrato, fAplicacion.toString(), cCentroContable, cRamo, cUnidadResponsable, caNoCompromiso, nMes, cDescripcionPoliza, usuario, cRadicado));
             int insertados = psInsert.executeUpdate();
-            log.debug("Object: {}", "Se insertaron " + insertados + " registros en compromiso encabezado.");
+            log.debug("Object: " + String.valueOf("Se insertaron " + insertados + " registros en compromiso encabezado."));
             return insertados;
         } finally {
             CloseObject.closeObject(psInsert);
@@ -2542,7 +2542,7 @@ public class CompromisoManager {
             psInsert.setDouble(6, -1 * mImporte);
             psInsert.setInt(7, cMes);
             psInsert.setString(8, cCentroContable);
-            log.debug("Object: {}", "Insertando renglon " + nDocRenglon + " del compromiso " + nFolioCompromiso);
+            log.debug("Object: " + String.valueOf("Insertando renglon " + nDocRenglon + " del compromiso " + nFolioCompromiso));
             insertados = psInsert.executeUpdate();
             log.debug("Insertado exitosamente.");
             return insertados;
@@ -3361,7 +3361,7 @@ public class CompromisoManager {
         query.append("VALUES (?, ?, ?, ?, ?, ?,  ?, ?, ?)  ");
         try {
             int param = 1;
-            log.debug("Object: {}", "Insertando: " + encabezado);
+            log.debug("Object: " + String.valueOf("Insertando: " + encabezado));
             ps = conn.prepareStatement(query.toString());
             ps.setInt(param++, encabezado.getFolioPrecomFinanciero());
             ps.setDate(param++, java.sql.Date.valueOf(encabezado.getFechaCarga()));
@@ -3387,7 +3387,7 @@ public class CompromisoManager {
         query.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         try {
             int param = 1;
-            log.debug("Object: {}", "Insertando: " + detalle);
+            log.debug("Object: " + String.valueOf("Insertando: " + detalle));
             ps = conn.prepareStatement(query.toString());
             ps.setInt(param++, detalle.getRenglon());
             ps.setString(param++, detalle.getEP());
@@ -3730,7 +3730,7 @@ public class CompromisoManager {
                     sql2.append(valor + ";");
                 }
                 ps.addBatch();
-                log.debug("Object: {}", "Agregando Suficiencias:" + sql2.toString());
+                log.debug("Object: " + String.valueOf("Agregando Suficiencias:" + sql2.toString()));
                 if (++count % batchSize == 0) {
                     ps.executeBatch();
                     conn.commit();
@@ -3816,7 +3816,7 @@ public class CompromisoManager {
                         sql2.append(row[h]).append("; ");
                     }
                     stmt.addBatch();
-                    log.debug("Object: {}", "Agregando compromisos:" + sql2.toString());
+                    log.debug("Object: " + String.valueOf("Agregando compromisos:" + sql2.toString()));
                     if (++count % batchSize == 0) {
                         stmt.executeBatch();
                         conn.commit();

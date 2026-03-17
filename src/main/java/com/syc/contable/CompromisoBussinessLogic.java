@@ -357,7 +357,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
             archivoPago.append(cvsDataSQL.get(i));
         }
         String outTextPago = archivoPago.toString();
-        out.write(outTextPago.toPath());
+        out.write(outTextPago);
         out.flush();
         out.close();
         /* fin de guarda pago */
@@ -493,7 +493,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
         for (String[] renglon : renglonesArchivo) {
             try {
                 conn = getConnection();
-                log.debug("Object: {}", " Operando el renglon " + nRenglon + " : " + renglon[21]);
+                log.debug("Object: " + String.valueOf(" Operando el renglon " + nRenglon + " : " + renglon[21]));
                 int columna = 0;
                 String fAp = renglon[23];
                 String fExp = renglon[6];
@@ -529,7 +529,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
                         conn.commit();
                     } catch (Exception e2) {
                         String errorMsg = "Error mientras se guardaba el compromiso " + renglon[20] + ". Causa: " + e2.toString();
-                        log.warn(errorMsg.getMessage(), errorMsg);
+                        log.warn(errorMsg, errorMsg);
                         throw new Exception(errorMsg, e2);
                     }
                     diferencia = CompromisoManager.diferenciaSICOPvsSAI(conn, caNoCompromiso);
@@ -544,7 +544,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
                             // caNoCompromiso );
                         } catch (Exception e4) {
                             String errorMsg = "Error mientras se aplicaba el compromiso " + renglon[20] + ". Causa: " + e4.toString();
-                            log.warn(errorMsg.getMessage(), errorMsg);
+                            log.warn(errorMsg, errorMsg);
                             throw new Exception(errorMsg, e4);
                         }
                     } else {
@@ -906,7 +906,7 @@ public class CompromisoBussinessLogic extends DataSourceManager {
                 row.createCell(11).setCellValue(dto.getDisponible());
             }
             try (FileOutputStream fos = new FileOutputStream(templateFile)) {
-                workbook.write(fos.toPath());
+                workbook.write(fos);
             }
         }
     }

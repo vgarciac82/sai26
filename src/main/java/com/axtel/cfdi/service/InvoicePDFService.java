@@ -42,7 +42,7 @@ public class InvoicePDFService {
     public File generateInvoicePDF(CFDI cfdi, String outputPath) throws Exception {
         log.info("Object: {}", "Inicio de generación de PDF para el CFDI con ID: " + cfdi.getEncabezado().getCfdiId());
         String cfdiJson = gson.toJson(cfdi);
-        log.debug("Object: {}", "Representación JSON del CFDI: " + cfdiJson);
+        log.debug("Object: " + String.valueOf("Representación JSON del CFDI: " + cfdiJson));
         File fOut = generateReport(cfdiJson, outputPath);
         log.info("Object: {}", "PDF generado correctamente en la ruta: " + outputPath);
         return fOut;

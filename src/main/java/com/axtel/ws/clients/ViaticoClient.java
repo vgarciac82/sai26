@@ -49,7 +49,7 @@ public class ViaticoClient {
         conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
         conn.setDoOutput(true);
         try (DataOutputStream wr = new DataOutputStream(conn.getOutputStream())) {
-            wr.write(jsonInput.getBytes("UTF-8").toPath());
+            wr.write(jsonInput.getBytes("UTF-8"));
             wr.flush();
         }
         int responseCode = conn.getResponseCode();

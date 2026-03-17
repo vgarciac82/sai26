@@ -2,8 +2,6 @@ package com.syc.fortimax.core.security;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.security.Provider;
-import java.security.Security;
 import java.security.spec.InvalidKeySpecException;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -25,16 +23,12 @@ public class TripleDesEncryption {
     static {
         try {
             Cipher.getInstance("DESede");
-        } catch (NoSuchAlgorithmException nsaex) {
-            log.error(nsaex.getMessage(), nsaex);
-            log.error("Instalando proveedor SunJCE.");
-            Provider sunjce = new com.sun.crypto.provider.SunJCE();
-            Security.addProvider(sunjce);
-        } catch (NoSuchPaddingException nspex) {
-            log.error(nspex.getMessage(), nspex);
-            log.error("Instalando proveedor SunJCE.");
-            Provider sunjce = new com.sun.crypto.provider.SunJCE();
-            Security.addProvider(sunjce);
+        } catch (NoSuchAlgorithmException ex) {
+            log.error(ex.getMessage(), ex);
+            log.error("DESede no disponible en el runtime actual.", ex);
+        } catch (NoSuchPaddingException ex) {
+            log.error(ex.getMessage(), ex);
+            log.error("DESede no disponible en el runtime actual.", ex);
         }
     }
 

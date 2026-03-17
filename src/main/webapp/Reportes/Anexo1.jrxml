@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Anexo1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="80beffb9-f1c2-44dc-8139-47916e3e3b5c">
+	<property name="ireport.zoom" value="1.1269722013523673"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="53"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sai_2025"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="swhere" class="java.lang.String">
+		<defaultValueExpression><![CDATA["and canocontrarrecibo ='10CP2021129166'"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select tre.caNoContrarrecibo,tre.cIdRelacion,trd.EP, sum( trd.mImporteMasIVA) Importe,tre.cnombre,tre.nFolioRELACIONGASTOS,'RG' as tipodoc,
+SPACE(150) AS Programa, SPACE(150) AS SubPrograma,
+(SELECT COUNT(CFACTURA) FROM tPagoFactura WITH (NOLOCK) WHERE nFolioPago = TRE.nFolioRELACIONGASTOS AND cTipoPago = 'RELACIONGASTOS') tieneFactura
+INTO #tmp_anexo
+from  tRELACIONGASTOSDetalle trd with(NOLOCK)
+inner join tRELACIONGASTOSEncabezado tre with(NOLOCK)
+on trd.nFolioRELACIONGASTOS=tre.nFolioRELACIONGASTOS
+where 1 = 1 $P!{swhere}
+group by tre.caNoContrarrecibo, tre.cIdRelacion, trd.EP, tre.cnombre, tre.nFolioRELACIONGASTOS
+
+insert into #tmp_anexo
+select tre.caNoContrarrecibo, tre.cIdDocumento, trd.EP, sum(trd.mImporteMasIVA) Importe, isnull(b.dNombre, '') + ' ' + isnull(b.dApellidoPaterno, '') + ' ' + isnull(b.dApellidoMaterno, ''), tre.nFolioPagoDirecto,'PI' as tipodoc
+, '' AS Programa, '' AS SubPrograma,
+(SELECT COUNT(CFACTURA) FROM tPagoFactura WITH (NOLOCK) WHERE nFolioPago = TRE.nFolioPagoDirecto AND cTipoPago = 'pagodirecto') tieneFactura
+from  tPagoDirectoDetalle trd with(NOLOCK) inner join tPagoDirectoEncabezado tre with(NOLOCK) on trd.nFolioPagoDirecto=tre.nFolioPagoDirecto inner join tbeneficiario b on
+tre.cIdRFC = b.drfc
+where 1 = 1 $P!{swhere}
+group by tre.caNoContrarrecibo, tre.cIdDocumento, trd.EP, isnull(b.dNombre, '') + ' ' + isnull(b.dApellidoPaterno, '') + ' ' + isnull(b.dApellidoMaterno, ''), tre.nFolioPagoDirecto
+
+insert into #tmp_anexo
+select tre.caNoContrarrecibo, tre.cIdRelacion, trd.EP, sum(trd.mImporteMasIVA) Importe, tre.cNombre, tre.nFolioNOMINA, 'NO' as tipodoc
+, '' AS Programa, '' AS SubPrograma,
+(SELECT COUNT(CFACTURA) FROM tPagoFactura WITH (NOLOCK) WHERE nFolioPago = TRE.nFolioNOMINA AND cTipoPago = 'NOMINA') tieneFactura
+from  tNOMINADetalle trd with(NOLOCK) inner join tNOMINAEncabezado tre with(NOLOCK) on trd.nFolioNOMINA=tre.nFolioNOMINA
+ where 1 = 1 $P!{swhere}
+group by tre.caNoContrarrecibo, tre.cIdRelacion, trd.EP, tre.cNombre, tre.nFolioNOMINA
+
+insert into #tmp_anexo
+select tre.caNoContrarrecibo, tre.cFolioContratoObra, trd.EP, sum(trd.mImporteMasIVA) Importe, isnull(b.dNombre, '') + ' ' + isnull(b.dApellidoPaterno, '') + ' ' + isnull(b.dApellidoMaterno, ''), tre.nFolioPAGOOBRA, 'PO' as tipodoc
+, '' AS Programa, '' AS SubPrograma,
+(SELECT COUNT(CFACTURA) FROM tPagoFactura WITH (NOLOCK) WHERE nFolioPago = TRE.nFolioPAGOOBRA AND cTipoPago = 'PAGOOBRA') tieneFactura
+from  tPAGOOBRADetalle trd with(NOLOCK) inner join tPAGOOBRAEncabezado tre with(NOLOCK) on trd.nFolioPAGOOBRA=tre.nFolioPAGOOBRA and left(trd.cEvento, 8) <> 'ANTICIPO' inner join tbeneficiario b on
+tre.RFC = b.drfc
+where 1 = 1 $P!{swhere}
+Group by tre.caNoContrarrecibo, tre.cFolioContratoObra, trd.EP, isnull(b.dNombre, '') + ' ' + isnull(b.dApellidoPaterno, '') + ' ' + isnull(b.dApellidoMaterno, ''), tre.nFolioPAGOOBRA
+
+insert into #tmp_anexo
+select tre.caNoContrarrecibo, tre.cFolioContratoObra, trd.EP, sum(trd.mImporteMasIVA) Importe, isnull(b.dNombre, '') + ' ' + isnull(b.dApellidoPaterno, '') + ' ' + isnull(b.dApellidoMaterno, ''), tre.nFolioPAGOFEDERALIZADO, 'PF' as tipodoc,
+CASE WHEN (tre.RFC = 'BMN930209927' AND tre.nidprograma IS NOT NULL)
+		THEN 'Programa: ' + (SELECT fideicomiso.cprograma FROM tfideicomiso fideicomiso WITH (NOLOCK) WHERE fideicomiso.id = tre.nidprograma AND fideicomiso.nidprograma = tre.cUnidadResponsable)
+		ELSE '' END AS Programa,
+CASE WHEN (tre.RFC = 'BMN930209927' AND tre.cSubPrograma IS NOT NULL)
+	THEN 'SubPrograma: ' + (	SELECT programafideicomiso.cdescsubprograma	FROM tprogramafideicomiso programafideicomiso WITH (NOLOCK)
+			WHERE programafideicomiso.id = tre.nidprograma AND programafideicomiso.csubprograma = tre.cSubPrograma)
+	ELSE '' END AS SubPrograma,
+	(SELECT COUNT(CFACTURA) FROM tPagoFactura WITH (NOLOCK) WHERE nFolioPago = TRE.nFolioPAGOFEDERALIZADO AND cTipoPago = 'PAGOFEDERALIZADO') tieneFactura
+from  tPAGOFEDERALIZADODetalle trd with(NOLOCK) inner join tPAGOFEDERALIZADOEncabezado tre with(NOLOCK) on trd.nFolioPAGOFEDERALIZADO=tre.nFolioPAGOFEDERALIZADO  and left(trd.cEvento, 8) <> 'ANTICIPO' inner join tbeneficiario b on
+tre.RFC = b.drfc
+where 1 = 1 $P!{swhere}
+Group by tre.caNoContrarrecibo, tre.cFolioContratoObra, trd.EP, trd.EP, isnull(b.dNombre, '') + ' ' + isnull(b.dApellidoPaterno, '') + ' ' + isnull(b.dApellidoMaterno, ''), tre.nFolioPAGOFEDERALIZADO, tre.RFC, tre.nidprograma, tre.cSubPrograma, tre.cUnidadResponsable
+
+
+insert into #tmp_anexo
+select tre.caNoContrarrecibo, tre.cFolioPAGODIVERSO, trd.EP, sum(trd.mImporteMasIVA), isnull(b.dNombre, '') + ' ' + isnull(b.dApellidoPaterno, '') + ' ' + isnull(b.dApellidoMaterno, ''),  tre.nFolioPAGODIVERSO, 'PD' as tipodoc
+, '' AS Programa, '' AS SubPrograma,
+(SELECT COUNT(CFACTURA) FROM tPagoFactura WITH (NOLOCK) WHERE nFolioPago = TRE.nFolioPAGODIVERSO AND cTipoPago = 'PAGODIVERSO') tieneFactura
+from  tPAGODIVERSODetalle trd with(NOLOCK) inner join tPAGODIVERSOEncabezado tre with(NOLOCK) on trd.nFolioPAGODIVERSO=tre.nFolioPAGODIVERSO  and left(trd.cEvento, 8) <> 'ANTICIPO' inner join tbeneficiario b on
+rtrim(tre.RFC) = rtrim(b.drfc)
+ where 1 = 1 $P!{swhere}
+Group by tre.caNoContrarrecibo, tre.cFolioPAGODIVERSO, trd.EP, isnull(b.dNombre, '') + ' ' + isnull(b.dApellidoPaterno, '') + ' ' + isnull(b.dApellidoMaterno, ''), tre.nFolioPAGODIVERSO
+
+select caNoContrarrecibo, cIdRelacion, EP, SUM(Importe) AS Importe, cnombre, nFolioRELACIONGASTOS, tipodoc, Programa, SubPrograma, tieneFactura
+from #tmp_anexo
+GROUP BY caNoContrarrecibo,cIdRelacion,EP,cnombre,nFolioRELACIONGASTOS,tipodoc, Programa, SubPrograma, tieneFactura]]>
+	</queryString>
+	<field name="caNoContrarrecibo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="caNoContrarrecibo"/>
+		<property name="com.jaspersoft.studio.field.label" value="caNoContrarrecibo"/>
+	</field>
+	<field name="cIdRelacion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cIdRelacion"/>
+		<property name="com.jaspersoft.studio.field.label" value="cIdRelacion"/>
+	</field>
+	<field name="EP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EP"/>
+		<property name="com.jaspersoft.studio.field.label" value="EP"/>
+	</field>
+	<field name="Importe" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Importe"/>
+		<property name="com.jaspersoft.studio.field.label" value="Importe"/>
+	</field>
+	<field name="cnombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cnombre"/>
+		<property name="com.jaspersoft.studio.field.label" value="cnombre"/>
+	</field>
+	<field name="nFolioRELACIONGASTOS" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="nFolioRELACIONGASTOS"/>
+		<property name="com.jaspersoft.studio.field.label" value="nFolioRELACIONGASTOS"/>
+	</field>
+	<field name="tipodoc" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="tipodoc"/>
+		<property name="com.jaspersoft.studio.field.label" value="tipodoc"/>
+	</field>
+	<field name="Programa" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Programa"/>
+		<property name="com.jaspersoft.studio.field.label" value="Programa"/>
+	</field>
+	<field name="SubPrograma" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="SubPrograma"/>
+		<property name="com.jaspersoft.studio.field.label" value="SubPrograma"/>
+	</field>
+	<field name="tieneFactura" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="tieneFactura"/>
+		<property name="com.jaspersoft.studio.field.label" value="tieneFactura"/>
+	</field>
+	<variable name="sImporte" class="java.lang.String">
+		<variableExpression><![CDATA[$F{Importe}]]></variableExpression>
+	</variable>
+	<variable name="Importe_1" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{Importe}]]></variableExpression>
+	</variable>
+	<variable name="Importe_2" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Importe}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-24" x="131" y="0" width="296" height="13" uuid="2c1ea7e5-cda8-4f85-9c37-0228f94536a5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-5" x="131" y="13" width="296" height="66" uuid="4a07dc17-e234-476a-85ea-d4c73de33ac5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COORDINACIÓN GENERAL DE ADMINISTRACIÓN
+GERENCIA DE RECURSOS FINANCIEROS
+SUBGERENCIA DE OPERACIÓN FINANCIERA
+ANEXO DE CUENTAS POR PAGAR
+ DETALLE DE LAS CLAVES PRESUPUESTALES]]></text>
+			</staticText>
+			<image>
+				<reportElement key="image" x="0" y="0" width="150" height="66" uuid="002ef69e-3c8d-40a7-b0d8-6879f46c80f5"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="91" splitType="Stretch">
+			<line>
+				<reportElement key="line" x="0" y="0" width="555" height="1" uuid="4086cc55-1a75-4782-9c0c-47100a166548"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText" x="0" y="1" width="96" height="16" uuid="abf2716e-7495-4b99-8934-7faa27840ae2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[No. documento :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="0" y="19" width="96" height="16" uuid="4bffdd20-b6ff-40f9-b7a3-dda1cb8d6429"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[Beneficiario :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="427" y="1" width="99" height="16" uuid="c76e4a34-9864-4416-8f08-ebc1fa5a70c1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{caNoContrarrecibo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText" x="331" y="1" width="96" height="16" uuid="fe300dee-c139-48c0-a299-10318bc27afb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Cuenta por Pagar :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="96" y="1" width="235" height="16" uuid="39ea07a3-c211-4d14-ba35-6a43fa2d6ebe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cIdRelacion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="96" y="19" width="459" height="39" uuid="0d93d82e-5fc1-45c9-9484-804c0fefb543"/>
+				<textElement textAlignment="Left" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{cnombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="58" width="555" height="14" uuid="38643ce7-4e0f-46ad-afe3-50d9f0dda62b"/>
+				<textFieldExpression><![CDATA[$F{Programa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="73" width="555" height="15" uuid="87e60b22-4d44-42fe-9a7a-7ade1a6079d9"/>
+				<textFieldExpression><![CDATA[$F{SubPrograma}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText" x="0" y="8" width="435" height="16" uuid="8118c0fb-f4c6-4dcb-88a1-8f3d06288b22"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[EF  .  Ra  .  UR  .  Fi  .  Fu  .  Sf  .  PG  .  AI  . PP  . Pa  .  TG  .  FF  .  EF  . Ca  .  UE  .  UN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="435" y="8" width="115" height="16" uuid="552ebdb3-44d7-4e9e-8f86-88b25c7881d8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Importe a Ejercer]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line" x="0" y="25" width="555" height="1" uuid="f4abb53b-7ad5-44d4-9459-4afc2bfc7ffa"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="435" y="1" width="115" height="16" uuid="61728006-92fb-4e87-9b9a-64aeb40dab36"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Importe}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="0" y="0" width="423" height="16" uuid="c7a1675d-f501-4065-bcd9-2b8bc3e3aee7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EP}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText" x="424" y="1" width="12" height="16" uuid="a6fe1305-27d4-41b4-8109-6b7d098698fe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[$]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="91" splitType="Stretch">
+			<printWhenExpression><![CDATA[$F{tieneFactura} > 0]]></printWhenExpression>
+			<staticText>
+				<reportElement key="staticText" x="318" y="7" width="101" height="16" uuid="728b916d-c2b2-42a5-9eb9-d6479f8547e5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Total :   ]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line" x="0" y="23" width="555" height="1" uuid="d0edca4c-b67f-4224-aeec-e5a5de79791b"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText" x="424" y="7" width="12" height="16" uuid="1bc10cfe-36fb-4a57-915a-115551483ef5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[$]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="4" width="555" height="1" uuid="c2db32cc-7ddd-4da1-a7f1-30d0ba3e3fa8"/>
+			</line>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="436" y="7" width="114" height="17" uuid="15070cae-faff-407b-ad80-a2e269d0c60a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{Importe_2}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="66" width="555" height="25" uuid="b966aec2-4393-4998-9521-5719b98cd0e4"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="swhere">
+					<subreportParameterExpression><![CDATA[$P{swhere}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\AnexoFacturas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

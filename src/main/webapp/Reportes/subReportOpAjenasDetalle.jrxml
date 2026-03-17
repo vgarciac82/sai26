@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subReportOpAjenasDetalle" pageWidth="551" pageHeight="752" columnWidth="551" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="9d384b28-fd61-4175-9a84-764a5808128c">
+	<property name="ireport.zoom" value="3.4522712143931114"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="whereFolio" class="java.lang.String">
+		<defaultValueExpression><![CDATA["CR.caNoContrarrecibo = '10DD2015100001'"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[WITH CR AS (SELECT CR.caNoContrarrecibo caNoContrarrecibo,D.caNoContrarrecibo caNoContrarreciboDet,D.Ep,D.mTotal
+FROM dbo.tOperAjenasDetalle D WITH (NOLOCK)
+INNER JOIN dbo.tOperAjenasEncabezado CR WITH (NOLOCK)
+ON CR.nFolioOperAjenas = D.nFolioOperAjenas
+UNION
+SELECT CR.caNoContrarrecibo,D.caNoContrarrecibo,D.Ep,D.mTotal
+FROM dbo.tDisminucionDevDetalle D WITH (NOLOCK)
+INNER JOIN dbo.tDisminucionDevEncabezado CR WITH (NOLOCK)
+ON D.nFolioDisminucionDev = CR.nFolioDisminucionDev
+)
+SELECT * FROM CR
+WHERE $P!{whereFolio} AND 1 = 1]]>
+	</queryString>
+	<field name="caNoContrarrecibo" class="java.lang.String"/>
+	<field name="caNoContrarreciboDet" class="java.lang.String"/>
+	<field name="Ep" class="java.lang.String"/>
+	<field name="mTotal" class="java.math.BigDecimal"/>
+	<columnHeader>
+		<band height="1">
+			<line>
+				<reportElement x="0" y="0" width="551" height="1" uuid="cf3277f6-650c-4eb9-be49-f1172003c594"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement x="23" y="1" width="100" height="11" uuid="aa40207b-0408-48cb-b7cb-77cffdc1b68c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caNoContrarreciboDet}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="123" y="1" width="305" height="11" uuid="d44384ad-9d42-4acc-8357-2599b8c67e61"/>
+				<box>
+					<leftPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Ep}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="428" y="1" width="100" height="11" uuid="839d3205-4159-46f2-94ec-b397fb4a7617"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mTotal}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="1" height="12" uuid="6ccc7057-c829-4519-a462-f147f81b76a4"/>
+			</line>
+			<line>
+				<reportElement x="550" y="0" width="1" height="12" uuid="8102e8dc-a128-4a74-98fa-c3ee0daea14a"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="1">
+			<line>
+				<reportElement x="0" y="0" width="551" height="1" uuid="57497ea2-2fde-4efc-b454-b3f635cd3320"/>
+			</line>
+		</band>
+	</columnFooter>
+</jasperReport>

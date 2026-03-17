@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlanDeCuentasCodificacion"  pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.1000000000000028"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="192"/>
+	<queryString>
+		<![CDATA[SELECT 1 AS ID]]>
+	</queryString>
+	<field name="ID" class="java.lang.Integer"/>
+	<detail>
+		<band height="692" splitType="Stretch">
+			<staticText>
+				<reportElement x="184" y="94" width="229" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[BASE DE CODIFICACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="138" width="392" height="35"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[El código de cuentas ha sido diseñado con la finalidad de establecer una clasificación flexible, ordenada y pormenorizada de las cuentas de Mayor, el cual se conforma de 4 niveles de Clasificación y 4 dígitos como sigue:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="197" width="229" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[PRIMER AGREGADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="289" width="229" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[SEGUNDO AGREGADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="393" width="57" height="12"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GÉNERO: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="410" width="57" height="24"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GRUPO: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="440" width="57" height="12"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RUBRO: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="457" width="57" height="12"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUENTA: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="145" y="393" width="335" height="10"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Considera el universo de la clasificaciòn.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="145" y="410" width="335" height="24"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Determina el ámbito del universo en rubros compatibles con el género en forma estratificada, permitiendo conocer a niveles agregados su composición.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="145" y="440" width="335" height="12"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Permite la clasificación particular de las operaciones del ente público.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="145" y="457" width="335" height="12"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Establece el registro de las operaciones a nivel cuenta de mayor.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="159" y="240" width="254" height="10"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Género 1                            Activo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="159" y="252" width="254" height="10"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Grupo   1.2                         Activo No Circulante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="159" y="264" width="254" height="10"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Rubro   1.2.4                      Bienes Muebles]]></text>
+			</staticText>
+			<line>
+				<reportElement x="159" y="223" width="254" height="1"/>
+			</line>
+			<line>
+				<reportElement x="159" y="314" width="254" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="159" y="326" width="270" height="13"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Cuenta          1.2.4.1                Mobiliario y Equipo de Administración]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="159" y="341" width="270" height="13"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Subcuenta     1.2.4.1.1              Muebles de oficina y estantería]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="475" width="57" height="12"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUBCUENTA: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="145" y="475" width="335" height="23"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Constituye un mayor detalle de las cuentas necesarias para la interrelación con los clasificadores presupuestarios.]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

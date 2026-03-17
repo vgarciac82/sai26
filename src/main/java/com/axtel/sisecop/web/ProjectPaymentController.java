@@ -46,7 +46,7 @@ public class ProjectPaymentController extends HttpServlet {
         ProjectPaymentDTO paymentDTO = readPayment(request);
         log.trace("Object: {}", "JSON recibido correctamente y mapeado a objeto Payment. " + paymentDTO);
         try {
-            log.debug("Object: {}", "Saving payment: " + paymentDTO);
+            log.debug("Object: " + String.valueOf("Saving payment: " + paymentDTO));
             ProyectoServicioPago projectPayment = paymentService.createProjectPayment(paymentDTO);
             log.info("Object: {}", "Payment saved: " + projectPayment);
             Util.sendJSONResponse(response, projectPayment);

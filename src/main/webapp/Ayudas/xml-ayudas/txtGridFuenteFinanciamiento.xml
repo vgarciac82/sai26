@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Catálogo Complejidad Fuente Financiamiento</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>CG_CAT_FUENTEFINANCIAMIENTO_COB</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cFuenteFinanciamiento"			control="txtGridFuenteFinanciamiento"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave"			ancho="2"	maxlen="2"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="dFuenteFinanciamiento"			control=""	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Descripción"	ancho="30"	maxlen="40"		tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+</Ayuda>

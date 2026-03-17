@@ -79,7 +79,7 @@ public class ProyectoServicioController extends HttpServlet {
             }
             proyectoServicio.setServicioFolioPre(centralUnit);
             proyectoServicio.setServicioFolioAnio(Integer.valueOf(fiscalYear));
-            log.debug("Object: {}", "Saving proyecto: " + proyectoServicio);
+            log.debug("Object: " + String.valueOf("Saving proyecto: " + proyectoServicio));
             proyectoServicio = proyectoService.create(proyectoServicio);
             log.info("Object: {}", "Project saved: " + proyectoServicio);
             Util.sendJSONResponse(response, proyectoServicio);
@@ -94,7 +94,7 @@ public class ProyectoServicioController extends HttpServlet {
         ProyectoServicio proyectoServicio = readProjectRequest(request);
         log.trace("Object: {}", "JSON recibido correctamente y mapeado a objeto ProyectoServicio. " + proyectoServicio);
         try {
-            log.debug("Object: {}", "Updating project: " + proyectoServicio);
+            log.debug("Object: " + String.valueOf("Updating project: " + proyectoServicio));
             proyectoServicio = proyectoService.update(proyectoServicio);
             log.info("Object: {}", "Project updated: " + proyectoServicio);
             Util.sendJSONResponse(response, proyectoServicio);
@@ -110,7 +110,7 @@ public class ProyectoServicioController extends HttpServlet {
             log.info("Object: {}", "Looking for project with id: " + req.getParameter("id"));
             int id = Integer.parseInt(req.getParameter("id"));
             ProyectoServicio project = proyectoService.findById(id);
-            log.debug("Object: {}", "Project founded: " + project);
+            log.debug("Object: " + String.valueOf("Project founded: " + project));
             Util.sendJSONResponse(response, project);
         } catch (Exception e) {
             log.error("Error getting project: " + e.toString(), e);

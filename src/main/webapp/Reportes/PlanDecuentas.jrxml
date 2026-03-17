@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlanDecuentas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cbe40e9c-d19f-4107-ae28-e80320e60f4d">
+	<property name="ireport.zoom" value="1.2418426461183123"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="480"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nfirmas" class="java.lang.Integer"/>
+	<parameter name="nombre1" class="java.lang.String"/>
+	<parameter name="puesto1" class="java.lang.String"/>
+	<parameter name="nombre2" class="java.lang.String"/>
+	<parameter name="puesto2" class="java.lang.String"/>
+	<parameter name="nombre3" class="java.lang.String"/>
+	<parameter name="puesto3" class="java.lang.String"/>
+	<parameter name="idVersion" class="java.lang.Integer"/>
+	<parameter name="final" class="java.lang.Integer"/>
+	<parameter name="consulta" class="java.lang.Integer"/>
+	<parameter name="sinFirmas" class="java.lang.Integer"/>
+	<parameter name="nivel" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT aEjercicioFiscal
+		, CASE WHEN $P{idVersion} = 0 THEN '' ELSE (SELECT TOP 1 'Fecha Aplicación: ' + CONVERT(VARCHAR(15), fAplicacion) FROM tGuiaVersionTipoNivel WHERE idVersion = $P{idVersion} ) END fAplicacion
+		, CASE WHEN $P{idVersion} = 0 THEN '' ELSE (SELECT TOP 1 'Versión: ' + CONVERT(VARCHAR(5), idVersion) FROM tGuiaVersionTipoNivel WHERE idVersion = $P{idVersion} ) END idVersion
+FROM dbo.tEjercicioFiscal
+WHERE cActivo = 1]]>
+	</queryString>
+	<field name="aEjercicioFiscal" class="java.lang.String"/>
+	<field name="fAplicacion" class="java.lang.String"/>
+	<field name="idVersion" class="java.lang.String"/>
+	<pageHeader>
+		<band height="83" splitType="Stretch">
+			<staticText>
+				<reportElement x="169" y="9" width="249" height="23" uuid="88d54b4d-b5c6-4154-b22e-058fe8e11c3e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL
+MANUAL DE CONTABILIDAD GUBERNAMENTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="39" width="249" height="23" uuid="d39e78f5-e477-4757-a822-24349fb86c38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PLAN DE CUENTAS]]></text>
+			</staticText>
+			<image>
+				<reportElement x="8" y="9" width="114" height="45" uuid="e8f08111-324b-467a-9a91-df804693debb"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="8" y="70" width="133" height="10" uuid="a3926281-2c81-47d6-91f7-b81bacc7a983">
+					<printWhenExpression><![CDATA[!$F{fAplicacion}.equals( "" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fAplicacion}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="219" y="70" width="315" height="10" isPrintWhenDetailOverflows="true" uuid="40f270ff-0649-44e7-83be-fcab32ebfdee">
+					<printWhenExpression><![CDATA[!$F{idVersion}.equals( "0" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" markup="styled">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idVersion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="65" splitType="Stretch">
+			<subreport>
+				<reportElement positionType="Float" x="8" y="3" width="506" height="58" uuid="26d564e5-65fe-46c7-abbd-f5955975e09c"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\PlanDeCuentasContenido.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="65">
+			<subreport>
+				<reportElement x="8" y="3" width="506" height="59" uuid="0582b049-05df-4077-8fa3-1616d09ac084"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\PlanDeCuentasCodificacion.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="65">
+			<subreport>
+				<reportElement x="8" y="3" width="506" height="59" uuid="d8f901d8-56a7-4207-bab6-6e61ec03d9a9"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\PlanDeCuentasEstructura1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="65">
+			<subreport>
+				<reportElement x="8" y="3" width="506" height="58" uuid="7800959c-cde5-404a-850e-b97c72bd9d0d"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idVersion">
+					<subreportParameterExpression><![CDATA[$P{idVersion}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\PlanDeCuentasEstructura2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="65">
+			<subreport>
+				<reportElement x="8" y="3" width="506" height="59" uuid="718072fd-ea84-4999-a98f-4a7b3a6eabf5"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\PlanDeCuentasEstructura3.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="35">
+			<subreport>
+				<reportElement x="8" y="6" width="506" height="24" uuid="15e93ba6-c2ff-49ad-b69b-a664e15a6d22"/>
+				<subreportParameter name="final">
+					<subreportParameterExpression><![CDATA[$P{final}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idVersion">
+					<subreportParameterExpression><![CDATA[$P{idVersion}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="consulta">
+					<subreportParameterExpression><![CDATA[$P{consulta}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nivel">
+					<subreportParameterExpression><![CDATA[$P{nivel}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\PlanCuentas1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="0" y="6" width="477" height="37" uuid="52915f5e-41a3-42eb-9103-b2953b54b567"/>
+				<subreportParameter name="final">
+					<subreportParameterExpression><![CDATA[$P{final}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idVersion">
+					<subreportParameterExpression><![CDATA[$P{idVersion}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="consulta">
+					<subreportParameterExpression><![CDATA[$P{consulta}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nivel">
+					<subreportParameterExpression><![CDATA[$P{nivel}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\PlanCuentas2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="175">
+			<staticText>
+				<reportElement x="26" y="34" width="484" height="56" uuid="d0e0c6f5-90ea-4d6c-83f0-362509afb5fd"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Para dar cumplimiento al artículo 40 el cual señala que las , “…transacciones presupuestarias y contables generarán el registro automático y por única vez de las mismas en los momentos contables correspondientes,” así como el artículo 41 “Para el registro único de las operaciones presupuestarias y contables, los entes públicos dispondrán de clasificadores presupuestarios, listas de cuentas y catálogos de bienes o instrumentos similares que permitan su interrelación automática”, ambos de la Ley de Contabilidad, la desagregación de las siguientes cuentas es obligatoria para todos los entes públicos.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="165" y="4" width="214" height="20" uuid="dee1f8ac-5601-4c6c-bb44-ff97c8975923"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELACIÓN CONTABLE / PRESUPUESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="95" width="484" height="34" uuid="e65a83d4-1b64-4140-8bfa-0e66094d7491"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUENTAS QUE DEBIDO A LA NECESIDAD DE INTERRELACIÓN CON LOS CLASIFICADORES RESUPUESTARIOS DEBERÁN DESAGREGARSE DE MANERA OBLIGATORIA A 5° NIVEL, ASÍ COMO SU RELACIÓN CON EL CLASIFICADOR POR OBJETO DEL GASTO.]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="8" y="141" width="503" height="31" uuid="40b49aa5-95d0-472c-9698-d5258a27d885"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\RelacionContablePresupuestal.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="17">
+			<staticText>
+				<reportElement x="232" y="2" width="38" height="12" uuid="ee3d050a-c425-428c-8392-5af3eb79d581"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[Vigencia]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="276" y="2" width="44" height="12" uuid="17ef6173-0b5b-4d87-834e-5823474a161e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aEjercicioFiscal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="2" width="73" height="12" uuid="5633812b-86be-4cbb-a862-ba360ec8a772"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="127">
+			<subreport>
+				<reportElement x="0" y="1" width="555" height="100" isPrintWhenDetailOverflows="true" uuid="c3708648-a54c-4260-8711-f1fe6e19baab">
+					<printWhenExpression><![CDATA[$P{sinFirmas} == 0]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="puesto2">
+					<subreportParameterExpression><![CDATA[$P{puesto2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="puesto3">
+					<subreportParameterExpression><![CDATA[$P{puesto3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nombre2">
+					<subreportParameterExpression><![CDATA[$P{nombre2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nombre1">
+					<subreportParameterExpression><![CDATA[$P{nombre1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="puesto1">
+					<subreportParameterExpression><![CDATA[$P{puesto1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nfirmas">
+					<subreportParameterExpression><![CDATA[$P{nfirmas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nombre3">
+					<subreportParameterExpression><![CDATA[$P{nombre3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "//firmasGuiasV.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="232" y="111" width="38" height="12" uuid="b697f949-58d2-4a92-9b8e-5474669e33a5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[Vigencia]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="276" y="111" width="44" height="12" uuid="7f2d0f04-7084-4f78-af65-48fd3340411f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aEjercicioFiscal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="461" y="103" width="73" height="20" uuid="b72e5502-2024-4ed1-85c0-506e56c69d8e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

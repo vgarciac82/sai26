@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo Almacén</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>700</altoWin>
+	<altoAreaCaptura>130</altoAreaCaptura>
+	<tabla>M_CAT_ALMACEN</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>1</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cCentroContable"	control="cCentroContable"			dependencia="No"		ctrlsDependientes=""						limpiaOnKeypress=""							header="* Centro Contable"		rowCol="1,1" 	ancho="5"		maxlen="2"	  	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="nIdAlmacen"			control="nIdAlmacen"				dependencia="No"		ctrlsDependientes=""						limpiaOnKeypress=""							header="* Id almacén"			rowCol="1,2" 	ancho="5"		maxlen="5"	  	tipo="int"		visible="Si"	clase=""/>
+		<columna campo="cAlmacen"			control="cAlmacen"					dependencia="No"		ctrlsDependientes=""						limpiaOnKeypress=""							header="* almacén"				rowCol="2,1" 	ancho="40"		maxlen="30"	  	tipo="string"	visible="Si"	clase=""/>
+	</grid>
+
+	<insertaRegistro>
+		<campo field="cCentroContable"		control="txtGridcCentroContable"	llave="Si"	identity="No"	requerido="El Centro Contable es requerido"		requeridoFocus="txtGridcCentroContable"		tipo="string" />
+		<campo field="nIdAlmacen"			control="txtGridnIdAlmacen"			llave="Si"	identity="No" 	requerido="El Id de almacén es requerido"		requeridoFocus="txtGridnIdAlmacen"			tipo="int" />
+		<campo field="cAlmacen"				control="txtGridcAlmacen"			llave="No"	identity="No" 	requerido="El campo almacén es requerido"		requeridoFocus=""							tipo="string" />
+	</insertaRegistro>
+	  
+</Ayuda>

@@ -36,7 +36,7 @@ public class DescargaMasivaManager {
             ps.setString(idParam++, request.getRfcConsulta());
             ps.setString(idParam++, request.getStatusRequest());
             afectados = ps.executeUpdate();
-            log.debug("Object: {}", "Se insertaron " + afectados + " registros en la tabla tRequestSAT");
+            log.debug("Object: " + String.valueOf("Se insertaron " + afectados + " registros en la tabla tRequestSAT"));
             return afectados;
         } finally {
             CloseObject.closeObject(ps);

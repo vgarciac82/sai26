@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catalogo de Areas</titulo>
+	<anchoWin>500</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>VIMX_AREAS</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="ID_AREA"		control="txtGridMantoLoginArea"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Id Area"	ancho="20"		maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="D_DESCRIPCION"	control="txtGridMantoPArea"			dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Area"		ancho="50"		maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+	</grid>
+
+</Ayuda>

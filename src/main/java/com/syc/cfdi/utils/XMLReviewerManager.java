@@ -24,7 +24,7 @@ public class XMLReviewerManager {
         //					 +"        AND cTipoPago= 'RELACIONGASTOS' AND nFolioPago IN( 8951 ) "
         String //					 +"        AND cTipoPago= 'RELACIONGASTOS' AND nFolioPago IN( 8951 ) "
         query = "SELECT	* " + "  FROM ( " + "		SELECT	DISTINCT cTipoPago, " + "				nFolioPago " + "		  FROM	tpagofactura WITH(NOLOCK) " + "		 WHERE	cRFCFactura NOT IN ('OFICIOTRANSITO', 'OFICIOPAGO', 'OFICIOCTOFED', 'EXTRANJERO', 'OFICIOALIMENTACION') " + "		   AND cEsNotaCredito = 'N' " + ") AS tbl " + "ORDER BY ctipopago, nFolioPago ";
-        log.debug("Object: {}", query.toString());
+        log.debug("Object: " + String.valueOf(query.toString()));
         ResultSet rs = null;
         PreparedStatement ps = null;
         try {

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Registra Excepcion de Proveedor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../css/sai.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+</head>
+
+<body>
+    <div class="container mt-3 h-100">
+        <h1>Excepcion de Proveedores para Pago Directo</h1>
+        <form id="mainFrm">
+            <input type="hidden"   id="cTipoRfc" value="1,2" />
+            <input type="hidden"  id="login" name="login" value="" />
+            <input type="hidden"  id="rfcDel" name="rfcDel" value="" />
+            <input type="hidden"  id="ueDel" name="ueDel" value="" />
+            <input type="hidden"  id="partidaDel" name="partidaDel" value="" />
+ 
+            <div class="row mt-2">
+                <div class="col-sm-12">
+                    <div class="card w-100 mx-auto" id="proveedorCard">
+                        <div class="card-header">Proveedor</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4">
+                                    Unidad Ejecutora:
+                                    <div class="spinner-border spinner-border-sm" role="status" id="ueSpiner"
+                                        style="display: none">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <select id="uniadEjecutora" name="uniadEjecutora" class="form-select"></select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">RFC:</div>
+                                <div class="col-8">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC"
+                                            maxlength="13" readonly />
+                                        <button role="button" class="btn btn-outline-secondary" type="button"
+                                            id="searchProveedor">
+                                            ...
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">Razón Social:</div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" id="razonSocial" name="razonSocial"
+                                        placeholder="Razon Social" maxlength="100" readonly />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    Capítulo:
+                                    <div class="spinner-border spinner-border-sm" role="status" id="capituloSpiner">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <select id="capitulo" name="capitulo" class="form-select"></select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    Partida:
+                                    <div class="spinner-border spinner-border-sm" role="status" id="partidaSpiner"
+                                        style="display: none">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <select id="partida" name="partida" class="form-select"></select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">Justificación:</div>
+                                <div class="col-8">
+                                    <textarea name="justificacion" id="justificacion" rows="3"
+                                        class="form-control"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">&nbsp;</div>
+                                <div class="col-8 align-center align-items-center">
+                                    <button role="button" class="btn btn-primary" type="button" id="guardarProveedor">
+                                        Guardar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row mt-2">
+            <div class="col-sm-12">
+                <div class="card w-100 mx-auto" id="proveedorTableCard">
+                    <div class="card-header">Proveedores Registrados</div>
+                    <div class="card-body">
+                        
+                        <div class="container">
+                            <p class="">
+                            Proveedores que pueden exceder las 300 UMAS por excepción. <br /> Para eliminar un  registro, seleccione el renglon y de clic en el boton "Eliminar"
+                            </p>
+                        </div>
+                        
+                        <table id="proveedorTable" class="table table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>RFC</th>
+                                    <th>Nombre</th>
+                                    <th>Unidad Ejecutora</th>
+                                    <th>Partida</th>
+                                    <th>Justificacion</th>
+                                    <th>Fecha</th>
+                                    <th>UE</th>
+                                    <th>Partida</th>
+                                </tr>
+                            </thead>
+                            <tbody id="proveedorTableBody">
+                            </tbody>
+                        </table>
+                        
+                       <div class="row">
+                            <div class="col-4">&nbsp;</div>
+                            <div class="col-8 align-center align-items-center">
+                                <button role="button" class="btn btn-warning" type="button" id="eliminarProveedor">
+                                    Eliminar
+                                </button>
+                            </div>
+                       </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/aad2c3aad1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="../js/jquery.blockUI-2.70.0.js"></script>
+    <script src="../js/crud.js"></script>
+    <script src="js/ExcepcionPagoDirecto.js"></script>
+</body>
+
+</html>

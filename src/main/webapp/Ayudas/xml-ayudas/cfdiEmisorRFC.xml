@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento de productos y servicios</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>CAT_EMISOR_CFDI</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cfdiEmisorRFC"			control="cfdiEmisorRFC"	dependencia="No"	limpiaOnKeypress=""		header="RFC"	 	 		ancho="8"	maxlen="8"  	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cfdiEmisorNombre"		control="cfdiEmisorNombre"	dependencia="No"	limpiaOnKeypress=""		header="Nombre"				ancho="150"	maxlen="150" 	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cfdiEmisorRegimenFiscal"	control="cfdiEmisorRegimenFiscal"	dependencia="No"	limpiaOnKeypress=""		header="Regimen Fiscal"		ancho="15"	maxlen="15" 	tipo="string"		visible="Si"	clase=""/>
+		<columna campo="cfdiEmisorRegimenFiscalDesc"	control="cfdiEmisorRegimenFiscalDesc"	dependencia="No"	limpiaOnKeypress=""		header="Descripcion"	ancho="15"	maxlen="15" 	tipo="string"		visible="Si"	clase=""/>
+		
+	</grid>  
+	
+
+</Ayuda>

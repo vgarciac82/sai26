@@ -88,7 +88,7 @@ public class CargaPolizaManualServlet extends HttpServlet {
                     log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                     Util.copiaArchivo(archivoCargaStream, nombreDestino);
                     item.delete();
-                    log.debug("Object: {}", "Procesando archivo:" + nombreArchivo);
+                    log.debug("Object: " + String.valueOf("Procesando archivo:" + nombreArchivo));
                     List<String> mensajes = cpmbl.cargaExcelPolizaManual(nombreDestino, FolioDocumento, CentroContable, EjercicioFiscal);
                     if (mensajes.size() > 0) {
                         for (int i = 0; i < mensajes.size(); i++) mensajeRetorno += " " + mensajes.get(i).replace("'", "").replace('"', ' ');

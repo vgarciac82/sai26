@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Catálogo Tipo Gasto</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_TCATALOGOTIPOGASTO</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cTipoGastoPUE"	control="txtGridCTGPUE"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave"	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="dTipoGastoPUE"	control="txtGridDTGPUE"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Descripcion"	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+</Ayuda>

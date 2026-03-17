@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Programa Presupuestario: PARTIDA</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>PARTIDA_ANT</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+<!--	<ColSort>0</ColSort>-->
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+
+	<grid>		
+		<columna campo="cPartida"				control="Partida"				dependencia="No"	ctrlsDependientes=""			limpiaOnKeypress=""		header="Partida"		ancho="100"		maxlen="200"	tipo="string"	visible="No"	clase=""/>
+		<columna campo="hPartidaAnteproyecto"	control="hPartidaAnteproyecto"	dependencia="No"	ctrlsDependientes="Partida"		limpiaOnKeypress=""		header="Descripción"	ancho="100"		maxlen="200"	tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+</Ayuda>

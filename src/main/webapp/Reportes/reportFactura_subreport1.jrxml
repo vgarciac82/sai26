@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportFactura_subreport1" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="9acff2ee-4036-425a-abb3-9c2deeb02ec6">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nIdFactura" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT nIdFactura ,  nCantidad ,ISNULL(cUnidad,'') cUnidad,
+ISNULL(cNumIdentif ,'') cNumIdentif, cDescripcion , mValorUnitario , mImporte
+FROM dbo.tFacturasCFDIDetalle
+where nidFactura = $P{nIdFactura}]]>
+	</queryString>
+	<field name="nIdFactura" class="java.lang.Integer"/>
+	<field name="nCantidad" class="java.lang.Integer"/>
+	<field name="cUnidad" class="java.lang.String"/>
+	<field name="cNumIdentif" class="java.lang.String"/>
+	<field name="cDescripcion" class="java.lang.String"/>
+	<field name="mValorUnitario" class="java.math.BigDecimal"/>
+	<field name="mImporte" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<rectangle>
+				<reportElement key="" x="0" y="6" width="553" height="23" backcolor="#E3E1E1" uuid="a8a3da17-ef65-4d50-8679-c177338100b1">
+					<property name="com.jaspersoft.studio.element.name" value="Info cliente"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="7" y="12" width="49" height="14" uuid="a5bf7a05-c250-412a-a44e-68995acc304f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="12" width="42" height="14" uuid="0152d88d-b9de-4be8-9489-8e02e467e86e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="11" width="275" height="14" uuid="44f485a7-2678-479d-8a8b-26bee449dfad">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="412" y="11" width="70" height="14" uuid="77741b5f-2a2a-48d5-ac7e-288af8cfc6db">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Precio Unitario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="11" width="54" height="14" uuid="583e269c-728b-4d4b-870d-e85d826d53aa">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Importe]]></text>
+			</staticText>
+			<line>
+				<reportElement x="8" y="33" width="536" height="1" uuid="de551772-bf39-4ca0-a1a0-3dec427a09ec"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="7" y="0" width="23" height="14" uuid="368d1ff5-69e1-4e0c-a97e-f1637c8735dd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nCantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="-1" width="50" height="14" uuid="0bd8e393-2efc-4ce4-a239-b475499c50dc">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cUnidad}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="108" y="-1" width="299" height="14" isPrintWhenDetailOverflows="true" uuid="26111e47-c154-4e03-8d19-ea71c5dde4f6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cDescripcion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;#,##0.00-">
+				<reportElement x="410" y="0" width="67" height="14" uuid="bfd47131-4e11-491b-aa78-1567e4ce6945">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mValorUnitario}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;#,##0.00-">
+				<reportElement x="480" y="0" width="71" height="14" uuid="3e0ab422-6dd9-4b44-b571-0d7982637c17">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mImporte}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+</jasperReport>

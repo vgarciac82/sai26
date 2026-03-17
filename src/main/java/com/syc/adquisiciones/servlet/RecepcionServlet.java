@@ -104,7 +104,7 @@ public class RecepcionServlet extends HttpServlet {
             jsonObj = new JSONObject();
             out = response.getWriter();
             int tipoOperacion = Integer.parseInt(request.getParameter("operacion"));
-            log.debug("Object: {}", "operacion: " + tipoOperacion);
+            log.debug("Object: " + String.valueOf("operacion: " + tipoOperacion));
             switch(tipoOperacion) {
                 case 0:
                     respuesta = recepInt.crear(conn, usuario, datosRecep);

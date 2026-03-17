@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Unidad Administrativa CONAFOR</titulo>
+	<anchoWin>900</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>vOrganization</tabla>
+	<maxRegistros>10</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>				
+		<columna campo="id"							control="idUnit"				dependencia="No"	limpiaOnKeypress=""		header="ID"					rowCol="1,1" 	ancho="4"	maxlen="6"		tipo="int"		visible="Si"	clase=""/>
+		<columna campo="executiveUnit"				control="executiveUnit"			dependencia="No"	limpiaOnKeypress=""		header="Unidad Ejecutora"	rowCol="1,2" 	ancho="5"	maxlen="6"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="description"				control="organizationUnitName"	dependencia="No"	limpiaOnKeypress=""		header="Nombre"				rowCol="2,1" 	ancho="25"	maxlen="6"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="administrativeUnitName"		control=""						dependencia="No"	limpiaOnKeypress=""		header="Localizacion"		rowCol="2,2" 	ancho="25"	maxlen="60" 	tipo="string"	visible="Si"	clase=""/>
+	</grid>  	
+</Ayuda>

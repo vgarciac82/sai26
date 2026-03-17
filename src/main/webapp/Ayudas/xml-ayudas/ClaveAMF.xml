@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Acuerdos Ministracion de Fondos</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>AMFCATALOGOUR</tabla>
+	<maxRegistros>250</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="ClaveAMF"	control="ClaveAMF"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave AMF"	ancho="40"	maxlen="40"		tipo="string"	visible="si"	clase=""/>
+		<columna campo="cFolio"	control="cFolio"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Folio"	ancho="15"	maxlen="15"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="mMontoAMF"	control="mMontoAMF"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="mMontoAMF"	ancho="60"	maxlen="60"		tipo="string"	visible="Si"	clase=""/>
+        <columna campo ="fVigencia" control="fVigencia"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Fecha Vigencia"	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+   </grid>  
+</Ayuda>

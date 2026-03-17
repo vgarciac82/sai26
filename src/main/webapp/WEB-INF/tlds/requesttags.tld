@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN" "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+
+<taglib>
+    <tlibversion>2.0</tlibversion>
+    <jspversion>1.2</jspversion>
+    <shortname>Prize Tags - Request Tags</shortname>
+    <uri>urn:www.jenkov.com/projects/prizetags</uri>
+
+    <!--
+    <displayname>Prize Tags - Bean Tags</displayname>
+
+    <description>
+    </description>
+    -->
+
+    <tag>
+        <name>webAppContextPath</name>
+        <tagclass>com.jenkov.prizetags.request.impl.WebAppContextPathTag</tagclass>
+        <bodycontent>Empty</bodycontent>
+    </tag>
+    <tag>
+        <name>requestUri</name>
+        <tagclass>com.jenkov.prizetags.request.impl.RequestUriTag</tagclass>
+        <bodycontent>Empty</bodycontent>
+    </tag>
+    <tag>
+        <name>requestUrl</name>
+        <tagclass>com.jenkov.prizetags.request.impl.RequestUrlTag</tagclass>
+        <bodycontent>Empty</bodycontent>
+    </tag>
+    <tag>
+        <name>parameterString</name>
+        <tagclass>com.jenkov.prizetags.request.impl.ParameterStringTag</tagclass>
+        <bodycontent>Empty</bodycontent>
+        <attribute>
+            <name>suffix</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>ignore</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+</taglib>

@@ -128,7 +128,7 @@ public class LayoutPagosNominaServlet extends HttpServlet {
                 archivoPago.append(arrListPago.get(i));
             }
             String outTextPago = archivoPago.toString();
-            out.write(outTextPago.toPath());
+            out.write(outTextPago);
             // fin de guarda pago
             out.close();
             //, layoutDocu These are the files to include in the ZIP file

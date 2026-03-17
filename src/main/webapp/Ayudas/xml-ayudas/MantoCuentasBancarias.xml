@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo Cuentas Bancarias</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>700</altoWin>
+	<altoAreaCaptura>130</altoAreaCaptura>
+	<tabla>M_TUECUENTASBANCARIAS</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>1</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	<grid>
+		<columna campo="strUnidadEjecutora"		control="strUnidadEjecutora"		dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress=""			header="* Unidad Ejecutora"		rowCol="1,1" 	ancho="5"		maxlen="5"	  	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="strCentroContable"		control="strCentroContable"			dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress=""			header="* Centro Contable"		rowCol="1,2" 	ancho="5"		maxlen="5"	  	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="strRFC"					control="strRFC"					dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress=""			header="* RFC"					rowCol="1,3" 	ancho="20"		maxlen="20"	  	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="strNombreBeneficiario"	control="strNombreBeneficiario"		dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress=""			header="* Nombre Beneficiario"	rowCol="2,1" 	ancho="50"		maxlen="200"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="strClabe"				control="strClabe"					dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress=""			header="* Clabe"				rowCol="2,2" 	ancho="20"		maxlen="20"	  	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="strTipoCuenta"			control="strTipoCuenta"				dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress=""			header="* Tipo Cuenta"			rowCol="2,3" 	ancho="20"		maxlen="50"	  	tipo="string"	visible="Si"	clase=""/>
+
+	</grid>
+
+	<insertaRegistro>
+		<campo field="strUnidadEjecutora"		control="txtGridstrUnidadEjecutora"		llave="No"	identity="No"	requerido="La unidad Ejecutora es requerida"		requeridoFocus="txtGridstrUnidadEjecutora"		tipo="string" />
+		<campo field="strCentroContable"		control="txtGridstrCentroContable"		llave="Si"	identity="No" 	requerido="El Centro Contable es requerido"			requeridoFocus="txtGridstrCentroContable"		tipo="string" />
+		<campo field="strRFC"					control="txtGridstrRFC"					llave="Si"	identity="No" 	requerido="El RFC es requerido"						requeridoFocus="txtGridstrRFC"					tipo="string" />
+		<campo field="strNombreBeneficiario"	control="txtGridstrNombreBeneficiario"	llave="No"	identity="No"	requerido="El Nombre Beneficiario es requerido"		requeridoFocus="txtGridstrNombreBeneficiario"	tipo="string" />
+		<campo field="strClabe"					control="txtGridstrClabe"				llave="Si"	identity="No" 	requerido="El Clabe es requerida"					requeridoFocus="txtGridstrClabe"				tipo="string" />
+		<campo field="strTipoCuenta"			control="txtGridstrTipoCuenta"			llave="No"	identity="No" 	requerido="El TipoCuenta es requerido"				requeridoFocus="txtGridstrTipoCuenta"			tipo="string" />
+
+	</insertaRegistro>
+	  
+</Ayuda>

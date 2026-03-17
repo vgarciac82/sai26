@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Contratos</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>VCONTRATOCOMPROMISO</tabla>
+	<maxRegistros>250</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cIDContrato"				control="cIdContratoCompromiso"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Id Contrato"		ancho="40"	maxlen="40"		tipo="string"	visible="si"	clase=""/>
+		<columna campo="cIDRFC"						control="cIDRFC"				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="RFC"				ancho="15"	maxlen="15"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cNombre"					control="cnombre"				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Razón Social"		ancho="60"	maxlen="60"		tipo="string"	visible="Si"	clase=""/>
+        <columna campo ="mImporteTotal" 			control="mImporteTotal"			dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Importe Total"		ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+        <columna campo ="cTCont" 					control="cTCont"				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="tContr"				ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cIdUnidadAdministrativa"	control="d_descripcion"			dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Unidad Responsable"	ancho="4"	maxlen="4"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cIdTipoContratoDiverso"		control="cTipoContratoDiverso"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Tipo Fondo"			ancho="20"	maxlen="20"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cIdTipoAdjudicacion"		control="cTipoAdjudicacion"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Tipo Adjudicación"	ancho="20"	maxlen="20"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cIdEntidadContable"			control="cIdEntidadContable"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="cIdEntidadContable"	ancho="20"	maxlen="20"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="nPorcIVAAplicable"			control="nPorcIVAAplicable"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="nPorcIVAAplicable"	ancho="20"	maxlen="20"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="nesdescentralizado"			control="nesdescentralizado"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Descentralizado"	ancho="1"	maxlen="1"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="iEsAbierto"			        control="iEsAbierto"	        dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Abierto"	        ancho="1"	maxlen="1"		tipo="string"	visible="Si"	clase=""/>
+   </grid>  
+</Ayuda>

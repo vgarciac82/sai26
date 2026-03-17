@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Ayuda Remitente Externos</titulo>
+	<anchoWin>1000</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>M_CAT_REM_EXTERNO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+
+	<grid>
+		<columna campo="R.RE_NOMBRE"			control="re_nombre"			dependencia="No"	ctrlsDependientes="idRemitente,re_cargo,idp,re_procedencia,idtp,tp_descripcion,Col7,ide,re_estado,idm,re_municipio,re_localidad"							
+																															limpiaOnKeypress="txtGrididRemitente,txtGridre_cargo,txtGrididp,txtGridre_procedencia,txtGrididtp,txtGridtp_descripcion,txtGridCol7,txtGridide,txtGridre_estado,txtGrididm,txtGridre_municipio,txtGridre_localidad"											
+																																					header="Nombre"				rowCol="1,1" 	ancho="70"		maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="R.RE_CARGO"				control="re_cargo"			dependencia="No"	ctrlsDependientes=""		limpiaOnKeypress=""		header="Cargo"				rowCol="1,2" 	ancho="70"		maxlen="200"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="P.PRO_DESCRIPCION"		control="re_procedencia"	dependencia="No"	ctrlsDependientes="txtGrididtp,txtGridtp_descripcion"							
+																															limpiaOnKeypress="txtGrididtp,txtGridtp_descripcion"					
+																																					header="Procedencia"		rowCol="2,1" 	ancho="70"		maxlen="100"	tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="TP.TP_DESCRIPCION"		control="tp_descripcion"	dependencia="No"	ctrlsDependientes=""		limpiaOnKeypress=""		header="Tipo Procedencia"	rowCol="2,2" 	ancho="70"		maxlen="100"	tipo="string"	visible="Si"	clase="Protegido"/>
+		<columna campo="E.EDO_NOMBRE"			control="re_estado"			dependencia="No"	ctrlsDependientes="txtGridide,txtGrididm"		
+																															limpiaOnKeypress="txtGrididm,txtGridre_municipio"	
+																																					header="Estado"				rowCol="3,1" 	ancho="70"		maxlen="50"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="M.MPO_NOMBRE"			control="re_municipio"		dependencia="No"	ctrlsDependientes=""		limpiaOnKeypress="txtGrididm"
+																																					header="Municipio"			rowCol="3,2" 	ancho="70"		maxlen="100"	tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="R.RE_LOCALIDAD"			control="re_localidad"		dependencia="No"	ctrlsDependientes=""		limpiaOnKeypress=""		header="Localidad"			rowCol="4,1" 	ancho="100"		maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="R.RE_DIRECCION"			control="direccion"			dependencia="No"	ctrlsDependientes=""		limpiaOnKeypress=""		header="Dirección"			rowCol="5,1" 	ancho="100"		maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+
+		<columna campo="R.ID_REM_EXTERNO"		control="idRemitente"		dependencia="No"	ctrlsDependientes=""		limpiaOnKeypress=""		header="Clave"				rowCol="6,1" 	ancho="6"		maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+		<columna campo="P.ID_PROCEDENCIA"		control="idp"				dependencia="No"	ctrlsDependientes=""		limpiaOnKeypress=""		header="Clave Procedencia"	rowCol="6,2" 	ancho="6"		maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+		<columna campo="P.ID_TIPO_PROCEDENCIA" 	control="idtp"				dependencia="No"	ctrlsDependientes=""		limpiaOnKeypress=""		header="Tipo Procedencia"	rowCol="6,3" 	ancho="30"		maxlen="30"		tipo="string"	visible="No"	clase="Protegido"/>
+		<columna campo="E.ID_ESTADO"			control="ide"				dependencia="No"	ctrlsDependientes=""		limpiaOnKeypress=""		header="Clave Estado"		rowCol="6,4" 	ancho="6"		maxlen="6"		tipo="numero"	visible="No"	clase="Protegido"/>
+		<columna campo="M.ID_MUNICIPIO"			control="idm"				dependencia="No"	ctrlsDependientes=""		limpiaOnKeypress=""		header="Clave Municipio"	rowCol="6,5" 	ancho="6"		maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+	</grid>  
+ 
+	<insertaRegistro>
+		<campo field="RE_NOMBRE"			control="txtGridre_nombre"		llave="No"	identity="No" 	requerido="El Nombre del Remitente es un dato requerido."	requeridoFocus="txtGridCol0"				tipo="string" />
+		<campo field="ID_REM_EXTERNO"		control="txtGrididRemitente"	llave="Si"	identity="Si"	requerido=""												requeridoFocus=""	 						tipo="numero" />
+		<campo field="ID_PROCEDENCIA"		control="txtGrididp"			llave="No"	identity="No"	requerido="La Procedencia es un dato requerido."			requeridoFocus="txtGridre_procedencia"		tipo="numero" />
+		<campo field="ID_ESTADO"			control="txtGridide"			llave="No"	identity="No" 	requerido=""												requeridoFocus=""							tipo="numero" />
+		<campo field="ID_MUNICIPIO" 		control="txtGrididm"			llave="No"	identity="No" 	requerido=""												requeridoFocus=""							tipo="numero" />
+		<campo field="RE_CARGO"				control="txtGridre_cargo"		llave="No"	identity="No" 	requerido=""												requeridoFocus=""							tipo="string" />
+		<campo field="RE_DIRECCION"			control="txtGriddireccion"		llave="No"	identity="No" 	requerido=""												requeridoFocus=""							tipo="string" />
+		<campo field="RE_LOCALIDAD"			control="txtGridre_localidad"	llave="No"	identity="No" 	requerido=""												requeridoFocus=""							tipo="string" />
+	</insertaRegistro>
+</Ayuda>

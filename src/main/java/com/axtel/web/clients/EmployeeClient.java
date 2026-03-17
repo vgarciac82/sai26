@@ -39,7 +39,7 @@ public class EmployeeClient {
         connection.setRequestProperty("Authorization", basicAuth);
         connection.setRequestProperty("Accept", "application/json");
         int responseCode = connection.getResponseCode();
-        log.debug("Object: {}", "Código de respuesta HTTP: " + responseCode);
+        log.debug("Object: " + String.valueOf("Código de respuesta HTTP: " + responseCode));
         if (responseCode == 200) {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"))) {
                 StringBuilder response = new StringBuilder();

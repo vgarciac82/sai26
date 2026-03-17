@@ -23,7 +23,7 @@ public class CasoDatoByNameBusinessLogic extends DataSourceManager {
         try {
             conn = getConnection();
             v = CasoDatoByNameManager.select(conn, id_caso, id_tcv);
-            log.debug("Object: {}", "[CasoDatoByNameBusinessLogic] variable='" + id_tcv + "', Caso='" + id_caso + "', Valor='" + v + "'");
+            log.debug("Object: " + String.valueOf("[CasoDatoByNameBusinessLogic] variable='" + id_tcv + "', Caso='" + id_caso + "', Valor='" + v + "'"));
         } catch (SQLException exc) {
             log.error("Object: {}", "Recuperando la variable '" + id_tcv + "' en el Caso '" + id_caso + "'");
             throw new GestionException(exc);

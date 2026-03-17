@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Estados de Procedimientos</titulo>
+	<anchoWin>530</anchoWin>
+	<altoWin>543</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>MCATALOGOESTADOPROCEDIMIENTO</tabla>
+	<maxRegistros>50</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="IMAGEN"	control=""	dependencia="No"	limpiaOnKeypress=""	header=" "	ancho="20"	maxlen="20"	tipo="string"	visible="Si" clase="Protegido"/>
+		<columna campo="cEstado" control=""	dependencia="No"	limpiaOnKeypress=""	header="Estado"			ancho="100"	maxlen="100"		tipo="string"	visible="Si"	clase=""/>
+	</grid> 
+	
+	
+</Ayuda>

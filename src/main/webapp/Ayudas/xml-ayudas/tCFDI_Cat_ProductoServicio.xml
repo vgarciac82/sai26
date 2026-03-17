@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento de productos y servicios</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>tCFDI_Cat_ProductoServicio</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+	<columna campo="cClaveProdServ"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Clave"	 	 ancho="8"		maxlen="8"  tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cDescripcionProdServ"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Descripcion"	 ancho="256"	maxlen="256" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="fFechaInicioVigencia"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Fecha Inicio"	 ancho="20"	maxlen="20" tipo="date"	visible="Si"	clase=""/>
+		<columna campo="fFechaFinVigencia"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Fecha Fin"	 ancho="15"	maxlen="15" tipo="date"	visible="Si"	clase=""/>
+		<columna campo="lIncluirIVATrasladado"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Incluir IVA"	 ancho="15"	maxlen="15" tipo="integer"	visible="Si"	clase=""/>
+		<columna campo="lIncluirIEPStrasladado"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Incluir IEPS"	 ancho="15"	maxlen="15" tipo="integer"	visible="Si"	clase=""/>
+		<columna campo="cComplementosIncluir"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Complementos"	 ancho="32"	maxlen="32" tipo="string"	visible="Si"	clase=""/>
+	
+	</grid>  
+	
+</Ayuda>

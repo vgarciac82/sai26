@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RegistroDiarioBancoCierre"  pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.3310000000000013"/>
+	<property name="ireport.x" value="79"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idRdbCargaArchivoRDBSaldo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT nFolioRDB, fAplicacion, tipoMovimiento, mImporte, sConcepto, mImporteSaldo,
+(select isnull(SUM(mImporte),0) from v_RDBImpresionCierre where idRdbCargaArchivoRDBSaldo = $P{idRdbCargaArchivoRDBSaldo} AND tipoMovimiento = 'EGRESO' ) as mImporteEgresoTotal,
+(select isnull(SUM(mImporte),0) from v_RDBImpresionCierre where idRdbCargaArchivoRDBSaldo = $P{idRdbCargaArchivoRDBSaldo} AND tipoMovimiento = 'INGRESO' ) as mImporteIngresoTotal,
+
+(select top 1 CONVERT( VARCHAR, CONVERT( DATE,dFecha),103) dFecha from tRdbCargaArchivoRDBSaldo where idRdbCargaArchivoRDBSaldo < $P{idRdbCargaArchivoRDBSaldo} order by idRdbCargaArchivoRDBSaldo desc ) dFechaAnterior,
+(select top 1 mImporteSaldo from tRdbCargaArchivoRDBSaldo where idRdbCargaArchivoRDBSaldo < $P{idRdbCargaArchivoRDBSaldo} order by idRdbCargaArchivoRDBSaldo desc ) mImporteSaldoAnterior,
+(select sAreaFormulo from tRdbFimantes where Activo = 1 and tipoDocumento = 'CIERRE') as sAreaFormulo,
+(select sNombreFormulo from tRdbFimantes where Activo = 1 and tipoDocumento = 'CIERRE') as sNombreFormulo,
+(select sAreaReviso from tRdbFimantes where Activo = 1 and tipoDocumento = 'CIERRE') as sAreaReviso,
+(select sNombreReviso from tRdbFimantes where Activo = 1 and tipoDocumento = 'CIERRE') as sNombreReviso
+
+FROM v_RDBImpresionCierre
+WHERE idRdbCargaArchivoRDBSaldo = $P{idRdbCargaArchivoRDBSaldo}
+ORDER BY tipoMovimiento DESC]]>
+	</queryString>
+	<field name="nFolioRDB" class="java.lang.Integer"/>
+	<field name="fAplicacion" class="java.lang.String"/>
+	<field name="tipoMovimiento" class="java.lang.String"/>
+	<field name="mImporte" class="java.math.BigDecimal"/>
+	<field name="sConcepto" class="java.lang.String"/>
+	<field name="mImporteSaldo" class="java.math.BigDecimal"/>
+	<field name="mImporteEgresoTotal" class="java.math.BigDecimal"/>
+	<field name="mImporteIngresoTotal" class="java.math.BigDecimal"/>
+	<field name="dFechaAnterior" class="java.lang.String"/>
+	<field name="mImporteSaldoAnterior" class="java.math.BigDecimal"/>
+	<field name="sAreaFormulo" class="java.lang.String"/>
+	<field name="sNombreFormulo" class="java.lang.String"/>
+	<field name="sAreaReviso" class="java.lang.String"/>
+	<field name="sNombreReviso" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="67" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-24" x="0" y="4" width="552" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-5" x="0" y="23" width="552" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="9" isBold="true" />
+				</textElement>
+				<text><![CDATA[SUBDIRECCIÓN GENERAL DE ADMINISTRACIÓN
+GERENCIA DE RECURSOS FINANCIEROS
+SUBGERENCIA DE TESORERIA  ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="66" width="544" height="1"/>
+			</line>
+			<image>
+				<reportElement key="image" x="0" y="0" width="131" height="36"/>
+				<imageExpression class="java.lang.String"><![CDATA["report\\images\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="483" y="46" width="31" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FOLIO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="514" y="46" width="38" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{nFolioRDB}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="11" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="94" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="61" forecolor="#000000" backcolor="#FFFFFF"/>
+			</rectangle>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="405" y="27" width="129" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mImporteSaldoAnterior}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="228" y="27" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dFechaAnterior}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="43" y="27" width="143" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALDO DE DIA ANTERIOR]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="72" width="552" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="73" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[MOVIMIENTOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="204" y="74" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[CONCEPTOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="434" y="73" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[IMPORTE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="434" y="0" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mImporte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tipoMovimiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="334" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sConcepto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="187" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="46" width="552" height="114" forecolor="#000000" backcolor="#FFFFFF"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="43" y="130" width="143" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DISPONIBILIDAD AL CIERRE DEL:]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="217" y="130" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fAplicacion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="434" y="130" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mImporteSaldo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="43" y="93" width="143" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL EGRESOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="43" y="60" width="143" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL INGRESOS]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="405" y="93" width="129" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mImporteEgresoTotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="405" y="60" width="129" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mImporteIngresoTotal}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="18" width="555" height="1"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="105" splitType="Stretch">
+			<rectangle>
+				<reportElement key="rectangle" x="0" y="10" width="280" height="75"/>
+			</rectangle>
+			<rectangle>
+				<reportElement key="rectangle" x="276" y="10" width="276" height="75"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="71" y="10" width="133" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REVISO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="10" width="143" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VO.BO.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="10" y="70" width="266" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sAreaFormulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="55" width="266" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sNombreFormulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="276" y="70" width="268" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sAreaReviso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="276" y="55" width="268" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sNombreReviso}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

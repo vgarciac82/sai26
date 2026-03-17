@@ -1,0 +1,6 @@
+smtphost=172.29.150.2
+smtpuser=apresupuestales
+smtppasswd=sAipTOs
+smtpport=25
+smtpauth=true
+smtpfrom=adecuaciones.presupuestales@conagua.gob.mx

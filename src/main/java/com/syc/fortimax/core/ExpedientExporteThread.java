@@ -262,7 +262,7 @@ public class ExpedientExporteThread extends DataSourceManager implements Runnabl
         String retStr = null;
         if (export.size() > 0) {
             retStr = export.remove(index - 1);
-            log.debug("Object: {}", (t == null ? "" : (t.getName() + ": ")) + " Devolviendo elemento en posicion " + index + " Valor: " + retStr);
+            log.debug("Object: " + String.valueOf((t == null ? "" : (t.getName() + ": ")) + " Devolviendo elemento en posicion " + index + " Valor: " + retStr));
         }
         return retStr;
     }

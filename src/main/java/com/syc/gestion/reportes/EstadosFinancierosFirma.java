@@ -226,7 +226,7 @@ public class EstadosFinancierosFirma extends FirmaElectronicaReporte {
         parametrosReales.append("o=").append(String.valueOf(idOrden));
         parametrosReales.append("&");
         parametrosReales.append("f=").append(StringUtils.reverse(String.valueOf(idEstadoFinanciero)));
-        log.debug("Object: {}", "Cadena generada: " + parametrosReales);
+        log.debug("Object: " + String.valueOf("Cadena generada: " + parametrosReales));
         return parametrosReales.toString();
     }
 

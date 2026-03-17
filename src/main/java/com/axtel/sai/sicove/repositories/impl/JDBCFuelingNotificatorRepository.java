@@ -32,7 +32,7 @@ public class JDBCFuelingNotificatorRepository implements FuelingNotificatorRepos
         query.append("		employee_responsible AS authorizerEmployeeNumber ");
         query.append(" FROM	vFuelingWallet ");
         query.append(" WHERE fueling_request_id = ?");
-        log.debug("Object: {}", "Looking for authorization chain for id " + requestId);
+        log.debug("Object: " + String.valueOf("Looking for authorization chain for id " + requestId));
         log.trace("Object: {}", "Ejecutando: \n" + query + "\n[" + requestId + "]");
         try {
             RequestAuthChain requestAuthChain = runner.query(conn, query.toString(), resultHandler, requestId);

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento de codigo postal CFDI</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>tCFDI_Cat_CodigoPostal</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cCodigoPostal"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Usuario"	 ancho="5"	maxlen="5"  tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cEstado"		control=""	dependencia="No"	limpiaOnKeypress=""		header="Estado"	 	 ancho="3"	maxlen="3" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cMunicipio"		control=""	dependencia="No"	limpiaOnKeypress=""		header="Municipio"	 ancho="3"	maxlen="3" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cLocalidad"		control=""	dependencia="No"	limpiaOnKeypress=""		header="Localidad"	 ancho="3"	maxlen="3" tipo="string"	visible="Si"	clase=""/>
+	
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="cCodigoPostal"	control="txtGridCol0"	llave="Si"	identity="No"	requerido="El Codigo postal es un dato requerido."	requeridoFocus="txtGridCol0"	tipo="string" />		
+		<campo field="cEstado"			control="txtGridCol1"	llave="Si"	identity="No"	requerido="El estado es un dato requerido."			requeridoFocus="txtGridCol1"	tipo="string" />
+		<campo field="cMunicipio"		control="txtGridCol2"	llave="Si"	identity="No"	requerido=""										requeridoFocus="txtGridCol2"	tipo="string" />
+		<campo field="cLocalidad"		control="txtGridCol3"	llave="Si"	identity="No"	requerido=""										requeridoFocus="txtGridCol3"	tipo="string" />
+	</insertaRegistro>
+	
+</Ayuda>

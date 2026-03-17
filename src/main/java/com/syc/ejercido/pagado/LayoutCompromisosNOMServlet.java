@@ -69,7 +69,7 @@ public class LayoutCompromisosNOMServlet extends HttpServlet {
                 archivoPago.append(cvsDataSQL.get(i));
             }
             String outTextPago = archivoPago.toString();
-            out.write(outTextPago.toPath());
+            out.write(outTextPago);
             out.flush();
             // fin de guarda pago
             out.close();

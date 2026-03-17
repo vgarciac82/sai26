@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvoiceCNF" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ca24a123-e075-4422-9ab3-6c8423053f92">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="CFDI_JSON_ADAPTER"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="533"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="453"/>
+	<parameter name="REPORT_DIR" class="java.lang.String"/>
+	<queryString language="JSON">
+		<![CDATA[]]>
+	</queryString>
+	<field name="rfcEmisor" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.emisor.rfc"/>
+		<fieldDescription><![CDATA[encabezado.emisor.rfc]]></fieldDescription>
+	</field>
+	<field name="cnocertificado" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.noCertificado"/>
+		<fieldDescription><![CDATA[encabezado.noCertificado]]></fieldDescription>
+	</field>
+	<field name="cserie" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.serie.serie"/>
+		<fieldDescription><![CDATA[encabezado.serie.serie]]></fieldDescription>
+	</field>
+	<field name="cfolio" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.folio"/>
+		<fieldDescription><![CDATA[encabezado.folio]]></fieldDescription>
+	</field>
+	<field name="clugarexpedicion" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.lugarExpedicion.codigoPostal"/>
+		<fieldDescription><![CDATA[encabezado.lugarExpedicion.codigoPostal]]></fieldDescription>
+	</field>
+	<field name="dfechaemision" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.fecha"/>
+		<fieldDescription><![CDATA[encabezado.fecha]]></fieldDescription>
+	</field>
+	<field name="cnombrereceptor" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.receptor.nombre"/>
+		<fieldDescription><![CDATA[encabezado.receptor.nombre]]></fieldDescription>
+	</field>
+	<field name="crfcreceptor" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.receptor.rfc"/>
+		<fieldDescription><![CDATA[encabezado.receptor.rfc]]></fieldDescription>
+	</field>
+	<field name="cregimenfiscalreceptor" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.receptor.regimenFiscal"/>
+		<fieldDescription><![CDATA[encabezado.receptor.regimenFiscal]]></fieldDescription>
+	</field>
+	<field name="domicilioFiscalReceptor" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.receptor.domicilioFiscal"/>
+		<fieldDescription><![CDATA[encabezado.receptor.domicilioFiscal]]></fieldDescription>
+	</field>
+	<field name="cusocfdi" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.usoCFDI.usoCFDI"/>
+		<fieldDescription><![CDATA[encabezado.usoCFDI.usoCFDI]]></fieldDescription>
+	</field>
+	<field name="descripcionUsoCFDI" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.usoCFDI.descripcion"/>
+		<fieldDescription><![CDATA[encabezado.usoCFDI.descripcion]]></fieldDescription>
+	</field>
+	<field name="msubtotal" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.subTotal"/>
+		<fieldDescription><![CDATA[encabezado.subTotal]]></fieldDescription>
+	</field>
+	<field name="mdescuento" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.descuento"/>
+		<fieldDescription><![CDATA[encabezado.descuento]]></fieldDescription>
+	</field>
+	<field name="cantidadConLetra" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.cantidadConLetra"/>
+		<fieldDescription><![CDATA[encabezado.cantidadConLetra]]></fieldDescription>
+	</field>
+	<field name="mtotal" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.total"/>
+		<fieldDescription><![CDATA[encabezado.total]]></fieldDescription>
+	</field>
+	<field name="cmetodopago" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.metodoPago.descripcion"/>
+		<fieldDescription><![CDATA[encabezado.metodoPago.descripcion]]></fieldDescription>
+	</field>
+	<field name="cformapago" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.formaPago.descripcion"/>
+		<fieldDescription><![CDATA[encabezado.formaPago.descripcion]]></fieldDescription>
+	</field>
+	<field name="folio_fiscal" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.uuid"/>
+		<fieldDescription><![CDATA[encabezado.uuid]]></fieldDescription>
+	</field>
+	<field name="no_certificado_sat" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.noCertificadoSAT"/>
+		<fieldDescription><![CDATA[encabezado.noCertificadoSAT]]></fieldDescription>
+	</field>
+	<field name="crfctimbra" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.rfctimbra"/>
+		<fieldDescription><![CDATA[encabezado.rfctimbra]]></fieldDescription>
+	</field>
+	<field name="sello_sat" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.selloSAT"/>
+		<fieldDescription><![CDATA[encabezado.selloSAT]]></fieldDescription>
+	</field>
+	<field name="csello" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="encabezado.sello"/>
+		<fieldDescription><![CDATA[encabezado.sello]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="64">
+			<image hAlign="Center" vAlign="Middle" evaluationTime="Report">
+				<reportElement x="2" y="0" width="541" height="64" uuid="bb625f83-ca8b-43aa-a350-dfda026ace7e"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR} + "logo_CNF_SEMARNAT.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="132" splitType="Stretch">
+			<rectangle>
+				<reportElement key="" x="312" y="0" width="239" height="15" backcolor="#E3E1E1" uuid="3a7b512f-6706-4eb0-97dd-02bcc8e3e0f0">
+					<property name="com.jaspersoft.studio.element.name" value="CFDI"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement key="" x="0" y="0" width="239" height="15" backcolor="#E3E1E1" uuid="2afd95d2-35e5-410e-9887-4a7ace89900e">
+					<property name="com.jaspersoft.studio.element.name" value="CFDI"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="1" y="15" width="238" height="10" uuid="64def427-5a34-4937-927e-564c783c0d3e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="238" height="14" uuid="c75167ba-c947-41ea-93bb-9fe93dea0fb7">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EMISOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="25" width="54" height="10" uuid="9d636d1f-a28a-4eb1-8cd3-f37a670c198c">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Régimen fiscal:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="25" width="178" height="10" uuid="4f939ee1-fef3-4b0b-a30f-8e3926ac8895">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[603 - Personas Morales con Fines no Lucrativos]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="ContainerHeight" x="88" y="48" width="151" height="10" uuid="133c7b65-de05-4a3d-9be6-923a4218bbb4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cnocertificado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="313" y="48" width="101" height="10" uuid="c648f3da-af3c-4930-a460-6277dcf80183">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clugarexpedicion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="48" width="100" height="10" uuid="534d9f7a-ee9b-45c9-bbaf-5ab3649951b5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dfechaemision}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="25" width="100" height="10" uuid="a56390fc-31e5-435e-b530-73b7a16beefb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cfolio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="313" y="25" width="101" height="10" uuid="5d824afc-765e-4453-bcca-0b3bdb891b80">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cserie}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="60" y="38" width="80" height="10" uuid="1c0d653c-0b6c-4e8a-bf49-9b52c79d1de7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rfcEmisor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="312" y="0" width="238" height="14" uuid="e4f280e7-425c-4f3a-8cd0-215776ca3680">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CFDI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="313" y="15" width="64" height="10" uuid="c0df2662-cd08-47a9-8c84-e6a56b11c6a8">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[Serie:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="15" width="64" height="10" uuid="d49b90df-ec1f-4866-b53c-395ef29bbd6f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[Folio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="313" y="36" width="88" height="10" uuid="0af2e791-7a14-4002-a3f7-796a96abc928">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[Lugar de Emisión:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="36" width="98" height="10" uuid="a163521a-0bc9-48e1-b336-826f6a720f26">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha y hora de emisión:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="36" width="20" height="10" uuid="5f9f267f-25ca-42d0-801d-79306d5bcd68">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[RFC:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="ContainerHeight" x="1" y="48" width="86" height="10" isPrintWhenDetailOverflows="true" uuid="b16f4e91-5c2d-498e-9372-c0ba194fffad">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Número de certificado:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="313" y="96" width="116" height="10" isPrintWhenDetailOverflows="true" uuid="5b892713-91c8-4dfd-ba1a-b8156db8ce6b">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cusocfdi}.concat(" - ").concat($F{descripcionUsoCFDI})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="84" width="238" height="10" isPrintWhenDetailOverflows="true" uuid="70fb9f46-86c4-4d4e-becf-a34882396cae">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cnombrereceptor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="65" y="96" width="66" height="10" uuid="c233141e-9d4b-418a-b9ae-6d943cee9187">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{crfcreceptor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="313" y="84" width="64" height="10" uuid="24845972-c8ed-402b-ad78-c9fca735e0a7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[Uso del CFDI]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="65" y="108" width="174" height="10" uuid="08bbfb76-32d3-4e72-bb0a-d6655889b1ae">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cregimenfiscalreceptor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="108" width="64" height="10" uuid="3a776402-3f63-48da-8305-bc4a3db694d7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[Regimen fiscal:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="96" width="44" height="10" uuid="2cbc5e9d-d967-432a-9e3a-d205fae39c99">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[RFC:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement key="" x="0" y="68" width="239" height="15" backcolor="#E3E1E1" uuid="152ee57b-7766-4f8f-befe-94d341918d08">
+					<property name="com.jaspersoft.studio.element.name" value="Info cliente"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="68" width="239" height="15" uuid="c5b87fa1-f7ab-487b-8487-df7a0be32cbf">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INFORMACIÓN DEL CLIENTE]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement key="" x="312" y="68" width="238" height="15" backcolor="#E3E1E1" uuid="22145f08-7382-4608-821b-f9f53068346e">
+					<property name="com.jaspersoft.studio.element.name" value="Info cliente"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="450" y="84" width="64" height="10" uuid="1c78817f-5f38-407b-8670-3fe13051ddd5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[Exportación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="96" width="64" height="10" uuid="ced53c21-265a-4c3f-9e99-f0e057283235">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[01 - No aplica ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="121" width="64" height="10" uuid="6a988375-5109-4fb6-836c-de97418363ac">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[Domcilio Fiscal:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="66" y="121" width="174" height="10" uuid="b1288c04-bbd6-498c-a3ae-6c4bb42fded6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{domicilioFiscalReceptor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="29" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<subreport>
+				<reportElement x="0" y="0" width="188" height="20" isPrintWhenDetailOverflows="true" uuid="6cb25726-3d7a-4004-95e8-2ef0305975d6">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="REPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{REPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("detalles")]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{REPORT_DIR} + "InvoiceDetail.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="111">
+			<line>
+				<reportElement x="0" y="2" width="551" height="1" uuid="a6df33e5-1ab0-42da-b3b0-b3069e1d4def"/>
+			</line>
+			<rectangle>
+				<reportElement key="" x="9" y="55" width="539" height="23" backcolor="#E3E1E1" uuid="38669f97-8e67-4164-b63c-d21b8cc26610">
+					<property name="com.jaspersoft.studio.element.name" value="Info cliente"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="323" y="92" width="225" height="10" uuid="d59ff04f-ed7e-4406-8a8b-5a361d27aad3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cformapago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="23" y="93" width="217" height="10" uuid="7f53c0db-accf-4137-8a96-51e849338e6e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cmetodopago}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤#,##0.00;¤-#,##0.00">
+				<reportElement x="439" y="3" width="100" height="15" uuid="e3c51b27-1642-47ad-865b-1c2a1473f812">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{msubtotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤#,##0.00;¤-#,##0.00">
+				<reportElement x="439" y="21" width="100" height="15" uuid="e9886535-4abe-43a5-ade8-d8a6f288a0b5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mdescuento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤#,##0.00;¤-#,##0.00">
+				<reportElement x="439" y="55" width="100" height="23" uuid="c2264d50-ab5f-4df6-bd00-eecd4e0bc38b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mtotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="359" y="3" width="76" height="15" uuid="a24b5cb4-9af9-44f1-b87e-d43eb8414f39">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Subtotal $]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="359" y="55" width="76" height="23" uuid="82af50ce-250f-478c-ab6c-e5be844d2012">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total        MXN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="359" y="21" width="76" height="15" uuid="50179fc7-faab-4c2b-8f57-452eaeb679ed">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descuentos $]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="323" y="79" width="60" height="10" uuid="ce2c62f1-fb3b-4c7d-9cd6-20d97d8d9876">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Forma de pago:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="80" width="100" height="10" uuid="380f7b50-de32-4445-9edf-c91d13228bba">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Método de pago:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="43" y="38" width="100" height="15" uuid="ed410dd8-2eaf-4cc6-bbdd-4b6827922817">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CANTIDAD CON LETRA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="153" y="38" width="389" height="15" uuid="1766fa6c-ca7a-4eb0-ac22-3bf094828c41"/>
+				<textElement>
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidadConLetra}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="133">
+			<rectangle>
+				<reportElement key="" x="111" y="13" width="205" height="10" backcolor="#E3E1E1" uuid="d50bc480-e1ae-40eb-a4ec-8bf804d96e51">
+					<property name="com.jaspersoft.studio.element.name" value="folio fiscal"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement key="" x="111" y="37" width="203" height="10" backcolor="#E3E1E1" uuid="2ca51d4c-becf-49a9-808e-823c79cf4a5a">
+					<property name="com.jaspersoft.studio.element.name" value="rfc cert"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement key="" x="111" y="60" width="203" height="10" backcolor="#E3E1E1" uuid="60388f92-c77b-4037-a825-18a678dd7cb8">
+					<property name="com.jaspersoft.studio.element.name" value="cadena"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement key="" x="320" y="13" width="115" height="10" backcolor="#E3E1E1" uuid="25dee1b2-96fa-4d48-9efd-651812249b4d">
+					<property name="com.jaspersoft.studio.element.name" value="NoCert"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement key="" x="439" y="13" width="115" height="10" backcolor="#E3E1E1" uuid="0dc21167-06d5-40b7-b758-6794ad144d87">
+					<property name="com.jaspersoft.studio.element.name" value="FechaCert"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement key="" x="320" y="37" width="115" height="10" backcolor="#E3E1E1" uuid="d1bc4f72-3a51-4778-b4dd-b6561ffb61a1">
+					<property name="com.jaspersoft.studio.element.name" value="SelloSAT"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement key="" x="439" y="37" width="115" height="10" backcolor="#E3E1E1" uuid="77186df5-6293-4d22-bf6c-b3a14828ad7d">
+					<property name="com.jaspersoft.studio.element.name" value="SelloCert"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="111" y="13" width="88" height="10" uuid="3bc64b35-5fad-4037-a2f3-32c9ca0b397e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[Folio Fiscal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="37" width="120" height="10" uuid="4915c09c-7bc9-41b4-a219-94c252ad85a2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[RFC proveedor de certificación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="13" width="113" height="10" uuid="394ddcb8-434e-4853-8d60-493c64545cd5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[Número de Certificado SAT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="439" y="13" width="104" height="10" uuid="120f0275-7fde-4cde-b3da-da254f3f30ee">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha y hora de certificación]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="320" y="25" width="109" height="10" uuid="432723bb-7ac0-48aa-880a-09143ba74b34">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{no_certificado_sat}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="111" y="60" width="180" height="11" uuid="ae06a2ac-0665-4cd2-82d5-33b7bd1af4a4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[Cadena Original del timbre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="120" width="377" height="12" isPrintWhenDetailOverflows="true" uuid="2d78278a-7128-423d-bf0e-558641a87a3f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[Este documento es una representación impresa de un CFDI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="439" y="37" width="80" height="10" uuid="61ab8993-9caf-4b6e-bec4-ccaa0c2832aa">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[Sello digital del CFDI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="37" width="76" height="10" uuid="3bfc410d-7a9c-4351-95e9-a26ed3f32f2c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[Sello digital del SAT]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="320" y="48" width="116" height="62" isPrintWhenDetailOverflows="true" uuid="8d4a737b-ba1c-4694-9933-56eb0304a855">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sello_sat}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="439" y="48" width="114" height="62" isPrintWhenDetailOverflows="true" uuid="e5588e59-7ff3-4a39-b3f3-3e32a3dfdbc9">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{csello}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="25" width="202" height="10" uuid="2d37ac1f-1707-45f2-87e1-9d86aed79470">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{folio_fiscal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="48" width="109" height="10" uuid="6a02749c-7aee-43ab-955c-fb1291e1726d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{crfctimbra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="71" width="203" height="39" uuid="e3dd0ec7-66c9-4e4e-aa39-7fe64eee4e45">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{no_certificado_sat}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="0" y="13" width="110" height="98" uuid="363d21e2-6944-4561-b275-e5b04f0165e3"/>
+				<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<jr:codeExpression><![CDATA["verificacfdi.facturaelectronica.sat.gob.mx/defaul.aspx?id=" + $F{cfolio} + "&re="+$F{rfcEmisor} + "&rr=" + $F{crfcreceptor} + "&tt=" +$F{mtotal}.toString() + "&fe=" + $F{csello}.substring( $F{csello}.length()  -8 )]]></jr:codeExpression>
+				</jr:QRCode>
+			</componentElement>
+			<line>
+				<reportElement x="-3" y="1" width="551" height="1" uuid="1de2e4e0-25eb-4571-88e8-d3ce07f77651"/>
+			</line>
+			<textField>
+				<reportElement x="383" y="120" width="107" height="10" uuid="e959d281-aae9-4302-89e3-e1a7f1cef105">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina" + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="490" y="120" width="63" height="10" uuid="62716a4a-7342-488e-b44c-ae2b1480349a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

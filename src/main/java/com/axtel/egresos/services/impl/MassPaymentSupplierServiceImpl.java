@@ -365,7 +365,7 @@ public class MassPaymentSupplierServiceImpl extends DataSourceManager implements
 				 * 
 				 */
                 String rfcSupplier = payment.getComprobante().getRFCEmisor();
-                log.debug("Object: {}", "Validating query result for " + rfcSupplier);
+                log.debug("Object: " + String.valueOf("Validating query result for " + rfcSupplier));
                 OpinionResolveResponse sco = null;
                 if (satOpinions.get(rfcSupplier) != null) {
                     sco = satOpinions.remove(rfcSupplier);

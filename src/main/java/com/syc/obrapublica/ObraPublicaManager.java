@@ -19,7 +19,6 @@ import com.syc.sai.contabilidad.utils.db.CloseObject;
 import com.syc.sai.contabilidad.utils.db.RSToTable;
 import com.syc.ws.inventario.WSManager;
 import com.syc.ws.obrapublica.core.EstimacionObra;
-import sun.security.rsa.RSACore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;

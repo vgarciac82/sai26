@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pedido_detalle"  pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="792" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cEjercicio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cIdUnidadEjecutora" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nIdConsecutivo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cIdTipoPedido" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Janise\\Workspaces\\MyEclipse Professional\\sai\\WebContent\\Reportes"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="abreviatura" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nIva" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[DECLARE  @cEjercicio varchar(4), @cIdTipoPedido varchar(2), @cIdUnidadEjecutora varchar(3), @nIdConsecutivo int
+--SET @cEjercicio = '2012';
+--SET @cIdUnidadEjecutora = 'B56';
+--SET @nIdConsecutivo = 15;
+--SET @cIdTipoPedido = 'PE';
+SET @cEjercicio = $P{cEjercicio};
+SET @cIdUnidadEjecutora = $P{cIdUnidadEjecutora};
+SET @nIdConsecutivo = $P{nIdConsecutivo};
+SET @cIdTipoPedido = $P{cIdTipoPedido};
+EXEC rpt_mPedidoDetalle @cEjercicio,@cIdTipoPedido,@cIdUnidadEjecutora,@nIdConsecutivo]]>
+	</queryString>
+	<field name="cEjercicio" class="java.lang.String"/>
+	<field name="cIdPedidoDefinitivo" class="java.lang.String"/>
+	<field name="fEntrega" class="java.lang.String"/>
+	<field name="cOficio" class="java.lang.String"/>
+	<field name="cIdTipoProcedimiento" class="java.lang.String"/>
+	<field name="cIdProcedimiento" class="java.lang.String"/>
+	<field name="cIdRFC" class="java.lang.String"/>
+	<field name="nIdPartida" class="java.lang.Long"/>
+	<field name="nIdLineaConsolidado" class="java.lang.Integer"/>
+	<field name="Descripcion" class="java.lang.String"/>
+	<field name="Cantidad" class="java.lang.Integer"/>
+	<field name="Unidad" class="java.lang.String"/>
+	<field name="PrecioUnitario" class="java.math.BigDecimal"/>
+	<field name="PrecioNeto" class="java.math.BigDecimal"/>
+	<field name="GranTotalBruto" class="java.math.BigDecimal"/>
+	<field name="IVA" class="java.math.BigDecimal"/>
+	<field name="GranTotalNeto" class="java.math.BigDecimal"/>
+	<field name="cantidadLetra" class="java.lang.String"/>
+	<field name="nIdTipoCambio" class="java.lang.String"/>
+	<field name="mTipoCambio" class="java.math.BigDecimal"/>
+	<field name="nIVA" class="java.lang.Integer"/>
+	<field name="notas" class="java.lang.String"/>
+	<field name="paridad" class="java.lang.String"/>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="69" y="0" width="354" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Descripcion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement positionType="Float" x="440" y="0" width="51" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{Cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="500" y="0" width="48" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Unidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement positionType="Float" x="561" y="0" width="55" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{PrecioUnitario}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement positionType="Float" x="641" y="0" width="102" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{PrecioNeto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="18" y="0" width="39" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{nIdPartida}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="123">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="72" y="3" width="405" height="24"/>
+				<textElement>
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{notas}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="7" y="28" width="770" height="94"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="cIdUnidadEjecutora">
+					<subreportParameterExpression><![CDATA[$P{cIdUnidadEjecutora}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="cIdTipoPedido">
+					<subreportParameterExpression><![CDATA[$P{cIdTipoPedido}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="importeSubtotal">
+					<subreportParameterExpression><![CDATA[$F{GranTotalBruto}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="abreviatura">
+					<subreportParameterExpression><![CDATA[$P{abreviatura}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="importeIVA">
+					<subreportParameterExpression><![CDATA[$F{IVA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nIva">
+					<subreportParameterExpression><![CDATA[$F{nIVA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nIdConsecutivo">
+					<subreportParameterExpression><![CDATA[$P{nIdConsecutivo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="cEjercicio">
+					<subreportParameterExpression><![CDATA[$P{cEjercicio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"\\rptImportesPedido.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</lastPageFooter>
+</jasperReport>

@@ -89,7 +89,7 @@ public class CargaExcelComparaSaiSicopServlet extends HttpServlet implements Ges
                     log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                     Util.copiaArchivo(archivoCargaStream, nombreDestino);
                     item.delete();
-                    log.debug("Object: {}", "Procesando archivo:" + nombreArchivo);
+                    log.debug("Object: " + String.valueOf("Procesando archivo:" + nombreArchivo));
                     ComparaSaiSicopBusinessLogic cssbl = new ComparaSaiSicopBusinessLogic(u.getLogin());
                     cssbl.cargaExcelComparaSaiSicop(nombreDestino);
                     mensajeRetorno = "Archivo cargado exitosamente";
@@ -152,7 +152,7 @@ public class CargaExcelComparaSaiSicopServlet extends HttpServlet implements Ges
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            log.debug("Object: {}", "Redirect: " + strRedirect);
+            log.debug("Object: " + String.valueOf("Redirect: " + strRedirect));
             resp.sendRedirect(strRedirect);
             log.debug("SALE  DE LA CONSULTA");
         }
@@ -203,7 +203,7 @@ public class CargaExcelComparaSaiSicopServlet extends HttpServlet implements Ges
         response.addHeader("Content-Disposition", "inline; filename=\"" + file_name + "\"; ");
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         workbook.close();
         bos.flush();

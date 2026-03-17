@@ -36,7 +36,7 @@ public class TransporteDAO {
             ps.setString(cnt++, transporte.getOrigen());
             ps.setBigDecimal(cnt++, transporte.getMonto());
             ps.setLong(cnt++, transporte.getKm());
-            log.debug("Object: {}", queryInsert.toString());
+            log.debug("Object: " + String.valueOf(queryInsert.toString()));
             insertados = ps.executeUpdate();
             return insertados;
         } finally {
@@ -62,7 +62,7 @@ public class TransporteDAO {
             ps.setLong(cnt++, transporte.getKm());
             ps.setString(cnt++, transporte.getNumEconomico());
             ps.setInt(cnt++, transporte.getTieneVales());
-            log.debug("Object: {}", queryInsert.toString());
+            log.debug("Object: " + String.valueOf(queryInsert.toString()));
             insertados = ps.executeUpdate();
             return insertados;
         } finally {
@@ -87,7 +87,7 @@ public class TransporteDAO {
             ps.setString(cnt++, transporte.getRFCVuelo());
             ps.setString(cnt++, transporte.getNombreVuelo());
             ps.setString(cnt++, transporte.getTipoPago());
-            log.debug("Object: {}", queryInsert.toString());
+            log.debug("Object: " + String.valueOf(queryInsert.toString()));
             insertados = ps.executeUpdate();
             return insertados;
         } finally {
@@ -150,7 +150,7 @@ public class TransporteDAO {
             ps.setBigDecimal(2, avion.getmImporteBoleto());
             ps.setInt(3, avion.getIdComision());
             borrados = ps.executeUpdate();
-            log.debug("Object: {}", queryDelete.toString());
+            log.debug("Object: " + String.valueOf(queryDelete.toString()));
             return borrados;
         } finally {
             CloseObject.closeObject(ps);
@@ -195,7 +195,7 @@ public class TransporteDAO {
             pst.setInt(2, idComision);
             pst.setInt(3, folioPago);
             actualizados = pst.executeUpdate();
-            log.debug("Object: {}", query.toString());
+            log.debug("Object: " + String.valueOf(query.toString()));
             return actualizados;
         } finally {
             CloseObject.closeObject(pst);
@@ -212,7 +212,7 @@ public class TransporteDAO {
             pst.setInt(2, transporte.getIdComision());
             pst.setString(3, transporte.getcNumeroBoleto());
             actualizados = pst.executeUpdate();
-            log.debug("Object: {}", query.toString());
+            log.debug("Object: " + String.valueOf(query.toString()));
             return actualizados;
         } finally {
             CloseObject.closeObject(pst);
@@ -234,7 +234,7 @@ public class TransporteDAO {
             pst.setInt(7, folioComision);
             pst.setInt(8, transporte.getIdTransporte());
             actualizados = pst.executeUpdate();
-            log.debug("Object: {}", query.toString());
+            log.debug("Object: " + String.valueOf(query.toString()));
             return actualizados;
         } finally {
             CloseObject.closeObject(pst);
@@ -349,7 +349,7 @@ public class TransporteDAO {
             ps.setInt(1, nFolioRelaciongastos);
             ps.setString(2, cTipoPago);
             borrados = ps.executeUpdate();
-            log.debug("Object: {}", queryDelete.toString());
+            log.debug("Object: " + String.valueOf(queryDelete.toString()));
             return borrados;
         } finally {
             CloseObject.closeObject(ps);

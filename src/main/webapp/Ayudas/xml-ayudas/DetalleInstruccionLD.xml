@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- Ayuda Detalle Instrucción -->
+<Ayuda>
+	<titulo>Detalle Instrucción</titulo>
+	<anchoWin>587</anchoWin>
+	<altoWin>543</altoWin>
+	<altoAreaCaptura>70</altoAreaCaptura>
+	<tabla>CAT_DET_INSTRUCCION</tabla>
+	<maxRegistros>1000</maxRegistros>
+	
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+
+	<grid>
+		<columna campo="ID_DET_INSTRUCCION" control="IDDetalleInstruccionLD"	dependencia="No"	limpiaOnKeypress=""								header="Clave"			ancho="6"		maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+		<columna campo="DI_DESCRIPCION"		control="DetalleInstruccionLD"	dependencia="No"	limpiaOnKeypress="txtGridIDDetalleInstruccion"	header="Descripción"	ancho="80"		maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+	</grid> 
+	
+	<!-- Si existe esta etiqueta de Inserta aparecera la opción de inserta en el dialogo -->
+	<insertaRegistro>
+		<campo control="txtGridDetalleInstruccionLD" requerido="La descripción es un dato requerido." tipo="string" />
+	</insertaRegistro>
+	
+
+</Ayuda>

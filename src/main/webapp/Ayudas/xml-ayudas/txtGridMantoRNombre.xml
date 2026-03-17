@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mantenimiento Usuarios -->
+<Ayuda>
+	<titulo>Ayuda Catalogo de Roles</titulo>
+	<anchoWin>500</anchoWin>
+	<altoWin>500</altoWin>
+	<altoAreaCaptura>120</altoAreaCaptura>
+	<tabla>M_CAT_ROLE</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>1</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="r_nombre"				control="txtGridMantoRNombre"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Nombre"				ancho="50"		maxlen="10"		tipo="numero"	visible="Si"	clase=""/>
+		<columna campo="r_DESCRIPCION"			control=""	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Descripción"		ancho="80"		maxlen="60"		tipo="string"	visible="Si"	clase=""/>
+	</grid>	  
+</Ayuda>

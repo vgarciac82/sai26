@@ -88,7 +88,7 @@ public class JDBCMonthlyAssinationRepository implements MonthlyAssinationReposit
         try {
             log.trace("Object: {}", "Executing Query: \n" + querySelect + "\n[" + month + "]\n[" + accountId + "]" + "\n[" + month + "]\n[" + accountId + "]" + "\n[" + month + "]\n[" + accountId + "]");
             monthlyAssinationSummary = runner.query(conn, querySelect.toString(), assignationSummaryRequestHandler, month, accountId, month, accountId, month, accountId);
-            log.debug("Object: {}", "Founded: " + monthlyAssinationSummary);
+            log.debug("Object: " + String.valueOf("Founded: " + monthlyAssinationSummary));
             return monthlyAssinationSummary;
         } catch (SQLException e) {
             throw new SicoveException(e);
@@ -111,7 +111,7 @@ public class JDBCMonthlyAssinationRepository implements MonthlyAssinationReposit
         try {
             log.trace("Object: {}", "Executing Query: \n" + querySelect + "\n[" + month + "]\n[" + accountId + "]");
             monthlyDetailAssinationSummary = runner.query(conn, querySelect.toString(), assignationDetailRequestHandler, month, accountId);
-            log.debug("Object: {}", "Founded: " + monthlyDetailAssinationSummary);
+            log.debug("Object: " + String.valueOf("Founded: " + monthlyDetailAssinationSummary));
             return monthlyDetailAssinationSummary;
         } catch (SQLException e) {
             throw new SicoveException(e);

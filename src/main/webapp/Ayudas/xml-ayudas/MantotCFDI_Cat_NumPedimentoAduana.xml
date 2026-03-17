@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento de Pedimento Aduanal para el CFDI</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_tCFDI_Cat_NumPedimentoAduana</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cAduana"				control=""	dependencia="No"	limpiaOnKeypress=""		header="Numero Aduana"		rowCol="1,1" 	ancho="11"	maxlen="11"	 tipo="string"	visible="Si"	clase=""/>
+		<columna campo="nPatente"				control=""	dependencia="No"	limpiaOnKeypress=""		header="Numero Patente"		rowCol="1,2" 	ancho="11"	maxlen="11"  tipo="string"	visible="Si"	clase=""/>
+		<columna campo="nEjercicio"				control=""	dependencia="No"	limpiaOnKeypress=""		header="Ejercicio"			rowCol="1,3" 	ancho="10"	maxlen="10"	 tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cCantidad"				control=""	dependencia="No"	limpiaOnKeypress=""		header="Formato Registro"	rowCol="2,1" 	ancho="10"	maxlen="10"	 tipo="string"	visible="Si"	clase=""/>
+		<columna campo="fFechaInicioVigencia"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Inicio Vigencia"	rowCol="2,2" 	ancho="15"	maxlen="15"	 tipo="date"	visible="Si"	clase=""/>
+		<columna campo="fFechaFinVigencia"		control=""	dependencia="No"	limpiaOnKeypress=""		header="Fin Vigencia"		rowCol="2,3" 	ancho="15"	maxlen="15"	 tipo="date"	visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="cAduana"					control="txtGridCol0"	llave="No"	identity="No"	requerido="Numero Aduana es un dato requerido."		 requeridoFocus="txtGridCol0"	tipo="string" />
+		<campo field="nPatente"					control="txtGridCol1"	llave="No"	identity="No"	requerido="Numero Patente es un dato requerido."	 requeridoFocus="txtGridCol1"	tipo="string" />
+		<campo field="nEjercicio"				control="txtGridCol2"	llave="No"	identity="No"	requerido="Ejercicio es un dato requerido."			 requeridoFocus="txtGridCol2"	tipo="string" />
+		<campo field="cCantidad"				control="txtGridCol3"	llave="No"	identity="No"	requerido="Cantidad es un dato requerido."			 requeridoFocus="txtGridCol3"	tipo="string" />
+		<campo field="fFechaInicioVigencia"		control="txtGridCol4"	llave="No"	identity="No"	requerido="Inicio de vigencia es un dato requerido." requeridoFocus="txtGridCol4"	tipo="date" />
+		<campo field="fFechaFinVigencia"		control="txtGridCol5"	llave="No"	identity="No"	requerido=""										 requeridoFocus="txtGridCol5"	tipo="date" />		
+	</insertaRegistro>
+	
+</Ayuda>

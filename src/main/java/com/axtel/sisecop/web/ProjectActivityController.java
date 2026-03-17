@@ -47,7 +47,7 @@ public class ProjectActivityController extends HttpServlet {
         ProyectoServicioActividadDTO activity = readActivity(request);
         log.trace("Object: {}", "JSON recibido correctamente y mapeado a objeto ProyectoServicioActividadDTO. " + activity);
         try {
-            log.debug("Object: {}", "Saving activity: " + activity);
+            log.debug("Object: " + String.valueOf("Saving activity: " + activity));
             ProyectoServicioActividad activitySaved = activityService.createActivity(activity);
             log.info("Object: {}", "Activity saved: " + activitySaved);
             Util.sendJSONResponse(response, activitySaved);

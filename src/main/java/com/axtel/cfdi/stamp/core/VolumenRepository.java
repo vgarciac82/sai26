@@ -26,7 +26,7 @@ public class VolumenRepository implements VolumenRepositoryInterface {
             querySelect.append(VOLUMEN_FIELDS).append(" FROM volumen WHERE volumen = ?");
             log.trace("Object: {}", "Ejecutando: " + querySelect);
             Volumen v = runner.query(connection, querySelect.toString(), resultHandler, volumen);
-            log.debug("Object: {}", "Encontrado: " + v);
+            log.debug("Object: " + String.valueOf("Encontrado: " + v));
             return v;
         } finally {
             querySelect = null;
@@ -69,7 +69,7 @@ public class VolumenRepository implements VolumenRepositoryInterface {
             log.trace("Object: {}", "Ejecutando: " + querySelect);
             Volumen v = runner.query(connection, querySelect.toString(), resultHandler, drive.getDrive(), drive.getBasePath());
             v.setDriveUnit(drive);
-            log.debug("Object: {}", "Encontrado: " + v);
+            log.debug("Object: " + String.valueOf("Encontrado: " + v));
             return v;
         } finally {
             querySelect = null;
@@ -84,7 +84,7 @@ public class VolumenRepository implements VolumenRepositoryInterface {
             log.info("Object: {}", "Contando archivos en Volumen " + volumen.getVolumen());
             log.trace("Object: {}", "Ejecutando: " + querySelect);
             files = runner.query(connection, querySelect.toString(), new ScalarHandler<Integer>(), volumen.getVolumen());
-            log.debug("Object: {}", "Encontrados: " + files + " archivos en volumen: " + volumen.getVolumen());
+            log.debug("Object: " + String.valueOf("Encontrados: " + files + " archivos en volumen: " + volumen.getVolumen()));
             return files == null ? new Integer(0) : files;
         } finally {
             querySelect = null;
@@ -98,7 +98,7 @@ public class VolumenRepository implements VolumenRepositoryInterface {
         try {
             log.trace("Object: {}", "Se ejecutara : " + queryUpdate + "[" + volumen + "," + parentVolumen.getDriveUnit().getDrive() + "," + parentVolumen.getVolumeType() + "]");
             int updated = runner.update(connection, queryUpdate.toString(), volumen, parentVolumen.getDriveUnit().getDrive(), parentVolumen.getVolumeType());
-            log.debug("Object: {}", "Se afectaron " + updated + " registros");
+            log.debug("Object: " + String.valueOf("Se afectaron " + updated + " registros"));
         } finally {
             queryUpdate = null;
         }

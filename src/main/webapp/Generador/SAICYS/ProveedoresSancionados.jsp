@@ -1,0 +1,120 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@page import="com.syc.gestion.servlet.GestionInterface"%>
+<%@page import="com.syc.gestion.core.Usuario"%>
+<%@ page import="com.syc.gestion.NegativaPestanaBusinessLogic"%>
+<%@ page import="com.syc.gestion.core.NegativaPestana"%>
+<%@ page import="com.syc.gestion.core.Role"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.*" %>
+<%
+	Usuario usuario = (Usuario)session.getAttribute(GestionInterface.ATT_USER);
+	String cIdTipo = "";
+	if (usuario == null) {
+		response.sendRedirect("../../index.jsp");
+		return;
+	}
+	String name_user=usuario.getLogin();
+	Map rol =usuario.getRoles();
+	String DATE_FORMAT = "dd/MM/yyyy";
+	SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+	Calendar c1 = Calendar.getInstance(); // today
+	String today= sdf.format(c1.getTime());
+	c1.add(Calendar.MONTH, -1);
+	String todayAnt= sdf.format(c1.getTime());
+	
+	String fechaLimite= sdf.format(c1.getTime());
+ %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Insert title here</title>
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	
+	<style type="text/css" title="currentStyle"> 
+		@import "../../css/custom-theme/jquery-ui-1.8.16.custom.css";
+ 		@import "../../css/interfaz.css";
+	</style>
+	<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../Bootstrap/Bootstrap502/css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="../../Bootstrap/Bootstrap-dataTables/datatables.css"/>
+	
+	<script type="text/javascript" src="../../Bootstrap/Bootstrap502/js/bootstrap.js"></script>
+	<script type="text/javascript" src="../../Bootstrap/Bootstrap502/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../Bootstrap/Bootstrap-dataTables/datatables.js"></script>
+	<script type="text/javascript" src="../../Bootstrap/Bootstrap-dataTables/datatables.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.js"></script>
+	
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+	
+	<script type="text/javascript" src="../js/crud.js"></script>
+	<script type="text/javascript" src="../../js/catalogo/general.js"></script>
+	<script type="text/javascript" src="../../js/sweetalert/sw/sweetalert.min.js"></script>
+	<script type="text/javascript" src="../../Ayudas/js/ayudasDlg2.0.js"></script>
+	<script type="text/javascript" src="../../Ayudas/js/autoCompleta.js"></script>
+	<script type="text/javascript" src="../js/funciones.js"></script>
+	<script type="text/javascript" src="../js/CatProveedoresIncumplidos.js"></script>
+	<link href="../../css/reportesGRM.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="../js/jquery.formatCurrency.js"></script>
+	<script type="text/javascript" src="../js/jquery.formatCurrency.all.js"></script>
+	<script type="text/javascript" src="../js/FixedColumns.js"></script>
+	<script type="text/javascript" >
+		var fechaLimiteDefault = "<%=fechaLimite%>";
+		var myModal;
+		var myModalProvRecision;
+		var myModalcontracts;
+		var tableConsultaContracts;
+		$(document).ready(function() {
+			$(".tabs").tabs();
+			$("#ProveedorIncumplido").click(function() {
+				window.location = "ProveedoresSancionados.jsp?tab=" + 0;
+			});
+			$("#RecisionContratosProveedor").click(function() {
+					window.location = "ProveedoresSancionados.jsp?tab=" + 1;
+			});
+		});
+		
+	</script>
+</head>
+<body>
+	<div class="container-fluid" >
+			<div class="col-md-12 col-lg-12 col-sm-12">
+	 			<h1 style="color: #1A69A9;">Proveedores Sancionados</h1>
+	 			<div class="tabs" id="tabs">
+		 			<ul class="nav nav-tabs">
+		 				<li class="nav-item"><a href="#tabs-0" id="ProveedorIncumplido" class="nav-link" aria-current="page">Sanci&oacute;n por no firma</a></li>
+					    <li class="nav-item"><a href="#tabs-1" id="RecisionContratosProveedor" class="nav-link" aria-current="page">Recisiones</a></li>
+					   
+		 			</ul>
+					<div id="tabs-0" align=left>
+						<% if (request.getParameter("tab").equals("0")) { %>
+							<jsp:include page="CatProveedoresIncumplidos.jsp" />
+							<script type="text/javascript" charset="utf-8">
+									var $tabs = $(".tabs").tabs();
+									$( "#tabs" ).tabs({ active: 0 });
+							</script>
+						<% } %>
+					</div>
+					<div id="tabs-1" align=left>
+						<% if (request.getParameter("tab").equals("1")) { %>
+							<jsp:include page="RecisionDeContrato.jsp" />
+							<script type="text/javascript" charset="utf-8">
+									var $tabs = $(".tabs").tabs();
+									$( "#tabs" ).tabs({ active: 1 });
+							</script>
+						<% } %>
+					</div>
+</body>
+</html>

@@ -162,7 +162,7 @@ public class CasoDatoManager {
     public static int update(Connection conn, CasoDato cd) throws SQLException {
         int retval = -1;
         PreparedStatement pstmnt = null;
-        Log.debug("Object: {}", "Updating CASO_DATO:" + cd);
+        Log.debug("Object: " + String.valueOf("Updating CASO_DATO:" + cd));
         try {
             pstmnt = conn.prepareStatement("UPDATE cg_caso_dato with(rowlock) SET id_tc = ?, cd_valor = ? WHERE id_caso = ? AND id_cd = ?");
             pstmnt.setInt(1, cd.getIdTC());

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Unidades Responsables</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>140</altoAreaCaptura>
+	<tabla>M_TCATALOGOUNIDADRESPONSABLEMAT</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cUnidadResponsable"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Unidad"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="t.ID_AREA"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Area"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="D_DESCRIPCION"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Descripcion"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+	
+	
+	
+</Ayuda>

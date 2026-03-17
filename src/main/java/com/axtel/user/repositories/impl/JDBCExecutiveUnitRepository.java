@@ -40,7 +40,7 @@ public class JDBCExecutiveUnitRepository implements ExecutiveUnitRepository {
         query.append("		executiveUnit.cCentroResp AS responsibleCenter  ");
         query.append("  FROM	nom_unidad_ejecutora AS executiveUnit ");
         query.append(" WHERE executiveUnit.cUejecutora = ? ");
-        log.debug("Object: {}", "Buscando unidad ejecutora." + administrativeUnit);
+        log.debug("Object: " + String.valueOf("Buscando unidad ejecutora." + administrativeUnit));
         log.trace("Object: {}", "Ejecutando: \n" + query + "\n[" + administrativeUnit + "]");
         ExecutiveUnit eu;
         try {

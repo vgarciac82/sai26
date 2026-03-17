@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subReportEP&apos;s" pageWidth="707" pageHeight="612" orientation="Landscape" columnWidth="707" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="f020db60-339c-44ed-bb56-e064de97f228">
+	<property name="ireport.zoom" value="2.1435888100000122"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SAI_2021"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="contrarecibo" class="java.lang.String">
+		<defaultValueExpression><![CDATA["10CP2021100703"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[/*subReportEP.jasper*/
+
+set transaction isolation level read uncommitted
+
+SELECT     tre.caNoContrarrecibo,
+           tre.cIdRelacion,
+           trd.EP,
+           Sum( trd.mImporteMasIVA) Importe,
+           tre.cnombre,
+           tre.nFolioRELACIONGASTOS,
+           'RG' AS tipodoc ,
+           (
+                  SELECT Count(DISTINCT EP)
+                  FROM   dbo.tRELACIONGASTOSDetalle WITH(NOLOCK)
+                  WHERE  nFolioRELACIONGASTOS=tre.nFolioRELACIONGASTOS) AS totEp
+           --INTO #tmp_anexo
+FROM       tRELACIONGASTOSDetalle trd  WITH(NOLOCK)
+INNER JOIN tRELACIONGASTOSEncabezado tre  WITH(NOLOCK)
+ON         trd.nFolioRELACIONGASTOS=tre.nFolioRELACIONGASTOS
+WHERE      tre.caNoContrarrecibo = $P{contrarecibo}
+GROUP BY   tre.caNoContrarrecibo,
+           tre.cIdRelacion,
+           trd.EP,
+           tre.cnombre,
+           tre.nFolioRELACIONGASTOS
+UNION
+SELECT     tre.caNoContrarrecibo,
+           tre.cIdDocumento,
+           trd.EP,
+           SUM(trd.mImporteMasIVA) Importe,
+           ISNULL(b.dNombre, '') + ' ' + ISNULL(b.dApellidoPaterno, '') + ' ' + ISNULL(b.dApellidoMaterno, ''),
+           tre.nFolioPagoDirecto,
+           'PI' AS tipodoc ,
+           (
+                  SELECT COUNT(DISTINCT EP)
+                  FROM   dbo.tPagoDirectoDetalle  WITH(NOLOCK)
+                  WHERE  nFolioPagoDirecto=tre.nFolioPagoDirecto) AS totEp
+FROM       tPagoDirectoDetalle trd  WITH(NOLOCK)
+INNER JOIN tPagoDirectoEncabezado tre  WITH(NOLOCK)
+ON         trd.nFolioPagoDirecto=tre.nFolioPagoDirecto
+INNER JOIN tbeneficiario b WITH(NOLOCK)
+ON         tre.cIdRFC = b.drfc
+WHERE      tre.caNoContrarrecibo = $P{contrarecibo}
+GROUP BY   tre.caNoContrarrecibo,
+           tre.cIdDocumento,
+           trd.EP,
+           ISNULL(b.dNombre, '') + ' ' + ISNULL(b.dApellidoPaterno, '') + ' ' + ISNULL(b.dApellidoMaterno, ''),
+           tre.nFolioPagoDirecto
+UNION
+SELECT     tre.caNoContrarrecibo,
+           tre.cIdRelacion,
+           trd.EP,
+           SUM(trd.mImporteMasIVA) Importe,
+           tre.cNombre,
+           tre.nFolioNOMINA,
+           'NO' AS tipodoc ,
+           (
+                  SELECT COUNT(DISTINCT EP)
+                  FROM   dbo.tNOMINADetalle WITH(NOLOCK)
+                  WHERE  nFolioNOMINA=tre.nFolioNOMINA) AS totEp
+FROM       tNOMINADetalle trd WITH(NOLOCK)
+INNER JOIN tNOMINAEncabezado tre WITH(NOLOCK)
+ON         trd.nFolioNOMINA=tre.nFolioNOMINA
+WHERE      tre.caNoContrarrecibo = $P{contrarecibo}
+GROUP BY   tre.caNoContrarrecibo,
+           tre.cIdRelacion,
+           trd.EP,
+           tre.cNombre,
+           tre.nFolioNOMINA
+UNION
+SELECT     tre.caNoContrarrecibo,
+           tre.cFolioContratoObra,
+           trd.EP,
+           SUM(trd.mImporteMasIVA) Importe,
+           ISNULL(b.dNombre, '') + ' ' + ISNULL(b.dApellidoPaterno, '') + ' ' + ISNULL(b.dApellidoMaterno, ''),
+           tre.nFolioPAGOOBRA,
+           'PO' AS tipodoc ,
+           (
+                  SELECT COUNT(DISTINCT EP)
+                  FROM   dbo.tPAGOOBRADetalle WITH(NOLOCK)
+                  WHERE  nFolioPAGOOBRA=tre.nFolioPAGOOBRA) AS totEp
+FROM       tPAGOOBRADetalle trd  WITH(NOLOCK)
+INNER JOIN tPAGOOBRAEncabezado tre WITH(NOLOCK)
+ON         trd.nFolioPAGOOBRA=tre.nFolioPAGOOBRA
+AND        LEFT(trd.cEvento, 8) <> 'ANTICIPO'
+INNER JOIN tbeneficiario b WITH(NOLOCK)
+ON         tre.RFC = b.drfc
+WHERE      tre.caNoContrarrecibo = $P{contrarecibo}
+GROUP BY   tre.caNoContrarrecibo,
+           tre.cFolioContratoObra,
+           trd.EP,
+           ISNULL(b.dNombre, '') + ' ' + ISNULL(b.dApellidoPaterno, '') + ' ' + ISNULL(b.dApellidoMaterno, ''),
+           tre.nFolioPAGOOBRA
+UNION
+SELECT     tre.caNoContrarrecibo,
+           tre.cFolioContratoObra,
+           trd.EP,
+           SUM(trd.mImporteMasIVA) Importe,
+           ISNULL(b.dNombre, '') + ' ' + ISNULL(b.dApellidoPaterno, '') + ' ' + ISNULL(b.dApellidoMaterno, ''),
+           tre.nFolioPAGOFEDERALIZADO,
+           'PF' AS tipodoc ,
+           (
+                  SELECT COUNT(DISTINCT EP)
+                  FROM   dbo.tPAGOFEDERALIZADODetalle WITH(NOLOCK)
+                  WHERE  nFolioPAGOFEDERALIZADO=tre.nFolioPAGOFEDERALIZADO) AS totEp
+FROM       tPAGOFEDERALIZADODetalle trd WITH(NOLOCK)
+INNER JOIN tPAGOFEDERALIZADOEncabezado tre WITH(NOLOCK)
+ON         trd.nFolioPAGOFEDERALIZADO=tre.nFolioPAGOFEDERALIZADO
+AND        LEFT(trd.cEvento, 8) <> 'ANTICIPO'
+INNER JOIN tbeneficiario b WITH(NOLOCK)
+ON         tre.RFC = b.drfc
+WHERE      tre.caNoContrarrecibo = $P{contrarecibo}
+GROUP BY   tre.caNoContrarrecibo,
+           tre.cFolioContratoObra,
+           trd.EP,
+           trd.EP,
+           ISNULL(b.dNombre, '') + ' ' + ISNULL(b.dApellidoPaterno, '') + ' ' + ISNULL(b.dApellidoMaterno, ''),
+           tre.nFolioPAGOFEDERALIZADO
+UNION
+SELECT     tre.caNoContrarrecibo,
+           tre.cFolioPAGODIVERSO,
+           trd.EP,
+           SUM(trd.mImporteMasIVA),
+           ISNULL(b.dNombre, '') + ' ' + ISNULL(b.dApellidoPaterno, '') + ' ' + ISNULL(b.dApellidoMaterno, ''),
+           tre.nFolioPAGODIVERSO,
+           'PD' AS tipodoc ,
+           (
+                  SELECT COUNT(DISTINCT EP)
+                  FROM   dbo.tPAGODIVERSODetalle WITH(NOLOCK)
+                  WHERE  nFolioPAGODIVERSO=tre.nFolioPAGODIVERSO) AS totEp
+FROM       tPAGODIVERSODetalle trd WITH(NOLOCK)
+INNER JOIN tPAGODIVERSOEncabezado tre WITH(NOLOCK)
+ON         trd.nFolioPAGODIVERSO=tre.nFolioPAGODIVERSO
+AND        LEFT(trd.cEvento, 8) <> 'ANTICIPO'
+INNER JOIN tbeneficiario b WITH(NOLOCK)
+ON         RTRIM(tre.RFC) = RTRIM(b.drfc)
+WHERE      tre.caNoContrarrecibo = $P{contrarecibo}
+GROUP BY   tre.caNoContrarrecibo,
+           tre.cFolioPAGODIVERSO,
+           trd.EP,
+           ISNULL(b.dNombre, '') + ' ' + ISNULL(b.dApellidoPaterno, '') + ' ' + ISNULL(b.dApellidoMaterno, ''),
+           tre.nFolioPAGODIVERSO]]>
+	</queryString>
+	<field name="caNoContrarrecibo" class="java.lang.String"/>
+	<field name="cIdRelacion" class="java.lang.String"/>
+	<field name="EP" class="java.lang.String"/>
+	<field name="Importe" class="java.math.BigDecimal"/>
+	<field name="cnombre" class="java.lang.String"/>
+	<field name="nFolioRELACIONGASTOS" class="java.lang.Integer"/>
+	<field name="tipodoc" class="java.lang.String"/>
+	<field name="totEp" class="java.lang.Integer"/>
+	<columnHeader>
+		<band height="75">
+			<printWhenExpression><![CDATA[$F{totEp} > 7]]></printWhenExpression>
+			<staticText>
+				<reportElement x="0" y="0" width="240" height="75" uuid="e99f39d0-229b-40ae-b728-3f37ca610b48">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$F{totEp} > 7]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[LA AUTORIZACION DE PAGO DE ESTE DOCUMENTO SE DETALLA EN EL ANEXO DE LA CUENTA POR PAGAR, QUE INCLUYE LAS CLAVES PRESUPUESTALES, LISTADO DE FACTURAS Y/O BOLETOS DE AVION.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="11">
+			<printWhenExpression><![CDATA[$F{totEp}<8]]></printWhenExpression>
+			<textField>
+				<reportElement x="1" y="0" width="237" height="11" uuid="4e5cd886-528c-42c9-ac9a-67ce4f282b39">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EP}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="239" y="0" width="69" height="11" uuid="7467d015-e4d6-4845-8aa2-34cc1e9c7e91"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Importe}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

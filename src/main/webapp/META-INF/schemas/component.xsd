@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<xs:schema xmlns:cmp="http://www.syc.com.mx/component/schemas" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.syc.com.mx/component/schemas">
+
+	<xs:element name="component">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="1" maxOccurs="1" ref="cmp:sql" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="sql">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" maxOccurs="unbounded" ref="cmp:create" />
+				<xs:element minOccurs="0" maxOccurs="unbounded" ref="cmp:read" />
+				<xs:element minOccurs="0" maxOccurs="unbounded" ref="cmp:update" />
+				<xs:element minOccurs="0" maxOccurs="unbounded" ref="cmp:delete" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="create">
+		<xs:complexType mixed="true">
+			<xs:attribute name="id" type="xs:string" use="required" />
+			<xs:attribute name="valuesList" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="read">
+		<xs:complexType mixed="true">
+			<xs:attribute name="id" type="xs:string" use="required" />
+			<xs:attribute name="whereList" type="xs:string" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="update">
+		<xs:complexType mixed="true">
+			<xs:attribute name="id" type="xs:string" use="required" />
+			<xs:attribute name="setList" type="xs:string" use="optional" />
+			<xs:attribute name="whereList" type="xs:string" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="delete">
+		<xs:complexType mixed="true">
+			<xs:attribute name="id" type="xs:string" use="required" />
+			<xs:attribute name="whereList" type="xs:string" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

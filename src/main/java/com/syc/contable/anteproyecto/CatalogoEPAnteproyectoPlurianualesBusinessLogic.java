@@ -90,14 +90,14 @@ public class CatalogoEPAnteproyectoPlurianualesBusinessLogic extends DataSourceM
                 Cell CellEP = row.getCell(0);
                 Cell CellMonto = row.getCell(1);
                 if (CellEP != null) {
-                    log.debug("Object: {}", "Procesando renglon " + (renglon));
+                    log.debug("Object: " + String.valueOf("Procesando renglon " + (renglon)));
                     try {
                         String EP = CellEP.getStringCellValue();
                         Double Monto = CellMonto.getNumericCellValue();
                         renglonMap = new HashMap<String, String>();
                         renglonMap.put("EP", EP);
                         renglonMap.put("Monto", String.valueOf(Monto));
-                        log.debug("Object: {}", "EP[" + EP + "] Monto[" + Monto);
+                        log.debug("Object: " + String.valueOf("EP[" + EP + "] Monto[" + Monto));
                         CatalogoEPAnteproyectoPlurianualesManager.insertaRenglonEPAnteproyectoPlurianuales(conn, renglonMap);
                     } catch (Exception e) {
                         renglonInsertada = false;

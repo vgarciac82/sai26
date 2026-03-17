@@ -101,7 +101,7 @@ public class reportesBussinesObject extends DataSourceManager {
      * @throws Exception
      */
     public void reporteImprimeAdecuacionPDF(HttpServletRequest request, HttpServletResponse response, String reportPath, String imgPath) throws Exception {
-        log.debug("Object: {}", "Imprimiendo reporte de adecuacion REPORT_PATH[" + reportPath + "] IMAGE_PATH[" + imgPath + "]");
+        log.debug("Object: " + String.valueOf("Imprimiendo reporte de adecuacion REPORT_PATH[" + reportPath + "] IMAGE_PATH[" + imgPath + "]"));
         long init = System.currentTimeMillis();
         Connection conn = null;
         Map<String, Object> parms = null;

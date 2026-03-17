@@ -450,7 +450,7 @@ public class FacturaBusinessLogic extends DataSourceManager {
                     Carpeta cfdi = FacturaManager.obtenCarpetaDestino(conn, c, "CFDI", u.getLogin());
                     for (Iterator<String> i = facturas.keySet().iterator(); i.hasNext(); ) {
                         String facturaNombre = i.next();
-                        log.debug("Object: {}", "Insertando factura [" + facturaNombre + "] ");
+                        log.debug("Object: " + String.valueOf("Insertando factura [" + facturaNombre + "] "));
                         ComponentesFactura cf = facturas.get(facturaNombre);
                         insertados += FacturaManager.insertaArchivosFactura(conn, facturaNombre, cf, cfdi, c, u.getLogin());
                     }
@@ -562,7 +562,7 @@ public class FacturaBusinessLogic extends DataSourceManager {
                     Carpeta cfdi = FacturaManager.obtenCarpetaDestino(conn, c, "CFDI", u.getLogin());
                     for (Iterator<String> i = facturas.keySet().iterator(); i.hasNext(); ) {
                         String facturaNombre = i.next();
-                        log.debug("Object: {}", "Insertando factura [" + facturaNombre + "] ");
+                        log.debug("Object: " + String.valueOf("Insertando factura [" + facturaNombre + "] "));
                         ComponentesFactura cf = facturas.get(facturaNombre);
                         insertados += FacturaManager.insertaArchivosFactura(conn, facturaNombre, cf, cfdi, c, u.getLogin());
                     }
@@ -961,7 +961,7 @@ public class FacturaBusinessLogic extends DataSourceManager {
                     throw new Exception(String.format("No se encontro expediente en el tramite. Caso[%d]", c.getIdCaso()));
                 String usrLogin = getUsuario().getLogin();
                 Carpeta rep = FacturaManager.obtenCarpetaDestino(conn, c, "REP", usrLogin);
-                log.debug("Object: {}", "Insertando factura [" + REPNombre + "] ");
+                log.debug("Object: " + String.valueOf("Insertando factura [" + REPNombre + "] "));
                 insertados = FacturaManager.insertaArchivosFactura(conn, REPNombre, cf, rep, c, usrLogin);
                 FacturaManager.insertaInformacionReciboDePago33(conn, cf.getComprobante().getUUID(), docto, tipoPago, folioPago);
             }
@@ -996,12 +996,12 @@ public class FacturaBusinessLogic extends DataSourceManager {
                     throw new Exception(String.format("No se encontro expediente en el tramite. Caso[%d]", c.getIdCaso()));
                 String usrLogin = getUsuario().getLogin();
                 Carpeta rep = FacturaManager.obtenCarpetaDestino(conn, c, "REP", usrLogin);
-                log.debug("Object: {}", "Insertando factura [" + REPNombre + "] ");
+                log.debug("Object: " + String.valueOf("Insertando factura [" + REPNombre + "] "));
                 insertados = FacturaManager.insertaArchivosFactura(conn, REPNombre, cf, rep, c, usrLogin);
                 String xmlPath = cf.getXmlPathFile();
                 EdrConceptoDispersion concepto = AdendaEdenredUtils.buscarConceptoDispersion(xmlPath, uuidOrigen);
                 if (concepto != null) {
-                    log.debug("Object: {}", "Se encontró la adenda EDENRED para UUID: " + uuidOrigen);
+                    log.debug("Object: " + String.valueOf("Se encontró la adenda EDENRED para UUID: " + uuidOrigen));
                     mx.grupocorasa.sat.common.Pagos20.Pagos.Pago.DoctoRelacionado doctoNuevo = new mx.grupocorasa.sat.common.Pagos20.Pagos.Pago.DoctoRelacionado();
                     doctoNuevo.setFolio(docto.getFolio());
                     doctoNuevo.setSerie(docto.getSerie());
@@ -1093,7 +1093,7 @@ public class FacturaBusinessLogic extends DataSourceManager {
                     throw new Exception(String.format("No se encontro expediente en el tramite. Caso[%d] UUID[%s]", doctoSAI.getIdCaso(), doctoSAI.getUUID()));
                 String usrLogin = getUsuario().getLogin();
                 Carpeta rep = FacturaManager.obtenCarpetaDestino(conn, c, "REP", usrLogin);
-                log.debug("Object: {}", "Insertando factura [" + REPNombre + "] ");
+                log.debug("Object: " + String.valueOf("Insertando factura [" + REPNombre + "] "));
                 FacturaManager.insertaArchivosREP(conn, REPNombre, cf, rep, c, usrLogin);
                 FacturaManager.insertaInformacionReciboDePago33(conn, cf.getComprobante().getUUID(), docto, doctoSAI.getTipoDocumento(), doctoSAI.getFolioDocumento());
                 logRenglon.append(doctoSAI.getTipoDocumento()).append(";");
@@ -1134,7 +1134,7 @@ public class FacturaBusinessLogic extends DataSourceManager {
                     throw new Exception(String.format("No se encontro expediente en el tramite. Caso[%d] UUID[%s]", doctoSAI.getIdCaso(), doctoSAI.getUUID()));
                 String usrLogin = getUsuario().getLogin();
                 Carpeta rep = FacturaManager.obtenCarpetaDestino(conn, c, "REP", usrLogin);
-                log.debug("Object: {}", "Insertando factura [" + REPNombre + "] ");
+                log.debug("Object: " + String.valueOf("Insertando factura [" + REPNombre + "] "));
                 FacturaManager.insertaArchivosREP(conn, REPNombre, cf, rep, c, usrLogin);
                 FacturaManager.insertaInformacionReciboDePago40(conn, cf.getComprobante().getUUID(), docto, doctoSAI.getTipoDocumento(), doctoSAI.getFolioDocumento());
                 i++;
@@ -1188,7 +1188,7 @@ public class FacturaBusinessLogic extends DataSourceManager {
             Carpeta cfdi = FacturaManager.obtenCarpetaDestino(conn, c, "CFDI Contrato", u.getLogin());
             for (Iterator<String> i = facturas.keySet().iterator(); i.hasNext(); ) {
                 String facturaNombre = i.next();
-                log.debug("Object: {}", "Insertando factura [" + facturaNombre + "] ");
+                log.debug("Object: " + String.valueOf("Insertando factura [" + facturaNombre + "] "));
                 ComponentesFactura cf = facturas.get(facturaNombre);
                 insertados += FacturaManager.insertaArchivosFactura(conn, facturaNombre, cf, cfdi, c, u.getLogin());
             }

@@ -89,14 +89,14 @@ public class RelacionEFederativaCarteraBusinessLogic extends DataSourceManager {
                 Cell CellcEntidadFederativa = row.getCell(0);
                 Cell CellcCartera = row.getCell(1);
                 if (CellcEntidadFederativa != null) {
-                    log.debug("Object: {}", "Procesando renglon " + (renglon));
+                    log.debug("Object: " + String.valueOf("Procesando renglon " + (renglon)));
                     try {
                         String cEntidadFederativa = CellcEntidadFederativa.getStringCellValue();
                         String cCartera = CellcCartera.getStringCellValue();
                         renglonMap = new HashMap<String, String>();
                         renglonMap.put("cEntidadFederativa", cEntidadFederativa);
                         renglonMap.put("cCartera", cCartera);
-                        log.debug("Object: {}", "cEntidadFederativa[" + cEntidadFederativa + "] cCartera[" + cCartera);
+                        log.debug("Object: " + String.valueOf("cEntidadFederativa[" + cEntidadFederativa + "] cCartera[" + cCartera));
                         RelacionEFederativaCarteraManager.insertaRenglonEFederativaCartera(conn, renglonMap);
                     } catch (Exception e) {
                         renglonInsertada = false;

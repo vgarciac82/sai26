@@ -47,7 +47,7 @@ public class CloseObject {
                     log.debug("El objeto es un Connection. Se cierra");
                     ((Connection) obj).close();
                 } else {
-                    log.debug("Object: {}", "No se como cerrar objetos del tipo: " + obj.getClass().getName());
+                    log.debug("Object: " + String.valueOf("No se como cerrar objetos del tipo: " + obj.getClass().getName()));
                     cerrado = false;
                 }
             }
@@ -71,7 +71,7 @@ public class CloseObject {
     public static void closeStream(Object stream) {
         try {
             if (stream != null) {
-                log.debug("Object: {}", "Closing stream of type: " + stream.getClass().getName());
+                log.debug("Object: " + String.valueOf("Closing stream of type: " + stream.getClass().getName()));
                 if (stream instanceof FileOutputStream) {
                     ((FileOutputStream) stream).flush();
                     ((FileOutputStream) stream).close();

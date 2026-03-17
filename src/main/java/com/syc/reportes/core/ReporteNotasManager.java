@@ -234,7 +234,7 @@ public class ReporteNotasManager {
             call1.setInt(1, mes);
         call1.setInt(2, miles);
         rs = call1.executeQuery();
-        log.debug("Object: {}", String.format("Ejecutando[" + query + "]"));
+        log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query + "]")));
         return rs;
     }
 
@@ -352,7 +352,7 @@ public class ReporteNotasManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -758,14 +758,14 @@ public class ReporteNotasManager {
                 for (XWPFParagraph paragraph1 : cell.getParagraphs()) {
                     for (XWPFRun run : paragraph1.getRuns()) {
                         if (newRow.getTableCells().get(newRow.getTableCells().size() - 1) != newRow.getCell(i)) {
-                            log.debug("Object: {}", "========================= listado2.get(h)	" + listado2.get(h));
+                            log.debug("Object: " + String.valueOf("========================= listado2.get(h)	" + listado2.get(h)));
                             if (encabezado) {
-                                log.debug("Object: {}", "Armando encabezado [" + listado2.get(h) + "]");
+                                log.debug("Object: " + String.valueOf("Armando encabezado [" + listado2.get(h) + "]"));
                                 if (listado2.get(h) != null && !StringUtils.equals("0.00", listado2.get(h).toString())) {
                                     setFormato(run, "Montserrat", 7, listado2.get(h).toString(), true);
                                 }
                             } else {
-                                log.debug("Object: {}", "Armando NO encabezado [" + listado2.get(h) + "]");
+                                log.debug("Object: " + String.valueOf("Armando NO encabezado [" + listado2.get(h) + "]"));
                                 if (listado2.get(h) != null && !StringUtils.equals("0.00", listado2.get(h).toString())) {
                                     setFormato(run, "Montserrat", 7, listado2.get(h).toString(), false);
                                 }
@@ -796,7 +796,7 @@ public class ReporteNotasManager {
                 for (XWPFParagraph paragraph1 : cell.getParagraphs()) {
                     for (XWPFRun run : paragraph1.getRuns()) {
                         if (j == renglones) {
-                            log.debug("Object: {}", "Genera tabla sin titulos [" + listado2.get(h) + "]");
+                            log.debug("Object: " + String.valueOf("Genera tabla sin titulos [" + listado2.get(h) + "]"));
                             if (listado2.get(h) != null && !StringUtils.equals("0.00", listado2.get(h).toString())) {
                                 setFormato(run, "Montserrat", 7, listado2.get(h).toString(), true);
                             }
@@ -832,7 +832,7 @@ public class ReporteNotasManager {
             rs = call1.executeQuery();
             md = rs.getMetaData();
             columnasRA = md.getColumnCount();
-            log.debug("Object: {}", String.format("Ejecutando[" + query + "]"));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query + "]")));
             while (rs.next()) {
                 Object dato = new Object[columnasRA];
                 for (int i = 1; i <= columnasRA; i++) {
@@ -872,7 +872,7 @@ public class ReporteNotasManager {
             rs = call1.executeQuery();
             md = rs.getMetaData();
             columnasRA = md.getColumnCount();
-            log.debug("Object: {}", String.format("Ejecutando[" + query + "]"));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query + "]")));
             while (rs.next()) {
                 Object dato = new Object[columnasRA];
                 for (int i = 1; i <= columnasRA; i++) {
@@ -907,7 +907,7 @@ public class ReporteNotasManager {
             rs = call1.executeQuery();
             md = rs.getMetaData();
             columnasRA = md.getColumnCount();
-            log.debug("Object: {}", String.format("Ejecutando[" + query + "]"));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query + "]")));
             while (rs.next()) {
                 Object dato = new Object[columnasRA];
                 for (int i = 1; i <= columnasRA; i++) {

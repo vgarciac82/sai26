@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mantenimiento Usuarios -->
+<Ayuda>
+	<titulo>Ayuda Catalogo de Roles (perfiles)</titulo>
+	<anchoWin>300</anchoWin>
+	<altoWin>450</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>M_CAT_ROLE_P</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="R_NOMBRE"				control="txtGridMantoIdPerfil"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Login"				ancho="10"		maxlen="32"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="R_DESCRIPCION"			control="txtGridMantoPerfil"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Titulo"				ancho="40"		maxlen="80"		tipo="string"	visible="Si"	clase=""/>
+	</grid>	  
+</Ayuda>

@@ -181,7 +181,7 @@ public class RectificacionPresupuestariaBusinessLogic extends DataSourceManager 
                     id_paso = c.getCasoOperacion(0).getIdOperacion();
                     if (nIdCaso > 0) {
                         ContableInterface conInt = new AplicacionContable();
-                        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
+                        log.debug("Object: " + String.valueOf("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso));
                         // boolean validaSaldo;
                         cTablaEncabezado = "tRectificacionAutEncabezado";
                         cTablaDetalle = "tRectificacionAutDetalle";
@@ -189,7 +189,7 @@ public class RectificacionPresupuestariaBusinessLogic extends DataSourceManager 
                         cTipoDocumento = "RECTIFICACIONAUT";
                         AplicarContableReturn acr = conInt.aplicarContableNuevo(conn, c, cTablaEncabezado, cTablaDetalle, cFolio, nIdCaso, cTipoDocumento, m, prefixPath, uLogin, "");
                         arrLResult.addAll(acr.getMessageList());
-                        log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso);
+                        log.debug("Object: " + String.valueOf("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + nIdCaso));
                         Caso cReloaded = new Caso();
                         cReloaded.setIdCaso(c.getIdCaso());
                         cReloaded = CasoManager.select(conn, cReloaded);
@@ -205,7 +205,7 @@ public class RectificacionPresupuestariaBusinessLogic extends DataSourceManager 
                         conn.rollback();
                     }
                 } else {
-                    log.debug("Object: {}", mensaje);
+                    log.debug("Object: " + String.valueOf(mensaje));
                     //cMensaje += mensaje;
                 }
             } else {
@@ -239,10 +239,10 @@ public class RectificacionPresupuestariaBusinessLogic extends DataSourceManager 
             CasoBusinessLogic cbl = new CasoBusinessLogic(GestionInterface.ATT_CONEXION);
             conn = cbl.getConnection();
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis())));
             AplicarContableReturn acr = conInt.aplicarContableNuevo(conn, c, "tRectificacionEncabezado", "tRectificacionDetalle", "nFolioRectificacion", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "RECTIFICACION", m, prefixPath, uLogin, "");
             arrLResult = acr.getMessageList();
-            log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis())));
             Caso cReloaded = new Caso();
             cReloaded.setIdCaso(c.getIdCaso());
             cReloaded = CasoManager.select(conn, cReloaded);

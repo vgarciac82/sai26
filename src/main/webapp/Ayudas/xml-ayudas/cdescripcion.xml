@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Ayuda Meses Contables. -->
+<Ayuda>
+	<titulo>Mantenimiento Meses Contables</titulo>
+	<anchoWin>1100</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>135</altoAreaCaptura>
+	<tabla>M_CAT_MESES_CONTABLES</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>1</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	<grid>
+		<columna campo="cCentroContable"	control="cCentroContable"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="ID Centro Contable"	rowCol="1,1"	ancho="3"	maxlen="3"		tipo="string"	visible="Si"	clase="" llave="Si"	/>
+		<columna campo="cdescripcion"		control="cdescripcion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Centro Contable"	rowCol="1,2"	ancho="60"	maxlen="100"	tipo="string"	visible="Si"	clase="" />
+	</grid>
+</Ayuda>

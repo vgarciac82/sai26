@@ -45,9 +45,9 @@ public class ReporteNotasServlet extends HttpServlet implements GestionInterface
             throw new ServletException("Su session a caducado");
         log.debug("Usuario valido");
         String general = req.getParameter("reporte");
-        log.debug("Object: {}", "General: " + general);
+        log.debug("Object: " + String.valueOf("General: " + general));
         String tipoReporte = req.getParameter("tipoReporte");
-        log.debug("Object: {}", "tipoReporte: " + tipoReporte);
+        log.debug("Object: " + String.valueOf("tipoReporte: " + tipoReporte));
         ReporteNotasBusinessLogic rrs = new ReporteNotasBusinessLogic(jniName);
         log.debug("ReporteNotasBusinessLogic creado ");
         try {

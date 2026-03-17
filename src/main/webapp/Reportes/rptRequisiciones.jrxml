@@ -1,0 +1,839 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Requisiciones"  pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="807" leftMargin="15" rightMargin="20" topMargin="10" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="70"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="cEjercicio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cIdTipoSolicitud" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cIdUnidadEjecutora" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nIdConsecutivo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="formato" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[declare @cEjercicio char(4), @cIdUnidadEjecutora char(3), @nIdConsecutivo int, @cIdTipoSolicitud char(2),@montoNetoSolicitud money,@montoBrutoSolicitud money,@mMontoIVA money;
+--set @cEjercicio = '2015';
+--set @cIdUnidadEjecutora = 'A04';
+--set @nIdConsecutivo = '5';
+--set @cIdTipoSolicitud = 'RS';
+
+set @cEjercicio = $P{cEjercicio};
+set @cIdUnidadEjecutora = $P{cIdUnidadEjecutora};
+set @nIdConsecutivo = $P{nIdConsecutivo};
+set @cIdTipoSolicitud = $P{cIdTipoSolicitud};
+
+
+--obtenemos monto total de la requisiscion
+select @montoNetoSolicitud=sum(xx.montoneto),@montoBrutoSolicitud=sum(xx.montoBruto),@mMontoIVA=SUM(xx.montoIVA) from(
+select  round(x.mMontoNeto,2)montoneto, x.montoBruto,round(x.montoIVA,2) montoIVA
+	from(SELECT convert(money,  sum(round((nCantidad * mPrecioUnitario),2))) AS montoBruto,nPorcentajeIVA,sum(mMontoNeto) as mMontoNeto
+				,convert(money,  sum(round((nCantidad * mPrecioUnitario*nPorcentajeIVA)/100,2))) as montoIVA
+				from mSolicitudLineas WHERE cIdEstadoLinea<>'C' AND cEjercicio=@cEjercicio and cIdUnidadEjecutora=@cIdUnidadEjecutora
+				and nIdConsecutivo=@nIdConsecutivo and cIdTipoSolicitud=@cIdTipoSolicitud  group by nPorcentajeIVA)x)xx
+
+
+SELECT
+	ms.cIdSolicitud,
+	ms.cEjercicio,
+	ms.cIdUnidadEjecutora,
+	--mSolicitud
+	UPPER('[' + tUE.cUnidadEjecutora + '] ' + tUE.D_DESCRIPCION) AS cUnidadEjecutora,
+	'REQUISICIÓN ' + UPPER(tTS.cTipoSolicitud)+' ' + ms.cIdSolicitud AS cTipoSolicitud,
+	'ESTADO: ' + UPPER(tES.cEstado) AS cEstado,
+	'Descripción: ' + ms.cDescripcion AS cDescripcion,
+	'Fecha de Elaboración: ' + CONVERT(varchar,ms.fCreacion,103) AS fCreacion,
+	'Fecha Requerida: ' + CONVERT(varchar,ms.fRequerida,103) AS fRequerida,
+	'Plazo: ' + convert(varchar,ms.nIdPlazo) + ' días naturales' AS nIdPlazo,
+	'Plurianualidad: ' + ms.cPlurianualidad AS cplurianualidad,
+	'Tipo de procedimiento: ' + tp.cCategoria AS nIdCategoria,
+	'Anexos: ' + CONVERT(varchar,CASE WHEN ms.lAnexos = 0 THEN 'No' ELSE 'Si' END) AS lAnexos,
+
+	case when ms.cIdAlmacen='.'
+			then 'Lugar de Adquisición de los bienes o ejecución de los servicios: --NO APLICA--'
+		WHEN ms.cIdAlmacen='..'
+			then 'Lugar de Adquisición de los bienes o ejecución de los servicios: --SEGUN ANEXO--'
+		ELSE 'Lugar de Adquisición de los bienes o ejecución de los servicios: ' + (ms.cIdAlmacen +' - '+ (select D_DESCRIPCION from v_unidadEjecutoraPadre where cUnidadResponsable=ms.cIdAlmacen))
+	END AS cIdAlmacen,
+	'Lugar de Entrega: ' + tAE.cAlmacen AS cIdAlmacenEntrega,
+
+	'Tipo de garantía: ' + (select distinct cDescripcion from mCatalogoTipoGarantia where nIdTipoGarantia=ms.cTipoGarantia) AS cTipoGarantia,
+	case when ms.mPorcentajeGarantia>0
+	then 'Porcentaje de garantía: ' + convert(varchar,ms.mPorcentajeGarantia) + '%'
+	else 'Porcentaje de garantía: ' + (select distinct cIdPorcentaje from mCatalogoTipoGarantia where nIdTipoGarantia=ms.cTipoGarantia and mPorcentaje=ms.mPorcentajeGarantia and nId=ms.nIdTipoGarantia)
+	end AS mPorcentajeGarantia,
+
+	'Importe Póliza de Responsabilidad civil: $' + convert(varchar, ms.mImportePoliza) AS mImportePoliza,
+	'Periodo: ' + tM.cMes AS nIdPeriodo,
+	'Partida: ' + tSP.cIdSubPartida AS cIdSubPartida,
+	'Alcance: ' + convert(varchar,tAlc.cAlcance) AS nIdAlcance,
+	'Observaciones: ' + ms.cObservaciones As cObservaciones,
+	--'$' + ISNULL(CONVERT(varchar, mslMonto.montoNeto, 1),'0.00') AS montoNeto,
+	--'$' + ISNULL(CONVERT(varchar, mslMonto.montoBruto, 1),'0.00') AS montoBruto,
+	--'$' + ISNULL(CONVERT(varchar, mslMonto.montoNeto - mslMonto.montoBruto, 1),'0.00') AS cIVA,
+	'$' + ISNULL(CONVERT(varchar,@montoNetoSolicitud , 1),'0.00') AS montoNeto,
+	'$' + ISNULL(CONVERT(varchar, @montoBrutoSolicitud, 1),'0.00') AS montoBruto,
+	--'$' + ISNULL(CONVERT(varchar, @montoNetoSolicitud - @montoBrutoSolicitud, 1),'0.00') AS cIVA,
+	case when (@montoNetoSolicitud-@montoBrutoSolicitud)>0.5 then '$' + ISNULL(CONVERT(varchar, @montoNetoSolicitud - @montoBrutoSolicitud, 1),'0.00')
+	else '$'+(convert(varchar, @mMontoIVA,1)) end cIVA,
+	--mSolicitudFirmantes
+	ISNULL(msf1.cPuesto, 'FIRMANTE NO AGREGADO') AS cPuesto1,
+	ISNULL(msf1.cNombre, 'FIRMANTE NO AGREGADO') AS cNombre1,
+	ISNULL(msf2.cPuesto, 'FIRMANTE NO AGREGADO') AS cPuesto2,
+	ISNULL(msf2.cNombre, 'FIRMANTE NO AGREGADO') AS cNombre2,
+	ISNULL(msf3.cPuesto, 'FIRMANTE NO AGREGADO') AS cPuesto3,
+	ISNULL(msf3.cNombre, 'FIRMANTE NO AGREGADO') AS cNombre3,
+	ISNULL(msf4.cPuesto, 'FIRMANTE NO AGREGADO') AS cPuesto4,
+	ISNULL(msf4.cNombre, 'FIRMANTE NO AGREGADO') AS cNombre4,
+	--mSolicitudLineas
+	ISNULL(msl.cIdCABM, '') AS cIdCABM,
+	ISNULL(convert(varchar,msl.nIdLineaSolicitud),'') AS nIdLineaSolicitud,
+	--CASE WHEN CONVERT(varchar, ISNULL(msl.nIdLineaSolicitud, '')) = '0' THEN '' ELSE msl.nIdLineaSolicitud END AS nIdLineaSolicitud,
+	ISNULL(msl.cDescripcion, '') AS cDescripcionLinea,
+	ISNULL(msl.cDescripcionAdicional, '') AS cDescripcionLineaAdicional,
+	ISNULL(convert(varchar,msl.nCantidad),'') AS nCantidad,
+	--CASE WHEN msl.nCantidad = 0 OR msl.nCantidad = NULL THEN '' ELSE msl.nCantidad END AS nCantidad,
+	ISNULL(msl.cUnidadMedida, '') AS cUnidadMedida,
+	CASE WHEN msl.mPrecioUnitario <> '' THEN '$' ELSE '' END + ISNULL(CONVERT(varchar, msl.mPrecioUnitario, 1), '') AS mPrecioUnitario,
+	CASE WHEN msl.mPrecioUnitario <> '' THEN '$' ELSE '' END + ISNULL(CONVERT(varchar, CONVERT(MONEY, msl.mMontoNeto ), 1), '') AS nTotal,
+	isnull((select '$'+convert(varchar,SUM(monto),1) from
+	(
+		SELECT cIdSolicitud, ClaveSIAFF, ClaveInterna,
+		MontoEnero as mes01, MontoFebrero as mes02, MontoMarzo as mes03,
+		MontoAbril as mes04, MontoMayo as mes05, MontoJunio as mes06,
+		MontoJulio as mes07, MontoAgosto as mes08, MontoSeptiembre as mes09,
+		MontoOctubre as mes10, MontoNoviembre as mes11, MontoDiciembre as mes12
+		FROM vPresupuestoSolicitudEP
+		--WHERE cEjercicio = @cEjercicio AND cIdUnidadEjecutora = @cIdUnidadEjecutora AND cIdSolicitud = @cIdSolicitud
+		)
+	Main UNPIVOT (Monto FOR Meses IN (mes01, mes02, mes03, mes04, mes05, mes06,
+	mes07, mes08, mes09, mes10, mes11, mes12) ) Mes	WHERE Monto > 0 and cIdSolicitud=ms.cIdSolicitud
+	group by cIdSolicitud
+	),0.00) as totalEp
+	,'Requisición creada por: '+isnull((select U_NOMBRE from cg_usuario where U_LOGIN=ms.cIdUsuarioCreacion),'')UsuarioCreacion
+from mSolicitud ms WITH (nolock) inner join
+	tCatUnidadEjecutora tUE WITH (nolock) on
+		ms.cIdUnidadEjecutora = tUE.cUnidadEjecutora
+	inner join mCatalogoAlcance tAlc  WITH (nolock) on
+		tAlc.nIdAlcance = ms.nIdAlcance
+	inner join mCatalogoTipoSolicitud tTS WITH (nolock) on
+		tTs.cIdTipoSolicitud = ms.cIdTipoSolicitud
+	inner join mCatalogoEstadoSolicitud tES WITH (nolock) on
+		tES.nIdEstado = ms.nIdEstado
+	inner join mCatalogoCategoriaProcedimiento tP  WITH (nolock) on
+		tP.nIdCategoria = ms.nIdCategoria
+	--inner join mCatalogoAlmacen tA WITH (nolock) on
+	--	tA.cIdAlmacen = ms.cIdAlmacen
+	inner join mCatalogoAlmacen tAE  WITH (nolock) on
+		tAE.cIdAlmacen = ms.cIdAlmacenEntrega
+	inner join mCatalogoSubPartida tSP WITH (nolock) on
+		tSp.cIdSubPartida = ms.cIdSubPartida
+	inner join mCatalogoMes tM WITH (nolock) on
+		tM.nIdPeriodo = ms.nIdPeriodo
+	left outer join
+		(select
+		msf.cEjercicio,
+		msf.cIdTipoSolicitud,
+		msf.nIdConsecutivo,
+		msf.cIdUnidadEjecutora,
+		msf.cIdSolicitud,
+		tf.cPuesto AS cPuesto,
+		tf.cNombre + ' ' + tf.cPaterno + ' ' + tf.cMaterno AS cNombre
+		FROM
+		--EQUIJUNTAS
+		mSolicitudFirmantes msf WITH (nolock),
+		mCatalogoFirmantes tF WITH (nolock)
+		WHERE
+		msf.nIdFirmante = tF.nIdFirmante AND msf.cIdUnidadEjecutora = tf.cIdUnidadEjecutora
+		AND msf.cEjercicio = @cEjercicio AND msf.cIdTipoSolicitud = @cIdTipoSolicitud AND msf.cIdUnidadEjecutora = @cIdUnidadEjecutora AND msf.nIdConsecutivo = @nIdConsecutivo AND msf.nNumeroFirmante = 1
+	) AS msf1 on
+	 msf1.cIdUnidadEjecutora=ms.cIdUnidadEjecutora
+	 and msf1.nIdConsecutivo=ms.nIdConsecutivo
+	 and msf1.cEjercicio=ms.cEjercicio
+	 and msf1.cIdSolicitud=ms.cIdSolicitud
+	left outer join
+		(select
+		msf.cEjercicio,
+		msf.cIdTipoSolicitud,
+		msf.nIdConsecutivo,
+		msf.cIdUnidadEjecutora,
+		msf.cIdSolicitud,
+		tf.cPuesto AS cPuesto,
+		tf.cNombre + ' ' + tf.cPaterno + ' ' + tf.cMaterno AS cNombre
+		FROM
+		--EQUIJUNTAS
+		mSolicitudFirmantes msf WITH (nolock),
+		mCatalogoFirmantes tF WITH (nolock)
+		WHERE
+		msf.nIdFirmante = tF.nIdFirmante AND msf.cIdUnidadEjecutora = tf.cIdUnidadEjecutora
+		AND msf.cEjercicio = @cEjercicio AND msf.cIdTipoSolicitud = @cIdTipoSolicitud AND msf.cIdUnidadEjecutora = @cIdUnidadEjecutora AND msf.nIdConsecutivo = @nIdConsecutivo AND msf.nNumeroFirmante =2
+	) AS msf2 on
+	 msf2.cIdUnidadEjecutora=ms.cIdUnidadEjecutora
+	 and msf2.nIdConsecutivo=ms.nIdConsecutivo
+	 and msf2.cEjercicio=ms.cEjercicio
+	 and msf2.cIdSolicitud=ms.cIdSolicitud
+	 left outer join
+		(select
+		msf.cEjercicio,
+		msf.cIdTipoSolicitud,
+		msf.nIdConsecutivo,
+		msf.cIdUnidadEjecutora,
+		msf.cIdSolicitud,
+		tf.cPuesto AS cPuesto,
+		tf.cNombre + ' ' + tf.cPaterno + ' ' + tf.cMaterno AS cNombre
+		FROM
+		--EQUIJUNTAS
+		mSolicitudFirmantes msf WITH (nolock),
+		mCatalogoFirmantes tF WITH (nolock)
+		WHERE
+		msf.nIdFirmante = tF.nIdFirmante AND msf.cIdUnidadEjecutora = tf.cIdUnidadEjecutora
+		AND msf.cEjercicio = @cEjercicio AND msf.cIdTipoSolicitud = @cIdTipoSolicitud AND msf.cIdUnidadEjecutora = @cIdUnidadEjecutora AND msf.nIdConsecutivo = @nIdConsecutivo AND msf.nNumeroFirmante = 3
+	) AS msf3 on
+	 msf3.cIdUnidadEjecutora=ms.cIdUnidadEjecutora
+	 and msf3.nIdConsecutivo=ms.nIdConsecutivo
+	 and msf3.cEjercicio=ms.cEjercicio
+	 and msf3.cIdSolicitud=ms.cIdSolicitud
+
+
+
+	  left outer join
+		(select
+		msf.cEjercicio,
+		msf.cIdTipoSolicitud,
+		msf.nIdConsecutivo,
+		msf.cIdUnidadEjecutora,
+		msf.cIdSolicitud,
+		tf.cPuesto AS cPuesto,
+		tf.cNombre + ' ' + tf.cPaterno + ' ' + tf.cMaterno AS cNombre
+		FROM
+		--EQUIJUNTAS
+		mSolicitudFirmantes msf WITH (nolock),
+		mCatalogoFirmantes tF WITH (nolock)
+		WHERE
+		msf.nIdFirmante = tF.nIdFirmante AND msf.cIdUnidadEjecutora = tf.cIdUnidadEjecutora
+		AND msf.cEjercicio = @cEjercicio AND msf.cIdTipoSolicitud = @cIdTipoSolicitud AND msf.cIdUnidadEjecutora = @cIdUnidadEjecutora AND msf.nIdConsecutivo = @nIdConsecutivo AND msf.nNumeroFirmante = 4
+	) AS msf4 on
+	 msf4.cIdUnidadEjecutora=ms.cIdUnidadEjecutora
+	 and msf4.nIdConsecutivo=ms.nIdConsecutivo
+	 and msf4.cEjercicio=ms.cEjercicio
+	 and msf4.cIdSolicitud=ms.cIdSolicitud
+
+/*
+	 left outer join (
+	 SELECT cEjercicio, nIdConsecutivo, cIdUnidadEjecutora, cIdTipoSolicitud,
+	-- CONVERT(MONEY, SUM(nCantidad * mPrecioUnitario)) AS montoBruto,
+	  --CONVERT(MONEY, SUM(round(nCantidad * mPrecioUnitario * ( 1 + CONVERT(MONEY,nPorcentajeIVA) / 100),2))) AS montoNeto
+	  from mSolicitudLineas msl WITH (nolock) WHERE cEjercicio = @cEjercicio AND nIdConsecutivo = @nIdConsecutivo
+	  AND cIdTipoSolicitud = @cIdTipoSolicitud
+	  AND cIdunidadEjecutora = @cIdUnidadEjecutora
+	   GROUP BY cEjercicio, nIdConsecutivo, cIdUnidadEjecutora, cIdTipoSolicitud) AS mslMonto on
+
+
+
+	    ms.cEjercicio=mslMonto.cEjercicio
+	    and ms.nIdConsecutivo=mslMonto.nIdConsecutivo
+	    and ms.cIdUnidadEjecutora=mslMonto.cIdUnidadEjecutora
+	    and ms.cIdTipoSolicitud=mslMonto.cIdTipoSolicitud
+
+	   */
+
+	 left outer join (SELECT msl.*, tUM.cUnidadMedida FROM mSolicitudLineas msl WITH (nolock), mCatalogoCABM tCABM WITH (nolock), mCatalogoUnidadMedida tUM WITH (nolock) WHERE msl.cIdCABM = tCABM.cIdCABM AND tCABM.cIdUnidadMedida = tUM.cIdUnidadMedida
+	 and msl.cIdSubPartida= tCABM.cIdSubPartida) AS msl ON
+	    ms.cEjercicio=msl.cEjercicio
+	    and ms.nIdConsecutivo=msl.nIdConsecutivo
+	    and ms.cIdUnidadEjecutora=msl.cIdUnidadEjecutora
+	    and ms.cIdTipoSolicitud=msl.cIdTipoSolicitud
+
+WHERE ms.cEjercicio = @cEjercicio
+AND ms.cIdTipoSolicitud = @cIdTipoSolicitud
+AND ms.cIdUnidadEjecutora = @cIdUnidadEjecutora
+AND ms.nIdConsecutivo = @nIdConsecutivo]]>
+	</queryString>
+	<field name="cIdSolicitud" class="java.lang.String"/>
+	<field name="cEjercicio" class="java.lang.String"/>
+	<field name="cIdUnidadEjecutora" class="java.lang.String"/>
+	<field name="cUnidadEjecutora" class="java.lang.String"/>
+	<field name="cTipoSolicitud" class="java.lang.String"/>
+	<field name="cEstado" class="java.lang.String"/>
+	<field name="cDescripcion" class="java.lang.String"/>
+	<field name="fCreacion" class="java.lang.String"/>
+	<field name="fRequerida" class="java.lang.String"/>
+	<field name="nIdPlazo" class="java.lang.String"/>
+	<field name="cplurianualidad" class="java.lang.String"/>
+	<field name="nIdCategoria" class="java.lang.String"/>
+	<field name="lAnexos" class="java.lang.String"/>
+	<field name="cIdAlmacen" class="java.lang.String"/>
+	<field name="cIdAlmacenEntrega" class="java.lang.String"/>
+	<field name="cTipoGarantia" class="java.lang.String"/>
+	<field name="mPorcentajeGarantia" class="java.lang.String"/>
+	<field name="mImportePoliza" class="java.lang.String"/>
+	<field name="nIdPeriodo" class="java.lang.String"/>
+	<field name="cIdSubPartida" class="java.lang.String"/>
+	<field name="nIdAlcance" class="java.lang.String"/>
+	<field name="cObservaciones" class="java.lang.String"/>
+	<field name="montoNeto" class="java.lang.String"/>
+	<field name="montoBruto" class="java.lang.String"/>
+	<field name="cIVA" class="java.lang.String"/>
+	<field name="cPuesto1" class="java.lang.String"/>
+	<field name="cNombre1" class="java.lang.String"/>
+	<field name="cPuesto2" class="java.lang.String"/>
+	<field name="cNombre2" class="java.lang.String"/>
+	<field name="cPuesto3" class="java.lang.String"/>
+	<field name="cNombre3" class="java.lang.String"/>
+	<field name="cPuesto4" class="java.lang.String"/>
+	<field name="cNombre4" class="java.lang.String"/>
+	<field name="cIdCABM" class="java.lang.String"/>
+	<field name="nIdLineaSolicitud" class="java.lang.String"/>
+	<field name="cDescripcionLinea" class="java.lang.String"/>
+	<field name="cDescripcionLineaAdicional" class="java.lang.String"/>
+	<field name="nCantidad" class="java.lang.String"/>
+	<field name="cUnidadMedida" class="java.lang.String"/>
+	<field name="mPrecioUnitario" class="java.lang.String"/>
+	<field name="nTotal" class="java.lang.String"/>
+	<field name="totalEp" class="java.lang.String"/>
+	<field name="UsuarioCreacion" class="java.lang.String"/>
+	<variable name="cIdUnidadEjecutora_1" class="java.lang.Integer" resetType="Group" resetGroup="uni" calculation="Count">
+		<variableExpression><![CDATA[$F{cIdUnidadEjecutora}]]></variableExpression>
+	</variable>
+	<group name="uni">
+		<groupExpression><![CDATA[$F{cIdUnidadEjecutora}]]></groupExpression>
+		<groupHeader>
+			<band height="180">
+				<staticText>
+					<reportElement x="1" y="164" width="76" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[CUCOP]]></text>
+				</staticText>
+				<line>
+					<reportElement x="1" y="179" width="769" height="1"/>
+				</line>
+				<staticText>
+					<reportElement x="77" y="164" width="41" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[# Linea]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="118" y="164" width="230" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Descripción]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="504" y="164" width="58" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Cantidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="562" y="164" width="43" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[U.M.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="605" y="164" width="71" height="13"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Precio Unitario]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="676" y="164" width="93" height="13"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="504" y="78" width="265" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{mPorcentajeGarantia}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="504" y="25" width="265" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Existencia en almacén: No hay existencia en almacén]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="504" y="145" width="266" height="14"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{nIdAlcance}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="1" y="6" width="768" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cDescripcion}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="243" y="25" width="259" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fRequerida}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="504" y="60" width="265" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cTipoGarantia}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="243" y="69" width="261" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cIdAlmacenEntrega}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="243" y="145" width="260" height="14"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cIdSubPartida}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="243" y="41" width="259" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{nIdPlazo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="1" y="25" width="239" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fCreacion}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="504" y="95" width="265" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{mImportePoliza}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="1" y="145" width="239" height="14"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{nIdPeriodo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="504" y="41" width="265" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cplurianualidad}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="2" y="69" width="239" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cIdAlmacen}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="1" y="3" width="768" height="1"/>
+				</line>
+				<line>
+					<reportElement x="1" y="19" width="768" height="1"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="769" y="3" width="1" height="104"/>
+				</line>
+				<line>
+					<reportElement x="1" y="55" width="768" height="1"/>
+				</line>
+				<line>
+					<reportElement positionType="Float" x="1" y="107" width="768" height="1"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="3" width="1" height="104"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="241" y="56" width="1" height="51"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="503" y="56" width="1" height="51"/>
+				</line>
+				<line>
+					<reportElement x="241" y="20" width="1" height="35"/>
+				</line>
+				<line>
+					<reportElement x="503" y="20" width="1" height="35"/>
+				</line>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="2" y="133" width="767" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{UsuarioCreacion}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="348" y="164" width="154" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Descripción Adicional]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="98">
+				<staticText>
+					<reportElement x="605" y="9" width="71" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[SUBTOTAL:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="605" y="22" width="71" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[IVA:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="605" y="35" width="71" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[TOTAL:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="676" y="9" width="93" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{montoBruto}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="676" y="22" width="93" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cIVA}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="676" y="35" width="93" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{montoNeto}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="1" y="3" width="769" height="1"/>
+				</line>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="1" y="49" width="768" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cObservaciones}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement positionType="Float" x="1" y="62" width="769" height="1"/>
+				</line>
+				<staticText>
+					<reportElement x="1" y="68" width="21" height="11"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[EP]]></text>
+				</staticText>
+				<subreport>
+					<reportElement x="1" y="83" width="769" height="8"/>
+					<subreportParameter name="cIdSolicitud">
+						<subreportParameterExpression><![CDATA[$F{cIdSolicitud}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\rptRequisicionesEP.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement x="605" y="68" width="71" height="11"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Mes]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="676" y="68" width="93" height="11"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Monto Total]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="2" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement x="660" y="38" width="35" height="11"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Ejercicio]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="243" y="26" width="319" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cTipoSolicitud}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="754" y="14" width="15" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="660" y="14" width="35" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Página]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="243" y="14" width="319" height="12"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cUnidadEjecutora}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="735" y="14" width="18" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[de ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="243" y="1" width="319" height="16"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="243" y="38" width="319" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cEstado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="695" y="14" width="36" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="695" y="38" width="36" height="11"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cEjercicio}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="1" y="2" width="239" height="48"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"\\CONAFOR_NvoLogoDic2013_HD_Horizontal.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} != 1]]></printWhenExpression>
+			<textField>
+				<reportElement x="1" y="3" width="768" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cDescripcion}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="17" width="768" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="76" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cIdCABM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="77" y="0" width="41" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nIdLineaSolicitud}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="118" y="0" width="230" height="12" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cDescripcionLinea}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="504" y="0" width="58" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nCantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="562" y="0" width="43" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cUnidadMedida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="676" y="0" width="93" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="605" y="0" width="71" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mPrecioUnitario}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="348" y="0" width="154" height="12" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cDescripcionLineaAdicional}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="94" splitType="Stretch">
+			<line>
+				<reportElement x="243" y="50" width="259" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="243" y="53" width="259" height="13" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Firma de conformidad]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="243" y="67" width="259" height="13" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cNombre3}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="243" y="80" width="259" height="13" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cPuesto3}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="605" y="1" width="71" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Total en EP's]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="676" y="1" width="93" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalEp}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Configuración Usuarios/Vistas</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>M_VistasUR</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>		
+		<columna campo="usuario"
+			control="MantoLoginSup"	
+			dependencia="No"
+			limpiaOnKeypress=""
+			header="Usuario"	 	 
+			ancho="32"		
+			maxlen="32"  
+			tipo="string"	
+			visible="Si"	
+			clase="AyudaSyC autoCompletaSyC"/>
+			
+		<columna campo="modulo"	
+			control="txtGridModulos"
+			dependencia="No"		
+			limpiaOnKeypress=""	
+			header="Modulo"		
+			ancho="32"		
+			maxlen="12"		
+			tipo="string"		
+			visible="Si"	
+			clase="AyudaSyC autoCompletaSyC"/>
+			
+			<!-- txtGridtUniEjeC-->
+		<columna campo="ur"	
+			control="txtGridUR"
+			dependencia="No"	
+			limpiaOnKeypress=""		
+			header="Unidad Ejecutora"	 
+			ancho="32"	
+			maxlen="3" 
+			tipo="string"	
+			visible="Si"	
+			clase="AyudaSyC autoCompletaSyC"/>
+			
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="usuario"	
+			control="txtGridMantoLoginSup"	
+			llave="Si"	
+			identity="No"	
+			requerido="El Usuario es un dato requerido."	
+			requeridoFocus="txtGridMantoLoginSup"	
+			tipo="string" />		
+			
+		<campo field="ur"	
+			control="txtGridUR"	
+			llave="Si"	
+			identity="No"	
+			requerido="La Unidad Ejecutora es un dato requerido."		
+			requeridoFocus="txtGridUR"	
+			tipo="string" />
+		
+		<campo field="modulo"	
+			control="txtGridModulos"		
+			llave="Si"	
+			identity="No"	
+			requerido="El Modulo es un dato requerido."	
+			requeridoFocus="txtGridModulos"	
+			tipo="string" />	
+	</insertaRegistro>
+	
+</Ayuda>

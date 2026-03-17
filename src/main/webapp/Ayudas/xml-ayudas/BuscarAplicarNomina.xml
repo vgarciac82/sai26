@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+<titulo>Ayuda Nómina</titulo>
+	<anchoWin>950</anchoWin>
+	<altoWin>900</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>NOMINACAPITULOMIL</tabla>
+	<maxRegistros>250</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="caNoContrarrecibo"	control="BuscarAplicarNomina"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Cuenta por Pagar"	ancho="40"	maxlen="40"		tipo="string"	visible="si"	clase=""/>
+		<columna campo="cUnidadResponsable"	control="cUnidadResponsable"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Unidad Responsable"	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="fAplicacion"	control="fAplicacion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Fecha Aplicación"	ancho="10"	maxlen="10"		tipo="string"	visible="Si"	clase=""/>
+        <columna campo ="cIdRFC" control="cIdRFC"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="RFC"	ancho="16"	maxlen="16"		tipo="string"	visible="Si"	clase=""/>
+        <columna campo ="mImporteNeto" control="mImporteNeto"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Importe"	ancho="2"	maxlen="2"		tipo="string"	visible="Si"	clase=""/>
+        <columna campo ="docAplicado" control="docAplicado"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Aplicado"	ancho="2"	maxlen="2"		tipo="string"	visible="Si"	clase=""/>
+   		<columna campo ="nEnviadoSICOP" control="nEnviadoSICOP"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Sicop"	ancho="2"	maxlen="2"		tipo="string"	visible="No"	clase=""/>
+   		<columna campo ="solicitudPago" control="solicitudPago"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Solicitud Pago"	ancho="2"	maxlen="2"		tipo="string"	visible="No"	clase=""/>
+   		<columna campo ="cConcepto" control="cConceptoTxt"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Concepto"	ancho="2"	maxlen="2"		tipo="string"	visible="No"	clase=""/>
+   </grid>  
+</Ayuda>

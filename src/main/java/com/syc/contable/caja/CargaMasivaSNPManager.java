@@ -40,7 +40,7 @@ public class CargaMasivaSNPManager {
             query = query + cond;
             if (cUnidadEjecutora != null)
                 query = query + " AND cunidadresponsable = ?";
-            log.debug("Object: {}", "Query a ejecutar: " + query);
+            log.debug("Object: " + String.valueOf("Query a ejecutar: " + query));
             ps = conn.prepareStatement(query);
             int cnt = 1;
             for (Iterator<String> i = filtros.iterator(); i.hasNext(); ) {
@@ -58,7 +58,7 @@ public class CargaMasivaSNPManager {
             File fsalida = new File(plantillaPath);
             FileOutputStream fos = new FileOutputStream(fsalida);
             BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             workbook.close();
             bos.flush();
             bos.close();

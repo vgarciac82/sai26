@@ -105,7 +105,7 @@ public class SuficienciaPagoDirectoEncabezadoServlet extends HttpServlet {
             logic.deleteByFolio(folio);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("{\"mensaje\":\"Eliminado correctamente\"}".toPath());
+            response.getWriter().write("{\"mensaje\":\"Eliminado correctamente\"}");
         } catch (Exception ex) {
             log.error("Error al eliminar encabezado", ex);
             enviarError(response, "Error al eliminar encabezado.");
@@ -132,6 +132,6 @@ public class SuficienciaPagoDirectoEncabezadoServlet extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"error\": \"" + mensaje + "\"}".toPath());
+        response.getWriter().write("{\"error\": \"" + mensaje + "\"}");
     }
 }

@@ -92,7 +92,7 @@ public class ConciliaBancosAutServlet extends HttpServlet {
                 }
             throw e;
         } finally {
-            out.write(jsonObj.toString().toPath());
+            out.write(jsonObj.toString());
             out.flush();
             out.close();
             out = null;

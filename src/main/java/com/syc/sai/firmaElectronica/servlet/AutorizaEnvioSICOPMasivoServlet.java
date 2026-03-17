@@ -71,10 +71,10 @@ public final class AutorizaEnvioSICOPMasivoServlet extends HttpServlet {
                 int status = ("revisaEnvioSICOPMasivo".equals(action) ? SolicitudFirmaElectronica.AUT_LAYOUT : SolicitudFirmaElectronica.GENERA_LAYOUT);
                 log.info("Object: {}", "Procesando " + total + " trámites para autorización. Nuevo estatus: " + status);
                 for (String idCaso : idCasos) {
-                    log.debug("Object: {}", "Procesando trámite con ID Caso: " + idCaso);
+                    log.debug("Object: " + String.valueOf("Procesando trámite con ID Caso: " + idCaso));
                     try {
                         Caso c = processBL.getCaso(Integer.parseInt(idCaso));
-                        log.debug("Object: {}", "Caso obtenido: " + c);
+                        log.debug("Object: " + String.valueOf("Caso obtenido: " + c));
                         String tablaEncabezado = SolicitudFirmaElectronica.RELACION_TRAMITE_TABLA_E.get(c.getTipoCaso().getGavetaAsociada());
                         String tablaDetalle = "";
                         if (tablaEncabezado == null) {
@@ -86,7 +86,7 @@ public final class AutorizaEnvioSICOPMasivoServlet extends HttpServlet {
                             campoLlave = "nFolio" + c.getTipoCaso().getGavetaAsociada();
                         }
                         int valorLlave = Util.folio(c);
-                        log.debug("Object: {}", "Autorizando trámite en tabla: " + tablaEncabezado + ", campo: " + campoLlave + ", valor: " + valorLlave);
+                        log.debug("Object: " + String.valueOf("Autorizando trámite en tabla: " + tablaEncabezado + ", campo: " + campoLlave + ", valor: " + valorLlave));
                         if (esAmbiental == false && "tPAGODIVERSOENCABEZADO".equalsIgnoreCase(tablaEncabezado)) {
                             SolicitudFirmaElectronica solicitudPagoPrinter = new SolicitudPagoFirmaElectronica();
                             solicitudPagoPrinter.setDetail(tablaDetalle);
@@ -116,10 +116,10 @@ public final class AutorizaEnvioSICOPMasivoServlet extends HttpServlet {
                 result.put("success", exito);
                 String jsonResponse = new Gson().toJson(result);
                 log.info("Object: {}", "Autorización finalizada. Total: " + total + ", Exitosos: " + exito);
-                log.debug("Object: {}", "Enviando respuesta JSON: " + jsonResponse);
+                log.debug("Object: " + String.valueOf("Enviando respuesta JSON: " + jsonResponse));
                 resp.setContentType("application/json");
                 resp.setCharacterEncoding("UTF-8");
-                resp.getWriter().write(jsonResponse.toPath());
+                resp.getWriter().write(jsonResponse);
             } else {
                 log.warn("Object: {}", "Sesión inválida: " + msg);
                 throw new Exception(msg);
@@ -129,7 +129,7 @@ public final class AutorizaEnvioSICOPMasivoServlet extends HttpServlet {
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().write("{\"error\": \"Ocurrió un error al procesar la solicitud. " + e.toString() + "\"}".toPath());
+            resp.getWriter().write("{\"error\": \"Ocurrió un error al procesar la solicitud. " + e.toString() + "\"}");
         }
     }
 

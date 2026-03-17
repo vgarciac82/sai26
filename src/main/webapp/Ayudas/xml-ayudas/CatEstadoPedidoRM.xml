@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Estados Pedidos</titulo>
+	<anchoWin>900</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>M_TCATALOGOESTADOPEDIDO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>				
+		<columna campo="IMAGEN"				control=""	dependencia="No"	limpiaOnKeypress=""		header=""			rowCol="2,1" 	ancho="4"	maxlen="6"		tipo="string"	visible="Si"	clase="Protegido"/>
+		<columna campo="cEstado"			control=""	dependencia="No"	limpiaOnKeypress=""		header="Descripción"	rowCol="3,1" 	ancho="50"	maxlen="60" 	tipo="string"	visible="Si"	clase=""/>
+		
+	</grid>  	
+</Ayuda>

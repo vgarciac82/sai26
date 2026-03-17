@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PolizaReintegroCaja"  pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="whereFolio" class="java.lang.String">
+		<defaultValueExpression><![CDATA["and ce.nFolioReintegrocaja = 56"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[DECLARE @nFolioPago INT
+DECLARE @cTipoPago VARCHAR(64)
+DECLARE @sFirmanteDelegatorio VARCHAR(250)
+DECLARE @sPuestoFirmanteDelegatorio VARCHAR(70)
+DECLARE @sFirmanteAut VARCHAR(250)
+DECLARE @sLeyenda VARCHAR(500)
+DECLARE @sOficio VARCHAR(128)
+DECLARE @sFechaOficio VARCHAR(20)
+DECLARE @cTipoSuplencia VARCHAR(20)
+
+DECLARE @sFirmanteDeleVoBo VARCHAR(250)
+DECLARE @sPuestoFirmanteDeleVoBo VARCHAR(70)
+DECLARE @sFirmanteVoBo VARCHAR(250)
+DECLARE @sLeyendaVoBo VARCHAR(500)
+DECLARE @sOficioVoBo VARCHAR(128)
+DECLARE @sFechaOficioVoBo VARCHAR(20)
+
+SET @cTipoPago = 'REINTEGROCAJA'
+
+SET	@sFirmanteDelegatorio = ''
+SET @sPuestoFirmanteDelegatorio = ''
+
+SET @sFirmanteAut = ''
+SET @sLeyenda = ''
+SET @sOficio = ''
+SET @sFechaOficio = ''
+
+SET @sPuestoFirmanteDeleVoBo = ''
+SET @sFirmanteVoBo = ''
+SET @sLeyendaVoBo = ''
+SET @sOficioVoBo = ''
+SET @sFechaOficioVoBo = ''
+
+select
+	ce.nFolioReintegrocaja
+	,ce.fcreacion
+	,ce.faplicacion
+	--,ge.cNombreGrupo
+	,cd.mimporte
+	,isnull((select distinct cd.ctab+' '+strNombreBeneficiario  from tuecuentasbancarias where strClabe=cd.CTAB),'No Aplica') CTAB
+	,isnull(cd.rfc,'No Aplica')rfc
+	,isnull(tb.dNombre+' '+tb.dApellidoPaterno+' '+tb.dApellidoMaterno,'No Aplica') as nombreRFC
+	,'Cuenta: '+ISNULL (cd.nCuentaBeneficiario,'N/A ')+'  Banco:  '+ISNULL(ctabe.dBanco,'N/A') as CuentaBeneficiario
+	,'Clabe: '+ISNULL(ctabe.subCuentaBancaria,'N/A') as clabe
+	,'Partida: '+CASE WHEN FFM = 'undefined' OR FFM = '' OR FFM = 'NA' THEN '' ELSE ISNULL(SUBSTRING(FFM,1,5),'') END AS partida
+	,'Programa: '+CASE WHEN FFM = 'undefined' OR FFM = '' OR FFM = 'NA' THEN '' ELSE ISNULL(SUBSTRING(FFM,6,15),'') END AS Programa
+	,ce.cdescripcionpoliza
+	,(select ISNULL(NOMBREN,'') + ' ' + ISNULL(NOMBREP,'')+ ' '+ ISNULL(NOMBREM,'')  from v_empleados_giro where clave = nnumEmpleadoVobo) sFirmanteVoBo
+	,(select descripcion_puesto from v_empleados_giro where clave = nnumEmpleadoVobo) sPuestoVoBo
+	,(select ISNULL(NOMBREN,'') + ' ' + ISNULL(NOMBREP,'')+ ' '+ ISNULL(NOMBREM,'')  from v_empleados_giro where clave = nnumEmpleadoAut) sFirmanteAut
+	,(select  descripcion_puesto from v_empleados_giro where clave = nnumEmpleadoAut) sPuestoAut
+	,cd.cevento+' '+ev.dEvento as cevento
+	,cd.ceventoDestino+' '+evd.dEvento as ceventoDestino
+	,cd.ccentrocontable
+	,(select cDescripcion from tCatalogoCentroContable as ccc with(NOLOCK) WHERE ccc.cCentroContable=cd.ccentrocontable) dCENTROCONTABLE
+	,ce.cunidadejecutora+' '+ue.D_DESCRIPCION as cunidadejecutora
+	,dbo.fnCantidadLetra(cd.mimporte) cantLetras
+INTO #tmpTablaSalida
+from tReintegroCajaEncabezado as ce with(NOLOCK)
+inner join tReintegroCajaDetalle as cd with(NOLOCK) on ce.nFolioReintegrocaja=cd.nFolioReintegrocaja
+inner join tCatUnidadEjecutora as ue with(nolock) on ue.cUnidadEjecutora=ce.cunidadejecutora
+inner join tEvento as ev with(nolock) on cd.cEvento=ev.cEvento
+inner join tEvento as evd with(nolock) on cd.cEventoDestino=evd.cEvento
+left join tBeneficiarioCuentasBancarias as ctabe with(nolock) on cd.ncuentaBeneficiario=ctabe.dCuentaBancaria
+left join tBeneficiario as tb with(NOLOCK) on cd.rfc=tb.dRFC
+LEFT JOIN dbo.tRelacionComprobacionComisiones rgc (NOLOCK) ON rgc.nFolioTramite = ce.nFolioReintegrocaja
+LEFT JOIN dbo.tViaticosComisiones viat (NOLOCK) ON viat.nIdComision = rgc.nIdComision
+where  1=1
+$P!{whereFolio}
+
+SELECT TOP 1 @nFolioPago = nFolioReintegrocaja FROM #tmpTablaSalida WITH (NOLOCK)
+
+	IF (SELECT COUNT(*) FROM tPagoFirmanteDelagatorio WITH (NOLOCK) WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolioPago) > 0
+		BEGIN
+			SELECT TOP 1 @sFirmanteAut = sFirmanteAut FROM #tmpTablaSalida WITH (NOLOCK)
+
+			SELECT	@sFirmanteDelegatorio =
+				ISNULL((cNombreTitular + ' ' + cApellidoPaternoTitular + ' ' + cApellidoMaternoTitular)
+					,(emp.NOMBREN + ' ' + emp.NOMBREP+ ' ' + emp.NOMBREM)  ),
+				@sPuestoFirmanteDelegatorio = ISNULL(cPuestoTitular, DESCRIPCION_PUESTO)
+				, @sOficio = cFolioOficio, @sFechaOficio = dFechaOficio
+				, @cTipoSuplencia = cTipoSuplencia
+			FROM tPagoFirmanteDelagatorio pago WITH (NOLOCK)
+			INNER JOIN tCatTipoSuplencia WITH (NOLOCK)
+				ON pago.nTipoSuplencia = tCatTipoSuplencia.ntiposuplencia
+			INNER JOIN dbo.v_empleados_giro emp (NOLOCK)
+				ON emp.CLAVE = pago.cNumeroEmpleado
+			WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolioPago
+
+			SET @sLeyenda = 'Firma ' + @cTipoSuplencia + ' de: ' + @sFirmanteAut + ', con fundamento en el oficio: ' + @sOficio + ' de fecha: ' + @sFechaOficio + '.'
+		END
+
+	IF (SELECT COUNT(*) FROM tPagoFirmanteDelegatorioVoBo WITH (NOLOCK) WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolioPago) > 0
+		BEGIN
+		SELECT TOP 1 @sFirmanteVoBo = sFirmanteVoBo FROM #tmpTablaSalida WITH (NOLOCK)
+
+		SELECT	@sFirmanteDeleVoBo =
+				ISNULL((cNombreTitular + ' ' + cApellidoPaternoTitular + ' ' + cApellidoMaternoTitular)
+					,(emp.NOMBREN + ' ' + emp.NOMBREP+ ' ' + emp.NOMBREM)  ),
+				@sPuestoFirmanteDeleVoBo = ISNULL(cPuestoTitular, DESCRIPCION_PUESTO)
+				, @sOficioVoBo = cFolioOficio, @sFechaOficio = dFechaOficio
+				, @cTipoSuplencia = cTipoSuplencia
+			FROM tPagoFirmanteDelegatorioVoBo pago WITH (NOLOCK)
+			INNER JOIN tCatTipoSuplencia WITH (NOLOCK)
+				ON pago.nTipoSuplencia = tCatTipoSuplencia.ntiposuplencia
+			INNER JOIN dbo.v_empleados_giro emp (NOLOCK)
+				ON emp.CLAVE = pago.cNumeroEmpleado
+			WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolioPago
+
+			SET @sLeyendaVoBo = 'Firma ' + @cTipoSuplencia + ' de: '  + @sFirmanteVoBo + ', con fundamento en el oficio: ' + @sOficioVoBo + ', de fecha: ' + @sFechaOficioVoBo
+		END
+
+		SELECT *, @sFirmanteDelegatorio AS sFirmanteDelegatorio, @sPuestoFirmanteDelegatorio AS sPuestoFirmanteDelegatorio, @sLeyenda AS sLeyenda
+			, @sFirmanteDeleVoBo AS sFirmanteDelegatorioVoBo, @sPuestoFirmanteDeleVoBo AS sPuestoFirmanteDelegatorioVoBo, @sLeyendaVoBo AS sLeyendaVoBo
+		FROM #tmpTablaSalida WITH (NOLOCK)
+
+IF (SELECT OBJECT_ID('tempdb..#tmpTablaSalida')) IS NOT NULL	DROP TABLE #tmpTablaSalida]]>
+	</queryString>
+	<field name="nFolioReintegrocaja" class="java.lang.Integer"/>
+	<field name="fcreacion" class="java.lang.String"/>
+	<field name="faplicacion" class="java.lang.String"/>
+	<field name="mimporte" class="java.math.BigDecimal"/>
+	<field name="CTAB" class="java.lang.String"/>
+	<field name="rfc" class="java.lang.String"/>
+	<field name="nombreRFC" class="java.lang.String"/>
+	<field name="CuentaBeneficiario" class="java.lang.String"/>
+	<field name="clabe" class="java.lang.String"/>
+	<field name="partida" class="java.lang.String"/>
+	<field name="Programa" class="java.lang.String"/>
+	<field name="cdescripcionpoliza" class="java.lang.String"/>
+	<field name="sFirmanteVoBo" class="java.lang.String"/>
+	<field name="sPuestoVoBo" class="java.lang.String"/>
+	<field name="sFirmanteAut" class="java.lang.String"/>
+	<field name="sPuestoAut" class="java.lang.String"/>
+	<field name="cevento" class="java.lang.String"/>
+	<field name="ceventoDestino" class="java.lang.String"/>
+	<field name="ccentrocontable" class="java.lang.String"/>
+	<field name="dCENTROCONTABLE" class="java.lang.String"/>
+	<field name="cunidadejecutora" class="java.lang.String"/>
+	<field name="cantLetras" class="java.lang.String"/>
+	<field name="sFirmanteDelegatorio" class="java.lang.String"/>
+	<field name="sPuestoFirmanteDelegatorio" class="java.lang.String"/>
+	<field name="sLeyenda" class="java.lang.String"/>
+	<field name="sFirmanteDelegatorioVoBo" class="java.lang.String"/>
+	<field name="sPuestoFirmanteDelegatorioVoBo" class="java.lang.String"/>
+	<field name="sLeyendaVoBo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

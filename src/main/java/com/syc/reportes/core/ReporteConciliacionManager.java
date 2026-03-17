@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Map;
 //import javax.mail.Session;
-//import javax.servlet.http.HttpSession;
+//import jakarta.servlet.http.HttpSession;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -207,7 +207,7 @@ public class ReporteConciliacionManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -293,7 +293,7 @@ public class ReporteConciliacionManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -363,7 +363,7 @@ public class ReporteConciliacionManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         workbook.close();
         /* Cierra Flujos */
         bos.flush();

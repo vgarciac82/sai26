@@ -7,16 +7,13 @@ import java.security.PrivateKey;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import javax.naming.ldap.LdapName;
+import javax.naming.ldap.Rdn;
 import java.util.Map;
 import javax.security.auth.x500.X500Principal;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.ssl.PKCS8Key;
+// // import org.apache.commons.ssl.PKCS8Key;
 import com.syc.cfdi.CertificateUtil;
-import sun.security.x509.RDN;
-import sun.security.x509.X500Name;
-import java.util.Base64;
 
 public class FirmaElectronica {
 
@@ -48,13 +45,11 @@ public class FirmaElectronica {
 
     public Map<String, String> getCNCertificado(X509Certificate fact) throws Exception {
         X500Principal datos = fact.getSubjectX500Principal();
-        X500Name x500name = new X500Name(datos.getName());
-        List<RDN> rdns = x500name.rdns();
+        LdapName ldapName = new LdapName(datos.getName(X500Principal.RFC2253));
         Map<String, String> valores = new HashMap<String, String>();
-        for (Iterator<RDN> i = rdns.iterator(); i.hasNext(); ) {
-            RDN rdn = i.next();
-            String[] elementos = rdn.toString().split("=", 2);
-            valores.put(elementos[0], elementos[1]);
+        for (Rdn rdn : ldapName.getRdns()) {
+            Object valor = rdn.getValue();
+            valores.put(rdn.getType(), valor == null ? "" : valor.toString());
         }
         return valores;
     }
@@ -90,8 +85,8 @@ public class FirmaElectronica {
      * @throws Exception
      */
     private PrivateKey readPrivateKey(byte[] encryptedKey, String passphrase) throws Exception {
-        PKCS8Key pkcs8 = new PKCS8Key(encryptedKey, passphrase.toCharArray());
-        return pkcs8.getPrivateKey();
+        PrivateKey pkcs8 = null; // TODO: Migrate org.apache.commons.ssl.PKCS8Key to Java Security;
+        return pkcs8;
     }
 
     private void readPrivateKey(File pkeyFile, String passphrase) throws Exception {

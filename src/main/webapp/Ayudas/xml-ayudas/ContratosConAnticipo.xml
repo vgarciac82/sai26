@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Contratos con Anticipo</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>CONTRATOSCONANTICIPO</tabla>
+	<maxRegistros>250</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cIdContratoDefinitivo"	control="ContratosConAnticipo"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Contrato"	ancho="40"	maxlen="20"		tipo="string"	visible="si"	clase=""/>
+		<columna campo="cIdRFC"	control="cIdRFC"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="RFC"	ancho="40"	maxlen="15"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="totalAnticipo"	control="totalAnticipo"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Total Anticipo"	ancho="60"	maxlen="60"		tipo="string"	visible="Si"	clase=""/>
+        <columna campo ="cRazonSocial" control="cRazonSocial"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Razón Social"	ancho="40"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+        <columna campo ="cIdUnidadEjecutora" control="cIdUnidadEjecutora"	dependencia="Si"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Unidad Ejecutora"	ancho="40"	maxlen="20"		tipo="string"	visible="No"	clase=""/>
+       
+   </grid>  
+</Ayuda>

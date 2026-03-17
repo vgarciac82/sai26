@@ -157,7 +157,7 @@ public class procesosFinAnioManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -179,7 +179,7 @@ public class procesosFinAnioManager {
             insertaBitacora.append("WHERE nFolioPagado IN (" + listaFolios + ") ");
             insertaBitacora.append("AND cTipoPago IN (" + listaPagos + ")");
             insertaBitacora.append("ORDER BY nFolioPagado, cTipoPago");
-            log.debug("Object: {}", "Query para insertar Bitacora: " + insertaBitacora);
+            log.debug("Object: " + String.valueOf("Query para insertar Bitacora: " + insertaBitacora));
             ps = conn.prepareStatement(insertaBitacora.toString());
             ps.setString(1, sUsuario);
             ps.executeUpdate();

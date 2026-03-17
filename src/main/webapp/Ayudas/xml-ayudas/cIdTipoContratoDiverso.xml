@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Tipo de Contrato Diverso</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>PCATALOGOTIPOCONTRATODIVERSO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cIdTipoContratoDiverso"	control="cIdTipoContratoDiverso"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave"	ancho="4"	maxlen="4"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cTipoContratoDiverso"	control="cTipoContratoDiverso"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Nombre"	ancho="60"	maxlen="60"		tipo="string"	visible="Si"	clase=""/>
+		
+   </grid>  
+</Ayuda>

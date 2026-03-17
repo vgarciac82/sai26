@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mCatalogoInventarioArticulosdeAlmacen" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e4bc278c-1f4f-47de-9fc5-fbb3a39e1996">
+	<property name="ireport.zoom" value="1.2396694214876032"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="formato" class="java.lang.String"/>
+	<parameter name="cIdUnidadEjecutora" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select *from [v_mCatalogoInventarioArticulos] where 1=1 $P!{cIdUnidadEjecutora}]]>
+	</queryString>
+	<field name="cve_cabms" class="java.lang.String"/>
+	<field name="art_desc" class="java.lang.String"/>
+	<field name="cve_almacen" class="java.lang.String"/>
+	<field name="CVE_UNI" class="java.lang.String"/>
+	<field name="art_cantidad" class="java.lang.Integer"/>
+	<field name="cve_uniadmin" class="java.lang.String"/>
+	<field name="_Unidad_RM" class="java.lang.String"/>
+	<field name="AREAS" class="java.lang.String"/>
+	<field name="capitulo" class="java.lang.String"/>
+	<group name="UE">
+		<groupExpression><![CDATA[$F{capitulo}]]></groupExpression>
+		<groupHeader>
+			<band height="13">
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="45" height="11" uuid="896844ab-f4ae-4aa3-a1b1-a3d2c2f84768"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{capitulo}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<group name="capitulo">
+		<groupExpression><![CDATA[$F{_Unidad_RM}]]></groupExpression>
+		<groupHeader>
+			<band height="14">
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="45" height="13" uuid="d5d0e99d-acfa-47e3-8c9b-535154164252"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{_Unidad_RM}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="45" y="0" width="461" height="13" uuid="cc7ecc4e-9354-4869-a397-84a4339b33a4"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{AREAS}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="4"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="4" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="98" splitType="Stretch">
+			<printWhenExpression><![CDATA[($P{formato}.equals("csv"))?new Integer($V{PAGE_NUMBER})==1  : ($P{formato}.equals("xls"))? new Integer($V{PAGE_NUMBER})==1 :  $V{PAGE_NUMBER}]]></printWhenExpression>
+			<image>
+				<reportElement x="10" y="10" width="125" height="57" uuid="d89097ff-c6ef-4758-b495-75da3afed51a"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"\\CONAFOR_NvoLogoDic2013_HD_Horizontal.jpg"]]></imageExpression>
+			</image>
+			<textField evaluationTime="Report">
+				<reportElement x="664" y="23" width="87" height="13" uuid="9f3319dd-67b5-41c3-b5ef-eba505e47371"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="135" y="10" width="371" height="13" uuid="13cbffea-fdb2-4b38-9025-627ca0a64da2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="587" y="10" width="77" height="13" uuid="4971963e-15da-45c0-b789-42aa73f7d9c2"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm.ss a">
+				<reportElement x="664" y="10" width="87" height="13" uuid="6e3bc2b1-1e1f-432b-831f-227545b19c10"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="646" y="23" width="18" height="13" uuid="2f4c58f8-317a-4e09-9ca0-0f3c5fce2c50"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[de ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="510" y="10" width="77" height="13" uuid="3d885abe-beec-4c54-bbcc-6281010c2fb6"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha de Impresión]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="135" y="41" width="371" height="13" forecolor="#000000" backcolor="#FFFFFF" uuid="78a2cc9c-d5f1-46ae-ba54-cd4fab31fe76"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[PROGRAMA ANUAL DE ADQUISICIONES ARRENDAMIENTOS Y SERVICIOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="135" y="26" width="371" height="13" forecolor="#000000" backcolor="#FFFFFF" uuid="71b5c471-6927-4871-a74a-c7ee18ad55ca"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[GERENCIA DE RECURSOS MATERIALES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="510" y="23" width="77" height="13" uuid="d4b81778-74c0-4ea9-b730-034b1cf6b4d0"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Página]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="587" y="23" width="59" height="13" uuid="b162d827-efe1-4e53-a6a2-9ebc2f7b3924"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="86" width="45" height="11" uuid="52207676-a991-42c8-9bad-b97d0585e5d4"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[CUCOP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="86" width="461" height="11" uuid="b7d9a38d-4e41-4749-b457-9930b18d35d7"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="510" y="87" width="77" height="11" uuid="6e8c8d54-54db-4e05-bbdb-4c64eb86f36e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Clave Almacén]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="587" y="86" width="77" height="11" uuid="0dcba246-529c-468c-a32c-a8d513a6b84d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="664" y="86" width="87" height="11" uuid="bad60db0-ccde-4b54-ae6d-47032e5b2fe7"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Unidad Medida]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="4" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="45" height="11" uuid="6f81f5ab-8fa2-4427-8560-38c9708cd7bd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cve_cabms}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="45" y="0" width="461" height="11" uuid="90341b2d-2baf-4d76-ba3a-dee5305ab810"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{art_desc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="587" y="0" width="77" height="11" uuid="82554a06-cb4e-4b77-9601-e9781195937a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{art_cantidad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="664" y="0" width="87" height="11" uuid="f687f1ba-9a30-4124-8ce2-6e78e738652d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CVE_UNI}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="510" y="0" width="77" height="11" uuid="e0777fd7-5446-4e1d-9f1b-2ba4301d60a6"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cve_almacen}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="4" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="4" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="5" splitType="Stretch"/>
+	</summary>
+</jasperReport>

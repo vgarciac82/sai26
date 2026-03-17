@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Listado de Cuentas</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>CONBUSCANCON</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+<!--	<ColSort>0</ColSort>-->
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+
+
+	<grid>
+		<columna campo="nFolioCuenta"    control="nFolioCuenta"         dependencia="No" ctrlsDependientes="" limpiaOnKeypress="" header="ID"	 	      ancho="100" maxlen="200" tipo="string"	visible="Si" clase=""/>
+		<columna campo="cInstitucion"    control="cInst"		        dependencia="No" ctrlsDependientes="" limpiaOnKeypress="" header="Clave"	      ancho="100" maxlen="200" tipo="string"	visible="Si" clase=""/>
+		<columna campo="cNomInstitucion" control="cNomInst"		 	    dependencia="No" ctrlsDependientes="" limpiaOnKeypress="" header="Nombre"		  ancho="100" maxlen="200" tipo="string"	visible="Si" clase=""/>
+		<columna campo="cCLABE"    		 control="hbuscaConciliacion"   dependencia="No" ctrlsDependientes="" limpiaOnKeypress="" header="Cuenta"         ancho="100" maxlen="200" tipo="string"	visible="Si" clase=""/>
+		<columna campo="cInstrumento" 	 control="cInst"		        dependencia="No" ctrlsDependientes="" limpiaOnKeypress="" header="Instrumento"    ancho="100" maxlen="200" tipo="string"	visible="Si" clase=""/>
+		<columna campo="cCentroContable" control="cCCSaldo"         	dependencia="No" ctrlsDependientes="" limpiaOnKeypress="" header="CC"             ancho="100" maxlen="200" tipo="string"	visible="Si" clase=""/>
+		<columna campo="cTipoAct" 		 control="cTipoAct"         	dependencia="No" ctrlsDependientes="" limpiaOnKeypress="" header="Actividad"      ancho="100" maxlen="200" tipo="string"	visible="Si" clase=""/>
+		<columna campo="Estatus" 		 control="Estatus"              dependencia="No" ctrlsDependientes="" limpiaOnKeypress="" header="Estatus"        ancho="100" maxlen="200" tipo="string"	visible="Si" clase=""/>
+		<columna campo="Fecha" 		 	 control="Fecha"         	    dependencia="No" ctrlsDependientes="" limpiaOnKeypress="" header="Fecha"      	  ancho="100" maxlen="200" tipo="string"	visible="Si" clase=""/>
+	</grid>
+
+</Ayuda>

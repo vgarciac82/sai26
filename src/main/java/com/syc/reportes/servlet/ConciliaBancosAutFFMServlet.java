@@ -112,7 +112,7 @@ public class ConciliaBancosAutFFMServlet extends HttpServlet {
             CloseObject.closeObject(rs);
             CloseObject.closeObject(cs);
             CloseObject.closeObject(conn);
-            out.write(jsonObj.toString().toPath());
+            out.write(jsonObj.toString());
             out.flush();
             out.close();
             out = null;

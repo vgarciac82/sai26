@@ -347,7 +347,7 @@ public class EgresoRELACIONGASTOSEncabezado extends EgresoEncabezado {
             ps.setString(cnt++, getLogin());
             ps.setString(cnt++, getIdConcepto());
             ps.setString(cnt++, getConcepto());
-            log.debug("Object: {}", queryIns.toString());
+            log.debug("Object: " + String.valueOf(queryIns.toString()));
             return ps.executeUpdate();
         } catch (SQLException e) {
             throw new EgresoException(e);

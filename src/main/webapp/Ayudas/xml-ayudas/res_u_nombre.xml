@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Interno -->
+<Ayuda>
+	<titulo>Responsable</titulo>
+	<anchoWin>587</anchoWin>
+	<altoWin>543</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>REMINTERNO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="U.U_LOGIN"			control="res_u_login"		dependencia="No"	ctrlsDependientes=""										limpiaOnKeypress=""																header="Clave"	ancho="32"	maxlen="32"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="E.NOMBRECOMPL"		control="res_u_nombre"		dependencia="No"	ctrlsDependientes="res_u_login,res_pto_nombre,res_d_desc"	limpiaOnKeypress="txtGridres_u_login,txtGridres_pto_nombre,txtGridres_d_desc"	header="Nombre"	ancho="80"	maxlen="80"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="P.PTO_NOMBRE"		control="res_pto_nombre"	dependencia="No"	ctrlsDependientes=""										limpiaOnKeypress="res_u_login"													header="Puesto"	ancho="80"	maxlen="200"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="A.D_DESCRIPCION"	control="res_d_desc"		dependencia="No"	ctrlsDependientes=""										limpiaOnKeypress="res_u_login"													header="Area"	ancho="80"	maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+	</grid> 
+		
+</Ayuda>

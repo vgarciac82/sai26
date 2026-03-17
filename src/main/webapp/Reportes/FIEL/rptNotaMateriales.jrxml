@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptNotaMateriales" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true" uuid="591ab60a-7153-46e0-81db-cde66d593808">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SAI_2025"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="309"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="684"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="760"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="228"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nIDNota" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select 
+	*from fn_mAtentaNotaMat($P!{nIDNota})]]>
+	</queryString>
+	<field name="NombreGerente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NombreGerente"/>
+		<property name="com.jaspersoft.studio.field.label" value="NombreGerente"/>
+	</field>
+	<field name="PuestoGerente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PuestoGerente"/>
+		<property name="com.jaspersoft.studio.field.label" value="PuestoGerente"/>
+	</field>
+	<field name="nombreFirmante" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombreFirmante"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombreFirmante"/>
+	</field>
+	<field name="puestoFirmante" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="puestoFirmante"/>
+		<property name="com.jaspersoft.studio.field.label" value="puestoFirmante"/>
+	</field>
+	<field name="coord" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="coord"/>
+		<property name="com.jaspersoft.studio.field.label" value="coord"/>
+	</field>
+	<field name="UNIDAD" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="UNIDAD"/>
+		<property name="com.jaspersoft.studio.field.label" value="UNIDAD"/>
+	</field>
+	<field name="Subgerencia" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Subgerencia"/>
+		<property name="com.jaspersoft.studio.field.label" value="Subgerencia"/>
+	</field>
+	<field name="fechaNota" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fechaNota"/>
+		<property name="com.jaspersoft.studio.field.label" value="fechaNota"/>
+	</field>
+	<field name="cIDContrato" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cIDContrato"/>
+		<property name="com.jaspersoft.studio.field.label" value="cIDContrato"/>
+	</field>
+	<field name="cIDRecepMat" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cIDRecepMat"/>
+		<property name="com.jaspersoft.studio.field.label" value="cIDRecepMat"/>
+	</field>
+	<field name="cFolioNota" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cFolioNota"/>
+		<property name="com.jaspersoft.studio.field.label" value="cFolioNota"/>
+	</field>
+	<field name="cNumeroEmpleado" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="cNumeroEmpleado"/>
+		<property name="com.jaspersoft.studio.field.label" value="cNumeroEmpleado"/>
+	</field>
+	<field name="dFechaNota" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dFechaNota"/>
+		<property name="com.jaspersoft.studio.field.label" value="dFechaNota"/>
+	</field>
+	<field name="dMotivoNota" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dMotivoNota"/>
+		<property name="com.jaspersoft.studio.field.label" value="dMotivoNota"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="fn_mAtentaNotaMat"/>
+	</field>
+	<field name="cNoConvenio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cNoConvenio"/>
+		<property name="com.jaspersoft.studio.field.label" value="cNoConvenio"/>
+	</field>
+	<field name="cIDContratoDefinitivo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cIDContratoDefinitivo"/>
+		<property name="com.jaspersoft.studio.field.label" value="cIDContratoDefinitivo"/>
+	</field>
+	<field name="etiqueta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="etiqueta"/>
+		<property name="com.jaspersoft.studio.field.label" value="etiqueta"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="55" splitType="Stretch">
+			<image>
+				<reportElement x="30" y="1" width="450" height="52" uuid="18a101aa-c5a0-4514-8eba-5944a50ee23c"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\LogoCNF_2023.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="167" splitType="Prevent">
+			<textField>
+				<reportElement x="97" y="29" width="383" height="13" uuid="a6e8ba60-8ddb-41bc-bef8-1dfbc291d558"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreGerente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="97" y="41" width="383" height="13" isPrintWhenDetailOverflows="true" uuid="b5dc00da-f6bb-45ec-9241-b6060a996bb5"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PuestoGerente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="227" y="4" width="100" height="20" uuid="189f3055-bafc-499e-b91a-6ed717e57a2c"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ATENTA NOTA]]></text>
+			</staticText>
+			<line>
+				<reportElement x="15" y="87" width="554" height="1" uuid="0bd0bdb7-05b3-4840-bb4c-f2f695066351"/>
+			</line>
+			<textField>
+				<reportElement x="97" y="61" width="383" height="13" uuid="eb710b84-2024-45a6-ab5f-8742a966d474"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreFirmante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="97" y="73" width="383" height="13" uuid="f9b0fa4a-22f9-43ef-8eca-9c1c3f6326d3"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{puestoFirmante}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="15" y="29" width="70" height="15" uuid="63e00905-d0d0-4e4d-b70a-5d8a8584de7a"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="60" width="70" height="15" uuid="85ebdf3a-07dd-48da-8ca8-9678657368f7"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="180" y="91" width="369" height="13" uuid="4f314dc9-a495-4bc5-b146-fdbb20b60c76"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{coord}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="103" width="369" height="13" uuid="f7afca38-3ec2-4994-9fa0-9b79082e6c8b"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{UNIDAD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="115" width="369" height="13" uuid="c8b96939-192e-4151-9d7b-a4022dfba750"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Subgerencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="128" width="369" height="13" uuid="595557ab-570c-4fc5-a88a-850375bfbccc"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{puestoFirmante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="140" width="369" height="13" uuid="07b94426-7e0f-47b2-9afb-c0f0082d5921"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cFolioNota}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="153" width="369" height="13" uuid="eaf99543-3d8d-4e29-9472-1ecd943eb081"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaNota}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="ContainerHeight" x="20" y="2" width="529" height="30" isPrintWhenDetailOverflows="true" uuid="66a5e386-2031-40bc-8a5b-52dbc61fb00d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{dMotivoNota}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="62" splitType="Stretch">
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="20" y="2" width="529" height="59" isPrintWhenDetailOverflows="true" uuid="4c333f03-8929-4395-aa89-519531b860c3"/>
+				<subreportParameter name="cIdpedContDef">
+					<subreportParameterExpression><![CDATA[$F{cIDContratoDefinitivo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="cIdRecepMat">
+					<subreportParameterExpression><![CDATA[$F{cIDRecepMat}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\rptNotaMateriales_recepcion.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="51">
+			<staticText>
+				<reportElement x="227" y="37" width="81" height="13" uuid="13b05bb3-db94-403d-b4e0-b0404d0b495b"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[ATENTAMENTE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="20" y="0" width="529" height="37" uuid="98113e58-4724-42ae-88fb-fa79b03aa81c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3989aff8-d163-4d0a-bb36-85350a965f6d"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{etiqueta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Immediate"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="62" splitType="Stretch">
+			<image>
+				<reportElement x="26" y="0" width="546" height="60" uuid="7e7f0a3a-94cf-4a98-b97b-91b3059fc669"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+ "\\LogoPiePagina_2023.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="60">
+			<image>
+				<reportElement x="26" y="0" width="546" height="60" uuid="ab25059a-099f-492d-ae91-730ce407bcd0"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+ "\\LogoPiePagina_2023.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="334" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-2" y="3" width="572" height="322" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="554e6e71-d10f-42a8-8edb-bee38cab0f1d"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="23" y="41" width="515" height="47" uuid="ee5c6ad8-5821-411e-b373-bffed61e4dab"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[El presente acto administrativo ha sido firmado mediante el uso de la firma electrónica avanzada del funcionario competente, amparada por un certificado vigente a la fecha de su elaboración; y es válido de conformidad con lo dispuesto en los artículos 7 º y 10 º de la Ley de Firma Electrónica Avanzada, y el artículo 12 de su Reglamento. Por un uso responsable del papel, las copias de conocimiento se enviarán de forma electrónica, de conformidad con lo establecido en la fracción V y VI del artículo 11 del “Decreto que establece las medidas para el uso eficiente, transparente y eficaz de los recursos públicos, y las acciones de disciplina presupuestaría en el ejercicio del gasto público, así como para la modernización de la Administración Pública Federal”]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="18" width="528" height="20" uuid="b93c9876-b80f-4c87-a6ff-824e8da891e4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[F I R M A S]]></text>
+			</staticText>
+			<line>
+				<reportElement x="18" y="10" width="515" height="1" uuid="ea6a8471-da32-486c-99b9-8a4bd71c1590"/>
+			</line>
+			<line>
+				<reportElement x="18" y="37" width="515" height="1" uuid="f75b8b6c-66f4-4c98-adb0-4bbee37a0c7e"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="18" y="40" width="515" height="1" uuid="9f91a922-f759-46ef-b8f5-9283662daac9"/>
+			</line>
+			<line>
+				<reportElement x="18" y="14" width="515" height="1" uuid="386d4c12-ae53-4c54-a5e8-39e46466f2c0"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

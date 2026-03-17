@@ -1,0 +1,36 @@
+.shadow {
+	float: left;
+	background: url(../images/shadowAlpha.png) no-repeat bottom right !important;
+	background: url(../images/shadow.gif) no-repeat bottom right;
+	margin: 10px 0 0 10px !important;
+	margin: 10px 0 0 5px;
+	position: absolute;
+	display: none;
+}
+.shadow div {
+	background: none !important;
+	background: url(../images/shadow2.gif) no-repeat left top;
+	padding: 0 !important;
+	padding: 0 6px 6px 0;
+}
+.shadow #tbl-shadow {
+	border: 1px solid #a9a9a9;
+	padding: 4px;
+	margin: -6px 6px 6px -6px !important;
+	margin: 0;
+}
+.caso-var {
+	top: 50px;
+	left: 260px;
+	z-index: 3;
+}
+.caso-oper {
+	top: 25px;
+	left: 40px;
+	z-index: 2;
+}
+.sgte-resp-oper {
+	top: 240px;
+	left: 100px;
+	z-index: 3;
+}

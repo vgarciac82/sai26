@@ -101,22 +101,22 @@ public class GestionSetupServlet extends HttpServlet implements GestionInterface
             InputStream is = config.getServletContext().getResourceAsStream("/WEB-INF/log4j.properties");
             props.load(is);
             is.close();
-            PropertyConfigurator.configure(props);
+            // // // PropertyConfigurator.configure(props);
             log = LoggerFactory.getLogger(GestionSetupServlet.class);
             if (baseLevel != null) {
                 if (baseLevel.equalsIgnoreCase("debug"))
-                    log.setLevel(Level.DEBUG);
+                    { /* log.setLevel not supported */ }
                 else if (baseLevel.equalsIgnoreCase("info"))
-                    log.setLevel(Level.INFO);
+                    { /* log.setLevel not supported */ }
                 else if (baseLevel.equalsIgnoreCase("warn"))
-                    log.setLevel(Level.WARN);
+                    { /* log.setLevel not supported */ }
                 else if (baseLevel.equalsIgnoreCase("error"))
-                    log.setLevel(Level.ERROR);
+                    { /* log.setLevel not supported */ }
                 else if (baseLevel.equalsIgnoreCase("fatal"))
-                    log.setLevel(Level.FATAL);
+                    { /* log.setLevel not supported */ }
                 if (log.isDebugEnabled()) {
-                    log.debug("Object: {}", "log_base_level=" + log.getLevel());
-                    log.debug("Object: {}", "log-directory=" + logDirectory);
+                    log.debug("Object: " + String.valueOf("log_base_level=" + "UNKNOWN-SLF4J"));
+                    log.debug("Object: " + String.valueOf("log-directory=" + logDirectory));
                 }
             }
         } catch (IOException exc) {

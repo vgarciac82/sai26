@@ -72,7 +72,7 @@ public class GetAcumuladoxInboxServlet extends HttpServlet {
             sb.append("<respuestas>" + inbox.getTotalRespuestas() + "</respuestas>");
             sb.append("<prorrogas>" + inbox.getTotalProrrogas() + "</prorrogas>");
             sb.append("</acumulado>");
-            res.getWriter().write(sb.toString().toPath());
+            res.getWriter().write(sb.toString());
         } catch (GestionException e) {
             log.warn("Error al consultar acumulados, usuario [ " + u.getLogin() + " ] ", e);
         }

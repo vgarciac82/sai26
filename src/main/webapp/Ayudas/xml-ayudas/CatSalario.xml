@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Salario Minimo</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>CATALOGOSALARIO</tabla>
+	<maxRegistros>10</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	<grid>
+		<columna campo="ID_CAT_SALARIO"			control="ID_CAT_SALARIO"		dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""											header="*ID"				rowCol="1,1" 	ancho="50"		maxlen="50"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="CANT_SALARIO"				control="CANT_SALARIO"			dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""											header="* CANTIDAD"				rowCol="2,1" 	ancho="50"		maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="SALARIO"					control="SALARIO"				dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""											header="SALARIO"						rowCol="3,1" 	ancho="5"		maxlen="3"		tipo="string"	visible="Si"	clase=""/>		
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="ID_CAT_SALARIO"	control="ID_CAT_SALARIO"	llave="Si"	identity="No" 	requerido="El campo ID es requerido."	requeridoFocus="ID_CAT_SALARIO"	tipo="string" />
+		<campo field="CANT_SALARIO"	control="CANT_SALARIO"		llave="No"	identity="No"	requerido="El campo CANTTIDAD es requerido."	requeridoFocus="CANT_SALARIO"	tipo="string" />
+		<campo field="SALARIO"			control="SALARIO"			llave="No"	identity="No"	requerido="eL CAMPO SALARIO ES REQUERIDO"	requeridoFocus="SALARIO"	tipo="string" />		
+	</insertaRegistro>
+	
+</Ayuda>
+

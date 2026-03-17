@@ -73,7 +73,7 @@ public class AplicacionContableServletAx extends HttpServlet {
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion Contable, Consulte a su administrador.";
         }
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis())));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         Connection conn = null;
         try {
@@ -94,7 +94,7 @@ public class AplicacionContableServletAx extends HttpServlet {
             Caso sc = new Caso();
             sc.setIdCaso(c.getIdCaso());
             c = CasoManager.select(conn, sc);
-            log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+            log.debug("Object: " + String.valueOf(c.getCasoDato("APLICADO_CONT").getValor()));
         } catch (Exception e) {
             log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
         } finally {
@@ -106,7 +106,7 @@ public class AplicacionContableServletAx extends HttpServlet {
             }
             conn = null;
         }
-        log.debug("Object: {}", "Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis())));
         if ("true".equals(c.getCasoDato("APLICADO_CONT").getValor()) || mensaje.contains("APLICADO")) {
             toDialog = !"".equals(mensaje) ? mensaje : arrLResult.get(0);
         } else {
@@ -123,7 +123,7 @@ public class AplicacionContableServletAx extends HttpServlet {
         try {
             response.setCharacterEncoding("UTF-8");
             out = response.getWriter();
-            out.write(ok + "//" + msj.toPath());
+            out.write(ok + "//" + msj);
             System.out.println("Msj escrito: " + msj);
         } catch (Exception e) {
         } finally {

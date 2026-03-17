@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Catálogo de Tipo Causa Aviso Reintegros</titulo>
+	<anchoWin>900</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>M_TCATALOGOTIPOCAUSAAVISO_REIN</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>				
+		<columna campo="cTipoCausaAviso"	control="CatTipoCausaAvisoReintegro"	dependencia="No"	limpiaOnKeypress=""		header="Tipo Causa Aviso"	 	ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="dTipoCausaAviso" 	control=""	dependencia="No"	limpiaOnKeypress=""		header="Descripción"	ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+	</grid>  	
+</Ayuda>

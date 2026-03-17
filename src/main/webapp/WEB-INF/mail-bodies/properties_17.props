@@ -1,0 +1,7 @@
+smtphost=smtp.gmail.com
+smtpuser=notificaciones.sai.conafor@gmail.com
+smtppasswd=C0N4F0Rsai
+smtpport=465
+smtpauth=true
+smtp.socketFactory.class=javax.net.ssl.SSLSocketFactory
+smtpfrom=adecuaciones.presupuestales@conafor.gob.mx

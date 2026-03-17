@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpt_mProgramaAnualOrdenadoPorPartida"  pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="13">
+	<property name="ireport.zoom" value="1.1269722013523664"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[DECLARE @Decimales tinyint
+SET @Decimales = '2'
+SELECT pad.cEjercicio As _Ejercicio,
+	pad.cEjercicio As _Ejercicio1,
+       pad.cIdUnidadEjecutora AS _Unidad_RM,
+       ccc.D_DESCRIPCION AS _Unidad,
+       ccc.ID_AREA As _Entidad_Contable,
+       ccabm.cIdCABM AS _CABMS,
+       ccabm.cCABM AS _Descripcion_CABMS,
+       pad.cIdSubPartida AS _Partida,
+       csp.cSubPartida AS _Descripcion_Partida,
+       ccabm.cIdUnidadMedida AS _Unidad_Medida,
+       ISNULL(IT.nCantidad,0) AS _Cantidad_ITrimestre,
+       ISNULL(IIT.nCantidad,0) AS _Cantidad_IITrimestre,
+       ISNULL(IIIT.nCantidad,0) AS _Cantidad_IIITrimestre,
+       ISNULL(IVT.nCantidad,0) AS _Cantidad_IVTrimestre
+       --CANTIDAD TOTAL
+       ,ISNULL(IT.nCantidad,0)
+         + ISNULL(IIT.nCantidad,0)
+         + ISNULL(IIIT.nCantidad,0)
+         + ISNULL(IVT.nCantidad,0)
+       AS _Cantidad_Total
+       ---------------------------------------------
+       -- PRECIO UNITARIO
+       ,ROUND(CAST((ISNULL((CAST(IT.nCantidad AS MONEY) * IT.mPrecioUnitario),0)
+          + ISNULL((CAST (IIT.nCantidad AS MONEY) * IIT.mPrecioUnitario),0)
+          + ISNULL((CAST (IIIT.nCantidad AS MONEY) * IIIT.mPrecioUnitario),0)
+          + ISNULL((CAST (IVT.nCantidad AS MONEY) * IVT.mPrecioUnitario),0))
+          / (ISNULL(IT.nCantidad,0)
+            + ISNULL(IIT.nCantidad,0)
+            + ISNULL(IIIT.nCantidad,0)
+            + ISNULL(IVT.nCantidad,0) + 0.000001) AS MONEY),@Decimales)
+       AS _Precio_Unitario
+       ----------------------------------------------
+       -- MONTO BRUTO
+      ,ROUND((ISNULL((IT.mMontoNeto),0)
+             + ISNULL((IIT.mMontoNeto),0)
+             + ISNULL((IIIT.mMontoNeto),0)
+             + ISNULL((IVT.mMontoNeto),0)) ,@Decimales)
+       as _Monto_Bruto
+       ----------------------------------------------
+       ,pad.nPorcentajeIVA AS _IVA
+       -- MONTO NETO
+       ,ROUND((ISNULL((IT.mMontoNeto),0)
+             + ISNULL((IIT.mMontoNeto),0)
+             + ISNULL((IIIT.mMontoNeto),0)
+             + ISNULL((IVT.mMontoNeto),0))
+              * CAST(1 + (pad.nPorcentajeIVA * 0.01) as money),@Decimales)
+        AS _Monto_Neto
+        --------------------------------------------
+FROM mProgramaAnualDetalle pad WITH(NOLOCK)
+INNER JOIN mCatalogoSubpartida csp WITH(NOLOCK) ON pad.cIdSubPartida = csp.cIdSubPartida
+INNER JOIN v_unidadEjecutoraPadre ccc WITH(NOLOCK) ON pad.cIdUnidadEjecutora= ccc.cUnidadResponsable
+INNER JOIN mCatalogoCABM ccabm WITH(NOLOCK) ON pad.cIdSubPartida = ccabm.cIdSubPartida
+                              AND pad.cIdCABM = ccabm.cIdCABM
+LEFT JOIN (SELECT padp.cEjercicio,
+                   padp.cIdUnidadEjecutora,
+                   padp.cIdCABM,
+                   padp.cIdSubPartida,
+                   SUM(padp.nCantidad) As nCantidad,
+                   SUM(padp.mPrecioUnitario)  AS mPrecioUnitario
+                   ,SUM(ROUND(padp.nCantidad * padp.mPrecioUnitario,2)) AS mMontoNeto
+            FROM mProgramaAnualDetallePeriodo padp WITH(NOLOCK)
+            INNER JOIN mCatalogoPeriodo cp WITH(NOLOCK) ON padp.nIdPeriodo = cp.nIdPeriodo
+            WHERE nIdTrimestre = 1
+                  AND (padp.nCantidad * padp.mPrecioUnitario) > 0
+            GROUP BY padp.cEjercicio,
+                     padp.cIdUnidadEjecutora,
+                     padp.cIdCABM,
+                     padp.cIdSubPartida) AS IT ON pad.cEjercicio = IT.cEjercicio
+                                              AND pad.cIdUnidadEjecutora = IT.cIdUnidadEjecutora
+                                              AND pad.cIdCABM = IT.cIdCABM
+                                              AND pad.cIdSubPartida = IT.cIdSubPartida
+LEFT JOIN (SELECT padp.cEjercicio,
+                   padp.cIdUnidadEjecutora,
+                   padp.cIdCABM,
+                   padp.cIdSubPartida,
+                   SUM(padp.nCantidad) As nCantidad,
+                   SUM(padp.mPrecioUnitario)  AS mPrecioUnitario
+                   ,SUM(ROUND(padp.nCantidad * padp.mPrecioUnitario,2)) AS mMontoNeto
+            FROM mProgramaAnualDetallePeriodo padp WITH(NOLOCK)
+            INNER JOIN mCatalogoPeriodo cp WITH(NOLOCK) ON padp.nIdPeriodo = cp.nIdPeriodo
+            WHERE nIdTrimestre = 2
+                  AND (padp.nCantidad * padp.mPrecioUnitario) > 0
+            GROUP BY padp.cEjercicio,
+                     padp.cIdUnidadEjecutora,
+                     padp.cIdCABM,
+                     padp.cIdSubPartida) AS IIT ON pad.cEjercicio = IIT.cEjercicio
+                                              AND pad.cIdUnidadEjecutora = IIT.cIdUnidadEjecutora
+                                              AND pad.cIdCABM = IIT.cIdCABM
+                                              AND pad.cIdSubPartida = IIT.cIdSubPartida
+LEFT JOIN (SELECT padp.cEjercicio,
+                   padp.cIdUnidadEjecutora,
+                   padp.cIdCABM,
+                   padp.cIdSubPartida,
+                   SUM(padp.nCantidad) As nCantidad,
+                   SUM(padp.mPrecioUnitario) AS mPrecioUnitario
+                   ,SUM(ROUND(padp.nCantidad * padp.mPrecioUnitario,2)) AS mMontoNeto
+            FROM mProgramaAnualDetallePeriodo padp WITH(NOLOCK)
+            INNER JOIN mCatalogoPeriodo cp WITH(NOLOCK) ON padp.nIdPeriodo = cp.nIdPeriodo
+            WHERE nIdTrimestre = 3
+                  AND (padp.nCantidad * padp.mPrecioUnitario) > 0
+            GROUP BY padp.cEjercicio,
+                     padp.cIdUnidadEjecutora,
+                     padp.cIdCABM,
+                     padp.cIdSubPartida) AS IIIT ON pad.cEjercicio = IIIT.cEjercicio
+                                              AND pad.cIdUnidadEjecutora = IIIT.cIdUnidadEjecutora
+                                              AND pad.cIdCABM = IIIT.cIdCABM
+                                              AND pad.cIdSubPartida = IIIT.cIdSubPartida
+LEFT JOIN (SELECT padp.cEjercicio,
+                   padp.cIdUnidadEjecutora,
+                   padp.cIdCABM,
+                   padp.cIdSubPartida,
+                   SUM(padp.nCantidad) As nCantidad,
+                   SUM(padp.mPrecioUnitario)  AS mPrecioUnitario
+                   ,SUM(ROUND(padp.nCantidad * padp.mPrecioUnitario,2)) AS mMontoNeto
+            FROM mProgramaAnualDetallePeriodo padp WITH(NOLOCK)
+            INNER JOIN mCatalogoPeriodo cp WITH(NOLOCK) ON padp.nIdPeriodo = cp.nIdPeriodo
+            WHERE nIdTrimestre = 4
+                  AND (padp.nCantidad * padp.mPrecioUnitario) > 0
+            GROUP BY padp.cEjercicio,
+                     padp.cIdUnidadEjecutora,
+                     padp.cIdCABM,
+                     padp.cIdSubPartida) AS IVT ON pad.cEjercicio = IVT.cEjercicio
+                                              AND pad.cIdUnidadEjecutora = IVT.cIdUnidadEjecutora
+                                              AND pad.cIdCABM = IVT.cIdCABM
+                                              AND pad.cIdSubPartida = IVT.cIdSubPartida]]>
+	</queryString>
+	<field name="_Ejercicio" class="java.lang.String"/>
+	<field name="_Ejercicio1" class="java.lang.String"/>
+	<field name="_Unidad_RM" class="java.lang.String"/>
+	<field name="_Unidad" class="java.lang.String"/>
+	<field name="_Entidad_Contable" class="java.math.BigDecimal"/>
+	<field name="_CABMS" class="java.lang.String"/>
+	<field name="_Descripcion_CABMS" class="java.lang.String"/>
+	<field name="_Partida" class="java.lang.String"/>
+	<field name="_Descripcion_Partida" class="java.lang.String"/>
+	<field name="_Unidad_Medida" class="java.lang.String"/>
+	<field name="_Cantidad_ITrimestre" class="java.lang.Long"/>
+	<field name="_Cantidad_IITrimestre" class="java.lang.Long"/>
+	<field name="_Cantidad_IIITrimestre" class="java.lang.Long"/>
+	<field name="_Cantidad_IVTrimestre" class="java.lang.Long"/>
+	<field name="_Cantidad_Total" class="java.lang.Long"/>
+	<field name="_Precio_Unitario" class="java.math.BigDecimal"/>
+	<field name="_Monto_Bruto" class="java.math.BigDecimal"/>
+	<field name="_IVA" class="java.lang.Integer"/>
+	<field name="_Monto_Neto" class="java.math.BigDecimal"/>
+	<variable name="_Monto_Bruto_1" class="java.math.BigDecimal" resetType="Group" resetGroup="sub_rep" calculation="Sum">
+		<variableExpression><![CDATA[$F{_Monto_Bruto}]]></variableExpression>
+	</variable>
+	<variable name="_Monto_Bruto_2" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{_Monto_Bruto}]]></variableExpression>
+	</variable>
+	<variable name="_Monto_Neto_1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{_Monto_Neto}]]></variableExpression>
+	</variable>
+	<variable name="_Monto_Bruto_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{_Monto_Bruto}]]></variableExpression>
+	</variable>
+	<variable name="_Monto_Neto_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{_Monto_Neto}]]></variableExpression>
+	</variable>
+	<variable name="_Monto_Bruto_4" class="java.math.BigDecimal" resetType="Group" resetGroup="sub_rep0" calculation="Sum">
+		<variableExpression><![CDATA[$F{_Monto_Bruto}]]></variableExpression>
+	</variable>
+	<variable name="_Monto_Bruto_5" class="java.math.BigDecimal" resetType="Group" resetGroup="sub_rep" calculation="Sum">
+		<variableExpression><![CDATA[$F{_Monto_Bruto}]]></variableExpression>
+	</variable>
+	<variable name="_Monto_Neto_3" class="java.math.BigDecimal" resetType="Group" resetGroup="sub_rep" calculation="Sum">
+		<variableExpression><![CDATA[$F{_Monto_Neto}]]></variableExpression>
+	</variable>
+	<variable name="_Monto_Bruto_6" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{_Monto_Bruto}]]></variableExpression>
+	</variable>
+	<variable name="_Monto_Neto_4" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{_Monto_Neto}]]></variableExpression>
+	</variable>
+	<group name="sub_rep" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{_Unidad_RM}]]></groupExpression>
+		<groupHeader>
+			<band height="2"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="33">
+				<staticText>
+					<reportElement x="521" y="7" width="100" height="13"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total de la Unidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="668" y="1" width="32" height="13"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Bruto]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="623" y="7" width="39" height="13"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{_Unidad_RM}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="668" y="17" width="32" height="13"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Neto]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="720" y="0" width="82" height="13"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{_Monto_Bruto_5}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="720" y="14" width="86" height="13"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{_Monto_Neto_3}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="sub_rep0">
+		<groupExpression><![CDATA[$F{_Partida}]]></groupExpression>
+		<groupHeader>
+			<band height="15">
+				<textField>
+					<reportElement x="142" y="2" width="193" height="13"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{_Descripcion_Partida}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="59" y="2" width="58" height="13"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{_Partida}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="2" width="47" height="13"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[PARTIDA]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="16">
+				<staticText>
+					<reportElement x="563" y="1" width="83" height="13"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Subtotal partida]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="663" y="1" width="47" height="13"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{_Partida}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="731" y="1" width="55" height="13"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{_Monto_Bruto_4}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="11" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="174" y="0" width="391" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<image>
+				<reportElement x="23" y="0" width="125" height="57"/>
+				<imageExpression class="java.lang.String"><![CDATA["c:\\logotipo-usuario.gif"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="604" y="26" width="37" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Página]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="668" y="26" width="18" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[de ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="646" y="26" width="17" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="691" y="26" width="28" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="174" y="39" width="391" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{_Ejercicio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="174" y="13" width="391" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GERENCIA DE RECURSOS MATERIALES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="174" y="26" width="391" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROGRAMA ANUAL DE ADQUISICIONES ARRENDAMIENTOS Y SERVICIOS]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="686" y="0" width="54" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="580" y="0" width="100" height="13"/>
+				<textElement/>
+				<text><![CDATA[Fecha de Impresion]]></text>
+			</staticText>
+			<textField pattern="h.mm.ss a">
+				<reportElement x="748" y="0" width="54" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="66" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="7" width="45" height="13"/>
+				<textElement/>
+				<text><![CDATA[PARTIDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="59" y="6" width="58" height="13"/>
+				<textElement/>
+				<text><![CDATA[CABMS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="142" y="7" width="193" height="13"/>
+				<textElement/>
+				<text><![CDATA[DESCRIPCIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="362" y="7" width="33" height="13"/>
+				<textElement/>
+				<text><![CDATA[U.M]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="409" y="7" width="46" height="13"/>
+				<textElement/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<line>
+				<reportElement x="482" y="24" width="159" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="496" y="26" width="9" height="13"/>
+				<textElement/>
+				<text><![CDATA[I]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="532" y="26" width="15" height="13"/>
+				<textElement/>
+				<text><![CDATA[II]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="580" y="26" width="11" height="13"/>
+				<textElement/>
+				<text><![CDATA[III]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="623" y="25" width="18" height="13"/>
+				<textElement/>
+				<text><![CDATA[IV]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="505" y="6" width="118" height="13"/>
+				<textElement/>
+				<text><![CDATA[Cantidad Por Trimestre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="662" y="7" width="56" height="40"/>
+				<textElement/>
+				<text><![CDATA[Precio Unitario Promedio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="734" y="7" width="55" height="13"/>
+				<textElement/>
+				<text><![CDATA[Monto Bruto]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="49" width="802" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="50" width="45" height="13"/>
+				<textElement>
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[UNIDAD]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="142" y="50" width="174" height="13"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{_Unidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="50" width="55" height="13"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{_Unidad_RM}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="142" y="1" width="214" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{_Descripcion_CABMS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="362" y="1" width="33" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{_Unidad_Medida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="409" y="1" width="33" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{_Cantidad_Total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="483" y="1" width="22" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{_Cantidad_ITrimestre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="532" y="1" width="15" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{_Cantidad_IITrimestre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="580" y="1" width="29" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{_Cantidad_IIITrimestre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="663" y="1" width="56" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{_Precio_Unitario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="734" y="1" width="49" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{_Monto_Bruto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="1" width="45" height="13"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{_Partida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="1" width="44" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{_CABMS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="618" y="1" width="23" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{_Cantidad_IVTrimestre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="2" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="2" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="523" y="21" width="100" height="13"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Reporte]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="663" y="13" width="30" height="13"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bruto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="663" y="29" width="32" height="13"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Neto]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="710" y="9" width="92" height="13"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{_Monto_Bruto_6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="710" y="26" width="92" height="13"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{_Monto_Neto_4}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

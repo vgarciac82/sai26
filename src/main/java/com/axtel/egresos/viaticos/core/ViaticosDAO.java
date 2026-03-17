@@ -38,7 +38,7 @@ public class ViaticosDAO {
             ps.setString(cnt++, Viaticos.getJustificacion());
             ps.setInt(cnt++, Viaticos.getTienePaquete());
             ps.setInt(cnt++, Viaticos.getIdPaquete());
-            log.debug("Object: {}", queryInsert.toString());
+            log.debug("Object: " + String.valueOf(queryInsert.toString()));
             insertados = ps.executeUpdate();
             return insertados;
         } finally {
@@ -53,7 +53,7 @@ public class ViaticosDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Viaticos viatico = new Viaticos();
-        log.debug("Object: {}", "Consultando el viatico del empleado: " + idAgenda);
+        log.debug("Object: " + String.valueOf("Consultando el viatico del empleado: " + idAgenda));
         try {
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, idAgenda);
@@ -106,7 +106,7 @@ public class ViaticosDAO {
         String query = "DELETE tViaticos where nidAgenda = ?";
         PreparedStatement ps = null;
         int borrados = 0;
-        log.debug("Object: {}", "Borrando el viatico del folio: " + folio);
+        log.debug("Object: " + String.valueOf("Borrando el viatico del folio: " + folio));
         try {
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, folio);
@@ -121,7 +121,7 @@ public class ViaticosDAO {
         String query = "DELETE tViaticos where nidAgenda in (select nidAgenda from tAgenda (nolock) where nIdComision = ?)";
         PreparedStatement ps = null;
         int borrados = 0;
-        log.debug("Object: {}", "Borrando el viatico de la comision: " + idcomision);
+        log.debug("Object: " + String.valueOf("Borrando el viatico de la comision: " + idcomision));
         try {
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, idcomision);

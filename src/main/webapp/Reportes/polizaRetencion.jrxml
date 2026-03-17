@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="polizaRetenciones" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2719c276-8051-4fd3-956e-9398593f3508">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="194"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="whereFolio" class="java.lang.String">
+		<defaultValueExpression><![CDATA["and ce.nFolioRetencion= 4"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[DECLARE @nFolioPago INT
+DECLARE @cTipoPago VARCHAR(64)
+DECLARE @sFirmanteDelegatorio VARCHAR(250)
+DECLARE @sPuestoFirmanteDelegatorio VARCHAR(70)
+DECLARE @sFirmanteAut VARCHAR(250)
+DECLARE @sLeyenda VARCHAR(500)
+DECLARE @sOficio VARCHAR(128)
+DECLARE @sFechaOficio VARCHAR(20)
+DECLARE @cTipoSuplencia VARCHAR(20)
+
+SET @cTipoPago = 'RETENCION'
+
+SET	@sFirmanteDelegatorio = ''
+SET @sPuestoFirmanteDelegatorio = ''
+
+SET @sFirmanteAut = ''
+SET @sLeyenda = ''
+SET @sOficio = ''
+SET @sFechaOficio = ''
+
+select
+ce.nFolioRetencion
+,ce.fCarga
+,ce.faplicacion
+,sum(cd.mimporte) mimporte
+,isnull(cd.rfc,'No Aplica')rfc
+,isnull(tb.dNombre+' '+tb.dApellidoPaterno+' '+tb.dApellidoMaterno,'No Aplica') as nombreRFC
+,ce.cdescripcionpoliza
+,coalesce((select ISNULL(NOMBREN,'') + ' ' + ISNULL(NOMBREP,'')+ ' '+ ISNULL(NOMBREM,'')  from v_empleados_giro where clave = nnumEmpleadoVobo),'Firmante No Agregado') sFirmanteVoBo
+,coalesce((select descripcion_puesto from v_empleados_giro where clave = nnumEmpleadoVobo),'Puesto No Agregado')sPuestoVoBo
+,coalesce((select ISNULL(NOMBREN,'') + ' ' + ISNULL(NOMBREP,'')+ ' '+ ISNULL(NOMBREM,'')  from v_empleados_giro where clave = nnumEmpleadoAut),'Firmante No Agregado')sFirmanteAut
+,coalesce((select  descripcion_puesto from v_empleados_giro where clave = nnumEmpleadoAut),'Puesto No Agregado') sPuestoAut
+,cd.cevento+' '+ev.dEvento as cevento
+,ce.ccentrocontable
+,(select cDescripcion from tCatalogoCentroContable as ccc WHERE ccc.cCentroContable=ce.ccentrocontable) dCENTROCONTABLE
+,ce.cUnidadResponsable+' '+ue.D_DESCRIPCION as cunidadejecutora
+,dbo.fnCantidadLetra(sum(cd.mimporte)) cantLetras
+, SUM(mObra5) mObra5
+, SUM(mImporteFlete4) mImporteFlete4
+, SUM(mISRHonorarios) mISRHonorarios
+, SUM(mISRArrenda) mISRArrenda
+, SUM(mISROtros) mISROtros
+, SUM(mImporteIvaHonorarios) mImporteIvaHonorarios
+, SUM(mImporteIvaArrenda) mImporteIvaArrenda
+, SUM(mImporteISRLaudos) mImporteISRLaudos
+, SUM(mimporteISRResico) mimporteISRResico
+, SUM(ISNULL(mPenalizacion, 0) ) mPenalizacion
+INTO #tmpTablaSalida
+from tRetencionEncabezado as ce with(NOLOCK)
+inner join tRetencionDetalle as cd with(NOLOCK) on ce.nFolioRetencion=cd.nFolioRetencion
+inner join tCatUnidadEjecutora as ue with(nolock) on ue.cUnidadEjecutora=ce.cUnidadResponsable
+inner join tEvento as ev with(nolock) on cd.cEvento=ev.cEvento
+left join tBeneficiario as tb with(NOLOCK) on cd.rfc=tb.dRFC
+where  1=1
+$P!{whereFolio}
+GROUP BY ce.nFolioRetencion
+,ce.fCarga, ce.cUnidadResponsable, ue.D_DESCRIPCION
+,ce.faplicacion, cd.rfc,tb.dNombre, tb.dApellidoPaterno, tb.dApellidoMaterno, ce.cdescripcionpoliza
+,cd.cevento, ev.dEvento 
+,ce.ccentrocontable, nnumEmpleadoVobo, nnumEmpleadoAut
+
+
+SELECT TOP 1 @nFolioPago = nFolioRetencion FROM #tmpTablaSalida WITH (NOLOCK)
+
+	IF (SELECT COUNT(*) FROM tPagoFirmanteDelagatorio WITH (NOLOCK) WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolioPago) > 0
+		BEGIN
+	SELECT TOP 1 @sFirmanteAut = sFirmanteAut FROM #tmpTablaSalida WITH (NOLOCK)
+
+	SELECT	@sFirmanteDelegatorio =
+		ISNULL((cNombreTitular + ' ' + cApellidoPaternoTitular + ' ' + cApellidoMaternoTitular)
+				,(emp.NOMBREN + ' ' + emp.NOMBREP+ ' ' + emp.NOMBREM)  ),
+			@sPuestoFirmanteDelegatorio = ISNULL(cPuestoTitular, DESCRIPCION_PUESTO)
+			, @sOficio = cFolioOficio, @sFechaOficio = dFechaOficio
+			, @cTipoSuplencia = cTipoSuplencia
+			FROM tPagoFirmanteDelagatorio pago WITH (NOLOCK)
+			INNER JOIN tCatTipoSuplencia WITH (NOLOCK)
+				ON pago.nTipoSuplencia = tCatTipoSuplencia.ntiposuplencia
+			INNER JOIN dbo.v_empleados_giro emp (NOLOCK)
+				ON emp.CLAVE = pago.cNumeroEmpleado
+			WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolioPago
+
+		SET @sLeyenda = 'Firma ' + @cTipoSuplencia + ' de: ' + @sFirmanteAut + ', con fundamento en el oficio: ' + @sOficio + ' de fecha: ' + @sFechaOficio + '.'
+		END
+
+	SELECT *, @sFirmanteDelegatorio AS sFirmanteDelegatorio, @sPuestoFirmanteDelegatorio AS sPuestoFirmanteDelegatorio, @sLeyenda AS sLeyenda
+	FROM #tmpTablaSalida WITH (NOLOCK)
+
+IF (SELECT OBJECT_ID('tempdb..#tmpTablaSalida')) IS NOT NULL	DROP TABLE #tmpTablaSalida]]>
+	</queryString>
+	<field name="nFolioRetencion" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="nFolioRetencion"/>
+		<property name="com.jaspersoft.studio.field.label" value="nFolioRetencion"/>
+	</field>
+	<field name="fCarga" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fCarga"/>
+		<property name="com.jaspersoft.studio.field.label" value="fCarga"/>
+	</field>
+	<field name="faplicacion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="faplicacion"/>
+		<property name="com.jaspersoft.studio.field.label" value="faplicacion"/>
+	</field>
+	<field name="mimporte" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mimporte"/>
+		<property name="com.jaspersoft.studio.field.label" value="mimporte"/>
+	</field>
+	<field name="rfc" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="rfc"/>
+		<property name="com.jaspersoft.studio.field.label" value="rfc"/>
+	</field>
+	<field name="nombreRFC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombreRFC"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombreRFC"/>
+	</field>
+	<field name="cdescripcionpoliza" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cdescripcionpoliza"/>
+		<property name="com.jaspersoft.studio.field.label" value="cdescripcionpoliza"/>
+	</field>
+	<field name="sFirmanteVoBo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sFirmanteVoBo"/>
+		<property name="com.jaspersoft.studio.field.label" value="sFirmanteVoBo"/>
+	</field>
+	<field name="sPuestoVoBo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sPuestoVoBo"/>
+		<property name="com.jaspersoft.studio.field.label" value="sPuestoVoBo"/>
+	</field>
+	<field name="sFirmanteAut" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sFirmanteAut"/>
+		<property name="com.jaspersoft.studio.field.label" value="sFirmanteAut"/>
+	</field>
+	<field name="sPuestoAut" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sPuestoAut"/>
+		<property name="com.jaspersoft.studio.field.label" value="sPuestoAut"/>
+	</field>
+	<field name="cevento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cevento"/>
+		<property name="com.jaspersoft.studio.field.label" value="cevento"/>
+	</field>
+	<field name="ccentrocontable" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ccentrocontable"/>
+		<property name="com.jaspersoft.studio.field.label" value="ccentrocontable"/>
+	</field>
+	<field name="dCENTROCONTABLE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dCENTROCONTABLE"/>
+		<property name="com.jaspersoft.studio.field.label" value="dCENTROCONTABLE"/>
+	</field>
+	<field name="cunidadejecutora" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cunidadejecutora"/>
+		<property name="com.jaspersoft.studio.field.label" value="cunidadejecutora"/>
+	</field>
+	<field name="cantLetras" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cantLetras"/>
+		<property name="com.jaspersoft.studio.field.label" value="cantLetras"/>
+	</field>
+	<field name="mObra5" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mObra5"/>
+		<property name="com.jaspersoft.studio.field.label" value="mObra5"/>
+	</field>
+	<field name="mImporteFlete4" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mImporteFlete4"/>
+		<property name="com.jaspersoft.studio.field.label" value="mImporteFlete4"/>
+	</field>
+	<field name="mISRHonorarios" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mISRHonorarios"/>
+		<property name="com.jaspersoft.studio.field.label" value="mISRHonorarios"/>
+	</field>
+	<field name="mISRArrenda" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mISRArrenda"/>
+		<property name="com.jaspersoft.studio.field.label" value="mISRArrenda"/>
+	</field>
+	<field name="mISROtros" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mISROtros"/>
+		<property name="com.jaspersoft.studio.field.label" value="mISROtros"/>
+	</field>
+	<field name="mImporteIvaHonorarios" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mImporteIvaHonorarios"/>
+		<property name="com.jaspersoft.studio.field.label" value="mImporteIvaHonorarios"/>
+	</field>
+	<field name="mImporteIvaArrenda" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mImporteIvaArrenda"/>
+		<property name="com.jaspersoft.studio.field.label" value="mImporteIvaArrenda"/>
+	</field>
+	<field name="mImporteISRLaudos" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mImporteISRLaudos"/>
+		<property name="com.jaspersoft.studio.field.label" value="mImporteISRLaudos"/>
+	</field>
+	<field name="mimporteISRResico" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mimporteISRResico"/>
+		<property name="com.jaspersoft.studio.field.label" value="mimporteISRResico"/>
+	</field>
+	<field name="mPenalizacion" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mPenalizacion"/>
+		<property name="com.jaspersoft.studio.field.label" value="mPenalizacion"/>
+	</field>
+	<field name="sFirmanteDelegatorio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sFirmanteDelegatorio"/>
+		<property name="com.jaspersoft.studio.field.label" value="sFirmanteDelegatorio"/>
+	</field>
+	<field name="sPuestoFirmanteDelegatorio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sPuestoFirmanteDelegatorio"/>
+		<property name="com.jaspersoft.studio.field.label" value="sPuestoFirmanteDelegatorio"/>
+	</field>
+	<field name="sLeyenda" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sLeyenda"/>
+		<property name="com.jaspersoft.studio.field.label" value="sLeyenda"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="5" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="285" splitType="Stretch">
+			<rectangle>
+				<reportElement key="rectangle" x="0" y="62" width="551" height="222" uuid="33f45019-f7fe-4840-8342-a780447549df"/>
+			</rectangle>
+			<rectangle>
+				<reportElement key="rectangle" x="404" y="4" width="78" height="40" uuid="e3cd62a7-380b-488f-ba93-d8e0ae96126b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement key="rectangle" x="171" y="4" width="96" height="40" uuid="3bd66532-800c-4a90-af1c-eeaf3487ac6c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement key="rectangle" x="267" y="4" width="137" height="40" uuid="a3c11f64-fba5-494b-aa4b-9dcce9e4b2f9"/>
+			</rectangle>
+			<rectangle>
+				<reportElement key="rectangle" x="0" y="44" width="551" height="18" uuid="f3b4e28e-fef3-44ba-8c68-c938d856f549"/>
+			</rectangle>
+			<staticText>
+				<reportElement key="staticText" x="6" y="138" width="100" height="17" uuid="b059ab8b-05d5-4f32-b7bd-f61ffb239262"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Por concepto de:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="4" y="65" width="116" height="16" uuid="78375c6d-d00b-4d7e-bb5d-638965faf349"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Importe de la Retención:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="5" y="253" width="60" height="13" uuid="8f42c91f-75a7-4d1c-8cce-46ac44506fbf"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Eventos:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="283" y="103" width="138" height="17" uuid="4c81b1f7-08d1-43f3-aa4f-661de3513cbc"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Monto penalización:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="283" y="123" width="138" height="17" uuid="f2dc855f-eaf3-499a-9d1c-72c67e8a6bba">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Monto 5 al millar:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="283" y="177" width="138" height="17" uuid="152e8782-d47b-4f7d-b85b-9c2d344027d8"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Monto ISR Arrendamiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="283" y="195" width="138" height="17" uuid="6c7e5803-2640-424a-a573-d9e4b10434db"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Monto ISR Otros]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line" x="281" y="139" width="270" height="1" uuid="1f9d3182-a2f9-43e1-9fd5-cbc517f3f8b2"/>
+			</line>
+			<line>
+				<reportElement key="line" x="282" y="157" width="270" height="1" uuid="6d98880e-ac4e-4ea1-9d99-9d5bdd1792b2"/>
+			</line>
+			<line>
+				<reportElement key="line" x="281" y="177" width="270" height="1" uuid="4c253353-0673-4fd5-be44-aff1a3255aad"/>
+			</line>
+			<line>
+				<reportElement key="line" x="281" y="194" width="270" height="1" uuid="29d0ed9d-6f4d-4cd9-adf4-e06a18b51dfd"/>
+			</line>
+			<line>
+				<reportElement key="line" x="280" y="212" width="271" height="1" uuid="0baf7398-4745-46f5-9d06-7b34e64b93ea"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText" x="6" y="105" width="100" height="13" uuid="09a9785a-e9be-47cf-a59b-bbe7410ed300"/>
+				<text><![CDATA[A favor de:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement key="rectangle" x="482" y="4" width="69" height="40" uuid="ee7d583d-6c9c-4699-b9d9-eedda9c867e7"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="267" y="24" width="137" height="13" uuid="7bbd5f45-5ddb-4da0-8da3-4261b7f77068"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[RETENCIÓN]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line" x="0" y="102" width="551" height="1" uuid="dabd629a-25c8-4dfc-92d5-ce4355f864d6"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText" x="267" y="4" width="137" height="13" uuid="6d77bc23-297b-4b1e-82e7-34e5b25c5790"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Tipo de Documento.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="404" y="4" width="78" height="26" uuid="b6f2a759-8a16-4aab-b00a-5bf2f22e3c37"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Fecha de Captura.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="482" y="4" width="69" height="26" uuid="42acaa49-95e0-47f1-ab5a-1a7634d18e80"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Fecha de Aplicación.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="171" y="5" width="96" height="13" uuid="db9ba403-1f7f-483c-9531-7ed1403de003"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[No. Folio Retención]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="404" y="29" width="78" height="13" uuid="f1442379-a0e0-4d05-84ed-c35b781fbb47"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fCarga}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="482" y="29" width="69" height="13" uuid="c2c9e3f3-52d5-4ea6-a4d6-b419e508911f"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{faplicacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="6" y="46" width="143" height="15" uuid="47dae2cc-bc4b-42c7-8c95-4fc3678d809b"/>
+				<textFieldExpression><![CDATA[$F{dCENTROCONTABLE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="175" y="46" width="356" height="15" uuid="302dbb9f-b2c1-40fc-ad86-d5c27a1b4c81"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cunidadejecutora}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="120" y="65" width="97" height="16" uuid="b754b4bf-b006-4e5c-a049-0255853e2340"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{mimporte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="106" y="105" width="175" height="13" uuid="ec185020-c050-4a0b-948f-8b01027b8818"/>
+				<textFieldExpression><![CDATA[$F{rfc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="6" y="118" width="275" height="20" uuid="2c8a655f-a74f-478a-bbdd-24533a78b30a"/>
+				<textFieldExpression><![CDATA[$F{nombreRFC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="6" y="155" width="274" height="94" isPrintWhenDetailOverflows="true" uuid="33f2ca19-8d40-49af-9a96-5f719dfab520"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cdescripcionpoliza}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="421" y="195" width="128" height="17" uuid="01453e5a-b68b-4374-8b0b-9a3a45060cb8"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{mISROtros}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="5" y="268" width="270" height="16" uuid="0edb60bf-303c-46e6-b649-32971e5591a1"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cevento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4" y="80" width="543" height="20" uuid="80e2ba11-9aeb-4195-a16f-5f72d90df339"/>
+				<textFieldExpression><![CDATA[$F{cantLetras}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line" x="2" y="139" width="280" height="1" uuid="25f0bb44-1346-4827-b304-cf37970b9906"/>
+			</line>
+			<line>
+				<reportElement key="line" x="1" y="251" width="280" height="1" uuid="7b399e39-c824-43e9-9d51-1cbf9df4317f"/>
+			</line>
+			<image>
+				<reportElement x="6" y="3" width="160" height="40" uuid="6551436b-2e59-41e5-af5c-9f0f48e2fcd9"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\nuevo_logoconafor.jpg"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="280" y="102" width="1" height="182" uuid="46bb01c6-256c-4488-825a-6a562365c425"/>
+			</line>
+			<line>
+				<reportElement key="line" x="280" y="120" width="270" height="1" uuid="87846a41-48ec-4466-8e53-d6c2e1ab5f7f"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText" x="283" y="213" width="138" height="17" uuid="1bbffd9a-5471-404c-bd88-cf58d504797e"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Monto IVA Honorarios]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="283" y="230" width="138" height="17" uuid="c737dc8f-9c02-4a77-aad9-eeb17936298e"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Monto IVA Arrendamiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="283" y="249" width="138" height="17" uuid="363d876f-b676-4dde-9e53-9dd5c5d973d3"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Monto ISR Laudos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="283" y="140" width="138" height="17" uuid="af09ca4c-0207-40b0-a52e-d78fcbdaebe1"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Monto Autotransporte:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="283" y="158" width="138" height="17" uuid="1da155da-3796-497a-9b2b-ee4bfd0d33c4"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Monto ISR Honorarios:]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line" x="280" y="230" width="271" height="1" uuid="381e1b9a-bed1-4971-9cf6-4f687757fa14"/>
+			</line>
+			<line>
+				<reportElement key="line" x="280" y="247" width="271" height="1" uuid="db2c19ff-88c2-48cb-86fd-4a935fcf04f2">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement key="line" x="281" y="267" width="271" height="1" uuid="da87c987-5c05-4c02-9451-2825ceba9b81"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText" x="283" y="267" width="138" height="17" uuid="296464e3-ad66-4887-a9d4-294fda8143b3"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Monto ISR Resico]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="421" y="103" width="128" height="17" uuid="acb55711-78aa-4faf-a6e0-f6cb32ec5c3a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{mPenalizacion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="421" y="140" width="128" height="17" uuid="4091df02-b79a-4348-9bc9-2ad0450f0689"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{mImporteFlete4}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="421" y="123" width="128" height="17" uuid="079ebe28-96c3-4943-8b36-6aab01c12831"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{mObra5}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="421" y="213" width="128" height="17" uuid="ba7efb7b-606b-4a35-b475-5e5c2d51d7df"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{mImporteIvaHonorarios}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="421" y="232" width="128" height="17" uuid="eb68ef8f-ee7d-4ca1-9c60-06e6f4f668f0"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{mImporteIvaArrenda}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="421" y="177" width="128" height="17" uuid="d6bc01b5-7150-4e4c-9595-d6a0d91d9a6a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{mISRArrenda}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="421" y="160" width="128" height="17" uuid="44ec490f-2361-4bf1-b3c5-8347b5a1e1d1"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{mISRHonorarios}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="421" y="249" width="128" height="17" uuid="0f0228fc-2126-4ddf-8728-16bddc29657a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{mImporteISRLaudos}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="421" y="267" width="128" height="17" uuid="bffef2c3-93e6-45bb-9a4e-91e0c459a175"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{mimporteISRResico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="171" y="23" width="96" height="15" uuid="d63f325d-2185-4891-8dab-62817a5540cd"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nFolioRetencion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="109" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="552" height="105" uuid="fe58908e-797f-4799-ab07-7c2a0cb7d1a2"/>
+			</rectangle>
+			<textField>
+				<reportElement x="31" y="64" width="194" height="19" uuid="6f4bae9b-6db3-4ff2-be27-928266711e3b"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sFirmanteVoBo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="31" y="82" width="194" height="19" uuid="121a2032-439b-4015-9eab-071e29f59f03"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sPuestoVoBo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="57" width="270" height="13" uuid="4ebca4ec-d996-45c6-a80c-b0a768d0f7e2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $F{sLeyenda}.equals( "" )) ? $F{sFirmanteAut} : $F{sFirmanteDelegatorio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="71" width="270" height="13" uuid="a755e7ef-5102-4d45-bba7-6c55c619f62c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{sLeyenda}.equals( "" )) ? $F{sPuestoAut} : $F{sPuestoFirmanteDelegatorio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText" x="282" y="85" width="268" height="20" uuid="8f0ad905-cea5-492e-9c6d-a31946509cac">
+					<printWhenExpression><![CDATA[$F{sFirmanteAut}.equals( "DAVID CABRERA HERMOSILLO" ) && $F{sLeyenda}.equals( "" ) && $F{cunidadejecutora}.startsWith( "D03" ) == false]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[En suplencia por ausencia del Director General, con fundamento en el artículo 25, párrafo segundo de Estatuto Orgánico de la CONAFOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="103" y="0" width="49" height="12" uuid="533b16a2-bab4-4be4-a005-d0751caad555"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[VoBo.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="392" y="0" width="48" height="12" uuid="be34ce8b-dcd3-46bf-a01f-5f6f33a9c978"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Autorizó.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="280" y="0" width="1" height="105" uuid="01c053df-c668-497b-ab4a-89a47029b8e2"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

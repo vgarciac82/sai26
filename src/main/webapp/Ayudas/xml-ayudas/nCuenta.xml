@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Cuentas</titulo>
+	<anchoWin>615</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>50</altoAreaCaptura>
+	<tabla>CONSULTAPOLIZA</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+
+	<grid>
+		<columna campo="nCuenta" control="nCuenta" dependencia="No"
+			ctrlsDependientes="" limpiaOnKeypress="" header="Cuenta" ancho="20"
+			maxlen="20" tipo="string" visible="Si" clase="" />
+		<columna campo="dCuenta" control="dCuenta" dependencia="No"
+			ctrlsDependientes="" limpiaOnKeypress="" header="Descripción" ancho="70"
+			maxlen="70" tipo="string" visible="Si" clase="" />
+		<columna campo="nSubCuenta" control="nSubCuenta" dependencia="No"
+			ctrlsDependientes="" limpiaOnKeypress="" header="SubCuenta" ancho="40"
+			maxlen="40" tipo="string" visible="No" clase="" />
+
+	</grid>
+
+</Ayuda>

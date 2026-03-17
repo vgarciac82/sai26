@@ -488,7 +488,7 @@ public class ProgramaAnualServlet extends HttpServlet {
             CasoBusinessLogic cbl = new CasoBusinessLogic(jndiName);
             c = iniciaCaso(tipoCaso);
             folioCaso = c.getFolio();
-            log.debug("Object: {}", "Caso obtenido: " + folioCaso);
+            log.debug("Object: " + String.valueOf("Caso obtenido: " + folioCaso));
             int indice = folioCaso.lastIndexOf('-') + 1;
             folio = Integer.parseInt(folioCaso.substring(indice));
             //Argumentos para llenar la tabla de CG_CASO_DATO y que se muestren en el inbox

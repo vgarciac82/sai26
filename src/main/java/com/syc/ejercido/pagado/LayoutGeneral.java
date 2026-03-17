@@ -110,7 +110,7 @@ public class LayoutGeneral extends HttpServlet {
                 archivoPago.append(arrListDoc.get(i));
             }
             String outTextPago = archivoPago.toString();
-            out.write(outTextPago.toPath());
+            out.write(outTextPago);
             out.close();
             byte[] bufPag = new byte[2048];
             try {

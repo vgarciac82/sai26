@@ -43,13 +43,13 @@ public class CondicionExistePadre extends CondicionCuentaContable {
                 try {
                     pStmnt.close();
                 } catch (Exception e2) {
-                    Log.warn("Object: {}", "Problemas cerrando PreparedStatemnt" + e2.toString());
+                    Log.warn("Object: {}" + " - " + "Problemas cerrando PreparedStatemnt" + e2.toString());
                 }
             if (rs != null)
                 try {
                     rs.close();
                 } catch (Exception e2) {
-                    Log.warn("Object: {}", "Problemas cerrando ResultSet" + e2.toString());
+                    Log.warn("Object: {}" + " - " + "Problemas cerrando ResultSet" + e2.toString());
                 }
         }
     }

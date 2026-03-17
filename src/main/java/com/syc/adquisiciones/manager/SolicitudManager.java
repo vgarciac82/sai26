@@ -61,7 +61,7 @@ public class SolicitudManager {
                         rs = pstmt.executeQuery();
                         if (rs.next()) {
                             String id_Caso = rs.getString("ID_CASO");
-                            log.debug("Object: {}", id_Caso);
+                            log.debug("Object: " + String.valueOf(id_Caso));
                             if (id_Caso != null && Integer.parseInt(id_Caso) > 0) {
                                 sc = new Caso();
                                 sc.setIdCaso(Integer.parseInt(id_Caso));

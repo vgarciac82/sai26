@@ -67,7 +67,7 @@ public class ConsultaPolizasServlet extends HttpServlet {
             String json = new String("{\"aaData\":[]}");
             resp.setContentType("application/json");
             ServletOutputStream out = resp.getOutputStream();
-            log.debug("Object: {}", json);
+            log.debug("Object: " + String.valueOf(json));
             out.print(json);
             out.flush();
             out.close();
@@ -75,6 +75,7 @@ public class ConsultaPolizasServlet extends HttpServlet {
             ReporteBussinesLogic rbl = new ReporteBussinesLogic(jniName);
             //,PolIdOper);
             String //,PolIdOper);
+            //,PolIdOper);
             //,PolIdOper);
             json = //,PolIdOper);
             rbl.//,PolIdOper);
@@ -89,12 +90,11 @@ public class ConsultaPolizasServlet extends HttpServlet {
             PolFechAplicacionFin, //,PolIdOper);
             PolAutorizo, //,PolIdOper);
             PolNumeroIni, //,PolIdOper);
-            PolNumeroFin, //,PolIdOper);
-            PolMontoIni, PolMontoFin, PolOrigen, PolAutomatica);
+            PolNumeroFin, PolMontoIni, PolMontoFin, PolOrigen, PolAutomatica);
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             ServletOutputStream out = resp.getOutputStream();
-            log.debug("Object: {}", json);
+            log.debug("Object: " + String.valueOf(json));
             out.print(new String(json.getBytes("UTF-8"), "ISO-8859-1"));
             out.flush();
             out.close();

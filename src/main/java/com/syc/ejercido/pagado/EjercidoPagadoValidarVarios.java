@@ -258,7 +258,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                              *  APLICACION_CONTABLE = '1' Para Poder Ejercer
                              * *
                              */
-                            log.debug("Object: {}", "Contrarecibo " + StringUtils.trim(strCaNoContrarrecibo));
+                            log.debug("Object: " + String.valueOf("Contrarecibo " + StringUtils.trim(strCaNoContrarrecibo)));
                             String sqlCLC = "SELECT NCTR_47, NCLC_43, APLICACION_CONTABLE FROM CLC_SICOP SICOP WITH(NOLOCK), CLC_SIAFF_ENC SIAFF WITH(NOLOCK) WHERE SICOP.FOLIO_SIAFF_112 = SIAFF.FOLIO_CLC AND NCTR_47 = '" + strCaNoContrarrecibo + "' AND (SELECT SUM(convert(money,IMP_NETO_107)) as totalSicop FROM CLC_SICOP WITH(NOLOCK) WHERE NCTR_47 = '" + strCaNoContrarrecibo + "' AND FOLIO_SIAFF_112 <> '0' AND DOC_HAPLICADO=1) BETWEEN  " + String.format("%.2f", numeMenorFor) + " AND " + String.format("%.2f", numeMayorFor) + " GROUP BY NCTR_47, NCLC_43, APLICACION_CONTABLE";
                             pstmEncSICOP = conn.prepareStatement(sqlCLC);
                             rs2 = pstmEncSICOP.executeQuery();
@@ -1544,7 +1544,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                     // URVP.13082014. SE PONE FIJO EL TIPO DE POLIZA A DIARIO EN
                     // DEL EJERCIDO----------------^ (tipoPoliza--DI)
                     pstmInsertEncEje = conn.prepareStatement(queryInsertEjercidoEncabezado);
-                    log.debug("Object: {}", "Insertando en tEjercidoEncabezado " + queryInsertEjercidoEncabezado);
+                    log.debug("Object: " + String.valueOf("Insertando en tEjercidoEncabezado " + queryInsertEjercidoEncabezado));
                     pstmInsertEncEje.executeUpdate();
                 }
                 if (existePagadoAplicado(conn, strCaNoContrarrecibo))
@@ -1572,9 +1572,9 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                         pstmInsertEncPag = conn.prepareStatement(queryPagadoA.toString());
                         int insertadosPagado = pstmInsertEncPag.executeUpdate();
                         log.trace("Object: {}", "Ejecutando: " + queryPagadoA);
-                        log.debug("Object: {}", "Se insertaron: " + insertadosPagado + " Registros en tPagado ");
+                        log.debug("Object: " + String.valueOf("Se insertaron: " + insertadosPagado + " Registros en tPagado "));
                     } else {
-                        log.debug("Object: {}", "El pago " + strCaNoContrarrecibo + " ya estaba insertado sin ser aplicado.");
+                        log.debug("Object: " + String.valueOf("El pago " + strCaNoContrarrecibo + " ya estaba insertado sin ser aplicado."));
                     }
                 }
                 /**
@@ -1652,7 +1652,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                     }
                     if (esSAIAlterno && ("AJENAS".equalsIgnoreCase(cTipoPago) && espagofonden)) {
                         cEvento = OperacionAjenaManager.calculaEventoFonden(EP);
-                        log.debug("Object: {}", "Se trata de sistema alterno. Cambiando evento: " + cEvento);
+                        log.debug("Object: " + String.valueOf("Se trata de sistema alterno. Cambiando evento: " + cEvento));
                     }
                     String cCentroContable = rsEjercidoDetalle.getString("cCentroContable");
                     String Rfc = rsEjercidoDetalle.getString("RFC");
@@ -1720,7 +1720,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
                             pstmInsertDetPag = conn.prepareStatement(queryInsertPagadoDet.toString());
                             log.trace("Object: {}", "Se insertara detalle de pago:\n" + queryInsertPagadoDet);
                             int detPagInser = pstmInsertDetPag.executeUpdate();
-                            log.debug("Object: {}", "Se insertaron " + detPagInser + " en el detalle de pagado.");
+                            log.debug("Object: " + String.valueOf("Se insertaron " + detPagInser + " en el detalle de pagado."));
                         }
                     }
                     valor = "guardado";
@@ -1738,7 +1738,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
         String valor = "";
         try {
             descripcion = StringUtils.trimToEmpty(descripcion).replaceAll("'", "");
-            log.debug("Object: {}", "INSERT INTO tDetalleEjercidoPagado (cTipoPago, nFolioPago, caNoContrarrecibo, clcSicop, fechaAplicacion, EP, importe, tipoDocumento, descripcion) " + "VALUES('" + cTipoPago + "', " + nFolioPago + ", '" + strCaNoContrarrecibo + "', '" + clcSicop + "', '" + fechaAplicacion + "', '" + EP + "', " + importe + ", '" + tipoDocumento + "', '" + descripcion + "') ");
+            log.debug("Object: " + String.valueOf("INSERT INTO tDetalleEjercidoPagado (cTipoPago, nFolioPago, caNoContrarrecibo, clcSicop, fechaAplicacion, EP, importe, tipoDocumento, descripcion) " + "VALUES('" + cTipoPago + "', " + nFolioPago + ", '" + strCaNoContrarrecibo + "', '" + clcSicop + "', '" + fechaAplicacion + "', '" + EP + "', " + importe + ", '" + tipoDocumento + "', '" + descripcion + "') "));
             pstmDiferencia = conn.prepareStatement("INSERT INTO tDetalleEjercidoPagado (cTipoPago, nFolioPago, caNoContrarrecibo, clcSicop, fechaAplicacion, EP, importe, tipoDocumento, descripcion) " + "VALUES('" + cTipoPago + "', " + nFolioPago + ", '" + strCaNoContrarrecibo + "', '" + clcSicop + "', '" + fechaAplicacion + "', '" + EP + "', " + importe + ", '" + tipoDocumento + "', '" + descripcion + "') ");
             pstmDiferencia.executeUpdate();
         } finally {
@@ -2183,7 +2183,7 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
         try {
             pst = conn.prepareStatement(query);
             int i = pst.executeUpdate();
-            log.debug("Object: {}", "Se insertaron " + i + " registros en CLC_SICOP_PAGO ");
+            log.debug("Object: " + String.valueOf("Se insertaron " + i + " registros en CLC_SICOP_PAGO "));
         } finally {
             CloseObject.closeObject(pst, false);
         }
@@ -2229,9 +2229,9 @@ public class EjercidoPagadoValidarVarios extends DataSourceManager {
         String query = "UPDATE tRELACIONGASTOSEncabezado SET nEnviadoSICOP = -5 WHERE caNoContrarrecibo IN " + notCuentaPorPagar;
         try {
             ps = conn.prepareStatement(query);
-            log.debug("Object: {}", "Contrarecibo enviado a rechazo bancario " + notCuentaPorPagar + ", " + query);
+            log.debug("Object: " + String.valueOf("Contrarecibo enviado a rechazo bancario " + notCuentaPorPagar + ", " + query));
             int afectados = ps.executeUpdate();
-            log.debug("Object: {}", "Se actualizaron " + afectados);
+            log.debug("Object: " + String.valueOf("Se actualizaron " + afectados));
             conn.commit();
         } catch (Exception e) {
             log.info("Error occurred", "Error de Aplicación " + e.getMessage());

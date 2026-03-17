@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mantenimiento Roles -->
+<Ayuda>
+	<titulo>Ayuda Roles Usuario</titulo>
+	<anchoWin>400</anchoWin>
+	<altoWin>400</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>ROLESUSUARIO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="ur.R_NOMBRE" control="txtGridMantoRolesSup"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Rol"				ancho="50"		maxlen="100"		tipo="string"	visible="Si"	clase=""/>
+	</grid>	  
+</Ayuda>

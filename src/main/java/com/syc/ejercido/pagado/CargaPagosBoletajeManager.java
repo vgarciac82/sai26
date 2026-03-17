@@ -155,7 +155,7 @@ public class CargaPagosBoletajeManager {
                 ps = conn.prepareStatement(qureryInsert);
                 for (Iterator<Vuelo> i = vuelos.iterator(); i.hasNext(); ) {
                     Vuelo v = i.next();
-                    log.debug("Object: {}", "Insertando vuelo: " + v);
+                    log.debug("Object: " + String.valueOf("Insertando vuelo: " + v));
                     ps.setString(1, v.getRFC());
                     ps.setString(2, v.getcNombre());
                     ps.setString(3, v.getcReferencia());

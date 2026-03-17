@@ -72,7 +72,7 @@ public class SeguridadServlet extends HttpServlet {
         }
         String myMessage = "SeguridadServlet.doPost() charEnc=[" + charEnc + "]";
         System.out.println(myMessage);
-        log.debug("Object: {}", myMessage);
+        log.debug("Object: " + String.valueOf(myMessage));
         int intAccion = -1;
         int intCatalogo = -1;
         String Accion = request.getParameter("accion");
@@ -335,7 +335,7 @@ public class SeguridadServlet extends HttpServlet {
         StringBuffer xmlResp = getRespuesta("status");
         response.setContentType("text/xml");
         response.setHeader("Cache-Control", "no-cache");
-        response.getWriter().write(xmlResp.toString().toPath());
+        response.getWriter().write(xmlResp.toString());
         System.out.println(xmlResp.toString());
     }
 

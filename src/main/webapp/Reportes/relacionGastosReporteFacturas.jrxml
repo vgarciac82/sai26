@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pagoDirectoReporte"  pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="0.9313819845887326"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\FROYLAN\\Workspaces\\MyEclipse 8.5\\gestion_conagua_sif\\WebContent\\Reportes"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cIdDocumento" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="clabeInterBancaria" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select c.nFolioRelacionGastos, c.consecutivoFacturaEncabezado,A.cIdUnidadEjecutora, f.D_DESCRIPCION,
+'RELACION DE GASTOS N° '+a.cIdDocumento as concepto,
+A.cIdRFC,c.cRazonSocial as cnombre,a.cRazonsocial as razonSocialRelacion,  convert(varchar,c.fechaFactura,103)  fechaFactura, REPLACE(c.cIdFactura,'-','') factura, SUBSTRING(d.altaAlmacenaria,0,CHARINDEX('|',d.altaAlmacenaria)) altaAlmacenaria,
+RTRIM(d.cIdSubPartida)+'.'+d.EP grupo,
+ d.cIdSubPartida ,d.EP , e.cSubPartida, d.mImporteTotalFacturaDetalle ,
+ rtrim(d.cIdSubPartida)+'-'+e.cSubPartida as descPartida
+  ,(select SUM(mImporteTotalFacturaDetalle) as subTotalPartida from mRelacionGastosFacturasDetalle where nFolioRelacionGastos=a.ConsecutivoRELGASTOS and cIdSubPartida=d.cIdSubPartida
+ and Ep=d.EP  group by cIdSubPartida, EP )Total
+ ,(select SUM(mImporteTotalFacturaDetalle) as totalDocumento from mRelacionGastosFacturasDetalle where nFolioRelacionGastos=a.ConsecutivoRELGASTOS group by nFolioRelacionGastos) totalDocumento
+ , dbo.CantidadConLetraPedido(CONVERT(MONEY,(select SUM(mImporteTotalFacturaDetalle) as totalDocumento from mRelacionGastosFacturasDetalle where nFolioRelacionGastos=a.ConsecutivoRELGASTOS group by nFolioRelacionGastos)),'PESOS') letra,
+ x.strClabe as clabeInterBancaria,SUBSTRING(x.strClabe,7,11)as numeroCuenta,x.dBancoAbreviado as nombreBanco
+ from mRelacionGastos a WITH(NOLOCK)
+INNER JOIN v_PCATALOGORFC B ON a.cIdRFC=B.cIdRFC
+inner join mRelacionGastosFacturasEncabezado c on
+a.ConsecutivoRELGASTOS=c.nFolioRelacionGastos
+inner join mRelacionGastosFacturasDetalle d on
+c.nFolioRelacionGastos=d.nFolioRelacionGastos and c.cIdFactura=d.cIdFactura
+inner join mCatalogoSubPartida e on
+d.cIdSubPartida=e.cIdSubPartida
+inner join v_unidadEjecutoraPadre f on a.cIdUnidadEjecutora=f.cUnidadResponsable
+inner join (select cb.strCentroContable,cb.strClabe,cb.strUnidadEjecutora,tb.dBancoAbreviado   from tUECuentasBancarias cb ,tBancos tb
+where   tb.cBanco =SUBSTRING(cb.strClabe,1,3))x
+on x.strUnidadEjecutora=a.cIdUnidadEjecutora
+and x.strCentroContable=a.cIdEntidadContable
+where cIdDocumento=$P{cIdDocumento}
+--and a.cIdUnidadEjecutora='b03'
+and x.strClabe=$P{clabeInterBancaria}
+order by cIdSubPartida,c.consecutivoFacturaEncabezado]]>
+	</queryString>
+	<field name="nFolioRelacionGastos" class="java.lang.Integer"/>
+	<field name="consecutivoFacturaEncabezado" class="java.lang.Integer"/>
+	<field name="cIdUnidadEjecutora" class="java.lang.String"/>
+	<field name="D_DESCRIPCION" class="java.lang.String"/>
+	<field name="concepto" class="java.lang.String"/>
+	<field name="cIdRFC" class="java.lang.String"/>
+	<field name="cnombre" class="java.lang.String"/>
+	<field name="razonSocialRelacion" class="java.lang.String"/>
+	<field name="fechaFactura" class="java.lang.String"/>
+	<field name="factura" class="java.lang.String"/>
+	<field name="altaAlmacenaria" class="java.lang.String"/>
+	<field name="grupo" class="java.lang.String"/>
+	<field name="cIdSubPartida" class="java.lang.String"/>
+	<field name="EP" class="java.lang.String"/>
+	<field name="cSubPartida" class="java.lang.String"/>
+	<field name="mImporteTotalFacturaDetalle" class="java.math.BigDecimal"/>
+	<field name="descPartida" class="java.lang.String"/>
+	<field name="Total" class="java.math.BigDecimal"/>
+	<field name="totalDocumento" class="java.math.BigDecimal"/>
+	<field name="letra" class="java.lang.String"/>
+	<field name="clabeInterBancaria" class="java.lang.String"/>
+	<field name="numeroCuenta" class="java.lang.String"/>
+	<field name="nombreBanco" class="java.lang.String"/>
+	<group name="partida">
+		<groupExpression><![CDATA[$F{grupo}]]></groupExpression>
+		<groupHeader>
+			<band height="32" splitType="Immediate">
+				<textField>
+					<reportElement x="244" y="4" width="267" height="12" isRemoveLineWhenBlank="true"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{EP}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="3" y="0" width="1" height="32"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="572" y="0" width="1" height="32"/>
+				</line>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="7" y="4" width="233" height="12" isRemoveLineWhenBlank="true"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{descPartida}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="21">
+				<frame>
+					<reportElement mode="Opaque" x="4" y="1" width="568" height="20" forecolor="#CCCCCC" backcolor="#CCCCCC"/>
+				</frame>
+				<line>
+					<reportElement x="3" y="20" width="570" height="1"/>
+				</line>
+				<line>
+					<reportElement x="3" y="0" width="1" height="20"/>
+				</line>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="512" y="1" width="60" height="20" isRemoveLineWhenBlank="true"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{Total}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="3" y="0" width="570" height="1"/>
+				</line>
+				<staticText>
+					<reportElement x="400" y="1" width="109" height="20" isRemoveLineWhenBlank="true"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL PARTIDA]]></text>
+				</staticText>
+				<line>
+					<reportElement x="572" y="0" width="1" height="20"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="95" splitType="Stretch">
+			<staticText>
+				<reportElement x="150" y="0" width="279" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISION NACIONAL FORESTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="150" y="15" width="279" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{D_DESCRIPCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="43" width="475" height="13"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{concepto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="475" y="43" width="97" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="57" width="80" height="14"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Beneficiario:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="81" y="57" width="371" height="14"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{razonSocialRelacion}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="1" width="150" height="42"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+ "\\nuevo_logoconafor.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="71" width="41" height="14"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLABE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="41" y="71" width="155" height="14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{clabeInterBancaria}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="207" y="71" width="62" height="14"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUENTA EN ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="269" y="71" width="122" height="14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombreBanco}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="393" y="71" width="55" height="14"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NUMERO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="447" y="71" width="113" height="14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{numeroCuenta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20">
+			<textField evaluationTime="Report">
+				<reportElement x="531" y="0" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="448" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="4" y="2" width="567" height="27" forecolor="#CCCCCC" backcolor="#CCCCCC"/>
+			</frame>
+			<staticText>
+				<reportElement x="5" y="15" width="49" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Id Factura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="2" width="179" height="13"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Datos del documento]]></text>
+			</staticText>
+			<line>
+				<reportElement x="3" y="29" width="570" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="53" y="15" width="60" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="114" y="15" width="67" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Número]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="183" y="2" width="57" height="28"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Alta Almacenaria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="241" y="2" width="268" height="28"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="512" y="2" width="60" height="28"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Importes]]></text>
+			</staticText>
+			<line>
+				<reportElement x="3" y="2" width="570" height="1"/>
+			</line>
+			<line>
+				<reportElement x="3" y="2" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement x="572" y="2" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement x="4" y="16" width="178" height="1"/>
+			</line>
+			<line>
+				<reportElement x="182" y="2" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement x="113" y="16" width="1" height="14"/>
+			</line>
+			<line>
+				<reportElement x="240" y="2" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement x="510" y="2" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement x="54" y="16" width="1" height="14"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Immediate">
+			<textField>
+				<reportElement x="53" y="0" width="60" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fechaFactura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="114" y="0" width="67" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{factura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="183" y="0" width="57" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{altaAlmacenaria}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="241" y="0" width="268" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cnombre}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="512" y="0" width="60" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mImporteTotalFacturaDetalle}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="53" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="182" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="113" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="3" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="240" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="510" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="572" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="3" y="0" width="570" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="5" y="0" width="49" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{consecutivoFacturaEncabezado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="78" splitType="Stretch">
+			<line>
+				<reportElement x="4" y="0" width="1" height="21"/>
+			</line>
+			<subreport>
+				<reportElement x="-17" y="32" width="200" height="22"/>
+				<subreportParameter name="totalHojas">
+					<subreportParameterExpression><![CDATA[$V{PAGE_COUNT}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nFolioRelacionGastos">
+					<subreportParameterExpression><![CDATA[$F{nFolioRelacionGastos}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="hoja">
+					<subreportParameterExpression><![CDATA[$V{PAGE_NUMBER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\concentradoRelacionGastosFacturas.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement x="573" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="4" y="20" width="570" height="1"/>
+			</line>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="512" y="0" width="60" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{totalDocumento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="126" y="0" width="382" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{letra}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="0" width="121" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de la Relación de Gastos]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="26" width="100" height="1"/>
+			</break>
+		</band>
+	</summary>
+</jasperReport>

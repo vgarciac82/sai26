@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Validación de Inversión a Gasto Corriente</titulo>
+	<anchoWin>800</anchoWin>
+	<altoWin>500</altoWin>
+	<altoAreaCaptura>260</altoAreaCaptura>
+	<tabla>M_TVALIDAINVERCIONAGASTOCORRIENTE</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>1</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	<grid>		
+		<columna campo="iID"				control="iID"					dependencia="No" 	ctrlsDependientes=""		limpiaOnKeypress=""		header="Consecutivo"				rowCol="1,1"	ancho="5"	maxlen="5" 		tipo="string"	visible="Si"	clase="protegido"/>
+		<columna campo="cCapituloOri"		control="cCapituloOri" 			dependencia="No" 	ctrlsDependientes=""		limpiaOnKeypress=""		header="Capitulo Origen" 			rowCol="2,1"	ancho="2"	maxlen="2"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="OC.cDescripcion"	control="cDescripcionOri" 		dependencia="No"	ctrlsDependientes=""		limpiaOnKeypress=""		header="Descripción" 				rowCol="2,2"	ancho="50"	maxlen="50"		tipo="string"	visible="Si"	clase="protegido"/>
+		<columna campo="cTipoGastoOri"		control="cTipoGastoOri"			dependencia="No"	ctrlsDependientes=""		limpiaOnKeypress=""		header="Tipo de Gasto Origen"		rowCol="3,1"	ancho="2"	maxlen="2" 		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="OT.dTipoGasto"		control="dTipoGastoOri"			dependencia="No"	ctrlsDependientes=""		limpiaOnKeypress=""		header="Descripción"				rowCol="3,2"	ancho="50"	maxlen="50" 	tipo="string"	visible="Si"	clase="protegido"/>
+		<columna campo="cCapituloDest"		control="cCapituloDest" 		dependencia="No"	ctrlsDependientes=""		limpiaOnKeypress=""		header="Capitulo de Destino" 		rowCol="4,1"	ancho="2"	maxlen="2"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="DC.cDescripcion"	control="cDescripcionDest" 		dependencia="No"	ctrlsDependientes=""		limpiaOnKeypress=""		header="Descripción" 				rowCol="4,2"	ancho="50"	maxlen="50"		tipo="string"	visible="Si"	clase="protegido"/>
+		<columna campo="cTipoGastoDest"		control="cTipoGastoDest" 		dependencia="No"	ctrlsDependientes=""		limpiaOnKeypress=""		header="Tipo de Gasto Destino" 		rowCol="5,1"	ancho="2"	maxlen="2"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="DT.dTipoGasto"		control="dTipoGastoDest" 		dependencia="No"	ctrlsDependientes=""		limpiaOnKeypress=""		header="Descripción" 				rowCol="5,2"	ancho="50"	maxlen="50"		tipo="string"	visible="Si"	clase="protegido"/>
+		<columna campo="iNivel"				control="iNivel" 				dependencia="No"	ctrlsDependientes=""		limpiaOnKeypress=""		header="Nivel" 						rowCol="1,2"	ancho="5"	maxlen="5"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cMensaje"			control="cMensaje" 				dependencia="No"	ctrlsDependientes=""		limpiaOnKeypress=""		header="Mensaje"					rowCol="1,3"	ancho="150"	maxlen="200"	tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="iID"				control="txtGridiID"			llave="Si"		identity="Si"	requerido=""												requeridoFocus=""						tipo="string" /> 
+		<campo field="cCapituloOri"		control="txtGridcCapituloOri"	llave="No"		identity="No"	requerido="El Capito de Oriegn es requerido."				requeridoFocus="txtGridcCapituloOri"	tipo="string" />		
+		<campo field="cTipoGastoOri"	control="txtGridcTipoGastoOri"	llave="No"		identity="No"	requerido="El Tipo de Gasto Origen es un dato requerido."	requeridoFocus="txtGridcTipoGastoOri"	tipo="string" />		
+		<campo field="cCapituloDest"	control="txtGridcCapituloDest"	llave="No"		identity="No"	requerido="El Capitulo de Destino es requerido."			requeridoFocus="txtGridcCapituloDest"	tipo="string" />		
+		<campo field="cTipoGastoDest"	control="txtGridcTipoGastoDest"	llave="No"		identity="No"	requerido="El Tipo de Gasto de Destino es requerido."		requeridoFocus="txtGridcTipoGastoDest"	tipo="string" />		
+		<campo field="iNivel"			control="txtGridiNivel"			llave="No"		identity="No"	requerido="El Nivel es requerido."							requeridoFocus="txtGridiNivel"			tipo="string" />		
+		<campo field="cMensaje"			control="txtGridcMensaje"		llave="No"		identity="No"	requerido="El Mensaje es requerido."						requeridoFocus="txtGridcMensaje"		tipo="string" />		
+	</insertaRegistro>
+	
+</Ayuda>

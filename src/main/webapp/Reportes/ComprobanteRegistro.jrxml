@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ComprobanteRegistro" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="30" rightMargin="30" topMargin="10" bottomMargin="10" uuid="8dcb2348-b10f-4360-a57b-2d1d1d5c6e22">
+	<property name="ireport.zoom" value="1.2396694214876036"/>
+	<property name="ireport.x" value="35"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SAI_2021_produccion"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="whereFolio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[" and CR.caNoContrarrecibo ='10CT2013000006'"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select CNOMBRE, CR.aEjercicioFiscal, CR.cIdEntidadContable, CR.caNoContrarrecibo, CR.cIdDocumento, CR.cIdTipoDocumento,
+CR.cIdSubtipoDocumento, CR.cIdTipoOperacion, CR.caNoAP, CR.nPolizaAP, CR.cIdRFC, CR.cIdTipoMoneda, CR.nTipoCambio,
+CR.mImporteBruto, CR.mImporteSancion, CR.mImporteDevolucion, CR.mAmortizacionAnticipo, CR.mImporteIVA, CR.mImporteRetencion,
+CR.mImportePenalizacion, CR.mImporteNeto, convert(varchar(10),m.fProgramadaPago,103) fProgramadaPago, convert(varchar(10),
+CR.fValidacionDisponible, 103) fValidacionDisponible, CR.lEsCandidatoCP, CR.lHaySubpartidaExcluidaCP, CR.cIdTipoCLCSiaff,
+CR.cIdLeyendaSiaff, CR.cReferencia1, CR.nEsSubsidio, convert(varchar(10), CR.fRegistro, 103) fRegistro, CR.cIdEstadoReintegro,
+CR.cIdTipoReclasificacion, CR.fAplicacionSiaff, CR.fPagoSiaff, CR.cIdEstadoContrarrecibo, cconcepto, m.cUnidadResponsable,
+cIDTipoFondo, convert(varchar(10),frecepcion,103) frecepcion,
+DCD_ISR, DCD_IVA, DCD_MIL5, DCD_MIL2, DCD_OTRAS_RET, DCD_PENALIZACION, DCD_CONTRIBUCION, dc.DCD_CBEN, u.d_descripcion, ep, mImporte
+ from tcontrarrecibo CR with(NOLOCK), v_pagosDocComprobatoria DC with(NOLOCK), v_PCATALOGORFC RFC with(NOLOCK),  (  select frecepcion, fprogramadapago, cconcepto, canocontrarrecibo, e.cUnidadResponsable, ff.cIDTipoFondo, dd.ep, sum(mImporteMasIva) mImporte  from tPagoDirectoEncabezado e with(NOLOCK)
+	inner join tpagodirectofinanciamiento ff on ff.nFolioPagodirecto = e.nFolioPagodirecto
+	inner join tpagodirectodetalle dd on dd.nFolioPagodirecto = e.nFolioPagodirecto
+    group by frecepcion, fprogramadapago, cconcepto, canocontrarrecibo, e.cUnidadResponsable, ff.cIDTipoFondo, ep
+ union
+     select e.frecepcion, e.fprogramadapago, e.cconcepto, canocontrarrecibo, e.cUnidadResponsable, ff.cIDTipoFondo, rd.ep,
+    sum(rd.mImporteMasIva)
+    from tRELACIONGASTOSEncabezado  e with(NOLOCK)
+    inner join trelaciongastofinanciamiento ff on ff.cfolio = e.nFoliorelaciongastos
+    inner join tRELACIONGASTOSDetalle rd on rd.nFoliorelaciongastos = e.nFoliorelaciongastos
+    group by frecepcion, fprogramadapago, cconcepto, canocontrarrecibo, e.cUnidadResponsable, ff.cIDTipoFondo, ep ) m, tCatUnidadResponsable u with(NOLOCK)
+WHERE LTRIM(RTRIM(RFC.cIdRFC)) = LTRIM(RTRIM(CR.cIdRFC)) and m.canocontrarrecibo = cr.canocontrarrecibo and DC.canocontrarrecibo = cr.canocontrarrecibo and m.cUnidadResponsable = u.cUnidadResponsable
+ $P!{whereFolio}
+  --and CR.caNoContrarrecibo ='10CP2012000003']]>
+	</queryString>
+	<field name="CNOMBRE" class="java.lang.String"/>
+	<field name="aEjercicioFiscal" class="java.lang.String"/>
+	<field name="cIdEntidadContable" class="java.lang.String"/>
+	<field name="caNoContrarrecibo" class="java.lang.String"/>
+	<field name="cIdDocumento" class="java.lang.String"/>
+	<field name="cIdTipoDocumento" class="java.lang.String"/>
+	<field name="cIdSubtipoDocumento" class="java.lang.String"/>
+	<field name="cIdTipoOperacion" class="java.lang.String"/>
+	<field name="caNoAP" class="java.lang.String"/>
+	<field name="nPolizaAP" class="java.lang.Integer"/>
+	<field name="cIdRFC" class="java.lang.String"/>
+	<field name="cIdTipoMoneda" class="java.lang.String"/>
+	<field name="nTipoCambio" class="java.math.BigDecimal"/>
+	<field name="mImporteBruto" class="java.math.BigDecimal"/>
+	<field name="mImporteSancion" class="java.math.BigDecimal"/>
+	<field name="mImporteDevolucion" class="java.math.BigDecimal"/>
+	<field name="mAmortizacionAnticipo" class="java.math.BigDecimal"/>
+	<field name="mImporteIVA" class="java.math.BigDecimal"/>
+	<field name="mImporteRetencion" class="java.math.BigDecimal"/>
+	<field name="mImportePenalizacion" class="java.math.BigDecimal"/>
+	<field name="mImporteNeto" class="java.math.BigDecimal"/>
+	<field name="fProgramadaPago" class="java.lang.String"/>
+	<field name="fValidacionDisponible" class="java.lang.String"/>
+	<field name="lEsCandidatoCP" class="java.lang.Boolean"/>
+	<field name="lHaySubpartidaExcluidaCP" class="java.lang.Boolean"/>
+	<field name="cIdTipoCLCSiaff" class="java.lang.String"/>
+	<field name="cIdLeyendaSiaff" class="java.lang.String"/>
+	<field name="cReferencia1" class="java.lang.String"/>
+	<field name="nEsSubsidio" class="java.lang.Integer"/>
+	<field name="fRegistro" class="java.lang.String"/>
+	<field name="cIdEstadoReintegro" class="java.lang.String"/>
+	<field name="cIdTipoReclasificacion" class="java.lang.String"/>
+	<field name="fAplicacionSiaff" class="java.sql.Timestamp"/>
+	<field name="fPagoSiaff" class="java.sql.Timestamp"/>
+	<field name="cIdEstadoContrarrecibo" class="java.lang.String"/>
+	<field name="cconcepto" class="java.lang.String"/>
+	<field name="cUnidadResponsable" class="java.lang.String"/>
+	<field name="cIDTipoFondo" class="java.lang.String"/>
+	<field name="frecepcion" class="java.lang.String"/>
+	<field name="DCD_ISR" class="java.math.BigDecimal"/>
+	<field name="DCD_IVA" class="java.math.BigDecimal"/>
+	<field name="DCD_MIL5" class="java.math.BigDecimal"/>
+	<field name="DCD_MIL2" class="java.math.BigDecimal"/>
+	<field name="DCD_OTRAS_RET" class="java.math.BigDecimal"/>
+	<field name="DCD_PENALIZACION" class="java.math.BigDecimal"/>
+	<field name="DCD_CONTRIBUCION" class="java.math.BigDecimal"/>
+	<field name="DCD_CBEN" class="java.lang.String"/>
+	<field name="d_descripcion" class="java.lang.String"/>
+	<field name="ep" class="java.lang.String"/>
+	<field name="mImporte" class="java.math.BigDecimal"/>
+	<variable name="letras" class="java.lang.String"/>
+	<variable name="mImporteIVA_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{mImporteIVA}]]></variableExpression>
+	</variable>
+	<variable name="mImporte_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{mImporte}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="87" splitType="Stretch">
+			<image>
+				<reportElement key="image" x="0" y="7" width="131" height="36" uuid="2c8ec982-bd43-4ddb-bcf7-c9f883a8b9aa"/>
+				<imageExpression><![CDATA["report\\images\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement key="staticText-24" x="0" y="9" width="552" height="19" uuid="d27c4441-21ae-4d6f-a2ce-bcd727c76521"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-5" x="0" y="28" width="552" height="21" uuid="07c5b339-7c98-493f-9231-ed9e05c01b7a"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COORDINACION GENERAL DE ADMINISTRACIÓN
+RELACIÓN DE CLAVES DE INGRESOS Y EGRESOS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="49" width="552" height="20" uuid="5e8e1f1c-3625-46d1-98c8-ea35178d705f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="451" y="66" width="100" height="20" uuid="4db78be3-50a6-419a-a374-85c7823f5af9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{frecepcion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="352" y="66" width="100" height="20" uuid="340fd561-bf9d-41f2-b009-c39b22cbf659"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["FECHA DE EXPEDICIÓN"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="82" splitType="Stretch">
+			<rectangle>
+				<reportElement key="rectangle" x="420" y="65" width="131" height="16" uuid="a47cf50a-ce2e-4ab0-9c82-22c3c909a56d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement key="rectangle" x="0" y="65" width="420" height="16" uuid="14905dae-eb48-4ee0-87a3-b6965fbee542"/>
+			</rectangle>
+			<rectangle>
+				<reportElement key="rectangle" x="0" y="26" width="91" height="19" uuid="44f1288f-5506-4c37-9941-cfe950ceb43f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement key="rectangle" x="265" y="2" width="286" height="24" uuid="bd4e997b-429f-4017-949e-28993b632eb0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement key="rectangle" x="0" y="2" width="265" height="24" uuid="52964402-8bc3-4e07-9ed5-c92ee9e4b702"/>
+			</rectangle>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="395" y="6" width="153" height="17" uuid="e22ea611-0f8a-49d9-934e-e757427c951f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caNoContrarrecibo}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement key="rectangle" x="0" y="44" width="551" height="21" uuid="d7514f51-dee6-4d26-ac61-a05ecf88dc0a"/>
+			</rectangle>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="4" y="28" width="80" height="15" uuid="d668d332-de74-4174-8cdd-ef7e9e240d67"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["R.F.C."]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="0" y="44" width="92" height="20" uuid="3ec4f240-c3b2-4002-b024-130525df89aa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cIdRFC}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="92" y="44" width="455" height="20" uuid="4c3d6b6f-86b8-4a90-8ebd-d626ed88463b"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{CNOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="265" y="6" width="130" height="18" uuid="9f297dfa-4074-479b-b8d4-d0bf50af8d9c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["COMPROBANTE DE REGISTRO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="108" y="6" width="154" height="17" uuid="8795ca97-c1e4-4e80-bdcf-fad79e679566"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cIdDocumento}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="23" y="3" width="69" height="22" uuid="26c21564-ffd5-42f7-8aa0-19a51ce0cbda"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["REFERENCIA"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement key="rectangle" x="91" y="26" width="460" height="18" uuid="87706d6a-2950-4a69-84a4-08c358e9a44b"/>
+			</rectangle>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="95" y="27" width="167" height="17" uuid="a3ad0331-cb12-4210-a044-010c1102fb9b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["N O M B R E   D E L   B E N E F I C I A R I O"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="64" width="421" height="17" uuid="02d4714a-b265-4b53-9aff-3e43ae105272"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLAVE PRESUPUESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="448" y="64" width="100" height="17" uuid="70fa7e02-22ec-4a16-b74c-aace7debe136"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IMPORTE]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="428" y="27" width="118" height="17" uuid="0e49b0de-f481-4d32-91c7-9164b251d956"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["SE INTEGRA:    SI    |   NO  |"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<rectangle>
+				<reportElement key="rectangle" x="420" y="-1" width="131" height="18" uuid="8a10dd06-b4d3-4077-99ed-8a1baddf71c1"/>
+			</rectangle>
+			<rectangle>
+				<reportElement key="rectangle" x="0" y="-1" width="420" height="18" uuid="4d376e7f-5dba-439e-8c98-0ed44857d41b"/>
+			</rectangle>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="422" y="1" width="127" height="15" uuid="68be46b6-f10b-4352-b6a7-a786de921eb3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{mImporte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4" y="1" width="417" height="15" uuid="53be9fcd-dd17-4946-9199-46637492bb83"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ep}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="14" splitType="Stretch">
+			<textField evaluationTime="Page" isBlankWhenNull="false">
+				<reportElement key="textField" x="373" y="2" width="114" height="10" uuid="9f930690-1305-4483-a884-98f229cd000a"/>
+				<textElement textAlignment="Right">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement key="textField" x="497" y="2" width="50" height="10" uuid="967946af-0926-4b2a-b9f4-3ab3a981e5ba"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="false">
+				<reportElement key="textField-2" x="276" y="2" width="97" height="11" uuid="2dc99d5b-b966-4230-b768-88df3c4540e2"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="138" splitType="Stretch">
+			<rectangle>
+				<reportElement key="rectangle" x="1" y="57" width="245" height="70" uuid="b8cd2ba6-3459-4804-aec3-c8672942d807"/>
+			</rectangle>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="80" y="105" width="88" height="21" uuid="e48801e2-d81c-4d99-a521-3b0bd48ebdbc"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["REVISADO POR: NOMBRE Y FIRMA"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement key="rectangle" x="1" y="37" width="245" height="65" uuid="b0b64927-0e3e-4d81-a64c-45c1c5f94bff"/>
+			</rectangle>
+			<rectangle>
+				<reportElement key="rectangle" x="302" y="57" width="245" height="70" uuid="f50322bf-c7b0-462f-b93c-695e79a9275b"/>
+			</rectangle>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="381" y="105" width="88" height="21" uuid="9689abaf-ae17-4f23-859e-8abb525c51f6"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["AUTORIZADO POR: NOMBRE Y FIRMA"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement key="rectangle" x="302" y="37" width="245" height="65" uuid="f6663fc0-8994-43bf-912d-5f04c45ed09a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="322" y="0" width="100" height="20" uuid="21df0e4c-28ea-4107-a903-c22ea697b8f2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="422" y="0" width="127" height="20" uuid="139d5f40-f9ec-4b16-aaa6-6c4d86fa744e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{mImporte_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

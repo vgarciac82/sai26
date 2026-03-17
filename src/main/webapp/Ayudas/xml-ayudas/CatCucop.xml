@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Mantenimiento Catalogo de Cucops</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>CATALOGOCABM</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+ 	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	<grid>
+	    		
+		<columna campo="cc.cIdCABM"			control="cIdCABM"			dependencia="No"	ctrlsDependientes=""			limpiaOnKeypress=""	  header="* Cucops"		    rowCol="1,1" 	ancho="11"		maxlen="11"			tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cc.cCABM"		   	control="cCABM"				dependencia="No"	ctrlsDependientes=""			limpiaOnKeypress=""	  header="* Descripcion"	    rowCol="1,2" 	ancho="80"		maxlen="2000"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cc.cIdUnidadMedida"	control="cIdUnidadMedida"	dependencia="No"	ctrlsDependientes=""			limpiaOnKeypress=""	  header="* Unidad de Medida"	rowCol="3,1" 	ancho="5"		maxlen="5"			tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="c.cCapitulo"	 	control="cCapitulo"			dependencia="No"	ctrlsDependientes="cIdCapitulo"	limpiaOnKeypress=""	  header="* Capitulo"			rowCol="2,2" 	ancho="80"		maxlen="110"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>  
+   		<columna campo="cSubPartida"		control="cSubPartida"		dependencia="No"	ctrlsDependientes=""			limpiaOnKeypress=""	  header="* Partida"			rowCol="2,1" 	ancho="80"		maxlen="100"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>   		
+		<columna campo="p.cTipoProceso"		control="cTipoProceso"		dependencia="No"	ctrlsDependientes="nIdTipoProceso"			limpiaOnKeypress=""	  header="* Tipo Proceso"	    rowCol="3,2" 	ancho="50"		maxlen="100"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="ccaop.cCCAOP"		control="cCCAOP"			dependencia="No"	ctrlsDependientes="cIdCCAOP"			limpiaOnKeypress=""	  header="* CCAOP"			rowCol="4,1" 	ancho="80"		maxlen="100"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cc.cIdCUCOP"		control="cIdCucop"			dependencia="No"	ctrlsDependientes=""			limpiaOnKeypress=""	  header="CUCOP"			rowCol="5,1" 	ancho="10"		maxlen="10"			tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cc.nIdCABMSOP"	 	control="nIdCABMSOP"		dependencia="No"	ctrlsDependientes=""			limpiaOnKeypress=""	  header="CABMSOP"		rowCol="6,1" 	ancho="10"		maxlen="10"			tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+   		<columna campo="csop.cDescripcion"	 	control="cDescripcion"		dependencia="No"	ctrlsDependientes=""			limpiaOnKeypress=""	  header="DescripcionCABMSOP"		rowCol="6,2" 	ancho="80"		maxlen="80"			tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cc.cIdCCAOP"		control="cIdCCAOP"			dependencia="No"	ctrlsDependientes=""			limpiaOnKeypress=""	  header="cIdCCAOP"			rowCol="5,2" 	ancho="10"		maxlen="10"			tipo="string"	visible="No"	clase=""/>   		   		
+   		
+   		<columna campo="cc.cIdCapitulo"	  	control="cIdCapitulo"		dependencia="No"	ctrlsDependientes=""			limpiaOnKeypress=""	  header="cIdCapitulo"		rowCol="8,1" 	ancho="2"		maxlen="2"			tipo="string"	visible="No"	clase=""/>
+   		<columna campo="cc.cIdSubPartida"	control="cIdSubPartida"		dependencia="No"	ctrlsDependientes=""			limpiaOnKeypress=""	  header="cIdSubPartida"	rowCol="7,1" 	ancho="10"		maxlen="10"			tipo="string"	visible="No"	clase=""/>
+   		<columna campo="cc.nIdTipoProceso"	control="nIdTipoProceso"	dependencia="No"	ctrlsDependientes=""			limpiaOnKeypress=""	  header="cIdTipoProceso"	rowCol="7,2" 	ancho="10"		maxlen="10"			tipo="string"	visible="No"	clase=""/>
+		
+
+   		</grid> 
+
+		<insertaRegistro>
+	    <campo field="cIdCABM"	            control="txtGridcIdCABM"			llave="No"	identity="No"	requerido="El Cucop es requerido."				requeridoFocus="txtGridcIdCABM"			tipo="string" />
+	    <campo field="cIdSubPartida"		control="txtGridcIdSubPartida"	   	llave="No"	identity="No"	requerido="La partida es requerido."			requeridoFocus="txtGridcIdSubPartida"	tipo="string" />
+	    <campo field="cIdCapitulo"          control="txtGridcIdCapitulo"	   	llave="No"	identity="No"	requerido="El capitulo es un dato requerido."	requeridoFocus="txtGridcIdCapitulo"		tipo="string" />
+		<campo field="cIdCCAOP"	            control="txtGridcIdCCAOP"	       	llave="No"	identity="No"	requerido="El CCAOP es requerido."				requeridoFocus="txtGridcIdCCAOP"		tipo="string" />
+		<campo field="cIdUnidadMedida"	    control="txtGridcIdUnidadMedida"	llave="No"	identity="No"	requerido="La unidad de medida es requerida"	requeridoFocus="txtGridcIdUnidadMedida"	tipo="string" />
+		<campo field="cCABM"	            control="txtGridcCABM"				llave="No"	identity="No"	requerido="La descripcion es requerida."		requeridoFocus="txtGridcCABM"			tipo="string"/>
+		<campo field="nIdTipoProceso"		control="txtGridnIdTipoProceso"		llave="No"	identity="No"	requerido="El Tipo Proceso es un dato requerido" requeridoFocus="txtGridnIdTipoProceso"		tipo="string" />
+		<campo field="nIdCABMSOP"		control="txtGridnIdCABMSOP"		llave="No"	identity="No"	requerido="El CABMSOP es requerido" requeridoFocus="txtGridnIdCABMSOP"		tipo="string" />
+		</insertaRegistro>	
+</Ayuda>

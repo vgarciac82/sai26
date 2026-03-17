@@ -48,7 +48,7 @@ public class ReportesINAIManager {
         try {
             ps = conn.prepareStatement(query);
             rst = ps.executeQuery();
-            log.debug("Object: {}", ps.toString());
+            log.debug("Object: " + String.valueOf(ps.toString()));
             String fileName = generaReportesINAI(rst, plantillas.get("INAI"), tipoReporte, conn);
             return fileName;
         } finally {
@@ -115,7 +115,7 @@ public class ReportesINAIManager {
             File fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
         } finally {
             if (cFileExcelPlantilla.isFile()) {
@@ -331,7 +331,7 @@ public class ReportesINAIManager {
             File fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
         } finally {
             log.info("Proceso terminado");
@@ -564,7 +564,7 @@ public class ReportesINAIManager {
             File fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
         } finally {
             log.info("Proceso terminado");
@@ -648,7 +648,7 @@ public class ReportesINAIManager {
             File fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
         } finally {
             log.info("Proceso terminado");
@@ -724,7 +724,7 @@ public class ReportesINAIManager {
             File fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
         } finally {
             log.info("Proceso terminado");
@@ -809,7 +809,7 @@ public class ReportesINAIManager {
             File fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
         } finally {
             if (cFileExcelPlantilla.isFile()) {
@@ -899,7 +899,7 @@ public class ReportesINAIManager {
             File fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
         } finally {
             if (cFileExcelPlantilla.isFile()) {
@@ -984,17 +984,17 @@ public class ReportesINAIManager {
                     query = "SELECT vconv.cidprocedimiento,cnombre,capellidopaterno,capellidomaterno,crazonsocial,cmonto " + " FROM mCotizacionesProcedimiento proce with (nolock) " + " inner join v_Reporte_INAI_Adj_Directa vconv " + " on vconv.cIdProcedimiento=proce.cIdProcedimiento " + " order by cidprocedimiento ";
                     ps2 = conn.prepareStatement(query);
                     rst2 = ps2.executeQuery();
-                    log.debug("Object: {}", ps2.toString());
+                    log.debug("Object: " + String.valueOf(ps2.toString()));
                     escribeExcel(4, workbook, 3, rst2, 5);
                     query = "select vista.cben, " + "case  " + "when cIdTipoPersonaRFC=1 " + "	then ''  " + "when cIdTipoPersonaRFC=2 " + "	then dNombre " + "end as Nombre, " + "case  " + "when cIdTipoPersonaRFC=1 " + "	then ''  " + "when cIdTipoPersonaRFC=2 " + "	then dApellidoPaterno " + "end as Paterno, " + "case  " + "	when cIdTipoPersonaRFC=1 " + "		then ''  " + "	when cIdTipoPersonaRFC=2 " + "		then dApellidoMaterno " + "	end as Materno, " + "case  " + "	when cIdTipoPersonaRFC=1 " + "		then dNombre  " + "	when cIdTipoPersonaRFC=2 " + "		then '' " + "	end as RazonSocial " + "from tBeneficiario ben with (nolock) " + "inner join v_Reporte_INAI_Adj_Directa vista with (nolock) " + "on ben.CBEN=vista.cben";
                     ps2 = conn.prepareStatement(query);
                     rst2 = ps2.executeQuery();
-                    log.debug("Object: {}", ps2.toString());
+                    log.debug("Object: " + String.valueOf(ps2.toString()));
                     escribeExcel(5, workbook, 3, rst2, 4);
                     query = "select	" + "modi.cIdContratoDefinitivo, " + "cNoConvenio, " + "cObjetoConvenio, " + "conv.fFirmaContrato, " + "isnull(doc.cHipDocConv,'') as HiperVinculo  " + "from mContratoModificado modi with (nolock) " + "inner join pContratoDiversoConvenio conv with (nolock) " + "on modi.cIdContratoDefinitivo=conv.cIdContrato " + "inner join v_Reporte_INAI_Adj_Directa vconv " + "on vconv.idconv=modi.cContratoDefinitivo " + "left join mDocumentacionConvenio doc with (nolock) " + "on modi.cContratoDefinitivo=doc.cContratoDefinitivo";
                     ps2 = conn.prepareStatement(query);
                     rst2 = ps2.executeQuery();
-                    log.debug("Object: {}", ps2.toString());
+                    log.debug("Object: " + String.valueOf(ps2.toString()));
                     escribeExcel(7, workbook, 3, rst2, 4);
                     break;
             }
@@ -1003,7 +1003,7 @@ public class ReportesINAIManager {
             File fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             /* Cierra Flujos */
             bos.flush();
             return file_name;

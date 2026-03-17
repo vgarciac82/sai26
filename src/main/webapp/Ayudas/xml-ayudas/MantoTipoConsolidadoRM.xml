@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Tipo de Consolidado</titulo>
+	<anchoWin>900</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_TCATALOGOTIPOCONSOLIDADO</tabla>
+	<maxRegistros>50</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>		
+		<columna campo="cIdTipoConsolidado"			control=""	dependencia="No"	limpiaOnKeypress=""		header="Tipo Consolidado"		rowCol="1,1" 	ancho="2"	maxlen="4"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cTipoConsolidado"			control=""	dependencia="No"	limpiaOnKeypress=""		header="Descripción"	 		rowCol="2,1" 	ancho="90"	maxlen="60" 	tipo="string"	visible="Si"	clase=""/>		
+	</grid>  	
+</Ayuda>

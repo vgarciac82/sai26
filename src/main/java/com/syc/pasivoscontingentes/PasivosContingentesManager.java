@@ -47,11 +47,11 @@ public class PasivosContingentesManager {
         try {
             cs = conn.prepareCall(query);
             cs.setString(1, fecha);
-            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S", fecha));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query + "]%S", fecha)));
             rs = cs.executeQuery();
             cs2 = conn.prepareCall(query2);
             cs2.setString(1, fecha);
-            log.debug("Object: {}", String.format("Ejecutando[" + query2 + "]%S", fecha));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query2 + "]%S", fecha)));
             rs2 = cs2.executeQuery();
             fileName = generaReporteMasivo(rs, rs2, plantillas.get("CEDULA"), mesS, anio);
             return fileName;
@@ -134,7 +134,7 @@ public class PasivosContingentesManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -218,7 +218,7 @@ public class PasivosContingentesManager {
         try {
             cs = conn.prepareCall(query);
             cs.setString(1, fecha);
-            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S", fecha));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query + "]%S", fecha)));
             rs = cs.executeQuery();
             fileName = generaReporteLaboral(rs, plantillas.get("CEDULALABORAL"), mesS, anio);
             return fileName;
@@ -264,7 +264,7 @@ public class PasivosContingentesManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -290,7 +290,7 @@ public class PasivosContingentesManager {
         try {
             cs = conn.prepareCall(query);
             cs.setString(1, fecha);
-            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S", fecha));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query + "]%S", fecha)));
             rs = cs.executeQuery();
             ps = conn.prepareStatement(query2);
             ps.setString(1, unidad);
@@ -342,7 +342,7 @@ public class PasivosContingentesManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -371,19 +371,19 @@ public class PasivosContingentesManager {
         try {
             cs = conn.prepareCall(query);
             cs.setString(1, fecha);
-            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S", fecha));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query + "]%S", fecha)));
             rs = cs.executeQuery();
             ps = conn.prepareStatement(query2);
             ps.setString(1, unidad);
-            log.debug("Object: {}", String.format("Ejecutando[" + query2 + "]%S", unidad));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query2 + "]%S", unidad)));
             rs2 = ps.executeQuery();
             ps2 = conn.prepareStatement(query3);
             ps2.setInt(1, mesS);
-            log.debug("Object: {}", String.format("Ejecutando[" + query3 + "]%S", mes));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query3 + "]%S", mes)));
             rs3 = ps2.executeQuery();
             ps3 = conn.prepareStatement(query4);
             ps3.setInt(1, mesS);
-            log.debug("Object: {}", String.format("Ejecutando[" + query4 + "]%S", mes));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query4 + "]%S", mes)));
             rs4 = ps3.executeQuery();
             if (rs2.next()) {
                 unidadResponsable = rs2.getString(1);
@@ -533,7 +533,7 @@ public class PasivosContingentesManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -608,11 +608,11 @@ public class PasivosContingentesManager {
         try {
             cs = conn.prepareCall(query);
             cs.setString(1, fecha);
-            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S", fecha));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query + "]%S", fecha)));
             rs = cs.executeQuery();
             cs2 = conn.prepareCall(query2);
             cs2.setString(1, fecha);
-            log.debug("Object: {}", String.format("Ejecutando[" + query2 + "]%S", fecha));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query2 + "]%S", fecha)));
             rs2 = cs2.executeQuery();
             fileName = generaReporteAntiguedadExpediente(rs, rs2, plantillas.get("CEDULAANTIGUEDADEXPEDIENTE"), mesS, anio);
             return fileName;
@@ -707,7 +707,7 @@ public class PasivosContingentesManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -730,11 +730,11 @@ public class PasivosContingentesManager {
         try {
             cs = conn.prepareCall(query);
             cs.setString(1, fecha);
-            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S", fecha));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query + "]%S", fecha)));
             rs = cs.executeQuery();
             cs2 = conn.prepareCall(query2);
             cs2.setString(1, fecha);
-            log.debug("Object: {}", String.format("Ejecutando[" + query2 + "]%S", fecha));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query2 + "]%S", fecha)));
             rs2 = cs2.executeQuery();
             fileName = generaReporteAntiguedadExpedienteConsolidado(rs, rs2, plantillas.get("CEDULAANTIGUEDADEXPEDIENTECONSOLIDADO"), mesS, anio);
             return fileName;
@@ -829,7 +829,7 @@ public class PasivosContingentesManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         bos.flush();
         bos.close();

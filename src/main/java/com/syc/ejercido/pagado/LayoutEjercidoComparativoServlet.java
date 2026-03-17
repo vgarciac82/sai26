@@ -100,7 +100,7 @@ public class LayoutEjercidoComparativoServlet extends HttpServlet {
                 archivoPago.append(arrListDocu.get(i));
             }
             String outTextPago = archivoPago.toString();
-            out.write(outTextPago.toPath());
+            out.write(outTextPago);
             out.close();
             byte[] bufPag = new byte[2048];
             try {

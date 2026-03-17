@@ -1,0 +1,1971 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ConciliacionCONAC" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6860fbf8-e87b-410e-8b0f-4d1e8b62b03a">
+	<property name="ireport.zoom" value="1.771561000000007"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1008"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nfirmas" class="java.lang.Integer"/>
+	<parameter name="nombre1" class="java.lang.String"/>
+	<parameter name="puesto1" class="java.lang.String"/>
+	<parameter name="nombre2" class="java.lang.String"/>
+	<parameter name="puesto2" class="java.lang.String"/>
+	<parameter name="nombre3" class="java.lang.String"/>
+	<parameter name="puesto3" class="java.lang.String"/>
+	<parameter name="mes" class="java.lang.Integer"/>
+	<parameter name="anio" class="java.lang.Integer"/>
+	<parameter name="miles" class="java.lang.Integer"/>
+	<parameter name="nombre4" class="java.lang.String"/>
+	<parameter name="puesto4" class="java.lang.String"/>
+	<parameter name="ori1" class="java.lang.Double"/>
+	<parameter name="ori4" class="java.lang.Double"/>
+	<parameter name="amp1" class="java.lang.Double"/>
+	<parameter name="amp4" class="java.lang.Double"/>
+	<parameter name="mod1" class="java.lang.Double"/>
+	<parameter name="mod4" class="java.lang.Double"/>
+	<parameter name="dev1" class="java.lang.Double"/>
+	<parameter name="dev4" class="java.lang.Double"/>
+	<parameter name="pag1" class="java.lang.Double"/>
+	<parameter name="pag4" class="java.lang.Double"/>
+	<parameter name="dif1" class="java.lang.Double"/>
+	<parameter name="dif4" class="java.lang.Double"/>
+	<parameter name="ori0" class="java.lang.Double"/>
+	<parameter name="amp0" class="java.lang.Double"/>
+	<parameter name="mod0" class="java.lang.Double"/>
+	<parameter name="dev0" class="java.lang.Double"/>
+	<parameter name="pag0" class="java.lang.Double"/>
+	<parameter name="dif0" class="java.lang.Double"/>
+	<parameter name="NOMBRE_REP" class="java.lang.String">
+		<defaultValueExpression><![CDATA["logotipo-usuario.png"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select 1 as '1']]>
+	</queryString>
+	<field name="1" class="java.lang.Integer"/>
+	<group name="Grupo1">
+		<groupExpression><![CDATA[$F{1}]]></groupExpression>
+		<groupHeader>
+			<band height="241">
+				<rectangle>
+					<reportElement x="0" y="-1" width="554" height="47" backcolor="#CCCCCC" uuid="91276e24-fd23-46d5-a378-6aa8e4518557"/>
+				</rectangle>
+				<line>
+					<reportElement x="180" y="32" width="374" height="1" uuid="079b40ee-0262-44b6-80cf-59a99de15ccc"/>
+				</line>
+				<staticText>
+					<reportElement x="493" y="8" width="59" height="12" uuid="1bcf385d-90ad-4c46-b52c-97f232c4552e"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[Diferencia]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="496" y="33" width="54" height="11" uuid="dc9ef8ff-8c1f-4ad4-bf6c-fe3121f5e25a"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[(6 = 5 - 1)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="180" y="14" width="61" height="20" uuid="2b6c280b-649b-4b04-b75a-c6c4c3abbf74"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[Estimado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="180" y="33" width="60" height="11" uuid="08cd9068-5be5-4c00-b8c6-99dfd0f32252"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[(1)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="245" y="11" width="60" height="23" uuid="59f0e1ff-ffb9-4388-aaae-0be738f0a6c9"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[Ampliaciones y Reducciones]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="307" y="14" width="62" height="20" uuid="d0b75c25-77e5-4bd2-a635-af7e297d6d4b"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[Modificado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="373" y="14" width="58" height="19" uuid="2f0bcd69-f5a9-40d7-b239-850919d60cdc"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[Devengado]]></text>
+				</staticText>
+				<line>
+					<reportElement x="179" y="11" width="314" height="1" uuid="83d2e709-c923-4b2c-ba53-34dac7534e7f"/>
+				</line>
+				<staticText>
+					<reportElement x="431" y="14" width="60" height="20" uuid="ef3cb974-6b1f-487e-b082-ed53c2d2a027"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[Recaudado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="15" y="12" width="100" height="20" uuid="133b5597-43f4-4863-9ba8-019f431f07bb"/>
+					<textElement>
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[Rubro de Ingresos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="244" y="33" width="61" height="11" uuid="19f0cd8c-1baa-4ffb-be63-05d3d6d2f188"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[(2)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="307" y="33" width="62" height="11" uuid="ccc4970b-00a8-4b58-8019-aa6ff384482e"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[(3 =  1 + 2)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="373" y="33" width="55" height="11" uuid="d9308ffc-08d5-4339-b6d7-817c943abadf"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[(4)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="431" y="33" width="60" height="11" uuid="cbc7cc95-99fb-47b4-b588-b658bbfa9898"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[(5)]]></text>
+				</staticText>
+				<line>
+					<reportElement x="179" y="0" width="1" height="46" uuid="6aa08393-8bef-46d4-9766-f16e6b9fc607"/>
+				</line>
+				<line>
+					<reportElement x="241" y="11" width="1" height="35" uuid="06b23856-8edc-4000-8e60-a6ef0c8262f4"/>
+				</line>
+				<line>
+					<reportElement x="492" y="0" width="1" height="46" uuid="c420d9f0-1a30-40b4-ad8d-554389553d2c"/>
+				</line>
+				<line>
+					<reportElement x="432" y="12" width="1" height="33" uuid="236ade96-4f61-4e40-81ea-54668bed3e76"/>
+				</line>
+				<line>
+					<reportElement x="370" y="11" width="1" height="34" uuid="b0ffd377-76cd-4947-8427-7d8c70cdbacf"/>
+				</line>
+				<line>
+					<reportElement x="306" y="13" width="1" height="33" uuid="f6dfa647-a3cc-4967-9e88-3f2937314cd4"/>
+				</line>
+				<staticText>
+					<reportElement x="180" y="-1" width="311" height="13" uuid="4d40301b-9502-4d6c-931c-f85e708793e7"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[Ingreso]]></text>
+				</staticText>
+				<line>
+					<reportElement x="492" y="44" width="1" height="163" uuid="d7d6f272-59ce-42c2-aa55-7c865f56004c"/>
+				</line>
+				<line>
+					<reportElement x="179" y="46" width="1" height="161" uuid="220936fd-3508-42ed-8313-58de9baa4328"/>
+				</line>
+				<line>
+					<reportElement x="241" y="46" width="1" height="162" uuid="2d1f4616-cf69-46b8-aa61-a5159ac09fc1"/>
+				</line>
+				<line>
+					<reportElement x="306" y="46" width="1" height="162" uuid="d07ad025-ef91-4576-b34a-253bed785810"/>
+				</line>
+				<line>
+					<reportElement x="370" y="45" width="1" height="162" uuid="d03f9774-b13e-4195-b15b-bf4e4b3388d1"/>
+				</line>
+				<line>
+					<reportElement x="432" y="45" width="1" height="162" uuid="998af4d9-01f0-4c66-a0df-92686616f1fc"/>
+				</line>
+				<line>
+					<reportElement x="0" y="46" width="1" height="178" uuid="170673e4-f1a4-4fc4-8e28-395879b31e54"/>
+				</line>
+				<line>
+					<reportElement x="553" y="46" width="1" height="191" uuid="fd5881de-846b-48fe-8454-f303beefbe30"/>
+				</line>
+				<staticText>
+					<reportElement x="4" y="46" width="45" height="9" uuid="f92adce1-b5eb-4abd-b5dd-e557035130ca"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Impuestos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="4" y="59" width="175" height="9" uuid="5fad9982-bbab-4fbd-b3cc-bac577c90112"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Cuotas y Aportaciones de Seguridad Social]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="4" y="72" width="149" height="9" uuid="fd5d76f0-60a7-4d77-ad88-88ad2af03aab"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Contribuciones de Mejoras]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="4" y="85" width="45" height="9" uuid="bc788c03-9946-410a-b3f5-00f30351e0e8"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Derechos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="4" y="98" width="45" height="9" uuid="01586d26-bd47-4e68-82cc-288f0f4ecb9c"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Productos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="3" y="123" width="175" height="18" uuid="578ea120-ddc1-44a6-8b4b-1576c65df913"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Ingresos por Venta de Bienes, Prestación de Servicios y Otros Ingresos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="4" y="111" width="161" height="9" uuid="92fac9d0-a005-43eb-922d-e5ee48ab6e74"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Aprovechamientos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="4" y="145" width="175" height="27" uuid="0e29e491-acb4-4e55-9d0c-ae66854bae70"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Participaciones, Aportaciones, Convenios, Incentivos Derivados de la Colaboración Fiscal y Fondos Distintos de Aportaciones]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="4" y="175" width="176" height="18" uuid="13b69923-7ab6-434c-9a0b-e0edecc9bdc4"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Transferencias, Asignaciones, Subsidios y Subvenciones, y Pensiones y Jubilaciones]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="4" y="197" width="176" height="10" uuid="70edcff7-e377-4c36-8873-a5603f3bedd0"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Ingresos Derivados de Financiamientos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="4" y="208" width="173" height="11" uuid="631ef08e-e942-4a9a-b550-d3479613e8d6"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<line>
+					<reportElement x="492" y="209" width="1" height="15" uuid="48d35e21-ab87-4c40-86be-c79903c897c5"/>
+				</line>
+				<line>
+					<reportElement x="432" y="209" width="1" height="15" uuid="ffacc61c-b7bb-4e86-bf20-f171a893d915"/>
+				</line>
+				<line>
+					<reportElement x="370" y="209" width="1" height="15" uuid="acc5a67a-59bb-4567-86cd-79014b91e66a"/>
+				</line>
+				<line>
+					<reportElement x="306" y="209" width="1" height="15" uuid="6cf80cc1-210f-4758-864b-8bd200654f71"/>
+				</line>
+				<line>
+					<reportElement x="241" y="209" width="1" height="15" uuid="50c7f7c5-bb91-4f00-8f95-5571bc15b0ff"/>
+				</line>
+				<line>
+					<reportElement x="179" y="209" width="1" height="15" uuid="287cdf88-aa5c-4107-8faa-fb4a467549e3"/>
+				</line>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="180" y="179" width="59" height="13" uuid="1b55f5f4-da8d-4051-8782-a864f8a6cc5a"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ori1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="243" y="179" width="61" height="13" uuid="e835704c-dffe-42c7-865a-eaa2ea83a1d8"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{amp1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="310" y="179" width="58" height="13" uuid="3501ed92-cf7f-4cc0-9afa-b85e11f92d9b"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{mod1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="180" y="126" width="59" height="13" uuid="1239d3c0-2bda-4c10-ae4b-b193e0bf7ef1"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ori4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="243" y="126" width="61" height="13" uuid="fd44dfd4-0782-4e40-84dc-3637f6a17b45"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{amp4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="310" y="126" width="58" height="13" uuid="4fc5174b-ef4b-4dc9-8ad0-e726da07be57"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{mod4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="372" y="179" width="58" height="13" uuid="bfa81291-d03a-45b7-9914-c6b640fd52c4"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{dev1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="432" y="179" width="58" height="13" uuid="d80eff73-1d2c-44e0-a5f4-5629e0615973"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{pag1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="494" y="179" width="58" height="13" uuid="a3d6a6b4-7ec9-4cd3-a0ef-69932f68fb87"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{dif1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="372" y="126" width="58" height="13" uuid="99db9b9a-3c9c-4d46-a8e4-691e03f3801c"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{dev4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="493" y="126" width="58" height="13" uuid="e8299256-6829-418b-8b12-37e1b016f16c"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{dif4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="432" y="126" width="58" height="13" uuid="f601fef7-9978-4a36-a2f6-dca26d544f49"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{pag4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="181" y="209" width="59" height="12" uuid="560ffee6-15ff-4eb1-a6db-9a5fbce0d489"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ori0}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="244" y="209" width="59" height="12" uuid="701340c6-496a-4ea7-990e-215d5c5be012"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{amp0}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="310" y="209" width="59" height="12" uuid="1733cc9a-c23d-4514-a890-a6eca739ede7"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{mod0}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="372" y="209" width="58" height="12" uuid="df3b26f8-1629-4da5-b5aa-cbcbbed39197"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{dev0}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="433" y="209" width="58" height="12" uuid="6171ee36-6676-4ca9-a62c-4402ad41d744"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{pag0}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="493" y="215" width="59" height="12" uuid="c1d452ba-74c9-446d-9b2d-5c89963cbb45"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{dif0}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="395" y="226" width="96" height="10" uuid="379d2f27-d606-40bb-86a2-78473996aeab"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Ingresos Excedentes]]></text>
+				</staticText>
+				<line>
+					<reportElement x="492" y="224" width="1" height="13" uuid="cd75e2ce-204f-4547-881f-3e7abf60e3b8"/>
+				</line>
+				<line>
+					<reportElement x="1" y="208" width="553" height="1" uuid="cb9c16fa-f332-4d28-8564-8a9287d32246"/>
+				</line>
+				<line>
+					<reportElement x="0" y="224" width="492" height="1" uuid="2eec82e2-0d98-40cb-bd2a-7e0f67b2384f"/>
+				</line>
+				<line>
+					<reportElement x="396" y="237" width="158" height="1" uuid="9c28f998-fb29-4d66-adb5-15128aeef5e2"/>
+				</line>
+				<line>
+					<reportElement x="395" y="225" width="1" height="13" uuid="e6d03c99-d609-49b1-b03e-9a518fdf2e52"/>
+				</line>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="180" y="59" width="59" height="9" uuid="f494e722-0eec-412f-8dcb-9dca400e4dfb"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="246" y="59" width="59" height="9" uuid="1baa5eca-39b2-4f1c-86f0-3df8e8345770"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="309" y="59" width="59" height="9" uuid="833ac7a8-904c-4ce4-8e7c-aa4dc80e8909"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="373" y="59" width="57" height="9" uuid="c36c76fd-52c3-46e7-a78a-bbd2fd6b1e5f"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="496" y="59" width="55" height="9" uuid="8442d0c8-44e4-47ac-b686-0b8dc571966d"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="434" y="59" width="56" height="9" uuid="b51834c4-2f87-4c71-8261-8ea5b9ee7496"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="180" y="72" width="59" height="9" uuid="3b48c534-c717-4bad-8675-3b77ee5f9df1"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="434" y="72" width="56" height="9" uuid="066dc8e0-f3c7-43e8-99f9-c5095c2279a2"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="309" y="72" width="59" height="9" uuid="27d82ee3-25d9-4975-86ec-e4415dc4e670"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="246" y="72" width="59" height="9" uuid="8e97b8c4-286b-42b5-ad5d-3b9db9638f85"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="496" y="72" width="55" height="9" uuid="3c2c380b-2911-49a5-8c54-e00cc80aa592"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="373" y="72" width="57" height="9" uuid="76a304ff-ee6a-499e-9e09-54608c84ddd3"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="496" y="85" width="55" height="9" uuid="b46a0f02-a365-4fca-83a4-471afd182399"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="180" y="85" width="59" height="9" uuid="204cd0ef-9a14-46be-ab56-150692a4df7b"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="373" y="85" width="57" height="9" uuid="55a6c7a4-2f89-4165-ab4d-0d43b7951825"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="309" y="85" width="59" height="9" uuid="8aa24258-7b22-40eb-bee2-0fbb05d8b1c7"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="246" y="85" width="59" height="9" uuid="f9fdc06b-32d7-4748-a962-8a1895be0b3a"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="434" y="85" width="56" height="9" uuid="e2ecae7d-57c1-4316-8174-5dc8e149f628"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="496" y="98" width="55" height="9" uuid="3a4e5d3b-8cf8-423b-ad99-a05817101fb0"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="180" y="98" width="59" height="9" uuid="9f1f0958-1633-487b-a267-8fca8dc98eff"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="373" y="98" width="57" height="9" uuid="07ff6652-07ea-4ef9-a692-6f221adfff05"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="309" y="98" width="59" height="9" uuid="a6819ce4-eb9b-4b40-94be-c662456caccc"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="246" y="98" width="59" height="9" uuid="54b46308-16cf-4fae-a141-d5629d089b96"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="434" y="98" width="56" height="9" uuid="e0453894-97ca-4cf9-972d-ae60a89a64fa"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="496" y="152" width="55" height="9" uuid="fefbedbb-5edd-4d37-bee9-15e040b1b27f"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="434" y="152" width="56" height="9" uuid="505eee5e-786c-47ff-9ce1-9ccd7d416362"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="309" y="152" width="59" height="9" uuid="cfe117b3-f451-4f63-8aab-6182495735f7"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="246" y="152" width="59" height="9" uuid="2ccfc850-af04-425c-bb1c-3f343a1eeb30"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="180" y="152" width="59" height="9" uuid="27bfd068-3d51-429d-a0ec-5c4c5a66fc51"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="373" y="152" width="57" height="9" uuid="8d8cbb34-497f-4599-9c99-1bfe09c6ecb9"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="496" y="198" width="55" height="9" uuid="e1284948-c072-44b7-b820-76b91a8ac42d"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="434" y="198" width="56" height="9" uuid="f5d78b1a-4e5a-4fa7-b10a-01928f077b9c"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="309" y="198" width="59" height="9" uuid="6a295173-e28e-4327-8ced-a2f5f5b52bfc"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="246" y="198" width="59" height="9" uuid="626fa8b6-8ebc-4453-9ff9-cc6918986a94"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="180" y="198" width="59" height="9" uuid="8399e08e-ddd7-4a72-ab80-99c56a27599d"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="373" y="198" width="57" height="9" uuid="2b44ed4f-1fc8-46f5-8f2b-fbad5005e44c"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="246" y="111" width="59" height="9" uuid="6a60ef31-2c9a-45fa-98fc-f02fdc4767f5"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="309" y="111" width="59" height="9" uuid="0e237b96-74dd-49e4-95cd-00164bd11380"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="371" y="111" width="59" height="9" uuid="42eced36-ea27-405f-b828-852212df00e8"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="180" y="111" width="59" height="9" uuid="e0df4368-e7f0-4986-802c-c363e58a4844"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="431" y="111" width="59" height="9" uuid="1a92531c-3ced-40f4-8cba-2a2b113adf84"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="492" y="111" width="59" height="9" uuid="7549a229-d520-47c7-977b-f66c511894e7"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="246" y="48" width="59" height="9" uuid="bb967966-1fde-4e3b-ad79-289fd0d55b5b"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="434" y="48" width="56" height="9" uuid="2fa00524-e6f7-43a5-bb07-58d719dfb465"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="496" y="48" width="55" height="9" uuid="6d784ede-55fc-4aeb-bee4-a619ce3df815"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="373" y="48" width="57" height="9" uuid="584137b7-af91-4b96-89d9-473a4608a4ac"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="309" y="48" width="59" height="9" uuid="7880eb83-4c53-4512-a940-78ccba671899"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="180" y="48" width="59" height="9" uuid="703e78a0-80b3-41a0-8aa5-75808944c748"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="317">
+				<staticText>
+					<reportElement x="180" y="2" width="311" height="13" uuid="14df864e-d3ef-4812-b9ab-3bf28f90e3e3"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[Ingresos]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement x="0" y="2" width="554" height="47" backcolor="#CCCCCC" uuid="019f250f-b326-402e-94e7-59fbd8c92d99"/>
+				</rectangle>
+				<line>
+					<reportElement x="180" y="35" width="374" height="1" uuid="085d254b-7c5f-41a4-8bff-b467f5e45ed7"/>
+				</line>
+				<staticText>
+					<reportElement x="493" y="11" width="59" height="12" uuid="25ba39e9-0e56-4576-aefd-8092cff85793"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[Diferencia]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="496" y="36" width="54" height="11" uuid="2aedf195-e885-4436-9546-dd21fb422170"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[(6 = 5 - 1)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="180" y="17" width="61" height="20" uuid="aa3027a8-b79a-4ed1-8224-7d408dd66e81"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[Estimado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="181" y="36" width="60" height="11" uuid="d12c5f0c-2285-497e-91ee-3916bc0caa03"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[(1)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="245" y="14" width="60" height="23" uuid="8cd7957e-52d0-4d19-a4a0-462d5964ef93"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[Ampliaciones y Reducciones]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="307" y="17" width="62" height="20" uuid="c34a91af-69e6-4c12-8711-5afa9276f987"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[Modificado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="373" y="17" width="58" height="19" uuid="0a487585-7162-44bf-9162-39195e122440"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[Devengado]]></text>
+				</staticText>
+				<line>
+					<reportElement x="179" y="14" width="314" height="1" uuid="0078509e-d8bb-4c81-b17e-c5f187cb9764"/>
+				</line>
+				<staticText>
+					<reportElement x="431" y="17" width="60" height="20" uuid="7a037b64-900c-4e18-bf72-601dc23fea2c"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[Recaudado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2" y="15" width="176" height="31" uuid="80c94cda-6d95-4f24-8a53-0838ee7abaf6"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[Estado Analítico de Ingresos Por Fuente de Financiamiento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="244" y="36" width="61" height="11" uuid="c39bd523-f5af-4455-9831-355df646fa81"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[(2)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="307" y="36" width="62" height="11" uuid="99dc3b24-886a-4c47-bf6f-6b84bbf8f99c"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[(3 =  1 + 2)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="373" y="36" width="55" height="11" uuid="93630de1-59ce-4d7f-8a83-3657d57ce122"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[(4)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="431" y="36" width="60" height="11" uuid="8eee8248-7a44-4200-a9ce-7035ad0b9547"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[(5)]]></text>
+				</staticText>
+				<line>
+					<reportElement x="179" y="3" width="1" height="46" uuid="457e0ee2-7f15-4f33-9054-b44bae2d876f"/>
+				</line>
+				<line>
+					<reportElement x="241" y="14" width="1" height="35" uuid="e1232000-5415-4830-b696-8d2ebd4173db"/>
+				</line>
+				<line>
+					<reportElement x="492" y="3" width="1" height="46" uuid="67dee18f-4110-463f-b098-8707af9778ff"/>
+				</line>
+				<line>
+					<reportElement x="432" y="15" width="1" height="33" uuid="1d643db0-ab90-424c-a1cf-6c1947ab4065"/>
+				</line>
+				<line>
+					<reportElement x="370" y="14" width="1" height="34" uuid="ce6d3d0b-d7a9-4f43-8c87-79041a641709"/>
+				</line>
+				<line>
+					<reportElement x="306" y="16" width="1" height="33" uuid="85538b88-67c1-49af-9107-efafca2bf1af"/>
+				</line>
+				<staticText>
+					<reportElement x="180" y="2" width="311" height="13" uuid="d8b907eb-6ea0-4ff7-a4e4-2e42a83e9d34"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[Ingreso]]></text>
+				</staticText>
+				<line>
+					<reportElement x="492" y="46" width="1" height="271" uuid="ab764f98-b05e-4b94-babe-5ede720db9b8"/>
+				</line>
+				<line>
+					<reportElement x="179" y="48" width="1" height="269" uuid="64e3b815-fd20-4b89-bc34-b62dd06c933a"/>
+				</line>
+				<line>
+					<reportElement x="241" y="48" width="1" height="269" uuid="ac2c0f58-8733-46f7-ba2f-6465e01a3af3"/>
+				</line>
+				<line>
+					<reportElement x="306" y="48" width="1" height="269" uuid="3b618599-2a85-45a3-85a9-4defa4fe60ac"/>
+				</line>
+				<line>
+					<reportElement x="370" y="47" width="1" height="270" uuid="93a9e981-9a20-4b11-9430-80edbc70413d"/>
+				</line>
+				<line>
+					<reportElement x="432" y="47" width="1" height="270" uuid="dfd91bd2-4951-4958-bf7a-24acf3ec9229"/>
+				</line>
+				<line>
+					<reportElement x="0" y="48" width="1" height="269" uuid="01f38172-15d5-45b0-96cf-c91b2c3b031b"/>
+				</line>
+				<line>
+					<reportElement x="553" y="47" width="1" height="270" uuid="15c684e8-6a20-42c0-b727-4e8ccd4c332c"/>
+				</line>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="433" y="49" width="58" height="13" uuid="05ffe437-4a0c-4780-bd53-474617f792e5"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{pag1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="373" y="49" width="58" height="13" uuid="9a262561-c955-4e6b-9ff4-6ce9714f8977"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{dev1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="181" y="49" width="59" height="13" uuid="8d0977a3-c8e4-49e0-9117-a6337d690397"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ori1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="494" y="49" width="58" height="13" uuid="6426e12f-2dff-4210-9f78-e2da878d9ffc"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{dif1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="244" y="49" width="61" height="13" uuid="f50dbd7d-7d5a-46b2-86ac-190598084a1b"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{amp1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="311" y="49" width="58" height="13" uuid="0e8d9981-ab24-40f3-b70b-18b09b79ccec"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{mod1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="2" y="48" width="176" height="18" isPrintWhenDetailOverflows="true" uuid="8b44c0c7-d459-4fe4-991d-7cd5d5ef965a"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Ingresos del Poder Ejecutivo Federal o Estatal y de los Municipios]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="22" y="69" width="45" height="9" uuid="31d8369b-560d-44f1-a934-086e2d5d25c4"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Impuestos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="22" y="82" width="149" height="9" uuid="16951ecb-18c5-4761-a287-f65809d4c677"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Cuotas y Aportaciones de Seguridad Social]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="22" y="95" width="149" height="9" uuid="ff087922-a82a-4469-8a9f-86fcd1f02fb6"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Contribuciones de Mejoras]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="22" y="109" width="45" height="9" uuid="d4943a16-794a-42f6-83e7-5472ee630926"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Derechos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="22" y="123" width="148" height="9" uuid="a2afe5ca-0376-4ff4-b840-2c4c3fa6ffb8"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Productos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="22" y="149" width="155" height="27" uuid="73eefb99-b54b-4cd4-8063-4428cdf30da7"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Participaciones, Aportaciones, Convenios, Incentivos Derivados de la Colaboración Fiscal y Fondos Distintos de Aportaciones]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="22" y="181" width="155" height="18" uuid="cc21991f-45ee-4217-8760-f5d1faebd984"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Transferencias, Asignaciones, Subsidios y Subvenciones, y Pensiones y Jubilaciones]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="6" y="200" width="176" height="34" isPrintWhenDetailOverflows="true" uuid="57362f6d-6cc0-423e-8aa5-1e8c1b646bb9"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Ingresos de los Entes Públicos de los Poderes Legislativo y Judicial, de los Órganos Autónomos y del Sector Paraestatal o Paramunicipal, así como de las Empresas Productivas del Estado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="25" y="235" width="156" height="10" uuid="30f18f3f-5846-4ac5-9253-76335d1e1121"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Cuotas y Aportaciones de Seguridad Social]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="25" y="246" width="45" height="9" uuid="12218410-1507-42ce-98fe-639423c7e0f2"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Productos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="25" y="256" width="155" height="18" uuid="e5c43148-0cbd-4fc2-b9f5-c9ef8583accf"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Ingresos por Venta de Bienes, Prestación de Servicios y Otros Ingresos ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="6" y="294" width="169" height="10" isPrintWhenDetailOverflows="true" uuid="49223889-8598-43f9-93f8-cdfbe23c3871"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Ingresos Derivados de Financiamientos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="25" y="305" width="134" height="10" uuid="b3cdf0c6-2ce4-428b-920e-423d6ea1ebe8"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Ingresos Derivados de Financiamientos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="25" y="275" width="155" height="18" uuid="6cdc74f3-541d-4adb-a1f3-d281e5a9c4be"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Transferencias, Asignaciones, Subsidios y Subvenciones, y Pensiones y Jubilaciones.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="22" y="136" width="148" height="9" uuid="97f487c1-b42c-4748-8f4d-dfe357653032"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Aprovechamientos]]></text>
+				</staticText>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="181" y="183" width="59" height="13" uuid="d83b73a5-da8e-4432-a9d6-6f5566b1efbe"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ori1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="244" y="183" width="61" height="13" uuid="497e9c57-9444-42d2-8048-8b20fa95c598"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{amp1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="311" y="183" width="58" height="13" uuid="0a61e1ee-22aa-45d9-aef2-3e498957f313"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{mod1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="181" y="260" width="59" height="13" uuid="09dcf79f-4b5b-4292-b959-d63845297137"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ori4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="245" y="260" width="61" height="13" uuid="bf634baf-1567-4b50-83ca-f56c9375c52b"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{amp4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="311" y="260" width="58" height="13" uuid="168c7c96-399a-4189-adbc-32659a7ca6a3"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{mod4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="373" y="183" width="58" height="13" uuid="9163f42d-e4e7-4f46-a8b2-31a302e30f0f"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{dev1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="433" y="183" width="58" height="13" uuid="e0fe1048-b385-4887-83d4-84de904a9df1"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{pag1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="494" y="183" width="58" height="13" uuid="d1003f61-4031-4ea9-9e92-99ed103edb60"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{dif1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="372" y="260" width="58" height="13" uuid="1b3134ac-9805-465f-9af2-72ace948973e"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{dev4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="494" y="260" width="58" height="13" uuid="079b61bf-d257-412f-b99b-4c28c1cb7990"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{dif4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="433" y="260" width="58" height="13" uuid="4d0c6900-ae11-4bc5-a51f-4108fcf41d1b"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{pag4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="181" y="215" width="59" height="13" uuid="7081914f-c6b8-4d9f-8d64-72481c253d5b"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ori4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="372" y="215" width="58" height="13" uuid="337702d4-076d-4cf8-8cfc-a8b75a53e54c"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{dev4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="494" y="215" width="58" height="13" uuid="fc34f81d-1caa-47d4-bca4-fe87431e1106"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{dif4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="433" y="215" width="58" height="13" uuid="2b567ec7-b5ae-4df5-8c69-1751c60ff0cd"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{pag4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="311" y="215" width="58" height="13" uuid="dba20ad0-8d13-4a17-8f0a-d5e292632172"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{mod4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="244" y="215" width="61" height="13" uuid="aad1b3e0-663d-44e0-83e6-41c6119ad844"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{amp4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="181" y="69" width="59" height="9" uuid="70de76f7-8135-46e4-9b65-81cac822b270"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="246" y="69" width="59" height="9" uuid="ee79d89f-c666-49d1-a36e-50133c3e1716"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="309" y="69" width="59" height="9" uuid="74625b9d-9555-459e-b2fb-3ff0060e3ea2"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="246" y="82" width="59" height="9" uuid="4a515835-d0df-400a-8c24-730e8485ad87"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="309" y="82" width="59" height="9" uuid="792d9c9d-552b-4edf-b144-38fc98ad323f"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="181" y="82" width="59" height="9" uuid="94eed830-b93d-4115-9e6a-1d543cb15b10"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="432" y="69" width="59" height="9" uuid="76b90b9b-1b0e-4442-8e8f-8699309f4d9f"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="493" y="69" width="59" height="9" uuid="d1f96312-a84d-4bae-b5aa-b05221b2ba73"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="372" y="69" width="59" height="9" uuid="11bba0be-1ea8-4cd1-8a1b-216395434575"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="372" y="82" width="59" height="9" uuid="9628903d-6b3c-473e-b1c0-3e371df4bf49"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="493" y="82" width="59" height="9" uuid="4e632525-3656-4b2b-9643-46d60a882c85"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="432" y="82" width="59" height="9" uuid="e5a51aff-ca83-4598-bb52-2a060f466ee4"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="493" y="124" width="59" height="9" uuid="47d20cd3-fe6c-4ac9-bcb9-d3b72a09951b"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="246" y="124" width="59" height="9" uuid="84d5a1fb-da9b-4788-bdcd-e8e0b3b12c7a"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="372" y="124" width="59" height="9" uuid="a9e0ac1b-6aa1-4f3a-9808-1110ea59dab6"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="432" y="124" width="59" height="9" uuid="d7ebe36d-8118-450a-a654-6bf47692fa08"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="181" y="124" width="59" height="9" uuid="7d3f1c0d-92f6-4699-95f7-131503917830"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="309" y="124" width="59" height="9" uuid="f674707a-a20c-44f3-bbc2-2393c19a7211"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="493" y="158" width="59" height="9" uuid="5522fb62-2498-4bbf-bb5c-aae537f0d9ce"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="246" y="158" width="59" height="9" uuid="bdc01a55-14a3-42c3-bcec-31e188879a7a"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="372" y="158" width="59" height="9" uuid="3a9e6e8f-6f9a-4077-b083-324e6aa9e876"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="432" y="158" width="59" height="9" uuid="01f89b9a-5b68-499b-89d0-4ec3abb992fe"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="181" y="158" width="59" height="9" uuid="f7edcfcf-4cf4-47eb-b6eb-a7b17af04059"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="310" y="158" width="59" height="9" uuid="00034fe9-9230-47aa-a511-8d7722d33d8e"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="493" y="95" width="59" height="9" uuid="8534334f-8c2d-40b2-9a95-543431c6329d"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="246" y="95" width="59" height="9" uuid="3b82e862-69fd-43e5-9b7b-3e22e0ab45d4"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="372" y="95" width="59" height="9" uuid="d4a13dd2-4856-420a-906e-c5498b4f7100"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="432" y="95" width="59" height="9" uuid="265e846a-cd52-408e-8611-d297fb1aa9fa"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="181" y="95" width="59" height="9" uuid="59c827b0-9489-4f71-bd9d-191889c7d6a9"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="309" y="95" width="59" height="9" uuid="c9d65162-dbb7-42d6-b86a-4ce65e8a3bc9"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="493" y="109" width="59" height="9" uuid="0e5f5fb4-6850-40df-b265-d0c5e2ac03a9"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="246" y="109" width="59" height="9" uuid="c88dccda-cbda-438b-8cda-6ab84d552a1d"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="372" y="109" width="59" height="9" uuid="62298e36-5927-4ed4-8065-74bc4eb8e8f6"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="432" y="109" width="59" height="9" uuid="77014e58-e8a4-409f-9eb9-f12779327494"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="181" y="109" width="59" height="9" uuid="d83aba5e-487d-4dd9-bc47-b562ecf04fa5"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="309" y="109" width="59" height="9" uuid="d3b89d8d-276d-4f58-93eb-aeb024c1fe7a"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="493" y="235" width="59" height="9" uuid="5541e6fc-2bc1-4b9b-8969-649e476f1712"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="247" y="235" width="59" height="9" uuid="f1918511-0b62-40ab-8284-d2cc4c82afde"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="370" y="235" width="59" height="9" uuid="8a82e1d2-b059-45e1-9fe4-9d916679fab0"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="431" y="235" width="59" height="9" uuid="e5d5450f-8106-427f-9fae-419bd77c0c42"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="182" y="235" width="59" height="9" uuid="0c088d0c-88c3-4d55-85b9-10f5f4384b99"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="310" y="235" width="59" height="9" uuid="de2aae53-ea16-4c79-be86-e483cd94be81"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="493" y="283" width="59" height="9" uuid="36ba19d3-4d6b-4bd4-bb38-aad4ab7d35e0"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="247" y="283" width="59" height="9" uuid="b28b1297-4472-4ee0-b381-31725fafa35b"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="370" y="283" width="59" height="9" uuid="08850ffd-a223-4169-99f9-02b39623561f"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="432" y="283" width="59" height="9" uuid="185c9b06-3682-4c6f-80e3-b874ffe8a8ba"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="182" y="283" width="59" height="9" uuid="f8a12047-d0f9-492a-b19a-de12ea3c318a"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="310" y="283" width="59" height="9" uuid="0946c18a-1636-4d5e-a72d-a1a852e9dc90"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="493" y="306" width="59" height="9" uuid="2e84f42b-24b1-4666-a227-6e5030011ced"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="247" y="306" width="59" height="9" uuid="0101e74d-dea6-4c65-9218-c3a3abec91d3"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="370" y="306" width="59" height="9" uuid="8903fcce-8079-4bcb-a919-1cda9dcdbcdc"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="432" y="306" width="59" height="9" uuid="d904a938-9ed4-41ce-a16f-fa175f92db53"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="182" y="306" width="59" height="9" uuid="99cee76a-c121-417d-8084-dbf3995f49e6"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="310" y="306" width="59" height="9" uuid="8eefa2b6-aa88-41e9-b4fa-4832f8493a3c"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="309" y="136" width="59" height="9" uuid="43b48f09-0ca5-4337-b498-9c749e00c0ec"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="246" y="136" width="59" height="9" uuid="cfbc180f-d3a7-440f-a1a8-fe93dd18a858"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="432" y="136" width="59" height="9" uuid="4865911e-31de-4d13-852d-7be3a4ddd97a"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="181" y="136" width="59" height="9" uuid="de7de1a4-3ab7-4ea4-867c-8a5c08adbc3d"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="493" y="136" width="59" height="9" uuid="3be313f9-18f8-40d7-bca7-2a3f55f84026"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="372" y="136" width="59" height="9" uuid="d0826d46-1928-4453-be28-78a4a4d0e5da"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="431" y="246" width="59" height="9" uuid="198cfacd-3258-4a79-ae92-1aa1d4d3d3ea"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="370" y="246" width="59" height="9" uuid="f5efc999-b34b-4388-be9c-a1b5e0671fdc"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="182" y="246" width="59" height="9" uuid="a452fa1b-207f-4530-937f-f4cedc98a2e4"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="493" y="246" width="59" height="9" uuid="3f9ebf76-2005-4101-8d9c-1d8f7422d4de"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="310" y="246" width="59" height="9" uuid="d1ecd091-8292-41eb-a7c2-d44bc4559245"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="247" y="246" width="59" height="9" uuid="df6eef25-9b73-4685-9994-f7ea8d4fb57f"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="432" y="295" width="59" height="9" uuid="8e5467e9-65d7-4fab-8ccd-c6fc9f0b8ca6"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="247" y="295" width="59" height="9" uuid="2a54663f-1ac7-415f-9bd5-5235e8298101"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="493" y="295" width="59" height="9" uuid="c1dcade2-5d79-4d5e-8c56-36bec7f3e631"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="182" y="295" width="59" height="9" uuid="a7f1f052-4239-4b99-87ca-bf8e55c558e0"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="370" y="295" width="59" height="9" uuid="e6007fdf-fd0d-4413-8f90-2455d8a79a46"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="310" y="295" width="59" height="9" uuid="db133622-6f5a-4489-ad7e-93586cd0cae8"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[0.00]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="29">
+				<staticText>
+					<reportElement x="4" y="1" width="175" height="11" uuid="af44457a-6a6e-4b8b-ab7a-a57965adb423"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<line>
+					<reportElement x="492" y="1" width="1" height="13" uuid="7e14c577-056d-4a37-8096-7c71ebfe52e2"/>
+				</line>
+				<line>
+					<reportElement x="432" y="0" width="1" height="15" uuid="d6a5bb1a-bdb7-4d0d-a2fc-87283d520bd1"/>
+				</line>
+				<line>
+					<reportElement x="370" y="0" width="1" height="15" uuid="95600416-f1cf-48d5-a1a3-9cb86c05e16e"/>
+				</line>
+				<line>
+					<reportElement x="306" y="0" width="1" height="15" uuid="fcbde5ba-bf88-489b-883d-aa12af2c01a3"/>
+				</line>
+				<line>
+					<reportElement x="241" y="0" width="1" height="15" uuid="025a52e0-c7fd-46d9-8bf7-55372fd576cf"/>
+				</line>
+				<line>
+					<reportElement x="179" y="0" width="1" height="15" uuid="ff12bc6a-2c5b-40ba-86fa-3a09bc83c8f6"/>
+				</line>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="181" y="1" width="59" height="12" uuid="2bab03e0-05cc-489a-b4cc-ea1da8c82128"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{ori0}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="245" y="1" width="59" height="12" uuid="14177ee2-b80d-4fc6-9187-e5f5d96466b8"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{amp0}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="493" y="8" width="59" height="12" uuid="40dd452f-245f-4112-bf2e-cceaf02560be"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{dif0}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="372" y="1" width="58" height="12" uuid="4ed59c22-591a-4698-b1b8-36965595f130"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{dev0}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="307" y="1" width="62" height="12" uuid="0a3a83ca-ed0d-4712-b27f-b6e76fc1a355"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{mod0}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###,###,##0.00">
+					<reportElement x="434" y="1" width="57" height="12" uuid="23b7e079-5902-47de-879f-c311072f1e7c"/>
+					<textElement textAlignment="Right">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{pag0}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="396" y="17" width="97" height="10" uuid="c9a91583-a013-4028-861f-4a2276e6367b"/>
+					<textElement textAlignment="Center">
+						<font fontName="Noto Sans" size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Ingresos Excedentes]]></text>
+				</staticText>
+				<line>
+					<reportElement x="492" y="14" width="1" height="12" uuid="0b79dd2a-1904-44d1-b89f-5f70596e1a95"/>
+				</line>
+				<line>
+					<reportElement x="1" y="0" width="553" height="1" uuid="ad42f033-e5ab-4748-b18f-95ce068d2d25"/>
+				</line>
+				<line>
+					<reportElement x="0" y="14" width="492" height="1" uuid="92d4a624-2889-4b3d-bdef-8bf7bfca7a10"/>
+				</line>
+				<line>
+					<reportElement x="396" y="26" width="158" height="1" uuid="9561a263-6858-4ac9-a1b4-e6c9766f03b2"/>
+				</line>
+				<line>
+					<reportElement x="396" y="14" width="1" height="13" uuid="1e89b266-f0f4-473e-a899-d301c32b159a"/>
+				</line>
+				<line>
+					<reportElement x="553" y="0" width="1" height="26" uuid="9c642f3c-fbfb-4d55-9d42-c76204d22863"/>
+				</line>
+				<staticText>
+					<reportElement x="3" y="17" width="262" height="10" uuid="336145dc-e649-4b33-9cf2-a9da77dc9a96"/>
+					<textElement>
+						<font fontName="Noto Sans" size="6"/>
+					</textElement>
+					<text><![CDATA[Fuente: Sistema de registro de la Comisión Nacional Forestal.]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="0" width="1" height="15" uuid="a5fbfcca-81d2-4932-bff3-63a865b280e7"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<pageHeader>
+		<band height="96" splitType="Stretch">
+			<image>
+				<reportElement x="15" y="2" width="124" height="43" uuid="64dae760-0265-4677-a794-226b8e4a9bf9"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} +$P{NOMBRE_REP}]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="0" y="45" width="554" height="50" backcolor="#CCCCCC" uuid="670296ed-0b7e-4f70-af8d-afbe79cdcca5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="45" width="554" height="13" backcolor="#CCCCCC" uuid="39f81d01-ae23-4bfe-921b-add0044b62c0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Noto Sans" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Comisión Nacional Forestal
+
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="69" width="554" height="15" uuid="1351f709-f5c9-4b4f-8db4-2d8e12de3067">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Noto Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(
+    $P{mes}==1 ? "Del 01 de Enero al 31 de Enero de " +$P{anio}.toString():
+    $P{mes}==2 && ($P{anio}%400 == 0 || ($P{anio}%100 != 0 && $P{anio}%4 == 0)) ? "Del 01 de Enero al 29 de Febrero de " +$P{anio}.toString():
+    $P{mes}==2 ? "Del 01 de Enero al 28 de Febrero de " +$P{anio}.toString():
+    $P{mes}==3 ? "Del 01 de Enero al 31 de Marzo de " +$P{anio}.toString():
+    $P{mes}==4 ? "Del 01 de Enero al 30 de Abril de " +$P{anio}.toString():
+    $P{mes}==5 ? "Del 01 de Enero al 31 de Mayo de " +$P{anio}.toString():
+    $P{mes}==6 ? "Del 01 de Enero al 30 de Junio de " +$P{anio}.toString():
+    $P{mes}==7 ? "Del 01 de Enero al 31 de Julio de " +$P{anio}.toString():
+    $P{mes}==8 ? "Del 01 de Enero al 31 de Agosto de " +$P{anio}.toString():
+    $P{mes}==9 ? "Del 01 de Enero al 30 de Septiembre de " +$P{anio}.toString():
+    $P{mes}==10 ? "Del 01 de Enero al 31 de Octubre de " +$P{anio}.toString():
+    $P{mes}==11 ? "Del 01 de Enero al 30 de Noviembre de " +$P{anio}.toString():
+    $P{mes}==12 ? "Del 01 de Enero al 31 de Diciembre de " +$P{anio}.toString():
+    ""
+)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="58" width="554" height="13" backcolor="#CCCCCC" uuid="40939afe-21d0-491c-9291-14b26fcd24f1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Noto Sans" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Estado Analítico de Ingresos
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="83" width="554" height="13" backcolor="#CCCCCC" uuid="7463a889-7cdd-412c-be19-183fef0988d5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Noto Sans" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[(Pesos)]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band/>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="107" splitType="Stretch">
+			<textField>
+				<reportElement x="461" y="89" width="80" height="18" uuid="de6d2fec-8069-4720-8a34-e68aa3d22a3c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Noto Sans" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="541" y="89" width="10" height="18" uuid="789b15f7-2780-461b-9a19-b672d12fd0ac"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Noto Sans" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="1" y="3" width="552" height="82" uuid="b0c88842-6ae4-4bab-a5ed-d0cd323a7fd5"/>
+				<subreportParameter name="anio">
+					<subreportParameterExpression><![CDATA[$P{anio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="puesto4">
+					<subreportParameterExpression><![CDATA[$P{puesto4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="puesto2">
+					<subreportParameterExpression><![CDATA[$P{puesto2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="puesto3">
+					<subreportParameterExpression><![CDATA[$P{puesto3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nombre2">
+					<subreportParameterExpression><![CDATA[$P{nombre2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="puesto1">
+					<subreportParameterExpression><![CDATA[$P{puesto1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nombre1">
+					<subreportParameterExpression><![CDATA[$P{nombre1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nombre4">
+					<subreportParameterExpression><![CDATA[$P{nombre4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nombre3">
+					<subreportParameterExpression><![CDATA[$P{nombre3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nfirmas">
+					<subreportParameterExpression><![CDATA[$P{nfirmas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\firmasEdosFinVConac.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageFooter>
+</jasperReport>

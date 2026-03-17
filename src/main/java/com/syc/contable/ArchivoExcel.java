@@ -111,7 +111,7 @@ public class ArchivoExcel {
             //Crea Archivo
             elFichero = new FileOutputStream(cNombreEcel);
             //Escribe el libro en el archivo
-            libro.write(elFichero.toPath());
+            libro.write(elFichero);
         } catch (Exception e) {
             e.printStackTrace();
         }

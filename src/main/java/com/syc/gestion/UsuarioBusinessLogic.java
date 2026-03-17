@@ -57,7 +57,7 @@ public class UsuarioBusinessLogic extends DataSourceManager {
             u.setLogin(u_login);
             if (u_password != null)
                 u.setPassword(u_password.trim());
-            log.debug("Object: {}", "Buscando Usuario:" + u_login + " password:" + u_password);
+            log.debug("Object: " + String.valueOf("Buscando Usuario:" + u_login + " password:" + u_password));
             ru = UsuarioManager.select(conn, u);
         } catch (SQLException exc) {
             log.error("Validando credenciales de usuario " + u_login, exc);
@@ -80,7 +80,7 @@ public class UsuarioBusinessLogic extends DataSourceManager {
             conn = getConnection();
             if (u != null) {
                 u = UsuarioManager.getRamoUR(conn, u);
-                log.debug("Object: {}", "Usuario encontrado:" + u.getLogin() + " UR:" + u.getU_UR());
+                log.debug("Object: " + String.valueOf("Usuario encontrado:" + u.getLogin() + " UR:" + u.getU_UR()));
             }
             return u;
         } catch (Exception exc1) {
@@ -127,7 +127,7 @@ public class UsuarioBusinessLogic extends DataSourceManager {
             u.setLogin(u_login);
             u.setPassword(u_password);
             u.setEstatus("A");
-            log.debug("Object: {}", "Buscando Usuario:" + u_login + " password:" + u_password);
+            log.debug("Object: " + String.valueOf("Buscando Usuario:" + u_login + " password:" + u_password));
             ru = UsuarioManager.select(conn, u);
             try {
                 if (ru != null) {
@@ -137,7 +137,7 @@ public class UsuarioBusinessLogic extends DataSourceManager {
                     // Unidad
                     // responsable y
                     // Ramo
-                    log.debug("Object: {}", "Usuario encontrado:" + ru.getLogin() + " UR:" + ru.getU_UR());
+                    log.debug("Object: " + String.valueOf("Usuario encontrado:" + ru.getLogin() + " UR:" + ru.getU_UR()));
                 }
             } catch (Exception exc1) {
                 log.error("Leyendo UR y Ramo del usuario " + u_login, exc1);

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- Ayuda Asuntos -->
+
+<Ayuda>
+	<titulo>Reporte General</titulo>
+	<anchoWin>900</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>280</altoAreaCaptura>
+	<tabla>VIMX_REPORTES</tabla>
+	<maxRegistros>25</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		 		
+		<columna campo="vimx.FOLIO" 				control="folio"				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""					header="Folio"					rowCol="1,1"		ancho="40"		maxlen="20"		tipo="string"	visible="Si"	clase=""			concatena="N"/>
+		<columna campo="vimx.REFERENCIA" 			control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0"		header="Referencia"				rowCol="2,1"		ancho="40"		maxlen="20"		tipo="string"	visible="Si"	clase=""			concatena="N"/>
+		<columna campo="vimx.N_CONTROL"				control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0"		header="Numero de control"		rowCol="2,2"		ancho="40"		maxlen="60" 	tipo="string"	visible="Si"	clase=""			concatena="N"/>
+		<columna campo="ESTATUS"					control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0"		header="Estatus"				rowCol="3,1"		ancho="40"		maxlen="40"		tipo="string"	visible="Si"	clase=""			concatena="N"/>
+		<columna campo="DPC_F_REGISTRO"				control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0"		header="Fecha registro"			rowCol="4,1"		ancho="10"		maxlen="10"		tipo="fecha"	visible="Si"	clase=""			concatena="N"		opFecha="BETWEEN"/>
+		<columna campo="vimx.ASUNTO"				control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0"		header="Asunto"					rowCol="5,1"		ancho="80"		maxlen="1000"	tipo="string"	visible="Si"	clase=""			concatena="N"/>
+		
+		
+	</grid> 
+	
+</Ayuda>

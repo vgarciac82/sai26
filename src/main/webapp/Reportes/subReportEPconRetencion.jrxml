@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subReportEP&apos;s" pageWidth="707" pageHeight="612" orientation="Landscape" columnWidth="707" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="f020db60-339c-44ed-bb56-e064de97f228">
+	<property name="ireport.zoom" value="2.1435888100000122"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sai_2024"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="contrarecibo" class="java.lang.String">
+		<defaultValueExpression><![CDATA["10CP2021100703"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[/*subReportEP.jasper*/
+SELECT     tre.caNoContrarrecibo,
+           tre.cIdRelacion,
+           trd.EP,
+           Sum( trd.mImporteMasIVA) Importe,
+           tre.cnombre,
+           tre.nFolioRELACIONGASTOS,
+           'RG' AS tipodoc ,
+		   SUM(m2millar + m23iva + mISRHonorarios +  mObra5  + mISRArrenda + mRetImpuestoCedular + m5Millar + mFletes + mCedular + mImporteFlete4 + mImporteIvaArrenda+mImporteIvaHonorarios + mImporteFlete23 + mImporteObra + mImporteISRLaudos +mISROtros + mImporteIva6 + mimporteISRResico) retenciones,
+           (SELECT Count(DISTINCT EP)
+                  FROM   dbo.tRELACIONGASTOSDetalle WITH(NOLOCK)
+                  WHERE  nFolioRELACIONGASTOS=tre.nFolioRELACIONGASTOS) AS totEp
+FROM       tRELACIONGASTOSDetalle trd  WITH(NOLOCK)
+INNER JOIN tRELACIONGASTOSEncabezado tre  WITH(NOLOCK)
+ON         trd.nFolioRELACIONGASTOS=tre.nFolioRELACIONGASTOS
+WHERE      tre.caNoContrarrecibo = $P{contrarecibo}
+GROUP BY   tre.caNoContrarrecibo,
+           tre.cIdRelacion,
+           trd.EP,
+           tre.cnombre,
+           tre.nFolioRELACIONGASTOS]]>
+	</queryString>
+	<field name="caNoContrarrecibo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="caNoContrarrecibo"/>
+		<property name="com.jaspersoft.studio.field.label" value="caNoContrarrecibo"/>
+	</field>
+	<field name="cIdRelacion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cIdRelacion"/>
+		<property name="com.jaspersoft.studio.field.label" value="cIdRelacion"/>
+	</field>
+	<field name="EP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EP"/>
+		<property name="com.jaspersoft.studio.field.label" value="EP"/>
+	</field>
+	<field name="Importe" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Importe"/>
+		<property name="com.jaspersoft.studio.field.label" value="Importe"/>
+	</field>
+	<field name="cnombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cnombre"/>
+		<property name="com.jaspersoft.studio.field.label" value="cnombre"/>
+	</field>
+	<field name="nFolioRELACIONGASTOS" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="nFolioRELACIONGASTOS"/>
+		<property name="com.jaspersoft.studio.field.label" value="nFolioRELACIONGASTOS"/>
+	</field>
+	<field name="tipodoc" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="tipodoc"/>
+		<property name="com.jaspersoft.studio.field.label" value="tipodoc"/>
+	</field>
+	<field name="retenciones" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="retenciones"/>
+		<property name="com.jaspersoft.studio.field.label" value="retenciones"/>
+	</field>
+	<field name="totEp" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="totEp"/>
+		<property name="com.jaspersoft.studio.field.label" value="totEp"/>
+	</field>
+	<columnHeader>
+		<band height="75">
+			<printWhenExpression><![CDATA[$F{totEp} > 7]]></printWhenExpression>
+			<staticText>
+				<reportElement x="0" y="0" width="254" height="75" uuid="e99f39d0-229b-40ae-b728-3f37ca610b48">
+					<printWhenExpression><![CDATA[$F{totEp} > 7]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[LA AUTORIZACION DE PAGO DE ESTE DOCUMENTO SE DETALLA EN EL ANEXO DE LA CUENTA POR PAGAR, QUE INCLUYE LAS CLAVES PRESUPUESTALES, LISTADO DE FACTURAS Y/O BOLETOS DE AVION.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="13">
+			<printWhenExpression><![CDATA[$F{totEp}<8]]></printWhenExpression>
+			<textField>
+				<reportElement x="1" y="0" width="229" height="11" uuid="4e5cd886-528c-42c9-ac9a-67ce4f282b39"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EP}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="226" y="0" width="48" height="11" uuid="7467d015-e4d6-4845-8aa2-34cc1e9c7e91">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Importe}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="274" y="0" width="34" height="11" uuid="b61b7169-d2f1-43a0-9222-e179b90b95cd">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{retenciones}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

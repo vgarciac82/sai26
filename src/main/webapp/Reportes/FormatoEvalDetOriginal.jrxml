@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FormatoEvalDet"  pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.9487171000000014"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nFolio" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[
+declare @anio int
+set @anio = (select MIN(aejercicio) from tContratosPlurianual_MontosEjercicios (NOLOCK) where  nFolioContratoPlurianual =$P{nFolio})
+declare @veces int = (select COUNT(*) from tContratosPlurianual_MontosEjercicios (NOLOCK) where  nFolioContratoPlurianual =$P{nFolio})
+
+if (@veces = 2)
+	begin
+		select nFolioContratoPlurianual, cDescripcionProyecto, mMontoTotalContrato,
+		(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+		and aEjercicio = @anio) ImporteA1
+		,(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+		and aEjercicio = @anio + 1) ImporteA2
+        , 0 ImporteA3, 0 ImporteA4, 0 ImporteA5, 0 ImporteA6
+        , @veces veces, @anio anio
+		from tContratosPlurianualEncabezado enc (NOLOCK)
+		where enc.nFolioContratoPlurianual =$P{nFolio}
+	END
+ELSE IF @veces = 3
+	BEGIN
+		select nFolioContratoPlurianual, cDescripcionProyecto, mMontoTotalContrato,
+			(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+			and aEjercicio = @anio) ImporteA1
+			,(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios  (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+			and aEjercicio = @anio + 1) ImporteA2
+			,(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+			and aEjercicio = @anio + 2) ImporteA3
+            , 0 ImporteA4, 0 ImporteA5, 0 ImporteA6
+            , @veces veces, @anio anio
+			from tContratosPlurianualEncabezado enc (NOLOCK)
+			where enc.nFolioContratoPlurianual =$P{nFolio}
+	END
+ELSE IF @veces =4
+	BEGIN
+		select nFolioContratoPlurianual, cDescripcionProyecto, mMontoTotalContrato,
+			(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+			and aEjercicio = @anio) ImporteA1
+			,(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+			and aEjercicio = @anio + 1) ImporteA2
+			,(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+			and aEjercicio = @anio + 2) ImporteA3
+			,(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+			and aEjercicio = @anio + 3) ImporteA4
+            , 0 ImporteA5, 0 ImporteA6
+            , @veces veces, @anio anio
+			from tContratosPlurianualEncabezado enc (NOLOCK)
+			where enc.nFolioContratoPlurianual =$P{nFolio}
+	END
+ELSE IF @veces =5
+	BEGIN
+		select nFolioContratoPlurianual, cDescripcionProyecto, mMontoTotalContrato,
+			(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+			and aEjercicio = @anio) ImporteA1
+			,(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+			and aEjercicio = @anio + 1) ImporteA2
+			,(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+			and aEjercicio = @anio + 2) ImporteA3
+			,(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+			and aEjercicio = @anio + 3) ImporteA4
+			,(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+			and aEjercicio = @anio + 4) ImporteA5
+            , 0 ImporteA6
+            , @veces veces, @anio anio
+			from tContratosPlurianualEncabezado enc (NOLOCK)
+			where enc.nFolioContratoPlurianual =$P{nFolio}
+	END
+ELSE IF @veces =6
+	BEGIN
+		select nFolioContratoPlurianual, cDescripcionProyecto, mMontoTotalContrato,
+			(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+			and aEjercicio = @anio) ImporteA1
+			,(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+			and aEjercicio = @anio + 1) ImporteA2
+			,(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+			and aEjercicio = @anio + 2) ImporteA3
+			,(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+			and aEjercicio = @anio + 3) ImporteA4
+			,(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+			and aEjercicio = @anio + 4) ImporteA5
+			,(select mimporteEjercicio from tContratosPlurianual_MontosEjercicios (NOLOCK) where nFolioContratoPlurianual = enc.nFolioContratoPlurianual
+			and aEjercicio = @anio + 5) ImporteA6
+            , @veces veces, @anio anio
+			from tContratosPlurianualEncabezado enc (NOLOCK)
+			where enc.nFolioContratoPlurianual =$P{nFolio}
+	END]]>
+	</queryString>
+	<field name="ImporteA1" class="java.math.BigDecimal"/>
+	<field name="nFolioContratoPlurianual" class="java.lang.Integer"/>
+	<field name="cDescripcionProyecto" class="java.lang.String"/>
+	<field name="mMontoTotalContrato" class="java.lang.Float"/>
+	<field name="ImporteA2" class="java.math.BigDecimal"/>
+	<field name="ImporteA3" class="java.math.BigDecimal"/>
+	<field name="ImporteA4" class="java.math.BigDecimal"/>
+	<field name="veces" class="java.lang.Integer"/>
+	<field name="anio" class="java.lang.Integer"/>
+	<field name="ImporteA5" class="java.math.BigDecimal"/>
+	<field name="ImporteA6" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="1" width="351" height="23"/>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="351" y="1" width="55" height="23" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[$F{veces} >= 3]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="181" y="2" width="54" height="22" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto total en pesos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="2" width="54" height="11"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<line>
+				<reportElement x="238" y="2" width="1" height="22"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="1" width="178" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripción del proyecto]]></text>
+			</staticText>
+			<line>
+				<reportElement x="177" y="2" width="1" height="22"/>
+			</line>
+			<textField pattern="">
+				<reportElement x="239" y="13" width="54" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{anio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="295" y="12" width="54" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{anio} + 1]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="295" y="1" width="54" height="11"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="406" y="1" width="54" height="23" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[$F{veces} >= 4]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="460" y="1" width="54" height="23" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[$F{veces} >= 5]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="514" y="1" width="54" height="23" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[$F{veces} >= 6]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="351" y="2" width="54" height="11">
+					<printWhenExpression><![CDATA[$F{veces} >= 3]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="406" y="2" width="54" height="11">
+					<printWhenExpression><![CDATA[$F{veces} >= 4]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="461" y="2" width="54" height="11">
+					<printWhenExpression><![CDATA[$F{veces} >= 5]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="514" y="2" width="54" height="11">
+					<printWhenExpression><![CDATA[$F{veces} >=6]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<textField pattern="">
+				<reportElement x="351" y="13" width="54" height="12">
+					<printWhenExpression><![CDATA[$F{veces} >=3]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{anio} + 2]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="405" y="13" width="54" height="12">
+					<printWhenExpression><![CDATA[$F{veces} >=4]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{anio} + 3]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="459" y="13" width="54" height="12">
+					<printWhenExpression><![CDATA[$F{veces} >=5]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{anio} + 4]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="513" y="13" width="54" height="12">
+					<printWhenExpression><![CDATA[$F{veces} >=6]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{anio} + 5]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="293" y="1" width="1" height="22"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="-1" width="351" height="15" isPrintWhenDetailOverflows="true"/>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="351" y="-1" width="55" height="15" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[$F{veces} >= 3]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="406" y="-1" width="54" height="15" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[$F{veces} >= 4]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="460" y="-1" width="54" height="15" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[$F{veces} >= 5]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="514" y="-1" width="54" height="15" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[$F{veces} >= 6]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField pattern="###,###,##0.00;-###,###,##0.00">
+				<reportElement x="295" y="2" width="54" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{ImporteA2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###,##0.00;-###,###,##0.00">
+				<reportElement x="461" y="2" width="54" height="12">
+					<printWhenExpression><![CDATA[$F{veces} >= 5]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{ImporteA5}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" x="238" y="0" width="1" height="14" isPrintWhenDetailOverflows="true"/>
+			</line>
+			<textField pattern="###,###,##0.00;-###,###,##0.00">
+				<reportElement x="179" y="1" width="57" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mMontoTotalContrato}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###,##0.00;-###,###,##0.00">
+				<reportElement x="239" y="2" width="54" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{ImporteA1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="178" height="12" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cDescripcionProyecto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###,##0.00;-###,###,##0.00">
+				<reportElement x="351" y="2" width="54" height="12">
+					<printWhenExpression><![CDATA[$F{veces} >=3]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{ImporteA3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###,##0.00;-###,###,##0.00">
+				<reportElement x="406" y="2" width="54" height="12">
+					<printWhenExpression><![CDATA[$F{veces} >= 4]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{ImporteA4}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="177" y="-1" width="1" height="15" isPrintWhenDetailOverflows="true"/>
+			</line>
+			<textField pattern="###,###,##0.00;-###,###,##0.00">
+				<reportElement x="515" y="2" width="54" height="12">
+					<printWhenExpression><![CDATA[$F{veces} >= 6]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{ImporteA6}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="293" y="-1" width="1" height="14" isPrintWhenDetailOverflows="true"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

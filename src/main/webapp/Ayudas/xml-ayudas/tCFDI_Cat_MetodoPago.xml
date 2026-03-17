@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento de productos y servicios</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>tCFDI_Cat_ProductoServicio</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+	<columna campo="cMetodoPago"			control=""	dependencia="No"	limpiaOnKeypress=""		header="Clave"	 	 ancho="3"		maxlen="3"  tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cDescripcion"		control=""	dependencia="No"	limpiaOnKeypress=""		header="Descripcion"	 ancho="64"	maxlen="64" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="fFechaInicioVigencia"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Fecha Inicio"	 ancho="20"	maxlen="20" tipo="date"	visible="Si"	clase=""/>
+		<columna campo="fFechaFinVigencia"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Fecha Fin"	 ancho="15"	maxlen="15" tipo="date"	visible="Si"	clase=""/>
+		
+	</grid>  
+
+	
+</Ayuda>

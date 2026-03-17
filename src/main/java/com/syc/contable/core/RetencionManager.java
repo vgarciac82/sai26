@@ -115,7 +115,7 @@ public class RetencionManager {
             pstmnt.setString(23, encabezado.getEsIP());
             pstmnt.setInt(24, encabezado.getnFolioPago());
             pstmnt.setString(25, encabezado.getcConcepto());
-            log.debug("Object: {}", insertQuery);
+            log.debug("Object: " + String.valueOf(insertQuery));
             pstmnt.execute();
         } catch (Exception e) {
             throw e;
@@ -168,8 +168,8 @@ public class RetencionManager {
         ResultSet rsD = null;
         Retencion retencion = null;
         // Realizar conexion
-        log.debug("Object: {}", "[SQLH]" + SqlH + "[CxP=" + folio + "]");
-        log.debug("Object: {}", "[SQLD]" + SqlD + "[CxP=" + folio + "]");
+        log.debug("Object: " + String.valueOf("[SQLH]" + SqlH + "[CxP=" + folio + "]"));
+        log.debug("Object: " + String.valueOf("[SQLD]" + SqlD + "[CxP=" + folio + "]"));
         try {
             pstmntH = conn.prepareStatement(SqlH);
             pstmntH.setString(1, folio);
@@ -433,7 +433,7 @@ public class RetencionManager {
             String Sql = query.toString();
             pstmntH = conn.prepareStatement(Sql);
             pstmntH.setInt(1, folio);
-            log.debug("Object: {}", Sql.toString());
+            log.debug("Object: " + String.valueOf(Sql.toString()));
             rs = pstmntH.executeQuery();
             log.debug("Inicia proceso de layout de retenciones encabezado");
             // Inserta el encabezado en el arrayList
@@ -468,7 +468,7 @@ public class RetencionManager {
             query2.append(" WHERE RDE.nFolioRetencion = ? ");
             query2.append("	GROUP BY SUBSTRING(RDD.EP,61,3), RDD.EP,  RDE.nFolioRetencion,	RDD.cMes, RDE.nCompromisoSICOP");
             String Sql2 = query2.toString();
-            log.debug("Object: {}", Sql2.toString());
+            log.debug("Object: " + String.valueOf(Sql2.toString()));
             pstmntD = conn.prepareStatement(Sql2);
             pstmntD.setInt(1, folio);
             rs2 = pstmntD.executeQuery();
@@ -563,7 +563,7 @@ public class RetencionManager {
             String sql = query.toString();
             pstmntH = conn.prepareStatement(sql);
             pstmntH.setInt(1, folio);
-            log.debug("Object: {}", sql.toString());
+            log.debug("Object: " + String.valueOf(sql.toString()));
             rs = pstmntH.executeQuery();
             log.debug("Inicia proceso de layout de retenciones encabezado");
             // Inserta el encabezado en el arrayList
@@ -580,7 +580,7 @@ public class RetencionManager {
             }
             // Detalle del compromiso de la Retencion
             String Sql2 = "	SELECT '668' as ID_EVENTO" + "			 , '304_TOCN' as EVENTO" + "			 , tCEP.cRamo" + "			 , tCEP.cUnidadResponsableEP" + "			 , tCEP.aEjercicioFiscal" + "			 , tCEP.cGrupoFuncional" + "			 , tCEP.cFuncion" + "			 , tCEP.cSubFuncion" + "			 , SUBSTRING( dbo.CambiaEPPlurianual(tCD.EP), 20, 2) AS cProgramaGeneral" + "			 , tCEP.cActividadInstitucional" + "			 , tCEP.cProgramaPresupuestario" + "			 , SUBSTRING(tCEP.cPartida,1,1)" + "			 , SUBSTRING(tCEP.cPartida,2,1)" + "			 , SUBSTRING(tCEP.cPartida,3,1)" + "			 , SUBSTRING(tCEP.cPartida,4,2)" + "			 , tCEP.cTipoGasto" + "			 , tCEP.cFuenteFinanciamiento" + "			 , tCEP.cEntidadFederativa" + "			 , SUBSTRING( dbo.CambiaEPCarteraMeta(tCEP.EP),45, 11) AS cCartera" + "			 , '000000' + '0000' as CAU " + "			 , '00' as COP" + "			 , '000' as PL" + "			 , '000' as OF_" + "			 , '00000' as AUX1" + "			 , '00000' as AUX2" + "			 , '0000000000' as AUX3" + "			 , '' as Suficiencia" + "			 , '' as Sol_OLI" + "			 , SUM(CASE tCD.cMes when 1 then convert(decimal(14,2), ABS(mImporte)) ELSE 0 END) as Enero" + "			 , SUM(CASE tCD.cMes when 2 then convert(decimal(14,2), ABS(mImporte)) ELSE 0 END) as Febrero" + "			 , SUM(CASE tCD.cMes when 3 then convert(decimal(14,2), ABS(mImporte)) ELSE 0 END) as Marzo" + "			 , SUM(CASE tCD.cMes when 4 then convert(decimal(14,2), ABS(mImporte)) ELSE 0 END) as Abril" + "			 , SUM(CASE tCD.cMes when 5 then convert(decimal(14,2), ABS(mImporte)) ELSE 0 END) as Mayo" + "			 , SUM(CASE tCD.cMes when 6 then convert(decimal(14,2), ABS(mImporte)) ELSE 0 END) as Junio" + "			 , SUM(CASE tCD.cMes when 7 then convert(decimal(14,2), ABS(mImporte)) ELSE 0 END) as Julio" + "			 , SUM(CASE tCD.cMes when 8 then convert(decimal(14,2), ABS(mImporte)) ELSE 0 END) as Agosto" + "			 , SUM(CASE tCD.cMes when 9 then convert(decimal(14,2), ABS(mImporte)) ELSE 0 END) as Septiembre" + "			 , SUM(CASE tCD.cMes when 10 then convert(decimal(14,2), ABS(mImporte)) ELSE 0 END) as Octubre" + "			 , SUM(CASE tCD.cMes when 11 then convert(decimal(14,2), ABS(mImporte)) ELSE 0 END) as Noviembre" + "			 , SUM(CASE tCD.cMes when 12 then convert(decimal(14,2), ABS(mImporte)) ELSE 0 END) as Diciembre" + "			 , SUM( convert(decimal(14,2), abs(tCD.mImporte)) ) as Importe" + "			 	FROM tRetencionDetalle tCD (NOLOCK),tCatalogoEP tCEP (NOLOCK), tRetencionEncabezado tCE (NOLOCK)" + "			 	WHERE tCD.nFolioRetencion = ?" + "			 	AND tCD.EP = tCEP.EP" + "			 	AND tCE.nFolioRetencion = tCD.nFolioRetencion " + "			 	group by tCEP.cRamo,  tCEP.aEjercicioFiscal, tCEP.cUnidadResponsableEP, tCEP.cGrupoFuncional, tCEP.cFuncion, tCEP.cSubFuncion, " + "			  SUBSTRING( dbo.CambiaEPPlurianual(tCD.EP), 20, 2), tCEP.cActividadInstitucional, SUBSTRING( dbo.CambiaEPCarteraMeta(tCEP.EP),45, 11)," + "			  tCEP.cProgramaPresupuestario, tCEP.cPartida, tCEP.cTipoGasto, tCEP.cFuenteFinanciamiento, tCEP.cEntidadFederativa, tCEP.cCartera";
-            log.debug("Object: {}", Sql2.toString());
+            log.debug("Object: " + String.valueOf(Sql2.toString()));
             pstmntD = conn.prepareStatement(Sql2);
             pstmntD.setInt(1, folio);
             rs2 = pstmntD.executeQuery();
@@ -624,7 +624,7 @@ public class RetencionManager {
             if (rs.next()) {
                 folioSicop = rs.getString(1);
             }
-            log.debug("Object: {}", "El folio de sicop es " + folioSicop);
+            log.debug("Object: " + String.valueOf("El folio de sicop es " + folioSicop));
         } finally {
             CloseObject.closeObject(ps, false);
             CloseObject.closeObject(rs, false);

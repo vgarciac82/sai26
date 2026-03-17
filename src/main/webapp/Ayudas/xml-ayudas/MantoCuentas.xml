@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Cuentas</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>700</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>M_TCUENTAS</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>1</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+
+	<grid>
+		<columna campo="nCuenta"			control="txtGridnCuenta"				dependencia="No"		ctrlsDependientes=""						limpiaOnKeypress=""							header="* Numero de Cuenta"		rowCol="1,1" 	ancho="30"		maxlen="30"	  	tipo="string"		visible="Si"	clase=""/>
+		<columna campo="dCuenta"			control="txtGriddCuenta"				dependencia="No"		ctrlsDependientes=""						limpiaOnKeypress=""							header="* Descripcion " 		rowCol="2,1" 	ancho="100"		maxlen="200"	tipo="string"		visible="Si"	clase=""/>
+		<columna campo="TipoCuenta"			control="txtGridTipoCuenta"			dependencia="No"		ctrlsDependientes=""						limpiaOnKeypress=""							header="* Tipo Cuenta"			rowCol="3,1" 	ancho="2"		maxlen="2"	  	tipo="string"		visible="Si"	clase=""/>
+		<columna campo="nCuentaPadre"		control="txtGridnCuentaPadre"			dependencia="No"		ctrlsDependientes=""						limpiaOnKeypress=""							header="* Cuenta Padre"			rowCol="3,2" 	ancho="30"		maxlen="30"	  	tipo="string"		visible="Si"	clase=""/>
+		<columna campo="TipoBalance"		control="txtGridTipoBalance"			dependencia="No"		ctrlsDependientes=""						limpiaOnKeypress=""							header="* Tipo Balance"			rowCol="3,3" 	ancho="1"		maxlen="1"		tipo="string"		visible="Si"	clase=""/>
+		<columna campo="VerificaSaldo"		control="txtGridVerificaSaldo"			dependencia="No"		ctrlsDependientes=""						limpiaOnKeypress=""							header="* Verifica Saldo"		rowCol="3,4" 	ancho="1"		maxlen="1"		tipo="string"		visible="Si"	clase=""/>
+		<columna campo="NaturalezaCuenta"	control="txtGridNaturalezaCuenta"		dependencia="No"		ctrlsDependientes=""						limpiaOnKeypress=""							header="* Naturaleza"			rowCol="4,1" 	ancho="1"		maxlen="1"	  	tipo="string"		visible="Si"	clase=""/>
+		<columna campo="NivelCuenta"		control="txtGridNivelCuenta"			dependencia="No"		ctrlsDependientes=""						limpiaOnKeypress=""							header="* Nivel Cuenta"			rowCol="4,2" 	ancho="8"		maxlen="8"	  	tipo="string"		visible="Si"	clase=""/>
+		<columna campo="AplicacionCuenta"	control="txtGridAplicacionCuenta"		dependencia="No"		ctrlsDependientes=""						limpiaOnKeypress=""							header="* Aplicacion"			rowCol="4,3" 	ancho="1"		maxlen="1"		tipo="string"		visible="Si"	clase=""/>
+		<columna campo="cSubcuenta"			control="txtGridcSubcuenta"			dependencia="No"		ctrlsDependientes="MantoSubCuenta"			limpiaOnKeypress=""							header="* Sub Cuenta"			rowCol="4,4" 	ancho="20"		maxlen="20"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="nCuentaLike"		control="txtGridnCuentaLike"			dependencia="No"		ctrlsDependientes=""						limpiaOnKeypress=""							header="* CuentaLike"			rowCol="5,1" 	ancho="30"		maxlen="30"	  	tipo="string"		visible="Si"	clase=""/>
+		<columna campo="cuentaBloqueada"	control="txtGridcuentaBloqueada"		dependencia="No"		ctrlsDependientes=""						limpiaOnKeypress=""							header="* Cuenta Bloqueada"		rowCol="5,2" 	ancho="1"		maxlen="1"	  	tipo="string"		visible="Si"	clase=""/>
+	</grid>
+
+	<insertaRegistro>
+		<campo field="nCuenta"				control="txtGridnCuenta"				llave="Si"	identity="No"	requerido="El Numero de la Cuenta es requerido"		requeridoFocus="txtGridnCuenta"		tipo="string" />
+		<campo field="dCuenta"				control="txtGriddCuenta"				llave="No"	identity="No" 	requerido=""										requeridoFocus=""		tipo="string" />
+		<campo field="TipoCuenta"			control="txtGridTipoCuenta"				llave="No"	identity="No" 	requerido=""										requeridoFocus=""		tipo="string" />
+		<campo field="nCuentaPadre"			control="txtGridnCuentaPadre"			llave="No"	identity="No"	requerido=""										requeridoFocus=""		tipo="string" />
+		<campo field="TipoBalance"			control="txtGridTipoBalance"			llave="No"	identity="No" 	requerido=""										requeridoFocus=""		tipo="string" />
+		<campo field="VerificaSaldo"		control="txtGridVerificaSaldo"			llave="No"	identity="No" 	requerido=""										requeridoFocus=""		tipo="string" />
+		<campo field="NaturalezaCuenta"		control="txtGridNaturalezaCuenta"		llave="No"	identity="No" 	requerido=""										requeridoFocus=""		tipo="string" />
+		<campo field="NivelCuenta"			control="txtGridNivelCuenta"			llave="No"	identity="No"	requerido=""										requeridoFocus=""		tipo="string" />
+		<campo field="AplicacionCuenta"		control="txtGridAplicacionCuenta"		llave="No"	identity="No" 	requerido=""										requeridoFocus=""		tipo="string" />
+		<campo field="cSubcuenta"			control="txtGridcSubcuenta"				llave="No"	identity="No" 	requerido=""										requeridoFocus=""		tipo="string" />
+		<campo field="nCuentaLike"			control="txtGridnCuentaLike"			llave="No"	identity="No"	requerido=""										requeridoFocus=""		tipo="string" />
+		<campo field="cuentaBloqueada"		control="txtGridcuentaBloqueada"		llave="No"	identity="No"	requerido=""										requeridoFocus=""		tipo="string" />
+	</insertaRegistro>
+
+</Ayuda>

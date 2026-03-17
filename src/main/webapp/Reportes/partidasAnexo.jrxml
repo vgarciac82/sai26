@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="partidasAnexo"  pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="792" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="365"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cEjercicio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cIdTipoPedido" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cIdUnidadEjecutora" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nIdConsecutivo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cIdAlmacen" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[declare @cEjercicio char(4)
+declare @cIdTipoPedido char(2)
+declare @cIdUnidadEjecutora char(4)
+  declare @nIdConsecutivo int
+declare	@cIdAlmacenEntrega varchar(200)
+--PE-B49-11/2013,'CNA-HGO-G01'
+set @cEjercicio=$P{cEjercicio}
+set @cIdTipoPedido=$P{cIdTipoPedido}
+set @cIdUnidadEjecutora=$P{cIdUnidadEjecutora}
+set @nIdConsecutivo=$P{nIdConsecutivo}
+set @cIdAlmacenEntrega=$P{cIdAlmacen}
+
+SELECT DISTINCT
+	mpp.cIdSol,
+	partida.nIdPartida AS nIdPartida,
+	mpp.nIdLineaSolicitud,
+	mpp.nCantidadSol,
+	UPPER(isnull(mpp.unidadMedida,mpp.cUnidadMedida)) as cUnidadMedida,
+	--mpp.cIdAlmacenEntrega,
+	--case when SUBSTRING(mpp.cIdSol,1,2)='RM' OR SUBSTRING(mpp.cIdSol,1,2)='RC' OR SUBSTRING(mpp.cIdSol,1,2)='RO' OR SUBSTRING(mpp.cIdSol,1,2)='RS'
+	--	then '$'+ convert(varchar,isnull((msla.mes02+msla.mes03+msla.mes04+msla.mes05+msla.mes06+msla.mes07+msla.mes08+msla.mes09+msla.mes10+msla.mes11+msla.mes12),0.00),1)
+	--	else
+		'$' + ISNULL(CONVERT(varchar, CONVERT(MONEY, mpp.mMontoMinimoUnitario * mpp.nCantidadSol* CAST(1 + (mp.nIVA * 0.01) as money)), 1), '0.00')
+		--end
+		AS mSubtotal,
+
+mpp.responsableAlmacen
+
+
+FROM
+	mPedido mp WITH(NOLOCK)
+	--inner join tCatUnidadEjecutora tUE WITH(NOLOCK) on
+	--	mp.cIdUnidadEjecutora = tUE.cUnidadEjecutora
+--	inner join mCatalogoEstadoPedido tES WITH(NOLOCK) on
+	--	tES.nIdEstado = mp.nIdEstado
+--	left outer join(select pCD_.cIdContrato,tCD.EP
+--		from pContratoDiverso pCD_ WITH(NOLOCK) --ON 	mp.cIdPedidoDefinitivo = pCD.cIdContrato
+--		INNER JOIN tpreCompromisoEncabezado tCE WITH(NOLOCK) ON
+--		pCD_.cIdContrato = tCE.cIdContrato
+--		INNER JOIN tpreCompromisoDetalle tCD WITH(NOLOCK) ON
+--		tCE.nFoliopreCompromiso = tCD.nFoliopreCompromiso
+--	) as pcd on pcd.cIdContrato=mp.cIdPedidoDefinitivo
+
+	left outer join  (SELECT cEjercicio,cIdTipoConsolidado,nIdConsecutivoConsolidado,nIdLineaConsolidado,cIdUnidadEjecutora,cIdTipoPedido,nIdConsecutivoPedido,
+nIdConsecutivo,cIdPedido,cIdCABM,cIdAlmacenEntrega,cIdRFC,cIdUnidadEjecutoraSolicitud,nIdLineaSolicitud,mMontoMinimoUnitario,
+nCantidadSol,cIdProcedimiento,cIdSol,cDescripcion,cUnidadMedida,
+                      unidadMedida,cTipoMoneda,responsableAlmacen
+FROM v_mProcedimientoPartidasAnexo pp
+ WHERE pp .cEjercicio = @cEjercicio  AND pp .cIdTipoPedido = @cIdTipoPedido
+                              AND pp .cIdUnidadEjecutora = @cIdUnidadEjecutora
+                              AND pp .nIdConsecutivoPedido = @nIdConsecutivo ) mpp on
+		mpp.cIdProcedimiento = mp.cIdProcedimiento
+		AND mp.cIdRFC = mpp.cIdRFC
+		AND mpp.cIdAlmacenEntrega = @cIdAlmacenEntrega
+		--and mp.cIdUnidadEjecutora=mpp.cIdUnidadEjecutora
+	     and mp.cEjercicio=mpp.cEjercicio
+
+--	inner join mCatalogoAlmacen tAl WITH(NOLOCK) on
+--		tAl.cIdAlmacen = mpp.cIdAlmacenEntrega
+	inner join  (select vp.nIdLineaConsolidado, ROW_NUMBER() OVER (ORDER BY vp.nIdLineaConsolidado) AS nIdPartida from mPedido mp WITH(NOLOCK)
+		INNER JOIN (SELECT cEjercicio,cIdTipoConsolidado,nIdConsecutivoConsolidado,nIdLineaConsolidado,cIdUnidadEjecutora,cIdTipoPedido,nIdConsecutivoPedido,
+nIdConsecutivo,cIdPedido,cIdCABM,cIdAlmacenEntrega,cIdRFC,cIdUnidadEjecutoraSolicitud,nIdLineaSolicitud,mMontoMinimoUnitario,
+nCantidadSol,cIdProcedimiento,cIdSol,cDescripcion,cUnidadMedida,cTipoMoneda
+FROM v_mProcedimientoPartidasAnexo pp
+ WHERE pp .cEjercicio = @cEjercicio  AND pp .cIdTipoPedido = @cIdTipoPedido
+                              AND pp .cIdUnidadEjecutora = @cIdUnidadEjecutora
+                              AND pp .nIdConsecutivoPedido = @nIdConsecutivo ) vp ON
+		mp.cEjercicio = vp.cEjercicio
+		--and mp.cIdUnidadEjecutora=VP.cIdUnidadEjecutora
+		AND mp.cIdProcedimiento = vp.cIdProcedimiento
+		AND mp.cIdRFC = vp.cIdRFC
+			WHERE mp.cEjercicio = @cEjercicio
+			AND mp.cIdTipoPedido = @cIdTipoPedido
+			AND mp.cIdUnidadEjecutora = @cIdUnidadEjecutora
+			AND mp.nIdConsecutivo = @nIdConsecutivo
+			GROUP By vp.nIdLineaConsolidado) AS partida
+			ON mpp.nIdLineaConsolidado = partida.nIdLineaConsolidado
+	--left join mSolicitudLineasApartado as msla on  msla.cIdSolicitud=mpp.cIdSol and msla.nIdLineaSolicitud=mpp.nIdLineaSolicitud
+WHERE mp.cEjercicio = @cEjercicio
+AND mp.cIdTipoPedido = @cIdTipoPedido
+AND mp.cIdUnidadEjecutora = @cIdUnidadEjecutora
+AND mp.nIdConsecutivo = @nIdConsecutivo
+AND mpp.cIdAlmacenEntrega = @cIdAlmacenEntrega
+ORDER BY mpp.cIdSol, nIdPartida]]>
+	</queryString>
+	<field name="cIdSol" class="java.lang.String"/>
+	<field name="nIdPartida" class="java.lang.Long"/>
+	<field name="nIdLineaSolicitud" class="java.lang.Integer"/>
+	<field name="nCantidadSol" class="java.lang.String"/>
+	<field name="cUnidadMedida" class="java.lang.String"/>
+	<field name="mSubtotal" class="java.lang.String"/>
+	<field name="responsableAlmacen" class="java.lang.String"/>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="0" y="4" width="70" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cIdSol}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="73" y="4" width="58" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{nIdPartida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="4" width="49" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nCantidadSol}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="183" y="4" width="52" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cUnidadMedida}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="238" y="4" width="67" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mSubtotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

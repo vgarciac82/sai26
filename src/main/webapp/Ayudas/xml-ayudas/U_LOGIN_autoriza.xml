@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Para Responsable</titulo>
+	<anchoWin>600</anchoWin>
+	<altoWin>350</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>TCHEQUERESPONSABLE</tabla>
+	<maxRegistros>10</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="r.U_LOGIN"	control="U_LOGIN_autoriza"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Usuario"	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="U_NOMBRE"	control="cNombre_autoriza"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Nombre Usuario"	ancho="80"	maxlen="80"		tipo="string"	visible="Si"	clase=""/>
+   </grid>  
+</Ayuda>

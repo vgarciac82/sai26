@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Consulta Catálogo de Unidades Responsables Normativas</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>UR_NORMATIVA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+
+	<grid>
+		<columna campo="ID_AREA"			control="UnidadNormativa" dependencia="No" ctrlsDependientes=""					limpiaOnKeypress="" header="ID_AREA"	 ancho="100" maxlen="200" tipo="string" visible="No" clase=""/>
+		<columna campo="hUnidadResponsable" control="hUR_Normativa"	  dependencia="No" ctrlsDependientes="UnidadNormativa"  limpiaOnKeypress="" header="Descripción" ancho="100" maxlen="200" tipo="string" visible="Si" clase=""/>
+	</grid>
+</Ayuda>

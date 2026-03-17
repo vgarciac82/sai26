@@ -210,7 +210,7 @@ public class EjercidoPagadoValidar extends DataSourceManager {
                 valor = "Insertado";
             } catch (Exception ex) {
                 log.warn(ex.getMessage(), ex);
-                log.debug("Object: {}", ex.getLocalizedMessage());
+                log.debug("Object: " + String.valueOf(ex.getLocalizedMessage()));
                 try {
                     conn.rollback();
                 } catch (Exception e) {
@@ -536,7 +536,7 @@ public class EjercidoPagadoValidar extends DataSourceManager {
                         }
                         valor = "Insertado";
                     } else {
-                        log.debug("Object: {}", "No Guarda Encabezado [" + recibo + "]");
+                        log.debug("Object: " + String.valueOf("No Guarda Encabezado [" + recibo + "]"));
                     }
                 } else {
                     valor = "No existe en Archivos de SICOP";
@@ -544,7 +544,7 @@ public class EjercidoPagadoValidar extends DataSourceManager {
             }
         } catch (Exception ex) {
             log.warn(ex.getMessage(), ex);
-            log.debug("Object: {}", ex.getLocalizedMessage());
+            log.debug("Object: " + String.valueOf(ex.getLocalizedMessage()));
             try {
                 conn.rollback();
             } catch (Exception ee) {
@@ -877,7 +877,7 @@ public class EjercidoPagadoValidar extends DataSourceManager {
                                 // Guarda Detalle Ejercido
                                 pstmntInsertDet = conn.prepareStatement("INSERT INTO tEjercidoDetalle (cTipoPago,nFolioPAGO,nDocRenglon,cMes,cEjercicio,cIdEntidadContable,cIdRelacion,EP,cIdCuentaContable,mComprometido,nPoliza,ID_TIPO_MOVIMIENTO,ID_TIPO_CONCEPTO,cEvento,nMes,cCentroContable,RFC, mImporteNeto,ALM,mImporteBruto,mImporteMasIva,mImporteIva,nCapitulo,mSancion,mDevolucion,mImporteAmortiza,mRetencion,mPenalizacion,m2Millar,m23IVA,mISRHonorarios,mObra5,mImporteFlete4,mISRArrenda,mRetImpuestoCedular,mImporteIvaArrenda,mImporteIvaHonorarios ,mImporteFlete23,mImporteIvaProv ,mImporteObra,mCNIC,mTesofe,altaAlmacen,aEjercicioFiscal,mIMDT,mImporte,nFolioEjercido,mImporteISRLaudos,mISROtros, mImporteIva6, mimporteISRResico, cUnidadResponsable)" + " VALUES('" + strLetratipoPago + "'," + nFolioPago + "," + nDocRenglon + "," + cMes + ",'" + strcEjercicio + "','" + cIdEntidadContable + "','" + cIdRelacion + "','" + EP + "','" + cIdCuentaContable + "'," + mComprometido + "," + nPoliza + ",'" + idTipoMovimiento + "','" + idTipoConcepto + "','EJERCIDO','" + cMes + "','" + cCentroContable + "','" + Rfc + "'," + rs2.getString("mImporteNeto") + ",'" + alm + "'," + mImporteBruto + "," + mImporteMasIva + "," + mImporteIva + ",'" + nCapitulo + "'," + mSancion + "," + mDevolucion + "," + mImporteAmortiza + " ," + mRetencion + "," + mPenalizacion + "," + m2Millar + "," + m23IVA + "," + rs2.getString("mISRHonorarios") + "," + rs2.getString("mObra5") + "       ," + rs2.getString("mImporteFlete4") + "," + rs2.getString("mISRArrenda") + "," + rs2.getString("mRetImpuestoCedular") + "," + rs2.getString("mImporteIvaArrenda") + "," + rs2.getString("mImporteIvaHonorarios") + "	," + rs2.getString("mImporteFlete23") + "," + mImporteIvaProv + "," + mImporteObra + "," + rs2.getString("mCNIC") + "," + rs2.getString("mTesofe") + ",'" + altaAlmacen + "','" + intaEjercicioFiscal + "'," + rs2.getString("mIMDT") + "," + rs2.getString("mImporteNeto") + "," + strFolioEjercido + "," + rs2.getString("mImporteISRLaudos") + "," + rs2.getString("mISROtros") + "," + rs2.getString("mImporteIva6") + "," + rs2.getString("mimporteISRResico") + ",'" + ur + "' )");
                                 intDet = pstmntInsertDet.executeUpdate();
-                                log.debug("Object: {}", "Se insertaron en tEjercidoDetalle: " + intDet);
+                                log.debug("Object: " + String.valueOf("Se insertaron en tEjercidoDetalle: " + intDet));
                             }
                             if (pagadoInsertado == 0) {
                                 // Guarda Detalle Pagado
@@ -898,7 +898,7 @@ public class EjercidoPagadoValidar extends DataSourceManager {
                                 }
                                 pstmntInsertDetPag = conn.prepareStatement(sqlinsetP);
                                 intDetPag = pstmntInsertDetPag.executeUpdate();
-                                log.debug("Object: {}", "Se insertaron en tPagadoDetalle: " + intDetPag);
+                                log.debug("Object: " + String.valueOf("Se insertaron en tPagadoDetalle: " + intDetPag));
                             }
                         }
                         if ("S".equals(cEsPagoCuotas)) {
@@ -924,7 +924,7 @@ public class EjercidoPagadoValidar extends DataSourceManager {
         } catch (Exception e) {
             valor = e.toString();
             log.warn(e.getMessage(), e);
-            log.debug("Object: {}", e.getLocalizedMessage());
+            log.debug("Object: " + String.valueOf(e.getLocalizedMessage()));
             try {
                 conn.rollback();
             } catch (Exception ee) {
@@ -1313,7 +1313,7 @@ public class EjercidoPagadoValidar extends DataSourceManager {
             conn.commit();
         } catch (Exception ex) {
             log.warn(ex.getMessage(), ex);
-            log.debug("Object: {}", ex.getLocalizedMessage());
+            log.debug("Object: " + String.valueOf(ex.getLocalizedMessage()));
             valor = ex.toString();
             String[] valorArray = valor.split("\n");
             valor = valorArray[0];
@@ -1373,7 +1373,7 @@ public class EjercidoPagadoValidar extends DataSourceManager {
             }
             conn.commit();
         } catch (Exception ex) {
-            log.debug("Object: {}", ex.getLocalizedMessage());
+            log.debug("Object: " + String.valueOf(ex.getLocalizedMessage()));
             valor = ex.toString();
             String[] valorArray = valor.split("\n");
             valor = valorArray[0];
@@ -1633,7 +1633,7 @@ public class EjercidoPagadoValidar extends DataSourceManager {
             }
         } catch (Exception e) {
             log.error("Error occurred", "Error: " + e);
-            log.debug("Object: {}", e.getLocalizedMessage());
+            log.debug("Object: " + String.valueOf(e.getLocalizedMessage()));
             valor = e.toString();
             String[] valorArray = valor.split("\n");
             valor = valorArray[0];
@@ -2131,7 +2131,7 @@ public class EjercidoPagadoValidar extends DataSourceManager {
             } catch (Exception ex) {
                 valor = ex.toString();
                 log.warn(ex.getMessage(), ex);
-                log.debug("Object: {}", ex.getLocalizedMessage());
+                log.debug("Object: " + String.valueOf(ex.getLocalizedMessage()));
                 try {
                     conn.rollback();
                 } catch (Exception e) {
@@ -2353,7 +2353,7 @@ public class EjercidoPagadoValidar extends DataSourceManager {
                     } catch (Exception ex) {
                         valor = ex.toString();
                         log.warn(ex.getMessage(), ex);
-                        log.debug("Object: {}", ex.getLocalizedMessage());
+                        log.debug("Object: " + String.valueOf(ex.getLocalizedMessage()));
                         try {
                             conn.rollback();
                         } catch (Exception e) {
@@ -3387,8 +3387,8 @@ public class EjercidoPagadoValidar extends DataSourceManager {
                     // //
                     // +'.'+SUBSTRING(CCAU_162,8,3)+'.'+"
                     // ,CCAU_162,CCOP_163"
-                    "SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END " + " AS EP," + " SUM(CONVERT(money,IMPORTE_148)) AS IMPORTE_148 " + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCLC_43 = '" + idCLC + "' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + epDetSICOP + "',45,11) AND " + " (" + " SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+" + " CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 " + " END AS EP" + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCLC_43 = '" + idCLC + "' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + epDetSICOP + "',45,11) " + " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + numeMenorForDet + " AND " + // ,CCAU_162,CCOP_163"
-                    numeMayorForDet + ") = '" + epDetSICOP + "'" + " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + numeMenorForDet + " AND " + numeMayorForDet);
+                    // ,CCAU_162,CCOP_163"
+                    "SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END " + " AS EP," + " SUM(CONVERT(money,IMPORTE_148)) AS IMPORTE_148 " + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCLC_43 = '" + idCLC + "' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + epDetSICOP + "',45,11) AND " + " (" + " SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+" + " CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 " + " END AS EP" + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCLC_43 = '" + idCLC + "' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + epDetSICOP + "',45,11) " + " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + numeMenorForDet + " AND " + numeMayorForDet + ") = '" + epDetSICOP + "'" + " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + numeMenorForDet + " AND " + numeMayorForDet);
                     pstmntDetSICOP = conn.prepareStatement(sql);
                     System.out.println("sqlDet:" + sql);
                     rs3 = pstmntDetSICOP.executeQuery();
@@ -3721,11 +3721,11 @@ public class EjercidoPagadoValidar extends DataSourceManager {
                             // +'.'+SUBSTRING(CCAU_162,8,3)+'.'+"
                             // ,CCAU_162,CCOP_163
                             // //
-                            "SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END AS EP," + " SUM(CONVERT(money,IMPORTE_148)) AS IMPORTE_148 " + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCLC_43 = '" + idCLC + "' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) " + " AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + epDetSICOP + "',45,11) AND " + " (" + " SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+" + " CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END AS EP " + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCLC_43 = '" + idCLC + "' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) " + " AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + // "
-                            epDetSICOP + "',45,11) " + " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + numeMenorForDet + " AND " + // ,CCAU_162,CCOP_163
-                            numeMayorForDet + // //
-                            ") = '" + // "
-                            epDetSICOP.substring(0, 55) + "'" + " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + numeMenorForDet + " AND " + numeMayorForDet);
+                            // "
+                            "SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END AS EP," + " SUM(CONVERT(money,IMPORTE_148)) AS IMPORTE_148 " + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCLC_43 = '" + idCLC + "' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) " + " AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + epDetSICOP + "',45,11) AND " + " (" + " SELECT CANI_150+'.'+ID_RAMO_CR+'.'+ID_UNIDAD_CR+'.'+CGFU_151+'.'+CFUN_152+'.'+" + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END+'.'+" + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END +'.'+" + " CASE LEN(CAIN_155) WHEN 1 THEN '00'+CAIN_155 WHEN 2 THEN '0'+CAIN_155 END+'.'+" + " CPPT_156+'.'+COBG_183+'.'+CTGA_160+'.'+CFIN_161+'.'+" + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END+'.'+" + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END AS EP " + " FROM CLC_SICOP WITH(NOLOCK) " + " WHERE NCLC_43 = '" + idCLC + "' AND " + " CPPT_156 = SUBSTRING('" + epDetSICOP + "',27,4) AND COBG_183 = SUBSTRING('" + epDetSICOP + "',32,5) AND " + " CASE LEN(CGEO_164) WHEN 1 THEN '0'+CGEO_164 WHEN 2 THEN CGEO_164 END = SUBSTRING('" + epDetSICOP + "',42,2) AND " + " CGFU_151 = SUBSTRING('" + epDetSICOP + "',13,1) AND " + " CASE LEN(CSFU_153) WHEN 1 THEN '0'+CSFU_153 END = SUBSTRING('" + epDetSICOP + "',17,2) AND " + " CASE LEN(CPRG_154) WHEN 1 THEN '0'+CPRG_154 END = SUBSTRING('" + epDetSICOP + "',20,2) " + " AND " + " CFUN_152 = SUBSTRING('" + epDetSICOP + "',15,1) AND " + " CASE CPPI_166 WHEN '0' THEN '00000000000' ELSE CPPI_166 END = SUBSTRING('" + epDetSICOP + "',45,11) " + " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + numeMenorForDet + // ,CCAU_162,CCOP_163
+                            " AND " + // //
+                            numeMayorForDet + // "
+                            ") = '" + epDetSICOP.substring(0, 55) + "'" + " GROUP BY CANI_150,ID_RAMO_CR,ID_UNIDAD_CR,CGFU_151,CFUN_152,CSFU_153,CPRG_154,CAIN_155,CPPT_156,COBG_183,CTGA_160,CFIN_161,CGEO_164,CPPI_166" + " HAVING(SUM(CONVERT(money,IMPORTE_148))) BETWEEN " + numeMenorForDet + " AND " + numeMayorForDet);
                             pstmntDetSICOP = conn.prepareStatement(sqll);
                             rs3 = pstmntDetSICOP.executeQuery();
                             if (rs3.next()) {
@@ -4061,7 +4061,7 @@ public class EjercidoPagadoValidar extends DataSourceManager {
                             // Guarda Detalle Ejercido
                             pstmntInsertDet = conn.prepareStatement("INSERT INTO tEjercidoDetalle (cTipoPago,nFolioPAGO,nDocRenglon,cMes,cEjercicio,cIdEntidadContable,cIdRelacion,EP,cIdCuentaContable,mComprometido,nPoliza,ID_TIPO_MOVIMIENTO,ID_TIPO_CONCEPTO,cEvento,nMes,cCentroContable,RFC, mImporteNeto,ALM,mImporteBruto,mImporteMasIva,mImporteIva,nCapitulo,mSancion,mDevolucion,mImporteAmortiza,mRetencion,mPenalizacion,m2Millar,m23IVA,mISRHonorarios,mObra5,mImporteFlete4,mISRArrenda,mRetImpuestoCedular,mImporteIvaArrenda,mImporteIvaHonorarios ,mImporteFlete23,mImporteIvaProv ,mImporteObra,mCNIC,mTesofe,altaAlmacen,aEjercicioFiscal,mIMDT,mImporte,nFolioEjercido,mImporteISRLaudos,mISROtros, mImporteIva6, mimporteISRResico, cUnidadResponsable)" + " VALUES('" + strLetratipoPago + "'," + nFolioPago + "," + nDocRenglon + "," + cMes + ",'" + strcEjercicio + "','" + cIdEntidadContable + "','" + cIdRelacion + "','" + EP + "','" + cIdCuentaContable + "'," + mComprometido + "," + nPoliza + ",'" + idTipoMovimiento + "','" + idTipoConcepto + "','EJERCIDO','" + cMes + "','" + cCentroContable + "','" + Rfc + "'," + rs2.getString("mImporteNeto") + ",'" + alm + "'," + mImporteBruto + "," + mImporteMasIva + "," + mImporteIva + ",'" + nCapitulo + "'," + mSancion + "," + mDevolucion + "," + mImporteAmortiza + " ," + mRetencion + "," + mPenalizacion + "," + m2Millar + "," + m23IVA + "," + rs2.getString("mISRHonorarios") + "," + rs2.getString("mObra5") + "       ," + rs2.getString("mImporteFlete4") + "," + rs2.getString("mISRArrenda") + "," + rs2.getString("mRetImpuestoCedular") + "," + rs2.getString("mImporteIvaArrenda") + "," + rs2.getString("mImporteIvaHonorarios") + "	," + rs2.getString("mImporteFlete23") + "," + mImporteIvaProv + "," + mImporteObra + "," + rs2.getString("mCNIC") + "," + rs2.getString("mTesofe") + ",'" + altaAlmacen + "','" + intaEjercicioFiscal + "'," + rs2.getString("mIMDT") + "," + rs2.getString("mImporteNeto") + "," + strFolioEjercido + "," + rs2.getString("mImporteISRLaudos") + "," + rs2.getString("mISROtros") + "," + rs2.getString("mImporteIva6") + "," + rs2.getString("mimporteISRResico") + ",'" + ur + "' )");
                             intDet = pstmntInsertDet.executeUpdate();
-                            log.debug("Object: {}", "Se insertaron en tEjercidoDetalle: " + intDet);
+                            log.debug("Object: " + String.valueOf("Se insertaron en tEjercidoDetalle: " + intDet));
                         }
                         if (pagadoInsertado == 0) {
                             // Guarda Detalle Pagado
@@ -4074,7 +4074,7 @@ public class EjercidoPagadoValidar extends DataSourceManager {
                             }
                             pstmntInsertDetPag = conn.prepareStatement(sqlinsetP);
                             intDetPag = pstmntInsertDetPag.executeUpdate();
-                            log.debug("Object: {}", "Se insertaron en tPagadoDetalle: " + intDetPag);
+                            log.debug("Object: " + String.valueOf("Se insertaron en tPagadoDetalle: " + intDetPag));
                         }
                     }
                 } else {
@@ -4091,7 +4091,7 @@ public class EjercidoPagadoValidar extends DataSourceManager {
         } catch (Exception e) {
             valor = e.toString();
             log.warn(e.getMessage(), e);
-            log.debug("Object: {}", e.getLocalizedMessage());
+            log.debug("Object: " + String.valueOf(e.getLocalizedMessage()));
             try {
                 conn.rollback();
             } catch (Exception ee) {
@@ -4426,7 +4426,7 @@ public class EjercidoPagadoValidar extends DataSourceManager {
                                 // Guarda Detalle Ejercido
                                 pstmntInsertDet = conn.prepareStatement("INSERT INTO tEjercidoDetalle (cTipoPago,nFolioPAGO,nDocRenglon,cMes,cEjercicio,cIdEntidadContable,cIdRelacion,EP,cIdCuentaContable,mComprometido,nPoliza,ID_TIPO_MOVIMIENTO,ID_TIPO_CONCEPTO,cEvento,nMes,cCentroContable,RFC, mImporteNeto,ALM,mImporteBruto,mImporteMasIva,mImporteIva,nCapitulo,mSancion,mDevolucion,mImporteAmortiza,mRetencion,mPenalizacion,m2Millar,m23IVA,mISRHonorarios,mObra5,mImporteFlete4,mISRArrenda,mRetImpuestoCedular,mImporteIvaArrenda,mImporteIvaHonorarios ,mImporteFlete23,mImporteIvaProv ,mImporteObra,mCNIC,mTesofe,altaAlmacen,aEjercicioFiscal,mIMDT,mImporte,nFolioEjercido,mImporteISRLaudos,mISROtros, mImporteIva6, mimporteISRResico, cUnidadResponsable)" + " VALUES('" + strLetratipoPago + "'," + nFolioPago + "," + nDocRenglon + "," + cMes + ",'" + strcEjercicio + "','" + cIdEntidadContable + "','" + cIdRelacion + "','" + EP + "','" + cIdCuentaContable + "'," + mComprometido + "," + nPoliza + ",'" + idTipoMovimiento + "','" + idTipoConcepto + "','EJERCIDO','" + cMes + "','" + cCentroContable + "','" + Rfc + "'," + rs2.getString("mImporteNeto") + ",'" + alm + "'," + mImporteBruto + "," + mImporteMasIva + "," + mImporteIva + ",'" + nCapitulo + "'," + mSancion + "," + mDevolucion + "," + mImporteAmortiza + " ," + mRetencion + "," + mPenalizacion + "," + m2Millar + "," + m23IVA + "," + rs2.getString("mISRHonorarios") + "," + rs2.getString("mObra5") + "       ," + rs2.getString("mImporteFlete4") + "," + rs2.getString("mISRArrenda") + "," + rs2.getString("mRetImpuestoCedular") + "," + rs2.getString("mImporteIvaArrenda") + "," + rs2.getString("mImporteIvaHonorarios") + "	," + rs2.getString("mImporteFlete23") + "," + mImporteIvaProv + "," + mImporteObra + "," + rs2.getString("mCNIC") + "," + rs2.getString("mTesofe") + ",'" + altaAlmacen + "','" + intaEjercicioFiscal + "'," + rs2.getString("mIMDT") + "," + rs2.getString("mImporteNeto") + "," + strFolioEjercido + "," + rs2.getString("mImporteISRLaudos") + "," + rs2.getString("mISROtros") + "," + rs2.getString("mImporteIva6") + "," + rs2.getString("mimporteISRResico") + ",'" + ur + "' )");
                                 intDet = pstmntInsertDet.executeUpdate();
-                                log.debug("Object: {}", "Se insertaron en tEjercidoDetalle: " + intDet);
+                                log.debug("Object: " + String.valueOf("Se insertaron en tEjercidoDetalle: " + intDet));
                             }
                             if (pagadoInsertado == 0) {
                                 // Guarda Detalle Pagado
@@ -4447,7 +4447,7 @@ public class EjercidoPagadoValidar extends DataSourceManager {
                                 }
                                 pstmntInsertDetPag = conn.prepareStatement(sqlinsetP);
                                 intDetPag = pstmntInsertDetPag.executeUpdate();
-                                log.debug("Object: {}", "Se insertaron en tPagadoDetalle: " + intDetPag);
+                                log.debug("Object: " + String.valueOf("Se insertaron en tPagadoDetalle: " + intDetPag));
                             }
                         }
                         if ("S".equals(cEsPagoCuotas)) {
@@ -4474,7 +4474,7 @@ public class EjercidoPagadoValidar extends DataSourceManager {
         } catch (Exception e) {
             valor = e.toString();
             log.warn(e.getMessage(), e);
-            log.debug("Object: {}", e.getLocalizedMessage());
+            log.debug("Object: " + String.valueOf(e.getLocalizedMessage()));
             try {
                 conn.rollback();
             } catch (Exception ee) {

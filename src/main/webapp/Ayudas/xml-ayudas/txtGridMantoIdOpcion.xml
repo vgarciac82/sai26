@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mantenimiento Usuarios -->
+<Ayuda>
+	<titulo>Ayuda Catalogo de Opciones</titulo>
+	<anchoWin>500</anchoWin>
+	<altoWin>500</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_CAT_OPCION</tabla>
+	<maxRegistros>1001</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	<ColSort>No</ColSort>
+	
+	<grid>
+		<columna campo="ID_OPCION"				control="txtGridMantoIdOpcion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Clave"		ancho="5"		maxlen="10"		tipo="numero"	visible="Si"	clase=""/>
+		<columna campo="O_DESCRIPCION"			control="txtGridMantoOpcion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Opcion"		ancho="50"		maxlen="60"		tipo="string"	visible="Si"	clase=""/>
+	</grid>	  
+</Ayuda>

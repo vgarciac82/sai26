@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportePruebaH"  pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="708" leftMargin="42" rightMargin="42" topMargin="21" bottomMargin="21">
+	<property name="ireport.zoom" value="1.862763969177468"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="39"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 1 id]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<group name="Nivel4">
+		<groupExpression><![CDATA[]]></groupExpression>
+	</group>
+	<pageHeader>
+		<band height="80" splitType="Stretch">
+			<image>
+				<reportElement x="1" y="1" width="121" height="43"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="-1" y="52" width="695" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[F I R M A S]]></text>
+			</staticText>
+			<line>
+				<reportElement x="5" y="44" width="690" height="1"/>
+			</line>
+			<line>
+				<reportElement x="5" y="71" width="690" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="5" y="74" width="690" height="1"/>
+			</line>
+			<line>
+				<reportElement x="5" y="48" width="690" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="7" y="1" width="688" height="37"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[El presente acto administrativo ha sido firmado mediante el uso de la firma electrónica avanzada del funcionario competente, amparada por un certificado vigente a la fecha de su elaboración; y es válido de conformidad con lo dispuesto en los artículos 7 º y 10 º de la Ley de Firma Electrónica Avanzada, y el artículo 12 de su Reglamento. Por un uso responsable del papel, las copias de conocimiento se enviarán de forma electrónica, de conformidad con lo establecido en la fracción V y VI del artículo 11 del “Decreto que establece las medidas para el uso eficiente, transparente y eficaz de los recursos públicos, y las acciones de disciplina presupuestaría en el ejercicio del gasto público, así como para la modernización de la Administración Pública Federal”]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="8" splitType="Stretch"/>
+	</detail>
+	<pageFooter>
+		<band height="9" splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="8"/>
+	</lastPageFooter>
+</jasperReport>

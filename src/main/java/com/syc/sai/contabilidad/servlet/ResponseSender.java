@@ -65,7 +65,7 @@ public class ResponseSender {
         }
         resp.setContentType("application/json");
         ServletOutputStream out = resp.getOutputStream();
-        log.debug("Object: {}", res);
+        log.debug("Object: " + String.valueOf(res));
         out.print(res);
         out.flush();
         out.close();
@@ -92,7 +92,7 @@ public class ResponseSender {
         res += "}";
         resp.setContentType("application/json");
         ServletOutputStream out = resp.getOutputStream();
-        log.debug("Object: {}", res);
+        log.debug("Object: " + String.valueOf(res));
         out.print(res);
         out.flush();
         out.close();
@@ -123,7 +123,7 @@ public class ResponseSender {
         String respuesta = encT + buffer.toString() + endT;
         resp.setContentType("application/json");
         ServletOutputStream out = resp.getOutputStream();
-        log.debug("Object: {}", respuesta);
+        log.debug("Object: " + String.valueOf(respuesta));
         out.print(respuesta);
         out.flush();
         out.close();
@@ -150,7 +150,7 @@ public class ResponseSender {
         // String respuesta = encT + buffer.toString() + endT;
         resp.setContentType("application/json; charset=UTF-8");
         ServletOutputStream out = resp.getOutputStream();
-        log.debug("Object: {}", respuesta);
+        log.debug("Object: " + String.valueOf(respuesta));
         out.print(respuesta);
         out.flush();
         out.close();

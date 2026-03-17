@@ -95,7 +95,7 @@ public class JDBCFuelAsignationVerificationRepository implements FuelAsignationV
     public FuelAsignationVerification readFuelingVerification(Connection conn, int idVerification) throws SicoveException {
         StringBuilder query = new StringBuilder(querySelectHeader);
         query.append(" WHERE	id_verification = ? ");
-        log.debug("Object: {}", "Looking for asignation verification with id " + idVerification);
+        log.debug("Object: " + String.valueOf("Looking for asignation verification with id " + idVerification));
         log.trace("Object: {}", "Executing: \n" + query + "\n[" + idVerification + "]");
         try {
             FuelAsignationVerification fuelAsignationVerification = runner.query(conn, query.toString(), resultHandler, idVerification);
@@ -130,7 +130,7 @@ public class JDBCFuelAsignationVerificationRepository implements FuelAsignationV
     @Override
     public int readFuelingVerificationIdByAsignation(Connection conn, int idAsignation) throws SicoveException {
         StringBuilder query = new StringBuilder("SELECT id_verification FROM wallet_fuel_request_verification WITH(NOLOCK)  WHERE fueling_request_id = ? ");
-        log.debug("Object: {}", "Looking for verification by id asignation " + idAsignation);
+        log.debug("Object: " + String.valueOf("Looking for verification by id asignation " + idAsignation));
         log.trace("Object: {}", "Executing: \n" + query + "\n[" + idAsignation + "]");
         try {
             Integer idVerification = runner.query(conn, query.toString(), new ScalarHandler<Integer>(), idAsignation);
@@ -177,7 +177,7 @@ public class JDBCFuelAsignationVerificationRepository implements FuelAsignationV
     public WalletFuelRequestVerificationDetail readVerificationDetail(Connection conn, int idDetail) throws SicoveException {
         StringBuilder query = new StringBuilder(verificationDetailHeader.toString());
         query.append("WHERE id_detail = ? ");
-        log.debug("Object: {}", "Looking for verification detail with id " + idDetail);
+        log.debug("Object: " + String.valueOf("Looking for verification detail with id " + idDetail));
         log.trace("Object: {}", "Executing: \n" + query + "\n[" + idDetail + "]");
         try {
             WalletFuelRequestVerificationDetail walletFuelRequestVerificationDetail = runner.query(conn, query.toString(), resultHandlerDetail, idDetail);
@@ -192,7 +192,7 @@ public class JDBCFuelAsignationVerificationRepository implements FuelAsignationV
     public List<WalletFuelRequestVerificationDetail> readFuelingVerificationDetailList(Connection conn, int idVerification) throws SicoveException {
         StringBuilder query = new StringBuilder(verificationDetailHeader.toString());
         query.append("WHERE id_verification = ? ");
-        log.debug("Object: {}", "Looking for verification detail list with id " + idVerification);
+        log.debug("Object: " + String.valueOf("Looking for verification detail list with id " + idVerification));
         log.trace("Object: {}", "Executing: \n" + query + "\n[" + idVerification + "]");
         try {
             List<WalletFuelRequestVerificationDetail> verificationDetailList = runner.query(conn, query.toString(), resultHandlerDetailLst, idVerification);

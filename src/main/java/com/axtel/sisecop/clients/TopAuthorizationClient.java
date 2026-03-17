@@ -25,12 +25,12 @@ public class TopAuthorizationClient {
     }
 
     public List<TopAuthorizationDTO> getTopAuthorizations(String unitName) {
-        log.debug("Object: {}", "Entering getTopAuthorizations with unitName: " + unitName);
+        log.debug("Object: " + String.valueOf("Entering getTopAuthorizations with unitName: " + unitName));
         try {
             HttpURLConnection connection = createConnection(unitName);
             log.info("Object: {}", "Connection created successfully for unit: " + unitName);
             List<TopAuthorizationDTO> result = parseResponse(connection);
-            log.debug("Object: {}", "Response parsed successfully for unit: " + unitName);
+            log.debug("Object: " + String.valueOf("Response parsed successfully for unit: " + unitName));
             return result;
         } catch (IOException e) {
             log.error("Error consuming the service: " + e.getMessage(), e);
@@ -45,7 +45,7 @@ public class TopAuthorizationClient {
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Accept", "application/json");
         int responseCode = connection.getResponseCode();
-        log.debug("Object: {}", "HTTP response code received: " + responseCode);
+        log.debug("Object: " + String.valueOf("HTTP response code received: " + responseCode));
         if (responseCode != HttpURLConnection.HTTP_OK) {
             log.error("Error occurred", "Failed: HTTP error code: " + responseCode);
             throw new RuntimeException("Failed: HTTP error code: " + responseCode);

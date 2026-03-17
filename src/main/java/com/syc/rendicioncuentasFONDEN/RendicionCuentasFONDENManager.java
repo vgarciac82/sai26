@@ -46,7 +46,7 @@ public class RendicionCuentasFONDENManager {
         try {
             cs = conn.prepareCall(query);
             cs.setInt(1, mes);
-            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S", mes));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query + "]%S", mes)));
             rs = cs.executeQuery();
             fileName = generaReporteMasivo(rs, plantillas.get("VISTAPREVIA"), mes, ejFiscal);
             return fileName;
@@ -95,7 +95,7 @@ public class RendicionCuentasFONDENManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         bos.flush();
         bos.close();

@@ -58,7 +58,7 @@ public class CuentaContableServlet extends HttpServlet {
             token = ",";
         }
         arr = "[" + arr + "]";
-        log.debug("Object: {}", arr);
+        log.debug("Object: " + String.valueOf(arr));
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);
@@ -80,7 +80,7 @@ public class CuentaContableServlet extends HttpServlet {
             token = ",";
         }
         arr = "[" + arr + "]";
-        log.debug("Object: {}", arr);
+        log.debug("Object: " + String.valueOf(arr));
         req.getSession().setAttribute("nGrupo", term);
         req.getSession().removeAttribute("nSubGrupo");
         req.getSession().removeAttribute("nEvento");
@@ -109,7 +109,7 @@ public class CuentaContableServlet extends HttpServlet {
             arr += token + String.format(json, "0", "Debe seleccionar un grupo", "Debe seleccionar un grupo");
         }
         arr = "[" + arr + "]";
-        log.debug("Object: {}", arr);
+        log.debug("Object: " + String.valueOf(arr));
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         arr = new String(arr.getBytes("UTF-8"), "ISO-8859-1");
@@ -141,7 +141,7 @@ public class CuentaContableServlet extends HttpServlet {
             arr += token + String.format(json, "0", "Debe seleccionar un grupo", "Debe seleccionar un grupo");
         }
         arr = "[" + arr + "]";
-        log.debug("Object: {}", arr);
+        log.debug("Object: " + String.valueOf(arr));
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         arr = new String(arr.getBytes("UTF-8"), "ISO-8859-1");
@@ -178,7 +178,7 @@ public class CuentaContableServlet extends HttpServlet {
         } else {
             arr += token + String.format(json, "0", "Debe seleccionar un grupo", "Debe seleccionar un grupo");
         }
-        log.debug("Object: {}", arr);
+        log.debug("Object: " + String.valueOf(arr));
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);
@@ -199,7 +199,7 @@ public class CuentaContableServlet extends HttpServlet {
             token = ",";
         }
         arr = "[" + arr + "]";
-        log.debug("Object: {}", arr);
+        log.debug("Object: " + String.valueOf(arr));
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);

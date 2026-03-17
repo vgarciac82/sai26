@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--  -->
+<Ayuda>
+	<titulo>Seleccion de Eventos Destino</titulo>
+	<anchoWin>750</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>R_EVENTO_DESTINO_REINTRGROCAJA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>	
+	
+	<grid>	
+		<columna campo="cEventoDestino"	    	control="cEventoDestino"	    dependencia="No"	limpiaOnKeypress=""		header="Evento"	        ancho="10"	    maxlen="10"  tipo="string"	visible="Si"	clase=""/>		
+		<columna campo="dEventoDestino"	    	control="dEventoDestino"	    dependencia="No"	limpiaOnKeypress=""		header="Descripción"	ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="nidgrupoeventoDestino"	control="nidgrupoeventoDestino"	dependencia="Si"	limpiaOnKeypress=""		header="Grupo"	        ancho="4"	    maxlen="4"   tipo="string"	visible="No"	clase=""/>
+		<columna campo="evento.cEvento "		control="cidsubgrupoevento"  	dependencia="Si"	limpiaOnKeypress=""		header="Evento Destino"	ctrlsDependientes="cidsubgrupoevento" ancho="10"	    maxlen="10"   tipo="string"	visible="No"	clase=""/>
+		<columna campo="evento.cUR "			control="ue"  			  		dependencia="Si"	limpiaOnKeypress=""		header="UR"	         	ctrlsDependientes="ue" ancho="4"	    maxlen="4"   tipo="string"	visible="No"	clase=""/>		
+	</grid>  
+	
+</Ayuda>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Ayuda Municipios - desde la pantalla de Remitente Externo -->
+<Ayuda>
+	<titulo>Municipios</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>543</altoWin>
+	<altoAreaCaptura>135</altoAreaCaptura>
+	<tabla>CAT_MUNICIPIO</tabla>
+	<maxRegistros>2500</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+	
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>
+		<columna campo="E.EDO_NOMBRE"		control="txtGridMantoEdo"	dependencia="Si"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol11,txtGridCol12"	header="Estado"				rowCol="1,1" 	ancho="50"	maxlen="50"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="M.MPO_NOMBRE"		control="txtGridMantoMun"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""							header="Municipio"			rowCol="2,1" 	ancho="100"	maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="E.ID_ESTADO"		control="txtGridCol11"		dependencia="Si"	ctrlsDependientes=""	limpiaOnKeypress=""							header="Clave Estado"		rowCol="3,1" 	ancho="6"	maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+		<columna campo="M.ID_MUNICIPIO"		control="txtGridCol12"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""							header="Clave Municipio"	rowCol="3,2" 	ancho="6"	maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+	</grid> 
+</Ayuda>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de CFDI</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_tCFDI_Cat_TipoFactor</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cTipoFactor"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Tipo de factor"	rowCol="1,1" 	ancho="20"	maxlen="20"	 tipo="string"	visible="Si"	clase=""/>		
+	</grid> 
+	
+</Ayuda>

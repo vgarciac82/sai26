@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EstadodeCuenta" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="782" leftMargin="5" rightMargin="5" topMargin="10" bottomMargin="10">
+	<property name="ireport.zoom" value="1.9965000000000006"/>
+	<property name="ireport.x" value="462"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="TRetencion" class="java.lang.String">
+		<defaultValueExpression><![CDATA["m23IVA+mImporteFlete23+mISRHonorarios+mISRArrenda+mImporteFlete4+mImporteIvaHonorarios+mImporteIvaArrenda+mImporteIvaProv+mImporteObra"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fAplicacionDe" class="java.lang.String">
+		<defaultValueExpression><![CDATA["01/05/2013"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fAplicacionHasta" class="java.lang.String">
+		<defaultValueExpression><![CDATA["30/09/2013"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cCentroContable" class="java.lang.String">
+		<defaultValueExpression><![CDATA["10"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cCondiciones" class="java.lang.String">
+		<defaultValueExpression><![CDATA["( m23IVA > 0 OR mImporteFlete23 > 0 OR mISRHonorarios > 0 OR mISRArrenda > 0 OR mImporteFlete4 > 0 OR mImporteIvaHonorarios > 0)"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cRetenciones" class="java.lang.String">
+		<defaultValueExpression><![CDATA["SUM(mImporteFlete23+m23IVA) mImporteFlete23,SUM(mISRHonorarios) mISRHonorarios,SUM(mISRArrenda)mISRArrenda,SUM(mImporteFlete4) mImporteFlete4,SUM(mImporteIvaHonorarios) mImporteIvaHonorarios,SUM(mImporteIvaArrenda) mImporteIvaArrenda,SUM(mImporteIvaProv) mImporteIvaProv,SUM(mImporteObra) mImporteObra, 0 mCNIC,0 mIMDT ,0 mObra5,0 mTesofe,0 mRetImpuestoCedular"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cNumPagoAMF" class="java.lang.String">
+		<defaultValueExpression><![CDATA["***"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[execute OperacionesAjenas_SinAplic $P{TRetencion},
+$P{fAplicacionDe},
+$P{fAplicacionHasta},
+$P{cCentroContable},
+$P{cCondiciones},
+$P{cRetenciones},
+$P{cNumPagoAMF}]]>
+	</queryString>
+	<field name="caNoContrarrecibo" class="java.lang.String"/>
+	<field name="nFolioPagoDirecto" class="java.lang.Integer"/>
+	<field name="fAplicacion" class="java.lang.String"/>
+	<field name="tDocumento" class="java.lang.String"/>
+	<field name="EP" class="java.lang.String"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<field name="entero" class="java.math.BigDecimal"/>
+	<field name="acumulado" class="java.math.BigDecimal"/>
+	<field name="mimporteflete23" class="java.math.BigDecimal"/>
+	<field name="mISRHonorarios" class="java.math.BigDecimal"/>
+	<field name="mISRArrenda" class="java.math.BigDecimal"/>
+	<field name="mImporteFlete4" class="java.math.BigDecimal"/>
+	<field name="mCNIC" class="java.math.BigDecimal"/>
+	<field name="mIMDT" class="java.math.BigDecimal"/>
+	<field name="mObra5" class="java.math.BigDecimal"/>
+	<field name="mTesofe" class="java.math.BigDecimal"/>
+	<field name="mRetImpuestoCedular" class="java.math.BigDecimal"/>
+	<field name="cIdRFC" class="java.lang.String"/>
+	<field name="nfolioSICOP" class="java.lang.Integer"/>
+	<field name="nfolioSIAFF" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="1" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-24" positionType="Float" x="237" y="6" width="296" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-5" positionType="Float" x="237" y="21" width="296" height="29"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true" />
+				</textElement>
+				<text><![CDATA[GERENCIA DE RECURSOS FINANCIEROS
+SUBGERENCIA DE OPERACIÓN FINANCIERA]]></text>
+			</staticText>
+			<image>
+				<reportElement x="1" y="3" width="150" height="42"/>
+				<imageExpression class="java.lang.String"><![CDATA["report\\images\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="55" width="48" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[ContraRecibo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="55" width="22" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Folio
+SICOP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="55" width="24" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Folio
+SIAFF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="142" y="55" width="189" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Clave Presupuestal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="331" y="55" width="37" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="55" width="36" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Entero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="404" y="55" width="36" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Sobrante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="55" width="36" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[2/3 DE I.V.A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="512" y="55" width="42" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Arrendamiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="590" y="55" width="36" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[IMDT 2%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="476" y="55" width="36" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Honorarios]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="626" y="55" width="36" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[CNIC 2%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="661" y="55" width="40" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Obra 5%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="701" y="55" width="36" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Penalización]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="737" y="55" width="36" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Cedular]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="554" y="55" width="36" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Fletes 4%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="55" width="47" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Tipo Documento]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="48" height="9"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{caNoContrarrecibo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="0" width="22" height="9"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{nfolioSICOP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="0" width="24" height="9"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{nfolioSIAFF}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="142" y="0" width="189" height="9"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{EP}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="331" y="0" width="36" height="9"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="368" y="0" width="36" height="9"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{entero}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="404" y="0" width="36" height="9"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{acumulado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="440" y="0" width="36" height="9"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mimporteflete23}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="476" y="0" width="36" height="9"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mISRHonorarios}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="512" y="0" width="41" height="9"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mISRArrenda}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="554" y="0" width="36" height="9"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mImporteFlete4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="590" y="0" width="36" height="9"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mIMDT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="626" y="0" width="36" height="9"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mCNIC}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="661" y="0" width="36" height="9"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mObra5}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="701" y="0" width="36" height="9"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mTesofe}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="737" y="0" width="36" height="9"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mRetImpuestoCedular}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="0" width="47" height="9"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tDocumento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="21" splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="7" splitType="Stretch"/>
+	</summary>
+</jasperReport>

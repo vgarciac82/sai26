@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Catálogo de Movimientos para Rectificaciones</titulo>
+	<anchoWin>900</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>TCATALOGOMOVIMIENTO_RECT</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+
+	<grid>
+		<columna campo="cTipoTRAN"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Transaccion"		ancho="10"	maxlen="10"  tipo="int"		visible="Si"	clase=""/>
+		<columna campo="cTipoMOVTO"	control="CatMovimientoRectificacion"	dependencia="No"	limpiaOnKeypress=""		header="Tipo Movimiento"	ancho="10"	maxlen="10"  tipo="string"	visible="Si"	clase=""/>
+		<columna campo="dTipoMOVTO"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Descripcion"		ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+	</grid>
+</Ayuda>

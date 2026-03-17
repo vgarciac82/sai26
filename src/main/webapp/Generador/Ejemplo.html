@@ -1,0 +1,4553 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Documentos Diversos - Recepción de documentos</title>
+
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="This is my page">
+
+<link rel="shortcut icon" type="image/ico" href="imagenes/favicon.ico" />
+
+<style type="text/css" title="currentStyle">
+@import "css/demo_page.css";
+
+@import "css/demo_table_jui.css";
+
+@import "themes/smoothness/jquery-ui-1.8.4.custom.css";
+</style>
+<style>
+.notEditable {
+	background-color: #CCCCCC;
+	color: #000000;
+}
+</style>
+
+<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery.ui.datepicker-es.js"></script>
+<script type="text/javascript" src="../Ayudas/js/ayudasDlg2.0.js"></script>
+<script type="text/javascript" src="../Ayudas/js/autoCompleta.js"></script>
+<script type="text/javascript" src="js/jquery.formatCurrency.js"></script>
+<script type="text/javascript" src="js/jquery.formatCurrency.all.js"></script>
+<script type="text/javascript" src="js/jquery.form-2.94.js"></script>
+<script type="text/javascript" src="js/crud.js"></script>
+<script type="text/javascript" src="../js/jquery.blockUI-2.4.2.js"></script>
+<script type="text/javascript" src="js/ImpuestosRetenciones.js"></script>
+<script type="text/javascript" src="js/ValidaMesContable.js"></script>
+<script type="text/javascript" src="js/FacturaDiverso.js"></script>
+<script type="text/javascript" src="js/ActualizaFIEL.js"></script>
+<script type="text/javascript" charset="utf-8">
+
+	var cNombreElabora = "MARÍA DEL CARMEN";
+	var cApellidoPaternoElabora = "VALENCIA";
+	var cApellidoMaternoElabora = "DOMINGUEZ";
+	var cPuestoElabora = "ENLACE ADMINISTRATIVO";
+
+	var esConsulta = false;
+	var bClicBtn = false;
+	var breturnVal = false;
+	var bCOMSOC = false;
+	var oTablevFact;
+	var oTableEps;
+	var excluirValidacion = 'MET8908305M9';
+	var oTableVuelos;
+	var oTableVuelosDet;
+	var idOperacion = 2;
+
+	/*VGC20171019 Se guarda en base el prefijo de CxP*/
+	var cxpPrefijo = "CP";
+	var numeroEmpleado = "8697";
+
+	var esSAIAlterno = false;
+	var esSAIFonden = false;
+
+	/* Variable que indica si el pago es con firma (FIEL) */
+	var permitePagoSinFIEL = true;
+	var muestraDivImprimePoliza = false;
+
+
+
+	$(document).ready(
+		function() {
+
+			queryFormPost({
+				queryName : "tipoAutorizacionRead",
+				async : false,
+				callback : function() {
+					if ($("#TipoAutorizacion").val() == "N") {
+						muestraDivImprimePoliza = true;
+					}
+				}
+			});
+
+
+			$("#mAmortizacionAnticipo").focus(
+				function() {
+					$(this).select();
+				}
+			);
+
+			if (parent.document.getElementById("pb_cancel")) {
+				parent.document.getElementById("pb_cancel").style.visibility = 'hidden';
+				parent.document.getElementById("pb_cancel").disabled = true;
+			}
+			$("input.AyudaSyC").subIniciaDlg();
+			$("input.autoCompletaSyC").subIniciaAutoCompleta();
+			$("#mImporteRetencion").val(0);
+
+		}
+	);
+</script>
+<script type="text/javascript" charset="utf-8">
+
+	$(document).ready(
+		function() {
+
+			if (permitePagoSinFIEL) {
+				$("#AutorizaConFielTD").css("display", "block");
+			} else {
+				$("#autorizadoPorFiel ").val("true");
+			}
+
+			var aaa = 565;
+			var porretencion = 0;
+
+			$("#oficioDelegatorioCaptura").hide();
+			$("#oficioDelegatorioCapturaUpdate").hide();
+			$("#btnLayoutBoletos").hide();
+			$("#btnCalculaCedular").hide();
+
+			/*VGC27032018 Para que se seleccione el tipo de delegatorio, por suplencia o delego.*/
+			querySelectPost("catTipoSuplenciaRead", "tipoSuplencia", {
+				async : false
+			});
+			querySelectPost("catTipoSuplenciaRead", "tipoSuplenciaVoBo", {
+				async : false
+			});
+			querySelectPost("catTipoSuplenciaRead", "tipoSuplenciaVoBoUpdate", {
+				async : false
+			});
+			querySelectPost("catTipoSuplenciaRead", "tipoSuplenciaUpdate", {
+				async : false
+			});
+			/*FIN VGC27032018 Para que se seleccione el tipo de delegatorio, por suplencia o delego.*/
+
+			$("#verFondenSPAN").hide();
+
+			$("#dFechaOficio").datepicker({
+				showOn : "button",
+				buttonImage : "images/calendar.gif",
+				buttonImageOnly : true
+			});
+
+			$("#dFechaOficioUpdate").datepicker({
+				showOn : "button",
+				buttonImage : "images/calendar.gif",
+				buttonImageOnly : true
+			});
+
+			$("#oficioDelegatorioVoBo").hide();
+			$("#oficioDelegatorioVoBoUpdate").hide();
+			$("#dFechaOficioVoBo").datepicker({
+				showOn : "button",
+				buttonImage : "images/calendar.gif",
+				buttonImageOnly : true
+			});
+
+			$("#dFechaOficioVoBoUpdate").datepicker({
+				showOn : "button",
+				buttonImage : "images/calendar.gif",
+				buttonImageOnly : true
+			});
+
+			$("#dlgSeleccionaFonden").dialog({
+				autoOpen : false,
+				height : 200,
+				width : 320,
+				modal : true,
+				buttons : {
+					"Aceptar" : function() {
+						if (2 == 1) {
+							if ($("#proyectoFonden").val() == "") {
+								alert("No ha seleccionado un proyecto de FONDEN");
+							} else {
+								$.blockUI();
+								$("#cProyectoFonden").val($("#proyectoFonden").val());
+								queryFormPost({
+									queryName : "proyectoFondenPDUpdate",
+									async : false,
+									callback : function() {
+										$("#dlgSeleccionaFonden").dialog("close");
+									}
+								});
+								$.unblockUI();
+							}
+						}
+						else
+							$("#dlgSeleccionaFonden").dialog("close");
+
+					},
+					"Cerrar" : function() {
+						if (2 != 1) {
+							$("#dlgSeleccionaFonden").dialog("close");
+						} else {
+							if ($("#proyectoFonden").val() == "") {
+								alert("No ha capturado el proyecto de FONDEN. No podra continuar el pago hasta capturarlo.");
+							} else {
+								$("#dlgSeleccionaFonden").dialog("close");
+							}
+						}
+					}
+				}
+			});
+
+			$("#dialog-form").dialog({
+				autoOpen : false,
+				height : 400,
+				width : 800,
+				modal : true,
+				beforeClose : function(event, ui) {
+					return bClicBtn;
+				}
+			});
+
+
+
+			$("#dialog-validaOLI").dialog({
+				autoOpen : false,
+				height : 250,
+				width : 250,
+				modal : false,
+				buttons : {
+					"Aceptar" : function() {
+						var vEP = $("#EP").val();
+						var vCapitulo = "%" + vEP.substring(31, 36) + "%";
+						var vCartera = vEP.substring(44, 55);
+						var vUnidEj = vEP.substring(56, 59);
+						var vUnidRe = vEP.substring(60, 64);
+						var url = '../proimpro/readInfo';
+						$.ajax({
+							url : url,
+							dataType : 'json',
+							data : {
+								"accion" : "READ_IMPORTEOLI",
+								"cartera" : vCartera,
+								"capitulo" : vCapitulo,
+								"oli" : $("#cOLI").val(),
+								"ue" : vUnidEj
+							},
+							async : false,
+							success : function(RS) {
+								var exito = RS.success;
+								if (exito == "true") {
+									var MontoOlis = RS.data_1.result;
+									$("#cartera").val(vCartera);
+									$("#capitulo").val(vEP.substring(31, 36));
+									$("#UE").val(vUnidEj);
+									$("#mImporteCartera").val("0.00");
+									queryFormPost("vAcumulaImporteCarteraEP", {
+										async : false
+									});
+									var importeTotal = Number($("#mImporteCartera").val()) + Number($("#montoDev").val());
+									var importeTotal = importeTotal.toFixed(2);
+
+									if (Number(importeTotal) <= Number(MontoOlis)) {
+										cambioMovmientos();
+									} else {
+										alert("El Importe Capturado sobregira la Cartera ");
+									}
+								} else {
+									var msg = RS.data_1.result;
+									alert("Error al intentar validar OLI:\n" + msg);
+								}
+							},
+							error : function(xhr, textStatus, errorThrown) {
+								alert("Advertencia: " + xhr.responseText + "\nEstatus: "
+									+ textStatus + "\n" + errorThrown);
+								r = true;
+							}
+						});
+						$(this).dialog("close");
+					},
+					"Cancelar" : function() {
+						breturnVal = false;
+						$(this).dialog("close");
+					}
+				},
+				close : function() {}
+			});
+
+			creaDialogFirmantes();
+			creaDiagloFacturas();
+			creaDlgCargaBoletaje();
+			creaDlgProcesar();
+			creaDlgFoliosVuelos();
+			creaDTFacturas();
+			creaDialogJustificacion();
+
+			$("#pbAgregar")
+				.button()
+				.click(function() {
+					if (Number($("#mImporteFact").val()).toFixed(2) == 0) {
+						alert("No se puede agregar factura con importe 0");
+						return;
+					}
+					if ($("#cFactura").val() == "" || Number($("#cFactura").val()) <= 0) {
+						alert("Falta Capturar el Número de Factura");
+						return;
+					}
+
+					if ($("#mImporteFact").val() == "" || Number($("#mImporteFact").val()) <= 0) {
+						alert("Falta Capturar el Importe de la Factura");
+						return;
+					}
+
+					var aData = oTablevFact.fnGetData();
+					for (var i = 0; i < aData.length; i++) {
+						var cFactura = aData[i][0] + aData[i][1];
+						if ($("#cSerie").val() + $("#cFactura").val() == cFactura) {
+							alert("La Factura ya está capturada");
+							$("#cSerie").val("");
+							$("#cFactura").val("");
+							$("#mImporteFact").val("");
+							return;
+						}
+					}
+
+					var mImporte = quitaFmt($("#mImporteFact").val());
+					$("#mImporteFact").formatCurrency();
+					$('#grdValidaFacturas').dataTable().fnAddData([ $("#cSerie").val(), $("#cFactura").val(), $("#mImporteFact").val() ]);
+					mImporte = Number(quitaFmt($("#mTotalFacturaV").val())) + Number(mImporte);
+					$("#mTotalFacturaV").val(mImporte);
+					$("#mTotalFacturaV").formatCurrency();
+					$("#cSerie").val("");
+					$("#cFactura").val("");
+					$("#mImporteFact").val("");
+				});
+
+			$("#grdCompromisos tbody").dblclick(function(event) {
+				if (false) {
+
+					$(oTableEps.fnSettings().aoData).each(function() {
+						$(this.nTr).removeClass('row_selected');
+						var aPos = oTableEps.fnGetPosition(this.nTr);
+						var aData = oTableEps.fnGetData(aPos[0]);
+					});
+					$(event.target.parentNode).addClass('row_selected');
+					var aPos = oTableEps.fnGetPosition(event.target.parentNode);
+					var aData = oTableEps.fnGetData(aPos);
+
+					$("#cEPborrar").val(aData[1]);
+					$("#mImporteBorrar").val(aData[2]);
+					$("#renglonBorrar").val(aPos + 1);
+
+					var montoRestar = 0.00;
+					montoRestar = Number($("#mImporteBorrar").val());
+
+					queryFormPost("tpagodiversodetalleDelete", {
+						async : false
+					});
+					queryFormPost("UpdateRecorridoRenglonPDiverso", {
+						async : false
+					});
+
+					$('#grdCompromisos').dataTable().fnClearTable();
+					consMovimientos();
+				}
+			});
+
+			$("#grdValidaFacturas tbody").dblclick(function(event) {
+
+				$(oTablevFact.fnSettings().aoData).each(function() {
+					$(this.nTr).removeClass('row_selected');
+					var aPos = oTablevFact.fnGetPosition(this.nTr);
+					// Get the data array for this row
+					var aData = oTablevFact.fnGetData(aPos[0]);
+
+				});
+
+				$(event.target.parentNode).addClass('row_selected');
+				var aPos = oTablevFact.fnGetPosition(event.target.parentNode);
+				if (aPos != null) {
+					var aData = oTablevFact.fnGetData(aPos);
+					var mImporte = Number(quitaFmt($("#mTotalFacturaV").val())) - Number(quitaFmt(aData[2]));
+					$("#mTotalFacturaV").val(mImporte);
+					$("#mTotalFacturaV").formatCurrency();
+					oTablevFact.fnDeleteRow(aPos);
+				}
+			});
+
+			$("#grdValidaFacturas tbody").click(function(event) {
+				$(oTablevFact.fnSettings().aoData).each(function() {
+					$(this.nTr).removeClass('row_selected');
+					var aPos = oTablevFact.fnGetPosition(this.nTr);
+					// Get the data array for this row
+					var aData = oTablevFact.fnGetData(aPos[0]);
+				});
+				$(event.target.parentNode).addClass('row_selected');
+			});
+
+
+			$("#destGasto").change(function() {
+
+				if ($(this).val() == "AL") {
+					document.getElementById("Imp_Bruto").removeAttribute("readonly", false);
+				} else if ($.trim($(this).val()) != "") {
+					if ($("#cIdRFC").val() == "") {
+						$('#destGasto option[value=" "]').attr('selected', 'selected');
+						alert("Favor de seleccionar un Beneficiario");
+						return;
+					} else {
+						//URVP.19112014 VALIDACIONES PARA SABER SI LLEVA O NO ANTICIPO, SI YA SE REGISTRO EL ANTICIPO EN CASO DE LLEVAR
+						if ($(this).val() == "ANDV") {
+							if ($("#llevaAnticipo").val() == "0") {
+								$('#destGasto option[value=" "]').attr('selected', 'selected');
+								alert("Este contrato no lleva anticipo, favor de seleccionar la opcion correcta.");
+								return;
+							}
+							if ($("#tieneAnticipo").val() != "0") {
+
+								queryFormPost("remanentePagoDiversoAnticipoRead", {
+									async : false
+								});
+								if ($("#tieneRemanente").val() == "0") {
+									$('#destGasto option[value=" "]').attr('selected', 'selected');
+									alert("A este contrato ya se hizo el pago del anticipo, favor de seleccionar la opcion correcta.");
+									return;
+								} else if ($("#tieneRemanente").val() == "1") {
+									$("#tieneAnticipo").val("0");
+									$(".subtotall").change();
+								}
+							}
+							$("#nPorcAmortizacion").val(0);
+						} else {
+							if ($("#llevaAnticipo").val() == "1" && $("#tieneAnticipo").val() == "0") {
+								$('#destGasto option[value=" "]').attr('selected', 'selected');
+								alert("Este contrato lleva anticipo y no se le ha hecho, favor de seleccionar la opcion correcta.");
+								return;
+							}
+							agregaAmortizacion(true);
+						}
+
+						$("#mImporteBruto").attr("readonly", true);
+						creaDiagloFacturas(true);
+						habilitaBtnCargaLayout();
+						muestraCalculoCedular();
+					}
+					if ($.trim($(this).val()) != "" && $("#cIdRFC").val() != "") {
+						if ($("#numPaso").val() == "1")
+							$("#EditaFacturas").css('visibility', 'visible');
+					} else {
+						$("#EditaFacturas").css('visibility', 'hidden');
+					}
+				}
+			});
+
+			$('#Descrip_Concepto').bind('copy paste', function(e) {
+				e.preventDefault();
+			});
+
+			$("#OIRAUSU").val("DELCARMEN.VALENCIA");
+			$("#cCentroContable").val("37");
+			$("#id_caso").val(aaa);
+			$("#cNoFactura").val(aaa);
+			$("#tabs").tabs({
+				"show" : function(event, ui) {
+					var oTable = $('div.dataTables_scrollBody>table.display', ui.panel).dataTable();
+					if (oTable.length > 0) {
+						oTable.fnAdjustColumnSizing();
+					}
+				}
+			});
+			$('#tblDevengado1').dataTable(
+				{
+					"bPaginate" : false,
+					"bLengthChange" : false,
+					"bFilter" : false,
+					"bSort" : false,
+					"bInfo" : false,
+					"bAutoWidth" : false,
+					"sScrollY" : 100,
+					"bJQueryUI" : true,
+					"bRetrive" : true,
+					"bDestroy" : true,
+					"sPaginationType" : "full_numbers"
+				});
+			oTableEps = $('#grdCompromisos').dataTable(
+				{
+					"bPaginate" : false,
+					"iDisplayLength" : 20,
+					"bLengthChange" : false,
+					"bFilter" : false,
+					"bSort" : false,
+					"bInfo" : false,
+					"bAutoWidth" : false,
+					"sScrollY" : 100,
+					"bJQueryUI" : true,
+					"bRetrive" : true,
+					"bDestroy" : true,
+					"sPaginationType" : "full_numbers"
+				});
+			$('#grdFacturas').dataTable(
+				{
+					sScrollY : "150px",
+					sScrollX : "700px",
+					sScrollXInner : "200%",
+					"bPaginate" : false,
+					"bLengthChange" : false,
+					"bFilter" : false,
+					"bSort" : false,
+					"bInfo" : false,
+					"bAutoWidth" : false,
+					"bJQueryUI" : true,
+					"bRetrive" : true,
+					"bDestroy" : true,
+					"sPaginationType" : "full_numbers"
+				});
+
+			$('#grdRetClave').dataTable(
+				{
+					"bPaginate" : false,
+					"bLengthChange" : false,
+					"bFilter" : false,
+					"bSort" : false,
+					"bInfo" : false,
+					"bAutoWidth" : false,
+					"sScrollY" : 100,
+					"bJQueryUI" : true,
+					"bRetrive" : true,
+					"bDestroy" : true,
+					"sPaginationType" : "full_numbers"
+				});
+			oTable = $('#tretencion').dataTable();
+			$('#tretencion').dataTable(
+				{
+					"bPaginate" : false,
+					"bLengthChange" : false,
+					"bFilter" : false,
+					"bSort" : false,
+					"bInfo" : false,
+					"bAutoWidth" : false,
+					"sScrollY" : 100,
+					"bJQueryUI" : true,
+					"bRetrive" : true,
+					"bDestroy" : true,
+					"sPaginationType" : "full_numbers"
+				});
+			$(function() {
+
+				$("#desde").datepicker({
+					showOn : "button",
+					//		dateFormat: "yy/mm/dd",
+					buttonImage : "images/calendar.gif",
+					buttonImageOnly : true
+				});
+			});
+
+			$(function() {
+				$("#hasta").datepicker({
+					showOn : "button",
+					//		dateFormat: "yy/mm/dd",
+					buttonImage : "images/calendar.gif",
+					buttonImageOnly : true
+				});
+			});
+			$(function() {
+				$("#fRecepcion").datepicker({
+					showOn : "button",
+					//		dateFormat: "yy/mm/dd",
+					buttonImage : "images/calendar.gif",
+					buttonImageOnly : true
+				});
+			});
+			/* //URVP.04092014 SE QUITA EL DATEPICKER DE LA FECHA PAGO 
+			$(function() {
+				$( "#fecha_Pago" ).datepicker({
+						showOn: "button",
+			//			dateFormat: "yy/mm/dd",
+						buttonImage: "images/calendar.gif",
+						buttonImageOnly: true
+					});
+						}); */
+			$(function() {
+				$("#DCD_FECHA_FACTURA").datepicker({
+					showOn : "button",
+					//			dateFormat: "yy/mm/dd",
+					buttonImage : "images/calendar.gif",
+					buttonImageOnly : true
+				});
+			});
+			///para las consultas crud
+			$("#frmcontratoDeObra").ajaxForm({
+				dataType : "json",
+				success : formSubmited
+			});
+
+			var suma = 0;
+			var sredondea = 0;
+			var res_iva = 0;
+
+			$(".subtotall").change(function() {
+				validaPenalizacion();
+				calculaIVA();
+			});
+
+			/*
+			$("#NumPagoAMF").change(function () {
+				$("#nClaveAMF").val('');
+				$("#numFolioAMF").val('');
+				$("#PagoAMF").val('');
+				queryFormPost("tPagoAMFRead", {async: false });
+				var vConcepto = $("#Descrip_Concepto").val();
+				vConcepto = vConcepto + ' ' + $("#referenciaAMF").val(); 
+				$("#Descrip_Concepto").val( vConcepto );
+			});*/
+
+			cssReadOnly();
+			queryFormPost({
+				queryName : "readImporteBrutoPago",
+				async : false,
+				callback : function() {
+					if ($("#Imp_Bruto").val() == "")
+						$("#Imp_Bruto").val("$0.00");
+					$(".subtotall").change();
+				}
+			});
+
+
+		});
+
+	var es_mx = {
+		sProcessing : "Procesando...",
+		sLengthMenu : "Mostrar _MENU_ registros",
+		sZeroRecords : "No hay registros a mostrar",
+		sEmptyTable : "No hay datos en la tabla",
+		sLoadingRecords : "Cargando...",
+		sInfo : "Registros _START_ al _END_ de _TOTAL_",
+		sInfoEmpty : "Registro 0 al 0 de 0",
+		sInfoFiltered : "(filtered from _MAX_ total entries)",
+		sInfoPostFix : "",
+		sInfoThousands : ",",
+		sSearch : "Filtro:",
+		oPaginate : {
+			sFirst : "Primero",
+			sPrevious : "Ant.",
+			sNext : "Sigte.",
+			sLast : "&Uacute;ltimo"
+		}
+	};
+
+	function cssReadOnly() {
+		$("[readOnly]").each(function() {
+			$(this).addClass("notEditable");
+		});
+	}
+
+
+	function onSubmit(id_oper) { //validaciones del boton guardar
+		var p = window.parent;
+		var valida_campos = true;
+		if ($("#docAplicado").val() == "S") {
+			alert("Documento ya fue aplicado y se avanzará a modo de CONSULTA");
+		} else {
+
+			try {
+				//validaciones de la forma
+				//poner aqui las validaciones a efectual en el boton guardar, en este caso no hay
+
+				//Guardado de los campos correspondientes a cada variable de caso
+				p.gestion.setFolio($("#FOLIO").val());
+				p.gestion.setOperador($("#OPERADOR").val());
+				p.gestion.setFechaDocumento($("#FECHA_CARGA").val());
+				p.gestion.setEjercicioFiscal($("#aEjercicioFiscal").val());
+				p.gestion.setConceptoMov("Aplicación Pago Obra");
+				p.gestion.setMoneda("MXP"); //el presupuesto siempre es en pesos
+				p.gestion.setFechaApCont($("#FECHA_CARGA").val());
+				p.gestion.setAplicadoCont("false");
+
+				var esEFO = validaEFO();
+				if (esEFO) {
+					alert("No se puede realizar el pago a un EFO. Solicite mas informacion con el administrador");
+					return false;
+				}
+
+				if ($("#cIdRFC").val().replace(/ /g, '') != excluirValidacion) {
+					$("#facturasDiferentes").val("0");
+					queryFormPost("rfcDiferentesRead", {
+						async : false
+					});
+					if ($("#facturasDiferentes").val() != "0") {
+						alert("El pago contiene facturas para otro proveedor diferente a [" + $("#cIdRFC").val() + "] por lo que no puede continuar.");
+						return false;
+					}
+				}
+
+				var nretval = cmdGuardar();
+				if (nretval == -1) {
+					//alert('error al guardar información');
+					return false;
+				}
+
+
+				if (id_oper == 2) {
+					$("#COMSOCAutoriza").val("");
+					queryFormPost("BuscaCOMSOCAutorizaRead", {
+						async : false
+					});
+					if ($("#COMSOCAutoriza").val() == "0") {
+						alert("Pago en Proceso de Autorización del Área Normativa");
+						return false;
+					}
+
+					if ($("#COMSOCAutoriza").val() == "-1") {
+						alert("Pago fue Rechazado por el Área Normativa, <BORRAR>");
+						return false;
+					}
+
+					$("#campo").val("nFolio" + $("#cDocumento").val());
+					$("#tablaEnc").val("t" + $("#cDocumento").val() + "Encabezado");
+					$("#campoCondicion").val("caNoContrarrecibo");
+					$("#tablaDet").val("t" + $("#cDocumento").val() + "Detalle");
+					$("#tipoAplicar").val($("#cDocumento").val());
+
+					tipoFirmantes();
+
+					/* Se Comenta para conafor
+					if ( procesar() ){
+						parent.document.getElementById("pb_send").style.visibility='visible';
+						parent.document.getElementById("pb_send").disabled = false;
+					}
+					*/
+
+					//divAplica.innerHTML = "Procesando, por favor espere.";
+					//$( "#dialog-form" ).dialog( "open" );
+					//fnAplicaMotor()
+
+
+				}
+			//Control de estado de botones
+			} catch (e) {
+				window.alert("onSubmit: Error: " + e.message);
+				return false;
+			}
+		}
+		return valida_campos;
+	}
+
+	function procesar() {
+		$("#dialog-Procesando").dialog("open");
+		return breturnVal;
+	}
+
+	function creaCasoComsoc(tipoDocumento, folioDocumentoPago) {
+		$.ajax({
+			url : '../servlet/ComsocAutorizacionServlet',
+			dataType : 'json',
+			type : "POST",
+			data : {
+				"h_TipoPago" : tipoDocumento,
+				"hFolioPago" : folioDocumentoPago
+			},
+			async : false,
+			success : function(json) {
+				var exito = json.success;
+				if (exito == "true") {
+					alert("El Pago está en Proceso de Autorización por parte del Área Normativa");
+				}
+			},
+			error : function(xhr, textStatus, errorThrown) {
+				alert("Advertencia: " + xhr.responseText + "\nEstatus: "
+					+ textStatus + "\n" + errorThrown);
+				return false;
+			}
+		});
+
+	}
+
+
+	function fnAplicaMotor() {
+		divAplica.innerHTML = "<iframe id='ifAplica' src='../gstnmngr/AppCont?elContra=" + $('#caNoContrarrecibo').val() + "' style='BORDER: white 1px solid; WIDTH: 90%; HEIGHT: 90%;FONT-FAMILY: Verdana,Tahoma ;'> </iframe>";
+	}
+
+	function onPostSubmit(id_oper) { //validaciones del boton enviar
+		if (false) {
+			alert("Cuenta por Pagar: " + $("#caNoContrarrecibo").val());
+		} //URVP.22092014
+		//valida que el documento de la Justificacion este agregado si se elimino la retencion
+		queryFormPost("retencionEliminada", {
+			async : false
+		});
+		queryFormPost("validaDoctoJustificacion", {
+			async : false
+		});
+
+		if ($("#lEliminaRetencion6IVA").val() == 1 && $("#doctoCapturado").val() == 0) {
+			alert("Debe adjuntar la documentacion que Justifique el pago sin retenciones");
+			dlgJustificacion();
+			return false;
+		}
+
+		return true;
+	}
+
+	function onLoadPlantilla() {
+		carga();
+
+		if (true) {
+			$("#EditaFacturas").css('visibility', 'hidden');
+			$("#ctaBancaria").attr('disabled', true);
+			$("#noRecepcion").attr('disabled', true);
+			$("#cObservaciones").attr('disabled', true);
+		}
+
+		if (false) {
+			parent.document.getElementById("pb_send").style.visibility = 'hidden';
+			parent.document.getElementById("pb_cancel").disabled = true;
+		//parent.document.getElementById("reponsable").value = "AUTORIZA_" + $("#cDocumento").val()+";";
+		//parent.document.getElementById("operacion").value = "autoriza_factura;";
+		}
+		if (true) {
+			parent.document.getElementById("pb_send").style.visibility = 'hidden';
+			parent.document.getElementById("pb_cancel").style.visibility = 'hidden';
+			parent.document.getElementById("pb_cancel").disabled = true;
+		//parent.document.getElementById("reponsable").value = "CONSULTA_" + $("#cDocumento").val()+";";
+		//parent.document.getElementById("operacion").value = "consulta_factura;";
+		}
+
+		if (false) {
+			if (muestraDivImprimePoliza) {
+				$("#EditaFirmas").css('visibility', 'visible');
+			}
+
+			if (parent.document.getElementById("pb_cancel")) {
+				parent.document.getElementById("pb_cancel").style.visibility = 'hidden';
+				parent.document.getElementById("pb_cancel").disabled = true;
+			}
+		}
+	}
+	function ResponsableSiguiente(id_oper) {
+		if (id_oper == 1) {
+			return "AUTORIZA_" + $("#cDocumento").val();
+		}
+		if (id_oper == 2) {
+
+			return "CONSULTA_" + $("#cDocumento").val();
+		}
+
+	}
+
+	function OperacionSiguiente(id_oper) {
+		if (id_oper == 1)
+			return "autoriza_factura";
+		if (id_oper == 2) {
+
+			return "consulta_factura";
+		}
+	}
+
+	function onPostDisplay(id_oper) {
+		if ($("#docAplicado").val() == "S") {
+			parent.document.getElementById("pb_send").disabled = false;
+			parent.document.getElementById("pb_send").click();
+		}
+
+	}
+
+	function onCancel(id_oper) {
+		queryFormPost("TFactDiversoEncabezadoUpdate", {
+			async : false
+		});
+		if ($("#docAplicado").val() != "S") {
+			queryFormPost("borraFactRelacionPagoBorrado", {
+				async : false
+			});
+			$("#estatusRecepcion").val("Emitida");
+			$("#noRecepcion").attr('disabled', false);
+			queryFormPost("updateEstatusRecepcion", {
+				async : false
+			});
+			$("#noRecepcion").attr('disabled', true);
+		}
+		return true;
+	}
+
+
+	function formSubmited() {
+		//alert("Lo que sea!");
+	}
+
+	function fnClickAddRowComp() {
+		dlgJustificacion();
+
+		queryFormPost("leeImporteTotalDiversoEncabezado", {
+			async : false
+		});
+		queryFormPost("leeImporteTotalDiversoDetalle", {
+			async : false
+		});
+
+		var importeDiferencia = 0.00;
+		var importeDiferenciaOriginal = 0.00;
+		importeDiferencia = Number(Number($("#importeTotalEncabezado").val()) - Number($("#importeTotalDetalle").val())).toFixed(2);
+		importeDiferenciaOriginal = Number(Number($("#importeTotalEncabezado").val()) - Number($("#importeTotalDetalle").val())).toFixed(2);
+		if (importeDiferencia < 0)
+			importeDiferencia *= -1;
+
+		if (importeDiferencia <= 0.02) {
+			if (importeDiferencia > 0) {
+				$("#importeTotalDetalle").formatCurrency();
+				if (!confirm("El Importe Neto se afectara contablemente por " + $("#importeTotalDetalle").val() + ", ¿Desea continuar?")) {
+					alert("Favor de Borrar el tramite.");
+					return;
+				}
+				var aux = 0.00;
+				aux = Number(Number($("#DCD_NETO").val()) - Number(importeDiferenciaOriginal)).toFixed(2);
+				$("#DCD_NETO").val(aux);
+				aux = Number(Number($("#DCD_RETENCION").val()) + Number(importeDiferenciaOriginal)).toFixed(2);
+				$("#DCD_RETENCION").val(aux);
+				$("#mImporteDiferenciaCentavos").val(importeDiferenciaOriginal);
+				queryFormPost("updateEncabezadoNetoRetencionDiverso", {
+					async : false
+				});
+			}
+		} else {
+			alert("No se puede seguir con el pago debido a que el detalle no corresponde al encabezado.");
+			return;
+		}
+
+		$("#DCD_TIPO_OPE").attr('disabled', false); //URVP.17062014 se habilita para poder obtener su informacion y se deshabilita al finalizar de contrareibo()
+
+		CalculaRetencionesG();
+		$('#grdFacturas').dataTable().fnAddData([
+			$("#DCD_FACTURA").val(),
+			$("#DCD_FECHA_FACTURA").val(),
+			$("#DCD_TBEN").val(),
+			$("#DCD_CBEN").val(),
+			$("#DCD_TIPO_OPE").val(),
+			$("#DESCRIPCION20").val(),
+			$("#DCD_IMP_BRUTO").val(),
+			$("#DCD_IVADES").val(),
+			$("#DCD_IVA").val(),
+			$("#DCD_ISR").val(),
+			$("#DCD_MIL5").val(),
+			$("#DCD_MIL2").val(),
+			$("#DCD_CONTRIBUCION").val(),
+			$("#DCD_OTRAS_RET").val(),
+			$("#DCD_PENALIZACION").val()
+		]);
+
+		$("#fRecepcion2").val($("#fRecepcion").val());
+		//queryFormPost("SIG_FOLIO_CONTRARRECIBOECRead", {async: false });	
+		getNextSequenceVal({
+			seqName : "CR-" + $("#cCentroContable").val(),
+			async : false,
+			callback : setSequenceVal
+		});
+		//$("#contra2").val( $("#cCentroContable").val() + $("#caNoContrarrecibo").val());
+		//$("#caNoContrarrecibo").val( $("#contra2").val( ) );	
+		setTimeout("contrareibo()", 1000);
+
+		//parent.document.getElementById("pb_save").onclick;
+		parent.doSave();
+
+		if (bCOMSOC) {
+			creaCasoComsoc($("#cDocumento").val(), $("#id_caso").val());
+		}
+		$("#numPaso").val("5");
+	}
+
+	function setSequenceVal(seqValue) {
+		seqValue = "000000" + seqValue;
+		seqValue = seqValue.substr(seqValue.length - 6);
+		seqValue = "1" + seqValue.substr(seqValue.length - 5);
+		seqValue = $("#cCentroContable").val() + cxpPrefijo + $("#aEjercicioFiscal").val() + seqValue;
+		$("#caNoContrarrecibo").val(seqValue);
+	}
+
+	function contrareibo() {
+		$("#cIDContrato").attr('disabled', false);
+		queryFormPost("obtieneIVAparaDocComp", {
+			async : false
+		});
+		queryFormPost("SIG_FOLIO_CONTRAODIVERSOSUpdate", {
+			async : false
+		});
+		queryFormPost("StatusAnticipoFACTDIVERSOUpdate", {
+			async : false
+		});
+		var aux = $("#DCD_IMP_BRUTO").val();
+		$("#DCD_IMP_BRUTO").val(Number($("#DCD_IMP_BRUTO").val()) - Number($("#mImporteSancion").val())); //se resta la sancion para mandar a doc comp el importe neto al proveedor
+		queryFormPost("tDocumentacionComprobatoriaDetCreate2", {
+			async : false
+		}); //queryFormPost("tDocumentacionComprobatoriaDetCreate",{async: false }); //URVP.18022015
+		$("#DCD_IMP_BRUTO").val(aux); //se regresa el valor que traia el campo
+		$("#DCD_TIPO_OPE").attr('disabled', true); //URVP.17062014 se muestra "solo lectura" nuevamente
+		$("#divImprime").show();
+		$("#Agregar1").attr('disabled', true);
+		setTimeout("elRetardo()", 1000);
+
+	}
+	function fnClickAddRowB(A, B, C) {
+		$('#tretencion').dataTable().fnAddData([
+			A,
+			B,
+			C ]);
+	}
+	function fnClickAddRowH(A, B, C, D, E) {
+		$('#grdCompromisos').dataTable().fnAddData([ A, B, C, D, E ]);
+	}
+
+
+	function Borrar1() {
+		if ($("#docAplicado").val() != "S") {
+			queryFormPost("borraFactRelacionPagoBorrado", {
+				async : false
+			}); //URVP.08092014 VALIDAR EN CASO DE YA APLICADOS
+			$("#estatusRecepcion").val("Emitida");
+			$("#noRecepcion").attr('disabled', false);
+			queryFormPost("updateEstatusRecepcion", {
+				async : false
+			});
+			$("#noRecepcion").attr('disabled', true);
+			queryFormPost("tPagoDiversoBoletajeAvionDelete", {
+				async : false
+			});
+			queryFormPost("tTempVuelosEnCapturaDelete", {
+				async : false
+			});
+		}
+
+		$.blockUI({
+			message : "Procesando espere..."
+		});
+
+		$("#elcontra").val($("#caNoContrarrecibo").val());
+
+		$("#COMSOCAutoriza").val("");
+		queryFormPost("BuscaCOMSOCAutorizaRead", {
+			async : false
+		});
+		if ($("#COMSOCAutoriza").val() == "0") {
+			alert("Pago en Proceso de Autorización del Área Normativa, No es posible Descarta el Documento");
+			return false;
+		}
+
+		if ($("#COMSOCAutoriza").val() == "1") {
+			alert("Pago Autorizado por el Área Normativa, No es posible Descarta el Documento");
+			return false;
+		}
+
+		$.unblockUI();
+
+		parent.document.getElementById("pb_send").disabled = true;
+		parent.document.getElementById("pb_cancel").disabled = false;
+		parent.document.getElementById("pb_cancel").click();
+		parent.document.getElementById("pb_cancel").disabled = true;
+
+
+		//cmdRegresar();
+
+	}
+
+
+	function cmdRegresar() {
+		self.location = "../caso/inbox.jsp";
+	}
+
+	function folio() {
+		queryFormPost("tFacturaDiversoRead", {
+			async : false
+		});
+		setTimeout("reten()", 1000);
+	}
+
+	function reten() {
+		$("#cIDContrato").val($("#cFolioPAGODIVERSO").val());
+		if ($("#cIDContrato").val() != "") {
+
+			//$("#ID_DESTINO_GASTO").val( $("#destGasto").val() ); //CONAFOR
+			FiltroRetencionesD();
+			$("#cIdRFC_RelacionGasto2").val($("#cIdRFC").val()); //quitar
+			$("input[id='nIdConcepto']").val($('#TIPO_CONCEPTO option:selected').val());
+			$("input[id='tConcepto2']").val($('#TIPO_CONCEPTO option:selected').text());
+			$("input[id='noFactura2']").val($("input[id='cNoFactura']").val());
+			$("input[id='cIdTipoOperacion2']").val($('#cIdTipoOperacion option:selected').val());
+			$("input[id='tipoOper']").val($('#TIPO_OPERACION option:selected').val());
+			$("input[id='impTotal']").val($("input[id='mImporteNeto']").val());
+
+			$("#impTotal2").val($("#impTotal").val());
+			$("#iva").val($("#nPorcIVAAplicable").val());
+			$("#poriva").val($("#mImporteIVA").val());
+			queryFormPost("tRelacionGastClaveBeneficiarioRead", "cIdRFC_RelacionGasto2", {
+				async : false
+			});
+			$(".pasoDos").show();
+			$("#cIDContrato").attr('disabled', true);
+			$(".paso01").attr('disabled', true);
+			$(".subtotall").attr('disabled', true);
+			$("#guardar").attr("disabled", true);
+			$("#numPaso").val('2');
+			DOCUMENTACION();
+			claves();
+			setTimeout("retraso3()", 100);
+			setTimeout("retraso5()", 100);
+
+			/* CONAFOR, No mostraba toda la informacion de Pestaña de Devengado*/
+			$("#ID_DESTINO_GASTO").val($("#destGasto").val());
+			querySelectPost("cat_TipoConceptoPagosDiversosRead", "TIPO_CONCEPTO", {
+				async : false
+			});
+			concepto();
+			$("#agrega2").attr('disabled', true);
+			$("#TIPO_CONCEPTO").attr('disabled', true);
+			//$("#TIPO_MOVIMIENTO").attr('disabled', true); URVP.1809214
+			$("#ALM").attr('disabled', true);
+
+		} else {
+			$(".pasoDos").hide();
+			$(".pasoTres").hide();
+		}
+	}
+
+	function retraso5() {
+		if ($("#cllave").val() != "") {
+			$(".paso9").attr('disabled', true);
+			//valida que no se vea la liga de captura de justificacion si ya ha sido agregada
+			queryFormPost("retencionEliminada", {
+				async : false
+			});
+			queryFormPost("validaDoctoJustificacion", {
+				async : false
+			});
+
+			if ($("#lEliminaRetencion6IVA").val() == 1 && $("#doctoCapturado").val() == 0) {
+				alert("Debe adjuntar la documentacion que Justifique el pago sin retenciones");
+				dlgJustificacion();
+				return false;
+			}
+			$(".pasoTres").show();
+		}
+	}
+
+	function retraso3() {
+		if ($("#caNoContrarrecibo").val() != "0" && (2 == 2)) {
+			queryFormPost("tRelacionGastClaveBeneficiarioRead", "cIdRFC_RelacionGasto2", {
+				async : false
+			});
+			$("#Agregar1").attr('disabled', true);
+			$(".paso03").attr('disabled', true);
+			//$("#divAutorizar").show(); //URVP.04092014 SE DESHABILITA YA QUE NO SE TIENE LA FUNCIONALIDAD DEL NO, Y SE OCULTA AL USUARIO
+			$("#numPaso").val('6');
+			//		parent.document.getElementById("pb_save").disabled=true;
+			//	    parent.document.getElementById("pb_send").disabled=false;
+			alert("Para finalizar el tramite presiona el boton Guardar.");
+		} else {
+			$(".paso03").attr('disabled', false);
+		}
+	}
+	function DOCUMENTACION() {
+		var szWhere = "";
+		szWhere = " caNoContrarrecibo ='" + $("#caNoContrarrecibo").val() + "'";
+		//alert(szWhere);
+		var elMonto = "";
+		var este = 0;
+		var szTabla = "DOCUMENTACION_RELACION_GASTO";
+		$.getJSON("../catalogos/SelectJson.jsp", {
+			Tabla : szTabla,
+			Param : szWhere,
+			MaxReg : elMonto,
+			ajax : 'false'
+		}, function(j) {
+			var options = '';
+			for (var i = 0; i < j.length; i++) {
+				$('#grdFacturas').dataTable().fnAddData([
+					j[i].Col0, j[i].Col1, j[i].Col2, j[i].Col3, j[i].Col4, j[i].Col5, j[i].Col6, j[i].Col7, j[i].Col8, j[i].Col9, j[i].Col10, j[i].Col11, j[i].Col12, j[i].Col13, j[i].Col14
+				]);
+				$("#DCD_FACTURA").val(j[i].Col0);
+				$("#DCD_FECHA_FACTURA").val(j[i].Col1);
+				$("#DCD_TBEN").val(j[i].Col2);
+				$("#DCD_CBEN").val(j[i].Col3);
+				$("#DCD_TIPO_OPE").val(j[i].Col4);
+				$("#DESCRIPCION20").val(j[i].Col5);
+				$("#DCD_IMP_BRUTO").val(j[i].Col6);
+				$("#DCD_IVADES").val(j[i].Col7);
+				$("#DCD_IVA").val(j[i].Col8);
+				$("#DCD_ISR").val(j[i].Col9);
+				$("#DCD_MIL5").val(j[i].Col10);
+				$("#DCD_MIL2").val(j[i].Col11);
+				$("#DCD_CONTRIBUCION").val(j[i].Col12);
+				$("#DCD_OTRAS_RET").val(j[i].Col13);
+				$("#DCD_PENALIZACION").val(j[i].Col14);
+				$("#DCD_NETO").val($("#mImporteNeto").val());
+				$("#DCD_SANCION").val($("#mImporteSancion").val());
+				$("#DCD_DEVOL").val($("#mImporteDevolucion").val());
+				$("#numPaso").val("4");
+
+			}
+			// Si Trae Informacion y es num Paso 4 
+			if ($("#numPaso").val() == "4" && 2 == 1) {
+
+				$("#numPaso").val("5");
+				parent.document.getElementById("pb_send").disabled = false; //para CONAFOR
+				parent.document.getElementById("pb_send").style.visibility = 'visible'; //para CONAFOR
+				parent.document.getElementById("pb_save").disabled = true; //para CONAFOR
+				parent.doSave();
+				$("#divImprime").show(); //para CONAFOR*/
+				$("#Agregar1").attr("disabled", true);
+
+			}
+
+
+		}) ;
+
+	}
+	function compDocumentacion() {
+		$("#DCD_FACTURA").val($("#cNoFactura").val());
+		$("#DCD_FECHA_FACTURA").val($("#fRecepcion").val());
+		$("#DESCRIPCION20").val($("#nPorcIVAAplicable").val());
+
+		if ($("#tipoAmortizacion").val() != "1")
+			$("#DCD_IMP_BRUTO").val($("#mImporteBruto").val());else {
+			var valImpBrutoDCD = (parseFloat($("#mImporteBruto").val() + $("#mAmortizacionAnticipo").val()) * 100) / 100;
+			$("#DCD_IMP_BRUTO").val(valImpBrutoDCD.toFixed(2));
+		}
+		$("#DCD_IVA").val($("#mImporteIVA").val());
+		$("#DCD_NETO").val($("#mImporteNeto").val());
+		$("#DCD_SANCION").val($("#mImporteSancion").val());
+		$("#DCD_DEVOL").val($("#mImporteDevolucion").val());
+		$("#DCD_CONCEPTO").val($("#Descrip_Concepto").val());
+
+		if ($("#tipoAmortizacion").val() != "1")
+			$("#DCD_AMORT").val($("#mAmortizacionAnticipoMasIva").val());
+		else
+			$("#DCD_AMORT").val($("#mAmortizacionAnticipo").val());
+
+		$("#DCD_RETENCION").val($("#mImporteRetencion").val());
+		$("#DCD_CONTRIBUCION").val($("#DCD_CONTRIBUCION_D").val()); //urvp.06012014 se cambia por mImporteFlete4
+		$("#DCD_PENALIZACION").val($("#mImportePenalizacion").val());
+
+	}
+	function claves() {
+		var contador = 0;
+		var szWhere = "";
+		szWhere = " tr.nFolioPAGODIVERSO ='" + $("#id_caso").val() + "'";
+		var elMonto = "";
+		var este = 0;
+		var szTabla = "CLAVES_DIVERSO";
+		$.getJSON("../catalogos/SelectJson.jsp", {
+			Tabla : szTabla,
+			Param : szWhere,
+			MaxReg : elMonto,
+			ajax : 'false'
+		}, function(j) {
+			var options = '';
+			for (var i = 0; i < j.length; i++) {
+				$("#montoDev").val(j[i].Col3);
+				$("#montoDev").formatCurrency();
+				var mImporteADev = $("#montoDev").val();
+				$('#grdCompromisos').dataTable().fnAddData([ j[i].Col0, j[i].Col2, mImporteADev ]);
+				$("#montoDev").val("");
+				contador = contador + 1;
+				$("#cllave").val(contador);
+				$("#numPaso").val("3"); // Para CONAFOR
+
+			}
+
+			if ($("#numPaso").val() == "3" && 2 == 1) {
+
+				$("#nIdClaveEgresos2").attr('disabled', true);
+				$("#agrega2").attr('disabled', true);
+				$("#TIPO_CONCEPTO").attr('disabled', true);
+				//$("#TIPO_MOVIMIENTO").attr('disabled', true); URVP.18092014
+				$("#ALM").attr('disabled', true);
+				DOCUMENTACION();
+				$(".pasoTres").show();
+			}
+
+		});
+	}
+
+	function cambioss() {
+		$('#grdRetClave').dataTable().fnClearTable();
+		$("#EP").val($("#ep").val());
+		var vEp = $("#EP").val();
+		var vCartera = vEp.substring(44, 55);
+		var vCapitulo = vEp.substring(31, 32);
+		if (vCartera == "00000000000" || "1234".indexOf(vCapitulo) >= 0 || $("#IEsPasivo").val() == "1") {
+			cambioMovmientos();
+		} else {
+			$("#dialog-validaOLI").dialog("open");
+		}
+	}
+
+	function cambioMovmientos() {
+		$("#montoDev").val(quitaFmt($("#montoDev").val())); //URVP.20102014 Se quita formato para evitar error de conversion en caso de traer signos
+		var vOGT = $("#ep").val();
+		vOGT = vOGT.substring(31, 36);
+		$("#vOGT").val(vOGT);
+
+		queryFormPost("tMsgPartidaRead", {
+			async : false
+		});
+		if ($("#obs").val() != '') {
+			alert($("#obs").val());
+		}
+
+		var validM;
+		var validacion = 0;
+		validM = Number($("#saldoCompM").val()) + Number($("#montoDev").val());
+		validM = validM.toFixed(2);
+
+		if (Number(validM) > Number($("#mImpEjercer").val())) {
+			alert("Ha superado el Importe a Ejercer");
+			$("#montoDev").val("");
+			$("#ep").val("");
+			$("#codSIAFF").val("");
+			return;
+		}
+
+		validM = Number($("#montoDev").val());
+
+		var campos = "";
+		var szWhere = "";
+		var elMonto = 12;
+		//$("#saldoCompM").val( parseFloat( $("#montoDev").val()) + parseFloat($("#saldoCompM").val()));
+
+		$("#cMes").val($("#fRecepcion").val().split("/")[1]);
+
+		campos = $("#cMes").val() + ", '" + $("#cIdContrato").val() + "', '" + $("#cCentroContable").val() + "', 'DI', '" + $("#ep").val() + "'";
+		szWhere = "";
+		var szTabla = "SALDOS_DISPONIBLE_PAGOOBRA";
+
+		$.getJSON("../catalogos/SelectJson.jsp", {
+			Tabla : szTabla,
+			Param : szWhere,
+			MaxReg : elMonto,
+			Campos : campos,
+			Order : " order by 1 desc ",
+			ajax : 'false'
+		}, function(j) {
+			var acumulado = 0.0;
+			for (var i = 0; i < j.length; i++) {
+				acumulado = parseFloat(acumulado) + parseFloat(j[i].Col2);
+				$("#TOTALSUBCUENTA").val(acumulado);
+			}
+			//queryFormPost("LeerMontoPDIV_EP_Read", {async : false});
+			//acumulado = parseFloat(acumulado) - parseFloat( $("#montoprevio").val() );
+			acumulado = acumulado.toFixed(2);
+
+			if (acumulado < validM) {
+				alert('La cuenta no tiene suficiente saldo comprometido');
+				return;
+			}
+			var resto = parseFloat(validM);
+			var aplicar = 0.0;
+			for (var i = 0; i < j.length; i++) {
+				$("#nMes").val(j[i].Col0);
+				//queryFormPost("LeerMontoPDIV_EPMes_Read", {async : false});
+				var SuficMes = parseFloat(j[i].Col2); //- parseFloat( $("#montoprevio").val() );
+				SuficMes = SuficMes.toFixed(2);
+				if (SuficMes > 0) {
+					if (resto - SuficMes > 0) {
+						aplicar = SuficMes;
+					} else {
+						aplicar = resto;
+					}
+					resto = resto - aplicar;
+					if (parseFloat(aplicar) > 0.0) {
+						$('#grdRetClave').dataTable().fnAddData([ j[i].Col1, j[i].Col0, aplicar ]);
+					}
+					//$("#agrega2").attr('disabled', false);//URVP
+					var vOGT = $("#ep").val();
+					vOGT = vOGT.substring(31, 36);
+					$("#vOGT").val(vOGT);
+					queryFormPost("BuscaPartidaExcepRead", {
+						async : false
+					});
+
+					if ($("#TIPO_CONCEPTO").val() != "AL") {
+						queryFormPost("BuscaPartidaExcepRead", {
+							async : false
+						});
+						$("#altaAlmacen").val("");
+						$("#cAnioFactEP").val("");
+						$("#nFacturaEP").val("");
+
+						if (vOGT == $("#partida").val()) {
+							querySelectPost("CatalogoAlmacenRead", "ALM", {
+								async : false
+							});
+						/*$("#altaAlmacen").show();
+						$("#cAnioFactEP").show(); 
+						$("#nFacturaEP").show();*/ //se deshabilita para que NO muestre dichos objetos
+						} else {
+							$("#altaAlmacen").hide();
+							$("#cAnioFactEP").hide();
+							$("#nFacturaEP").hide();
+							querySelectPost("CatalogoAlmacenVacioRead", "ALM", {
+								async : false
+							});
+						}
+					}
+				}
+			}
+		}) ;
+	}
+
+	var TotalNeto = 0;
+	var TotalRetenciones = 0;
+
+
+
+	function actualizaretencion() {
+		//	queryFormPost("tFACTDiversoimpRetenUpdate", {async: false })			
+		elParametro = $("#campoRetencion").val() + " = " + $("#campoRetencion").val() + " + " + $("#TotalRetenciones").val()
+			+ " where  nFolioPAGODIVERSO = " + $("#id_caso").val() + " AND cEvento !='ANTICIPO_DIV' AND nDocRenglon=1 ";
+
+		$.getJSON("../catalogos/InsertJson.jsp", {
+			Tabla : "ACTUALIZARETENCIONDIVERSOS",
+			Param : elParametro,
+			MaxReg : "",
+			ajax : 'false'
+		}, function(j) {});
+	}
+
+
+
+
+	function carga() {
+		//queryFormPost("tRelacionGastClaveBeneficiarioRead","cIdRFC_RelacionGasto2",{async: false });
+		queryFormPost("tEjercicioRead", {
+			async : false
+		});
+		$("#cEjercicio").val($("#aEjercicioFiscal").val());
+
+		$("#cRamo").val("16 ");
+		$("#cUnidadResponsable").val("G27");
+		$("#divAutorizar").hide();
+		$("#divImprime").hide();
+		$("#divImprimePoliza").hide();
+		$("#divImprimeAnexo").hide();
+		//$("#agrega2").attr('disabled', true);//URVP
+		var con = document.getElementById("TO_TIPO_DOCTO").value;
+		querySelectPost("CatalogoTipoRfcRead", "tipoBenef", {
+			async : false
+		});
+		querySelectPost("CatalogoObraDGastoRead", "destGasto", {
+			async : false
+		});
+		$("#ID_DESTINO_GASTO").val($("#destGasto").val());
+		querySelectPost("cat_TipoConceptoPagosDiversosRead", "TIPO_CONCEPTO", {
+			async : false
+		});
+		//$("#TIPO_CONCEPTO").val("AL");
+		querySelectPost("CAT_TIPO_OPERACIONRead", "TIPO_OPERACION", {
+			async : false
+		});
+		$('#TIPO_OPERACION option[value="1"]').attr('selected', 'selected'); //URVP.14102014 SE DEJA POR DEFAULT LA OPCION DE PAGO NORMAL VAL=1
+		querySelectPost("ImporteTotalDiversoRead", "cIDContrato", {
+			async : false
+		});
+		queryFormPost("fRecepcion2Read", {
+			async : false
+		});
+		queryFormPost("fRecepcionRead", {
+			async : false
+		});
+		queryFormPost("TipoPolizaRead", {
+			async : false
+		});
+
+		if ($("#aEjercicioFiscal").val() >= '2013') {
+			$("#fRecepcion").val("05/03/2020");
+			$("#fecha_Pago").val("05/03/2020");
+
+			if ($("#fRecepcion").val().split("/")[2] != $("#aEjercicioFiscal").val()) {
+				$("#fRecepcion").val("31/12/" + $("#aEjercicioFiscal").val());
+				$("#FECHA_CARGA").val($("#fRecepcion").val());
+			}
+
+			$("#fRecepcion").attr("readonly", "readonly");
+		}
+
+		//querySelectPost("CatalogoAlmacenRead","ALM", {async: false });
+		ponCerosD();
+		if (2 == 2 || 2 == 3) {
+
+			folio();
+			//concepto();
+
+		}
+
+		//concepto();
+		//concepto2();
+		BuscaPoliza();
+		if (2 == 3) {
+			$("#divAutorizar").hide();
+
+			if (muestraDivImprimePoliza) {
+				$("#divImprime").show();
+				$("#divImprimePoliza").show();
+				$("#divImprimeAnexo").show();
+			}
+			$("#Agregar").attr('disabled', true);
+			$("#Agregar1").attr('disabled', true);
+
+		//$("#Limpia").attr('disabled', true);
+		//$("#Borrar").attr('disabled', true);
+		}
+
+		if (2 == 1) {
+			setTimeout("informacionDocumento()", 100);
+		}
+	}
+
+	function informacionDocumento() {
+
+		/** Informacion que se Perdia al Cambiar de Pestaña Documento a Adjunto **/
+
+		queryFormPost("tFacturaDiversoRead", {
+			async : false
+		});
+
+		if ($("#numPaso").val() == "1" && $("#caNoContrarrecibo").val() != "") {
+
+			$(".pasoDos").hide();
+			$(".pasoTres").hide();
+			$(".pasoCuatro").hide();
+		}
+
+		if ($("#numPaso").val() != "1") {
+			querySelectPost("readCtaBancxPago", "ctaBancaria", {
+				async : false
+			});
+			$("#ctaBancaria").attr('disabled', true);
+		}
+
+
+		// Trae Las Ep Detalle Clave
+
+		var contador = 0;
+		var szWhere = "";
+		szWhere = " tr.nFolioPAGODIVERSO ='" + $("#id_caso").val() + "'";
+		var elMonto = "";
+		var este = 0;
+		var szTabla = "CLAVES_DIVERSO";
+
+		$.getJSON("../catalogos/SelectJson.jsp", {
+			Tabla : szTabla,
+			Param : szWhere,
+			MaxReg : elMonto,
+			ajax : 'false'
+		}, function(j) {
+			var options = '';
+
+			for (var i = 0; i < j.length; i++) {
+				$("#montoDev").val(j[i].Col3);
+				$("#montoDev").formatCurrency();
+				var mImporteADev = $("#montoDev").val();
+				$('#grdCompromisos').dataTable().fnAddData([ j[i].Col0, j[i].Col2, mImporteADev ]);
+				$("#montoDev").val("");
+				contador = contador + 1;
+				$("#cllave").val(contador);
+				$("#numPaso").val("3"); // Para CONAFOR
+				$("#TIPO_CONCEPTO").val(j[i].Col4);
+				$("#TIPO_MOVIMIENTO").val(j[i].Col5);
+
+			}
+
+			// Si trae Informacion 
+			if ($("#numPaso").val() == "3") {
+
+				$("#nIdClaveEgresos2").attr('disabled', true);
+				$("#agrega2").attr('disabled', true);
+				concepto();
+				$("#ID_DESTINO_GASTO").val($("#destGasto").val());
+				querySelectPost("cat_TipoConceptoPagosDiversosRead", "TIPO_CONCEPTO", {
+					async : false
+				});
+				//setTimeout("concepto()",1000);
+				//concepto();
+				$("#TIPO_CONCEPTO").attr('disabled', true);
+				//$("#TIPO_MOVIMIENTO").attr('disabled', true); URVP.18092014
+				$("#ALM").attr('disabled', true);
+				DOCUMENTACION();
+				//valida que no se vea la liga de captura de justificacion si ya ha sido agregada
+				queryFormPost("retencionEliminada", {
+					async : false
+				});
+				queryFormPost("validaDoctoJustificacion", {
+					async : false
+				});
+				if ($("#lEliminaRetencion6IVA").val() == 1 && $("#doctoCapturado").val() > 0 || ("#lEliminaRetencion6IVA").val() == 0) {
+					$("#justificacion").hide();
+
+				}
+				$(".pasoTres").show();
+			}
+
+			if ($("#numPaso").val() == "2") {
+
+				/*clearSelect('TIPO_CONCEPTO');
+				  		 	return false;*/
+				concepto();
+
+				$("#ID_DESTINO_GASTO").val($("#destGasto").val());
+				querySelectPost("cat_TipoConceptoPagosDiversosRead", "TIPO_CONCEPTO", {
+					async : false
+				});
+
+				setTimeout("concepto()", 1000);
+				//concepto();
+				$(".pasoTres").hide();
+				$("#DCD_TIPO_OPE").attr('disabled', true); // Desabilito Pestaña Detalle Oper
+				$("#L03").click(); // Muestro Pestaña Devengado
+				parent.document.getElementById("pb_save").disabled = true;
+
+			}
+
+			if ($("#numPaso").val() == "3") {
+
+				parent.document.getElementById("pb_save").disabled = true; //para CONAFOR
+			}
+			// Solo para la pestaña financiamiento
+
+
+			if ($("#numPaso").val() == "3" || $("#numPaso").val() == "6") {
+
+				$("#TFONDO").attr('disabled', true);
+
+			}
+
+			// numPaso a 5 Para que pueda seguir con el proceso
+
+			if ($("#numPaso").val() == "6" && $.trim($("#docAplicado").val()) == "") {
+
+				$("#numPaso").val("5");
+			}
+
+			$("#cIDContrato").val($("#cFolioPAGODIVERSO").val());
+
+			if ($("#cIDContrato").val() != "") {
+
+				$("#nPorcAmortizacion").attr('readOnly', true); //URVP
+				$("#mAmortizacionAcumulado").attr('readOnly', true); //URVP
+				$("#btncIDContrato").attr('disabled', true); //URVP
+				$("#destGasto").attr('disabled', true); //URVP
+				$("#TIPO_OPERACION").attr('disabled', true); //URVP
+				$("#cNoFactura").attr('readOnly', true); //URVP
+				$("#mImporteSancion").attr('readOnly', true); //URVP
+				$("#mImporteDevolucion").attr('readOnly', true); //URVP
+				$("#mAmortizacionAnticipo").attr('readOnly', true); //URVP
+				$("#mImportePenalizacion").attr('readOnly', true); //URVP
+				$("#saldoAnticipo").attr('readOnly', true); //URVP
+				$("#Descrip_Concepto").attr('readOnly', true); //URVP
+				$("#mImporteBruto").attr('readOnly', true); //URVP
+				cssReadOnly();
+
+				$("#nPorcAmortizacion").attr('disabled', true);
+				$("#mAmortizacionAcumulado").attr('disabled', true);
+
+				$("#cIdContrato").val($("#cIDContrato").val());
+				szWhere = " cidcontrato ='" + $("#cIDContrato").val() + "' AND cIdEntidadContable = '" + $("#cCentroContable").val() + "'";
+				if ($("#cCentroContable").val() == '10' && $("#cCentroContable").val() != $("#cCentroContableContrato").val() && $("#cCentroContable").val() == $("#cCentroContableOrig").val()) {
+					szWhere = " cidcontrato ='" + $("#cIDContrato").val() + "' AND cIdEntidadContable = '" + $("#cCentroContableContrato").val() + "'";
+				}
+				if ($("#llevaAnticipo").val() == "1" && $("#tieneAnticipo").val() == "0") {
+					szWhere = szWhere + " AND 1=2";
+				}
+				var elMonto = "100";
+				var este = 0;
+				var retencion = 0;
+				elMonto = $("#mTotal").val();
+
+				var szTabla = "CALC_RETENCIONES_FACT_CONT_DIVERSO";
+
+				$.getJSON("../catalogos/SelectJson.jsp", {
+					Tabla : szTabla,
+					Param : szWhere,
+					MaxReg : elMonto,
+					ajax : 'false'
+				}, function(j) {
+					var options = '';
+					var porretencion = 0;
+					for (var i = 0; i < j.length; i++) {
+						//URVP.27112014 Se valida si es impuesto cedular y nayarit, se cambia el porcentaje de la retencion a 1.5%
+						if (j[i].Col0 == "9" && $("#cCentroContable").val() == "28") {
+							var porcentCedular = 0.00;
+							porcentCedular = Number(Number(j[i].Col2) + 0.005).toFixed(6);
+							fnClickAddRowB(j[i].Col0, j[i].Col1, porcentCedular);
+						} else {
+							fnClickAddRowB(j[i].Col0, j[i].Col1, j[i].Col2);
+						}
+						porretencion = este * elMonto;
+						//$("#mTotal2").val((Number (porretencion)+Number(elMonto)));
+						if (j[i].Col0 > 10 && j[i].Col0 < 16) { //URVP.04092014 SE CAMBIA LA CONDICION == 0 A >10 YA QUE SE DESGLOZARON EN MAS RETENCIONES Y AS POSTERIORES AL ID 10 SON LAS EQUIVALENTES A LA 0 DEL 2/3 DEL IVA
+							$("#DCD_IVADES").val(1);
+							if ($("#lHaySaldoAnticipo").val() == 0 || $("#mAmortizado").val() != '0.0000') { ///1 espara cuando hay anticipo
+								mImporteFlete23 = 1; //alo
+
+							//$("#m23IVA").val(1);
+							}
+						/*if (j[i].Col0==11)
+							esIvaArrenda=1;*/
+						} else if (j[i].Col0 == 2) {
+							$("#DCD_MIL2").val(parseFloat(j[i].Col2));
+
+							if ($("#lHaySaldoAnticipo").val() == 0 || $("#mAmortizado").val() != '0.0000') {
+								CamInst = parseFloat(j[i].Col2);
+								CamInst2 = parseFloat(j[i].Col2);
+							}
+							DCD_MIL2res = parseFloat(j[i].Col2);
+						} else if (j[i].Col0 == 3) {
+							$("#DCD_MIL5").val(parseFloat(j[i].Col2));
+							if ($("#lHaySaldoAnticipo").val() == 0 || $("#mAmortizado").val() != '0.0000') {
+								$("#mObra5").val(parseFloat(j[i].Col2));
+								$("#mObra52").val(parseFloat(j[i].Col2));
+							}
+
+							DCD_MIL5res = parseFloat(j[i].Col2);
+
+						} else {
+							if ($("#lHaySaldoAnticipo").val() == 0 || $("#mAmortizado").val() != '0.0000') { ///1 espara cuando hay anticipo
+
+								if (j[i].Col0 == 4) {
+									$("#mISRHonorarios").val(parseFloat(j[i].Col2));
+									$("#mISRHonorarios2").val(parseFloat(j[i].Col2));
+								} else if (j[i].Col0 == 5) {
+									$("#mImporteFlete4").val(parseFloat(j[i].Col2));
+									$("#mImporteFlete42").val(parseFloat(j[i].Col2));
+								} else if (j[i].Col0 == 6) {
+									$("#mISRArrenda").val(parseFloat(j[i].Col2));
+									$("#mISRArrenda2").val(parseFloat(j[i].Col2));
+								} else if (j[i].Col0 == 7) {
+									$("#mTesofe").val(parseFloat(j[i].Col2));
+									$("#mTesofe2").val(parseFloat(j[i].Col2));
+								} else if (j[i].Col0 == 9) {
+									if ($("#cCentroContable").val() == "28") {
+										$("#mRetImpuestoCedular").val(porcentCedular);
+										$("#mRetImpuestoCedular2").val(porcentCedular);
+									} else {
+										$("#mRetImpuestoCedular").val(parseFloat(j[i].Col2));
+										$("#mRetImpuestoCedular2").val(parseFloat(j[i].Col2));
+									}
+								}
+							}
+							if (j[i].Col0 == "9" && $("#cCentroContable").val() == "28") { //dejar en igual a 28 para que en nayarit sea 1.5%
+								//retencion= parseFloat(retencion) + parseFloat(porcentCedular);
+								$("#porcCedular").val("1");
+							} else {
+								retencion = parseFloat(retencion) + parseFloat(j[i].Col2);
+							}
+						}
+						$("#sumareten").val(retencion);
+						DCD_RETENCIONres = retencion;
+					}
+				});
+			}
+
+
+		});
+
+		compDocumentacion();
+
+		if ($("#numPaso").val() == "5") {
+
+			$("#L04").click();
+
+		}
+
+
+	}
+	function clearSelect(idSel) {
+		for (var i = 0; i < idSel.length; i++)
+			$('#' + idSel[i]).find('option').remove().end().append(
+				'<option value="-1"></option>');
+	}
+	function concepto() {
+		$("#ID_DESTINO_GASTO").val($("#destGasto").val());
+		querySelectPost("CatalogoObraTMovimendoRead", "TIPO_MOVIMIENTO", {
+			async : false
+		});
+		//$("#TIPO_MOVIMIENTO").attr('disabled', true); URVP.18092014
+		concepto2();
+	}
+	function concepto2() {
+		querySelectPost("CatalogoObraTMovimendo2Read", {
+			async : false
+		});
+
+		if (esSAIFonden && 2 == 3) {
+			$("#verProyectoFondenDiv").css('display', 'show');
+			$("#selproyectoFondenDiv").css('display', 'none');
+
+		}
+
+		if (esSAIFonden) {
+			$("#verFondenSPAN").show();
+			querySelectPost(
+				{
+					queryName : 'catFondenRead',
+					targetObjectId : 'proyectoFonden',
+					async : false,
+					callback : function() {
+						$("#dlgSeleccionaFonden").dialog("open");
+					}
+				}
+
+			);
+			$("#verProyectoFondenDiv").css('display', 'none');
+			$("#selproyectoFondenDiv").css('display', 'show');
+		}
+
+		if ($("#TIPO_CONCEPTO").val() == "AL") {
+			querySelectPost("CatalogoAlmacenRead", "ALM", {
+				async : false
+			});
+			$("#altaAlmacen").val("-1");
+			$("#altaAlmacen").hide(); //show-->hide
+			$("#cAnioFactEP").val("-1");
+			$("#nFacturaEP").val("-1");
+			$("#cAnioFactEP").hide(); //show-->hide
+			$("#nFacturaEP").hide(); //show-->hide
+		} else {
+			$("#altaAlmacen").val("0");
+			$("#altaAlmacen").hide();
+			$("#cAnioFactEP").val("0");
+			$("#nFacturaEP").val("0");
+			$("#cAnioFactEP").hide();
+			$("#nFacturaEP").hide();
+			querySelectPost("CatalogoAlmacenVacioRead", "ALM", {
+				async : false
+			});
+		}
+
+
+
+	}
+
+	/*ERH2015 Para mantener los valores originales tanto del monto de la recepcion como del acumulado de amortizacion.*/
+	var importeRecepcionOriginal = 0.0;
+	var acumuladoAmortizacionOriginal = 0.0;
+
+	var esIvaArrenda = 0;
+	var mImporteFlete23 = 0;
+	var mImporteFlete232 = 0;
+	var ayuda1 = 0;
+	var ayuda2 = 0;
+	var saldoo = 0;
+	var acumula = 0;
+	var comprometido = 0;
+	var DCD_IVADES = 0;
+	var DCD_MIL2 = 0;
+	var DCD_MIL5 = 0;
+	var DCD_RETENCION = 0;
+	var DCD_IVADESres = 0;
+	var DCD_MIL2res = 0;
+	var DCD_MIL5res = 0;
+	var DCD_RETENCIONres = 0;
+	var mAmortizacionAnticipo = 0;
+	var mAmortizacionAnticipoRes = 0;
+	var mAmortizacionAcumulado = 0;
+	var mAmortizacionAcumuladoRes = 0;
+	var mImporteSancionAcumulado = 0;
+	var mImporteDevolucionAcumulado = 0;
+	var contador = 0;
+	var mIMDT = 0;
+	var mCNIC = 0;
+	var CamInst = 0;
+	var mObra5 = 0;
+	var mISRHonorarios = 0;
+	var mISRArrenda = 0;
+	var mPenalizacion = 0;
+	var mRetImpuestoCedular = 0;
+	var mImporteNetoEP = 0;
+	var mImporteNetoEPRes = 0;
+	var mImporteIVAEP = 0;
+
+	function calculaIVAConsulta() {
+		suma = Number($("input[id='mImporteBruto']").val());
+		suma -= Number($("input[id='mImporteSancion']").val());
+		suma += Number($("input[id='mImporteDevolucion']").val());
+		$("#subTotal_1").val(Math.round(Number(suma) * 100) / 100);
+		suma -= $("#mAmortizacionAnticipo").val();
+		$("#subTotal_2").val(Math.round(Number(suma) * 100) / 100);
+		$("input[id='mImporteIVA']").val($("#subTotal_2").val() * Number($("input[id='nPorcIVAAplicable']").val() / 100));
+		suma += Number($("input[id='mImporteIVA']").val());
+		$("#mImpEjercer").val(Math.round(Number(suma) * 100) / 100);
+		suma -= Number($("input[id='mImporteRetencion']").val());
+		suma -= Number($("input[id='mImportePenalizacion']").val());
+		$("#mImporteNeto").val(Math.round(Number(suma) * 100) / 100);
+	}
+
+	function AnticipoTotal() {
+		if (parseFloat($("#saldoAnticipo").val()) == parseFloat($("#mAmortizacionAcumulado").val())) {
+			$("#nPorcAmortizacion").val(0);
+			calculaIVA();
+		}
+	}
+	function Amortizacion() {
+		if (Number($("#nPorcAmortizacion").val()) < Number($("#nPorcAmortizacion2").val())) {
+			alert("El porcentaje minimo es: " + $("#nPorcAmortizacion2").val());
+			$("#nPorcAmortizacion").val($("#nPorcAmortizacion2").val());
+		} else {
+			calculaIVA();
+		}
+	}
+	var cantidadsiniva = 0;
+	var cantidadrespaldo = 0;
+	var cantidadsinIvaEP = 0;
+	var cantidadsinIvaEP23 = 0;
+
+	function calculaRetencionesEP(cantidad) {
+		//cantidadsinIvaEP = cantidad / ( 1 + $("input[id='nPorcIVAAplicable']").val()/100);
+		var porcentajeIVA = 0.00;
+		porcentajeIVA = (Number($("#mImporteIVA").val()) * 100 / (Number($("#mImpEjercer").val()))) / 100;
+		cantidadsinIvaEP = cantidad * (1 - porcentajeIVA);
+		cantidadsinIvaEP = cantidadsinIvaEP.toFixed(2);
+
+		mCNIC = 0;
+		mIMDT = 0;
+		mObra5 = 0;
+		$("#mObra5").val($("#mObra52").val());
+		$("#mISRHonorarios").val($("#mISRHonorarios2").val());
+		$("#mImporteFlete4").val($("#mImporteFlete42").val());
+		//		$("#mImporteFlete23").val($("#mImporteFlete232").val( ) );
+		$("#mISRArrenda").val($("#mISRArrenda2").val());
+		$("#mTesofe").val($("#mTesofe2").val());
+		$("#mRetImpuestoCedular").val($("#mRetImpuestoCedular2").val());
+		cantidadrespaldo = cantidad;
+		cantidad = cantidadsinIvaEP;
+		var d_miva = Number(cantidadrespaldo) - Number(cantidadsinIvaEP);
+		d_miva = d_miva.toFixed(2);
+		$("#mIVA").val(d_miva);
+
+		if (mImporteFlete23 == 1) {
+			mImporteFlete232 = ($("#mIVA").val() * 2) / 3;
+
+			$("#mImporteFlete23").val(Math.round(mImporteFlete232 * 100) / 100);
+
+		}
+		if ($("#CamInst").val() == 0) {
+			mCNIC = parseFloat(cantidad) * parseFloat(CamInst);
+			mCNIC = Number(mCNIC.toFixed(2)) ;
+
+			if (($("#nPorcAmortizacion").val() / 100) == 1)
+				mCNIC = mCNIC / (1);
+			else
+				mCNIC = mCNIC / (1 - ($("#nPorcAmortizacion").val() / 100));
+
+			mCNIC = mCNIC.toFixed(2);
+			$("#mCNIC").val(mCNIC);
+		} else if ($("#CamInst").val() == 1) {
+			mIMDT = parseFloat(cantidad) * parseFloat(CamInst);
+			mIMDT = Number(mIMDT.toFixed(2));
+			if (($("#nPorcAmortizacion").val() / 100) == 1)
+				mIMDT = mIMDT / (1);
+			else
+				mIMDT = mIMDT / (1 - ($("#nPorcAmortizacion").val() / 100));
+			mIMDT = mIMDT.toFixed(2);
+			$("#mIMDT").val(mIMDT);
+		} else {
+			$("#mIMDT").val(0);
+			$("#mCNIC").val(0);
+		}
+
+		mObra5 = parseFloat(cantidad) * parseFloat($("#mObra5").val());
+		mObra5 = Number(mObra5.toFixed(2)) ;
+
+		if (($("#nPorcAmortizacion").val() / 100) == 1)
+			mObra5 = mObra5 / (1);
+		else
+			mObra5 = mObra5 / (1 - ($("#nPorcAmortizacion").val() / 100));
+
+		mObra5 = mObra5.toFixed(2);
+		$("#mObra5").val(mObra5);
+
+		mISRHonorarios = parseFloat(cantidad) * parseFloat($("#mISRHonorarios").val());
+		mISRHonorarios = Number(mISRHonorarios.toFixed(2)) ;
+
+		if (($("#nPorcAmortizacion").val() / 100) == 1)
+			mISRHonorarios = mISRHonorarios / (1);
+		else
+			mISRHonorarios = mISRHonorarios / (1 - ($("#nPorcAmortizacion").val() / 100));
+
+		mISRHonorarios = mISRHonorarios.toFixed(2);
+		$("#mISRHonorarios").val(mISRHonorarios);
+
+		mImporteFlete4 = parseFloat(cantidad) * parseFloat($("#mImporteFlete4").val());
+		mImporteFlete4 = Number(mImporteFlete4.toFixed(2)) ;
+		if (($("#nPorcAmortizacion").val() / 100) == 1)
+			mImporteFlete4 = mImporteFlete4 / (1);
+		else
+			mImporteFlete4 = mImporteFlete4 / (1 - ($("#nPorcAmortizacion").val() / 100));
+
+		mImporteFlete4 = mImporteFlete4.toFixed(2);
+		$("#mImporteFlete4").val(mImporteFlete4);
+
+		mISRArrenda = parseFloat(cantidad) * parseFloat($("#mISRArrenda").val());
+		mISRArrenda = Number(mISRArrenda.toFixed(2)) ;
+
+		if (($("#nPorcAmortizacion").val() / 100) == 1)
+			mISRArrenda = mISRArrenda / (1);
+		else
+			mISRArrenda = mISRArrenda / (1 - ($("#nPorcAmortizacion").val() / 100));
+
+		mISRArrenda = mISRArrenda.toFixed(2);
+		$("#mISRArrenda").val(mISRArrenda);
+
+		var mAmortizaEP = (Number($("#mAmortizacionAnticipoMasIva").val()) / Number($("#mImpEjercer").val())) * cantidadrespaldo;
+		mAmortizaEP = mAmortizaEP.toFixed(2);
+		$("#mAmortizacionAnticipoMasIvaEP").val(mAmortizaEP);
+
+		var mPenaliza = (Number($("#mImportePenalizacion").val()) / Number($("#mImpEjercer").val())) * cantidadrespaldo;
+		mPenaliza = mPenaliza.toFixed(2);
+		$("#mPenalizacion").val(mPenaliza);
+
+		mRetImpuestoCedular = parseFloat(cantidad) * parseFloat($("#mRetImpuestoCedular").val());
+		mRetImpuestoCedular = Number(mRetImpuestoCedular.toFixed(2)) ;
+
+		if (($("#nPorcAmortizacion").val() / 100) == 1)
+			mRetImpuestoCedular = mRetImpuestoCedular / (1);
+		else
+			mRetImpuestoCedular = mRetImpuestoCedular / (1 - ($("#nPorcAmortizacion").val() / 100));
+
+		mRetImpuestoCedular = mRetImpuestoCedular.toFixed(2);
+		$("#mRetImpuestoCedular").val(mRetImpuestoCedular);
+
+		mImporteNetoEP = Number($("#m23IVA").val()) + Number($("#mCNIC").val()) + Number($("#mIMDT").val()) + Number($("#mObra5").val()) + Number($("#mISRHonorarios").val()) +
+		Number($("#mImporteFlete4").val()) + Number($("#mISRArrenda").val()) + Number($("#mRetImpuestoCedular").val()) +
+		Number($("#mImporteFlete23").val()) + Number($("#mTesofe").val());
+
+		mImporteNetoEPRes = parseFloat(cantidadrespaldo) - parseFloat(mImporteNetoEP);
+		mImporteNetoEPRes = mImporteNetoEPRes.toFixed(2);
+		$("#mImporteNetoEP").val(mImporteNetoEPRes);
+
+	}
+
+	function ponCerosD() {
+		$("#DCD_ISR_D").val("0");
+		$("#DCD_IVA_D").val("0");
+		$("#DCD_MIL5_D").val("0");
+		$("#DCD_MIL2_D").val("0");
+		$("#DCD_CONTRIBUCION_D").val("0");
+		$("#DCD_OTRAS_RET_D").val("0");
+		$("#DCD_PENALIZACION_D").val("0");
+		$("#DCD_SANCION_D").val("0");
+		$("#DCD_DEVOL_D").val("0");
+		$("#DCD_AMORT_D").val("0");
+		$("#DCD_RETENCION_D").val("0");
+		$("#mIVA_D").val("0");
+	}
+
+	function actualSaldosDet(elTipo) {
+		var laRetencion = 0;
+
+		laRetencion = Number($("#m23IVA").val()) + Number($("#mCNIC").val()) + Number($("#mIMDT").val()) + Number($("#mObra5").val()) + Number($("#mISRHonorarios").val()) +
+		Number($("#mImporteFlete4").val()) + Number($("#mISRArrenda").val()) + Number($("#mRetImpuestoCedular").val()) +
+		Number($("#mImporteFlete23").val()) + Number($("#mTesofe").val());
+		laRetencion = laRetencion.toFixed(2);
+
+		$("#DCD_ISR_D").val(parseFloat($("#DCD_ISR_D").val()) + elTipo * parseFloat($("#mISRHonorarios").val()) + elTipo * Number($("#mISRArrenda").val()));
+		$("#DCD_IVA_D").val(parseFloat($("#DCD_IVA_D").val()) + elTipo * parseFloat($("#mImporteFlete23").val()));
+		$("#DCD_MIL5_D").val(parseFloat($("#DCD_MIL5_D").val()) + elTipo * parseFloat($("#mObra5").val()));
+		$("#DCD_MIL2_D").val(parseFloat($("#DCD_MIL2_D").val()) + elTipo * (Number($("#mCNIC").val()) + Number($("#mIMDT").val())));
+		$("#DCD_CONTRIBUCION_D").val(parseFloat($("#DCD_CONTRIBUCION_D").val()) + elTipo * parseFloat($("#mImporteFlete4").val()));
+		$("#DCD_OTRAS_RET_D").val(parseFloat($("#DCD_OTRAS_RET_D").val()) + elTipo * parseFloat($("#mRetImpuestoCedular").val()));
+		$("#DCD_PENALIZACION_D").val(parseFloat($("#DCD_PENALIZACION_D").val()) + elTipo * parseFloat($("#mTesofe").val()));
+		$("#DCD_SANCION_D").val(parseFloat($("#DCD_SANCION_D").val()) + elTipo * parseFloat($("#mSancion").val()));
+		$("#DCD_DEVOL_D").val(parseFloat($("#DCD_DEVOL_D").val()) + elTipo * parseFloat($("#mDevolucion").val()));
+		$("#DCD_AMORT_D").val(parseFloat($("#DCD_AMORT_D").val()) + elTipo * parseFloat($("#mAmortizacionAnticipoMasIvaEP").val()));
+		$("#DCD_RETENCION_D").val(parseFloat($("#DCD_RETENCION_D").val()) + elTipo * parseFloat(laRetencion));
+		$("#mIVA_D").val(Number($("#mIVA_D").val()) + elTipo * Number($("#mIVA").val())) ;
+	}
+
+	function AjustaRetencionesD() {
+		var laRetencion = 0;
+
+		$("#mDevolucion").val(Number($("#mDevolucion").val()) + (Number($("#DCD_DEVOL").val()) - Number($("#DCD_DEVOL_D").val())));
+
+		$("#mTesofe").val(Number($("#mTesofe").val()) + (Number($("#mImportePenalizacion").val()) - Number($("#DCD_PENALIZACION_D").val())));
+
+		if ($("#CamInst").val() == 0) {
+			$("#mCNIC").val(Number($("#mCNIC").val()) + (Number($("#DCD_MIL2").val()) - Number($("#DCD_MIL2_D").val())));
+		} else {
+			$("#mIMDT").val(Number($("#mIMDT").val()) + (Number($("#DCD_MIL2").val()) - Number($("#DCD_MIL2_D").val())));
+		}
+
+		$("#mImporteFlete23").val(Number($("#mImporteFlete23").val()) + (Number($("#DCD_IVADES").val()) - Number($("#DCD_IVA_D").val())));
+		$("#mObra5").val(Number($("#mObra5").val()) + (Number($("#DCD_MIL5").val()) - Number($("#DCD_MIL5_D").val())));
+		$("#mImporteFlete4").val(Number($("#mImporteFlete4").val()) + (Number($("#DCD_CONTRIBUCION").val()) - Number($("#DCD_CONTRIBUCION_D").val())));
+
+		if (Number($("#mISRHonorarios").val()) > 0)
+			$("#mISRHonorarios").val(Number($("#mISRHonorarios").val()) + (Number($("#DCD_ISR").val()) - Number($("#DCD_ISR_D").val())));
+		else
+			$("#mISRArrenda").val(Number($("#mISRArrenda").val()) + (Number($("#DCD_ISR").val()) - Number($("#DCD_ISR_D").val())));
+
+		$("#mRetImpuestoCedular").val(Number($("#mRetImpuestoCedular").val()) + (Number($("#DCD_OTRAS_RET").val()) - Number($("#DCD_OTRAS_RET_D").val())));
+		$("#mSancion").val(Number($("#mSancion").val()) + (Number($("#DCD_SANCION").val()) - Number($("#DCD_SANCION_D").val())));
+
+		$("#mAmortizacionAnticipoMasIvaEP").val(Number($("#mAmortizacionAnticipoMasIvaEP").val()) + (Number($("#DCD_AMORT").val()) - Number($("#DCD_AMORT_D").val())));
+		//if (1==2){
+		var mAmortizaEP = (Number($("#mAmortizacionAnticipoMasIva").val()) / Number($("#mImpEjercer").val())) * cantidadrespaldo;
+		mAmortizaEP = mAmortizaEP.toFixed(2);
+		$("#mAmortizacionAnticipoMasIvaEP").val(mAmortizaEP);
+
+		laRetencion = Number($("#m23IVA").val()) + Number($("#mCNIC").val()) + Number($("#mIMDT").val()) + Number($("#mObra5").val()) + Number($("#mISRHonorarios").val()) +
+		Number($("#mImporteFlete4").val()) + Number($("#mISRArrenda").val()) + Number($("#mRetImpuestoCedular").val()) +
+		Number($("#mImporteFlete23").val()) + Number($("#mTesofe").val());
+		laRetencion = laRetencion.toFixed(2);
+
+		$("#mIVA").val(Number($("#mIVA").val()) + (Number($("#mImporteIVA").val()) - Number($("#mIVA_D").val())));
+		$("#mImporteNetoEP").val(Number($("#DCD_IMP_BRUTO").val()) - Number(laRetencion));
+
+	}
+</script>
+<script type="text/javascript">
+	function CalculaRetencionesG() {
+		var szWhere = "";
+		szWhere = " cidcontrato ='" + $("#cIDContrato").val() + "' AND cIdEntidadContable = '" + $("#cCentroContable").val() + "'";
+		if ($("#cCentroContable").val() == '10' && $("#cCentroContable").val() != $("#cCentroContableContrato").val() && $("#cCentroContable").val() == $("#cCentroContableOrig").val()) {
+			szWhere = " cidcontrato ='" + $("#cIDContrato").val() + "' AND cIdEntidadContable = '" + $("#cCentroContableContrato").val() + "'";
+		}
+		if ($("#llevaAnticipo").val() == "1" && $("#tieneAnticipo").val() == "0") {
+			szWhere = szWhere + " AND 1=2";
+		} //URVP.25112014 Si lleva anticipo y no se le ha hecho el anticipo se quitan las retenciones ya que el pago a realizar sera el anticipo el cual no lleva retenciones
+		var este = 0;
+		var elMonto = "100";
+		var retencion = 0;
+		var szTabla = "CALC_RETENCIONES_FACT_CONT_DIVERSO";
+		$.getJSON("../catalogos/SelectJson.jsp", {
+			Tabla : szTabla,
+			Param : szWhere,
+			MaxReg : elMonto,
+			ajax : 'false'
+		}, function(j) {
+			var options = '';
+			var porretencion = 0;
+			$("#DCD_ISR").val(0);
+			for (var i = 0; i < j.length; i++) {
+				if ($("#lHaySaldoAnticipo").val() == 0 || $("#mAmortizado").val() != '0.0000') {
+					//URVP.27112014 Se valida si es impuesto cedular y nayarit, se cambia el porcentaje de la retencion a 1.5%
+					if (j[i].Col0 == "9" && $("#cCentroContable").val() == "28") {
+						var porcentCedular = 0.00;
+						porcentCedular = Number(Number(j[i].Col2) + 0.005).toFixed(6);
+						retencion = parseFloat(porcentCedular) * Number($("#subTotal_1").val());
+					} else {
+						retencion = parseFloat(j[i].Col2) * Number($("#subTotal_1").val());
+					}
+					//retencion.toFixed( 2 );
+
+					if (j[i].Col0 == 4) {
+						retencion = Number($("#DCD_ISR").val()) + retencion;
+						retencion = Number(retencion).toFixed(2);
+						$("#DCD_ISR").val(retencion);
+					} else if (j[i].Col0 == 5) {
+						retencion = Number(retencion).toFixed(2);
+						$("#DCD_CONTRIBUCION").val(retencion);
+					} else if (j[i].Col0 == 6) {
+						retencion = Number($("#DCD_ISR").val()) + retencion;
+						retencion = Number(retencion).toFixed(2);
+						$("#DCD_ISR").val(retencion);
+					} else if (j[i].Col0 == 9) {
+						retencion = Number(retencion).toFixed(2);
+						$("#DCD_OTRAS_RET").val(retencion);
+					}
+				}
+			}
+		});
+	}
+
+
+	function FiltroRetencionesD() {
+		//se limpia grid debido a que si se selecciona por error un contrato con retencion y se selecciona uno sin retencion, el grid deja lass retenciones del que si tiene
+		$('#tretencion').dataTable().fnClearTable();
+
+		cargaCtaBancariaRFC();
+		obtieneCentroContableContrato_Orig($("#cIDContrato").val());
+		querySelectPost("readRecepcionMateriales", "noRecepcion", {
+			async : false
+		});
+
+		// reinicia valores
+		$("#acumulado").val("0");
+		comprometido = 0;
+		$("#mImporteFlete23").val("0");
+		$("#mIMDT").val("0");
+		$("#mCNIC").val("0");
+		$("#mObra5").val("0");
+		$("#mISRHonorarios").val("0");
+		$("#mImporteFlete4").val("0");
+		$("#mISRArrenda").val("0");
+		$("#mAmortizacionAnticipoMasIvaEP").val("0");
+		$("#mTesofe").val("0");
+		$("#mRetImpuestoCedular").val("0");
+		// termina reinicia valores
+
+		var szWhere = "";
+		//querySelectPost("PagosAMFRead", "NumPagoAMF", {async: false }); Se comenta para CONAFOR 
+		$("#cIdContrato").val($("#cIDContrato").val());
+		szWhere = " cidcontrato ='" + $("#cIDContrato").val() + "' AND cIdEntidadContable = '" + $("#cCentroContable").val() + "'";
+		if ($("#cCentroContable").val() == '10' && $("#cCentroContable").val() != $("#cCentroContableContrato").val() && $("#cCentroContable").val() == $("#cCentroContableOrig").val()) {
+			szWhere = " cidcontrato ='" + $("#cIDContrato").val() + "' AND cIdEntidadContable = '" + $("#cCentroContableContrato").val() + "'";
+		}
+		if ($("#llevaAnticipo").val() == "1" && $("#tieneAnticipo").val() == "0") {
+			szWhere = szWhere + " AND 1=2";
+		}
+		var elMonto = "100";
+		var este = 0;
+		var retencion = 0;
+		elMonto = $("#mTotal").val();
+		var szTabla = "CALC_RETENCIONES_FACT_CONT_DIVERSO";
+		$.getJSON("../catalogos/SelectJson.jsp", {
+			Tabla : szTabla,
+			Param : szWhere,
+			MaxReg : elMonto,
+			ajax : 'false'
+		}, function(j) {
+			var options = '';
+			var porretencion = 0;
+			for (var i = 0; i < j.length; i++) {
+				//URVP.27112014 Se valida si es impuesto cedular y nayarit, se cambia el porcentaje de la retencion a 1.5%
+				if (j[i].Col0 == "9" && $("#cCentroContable").val() == "28") {
+					var porcentCedular = 0.00;
+					porcentCedular = Number(Number(j[i].Col2) + 0.005).toFixed(6);
+					fnClickAddRowB(j[i].Col0, j[i].Col1, porcentCedular);
+				} else {
+					fnClickAddRowB(j[i].Col0, j[i].Col1, j[i].Col2);
+				}
+				porretencion = este * elMonto;
+				//$("#mTotal2").val((Number (porretencion)+Number(elMonto)));
+				if (j[i].Col0 > 10 && j[i].Col0 < 16) { //URVP.04092014 SE CAMBIA LA CONDICION == 0 A >10 YA QUE SE DESGLOZARON EN MAS RETENCIONES Y AS POSTERIORES AL ID 10 SON LAS EQUIVALENTES A LA 0 DEL 2/3 DEL IVA
+					$("#DCD_IVADES").val(1);
+					if ($("#lHaySaldoAnticipo").val() == 0 || $("#mAmortizado").val() != '0.0000') { ///1 espara cuando hay anticipo
+						mImporteFlete23 = 1; //alo
+						//$("#m23IVA").val(1);
+						if (j[i].Col0 == 11)
+							esIvaArrenda = 1;
+					}
+				} else if (j[i].Col0 == 2) {
+					$("#DCD_MIL2").val(parseFloat(j[i].Col2));
+
+					if ($("#lHaySaldoAnticipo").val() == 0 || $("#mAmortizado").val() != '0.0000') {
+						CamInst = parseFloat(j[i].Col2);
+						CamInst2 = parseFloat(j[i].Col2);
+					}
+					DCD_MIL2res = parseFloat(j[i].Col2);
+				} else if (j[i].Col0 == 3) {
+					$("#DCD_MIL5").val(parseFloat(j[i].Col2));
+					if ($("#lHaySaldoAnticipo").val() == 0 || $("#mAmortizado").val() != '0.0000') {
+						$("#mObra5").val(parseFloat(j[i].Col2));
+						$("#mObra52").val(parseFloat(j[i].Col2));
+					}
+
+					DCD_MIL5res = parseFloat(j[i].Col2);
+
+				} else {
+					if ($("#lHaySaldoAnticipo").val() == 0 || $("#mAmortizado").val() != '0.0000') { ///1 espara cuando hay anticipo
+
+						if (j[i].Col0 == 4) {
+							$("#mISRHonorarios").val(parseFloat(j[i].Col2));
+							$("#mISRHonorarios2").val(parseFloat(j[i].Col2));
+						} else if (j[i].Col0 == 5) {
+							$("#mImporteFlete4").val(parseFloat(j[i].Col2));
+							$("#mImporteFlete42").val(parseFloat(j[i].Col2));
+						} else if (j[i].Col0 == 6) {
+							$("#mISRArrenda").val(parseFloat(j[i].Col2));
+							$("#mISRArrenda2").val(parseFloat(j[i].Col2));
+						} else if (j[i].Col0 == 7) {
+							$("#mTesofe").val(parseFloat(j[i].Col2));
+							$("#mTesofe2").val(parseFloat(j[i].Col2));
+						} else if (j[i].Col0 == 9) {
+							if ($("#cCentroContable").val() == "28") {
+								$("#mRetImpuestoCedular").val(porcentCedular);
+								$("#mRetImpuestoCedular2").val(porcentCedular);
+							} else {
+								$("#mRetImpuestoCedular").val(parseFloat(j[i].Col2));
+								$("#mRetImpuestoCedular2").val(parseFloat(j[i].Col2));
+							}
+						}
+					}
+					if (j[i].Col0 == "9" && $("#cCentroContable").val() == "28") {
+						//retencion= parseFloat(retencion) + parseFloat(porcentCedular);
+						$("#porcCedular").val("1");
+					} else if (j[i].Col0 == "9" && $("#cCentroContable").val() == "21") {
+						//retencion= parseFloat(retencion) + parseFloat(porcentCedular);
+						$("#porcCedular").val("1");
+					} else {
+						retencion = parseFloat(retencion) + parseFloat(j[i].Col2);
+					}
+				}
+				$("#sumareten").val(retencion);
+				DCD_RETENCIONres = retencion;
+			}
+		});
+		if (2 == 1) {
+			Anticipo();
+
+			if ($("#lHaySaldoAnticipo").val() == 1 && $("#mAmortizado").val() != '0.0000') {
+				$("#mAmortizacionAcumulado").val($("#mAmortizado").val());
+			} else {
+				if ($("#cCentroContable").val() == '10' && $("#cCentroContable").val() != $("#cCentroContableContrato").val() && $("#cCentroContable").val() == $("#cCentroContableOrig").val()) {
+					queryFormPost("tFACTDiversosSEGUNDOPAGOReadCentrales", {
+						async : false
+					});
+				} else {
+					queryFormPost("tFACTDiversosSEGUNDOPAGORead", {
+						async : false
+					});
+				}
+			}
+			//ERH2015 Se guarda el acumulado de amortizacion original.
+			acumuladoAmortizacionOriginal = Number(quitaFmt($("#mAmortizacionAcumulado").val())) * 100 / 100;
+
+			$("#nPorcAmortizacion2").val($("#nPorcAmortizacion").val());
+			mAmortizacionAcumuladoRes = $("#mAmortizacionAcumulado").val();
+			mImporteSancionAcumulado = $("#mImporteSancionAcumulado").val();
+			mImporteDevolucionAcumulado = $("#mImporteDevolucionAcumulado").val();
+			comprometido = $("#acumulado").val();
+			setTimeout("AnticipoTotal()", 1000);
+		} else {
+			calculaIVAConsulta();
+		}
+	}
+
+	function validaAmortizacion() {
+		var impAnticipo = 0.00;
+		var impAmortizado = 0.00;
+		var impPago = 0.00;
+		impAnticipo = Number($("#saldoAnticipo").val());
+		impAmortizado = Number($("#mAmortizacionAcumulado").val());
+		impPago = Number($("#mImpEjercer").val());
+
+		if (impPago <= (impAnticipo - impAmortizado)) {
+			alert("El pago no se puede procesar debido a que es menor o igual que la amortizacion del anticipo, favor de capturar el resto de las facturas.");
+			return;
+		} else {
+			$("#mAmortizacionAnticipo").val((impAnticipo - impAmortizado).toFixed(2));
+			$("#mImpEjercer").val(Number($("#mImpEjercer").val()) + Number($("#mAmortizacionAnticipo").val()));
+			$(".subtotall").change();
+		}
+	}
+
+	var ivaanticipo = 0;
+	function Anticipo() {
+		$("#cIDContratoObra").val($("#cIDContrato").val());
+		//queryFormPost("tFactDiversoAnticipoRead", {async: false });  // se comentariza para hacer la validacion en el combo de recepcion.
+		if ($("#cCentroContable").val() == '10' && $("#cCentroContable").val() != $("#cCentroContableContrato").val() && $("#cCentroContable").val() == $("#cCentroContableOrig").val()) {
+			queryFormPost("tFACTOBRASaldocompromisoReadCentrales", {
+				async : false
+			});
+		} else {
+			queryFormPost("tFACTOBRASaldocompromisoRead", {
+				async : false
+			});
+		}
+		if ($("#lHaySaldoAnticipo").val() == "1" && $("#mAmortizado").val() == '0.0000') {
+			$("#mImporteBruto").attr("readonly", true);
+			$("#nPorcAmortizacion").val(0);
+			setTimeout("calculaIVA()", 400);
+		} else {
+			$("#mImporteBruto").val(0);
+			calculaIVA();
+		}
+	}
+	function obtieneCentroContableContrato_Orig(cidContrato) {
+		if (cidContrato.substring(0, 3) == 'PLU') {
+			$("#cUnidadContrato").val(cidContrato.substring(7, 10));
+		} else {
+			$("#cUnidadContrato").val(cidContrato.substring(3, 6));
+		}
+		queryFormPost("ObtieneCentroContableContrato_Original", {
+			async : false,
+			callback : function() {
+				//alert("cCentroContableContrato= "+$("#cCentroContableContrato").val()+" cCentroContableOrig= "+$("#cCentroContableOrig").val());
+			}
+		});
+
+	}
+	//queryFormPost("tFactObraAnticipoRead", {async: false });
+
+	function elRetardo() {
+		$("#nombre").val($("#cobjetocontrato").val());
+		$(".paso01").attr('disabled', false);
+
+		if ($("#tipoAmortizacion").val() != "1") {
+			elParametro = "'" + $("#caNoContrarrecibo").val() + "', '" + $("#TIPO_OPERACION").val() + "', '0', '0', '" + $("#DCD_IMP_BRUTO").val() + "', '" + $("#DCD_SANCION").val() + "', '" + $("#DCD_DEVOL").val() + "', '" + $("#DCD_AMORT").val() + "', '" + $("#DCD_IVA").val() + "','" + $("#DCD_RETENCION").val() + "', '" + $("#DCD_PENALIZACION").val() + "', '" + $("#DCD_NETO").val() + "', '" + $("#DCD_FECHA_FACTURA").val() + "','" + $("#cCentroContable").val() + "'," + $("#aEjercicioFiscal").val() + ",'" + $("#nombre").val() + "', '2','0','" + $("#cIdRFC_RelacionGasto2").val() + "'," + $("#mOtrosImpuestos").val();
+		} else {
+			elParametro = "'" + $("#caNoContrarrecibo").val() + "', '" + $("#TIPO_OPERACION").val() + "', '0', '0', '" + $("#mImporteBruto").val() + "', '" + $("#DCD_SANCION").val() + "', '" + $("#DCD_DEVOL").val() + "', '" + $("#DCD_AMORT").val() + "', '" + $("#DCD_IVA").val() + "','" + $("#DCD_RETENCION").val() + "', '" + $("#DCD_PENALIZACION").val() + "', '" + $("#DCD_NETO").val() + "', '" + $("#DCD_FECHA_FACTURA").val() + "','" + $("#cCentroContable").val() + "'," + $("#aEjercicioFiscal").val() + ",'" + $("#nombre").val() + "', '2','0','" + $("#cIdRFC_RelacionGasto2").val() + "'," + $("#mOtrosImpuestos").val();
+		}
+
+		$.getJSON("../catalogos/InsertJson.jsp", {
+			Tabla : "TCONTRARECIBODIVERSOSCREATE",
+			Param : elParametro,
+			MaxReg : "",
+			ajax : 'false'
+		}, function(j) {});
+		$("#cIDContrato").attr('disabled', true);
+		$(".paso01").attr('disabled', true);
+		$("#Agregar1").attr('disabled', true);
+
+		parent.document.getElementById("pb_send").style.visibility = 'visible';
+		parent.document.getElementById("pb_send").disabled = false;
+	}
+	function validar(e) {
+		tecla = (document.all) ? e.keyCode : e.which;
+		if (tecla == 8) return true;
+		patron = /[A-Za-z.\d\s\\. ]/;
+		te = String.fromCharCode(tecla);
+		return patron.test(te);
+	}
+	function validar2(e) {
+		tecla = (document.all) ? e.keyCode : e.which;
+		if (tecla == 8)
+			return true;
+		patron = /[.\d]/;
+		te = String.fromCharCode(tecla);
+		return patron.test(te);
+	}
+
+	function quitaFmt(val) {
+		val = val.replace("$", "");
+		val = val.replace(",", "");
+		val = val.replace(",", "");
+		val = val.replace(",", "");
+		val = val.replace(",", "");
+
+		if (val.indexOf("(") >= 0) {
+			val = val.replace("(", "");
+			val = val.replace(")", "");
+			val = "-" + val;
+		}
+		return val;
+	}
+	function Sinfrmt(fld) {
+		var valcol = fld.value;
+		valcol = valcol.replace("$", "");
+		valcol = valcol.replace(",", "");
+		$("#" + fld.id).val(valcol);
+	}
+
+	function cambiafrmt(fld) {
+		$("#" + fld.id).formatCurrency();
+	}
+
+	function validaSancion() {
+		var montoPago = 0.00;
+		var montoSancion = 0.00;
+		montoSancion = Number($("#mImporteSancion").val());
+		montoPago = Number($("#mImporteBruto").val());
+		if (montoPago == 0) {
+			alert("El importe del pago no puede ser 0, favor de verificar la recepcion de material o que los importes sean correctos en las Facturas.");
+			return false;
+		}
+		if (montoSancion > montoPago) {
+			alert("El monto de la Sanción no puede ser Mayor al Importe Bruto.");
+			$("#mImporteSancion").val(0);
+			document.getElementById("mImporteSancion").focus();
+			$(".subtotall").change();
+			return false;
+		}
+		return true;
+	}
+
+
+	function cmdGuardar() {
+		if ($("#numPaso").val() == '1') {
+			if (!validaSancion()) return;
+			if ($("#noRecepcion").val() == "-1") {
+				alert("Favor de seleccionar una recepcion.");
+				return;
+			}
+
+			var facRet = 0.00;
+			//facRet = (  parseFloat( $("#mImporteFacturas").val() ) + parseFloat( $("#mImporteRetencion").val() )  ) * 100 / 100;
+			facRet = (parseFloat($("#mImporteFacturas").val()) + parseFloat($("#mImporteRetencion").val()) + parseFloat($("#mImportePenalizacion").val() * 1.16)) * 100 / 100;
+			facRet = Number(facRet).toFixed(2);
+			/*EHR2015 Validacion de montos.*/
+			var importeEjercer = parseFloat($("#mImpEjercer").val()) * 100 / 100;
+
+			//var techoImporteEjercer =  parseFloat( importeEjercer + 0.02 ) * 100 / 100;
+			//var pisoImporteEjercer  =  parseFloat( importeEjercer - 1.00 ) * 100 / 100;
+			var techoImporteEjercer = parseFloat(importeEjercer) * 100 / 100;
+			var pisoImporteEjercer = parseFloat(importeEjercer - 0.02) * 100 / 100;
+			var amortizacionAnticipo = parseFloat($("#mAmortizacionAnticipo").val()) * 100 / 100;
+			var ivaAmortizacion = (amortizacionAnticipo * 0.16) * 100 / 100;
+			;
+			var amortizacionConIVA = amortizacionAnticipo + ivaAmortizacion;
+
+			var techoEjercerMasAmortizaciones = 0.0;
+			var pisoEjercerMasAmortizaciones = 0.0;
+
+			if ($("#tipoAmortizacion").val() != "1") {
+				//pisoEjercerMasAmortizaciones  =  parseFloat( importeEjercer + amortizacionAnticipo - 1.00 ) * 100 / 100;
+				//techoEjercerMasAmortizaciones =  parseFloat( importeEjercer + amortizacionAnticipo + 0.02 ) * 100 / 100;
+				pisoEjercerMasAmortizaciones = parseFloat(importeEjercer + amortizacionAnticipo - 0.02) * 100 / 100;
+				techoEjercerMasAmortizaciones = parseFloat(importeEjercer + amortizacionAnticipo) * 100 / 100;
+			} else {
+
+				pisoEjercerMasAmortizaciones = pisoImporteEjercer;
+				techoEjercerMasAmortizaciones = techoImporteEjercer;
+				// 				facRet = facRet + amortizacionConIVA;
+
+				var suma = 0.0;
+				suma = (parseFloat($("#mImpEjercer").val()) * 100 / 100);
+
+				$("#mImpEjercer").val(suma);
+
+			}
+
+			if( (facRet >= pisoImporteEjercer && facRet <= techoImporteEjercer) ) {
+
+				var diferencia = 0.00;
+				diferencia = Math.abs(parseFloat($("#mImporteFacturas").val()) - parseFloat($("#mImporteNeto").val())).toFixed(2);
+				if (diferencia > 0 && diferencia < 0.02) {
+					if (!confirm("¿Tu pago saldra con diferencia de $" + diferencia + " en el Importe Neto, deseas continuar?")) {
+						alert("Favor de Borrar el tramite.");
+						return;
+					}
+				}
+
+				var diferencia2 = 0.00;
+				diferencia2 = (parseFloat($("#mImporteFacturas").val()) - parseFloat($("#mImporteNeto").val())).toFixed(2);
+				if (diferencia2 < 0) {
+					alert("El importe en Facturas+Retencion no corresponde a la recepción.");
+					return;
+				}
+			} else {
+				alert("El importe en Facturas+Retencion no corresponde a la recepción.");
+				return;
+			}
+			if ($("#destGasto").val() == "ANDV") {
+				if (Number($("#saldoAnticipo").val()).toFixed(2) != (Number($("#mImpEjercer").val()) + Number($("#totalPagosAnticipo").val())).toFixed(2)) {
+					alert("El importe del pago no coincide con el importe correcto del anticipo, favor de revisar las facturas.");
+					return;
+				}
+				if ($("#destGasto").val() == "ANDV") {
+					$('#tretencion').dataTable().fnClearTable();
+					$("#mImporteRetencion").val(0);
+					$(".subtotall").change();
+					calculaIVA();
+				}
+			}
+
+			if ($("#tipoAmortizacion").val() != "1") {
+				if (Number($("#saldoAnticipo").val()) != Number($("#mAmortizacionAcumulado").val()) && $("#destGasto").val() != "ANDV") {
+					alert("No se puede realizar el pago debido a que no cumple el total de la amortizacion del anticipo.");
+					return;
+				}
+			}
+
+
+			if (Number($("#mImpEjercer").val()) < 0) {
+				alert("El importe no puede ser Negativo.");
+				return;
+			}
+			var aData = oTablevFact.fnGetData();
+			if ($("#destGasto").val() != "AL" && $("#destGasto").val() != "") {
+				if (aData.length == 0) {
+					alert("Se deben Capturar las facturas");
+					return -1;
+				}
+			}
+
+			if ($.trim($("#destGasto").val()) == "") {
+				alert("Favor de seleccionar un tipo destino.");
+				return;
+			}
+
+			if ($.trim($("#ctaBancaria option:selected").text()) == "") {
+				alert("El beneficiario " + $("#cIdRFC").val() + " no tiene dada de alta alguna cuenta bancaria, por lo que no se puede proceder con el pago.");
+				return;
+			}
+
+			if (!validaCapturaLayoutVuelos()) {
+
+				return;
+			} else {
+				$("#btnLayoutBoletos").hide();
+			}
+
+			agregaAmortizacion(false);
+			$('#cFolioPAGODIVERSO').val($('#id_caso').val());
+			$("input[id='iva']").val($("input[id='nPorcIVAAplicable']").val());
+			$("input[id='nIdConcepto']").val($('#TIPO_CONCEPTO option:selected').val());
+			$("input[id='tConcepto2']").val($('#TIPO_CONCEPTO option:selected').text());
+			$("input[id='noFactura2']").val($("input[id='cNoFactura']").val());
+			$("input[id='tipoOper']").val($('#cIdTipoOperacion option:selected').val());
+			$("input[id='impTotal']").val($("input[id='mImporteNeto']").val());
+			$("#tipoBenef").val($('#cIdTipoRFC option:selected').text());
+			$("#iva").val($("#nPorcIVAAplicable").val());
+			$("#poriva").val($("#mImporteIVA").val());
+			$("#cIdRFC_RelacionGasto2").val($("#cIdRFC").val());
+			$("#cMes").val($("#fRecepcion").val().split("/")[1]);
+			queryFormPost("tRelacionGastClaveBeneficiarioRead", "cIdRFC_RelacionGasto2", {
+				async : false
+			});
+			var hayError = '';
+			$('.subtotall').each(function() {
+				if ($(this).val() == '') {
+					hayError = hayError + this.name + ', ';
+				}
+			});
+			$('.paso01').each(function() {
+				if ($(this).val() == '') {
+					hayError = hayError + this.name + ', ';
+				}
+			});
+			$('#cIdRFC').each(function() {
+				if ($(this).val() == '') {
+					hayError = hayError + this.name + ', ';
+				}
+			});
+
+
+			if (hayError == '') {
+
+				$("#ID_DESTINO_GASTO").val($("#destGasto").val());
+				querySelectPost("cat_TipoConceptoPagosDiversosRead", "TIPO_CONCEPTO", {
+					async : false
+				});
+				concepto();
+
+				var penalizacion = 0.00;
+				penalizacion = (  parseFloat($("#mImportePenalizacion").val())  ) * 100 / 100;
+
+				if (penalizacion > 0.00) {
+					$("#mImportePenalizacion").val(Math.round(Number(penalizacion * 1.16) * 100) / 100);
+				}
+
+				var auxIB = $("#mImporteBruto").val();
+				$("#mImporteBruto").val(importeRecepcionOriginal);
+				queryFormPost("tContratoDiversosFactCreate", {
+					async : false
+				});
+				queryFormPost("tPagoDiversoEncabezadoUpdate", {
+					async : false
+				});
+				$("#mImporteBruto").val(auxIB);
+
+				parent.document.getElementById("pb_save").disabled = true;
+
+
+				$("#nPorcAmortizacion").attr('readOnly', true); //URVP
+				$("#mAmortizacionAcumulado").attr('readOnly', true); //URVP
+				//$("#fecha_Pago").attr('readOnly', true);//URVP
+				$("#btncIDContrato").attr('disabled', true); //URVP
+				$("#destGasto").attr('disabled', true); //URVP
+				$("#TIPO_OPERACION").attr('disabled', true); //URVP
+				$("#cNoFactura").attr('readOnly', true); //URVP
+				$("#mImporteSancion").attr('readOnly', true); //URVP
+				$("#mImporteDevolucion").attr('readOnly', true); //URVP
+				$("#mAmortizacionAnticipo").attr('readOnly', true); //URVP
+				$("#mImportePenalizacion").attr('readOnly', true); //URVP
+				$("#saldoAnticipo").attr('readOnly', true); //URVP
+				$("#Descrip_Concepto").attr('readOnly', true); //URVP
+				cssReadOnly();
+				//$(".subtotall").attr('disabled', true);//URVP se comentariza para hacer efecto readonly por separado
+				//$(".AyudaSyC").attr('disabled', true);//URVP se comentariza para hacer efecto readonly por separado
+				$("#EditaFacturas").css('visibility', 'hidden');
+				$("#ctaBancaria").attr('disabled', true);
+				$("#estatusRecepcion").val("Pagada");
+				queryFormPost("updateEstatusRecepcion", {
+					async : false
+				});
+				$("#noRecepcion").attr('disabled', true);
+
+				if ($("#cObservaciones").val() != "") {
+					queryFormPost("tPAGODIVERSOEncObservacionesUpdate", {
+						async : false
+					});
+				}
+				$("#cObservaciones").attr('disabled', true);
+
+				alert("Carátula guardada!");
+				$("#importeEjercer").val(Number($("#mImpEjercer").val()).toFixed(2));
+
+				$(".pasoDos").show();
+				//$(".pasoTres").hide();
+				$("#numPaso").val('2');
+				$("#guardar").attr("disabled", true);
+				$("#L03").click();
+
+			} else {
+				alert('Debe ingresar los siguientes datos: ' + hayError);
+			}
+		}
+
+	}
+
+	function CAPITULO() {
+		var capitulo = $("#ep").val();
+		$("#EPDES").val(capitulo.substring(31, 32));
+		//$("#EPDES").val(3);	
+		//setTimeout('querySelectPost("CatalogoDiversoConcepto2Read", "TIPO_CONCEPTO", {async: false })',1000);	
+
+	//if ($("#TIPO_CONCEPTO").val() == "AL"){
+	//	querySelectPost("CatalogoAlmacenRead","ALM", {async: false });
+	//	$("#altaAlmacen").val("");
+	//	$("#altaAlmacen").show();
+	//	$("#cAnioFactEP").val("");
+	//	$("#nFacturaEP").val("");
+	//	$("#cAnioFactEP").show(); 
+	//	$("#nFacturaEP").show();
+	//}
+	//else{
+	//	$("#altaAlmacen").val("0");
+	//	$("#altaAlmacen").hide();
+	//	$("#cAnioFactEP").val("");
+	//	$("#nFacturaEP").val("");
+	//	$("#cAnioFactEP").hide(); 
+	//	$("#nFacturaEP").hide();
+	//	querySelectPost("CatalogoAlmacenVacioRead","ALM", {async: false });
+	//}
+	}
+
+	function Grid() {
+		window.open("AyudasEPOBRA.jsp", 'AyudaEPsPagos', 'status=1, width=900px, height=680px, left=100px');
+		return false;
+	}
+
+	function BuscaPoliza() {
+		var szWhere = " nfolioPagoDiverso = " + $("#id_caso").val();
+		var elMonto = "1";
+		$("#laPoliza").val("");
+		$("#docAplicado").val("");
+		var szTabla = "TPAGODIVERSODOCAPLICADOREAD";
+		$.getJSON("../catalogos/SelectJson.jsp", {
+			Tabla : szTabla,
+			Param : szWhere,
+			MaxReg : elMonto,
+			ajax : 'false'
+		}, function(j) {
+			for (var i = 0; i < j.length; i++) {
+				$("#laPoliza").val(j[i].Col0);
+				$("#docAplicado").val(j[i].Col1);
+			}
+		});
+	}
+
+	function validaPenalizacion() {
+		var monto = "";
+		monto = $("#mImportePenalizacion").val();
+		if (parseInt(monto.indexOf("."), 10) != parseInt(monto.lastIndexOf("."), 10)) {
+			alert("No se puede captura mas de punto decimal, introduce el importe correcto.");
+			$("#mImportePenalizacion").val("0");
+			document.getElementById("mImportePenalizacion").focus();
+		}
+	}
+
+	function cargaCtaBancariaRFC() {
+		$("#campoRFC").val($.trim($("#cIdRFC").val()));
+		querySelectPost("cargaCtaBancariasRFC", "ctaBancaria", {
+			async : false
+		});
+		$("#mImporteBruto").val(0);
+
+		queryFormPost("cargallevaAnticipoDiverso", {
+			async : false
+		});
+		queryFormPost("cargatieneAticipoDiverso", {
+			async : false
+		});
+
+		if ($("#tieneAnticipo").val() == "0") {
+			var tieneAntPlurianual = $("#cIDContrato").val().substr(0, 3);
+			if (tieneAntPlurianual == "PLU") {
+				queryFormPost("tieneAnticipoDiversoPlurianual", {
+					async : false
+				});
+			}
+		}
+		queryFormPost("esProveedorExtranjero", {
+			async : false
+		});
+	}
+
+	function creaDiagloFacturas(abrir) {
+		$("#dialog-validaFact").dialog({
+			autoOpen : false,
+			height : 472,
+			width : 558,
+			modal : true,
+			buttons : {
+				"Aceptar" : function() {
+					bClicBtn = true;
+					var aData = oTablevFact.fnGetData();
+					$("#mImporteFacturas").val(quitaFmt($("#mTotalFacturaV").val()));
+					$(".subtotall").change();
+					$(this).dialog("close");
+				},
+				"Cancelar" : function() {
+					bClicBtn = true;
+					$(this).dialog("close");
+				}
+			},
+			beforeClose : function(event, ui) {
+				return bClicBtn;
+			},
+			close : function() {
+				parent.document.getElementById("pb_save").disabled = false;
+			},
+			open : function() {
+				queryFormPost("readMontoFacturasNeto", {
+					async : false
+				});
+				creaDTFacturas();
+				togleDivFacts(0);
+
+				parent.document.getElementById("pb_save").disabled = true;
+
+			}
+		});
+
+		if (abrir) {
+			$("#dialog-validaFact").dialog("open");
+		}
+	}
+	function creaDTFacturas() {
+		oTablevFact = $('#grdValidaFacturas').dataTable(
+			{
+				"bProcessing" : true,
+				"bServerSide" : true,
+				"bDestroy" : true,
+				"bSort" : true,
+				sAjaxSource : window.location.protocol + "//" + window.location.host + "/" + window.location.pathname.split("/")[1] + "/crud?rt=t&ql=vfacturaspagos&qw=folioPago=565 AND tipoPago='PAGODIVERSO'",
+				"bJQueryUI" : true,
+				"sScrollX" : "100%",
+				//"sScrollXInner": "100%",
+				"sScrollY" : "190px",
+				"bPaginate" : false,
+				"bAutoWidth" : true,
+				"bInfo" : true,
+				aoColumns : [
+					{
+						sName : "Serie"
+					},
+					{
+						sName : "Factura"
+					},
+					{
+						sName : "Importe"
+					} ]
+			});
+	}
+
+
+	function dlgJustificacion() {
+		queryFormPost("retencionEliminada", {
+			async : false
+		});
+
+		if ($("#lEliminaRetencion6IVA").val() == 1) {
+			creaDialogJustificacion(true);
+
+		}
+	}
+
+	function creaDialogJustificacion(abrir) {
+		$("#dialog-Justificacion").dialog({
+			autoOpen : false,
+			height : 472,
+			width : 558,
+			modal : true,
+			buttons : {
+				"Aceptar" : function() {
+					togleJustificacion();
+				},
+				"Cancelar" : function() {
+					bClicBtn = true;
+					$(this).dialog("close");
+				}
+			},
+			close : function() {},
+			open : function() {}
+		});
+
+		if (abrir) {
+			$("#dialog-Justificacion").dialog("open");
+		}
+	}
+
+	function togleJustificacion() {
+		queryFormPost("validaDoctoJustificacion", {
+			async : false
+		});
+
+		if ($("#doctoCapturado").val() > 0) {
+			parent.document.getElementById("pb_save").disabled = true;
+			parent.document.getElementById("pb_send").click();
+		}
+		$("#dialog-Justificacion").dialog("close");
+	}
+
+	function togleDivFacts(nIdDiv) {
+		if (nIdDiv == 0) {
+			$("#uploadFacturasDiv").hide();
+			$("#facturasCapturadasDiv").show();
+			creaDTFacturas();
+			queryFormPost("readMontoFacturasNeto", {
+				async : false
+			});
+		} else {
+			if ($("#esExtranjero").val() == "1")
+				$('#uploadFacturasFrm').attr('src', "UploadFacturasExtranjeros.jsp");
+			else
+				$('#uploadFacturasFrm').attr('src', "UploadFacturas.jsp?tipo_pago=PAGODIVERSO");
+			$("#uploadFacturasDiv").show();
+			$("#facturasCapturadasDiv").hide();
+		}
+
+	}
+	function updateFirmantes() {
+		queryFormPost("readcDocumentoHaplicadoPago", {
+			async : false
+		});
+		if ($("#cEstatusPago").val() != "C") {
+			llenaFirmanteVoBo();
+			llenaFirmanteAut();
+			llenaSuplenteVoBo();
+			llenaSuplenteAut();
+
+			$("#cNombreEla").val(cNombreElabora);
+			$("#cPaternoEla").val(cApellidoPaternoElabora);
+			$("#cMaternoEla").val(cApellidoMaternoElabora);
+			$("#cPuestoEla").val(cPuestoElabora);
+			$("#dialog-firmantes").dialog("open");
+		} else {
+			alert("El pago ya está en estatus de Cancelado, por lo que ya no se puede cambia la firma.");
+		}
+	}
+
+	function changeIVA() {
+		$("#nPorcIVAAplicable").val("0");
+	}
+
+	function readInfoRecepcionMat() {
+
+		/*
+		 * EHR2015 Al seleccionar el contrato valida el tipo de amortizacion que requiere:
+		 * 1 Amortizacion por factor
+		 * 0 Amortizacion normal.
+		 */
+		var tipoRecepcion = $("#noRecepcion").val().substr(0, 2);
+
+		//if(tipoRecepcion != "RA"){
+		queryFormPost("tFactDiversoAnticipoRead", {
+			async : false
+		});
+		//}
+
+		$("#tipoAmortizacion").val("");
+		queryFormPost("readTipoAmortiza", {
+			async : false
+		});
+
+		queryFormPost(
+			{
+				queryName : "readInfoRecepcionMat",
+				async : false,
+				callback : function() {
+
+					//EHR2015 Guarda el monto original para la recepcion
+					importeRecepcionOriginal = Number(quitaFmt($("#mImporteBruto").val())) * 100 / 100;
+
+					//Llamar al recalculo de cosas
+					var importee = 0.00;
+					importee = Number(quitaFmt($("#mImporteBruto").val()));
+					importee = importee.toFixed(2);
+
+					$("#mImporteBruto").val(importee);
+					$("#importeBrutoAux").val(importee);
+
+					importee = Number(quitaFmt($("#mImporteIVA").val()));
+					importee = importee.toFixed(2);
+					$("#mImporteIVA").val(importee);
+
+					importee = Number(quitaFmt($("#mOtrosImpuestos").val()));
+					importee = importee.toFixed(2);
+					$("#mOtrosImpuestos").val(importee);
+
+					calculaIVA();
+
+					$("#destGasto").attr('disabled', false);
+				}
+			}
+		);
+
+	}
+
+	function habilitaBtnCargaLayout() {
+		queryFormPost("esProveedorBoletajeRead", {
+			async : false
+		});
+
+		if ($("#esProvBoletaje").val() == "1") {
+			$("#btnLayoutBoletos").show();
+		} else {
+			$("#btnLayoutBoletos").hide();
+		}
+	}
+
+	function creaDlgCargaBoletaje() {
+		$("#dlgBoletajeAvion").dialog({
+			autoOpen : false,
+			height : 350,
+			width : 700,
+			modal : true
+		});
+	}
+
+
+
+	function validaCapturaLayoutVuelos() {
+		var bReturn = true;
+
+		if ($("#esProvBoletaje").val() == "1") {
+			queryFormPost("validaCapturaLayoutVuelosRead", {
+				async : false
+			});
+			if ($("#capturaLayoutVuelos").val() != "1") {
+				alert("No ha capturado Vuelos para el Pago. Verifique!!");
+				bReturn = false;
+			} else {
+				bReturn = insertarFolioLayout();
+			}
+		}
+
+		return bReturn;
+	}
+
+	function showDivOficioVoBo(esUpdate) {
+		var cmpName = "oficioDeleVoBo" + (esUpdate ? "Update" : "");
+		var divName = "oficioDelegatorioVoBo" + (esUpdate ? "Update" : "");
+		if ($("#" + cmpName).is(":checked"))
+			$("#" + divName).show();
+		else
+			$("#" + divName).hide();
+	}
+
+
+
+
+	function creaDlgFoliosVuelos() {
+		$("#dlgFoliosVuelos").dialog({
+			autoOpen : false,
+			height : 350,
+			width : 700,
+			modal : true,
+			buttons : {
+				"Aceptar" : function() {
+					if (insertarFolioLayout()) {
+						$(this).dialog("close");
+					}
+				},
+				"Cancelar" : function() {
+					$(this).dialog("close");
+				}
+			},
+			open : function() {}
+		});
+	}
+
+	function abrirDlgFoliosVuelos() {
+		var folioPago = $("#nFolioPago").val();
+		var centroContable = $("#cCentroContable").val();
+		var importePago = Number($("#mImpEjercer").val());
+		var nFolioVuelos = $("#nFolioVuelos").val();
+
+		importePago = importePago.toFixed(2);
+
+		var login = $("#u_login").val();
+
+		window.open(
+			'SeleccionaVuelos.jsp?folioPago=' + folioPago + '&centroContable=' + centroContable + '&importePago=' + importePago + '&ulogin=' + login + '&nFolioVuelos=' + nFolioVuelos + '&cTipoPago=' + $("#cTipoPago").val(),
+			"popacuse",
+			"scrollbars=1, resizable=yes, width=1024, height=650"
+		);
+	}
+
+	function insertarFolioLayout() {
+		var bReturn = false;
+
+		queryFormPost("importeVuelosDetCapturadosRead", {
+			async : false
+		});
+
+		var mImportePago = Number($("#mImpEjercer").val());
+		var mImporteVuelos = Number($("#mImporteVuelos").val());
+
+		mImportePago = mImportePago.toFixed(2);
+		mImporteVuelos = mImporteVuelos.toFixed(2);
+
+		if (mImportePago == mImporteVuelos) {
+			queryFormPost({
+				queryName : "tPagoDiversoBoletajeAvionCreate",
+				async : false,
+				callback : function() {
+					bReturn = true;
+				}
+			});
+		} else {
+			alert("El importe Total de Vuelos es diferente al total del Pago. Verifique!!");
+		}
+
+		return bReturn;
+	}
+
+	function actualizaFolioVueloPagado() {
+		queryFormPost("vuelosDetEsPagadoUpdate", {
+			async : false
+		});
+	}
+
+	function verReferencia() {
+		$("#dlgSeleccionaFonden").dialog("open");
+
+		if (2 != 1) {
+			queryFormPost("proyectoFondenRead", {
+				async : false
+			});
+			$("#verProyectoFondenDiv").css('display', 'block');
+			$("#selproyectoFondenDiv").css('display', 'none');
+		}
+	}
+
+	function borraOfiDelegatorio() {
+		if ($("#firmanteOficioExiste").val() == "Existe") {
+			queryFormPost({
+				queryName : "borrarOficioDelegatorio",
+				async : false,
+				callback : function() {
+					msn = "Oficios borrados del pago " + $("#cTipoPago").val() + " no. " + $("#nFolioPago").val();
+				}
+			});
+			$("#cFolioOficioUpdate").val("");
+			$("#dFechaOficioUpdate").val("");
+			$("#cNombreTitularUpdate").val("");
+			$("#cApellidoPaternoTitularUpdate").val("");
+			$("#cApellidoMaternoTitularUpdate").val("");
+			$("#cPuestoTitularUpdate").val("");
+		}
+
+		if ($("#firmanteOficioVoBoExiste").val() == "Existe") {
+			queryFormPost({
+				queryName : "borrarOficioDelegatorioVoBo",
+				async : false,
+				callback : function() {
+					msn = "Oficios borrados del pago " + $("#cTipoPago").val() + " no. " + $("#nFolioPago").val();
+				}
+			});
+			$("#cFolioOficioVoBoUpdate").val("");
+			$("#dFechaOficioVoBoUpdate").val("");
+			$("#cNombreTitularVoBoUpdate").val("");
+			$("#cApellidoPaternoTitularVoBoUpdate").val("");
+			$("#cApellidoMaternoTitularVoBoUpdate").val("");
+			$("#cPuestoTitularVoBoUpdate").val("");
+		}
+
+	}
+
+	function muestraCalculoCedular() {
+		$("#tieneCedular").val("0");
+
+		queryFormPost("tieneImpuestoCedularPDIV_Read", {
+			async : false
+		});
+
+		if ($("#tieneCedular").val() == "1" || (esSAIAlterno && "S01" == $("#cUnidadResponsable").val())) {
+			$("#btnCalculaCedular").show();
+		} else {
+			$("#btnCalculaCedular").hide();
+		}
+	}
+
+	function calculaCedular() {
+		queryFormPost("calculaImpuestoCedularPDIV_Read", {
+			async : false
+		});
+		$("#mImporteFacturas").val(Number(quitaFmt($("#mTotalFacturaV").val())).toFixed(2));
+	}
+
+
+	function llenaFirmanteVoBoUpdate() {
+		querySelectPost("cboFirmanteModuloVoBo_Read", "cboVoBoUpdate", {
+			async : false
+		});
+		cargaFirmanteVoBoUpdate();
+	}
+
+	function cargaFirmanteVoBoUpdate() {
+		$("#nNumEmpleadoVoBo").val($("#cboVoBoUpdate").val());
+		queryFormPost("firmantesModuloVoBoUpdate_Read", {
+			async : false
+		});
+	}
+
+	function llenaFirmanteAutUpdate() {
+		querySelectPost("cboFirmanteModuloAut_Read", "cboAutorizaUpdate", {
+			async : false
+		});
+		cargaFirmanteAutUpdate();
+	}
+
+	function cargaFirmanteAutUpdate() {
+		$("#nNumEmpleadoAut").val($("#cboAutorizaUpdate").val());
+		queryFormPost("firmantesModuloAutUpdate_Read", {
+			async : false
+		});
+	}
+
+	function llenaSuplenteVoBoUpdate() {
+		querySelectPost("cboFirmanteModuloVoBoSuplente_Read", "cboSuplenteVoBoUpdate", {
+			async : false
+		});
+		cargaSuplenteVoBoUpdate();
+	}
+
+	function cargaSuplenteVoBoUpdate() {
+		$("#nNumEmpleadoVoBoSuplencia").val($("#cboSuplenteVoBoUpdate").val());
+		queryFormPost("firmantesModuloVoBoSuplenteUpdate_Read", {
+			async : false
+		});
+	}
+
+	function llenaSuplenteAutUpdate() {
+		querySelectPost("cboFirmanteModuloAutSuplente_Read", "cboSuplenteAutUpdate", {
+			async : false
+		});
+		cargaSuplenteAutUpdate();
+	}
+
+	function cargaSuplenteAutUpdate() {
+		$("#nNumEmpleadoAutSuplencia").val($("#cboSuplenteAutUpdate").val());
+		queryFormPost("firmantesModuloAutSuplenteUpdate_Read", {
+			async : false
+		});
+	}
+</script>
+</head>
+<body id="dt_example">
+	<div id="container" class="container SyCData">
+		<form id="frmcontratoDeObra" method="post">
+			<input type="hidden" id="esEFO" name="esEFO" value="N"> <input
+				type="hidden" id="rfcValidar" name="rfcValidar" value=""> <input
+				type="hidden" id="lEliminaRetencion6IVA"
+				name="lEliminaRetencion6IVA" value="0"> <input type="hidden"
+				id="TipoAutorizacion" name="TipoAutorizacion" value=""> <input
+				type="hidden" id="cNombreEmpleado" name="cNombreEmpleado" value="">
+			<input type="hidden" id="cPaternoEmpleado" name="cPaternoEmpleado"
+				value=""> <input type="hidden" id="cMaternoEmpleado"
+				name="cMaternoEmpleado" value=""> <input type="hidden"
+				id="cPuestoEmpleado" name="cPuestoEmpleado" value=""> <input
+				type="hidden" id="cTipoFirmante" name="cTipoFirmante" value="">
+			<input type="hidden" name="nNumEmpleadoBusqueda"
+				id="nNumEmpleadoBusqueda" value="" /> <input type="hidden"
+				id="numeroEmpleadoVoBo" name="numeroEmpleadoVoBo" value="">
+			<input type="hidden" id="numeroEmpleadoAutoriza"
+				name="numeroEmpleadoAutoriza" value=""> <input type="hidden"
+				id="cNombreVo" name="cNombreVo" size=40> <input
+				type="hidden" id="cPaternoVo" name="cPaternoVo" size=40> <input
+				type="hidden" id="cMaternoVo" name="cMaternoVo" size=40> <input
+				type="hidden" id="cPuestoVo" name="cPuestoVo" size=40> <input
+				type="hidden" id="cEmpleadoVo" name="cEmpleadoVo" size=40> <input
+				type="hidden" id="firmanteVoBo" name="firmanteVoBo" size=40>
+			<input type="hidden" id="cEmpleadoA" name="cEmpleadoA" size=40>
+			<input type="hidden" id="doctoCapturado" name="doctoCapturado"
+				value=0> <input name="cProyectoFonden" id="cProyectoFonden"
+				value="" type="hidden" /> <input type="hidden" id="correcto"
+				name="correcto" value="">
+			<!-- EHR2015 Para guardar el tipo de amortizacion -->
+			<input name="tipoAmortizacion" id="tipoAmortizacion" value=""
+				type="hidden" /> <input name="mesAbierto" id="mesAbierto" value=""
+				type="hidden" /> <input name="otrosImpuestos" id="otrosImpuestos"
+				type="hidden" value="0"> <input name="nFolioPago"
+				id="nFolioPago" type="hidden" value="565"> <input
+				name="cTipoPago" id="cTipoPago" type="hidden" value="PAGODIVERSO">
+			<input name="tipoTramite" id="tipoTramite" type="hidden" value="6">
+			<input name="campoRFC" id="campoRFC" type="hidden"> <input
+				name="totFacturas" id="totFacturas" type="hidden" value="0">
+			<input name="esRelacionGastos" id="esRelacionGastos" type="hidden"
+				value="N"> <input name="nPorcIVAAplicable2"
+				id="nPorcIVAAplicable2" type="hidden" value="0"> <input
+				name="importeTotalEncabezado" id="importeTotalEncabezado"
+				type="hidden" value="0"> <input name="importeTotalDetalle"
+				id="importeTotalDetalle" type="hidden" value="0"> <input
+				type="hidden" name="mOtrosImpuestosEP" id="mOtrosImpuestosEP"
+				value="0"> <input name="llevaAnticipo" id="llevaAnticipo"
+				type="hidden"> <input name="tieneAnticipo"
+				id="tieneAnticipo" type="hidden"> <input name="cEstatusPago"
+				id="cEstatusPago" type="hidden" value=""> <input
+				name="estatusRecepcion" id="estatusRecepcion" type="hidden" value="">
+
+			<!-- PARA LKS EP -->
+			<input type="hidden" value="0" id="m23IVA" name="m23IVA"> <input
+				type="hidden" value="0" id="mIMDT" name="mIMDT"> <input
+				type="hidden" value="0" id="mCNIC" name="mCNIC"> <input
+				type="hidden" value="0" id="mObra5" name="mObra5"> <input
+				type="hidden" value="0" id="mAmortizado" name="mAmortizado">
+			<input type="hidden" value="0" id="mISRHonorarios"
+				name="mISRHonorarios"> <input type="hidden" value="0"
+				id="mImporteFlete4" name="mImporteFlete4"> <input
+				type="hidden" value="0" id="mISRArrenda" name="mISRArrenda">
+			<input type="hidden" value="0" id="mPenalizacion"
+				name="mPenalizacion"> <input type="hidden" value="0"
+				id="mRetImpuestoCedular" name="mRetImpuestoCedular"> <input
+				type="hidden" value="0" id="mTesofe" name="mTesofe"> <input
+				type="hidden" value="0" id="DCD_ISR_D" name="DCD_ISR_D"> <input
+				type="hidden" value="0" id="DCD_IVA_D" name="DCD_IVA_D"> <input
+				type="hidden" value="0" id="DCD_MIL5_D" name="DCD_MIL5_D"> <input
+				type="hidden" value="0" id="DCD_MIL2_D" name="DCD_MIL2_D"> <input
+				type="hidden" value="0" id="DCD_CONTRIBUCION_D"
+				name="DCD_CONTRIBUCION_D"> <input type="hidden" value="0"
+				id="DCD_OTRAS_RET_D" name="DCD_OTRAS_RET_D"> <input
+				type="hidden" value="0" id="DCD_PENALIZACION_D"
+				name="DCD_PENALIZACION_D"> <input type="hidden" value="0"
+				id="DCD_SANCION_D" name="DCD_SANCION_D"> <input
+				type="hidden" value="0" id="DCD_DEVOL_D" name="DCD_DEVOL_D">
+			<input type="hidden" value="0" id="DCD_AMORT_D" name="DCD_AMORT_D">
+			<input type="hidden" value="0" id="DCD_RETENCION_D"
+				name="DCD_RETENCION_D"> <input type="hidden" value="0"
+				id="mIVA_D" name="mIVA_D"> <input type="hidden" value="0"
+				id="CamInst" name="CamInst"> <input type="hidden" value="0"
+				id="mImporteFlete23" name="mImporteFlete23"> <input
+				type="hidden" value="0" id="mImporteIvaArrenda"
+				name="mImporteIvaArrenda"> <input type="hidden" value=""
+				id="lHaySaldoAnticipo" name="lHaySaldoAnticipo"> <input
+				type="hidden" value="0" id="TotalNeto" name="TotalNeto"> <input
+				type="hidden" value="0" id="TotalNetoN" name="TotalNetoN"> <input
+				type="hidden" id="montoprevio" name="montoprevio"> <input
+				type="hidden" value="0" id="TotalRetenciones"
+				name="TotalRetenciones"> <input type="hidden" value="0"
+				id="campoRetencion" name="campoRetencion"> <input
+				type="hidden" value="0" id="mIVA" name="mIVA"> <input
+				type="hidden" value="DIVERSO" id="TO_TIPO_DOCTO"
+				name="TO_TIPO_DOCTO"> <input type="hidden" value="0"
+				id="m23IVA2" name="m23IVA2"> <input type="hidden" value="0"
+				id="mIMDT2" name="mIMDT2"> <input type="hidden" value="0"
+				id="mCNIC2" name="mCNIC2"> <input type="hidden" value="0"
+				id="mObra52" name="mObra52"> <input type="hidden" value="0"
+				id="mISRHonorarios2" name="mISRHonorarios2"> <input
+				type="hidden" value="0" id="mImporteFlete42" name="mImporteFlete42">
+			<input type="hidden" value="0" id="mISRArrenda2" name="mISRArrenda2">
+			<input type="hidden" value="0" id="mPenalizacion2"
+				name="mPenalizacion2"> <input type="hidden" value="0"
+				id="mRetImpuestoCedular2" name="mRetImpuestoCedular2"> <input
+				type="hidden" value="0" id="mTesofe2" name="mTesofe2"> <input
+				type="hidden" value="0" id="CamInst2" name="CamInst2"> <input
+				type="hidden" id="laPoliza" /> <input type="hidden"
+				id="docAplicado" value=""> <input type="hidden" value="0"
+				id="mAmortizacionAnticipoMasIva" name="mAmortizacionAnticipoMasIva">
+			<input type="hidden" value="0" id="mAmortizacionAnticipoMasIvaEP"
+				name="mAmortizacionAnticipoMasIvaEP"> <input type="hidden"
+				value="" id="rowsAffected" name="rowsAffected"> <input
+				type="hidden" name="cFolioPAGODIVERSO" id="cFolioPAGODIVERSO"
+				class="paso01" size="40" maxlength="40" /> <input type="hidden"
+				name="tipoRet" id="tipoRet" value="" /> <input type="hidden"
+				name="resImpRet" id="resImpRet" value="" /> <input name="nMes"
+				type="hidden" id="nMes" value="2" size="20"> <input
+				name="cIdCuentaContable" type="hidden" id="cIdCuentaContable"
+				value="" size="20"> <input name="numPaso" type="hidden"
+				id="numPaso" value="1" size="5"> <input
+				name="TOTALSUBCUENTA" type="hidden" id="TOTALSUBCUENTA"> <input
+				type="hidden" value="2012" id="cEjercicio" name="cEjercicio">
+			<input type="hidden" value="" id="tiene" name="tiene"> <input
+				type="hidden" id="cRamo" name="cRamo"> <input type="hidden"
+				id="cUnidadResponsable" name="cUnidadResponsable"> <input
+				name="OIRAUSU" type="hidden" id="OIRAUSU" /> <input type="hidden"
+				maxlength="15" size="15" name="cIdRFC_RelacionGasto2"
+				id="cIdRFC_RelacionGasto2" /> <input type="hidden" maxlength="15"
+				size="15" name="sumareten" id="sumareten" /> <input type="hidden"
+				maxlength="15" size="15" name="porcCedular" id="porcCedular" /> <input
+				type="hidden" maxlength="15" size="15" name="doster" id="doster" />
+			<input type="hidden" maxlength="15" size="15" value="0"
+				name="cIdTipoDocumento" id="cIdTipoDocumento" /> <input
+				name="cllave" type="hidden" id="cllave" /> <input type="hidden"
+				maxlength="15" size="15" value="0" name="nFolioCompromiso"
+				id="nFolioCompromiso" /> <input type="hidden" id="cCentroContable"
+				name="cCentroContable"> <input type="hidden"
+				id="cCentroContableOrig" name="cCentroContableOrig"> <input
+				type="hidden" id="cCentroContableContrato"
+				name="cCentroContableContrato"> <input type="hidden"
+				id="cUnidadContrato" name="cUnidadContrato"> <input
+				type="hidden" id="cMes" name="cMes"> <input type="hidden"
+				id="aEjercicioFiscal" value="2012" name="aEjercicioFiscal">
+			<input name="cEvento" type="hidden" id="cEvento" value=""> <input
+				name="contra2" type="hidden" id="contra2" value=""> <input
+				type="hidden" id="partida" name="partida" value="" /> <input
+				type="hidden" id="vOGT" name="vOGT" value="" /> <input
+				type="hidden" id="obs" name="obs"> <input type="hidden"
+				name="cIdContrato" id="cIdContrato" value="" /> <input
+				type="hidden" id="tConcepto2" name="tConcepto2"> <input
+				type="hidden" id="nIdConcepto" name="nIdConcepto" maxlength="10"
+				size="10"> <input type="hidden" id="codSIAFF"
+				name="codSIAFF" /> <input type="hidden" name="saldoCompA"
+				id="saldoCompA" maxlength="30" style="background-color: #C0C0C0" />
+			<input type="hidden" name="saldoPorEjercer" id="saldoPorEjercer"
+				size="30" maxlength="30" style="background-color: #C0C0C0" /> <input
+				type="hidden" maxlength="10" size="10" id="ID_DESTINO_GASTO"
+				name="ID_DESTINO_GASTO"> <input type="hidden" maxlength="10"
+				size="10" id="ID_TIPO_MOVIMIENTO" name="ID_TIPO_MOVIMIENTO">
+
+			<!--<input name="ALM" type="hidden" id="ALM" value="1">-->
+
+			<input type="hidden" id="campo" name="campo" value=""> <input
+				type="hidden" id="tablaEnc" name="tablaEnc" value=""> <input
+				type="hidden" id="campoCondicion" name="campoCondicion" value="">
+			<input type="hidden" id="tablaDet" name="tablaDet" value="">
+			<input type="hidden" id="tipoAplicar" name="tipoAplicar" value="">
+			<input name="cDocumento" type="hidden" id="cDocumento"
+				value="PAGODIVERSO"> <input type="hidden" id="cTipoPoliza"
+				name="cTipoPoliza" value=""> <input name="nombre"
+				type="hidden" id="nombre" value=""> <input type="hidden"
+				name="FOLIO" id="FOLIO" value="PDIV-G27-565" /> <input
+				type="hidden" name="OPERADOR" id="OPERADOR"
+				value="MARÍA DEL CARMEN VALENCIA DOMINGUEZ" /> <input type="hidden"
+				name="FECHA_CARGA" id="FECHA_CARGA" value="05/03/2020" /> <input
+				type="hidden" name="cIDContratoObra" id="cIDContratoObra" /> <input
+				name="cartera" type="hidden" id="cartera" value=""> <input
+				name="capitulo" type="hidden" id="capitulo" value=""> <input
+				name="UE" type="hidden" id="UE" value=""> <input name="EP"
+				type="hidden" id="EP" value=""> <input
+				name="mImporteCartera" type="hidden" id="mImporteCartera" value="">
+			<input type="hidden" id="cValidaFactura" name="cValidaFactura"
+				value="" /> <input type="hidden" id="cExiste" name="cExiste"
+				value="0" /> <input type="hidden" id="mImporteBrutoF"
+				name="mImporteBrutoF" value="0" /> <input type="hidden"
+				id="COMSOCAutoriza" name="COMSOCAutoriza" value="" /> <input
+				type="hidden" id="partCOMSOC" name="partCOMSOC" value="" /> <input
+				type="hidden" name="cMsjCOMSOC" id="cMsjCOMSOC" value=""> <input
+				type="hidden" name="IEsPasivo" id="IEsPasivo" value=""> <input
+				type="hidden" id="cOBGT" name="cOBGT" size="14"> <input
+				type="hidden" id="firmanteExiste" name="firmanteExiste" size="14">
+
+
+			<input type="hidden" id="tipoFirmante" name="tipoFirmante" size=15
+				value="PAGO_VOBO"> <input type="hidden" id="cNombreA"
+				name="cNombreA" size=40> <input type="hidden" id="cPaternoA"
+				name="cPaternoA" size=40> <input type="hidden"
+				id="cMaternoA" name="cMaternoA" size=40> <input
+				type="hidden" id="cPuestoA" name="cPuestoA" size=40> <input
+				type="hidden" id="firmanteAut" name="firmanteAut" size=40> <input
+				type="hidden" id="tipoFirmanteA" name="tipoFirmanteA" size=15
+				value="PAGO_AUT"> <input type="hidden"
+				id="facturasDiferentes" name="facturasDiferentes" value="0">
+			<input type="hidden" id="importeBrutoAux" name="importeBrutoAux"
+				size=40> <input type="hidden" id="cEPborrar"
+				name="cEPborrar" size=40> <input type="hidden"
+				id="mImporteBorrar" name="mImporteBorrar" size=40> <input
+				type="hidden" id="renglonBorrar" name="renglonBorrar" size=40>
+			<input type="hidden" id="esExtranjero" name="esExtranjero" value="">
+			<input type="hidden" id="mImporteDiferenciaCentavos"
+				name="mImporteDiferenciaCentavos" value="0.00"> <input
+				type="hidden" name="cFolioGestion" id="cFolioGestion"
+				value="PDIV-G27-565">
+
+			<!-- hidden para la captura de oficio delegatorio -->
+			<input type="hidden" name="cFolioOficioAux" id="cFolioOficioAux"
+				value=""> <input type="hidden" name="dFechaOficioAux"
+				id="dFechaOficioAux" value=""> <input type="hidden"
+				name="cNombreTitularAux" id="cNombreTitularAux" value=""> <input
+				type="hidden" name="cApellidoPaternoTitularAux"
+				id="cApellidoPaternoTitularAux" value=""> <input
+				type="hidden" name="cApellidoMaternoTitularAux"
+				id="cApellidoMaternoTitularAux" value=""> <input
+				type="hidden" name="cPuestoTitularAux" id="cPuestoTitularAux"
+				value=""> <input type="hidden" name="firmanteOficioExiste"
+				id="firmanteOficioExiste" value="">
+			<!-- VGC27032018 Para que se seleccione el tipo de delegatorio, por suplencia o delego. -->
+			<input type="hidden" name="tipoSuplenciaAux" id="tipoSuplenciaAux"
+				value=""> <input type="hidden" name="tipoSuplenciaVoBoAux"
+				id="tipoSuplenciaVoBoAux" value="">
+
+
+			<!-- hidden para la captura de los datos de quien elaboro -->
+			<input type="hidden" id="cNombreE" name="cNombreE" size=40> <input
+				type="hidden" id="cPaternoE" name="cPaternoE" size=40> <input
+				type="hidden" id="cMaternoE" name="cMaternoE" size=40> <input
+				type="hidden" id="cPuestoE" name="cPuestoE" size=40> <input
+				type="hidden" id="firmanteEla" name="firmanteEla" size=40>
+
+			<!-- hidden para validar si el contrato tiene remanente para realizar el pago de anticipo -->
+			<input type="hidden" id="tieneRemanente" name="tieneRemanente"
+				value="">
+
+			<!-- hidden para obtener los pagos de anticipo que se han hecho. -->
+			<input type="hidden" id="totalPagosAnticipo"
+				name="totalPagosAnticipo" value="0" class="subtotall">
+
+			<!-- hidden para validar si el rfc del proveedor es de boletaje de avion. -->
+			<input type="hidden" id="esProvBoletaje" name="esProvBoletaje"
+				value=""> <input type="hidden" name="u_login" id="u_login"
+				value="DELCARMEN.VALENCIA" /> <input type="hidden"
+				id="capturaLayoutVuelos" name="capturaLayoutVuelos" value="">
+
+			<!-- hidden para validar si las EPS pertenecen a CECFOR -->
+			<input type="hidden" id="esEPCECFOR" name="esEPCECFOR" value="">
+
+			<!-- hidden para validar si la partida es de viaticos -->
+			<input type="hidden" name="cPartida" id="cPartida" value="">
+			<input type="hidden" name="esPartidaViaticos" id="esPartidaViaticos"
+				value="0">
+
+			<!-- hidden para la captura de oficio delegatorio VoBo-->
+			<input type="hidden" name="cFolioOficioVoBoAux"
+				id="cFolioOficioVoBoAux" value=""> <input type="hidden"
+				name="dFechaOficioVoBoAux" id="dFechaOficioVoBoAux" value="">
+			<input type="hidden" name="cNombreTitularVoBoAux"
+				id="cNombreTitularVoBoAux" value=""> <input type="hidden"
+				name="cApellidoPaternoTitularVoBoAux"
+				id="cApellidoPaternoTitularVoBoAux" value=""> <input
+				type="hidden" name="cApellidoMaternoTitularVoBoAux"
+				id="cApellidoMaternoTitularVoBoAux" value=""> <input
+				type="hidden" name="cPuestoTitularVoBoAux"
+				id="cPuestoTitularVoBoAux" value=""> <input type="hidden"
+				name="firmanteOficioVoBoExiste" id="firmanteOficioVoBoExiste"
+				value=""> <input type="hidden" id="nFolioVuelos"
+				name="nFolioVuelos" value=""> <input type="hidden"
+				id="rfcVuelos" name="rfcVuelos" value=""> <input
+				type="hidden" id="numBoleto" name="numBoleto" value=""> <input
+				type="hidden" id="mImporteVuelos" name="mImporteVuelos" value="">
+			<input type="hidden" id="impteBoleto" name="impteBoleto" value="">
+			<input type="hidden" id="mImporteRetenPago" name="mImporteRetenPago"
+				value="0">
+			<!--   -->
+
+
+
+			<input type="hidden" id="tieneCedular" name="tieneCedular" value="0">
+
+			<!-- hidden para los firmantes del VoBo y Autoriza -->
+			<input type="hidden" name="cNombreVoBo" id="cNombreVoBo" value="" />
+			<input type="hidden" name="cPuestoTitularVoBoUpdate"
+				id="cPuestoTitularVoBoUpdate" value=""> <input type="hidden"
+				name="cPaternoVoBo" id="cPaternoVoBo" value="" /> <input
+				type="hidden" name="cMaternoVoBo" id="cMaternoVoBo" value="" /> <input
+				type="hidden" name="cPuestoVoBo" id="cPuestoVoBo" value="" /> <input
+				type="hidden" name="cNombreAut" id="cNombreAut" value="" /> <input
+				type="hidden" name="cPaternoAut" id="cPaternoAut" value="" /> <input
+				type="hidden" name="cMaternoAut" id="cMaternoAut" value="" /> <input
+				type="hidden" name="cPuestoAut" id="cPuestoAut" value="" />
+
+			<!-- hidden para los firmantes de suplencia de VoBo y Autoriza -->
+			<input type="hidden" name="cNombreTitular" id="cNombreTitular"
+				value="" /> <input type="hidden" name="cPaternoTitular"
+				id="cPaternoTitular" value="" /> <input type="hidden"
+				name="cMaternoTitular" id="cMaternoTitular" value="" /> <input
+				type="hidden" name="cPuestoTitular" id="cPuestoTitular" value="" />
+			<input type="hidden" name="cNombreTitularVoBo"
+				id="cNombreTitularVoBo" value="" /> <input type="hidden"
+				name="cPaternoTitularVoBo" id="cPaternoTitularVoBo" value="" /> <input
+				type="hidden" name="cMaternoTitularVoBo" id="cMaternoTitularVoBo"
+				value="" /> <input type="hidden" name="cPuestoTitularVoBo"
+				id="cPuestoTitularVoBo" value="" />
+
+			<!-- hidden para actualizar los firmantes del VoBo y Autoriza -->
+			<input type="hidden" name="cNombreVoBoUpdate" id="cNombreVoBoUpdate"
+				value="" /> <input type="hidden" name="cPaternoVoBoUpdate"
+				id="cPaternoVoBoUpdate" value="" /> <input type="hidden"
+				name="cMaternoVoBoUpdate" id="cMaternoVoBoUpdate" value="" /> <input
+				type="hidden" name="cPuestoVoBoUpdate" id="cPuestoVoBoUpdate"
+				value="" /> <input type="hidden" name="cNombreAutUpdate"
+				id="cNombreAutUpdate" value="" /> <input type="hidden"
+				name="cPaternoAutUpdate" id="cPaternoAutUpdate" value="" /> <input
+				type="hidden" name="cMaternoAutUpdate" id="cMaternoAutUpdate"
+				value="" /> <input type="hidden" name="cPuestoAutUpdate"
+				id="cPuestoAutUpdate" value="" />
+
+			<!-- hidden para actualizar los firmantes de suplencia de VoBo y Autoriza -->
+			<input type="hidden" name="cNombreTitularUpdate"
+				id="cNombreTitularUpdate" value="" /> <input type="hidden"
+				name="cApellidoPaternoTitularUpdate"
+				id="cApellidoPaternoTitularUpdate" value="" /> <input type="hidden"
+				name="cApellidoMaternoTitularUpdate"
+				id="cApellidoMaternoTitularUpdate" value="" /> <input type="hidden"
+				name="cPuestoTitularUpdate" id="cPuestoTitularUpdate" value="" /> <input
+				type="hidden" name="cNombreTitularVoBoUpdate"
+				id="cNombreTitularVoBoUpdate" value="" /> <input type="hidden"
+				name="cApellidoPaternoTitularVoBoUpdate"
+				id="cApellidoPaternoTitularVoBoUpdate" value="" /> <input
+				type="hidden" name="cApellidoMaternoTitularVoBoUpdate"
+				id="cApellidoMaternoTitularVoBoUpdate" value="" />
+
+			<!-- HIDDEN PARA VALIDAR SI SE AUTORIZA CON FIEL -->
+			<input type="hidden" id="autorizadoPorFiel" name="autorizadoPorFiel"
+				value="false">
+
+			<div class="dvGeneral">
+				<h1>Pago con Orden de Compra - Recepci&oacute;n De Documentos</h1>
+
+				<table id="ContratoDeObra" border="0" cellspacing="0"
+					cellpadding="0">
+					<tr>
+						<td>
+							<div id="divAutorizar">
+								<label id="lbAutorizar"> Autorizar </label> <input type="radio"
+									id="grpAutorizar1" name="grpAutorizar" checked="checked"
+									value="Si"> Si <input type="radio" id="grpAutorizar2"
+									name="grpAutorizar" value="No">
+								No&nbsp;&nbsp;&nbsp;&nbsp;
+							</div>
+							<div id="divImprimePoliza">
+								<img src="imagenes/Imprimir.png" width="25" height="21"
+									onClick="cmdImprimir('PolizaPago');"> Poliza
+							</div>
+							<div id="divImprimeAnexo">
+								<img src="imagenes/Imprimir.png" width="25" height="21"
+									onClick="anexo('PolizaPagoN');"> Anexo
+							</div> <span id="EditaFirmas" style="visibility:hidden"><a
+								href="#" onclick="updateFirmantes();">Firmas*</a></span>
+						</td>
+						<td>ContraRecibo <input type="text" id="caNoContrarrecibo"
+							name="caNoContrarrecibo" readonly="readonly" value="0" size="20"
+							maxlength="20">
+					</tr>
+					<tr>
+						<td nowrap>No. Contrato <input type="text" name="cIDContrato"
+							id="cIDContrato" onChange="FiltroRetencionesD();changeIVA();"
+							class="AyudaSyC" size="40" maxlength="40" readonly
+							title="Selecciona un contrato" />
+						</td>
+						<td nowrap align="right">Folio <input name="id_caso"
+							type="text" id="id_caso" size="10" maxlength="40" readonly>
+							<input type="button" value="Borrar" onclick="Borrar1();"
+							id="Borrar" name="Borrar" title="Elimina la solicitud temporal" />
+						</td>
+					</tr>
+					<tr>
+						<td nowrap>RFC <input type="text" name="cIdRFC" id="cIdRFC"
+							readonly="readonly" size="15" maxlength="15" /> <input
+							type="text" name="cobjetocontrato" id="cobjetocontrato"
+							readonly="readonly" size="50" maxlength="50" class="paso01" /></td>
+						<td align="right">&nbsp;</td>
+					</tr>
+					<tr>
+						<td align="left">Cuenta Bancaria: <select id="ctaBancaria"
+							name="ctaBancaria"></select>
+						</td>
+						<td>Recepci&oacute;n: <select id="noRecepcion"
+							name="noRecepcion" onchange="readInfoRecepcionMat();"
+							style="width: 250px"></select>
+						</td>
+					</tr>
+
+					<tr>
+						<td nowrap>Fecha De Captura <input type="text" maxlength="10"
+							size="10" class="paso01" id="fRecepcion" name="fRecepcion"
+							readonly> <input type="hidden" maxlength="10" size="10"
+							id="fRecepcion2" name="fRecepcion2"> <!-- Fecha De Pago  URVP.04092014 SE OCULTA ETIQUETA, INPUT Y SE BORRA DATAPICKER PARA NO MOSTRAR A CAPTURAR ESTE CAMPO-->
+							<input type="hidden" maxlength="10" size="10" class="paso01"
+							id="fecha_Pago" name="fecha_Pago"></td>
+						<td nowrap>Tipo de Operaci&oacute;n <select class="paso01"
+							id="TIPO_OPERACION" name="TIPO_OPERACION" style="width: 250px">
+						</select></td>
+					</tr>
+
+					<tr>
+						<td nowrap>Tipo Destino: <select id="destGasto"
+							name="destGasto" class="paso01" style="width: 10em;" disabled>
+						</select> <span id="EditaFacturas" style="visibility:hidden"><a
+								href="#" onclick="creaDiagloFacturas('true'); return false;">
+									Facturas </a></span> <input type="hidden" maxlength="10" size="10"
+							id="ID_DESTINO_GASTO2" name="ID_DESTINO_GASTO2"> <input
+							type="hidden" maxlength="10" size="10" id="ID_TIPO_FONDO"
+							name="ID_TIPO_FONDO"> <input type="hidden"
+							name="cNoEstimacion" id="cNoEstimacion" value="0" class="paso01"
+							size="14" maxlength="14" />
+						</td>
+						<td nowrap>&nbsp;</td>
+						<td>
+					</tr>
+
+					<tr>
+						<td nowrap>
+							<!--No. Estimaci&oacute;n-->
+						</td>
+						<td nowrap></td>
+						<td>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<td><input type="button" value="Cargar Layout Boletos"
+							onclick="abrirDlgFoliosVuelos();" id="btnLayoutBoletos"
+							name="btnLayoutBoletos" title="Carga Layout Boletos de Vuelos" /></td>
+						<td><input type="button" value="Calcula Cedular"
+							onclick="calculaCedular();" id="btnCalculaCedular"
+							name="btnCalculaCedular" title="Calcula Impuesto Cedular" /></td>
+					</tr>
+					<tr>
+						<td nowrap>Observaciones :</td>
+						<td nowrap>&nbsp;</td>
+						<td nowrap>&nbsp;</td>
+						<td nowrap>&nbsp;</td>
+						<td nowrap>&nbsp;</td>
+					</tr>
+					<tr>
+						<td width="100%" colspan=7 height="100%" align="center"><textarea
+								cols="105" rows="2" name="cObservaciones" id="cObservaciones"> </textarea></td>
+					</tr>
+				</table>
+			</div>
+
+			<div id="demo2"></div>
+
+			<div class="dvFuente"></div>
+			<div id="multitabs" style="width: 860px">
+
+				<div id="tabs" style="width: 100%">
+
+					<ul>
+						<li><a id="L01" href="#tabs-1">Detalle de
+								operaci&oacute;n</a></li>
+						<li><a id="L02" href="#tabs-2">Retenciones</a></li>
+						<li><a id="L03" href="#tabs-3" class="pasoDos">Devengado</a></li>
+						<li><a id="L04" href="#tabs-4" class="pasoTres">Documentaci&oacute;n</a></li>
+
+					</ul>
+					<div id="tabs-1">
+						<!--			<a href="javascript:void(0);" onclick="fnClickAddRowA();">Agregar</a>-->
+						<table width="96%" id="operacion" align="center" border="0"
+							cellspacing="0" cellpadding="0">
+
+
+							<tr>
+								<td>
+									<table width="80%" border="0" cellspacing="0" cellpadding="0">
+										<tr>
+											<td width="40%" style="visibility:hidden">#Pago AMF</td>
+											<td width="55%"><select id="NumPagoAMF"
+												name="NumPagoAMF" style="visibility:hidden">
+													<option value="***" selected>- Selecciona AMF -</option>
+											</select></td>
+											<td width="5%">&nbsp;</td>
+										</tr>
+										<tr>
+											<td width="40%" style="visibility:hidden">Clave AMF</td>
+											<td width="40%"><input type="text" name="nClaveAMF"
+												id="nClaveAMF" style="visibility:hidden" size="15"
+												maxlength="15" /></td>
+											<td width="5%">&nbsp;</td>
+										</tr>
+										<tr>
+											<td width="55%" style="visibility:hidden">Folio AMF</td>
+											<td width="55%"><input type="text" name="numFolioAMF"
+												id="numFolioAMF" style="visibility:hidden" size="15"
+												maxlength="15" /></td>
+											<td width="5%">&nbsp;</td>
+										</tr>
+										<tr>
+											<td width="40%">&nbsp;</td>
+											<td width="55%"><input type="text" name="PagoAMF"
+												id="PagoAMF" style="visibility:hidden" size="15"
+												maxlength="15" /></td>
+											<td width="5%">&nbsp;</td>
+										</tr>
+										<tr>
+											<td></td>
+											<!-- <td align="right" nowrap width="40%"><div align="left">No. de Folio</div></td> -->
+											<td width="55%"><input type="text" name="cNoFactura"
+												style="text-align: right" class="paso01" id="cNoFactura"
+												style="visibility:hidden" size="16" maxlength="10"
+												title="Capture el Numero de Factura" /></td>
+											<td></td>
+										</tr>
+										<tr>
+											<td align="right" nowrap width="5%">
+												<div align="left">Importe en Facturas:</div>
+											</td>
+											<td><input name="mImporteFacturas" type="text"
+												style="text-align: right" class="notEditable"
+												id="mImporteFacturas" value="0.0" size="16" readonly></td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td align="right" nowrap width="5%">
+												<div align="left">Importe Bruto</div>
+											</td>
+											<td><input name="mImporteBruto"
+												onkeypress="return validar2(event)" type="text"
+												style="text-align: right" class="subtotall"
+												id="mImporteBruto" value="0" size="16" readonly></td>
+										</tr>
+										<tr>
+											<td align="right" nowrap width="5%">
+												<div align="left">Otros Impuestos</div>
+											</td>
+											<td width="55%"><input type="text"
+												name="mOtrosImpuestos" style="text-align: right"
+												class="paso01" id="mOtrosImpuestos" size="16" readonly
+												value="0"></td>
+										</tr>
+										<tr>
+											<td align="right" nowrap width="40%">
+												<div align="left">Monto Sanciones</div>
+											</td>
+											<td width="55%"><input name="mImporteSancion"
+												onkeypress="return validar2(event)" type="text"
+												class="subtotall" value="0" id="mImporteSancion"
+												style="text-align: right" maxlength="10" size="16"
+												title="Disponible a Devolución"></td>
+											<td align="left" width="5%"><b>-&nbsp;</b></td>
+										</tr>
+										<tr>
+											<td align="right" nowrap width="40%">
+												<div align="left">Monto Devoluciones</div>
+											</td>
+											<td width="55%"><input name="mImporteDevolucion"
+												type="text" value="0" onkeypress="return validar2(event)"
+												maxlength="10" size="16" class="subtotall"
+												id="mImporteDevolucion" style="text-align: right"
+												title="Devolución de lo Sancionado"></td>
+											<td align="left" width="5%"><b>+&nbsp;</b></td>
+										</tr>
+										<tr>
+											<td align="right" nowrap width="40%">
+												<div align="left">Subtotal</div>
+											</td>
+											<td width="55%"><input name="subTotal_1" value="0"
+												type="text" style="text-align: right"
+												onkeypress="return validar2(event)" class="subtotall"
+												id="subTotal_1" size="16" readonly></td>
+											<td align="left" width="5%"><b>=&nbsp;</b></td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td width="40%">&nbsp;</td>
+											<td width="55%">&nbsp;</td>
+											<td width="5%">&nbsp;</td>
+										</tr>
+									</table>
+								</td>
+
+								<td>
+									<table width="80%" align="center" border="0" cellspacing="0"
+										cellpadding="0">
+										<tr>
+											<td width="40%"></td>
+											<td width="55%"></td>
+											<td width="5%"></td>
+										</tr>
+										<tr>
+											<td align="left" nowrap width="40%">
+												<div align="left">Amortizaci&oacute;n Anticipo</div>
+											</td>
+											<td width="55%"><input name="mAmortizacionAnticipo"
+												style="text-align: right" type="text" class="subtotall"
+												id="mAmortizacionAnticipo" maxlength="20" size="10"
+												value="0"></td>
+											<td align="left" width="5%"><b>-&nbsp;</b></td>
+										</tr>
+										<tr>
+											<td align="right" nowrap width="40%">
+												<div align="left">Subtotal</div>
+											</td>
+											<td width="55%"><input name="subTotal_2" type="text"
+												value="0" class="subtotall" style="text-align: right"
+												id="subTotal_2" size="10" readonly></td>
+											<td align="left" width="5%"><b>=&nbsp;</b></td>
+										</tr>
+										<tr>
+											<td align="right" nowrap width="40%">
+												<div align="left">Monto IVA</div>
+											</td>
+											<td width="55%"><input name="mImporteIVA" type="text"
+												class="subtotall" id="mImporteIVA" style="text-align: right"
+												maxlength="10" size="10" value="0" readonly> <input
+												name="mImporteMasIva" type="hidden" class="subtotall"
+												id="mImporteMasIva" style="text-align: right" maxlength="10"
+												size="10" value="0"></td>
+											<td align="left" width="5%"><b>+&nbsp;</b></td>
+										</tr>
+										<tr>
+											<td align="right" nowrap width="40%">
+												<div align="left">Monto Retenciones</div>
+											</td>
+											<td width="55%"><input name="mImporteRetencion"
+												type="text" class="subtotall" readonly
+												id="mImporteRetencion" maxlength="10"
+												style="text-align: right" size="10" value="0"></td>
+											<td align="left" width="5%"><b>-&nbsp;</b></td>
+										</tr>
+										<tr>
+											<td align="right" nowrap width="40%">
+												<div align="left">Monto Penalizaciones</div>
+											</td>
+											<td width="55%"><input name="mImportePenalizacion"
+												type="text" class="subtotall" id="mImportePenalizacion"
+												value="0" onkeypress="return validar2(event);"
+												maxlength="10" style="text-align: right" size="10"
+												title="No disponible a Devolución"></td>
+											<td align="left" width="5%"><b>-&nbsp;</b></td>
+										</tr>
+										<tr>
+											<td align="left" nowrap width="40%">
+												<div align="left">Importe Neto</div>
+											</td>
+											<td width="55%"><input name="mImporteNeto" value="0"
+												style="text-align: right" type="text" class="subtotall"
+												readonly id="mImporteNeto" size="10"> <input
+												name="mImporteNetoEP" value="0" style="text-align: right"
+												type="hidden" readonly id="mImporteNetoEP" size="10"></td>
+
+											<td width="5%"><b>=&nbsp;</b></td>
+										</tr>
+										<tr>
+											<td align="left" nowrap width="40%">
+												<div align="left">Importe a Ejercer</div>
+											</td>
+											<td width="55%"><input name="mImpEjercer"
+												onKeyPress="return validar2(event)" type="text"
+												style="text-align: right" id="mImpEjercer" value="0"
+												maxlength="10" size="10" readonly> <input
+												type="hidden" name="mImporteAnticipoIVA"
+												style="text-align: right" class="subtotall"
+												id="mImporteAnticipoIVA" maxlength="10" size="10" value="0" /></td>
+										</tr>
+									</table>
+								</td>
+
+								<td>
+									<table width="200" border="0">
+										<tr>
+											<td><p>% Amortizaci&oacute;n</p>
+												<p>Acumulado de Amortizaci&oacute;n</p></td>
+											<td><input type="text" name="nPorcAmortizacion"
+												style="text-align: right" onChange="Amortizacion()"
+												id="nPorcAmortizacion" maxlength="10" size="10" value="0"
+												readonly /> <input type="hidden" name="nPorcAmortizacion2"
+												style="text-align: right" id="nPorcAmortizacion2"
+												maxlength="10" size="10" value="0" /> <input type="text"
+												name="mAmortizacionAcumulado" style="text-align: right"
+												id="mAmortizacionAcumulado" maxlength="10" size="10"
+												value="0" readonly /></td>
+										</tr>
+										<tr>
+											<td nowrap>% IVA</td>
+											<td><input name="nPorcIVAAplicable" readonly type="text"
+												id="nPorcIVAAplicable" value="0" class="subtotall"
+												maxlength="10" style="text-align: right" size="10"></td>
+										</tr>
+										<tr>
+											<td nowrap>
+												<p>Saldo del Total Compromiso</p>
+												<p>Saldo del Contrato</p>
+												<p>Comprometido</p>
+											</td>
+											<td>
+												<p>
+													<input type="text" name="saldoCed" id="saldoCed"
+														maxlength="10" style="text-align: right" class="subtotall"
+														value="0" size="10" readonly /> <input type="hidden"
+														name="saldoCed2" id="saldoCed2" maxlength="10"
+														style="text-align: right" value="0" size="10" />
+												</p> <input name="mTotal" onkeypress="return validar2(event)"
+												type="text" style="text-align: right" id="mTotal" value="0"
+												maxlength="10" readonly size="10">
+												<p>
+													<input type="text" name="acumulado" id="acumulado"
+														maxlength="10" style="text-align: right" value="0"
+														size="10" readonly />
+												</p>
+											</td>
+										</tr>
+										<tr>
+											<td nowrap>
+												<p>Acumulado Sanciones</p>
+												<p>Acumulado Devoluciones</p>
+											</td>
+											<td><input type="text" name="mImporteSancionAcumulado"
+												id="mImporteSancionAcumulado" value="0" class="subtotall"
+												maxlength="10" style="text-align: right" size="10" readonly />
+												<input name="mTotal2" type="hidden"
+												style="text-align: right" id="mTotal2" value="0"
+												maxlength="10" size="10"> <input
+												name="mImporteDevolucionAcumulado" type="text" value="0"
+												onkeypress="return validar2(event)" maxlength="10" size="10"
+												id="mImporteDevolucionAcumulado" style="text-align: right"
+												readonly></td>
+										</tr>
+										<tr>
+											<td nowrap>Anticipo</td>
+											<td><input type="text" name="saldoAnticipo"
+												id="saldoAnticipo" maxlength="10" value="0"
+												class="subtotall" style="text-align: right" size="10"
+												readonly /></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td nowrap>Concepto :</td>
+							</tr>
+							<tr>
+
+								<td width="100%" colspan=5 height="100%" align="center"><textarea
+										cols="80" rows="10" name="Descrip_Concepto"
+										onkeypress="return validar(event)" class="paso01"
+										id="Descrip_Concepto" title="Descripcion del pago" readonly></textarea></td>
+
+							</tr>
+						</table>
+					</div>
+
+
+					<div id="tabs-2">
+						<!--			<a href="javascript:void(0);" onclick="fnClickAddRowC();">Agregar</a>-->
+						<table width="95%" align="center" border="0" id="Retenciones"
+							cellspacing="0" cellpadding="0">
+							<tr>
+								<td>
+
+
+									<table cellpadding="0" cellspacing="0" border="1"
+										class="display" id="tretencion">
+										<thead>
+											<tr>
+												<th>Codigo</th>
+												<th>Retencion</th>
+												<th>Porcentaje</th>
+											</tr>
+										</thead>
+										<tbody>
+										</tbody>
+										<tfoot>
+										</tfoot>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td><br /> <br /></td>
+							</tr>
+						</table>
+
+
+					</div>
+					<div id="tabs-3">
+
+						<!--<a href="javascript:void(0);" onclick="cambioMovmientos();">Agregar</a>-->
+
+						<table border="0" cellspacing="0" cellpadding="1">
+
+						</table>
+						<table align="center" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td>Tipo de Concepto</td>
+								<td colspan="2">Tipo De Movimiento</td>
+								<td>Importe a Ejercer</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td><select id="TIPO_CONCEPTO" name="TIPO_CONCEPTO"
+									onChange="concepto();"></select> <span id="verFondenSPAN">
+										&nbsp; <a href="#" onclick="verReferencia();return false;">Ver
+											Proyecto FONDEN</a>
+								</span></td>
+								<td colspan="2"><select id="TIPO_MOVIMIENTO"
+									name="TIPO_MOVIMIENTO"></select></td>
+								<td><input type="text" id="importeEjercer"
+									name="importeEjercer" value="0" style="text-align:right"
+									readonly></td>
+								<td align="center">&nbsp;</td>
+
+							</tr>
+
+							<tr>
+								<td>Almacén</td>
+								<td></td>
+								<!-- <div align="center">Almacén</div></td>  -->
+								<td></td>
+								<!-- align="center">Año</td>  -->
+								<td></td>
+								<!-- Factura</td> -->
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td><select class="paso04" id="ALM" name="ALM"
+									style="width: 180px"></select></td>
+								<td><input name="altaAlmacen" type="text" class="paso04"
+									id="altaAlmacen" style="text-align: right;"
+									onKeyPress="valFmt(this,9)" value="0" size="15" maxlength="15"></td>
+								<td align="center"><input type="text" id="cAnioFactEP"
+									name="cAnioFactEP" onKeyPress="valFmt(this,9)" class="paso04"
+									size="4" maxlength="4"></td>
+								<td><input type="text" id="nFacturaEP" name="nFacturaEP"
+									style="text-transform:uppercase" class="paso04" size="12"
+									maxlength="12"></td>
+								<td>&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td colspan="2" align="center">
+									<div align="left">Estructura Programática</div>
+								</td>
+								<td align="center"><font size="2">Monto Devengado</font></td>
+								<td><input type="button" value="Agregar"
+									onClick="FiltroMovimientos();" class="paso9" id="agrega2"
+									name="agrega2" /></td>
+							</tr>
+							<tr>
+								<td align="center"><input type="text" maxlength="32"
+									size="60" id="ep" name="ep" readonly></td>
+								<td><input name="button" type="button"
+									id="nIdClaveEgresos2" onclick="Grid()" value="..." size="5"></td>
+								<td><input type="text" name="montoDev" value='0'
+									id="montoDev" onblur="cambioss();" maxlength="16"
+									style="text-align:right" onkeypress="return validar2(event)"></td>
+								<td><input type="text" name="saldoCompM" id="saldoCompM"
+									value="0" maxlength="16" style="text-align:right" readonly /></td>
+							</tr>
+						</table>
+
+						<table cellpadding="0" cellspacing="0" border="0" class="display"
+							id="grdCompromisos">
+							<thead>
+								<tr>
+									<th nowrap>Clave Presupuestaria SIAF</th>
+									<th nowrap>Cod. SIF</th>
+									<th>Importe</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+							<tfoot>
+							</tfoot>
+						</table>
+
+						<table cellpadding="0" cellspacing="0" style="visibility:hidden"
+							border="0" class="display" id="grdRetClave">
+							<thead>
+								<tr>
+									<th>EP</th>
+									<th>Mes</th>
+									<th>Importe</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+							<tfoot>
+							</tfoot>
+						</table>
+
+
+
+
+					</div>
+
+					<div id="tabs-4">
+
+						<table border="0" cellspacing="0" cellpadding="0" width="50%">
+							<tr>
+								<td>
+									<table border="0" cellspacing="2" cellpadding="0">
+										<tr>
+											<td>No. Folio</td>
+											<td>Fecha de factura</td>
+											<td>Tipo de beneficiario</td>
+											<td>Clave de beneficiario</td>
+											<td>Tipo de operaci&oacute;n</td>
+										</tr>
+										<tr>
+											<td><input name="DCD_FACTURA" type="text"
+												id="DCD_FACTURA" onkeypress="return validar(event)"
+												class="paso03" readonly></td>
+											<td><input name="DCD_FECHA_FACTURA" type="text"
+												id="DCD_FECHA_FACTURA" class="paso03" maxlength="10"
+												size="10" readonly></td>
+											<td><input name="DCD_TBEN" type="text" class="paso03"
+												id="DCD_TBEN" readonly></td>
+											<td><input name="DCD_CBEN" type="text" class="paso03"
+												id="DCD_CBEN" readonly></td>
+											<td><select name="DCD_TIPO_OPE" id="DCD_TIPO_OPE"
+												class="paso03">
+													<option value="85" class="paso03">85 OTROS</option>
+											</select></td>
+										</tr>
+										<tr>
+											<td>Porcentaje IVA</td>
+											<td>Importe Total</td>
+											<td>IVA Desglose</td>
+											<td>IVA Retención</td>
+											<td>ISR</td>
+										</tr>
+										<tr>
+											<td>
+												<!--	<select id="DESCRIPCION20" class= "paso03" name="DESCRIPCION20" style="width: 10em;">
+                      </select>--> <input name="DESCRIPCION20"
+												type="text" class="paso03" id="DESCRIPCION20"
+												onKeyPress="return validar2(event)" value="0" readonly>
+											</td>
+											<td><input type="text" id="DCD_IMP_BRUTO" class="paso03"
+												onkeypress="return validar2(event)" name="DCD_IMP_BRUTO"
+												readonly></td>
+											<td><input name="DCD_IVA" type="text" id="DCD_IVA"
+												value="0" class="paso03" onKeyPress="return validar2(event)"
+												readonly></td>
+											<td><input name="DCD_IVADES" type="text" id="DCD_IVADES"
+												class="paso03" value="0" onKeyPress="return validar2(event)"
+												readonly></td>
+											<td><input name="DCD_ISR" type="text" id="DCD_ISR"
+												value="0" class="paso03" onkeypress="return validar2(event)"
+												readonly></td>
+										</tr>
+										<tr>
+											<td>Ret. 0.5%</td>
+											<td>Ret. 0.2%</td>
+											<td>Beneficio social</td>
+											<td>Impuesto cedular</td>
+											<td>Penalizaciones</td>
+										</tr>
+										<tr>
+											<td><input name="DCD_MIL5" type="text" id="DCD_MIL5"
+												class="paso03" value="0" onkeypress="return validar2(event)"
+												readonly></td>
+											<td><input name="DCD_MIL2" type="text" id="DCD_MIL2"
+												value="0" class="paso03" onkeypress="return validar2(event)"
+												readonly></td>
+											<td><input name="DCD_CONTRIBUCION" type="text"
+												id="DCD_CONTRIBUCION" value="0" class="paso03"
+												onkeypress="return validar2(event)" readonly></td>
+											<td><input name="DCD_OTRAS_RET" type="text"
+												id="DCD_OTRAS_RET" value="0" class="paso03"
+												onkeypress="return validar2(event)" readonly></td>
+											<td><input name="DCD_PENALIZACION" type="text"
+												id="DCD_PENALIZACION" value="0" class="paso03"
+												onkeypress="return validar2(event)" readonly></td>
+										</tr>
+										<tr>
+											<td>Sanci&oacute;n</td>
+											<td>Devoluci&oacute;n</td>
+											<td>Amort. Anticipo</td>
+											<td>Total Retenci&oacute;n</td>
+											<td>Neto</td>
+										</tr>
+										<tr>
+											<td><input name="DCD_SANCION" type="text"
+												id="DCD_SANCION" class="paso03" value="0"
+												onkeypress="return validar2(event)" readonly></td>
+											<td><input name="DCD_DEVOL" type="text" id="DCD_DEVOL"
+												value="0" class="paso03" onkeypress="return validar2(event)"
+												readonly></td>
+											<td><input name="DCD_AMORT" type="text" id="DCD_AMORT"
+												value="0" class="paso03" onkeypress="return validar2(event)"
+												readonly></td>
+											<td><input name="DCD_RETENCION" type="text"
+												id="DCD_RETENCION" value="0" class="paso03"
+												onkeypress="return validar2(event)" readonly></td>
+											<td><input name="DCD_NETO" type="text" id="DCD_NETO"
+												value="0" class="paso03" onkeypress="return validar2(event)"
+												readonly></td>
+										</tr>
+										<tr>
+											<td>Concepto:</td>
+											<td><input type="button" id="Agregar1" name="Agregar1"
+												value="Agregar" onclick="fnClickAddRowComp();" />
+
+
+												<div id="divImprime" style="font-size:18px">
+													<img src="imagenes/Imprimir.png" width="33" height="28"
+														onClick="cmdImprimir('ContrareciboN');">
+													Contrarecibo
+												</div></td>
+											<td><span id="justificacion"><a href="#"
+													onclick="dlgJustificacion(); return false;"> Carga
+														Justificacion </a></span></td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td colspan="3"><textarea id="DCD_CONCEPTO"
+													name="DCD_CONCEPTO" class="paso03"
+													style="height: 91px; width: 448px"
+													onkeypress="return validar(event)" readonly></textarea></td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" align="left"></td>
+							</tr>
+						</table>
+						<table cellpadding="0" cellspacing="0" border="0" class="display"
+							id="grdFacturas">
+							<thead>
+								<tr>
+									<th nowrap>&nbsp;</th>
+									<th align="left">&nbsp;</th>
+									<th align="left">&nbsp;</th>
+									<th align="left">&nbsp;</th>
+									<th align="left">&nbsp;</th>
+									<th align="left">&nbsp;</th>
+									<th align="left">&nbsp;</th>
+									<th align="left">&nbsp;</th>
+									<th align="left">Descuentos</th>
+									<th align="left">&nbsp;</th>
+									<th align="left">&nbsp;</th>
+									<th align="left">&nbsp;</th>
+									<th align="left">&nbsp;</th>
+									<th align="left">&nbsp;</th>
+									<th align="left">&nbsp;</th>
+								</tr>
+								<tr>
+									<th nowrap>No. Factura</th>
+									<th align="left">Fecha Factura</th>
+									<th align="left">Tipo beneficiario</th>
+									<th align="left">Cve Benef</th>
+									<th align="left">Tipo oper</th>
+									<th align="left">%IVA</th>
+									<th align="left">Importe Total</th>
+									<th align="left">IVA desglose</th>
+									<th align="left">IVA</th>
+									<th align="left">ISR</th>
+									<th align="left">Ret. 0.5</th>
+									<th align="left">Ret 0.2</th>
+									<th align="left">Beneficio social</th>
+									<th align="left">Impuesto cedular</th>
+									<th align="left">Penalizaciones</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+							<tfoot>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div id="dialog-form" title="Aplicación Presupuestal/Contable">
+				<div id="divEspera" align="center">
+					Espere por favor.... <img border="0" src="../imagenes/espera.gif"
+						height="30">
+				</div>
+				<div id="divAplica">
+					<iframe id="ifAplica" src="about:blank"></iframe>
+				</div>
+			</div>
+			<div id="dialog-Procesando" title="Procesando">
+				<div id="divEsperaProcesando" style="visibility: hidden"
+					align="center">
+					Espere por favor.... <img border="0" src="../imagenes/espera.gif"
+						height="30">
+				</div>
+			</div>
+			<div id="dialog-validaOLI" title="Validación de OLI">
+				<h1>Digite el Número de OLI a Validar</h1>
+				<input style="text-align: right;" name="cOLI" type="text" id="cOLI"
+					value="" size="20" maxlength="15" />
+			</div>
+			<div id="dialog-validaFact" title="Validación de Facturas">
+				<div id="uploadFacturasDiv">
+					<iframe id="uploadFacturasFrm"
+						src="UploadFacturas.jsp?tipo_pago=PAGODIVERSO" align="top"
+						frameborder="0" height="360" width="510"> </iframe>
+				</div>
+				<div id="facturasCapturadasDiv">
+					<table width="100%">
+						<tr>
+							<td align="right"><a href="#"
+								onclick="togleDivFacts(1);return false;">Cargar Facturas</a></td>
+						</tr>
+						<tr>
+							<td>
+								<fieldset>
+									<legend>Facturas Capturadas.</legend>
+									<table id="grdValidaFacturas">
+										<thead>
+											<tr>
+												<th>Serie</th>
+												<th>Factura</th>
+												<th>Importe Bruto</th>
+											</tr>
+										</thead>
+									</table>
+									Total de las facturas:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
+										type="text" style="text-align: right;" name="mTotalFacturaV"
+										id="mTotalFacturaV" value="0.00" size="15" maxlength="15"
+										readonly />
+								</fieldset>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div id="dialog-Justificacion" title="Ajuntar Justificacion">
+				<div id="uploadJustificacion">
+					<iframe id="UploadJustificacionIva6"
+						src="UploadJustificacionIva6.jsp?tipo_pago=PAGODIVERSO"
+						align="top" frameborder="0" height="360" width="510"> </iframe>
+				</div>
+			</div>
+			<div id="dialog-firmantes" title="Firmantes">
+				<table>
+					<tr>
+						<td id="AutorizaConFielTD" style="display: none" colspan="2"><input
+							type="checkbox" id="autorizadoPorFielChk"
+							name="autorizadoPorFielChk" onclick="autorizadoPorFielAction()">
+							<label for="autorizadoPorFielChk"> Autorizar con Firma
+								Electronica</label></td>
+					</tr>
+					<tr>
+						<td align="left"><input type="checkbox"
+							id="oficioDelegatorio" name="oficioDelegatorio"
+							onclick="showDivOficio(false);">Oficio Delegatorio
+							Autoriza</td>
+						<td align="left"><input type="checkbox" id="oficioDeleVoBo"
+							name="oficioDeleVoBo" onclick="showDivOficioVoBo(false);">Oficio
+							Delegatorio VoBo</td>
+					</tr>
+				</table>
+				<fieldset>
+					<legend>Datos VºBº</legend>
+					<table>
+						<tr>
+							<td>VoBo :</td>
+							<td><select id="cboVoBo" name="cboVoBo" style="width: 300px"
+								onchange="infoEmpleado('VOBO');">
+							</select></td>
+						</tr>
+					</table>
+				</fieldset>
+				<fieldset>
+					<legend>Datos Autoriza</legend>
+					<table>
+						<tr>
+							<td>Autoriza :</td>
+							<td><select id="cboAutoriza" name="cboAutoriza"
+								style="width: 300px" onchange="infoEmpleado('AUT');">
+							</select></td>
+						</tr>
+					</table>
+				</fieldset>
+				<fieldset>
+					<legend>Datos Elabora</legend>
+					<table>
+						<tr>
+							<td>Nombre</td>
+							<td><input type="text" id="cNombreEla" name="cNombreEla"
+								size=40 maxlength="70" value="MARÍA DEL CARMEN" /></td>
+						</tr>
+						<tr>
+							<td>Apellido Paterno</td>
+							<td><input type="text" id="cPaternoEla" name="cPaternoEla"
+								size=40 maxlength="70" value="VALENCIA" /></td>
+						</tr>
+						<tr>
+							<td>Apellido Materno</td>
+							<td><input type="text" id="cMaternoEla" name="cMaternoEla"
+								size=40 maxlength="70" value="DOMINGUEZ" /></td>
+						</tr>
+						<tr>
+							<td>Puesto</td>
+							<td><input type="text" id="cPuestoEla" name="cPuestoEla"
+								size=40 maxlength="70" value="ENLACE ADMINISTRATIVO" /></td>
+						</tr>
+					</table>
+				</fieldset>
+			</div>
+			<div id="oficioDelegatorioCaptura">
+				<fieldset>
+					<legend>Datos del Suplente</legend>
+					<table>
+						<tr>
+							<td>No. de Oficio</td>
+							<td><input type="text" id="cFolioOficio" name="cFolioOficio"
+								size=30 maxlength="70" /></td>
+						</tr>
+						<tr>
+							<td>Fecha de Oficio</td>
+							<td><input type="text" id="dFechaOficio" name="dFechaOficio"
+								size=12 maxlength="12" /></td>
+						</tr>
+
+						<!-- VGC27032018 Para que se seleccione el tipo de delegatorio, por suplencia o delego. -->
+						<tr>
+							<td>Tipo de Suplencia:</td>
+							<td><select id="tipoSuplencia" name="tipoSuplencia"></select></td>
+						</tr>
+						<tr>
+							<td>Suplente Autoriza :</td>
+							<td><select id="cboSuplenteAut" name="cboSuplenteAut"
+								style="width: 300px" onchange="infoEmpleado('SUPAUT');">
+							</select></td>
+						</tr>
+					</table>
+				</fieldset>
+			</div>
+
+			<div id="oficioDelegatorioVoBo">
+				<fieldset>
+					<legend>Datos del Suplente VoBo</legend>
+					<table>
+						<tr>
+							<td>No. de Oficio</td>
+							<td><input type="text" id="cFolioOficioVoBo"
+								name="cFolioOficioVoBo" size=30 maxlength="70" /></td>
+						</tr>
+						<tr>
+							<td>Fecha de Oficio</td>
+							<td><input type="text" id="dFechaOficioVoBo"
+								name="dFechaOficioVoBo" size=12 maxlength="12" /></td>
+						</tr>
+						<!-- VGC27032018 Para que se seleccione el tipo de delegatorio, por suplencia o delego. -->
+						<tr>
+							<td>Tipo de Suplencia:</td>
+							<td><select id="tipoSuplenciaVoBo" name="tipoSuplenciaVoBo"></select></td>
+							<td colspan="2">&nbsp;</td>
+						</tr>
+						<tr>
+							<td>Suplente VoBo :</td>
+							<td><select id="cboSuplenteVoBo" name="cboSuplenteVoBo"
+								style="width: 300px" onchange="infoEmpleado('SUPVOBO');">
+							</select></td>
+						</tr>
+					</table>
+				</fieldset>
+			</div>
+
+			<div id="dlgSeleccionaFonden">
+				<fieldset>
+					<legend> Seleccione el proyecto de FONDEN </legend>
+					<table>
+						<tr>
+							<td align="right">Proyecto:</td>
+							<td>
+								<div id="selproyectoFondenDiv">
+									<select id="proyectoFonden" name="proyectoFonden">
+									</select>
+								</div>
+								<div id="verProyectoFondenDiv">
+									<input type="text" id="proyectoFondenRead"
+										name="proyectoFondenRead" size="24" readonly="readonly" />
+								</div>
+							</td>
+						</tr>
+					</table>
+				</fieldset>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
+

@@ -95,7 +95,7 @@ public class FuelAccountRequestController extends HttpServlet {
             if (StringUtils.isBlank(idStr))
                 throw new RuntimeException("No se recibio folio para busqueda");
             FuelProvisioningRequest fuelProvisioningRequest = fuelProvisioningRequestService.readFuelProvisioning(Integer.valueOf(idStr));
-            log.debug("Object: {}", "Found: " + fuelProvisioningRequest);
+            log.debug("Object: " + String.valueOf("Found: " + fuelProvisioningRequest));
             Util.sendJSON(resp, fuelProvisioningRequest);
         } catch (Exception e) {
             log.error(e.getMessage(), e);

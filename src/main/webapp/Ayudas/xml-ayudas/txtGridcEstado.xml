@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Seleccion de Lugar de Expedicion</titulo>
+	<anchoWin>470</anchoWin>
+	<altoWin>350</altoWin>
+	<altoAreaCaptura>90</altoAreaCaptura>
+	<tabla>v_cEstado</tabla>
+	<maxRegistros>50</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+
+
+	<grid>
+		<columna	campo="cEstado"			control=""	dependencia="No"	limpiaOnKeypress=""	header="Estado"	ancho="3"	maxlen="4"	tipo="string"	visible="Si"	clase=""	rowCol="1,1"  />
+		<columna	campo="cNombreEstado"	control=""	dependencia="No"	limpiaOnKeypress=""	header="Nombre"	ancho="40"	maxlen="40"	tipo="string"	visible="Si"	clase=""	rowCol="1,2"  />
+	</grid>
+
+</Ayuda>

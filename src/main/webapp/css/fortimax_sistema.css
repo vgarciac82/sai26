@@ -1,0 +1,135 @@
+
+
+body 
+{
+	SCROLLBAR-FACE-COLOR: #a8bed1; 
+	FONT-SIZE: 10px; 
+	MARGIN: 0px; 
+	FONT-FAMILY: Arial, Helvetica, sans-serif; 
+	BACKGROUND-COLOR: buttonface;
+	background-color: #ffffff;
+	scrollbar-3dlight-color: #f5f5f5;
+	scrollbar-arrow-color: #ffa500;
+	scrollbar-base-color: #0c6d3d;
+	scrollbar-darkshadow-color: #7cb096;
+	scrollbar-face-color: #696969;
+	scrollbar-highlight-color: #dcdcdc;
+	scrollbar-shadow-color: #000000;
+	scrollbar-track-color: #edf2f8; 
+}
+
+
+
+th, td {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #FFA500; /*Ethiel, color del font del encabezado del inbox*/
+	text-transform: uppercase;
+}
+
+
+.A {
+	CURSOR: hand;
+	font-size: 10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #000000;
+	height: 44px;
+	padding-right: 2px;
+	padding-left: 2px;
+}
+
+
+.I {
+	CURSOR: default;
+	font-size: 10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #999999;
+	filter: Alpha(Opacity=0);
+	height: 44px;
+	padding-right: 2px;
+	padding-left: 2px;
+}
+
+.campos {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #000000;
+	background-color: #ffffff;
+	border: 1px solid #000066;
+}
+
+.boton {
+	color: #FFFFFF;
+	border: 1px solid #FFFFFF;
+	background-color: #366EA4;
+	cursor: hand;
+	font-size: 10px;
+	font-weight: bold;
+}
+
+#titulo {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	color: #006600;
+	font-weight: bold;
+}
+
+#textomenu {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	vertical-align: text-bottom;
+}
+
+
+
+#detalles input, .det input {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	border: none;
+	background-color: #FFFFFF;
+}
+
+.bordes {
+	background-color: #ecf1f7;
+	border: 1px solid #446097;
+}
+
+#texto {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #666666;
+	padding-top: 2px;
+	padding-right: 4px;
+	padding-bottom: 2px;
+	padding-left: 4px;
+}
+
+input {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #666666;
+}
+
+td select {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+
+th {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+
+
+.instrucciones {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: #33cc00;
+	font-weight: bold;
+}
+
+.advertencia {
+	color: #cc0000;
+	font-size: 14px;
+}

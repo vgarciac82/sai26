@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Ayuda Catálogo de Grupos</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_CG_GRUPO_USUARIO1</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="G_NOMBRE"	control="txtGridMantoGrupoUsuario"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Nombre"	ancho="100"	maxlen="200"	tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+</Ayuda>

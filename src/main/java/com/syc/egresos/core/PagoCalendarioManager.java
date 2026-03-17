@@ -22,18 +22,18 @@ public class PagoCalendarioManager {
         queryInsert.append("VALUES(?,?,?,?,?,?,?,?)");
         PreparedStatement psInsert = null;
         try {
-            log.debug("Object: {}", "Preparando inserción en tPagoCalendario..." + calendarioPago);
-            log.debug("Object: {}", "Query generada: " + queryInsert.toString());
+            log.debug("Object: " + String.valueOf("Preparando inserción en tPagoCalendario..." + calendarioPago));
+            log.debug("Object: " + String.valueOf("Query generada: " + queryInsert.toString()));
             psInsert = conn.prepareStatement(queryInsert.toString());
             log.debug("Asignando parámetros para CalendarioPago:");
-            log.debug("Object: {}", "  -> TipoPago: " + calendarioPago.getTipoPago());
-            log.debug("Object: {}", "  -> FolioPago: " + calendarioPago.getFolioPago());
-            log.debug("Object: {}", "  -> EP: " + calendarioPago.getEp());
-            log.debug("Object: {}", "  -> Mes: " + calendarioPago.getMes());
-            log.debug("Object: {}", "  -> ImporteBrutoMes: " + calendarioPago.getImporteBrutoMes());
-            log.debug("Object: {}", "  -> IdTipoConcepto: " + calendarioPago.getIdTipoConcepto());
-            log.debug("Object: {}", "  -> IdTipoMovimiento: " + calendarioPago.getIdTipoMovimiento());
-            log.debug("Object: {}", "  -> ImporteRetencion: " + calendarioPago.getImporteRetencion());
+            log.debug("Object: " + String.valueOf("  -> TipoPago: " + calendarioPago.getTipoPago()));
+            log.debug("Object: " + String.valueOf("  -> FolioPago: " + calendarioPago.getFolioPago()));
+            log.debug("Object: " + String.valueOf("  -> EP: " + calendarioPago.getEp()));
+            log.debug("Object: " + String.valueOf("  -> Mes: " + calendarioPago.getMes()));
+            log.debug("Object: " + String.valueOf("  -> ImporteBrutoMes: " + calendarioPago.getImporteBrutoMes()));
+            log.debug("Object: " + String.valueOf("  -> IdTipoConcepto: " + calendarioPago.getIdTipoConcepto()));
+            log.debug("Object: " + String.valueOf("  -> IdTipoMovimiento: " + calendarioPago.getIdTipoMovimiento()));
+            log.debug("Object: " + String.valueOf("  -> ImporteRetencion: " + calendarioPago.getImporteRetencion()));
             psInsert.setString(1, calendarioPago.getTipoPago());
             psInsert.setInt(2, calendarioPago.getFolioPago());
             psInsert.setString(3, calendarioPago.getEp());

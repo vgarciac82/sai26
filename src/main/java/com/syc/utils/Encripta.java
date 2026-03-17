@@ -1,6 +1,5 @@
 package com.syc.utils;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
@@ -134,7 +133,7 @@ public class Encripta {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
         return null;
@@ -156,7 +155,7 @@ public class Encripta {
     public static SecretKey stringToSecretKey(String str) {
         try {
             return new SecretKeySpec(Base64.getDecoder().decode(str), algorithm);
-        } catch (IOException e) {
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
         return null;

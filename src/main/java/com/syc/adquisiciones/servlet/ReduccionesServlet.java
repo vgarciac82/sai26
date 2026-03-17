@@ -310,7 +310,7 @@ public class ReduccionesServlet extends HttpServlet {
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion Contable, Consulte a su administrador.";
         }
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis())));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         Connection conn = null;
         AplicarContableReturn acr = null;
@@ -331,7 +331,7 @@ public class ReduccionesServlet extends HttpServlet {
             c = CasoManager.select(conn, sc);
             // Una vez que ha hecho la aplicación contable avanza el caso
             avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-            log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+            log.debug("Object: " + String.valueOf(c.getCasoDato("APLICADO_CONT").getValor()));
         } catch (Exception e) {
             log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
         } finally {
@@ -343,7 +343,7 @@ public class ReduccionesServlet extends HttpServlet {
             }
             conn = null;
         }
-        log.debug("Object: {}", "Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis())));
         try {
             //Regresa el mensaje de la aplicación contable para que sea mostrado en el JSP
             mensaje = !"".equals(mensaje) ? mensaje : arrLResult.get(0);

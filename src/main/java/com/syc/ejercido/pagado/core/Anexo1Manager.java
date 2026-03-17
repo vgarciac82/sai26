@@ -122,11 +122,11 @@ public class Anexo1Manager {
             //"	REPLACE(LEFT(tCE.cConcepto, 70),',','')," +
             Sql = " SELECT TOP 1 " + "	SUBSTRING('" + sREFERENCIA1_107 + "',LEN('" + sREFERENCIA1_107 + "')-7,LEN('" + sREFERENCIA1_107 + "'))," + "	'H' AS Header," + "	CONVERT(nvarchar(10), GETDATE(),103)," + "	CONVERT(nvarchar(10), GETDATE(),103)," + "	tCE.cRamo," + "	tCE.cRamo," + "	tCE.cRamo," + "	'RHQ' UnidadResponsable," + "	'RHQ' UnidadResponsable," + "	'RHQ' UnidadResponsable," + "	'N' ID_TIPO_MOVIMIENTO," + "	'1' AS OrigenPpto," + "	'3' AS TipoSol," + "	'MXN' TipoMoneda," + "	'1' TipoCambio," + "	'1' TIPO_PAGO," + "	'PENDIENTE' AS CveLeyenda," + "	'S04929' CBEN," + "	'" + arrCuentasBancarias[0].trim() + "' CUENTA_BANCARIA," + "	'16RHQ'," + "	'FAC'," + "	'' FechaReferencia," + "	'' Referencia1," + "	'' Referencia2," + " 	'Integracion de Anexo 1 " + sREFERENCIA1_107 + "' Concepto," + "	'' NotasReverso," + "	'' AMF," + "	'" + sREFERENCIA1_107 + "' NO_ACMI," + "	'" + sREFERENCIA1_107 + "' AuxiliarComodin," + "	'' CTR," + "	'' FolioDC," + "	CONVERT(DECIMAL(17, 2), 0) DCD_ISR, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_IVADES, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_MIL5, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_MIL2, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_OTRAS_RET, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_PENALIZACION, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_CONTRIBUCION, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_IVA, " + "	CONVERT(DECIMAL(17, 2), 0) IVAANT, " + "	'NA' ID_DESTINO_GASTO " + "FROM tAnexo1Encabezado tCE " + "WHERE tCE.nFolioAnexo1 IN (" + listaIds + ") " + "GROUP BY cRamo";
             pstmntH = conn.prepareStatement(Sql);
-            log.debug("Object: {}", Sql.toString());
+            log.debug("Object: " + String.valueOf(Sql.toString()));
             rs = pstmntH.executeQuery();
             while (rs.next()) {
                 //inserta encabezado
-                log.debug("Object: {}", "Procesando folio[" + arrFolios[0].trim() + "]");
+                log.debug("Object: " + String.valueOf("Procesando folio[" + arrFolios[0].trim() + "]"));
                 //String nFolio, nFolioCompromiso = rs.getString(1);
                 String encabezado = rs.getString(2) + "," + arrFechas[0].trim() + "," + rs.getString(4).trim() + "," + rs.getString(5).trim() + "," + rs.getString(6).trim() + "," + rs.getString(7).trim() + "," + rs.getString(8).trim() + "," + rs.getString(9).trim() + "," + rs.getString(10).trim() + "," + rs.getString(11).trim() + "," + rs.getString(12).trim() + "," + rs.getString(13).trim() + "," + rs.getString(14).trim() + "," + rs.getString(15).trim() + "," + rs.getString(16).trim() + "," + arrLeyendas[0].trim().trim() + "," + rs.getString(18).trim() + "," + rs.getString(19).trim() + "," + rs.getString(20).trim() + "," + rs.getString(21).trim() + "," + rs.getString(22).trim() + "," + rs.getString(23).trim() + "," + rs.getString(24).trim() + "," + rs.getString(25).trim().replaceAll("[\r\n]{2,}", " ") + "," + rs.getString(26).trim() + "," + rs.getString(27).trim() + "," + rs.getString(28).trim() + "," + rs.getString(29).trim() + "," + rs.getString(30).trim() + "," + rs.getString(31).trim() + "," + rs.getString(32).trim() + "," + rs.getString(33).trim() + "," + rs.getString(34).trim() + "," + rs.getString(35).trim() + "," + rs.getString(36).trim() + "," + rs.getString(37).trim() + "," + rs.getString(38).trim() + "," + rs.getString(39).trim() + "," + rs.getString(40).trim() + "," + rs.getString(41);
                 encabezado = encabezado + "\r\n";
@@ -212,8 +212,8 @@ public class Anexo1Manager {
         try {
             Caso c = PagosDiversosRGManager.generaCaso(conn, sUsuario, folioGenerator);
             nFolioConsolidacion = Integer.parseInt(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1), 10);
-            log.debug("Object: {}", "Query Insert Encabezado[" + sqlInsertConsolidacion + "]");
-            log.debug("Object: {}", "Query Insert Detalle[" + sqlInsertConsolidacionDetalle + "]");
+            log.debug("Object: " + String.valueOf("Query Insert Encabezado[" + sqlInsertConsolidacion + "]"));
+            log.debug("Object: " + String.valueOf("Query Insert Detalle[" + sqlInsertConsolidacionDetalle + "]"));
             psInsertaEncabezado = conn.prepareStatement(sqlInsertConsolidacion, Statement.RETURN_GENERATED_KEYS);
             psInsertaDetalle = conn.prepareStatement(sqlInsertConsolidacionDetalle);
             psInsertaEncabezado.setInt(1, nFolioConsolidacion);
@@ -222,11 +222,11 @@ public class Anexo1Manager {
             psInsertaEncabezado.setString(4, "");
             psInsertaEncabezado.setString(5, ejercicioFiscal);
             insertados += psInsertaEncabezado.executeUpdate();
-            log.debug("Object: {}", "Insertados en encabezado: " + insertados + " registros ");
+            log.debug("Object: " + String.valueOf("Insertados en encabezado: " + insertados + " registros "));
             rsFolioConsolidacion = psInsertaEncabezado.getGeneratedKeys();
             psInsertaDetalle.setInt(1, nFolioConsolidacion);
             insertados += psInsertaDetalle.executeUpdate();
-            log.debug("Object: {}", "Insertados en detalle: " + insertados + " registros ");
+            log.debug("Object: " + String.valueOf("Insertados en detalle: " + insertados + " registros "));
             return insertados;
         } finally {
             CloseObject.closeObject(rsFolioConsolidacion, false);

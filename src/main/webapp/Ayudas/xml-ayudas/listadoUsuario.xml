@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Usuarios Administradores Activos</titulo>
+	<anchoWin>600</anchoWin>
+	<altoWin>450</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>CAT_USUARIO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="U_LOGIN"	control="listadoUsuario"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Id de Usuario"		ancho="30"		maxlen="32"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="U_NOMBRE"	control="listadoUsuarion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Nombre completo"	ancho="30"		maxlen="32"		tipo="string"	visible="Si"	clase=""/>
+	</grid>
+
+</Ayuda>

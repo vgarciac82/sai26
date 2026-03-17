@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AnaliticaAcreedores"  pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="2.415765000000014"/>
+	<property name="ireport.x" value="651"/>
+	<property name="ireport.y" value="264"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\SyC\\Clientes\\CONAFOR\\Desarrollo\\Workspace\\sai_conafor\\WebContent\\Reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fIni" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fFin" class="java.lang.String"/>
+	<parameter name="cc" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[EXEC sp_a_AcreedoresAnalitica
+	@fini =  $P{fIni},
+    	@ffin = $P{fFin},
+    	@centroContable = $P{cc}]]>
+	</queryString>
+	<field name="nPoliza" class="java.lang.Integer"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="tipoDoc" class="java.lang.String"/>
+	<field name="nSolicitud" class="java.lang.Integer"/>
+	<field name="concepto" class="java.lang.String"/>
+	<field name="cuenta" class="java.lang.String"/>
+	<field name="subCuenta" class="java.lang.String"/>
+	<field name="beneficiario" class="java.lang.String"/>
+	<field name="salIni" class="java.math.BigDecimal"/>
+	<field name="cargo" class="java.math.BigDecimal"/>
+	<field name="abono" class="java.math.BigDecimal"/>
+	<field name="salFin" class="java.math.BigDecimal"/>
+	<field name="tipoPol" class="java.lang.String"/>
+	<field name="centroContable" class="java.lang.String"/>
+	<field name="nSolCom" class="java.lang.Integer"/>
+	<variable name="sumCargo" class="java.lang.Double" resetType="Group" resetGroup="SUBCUENTA" calculation="Sum">
+		<variableExpression><![CDATA[$F{cargo}]]></variableExpression>
+	</variable>
+	<variable name="sumAbono" class="java.lang.Double" resetType="Group" resetGroup="SUBCUENTA" calculation="Sum">
+		<variableExpression><![CDATA[$F{abono}]]></variableExpression>
+	</variable>
+	<variable name="sumSalFin" class="java.math.BigDecimal" resetType="Group" resetGroup="CUENTA" incrementType="Group" incrementGroup="CENTROCONTABLE" calculation="Sum">
+		<variableExpression><![CDATA[$F{salFin}]]></variableExpression>
+	</variable>
+	<variable name="GranTotal" class="java.math.BigDecimal" incrementType="Group" incrementGroup="CENTROCONTABLE" calculation="Sum">
+		<variableExpression><![CDATA[$F{salFin}]]></variableExpression>
+	</variable>
+	<group name="CUENTA">
+		<groupExpression><![CDATA[$F{cuenta}]]></groupExpression>
+		<groupHeader>
+			<band height="15">
+				<textField>
+					<reportElement x="2" y="1" width="177" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cuenta}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<staticText>
+					<reportElement x="312" y="4" width="80" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL CUENTA]]></text>
+				</staticText>
+				<textField pattern="#,##0.00">
+					<reportElement x="454" y="4" width="81" height="14"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sumSalFin}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="SUBCUENTA">
+		<groupExpression><![CDATA[$F{subCuenta}]]></groupExpression>
+		<groupHeader>
+			<band height="18">
+				<textField>
+					<reportElement x="126" y="2" width="236" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{beneficiario}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="13" y="2" width="102" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{subCuenta}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="TOTALES">
+		<groupExpression><![CDATA[$F{subCuenta}]]></groupExpression>
+		<groupFooter>
+			<band height="14">
+				<line>
+					<reportElement x="417" y="1" width="108" height="1"/>
+				</line>
+				<staticText>
+					<reportElement x="352" y="0" width="41" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL]]></text>
+				</staticText>
+				<textField pattern="#,##0.00">
+					<reportElement x="393" y="2" width="66" height="12"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{sumCargo}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="473" y="0" width="62" height="14"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{sumAbono}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="cc">
+		<groupExpression><![CDATA[$P{cc}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+	</group>
+	<group name="CENTROCONTABLE">
+		<groupExpression><![CDATA[$F{centroContable}]]></groupExpression>
+		<groupHeader>
+			<band height="12">
+				<staticText>
+					<reportElement x="339" y="0" width="47" height="12"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Saldos: ]]></text>
+				</staticText>
+				<textField pattern="#,##0.00">
+					<reportElement x="393" y="0" width="66" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{salIni}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="473" y="0" width="62" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{salFin}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="280" y="0" width="32" height="12"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{centroContable}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="179" y="0" width="96" height="12"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Centro Contable:]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="90" splitType="Stretch">
+			<staticText>
+				<reportElement x="160" y="10" width="292" height="29" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL
+Reporte de Acreedores Analitico]]></text>
+			</staticText>
+			<image>
+				<reportElement x="5" y="10" width="121" height="57"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="160" y="39" width="292" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(
+   "Del  " +$P{fIni} + "  Al  " + $P{fFin}
+)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="58" width="292" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(
+    $P{cc}.equals( "10" ) ? "Oficinas Centrales":
+    $P{cc}.equals( "11" ) ? "Aguascalientes":
+    $P{cc}.equals( "12" ) ? "Baja California Sur":
+    $P{cc}.equals( "13" ) ? "Baja California Norte":
+    $P{cc}.equals( "14" ) ? "Campeche":
+    $P{cc}.equals( "15" ) ? "Coahuila":
+    $P{cc}.equals( "16" ) ? "Colima":
+    $P{cc}.equals( "17" ) ? "Chiapas":
+    $P{cc}.equals( "18" ) ? "Chihuahua":
+    $P{cc}.equals( "19" ) ? "Distrito Federal":
+    $P{cc}.equals( "20" ) ? "Durango":
+    $P{cc}.equals( "21" ) ? "Guanajuato":
+    $P{cc}.equals( "22" ) ? "Guerrero":
+    $P{cc}.equals( "23" ) ? "Hidalgo":
+    $P{cc}.equals( "24" ) ? "Jalisco":
+    $P{cc}.equals( "25" ) ? "Mexico":
+    $P{cc}.equals( "26" ) ? "Michoacan":
+    $P{cc}.equals( "27" ) ? "Morelos":
+    $P{cc}.equals( "28" ) ? "Nayarit":
+    $P{cc}.equals( "29" ) ? "Nuevo Leon":
+    $P{cc}.equals( "30" ) ? "Oaxaca":
+    $P{cc}.equals( "31" ) ? "Puebla":
+    $P{cc}.equals( "32" ) ? "Queretaro":
+    $P{cc}.equals( "33" ) ? "Quintana Roo":
+    $P{cc}.equals( "34" ) ? "San Luis Potosi":
+    $P{cc}.equals( "35" ) ? "Sinaloa":
+    $P{cc}.equals( "36" ) ? "Sonora":
+    $P{cc}.equals( "37" ) ? "Tabasco":
+    $P{cc}.equals( "38" ) ? "Tamaulipas":
+    $P{cc}.equals( "39" ) ? "Tlaxcala":
+    $P{cc}.equals( "40" ) ? "Varacruz":
+    $P{cc}.equals( "41" ) ? "Yucatan":
+    $P{cc}.equals( "42" ) ? "Zacatecas":
+    "Consolidado"
+)]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="20" backcolor="#999999"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="70" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="0" width="46" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[T. Poliza]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="0" width="45" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Solicitud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="0" width="45" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Poliza]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="0" width="155" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="362" y="0" width="31" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="404" y="0" width="69" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cargo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="473" y="0" width="62" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Abono]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="205" y="0" width="181" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{concepto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="0" width="69" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="473" y="0" width="62" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{abono}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="393" y="0" width="66" height="10"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cargo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="115" y="0" width="45" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{nSolicitud}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="0" width="44" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{nPoliza}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="0" width="46" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tipoPol}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="17">
+			<textField pattern="#,##0.00">
+				<reportElement x="455" y="6" width="80" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{GranTotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="312" y="2" width="81" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GRAN TOTAL]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+</jasperReport>

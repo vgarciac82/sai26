@@ -97,7 +97,7 @@ public class FacturaManager {
         String text = new String(Files.toByteArray(fxml), Charsets.UTF_8);
         text = Util.removeStringBOMChar(text);
         InputStream in = new ByteArrayInputStream(text.getBytes());
-        log.debug("Object: {}", text);
+        log.debug("Object: " + String.valueOf(text));
         // LAOP - Detect and exclude a UTF-8 BOM
         InputStream inBOM = new BOMInputStream(in);
         if ("3.3".equals(version)) {
@@ -197,7 +197,7 @@ public class FacturaManager {
                     rsBorraDocumentos = psBuscarDocumentos.executeQuery();
                     while (rsBorraDocumentos.next()) {
                         int idDocumento = rsBorraDocumentos.getInt(1);
-                        log.debug("Object: {}", "Eliminando paginas de [" + tituloAplicacion + "_G" + gabinete + "C" + idCarpetaPadre + "D" + idDocumento + "]");
+                        log.debug("Object: " + String.valueOf("Eliminando paginas de [" + tituloAplicacion + "_G" + gabinete + "C" + idCarpetaPadre + "D" + idDocumento + "]"));
                         log.trace("Object: {}", "Ejecutando [" + queryBorraPaginas + "][" + tituloAplicacion + "][" + gabinete + "][" + idCarpetaPadre + "][" + idDocumento + "]");
                         psBorraPaginas.setString(1, tituloAplicacion);
                         psBorraPaginas.setInt(2, gabinete);
@@ -205,7 +205,7 @@ public class FacturaManager {
                         psBorraPaginas.setInt(4, idDocumento);
                         int paginasBorradas = psBorraPaginas.executeUpdate();
                         log.info("Object: {}", "Se borraron " + paginasBorradas);
-                        log.debug("Object: {}", "Eliminando documento [" + tituloAplicacion + "_G" + gabinete + "C" + idCarpetaPadre + "D" + idDocumento + "]");
+                        log.debug("Object: " + String.valueOf("Eliminando documento [" + tituloAplicacion + "_G" + gabinete + "C" + idCarpetaPadre + "D" + idDocumento + "]"));
                         log.trace("Object: {}", "Ejecutando [" + queryBorraDocumentos + "][" + tituloAplicacion + "][" + gabinete + "][" + idCarpetaPadre + "][" + idDocumento + "]");
                         psBorraDocumentos.setString(1, tituloAplicacion);
                         psBorraDocumentos.setInt(2, gabinete);
@@ -539,7 +539,7 @@ public class FacturaManager {
         Carpeta cfdi = FacturaManager.obtenCarpetaDestino(conn, c, (esNotaCredito ? "NC" : "CFDI"), u.getLogin());
         for (Iterator<String> i = facturas.keySet().iterator(); i.hasNext(); ) {
             String facturaNombre = i.next();
-            log.debug("Object: {}", "Insertando factura [" + facturaNombre + "] ");
+            log.debug("Object: " + String.valueOf("Insertando factura [" + facturaNombre + "] "));
             ComponentesFactura cf = facturas.get(facturaNombre);
             insertados += FacturaManager.insertaArchivosFactura(conn, facturaNombre, cf, cfdi, c, u.getLogin());
         }
@@ -637,7 +637,7 @@ public class FacturaManager {
         query.append("           ,? )");
         log.trace("Object: {}", "Query: \n" + query);
         try {
-            log.debug("Object: {}", "Insertando bonificacion: " + bonificacion);
+            log.debug("Object: " + String.valueOf("Insertando bonificacion: " + bonificacion));
             ps = conn.prepareStatement(query.toString());
             ps.setString(1, tipoPago);
             ps.setInt(2, nFolioPago);
@@ -767,11 +767,11 @@ public class FacturaManager {
             psInsert = conn.prepareStatement(queryInsert);
             psDelete.setInt(1, nFolio);
             int borrados = psDelete.executeUpdate();
-            log.debug("Object: {}", "Se borraron " + borrados + " registros preexistentes");
+            log.debug("Object: " + String.valueOf("Se borraron " + borrados + " registros preexistentes"));
             psInsert.setInt(1, nFolio);
             psInsert.setDouble(2, monto);
             int insertados = psInsert.executeUpdate();
-            log.debug("Object: {}", "Se insertaron " + insertados + " registros.");
+            log.debug("Object: " + String.valueOf("Se insertaron " + insertados + " registros."));
             long stop = System.currentTimeMillis();
             log.trace("Object: {}", "Finalizado insercion de gastos no comprobables en [" + ((stop - start) / 1000) + "] s.");
         } finally {
@@ -850,7 +850,7 @@ public class FacturaManager {
                 afectados = psInsertaImpuestos.executeUpdate();
                 psInsertaImpuestos.clearParameters();
             }
-            log.debug("Object: {}", "Se insertaron " + afectados + " retenciones en factura.");
+            log.debug("Object: " + String.valueOf("Se insertaron " + afectados + " retenciones en factura."));
             return afectados;
         } finally {
             CloseObject.closeObject(psInsertaImpuestos, false);
@@ -1424,8 +1424,8 @@ public class FacturaManager {
             log.trace("Preparando PreparedStatement para insertaInformacionReciboDePago40");
             ps = conn.prepareStatement(query.toString());
             long numeroParcialidad = docto.getNumParcialidad() == null ? 1L : docto.getNumParcialidad().longValue();
-            log.debug("Object: {}", "SQL a ejecutar en insertaInformacionReciboDePago40: " + query.toString());
-            log.debug("Object: {}", "Parámetros SQL insertaInformacionReciboDePago40: " + "[1=" + UUID_REP + ", 2=" + docto.getFolio() + ", 3=" + docto.getSerie() + ", 4=" + docto.getIdDocumento() + ", 5=" + numeroParcialidad + ", 6=" + docto.getImpPagado() + ", 7=" + docto.getImpSaldoAnt() + ", 8=" + docto.getImpPagado() + ", 9=" + docto.getImpSaldoInsoluto() + ", 10=" + tipoPago + ", 11=" + folioPago + "]");
+            log.debug("Object: " + String.valueOf("SQL a ejecutar en insertaInformacionReciboDePago40: " + query.toString()));
+            log.debug("Object: " + String.valueOf("Parámetros SQL insertaInformacionReciboDePago40: " + "[1=" + UUID_REP + ", 2=" + docto.getFolio() + ", 3=" + docto.getSerie() + ", 4=" + docto.getIdDocumento() + ", 5=" + numeroParcialidad + ", 6=" + docto.getImpPagado() + ", 7=" + docto.getImpSaldoAnt() + ", 8=" + docto.getImpPagado() + ", 9=" + docto.getImpSaldoInsoluto() + ", 10=" + tipoPago + ", 11=" + folioPago + "]"));
             ps.setString(1, UUID_REP);
             ps.setString(2, docto.getFolio());
             ps.setString(3, docto.getSerie());
@@ -1538,7 +1538,7 @@ public class FacturaManager {
         int afectados = 0;
         if (factura != null && factura.getRetenciones() != null)
             afectados = insertaRetencionesFactura(conn, tipoPago, nFolioPago, factura.getUUID(), factura.getRetenciones());
-        log.debug("Object: {}", "Se insertaron " + afectados + " retenciones en factura.");
+        log.debug("Object: " + String.valueOf("Se insertaron " + afectados + " retenciones en factura."));
         return afectados;
     }
 
@@ -1576,7 +1576,7 @@ public class FacturaManager {
                 afectados += psInsertaRetenciones.executeUpdate();
                 psInsertaRetenciones.clearParameters();
             }
-            log.debug("Object: {}", "Se insertaron " + afectados + " retenciones en factura.");
+            log.debug("Object: " + String.valueOf("Se insertaron " + afectados + " retenciones en factura."));
             return afectados;
         } finally {
             CloseObject.closeObject(psInsertaRetenciones, false);
@@ -2264,12 +2264,12 @@ public class FacturaManager {
                 }
                 if (!FacturaManager.SAT_VIGENTE_STR.equalsIgnoreCase(acuse.getEstado())) {
                     String mensajeError = "La factura: " + f.getUUID() + " del emisor: " + f.getNombreEmisor() + " no es válida ante el SAT." + (notificaErrores ? " Se notificará a la Gerencia de Recursos Financieros de este hecho." : "") + " Respuesta SAT. Estatus [" + acuse.getCodigoEstatus() + "] Estado CFDI [" + acuse.getEstado() + "]. Favor de revisar con el proveedor la validación del certificado del emisor o actualización en los registros del SAT e intentarlo de nuevo.";
-                    log.info(mensajeError.getMessage(), mensajeError);
+                    log.info(mensajeError, mensajeError);
                     errores.add(mensajeError);
                     cf.getErrorLog().add(mensajeError);
                 } else if (FacturaManager.SAT_PROCESO_CANCELACION.equalsIgnoreCase(acuse.getEstatusCancelacion())) {
                     String mensajeError = "La factura: " + f.getUUID() + " del emisor: " + f.getNombreEmisor() + " está en proceso de cancelación en el SAT." + (notificaErrores ? " Se notificará a la Gerencia de Recursos Financieros de este hecho." : "") + " Respuesta SAT. Estatus [" + acuse.getCodigoEstatus() + "] Estado CFDI [" + acuse.getEstado() + "] Estatus Cancelación [" + acuse.getEstatusCancelacion() + "]. Favor de revisar con el proveedor la validación del certificado del emisor o actualización en los registros del SAT e intentarlo de nuevo.";
-                    log.info(mensajeError.getMessage(), mensajeError);
+                    log.info(mensajeError, mensajeError);
                     errores.add(mensajeError);
                     cf.getErrorLog().add(mensajeError);
                 }

@@ -75,7 +75,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             conn.commit();
         } catch (SQLException e) {
@@ -148,7 +148,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             conn.commit();
         } catch (SQLException e) {
@@ -238,7 +238,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             conn.commit();
         } catch (SQLException e) {
@@ -309,7 +309,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             conn.commit();
         } catch (SQLException e) {
@@ -409,7 +409,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             conn.commit();
         } catch (SQLException e) {
@@ -705,7 +705,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             conn.commit();
         } catch (SQLException e) {
@@ -770,7 +770,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             conn.commit();
         } catch (SQLException e) {
@@ -854,7 +854,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             conn.commit();
         } catch (SQLException e) {
@@ -917,7 +917,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             fsalida = new File(fileName);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             conn.commit();
             return fsalida;
@@ -981,7 +981,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             file = new File(fileName);
             fos = new FileOutputStream(file);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             return file;
         } finally {
@@ -1016,7 +1016,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             fsalida = new File(fileName);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             conn.commit();
             return fsalida;
@@ -1090,7 +1090,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             fsalida = new File(fileName);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             conn.commit();
             return fsalida;
@@ -1159,7 +1159,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             conn.commit();
         } catch (SQLException e) {
@@ -1240,7 +1240,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             fsalida = new File(fileName);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             conn.commit();
             error = false;
@@ -1308,7 +1308,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             fsalida = new File(fileName);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             conn.commit();
             return fsalida;
@@ -1375,7 +1375,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             fsalida = new File(fileName);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             conn.commit();
             return fsalida;
@@ -1444,7 +1444,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             fsalida = new File(fileName);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             conn.commit();
             return fsalida;
@@ -1508,7 +1508,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             fsalida = new File(fileName);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             conn.commit();
             return fsalida;
@@ -1617,7 +1617,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             fsalida = new File(fileName);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             return fsalida;
         } catch (SQLException e) {
@@ -1689,7 +1689,7 @@ public class ReportesGRMBusinessLogic extends DataSourceManager {
             fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             conn.commit();
         } catch (SQLException e) {

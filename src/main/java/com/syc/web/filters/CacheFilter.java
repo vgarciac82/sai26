@@ -59,7 +59,7 @@ public class CacheFilter implements Filter {
             Enumeration locales = request.getLocales();
             while (locales.hasMoreElements()) {
                 Locale locale = (Locale) locales.nextElement();
-                ldata.write(locale.getISO3Language().toPath());
+                ldata.write(locale.getISO3Language());
             }
             id = id + ldata.toString();
         }
@@ -100,7 +100,7 @@ public class CacheFilter implements Filter {
         response.setContentType(mt);
         ServletOutputStream sos = res.getOutputStream();
         for (int i = fis.read(); i != -1; i = fis.read()) {
-            sos.write((byte) i.toPath());
+            sos.write((byte) i);
         }
         fis.close();
     }

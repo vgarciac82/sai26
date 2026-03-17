@@ -1,0 +1,66 @@
+@CHARSET "UTF-8";
+
+html, body, td, th {
+	font: 10pt Arial, Helvetica, sans-serif
+}
+
+a {
+	color: #000000;
+	font: normal normal 12px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	/*
+	border-color: #e9e9ee;
+	*/
+	border-color: #999999;
+}
+
+ a,  a:link,  a:visited {
+	color: #ffffff;
+	display: block;
+	text-decoration: none;
+	width: 100%;
+}
+
+ a:hover {
+	color: yellow;
+	display: block;
+	text-decoration: inherit;
+	width: 100%;
+}
+
+
+#idTh {
+	background: #A4bAD0;
+	border-bottom: 1px solid #335EA8;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+#idThVacio {
+	background: url(../imagenes/steel_BG.gif);
+	border-bottom: 1px solid #335EA8;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+#idThParam {
+	background: #A4bAD0;
+	border-bottom: 1px solid #335EA8;
+	margin-bottom: 10px;
+	text-align: right;
+}
+
+#idTdTexto {
+	text-align: left;
+}
+
+#idTdNumero {
+	text-align: right;
+}
+
+.NormalRow {
+	background-color: #ffffff;
+}
+
+.AlternateRow {
+	background-color: #eeeeee;
+}

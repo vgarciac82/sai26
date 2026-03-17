@@ -133,7 +133,7 @@ public class ProimproInfoReaderManager {
                 cond += token + "      iduae = ? ";
                 token = " AND ";
             }
-            log.debug("Object: {}", "Buscando carteras [" + sqlBase + cond + "]");
+            log.debug("Object: " + String.valueOf("Buscando carteras [" + sqlBase + cond + "]"));
             ps = conn.prepareStatement(sqlBase + cond);
             int i = 1;
             if (cartera != null && !"".equals(cartera)) {
@@ -181,7 +181,7 @@ public class ProimproInfoReaderManager {
                 }
                 condicion = " AND (" + claves + ")";
                 query += condicion;
-                log.debug("Object: {}", query.toString());
+                log.debug("Object: " + String.valueOf(query.toString()));
                 ps = conn.prepareStatement(query);
                 rs = ps.executeQuery();
                 while (rs.next()) {

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Validaciones Funcionales </titulo>
+	<anchoWin>100</anchoWin>
+	<altoWin>100</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_TVALIDACION_ADECUACION_FUNCIONAL</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>1</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>		
+		<columna campo="REDUCE"		control="REDUCE"		dependencia="No"	limpiaOnKeypress=""		header="Reduce"		rowCol="1,1"	ancho="20"	maxlen="4" 		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="AMPLIA"		control="AMPLIA"		dependencia="No"	limpiaOnKeypress=""		header="Amplia"		rowCol="1,2"	ancho="20"	maxlen="4"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="NIVEL"		control="NIVEL"			dependencia="No"	limpiaOnKeypress=""		header="Nivel"		rowCol="1,3"	ancho="25"	maxlen="5" 		tipo="int"		visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="REDUCE"		control="txtGridREDUCE"		llave="Si"		identity="No"	requerido="El Campo de reduce es un dato requerido."	requeridoFocus="txtGridREDUCE"		tipo="string" />
+		<campo field="AMPLIA"		control="txtGridAMPLIA"		llave="Si"		identity="No"	requerido="El Campo de amplia es un dato requerido."	requeridoFocus="txtGridAMPLIA"		tipo="string" />		
+		<campo field="NIVEL"		control="txtGridNIVEL"		llave="Si"		identity="No"	requerido="El Nivel es un dato requerido."				requeridoFocus="txtGridNIVEL"		tipo="int" />		
+	</insertaRegistro>
+	
+</Ayuda>

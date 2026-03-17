@@ -89,7 +89,7 @@ public class ReporteSaldosManager {
         sql.append(" AND s.cSubCuenta LIKE '" + nSubCuenta + "' ");
         sql.append(" AND s.cCentroContable LIKE '" + Centro + "' ");
         sql.append(" GROUP BY s.nCuenta, s.cSubCuenta, s.cCentroContable, s.naturalezaDeLaCuenta");
-        Log.debug("Object: {}", sql.toString());
+        Log.debug("Object: " + String.valueOf(sql.toString()));
         try {
             pstmt = conn.createStatement();
             rs = pstmt.executeQuery(sql.toString());
@@ -177,7 +177,7 @@ public class ReporteSaldosManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         workbook.close();
         bos.flush();
@@ -191,7 +191,7 @@ public class ReporteSaldosManager {
         ResultSet rs = null;
         String fileName = "";
         String query = "SELECT * FROM fn_l_ConsultaMovimientos(" + mIni + "," + mFin + ",'" + nCuenta + "','" + nSubCuenta + "','" + nCC + "')";
-        Log.debug("Object: {}", query);
+        Log.debug("Object: " + String.valueOf(query));
         try {
             pstmt = conn.createStatement();
             rs = pstmt.executeQuery(query);
@@ -287,7 +287,7 @@ public class ReporteSaldosManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         workbook.close();
         bos.flush();
@@ -499,7 +499,7 @@ public class ReporteSaldosManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         workbook.close();
         /* Cierra Flujos */
         bos.flush();

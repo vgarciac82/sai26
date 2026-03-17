@@ -109,7 +109,7 @@ public class CargaPolizaManualBusinessLogic extends DataSourceManager {
                 }
                 log.info("Object: {}", "valores del renglon: " + renglon + "  Tipo de celda en subcuenta: " + CellcSubCuenta + "  Cuenta: " + CellnCuenta + "  SubCuenta: " + CellcSubCuenta + "  Cargo: " + CellnCargo.getNumericCellValue() + "  Abono :" + CellnAbono.getNumericCellValue());
                 if (CellnCuenta != null) {
-                    log.debug("Object: {}", "Procesando renglon " + (renglon));
+                    log.debug("Object: " + String.valueOf("Procesando renglon " + (renglon)));
                     try {
                         String nCuenta = CellnCuenta.getStringCellValue();
                         String cSubCuenta = " ";
@@ -150,7 +150,7 @@ public class CargaPolizaManualBusinessLogic extends DataSourceManager {
                         renglonMap.put("nAbono", nAbono);
                         renglonMap.put("cCentroContable", CentroContable);
                         renglonMap.put("nFolioDocumento", FolioDocumento);
-                        log.debug("Object: {}", "nCuenta[" + nCuenta + "] cSubCuenta[" + cSubCuenta + "] nCargo[" + nCargo + "] nAbono[" + nAbono + "]  cCentroContable[" + CentroContable + "]  FolioDocumento[" + FolioDocumento + "]");
+                        log.debug("Object: " + String.valueOf("nCuenta[" + nCuenta + "] cSubCuenta[" + cSubCuenta + "] nCargo[" + nCargo + "] nAbono[" + nAbono + "]  cCentroContable[" + CentroContable + "]  FolioDocumento[" + FolioDocumento + "]"));
                         //SE MANDA A VALIDAR EL VALOR DE LA SUBCUENTA PARA SEGUIR INSERTANDO REGISTRO O EN SU CASO HACER EL ROLLBACK
                         Reg = CargaPolizaManualManager.validaRenglon(conn, nCuenta, cSubCuenta, renglon);
                         if (Reg == "ok") {

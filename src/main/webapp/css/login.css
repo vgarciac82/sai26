@@ -1,0 +1,44 @@
+/* CSS Document */
+#loginDiv {
+	
+	/* position:absolute; */
+	
+	/*
+	top:15%;
+	left:50%;
+	*/
+	width:551px;
+	background: #335EA8;
+	border-left: 1px solid #777777;
+	border-right: 1px solid #777777;
+}
+.letrerologin {
+	background: url(../imagenes/fondo-letrero1.png) no-repeat;
+	height: 32px;
+	margin-bottom: 10px;
+	font-size: 1.4em;
+	line-height: 1em;
+	color: #FFFFFF;
+	font-weight: normal;
+	padding-top: 5px;
+	padding-left: 30px;
+	margin-top: 5px;
+}
+#logotipos {
+	background: url(../imagenes/enc-fnd-degradado.png)  repeat-x;
+}
+.campo1 {
+	font-size: 0.9em;
+	color: #326CA2;
+	padding: 2px 2px 5px;
+	font-weight: bold;
+}
+.pieLogin {
+	color: #666666;
+	border-top: 1px solid #316BA2;
+	text-align: center;
+	height: 15px;
+	display: block;
+	font-size: 0.6em;
+	background: #FFFFFF;
+}

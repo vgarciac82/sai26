@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteMomentosSolicitud_ajenascxp"  pageWidth="310" pageHeight="500" columnWidth="310" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.1435888100000016"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="solicitud" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT DISTINCT det.caNoContrarrecibo
+	, RFC
+	, det.cCentroContable
+	, SUM(mTotal) AS Importe
+	, cTipoDoc
+FROM dbo.tOperAjenasEncabezado enc (NOLOCK)
+INNER JOIN dbo.tOperAjenasDetalle det (NOLOCK)
+	ON enc.nFolioOperAjenas = det.nFolioOperAjenas
+	AND enc.nFolioOperAjenas = $P{solicitud}
+WHERE (CASE cTipoDoc
+	WHEN 'PAGOOBRA'
+	THEN  (SELECT enc.cDocumentoHaplicado
+		FROM dbo.tPAGOOBRAEncabezado enc (NOLOCK)
+		WHERE enc.caNoContrarrecibo = det.caNoContrarrecibo)
+	WHEN 'PAGODIRECTO'
+	THEN (SELECT enc.cDocumentoHaplicado
+		FROM dbo.tPAGODIRECTOEncabezado enc (NOLOCK)
+		WHERE enc.caNoContrarrecibo = det.caNoContrarrecibo)
+	WHEN 'PAGODIVERSO'
+	THEN (SELECT enc.cDocumentoHaplicado
+		FROM dbo.tPAGODIVERSOEncabezado enc (NOLOCK)
+		WHERE enc.caNoContrarrecibo = det.caNoContrarrecibo)
+	WHEN 'PAGOFEDERALIZADO'
+	THEN (SELECT enc.cDocumentoHaplicado
+		FROM dbo.tPAGOFEDERALIZADOEncabezado enc (NOLOCK)
+		WHERE enc.caNoContrarrecibo = det.caNoContrarrecibo)
+	END) = 'S'
+GROUP BY det.caNoContrarrecibo, det.RFC, det.cCentroContable, cTipoDoc
+
+UNION
+
+SELECT DISTINCT det.caNoContrarrecibo
+	, RFC
+	, det.cCentroContable
+	, SUM(mPenalizacion) AS Importe
+	, cTipopago
+FROM dbo.tPagoPenasConvEncabezado enc (NOLOCK)
+INNER JOIN dbo.tPagoPenasConvDetalle det (NOLOCK)
+	ON enc.nFolioPagoPenasConv = det.nFolioPagoPenasConv
+	AND enc.nFolioPagoPenasConv = $P{solicitud}
+WHERE (CASE cTipopago
+	WHEN 'PAGOOBRA'
+	THEN  (SELECT enc.cDocumentoHaplicado
+		FROM dbo.tPAGOOBRAEncabezado enc (NOLOCK)
+		WHERE enc.caNoContrarrecibo = det.caNoContrarrecibo)
+	WHEN 'PAGODIRECTO'
+	THEN (SELECT enc.cDocumentoHaplicado
+		FROM dbo.tPAGODIRECTOEncabezado enc (NOLOCK)
+		WHERE enc.caNoContrarrecibo = det.caNoContrarrecibo)
+	WHEN 'PAGODIVERSO'
+	THEN (SELECT enc.cDocumentoHaplicado
+		FROM dbo.tPAGODIVERSOEncabezado enc (NOLOCK)
+		WHERE enc.caNoContrarrecibo = det.caNoContrarrecibo)
+	WHEN 'PAGOFEDERALIZADO'
+	THEN (SELECT enc.cDocumentoHaplicado
+		FROM dbo.tPAGOFEDERALIZADOEncabezado enc (NOLOCK)
+		WHERE enc.caNoContrarrecibo = det.caNoContrarrecibo)
+	END) = 'S'
+GROUP BY det.caNoContrarrecibo, det.RFC, det.cCentroContable, cTipopago]]>
+	</queryString>
+	<field name="caNoContrarrecibo" class="java.lang.String"/>
+	<field name="RFC" class="java.lang.String"/>
+	<field name="cCentroContable" class="java.lang.String"/>
+	<field name="Importe" class="java.math.BigDecimal"/>
+	<field name="cTipoDoc" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="24">
+			<staticText>
+				<reportElement x="0" y="1" width="307" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuentas por Pagar incluidas en la Operción Ajena]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="23" splitType="Stretch">
+			<line>
+				<reportElement x="5" y="18" width="302" height="1"/>
+			</line>
+			<line>
+				<reportElement x="5" y="-2" width="302" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="223" y="-1" width="84" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contrarrecibo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="1" width="21" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="-1" width="82" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RFC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="117" y="-1" width="101" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Documento]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement x="5" y="0" width="83" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{RFC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="92" y="0" width="21" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cCentroContable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="117" y="0" width="101" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cTipoDoc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="223" y="0" width="84" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{caNoContrarrecibo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

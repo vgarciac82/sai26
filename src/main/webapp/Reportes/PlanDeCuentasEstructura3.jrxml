@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlanDeCuentasEstructura2"  pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.7715610000000048"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 1 AS ID]]>
+	</queryString>
+	<field name="ID" class="java.lang.Integer"/>
+	<detail>
+		<band height="692" splitType="Stretch">
+			<staticText>
+				<reportElement x="206" y="138" width="75" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grupo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="327" width="167" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[4  Contrato de Comodato por Bienes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="49" width="229" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[ESTRUCTURA DEL PLAN DE CUENTAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="381" width="167" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[2  Lay de Ingresos por Ejecutar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="458" width="167" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[2  Presupuesto de Egresos por Ejercer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="196" y="480" width="89" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[2   Presupuesto de Egresos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="344" y="199" width="130" height="10"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[1  Ahorro de la Gestión]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="447" width="167" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[1  Presupuesto de Egresos Aprobado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="344" y="180" width="130" height="10"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[1   Resumen de Ingresos y Gastos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="65" y="138" width="77" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Género]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="54" y="283" width="113" height="36"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[7 CUENTAS DE ORDEN CONTABLES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="370" width="167" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[1  Lay de Ingresos Estimada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="204" y="200" width="89" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[2   Ahorro de la Gestión]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="266" width="192" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[1   Demandas Judiciales en Proceso de Resolución]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="403" width="167" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[4  Lay de Ingresos Devengado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="371" y="138" width="75" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rubro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="316" width="167" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[3   Bienes Bajo Contrato en Comodato]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="414" width="167" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[5  Ley de Ingresos Recaudada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="196" y="388" width="89" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[1   Ley de Ingresos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="392" width="167" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[3  Modificación a la Ley de Ingresos Estimada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="204" y="179" width="89" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[1   Resumen de Ingresos y Gastos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="54" y="186" width="100" height="31"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[6 CUENTAS DE CIERRE CONTABLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="344" y="210" width="130" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[1  Desahorro de la Gestión]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="277" width="167" height="21"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[2   Resolución de Demandas en Proceso Judicial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="204" y="272" width="52" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[4   Juicios]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="204" y="310" width="64" height="33"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[6   Bienes Concesionados o en Comodato]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="53" y="426" width="113" height="32"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[8 CUENTAS DE ORDEN PRESUPUESTARIAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="575" width="89" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[1   Superávit Financiero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="469" width="167" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[3  Modificaciones al Presupuesto de Egresos Aprobado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="490" width="167" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[4  Presupuesto de Egresos Comprometido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="512" width="167" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[6  Presupuesto de Egresos Ejercido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="501" width="167" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[5  Presupuesto de Egresos Devengado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="204" y="211" width="104" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[3   Desahorro de la Gestión]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="523" width="167" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[7  Presupuesto de Egresos Pagado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="54" y="572" width="113" height="44"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[9 CUENTAS DE CIERRE PRESUPUESTARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="606" width="89" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[2   Déficit Financiero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="606" width="105" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[1  Déficit Financiero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="332" y="575" width="106" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[1  Superávit Financiero]]></text>
+			</staticText>
+			<image>
+				<reportElement x="172" y="168" width="47" height="62"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\llaveizq.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="324" y="168" width="47" height="62"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\llaveizq.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="182" y="263" width="47" height="77"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\llaveizq.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="281" y="256" width="47" height="42"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\llaveizq.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="281" y="310" width="47" height="33"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\llaveizq.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="176" y="378" width="47" height="132"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\llaveizq.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="292" y="360" width="47" height="72"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\llaveizq.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="292" y="438" width="47" height="104"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\llaveizq.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="182" y="567" width="47" height="60"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\llaveizq.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="308" y="567" width="47" height="60"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\llaveizq.png"]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Programa Presupuestario</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>BALBUSCARFC</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+<!--	<ColSort>0</ColSort>-->
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+
+
+	<grid>
+		<columna campo="ID"	             control="buscaRFC"	        dependencia="No"	ctrlsDependientes="" 				limpiaOnKeypress=""		header="ID"	 				ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+		<columna campo="Descripcion"	 control="hbuscaRFC"	    dependencia="No"	ctrlsDependientes="" 				limpiaOnKeypress=""		header="Descripción"	 	ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="buscaCuentaC"	 control="buscaCuentaC"		dependencia="Si"	ctrlsDependientes="buscaCuentaC" 	limpiaOnKeypress=""		header="Cuenta"	 			ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+		<columna campo="cCentroContable" control="cCentroContable"	dependencia="Si"	ctrlsDependientes="cCentroContable" limpiaOnKeypress=""		header="CentroContable"		ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+	</grid>
+
+</Ayuda>

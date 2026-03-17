@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catalogo de Grupos para polizas Manuales</titulo>
+	<anchoWin>500</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>TCATALOGOGRUPO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="nIdGrupoEvento"	control="nGrupo"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Grupo"	        rowCol="1,1" ancho="20"	maxlen="20"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="descripcion"	control=""	        dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Descripción"	rowCol="1,1" ancho="50"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>        
+	</grid>  
+</Ayuda>

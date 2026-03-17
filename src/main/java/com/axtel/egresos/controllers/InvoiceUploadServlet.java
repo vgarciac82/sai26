@@ -82,7 +82,7 @@ public class InvoiceUploadServlet extends HttpServlet {
             String employeeLoading = request.getParameter("employeeLoading");
             int authEmployeeNumber = Integer.parseInt(request.getParameter("authEmployeeNumber"));
             int voBoEmployeeNumber = Integer.parseInt(request.getParameter("voBoEmployeeNumber"));
-            log.debug("Object: {}", "authEmployeeNumber=" + authEmployeeNumber + " voBoEmployeeNumber={" + voBoEmployeeNumber + "}");
+            log.debug("Object: " + String.valueOf("authEmployeeNumber=" + authEmployeeNumber + " voBoEmployeeNumber={" + voBoEmployeeNumber + "}"));
             Usuario user = new Usuario(employeeLoading);
             user = userService.getUsuario(user);
             Firmante authFirmante = new Firmante(authEmployeeNumber);
@@ -103,13 +103,13 @@ public class InvoiceUploadServlet extends HttpServlet {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().write(objectMapper.writeValueAsString(logResults).toPath());
+            response.getWriter().write(objectMapper.writeValueAsString(logResults));
         } catch (Exception e) {
             log.error("Error procesando la solicitud", e);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("{\"error\": \"Error procesando la solicitud: " + e.getMessage() + "\"}".toPath());
+            response.getWriter().write("{\"error\": \"Error procesando la solicitud: " + e.getMessage() + "\"}");
         }
     }
 

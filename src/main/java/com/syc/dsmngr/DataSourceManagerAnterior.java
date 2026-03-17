@@ -74,7 +74,7 @@ public abstract class DataSourceManagerAnterior {
 
     public Connection getConnection() throws SQLException {
         Connection conn = ds.getConnection();
-        log.debug("Object: {}", "Defaults: Autocommit = " + conn.getAutoCommit() + ", TransactionIsolation = " + transactionIsolationToString(conn.getTransactionIsolation()));
+        log.debug("Object: " + String.valueOf("Defaults: Autocommit = " + conn.getAutoCommit() + ", TransactionIsolation = " + transactionIsolationToString(conn.getTransactionIsolation())));
         if (conn.getAutoCommit() == true) {
             conn.setAutoCommit(false);
             changed = true;
@@ -91,7 +91,7 @@ public abstract class DataSourceManagerAnterior {
 					               }
 		*/
         if (changed == true) {
-            log.debug("Object: {}", "Gestion: Autocommit = " + conn.getAutoCommit() + ", TransactionIsolation = " + transactionIsolationToString(conn.getTransactionIsolation()));
+            log.debug("Object: " + String.valueOf("Gestion: Autocommit = " + conn.getAutoCommit() + ", TransactionIsolation = " + transactionIsolationToString(conn.getTransactionIsolation())));
             changed = false;
         }
         //return new SyCConnection(conn);

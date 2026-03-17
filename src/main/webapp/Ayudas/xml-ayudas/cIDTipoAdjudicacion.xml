@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Para Beneficiaros</titulo>
+	<anchoWin>600</anchoWin>
+	<altoWin>420</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>OCATALOGOTIPOADJUDICACION</tabla>
+	<maxRegistros>10</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cIDTipoAdjudicacion"	control="cIDTipoAdjudicacion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Tipo de Adjudicacion"	ancho="10"	maxlen="10"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cTipoAdjudicacion"	control="cTipoAdjudicacion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Razón social"	ancho="70"	maxlen="70"		tipo="string"	visible="Si"	clase=""/>
+		
+   </grid>  
+</Ayuda>

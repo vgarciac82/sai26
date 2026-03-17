@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PolizaPago" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="NumPagoAMF" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select tbn.dnombre, tpa.numPagoAMF, tpa.referenciaAMF, tpa.rfcAMF, tpa.cUnidadResponsable, tpa.fechaCaptura, tpa.fechaPago, tpa.importePago, tpd.EP, tpd.importePago as iportedetalle,dbo.fnCantidadLetra(tpa.importePago) cantLetras
+from tPagoAMF tpa , tPagoAMFDetalle tpd ,tBeneficiario tbn
+where tpa.numPagoAMF = tpd.numPagoAMF and
+tbn.dRFC = tpa.rfcAMF
+and tpa.numPagoAMF = $P{NumPagoAMF}]]>
+	</queryString>
+	<field name="dnombre" class="java.lang.String"/>
+	<field name="numPagoAMF" class="java.lang.String"/>
+	<field name="referenciaAMF" class="java.lang.String"/>
+	<field name="rfcAMF" class="java.lang.String"/>
+	<field name="cUnidadResponsable" class="java.lang.String"/>
+	<field name="fechaCaptura" class="java.lang.String"/>
+	<field name="fechaPago" class="java.lang.String"/>
+	<field name="importePago" class="java.math.BigDecimal"/>
+	<field name="EP" class="java.lang.String"/>
+	<field name="iportedetalle" class="java.math.BigDecimal"/>
+	<field name="cantLetras" class="java.lang.String"/>
+	<group name="caNoContrarrecibo">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="475" splitType="Stretch">
+				<rectangle>
+					<reportElement key="rectangle" x="0" y="86" width="552" height="371"/>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText" x="335" y="169" width="134" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[Periodo : ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="6" y="230" width="101" height="20"/>
+					<textElement/>
+					<text><![CDATA[Por concepto de:]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line" x="281" y="372" width="271" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line" x="281" y="399" width="271" height="1"/>
+				</line>
+				<staticText>
+					<reportElement key="staticText" x="284" y="110" width="121" height="20"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Tipo Operación]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="6" y="109" width="101" height="16"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Importe a Pagar:]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line" x="281" y="191" width="271" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line" x="413" y="106" width="1" height="58"/>
+				</line>
+				<staticText>
+					<reportElement key="staticText" x="7" y="354" width="101" height="15"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Financiamiento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="7" y="379" width="75" height="11"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Agente.Financiero:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="7" y="391" width="75" height="11"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[No. Cuenta:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="7" y="403" width="75" height="11"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Banco Acreedor:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="8" y="415" width="74" height="14"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[No. Préstamo:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="7" y="431" width="75" height="11"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Cat. Inversión:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="6" y="443" width="76" height="14"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Oficio Elegibilidad:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="117" y="443" width="61" height="14"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Fecha Oficio:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="117" y="382" width="61" height="17"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Financiable:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="117" y="399" width="61" height="13"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[No Financiable:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="284" y="374" width="101" height="20"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Importe Neto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="284" y="399" width="36" height="20"/>
+					<textElement/>
+					<text><![CDATA[Reviso]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="414" y="402" width="32" height="20"/>
+					<textElement/>
+					<text><![CDATA[V°B°]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="284" y="224" width="101" height="20"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Importe Bruto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="284" y="246" width="101" height="20"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Monto sanciones]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="284" y="268" width="101" height="20"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Monto devoluciones]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="284" y="288" width="101" height="20"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Amortización anticipo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="284" y="331" width="101" height="20"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Monto retenciones]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="284" y="192" width="101" height="20"/>
+					<textElement/>
+					<text><![CDATA[Clave presupuestaria]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line" x="281" y="245" width="271" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line" x="281" y="268" width="271" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line" x="281" y="287" width="271" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line" x="281" y="308" width="271" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line" x="281" y="331" width="271" height="1"/>
+				</line>
+				<staticText>
+					<reportElement key="staticText" x="146" y="357" width="101" height="20"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[% Financiamiento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="284" y="351" width="101" height="20"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Monto penalizaciones]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line" x="0" y="224" width="552" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line" x="0" y="352" width="553" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line" x="281" y="106" width="1" height="351"/>
+				</line>
+				<staticText>
+					<reportElement key="staticText" x="414" y="110" width="135" height="20"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[No. Estimación]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="6" y="169" width="101" height="14"/>
+					<textElement/>
+					<text><![CDATA[A favor de:]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line" x="0" y="164" width="552" height="1"/>
+				</line>
+				<staticText>
+					<reportElement key="staticText" x="390" y="289" width="79" height="20"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[(0.000000%)]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line" x="405" y="398" width="1" height="58"/>
+				</line>
+				<rectangle>
+					<reportElement key="rectangle" x="404" y="3" width="79" height="50"/>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="267" y="3" width="138" height="50"/>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="482" y="3" width="70" height="50"/>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="171" y="3" width="97" height="50"/>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText" x="267" y="3" width="138" height="16"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[Tipo de documento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="413" y="3" width="70" height="26"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Fecha
+Emisión]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="486" y="3" width="62" height="26"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Fecha del
+documento]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement key="rectangle" x="171" y="49" width="191" height="36"/>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText" x="175" y="52" width="179" height="16"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Contrato o Pedido No.]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement key="rectangle" x="361" y="49" width="191" height="36"/>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText" x="364" y="51" width="180" height="16"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Tipo de C. x P.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="33" y="71" width="116" height="14"/>
+					<textElement/>
+					<text><![CDATA[CUENTA POR PAGAR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="171" y="3" width="97" height="16"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[No. documento]]></text>
+				</staticText>
+				<image>
+					<reportElement key="image" x="8" y="10" width="145" height="38"/>
+					<imageExpression class="java.lang.String"><![CDATA["report\\images\\logotipo-usuario.png"]]></imageExpression>
+				</image>
+				<rectangle>
+					<reportElement key="rectangle" x="0" y="85" width="552" height="21"/>
+				</rectangle>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField" x="285" y="310" width="101" height="20"/>
+					<textElement verticalAlignment="Middle"/>
+				</textField>
+				<textField>
+					<reportElement x="175" y="28" width="93" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{numPagoAMF}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="147" y="169" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{rfcAMF}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="8" y="250" width="259" height="82"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{referenciaAMF}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="494" y="227" width="58" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{importePago}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="126" y="110" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{importePago}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="498" y="379" width="54" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{importePago}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="306" y="28" width="58" height="20"/>
+					<textElement/>
+					<text><![CDATA[Pago AMF]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="364" y="65" width="184" height="20"/>
+					<textElement/>
+					<text><![CDATA[Acuerdos De Ministracion  de Fondos]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="444" y="175" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fechaCaptura}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="518" y="254" width="23" height="20"/>
+					<textElement/>
+					<text><![CDATA[0.00]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="518" y="272" width="23" height="20"/>
+					<textElement/>
+					<text><![CDATA[0.00]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="518" y="294" width="23" height="20"/>
+					<textElement/>
+					<text><![CDATA[0.00]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="519" y="337" width="23" height="20"/>
+					<textElement/>
+					<text><![CDATA[0.00]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="520" y="359" width="23" height="20"/>
+					<textElement/>
+					<text><![CDATA[0.00]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="518" y="316" width="23" height="20"/>
+					<textElement/>
+					<text><![CDATA[0.00]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="6" y="90" width="140" height="20"/>
+					<textElement/>
+					<text><![CDATA[OFICINAS CENTRALES ]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="414" y="29" width="68" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fechaCaptura}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="486" y="30" width="66" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fechaPago}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="235" y="86" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cUnidadResponsable}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="1" y="473" width="552" height="1"/>
+				</line>
+				<line>
+					<reportElement x="0" y="457" width="1" height="16"/>
+				</line>
+				<line>
+					<reportElement x="552" y="457" width="1" height="16"/>
+				</line>
+				<staticText>
+					<reportElement x="128" y="457" width="100" height="16"/>
+					<textElement/>
+					<text><![CDATA[EP:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="411" y="457" width="100" height="18"/>
+					<textElement/>
+					<text><![CDATA[IMPORTE:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="1" y="195" width="266" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{dnombre}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="3" y="137" width="265" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cantLetras}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="8" y="2" width="396" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{EP}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="410" y="1" width="100" height="16"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{iportedetalle}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

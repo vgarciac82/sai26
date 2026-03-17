@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- Mantenimiento Periles de Usuario -->
+<Ayuda>
+	<titulo>Mantenimiento Perfiles de Usuario</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>700</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>M_CAT_PUSUARIO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="UR.U_LOGIN"				control="MantoLogin"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Id de Usuario"		ancho="50"		maxlen="32"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="UR.R_NOMBRE"			control="MantoPerfil"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Perfil"			ancho="50"		maxlen="32"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+	</grid>
+
+	<insertaRegistro>
+		<campo field="U_LOGIN"	control="txtGridMantoLogin"	llave="Si"	identity="No"	requerido="El Id Usuario es un dato requerido."	requeridoFocus="txtGridMantoLogin"	tipo="string" />
+		<campo field="R_NOMBRE"	control="txtGridMantoPerfil" llave="Si"	identity="No"	requerido="El perfil a asignar es un dato requerido."	requeridoFocus="txtGridMantoPerfil"		tipo="string" />
+	</insertaRegistro>
+	  
+</Ayuda>

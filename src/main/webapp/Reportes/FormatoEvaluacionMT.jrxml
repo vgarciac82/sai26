@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FormatoEval" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cf15c028-4784-43e0-a4c8-00ce42417087">
+	<property name="ireport.zoom" value="1.9487171000000045"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="291"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="whereFolio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select cDescripcionProyecto, cJustifSolicitud, cFundamentoMotivacion, cEspecificacion, cJustificacionEconomica, cJustificacionPlazo
+, mMontoMinimo, mMontoMaximo, mtotalcontrato mMontoTotalContrato, sFirmanteSol, sPuestoSol, folio
+from vw_ContratosPlurianualEncabezado cont with(NOLOCK)
+where folio =  $P{whereFolio}]]>
+	</queryString>
+	<field name="cDescripcionProyecto" class="java.lang.String"/>
+	<field name="cJustifSolicitud" class="java.lang.String"/>
+	<field name="cFundamentoMotivacion" class="java.lang.String"/>
+	<field name="cEspecificacion" class="java.lang.String"/>
+	<field name="cJustificacionEconomica" class="java.lang.String"/>
+	<field name="cJustificacionPlazo" class="java.lang.String"/>
+	<field name="mMontoMinimo" class="java.math.BigDecimal"/>
+	<field name="mMontoMaximo" class="java.math.BigDecimal"/>
+	<field name="mMontoTotalContrato" class="java.math.BigDecimal"/>
+	<field name="sFirmanteSol" class="java.lang.String"/>
+	<field name="sPuestoSol" class="java.lang.String"/>
+	<field name="folio" class="java.lang.Integer"/>
+	<group name="Grupo">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="151" splitType="Stretch">
+				<printWhenExpression><![CDATA[$V{PAGE_NUMBER} == 1]]></printWhenExpression>
+				<textField textAdjust="StretchHeight" pattern="###,###,##0.00" isBlankWhenNull="true">
+					<reportElement isPrintRepeatedValues="false" x="16" y="115" width="529" height="35" isPrintWhenDetailOverflows="true" uuid="8ebea868-d909-4694-ae1b-001ef9da06e6"/>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cEspecificacion}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="16" y="91" width="529" height="25" uuid="8a557ce9-dd91-40d2-99a8-9733ca2c95ae"/>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[a) La especificación de las obras, adquisiciones, arrendamientos o servicios, señalando si corresponden a inversión o gasto corriente;]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="16" y="35" width="529" height="56" uuid="bcf414e8-7930-4529-9e21-410991d3c7c3"/>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Artículo 147. Las dependencias que pretendan celebrar contratos plurianuales a que se refiere el artículo 50 de la Ley se sujetan a lo siguiente:
+
+        I.   Deberán solicitar la autorización de la Secretaría dentro del periodo comprendido entre el primer día hábil de enero y el último día hábil de agosto, anexando los siguientes documentos:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="16" y="0" width="529" height="35" uuid="5be67de0-891f-4111-bae1-c5f37417ba0f"/>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Evaluación sobre los mejores terminos y condiciones respecto a la celebración de un contrato plurianual para dar cumplimiento a lo señalado en el artículo 147, fracción I, incisos a), b), c) y d) del Reglamento de la Ley Federal de Presupuesto y Responsabilidad Hacendaria.]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<pageHeader>
+		<band height="43" splitType="Stretch">
+			<image>
+				<reportElement x="-3" y="2" width="329" height="40" uuid="b53807e3-c4b3-446d-81be-559bf34af868"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\MEDIO AMBIENTE - CONAFOR.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="58">
+			<staticText>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="16" y="3" width="529" height="23" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="f1c070a1-98c7-4f1f-9504-bc0366aa8f46"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[b) La justificación de que la celebración de dichos compromisos representa ventajas económicas o que sus términos y condiciones son más favorables respecto a la celebración de dichos contratos por un solo ejercicio fiscal;]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" pattern="###,###,##0.00" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="26" width="529" height="32" isPrintWhenDetailOverflows="true" uuid="27b36b3e-03a9-4f80-874d-9bae2dab959c"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cJustificacionEconomica}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="63">
+			<textField textAdjust="StretchHeight" pattern="###,###,##0.00" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="25" width="529" height="38" isPrintWhenDetailOverflows="true" uuid="2bceb82b-9c20-4b56-9805-625d409a94ba"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cJustificacionPlazo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="16" y="4" width="529" height="22" uuid="04f6e982-6fde-44bd-ae64-782618ef1803"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[c) La justificación del plazo de la contratación y de que el mismo no afectará negativamente a la competencia económica del sector de que se trate;]]></text>
+			</staticText>
+		</band>
+		<band height="111">
+			<staticText>
+				<reportElement positionType="Float" x="16" y="0" width="529" height="48" uuid="3f9841e8-05d3-48a3-8d19-b51ae1fcd2b1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[d) El desglose del gasto que debe consignarse a precios del año, tanto para el ejercicio fiscal como para los subsecuentes, así como, en el caso de obra pública, los avances físicos esperados. Los montos deberán presentarse en moneda nacional  y, en su caso, en la moneda prevista para su contratación. Las dependencias o entidades deberán presupuestar el gasto para los ejercicios subsecuentes confrome al inciso d) anterior.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement positionType="Float" x="65" y="49" width="408" height="25" uuid="ded4308b-b2fa-4de7-b7af-975d8a6d962e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="67" y="50" width="324" height="22" uuid="0df4f4cb-7220-4085-92b9-423e3fcdf0a1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Descripción del proyecto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="50" width="71" height="24" uuid="633c3459-c45d-4e45-b0fd-3cbd66baa05c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Monto Total en Pesos]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="65" y="75" width="408" height="35" uuid="12cef246-c8b1-4820-b3fc-008797606272"/>
+			</rectangle>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement isPrintRepeatedValues="false" x="400" y="75" width="66" height="20" uuid="56824353-4e9c-4de2-990e-916f6845ba93"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mMontoTotalContrato}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="67" y="74" width="324" height="35" uuid="bced527b-267a-4a5c-9f9d-fd0007d0b135"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cDescripcionProyecto}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="42">
+			<subreport>
+				<reportElement x="1" y="0" width="200" height="42" uuid="2f08eadf-46ce-4efd-804d-2ebeb888cf78"/>
+				<subreportParameter name="nFolio">
+					<subreportParameterExpression><![CDATA[$F{folio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+ "/" + "FormatoEvalDet.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="435" y="0" width="80" height="14" uuid="f18daf9f-0790-4a7c-9ac0-14a471a60348"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="0" width="40" height="14" uuid="5a446c6f-285f-473f-832d-5c7156342e6f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="93">
+			<staticText>
+				<reportElement x="251" y="0" width="61" height="14" uuid="328314ca-0911-448f-b445-6e138507dc81"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Atentamente]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="169" y="56" width="225" height="13" uuid="b392ba78-d0e5-4c29-84b9-9da7bfad177a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sFirmanteSol}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="169" y="53" width="222" height="1" uuid="a9459e4f-8ddf-4565-9f3f-d808aaa6dad9"/>
+			</line>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="169" y="68" width="225" height="25" isPrintWhenDetailOverflows="true" uuid="7fb96d45-40cc-4e26-aa10-7dcbe975ffb1"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sPuestoSol}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

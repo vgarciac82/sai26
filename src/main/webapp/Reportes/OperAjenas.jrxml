@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OperAjenas" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15c75fa8-b4fd-4295-9385-7729cd53eb98">
+	<property name="ireport.zoom" value="1.464100000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nFolioOperAjenas" class="java.lang.String">
+		<defaultValueExpression><![CDATA[11]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[EXEC.dbo.R_Operaciones_Ajenas $P{nFolioOperAjenas}]]>
+	</queryString>
+	<field name="cNombre" class="java.lang.String"/>
+	<field name="caNoContrarreciboEnb" class="java.lang.String"/>
+	<field name="cIDRFC" class="java.lang.String"/>
+	<field name="nombreOA" class="java.lang.String"/>
+	<field name="cbeneficiario" class="java.lang.String"/>
+	<field name="caNoContrarrecibo" class="java.lang.String"/>
+	<field name="RFC" class="java.lang.String"/>
+	<field name="Nombre" class="java.lang.String"/>
+	<field name="ep" class="java.lang.String"/>
+	<field name="TRetencion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ImportesTotal" class="java.math.BigDecimal"/>
+	<variable name="caNoContrarrecibo" class="java.lang.String"/>
+	<variable name="RFC" class="java.lang.String"/>
+	<variable name="cFolioPAGODIVERSO" class="java.lang.String"/>
+	<variable name="Retencion" class="java.lang.String"/>
+	<variable name="ImportesTotal" class="java.lang.Number" calculation="Sum"/>
+	<variable name="variable1" class="java.lang.String"/>
+	<variable name="ep" class="java.lang.String"/>
+	<variable name="ImportesTotal_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ImportesTotal}]]></variableExpression>
+	</variable>
+	<variable name="cNombre" class="java.lang.String"/>
+	<variable name="caNoContrarreciboEnb" class="java.lang.String"/>
+	<variable name="cbeneficiario" class="java.lang.String"/>
+	<variable name="variable2" class="java.lang.String"/>
+	<variable name="ImportesTotal_2" class="java.math.BigDecimal" resetType="Group" resetGroup="tiporetencion" calculation="Sum">
+		<variableExpression><![CDATA[$F{ImportesTotal}]]></variableExpression>
+	</variable>
+	<group name="tiporetencion">
+		<groupExpression><![CDATA[$F{TRetencion}]]></groupExpression>
+		<groupFooter>
+			<band height="27">
+				<textField pattern="¤ #,##0.00" isBlankWhenNull="false">
+					<reportElement x="702" y="5" width="100" height="11" uuid="8f95009f-2f1f-4dcf-aef0-7c01cb61491d"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{ImportesTotal_2}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="538" y="5" width="164" height="13" uuid="e037b168-3bc6-4a49-a0a0-bacca11e3071"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Total Retención: " + $F{TRetencion}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement key="image" x="2" y="2" width="131" height="36" uuid="a4c7e102-7ab0-41fa-b154-99323bcf7b7d"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement key="staticText-5" x="246" y="26" width="292" height="41" uuid="52858860-6ae1-4dfe-9913-4455c2d209c8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GERENCIA DE RECURSOS FINANCIEROS
+SISTEMA DE ADMINISTRACION INTEGRAL (SAI)
+ANEXO DE CUENTAS POR PAGAR DE OPERACIONES AJENAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-24" x="246" y="7" width="292" height="13" uuid="aa4cee7d-e01b-4f8b-a6fc-be39b105a8f5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText" x="10" y="21" width="96" height="16" uuid="36d3ffa9-6ec0-417e-9656-c35364c6ae9a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Beneficiario :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="10" y="2" width="96" height="16" uuid="d3644c6c-37ea-40b5-af07-a8a09726670e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[No. documento :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="498" y="2" width="96" height="16" uuid="7cb480ee-8ce7-4318-95aa-3c1823c32f6e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Cuenta por Pagar :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="37" width="800" height="1" uuid="40e5a39a-309f-4d32-8277-77ccb139fa36"/>
+			</line>
+			<textField>
+				<reportElement x="107" y="2" width="100" height="16" uuid="4cf0f601-a0a4-48eb-a35e-bcb54903d74f"/>
+				<textFieldExpression><![CDATA[$F{cNombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="595" y="1" width="100" height="17" uuid="146cc4da-dfa7-46b6-9874-bba7f68ac9f9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{caNoContrarreciboEnb}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="211" y="21" width="327" height="18" uuid="315b271b-911d-45a7-96e3-18e89dcfcb78"/>
+				<textFieldExpression><![CDATA[$F{nombreOA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="109" y="21" width="100" height="18" uuid="ed730cf5-e048-4048-bf0e-5edfc5abd506"/>
+				<textFieldExpression><![CDATA[$F{cIDRFC}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText" x="1" y="8" width="85" height="16" uuid="e00b343c-2e71-4159-ad94-8855f9aa59c5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Cuenta por Pagar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="97" y="8" width="79" height="16" uuid="c8faeda4-a216-4a99-9d18-ac7f6508ba8d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[RFC :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="206" y="8" width="96" height="16" uuid="63d48ed6-2dd9-4feb-9cbe-14e279cc2ae6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Beneficiario :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="372" y="8" width="96" height="16" uuid="13879590-f968-4899-887b-17da69f23b2f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[E.P. :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="598" y="8" width="96" height="16" uuid="0f02fa3c-985c-43e8-ac69-8467990c9b96"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Tipo de Retención  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="713" y="0" width="86" height="33" uuid="5467be94-12cf-4a0e-b5a3-efa147a5b6b5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Importe de  Retención :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="4" y="33" width="800" height="1" uuid="65311ca9-5fa6-4844-b47d-a7e2bb4965a6"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="1" width="84" height="14" uuid="9b42cee2-5b7c-4046-a6ee-b1fa43dcc7c5"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caNoContrarrecibo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="94" y="1" width="82" height="14" uuid="9f1dc6d8-5aec-4434-af18-f57a3263cf05"/>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RFC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="1" width="263" height="14" uuid="184e3686-d66d-4a60-bebf-7741e33d0bfd"/>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ep}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="699" y="1" width="100" height="14" uuid="2fdb4764-cee4-4d1c-ba44-0a76d0976e32"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ImportesTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="1" width="153" height="14" uuid="25c977f6-e436-4c25-9bfb-c41ea70586be"/>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="598" y="1" width="100" height="14" uuid="72dced57-0c1a-4eb3-afc3-74304544b965"/>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TRetencion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="17" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="577" y="11" width="100" height="20" uuid="6bcf8407-ce25-48d5-85e9-03d1a2f2a8db"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Total General:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="677" y="11" width="123" height="20" uuid="9a523dcf-dc81-4ca7-b58e-7a284fc7739d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{ImportesTotal_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

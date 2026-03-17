@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ComplementoManualEstimacionCtasIncobrables" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="41205d57-fcc2-49d0-8ec6-a2005debe3d1">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="4"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="localhost"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="idVersion" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="final" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="consulta" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipoManual" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[EXEC dbo.sp_complementoManual @idVersion = $P{idVersion}, -- int
+	    @final = $P{final}, -- int
+	    @consulta = $P{consulta}, -- int
+	    @tipoManual = $P{tipoManual} -- int]]>
+	</queryString>
+	<field name="cParrafo1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo1"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo1"/>
+	</field>
+	<field name="cParrafo2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo2"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo2"/>
+	</field>
+	<field name="cParrafo3" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo3"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo3"/>
+	</field>
+	<field name="cParrafo4" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo4"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo4"/>
+	</field>
+	<field name="cParrafo5" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo5"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo5"/>
+	</field>
+	<field name="cParrafo6" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo6"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo6"/>
+	</field>
+	<field name="cParrafo7" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo7"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo7"/>
+	</field>
+	<field name="cParrafo8" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo8"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo8"/>
+	</field>
+	<field name="cParrafo9" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo9"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo9"/>
+	</field>
+	<field name="cParrafo10" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo10"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo10"/>
+	</field>
+	<field name="cParrafo11" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo11"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo11"/>
+	</field>
+	<field name="cParrafo12" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo12"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo12"/>
+	</field>
+	<field name="cParrafo13" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo13"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo13"/>
+	</field>
+	<field name="cParrafo14" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo14"/>
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo14"/>
+	</field>
+	<field name="aEjercicioFiscal" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="aEjercicioFiscal"/>
+		<property name="com.jaspersoft.studio.field.label" value="aEjercicioFiscal"/>
+	</field>
+	<field name="fAplicacion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fAplicacion"/>
+		<property name="com.jaspersoft.studio.field.label" value="fAplicacion"/>
+	</field>
+	<field name="idVersion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="idVersion"/>
+		<property name="com.jaspersoft.studio.field.label" value="idVersion"/>
+	</field>
+	<pageHeader>
+		<band height="74" splitType="Stretch">
+			<image>
+				<reportElement x="10" y="5" width="141" height="50" uuid="312db73d-22d5-4619-9f18-a6e51d188067"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="163" y="12" width="230" height="39" uuid="1bea1403-14e2-40d5-bff3-3e6b679ab7fd"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISION NACIONAL FORESTAL
+MANUAL DE CONTABILIDAD GUBERNAMENTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="408" y="57" width="100" height="12" uuid="47e966f2-5959-4964-91ea-9f479a1d89a4">
+					<printWhenExpression><![CDATA[!$F{idVersion}.equals( "0" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idVersion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="57" width="100" height="12" uuid="c0c13596-24f0-439b-80ee-d6710a36be36">
+					<printWhenExpression><![CDATA[!$F{fAplicacion}.equals( "" )]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fAplicacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="109" y="3" width="345" height="21" uuid="f65d97b3-55c1-4d41-9abb-b1cb5155ba56"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IV.- LINEAMIENTOS CONTABLES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="32" width="458" height="18" uuid="c7507212-04e9-4b52-bf91-c6ad6b8af182"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C.- ESTIMACIÓN DE CUENTAS INCOBRABLES]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="141" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="50" y="7" width="345" height="15" isRemoveLineWhenBlank="true" uuid="f43d3ca4-82e2-4cd0-ac88-989b118765a8"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OBJETIVO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="49" y="50" width="345" height="15" isRemoveLineWhenBlank="true" uuid="a039b54e-4770-49ae-bb20-ccf8b0d94332"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ÁMBITO DE APLICACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="50" y="74" width="20" height="13" isRemoveLineWhenBlank="true" uuid="8b2b6d09-5d82-4192-a3d3-74672422b221"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="50" y="121" width="20" height="13" isRemoveLineWhenBlank="true" uuid="d82e1cdf-f940-4105-9f43-fb321688cc67"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="50" y="96" width="345" height="15" isRemoveLineWhenBlank="true" uuid="fba0fa83-dac1-44fa-babb-659c2816b3b9"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEFINICIONES]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="50" y="30" width="458" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="28bfe682-e6ca-4a9a-b3c6-d32b2ca9000f"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo1}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="70" y="74" width="438" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="9e1803fd-90e5-4ea7-93d5-a5b96259e598"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo2}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="70" y="121" width="438" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="4d004ce0-9662-4451-bc28-80fed199243f"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo3}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="43">
+			<staticText>
+				<reportElement positionType="Float" x="50" y="5" width="345" height="15" isRemoveLineWhenBlank="true" uuid="94cdd9f8-a6d2-4a07-8a5c-898a29658dea"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DISPOSICIONES GENERALES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="50" y="25" width="20" height="13" isRemoveLineWhenBlank="true" uuid="adb007af-11e2-4da1-8afd-0336d607cdf3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[3]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="70" y="25" width="438" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="e3891ca7-4285-49bf-9f25-dd977162f080"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo4}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="19">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="70" y="4" width="438" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="327a3521-92b7-4398-b3b5-4d03d98aa9c1"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo5}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="50" y="4" width="20" height="13" isRemoveLineWhenBlank="true" uuid="3f34018b-2a6d-49d2-b00d-d4aa7bb7cafc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[4]]></text>
+			</staticText>
+		</band>
+		<band height="56">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="91" y="39" width="416" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="33d96fba-0a04-40df-b71e-a17a7e700126"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo7}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="3" width="345" height="15" isRemoveLineWhenBlank="true" uuid="a768ba8f-fbb6-45b1-a3f1-198257fc8bc8"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DISPOSICIONES ESPECÍFICAS]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="71" y="21" width="438" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="e776a37a-affb-4ea5-a8b7-48faf99c3e0a"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo6}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="21" width="20" height="13" isRemoveLineWhenBlank="true" uuid="32e918c4-6185-4bdc-8315-e9cbc77e6c2f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="71" y="39" width="20" height="13" isRemoveLineWhenBlank="true" uuid="72ec0bb1-ac78-4894-938c-4abcc39d6619"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[a)]]></text>
+			</staticText>
+		</band>
+		<band height="20">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="90" y="3" width="416" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="9394ab41-f75e-4b87-8f8b-d60e14948fee"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo8}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="70" y="3" width="20" height="13" isRemoveLineWhenBlank="true" uuid="3dd33991-9945-41f0-912a-717023438216"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[b)]]></text>
+			</staticText>
+		</band>
+		<band height="38">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement positionType="Float" x="49" y="22" width="20" height="13" isRemoveLineWhenBlank="true" uuid="98ec7ab4-bcd4-497d-9394-0a44b91a6b41"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[6]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="69" y="22" width="436" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="66c5af60-e0ec-4216-a4da-9624228194c7"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo9}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="49" y="3" width="345" height="15" isRemoveLineWhenBlank="true" uuid="e3c0449a-0c56-45bd-8791-c43dba9aa1c1"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OTRAS DISPOSICIONES]]></text>
+			</staticText>
+		</band>
+		<band height="20">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement positionType="Float" x="50" y="4" width="20" height="13" isRemoveLineWhenBlank="true" uuid="002a2a02-73fc-4135-a8d6-64b20d55a7f0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[7]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="70" y="4" width="436" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="1db89cab-8906-4a4a-a324-e42f1ded70a0"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo10}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="21">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement positionType="Float" x="50" y="4" width="20" height="13" isRemoveLineWhenBlank="true" uuid="eb87a6c3-b18e-4ad9-8ce3-eff4984b1eeb"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[8]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="70" y="4" width="436" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="c5d75b7f-d4a4-4478-b837-92e81048f3ce"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo11}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="21">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement positionType="Float" x="50" y="4" width="20" height="13" isRemoveLineWhenBlank="true" uuid="c99ce8f3-c31c-45c4-86a1-78c06d53af00"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[9]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="70" y="4" width="437" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="de5ddfff-4837-4b36-92da-3cad08219d4f"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo12}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="21">
+			<staticText>
+				<reportElement positionType="Float" x="50" y="4" width="20" height="13" isRemoveLineWhenBlank="true" uuid="43af98a3-b468-4585-91c9-d5955d8937b2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[10]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="70" y="4" width="436" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="e3487204-36b2-4e3a-be12-dc17f02570c8"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo13}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="21">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="70" y="3" width="436" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="13982709-84a1-4627-91ba-d7bed6a348cc"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo14}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="50" y="3" width="20" height="13" isRemoveLineWhenBlank="true" uuid="deaeb024-378a-4911-ba8f-a5c8df4878e3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[11]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="19">
+			<textField>
+				<reportElement x="523" y="5" width="19" height="10" uuid="7bd4e34f-530f-492c-99a0-40fd9bb37d5f"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="232" y="3" width="32" height="12" uuid="a8a453c1-b4a4-4a35-8f17-75c769bdb281"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Vigencia]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="265" y="4" width="55" height="11" uuid="cff57d3d-18ca-47dc-a0b9-22f2b3400cb3"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aEjercicioFiscal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

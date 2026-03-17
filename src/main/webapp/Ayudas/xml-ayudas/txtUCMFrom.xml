@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Interno -->
+<Ayuda>
+	<titulo>Usuarios</titulo>
+	<anchoWin>587</anchoWin>
+	<altoWin>543</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>USRUSR</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="U.U_LOGIN"			control="txtUCMFrom"		dependencia="No"		ctrlsDependientes=""					limpiaOnKeypress=""								header="Clave"	ancho="32"	maxlen="32"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="E.NOMBRECOMPL"		control="txtFromName"		dependencia="No"		ctrlsDependientes="txtUCMFrom"			limpiaOnKeypress="txtGridtxtUCMFrom"          	header="Nombre"	ancho="80"	maxlen="80"	    tipo="string"	visible="Si"	clase=""/>
+		<columna campo="A.D_DESCRIPCION"	control=""					dependencia="No"		ctrlsDependientes="txtUCMFrom"			limpiaOnKeypress="txtGridtxtUCMFrom"			header="Area"	ancho="80"	maxlen="100"	tipo="string"	visible="Si"	clase=""/>	
+	</grid> 
+		
+</Ayuda>

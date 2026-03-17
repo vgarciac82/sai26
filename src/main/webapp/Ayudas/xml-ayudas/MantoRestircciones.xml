@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo Partidas Restringidas </titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>800</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>M_TVALIDAPNRGP</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>1</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	<grid>		
+		<columna campo="iId"					control="iId"					dependencia="No"	limpiaOnKeypress=""		header="Consecutivo"					rowCol="1,1"	ancho="5"	maxlen="5" 		tipo="int"		visible="Si"	clase="protegido"/>
+		<columna campo="nNivel"					control="nNivel"				dependencia="No"	limpiaOnKeypress=""		header="Nivel"							rowCol="1,2"	ancho="5"	maxlen="5"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="v.iNumeralID"			control="iNumeralID"			dependencia="No"	limpiaOnKeypress=""		header="Numeral"						rowCol="1,3"	ancho="5"	maxlen="5" 		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="v.cTipoGasto"			control="cTipoGasto"			dependencia="No"	limpiaOnKeypress=""		header="Tipo de Gasto"					rowCol="1,4"	ancho="1"	maxlen="1" 		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="p.cPartida"				control="cPartida"				dependencia="No"	limpiaOnKeypress=""		header="Partida"						rowCol="1,5"	ancho="5"	maxlen="5"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cMensaje"				control="cMensaje"				dependencia="No"	limpiaOnKeypress=""		header="Mensaje a Usuario"				rowCol="2,1"	ancho="100"	maxlen="500"	tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="iId"						control="txtGridiId"			llave="Si"		identity="Si"	requerido=""										requeridoFocus=""						tipo="int" />
+		<campo field="nNivel"					control="txtGridnNivel"			llave="No"		identity="No"	requerido="El Nivel es un dato requerido."			requeridoFocus="txtGridnNivel"			tipo="string" />		
+		<campo field="cTipoGasto"				control="txtGridcTipoGasto"		llave="No"		identity="No"	requerido="El Tipo de Gasto es un dato requerido."	requeridoFocus="txtGridcTipoGasto"		tipo="string" />		
+		<campo field="cPartida"					control="txtGridcPartida"		llave="No"		identity="No"	requerido="La Partida es un dato requerido."		requeridoFocus="txtGridcPartida"		tipo="string" />		
+		<campo field="iNumeralID"				control="txtGridiNumeralID"		llave="No"		identity="No"	requerido="El Numeral es un dato requerido."		requeridoFocus="txtGridiNumeralID"		tipo="string" />		
+		<campo field="cMensaje"					control="txtGridcMensaje"		llave="No"		identity="No"	requerido="El Mensaje es un dato requerido."		requeridoFocus="txtGridcMensaje"		tipo="string" />		
+	</insertaRegistro>
+	
+</Ayuda>

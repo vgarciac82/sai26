@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Unidades Administrativas</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>VUNIDADADMINISTRATIVA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cUnidadResponsable"	control="cUnidadResponsable"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave"	ancho="4"	maxlen="4"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="D_DESCRIPCION"	control="D_DESCRIPCION"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Unidad Administrativa"	ancho="100"	maxlen="100"		tipo="string"	visible="Si"	clase=""/>
+		
+   </grid>  
+</Ayuda>

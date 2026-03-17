@@ -125,7 +125,7 @@ public class FuelingRequestController extends HttpServlet {
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String action = request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1);
         VehicleFuelRequest fuelRequest;
-        log.debug("Object: {}", "Action: " + action);
+        log.debug("Object: " + String.valueOf("Action: " + action));
         try {
             if ("validatingVerification".equals(action)) {
                 fuelRequest = objectMapper.readValue(request.getInputStream(), VehicleFuelRequest.class);
@@ -171,14 +171,14 @@ public class FuelingRequestController extends HttpServlet {
     private void sendFullFuelrequest(HttpServletResponse response, VehicleFuelRequestDAO fuelRequest) throws IOException {
         String jsonResponse = objectMapper.writeValueAsString(fuelRequest);
         response.setContentType("application/json; charset=UTF-8");
-        response.getWriter().write(jsonResponse.toPath());
+        response.getWriter().write(jsonResponse);
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
     private void sendFuelrequest(HttpServletResponse response, VehicleFuelRequest fuelRequest) throws IOException {
         String jsonResponse = objectMapper.writeValueAsString(fuelRequest);
         response.setContentType("application/json; charset=UTF-8");
-        response.getWriter().write(jsonResponse.toPath());
+        response.getWriter().write(jsonResponse);
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
@@ -186,7 +186,7 @@ public class FuelingRequestController extends HttpServlet {
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1);
         VehicleFuelRequest fuelRequest;
-        log.debug("Object: {}", "Action: " + action);
+        log.debug("Object: " + String.valueOf("Action: " + action));
         try {
             Map<String, String> result = new HashMap<>();
             result.put("success", "true");

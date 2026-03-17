@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Catálogo Pasivos Contingentes Laborales</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>700</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>CRFCLABORAL</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+<!--	<ColSort>0</ColSort>-->
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>		
+		<columna campo="cRFC"					control="cRFCLaboral"			dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""	header="RFC"	 					rowCol="1,1" 	ancho="15"	maxlen="15" tipo="string"	visible="Si"	clase="form-control form-control"/>		
+		<columna campo="esPatrimonial"			control="nesPatrimonial"		dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""	header="Es Patrimonial"	 			rowCol="2,1"	ancho="1"	maxlen="1" 	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cIdTipoPersonaRFC"		control="cIdTipoPersonaRFC"		dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""	header="Tipo Persona"	 			rowCol="2,2"	ancho="1"	maxlen="1" 	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cRazon"					control="cRazon"				dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""	header="Razon Social"	 			rowCol="2,3" 	ancho="80"	maxlen="80" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cNombre"				control="cNombre"				dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""	header="Nombre"	 					rowCol="3,1"	ancho="50"	maxlen="50" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cApellidoPaterno"		control="cApellidoPaterno"		dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""	header="Ap. Paterno"	 			rowCol="3,2"	ancho="50"	maxlen="50" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cApellidoMaterno"		control="cApellidoMaterno"		dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""	header="Ap. Materno"	 			rowCol="3,3"	ancho="50"	maxlen="50" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="esExtranjero"			control="nesExtranjero"			dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""	header="Es Extranjero"	 							ancho="50"	maxlen="50" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="idPasivoContingente"	control="idPasivoContingente"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""	header="Id Pasivo Contingente"						ancho="5"	maxlen="5" 	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cMes"					control="cMes"					dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""	header="Mes"						rowCol="2,4"	ancho="2"	maxlen="2" 	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="mImporte"				control="mImporte"				dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""	header="Importe"									ancho="15"	maxlen="15" tipo="string"	visible="Si"	clase=""/>		
+		<columna campo="cRFCBen"				control="cRFCBen"				dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""	header="RFC Beneficiario"			rowCol="5,2"	ancho="15"	maxlen="15" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cNombreBen"				control="cNombreBen"			dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""	header="Nombre Beneficiario"		rowCol="5,3"	ancho="50"	maxlen="50" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cApPaternoBen"			control="cApPaternoBen"			dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""	header="Ap. Paterno Beneficiario"	rowCol="5,4"	ancho="50"	maxlen="50" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cApMaternoBen"			control="cApMaternoBen"			dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""	header="Ap. Materno Beneficiario"	rowCol="5,5"	ancho="50"	maxlen="50" tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+
+</Ayuda>

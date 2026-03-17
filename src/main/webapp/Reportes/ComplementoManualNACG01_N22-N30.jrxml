@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ComplementoManualNACG01_P14-P21" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="14e90fec-c87b-4866-ae30-7e31986e8c11">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="localhost"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="325"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="668"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="idVersion" class="java.lang.Integer"/>
+	<parameter name="final" class="java.lang.Integer"/>
+	<parameter name="consulta" class="java.lang.Integer"/>
+	<parameter name="tipoManual" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[DECLARE @idVersion INT = $P{idVersion}
+DECLARE @final INT = $P{final}
+DECLARE @consulta INT = $P{consulta}
+DECLARE @tipoManual INT = $P{tipoManual}
+
+IF @final = 0 AND @consulta = 0 --TEMPORAL
+BEGIN
+	SELECT RTRIM(LTRIM(cParrafo25)) AS cParrafo25
+			, RTRIM(LTRIM(cParrafo26)) AS cParrafo26
+			, RTRIM(LTRIM(cParrafo27)) AS cParrafo27
+			, RTRIM(LTRIM(cParrafo28)) AS cParrafo28
+			, RTRIM(LTRIM(cParrafo29)) AS cParrafo29
+			, RTRIM(LTRIM(cParrafo30)) AS cParrafo30
+		FROM tComplementoManualContable
+		WHERE idComplemento = @tipoManual
+END
+
+ELSE IF @final = 1 AND @consulta = 1 --CUANDO SE CONULTA UNA VERSION
+BEGIN
+	SELECT RTRIM(LTRIM(cParrafo25)) AS cParrafo25
+			, RTRIM(LTRIM(cParrafo26)) AS cParrafo26
+			, RTRIM(LTRIM(cParrafo27)) AS cParrafo27
+			, RTRIM(LTRIM(cParrafo28)) AS cParrafo28
+			, RTRIM(LTRIM(cParrafo29)) AS cParrafo29
+			, RTRIM(LTRIM(cParrafo30)) AS cParrafo30
+		FROM tComplementoManualContableVersion
+		WHERE idComplemento = @tipoManual
+		AND idVersion = @idVersion
+END]]>
+	</queryString>
+	<field name="cParrafo25" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo25"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo25"/>
+	</field>
+	<field name="cParrafo26" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo26"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo26"/>
+	</field>
+	<field name="cParrafo27" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo27"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo27"/>
+	</field>
+	<field name="cParrafo28" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo28"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo28"/>
+	</field>
+	<field name="cParrafo29" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo29"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo29"/>
+	</field>
+	<field name="cParrafo30" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo30"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo30"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="3" y="22" width="20" height="13" isRemoveLineWhenBlank="true" uuid="ecc48ff0-8294-4575-a115-9f7b3b75575a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[22]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" x="23" y="22" width="436" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="5b5b95e2-b5c5-4ef4-8529-d73d1fb4a5da">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo25}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="3" y="4" width="456" height="14" isRemoveLineWhenBlank="true" uuid="c7d09ef8-2323-4741-a0dd-3f7fccf344e8"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROCEDIMIENTO PARA INFORMAR SOBRE DOCUMENTACIÓN SINIESTRADA]]></text>
+			</staticText>
+		</band>
+		<band height="22">
+			<staticText>
+				<reportElement positionType="Float" x="3" y="4" width="20" height="13" isRemoveLineWhenBlank="true" uuid="fef4c9fd-0fb9-4b65-8ccd-e41c6ad4ab01"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[23]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" x="23" y="4" width="436" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="14fd002a-a762-43c7-a602-e419a003c504">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo26}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="52">
+			<staticText>
+				<reportElement positionType="Float" x="3" y="5" width="20" height="13" isRemoveLineWhenBlank="true" uuid="69b436bb-0d96-4232-9e89-8fe24fd65bd3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[24]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="5" width="436" height="41" uuid="11021735-2e2c-4b52-a0e1-968bf315bc2d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Los libros Diario, Mayor y de Inventarios y Balances se conservarán conforme al plazo establecido en las Disposiciones Generales y para su baja se atenderán los procedimientos establecidos en las disposiciones emitidas por el AGN.]]></text>
+			</staticText>
+		</band>
+		<band height="45">
+			<staticText>
+				<reportElement positionType="Float" x="3" y="25" width="20" height="13" uuid="035b4808-4b41-45d7-a36c-f59a61c54e5d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[25]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="3" y="6" width="456" height="14" isRemoveLineWhenBlank="true" uuid="1fdd3fdc-f1e1-4afd-8815-97ca6c5e9530"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DE LOS DOCUMENTOS DE ARCHIVO ELECTRÓNICOS Y DIGITALES]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" x="23" y="25" width="436" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="01f72f2d-09aa-4a51-8f12-16dcdbd4ad0c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo27}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="62">
+			<staticText>
+				<reportElement x="23" y="22" width="436" height="34" uuid="fa1f3986-7a8f-4e67-8c18-48495ee59620">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Es obligación de los entes responsables que la baja del archivo contable gubernamental se realice en los términos establecidos en la presente Norma.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="3" y="22" width="20" height="13" uuid="6df84f62-1369-4df4-961b-35d8409d5067"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[26]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="3" y="5" width="456" height="14" isRemoveLineWhenBlank="true" uuid="2186341e-6e88-4163-88e9-64b41894b3ae"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESPONSABILIDADES]]></text>
+			</staticText>
+		</band>
+		<band height="24">
+			<staticText>
+				<reportElement positionType="Float" x="3" y="5" width="20" height="13" uuid="24ca8ef0-e886-4715-bd53-61b718988fba"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[27]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" x="23" y="5" width="436" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="710f1d48-e772-42d9-89ed-7f1a9d482f45">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo28}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="187">
+			<staticText>
+				<reportElement x="23" y="5" width="436" height="45" uuid="15bec7b4-a276-4e67-842b-a2decd9ea6ce">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[En caso de no formalizar el Acta Circunstanciada de acuerdo en lo dispuesto en la presente Norma, se entenderá como proceso inconcluso, derivando en las acciones y responsabilidades que determinen las instancias correspondientes.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="3" y="5" width="20" height="13" uuid="52488fd8-e5db-45f5-8d41-1f683f2ff216"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[28]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="54" width="436" height="56" uuid="88085298-6e1b-435c-89c9-fdec0ff3ad66">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[De conformidad con la LGA, la inobservancia de las disposiciones establecidas en esta Norma, podrá ser sancionada ante la autoridad competente en términos de la ley aplicable en materia de responsabilidades administrativas de los servidores públicos. dará lugar a las sanciones establecidas en el marco jurídico aplicable.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="3" y="54" width="20" height="13" uuid="f7f38774-aa5a-42ec-9677-e6e4e09a5eb1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[29]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="3" y="122" width="456" height="14" isRemoveLineWhenBlank="true" uuid="4927445a-2aea-45db-8a35-7dc71d70a24d"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VIGENCIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="142" width="436" height="36" uuid="0d558d62-293e-4f1d-baca-b0c513fb7700">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[La presente Norma de Archivo Contable Gubernamental, entrará en vigor a partir de su publicación en el portal institucional, quedando sin efectos las anteriores NACG 01.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="3" y="142" width="20" height="13" uuid="2e6cf8a4-3e0a-45f1-a033-a2816a25d938"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[30]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

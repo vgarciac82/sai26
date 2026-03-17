@@ -55,7 +55,7 @@ public class RendicionCuentasFONDENBusinessLogic extends DataSourceManager {
             PolizaAutomatica enc = RendicionCuentasFONDENManager.generaEncabezadoPolizaFONDEN(conn, fAplicacion, unidadEjecutora, centroContable, login, nombreUsuario);
             List<PolizaAutomaticaDetalle> detalle = RendicionCuentasFONDENManager.generaDetallePolizaFONDEN(conn, fAplicacion, unidadEjecutora, centroContable, login, nombreUsuario);
             enc.setDetalle(detalle);
-            log.debug("Object: {}", "Poliza Generada: " + enc);
+            log.debug("Object: " + String.valueOf("Poliza Generada: " + enc));
             return enc;
         } finally {
             CloseObject.closeObject(conn);

@@ -68,7 +68,7 @@ public class SubirArchivoGeneral extends DataSourceManager {
             try {
                 conn.rollback();
             } catch (Exception exc) {
-                Log.warn("Error occurred", "Error: cerrando rollback enviaRuta " + exc);
+                Log.warn("Error occurred" + " - " + "Error: cerrando rollback enviaRuta " + exc);
             }
         } finally {
             try {

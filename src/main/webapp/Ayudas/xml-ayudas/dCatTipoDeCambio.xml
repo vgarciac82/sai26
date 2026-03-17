@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!-- Ayuda UNIDAD MEDIDA -->
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Tipo de Cambio</titulo>
+	<anchoWin>915</anchoWin>
+	<altoWin>800</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>D_DCATTIPOCAMBIO</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>  
+	<grid>
+		<columna campo="ID_TipoCambio"		control="ID_TipoCambio"					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave"						rowCol="1,1" 	ancho="3"	maxlen="5"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="Fecha"				control="Fecha"							dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Fecha (dd/mm/aaaa) "		rowCol="2,1" 	ancho="12"	maxlen="12"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="TipoCambio"			control="TipoCambio"					dependencia="No" 	ctrlsDependientes=""	limpiaOnKeypress=""	header="Tipo de Cambio"				rowCol="3,1" 	ancho="20"	maxlen="25"		tipo="string"	visible="Si"	clase=""/>		
+		<columna campo="ID_AgenteFinanciero" control="txtGridID_AgenteFinanciero"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave Agente Financiero"	rowCol="4,1" 	ancho="5"	maxlen="9"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="AgenteFinancieroCorto" control="AgenteFinancieroCorto"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Agente Financiero" 			rowCol="5,1" 	ancho="50"	maxlen="150"	tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+	<insertaRegistro>
+		<campo field="ID_TipoCambio"		control="txtGridID_TipoCambio"		llave="Si"	identity="Si"	requerido=""	requeridoFocus=""	tipo="string" />
+		<campo field="Fecha"			   control="txtGridFecha"				llave="No"	identity="No"	requerido=""	requeridoFocus=""	tipo="string" />
+		<campo field="TipoCambio"		   control="txtGridTipoCambio"			llave="No"	identity="No"	requerido=""	requeridoFocus=""	tipo="string" />		
+		<campo field="ID_AgenteFinanciero" control="txtGridID_AgenteFinanciero"	llave="No"	identity="No"	requerido=""	requeridoFocus=""	tipo="string" />
+		<campo field="AgenteFinancieroCorto" control="txtGridAgenteFinancieroCorto"	llave="No"	identity="Si"	requerido=""	requeridoFocus=""	tipo="string" />
+	</insertaRegistro>
+</Ayuda>
+

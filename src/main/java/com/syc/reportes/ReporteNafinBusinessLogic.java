@@ -68,7 +68,7 @@ public class ReporteNafinBusinessLogic extends DataSourceManager {
                     archivoBuffer.append(file.get(i));
                 }
                 String outTextNafin = archivoBuffer.toString();
-                salida.write(outTextNafin.toPath());
+                salida.write(outTextNafin);
                 salida.flush();
                 salida.close();
                 log.info("Se envia el archivo al doDownload");

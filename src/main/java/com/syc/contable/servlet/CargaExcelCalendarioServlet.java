@@ -80,7 +80,7 @@ public class CargaExcelCalendarioServlet extends HttpServlet implements GestionI
                 log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                 Util.copiaArchivo(archivoCargaStream, nombreDestino);
                 item.delete();
-                log.debug("Object: {}", "Procesando archivo:" + nombreArchivo);
+                log.debug("Object: " + String.valueOf("Procesando archivo:" + nombreArchivo));
                 CargaProyectoBusinessLogic cpbl = new CargaProyectoBusinessLogic(u.getLogin());
                 List<String> mensajes = cpbl.cargaExcelCalendario(nombreDestino, esAdministrador, ur, DescargaExcelProyectoServlet.EXCLUYE_CAPITULOS);
                 mensajeRetorno = generaMensajes(mensajes);

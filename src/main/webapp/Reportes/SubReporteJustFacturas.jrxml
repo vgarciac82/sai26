@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubReporteBoletos" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="adc598fa-c636-414b-86af-e651aa434006">
+	<property name="ireport.zoom" value="2.1435888100000016"/>
+	<property name="ireport.x" value="481"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sai_pruebas"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="sWhere" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT  FACT.NFOLIOPAGO, FACT.cFactura, Fact.dFechaFactura, Fact.dFechaTimbrado, Fact.mimporteconIva, Fact.cRFCFactura,Just.*
+FROM tComisionComprobacion COMP WITH (NOLOCK)
+INNER JOIN v_AgendaDiasAcumulados AGENDA WITH (NOLOCK)
+ON COMP.nIdComision = AGENDA.nIdComision
+INNER JOIN tPagoFactura FACT WITH (NOLOCK)
+ON FACT.nFolioPago = COMP.nFolioRelacion AND FACT.cTipoPago = COMP.cTipoPago
+INNER JOIN tJustificacionRG Just WITH (NOLOCK)
+ON just.nFolioRELACIONGASTOS = COMP.nFolioRelacion
+WHERE  nFolioRelacion = $P{sWhere}  and
+	COMP.cTipoPago = 'RELACIONGASTOS'
+AND ( CAST(dFechaFactura AS date) < AGENDA.FINICIO OR CAST(dFechaFactura AS date) > AGENDA.FFIN )]]>
+	</queryString>
+	<field name="NFOLIOPAGO" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="NFOLIOPAGO"/>
+		<property name="com.jaspersoft.studio.field.label" value="NFOLIOPAGO"/>
+	</field>
+	<field name="cFactura" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cFactura"/>
+		<property name="com.jaspersoft.studio.field.label" value="cFactura"/>
+	</field>
+	<field name="dFechaFactura" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="dFechaFactura"/>
+		<property name="com.jaspersoft.studio.field.label" value="dFechaFactura"/>
+	</field>
+	<field name="dFechaTimbrado" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="dFechaTimbrado"/>
+		<property name="com.jaspersoft.studio.field.label" value="dFechaTimbrado"/>
+	</field>
+	<field name="mimporteconIva" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mimporteconIva"/>
+		<property name="com.jaspersoft.studio.field.label" value="mimporteconIva"/>
+	</field>
+	<field name="cRFCFactura" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cRFCFactura"/>
+		<property name="com.jaspersoft.studio.field.label" value="cRFCFactura"/>
+	</field>
+	<field name="nFolioRELACIONGASTOS" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="nFolioRELACIONGASTOS"/>
+		<property name="com.jaspersoft.studio.field.label" value="nFolioRELACIONGASTOS"/>
+	</field>
+	<field name="cJustificaBoletos" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cJustificaBoletos"/>
+		<property name="com.jaspersoft.studio.field.label" value="cJustificaBoletos"/>
+	</field>
+	<field name="cJustificaTicket" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cJustificaTicket"/>
+		<property name="com.jaspersoft.studio.field.label" value="cJustificaTicket"/>
+	</field>
+	<field name="cTieneAdjuntoBoletos" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cTieneAdjuntoBoletos"/>
+		<property name="com.jaspersoft.studio.field.label" value="cTieneAdjuntoBoletos"/>
+	</field>
+	<field name="cTieneAdjuntoTicket" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cTieneAdjuntoTicket"/>
+		<property name="com.jaspersoft.studio.field.label" value="cTieneAdjuntoTicket"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="51" splitType="Stretch">
+			<rectangle>
+				<reportElement x="1" y="38" width="529" height="13" uuid="63f653d5-b96d-4f9f-9700-8dcc43a8f09a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="19" y="39" width="177" height="11" uuid="2dd13612-1222-4cd9-80fd-837b273d91dd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Folio Factura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="443" y="39" width="76" height="11" uuid="97693e95-fa91-4f26-9afd-f56109524306">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Importe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="39" width="100" height="11" uuid="244c27a5-7bfd-4896-b218-b3e133a528bd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RFC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="2" width="415" height="17" uuid="7c1c2c8e-9bae-49bd-9973-3bb5fb5981d3"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Justificación por Facturas fuera de las fechas de la comisión]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="22" width="538" height="17" uuid="f136f71c-7f96-4222-8943-712f01804188"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Se encontraron las siguientes facturas que están fuera de la fecha de la comisión:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="334" y="39" width="70" height="11" uuid="dd1fa743-e7a9-4305-9d66-648ba69ff189">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField pattern="dd/MM/yyyy hh:mm a">
+				<reportElement x="325" y="1" width="105" height="11" uuid="ce61359d-c239-484c-8567-be1f60a62f2f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dFechaFactura}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" pattern="#,##0.00;-#,##0.00">
+				<reportElement x="442" y="1" width="77" height="11" isRemoveLineWhenBlank="true" uuid="ff7bcd05-27b0-4446-bcf4-811cb1ba1c36">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mimporteconIva}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="17" y="1" width="179" height="11" uuid="e2d4793c-7de9-4c2b-bafa-f03bdcdda8ba">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cFactura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="205" y="1" width="102" height="11" uuid="cf2ad8cd-d4e9-4288-9a21-910d0663c61f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cRFCFactura}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="68" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="2" y="16" width="528" height="52" isPrintWhenDetailOverflows="true" uuid="aaac36ed-599f-4a6d-b5da-70a70c9c9aa6"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cJustificaTicket}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="3" width="528" height="18" uuid="f531694e-0eb7-49d4-99a4-e3fe13076aee">
+					<printWhenExpression><![CDATA[!$F{cJustificaTicket}.isEmpty() && $F{cTieneAdjuntoTicket}.equals( "0" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Las facturas fueron emitidas en fechas diferentes a la comisión por lo siguiente: ]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

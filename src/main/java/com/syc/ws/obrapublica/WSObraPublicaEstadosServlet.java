@@ -49,7 +49,7 @@ public class WSObraPublicaEstadosServlet extends HttpServlet {
         }
         String uri = request.getRequestURI();
         String action = uri.substring(uri.lastIndexOf("/") + 1, uri.length());
-        log.debug("Object: {}", action);
+        log.debug("Object: " + String.valueOf(action));
         Usuario u = (Usuario) session.getAttribute(com.syc.gestion.servlet.GestionInterface.ATT_USER);
         if ("CreaEstimacionObra".equals(action)) {
             WSObraPublicaEstadosBusinessLogic WSObra = new WSObraPublicaEstadosBusinessLogic(jniName);

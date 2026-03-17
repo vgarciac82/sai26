@@ -116,9 +116,9 @@ public class RetencionBusinessLogic extends DataSourceManager {
             if ("S".equals(validaMes)) {
                 folio = c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1);
                 //Aplicación contable de la retencion
-                log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + folio);
+                log.debug("Object: " + String.valueOf("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + folio));
                 ae.makeAccountingApplication(conn, "RETENCION", folio, "tRetencionEncabezado", "tRetencionDetalle", "nFolioRetencion");
-                log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + folio);
+                log.debug("Object: " + String.valueOf("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()) + " Para  Folio:" + folio));
                 //ARLA SE QUITA LA APLICACION DEL PASIVO DIFERIDO, SE APLICARA EN LA AJENA
                 /*PasivoDiferidoManager.aplicarPasivoDiferido( conn, "RETENCION", folio, "tRetencionEncabezado", "tRetencionDetalle", "nfolioRetencion");
 				log.debug( "Termina Aplicacion pasivo Diferido del folio " + folio );*/
@@ -212,7 +212,7 @@ public class RetencionBusinessLogic extends DataSourceManager {
                 token = "\n";
             }
             String outTextArchivo = archivoSICOP.toString();
-            out.write(outTextArchivo.toPath());
+            out.write(outTextArchivo);
             out.flush();
             out.close();
             return strlayoutSicop;
@@ -243,7 +243,7 @@ public class RetencionBusinessLogic extends DataSourceManager {
                 token = "\n";
             }
             String outTextArchivo = archivoSICOP.toString();
-            out.write(outTextArchivo.toPath());
+            out.write(outTextArchivo);
             out.flush();
             out.close();
             //Se regresa el archivo

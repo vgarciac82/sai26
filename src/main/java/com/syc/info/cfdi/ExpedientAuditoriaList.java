@@ -139,7 +139,7 @@ public class ExpedientAuditoriaList {
             bw = new BufferedWriter(fw);
             for (Iterator<ExportLog> i = exportLog.iterator(); i.hasNext(); ) {
                 ExportLog renglon = i.next();
-                bw.write(renglon.toCSV() + "\n".toPath());
+                bw.write(renglon.toCSV() + "\n");
             }
             bw.flush();
             bw.close();

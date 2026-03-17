@@ -1,0 +1,331 @@
+html,body {
+	height: 100%;
+	margin: 0px;
+	padding: 0; /* Opera */
+	font-family: verdana, arial, helvetica, sans-serif;
+}
+
+body {
+	background-color: #ffffff;
+	scrollbar-3dlight-color: #f5f5f5;
+	scrollbar-arrow-color: #ffa500;
+	scrollbar-base-color: #0c6d3d;
+	scrollbar-darkshadow-color: #7cb096;
+	scrollbar-face-color: #696969;
+	scrollbar-highlight-color: #dcdcdc;
+	scrollbar-shadow-color: #000000;
+	scrollbar-track-color: #edf2f8;
+}
+
+form {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	width: 100%;
+	border: 0px;
+}
+
+table {
+	font-family: Arial;
+	font-size: 10pt;
+	background-color: #ffffff;/*Ethiel, fondo del inbox*/
+	border-color: #000000;
+	color: #000000; /*Ethiel, color font bullets en menu*/
+}
+
+th {
+	font-family: "verdana, arial, helvetica, sans-serif";
+	font-size: 10pt;
+	/*color: #FFA500; Ethiel, color del font del encabezado del inbox*/
+	text-transform: uppercase;
+}
+
+input.button {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 8pt;
+	color: #026735;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+a:link {
+	font-family: "verdana, arial, helvetica, sans-serif";
+	color: #000000;
+	text-decoration: none;
+	font-size: 10pt;
+	font-style: normal;
+}
+
+a:visited {
+	font-family: "verdana, arial, helvetica, sans-serif";
+	color: blue;
+	text-decoration: none;
+	font-size: 10pt;
+	font-style: normal;
+}
+
+a:hover {
+	font-family: "verdana, arial, helvetica, sans-serif";
+	color: red; /*Ethiel, color de las url del menu*/
+	text-decoration: none;
+	font-size: 10pt;
+	font-style: normal;
+}
+
+.top {
+	border-left: none;
+	border-right: 1px solid #cccccc;
+	padding: 2px 3px 3px 4px;
+	border-bottom: 1px solid #dddddd;
+	text-transform: uppercase;
+}
+
+#paraBox {
+	position: absolute;
+	left: 140px;
+	top: 120px;
+	width: 600px;
+	height: 366px;
+	z-index: 2;
+	visibility: hidden;
+	border-color: #0c6d3d;
+	border-style: solid;
+	border-width: 1px;
+}
+
+#respOper {
+	position: absolute;
+	left: 14px;
+	top: 30px;
+	width: 800px;
+	height: 366px;
+	z-index: 2;
+	visibility: hidden;
+	border-color: #0c6d3d;
+	border-style: solid;
+	border-width: 1px;
+}
+
+img {
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+
+/*CSS DEL MENU*/
+.menu {
+	border: 0px;
+	padding: 0px;
+	margin: 0px;
+	height: 100%;
+	width: 100%;
+	background-color: #ffa500; /*Ethiel, fondo del menu*/
+	position: relative;
+	overflow: auto;
+}
+
+#menu {
+	width: 180px;
+	padding-left: 6px;
+	border-top-width: 12px;
+	border-top-style: solid;
+	border-top-color: #c9d7c7;
+	padding-top: 5px;
+	border-bottom-width: 4px;
+	border-bottom-style: solid;
+	border-bottom-color: #c9d7c7;
+	background-color: #ffffff;
+}
+
+#menu ul {
+	list-style-type: none;
+	margin-left: 10px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	list-style-position: inside;
+}
+
+#menu a {
+	font-family: arial, helvetica, sans-serif;
+	font-size: .9em;
+	color: #026735;
+	text-decoration: none;
+}
+
+#menu a:hover {
+	background-color: #c9d7c7;
+	color: #026735;
+}
+
+.menuborde {
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #000000;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #000000;
+	border-top-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-left-style: solid;
+	border-top-color: #000000;
+	border-left-color: #000000;
+}
+
+#fecha {
+	float: right;
+}
+/*FIN MENU*/
+
+/* Calendario */
+table.jCalendar {
+	border: 1px solid #000;
+	background: #aaa;
+    border-collapse: separate;
+    border-spacing: 2px;
+}
+table.jCalendar th {
+	background: #333;
+	color: #fff;
+	font-weight: bold;
+	padding: 3px 5px;
+}
+table.jCalendar td {
+	background: #ccc;
+	color: #000;
+	padding: 3px 5px;
+	text-align: center;
+}
+table.jCalendar td.other-month {
+	background: #ddd;
+	color: #aaa;
+}
+table.jCalendar td.today {
+	background: #666;
+	color: #fff;
+}
+table.jCalendar td.selected {
+	background: #f66;
+	color: #fff;
+}
+table.jCalendar td.selected:hover {
+	background: #f33;
+	color: #fff;
+}
+table.jCalendar td:hover, table.jCalendar td.dp-hover {
+	background: #fff;
+	color: #000;
+}
+table.jCalendar td.disabled, table.jCalendar td.disabled:hover {
+	background: #bbb;
+	color: #888;
+}
+
+/* For the popup */
+
+/* NOTE - you will probably want to style a.dp-choose-date - see how I did it in demo.css */
+
+div.dp-popup {
+	position: relative;
+	background: #ccc;
+	font-size: 10px;
+	font-family: arial, sans-serif;
+	padding: 2px;
+	width: 171px;
+	line-height: 1.2em;
+}
+div#dp-popup {
+	position: absolute;
+	z-index: 199;
+}
+div.dp-popup h2 {
+	font-size: 12px;
+	text-align: center;
+	margin: 2px 0;
+	padding: 0;
+}
+a#dp-close {
+	font-size: 11px;
+	padding: 4px 0;
+	text-align: center;
+	display: block;
+}
+a#dp-close:hover {
+	text-decoration: underline;
+}
+div.dp-popup a {
+	color: #000;
+	text-decoration: none;
+	padding: 3px 2px 0;
+}
+div.dp-popup div.dp-nav-prev {
+	position: absolute;
+	top: 2px;
+	left: 4px;
+	width: 100px;
+}
+div.dp-popup div.dp-nav-prev a {
+	float: left;
+}
+/* Opera needs the rules to be this specific otherwise it doesn't change the cursor back to pointer after you have disabled and re-enabled a link */
+div.dp-popup div.dp-nav-prev a, div.dp-popup div.dp-nav-next a {
+	cursor: pointer;
+}
+div.dp-popup div.dp-nav-prev a.disabled, div.dp-popup div.dp-nav-next a.disabled {
+	cursor: default;
+}
+div.dp-popup div.dp-nav-next {
+	position: absolute;
+	top: 2px;
+	right: 4px;
+	width: 100px;
+}
+div.dp-popup div.dp-nav-next a {
+	float: right;
+}
+div.dp-popup a.disabled {
+	cursor: default;
+	color: #aaa;
+}
+div.dp-popup td {
+	cursor: pointer;
+}
+div.dp-popup td.disabled {
+	cursor: default;
+}
+
+a.dp-choose-date {
+	float: left;
+	width: 16px;
+	height: 16px;
+	padding: 0;
+	margin: 5px 3px 0;
+	display: block;
+	text-indent: -2000px;
+	overflow: hidden;
+	background: url(../images/calendar.png) no-repeat; 
+}
+a.dp-erase {
+	float: left;
+	width: 16px;
+	height: 16px;
+	padding: 0;
+	margin: 5px 3px 0;
+	display: block;
+	text-indent: -2000px;
+	overflow: hidden;
+	background: url(../images/erase.png) no-repeat; 
+}
+a.dp-choose-date.dp-disabled {
+	background-position: 0 -20px;
+	cursor: default;
+}
+/* makes the input field shorter once the date picker code
+ * has run (to allow space for the calendar icon
+ */
+input.dp-applied {
+	width: 140px;
+	float: left;
+}
+/* Fin Calendario */

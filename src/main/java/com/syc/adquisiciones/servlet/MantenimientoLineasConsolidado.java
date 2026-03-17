@@ -121,7 +121,7 @@ public class MantenimientoLineasConsolidado extends HttpServlet implements Gesti
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion Contable, Consulte a su administrador.";
         }
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis())));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         AplicarContableReturn acr = null;
         //String prefixPath = getServletContext().getRealPath("/WEB-INF/mail-bodies/") + File.separator;
@@ -160,7 +160,7 @@ public class MantenimientoLineasConsolidado extends HttpServlet implements Gesti
                 Map<String, String> m = CasoDatoManager.readValuesCasoDato(request, c.getCasoDato(), true);
                 acr = conInt.aplicarContableNuevo(conn, c, "", "", "", 0, "", m, prefixPath, usuario.getLogin(), validaSaldo);
                 if (acr.isSuccess()) {
-                    log.debug("Object: {}", nFolioPrecom);
+                    log.debug("Object: " + String.valueOf(nFolioPrecom));
                     cmst = conn.prepareCall("{?= call pa_validaAplicacionContable (?,?,?,?,?)}");
                     cmst.registerOutParameter(1, Types.INTEGER);
                     cmst.setInt(2, nFolioPrecom);
@@ -175,8 +175,8 @@ public class MantenimientoLineasConsolidado extends HttpServlet implements Gesti
                         // Una vez que ha hecho la aplicación contable avanza el caso
                         //////////////////////////////////////////
                         cb.avanzaCaso(c, usuario.getLogin(), "", new String[] { "CONSULTA_PRECOMPROMISO" }, new String[] { "consulta_precomp" }, m, prefixPath);
-                        log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
-                        log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+                        log.debug("Object: " + String.valueOf(c.getCasoDato("APLICADO_CONT").getValor()));
+                        log.debug("Object: " + String.valueOf("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis())));
                         mensaje = "DOCUMENTO DE PRECOMPROMISO APLICADO CONTABLEMENTE.";
                         conn.commit();
                     } else {

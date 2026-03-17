@@ -1,0 +1,668 @@
+/* CSS Document */
+
+/*@import url("reseter.css");
+@import url("tema.css");*/
+
+@import url("login.css");
+@import url("iconos.css");
+html, body, td, th {
+	font: 10pt Arial, Helvetica, sans-serif
+}
+input, select, option, textarea {
+	font: 10pt Arial, Helvetica, sans-serif
+}
+html, body {
+	margin: 0px;
+	height: 100%;
+}
+.fondo-der {
+	background: url(../imagenes/fondo-1.jpg) no-repeat fixed right bottom;
+}
+
+h1{
+	font-size: 15px !important;
+}
+
+input[readOnly] {
+    background-color: #f0f0f0;
+    color: #333;
+    border: inset;
+    border-color: whitesmoke;
+}
+
+/*FIN BOTONES*/
+.fondo-izq {
+	background: url(../imagenes/fondo-izq.jpg) no-repeat fixed left bottom;
+}
+.sinFondo {
+	background: url(none);
+}
+.pie {
+	height: 15px;
+	text-align: center;
+	font-size: 0.7em;
+	margin-top: 2px;
+/*	display: block;*/
+}
+#hd-tabla {
+	width:100%;
+}
+#hd-contenido {
+	width:100%;
+	height: 42px;
+	padding:0;
+}
+#hd-contenido a {
+	text-decoration:none
+}
+#hd-contenido a:hover {
+	color: #FFCC00;
+}
+.hd-contenido-C1 {
+	padding-left: 5px;
+}
+.hd-contenido-C3 {
+	text-align: right;
+	padding-right: 5px;
+}
+.hd-contenido-C3 div {
+	padding-bottom: 5px;
+	padding-top: 3px;
+}
+.hd-contenido-C3 strong {
+	white-space: nowrap;
+}
+
+fieldset {
+	min-width: inherit !important;
+/*	display: block !important; */ 
+    margin-inline-start: 1px;
+    margin-inline-end: 1px;
+    padding-block-start: 0.35em !important;
+    padding-inline-start: 0.75em !important;
+    padding-inline-end: 0.75em !important;
+    padding-block-end: 0.625em !important;
+    min-inline-size: min-content;
+    border-width: 1px;
+    border-style: solid;
+    border-color: lightgrey;
+    border-image: initial;
+    width: 98%;
+}
+
+fieldset legend{
+	font-size: 14px !important;
+}
+/*MENUS*/
+.Menus {
+	white-space: nowrap;
+	font-size: 1px;
+	font: Arial, Helvetica, sans-serif;
+}
+.Menus img {
+	border:none;
+	height:16px;
+	width:16px;
+	vertical-align:middle;
+	margin-right: 4px;
+	margin-left: 4px;
+}
+
+#menup h3 a{
+	font-size: 1em;
+	font-family: arial;
+}
+#menup ul li{
+	font-size: 1.1em;
+	font-family: arial;
+	background: none;
+}
+#menup ul li:hover,#menup ul li.active{
+	font-size: 1.3em;
+	font-family: arial;
+	background: whitesmoke;
+}
+    
+#menup ul li a{
+	font-size: .8em;
+	font-family: arial;
+}
+
+/*input*/
+
+
+textarea[readOnly] {
+    background-color: #f0f0f0;
+    color: #333;
+    border: inset;
+    border-color: whitesmoke;
+}
+
+/*button normal*/
+.btnAyuda{
+	height: 24px !important;
+	width: 25px !important;
+	padding-left: 3px !important;
+}
+
+input.btnInterface  {
+    height:25px !important;
+	background-color: fuchsia !important;
+	background:none !important;
+	border-color: dimgrey !important;
+    border: 2px outset !important;
+    padding-top: 2px !important; 	
+}
+input.btnInterface:hover{
+ 	height:25px !important;
+	background-color: #e6e6e6 !important;
+	border-color: grey !important;
+    border: 2px solid !important;
+    padding-top: 2px !important; 		
+}
+/*button normal*/
+input.btnInterfaceBG  {
+	height:35px !important;
+	background: #e6e6e6 !important;
+	border-color: dimgrey !important;
+    border: 2px outset !important;
+}
+input.btnInterfaceBG:hover{
+	height:35px !important;
+	background-color: #EEEEFF !important;
+    border: 1px solid !important;
+    border-color: grey !important;
+	
+}
+/*button autorizar*/
+input.btnInterfaceAutoriza  {
+	background:url("../Generador/imagenes/accept_green.png") left center no-repeat !important;
+	background-color: #e6e6e6 !important;
+	padding-left:25px !important;
+	height:35px !important; 
+	border-color: dimgrey !important;
+    border: 2px outset !important;
+}
+ input.btnInterfaceAutoriza:hover{
+ 	background:url("../Generador/imagenes/accept_green.png") left center no-repeat !important;
+ 	background-color: #EEEEFF !important;
+	padding-left:25px !important;
+	height:35px !important;
+    border: 1px solid !important;
+    border-color: grey !important;
+	
+}
+/*button volver al inicio*/
+input.btnInterfaceBackToTop  {
+	background:url("../Generador/imagenes/volverInicio.png") left center no-repeat !important;
+	background-color: #e6e6e6 !important;
+	padding-left:25px !important;
+	height:35px !important; 
+	border-color: dimgrey !important;
+    border: 2px outset !important;
+}
+ input.btnInterfaceBackToTop:hover{
+ 	background:url("../Generador/imagenes/volverInicio.png") left center no-repeat !important;
+ 	background-color: #EEEEFF !important;
+	padding-left:25px !important;
+	height:35px !important;
+    border: 1px solid !important;
+    border-color: grey !important;
+	
+}
+/*button devolver*/
+input.btnInterfaceReturn  {
+	background:url("../Generador/imagenes/arrow_left_blue_round.png") left center no-repeat !important;
+	background-color: #e6e6e6 !important;
+	padding-left:25px !important;
+	height:35px !important; 
+	border-color: dimgrey !important;
+    border: 2px outset !important;
+}
+ input.btnInterfaceReturn:hover{
+ 	background:url("../Generador/imagenes/arrow_left_blue_round.png") left center no-repeat !important;
+ 	background-color: #EEEEFF !important;
+	padding-left:25px !important;
+	height:35px !important;
+    border: 1px solid !important;
+    border-color: grey !important;
+	
+}
+/*button Send Email*/
+input.btnInterfaceSendEmail  {
+	background:url("../Generador/imagenes/enviarEmail.png") left center no-repeat !important;
+	background-color: #e6e6e6 !important;
+	padding-left:35px !important;
+	height:35px !important; 
+	border-color: dimgrey !important;
+    border: 2px outset !important;
+}
+ input.btnInterfaceSendEmail:hover{
+ 	background:url("../Generador/imagenes/enviarEmail.png") left center no-repeat !important;
+ 	background-color: #EEEEFF !important;
+	padding-left:35px !important;
+	height:35px !important;
+    border: 1px solid !important;
+    border-color: grey !important;
+	
+}
+/*button Guardar*/
+input.btnInterfaceSave  {
+	background:url("../Generador/imagenes/save.png") left center no-repeat !important;
+	background-color: #e6e6e6 !important;
+	padding-left:35px !important;
+	height:35px !important; 
+	border-color: dimgrey !important;
+    border: 2px outset !important;
+}
+ input.btnInterfaceSave:hover{
+ 	background:url("../Generador/imagenes/save.png") left center no-repeat !important;
+ 	background-color: #EEEEFF !important;
+	padding-left:35px !important;
+	height:35px !important;
+    border: 1px solid !important;
+    border-color: grey !important;
+	
+}
+/*button Agregar*/
+input.btnInterfaceAdd  {
+	background:url("../Generador/imagenes/add.png") left center no-repeat !important;
+	background-color: #e6e6e6 !important;
+	padding-left:35px !important;
+	height:35px !important; 
+	border-color: dimgrey !important;
+    border: 2px outset !important;
+}
+ input.btnInterfaceAdd:hover{
+ 	background:url("../Generador/imagenes/add.png") left center no-repeat !important;
+ 	background-color: #EEEEFF !important;
+	padding-left:35px !important;
+	height:35px !important;
+    border: 1px solid !important;
+    border-color: grey !important;
+	
+}
+/*button cancelar*/
+input.btnInterfaceCancelar  {
+	background:url("../Generador/imagenes/cancel_round.png") left center no-repeat !important;
+	background-color: #e6e6e6 !important;
+	padding-left:25px !important;
+	height:35px !important; 
+	border-color: dimgrey !important;
+    border: 2px outset !important;
+}
+ input.btnInterfaceCancelar:hover{
+ 	background:url("../Generador/imagenes/cancel_round.png") left center no-repeat !important;
+ 	background-color: #EEEEFF !important;
+	padding-left:25px !important;
+	height:35px !important;
+    border: 1px solid !important;
+    border-color: grey !important;
+	
+}
+input.btnInterfaceCancelar2  {
+	background:url("../Generador/imagenes/cancel.png") left center no-repeat !important;
+	background-color: #e6e6e6 !important;
+	padding-left:25px !important;
+	height:35px !important; 
+	border-color: dimgrey !important;
+    border: 2px outset !important;
+}
+ input.btnInterfaceCancelar2:hover{
+ 	background:url("../Generador/imagenes/cancel.png") left center no-repeat !important;
+ 	background-color: #EEEEFF !important;
+	padding-left:25px !important;
+	height:35px !important;
+    border: 1px solid !important;
+    border-color: grey !important;
+	
+}
+/*PDF*/
+input.btnInterfacePDF  {
+	background:url("../imagenes/icono_PDF.jpg") left center no-repeat !important;
+	background-color: #e6e6e6 !important;
+	padding-left:25px !important;
+	height:35px !important; 
+	border-color: dimgrey !important;
+    border: 2px outset !important;
+}
+ input.btnInterfacePDF:hover{
+ 	background:url("../imagenes/icono_PDF.jpg") left center no-repeat !important;
+ 	background-color: #EEEEFF !important;
+	padding-left:25px !important;
+	height:35px !important;
+    border: 1px solid !important;
+    border-color: grey !important;
+	
+}
+/*Word*/
+input.btnInterfaceWord  {
+	background:url("../imagenes/icono_word.png") left center no-repeat !important;
+	background-color: #e6e6e6 !important;
+	padding-left:25px !important;
+	height:35px !important; 
+	border-color: dimgrey !important;
+    border: 2px outset !important;
+}
+ input.btnInterfaceWord:hover{
+ 	background:url("../imagenes/icono_word.png") left center no-repeat !important;
+ 	background-color: #EEEEFF !important;
+	padding-left:25px !important;
+	height:35px !important;
+    border: 1px solid !important;
+    border-color: grey !important;
+	
+}
+/*XLS*/
+input.btnInterfaceXLS  {
+	background:url("../imagenes/icono_excel.jpg") left center no-repeat !important;
+	background-color: #e6e6e6 !important;
+	padding-left:25px !important;
+	height:35px !important; 
+	border-color: dimgrey !important;
+    border: 2px outset !important;
+}
+ input.btnInterfaceXLS:hover{
+ 	background:url("../imagenes/icono_excel.jpg") left center no-repeat !important;
+ 	background-color: #EEEEFF !important;
+	padding-left:25px !important;
+	height:35px !important;
+    border: 1px solid !important;
+    border-color: grey !important;
+	
+}
+
+[type="checkbox"][disabled]:checked {
+  filter: invert(100%) brightness(4);
+}
+
+/*CSV*/
+input.btnInterfaceCSV  {
+	background:url("../imagenes/icono_CSV.gif") left center no-repeat !important;
+	background-color: #e6e6e6 !important;
+	padding-left:25px !important;
+	height:35px !important; 
+	border-color: dimgrey !important;
+    border: 2px outset !important;
+}
+ input.btnInterfaceCSV:hover{
+ 	background:url("../imagenes/icono_CSV.gif") left center no-repeat !important;
+ 	background-color: #EEEEFF !important;
+	padding-left:25px !important;
+	height:35px !important;
+    border: 1px solid !important;
+    border-color: grey !important;
+	
+}
+/*download file*/
+input.btnDownloadFile  {
+	background:url("../images/downloadFile.jpg") left center no-repeat !important;
+	background-color: #e6e6e6 !important;
+	padding-left:50px !important;
+	height:35px !important; 
+	border-color: dimgrey !important;
+    border: 2px outset !important;
+}
+ input.btnDownloadFile:hover{
+ 	background:url("../images/downloadFile.jpg") left center no-repeat !important;
+ 	background-color: #EEEEFF !important;
+	padding-left:50px !important;
+	height:35px !important;
+    border: 1px solid !important;
+    border-color: grey !important;
+	
+}
+/*ZIP*/
+input.btnInterfaceZIP  {
+	background:url("../imagenes/icono_ZIP.png") left center no-repeat !important;
+	background-color: #e6e6e6 !important;
+	padding-left:25px !important;
+	height:35px !important; 
+	border-color: dimgrey !important;
+    border: 2px outset !important;
+}
+ input.btnInterfaceZIP:hover{
+ 	background:url("../imagenes/icono_ZIP.png") left center no-repeat !important;
+ 	background-color: #EEEEFF !important;
+	padding-left:25px !important;
+	height:35px !important;
+    border: 1px solid !important;
+    border-color: grey !important;
+	
+}
+
+input.btnInterfaceSALIR  {
+	background:url("../imagenes/salir.png") left center no-repeat !important;
+	background-color: #e6e6e6 !important;
+	padding-left:40px !important;
+	height:35px !important; 
+	border-color: dimgrey !important;
+    border: 2px outset !important;
+}
+ input.btnInterfaceSALIR:hover{
+ 	background:url("../imagenes/salir.png") left center no-repeat !important;
+ 	background-color: #EEEEFF !important;
+	padding-left:40px !important;
+	height:35px !important;
+    border: 1px solid !important;
+    border-color: grey !important;
+	
+}
+
+input.btnInterfaceDOC  {
+	background:url("../imagenes/icono_word.png") left center no-repeat !important;
+	background-color: #e6e6e6 !important;
+	padding-left:40px !important;
+	height:35px !important; 
+	border-color: dimgrey !important;
+    border: 2px outset !important;
+}
+ input.btnInterfaceDOC:hover{
+ 	background:url("../imagenes/icono_word.png") left center no-repeat !important;
+ 	background-color: #EEEEFF !important;
+	padding-left:40px !important;
+	height:35px !important;
+    border: 1px solid !important;
+    border-color: grey !important;
+	
+}
+
+/*Boton tipo file*/
+:root {
+    --color-bg-btn: rgba(0, 0, 0, .1);
+    --color-bg-btn-hover: #EEEEFF;
+   
+}
+
+.input-file {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.input-file__input {
+  display:none;
+}
+
+.input-file__btn {
+  height: 35px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--color-bg-btn);
+    color: dimgrey;
+    width: 170px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid;
+    border-color: grey !important;
+    font: 10pt Arial, Helvetica, sans-serif;
+}
+
+.input-file__btn:hover {
+    background-color: var(--color-bg-btn-hover);
+}
+
+.input-file__btn:active {
+    -webkit-box-shadow: 0 3px 5px var(--color-shadow-btn-active) inset;
+    box-shadow: 0 3px 5px var(--color-shadow-btn-active) inset;
+}
+/* fin*/
+
+.notEditable {		
+	border: inset;
+    border-color: whitesmoke;
+}
+
+/*Tabla*/
+thead{
+	text-align: center;
+}
+td.dt-center{
+	text-align: center;
+}
+tbody td.left {
+  text-align: left;
+}
+
+tbody td.right {
+  text-align: right;
+}
+
+tbody td.center {
+  text-align: center;
+}
+td.tdRadio{
+	background: white; 
+}
+td.tdRadio:hover{
+	background: #ecf2f1; 
+}
+
+#tabla1 tbody td {
+    text-align: center;
+}
+/*APLICACION*/
+#ap-tabla {
+	width:100%;
+	height:86%;
+	*height:89%;
+}
+#ap-tabla .C2 {
+	width: 7px;
+	padding:0;
+}
+#ap-tabla .C2 img {
+	cursor:pointer;
+}
+#apMenu, #apPrincipal {
+	vertical-align:top;
+	height:100%;
+}
+#apMenu {
+	width:20%;
+	min-width:200px;
+}
+#apMenu iframe {
+	width:100%;
+	height:100%;
+}
+#apPrincipal #principal {
+	height: 100%;
+	width: 100%;
+}
+#apPrincipal {
+	padding-top: .3%;
+}
+/*Titulo y ruta*/
+.TituloRuta {
+	background: #A4bAD0;
+	border-bottom: 1px solid #335EA8;
+	margin-bottom: 10px;
+	text-align: right;
+}
+.TituloRutaC img {
+	vertical-align: middle;
+	margin-right: 3px;
+	margin-left: 3px;
+	padding: 2px;
+}
+.TituloRutaC {
+	background: url(../imagenes/fondo-degradado-v.png)  repeat-x;
+	height: 30px;
+	width:100%;
+	color: #003366;
+	font: bold 1.4em Arial, Helvetica, sans-serif;
+}
+.TituloRutaC a {
+	color: #003366;
+}
+.TituloRutaC a:hover {
+	text-decoration:none;
+}
+.TituloRutaCA {
+	background: #000000;
+	height: 30px;
+	width:100%;
+	color: #003366;
+	font: bold 1.4em Arial, Helvetica, sans-serif;
+}
+/*BOTONES*/
+.boton {
+	background: url(../imagenes/boton-izq.png) no-repeat left;
+}
+.boton div {
+	background: url(../imagenes/boton-der.png) no-repeat right;	
+}
+.boton a {
+	height: 23px;
+	/*display: block;*/
+	padding-top: 4%;
+	padding-bottom: 1%;
+	text-align: center;	
+	text-decoration: none;
+	color: #FFFFFF;
+	font-size: 0.9em;	
+}
+.boton a:hover {
+	color: #000;
+}
+.boton img {
+	vertical-align: middle;
+	margin-right: 2px;
+	border-style: none;
+}
+
+legend {
+	font-size: 1.2em;
+	color: #1A69A9;
+}
+
+th {
+	color: #1A69A9;
+	font-weight: bold;
+	height:22px;
+	border-collapse: collapse;
+	padding: 1em;
+	background: url(../imagenes/fondo-temporal.png)  repeat-x bottom;
+}
+.anchor, div.pad {
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	height: 100%;
+}
+.anchor {
+	border: 1px solid navy;
+}
+
+/****Tabs****/
+#tabs ul li{
+	font-size: 11px !important;
+}
+

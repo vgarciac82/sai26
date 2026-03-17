@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Requisiciones"  pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="807" leftMargin="15" rightMargin="20" topMargin="10" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="529"/>
+	<property name="ireport.y" value="150"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="nFolioCompromiso" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[DECLARE @nFolio INT
+DECLARE @cTipoPago VARCHAR(64) = 'COMPROMISO'
+DECLARE @sFirmanteDelegatorio VARCHAR(250)
+DECLARE @sPuestoFirmanteDelegatorio VARCHAR(70)
+DECLARE @sFirmanteAut VARCHAR(250)
+DECLARE @sLeyenda VARCHAR(500)
+DECLARE @sOficio VARCHAR(128)
+DECLARE @sFechaOficio VARCHAR(20)
+DECLARE @cTipoSuplencia VARCHAR(20)
+
+SET @nFolio = cast ($P{nFolioCompromiso} as int)
+SET @sFirmanteDelegatorio = ''
+SET @sPuestoFirmanteDelegatorio = ''
+
+SET @sFirmanteAut = ''
+SET @sLeyenda = ''
+SET @sOficio = ''
+SET @sFechaOficio = ''
+
+DECLARE @sFirmanteDeleVoBo VARCHAR(250)
+DECLARE @sPuestoFirmanteDeleVoBo VARCHAR(70)
+DECLARE @sFirmanteVoBo VARCHAR(250)
+DECLARE @sLeyendaVoBo VARCHAR(500)
+DECLARE @sOficioVoBo VARCHAR(128)
+DECLARE @sFechaOficioVoBo VARCHAR(20)
+
+SET @sFirmanteDeleVoBo = ''
+SET @sPuestoFirmanteDeleVoBo = ''
+SET @sFirmanteVoBo = ''
+SET @sLeyendaVoBo = ''
+SET @sOficioVoBo = ''
+SET @sFechaOficioVoBo = ''
+
+SELECT T.*
+INTO #tmp_TablaFinal
+FROM
+(
+SELECT nFolioCompromiso AS Folio,
+		contrato.cIdContrato,
+		compromiso.caNoCompromiso,
+		contrato.cIdUnidadAdministrativa AS cUnidadEjecutora,
+		cCentroContable,
+		'Descripción: ' + cDescripcionPoliza cDescripcionPoliza,
+		fCarga,
+		'Autorización de Compromiso de Subsidio' cTipoSolicitud,
+		cat.D_DESCRIPCION UR,
+		CASE WHEN cDocumentoHaplicado = 'S' THEN 'Aplicado'
+		WHEN cDocumentoHaplicado = 'N' THEN 'Cancelado'
+		WHEN cDocumentoHaplicado = 'C' THEN 'Cancelado'
+		WHEN cDocumentoHaplicado IS NULL THEN 'En tramite'
+		END cEstado
+		, fInicio, fTermino, fAplicacion, fAdjudicacion, fFirmaContrato
+		, mImporte, mIVA, mTotal, mEjercicio, mOtrosImpuestos
+		, CASE WHEN lEsPlurianual = 0 THEN 'NO' ELSE 'SI' END esPlurianual
+		,claseobra.cClaseContratoObra
+		, tipoContrato.cTipoContratoObra
+		, fondo.cTipoFondo
+		, ISNULL(Firmante.cNombreElaboro + ' ' + Firmante.cApellidoPaternoElaboro + ' ' + Firmante.cApellidoMaternoElaboro,'') AS cElaboro
+		, Firmante.cNombreVoBo + ' ' + Firmante.cApellidoPaternoVoBo + ' ' + Firmante.cApellidoMaternoVoBo AS cVobo
+		, Firmante.cNombreAutoriza + ' ' + Firmante.cApellidoPaternoAutoriza + ' ' + Firmante.cApellidoMaternoAutoriza AS cAutoriza
+		, ISNULL(Firmante.cPuestoElaboro, '') cPuestoElaboro
+		, Firmante.cPuestoVoBo
+		, Firmante.cPuestoAutoriza
+		, ep
+		, ep.cIdEntidadContable
+		, ep.cTipoContrato
+		, ben.dNombre + ' ' + ben.dApellidoPaterno + ' ' + ben.dApellidoMaterno Nombre
+, 'Autorizo se registre en el SICOP el compromiso de este “contrato federalizado ' + compromiso.caNoCompromiso + '  ya que se cuenta con los documentos que avalan su formalización' cObservacion
+, 'COMPROMISO ORIGINAL' Tipo
+, (SELECT SUM(mimporte) FROM dbo.tCompromisoDetalle
+WHERE nFolioCompromiso = compromiso.nfoliocompromiso) totalCompromiso
+FROM dbo.pContratoFederalizado contrato
+INNER JOIN dbo.tCompromisoEncabezado compromiso
+	ON contrato.cIdContrato = compromiso.cIdContrato
+INNER JOIN dbo.tCatUnidadResponsable cat
+	ON contrato.cIdUnidadAdministrativa = cat.cUnidadResponsable
+INNER JOIN pCatalogoClaseContratoObra claseobra
+	ON claseobra.cIdClaseContratoObra = contrato.cIdClaseContratoObra
+INNER JOIN pCatalogoTipoContratoObra tipoContrato
+	ON contrato.cIdTipoContratoObra = tipoContrato.cIdTipoContratoObra
+INNER JOIN pCatalogoTipoFondo fondo
+	ON contrato.cIdTipoFondo = fondo.cIdTipoFondo
+INNER JOIN dbo.tFirmanteModulo Firmante
+	ON compromiso.cUnidadResponsable = Firmante.cUnidadResponsable AND Firmante.cModulo = @cTipoPago
+INNER JOIN dbo.tContratoEP ep
+	ON ep.cIdContrato = compromiso.cIdContrato
+INNER JOIN dbo.tBeneficiario ben
+	ON ben.dRFC = contrato.cIdRFC
+WHERE nFolioCompromiso = @nFolio
+) AS T
+
+UPDATE #tmp_TablaFinal SET Tipo = 'MODIFICADO'
+WHERE cIdContrato IN (
+	SELECT cIdContrato
+	FROM dbo.tCompromisoEncabezado
+	GROUP BY cIdContrato
+	HAVING COUNT(cIdContrato) > 1)
+
+IF (SELECT COUNT(*) FROM tPagoFirmanteDelagatorio WITH (NOLOCK) WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolio) > 0
+BEGIN
+
+	SELECT TOP 1 @sFirmanteAut = cAutoriza FROM #tmp_TablaFinal tablafinal WITH (NOLOCK)
+
+	SELECT	@sFirmanteDelegatorio = (cNombreTitular + ' ' + cApellidoPaternoTitular + ' ' + cApellidoMaternoTitular)
+	, @sPuestoFirmanteDelegatorio = cPuestoTitular
+	, @sOficio = cFolioOficio
+	, @sFechaOficio = CONVERT(varchar(10)
+	, CONVERT(date, dFechaOficio, 106), 103)
+	, @cTipoSuplencia = cTipoSuplencia
+	FROM tPagoFirmanteDelagatorio pago WITH (NOLOCK)
+	INNER JOIN tCatTipoSuplencia WITH (NOLOCK)
+		ON pago.nTipoSuplencia = tCatTipoSuplencia.ntiposuplencia
+		WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolio
+
+	SET @sLeyenda = 'Firma ' + @cTipoSuplencia + ' de: ' + @sFirmanteAut + ', con fundamento en el oficio: ' + @sOficio + ', de fecha: ' + @sFechaOficio
+END
+
+IF (SELECT COUNT(*) FROM tPagoFirmanteDelegatorioVoBo WITH (NOLOCK) WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolio) > 0
+BEGIN
+
+	SELECT TOP 1 @sFirmanteVoBo = cVobo FROM #tmp_TablaFinal tablafinal WITH (NOLOCK)
+
+	SELECT	@sFirmanteDeleVoBo = (cNombreTitular + ' ' + cApellidoPaternoTitular + ' ' + cApellidoMaternoTitular)
+	, @sPuestoFirmanteDeleVoBo = cPuestoTitular
+	, @sOficioVoBo = cFolioOficio
+	, @sFechaOficioVoBo = CONVERT(varchar(10)
+	, CONVERT(date, dFechaOficio, 106), 103)
+	, @cTipoSuplencia = cTipoSuplencia
+	FROM tPagoFirmanteDelegatorioVoBo WITH (NOLOCK)
+	INNER JOIN tCatTipoSuplencia WITH (NOLOCK)
+		ON tPagoFirmanteDelegatorioVoBo.ntipoSuplencia = tCatTipoSuplencia.ntiposuplencia
+	WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolio
+
+	SET @sLeyendaVoBo =  'Firma ' + @cTipoSuplencia + ' de: ' + @sFirmanteVoBo + ', con fundamento en el oficio: ' + @sOficioVoBo + ', de fecha: ' + @sFechaOficioVoBo
+END
+
+
+SELECT *,
+@sFirmanteDelegatorio AS sFirmanteDelegatorio, @sPuestoFirmanteDelegatorio AS sPuestoFirmanteDelegatorio, @sLeyenda AS Leyenda,
+@sFirmanteDeleVoBo AS sFirmanteDeleVoBo, @sPuestoFirmanteDeleVoBo AS sPuestoFirmanteDeleVoBo, @sLeyendaVoBo AS LeyendaVoBo
+FROM #tmp_TablaFinal tablafinal WITH (NOLOCK)
+
+IF (SELECT OBJECT_ID('tempdb..#tmp_TablaFinal')) IS NOT NULL	DROP TABLE #tmp_TablaFinal]]>
+	</queryString>
+	<field name="Folio" class="java.lang.Integer"/>
+	<field name="cIdContrato" class="java.lang.String"/>
+	<field name="caNoCompromiso" class="java.lang.String"/>
+	<field name="cUnidadEjecutora" class="java.lang.String"/>
+	<field name="cCentroContable" class="java.lang.String"/>
+	<field name="cDescripcionPoliza" class="java.lang.String"/>
+	<field name="fCarga" class="java.lang.String"/>
+	<field name="cTipoSolicitud" class="java.lang.String"/>
+	<field name="UR" class="java.lang.String"/>
+	<field name="cEstado" class="java.lang.String"/>
+	<field name="fInicio" class="java.sql.Timestamp"/>
+	<field name="fTermino" class="java.sql.Timestamp"/>
+	<field name="fAplicacion" class="java.lang.String"/>
+	<field name="fAdjudicacion" class="java.sql.Timestamp"/>
+	<field name="fFirmaContrato" class="java.sql.Timestamp"/>
+	<field name="mImporte" class="java.math.BigDecimal"/>
+	<field name="mIVA" class="java.math.BigDecimal"/>
+	<field name="mTotal" class="java.math.BigDecimal"/>
+	<field name="mEjercicio" class="java.math.BigDecimal"/>
+	<field name="mOtrosImpuestos" class="java.math.BigDecimal"/>
+	<field name="esPlurianual" class="java.lang.String"/>
+	<field name="cClaseContratoObra" class="java.lang.String"/>
+	<field name="cTipoContratoObra" class="java.lang.String"/>
+	<field name="cTipoFondo" class="java.lang.String"/>
+	<field name="cElaboro" class="java.lang.String"/>
+	<field name="cVobo" class="java.lang.String"/>
+	<field name="cAutoriza" class="java.lang.String"/>
+	<field name="cPuestoElaboro" class="java.lang.String"/>
+	<field name="cPuestoVoBo" class="java.lang.String"/>
+	<field name="cPuestoAutoriza" class="java.lang.String"/>
+	<field name="ep" class="java.lang.String"/>
+	<field name="cIdEntidadContable" class="java.lang.String"/>
+	<field name="cTipoContrato" class="java.lang.String"/>
+	<field name="Nombre" class="java.lang.String"/>
+	<field name="cObservacion" class="java.lang.String"/>
+	<field name="Tipo" class="java.lang.String"/>
+	<field name="totalCompromiso" class="java.math.BigDecimal"/>
+	<field name="sFirmanteDelegatorio" class="java.lang.String"/>
+	<field name="sPuestoFirmanteDelegatorio" class="java.lang.String"/>
+	<field name="Leyenda" class="java.lang.String"/>
+	<field name="sFirmanteDeleVoBo" class="java.lang.String"/>
+	<field name="sPuestoFirmanteDeleVoBo" class="java.lang.String"/>
+	<field name="LeyendaVoBo" class="java.lang.String"/>
+	<group name="uni">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="138">
+				<staticText>
+					<reportElement x="504" y="24" width="68" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Clase de contrato:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="23" y="6" width="746" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cDescripcionPoliza}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="573" y="60" width="196" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cTipoFondo}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="72" y="24" width="168" height="27"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Nombre}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="572" y="40" width="197" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cTipoContratoObra}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="22" y="3" width="747" height="1"/>
+				</line>
+				<line>
+					<reportElement x="22" y="19" width="747" height="1"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="770" y="3" width="1" height="121"/>
+				</line>
+				<line>
+					<reportElement x="22" y="55" width="747" height="1"/>
+				</line>
+				<line>
+					<reportElement positionType="Float" x="22" y="107" width="747" height="1"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="23" y="3" width="1" height="121"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="241" y="56" width="1" height="51"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="503" y="56" width="1" height="51"/>
+				</line>
+				<line>
+					<reportElement x="241" y="20" width="1" height="35"/>
+				</line>
+				<line>
+					<reportElement x="503" y="20" width="1" height="35"/>
+				</line>
+				<staticText>
+					<reportElement x="26" y="24" width="46" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Beneficiario:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="26" y="76" width="21" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[UR:]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="47" y="76" width="193" height="31" isPrintWhenDetailOverflows="true"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{UR}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="243" y="24" width="90" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Folio:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="333" y="39" width="149" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cIdContrato}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="332" y="24" width="149" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{Folio}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="243" y="39" width="90" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Num de Contrato]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="504" y="40" width="68" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Tipo de contrato:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="573" y="24" width="162" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cClaseContratoObra}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="505" y="60" width="68" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Tipo de fondo:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="116" y="60" width="124" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{caNoCompromiso}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="27" y="60" width="89" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Num de Compromiso:]]></text>
+				</staticText>
+				<line>
+					<reportElement positionType="Float" x="23" y="123" width="747" height="1"/>
+				</line>
+				<staticText>
+					<reportElement x="509" y="109" width="97" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Importe total compromiso:]]></text>
+				</staticText>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="612" y="109" width="83" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$F{totalCompromiso}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="241" y="109" width="1" height="16"/>
+				</line>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="503" y="108" width="1" height="16"/>
+				</line>
+				<staticText>
+					<reportElement x="243" y="61" width="90" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Estatus]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="243" y="76" width="90" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Origen compromiso:]]></text>
+				</staticText>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement x="333" y="61" width="124" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cEstado}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement x="333" y="76" width="124" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Tipo}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="64">
+				<line>
+					<reportElement x="22" y="0" width="748" height="1"/>
+				</line>
+				<line>
+					<reportElement positionType="Float" x="24" y="47" width="748" height="1"/>
+				</line>
+				<staticText>
+					<reportElement x="26" y="4" width="118" height="10"/>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Compromiso presupuestal]]></text>
+				</staticText>
+				<subreport>
+					<reportElement x="24" y="16" width="744" height="31"/>
+					<subreportParameter name="nFolioCompromiso">
+						<subreportParameterExpression><![CDATA[$F{Folio}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\rptContratoFederalizado_subreportEp.jasper"]]></subreportExpression>
+				</subreport>
+				<line>
+					<reportElement positionType="Float" x="23" y="16" width="748" height="1"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="2" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="660" y="38" width="35" height="11"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Ejercicio]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="244" y="17" width="319" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cTipoSolicitud}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="754" y="14" width="15" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="660" y="14" width="35" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Página]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="735" y="14" width="18" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[de ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="243" y="1" width="319" height="16"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="695" y="14" width="36" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="695" y="38" width="36" height="11"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{mEjercicio}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement key="image" x="22" y="2" width="155" height="49"/>
+				<imageExpression class="java.lang.String"><![CDATA["report\\images\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} != 1]]></printWhenExpression>
+			<textField>
+				<reportElement x="23" y="3" width="746" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cDescripcionPoliza}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="22" y="17" width="747" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<summary>
+		<band height="141" splitType="Stretch">
+			<line>
+				<reportElement x="27" y="82" width="221" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="27" y="25" width="221" height="13" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Elaboró]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="28" y="83" width="221" height="13" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cElaboro}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="28" y="96" width="221" height="13" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cPuestoElaboro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="23" y="9" width="745" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cObservacion}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="289" y="82" width="226" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="289" y="25" width="226" height="13" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[VoBo]]></text>
+			</staticText>
+			<line>
+				<reportElement x="545" y="82" width="226" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="546" y="25" width="226" height="13" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Autorizó]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="546" y="115" width="226" height="26"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Leyenda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="289" y="115" width="226" height="26"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{LeyendaVoBo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="289" y="83" width="226" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[( $F{LeyendaVoBo}.equals( "" )) ? $F{cVobo} : $F{sFirmanteDeleVoBo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="289" y="96" width="226" height="19"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($F{LeyendaVoBo}.equals( "" )) ? $F{cPuestoVoBo} : $F{sPuestoFirmanteDeleVoBo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="545" y="83" width="226" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[( $F{Leyenda}.equals( "" )) ? $F{cAutoriza} : $F{sFirmanteDelegatorio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="546" y="96" width="226" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($F{Leyenda}.equals( "" )) ? $F{cPuestoAutoriza} : $F{sPuestoFirmanteDelegatorio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

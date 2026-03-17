@@ -30,7 +30,7 @@ public class MailTestCNF {
         String port = "2525";
         String localhost = "cnf.gob.mx";
         String from = "sai@cnf.gob.mx";
-        log.debug("Object: {}", "Cofiguracion de alerta: PROTOCOL[" + protocol + "] HOST[" + host + "] PORT[" + port + "] LOCALHOST[" + localhost + "] FROM[" + from + "]");
+        log.debug("Object: " + String.valueOf("Cofiguracion de alerta: PROTOCOL[" + protocol + "] HOST[" + host + "] PORT[" + port + "] LOCALHOST[" + localhost + "] FROM[" + from + "]"));
         int iMail = 0;
         while (iMail < 5) {
             try {

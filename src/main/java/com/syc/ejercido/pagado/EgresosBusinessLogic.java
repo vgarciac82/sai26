@@ -798,7 +798,7 @@ public class EgresosBusinessLogic extends DataSourceManager {
             conn = getConnection();
             int insertados = QuestionnaireManager.insertPaymentsQuestionnaire(conn, encabezado);
             insertados += QuestionnaireManager.insertAnswersPayments(conn, encabezado);
-            log.debug("Object: {}", "Se insertaron:  " + insertados + " registros de respuesta.");
+            log.debug("Object: " + String.valueOf("Se insertaron:  " + insertados + " registros de respuesta."));
             conn.commit();
             return insertados;
         } catch (Exception e) {

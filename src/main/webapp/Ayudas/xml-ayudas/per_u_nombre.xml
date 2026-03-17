@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Interno -->
+<Ayuda>
+	<titulo>Turno Personalizado</titulo>
+	<anchoWin>587</anchoWin>
+	<altoWin>543</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>PERSONALIZADA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>
+		<columna campo="U.U_LOGIN"			control="per_u_login"		dependencia="No"	ctrlsDependientes=""				limpiaOnKeypress=""				header="Clave"		ancho="32"	maxlen="32"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="E.SALUTACION"		control="per_salutacion"	dependencia="No"	ctrlsDependientes=""				limpiaOnKeypress=""				header="Salutación"	ancho="10"	maxlen="10"	tipo="string"	visible="Si"	clase=""/>		
+		<columna campo="E.NOMBRECOMPL"		control="per_u_nombre"		dependencia="No"	ctrlsDependientes="per_u_login,per_salutacion,per_pto_nombre,per_d_descripcion"			limpiaOnKeypress="txtGridper_u_login,txtGridper_salutacion,txtGridper_pto_nombre,txtGridper_d_descripcion"	header="Nombre"	ancho="80"	maxlen="80"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="P.PTO_NOMBRE"		control="per_pto_nombre"	dependencia="No"	ctrlsDependientes=""				limpiaOnKeypress="per_u_login"	header="Puesto"		ancho="80"	maxlen="200"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="A.D_DESCRIPCION"	control="per_d_descripcion"	dependencia="No"	ctrlsDependientes=""				limpiaOnKeypress="per_u_login"	header="Area"		ancho="80"	maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+	</grid> 
+		
+</Ayuda>

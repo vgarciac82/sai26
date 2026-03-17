@@ -130,7 +130,7 @@ public class ConfiguraAplicativoBusinessLogic extends DataSourceManager {
 	 * u) throws IOException, DocumentException { String cRuta = ""; //
 	 * DiskFileUpload upload = new DiskFileUpload(); //
 	 * upload.setRepositoryPath(tempDir); // String ruta_destino =
-	 * upload.getRepositoryPath() + "//"+c.getFolio();
+	 * getServletContext().getRealPath("/upload") + "//"+c.getFolio();
 	 * 
 	 * // si destino es diferente de null if (tempDir != null) { try { // se
 	 * crea instancia del documento Document mipdf = new Document() { }; // se
@@ -597,7 +597,7 @@ public class ConfiguraAplicativoBusinessLogic extends DataSourceManager {
                                         ConfiguraAplicativoManager.actTablaLayout(conn, elRegreso);
                                     }
                                 } catch (Exception exc) {
-                                    log.debug("Object: {}", elUpdate);
+                                    log.debug("Object: " + String.valueOf(elUpdate));
                                     log.error(exc.getMessage(), exc);
                                     arrmMontosCalendario.add("Error en Renglon " + IterRegElx + " del archivo : '" + exc.getMessage() + "'");
                                     conn.rollback();
@@ -650,7 +650,7 @@ public class ConfiguraAplicativoBusinessLogic extends DataSourceManager {
                         String elRegreso = validaLinea(linea, arrLDetalle, tablaDestino, elDelim);
                         if ("/*OK*/".compareToIgnoreCase(elRegreso.substring(0, 6)) >= 0) {
                             elUpdate = elUpdate + elRegreso;
-                            log.debug("Object: {}", elRegreso);
+                            log.debug("Object: " + String.valueOf(elRegreso));
                         } else {
                             arrmMontosCalendario.add("Error en Renglon " + numLinea + " del archivo : '" + elRegreso + "'");
                             sinError++;

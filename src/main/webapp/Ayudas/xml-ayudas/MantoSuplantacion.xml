@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!-- Mantenimiento a usuarios de suplantación -->
+<Ayuda>
+	<titulo>Mantenimiento a usuarios de suplantación</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>700</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>M_CG_SUPLANTACION</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="s.SUP_LOGIN_A_SUPLANTAR"	control="MantoLoginSup"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Usuario a suplantar"			ancho="35"		maxlen="32"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="NombreCompl1"				control="NombreCompl1"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Nombre"							ancho="70"		maxlen="80"		tipo="string"	visible="Si"	clase="Protegido"/>
+		<columna campo="s.SUP_LOGIN_QUIEN_SUPLANTA"	control="MantoLoginInf"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Usuario quien suplanta"			ancho="35"		maxlen="32"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="NombreCompl2"				control="NombreCompl2"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Nombre"							ancho="70"		maxlen="80"		tipo="string"	visible="Si"	clase="Protegido"/>
+		<columna campo="s.ID_SUPLANTACION"			control=""          		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Id Suplantacion"				ancho="5"		maxlen="20"		tipo="int"  	visible="No"	clase=""/>	
+	</grid>
+
+	<insertaRegistro>
+	    <campo field="ID_SUPLANTACION"		    control="txtGridCol4"		            llave="Si"	identity="Si"	requerido=""											        requeridoFocus=""				            tipo="int" />
+		<campo field="SUP_LOGIN_A_SUPLANTAR"	control="txtGridMantoLoginSup"			llave="Si"	identity="No"	requerido="El Id Usuario a suplantar es un dato requerido."		requeridoFocus="txtGridMantoLoginSup"		tipo="string" />
+		<campo field="SUP_LOGIN_QUIEN_SUPLANTA"	control="txtGridMantoLoginInf"   		llave="Si"	identity="No"	requerido="El Id Usuario quien suplanta es un dato requerido."	requeridoFocus="txtGridMantoLoginInf"		tipo="string" />
+	</insertaRegistro>
+	  
+</Ayuda>

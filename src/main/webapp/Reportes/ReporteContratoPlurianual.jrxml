@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteContratoPlurianual"  pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="0.7513148009015781"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="folioPlurianual" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Marisol\\Documents\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select  nFolioContratoPlurianual ,
+  cDescripcion,
+  aEjercicioFiscal,
+  lAbierto,
+  isnull(pe.nTipoCambio,0) as cambio,
+ (select dTipoGasto from tCatalogoTipoGasto where cTipoGasto = pe.cTipoGasto) as Gasto,
+ (select cTipoMoneda from tCatalogoTipoMoneda WITH(NOLOCK)  where cCveTipoMoneda = pe.cTipoMoneda) as Moneda,
+ (select cTipoContrato FROM tCatalogoTipoContrato WITH(NOLOCK)  where cCveTipoContrato = pe.cTipoContrato) as Contrato,
+ (select cSolicitudContrato from tCatalogoSolicitudContrato WITH(NOLOCK)  where cCveSolicitudContrato =   pe.cTipoSolicitud) as tipoSolicitud,
+ (Select D_DESCRIPCION from tCatUnidadResponsable WITH(NOLOCK)  where cUnidadResponsable = pe.cUnidadResponsable) as UResponsable,
+  CONVERT(varchar,fInicio,103) as Inicio,
+  CONVERT(varchar,fFin,103) as Termino,
+  cJustificacionCompromiso,
+  cJustificacionPlazo
+FROM    tContratoPlurianualEncabezado pe
+where  pe.nFolioContratoPlurianual= $P{folioPlurianual}]]>
+	</queryString>
+	<field name="nFolioContratoPlurianual" class="java.lang.String"/>
+	<field name="cDescripcion" class="java.lang.String"/>
+	<field name="aEjercicioFiscal" class="java.lang.String"/>
+	<field name="lAbierto" class="java.lang.String"/>
+	<field name="cambio" class="java.math.BigDecimal"/>
+	<field name="Gasto" class="java.lang.String"/>
+	<field name="Moneda" class="java.lang.String"/>
+	<field name="Contrato" class="java.lang.String"/>
+	<field name="tipoSolicitud" class="java.lang.String"/>
+	<field name="UResponsable" class="java.lang.String"/>
+	<field name="Inicio" class="java.lang.String"/>
+	<field name="Termino" class="java.lang.String"/>
+	<field name="cJustificacionCompromiso" class="java.lang.String"/>
+	<field name="cJustificacionPlazo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="555" splitType="Stretch">
+			<staticText>
+				<reportElement x="61" y="144" width="83" height="20"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Termino]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="61" y="164" width="83" height="51"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Termino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="706" y="90" width="63" height="20"/>
+				<box>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nFolioContratoPlurianual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="163" width="60" height="52"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Inicio}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement isPrintRepeatedValues="false" x="144" y="164" width="625" height="51"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cDescripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="144" width="60" height="20"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Inicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="144" width="625" height="20"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="29" width="761" height="49"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONTRATOS PLURIANUALES DE OBRA PÚBLICA, ADQUISICIONES, ARRENDAMIENTOS O SERVICIOS, CUYA EJECUCiÓN O RECURSOS
+REBASAN LA PROGRAMACiÓN - PRESUPUESTACIÓN DEL EJERCICIO FISCAL
+UNIDAD RESPONSABLE:            ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="606" y="90" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Folio Plurianual]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="1" y="214" width="388" height="58"/>
+				<subreportParameter name="FOLIO">
+					<subreportParameterExpression><![CDATA[$P{folioPlurianual}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "REPORTE_EPS.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="600" y="41" width="47" height="14"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{aEjercicioFiscal}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="390" y="216" width="398" height="38">
+					<printWhenExpression><![CDATA[$F{lAbierto}.equals( "C" )]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="FolioPlu">
+					<subreportParameterExpression><![CDATA[$P{folioPlurianual}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "DetalleMontosCerrados.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="390" y="215" width="375" height="100">
+					<printWhenExpression><![CDATA[$F{lAbierto}.equals( "A" )]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="FolioPlu">
+					<subreportParameterExpression><![CDATA[$P{folioPlurianual}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "DetalleMontos2.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="434" y="52" width="299" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{UResponsable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="122" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Gasto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="541" y="122" width="110" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Moneda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="231" y="122" width="109" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Contrato}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="61" y="122" width="83" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tipoSolicitud}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="122" width="60" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Forma:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="122" width="51" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Moneda:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="122" width="50" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Gasto : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="122" width="87" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Tipo Contrato:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="713" y="122" width="56" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cambio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="651" y="122" width="62" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[TipoCambio:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement isPrintRepeatedValues="false" x="12" y="421" width="737" height="33"/>
+				<textElement textAlignment="Justified" lineSpacing="Single"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cJustificacionCompromiso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="400" width="768" height="105"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Justificación de los Beneficios]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="7" width="473" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+		</band>
+	</title>
+	<summary>
+		<band height="129" splitType="Stretch"/>
+	</summary>
+</jasperReport>

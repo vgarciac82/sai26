@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptActaAPTE"  pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.464100000000001"/>
+	<property name="ireport.x" value="99"/>
+	<property name="ireport.y" value="26"/>
+	<subDataset name="dataset1">
+		<field name="documento" class="java.lang.String"/>
+		<field name="referencia" class="java.lang.String"/>
+		<field name="si" class="java.lang.String"/>
+		<field name="no" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="NOMBRE_UE" class="java.lang.String"/>
+	<parameter name="DIRECCION_UE" class="java.lang.String"/>
+	<parameter name="CATEGORIA_P" class="java.lang.String"/>
+	<parameter name="DESCRIPCION_P" class="java.lang.String"/>
+	<parameter name="REQUISICIONES" class="java.lang.String"/>
+	<parameter name="FECHA_PP" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<field name="proveedores" class="java.util.List"/>
+	<field name="partidas" class="java.util.List"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="129" splitType="Stretch">
+			<image onErrorType="Blank">
+				<reportElement x="0" y="0" width="150" height="42"/>
+				<imageExpression class="java.lang.String"><![CDATA["C:\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="256" y="2" width="299" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="256" y="17" width="299" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NOMBRE_UE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="58" width="553" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ACTA DE PRESENTACIÓN Y APERTURA DE PROPUESTAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="331" y="83" width="202" height="15"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Requisición de Compra No.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="331" y="98" width="202" height="15"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REQUISICIONES}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="7" y="108" width="262" height="15"/>
+				<textElement textAlignment="Center">
+					<font isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DESCRIPCION_P}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="7" y="78" width="262" height="15"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{CATEGORIA_P}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="93" width="262" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Escriba la Cobertura]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="55" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="48"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{partidas})]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"\\rptActaAPTEPartidas.jasper"]]></subreportExpression>
+			</subreport>
+			<break>
+				<reportElement x="0" y="54" width="100" height="1"/>
+			</break>
+		</band>
+		<band height="49">
+			<subreport runToBottom="false">
+				<reportElement x="0" y="0" width="555" height="48"/>
+				<subreportParameter name="CATEGORIA_P">
+					<subreportParameterExpression><![CDATA[$P{CATEGORIA_P}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FECHA_PP">
+					<subreportParameterExpression><![CDATA[$P{FECHA_PP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{proveedores})]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"\\rptActaAPTEDocs.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="26">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="3" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DIRECCION_UE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

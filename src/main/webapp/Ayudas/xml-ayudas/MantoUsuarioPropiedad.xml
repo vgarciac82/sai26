@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento de relación Usuario Propiedades</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>180</altoAreaCaptura>
+	<tabla>M_CG_USUARIO_PROPIEDADES</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="u_login"	control="MantoLoginSup"	dependencia="No"	limpiaOnKeypress=""		header="Usuario"	 	 ancho="32"		maxlen="32"  tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="UP_NOMBRE"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Nombre Propiedad"	 ancho="100"	maxlen="100" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="UP_VALOR"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Valor propiedad"	 ancho="100"	maxlen="100" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="ADMIN_DUENO"	control="MantoRolesSup"	dependencia="No"	limpiaOnKeypress=""		header="Rol Dueño"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="EFISCAL"	control="aEjercicioFiscal"		dependencia="No"		ctrlsDependientes=""						limpiaOnKeypress="txtGridaEjercicioFiscal"	header="* Ejercicio Fiscal"		rowCol="11,1" 	ancho="15"		maxlen="12"		tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC" defaultValue="" anioDinamic="1"/>
+	
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="u_login"	control="txtGridMantoLoginSup"	llave="Si"	identity="No"	requerido="El Usuario es un dato requerido."	requeridoFocus="txtGridMantoLoginSup"	tipo="string" />		
+		<campo field="UP_NOMBRE"	control="txtGridCol1"	llave="Si"	identity="No"	requerido="El nombre de propiedad es un dato requerido."		requeridoFocus="txtGridCol1"	tipo="string" />
+		<campo field="UP_VALOR"	control="txtGridCol2"	llave="No"	identity="No"	requerido="El valor de propiedad es un dato requerido."		requeridoFocus="txtGridCol2"	tipo="string" />
+		<campo field="ADMIN_DUENO"	control="txtGridMantoRolesSup"	llave="No"	identity="No"	requerido="El Dueño es un dato requerido."	requeridoFocus=""	tipo="string" />
+		<campo field="EFISCAL"				control="txtGridaEjercicioFiscal"			llave="Si"	identity="No"	requerido="El Ejercicio Fiscal es Requerido"			requeridoFocus="txtGridaEjercicioFiscal"	tipo="string" />
+	
+	</insertaRegistro>
+	
+</Ayuda>

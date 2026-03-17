@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catalogo de Partidas</titulo>
+	<anchoWin>500</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>TCATALOGOPARTIDA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cPartida"	        control="nCOG"	            dependencia="No"	ctrlsDependientes=""			limpiaOnKeypress=""	header="Partida"	    rowCol="1,1" ancho="50"	    maxlen="100"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="descripcion"	        control=""	                dependencia="No"	ctrlsDependientes=""			limpiaOnKeypress=""	header="Descripción"	rowCol="1,1" ancho="100"	    maxlen="100"		tipo="string"	visible="Si"	clase=""/>        
+	    <columna campo="cIdGrupoEvento"	    control="nGrupo"			dependencia="Si"	ctrlsDependientes="nGrupo"	    limpiaOnKeypress=""	header="Grupo"			rowCol="1,3" ancho="50"	    maxlen="100"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="cIdSubGrupoEvento"	control="nSubGrupo"			dependencia="Si"	ctrlsDependientes="nSubGrupo"	limpiaOnKeypress=""	header="SubGrupo"		rowCol="1,4" ancho="50"  	maxlen="100"		tipo="string"	visible="No"	clase=""/>        
+		<columna campo="cIdEventoManual"	control="nEvento"	        dependencia="Si"	ctrlsDependientes="nEvento"	    limpiaOnKeypress=""	header="Evento"			rowCol="1,5" ancho="50" 	maxlen="100"		tipo="string"	visible="No"	clase=""/> 
+				
+	</grid>  
+</Ayuda>

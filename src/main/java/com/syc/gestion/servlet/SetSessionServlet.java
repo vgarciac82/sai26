@@ -43,7 +43,7 @@ public class SetSessionServlet extends HttpServlet {
         resp.setContentType("text/x-json;charset=UTF-8");
         resp.setHeader("Cache-Control", "no-cache");
         PrintWriter out = resp.getWriter();
-        out.write(jSon.toPath());
+        out.write(jSon);
         out.flush();
         out.close();
     }
@@ -57,7 +57,7 @@ public class SetSessionServlet extends HttpServlet {
         resp.setContentType("application/json");
         resp.setHeader("Cache-Control", "no-cache");
         PrintWriter out = resp.getWriter();
-        out.write(jSon.toPath());
+        out.write(jSon);
         out.flush();
         out.close();
     }
@@ -70,7 +70,7 @@ public class SetSessionServlet extends HttpServlet {
         resp.setContentType("text/x-json;charset=UTF-8");
         resp.setHeader("Cache-Control", "no-cache");
         PrintWriter out = resp.getWriter();
-        out.write(jSon.toPath());
+        out.write(jSon);
         out.flush();
         out.close();
     }

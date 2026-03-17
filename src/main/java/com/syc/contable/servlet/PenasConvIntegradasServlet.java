@@ -110,7 +110,7 @@ public class PenasConvIntegradasServlet extends HttpServlet implements GestionIn
                             archivoPago.append(arrListDocu.get(i));
                         }
                         String outTextPago = archivoPago.toString();
-                        out.write(outTextPago.toPath());
+                        out.write(outTextPago);
                         // fin de guarda pago
                         out.close();
                         File[] filenames = new File[] { layoutDoc };

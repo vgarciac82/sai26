@@ -80,7 +80,7 @@ public class FinalizarSuficienciaPagoDirectoServlet extends HttpServlet {
         } catch (Exception ex) {
             log.error("[API] Error al finalizar folio=" + folio + " : " + ex.getMessage(), ex);
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            mapper.writeValue(resp.getWriter(), error("Error occurred", "Error al finalizar el trámite: " + ex.getMessage()));
+            mapper.writeValue(resp.getWriter(), error("Error occurred: " + "Error al finalizar el trámite: " + ex.getMessage()));
         }
     }
 

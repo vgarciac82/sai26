@@ -465,7 +465,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
             //autoriza_precomp
             String[] nombre = new String[] { "consulta_precomp" };
             Util.avanzaCaso(request, caso, usuario, prefixPath, responsable, nombre, jndiName);
-            log.debug("Object: {}", caso.getCasoDato("APLICADO_CONT").getValor());
+            log.debug("Object: " + String.valueOf(caso.getCasoDato("APLICADO_CONT").getValor()));
             resp = true;
         } finally {
             if (pstm != null) {
@@ -514,7 +514,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
         ResultSet rs = null;
         try {
             String query = "select (isnull(MAX(nIdConsecutivo),0)+1) consecutivo from mContratoCap4 with(Nolock) where cIdUnidadEjecutora='" + datosContrato.getcIdUnidadEjecutora() + "'";
-            Log.info("Object: {}", "Query para obtener el siguiente consecutivo de contratos cap 400: " + query);
+            Log.info("Object: {}" + " - " + "Query para obtener el siguiente consecutivo de contratos cap 400: " + query);
             pstm = conn.prepareStatement(query);
             rs = pstm.executeQuery();
             if (rs.next()) {
@@ -582,7 +582,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
         int outputValue = -1;
         boolean resp = false;
         try {
-            log.debug("Object: {}", "pa_devuelveContratoCap4 '" + datosContrato.getcEjercicio() + "','" + datosContrato.getcIdcontratoDefinitivo() + "','" + usuario.getLogin() + "'");
+            log.debug("Object: " + String.valueOf("pa_devuelveContratoCap4 '" + datosContrato.getcEjercicio() + "','" + datosContrato.getcIdcontratoDefinitivo() + "','" + usuario.getLogin() + "'"));
             cmst = conn.prepareCall("{?= call pa_devuelveContratoCap4 (?,?,?)}");
             cmst.registerOutParameter(1, Types.INTEGER);
             cmst.setString(2, datosContrato.getcEjercicio());
@@ -1146,7 +1146,7 @@ public class ContratoCap4Impl implements ContratoCap4Interface, GestionInterface
         int outputValue = -1;
         boolean resp = false;
         try {
-            log.debug("Object: {}", "pa_devuelveContratoPluriCap4 '" + datosContrato.getcEjercicio() + "','" + datosContrato.getcIdcontratoDefinitivo() + "','" + usuario.getLogin() + "'");
+            log.debug("Object: " + String.valueOf("pa_devuelveContratoPluriCap4 '" + datosContrato.getcEjercicio() + "','" + datosContrato.getcIdcontratoDefinitivo() + "','" + usuario.getLogin() + "'"));
             cmst = conn.prepareCall("{?= call pa_devuelveContratoPluriCap4 (?,?,?)}");
             cmst.registerOutParameter(1, Types.INTEGER);
             cmst.setString(2, datosContrato.getcEjercicio());

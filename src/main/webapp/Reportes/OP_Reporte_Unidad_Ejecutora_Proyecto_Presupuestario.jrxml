@@ -1,0 +1,957 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OP_Reporte_Unidad_Ejecutora_Proyecto_Presupuestario" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c3fcc46-ab17-40e9-89bb-5623aae5d07c">
+	<property name="ireport.zoom" value="1.6105100000000012"/>
+	<property name="ireport.x" value="136"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fIni" class="java.lang.String"/>
+	<parameter name="fFin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select tipoArea, Proyecto, IdProyecto, UniEjec, UniNormativa, uNormativa, uEjecutora, isnull(Original,0) Original, isnull(Modificado,0) Modificado, cProgramaPresupuestario, UEjec, isnull(montoContrxProg,0) montoContrxProg, isnull(montoContratado,0)montoContratado , isnull(montoEstimado,0)montoEstimado, isnull(montoEjecutado,0)montoEjecutado, isnull(TOTAL_MN,0)TOTAL_MN
+ from (select case when uniejec < 'B20'
+    then 'GERENCIAS CENTRALES'
+    else case when uejecutora like '% cuenca %' then 'ORGANISMOS DE CUENCA' else 'GERENCIAS REGIONALES' end end tipoArea,
+   * from (select Proy.cProgramaPresupuestario + ' ' + Proy.dProgramaPresupuestario Proyecto,
+				  Proy.cProgramaPresupuestario IdProyecto,
+                  Ueje.cUnidadResponsable UniEjec,
+                  uNor.cUnidadResponsable UniNormativa,
+                  uNor.D_DESCRIPCION uNormativa,
+                  ueje.D_DESCRIPCION uEjecutora,
+   sum(case when substring(s.nCuenta,1,5) = '81101' then s.mSaldoarrastre else 0 end)/1000.00 Original
+  ,sum(case when substring(s.nCuenta,1,5) = '81102' then s.mSaldoarrastre else 0 end)/1000.00 Modificado
+ from tSaldos S with(nolock)
+, tcatalogoep catEP  with(nolock)
+, tCatalogoCentroContable CC with(nolock)
+, tCatUnidadResponsable UResp with(nolock)
+, tCatUnidadResponsable UNor with(nolock)
+, tCatUnidadResponsable Ueje with(nolock)
+, tCatalogoProgramaPresupuestario Proy with(nolock)
+ where catep.EP = s.cSubCuenta
+   and catep.cProgramaPresupuestario =Proy.cProgramaPresupuestario
+   and  CC.CcENTROcONTABLE = S.cCentroContable
+   and UResp.cUnidadResponsable = s.cUnidadResponsable
+   and unor.cUnidadResponsable =   catEP.cUnidadNorativa
+   and Ueje.cUnidadResponsable = catEP.cUnidadEjecutora
+  AND (nCuenta like '81101%' or nCuenta like '81102%')
+  and cPartida  like '6%'
+ group by Proy.cProgramaPresupuestario ,Proy.dProgramaPresupuestario ,
+           ueje.D_DESCRIPCION ,ueje.cUnidadResponsable,uNor.D_DESCRIPCION, uNor.cUnidadResponsable, UResp.cUnidadResponsable
+
+) Tsal left join
+
+  (select cProgramaPresupuestario, isnull(pasEnc.cU_UR, isnull(comEnc.cU_UR, isnull(preEnc.cU_UR, apaEnc.cU_UR))) UEjec
+,SUM(mimporte)/1000.0 montoContrxProg, (sum(ISNULL(pasEnc.mMontoConIVA,ISNULL(comEnc.nMontoConIVA,ISNULL(preEnc.nMontoConIVA,ISNULL(apaEnc.nMontoConIVA,0)))) +isnull(conmod.mMontoconIva, 0)))/1000.00 montoContratado
+,  sum(isnull(mmontoestimacion, 0))/1000.00 montoEstimado,
+   sum(isnull(mmontoFisicoEjecutado, 0))/1000.00 montoEjecutado, SUM(ISNULL(TOTAL_MN,0))/1000.00 TOTAL_MN
+    from tObraPublicaApartadoEncabezado apaEnc with(nolock)
+ left join tObraPublicaApartadoEncabezado preEnc with(nolock) on apaEnc.foliosai = preenc.FolioSAI
+ left join (select cEnc.cU_Ur, cEnc.cDocumentoHaplicado, cEnc.cCveContrato, cEnc.nMontoConIVA, cEnc.FolioSAI, sum(cDet.mImporte) mImporte, epcom.cProgramaPresupuestario
+  from tobrapublicacompromisoencabezado cEnc with(nolock)
+  , tobrapublicacompromisodetalle cDet with(nolock),
+    tCatalogoEP EPcom with(nolock)
+    where cenc.nFolioOPComHeader  = cDet.nFolioOPComHeader
+     and epcom.EP=cDet.ep
+     and cEvento = 'OP_PCM'
+and cEnc.fFechaOficio >= '01/01/2014'
+ and cEnc.fFechaOficio < '15/01/2014' group by cEnc.cU_Ur, cEnc.cDocumentoHaplicado, cEnc.cCveContrato, cEnc.nMontoConIVA, cEnc.FolioSAI, epcom.cProgramaPresupuestario
+ ) comEnc  on apaEnc.foliosai = comEnc.FolioSAI
+ left join tObraPublicaPagoPasivoEncabezado pasEnc with(nolock) on apaEnc.foliosai = pasEnc.FolioSAI
+ left join ( select af.foliosai,sum(isnull(af.mmontoestimacion,0)) mmontoestimacion, af.efiscalpago
+ , sum(isnull(af.nporceavancefisicoejecutado,0)) nporceavancefisicoejecutado
+ , sum(isnull(af.nporceavancefisicoestimado,0)) nporceavancefisicoestimado
+ , sum(isnull(af.mmontoFisicoEjecutado,0)) mmontoFisicoEjecutado
+ , sum(isnull(af.nporceavancefisicoprogramado,0)) nporceavancefisicoprogramado
+ , sum(isnull(CASE WHEN siaff.FOLIO_CLC = sicop.FOLIO_SIAFF_112 and sicop.FOLIO_SIAFF_112 = pe.nFolioSIAFF and obrae.cDocumentoHaplicado = 'S' and siaff.ESTATUS_CLC = 'Pagada' THEN CAST(SIAFF.TOTAL_MN AS MONEY) ELSE 0 END,0)) TOTAL_MN
+
+FROM tObraPublicaAvanceFisico AF with(nolock)
+							 left join tpagoobraencabezado obrae with(nolock) on AF.noestimacion = obrae.cNoEstimacion and AF.mmontoestimacion = obrae.mImporteMasIva and obrae.cDocumentoHaplicado != 'C'
+							 left join tpagoobraencabezado poe with(nolock) on poe.cFolioContratoObra = AF.ccvecontrato and poe.cnoestimacion = AF.noestimacion and poe.cDocumentoHaplicado ='S'
+							 left join tpagadoencabezado pe with(nolock) on pe.nFolioPAGO = obrae.nFolioPAGOOBRA and pe.cTipoPago ='PAGOOBRA'
+							 left join clc_sicop sicop with(nolock) on sicop.FOLIO_SIAFF_112 = pe.nFolioSIAFF
+							 left join CLC_SIAFF_ENC siaff with(nolock) on siaff.FOLIO_CLC = sicop.FOLIO_SIAFF_112
+							  group by af.foliosai,af.efiscalpago
+)                             avfEnc on apaEnc.foliosai = avfEnc.FolioSAI and avfEnc.efiscalpago = (SELECT aejerciciofiscal AS cEjercicio
+				FROM   tejerciciofiscal WITH(NOLOCK)
+				WHERE  cactivo = 1 )
+left join (select epe.ccvecontrato, sum(epe.mMontoconIva) mMontoconIva, epe.cU_UR, epe.aEjercicioFiscal
+   from tObraPublicaConvModifEncabezado epe with(nolock) where epe.cDocumentoHaplicado = 'S' and epe.aEjercicioFiscal =(SELECT aejerciciofiscal AS cEjercicio
+				FROM   tejerciciofiscal WITH(NOLOCK)
+				WHERE  cactivo = 1 )
+    group by epe.cCveContrato, epe.cU_UR, epe.aEjercicioFiscal ) conMod --NOMBRE TABLA CONMOD
+      on conmod.cCveContrato = comEnc.cCveContrato
+ where apaEnc.cDocumentoHaplicado = 'S'
+ and preEnc.cDocumentoHaplicado = 'S'
+ and comEnc.cDocumentoHaplicado = 'S'
+ and comenc.cCveContrato in (select e.cIdContrato from tCompromisoEncabezado e where e.cDocumentoHaplicado = 'S')
+ group by isnull(pasEnc.cU_Ur, isnull(comEnc.cU_Ur, isnull(preEnc.cU_Ur, apaEnc.cU_Ur))),cProgramaPresupuestario ) tabContr --NOMBRE DE TABLA tabContr
+on tabContr.UEjec = Tsal.UniEjec and tabcontr.cProgramaPresupuestario = tsal.IdProyecto)m
+order by m.IdProyecto, m.tipoArea
+--where UEjec is not null]]>
+	</queryString>
+	<field name="tipoArea" class="java.lang.String"/>
+	<field name="Proyecto" class="java.lang.String"/>
+	<field name="IdProyecto" class="java.lang.String"/>
+	<field name="UniEjec" class="java.lang.String"/>
+	<field name="UniNormativa" class="java.lang.String"/>
+	<field name="uNormativa" class="java.lang.String"/>
+	<field name="uEjecutora" class="java.lang.String"/>
+	<field name="Original" class="java.math.BigDecimal"/>
+	<field name="Modificado" class="java.math.BigDecimal"/>
+	<field name="cProgramaPresupuestario" class="java.lang.String"/>
+	<field name="UEjec" class="java.lang.String"/>
+	<field name="montoContrxProg" class="java.math.BigDecimal"/>
+	<field name="montoContratado" class="java.math.BigDecimal"/>
+	<field name="montoEstimado" class="java.math.BigDecimal"/>
+	<field name="montoEjecutado" class="java.math.BigDecimal"/>
+	<field name="TOTAL_MN" class="java.math.BigDecimal"/>
+	<variable name="porcentajeAdjudicado" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[(  new BigDecimal(0).compareTo($F{Modificado}) == 0 ?  new BigDecimal(0) : $F{montoContratado} .divide( $F{Modificado} ))]]></variableExpression>
+	</variable>
+	<variable name="porcentajeEjecutado" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[(  new BigDecimal(0).compareTo( $F{montoContratado}) == 0 ?  new BigDecimal(0) : $F{montoEjecutado} .divide($F{montoContratado} ))]]></variableExpression>
+	</variable>
+	<variable name="porcentajeEstimado" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[(   new BigDecimal(0).compareTo($F{montoContratado}) == 0 ?  new BigDecimal(0) : $F{montoEstimado} .divide($F{montoContratado} ))]]></variableExpression>
+	</variable>
+	<variable name="porcentajePagado" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[(  new BigDecimal(0).compareTo( $F{montoContratado}) == 0 ?  new BigDecimal(0 ): $F{montoEjecutado}.divide( $F{montoContratado} ))]]></variableExpression>
+	</variable>
+	<variable name="Original_1" class="java.math.BigDecimal" resetType="Group" resetGroup="proyecto" calculation="Sum">
+		<variableExpression><![CDATA[$F{Original}]]></variableExpression>
+	</variable>
+	<variable name="Modificado_1" class="java.math.BigDecimal" resetType="Group" resetGroup="proyecto" calculation="Sum">
+		<variableExpression><![CDATA[$F{Modificado}]]></variableExpression>
+	</variable>
+	<variable name="montoContratado_1" class="java.math.BigDecimal" resetType="Group" resetGroup="proyecto" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoContratado}]]></variableExpression>
+	</variable>
+	<variable name="montoEjecutado_1" class="java.math.BigDecimal" resetType="Group" resetGroup="proyecto" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoEjecutado}]]></variableExpression>
+	</variable>
+	<variable name="montoEstimado_1" class="java.math.BigDecimal" resetType="Group" resetGroup="proyecto" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoEstimado}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_MN_1" class="java.math.BigDecimal" resetType="Group" resetGroup="proyecto" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTAL_MN}]]></variableExpression>
+	</variable>
+	<variable name="totPorcAdj" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[(   new BigDecimal(0).compareTo($V{Modificado_1}) == 0 ?  new BigDecimal(0) : $V{montoContratado_1} .divide( $V{Modificado_1} ))]]></variableExpression>
+	</variable>
+	<variable name="totPorcEjec" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[(  new BigDecimal(0).compareTo( $V{montoContratado_1}) == 0 ?  new BigDecimal(0) : $V{montoEjecutado_1} .divide($V{montoContratado_1} ))]]></variableExpression>
+	</variable>
+	<variable name="totPorcEst" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[(   new BigDecimal(0).compareTo($V{montoContratado_1}) == 0 ? new BigDecimal(0) : $V{montoEstimado_1} .divide($V{montoContratado_1} ))]]></variableExpression>
+	</variable>
+	<variable name="totPorcPag" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[(  new BigDecimal(0).compareTo($V{montoContratado_1}) == 0 ? new BigDecimal(0) : $V{TOTAL_MN_1} .divide($V{montoContratado_1} ))]]></variableExpression>
+	</variable>
+	<variable name="totalPorcAdj" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[(  new BigDecimal(0).compareTo($V{Modificado_3}) == 0 ? new BigDecimal(0) : $V{montoContratado_3}.divide( $V{Modificado_3} ))]]></variableExpression>
+	</variable>
+	<variable name="Original_2" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{Original}]]></variableExpression>
+	</variable>
+	<variable name="Modificado_2" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{Modificado}]]></variableExpression>
+	</variable>
+	<variable name="montoContratado_2" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoContratado}]]></variableExpression>
+	</variable>
+	<variable name="montoEjecutado_2" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoEjecutado}]]></variableExpression>
+	</variable>
+	<variable name="montoEstimado_2" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoEstimado}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_MN_2" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTAL_MN}]]></variableExpression>
+	</variable>
+	<variable name="totalPorcEjec" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[(  new BigDecimal(0).compareTo($V{montoContratado_3}) == 0 ? new BigDecimal(0) : $V{montoEjecutado_3} .divide($V{montoContratado_3} ))]]></variableExpression>
+	</variable>
+	<variable name="totalPorcEst" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[( new BigDecimal(0).compareTo( $V{montoContratado_3}) == 0 ? new BigDecimal(0) : $V{montoEstimado_3} .divide($V{montoContratado_3} ))]]></variableExpression>
+	</variable>
+	<variable name="totalPorcPag" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[(  new BigDecimal(0).compareTo($V{montoContratado_3}) == 0 ? new BigDecimal(0) : $V{TOTAL_MN_3} .divide($V{montoContratado_3} ))]]></variableExpression>
+	</variable>
+	<variable name="Original_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{Original}]]></variableExpression>
+	</variable>
+	<variable name="Modificado_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{Modificado}]]></variableExpression>
+	</variable>
+	<variable name="montoContratado_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoContratado}]]></variableExpression>
+	</variable>
+	<variable name="montoEjecutado_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoEjecutado}]]></variableExpression>
+	</variable>
+	<variable name="montoEstimado_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoEstimado}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_MN_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTAL_MN}]]></variableExpression>
+	</variable>
+	<variable name="subtotalTa" class="java.lang.String">
+		<variableExpression><![CDATA["SUBTOTAL "+ $F{tipoArea}]]></variableExpression>
+	</variable>
+	<group name="proyecto">
+		<groupExpression><![CDATA[$F{tipoArea}]]></groupExpression>
+		<groupHeader>
+			<band height="2"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="23">
+				<textField pattern="#,##0.00">
+					<reportElement x="187" y="0" width="67" height="20" uuid="2380debb-6165-420f-b3c0-42088afb2882"/>
+					<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Original_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="254" y="0" width="67" height="20" uuid="c8f9b245-8090-4896-93b5-48736d5e34db"/>
+					<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Modificado_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="321" y="0" width="60" height="20" uuid="628f3768-ced9-4cf9-a90a-c7c91e46cc17"/>
+					<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{montoContratado_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="429" y="0" width="60" height="20" uuid="1547feec-8af0-4b82-9063-6dd73bb843cc"/>
+					<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{montoEjecutado_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="537" y="0" width="60" height="20" uuid="2f4c4ce8-a2b8-49b1-87ed-73c387148e58"/>
+					<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{montoEstimado_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="645" y="0" width="60" height="20" uuid="12bbfc6e-7fad-4e3c-a22b-2f806d14299d"/>
+					<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TOTAL_MN_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00 %">
+					<reportElement x="381" y="0" width="48" height="20" uuid="c33342c8-9daa-4ae4-a7fa-4cc53aea0716"/>
+					<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totPorcAdj}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00 %">
+					<reportElement x="489" y="0" width="48" height="20" uuid="d66ac25b-6e02-4953-9636-26c6081f0002"/>
+					<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totPorcEjec}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00 %">
+					<reportElement x="597" y="0" width="48" height="20" uuid="80f53e4e-88f9-4182-a13a-db372cf5953a"/>
+					<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totPorcEst}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00 %">
+					<reportElement x="705" y="0" width="47" height="20" uuid="39d5aea4-cc65-40d7-ab7b-8cce13cac1d3"/>
+					<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totPorcPag}]]></textFieldExpression>
+				</textField>
+				<elementGroup/>
+				<textField>
+					<reportElement x="0" y="0" width="187" height="20" uuid="40f2b5e9-c520-41f0-9645-bb8cea17794f"/>
+					<box leftPadding="2" rightPadding="2">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{subtotalTa}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="tipoArea">
+		<groupExpression><![CDATA[$F{tipoArea}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="187" height="15" uuid="50430c3a-da69-47db-82ca-a84e0276f729"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tipoArea}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="1"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="11" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="91" splitType="Stretch">
+			<textField>
+				<reportElement x="76" y="37" width="569" height="20" forecolor="#FC0101" uuid="64066b5d-fd3d-4dfd-8cb6-4eadaa41b060"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Proyecto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="76" y="19" width="569" height="56" uuid="5a8ca161-951c-4e63-9744-2693ad7784e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GERENCIA DE RECURSOS FINANCIEROS
+PRESUPUESTO CONSOLIDADO POR UNIDADES EJECUTORAS
+
+CAPÍTULO 6000 (OBRAS PÚBLICAS)
+( MONTO EN MILES DE PESOS IVA INCLUÍDO )]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="2" width="569" height="16" uuid="d1bcd4d7-63df-44fe-b0af-6eea96254f26"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="645" y="0" width="107" height="15" forecolor="#000000" backcolor="#FFFF33" uuid="41a431ca-ff6c-4b48-9464-00c46dc004a2"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[PAGADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="254" y="0" width="67" height="30" forecolor="#000000" backcolor="#FFFF33" uuid="28f6d75a-8e74-4261-8219-b4245eceb212"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[PRESUPUESTO
+MODIFICADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="537" y="0" width="107" height="15" forecolor="#000000" backcolor="#FFFF33" uuid="e9fde61f-be9a-4c2a-a868-293550a96a32"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[ESTIMADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="187" height="30" forecolor="#000000" backcolor="#FFFF00" uuid="168ba0de-e0f7-4fa1-8c38-b1696a834ca1"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[AREAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="597" y="15" width="47" height="15" forecolor="#000000" backcolor="#FFFF33" uuid="1f899a01-4781-4190-98a4-faf7633cfdd5"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="489" y="15" width="47" height="15" forecolor="#000000" backcolor="#FFFF33" uuid="747c30c3-4840-4268-8520-2e863014fc9c"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="321" y="15" width="60" height="15" forecolor="#000000" backcolor="#FFFF33" uuid="0744e70b-d7be-4127-8e09-18de0c0a8996"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[MONTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="187" y="0" width="67" height="30" forecolor="#000000" backcolor="#FFFF33" uuid="d0160ebc-84ca-4722-887f-0c608debb3f3"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[PRESUPUESTO
+ORIGINAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="645" y="15" width="60" height="15" forecolor="#000000" backcolor="#FFFF33" uuid="3526e926-eafb-4b01-b00e-340d1ced0a28"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[MONTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="381" y="15" width="47" height="15" forecolor="#000000" backcolor="#FFFF33" uuid="4025074e-56ca-4ee7-bafd-9277129c7a81"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="429" y="0" width="107" height="15" forecolor="#000000" backcolor="#FFFF33" uuid="d2dc910d-b687-45ca-b86e-594c5e0f41c3"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[EJECUTADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="705" y="15" width="47" height="15" forecolor="#000000" backcolor="#FFFF33" uuid="27c8117b-93c1-49f7-8b5e-84a182c23c88"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="321" y="0" width="107" height="15" forecolor="#000000" backcolor="#FFFF33" uuid="e1306e58-b35a-4610-b06b-1987e9a1dfa9"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[ADJUDICADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="429" y="15" width="60" height="15" forecolor="#000000" backcolor="#FFFF33" uuid="54de9e65-f40b-45d2-ad30-dcad461e369b"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[MONTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="537" y="15" width="60" height="15" forecolor="#000000" backcolor="#FFFF33" uuid="aa55dd91-6e82-4788-9583-ded54646595d"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[MONTO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="1" width="187" height="30" uuid="68b4ae23-5461-48b4-9692-3724781ac3ad"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{uEjecutora}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="187" y="1" width="67" height="30" uuid="c0f7a4ca-2525-4d29-8520-426827fd1d0e"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Original}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="254" y="1" width="67" height="30" uuid="d0b9ba62-a109-49f2-8209-a19f8b5c1251"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Modificado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="429" y="1" width="60" height="30" uuid="5fd750b3-3333-449d-8b12-b5d1a43add07"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoEjecutado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="537" y="1" width="60" height="30" uuid="bd467cb0-1578-4c80-9d86-6610234db3c7"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoEstimado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="645" y="1" width="60" height="30" uuid="c21d21e3-fec0-47fd-8e2d-c98c3dea6d01"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTAL_MN}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="321" y="1" width="60" height="30" uuid="90ee9e5c-538f-4ec6-b162-36ea957a06c2"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoContratado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="381" y="1" width="48" height="30" uuid="3ca40331-2b00-45e1-b05d-965eaaba378c"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{porcentajeAdjudicado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="597" y="1" width="48" height="30" uuid="67dea0c0-9795-4bd0-93b1-dc459ebd7ba7"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{porcentajeEstimado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="705" y="1" width="47" height="30" uuid="7681597b-fa84-4365-beef-fa20d0f6d817"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{porcentajePagado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="489" y="1" width="48" height="30" uuid="dc3559c3-5371-45a9-9e54-5cde05e2e349"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{porcentajeEjecutado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="7" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="187" height="20" backcolor="#FFFF33" uuid="1cdc7526-392f-4821-a65f-e1410c8abdec"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement mode="Opaque" x="187" y="0" width="67" height="20" backcolor="#FFFF33" uuid="03f0feb5-7e97-446a-a2d0-d2a5c83d9a8b"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Original_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement mode="Opaque" x="254" y="0" width="67" height="20" backcolor="#FFFF33" uuid="54367573-fb17-4859-90d0-f4bf8d47eaeb"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Modificado_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement mode="Opaque" x="321" y="0" width="60" height="20" backcolor="#FFFF33" uuid="2c67bb53-6816-439f-b3a4-46a8aa111f48"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{montoContratado_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement mode="Opaque" x="429" y="0" width="60" height="20" backcolor="#FFFF33" uuid="d85a5f03-ed50-48be-8992-3b01056446d5"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{montoEjecutado_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement mode="Opaque" x="537" y="0" width="60" height="20" backcolor="#FFFF33" uuid="e26fcf50-c3e8-4349-91d6-095ccfb4b15e"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{montoEstimado_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement mode="Opaque" x="645" y="0" width="60" height="20" backcolor="#FFFF33" uuid="24d48718-ff2b-47cb-b5f1-3ec7a2d46fb0"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_MN_3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement mode="Opaque" x="489" y="0" width="48" height="20" backcolor="#FFFF33" uuid="f469b961-3b3f-40d5-adbc-a8144251288c"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalPorcEjec}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement mode="Opaque" x="381" y="0" width="48" height="20" backcolor="#FFFF33" uuid="52c93238-e6c0-4bcc-ae92-64737e333f02"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalPorcAdj}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement mode="Opaque" x="597" y="0" width="47" height="20" backcolor="#FFFF33" uuid="e3d56e8a-62f5-4a66-9e1b-b4ea9a42b5a2"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalPorcEst}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement mode="Opaque" x="705" y="0" width="47" height="20" backcolor="#FFFF33" uuid="2d80b431-c778-46d6-8159-e7f7a53b2492"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalPorcPag}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

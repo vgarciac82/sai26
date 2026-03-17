@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Seleccion de Contrato</titulo>
+	<anchoWin>700</anchoWin>
+	<altoWin>500</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>v_contratosAutPagos</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cIdContrato"	control="numeroContrato"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="No. Contrato"	ancho="40"	maxlen="60"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cIdRFC"			control="cIdRFC"			dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="RFC"			ancho="15"	maxlen="15"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cRazonSocial"	control="dRazonSocial"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Razon Social"	ancho="40"	maxlen="120"	tipo="string"	visible="Si"	clase=""/>
+   </grid>  
+</Ayuda>

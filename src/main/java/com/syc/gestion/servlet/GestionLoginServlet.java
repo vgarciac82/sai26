@@ -130,7 +130,7 @@ public class GestionLoginServlet extends HttpServlet implements GestionInterface
         }
         String redireccionaEjercicio = "";
         redireccionaEjercicio = (req.getParameter("redirEjer") != null ? req.getParameter("redirEjer") : "si");
-        log.debug("Object: {}", "redirecciona=" + redireccionaEjercicio);
+        log.debug("Object: " + String.valueOf("redirecciona=" + redireccionaEjercicio));
         String uPassword = req.getParameter("password");
         if ("si".equals(redireccionaEjercicio)) {
             // cuando viene de redireccionar ya no se requiere password
@@ -195,7 +195,7 @@ public class GestionLoginServlet extends HttpServlet implements GestionInterface
 		 */
         if ("si".equals(redireccionaEjercicio) && !"2015".equals(ejercicio)) {
             String url = req.getScheme() + "://" + req.getServerName() + (req.getServerPort() == 80 ? "" : ":" + req.getServerPort()) + req.getContextPath() + (!"2015".equals(ejercicio) ? "_" + ejercicio : "") + "/gstnmngr/login?login=" + uLogin + "&redirEjer=no&ejercicio=" + ejercicio + (!StringUtils.isBlank(action) ? "&a=" + action : "") + (!StringUtils.isBlank(ul) ? "&ul=" + ul : "") + (!StringUtils.isBlank(un) ? "&un=" + un : "") + (!StringUtils.isBlank(d) ? "&d=" + d : "") + (!(f == null) ? "&f=" + f : "") + (!(o == null) ? "&o=" + o : "");
-            log.debug("Object: {}", url);
+            log.debug("Object: " + String.valueOf(url));
             resp.sendRedirect(url);
             return;
         }
@@ -249,7 +249,7 @@ public class GestionLoginServlet extends HttpServlet implements GestionInterface
             audex.printStackTrace();
         }
         if (log.isDebugEnabled())
-            log.debug("Object: {}", "Forward a gestion?" + PRM_CMD + "=" + CMD_MAIN);
+            log.debug("Object: " + String.valueOf("Forward a gestion?" + PRM_CMD + "=" + CMD_MAIN));
         req.getRequestDispatcher("gestion?" + PRM_CMD + "=" + CMD_MAIN).forward(req, resp);
     }
 

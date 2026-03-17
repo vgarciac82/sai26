@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AnexoFacturas" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3785869e-4c40-425e-a17c-aeb93b51718a">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sai_2025"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="swhere" class="java.lang.String">
+		<defaultValueExpression><![CDATA["and canocontrarrecibo ='10CP2021100587'"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select tre.caNoContrarrecibo,tre.cIdRelacion,trd.EP, sum( trd.mImporteMasIVA) Importe,tre.cnombre,tre.nFolioRELACIONGASTOS,'RG' as tipodoc, sFirmanteVoBo, sPuestoVoBo, sFirmanteAut, sPuestoAut, sFirmanteEla, sPuestoEla
+INTO #tmp_anexo_fac
+from  tRELACIONGASTOSDetalle trd (NOLOCK)
+inner join tRELACIONGASTOSEncabezado tre (NOLOCK)
+on trd.nFolioRELACIONGASTOS=tre.nFolioRELACIONGASTOS
+where 1 = 1 $P!{swhere}
+group by tre.caNoContrarrecibo, tre.cIdRelacion, trd.EP, tre.cnombre, tre.nFolioRELACIONGASTOS, sFirmanteVoBo, sPuestoVoBo, sFirmanteAut, sPuestoAut, sFirmanteEla, sPuestoEla
+
+insert into #tmp_anexo_fac
+select tre.caNoContrarrecibo, tre.cIdDocumento, trd.EP, sum(trd.mImporteMasIVA) Importe, isnull(b.dNombre, '') + ' ' + isnull(b.dApellidoPaterno, '') + ' ' + isnull(b.dApellidoMaterno, '') cnombre, tre.nFolioPagoDirecto,'PI' as tipodoc, sFirmanteVoBo, sPuestoVoBo, sFirmanteAut, sPuestoAut, sFirmanteEla, sPuestoEla
+from  tPagoDirectoDetalle trd (NOLOCK) inner join tPagoDirectoEncabezado tre (NOLOCK) on trd.nFolioPagoDirecto=tre.nFolioPagoDirecto inner join tbeneficiario b on
+tre.cIdRFC = b.drfc
+where 1 = 1 $P!{swhere}
+group by tre.caNoContrarrecibo, tre.cIdDocumento, trd.EP, isnull(b.dNombre, '') + ' ' + isnull(b.dApellidoPaterno, '') + ' ' + isnull(b.dApellidoMaterno, ''), tre.nFolioPagoDirecto, sFirmanteVoBo, sPuestoVoBo, sFirmanteAut, sPuestoAut, sFirmanteEla, sPuestoEla
+
+insert into #tmp_anexo_fac
+select tre.caNoContrarrecibo, tre.cIdRelacion, trd.EP, sum(trd.mImporteMasIVA) Importe, tre.cNombre, tre.nFolioNOMINA, 'NO' as tipodoc,'','','','', '', ''
+from  tNOMINADetalle trd (NOLOCK) inner join tNOMINAEncabezado tre (NOLOCK) on trd.nFolioNOMINA=tre.nFolioNOMINA
+ where 1 = 1 $P!{swhere}
+group by tre.caNoContrarrecibo, tre.cIdRelacion, trd.EP, tre.cNombre, tre.nFolioNOMINA
+
+insert into #tmp_anexo_fac
+select tre.caNoContrarrecibo, tre.cFolioContratoObra, trd.EP, sum(trd.mImporteMasIVA) Importe, isnull(b.dNombre, '') + ' ' + isnull(b.dApellidoPaterno, '') + ' ' + isnull(b.dApellidoMaterno, ''), tre.nFolioPAGOOBRA, 'PO' as tipodoc, sFirmanteVoBo, sPuestoVoBo, sFirmanteAut, sPuestoAut, sFirmanteEla, sPuestoEla
+from  tPAGOOBRADetalle trd (NOLOCK) inner join tPAGOOBRAEncabezado tre (NOLOCK) on trd.nFolioPAGOOBRA=tre.nFolioPAGOOBRA and left(trd.cEvento, 8) <> 'ANTICIPO' inner join tbeneficiario b on
+tre.RFC = b.drfc
+where 1 = 1 $P!{swhere}
+Group by tre.caNoContrarrecibo, tre.cFolioContratoObra, trd.EP, isnull(b.dNombre, '') + ' ' + isnull(b.dApellidoPaterno, '') + ' ' + isnull(b.dApellidoMaterno, ''), tre.nFolioPAGOOBRA, sFirmanteVoBo, sPuestoVoBo, sFirmanteAut, sPuestoAut, sFirmanteEla, sPuestoEla
+
+insert into #tmp_anexo_fac
+select tre.caNoContrarrecibo, tre.cFolioContratoObra, trd.EP, sum(trd.mImporteMasIVA) Importe, isnull(b.dNombre, '') + ' ' + isnull(b.dApellidoPaterno, '') + ' ' + isnull(b.dApellidoMaterno, ''), tre.nFolioPAGOFEDERALIZADO, 'PF' as tipodoc, sFirmanteVoBo, sPuestoVoBo, sFirmanteAut, sPuestoAut, sFirmanteEla, sPuestoEla
+from  tPAGOFEDERALIZADODetalle trd (NOLOCK) inner join tPAGOFEDERALIZADOEncabezado tre (NOLOCK) on trd.nFolioPAGOFEDERALIZADO=tre.nFolioPAGOFEDERALIZADO  and left(trd.cEvento, 8) <> 'ANTICIPO' inner join tbeneficiario b on
+tre.RFC = b.drfc
+where 1 = 1 $P!{swhere}
+Group by tre.caNoContrarrecibo, tre.cFolioContratoObra, trd.EP, trd.EP, isnull(b.dNombre, '') + ' ' + isnull(b.dApellidoPaterno, '') + ' ' + isnull(b.dApellidoMaterno, ''), tre.nFolioPAGOFEDERALIZADO, sFirmanteVoBo, sPuestoVoBo, sFirmanteAut, sPuestoAut, sFirmanteEla, sPuestoEla
+
+insert into #tmp_anexo_fac
+select tre.caNoContrarrecibo, tre.cFolioPAGODIVERSO, trd.EP, sum(trd.mImporteMasIVA), isnull(b.dNombre, '') + ' ' + isnull(b.dApellidoPaterno, '') + ' ' + isnull(b.dApellidoMaterno, ''),  tre.nFolioPAGODIVERSO, 'PD' as tipodoc, sFirmanteVoBo, sPuestoVoBo, sFirmanteAut, sPuestoAut, sFirmanteEla, sPuestoEla
+from  tPAGODIVERSODetalle trd (NOLOCK) inner join tPAGODIVERSOEncabezado tre (NOLOCK) on trd.nFolioPAGODIVERSO=tre.nFolioPAGODIVERSO  and left(trd.cEvento, 8) <> 'ANTICIPO' inner join tbeneficiario b on
+rtrim(tre.RFC) = rtrim(b.drfc)
+ where 1 = 1 $P!{swhere}
+Group by tre.caNoContrarrecibo, tre.cFolioPAGODIVERSO, trd.EP, isnull(b.dNombre, '') + ' ' + isnull(b.dApellidoPaterno, '') + ' ' + isnull(b.dApellidoMaterno, ''), tre.nFolioPAGODIVERSO, sFirmanteVoBo, sPuestoVoBo, sFirmanteAut, sPuestoAut, sFirmanteEla, sPuestoEla
+
+insert into #tmp_anexo_fac
+select tre.caNoContrarrecibo, tre.nFolioPAGOOBRA, trd.EP, sum(trd.mImporteMasIVA), isnull(b.dNombre, '') + ' ' + isnull(b.dApellidoPaterno, '') + ' ' + isnull(b.dApellidoMaterno, ''),  tre.nFolioPAGOOBRA, 'PO' as tipodoc, sFirmanteVoBo, sPuestoVoBo, sFirmanteAut, sPuestoAut, sFirmanteEla, sPuestoEla
+from  tPAGOobraDetalle trd (NOLOCK) inner join tPAGOobraEncabezado tre (NOLOCK) on trd.nFolioPAGOOBRA=tre.nFolioPAGOOBRA  and left(trd.cEvento, 8) <> 'ANTICIPO' inner join tbeneficiario b on
+rtrim(tre.RFC) = rtrim(b.drfc)
+ where 1 = 1 $P!{swhere}
+Group by tre.caNoContrarrecibo, tre.nFolioPAGOOBRA, trd.EP, isnull(b.dNombre, '') + ' ' + isnull(b.dApellidoPaterno, '') + ' ' + isnull(b.dApellidoMaterno, ''), tre.nFolioPAGOOBRA, sFirmanteVoBo, sPuestoVoBo, sFirmanteAut, sPuestoAut, sFirmanteEla, sPuestoEla
+
+/*select caNoContrarrecibo, cIdRelacion, EP, SUM(Importe) AS Importe, cnombre, nFolioRELACIONGASTOS, tipodoc
+from #tmp_anexo_fac
+GROUP BY caNoContrarrecibo,cIdRelacion,EP,cnombre,nFolioRELACIONGASTOS,tipodoc*/
+
+DECLARE @tipo NVARCHAR(50) = (SELECT TOP 1 tipodoc FROM #tmp_anexo_fac)
+DECLARE @num INT = (SELECT TOP 1 nFolioRELACIONGASTOS FROM #tmp_anexo_fac)
+DECLARE @vobo VARCHAR(2000) = (SELECT DISTINCT sFirmanteVoBo nFolioRELACIONGASTOS FROM #tmp_anexo_fac)
+DECLARE @puestovobo VARCHAR(2000) = (SELECT DISTINCT sPuestoVoBo nFolioRELACIONGASTOS FROM #tmp_anexo_fac)
+DECLARE @autorizo VARCHAR(2000) = (SELECT DISTINCT sFirmanteAut nFolioRELACIONGASTOS FROM #tmp_anexo_fac)
+DECLARE @puestoautorizo VARCHAR(2000) = (SELECT DISTINCT sPuestoAut nFolioRELACIONGASTOS FROM #tmp_anexo_fac)
+DECLARE @elaboro VARCHAR(2000) = (SELECT DISTINCT sFirmanteEla nFolioRELACIONGASTOS FROM #tmp_anexo_fac)
+DECLARE @puestoelaboro VARCHAR(2000) = (SELECT DISTINCT sPuestoEla nFolioRELACIONGASTOS FROM #tmp_anexo_fac)
+
+DECLARE @nFolioPago INT
+DECLARE @cTipoPago VARCHAR(64)
+DECLARE @sFirmanteDelegatorio VARCHAR(250)
+DECLARE @sPuestoFirmanteDelegatorio VARCHAR(70)
+DECLARE @sFirmanteAut VARCHAR(250)
+DECLARE @sLeyenda VARCHAR(500)
+DECLARE @sOficio VARCHAR(128)
+DECLARE @sFechaOficio VARCHAR(20)
+DECLARE @cTipoSuplencia VARCHAR(20)
+
+SET @cTipoPago = ''
+
+SET	@sFirmanteDelegatorio = ''
+SET @sPuestoFirmanteDelegatorio = ''
+
+SET @sFirmanteAut = ''
+SET @sLeyenda = ''
+SET @sOficio = ''
+SET @sFechaOficio = ''
+
+
+
+SELECT cfactura, mimporteconiva, @vobo sFirmanteVoBo, @puestovobo sPuestoVoBo, @autorizo sFirmanteAut, @puestoautorizo sPuestoAut, @elaboro sFirmanteEla
+, @puestoelaboro sPuestoEla, cTipoPago, dFechaFactura
+INTO #tmpTablaSalida
+FROM dbo.tPagoFactura (NOLOCK) WHERE nFolioPago=@num AND cTipoPago = CASE @tipo
+	WHEN 'PI' THEN 'PAGODIRECTO'
+	--WHEN 'NOMINA' THEN ''
+	WHEN 'PD' THEN 'PAGODIVERSO'
+	WHEN 'RG' THEN 'RELACIONGASTOS'
+	WHEN 'PO' THEN 'PAGOOBRA'
+	WHEN 'PF' THEN 'PAGOFEDERALIZADO'
+	END
+
+	SET @nFolioPago = @num
+	SET @cTipoPago =	(	CASE @tipo
+							WHEN 'PI' THEN 'PAGODIRECTO'
+							WHEN 'PD' THEN 'PAGODIVERSO'
+							WHEN 'RG' THEN 'RELACIONGASTOS'
+							WHEN 'PO' THEN 'PAGOOBRA'
+							WHEN 'PF' THEN 'PAGOFEDERALIZADO'
+							END
+						)
+
+	IF (SELECT COUNT(*) FROM tPagoFirmanteDelagatorio WITH (NOLOCK) WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolioPago) > 0
+		BEGIN
+
+			SELECT TOP 1 @sFirmanteAut = sFirmanteAut FROM #tmpTablaSalida WITH (NOLOCK)
+
+		SELECT	@sFirmanteDelegatorio = (cNombreTitular + ' ' + cApellidoPaternoTitular + ' ' + cApellidoMaternoTitular)
+			, @sPuestoFirmanteDelegatorio = cPuestoTitular
+			, @sOficio = cFolioOficio, @sFechaOficio = CONVERT(varchar(10)
+			, CONVERT(date, dFechaOficio, 106), 103)
+			, @cTipoSuplencia = cTipoSuplencia
+		FROM tPagoFirmanteDelagatorio pago WITH (NOLOCK)
+			INNER JOIN tCatTipoSuplencia WITH (NOLOCK)
+				ON pago.nTipoSuplencia = tCatTipoSuplencia.ntiposuplencia
+		WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolioPago
+
+			SET @sLeyenda = 'Firma ' + @cTipoSuplencia + ' de: ' + @sFirmanteAut + ', con fundamento en el oficio: ' + @sOficio + ' de fecha: ' + @sFechaOficio + '.'
+		END
+
+	SELECT *, @sFirmanteDelegatorio AS sFirmanteDelegatorio, @sPuestoFirmanteDelegatorio AS sPuestoFirmanteDelegatorio, @sLeyenda AS sLeyenda
+	FROM #tmpTablaSalida WITH (NOLOCK)
+
+IF (SELECT OBJECT_ID('tempdb..#tmpTablaSalida')) IS NOT NULL	DROP TABLE #tmpTablaSalida]]>
+	</queryString>
+	<field name="cfactura" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cfactura"/>
+		<property name="com.jaspersoft.studio.field.label" value="cfactura"/>
+	</field>
+	<field name="mimporteconiva" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mimporteconiva"/>
+		<property name="com.jaspersoft.studio.field.label" value="mimporteconiva"/>
+	</field>
+	<field name="sFirmanteVoBo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sFirmanteVoBo"/>
+		<property name="com.jaspersoft.studio.field.label" value="sFirmanteVoBo"/>
+	</field>
+	<field name="sPuestoVoBo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sPuestoVoBo"/>
+		<property name="com.jaspersoft.studio.field.label" value="sPuestoVoBo"/>
+	</field>
+	<field name="sFirmanteAut" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sFirmanteAut"/>
+		<property name="com.jaspersoft.studio.field.label" value="sFirmanteAut"/>
+	</field>
+	<field name="sPuestoAut" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sPuestoAut"/>
+		<property name="com.jaspersoft.studio.field.label" value="sPuestoAut"/>
+	</field>
+	<field name="sFirmanteEla" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sFirmanteEla"/>
+		<property name="com.jaspersoft.studio.field.label" value="sFirmanteEla"/>
+	</field>
+	<field name="sPuestoEla" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sPuestoEla"/>
+		<property name="com.jaspersoft.studio.field.label" value="sPuestoEla"/>
+	</field>
+	<field name="cTipoPago" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cTipoPago"/>
+		<property name="com.jaspersoft.studio.field.label" value="cTipoPago"/>
+	</field>
+	<field name="dFechaFactura" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="dFechaFactura"/>
+		<property name="com.jaspersoft.studio.field.label" value="dFechaFactura"/>
+	</field>
+	<field name="sFirmanteDelegatorio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sFirmanteDelegatorio"/>
+		<property name="com.jaspersoft.studio.field.label" value="sFirmanteDelegatorio"/>
+	</field>
+	<field name="sPuestoFirmanteDelegatorio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sPuestoFirmanteDelegatorio"/>
+		<property name="com.jaspersoft.studio.field.label" value="sPuestoFirmanteDelegatorio"/>
+	</field>
+	<field name="sLeyenda" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sLeyenda"/>
+		<property name="com.jaspersoft.studio.field.label" value="sLeyenda"/>
+	</field>
+	<variable name="sumaFacturas" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{mimporteconiva}]]></variableExpression>
+	</variable>
+	<variable name="FirmanteAutoriza" class="java.lang.String"/>
+	<variable name="PuestoFirmanteAutoriza" class="java.lang.String"/>
+	<columnHeader>
+		<band height="19">
+			<staticText>
+				<reportElement x="310" y="0" width="128" height="15" uuid="41820395-9616-43fb-94fb-60bd0d6260e7"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Importe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="310" height="15" uuid="82c13575-9daa-466d-9b2a-2780154cafa1"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Factura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="438" y="0" width="116" height="15" uuid="9400c2e1-3253-4d04-a330-6eef16580042"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha factura]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="310" height="11" uuid="bd79f913-0139-402c-982c-cd60e318725d"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cfactura}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="310" y="0" width="116" height="11" uuid="fdfd70e2-863a-48aa-8812-a3fc1fd83fd6"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mimporteconiva}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="440" y="0" width="114" height="14" uuid="2608dc7e-fb1d-48f1-aaae-45a36bf69ee6"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dFechaFactura}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="15">
+			<staticText>
+				<reportElement x="392" y="1" width="40" height="11" uuid="74f72a13-3626-4032-a0a7-0d9f12ea7ba9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL   $]]></text>
+			</staticText>
+			<textField pattern="#,##0.###;#,##0.###-" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="432" y="1" width="110" height="11" forecolor="#000000" backcolor="#FFFFFF" uuid="11f7a5dd-e1f5-4d73-8a71-eda5621c0e5e"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumaFacturas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<lastPageFooter>
+		<band height="201">
+			<subreport>
+				<reportElement x="0" y="3" width="555" height="27" uuid="a0c1b905-77d0-4218-95b2-98370a098389">
+					<printWhenExpression><![CDATA[$F{cTipoPago}.equals("RELACIONGASTOS")]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="swhere">
+					<subreportParameterExpression><![CDATA[$P{swhere}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\AnexoBoletos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</lastPageFooter>
+</jasperReport>

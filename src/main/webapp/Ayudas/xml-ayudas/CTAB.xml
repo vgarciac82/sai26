@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Cuentas Bancarias</titulo>
+	<anchoWin>615</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>CUENTABANCPOLIZA</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="dRFC"	control="dRFC"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="RFC"	ancho="15"	maxlen="15"		tipo="string"	visible="Si"	clase=""/>
+		<!-- <columna campo="Nombre"	control="Nombre"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Nombre"	ancho="60"	maxlen="60"		tipo="string"	visible="Si"	clase=""/>  -->
+		<columna campo="dBanco"	control="dBanco"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Banco"	ancho="10"	maxlen="10"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="dSucursal"	control="dSucursal"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Sucursal"	ancho="8"	maxlen="8"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="CTAB"	control="CTAB"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Cuenta Banc."	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+	
+   </grid>
+	     
+</Ayuda>

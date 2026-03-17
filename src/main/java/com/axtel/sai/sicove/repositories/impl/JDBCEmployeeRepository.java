@@ -37,7 +37,7 @@ public class JDBCEmployeeRepository implements EmployeeRepository {
         EmployeeDAO employee;
         try {
             employee = runner.query(conn, query.toString(), employeeHandler, idEmployee);
-            log.debug("Object: {}", "Found: " + employee);
+            log.debug("Object: " + String.valueOf("Found: " + employee));
             return employee;
         } catch (SQLException e) {
             throw new SicoveException(e);
@@ -50,7 +50,7 @@ public class JDBCEmployeeRepository implements EmployeeRepository {
         EmployeeDAO employee;
         try {
             employee = runner.query(conn, query.toString(), employeeHandler, login);
-            log.debug("Object: {}", "Found: " + employee);
+            log.debug("Object: " + String.valueOf("Found: " + employee));
             return employee;
         } catch (SQLException e) {
             throw new SicoveException(e);

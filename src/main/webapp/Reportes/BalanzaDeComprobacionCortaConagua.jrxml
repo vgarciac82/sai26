@@ -1,0 +1,925 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AuxiliarEntidadContableConagua" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="732" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.8181818181818195"/>
+	<property name="ireport.x" value="359"/>
+	<property name="ireport.y" value="44"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="cCentroContable" class="java.lang.String">
+		<defaultValueExpression><![CDATA[new String("")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TipoReporte" class="java.lang.String">
+		<defaultValueExpression><![CDATA[new String("")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="mesIni" class="java.lang.String">
+		<defaultValueExpression><![CDATA[new String("")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DepuraLineas" class="java.lang.String">
+		<defaultValueExpression><![CDATA[new String("")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="aEjercicioFiscal" class="java.lang.String">
+		<defaultValueExpression><![CDATA[new String("")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="buscaCuentaIni" class="java.lang.String">
+		<defaultValueExpression><![CDATA[new String("")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="buscaCuentaFin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[new String("")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DepuraColumnas" class="java.lang.String">
+		<defaultValueExpression><![CDATA[new String("")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="hcCentroContable" class="java.lang.String">
+		<defaultValueExpression><![CDATA[new String("")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FiltroReporte" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new String("")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="mesFin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[new String("")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="qry" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new String("")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FiltroSubcuenta" class="java.lang.String">
+		<defaultValueExpression><![CDATA[new String("")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TipoSubCuentaC" class="java.lang.String">
+		<defaultValueExpression><![CDATA[new String("")]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[DECLARE
+@Salida varchar(1000);
+
+print( $P{qry});
+EXECUTE sp_tBalanzaAnalitico_syc  @Salida OUTPUT, $P{buscaCuentaIni}, $P{buscaCuentaFin}, $P{aEjercicioFiscal}, $P{DepuraLineas}, $P{DepuraColumnas}, $P{cCentroContable}, $P{TipoReporte}, $P{mesIni}, $P{mesFin}, $P{FiltroSubcuenta};
+
+select @Salida;]]>
+	</queryString>
+	<field name="nOrdenBalanza" class="java.lang.Integer"/>
+	<field name="cSangria" class="java.lang.String"/>
+	<field name="nCuenta" class="java.lang.String"/>
+	<field name="dCuenta" class="java.lang.String"/>
+	<field name="SaldoInicial" class="java.math.BigDecimal"/>
+	<field name="MovimientosAcumuladosDebe" class="java.math.BigDecimal"/>
+	<field name="MovimientosAcumuladosHaber" class="java.math.BigDecimal"/>
+	<field name="SaldoMesAnterior" class="java.math.BigDecimal"/>
+	<field name="MovimientosMesDebe" class="java.math.BigDecimal"/>
+	<field name="MovimientosMesHaber" class="java.math.BigDecimal"/>
+	<field name="SaldoFinal" class="java.math.BigDecimal"/>
+	<field name="AplicacionCuenta" class="java.lang.String"/>
+	<field name="NaturalezaCuenta" class="java.lang.String"/>
+	<field name="SaldoInicialDeudor" class="java.math.BigDecimal"/>
+	<field name="SaldoInicialAcreedor" class="java.math.BigDecimal"/>
+	<field name="SaldoFinalDeudor" class="java.math.BigDecimal"/>
+	<field name="SaldoFinalAcreedor" class="java.math.BigDecimal"/>
+	<variable name="nombreMes" class="java.lang.String">
+		<variableExpression><![CDATA[new String("")]]></variableExpression>
+	</variable>
+	<variable name="fecha" class="java.util.Date">
+		<initialValueExpression><![CDATA[new Date()]]></initialValueExpression>
+	</variable>
+	<variable name="SaldoInicial_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoTotales" calculation="Sum">
+		<variableExpression><![CDATA[$F{SaldoInicial}]]></variableExpression>
+	</variable>
+	<variable name="SaldoInicial_2D" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoTotales" calculation="Sum">
+		<variableExpression><![CDATA[($F{NaturalezaCuenta}.equals("D") ? $F{SaldoInicial}.abs() : new BigDecimal(0))]]></variableExpression>
+	</variable>
+	<variable name="MovimientosAcumuladosDebe_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoTotales" calculation="Sum">
+		<variableExpression><![CDATA[$F{MovimientosAcumuladosDebe}]]></variableExpression>
+	</variable>
+	<variable name="MovimientosAcumuladosHaber_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoTotales" calculation="Sum">
+		<variableExpression><![CDATA[$F{MovimientosAcumuladosHaber}]]></variableExpression>
+	</variable>
+	<variable name="SaldoMesAnterior_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoTotales" calculation="Sum">
+		<variableExpression><![CDATA[$F{SaldoMesAnterior}]]></variableExpression>
+	</variable>
+	<variable name="MovimientosMesDebe_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoTotales" calculation="Sum">
+		<variableExpression><![CDATA[($F{nOrdenBalanza}.intValue()!=999 && $P{TipoReporte}.compareTo("AnaliticoEC")!=0)? $F{MovimientosMesDebe}:new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="MovimientosMesHaber_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoTotales" calculation="Sum">
+		<variableExpression><![CDATA[($F{nOrdenBalanza}.intValue()!=999 && $P{TipoReporte}.compareTo("AnaliticoEC")!=0)? $F{MovimientosMesHaber}:new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="SaldoFinal_1D" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoTotales" calculation="Sum">
+		<variableExpression><![CDATA[($F{NaturalezaCuenta}.equals("D") ? $F{SaldoFinal}.abs() : new BigDecimal(0))]]></variableExpression>
+	</variable>
+	<variable name="Subtotal" class="java.lang.String" resetType="Group" resetGroup="GrupoTotales">
+		<variableExpression><![CDATA[( $F{nOrdenBalanza}.intValue()==1 ? "SUBTOTAL DE OFICINAS CENTRALES" : ( $F{nOrdenBalanza}.intValue()==2 ? "SUBTOTAL ORGANISMOS DE CUENCA Y DIRECCIONES LOCALES" : "SUBTOTAL DISTRITOS DE RIEGO" ) )]]></variableExpression>
+		<initialValueExpression><![CDATA[new String("")]]></initialValueExpression>
+	</variable>
+	<variable name="SaldoInicial_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{SaldoInicial}]]></variableExpression>
+	</variable>
+	<variable name="SaldoInicial_4D" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{AplicacionCuenta}.equals("N") ? new BigDecimal(0) :
+$F{SaldoInicialDeudor})]]></variableExpression>
+	</variable>
+	<variable name="MovimientosAcumuladosDebe_4" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{AplicacionCuenta}.equals("N") ? new BigDecimal(0) : $F{MovimientosAcumuladosDebe})]]></variableExpression>
+	</variable>
+	<variable name="MovimientosAcumuladosHaber_4" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{AplicacionCuenta}.equals("N") ? new BigDecimal(0) : $F{MovimientosAcumuladosHaber})]]></variableExpression>
+	</variable>
+	<variable name="SaldoMesAnterior_4" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{AplicacionCuenta}.equals("N") ? new BigDecimal(0) : $F{SaldoMesAnterior})]]></variableExpression>
+	</variable>
+	<variable name="MovimientosMesDebe_4" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{AplicacionCuenta}.equals("N") ? new BigDecimal(0) : $F{MovimientosMesDebe})]]></variableExpression>
+	</variable>
+	<variable name="MovimientosMesHaber_4" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{AplicacionCuenta}.equals("N") ? new BigDecimal(0) : $F{MovimientosMesHaber})]]></variableExpression>
+	</variable>
+	<variable name="SaldoFinal_4D" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{AplicacionCuenta}.equals("N") ? new BigDecimal(0) :
+$F{SaldoFinalDeudor})]]></variableExpression>
+	</variable>
+	<variable name="SaldoInicial_5D" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{nCuenta}.length() == 0 ? new BigDecimal(0) :
+$F{SaldoInicialDeudor})]]></variableExpression>
+	</variable>
+	<variable name="MovimientosAcumuladosDebe_5" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{nCuenta}.length() == 0 ? new BigDecimal(0) : $F{MovimientosAcumuladosDebe})]]></variableExpression>
+	</variable>
+	<variable name="MovimientosAcumuladosHaber_5" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{nCuenta}.length()==0 ? new BigDecimal(0) : $F{MovimientosAcumuladosHaber})]]></variableExpression>
+	</variable>
+	<variable name="SaldoMesAnterior_5" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{nCuenta}.length()==0 ? new BigDecimal(0) : $F{SaldoMesAnterior})]]></variableExpression>
+	</variable>
+	<variable name="MovimientosMesDebe_5" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{nCuenta}.length()==0 ? new BigDecimal(0) : $F{MovimientosMesDebe})]]></variableExpression>
+	</variable>
+	<variable name="MovimientosMesHaber_5" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{nCuenta}.length()==0 ? new BigDecimal(0) : $F{MovimientosMesHaber})]]></variableExpression>
+	</variable>
+	<variable name="SaldoFinal_5D" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{nCuenta}.length() == 0 ? new BigDecimal(0) :
+$F{SaldoFinalDeudor})]]></variableExpression>
+	</variable>
+	<variable name="SaldoInicial_6D" class="java.math.BigDecimal" resetType="Group" resetGroup="Totales Rango de Cuentas" calculation="Sum">
+		<variableExpression><![CDATA[($F{AplicacionCuenta}.equals("N") ? new BigDecimal(0) :
+$F{SaldoInicialDeudor})]]></variableExpression>
+	</variable>
+	<variable name="MovimientosAcumuladosDebe_6" class="java.math.BigDecimal" resetType="Group" resetGroup="Totales Rango de Cuentas" calculation="Sum">
+		<variableExpression><![CDATA[($F{AplicacionCuenta}.equals("N") ? new BigDecimal(0) : $F{MovimientosAcumuladosDebe})]]></variableExpression>
+	</variable>
+	<variable name="MovimientosAcumuladosHaber_6" class="java.math.BigDecimal" resetType="Group" resetGroup="Totales Rango de Cuentas" calculation="Sum">
+		<variableExpression><![CDATA[($F{AplicacionCuenta}.equals("N") ? new BigDecimal(0) : $F{MovimientosAcumuladosHaber})]]></variableExpression>
+	</variable>
+	<variable name="SaldoMesAnterior_6" class="java.math.BigDecimal" resetType="Group" resetGroup="Totales Rango de Cuentas" calculation="Sum">
+		<variableExpression><![CDATA[($F{AplicacionCuenta}.equals("N") ? new BigDecimal(0) : $F{SaldoMesAnterior})]]></variableExpression>
+	</variable>
+	<variable name="MovimientosMesDebe_6" class="java.math.BigDecimal" resetType="Group" resetGroup="Totales Rango de Cuentas" calculation="Sum">
+		<variableExpression><![CDATA[($F{AplicacionCuenta}.equals("N") ? new BigDecimal(0) : $F{MovimientosMesDebe})]]></variableExpression>
+	</variable>
+	<variable name="MovimientosMesHaber_6" class="java.math.BigDecimal" resetType="Group" resetGroup="Totales Rango de Cuentas" calculation="Sum">
+		<variableExpression><![CDATA[($F{AplicacionCuenta}.equals("N") ? new BigDecimal(0) : $F{MovimientosMesHaber})]]></variableExpression>
+	</variable>
+	<variable name="SaldoFinal_6D" class="java.math.BigDecimal" resetType="Group" resetGroup="Totales Rango de Cuentas" calculation="Sum">
+		<variableExpression><![CDATA[($F{AplicacionCuenta}.equals("N") ? new BigDecimal(0) :
+$F{SaldoFinalDeudor})]]></variableExpression>
+	</variable>
+	<variable name="SaldoInicial_6A" class="java.math.BigDecimal" resetType="Group" resetGroup="Totales Rango de Cuentas" calculation="Sum">
+		<variableExpression><![CDATA[($F{AplicacionCuenta}.equals("N") ? new BigDecimal(0) :
+$F{SaldoInicialAcreedor})]]></variableExpression>
+	</variable>
+	<variable name="SaldoInicial_2A" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoTotales" calculation="Sum">
+		<variableExpression><![CDATA[($F{NaturalezaCuenta}.equals("A") ? $F{SaldoInicial}.abs() : new BigDecimal(0))]]></variableExpression>
+	</variable>
+	<variable name="SaldoInicial_4A" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{AplicacionCuenta}.equals("N") ? new BigDecimal(0) :
+$F{SaldoInicialAcreedor})]]></variableExpression>
+	</variable>
+	<variable name="SaldoInicial_5A" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{nCuenta}.length() == 0 ? new BigDecimal(0) :
+$F{SaldoInicialAcreedor})]]></variableExpression>
+	</variable>
+	<variable name="SaldoFinal_6A" class="java.math.BigDecimal" resetType="Group" resetGroup="Totales Rango de Cuentas" calculation="Sum">
+		<variableExpression><![CDATA[($F{AplicacionCuenta}.equals("N") ? new BigDecimal(0) :
+$F{SaldoFinalAcreedor})]]></variableExpression>
+	</variable>
+	<variable name="SaldoFinal_1A" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoTotales" calculation="Sum">
+		<variableExpression><![CDATA[($F{NaturalezaCuenta}.equals("A") ? $F{SaldoFinal}.abs() : new BigDecimal(0))]]></variableExpression>
+	</variable>
+	<variable name="SaldoFinal_4A" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{AplicacionCuenta}.equals("N") ? new BigDecimal(0) :
+$F{SaldoFinalAcreedor})]]></variableExpression>
+	</variable>
+	<variable name="SaldoFinal_5A" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{nCuenta}.length() == 0 ? new BigDecimal(0) :
+$F{SaldoFinalAcreedor})]]></variableExpression>
+	</variable>
+	<variable name="PAG_ACTUAL" class="java.lang.Integer" resetType="None" incrementType="Page" calculation="Count">
+		<variableExpression><![CDATA[$V{PAG_ACTUAL}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<group name="GrupoTotales">
+		<groupExpression><![CDATA[$F{nOrdenBalanza}]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="22" splitType="Stretch">
+				<printWhenExpression><![CDATA[(($P{TipoReporte}.equals( "Analitico_quitar" ))||($P{TipoReporte}.equals( "AnaliticoEC" )&& $V{REPORT_COUNT}.intValue()>1))&&($P{cCentroContable}.equals( "" )||$P{cCentroContable}.equals( "00" ))]]></printWhenExpression>
+				<textField pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement key="textField" x="200" y="4" width="72" height="11"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoInicial_2D}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement key="textField" x="396" y="5" width="70" height="10"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{MovimientosMesDebe_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement key="textField" x="476" y="5" width="70" height="10"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{MovimientosMesHaber_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement key="textField" x="662" y="5" width="68" height="10"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoFinal_1A}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField-7" x="0" y="1" width="199" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$V{Subtotal}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line-1" x="0" y="0" width="730" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line-1" x="0" y="21" width="730" height="1"/>
+				</line>
+				<textField pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement key="textField" x="284" y="5" width="67" height="11"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoInicial_2A}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement key="textField" x="564" y="5" width="83" height="10"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoFinal_1D}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="22">
+				<printWhenExpression><![CDATA[(($F{nOrdenBalanza}==3)&&$P{TipoReporte}.equals( "Analitico_quitar" )&&$P{cCentroContable}.equals( "" ))|| /*bkhkhkjhkjhkjh*/
+(($F{nOrdenBalanza}==3)&&$P{TipoReporte}.equals( "AnaliticoCC" ))|| /*hkhkhkhkhkhkhkjhjkhkjhkjhkhkj*/
+($P{TipoReporte}.equals( "Analitico_quitar" )&&!$P{cCentroContable}.equals( "" ))|| /*kjnhkjbnkjnjkn*/
+($P{TipoReporte}.equals( "Analitico" )&&$F{nOrdenBalanza}.equals( 25 ))||
+(($F{nOrdenBalanza}==3)&&$P{TipoReporte}.equals( "AnaliticoEC" )&&($P{cCentroContable}.equals( "" )||$P{cCentroContable}.equals( "00" )))]]></printWhenExpression>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="200" y="0" width="74" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoInicial_4D}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="0" width="199" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<text><![CDATA[TOTALES]]></text>
+				</staticText>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="396" y="0" width="70" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{MovimientosMesDebe_4}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="476" y="0" width="71" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{MovimientosMesHaber_4}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="662" y="0" width="69" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoFinal_4A}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line-1" x="0" y="0" width="730" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line-1" x="0" y="21" width="730" height="1"/>
+				</line>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="284" y="0" width="68" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoInicial_4A}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="564" y="0" width="83" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoFinal_4D}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="22">
+				<printWhenExpression><![CDATA[$P{TipoReporte}.equals( "Balanza" )&&$F{nOrdenBalanza}.equals( 25 )]]></printWhenExpression>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="662" y="0" width="69" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoFinal_5A}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="200" y="0" width="74" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoInicial_5D}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="396" y="0" width="70" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{MovimientosMesDebe_5}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="476" y="0" width="71" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{MovimientosMesHaber_5}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line-1" x="0" y="0" width="730" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line-1" x="0" y="21" width="730" height="1"/>
+				</line>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="284" y="0" width="68" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoInicial_5A}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="564" y="0" width="83" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoFinal_5D}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="2" width="199" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<text><![CDATA[TOTALES]]></text>
+				</staticText>
+			</band>
+			<band height="27" splitType="Prevent">
+				<printWhenExpression><![CDATA[$F{nOrdenBalanza}.intValue()==999 && ($P{TipoReporte}.compareTo("AnaliticoEC")==0 && $P{DepuraLineas}.compareTo("S")==0) && $V{REPORT_COUNT}.intValue()>1]]></printWhenExpression>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="200" y="4" width="74" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoInicial_4D}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="395" y="3" width="70" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{MovimientosMesDebe_4}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="475" y="3" width="71" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{MovimientosMesHaber_4}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="661" y="3" width="69" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoFinal_4A}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line-1" x="0" y="1" width="730" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line-1" x="-1" y="24" width="730" height="1"/>
+				</line>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="283" y="3" width="68" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoInicial_4A}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="563" y="3" width="83" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoFinal_4D}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="4" width="199" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<text><![CDATA[TOTALES]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Totales Rango de Cuentas">
+		<groupExpression><![CDATA[//($P{TipoReporte}.equals( "Analitico" )?$F{nCuenta}.substring( 1, ($F{nCuenta}.length()<5?$F{nCuenta}.length():5) ):$F{nCuenta})
+($P{TipoReporte}.equals( "Analitico" )?$F{nOrdenBalanza}:$F{nCuenta})]]></groupExpression>
+		<groupFooter>
+			<band height="22">
+				<printWhenExpression><![CDATA[$P{TipoReporte}.equals( "Analitico" )&&!$P{buscaCuentaFin}.equals( "" )&&!$P{cCentroContable}.equals( "" )]]></printWhenExpression>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="200" y="0" width="74" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoInicial_6D}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="0" width="199" height="18"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<text><![CDATA[SUBTOTALES]]></text>
+				</staticText>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="396" y="0" width="70" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{MovimientosMesDebe_6}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="476" y="0" width="71" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{MovimientosMesHaber_6}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="662" y="0" width="69" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoFinal_6A}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line-1" x="0" y="0" width="730" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line-1" x="0" y="21" width="730" height="1"/>
+				</line>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="284" y="0" width="68" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoInicial_6A}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement x="564" y="0" width="83" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SaldoFinal_6D}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch">
+			<textField evaluationTime="Page" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-1" x="312" y="-459" width="34" height="18"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-17" x="279" y="-459" width="34" height="19"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Página:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-2" x="366" y="-459" width="99" height="17"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-18" x="346" y="-459" width="20" height="19"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[de]]></text>
+			</staticText>
+			<textField evaluationTime="Page" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-3" x="312" y="-459" width="34" height="18"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-19" x="279" y="-459" width="34" height="19"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Página:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-4" x="366" y="-459" width="99" height="17"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-20" x="346" y="-459" width="20" height="19"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[de]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="90" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-14" mode="Transparent" x="220" y="4" width="281" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true" />
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-16" mode="Transparent" x="220" y="21" width="281" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[SISTEMA DE ADMINISTRACIÓN INTEGRAL]]></text>
+			</staticText>
+			<image>
+				<reportElement key="image-2" mode="Transparent" x="40" y="35" width="0" height="0"/>
+				<imageExpression class="java.lang.String"><![CDATA[]]></imageExpression>
+			</image>
+			<image>
+				<reportElement key="image-3" mode="Transparent" x="40" y="35" width="0" height="0"/>
+				<imageExpression class="java.lang.String"><![CDATA[]]></imageExpression>
+			</image>
+			<image>
+				<reportElement key="image-4" x="3" y="4" width="131" height="36"/>
+				<imageExpression class="java.lang.String"><![CDATA["report\\images\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement key="staticText-34" mode="Transparent" x="220" y="33" width="281" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[CONTABILIDAD]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="220" y="59" width="280" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{hcCentroContable}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="120" y="78" width="480" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{FiltroReporte}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
+				<reportElement key="textField" x="580" y="20" width="100" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<line>
+				<reportElement key="line-1" x="1" y="1" width="730" height="1"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-24" x="190" y="6" width="0" height="0"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Texto estático]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-28" x="396" y="19" width="69" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[DEUDOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-29" x="476" y="19" width="69" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[ACREEDOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-33" x="437" y="4" width="105" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[MOVIMIENTOS ACUMULADOS]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-2" x="1" y="31" width="730" height="1"/>
+			</line>
+			<textField>
+				<reportElement key="staticText-23" x="0" y="1" width="87" height="31"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($P{TipoReporte}.equals("Balanza")?"CUENTA":($P{TipoReporte}.equals("Analitico")?($P{cCentroContable}.equals("")?"CLAVE C.C.":"CUENTA"):($P{TipoSubCuentaC}.equals("RFC")?"RFC":($P{TipoSubCuentaC}.equals("CTAB")?"CUENTA":"NUMERO"))))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="staticText-23" x="87" y="1" width="112" height="31"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($P{TipoReporte}.equals("Balanza")?"DESCRIPCION":($P{TipoReporte}.equals("Analitico")?($P{cCentroContable}.equals("")?"CENTRO CONTABLE":"DESCRIPCION"):($P{TipoSubCuentaC}.equals("RFC")?"NOMBRE":($P{TipoSubCuentaC}.equals("CTAB")?"CTA. BANCARIA":"ALMACEN"))))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-33" x="234" y="4" width="139" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[SALDO INICIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-28" x="200" y="18" width="83" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[DEUDOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-29" x="284" y="17" width="69" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[ACREEDOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-33" x="611" y="4" width="120" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[SALDO FINAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-28" x="564" y="19" width="82" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[DEUDOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-29" x="662" y="19" width="69" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[ACREEDOR]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<printWhenExpression><![CDATA[$P{TipoReporte}.contains( "Analitico" ) && $F{nOrdenBalanza}.intValue()!=999]]></printWhenExpression>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="662" y="8" width="68" height="10"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[($F{NaturalezaCuenta}.equals("A") ? $F{SaldoFinal} : new BigDecimal(0))]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="476" y="8" width="70" height="10"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{MovimientosMesHaber}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="396" y="8" width="70" height="10"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{MovimientosMesDebe}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="200" y="8" width="73" height="10"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[($F{NaturalezaCuenta}.equals("D") ? $F{SaldoInicial} : new BigDecimal(0))]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="0" y="8" width="87" height="10"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nCuenta}.replaceAll( "-00000", "" )]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="87" y="0" width="112" height="27"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dCuenta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="284" y="8" width="68" height="10"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[($F{NaturalezaCuenta}.equals("A") ? $F{SaldoInicial} : new BigDecimal(0))]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="564" y="8" width="81" height="10"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[($F{NaturalezaCuenta}.equals("D") ?$F{SaldoFinal} : new BigDecimal(0))]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="18">
+			<printWhenExpression><![CDATA[$P{TipoReporte}.equals( "Balanza" )]]></printWhenExpression>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="0" y="8" width="199" height="10"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cSangria}+$F{nCuenta}+" "+$F{dCuenta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="396" y="8" width="70" height="10"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{MovimientosMesDebe}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="200" y="8" width="73" height="10"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{SaldoInicialDeudor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="476" y="8" width="70" height="10"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{MovimientosMesHaber}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="662" y="8" width="68" height="10"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{SaldoFinalAcreedor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="284" y="8" width="68" height="10"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{SaldoInicialAcreedor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="564" y="8" width="83" height="10"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{SaldoFinalDeudor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-21" mode="Transparent" x="293" y="1" width="37" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[Página:]]></text>
+			</staticText>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement key="textField-6" mode="Transparent" x="380" y="1" width="31" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-22" mode="Transparent" x="360" y="1" width="20" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[de]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-5" mode="Transparent" x="330" y="1" width="30" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="18" splitType="Stretch">
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement key="textField-6" mode="Transparent" x="380" y="1" width="31" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-22" mode="Transparent" x="360" y="1" width="20" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[de]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-21" mode="Transparent" x="293" y="1" width="37" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[Página:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-5" mode="Transparent" x="330" y="1" width="30" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

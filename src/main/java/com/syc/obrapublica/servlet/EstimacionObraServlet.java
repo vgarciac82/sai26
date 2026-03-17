@@ -42,7 +42,7 @@ public class EstimacionObraServlet extends HttpServlet implements GestionInterfa
         }
         String uri = req.getRequestURI();
         String action = uri.substring(uri.lastIndexOf("/") + 1, uri.length());
-        log.debug("Object: {}", action);
+        log.debug("Object: " + String.valueOf(action));
         if ("EstimacionObra".equals(action)) {
             ObraPublicaBusinessLogic Obra = new ObraPublicaBusinessLogic();
             try {

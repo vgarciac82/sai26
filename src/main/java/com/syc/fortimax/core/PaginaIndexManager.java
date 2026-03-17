@@ -1,5 +1,6 @@
 package com.syc.fortimax.core;
 
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,12 +12,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Vector;
+
 import org.apache.lucene.analysis.WhitespaceAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
+import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
@@ -24,15 +27,13 @@ import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.sax.WriteOutContentHandler;
 import org.xml.sax.ContentHandler;
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
+
 import com.syc.dbms.DBMS;
 import com.syc.dsmngr.DataSourceManager;
 import com.syc.fortimax.retrieval.BadScanFilter;
 import com.syc.fortimax.retrieval.SpanishAnalyzer;
 import com.syc.gestion.core.Caso;
 import com.syc.utils.ToolBox;
-import java.util.Base64;
-import java.nio.file.Paths;
 
 public class PaginaIndexManager {
 
@@ -189,7 +190,7 @@ public class PaginaIndexManager {
             new AutoDetectParser().parse(fis, handler, metadata);
             //AQUI LO ESCRIBIMOS A UN ARCHIVO
             FileWriter fw = new FileWriter(outFileName, false);
-            fw.write(writer.toString().toPath());
+            fw.write(writer.toString());
             fw.flush();
             fw.close();
             //System.out.println("Stop!");

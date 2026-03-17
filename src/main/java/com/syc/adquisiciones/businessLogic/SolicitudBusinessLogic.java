@@ -85,7 +85,7 @@ public class SolicitudBusinessLogic extends DataSourceManager {
             }
             if (c != null) {
                 folioCaso = c.getFolio();
-                log.debug("Object: {}", "Caso obtenido: " + folioCaso);
+                log.debug("Object: " + String.valueOf("Caso obtenido: " + folioCaso));
                 int indice = folioCaso.lastIndexOf('-') + 1;
                 folio = Integer.parseInt(folioCaso.substring(indice));
                 //Datos que serán usados en el callback del ajax

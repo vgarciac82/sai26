@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo Configuración de Sub Cuenta  </titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_TTIPOSUBCUENTACONF</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cSubcuenta"			control=""	dependencia="No"	limpiaOnKeypress=""		header="Subcuenta"			rowCol="1,1"	ancho="20"	maxlen="20" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="aEjercicioFiscal"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Ejercicio Fiscal"	rowCol="1,2"	ancho="4"	maxlen="4" 	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="nOrden"				control=""	dependencia="No"	limpiaOnKeypress=""		header="Orden"				rowCol="1,3"	ancho="5"	maxlen="5" 	tipo="int"		visible="Si"	clase=""/>
+		<columna campo="Interno"			control=""	dependencia="No"	limpiaOnKeypress=""		header="Interno"	 		rowCol="1,4"	ancho="1"	maxlen="1" 	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="NombreCatalogo"		control=""	dependencia="No"	limpiaOnKeypress=""		header="Catalogo"			rowCol="2,1"	ancho="40"	maxlen="40" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="NombreCampo"		control=""	dependencia="No"	limpiaOnKeypress=""		header="Nombre del Campo"	rowCol="2,2"	ancho="40"	maxlen="40" tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="cSubcuenta"			control="txtGridCol0"	llave="Si"		identity="No"	requerido="Sub Cuenta es un dato requerido."			requeridoFocus="txtGridCol0"	tipo="string" />
+		<campo field="aEjercicioFiscal"		control="txtGridCol1"	llave="Si"		identity="No"	requerido="Ejercicio Fiscal es un dato requerido."		requeridoFocus="txtGridCol1"	tipo="string" />		
+		<campo field="nOrden"				control="txtGridCol2"	llave="Si"		identity="No"	requerido="Orden es un dato requerido."					requeridoFocus="txtGridCol2"	tipo="int" />
+		<campo field="Interno"				control="txtGridCol3"	llave="No"		identity="No"	requerido="Descripción es un dato requerido."			requeridoFocus="txtGridCol3"	tipo="string" />		
+		<campo field="NombreCatalogo"		control="txtGridCol4"	llave="No"		identity="No"	requerido="Nombre del Catalogo es un dato requerido."	requeridoFocus="txtGridCol4"	tipo="string" />
+		<campo field="NombreCampo"			control="txtGridCol5"	llave="No"		identity="No"	requerido="Nombre del Campo es un dato requerido."		requeridoFocus="txtGridCol5"	tipo="string" />		
+	</insertaRegistro>
+	
+</Ayuda>

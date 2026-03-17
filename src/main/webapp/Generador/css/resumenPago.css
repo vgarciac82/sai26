@@ -1,0 +1,146 @@
+@CHARSET "ISO-8859-1";
+
+.infoTDR {
+	
+}
+
+.tituloSuperior {
+	border-top: 1px solid rgb(50, 50, 50);
+	border-left: 1px solid rgb(50, 50, 50);
+	text-align: center;
+	font-weight: bold;
+}
+
+.infoInferior {
+	border-bottom: 1px solid rgb(50, 50, 50);
+	border-left: 1px solid rgb(50, 50, 50);
+	text-align: center;
+}
+
+.infoInferiorDer {
+	border-bottom: 1px solid rgb(50, 50, 50);
+	border-left: 1px solid rgb(50, 50, 50);
+	border-right: 1px solid rgb(50, 50, 50);
+	text-align: center;
+}
+
+.infoSuperiorDer {
+	border-top: 1px solid rgb(50, 50, 50);
+	border-left: 1px solid rgb(50, 50, 50);
+	border-right: 1px solid rgb(50, 50, 50);
+	text-align: center;
+}
+
+.tituloSuperiorDer {
+	border-top: 1px solid rgb(50, 50, 50);
+	border-left: 1px solid rgb(50, 50, 50);
+	border-right: 1px solid rgb(50, 50, 50);
+	text-align: center;
+	font-weight: bold;
+}
+
+.renglonVacio {
+	border-left: 1px solid rgb(50, 50, 50);
+}
+
+.renglonVacioDer {
+	border-left: 1px solid rgb(50, 50, 50);
+	border-right: 1px solid rgb(50, 50, 50);
+}
+
+#mainTable {
+	border-collapse: collapse;
+}
+
+.infoInferiorH {
+	border-bottom: 1px solid rgb(50, 50, 50);
+	text-align: center;
+}
+
+.allBorder {
+	border-left: 1px solid rgb(50, 50, 50);
+	border-right: 1px solid rgb(50, 50, 50);
+	border-bottom: 1px solid rgb(50, 50, 50);
+	border-top: 1px solid rgb(50, 50, 50);
+}
+
+.tablaResumen {
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+
+.BR {
+	border-right: 1px solid rgb(50, 50, 50);
+}
+
+.BL {
+	border-left: 1px solid rgb(50, 50, 50);
+}
+
+.BT {
+	border-top: 1px solid rgb(50, 50, 50);
+}
+
+.BB {
+	border-bottom: 1px solid rgb(50, 50, 50);
+}
+
+.tituloResumen {
+	text-align: center;
+	font-weight: bold;
+}
+
+.tituloResumenR {
+	text-align: left;
+	font-weight: bold;
+}
+
+.notEditable {
+	background-color: #CCCCCC;
+	color: #000000;
+}
+
+.money {
+	text-align: right;
+}
+
+.numeric {
+	text-align: right;
+}
+
+a img {
+	border: none;
+}
+
+.resumenEncabezado {
+	background-color: #EEEEEE;
+	text-align: right;
+	font-weight: bold;
+}
+
+#resumenRetencion th {
+	background-color: #EEEEEE;
+	text-align: center;
+	font-weight: bold;
+	border: 1px solid rgb(190, 190, 190);
+	padding: 10px 20px;
+}
+
+#resumenCalendario th {
+	background-color: #EEEEEE;
+	text-align: center;
+	font-weight: bold;
+	border: 1px solid rgb(190, 190, 190);
+	padding: 10px 20px;
+}
+
+.infoResumen {
+	border: 1px solid rgb(190, 190, 190);
+	padding: 10px 20px;
+}
+
+.infoResumenMonto {
+	border: 1px solid rgb(190, 190, 190);
+	padding: 10px 20px;
+	text-align: right;
+}

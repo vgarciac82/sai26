@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ComprobanteRegistro" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="30" rightMargin="30" topMargin="10" bottomMargin="10">
+	<property name="ireport.zoom" value="1.3636363636363644"/>
+	<property name="ireport.x" value="101"/>
+	<property name="ireport.y" value="37"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="whereFolio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[" folioSAI = 1"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select ca.folioSai+' / '+ca.nFolio as nFolio,  CONVERT( VARCHAR, CONVERT( DATE,fechaCarga),103) as fechaCarga,
+case banco when 'BANORTE' THEN CONVERT( VARCHAR, CONVERT( DATE,ca.dFechaOperacionValor),103)
+else CONVERT( VARCHAR, CONVERT( DATE,ca.dFecha),103) end as fechaBanco,
+ca.tipoMovimiento as movimiento, ca.mImporte, '('+(SELECT dbo.CantidadConLetraPedido(ca.mImporte, 'PESOS'))+'M.N.)' as letraImporte,
+ca.sBeneficiarioCompleto, case ca.banco when 'BANORTE' THEN 'BANCO MERCANTIL DEL NORTE, S.A.'
+			  when 'BANCOMER' THEN 'BBVA BANCOMER, S.A.'
+			  when 'SCOTIABANK' THEN 'SCOTIABANK INVERLAT, S.A.'
+			  when 'BBVA BANCOMER' THEN 'BBVA BANCOMER, S.A.'
+			  else '' end as banco,
+
+ca.sCuenta, ca.cuentaBancaria,
+isnull(o.sOrigenDeposito,'N/A') as sOrigenDeposito, isnull(c.sConcepto,'N/A') as sConcepto, isnull(m.sMedioPago,'N/A') as sMedioPago,
+case isnull(ca.sTipoPago,'-') when '-' then 'N/A'
+when 'SELECCIONE' then 'N/A'
+else ca.sTipoPago end sTipoPago,
+ca.sNotas,
+isnull(trdbD.documentoSoporte,'N/A') as documentoSoporte,
+(select sAreaFormulo from tRdbFimantes where Activo = 1 and tipoDocumento = 'RDB') as sAreaFormulo,
+(select sNombreFormulo from tRdbFimantes where Activo = 1 and tipoDocumento = 'RDB') as sNombreFormulo,
+(select sAreaReviso from tRdbFimantes where Activo = 1 and tipoDocumento = 'RDB') as sAreaReviso,
+(select sNombreReviso from tRdbFimantes where Activo = 1 and tipoDocumento = 'RDB') as sNombreReviso
+
+from trdbcargaarchivordb ca LEFT OUTER JOIN trdbcat_concepto c ON ca.sConcepto = c.idRdbCat_Concepto
+	 LEFT OUTER JOIN trdbcat_MedioPago m ON ca.sMedioPago = m.idRdbCat_MedioPago
+	 LEFT OUTER JOIN trdbcat_OrigenDeposito o ON ca.sOrigenDeposito = o.idRdbCat_OrigenDeposito
+	 LEFT OUTER JOIN tRdbCargaArchivoRDBDetalle trdbD ON ca.nFolio = trdbD.nFolio
+where $P!{whereFolio}]]>
+	</queryString>
+	<field name="nFolio" class="java.lang.String"/>
+	<field name="fechaCarga" class="java.lang.String"/>
+	<field name="fechaBanco" class="java.lang.String"/>
+	<field name="movimiento" class="java.lang.String"/>
+	<field name="mImporte" class="java.math.BigDecimal"/>
+	<field name="letraImporte" class="java.lang.String"/>
+	<field name="sBeneficiarioCompleto" class="java.lang.String"/>
+	<field name="banco" class="java.lang.String"/>
+	<field name="sCuenta" class="java.lang.String"/>
+	<field name="cuentaBancaria" class="java.lang.String"/>
+	<field name="sOrigenDeposito" class="java.lang.String"/>
+	<field name="sConcepto" class="java.lang.String"/>
+	<field name="sMedioPago" class="java.lang.String"/>
+	<field name="sTipoPago" class="java.lang.String"/>
+	<field name="sNotas" class="java.lang.String"/>
+	<field name="documentoSoporte" class="java.lang.String"/>
+	<field name="sAreaFormulo" class="java.lang.String"/>
+	<field name="sNombreFormulo" class="java.lang.String"/>
+	<field name="sAreaReviso" class="java.lang.String"/>
+	<field name="sNombreReviso" class="java.lang.String"/>
+	<group name="nFolio Group">
+		<groupExpression><![CDATA[$F{nFolio}]]></groupExpression>
+		<groupHeader>
+			<band height="376">
+				<rectangle>
+					<reportElement mode="Opaque" x="3" y="248" width="544" height="91" forecolor="#000000" backcolor="#FFFFFF"/>
+				</rectangle>
+				<textField>
+					<reportElement x="24" y="273" width="505" height="56"/>
+					<textElement verticalAlignment="Top">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{sNotas}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="10" y="258" width="71" height="15"/>
+					<textElement verticalAlignment="Top">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Observaciones:]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement mode="Opaque" x="3" y="19" width="544" height="118" forecolor="#000000" backcolor="#FFFFFF"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="10" y="34" width="32" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Banco:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="80" y="34" width="164" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{banco}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="10" y="61" width="63" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Recibimos de:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="80" y="61" width="417" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{sBeneficiarioCompleto}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="9" y="86" width="63" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Importe:]]></text>
+				</staticText>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="80" y="86" width="110" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mImporte}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="9" y="113" width="63" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Importe letra:]]></text>
+				</staticText>
+				<textField pattern="">
+					<reportElement x="81" y="113" width="433" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{letraImporte}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="255" y="34" width="34" height="13"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cuenta:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="289" y="34" width="100" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cuentaBancaria}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="405" y="34" width="36" height="13"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha Operación:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="444" y="34" width="70" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fechaBanco}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement mode="Opaque" x="3" y="148" width="544" height="86" forecolor="#000000" backcolor="#FFFFFF"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="10" y="209" width="101" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tipo de Pago:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="9" y="183" width="102" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Concepto:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="10" y="158" width="102" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Origen del Documento:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="112" y="183" width="402" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{sConcepto}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="112" y="158" width="402" height="13"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{sOrigenDeposito}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="351" y="-1" width="83" height="17"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{movimiento}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="434" y="0" width="108" height="16"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{nFolio}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="3" y="360" width="544" height="1"/>
+				</line>
+				<staticText>
+					<reportElement x="24" y="360" width="87" height="15"/>
+					<textElement verticalAlignment="Top">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Soporte Documento:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="111" y="209" width="403" height="13"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{sTipoPago}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<image>
+				<reportElement key="image" x="0" y="7" width="131" height="36"/>
+				<imageExpression class="java.lang.String"><![CDATA["report\\images\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement key="staticText-24" x="131" y="-1" width="274" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-5" x="131" y="18" width="274" height="32"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="9" isBold="true" />
+				</textElement>
+				<text><![CDATA[SUBDIRECCIÓN GENERAL DE ADMINISTRACIÓN
+GERENCIA DE RECURSOS FINANCIEROS
+SUBGERENCIA DE TESORERIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="434" y="36" width="53" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Carga:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="488" y="36" width="64" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fechaCarga}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="18" splitType="Stretch">
+			<line>
+				<reportElement x="6" y="0" width="544" height="1"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="64" y="0" width="433" height="14"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{documentoSoporte}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="131" splitType="Stretch">
+			<line>
+				<reportElement x="3" y="15" width="544" height="1"/>
+			</line>
+			<line>
+				<reportElement x="3" y="15" width="544" height="1"/>
+			</line>
+			<rectangle>
+				<reportElement key="rectangle" x="6" y="37" width="270" height="75"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="95" y="37" width="86" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FORMULO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="9" y="83" width="266" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sNombreFormulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="96" width="266" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sAreaFormulo}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement key="rectangle" x="272" y="37" width="271" height="75"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="358" y="37" width="86" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REVISO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="274" y="83" width="266" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sNombreReviso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="275" y="96" width="266" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sAreaReviso}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="11" splitType="Stretch"/>
+	</summary>
+</jasperReport>

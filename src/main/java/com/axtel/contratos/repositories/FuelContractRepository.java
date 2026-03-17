@@ -52,7 +52,7 @@ public class FuelContractRepository {
         queryInsert.append(" active AS active, registration_date AS registrationDate, employee_registration AS employeeRegistration,");
         queryInsert.append(" is_by_liters AS byLiters FROM fuel_contract WHERE id = ?");
         FuelContract contract = runner.query(conn, queryInsert.toString(), fuelContractResultHandler, id);
-        log.debug("Object: {}", "Se encontro: " + contract);
+        log.debug("Object: " + String.valueOf("Se encontro: " + contract));
         return contract;
     }
 
@@ -104,7 +104,7 @@ public class FuelContractRepository {
         StringBuilder query = new StringBuilder(CONTRACT_ACCOUNT_HEADER_SQL);
         query.append(" WHERE  id_account = ?");
         FuelContractAccount contractAccount = runner.query(conn, query.toString(), fuelContractAccountResultHandler, id);
-        log.debug("Object: {}", "Se encontro: " + contractAccount);
+        log.debug("Object: " + String.valueOf("Se encontro: " + contractAccount));
         return contractAccount;
     }
 
@@ -112,7 +112,7 @@ public class FuelContractRepository {
         StringBuilder query = new StringBuilder(CONTRACT_ACCOUNT_HEADER_SQL);
         query.append(" WHERE  id_unit = ?");
         List<FuelContractAccount> accounts = runner.query(conn, query.toString(), fuelContractListHandler, unitId);
-        log.debug("Object: {}", "Se encontro: " + accounts);
+        log.debug("Object: " + String.valueOf("Se encontro: " + accounts));
         return accounts;
     }
 }

@@ -42,8 +42,8 @@ public class CasoFirmaElectronicaServlet extends HttpServlet implements GestionI
     /*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.
-	 * HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 * @see jakarta.servlet.http.HttpServlet#doPost(javax.servlet.http.
+	 * HttpServletRequest, jakarta.servlet.http.HttpServletResponse)
 	 */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

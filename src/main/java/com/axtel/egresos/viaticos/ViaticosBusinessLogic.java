@@ -716,7 +716,7 @@ public class ViaticosBusinessLogic extends DataSourceManager {
             pst.setDate(3, sqlfechaInicio);
             pst.setDate(4, sqlfechaFin);
             rs = pst.executeQuery();
-            log.debug("Object: {}", query.toString());
+            log.debug("Object: " + String.valueOf(query.toString()));
             if (rs.next()) {
                 folio = rs.getInt("nIdComision");
             }

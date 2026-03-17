@@ -383,7 +383,7 @@ public class SolicitudTramiteFirmaElectronica extends SolicitudFirmaElectronica 
         query.append(" 		 WHERE	( comision.nNumEmpleadoElab IS NULL OR comision.nNumEmpleadoElab < 0 ) ");
         query.append(" ) AS elabora ");
         query.append(" WHERE elabora.folioTramite = ? ");
-        log.debug("Object: {}", "Se ejecutara: " + query);
+        log.debug("Object: " + String.valueOf("Se ejecutara: " + query));
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -397,7 +397,7 @@ public class SolicitudTramiteFirmaElectronica extends SolicitudFirmaElectronica 
                 String mailSubject = rs.getString("mailSubject");
                 String correoCapturista = rs.getString("correoCapturista");
                 String cuerpoCorreo = String.format(SolicitudTramiteFirmaElectronica.correo.toString(), nombreCapturista, folioTramite, reason, Util.getToday());
-                log.debug("Object: {}", "Se encontro usuario elabora: \n" + nombreCapturista + "\n" + correoCapturista);
+                log.debug("Object: " + String.valueOf("Se encontro usuario elabora: \n" + nombreCapturista + "\n" + correoCapturista));
                 log.trace("Object: {}", "Se enviara correo: " + cuerpoCorreo);
                 AlarmaManager.procesaAlarmaCNF(conn, "", null, null, mailSubject, correoCapturista, cuerpoCorreo);
             }

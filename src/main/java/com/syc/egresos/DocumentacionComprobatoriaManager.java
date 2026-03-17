@@ -23,7 +23,7 @@ public class DocumentacionComprobatoriaManager {
         query += " WHERE caNoContrarrecibo = ? ";
         try {
             int borrados = DocumentacionComprobatoriaManager.borrarDocComp(conn, contrarecibo);
-            log.debug("Object: {}", "Se eliminaron: " + borrados + " registros de documentacion comprobatoria");
+            log.debug("Object: " + String.valueOf("Se eliminaron: " + borrados + " registros de documentacion comprobatoria"));
             ps = conn.prepareStatement(query);
             ps.setString(1, contrarecibo);
             int insertados = ps.executeUpdate();

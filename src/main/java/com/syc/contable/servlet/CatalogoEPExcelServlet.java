@@ -105,7 +105,7 @@ public class CatalogoEPExcelServlet extends HttpServlet {
             Long date = System.currentTimeMillis();
             SimpleDateFormat fecha = new SimpleDateFormat("yyyyMMddhhmmssS");
             String sufijo = fecha.format(date);
-            path = request.getRealPath("/upload/");
+            path = getServletContext().getRealPath("/upload/");
             File file = new File(path);
             if (!file.exists()) {
                 file.mkdirs();
@@ -131,7 +131,7 @@ public class CatalogoEPExcelServlet extends HttpServlet {
                 while (i.hasNext()) {
                     actual = (FileItem) i.next();
                     String fileName = "CatalogoEP.xls";
-                    File archivo = new File(fu.getRepositoryPath() + "\\" + fileName);
+                    File archivo = new File(path + "\\" + fileName);
                     actual.write(archivo.toPath());
                 }
             } catch (Exception e) {
@@ -213,7 +213,7 @@ public class CatalogoEPExcelServlet extends HttpServlet {
     public ArrayList<String> cargaExcel(String archivo, String tipo) throws Exception {
         DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
-        String cFileExcel = upload.getRepositoryPath() + "/CatalogoEP.xls";
+        String cFileExcel = getServletContext().getRealPath("/upload") + "/CatalogoEP.xls";
         ArrayList<String> validaEP = new ArrayList<String>();
         ArrayList<String> inValidaEP = new ArrayList<String>();
         ArrayList arrMResult = new ArrayList();
@@ -276,7 +276,7 @@ public class CatalogoEPExcelServlet extends HttpServlet {
             // El tamaño no importa
             fu.setFileSizeMax(-1);
             // Si excede el 1 Gb en memoria lo
-            fu.setSizeThreshold(1048576);
+            // setSizeThreshold movido a DiskFileItemFactory.builder().setBufferSize(1048576)
             // escribe a disco
             szPath = getServletContext().getRealPath("/upload/ante");
             File file = new File(szPath);

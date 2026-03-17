@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Catálogo de Medio Pago Registro Diario de Bancos</titulo>
+	<anchoWin>900</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>TCATALOGOMEDIOPAGO_RDB</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+		
+	<grid>				
+		<columna campo="sMedioPago"	        control=""	dependencia="No"	limpiaOnKeypress=""		header="Medio de Pago"	 	ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="idRdbCat_MedioPago"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Clave"	 ancho="100"	maxlen="6"	tipo="numero"	visible="No"	clase="Protegido"/>
+	</grid>  	
+	
+	<insertaRegistro>
+		<campo field="sMedioPago"	        control="txtGridCol0"	llave="No"	identity="No"	requerido="El Concepto es un dato requerido."	requeridoFocus="txtGridCol0"	tipo="string" />
+		<campo field="idRdbCat_MedioPago"	control="txtGridCol1"	llave="Si"	identity="Si"	requerido=""								    requeridoFocus=""	 			tipo="numero" />
+	</insertaRegistro>
+</Ayuda>

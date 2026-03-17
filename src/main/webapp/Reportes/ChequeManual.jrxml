@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ChequeManual" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="f515489c-8a5a-44ff-b8ff-674ee5fa89da">
+	<property name="ireport.zoom" value="1.210000000000003"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="15"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="124"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="869"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="5f6499f6-25b6-4aef-a805-2aa0dadbb986"/>
+	<parameter name="CXP" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipo" class="java.lang.String"/>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="beneficiario_temp" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[DECLARE @cxp VARCHAR(20) = $P{CXP}
+DECLARE @tipo INT = $P{tipo}
+DECLARE @usuario VARCHAR(20)=$P{usuario}
+DECLARE @beneficiario_temp varchar(60)=$P{beneficiario_temp}
+DECLARE @Fecha AS DATE
+
+IF YEAR(GETDATE()) > (SELECT aEjercicioFiscal FROM dbo.tEjercicioFiscal WHERE cActivo = 1)
+BEGIN
+SET @Fecha = CONVERT(DATE,(SELECT aEjercicioFiscal FROM dbo.tEjercicioFiscal WHERE cActivo = 1) + '-12-31',102)
+END
+ELSE
+BEGIN
+SET @Fecha = GETDATE()
+END
+IF (@tipo=1)
+BEGIN
+	DECLARE @cUnidadResponsable VARCHAR(3) = (SELECT ISNULL((SELECT cUnidadResponsable FROM dbo.tRELACIONGASTOSEncabezado WHERE caNoContrarrecibo=@cxp AND cDocumentoHaplicado='S'),''))
+
+	DECLARE @folio VARCHAR(20) = (SELECT ISNULL((SELECT CAST(nFolioPAGO AS NVARCHAR(10)) FROM dbo.tPagadoEncabezado WHERE caNoContrarrecibo=@cxp AND cDocumentoHaplicado='S'),''))
+	DECLARE @concepto NVARCHAR(500) = (SELECT ISNULL((SELECT cDescripcionPoliza FROM dbo.tPagadoEncabezado WHERE caNoContrarrecibo=@cxp AND cDocumentoHaplicado='S'),''))
+	DECLARE @cuenta NVARCHAR(500) = (SELECT ISNULL((SELECT TOP 1 ctab FROM dbo.tPagadoDetalle WHERE nFolioPagado = (SELECT nFolioPagado FROM dbo.tPagadoEncabezado WHERE caNoContrarrecibo=@cxp AND cDocumentoHaplicado='S')),''))
+	DECLARE @rfc NVARCHAR(500) = (SELECT ISNULL((SELECT TOP 1 RFC FROM dbo.tPagadoDetalle WHERE nFolioPagado = (SELECT nFolioPagado FROM dbo.tPagadoEncabezado WHERE caNoContrarrecibo=@cxp AND cDocumentoHaplicado='S')),''))
+	DECLARE @importe MONEY = (SELECT ISNULL((SELECT SUM(mImporteNeto) FROM dbo.tPagadoDetalle WHERE nFolioPagado = (SELECT nFolioPagado FROM dbo.tPagadoEncabezado WHERE caNoContrarrecibo=@cxp AND cDocumentoHaplicado='S')),''))
+	DECLARE @banco NVARCHAR(100) = (SELECT DISTINCT strNombreBeneficiario FROM dbo.tUECuentasBancarias WHERE strClabe=@cuenta)
+	--DECLARE @usuario NVARCHAR(30) = (SELECT ISNULL((SELECT cIdUsuarioCaptura FROM dbo.tPagadoEncabezado WHERE caNoContrarrecibo=@cxp AND cDocumentoHaplicado='S'),''))
+
+	UPDATE dbo.CF_SEQUENCE SET seq_value=seq_value+1 WHERE seq_name='CHEQUE '+@banco
+	DECLARE @numerocheque INT = (SELECT ISNULL((SELECT seq_value FROM dbo.CF_SEQUENCE WHERE seq_name='CHEQUE '+@banco),''))
+
+	--DECLARE @cCentroContable VARCHAR(2) = (SELECT SUBSTRING(@cxp,1,2))
+	DECLARE @cCentroContable VARCHAR(2) = (SELECT ISNULL( SUBSTRING(@cxp,1,2),' '))
+
+	DECLARE @nFolioCheque INT = (SELECT ISNULL(MAX(nFolioCheque)+1,1) FROM dbo.tChequeEncabezado)
+	DECLARE @folioPagado VARCHAR(20) = (SELECT nFolioPagado FROM dbo.tPagadoEncabezado WHERE caNoContrarrecibo=@cxp AND cDocumentoHaplicado='S')
+
+
+
+	INSERT INTO dbo.tChequeEncabezado
+			( aEjercicioFiscal ,cCentroContable ,cUnidadResponsable ,cRamo ,cCuentaBancaria ,nFolioCheque ,nNumCheque ,mImporteCheque ,cIdRFC ,caNoContrarrecibo ,fAplicacion ,
+			  fElaboracion ,fEntrega ,cConcepto ,U_LOGIN_captura ,U_LOGIN_revisa ,U_LOGIN_autoriza ,U_LOGIN_imprime ,cDocumentoHaplicado ,nFolioPoliza ,cTipoPoliza ,cUnidadResponsableContable ,
+			  nFolioPolizaCancelacion ,fCancelacion ,cDescripcionPoliza ,cTransferencia,cBeneficiarioAlternativo,nFolioPolizaPago)
+	SELECT (SELECT aEjercicioFiscal FROM dbo.tEjercicioFiscal WHERE cActivo = 1) , -- aEjercicioFiscal - char(4)
+			  @cCentroContable , -- cCentroContable - varchar(2)
+			  @cUnidadResponsable , -- cUnidadResponsable - varchar(4)
+			  '16' , -- cRamo - char(3)
+			  @cuenta , -- cCuentaBancaria - varchar(40)
+			  @nFolioCheque , -- nFolioCheque - int
+			  @numerocheque , -- nNumCheque - int
+			  @importe , -- mImporteCheque - money
+			  @rfc , -- cIdRFC - char(15)
+			  ISNULL(@cxp,'') , -- caNoContrarrecibo - varchar(14)
+			  CONVERT(DATE, @FECHA, 102) , -- fAplicacion - date
+			  CONVERT(SMALLDATETIME, @FECHA, 102) , -- fElaboracion - smalldatetime
+			  CONVERT(SMALLDATETIME, @FECHA, 102)  , -- fEntrega - smalldatetime
+			  REPLACE(ISNULL(@concepto,''),'... CON FOLIO '+ISNULL(@folio,''),'') + ' (Generación del cheque '+CAST(ISNULL(@numerocheque,'') AS VARCHAR(10))+' de la cuenta ' + ISNULL(@banco,'') +')', -- cConcepto - varchar(400)
+			  isnull(@usuario,'') , -- U_LOGIN_captura - varchar(32)
+			  isnull(@usuario ,''), -- U_LOGIN_revisa - varchar(32)
+			  isnull(@usuario ,''), -- U_LOGIN_autoriza - varchar(32)
+			  isnull(@usuario ,''), -- U_LOGIN_imprime - varchar(32)
+			  'S' , -- cDocumentoHaplicado - char(1)
+			 0,
+			  'EG' , -- cTipoPoliza - varchar(2)
+			  'RHQ', -- cUnidadResponsableContable - varchar(3)
+			  0 , -- nFolioPolizaCancelacion - int
+			  NULL , -- fCancelacion - date
+			  '' , -- cDescripcionPoliza - varchar(160)
+			  NULL,  -- cTransferencia - varchar(20)
+			  NULL,
+			  (SELECT nFolioPoliza FROM dbo.tPagadoEncabezado WHERE caNoContrarrecibo=@cxp AND cDocumentoHaplicado='S')  -- nFolioPolizapago - int
+
+	INSERT INTO dbo.tChequeDetalle (cEjercicio ,cCentroContable ,cUnidadResponsable ,CTAB ,nFolioCheque ,nDocRenglon ,RFC ,cEvento ,mImporte,mImporteNegativo)
+		SELECT (SELECT aEjercicioFiscal FROM dbo.tEjercicioFiscal WHERE cActivo = 1)
+			,ISNULL(@cCentroContable,'10'),@cUnidadResponsable,@cuenta,@nFolioCheque,1,@rfc,'35_2_8_A',@importe,-(@importe)
+		UNION
+		SELECT (SELECT aEjercicioFiscal FROM dbo.tEjercicioFiscal WHERE cActivo = 1)
+			,ISNULL(@cCentroContable,'10'),@cUnidadResponsable,@cuenta,@nFolioCheque,2,@rfc,'35_2_8_B',@importe,-(@importe)
+
+	SELECT DISTINCT CH.cIdRFC
+		,nombreCheque AS cnombre
+		,CONVERT(varchar, CONVERT(MONEY, mImporteCheque), 1) 'Importe'
+		,dbo.fnCantidadLetra(mImporteCheque) 'CantidadLetra'
+		,cConcepto 'cDescripcionPoliza'
+		,nFolioPolizaPago as nFolioPoliza
+		,fAplicacion 'Fecha'
+	FROM dbo.tChequeEncabezado CH
+	INNER JOIN dbo.v_PCATALOGORFC RFC
+		ON CH.cIdRFC = RFC.cIDRFC
+	WHERE nFolioCheque=@nFolioCheque
+END
+-------------------------------------------------------------------------------------------------------
+ELSE IF (@tipo=2)---RE-IMPRIME
+BEGIN
+	DECLARE @nFolioCheque2 INT = (SELECT CAST(@cxp AS INT))
+	SELECT DISTINCT CH.cIdRFC
+		,case when cBeneficiarioAlternativo IS null then
+		nombreCheque
+		else
+		cBeneficiarioAlternativo
+		end
+		cnombre
+		,CONVERT(varchar, CONVERT(MONEY, mImporteCheque), 1) 'Importe'
+		,dbo.fnCantidadLetra(mImporteCheque) 'CantidadLetra'
+		,cConcepto 'cDescripcionPoliza'
+		,isnull( convert( varchar(32), nFolioPolizaPago ), '' ) as nFolioPoliza
+		,fAplicacion 'Fecha'
+	FROM dbo.tChequeEncabezado CH
+	left JOIN dbo.v_PCATALOGORFC RFC
+		ON CH.cIdRFC = RFC.cIDRFC
+	WHERE nFolioCheque=@nFolioCheque2
+END
+----------------------------------------------------------------------------------------------------------------------
+ELSE IF (@tipo=3) --REEMPLAZAR
+BEGIN
+DECLARE @nFolioCheque3 INT = (SELECT CAST(@cxp AS INT)) --se recibe el folio del cheque que reemplazò
+		DECLARE @nFolioCaja3 int =(select ISNULL(caNoContrarrecibo,0)from tChequeEncabezado where nFolioCheque=@nFolioCheque3 )
+		DECLARE @nFolioPoliza int =(select isnull (nfoliopoliza,0) from tChequeEncabezado where caNoContrarrecibo=@nFolioCaja3 and cdocumentohaplicado='C')
+		DECLARE @cConcepto3 NVARCHAR(500) = (SELECT ISNULL((SELECT cDescripcionPoliza FROM dbo.tPoliza WHERE nFolioPoliza=@nFoliopoliza AND DocHaplicado='A' and cCentroContable='10' and cTipoPoliza='EG'),''))
+		DECLARE @numeroCheque3 int =(select ISNULL(nNumCheque,0)from tChequeEncabezado where caNoContrarrecibo=@nFolioCaja3 and cDocumentoHaplicado='S')
+		DECLARE @clabeBanco VARCHAR(100)=(SELECT isnull(cCuentaBancaria,'NA') from tChequeEncabezado where caNoContrarrecibo=@nFolioCaja3 and cDocumentoHaplicado='S')
+		DECLARE @nbanco3 varchar(100) =(SELECT DISTINCT strNombreBeneficiario FROM dbo.tUECuentasBancarias WHERE strClabe=@clabeBanco)
+
+	update tChequeEncabezado
+	set nFolioPolizaCancelacion=(select nFolioPoliza from tChequeEncabezado where caNoContrarrecibo=@cxp and cDocumentoHaplicado='S')--el numero de poliza que genera el reemplazo es una poliza de cancelacion por eso se le asigna al cheque cancelado
+
+	update tChequeEncabezado
+	set
+	cConcepto = @cConcepto3+ ' (Generación del cheque '+CAST(ISNULL(@numeroCheque3,'') AS VARCHAR(10))+' de la cuenta ' + ISNULL(@nbanco3,'') +')', -- cConcepto - varchar(400)
+	nFolioPoliza=@nFolioPoliza--el folio de poliza que tiene el cheque cancelado es la poliza del pagado por eso se asigna al reemplazo
+	where nFolioCheque=@cxp
+
+
+	SELECT DISTINCT CH.cIdRFC
+		,case when cBeneficiarioAlternativo IS null then
+		nombreCheque
+		else
+		cBeneficiarioAlternativo
+		end
+		cnombre
+		,CONVERT(varchar, CONVERT(MONEY, mImporteCheque), 1) 'Importe'
+		,dbo.fnCantidadLetra(mImporteCheque) 'CantidadLetra'
+		,cConcepto 'cDescripcionPoliza'
+		,nFolioPoliza
+		,fAplicacion 'Fecha'
+	FROM dbo.tChequeEncabezado CH
+	INNER JOIN dbo.v_PCATALOGORFC RFC
+		ON CH.cIdRFC = RFC.cIDRFC
+	WHERE nFolioCheque=@nFolioCheque3
+END
+-------------------------------------------------------------------------------------------------------------
+ELSE IF (@tipo=4)--impresion de cheques para caja
+BEGIN
+	DECLARE @folioCaja VARCHAR(20) = (select isnull(@cxp,' '));
+	DECLARE @UnidadResponsable VARCHAR(3) = (SELECT ISNULL((SELECT cunidadejecutora FROM dbo.tcajaencabezado WHERE nFoliocaja=@folioCaja AND cDocumentoHaplicado='S'),''))
+	DECLARE @cConcepto NVARCHAR(500) = (SELECT ISNULL((SELECT cDescripcionPoliza FROM dbo.tcajaencabezado WHERE nFoliocaja=@folioCaja AND cDocumentoHaplicado='S'),''))
+	DECLARE @CTAB NVARCHAR(500) = (SELECT ISNULL((SELECT CTAB FROM dbo.tcajadetalle WHERE nFoliocaja =@folioCaja ),''))
+	DECLARE @crfc NVARCHAR(500) =  (SELECT ISNULL((SELECT  RFC FROM dbo.tcajadetalle WHERE nFoliocaja =@folioCaja  ),''))
+	DECLARE @nimporte MONEY =      (SELECT ISNULL(( SELECT mMontoSolicitud FROM dbo.tcajaencabezado WHERE nFoliocaja =@folioCaja ),''))
+	DECLARE @nbanco NVARCHAR(100) = (SELECT DISTINCT strNombreBeneficiario FROM dbo.tUECuentasBancarias WHERE strClabe=@CTAB)
+
+	UPDATE dbo.CF_SEQUENCE SET seq_value=seq_value+1 WHERE seq_name='CHEQUE '+@nbanco
+	DECLARE @numecheque INT = (SELECT ISNULL((SELECT seq_value FROM dbo.CF_SEQUENCE WHERE seq_name='CHEQUE '+@nbanco),''))
+
+	DECLARE @CentroContable VARCHAR(2) = (SELECT ISNULL( (select cCentrocontable from tcajaencabezado where nFoliocaja=@folioCaja) ,' '))
+	DECLARE @FolioCheque INT = (SELECT ISNULL(MAX(nFolioCheque)+1,1) FROM dbo.tChequeEncabezado)
+
+
+	INSERT INTO dbo.tChequeEncabezado
+			( aEjercicioFiscal ,cCentroContable ,cUnidadResponsable ,cRamo ,cCuentaBancaria ,nFolioCheque ,nNumCheque ,mImporteCheque ,cIdRFC ,caNoContrarrecibo ,fAplicacion ,
+			  fElaboracion ,fEntrega ,cConcepto ,U_LOGIN_captura ,U_LOGIN_revisa ,U_LOGIN_autoriza ,U_LOGIN_imprime ,cDocumentoHaplicado ,nFolioPoliza ,cTipoPoliza ,cUnidadResponsableContable ,
+			  nFolioPolizaCancelacion ,fCancelacion ,cDescripcionPoliza ,cTransferencia,cBeneficiarioAlternativo,nFolioPolizaPago)
+	SELECT (SELECT aEjercicioFiscal FROM dbo.tEjercicioFiscal WHERE cActivo = 1) , -- aEjercicioFiscal - char(4)
+			  @CentroContable , -- cCentroContable - varchar(2)
+			  @UnidadResponsable , -- cUnidadResponsable - varchar(4)
+			  '16' , -- cRamo - char(3)
+			  @CTAB , -- cCuentaBancaria - varchar(40)
+			  @FolioCheque , -- nFolioCheque - int
+			  @numecheque , -- nNumCheque - int
+			  @nimporte , -- mImporteCheque - money
+			  @crfc , -- cIdRFC - char(15)
+			  @folioCaja , -- caNoContrarrecibo - varchar(14)
+			  CONVERT(DATE, @FECHA, 102) , -- fAplicacion - date
+			  CONVERT(SMALLDATETIME, @FECHA, 102) , -- fElaboracion - smalldatetime
+			  CONVERT(SMALLDATETIME, @FECHA, 102)  , -- fEntrega - smalldatetime
+			  REPLACE(ISNULL(@cConcepto,''),'... CON FOLIO '+ISNULL(@folioCaja,''),'') + ' (Generación del cheque '+CAST(ISNULL(@numecheque,'') AS VARCHAR(10))+' de la cuenta ' + ISNULL(@nbanco,'') +')', -- cConcepto - varchar(400)
+			  @usuario , -- U_LOGIN_captura - varchar(32)
+			  @usuario , -- U_LOGIN_revisa - varchar(32)
+			  @usuario , -- U_LOGIN_autoriza - varchar(32)
+			  @usuario , -- U_LOGIN_imprime - varchar(32)
+			  'S' , -- cDocumentoHaplicado - char(1)
+			  0,
+			  'EG' , -- cTipoPoliza - varchar(2)
+			  'RHQ', -- cUnidadResponsableContable - varchar(3)
+			  0 , -- nFolioPolizaCancelacion - int
+			  NULL , -- fCancelacion - date
+			  '' , -- cDescripcionPoliza - varchar(160)
+			  NULL,  -- cTransferencia - varchar(20)
+			  NULL,
+			  (SELECT nFolioPoliza FROM dbo.tcajaencabezado WHERE nFoliocaja=@folioCaja AND cDocumentoHaplicado='S' and ctipopoliza='EG')  -- nFolioPolizapago - int
+
+	INSERT INTO dbo.tChequeDetalle (cEjercicio ,cCentroContable ,cUnidadResponsable ,CTAB ,nFolioCheque ,nDocRenglon
+	 ,RFC ,cEvento ,mImporte,mImporteNegativo)
+		SELECT (SELECT aEjercicioFiscal FROM dbo.tEjercicioFiscal WHERE cActivo = 1)
+			,ISNULL(@CentroContable,'10'),@UnidadResponsable,@CTAB,@FolioCheque,1,@crfc,'35_2_8_A',@nimporte,-(@nimporte)
+		union all
+		SELECT (SELECT aEjercicioFiscal FROM dbo.tEjercicioFiscal WHERE cActivo = 1)
+			,ISNULL(@CentroContable,'10'),@UnidadResponsable,@CTAB,@FolioCheque,2,@crfc,'35_2_8_B',@nimporte,-(@nimporte)
+
+
+	SELECT DISTINCT CH.cIdRFC
+		,nombreCheque cnombre
+		,CONVERT(varchar, CONVERT(MONEY, mImporteCheque), 1) 'Importe'
+		,dbo.fnCantidadLetra(mImporteCheque) 'CantidadLetra'
+		,cConcepto 'cDescripcionPoliza'
+		,nFolioPolizaPago as nFolioPoliza
+		,fAplicacion 'Fecha'
+	FROM dbo.tChequeEncabezado CH
+	INNER JOIN dbo.v_PCATALOGORFC RFC
+		ON CH.cIdRFC = RFC.cIDRFC
+	WHERE nFolioCheque=@FolioCheque
+END
+---------------------------------------------------------------------------------------------------------------------------------------
+ else IF (@tipo=5)--impresion de cheques PARA CAJA CON OTRO BENEFICIARIO
+BEGIN
+	DECLARE @folioCaja5 VARCHAR(20) = (select isnull(@cxp,' '));
+	DECLARE @UnidadResponsable5 VARCHAR(3) = (SELECT ISNULL((SELECT cunidadejecutora FROM dbo.tcajaencabezado WHERE nFoliocaja=@folioCaja5 AND cDocumentoHaplicado='S'),''))
+	DECLARE @cConcepto5 NVARCHAR(500) = (SELECT ISNULL((SELECT cDescripcionPoliza FROM dbo.tcajaencabezado WHERE nFoliocaja=@folioCaja5 AND cDocumentoHaplicado='S'),''))
+	DECLARE @CTAB5 NVARCHAR(500) = (SELECT ISNULL((SELECT CTAB FROM dbo.tcajadetalle WHERE nFoliocaja =@folioCaja5 ),''))
+	DECLARE @crfc5 NVARCHAR(500) =  (SELECT ISNULL((SELECT  RFC FROM dbo.tcajadetalle WHERE nFoliocaja =@folioCaja5  ),''))
+	DECLARE @nimporte5 MONEY =      (SELECT ISNULL(( SELECT mMontoSolicitud FROM dbo.tcajaencabezado WHERE nFoliocaja =@folioCaja5 ),''))
+	DECLARE @nbanco5 NVARCHAR(100) = (SELECT DISTINCT strNombreBeneficiario FROM dbo.tUECuentasBancarias WHERE strClabe=@CTAB5)
+
+	UPDATE dbo.CF_SEQUENCE SET seq_value=seq_value+1 WHERE seq_name='CHEQUE '+@nbanco5
+	DECLARE @numecheque5 INT = (SELECT ISNULL((SELECT seq_value FROM dbo.CF_SEQUENCE WHERE seq_name='CHEQUE '+@nbanco5),''))
+
+	DECLARE @CentroContable5 VARCHAR(2) = (SELECT ISNULL( (select cCentrocontable from tcajaencabezado where nFoliocaja=@folioCaja5) ,' '))
+	DECLARE @FolioCheque5 INT = (SELECT ISNULL(MAX(nFolioCheque)+1,1) FROM dbo.tChequeEncabezado)
+
+
+	INSERT INTO dbo.tChequeEncabezado
+			( aEjercicioFiscal ,cCentroContable ,cUnidadResponsable ,cRamo ,cCuentaBancaria ,nFolioCheque ,nNumCheque ,mImporteCheque ,cIdRFC ,caNoContrarrecibo ,fAplicacion ,
+			  fElaboracion ,fEntrega ,cConcepto ,U_LOGIN_captura ,U_LOGIN_revisa ,U_LOGIN_autoriza ,U_LOGIN_imprime ,cDocumentoHaplicado ,nFolioPoliza ,cTipoPoliza ,cUnidadResponsableContable ,
+			  nFolioPolizaCancelacion ,fCancelacion ,cDescripcionPoliza ,cTransferencia,cBeneficiarioAlternativo,nFolioPolizaPago)
+	SELECT (SELECT aEjercicioFiscal FROM dbo.tEjercicioFiscal WHERE cActivo = 1) , -- aEjercicioFiscal - char(4)
+			  @CentroContable5 , -- cCentroContable - varchar(2)
+			  @UnidadResponsable5 , -- cUnidadResponsable - varchar(4)
+			  '16' , -- cRamo - char(3)
+			  @CTAB5 , -- cCuentaBancaria - varchar(40)
+			  @FolioCheque5 , -- nFolioCheque - int
+			  @numecheque5 , -- nNumCheque - int
+			  @nimporte5 , -- mImporteCheque - money
+			  @crfc5 , -- cIdRFC - char(15)
+			  @folioCaja5 , -- caNoContrarrecibo - varchar(14)
+			  CONVERT(DATE, @FECHA, 102) , -- fAplicacion - date
+			  CONVERT(SMALLDATETIME, @FECHA, 102) , -- fElaboracion - smalldatetime
+			  CONVERT(SMALLDATETIME, @FECHA, 102)  , -- fEntrega - smalldatetime
+			  REPLACE(ISNULL(@cConcepto5,''),'... CON FOLIO '+ISNULL(@folioCaja5,''),'') + ' (Generación del cheque '+CAST(ISNULL(@numecheque5,'') AS VARCHAR(10))+' de la cuenta ' + ISNULL(@nbanco5,'') +')', -- cConcepto - varchar(400)
+			  @usuario , -- U_LOGIN_captura - varchar(32)
+			  @usuario , -- U_LOGIN_revisa - varchar(32)
+			  @usuario , -- U_LOGIN_autoriza - varchar(32)
+			  @usuario , -- U_LOGIN_imprime - varchar(32)
+			  'S' , -- cDocumentoHaplicado - char(1)
+			  0,
+			  'EG' , -- cTipoPoliza - varchar(2)
+			  'RHQ', -- cUnidadResponsableContable - varchar(3)
+			  0 , -- nFolioPolizaCancelacion - int
+			  NULL , -- fCancelacion - date
+			  '' , -- cDescripcionPoliza - varchar(160)
+			  NULL,  -- cTransferencia - varchar(20)
+			  @beneficiario_temp,
+			  (SELECT nFolioPoliza FROM dbo.tcajaencabezado WHERE nFoliocaja=@folioCaja5 AND cDocumentoHaplicado='S' and ctipopoliza='EG') -- nFolioPolizaPago - int
+
+
+	INSERT INTO dbo.tChequeDetalle (cEjercicio ,cCentroContable ,cUnidadResponsable ,CTAB ,nFolioCheque ,nDocRenglon
+	 ,RFC ,cEvento ,mImporte,mImporteNegativo)
+		SELECT (SELECT aEjercicioFiscal FROM dbo.tEjercicioFiscal WHERE cActivo = 1)
+			,ISNULL(@CentroContable5,'10'),@UnidadResponsable5,@CTAB5,@FolioCheque5,1,@crfc5,'35_2_8_A',@nimporte5,-(@nimporte5)
+		union all
+		SELECT (SELECT aEjercicioFiscal FROM dbo.tEjercicioFiscal WHERE cActivo = 1)
+			,ISNULL(@CentroContable5,'10'),@UnidadResponsable5,@CTAB5,@FolioCheque5,2,@crfc5,'35_2_8_B',@nimporte5,-(@nimporte5)
+
+
+
+	SELECT CH.cIdRFC
+		,cBeneficiarioAlternativo cnombre
+		,CONVERT(varchar, CONVERT(MONEY, mImporteCheque), 1) 'Importe'
+		,dbo.fnCantidadLetra(mImporteCheque) 'CantidadLetra'
+		,cConcepto 'cDescripcionPoliza'
+		,nFolioPolizaPago as nFolioPoliza
+		,fAplicacion 'Fecha'
+	FROM dbo.tChequeEncabezado CH
+	WHERE nFolioCheque=@FolioCheque5
+END
+-----------------------------------------------
+
+else IF (@tipo=6)--impresion de cheques PARA CAJA (LAUDOS)
+BEGIN
+	DECLARE @folioCaja6 VARCHAR(20) = (select isnull(@cxp,' '));
+	DECLARE @UnidadResponsable6 VARCHAR(3) = (SELECT ISNULL((SELECT cunidadejecutora FROM dbo.tcajaencabezado WHERE nFoliocaja=@folioCaja6 AND cDocumentoHaplicado='S'),''))
+	DECLARE @cConcepto6 NVARCHAR(500) = (SELECT ISNULL((SELECT cDescripcionPoliza FROM dbo.tcajaencabezado WHERE nFoliocaja=@folioCaja6 AND cDocumentoHaplicado='S'),''))
+	DECLARE @CTAB6 NVARCHAR(500) = (SELECT ISNULL((SELECT CTAB FROM dbo.tcajadetalle WHERE nFoliocaja =@folioCaja6 ),''))
+	DECLARE @crfc6 NVARCHAR(500) =  (SELECT ISNULL((SELECT  RFC FROM dbo.tcajadetalle WHERE nFoliocaja =@folioCaja6  ),''))
+	DECLARE @nimporte6 MONEY =      (SELECT ISNULL(( SELECT mMontoSolicitud FROM dbo.tcajaencabezado WHERE nFoliocaja =@folioCaja6 ),''))
+	DECLARE @nbanco6 NVARCHAR(100) = (SELECT DISTINCT strNombreBeneficiario FROM dbo.tUECuentasBancarias WHERE strClabe=@CTAB6)
+
+	UPDATE dbo.CF_SEQUENCE SET seq_value=seq_value+1 WHERE seq_name='CHEQUE '+@nbanco6
+	DECLARE @numecheque6 INT = (SELECT ISNULL((SELECT seq_value FROM dbo.CF_SEQUENCE WHERE seq_name='CHEQUE '+@nbanco6),''))
+	DECLARE @CentroContable6 VARCHAR(2) = (SELECT ISNULL( (select cCentrocontable from tcajaencabezado where nFoliocaja=@folioCaja6) ,' '))
+	DECLARE @FolioCheque6 INT = (SELECT ISNULL(MAX(nFolioCheque)+1,1) FROM dbo.tChequeEncabezado)
+
+	DECLARE @beneficiario_2 VARCHAR (300)=(SELECT ISNULL(cNombreBeneficiarioCheque+' '+capaternocheque+' '+camaternocheque,'')from tcajaencabezado WHERE nFoliocaja=@folioCaja6 AND cDocumentoHaplicado='S' )
+
+	INSERT INTO dbo.tChequeEncabezado
+			( aEjercicioFiscal ,cCentroContable ,cUnidadResponsable ,cRamo ,cCuentaBancaria ,nFolioCheque ,nNumCheque ,mImporteCheque ,cIdRFC ,caNoContrarrecibo ,fAplicacion ,
+			  fElaboracion ,fEntrega ,cConcepto ,U_LOGIN_captura ,U_LOGIN_revisa ,U_LOGIN_autoriza ,U_LOGIN_imprime ,cDocumentoHaplicado ,nFolioPoliza ,cTipoPoliza ,cUnidadResponsableContable ,
+			  nFolioPolizaCancelacion ,fCancelacion ,cDescripcionPoliza ,cTransferencia,cBeneficiarioAlternativo,nFolioPolizaPago)
+	SELECT (SELECT aEjercicioFiscal FROM dbo.tEjercicioFiscal WHERE cActivo = 1) , -- aEjercicioFiscal - char(4)
+			  @CentroContable6 , -- cCentroContable - varchar(2)
+			  @UnidadResponsable6 , -- cUnidadResponsable - varchar(4)
+			  '16' , -- cRamo - char(3)
+			  @CTAB6 , -- cCuentaBancaria - varchar(40)
+			  @FolioCheque6 , -- nFolioCheque - int
+			  @numecheque6 , -- nNumCheque - int
+			  @nimporte6 , -- mImporteCheque - money
+			  @crfc6 , -- cIdRFC - char(15)
+			  @folioCaja6 , -- caNoContrarrecibo - varchar(14)
+			  CONVERT(DATE, @FECHA, 102) , -- fAplicacion - date
+			  CONVERT(SMALLDATETIME, @FECHA, 102) , -- fElaboracion - smalldatetime
+			  CONVERT(SMALLDATETIME, @FECHA, 102)  , -- fEntrega - smalldatetime
+			  REPLACE(ISNULL(@cConcepto6,''),'... CON FOLIO '+ISNULL(@folioCaja6,''),'') + ' (Generación del cheque '+CAST(ISNULL(@numecheque6,'') AS VARCHAR(10))+' de la cuenta ' + ISNULL(@nbanco6,'') +')', -- cConcepto - varchar(400)
+			  @usuario , -- U_LOGIN_captura - varchar(32)
+			  @usuario , -- U_LOGIN_revisa - varchar(32)
+			  @usuario , -- U_LOGIN_autoriza - varchar(32)
+			  @usuario , -- U_LOGIN_imprime - varchar(32)
+			  'S' , -- cDocumentoHaplicado - char(1)
+			  0,
+			  'EG' , -- cTipoPoliza - varchar(2)
+			  'RHQ', -- cUnidadResponsableContable - varchar(3)
+			  0 , -- nFolioPolizaCancelacion - int
+			  NULL , -- fCancelacion - date
+			  '' , -- cDescripcionPoliza - varchar(160)
+			  NULL,  -- cTransferencia - varchar(20)
+			  @beneficiario_2,
+			  (SELECT nFolioPoliza FROM dbo.tcajaencabezado WHERE nFoliocaja=@folioCaja6 AND cDocumentoHaplicado='S' and ctipopoliza='EG') -- nFolioPolizaPago - int
+
+
+	INSERT INTO dbo.tChequeDetalle (cEjercicio ,cCentroContable ,cUnidadResponsable ,CTAB ,nFolioCheque ,nDocRenglon
+	 ,RFC ,cEvento ,mImporte,mImporteNegativo)
+		SELECT (SELECT aEjercicioFiscal FROM dbo.tEjercicioFiscal WHERE cActivo = 1)
+			,ISNULL(@CentroContable6,'10'),@UnidadResponsable6,@CTAB6,@FolioCheque6,1,@crfc6,'35_2_8_A',@nimporte6,-(@nimporte6)
+		union all
+		SELECT (SELECT aEjercicioFiscal FROM dbo.tEjercicioFiscal WHERE cActivo = 1)
+			,ISNULL(@CentroContable6,'10'),@UnidadResponsable6,@CTAB6,@FolioCheque6,2,@crfc6,'35_2_8_B',@nimporte6,-(@nimporte6)
+
+
+
+	SELECT CH.cIdRFC
+		,cBeneficiarioAlternativo cnombre
+		,CONVERT(varchar, CONVERT(MONEY, mImporteCheque), 1) 'Importe'
+		,dbo.fnCantidadLetra(mImporteCheque) 'CantidadLetra'
+		,cConcepto 'cDescripcionPoliza'
+		,nFolioPolizaPago as nFolioPoliza
+		,fAplicacion 'Fecha'
+	FROM dbo.tChequeEncabezado CH
+	WHERE nFolioCheque=@FolioCheque6
+END
+
+---------------------------------------------
+ELSE
+BEGIN
+	SELECT 'x' AS 'cIdRFC'
+		,'x' AS 'cnombre'
+		,'x' AS 'Importe'
+		,'x' AS 'CantidadLetra'
+		,'x' AS 'cDescripcionPoliza'
+		,'x' AS 'nFolioPoliza'
+		,'x' AS 'Fecha'
+END]]>
+	</queryString>
+	<field name="cIdRFC" class="java.lang.String"/>
+	<field name="cnombre" class="java.lang.String"/>
+	<field name="Importe" class="java.lang.String"/>
+	<field name="CantidadLetra" class="java.lang.String"/>
+	<field name="cDescripcionPoliza" class="java.lang.String"/>
+	<field name="nFolioPoliza" class="java.lang.String"/>
+	<field name="Fecha" class="java.lang.String"/>
+	<pageFooter>
+		<band height="792" splitType="Stretch">
+			<image scaleImage="RealHeight">
+				<reportElement x="0" y="0" width="612" height="792" uuid="7569d48d-6d65-474a-b99f-3e46799595b7">
+					<printWhenExpression><![CDATA[1==2]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA["C:\\Users\\ULISES\\Desktop\\cheque.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="383" y="47" width="206" height="20" uuid="eb96dbb3-6d3e-401f-a3da-092fdc97bb64"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="97" y="70" width="335" height="35" uuid="8a82d90f-b509-4f06-8199-24d365a588f3"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cnombre}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="454" y="89" width="135" height="18" uuid="aaa4db3e-90ec-4bd0-8e3f-52c23986ebe9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Importe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="26" y="289" width="552" height="50" uuid="8e5422c1-edae-4ed4-9bbf-4e91f469c80b"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cDescripcionPoliza}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="521" y="730" width="68" height="42" uuid="c0bcc830-aa54-40f2-b5d4-70bf496a12ff"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nFolioPoliza}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="437" y="696" width="76" height="18" uuid="0df97b39-bf58-48dc-94f9-ef74cb7ec249"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Importe}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="519" y="696" width="70" height="18" uuid="fa0a7da1-6c9f-4af0-977a-e7c5a96b9dc7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Importe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="14" y="118" width="418" height="20" uuid="fe7b5c24-a6f4-458d-866e-4ae5f74e90ee"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CantidadLetra}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="139" width="418" height="20" uuid="9e9d0cd5-d428-4e20-8289-89b5899fbfac"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[PARA ABONO EN CUENTA DEL BENEFICIARIO]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

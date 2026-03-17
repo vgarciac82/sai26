@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptPedidoClavesComplementarias"  pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0245201830476067"/>
+	<property name="ireport.x" value="69"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cEjercicio" class="java.lang.String"/>
+	<parameter name="cIdTipoPedido" class="java.lang.String"/>
+	<parameter name="cIdUnidadEjecutora" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<parameter name="nIdConsecutivo" class="java.lang.String"/>
+	<parameter name="formato" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[declare @cIdPedido varchar(40), @cEjercicio varchar(4);
+
+set @cIdPedido = $P{cIdTipoPedido}+'-'+ $P{cIdUnidadEjecutora}+'-'+ $P{nIdConsecutivo};
+set @cEjercicio = $P{cEjercicio};
+
+--set @cIdPedido = 'PE-B23-1';
+--set @cEjercicio = '2013';
+
+--SELECT
+--	'' AS EP,
+--	'' AS cPeriodo,
+--	'' AS mImporte,
+--	'' AS mTotal
+--UNION
+SELECT
+	tCD.EP,
+	mper.cPeriodo,
+	'$' + ISNULL(CONVERT(varchar,CONVERT(MONEY,tCD.mImporte), 1), '0.00') AS mImporte,
+	'$' + (SELECT ISNULL(CONVERT(varchar,CONVERT(MONEY,SUM(tCD.mImporte)), 1), '0.00') AS mTotal
+		FROM mPedido mp WITH(NOLOCK)
+			inner join pContratoDiverso pCD WITH(NOLOCK) ON
+			mp.cIdPedidoDefinitivo = pCD.cIdContrato
+			INNER JOIN tpreCompromisoEncabezado tCE WITH(NOLOCK) ON
+			pCD.cIdContrato = tCE.cIdContrato
+			INNER JOIN tpreCompromisoDetalle tCD WITH(NOLOCK) ON
+			tCE.nFoliopreCompromiso = tCD.nFolioPreCompromiso
+			WHERE mp.cIdPedido = @cIdPedido and tce.C_FOLIO_COMP is not null
+			AND mp.cEjercicio = @cEjercicio
+			GROUP BY mp.cIdPedido)
+		AS mTotal,
+		substring(tCD.EP,len(tCD.EP) - charindex('.', reverse(tCD.EP))+2,3 )as ue,
+		mp.cIdUnidadEjecutora+' '+v.D_DESCRIPCION as _Unidad_RM,
+		mp.cIdPedido
+FROM mPedido mp WITH(NOLOCK)
+	INNER JOIN pContratoDiverso pCD WITH(NOLOCK) ON
+	mp.cIdPedidoDefinitivo = pCD.cIdContrato
+	INNER JOIN tpreCompromisoEncabezado tCE WITH(NOLOCK) ON
+	pCD.cIdContrato = tCE.cIdContrato
+	INNER JOIN tPreCompromisoDetalle tCD WITH(NOLOCK) ON
+	tCE.nFoliopreCompromiso = tCD.nFoliopreCompromiso
+	INNER JOIN mCatalogoPeriodo mPer WITH(NOLOCK) ON
+	tCD.cMes = mPer.nIdPeriodo
+	inner join v_unidadEjecutoraPadre as v  WITH(NOLOCK) on
+	v.cUnidadResponsable=mp.cIdUnidadEjecutora
+WHERE mp.cIdPedido = @cIdPedido and tce.C_FOLIO_COMP is not null
+AND mp.cEjercicio = @cEjercicio
+AND tcd.cEvento not in ('APTDDISP')
+group by tCD.EP,mper.cPeriodo,tCD.mImporte,mPer.nIdPeriodo,mp.cIdUnidadEjecutora,v.D_DESCRIPCION,mp.cIdPedido
+order by ue,nIdPeriodo]]>
+	</queryString>
+	<field name="EP" class="java.lang.String"/>
+	<field name="cPeriodo" class="java.lang.String"/>
+	<field name="mImporte" class="java.lang.String"/>
+	<field name="mTotal" class="java.lang.String"/>
+	<field name="ue" class="java.lang.String"/>
+	<field name="_Unidad_RM" class="java.lang.String"/>
+	<field name="cIdPedido" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="3" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="155" y="5" width="449" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="717" y="5" width="33" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="665" y="5" width="25" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="625" y="5" width="40" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Página]]></text>
+			</staticText>
+			<image>
+				<reportElement x="3" y="2" width="152" height="47"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"\\CONAFOR_NvoLogoDic2013_HD_Horizontal.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="694" y="5" width="18" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[de ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="155" y="18" width="449" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{_Unidad_RM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="625" y="31" width="87" height="13"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{cEjercicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="155" y="32" width="449" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cIdPedido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="19" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="6" width="91" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mes]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="16" width="748" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="94" y="6" width="510" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Clave]]></text>
+			</staticText>
+			<line>
+				<reportElement x="3" y="5" width="747" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="625" y="6" width="87" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField>
+				<reportElement x="94" y="2" width="510" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{EP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="2" width="91" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cPeriodo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="625" y="2" width="87" height="13"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mImporte}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="3" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="2" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="625" y="0" width="87" height="18"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mTotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="94" y="0" width="510" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total en EP´s]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

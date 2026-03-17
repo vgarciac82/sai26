@@ -202,7 +202,7 @@ public class EjercidoPagadoManager extends DataSourceManager {
             }
             querySelect += groupBy + orderBy;
             stmnt = conn.createStatement();
-            log.debug("Object: {}", "Se ejecutara: " + querySelect);
+            log.debug("Object: " + String.valueOf("Se ejecutara: " + querySelect));
             rs = stmnt.executeQuery(querySelect);
             log.trace("Consulta ejecutada.");
             while (rs.next()) {
@@ -311,7 +311,7 @@ public class EjercidoPagadoManager extends DataSourceManager {
                 query = "SELECT SUM(mImporteMasIva) as monto,nFolioRELACIONGASTOS as monto FROM tRELACIONGASTOSDetalle (NOLOCK) WHERE nFolioRELACIONGASTOS = " + folio + " GROUP BY nFolioRELACIONGASTOS ";
             }
             ps = conn.prepareStatement(query);
-            log.debug("Object: {}", ps.toString());
+            log.debug("Object: " + String.valueOf(ps.toString()));
             rs = ps.executeQuery();
             if (rs.next()) {
                 monto = rs.getFloat("monto");
@@ -341,7 +341,7 @@ public class EjercidoPagadoManager extends DataSourceManager {
             conn = getConnection();
             String query = "SELECT cRetSICOP FROM tComprobacionLaudos (NOLOCK) WHERE nFolioRELACIONGASTOS = " + folio;
             ps = conn.prepareStatement(query);
-            log.debug("Object: {}", ps.toString());
+            log.debug("Object: " + String.valueOf(ps.toString()));
             rs = ps.executeQuery();
             if (rs.next()) {
                 cRetSICOP = rs.getString("cRetSICOP");

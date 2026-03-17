@@ -226,7 +226,7 @@ public class PagoProgFederalizadosManager {
             //PSC
             String Sql = " SELECT nFolioPAGOFEDERALIZADO, 'H' H, cRamo, 'RHQ', '' SOL_PAGO, '3', caNoContrarrecibo FOLIO_INTERNO, caNoContrarrecibo COMODIN " + " FROM tPAGOFEDERALIZADOEncabezado (NOLOCK) " + " WHERE nFolioPAGOFEDERALIZADO in (" + listaIds + ") " + " ORDER BY nFolioPAGOFEDERALIZADO";
             pstmntH = conn.prepareStatement(Sql);
-            Log.debug("Object: {}", Sql);
+            Log.debug("Object: " + String.valueOf(Sql));
             rs = pstmntH.executeQuery();
             while (rs.next()) {
                 String nFolioCompromiso = rs.getString(1);
@@ -403,7 +403,7 @@ public class PagoProgFederalizadosManager {
         sql.append(" WHERE tCE.nFolioPAGOFEDERALIZADO in (" + listaIds + ") ");
         sql.append(" order by tCE.nFolioPAGOFEDERALIZADO ");
         pstmntH = conn.prepareStatement(sql.toString());
-        Log.debug("Object: {}", sql.toString());
+        Log.debug("Object: " + String.valueOf(sql.toString()));
         rs = pstmntH.executeQuery();
         return rs;
     }

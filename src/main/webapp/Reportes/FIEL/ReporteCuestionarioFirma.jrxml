@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reportecuestionario" pageWidth="612" pageHeight="792" columnWidth="528" leftMargin="42" rightMargin="42" topMargin="40" bottomMargin="40" uuid="65638628-8106-46a0-a84e-6bc60346c0b6">
+	<property name="ireport.zoom" value="1.2722928551174564"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="147"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="c5c94599-553e-4012-8bf7-97b8fe09038a"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cIdSolicitud" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select req.cidsolicitud, req.nIdPregunta, cRespuesta, uLogin, convert(varchar,fCuestionario,103)  fCuestionario, cPregunta, cActionYes, cActionNo
+		, dbo.Fn_Mayusc_Formato( usu.U_NOMBRE) U_NOMBRE
+		, ISNULL( dbo.Fn_Mayusc_Formato(DESCRIPCION_PUESTO), '') DESCRIPCION_PUESTO, fiel.cAplica15D
+        , case when cRespuesta = 'N' then 'No' else 'Si' end respuesta
+		, cat.cNombre + ' ' + cat.cPaterno + ' ' + cat.cMaterno NombreFirmante, cPuesto puestoFirmante
+        from tCuestionarioRequisicion req (nolock)
+        inner join tCuestionarioContratacion cont (nolock)
+        on req.nIdPregunta = cont.nIdPregunta
+		inner join tCuestionarioRequisicionFIEL fiel (nolock)
+		on req.cIdSolicitud = fiel.cIdSolicitud
+        inner join CG_USUARIO  usu (nolock)
+        on usu.U_LOGIN = req.uLogin
+		left join v_empleados_giro emp (nolock)
+		on usu.cNumeroEmpleado = emp.CLAVE
+		inner join  mSolicitudFirmantes sol (nolock)
+		on sol.cIdSolicitud = req.cidsolicitud
+		inner join mCatalogoFirmantes cat (nolock)
+		on sol.nIdFirmante = cat.nIdFirmante and sol.cIdUnidadEjecutora = cat.cIdUnidadEjecutora
+        where req.cIdSolicitud = $P!{cIdSolicitud}]]>
+	</queryString>
+	<field name="U_NOMBRE" class="java.lang.String"/>
+	<field name="cPregunta" class="java.lang.String"/>
+	<field name="fCuestionario" class="java.lang.String"/>
+	<field name="respuesta" class="java.lang.String"/>
+	<field name="uLogin" class="java.lang.String"/>
+	<field name="cIdSolicitud" class="java.lang.String"/>
+	<field name="DESCRIPCION_PUESTO" class="java.lang.String"/>
+	<field name="cAplica15D" class="java.lang.String"/>
+	<field name="puestoFirmante" class="java.lang.String"/>
+	<field name="NombreFirmante" class="java.lang.String"/>
+	<group name="Nivel4">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupFooter>
+			<band height="156">
+				<staticText>
+					<reportElement x="37" y="5" width="450" height="116" uuid="4f64694a-c000-4331-8352-1d61c50b5197">
+						<printWhenExpression><![CDATA[$F{cAplica15D}.equals( "S" )]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="9"/>
+					</textElement>
+					<text><![CDATA[Derivado a que te aplica el art 15D deberas contar en tu expediente de seguimiento al contrato con la siguiente documentación complementaria :
+•   Registro a que se refiere el artículo 15 de la Ley federal del trabajo,
+•   Copia de los comprobantes fiscales por concepto de pago de salarios de los trabajadores con los que le
+    hayan proporcionado el servicio o ejecutado la obra correspondiente
+•  Recibo de pago expedido por institución bancaria por la declaración de entero de las retenciones de
+    impuestos efectuadas a dichos trabajadores
+•  Pago de las cuotas obrero-patronales al Instituto Mexicano del Seguro Social, así como del pago de las
+    aportaciones al Instituto del Fondo Nacional de la Vivienda para los Trabajadores
+•  Copia de la declaración del impuesto al valor agregado y del acuse de recibo del pago correspondiente al
+    periodo en que el contratante efectuó el pago de la contraprestación y del impuesto al valor agregado que le
+    fue trasladado.
+]]></text>
+				</staticText>
+				<line>
+					<reportElement x="20" y="129" width="493" height="1" uuid="99d260c6-d093-4871-b00a-eda02bec93e8">
+						<printWhenExpression><![CDATA[$F{cAplica15D}.equals( "S" )]]></printWhenExpression>
+					</reportElement>
+				</line>
+				<line>
+					<reportElement x="496" y="50" width="1" height="106" uuid="1e73abe9-eb2b-4a62-8e94-2acfdd63dbc7">
+						<printWhenExpression><![CDATA[$F{cAplica15D}.equals( "S" )]]></printWhenExpression>
+					</reportElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<pageHeader>
+		<band height="117" splitType="Stretch">
+			<image>
+				<reportElement x="30" y="1" width="305" height="50" uuid="2aca2120-79bc-4a2b-90b0-2f98f45826a3"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\LogoCNF_2023.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="11" y="51" width="509" height="24" uuid="4f6e78a3-a6ed-4ae7-a385-4fa71ccdc9df"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="16"/>
+				</textElement>
+				<text><![CDATA[CUESTIONARIO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="200" y="82" width="320" height="14" uuid="e994ab69-dab2-401e-b88c-702ce7fa5d2b"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{U_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="32" y="82" width="170" height="14" uuid="d099497c-c776-498c-81df-45bf6c798e8d"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Este cuestionario fue respondido por]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="39" width="39" height="14" uuid="d46cc1d0-86c3-4369-803b-e1f2d19410fc"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="429" y="39" width="84" height="12" uuid="8ce50e13-5b54-48f4-9233-b96322038dfc"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fCuestionario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="138" y="95" width="382" height="14" uuid="a267d3e5-9243-4bc9-9ff7-5d94f15cb3c5"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION_PUESTO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="32" y="95" width="156" height="14" uuid="2a755443-7fe3-4409-96c3-a6dcd9af961a"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[ocupando el puesto de]]></text>
+			</staticText>
+			<line>
+				<reportElement x="9" y="76" width="488" height="1" uuid="fc7ac947-2816-44a1-8088-abf90403f8e9"/>
+			</line>
+			<line>
+				<reportElement x="27" y="15" width="1" height="95" uuid="7e1ec176-1e27-4efb-865d-28c84a1564c7"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<rectangle>
+				<reportElement x="29" y="0" width="468" height="18" uuid="288f8950-3128-41a2-b494-141ef69bd687"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="40" y="0" width="100" height="14" uuid="b725453a-bb47-43f0-b31b-c7f27c093cfa"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Pregunta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="0" width="70" height="14" uuid="6a7f3a5d-56ce-4d1a-9020-7ac2752126b6"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Respuesta]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="29" y="-1" width="468" height="29" isPrintWhenDetailOverflows="true" uuid="ec710f5a-5885-4eee-9a14-ffdbae9041e7"/>
+			</rectangle>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="40" y="2" width="387" height="20" isPrintWhenDetailOverflows="true" uuid="c78e402c-0658-4301-9d51-b28e99a16fc0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cPregunta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="427" y="2" width="70" height="20" uuid="8b9edf8d-0ec2-4ad8-8dd6-f57506d06836"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{respuesta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="127">
+			<staticText>
+				<reportElement x="37" y="2" width="469" height="15" uuid="8e3a5089-0980-4728-b413-a7b993732805"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bajo protesta de decir verdad declaramos que este cuestionario contiene datos correctos y son responsabilidad del emisor.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="17" width="469" height="15" uuid="053f9118-e448-4d9c-8cdb-0edddd09f24e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ATENTAMENTE]]></text>
+			</staticText>
+			<line>
+				<reportElement x="140" y="89" width="263" height="1" uuid="989ad45f-5d27-4a3f-bfcb-1ddb4c27d5fa"/>
+			</line>
+			<textField>
+				<reportElement x="86" y="89" width="371" height="18" uuid="ed71168d-a915-4cbd-b344-8d24730bec50"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreFirmante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="101" width="371" height="20" uuid="ffae159a-dbfb-4bbd-b744-f7fd11544481"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{puestoFirmante}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="110">
+			<image>
+				<reportElement x="18" y="10" width="506" height="98" uuid="ee126157-984d-4176-953d-62a634d9215f"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\LogoPiePagina_2023.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>

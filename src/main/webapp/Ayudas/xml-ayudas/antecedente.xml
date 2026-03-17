@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!-- Ayuda Asuntos -->
+<Ayuda>
+	<titulo>Asuntos registrados</titulo>
+	<anchoWin>900</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>280</altoAreaCaptura>
+	<tabla>IMXEXPEDIENTES</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<!-- 
+		<columna campo="FOLIO" 				control="antecedente"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""								header="Folio"					rowCol="1,1"	ancho="20"		maxlen="20"			tipo="string"	visible="Si"	clase=""	concatena="S"/>
+		<columna campo="REFERENCIA" 		control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Referencia"				rowCol="1,2"	ancho="20"		maxlen="20"			tipo="string"	visible="Si"	clase=""	concatena="N"/>
+		<columna campo="ALCANCE"			control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Alcance"				rowCol="2,1"	ancho="20"		maxlen="40"			tipo="string"	visible="Si"	clase=""	concatena="N"/>
+		<columna campo="ANTECEDENTE"		control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Antecedente"			rowCol="2,2"	ancho="20"		maxlen="40"			tipo="string"	visible="Si"	clase=""	concatena="N"/>
+		<columna campo="ASUNTO"				control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Asunto"					rowCol="3,1"	ancho="40"		maxlen="1000"		tipo="string"	visible="Si"	clase=""	concatena="N"/>
+		<columna campo="DPC_F_REGISTRO"		control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0"					header="Fecha registro"			rowCol="4,1"	ancho="10"		maxlen="10"			tipo="fecha"	visible="Si"	clase="" 	concatena="N"	opFecha="BETWEEN"/>
+		<columna campo="REM_IN_U_NOMBRE"	control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Nombre Rem. Int."		rowCol="5,1"	ancho="30"		maxlen="100"		tipo="string"	visible="Si"	clase=""	concatena="N"/>
+		<columna campo="REM_IN_PTO_NOM"		control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Puesto Rem. Int."		rowCol="5,2"	ancho="30"		maxlen="200"		tipo="string"	visible="Si"	clase=""	concatena="N"/>
+		<columna campo="REM_IN_D_DESC"		control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Área Rem. Int."			rowCol="5,3"	ancho="30"		maxlen="100"		tipo="string"	visible="Si"	clase=""	concatena="N"/>
+		<columna campo="RE_NOMBRE"			control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Nombre Rem. Int."		rowCol="6,1"	ancho="30"		maxlen="100"		tipo="string"	visible="Si"	clase=""	concatena="N"/>
+		<columna campo="RE_CARGO"			control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Puesto Rem. Int."		rowCol="6,2"	ancho="30"		maxlen="200"		tipo="string"	visible="Si"	clase=""	concatena="N"/>
+		<columna campo="RE_PROCEDENCIA"		control="re_procedencia"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Procedencia Rem Ext."	rowCol="6,3"	ancho="50"		maxlen="80"			tipo="string"	visible="Si"	clase="AyudaSyC"	concatena="N"/>											
+ 		-->
+		<columna campo="FOLIO" 				control="antecedente"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""								header="Folio"					rowCol="1,1"	ancho="20"		maxlen="20"			tipo="string"	visible="Si"	clase=""	concatena="S"/>
+		<columna campo="REFERENCIA" 		control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Referencia"				rowCol="1,2"	ancho="20"		maxlen="20"			tipo="string"	visible="Si"	clase=""	concatena="N"/>
+		<columna campo="ALCANCE"			control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Alcance"				rowCol="2,1"	ancho="20"		maxlen="40"			tipo="string"	visible="Si"	clase=""	concatena="N"/>
+		<columna campo="ANTECEDENTE"		control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Antecedente"			rowCol="2,2"	ancho="20"		maxlen="40"			tipo="string"	visible="Si"	clase=""	concatena="N"/>
+		<columna campo="ASUNTO"				control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Asunto"					rowCol="3,1"	ancho="40"		maxlen="1000"		tipo="string"	visible="Si"	clase=""	concatena="N"/>
+		<columna campo="DPC_F_REGISTRO"		control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0"					header="Fecha registro"			rowCol="4,1"	ancho="10"		maxlen="10"			tipo="fecha"	visible="Si"	clase="" 	concatena="N"	opFecha="BETWEEN"/>
+		<columna campo="REMINU_NOMBRE"		control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Nombre Rem. Int."		rowCol="5,1"	ancho="30"		maxlen="100"		tipo="string"	visible="Si"	clase=""	concatena="N"/>
+		<columna campo="REMINPTONOM"		control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Puesto Rem. Int."		rowCol="5,2"	ancho="30"		maxlen="200"		tipo="string"	visible="Si"	clase=""	concatena="N"/>
+		<columna campo="REMINDDESC"			control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Área Rem. Int."			rowCol="5,3"	ancho="30"		maxlen="100"		tipo="string"	visible="Si"	clase=""	concatena="N"/>
+		<columna campo="RENOMBRE"			control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Nombre Rem. Int."		rowCol="6,1"	ancho="30"		maxlen="100"		tipo="string"	visible="Si"	clase=""	concatena="N"/>
+		<columna campo="RECARGO"			control=""					dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Puesto Rem. Int."		rowCol="6,2"	ancho="30"		maxlen="200"		tipo="string"	visible="Si"	clase=""	concatena="N"/>
+		<columna campo="REPROCEDENCIA"		control="re_procedencia"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol0,txtGridCol1"		header="Procedencia Rem Ext."	rowCol="6,3"	ancho="50"		maxlen="80"			tipo="string"	visible="Si"	clase="AyudaSyC"	concatena="N"/>											
+	</grid> 
+
+</Ayuda>

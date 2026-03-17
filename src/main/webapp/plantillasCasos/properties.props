@@ -1,0 +1,6 @@
+smtphost=correo.syc.com.mx
+smtpuser=ethiel.jimenez
+smtppasswd=chara1
+smtpport=587
+smtpauth=true
+smtpfrom=gestion_ANP@vasconia.com

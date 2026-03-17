@@ -115,7 +115,7 @@ public class ImportaLayoutServlet extends HttpServlet {
             String sufijo = fecha.format(date);
             // String path = req.getRealPath("/upload/"+
             // req.getSession().getAttribute(empleado.getClaveUsuario()));
-            path = request.getRealPath("/upload/");
+            path = getServletContext().getRealPath("/upload/");
             File file = new File(path);
             if (!file.exists()) {
                 file.mkdirs();
@@ -146,7 +146,7 @@ public class ImportaLayoutServlet extends HttpServlet {
                 FileItem actual = null;
                 while (i.hasNext()) {
                     actual = (FileItem) i.next();
-                    File archivo = new File(fu.getRepositoryPath() + "\\" + fileName);
+                    File archivo = new File(System.getProperty("java.io.tmpdir") + "\\" + fileName);
                     actual.write(archivo.toPath());
                 }
             } catch (Exception e) {
@@ -158,7 +158,7 @@ public class ImportaLayoutServlet extends HttpServlet {
             String uUR = usuario.getU_UR();
             List<String> arrResultado = null;
             try {
-                arrResultado = conAPP.validaArchivo(fu.getRepositoryPath() + "\\" + fileName, c, usuario, Integer.parseInt(cLayout), fileName, "2013", uUR);
+                arrResultado = conAPP.validaArchivo(System.getProperty("java.io.tmpdir") + "\\" + fileName, c, usuario, Integer.parseInt(cLayout), fileName, "2013", uUR);
             } catch (NumberFormatException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -232,7 +232,7 @@ public class ImportaLayoutServlet extends HttpServlet {
     public ArrayList<String> cargaExcel(String archivo, String tipo) throws SQLException {
         DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
-        String cFileExcel = upload.getRepositoryPath() + "/TechosAnteProyecto.xls";
+        String cFileExcel = getServletContext().getRealPath("/upload") + "/TechosAnteProyecto.xls";
         ArrayList<String> un = new ArrayList<String>();
         AnteProyectoBusinessLogic apBL = new AnteProyectoBusinessLogic("");
         try {
@@ -476,7 +476,7 @@ public class ImportaLayoutServlet extends HttpServlet {
             // El tamaño no importa
             fu.setFileSizeMax(-1);
             // Si excede el 1 Gb en memoria lo
-            fu.setSizeThreshold(1048576);
+            // setSizeThreshold movido a DiskFileItemFactory.builder().setBufferSize(1048576)
             // escribe a disco
             szPath = getServletContext().getRealPath("/upload/ante");
             File file = new File(szPath);

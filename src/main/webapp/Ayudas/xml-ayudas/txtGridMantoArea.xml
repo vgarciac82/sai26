@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Ayuda CG Remitente Area -->
+<Ayuda>
+	<titulo>Ayuda Catálogo Area</titulo>
+	<anchoWin>900</anchoWin>
+	<altoWin>700</altoWin>
+	<altoAreaCaptura>140</altoAreaCaptura>
+	<tabla>CG_CAT_AREAS_COB</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="ur.ID_AREA"				control="txtGridMantoIDArea"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave"				ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="a.D_DESCRIPCION"		control="txtGridMantoArea"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Nombre"				ancho="140"	maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="UR.cUnidadResponsable"	control=""						dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Unidad Ejecutora"	ancho="5"	maxlen="3"		tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+</Ayuda>

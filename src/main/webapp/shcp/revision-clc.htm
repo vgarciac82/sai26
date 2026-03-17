@@ -1,0 +1,383 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>CLC Ministración</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link href="../css/afirme.css" rel="stylesheet">
+		<link href="../css/scrolltable.css" rel="stylesheet">
+		<script type="text/javascript" src="js/sapf.js"></script>
+		<script type="text/javascript" src="js/prototype.js"></script>
+		<script type="text/javascript" src="js/event-selectors.js"></script>
+		<script type="text/javascript" src="js/rules.js"></script>
+		<script type="text/javascript" src="js/formchek.js"></script>
+	</head>
+
+	<body onload="EventSelectors.start(Rules)">
+	<form name="clc-ministracion">
+		<h4>
+			Fecha, Usuario y Unidad
+		</h4>
+		<table class="tableinfo">
+			<tr>
+				<td nowrap>
+					<table cellspacing="0" cellpadding="2" border="0" align="center" width="100%">
+						<tr id="trdark">
+							<td nowrap align="right">
+								Fecha de Captura:
+							</td>
+							<td nowrap>
+								<input name="fecha_exp" type="text" id="fecha_exp" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td nowrap align="right">
+								Fecha de Aplicación:
+							</td>
+							<td nowrap>
+								<input name="fecha_apl" type="text" id="fecha_apl" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td nowrap align="right">
+								Usuario Responsable:
+							</td>
+							<td nowrap>
+								<input name="usr_clave_cr" type="text" id="usr_clave_cr" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td nowrap colspan=2>
+								&nbsp;
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td nowrap align="right">
+								Ramo:
+							</td>
+							<td nowrap>
+								<input name="ram_clave_cr" type="text" id="ram_clave_cr" class="reqWhiteAlfNum">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td nowrap align="right">
+								Unidad:
+							</td>
+							<td nowrap>
+								<input name="uni_clave_cr" type="text" id="uni_clave_cr" class="reqWhiteAlfNum">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<h4>
+			Datos CLC
+		</h4>
+		<table class="tableinfo">
+			<tr>
+				<td nowrap>
+					<table cellspacing="0" cellpadding="2" border="0" align="center" width="100%">
+						<tr id="trdark">
+							<td align="right">
+								Tipo de CLC:
+							</td>
+							<td nowrap>
+								<select name="tipo_clc id="tipo_clc">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+								</select>
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td align="right">
+								Clave de Leyenda:
+							</td>
+							<td nowrap>
+								<select name="cve_leyenda" id="cve_leyenda">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+								</select>
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td align="right">
+								Com. Hab.:
+							</td>
+							<td nowrap>
+								<select name="comh" id="comh">
+									<option value="S">S</option>
+									<option value="N">N</option>
+								</select>
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td align="right">
+								Concepto:
+							</td>
+							<td>
+								<input name="cpag" type="text" id="cpag" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td align="right">
+								Referencia 1:
+							</td>
+							<td nowrap>
+								<input name="referencia1" type="text" id="referencia1" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td align="right">
+								Referencia 2:
+							</td>
+							<td>
+								<input name="referencia2" type="text" id="referencia2" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td align="right">
+								Fecha Ref.:
+							</td>
+							<td nowrap>
+								<input name="ref_fecha1" type="text" id="ref_fecha1" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td align="right">
+								CLC:
+							</td>
+							<td>
+								<input name="nclc1" type="text" id="nclc1" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td align="right">
+								Total:
+							</td>
+							<td nowrap>
+								<input name="total" type="text" id="total" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td align="right">
+								Firma:
+							</td>
+							<td>
+								<input name="cfir" type="text" id="cfir" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td align="right">
+								Estimación:
+							</td>
+							<td nowrap>
+								<input name="nestim" type="text" id="nestim" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td align="right" colspan=3>
+								&nbsp;
+							</td>
+						</tr>
+						<tr id="trdark">
+							<td align="right">
+								Fecha de Pago:
+							</td>
+							<td nowrap>
+								<input name="fecha_pago" type="text" id="fecha_pago" class="reqWhiteAlf">
+								<img src="../images/required.gif" alt="Campo Obligatorio" align="bottom" border="0">
+							</td>
+							<td align="right" colspan=3>
+								&nbsp;
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<h4>
+			Detalle
+		</h4>
+
+		<table class="tableinfo">
+			<tr>			
+
+			  <td width="100%" height="100%" align="center">
+			    <div id="tableContainer" class="tableContainer" style="overflow: auto; width: 950px; height: 400px; border: 1">
+			      <table  class="scrollTable">
+				<thead class="fixedHeader" id="fixedHeader">
+				  <tr>
+				    <th nowrap>&nbsp;</th>
+				    <th nowrap>No.</th>
+				    <th nowrap>SECU</th>
+				    <th nowrap>Evento</th>
+				    <th nowrap>Ram</th>
+				    <th nowrap>Uni</th>
+				    <th nowrap>Año</th>
+				    <th nowrap>GFU</th>
+				    <th nowrap>Año</th>
+				    <th nowrap>FUN</th>
+				    <th nowrap>SFU</th>
+				    <th nowrap>PGR</th>
+				    <th nowrap>ACP</th>
+				    <th nowrap>CAP</th>
+				    <th nowrap>CON</th>
+				    <th nowrap>PAR</th>
+				    <th nowrap>TGA</th>
+				    <th nowrap>CFIN</th>
+				    <th nowrap>LGL</th>
+				    <th nowrap>SLG</th>
+				    <th nowrap>CAU</th>
+				    <th nowrap>COP</th>
+				    <th nowrap>TDOC</th>
+				    <th nowrap>CONTRARECIBO</th>
+				    <th nowrap>A.A.</th>
+				    <th nowrap>BEN</th>
+				    <th nowrap>CTA. BANCO</th>
+				    <th nowrap>TP</th>
+				    <th nowrap>CONTRATO</th>
+				    <th nowrap>PEDIDO</th>
+				    <th nowrap>QNA</th>
+				    <th nowrap>IVA</th>
+				    <th nowrap>ANTICIPO</th>
+				    <th nowrap>IVA ANT</th>
+				    <th nowrap>IMPORTE</th>
+				    <th nowrap>MES</th>
+				    <th nowrap>IMP. NETO</th>
+				    <th nowrap>TIPO CAMBIO</th>
+				    <th nowrap>TMON</th>
+				    <th nowrap>IMP. DIVISA</th>
+				    <th nowrap>U. GLOSA</th>
+				  </tr>
+			        </thead>
+				
+			        <tbody class="scrollContent">
+
+				  <%	if (l.isEmpty()) { %>
+				  <!--
+				    <tr class="alternateRow">
+				      <td colspan="6">No hay operaciones disponibles</td>
+				      <td>&nbsp;</td>
+				    </tr>
+				  -->
+				  <%	} else {
+					int row = 0;
+					for (Iterator iter = l.iterator(); iter.hasNext(); row++) {
+						CasoOperacion co = (CasoOperacion) iter.next();
+						int prom = abl.getPromedioTimestampAfirme(co.getIdCaso(), co.getIdCasoOper(), co.getFechaInicio(),
+							new Timestamp(System.currentTimeMillis()), co.getTiempoLimite());
+						totales[Util.getPromedioIndex(prom)]++;
+		
+						if (Util.notInFilter(promFilter, prom))
+							continue;
+
+						Caso   c  = ct.getCaso(co.getIdCaso());
+						String CN = c.getCasoDato("CENTRONEGOCIO").getValor();
+						String NE = c.getCasoDato("EJEC_RESP").getValor();
+						String N  = c.getCasoDato("NOMBRE").getValor();
+						String AP = c.getCasoDato("APPATERNO").getValor();
+						String AM = c.getCasoDato("APMATERNO").getValor();
+						String fullName = (N == null? "": N) + " " + (AP == null? "": AP) + " " + (AM == null? "": AM) + " ";
+				  %>
+
+				  <!--
+				  <tr class="<%=((row % 2) == 0 ? Util.getColorName(prom) + "AlternateRow" : Util.getColorName(prom) + "NormalRow")%>">
+				    <td>1</td>
+				    <td>1</td>
+				    <td>1</td>
+				    <td>1</td>
+				    <td>1</td>
+				    <td>1</td>
+				  </tr>
+				  -->
+
+				  <TR>
+				    <TH NOWRAP><INPUT TYPE=radio NAME=ssf_4 VALUE=1 CHECKED></TH>
+				    <TD NOWRAP>1</TD>
+				    <TD NOWRAP>1</TD>
+				    <TD NOWRAP><INPUT TYPE=text NAME=i_1_no VALUE="401CLC" SIZE=6></TD>
+				    <TD NOWRAP><INPUT TYPE=text NAME=i_1_ram_clave_ml VALUE="6" SIZE=1></TD>
+				    <TD NOWRAP><INPUT TYPE=text NAME=i_1_uni_clave_ml VALUE="610" SIZE=3></TD>
+				    <TD NOWRAP><INPUT TYPE=text NAME=i_1_nep2__cani VALUE="610" SIZE=3></TD>
+				    <TD NOWRAP><INPUT TYPE=text NAME=i_1_nep2__cgfu VALUE="610" SIZE=3></TD>
+				    <TD NOWRAP><INPUT TYPE=text NAME=i_1_uni_clave_ml VALUE="610" SIZE=3></TD>
+				    <TD NOWRAP><INPUT TYPE=text NAME=i_1_uni_clave_ml VALUE="610" SIZE=3></TD>
+				    <TD NOWRAP><INPUT TYPE=text NAME=i_1_uni_clave_ml VALUE="610" SIZE=3></TD>
+				    <TD NOWRAP><INPUT TYPE=text NAME=i_1_uni_clave_ml VALUE="610" SIZE=3></TD>
+				    <TD NOWRAP><INPUT TYPE=text NAME=i_1_uni_clave_ml VALUE="610" SIZE=3></TD>
+				    <!--
+				    <TD NOWRAP><INPUT TYPE=text NAME=i_1_no VALUE="401CLC" disabled onFocus="radio(4,0);" SIZE=6></TD>
+				    -->
+				  </TR>
+				
+				<%	}
+				}%>
+				
+			      </tbody>
+	        	      </table>
+	      		    </div>
+      			  </td>
+			
+<!--
+NEP2__CFUN
+NEP2__CSFU
+NEP2__CPRG
+NEP2__CAIN
+NEP2__CACP
+NEP2__CCAP
+NEP2__CCON
+NEP2__CPAR
+NEP2__CTGA
+NEP2__CFIN
+NEP2__CLGL
+NEP2__CSLG
+NEP2__CLIC
+NEP2__CCOP
+TDOC
+NCTR
+AVAD
+CBEN
+CTAB
+TPAG
+NCTO
+NPED
+NQNA
+IVA
+ANTICIPO
+IVAANT
+IMPORTE
+NMES
+IMP_NETO
+TCAM
+TMON
+IMP_DIVISA
+CUNR_GLO
+					  <TR>
+					    <TH NOWRAP><INPUT TYPE=radio NAME=ssf_4 VALUE=1 CHECKED></TH>
+					    <TD NOWRAP><INPUT TYPE=text NAME=i_1_nep2__cgfu VALUE="Distribucion por Unidad de Negocio" SIZE=34 disabled
+					     onFocus="radio(4,0);" MAXLENGTH=254></TD>
+					    <TD NOWRAP><A HREF="javascript:void openModalWindow(&quot;doc_distribucion.scr?action_flag=2&amp;doc_linea=116241&amp;proc_clave=DISTRIBUCION&amp;prcs_clave=02060DISTRIBUCION________0000000045&amp;pc_clave=1&amp;paso_id=10&amp;ddoc_clave=DOC_DISTRIBUCION&amp;gSID=L340P4.27470300.0827&quot;,610,810)">02060-0000000045</A></TD>
+					    <TD NOWRAP><INPUT TYPE=text NAME=i_1_etq_texto_paso VALUE="Creacion de Distribuccion por Unidad de Negocio" SIZE=49 disabled
+					     onFocus="radio(4,0);" MAXLENGTH=254></TD>
+					    <TD NOWRAP><INPUT TYPE=text NAME=i_1_pc_status VALUE="RESERVADO" SIZE=11 disabled
+					     onFocus="radio(4,0);" MAXLENGTH=12></TD>
+					    <TD NOWRAP><INPUT TYPE=text NAME=i_1_usr_clave VALUE="JRAMOS" SIZE=20 size=20 disabled
+					     onFocus="radio(4,0);" MAXLENGTH=20></TD>
+					    <TD NOWRAP><INPUT TYPE=text NAME=i_1_pc_last_exec VALUE="11/05/2007 18:47" SIZE=16 disabled
+					     onFocus="radio(4,0);" MAXLENGTH=17></TD>
+					    <TD NOWRAP><INPUT TYPE=text NAME=i_1_pc_error_code VALUE="" SIZE=25 disabled
+					     onFocus="radio(4,0);" MAXLENGTH=39></TD>
+					    <TD NOWRAP><INPUT TYPE=text NAME=i_1_pc_error_msg VALUE="" SIZE=49 disabled
+					     onFocus="radio(4,0);" MAXLENGTH=254></TD>
+					    <TD NOWRAP><INPUT TYPE=text NAME=i_1_pc_clave VALUE="1" SIZE=6 disabled
+					     onFocus="radio(4,0);" MAXLENGTH=7></TD>
+					  </TR>
+	-->
+
+			</tr>
+		</table>
+	</form>
+	</body>
+</html>

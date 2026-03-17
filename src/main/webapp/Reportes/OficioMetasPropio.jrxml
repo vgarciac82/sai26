@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OficioMetasFiscal" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e685704a-a3ae-49cb-9b2a-6dd7b55cda9c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="localhost"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="whereUE" class="java.lang.String">
+		<defaultValueExpression><![CDATA["AND CU.cCoordinacion = 'P00'"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="mes" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[3]]></defaultValueExpression>
+	</parameter>
+	<parameter name="coordinacion" class="java.lang.String">
+		<defaultValueExpression><![CDATA["P00"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[DECLARE @coordinacion VARCHAR(3) = '$P!{coordinacion} '
+
+IF  (@coordinacion) = 'I00'
+BEGIN
+	SELECT '' AS cUnidadEjecutora
+			, CASE WHEN SUBSTRING(CU.Descripcion,1,33) = 'PROMOTORIA DE DESARROLLO FORESTAL' THEN 'PROMOTORIAS DE DESARROLLO FORESTAL' ELSE CU.Descripcion END AS Descripcion
+			, Adscripcion
+			, SUM(ISNULL(E014_ORGIP,0)) AS E014_ORGIP
+			, SUM(ISNULL(E014_MODIP,0)) AS E014_MODIP
+			, SUM(ISNULL(E014_MODIP,0)) - SUM(ISNULL(E014_ORGIP,0)) AS E014_VAR		
+		FROM v_coordinacionUnidad CU
+		JOIN v_coordinacionesTitular C ON CU.cCoordinacion = C.Unidad
+		LEFT JOIN (SELECT Unidad, ISNULL(E014,0) E014_ORGIP
+			FROM
+			(SELECT SUBSTRING(ORG.cSubCuenta,57,3) AS Unidad
+				, SUBSTRING(cSubCuenta,27,4) AS Programa
+				, CASE $P!{mes}
+					WHEN 1 THEN SUM(mSaldo1)
+					WHEN 2 THEN SUM(mSaldo2)
+					WHEN 3 THEN SUM(mSaldo3)
+					WHEN 4 THEN SUM(mSaldo4)
+					WHEN 5 THEN SUM(mSaldo5)
+					WHEN 6 THEN SUM(mSaldo6)
+					WHEN 7 THEN SUM(mSaldo7)
+					WHEN 8 THEN SUM(mSaldo8)
+					WHEN 9 THEN SUM(mSaldo9)
+					WHEN 10 THEN SUM(mSaldo10)
+					WHEN 11 THEN SUM(mSaldo11)
+					WHEN 12 THEN SUM(mSaldo12)
+				END OriginalIP
+			 FROM tSaldos ORG WITH(NOLOCK) 
+			WHERE nCuenta LIKE '81101%' --ORIGINAL
+				AND SUBSTRING(cSubCuenta,27,4) IN ('E014') --PROGRAMA PRESUPUESTARIO			
+				AND SUBSTRING(cSubCuenta,40,1) = 4 --FUENTE FINANCIAMIENTO
+				AND SUBSTRING(cSubCuenta,32,1) <> 1 --CAPITULO
+			GROUP BY SUBSTRING(ORG.cSubCuenta,57,3), SUBSTRING(cSubCuenta,27,4)
+			)sub
+			PIVOT(
+				SUM(OriginalIP)
+			FOR Programa IN ([E014])
+			)AS PivotORG) ORG_IP ON CU.cUnidadEjecutora = ORG_IP.Unidad AND ORG_IP.Unidad = CU.cUnidadEjecutora --UNIDAD EJECUTORA
+		LEFT JOIN (SELECT Unidad, ISNULL(E014,0) E014_MODIP
+			FROM
+			(SELECT SUBSTRING(MODI.cSubCuenta,57,3) AS Unidad
+				, SUBSTRING(MODI.cSubCuenta,27,4) AS Programa
+				, SUM(ModEnero) + SUM(ModFebrero) + SUM(ModMarzo) + SUM(ModAbril) + SUM(ModMayo) + SUM(ModJunio) + 
+				  SUM(ModJulio) + SUM(ModAgosto) + SUM(ModSeptiembre) + SUM(ModOctubre) + SUM(ModNoviembre) + SUM(ModDiciembre) AS ModificadoIP
+			FROM tModificadoSAI MODI
+			WHERE SUBSTRING(MODI.cSubCuenta,27,4) IN ('E014') --PROGRAMA PRESUPUESTARIO			
+				AND SUBSTRING(MODI.cSubCuenta,40,1) = 4 --FUENTE FINANCIAMIENTO
+				AND SUBSTRING(MODI.cSubCuenta,32,1) <> 1 --CAPITULO	
+				AND nMes = $P!{mes}
+			GROUP BY SUBSTRING(MODI.cSubCuenta,57,3), SUBSTRING(MODI.cSubCuenta,27,4)
+			)sub
+			PIVOT(
+				SUM(ModificadoIP)
+			FOR Programa IN ([E014])
+			)AS PivotMODIF) MOD_IP ON  CU.cUnidadEjecutora = MOD_IP.Unidad AND MOD_IP.Unidad = CU.cUnidadEjecutora --UNIDAD EJECUTORA
+		WHERE 1 = 1
+		 $P!{whereUE}
+		 GROUP BY CASE WHEN SUBSTRING(CU.Descripcion,1,33) = 'PROMOTORIA DE DESARROLLO FORESTAL' THEN 'PROMOTORIAS DE DESARROLLO FORESTAL' ELSE CU.Descripcion END, Adscripcion
+END
+
+ELSE
+BEGIN
+		SELECT cUnidadEjecutora
+			, CASE WHEN SUBSTRING(CU.Descripcion,1,33) = 'PROMOTORIA DE DESARROLLO FORESTAL' THEN 'PROMOTORIAS DE DESARROLLO FORESTAL' ELSE CU.Descripcion END AS Descripcion
+			, Adscripcion
+			, SUM(ISNULL(E014_ORGIP,0)) AS E014_ORGIP
+			, SUM(ISNULL(E014_MODIP,0)) AS E014_MODIP
+			, SUM(ISNULL(E014_MODIP,0)) - SUM(ISNULL(E014_ORGIP,0)) AS E014_VAR		
+		FROM v_coordinacionUnidad CU
+		JOIN v_coordinacionesTitular C ON CU.cCoordinacion = C.Unidad
+		LEFT JOIN (SELECT Unidad, ISNULL(E014,0) E014_ORGIP
+			FROM
+			(SELECT SUBSTRING(ORG.cSubCuenta,57,3) AS Unidad
+				, SUBSTRING(cSubCuenta,27,4) AS Programa
+				, CASE $P!{mes}
+					WHEN 1 THEN SUM(mSaldo1)
+					WHEN 2 THEN SUM(mSaldo2)
+					WHEN 3 THEN SUM(mSaldo3)
+					WHEN 4 THEN SUM(mSaldo4)
+					WHEN 5 THEN SUM(mSaldo5)
+					WHEN 6 THEN SUM(mSaldo6)
+					WHEN 7 THEN SUM(mSaldo7)
+					WHEN 8 THEN SUM(mSaldo8)
+					WHEN 9 THEN SUM(mSaldo9)
+					WHEN 10 THEN SUM(mSaldo10)
+					WHEN 11 THEN SUM(mSaldo11)
+					WHEN 12 THEN SUM(mSaldo12)
+				END OriginalIP
+			 FROM tSaldos ORG WITH(NOLOCK) 
+			WHERE nCuenta LIKE '81101%' --ORIGINAL
+				AND SUBSTRING(cSubCuenta,27,4) IN ('E014') --PROGRAMA PRESUPUESTARIO			
+				AND SUBSTRING(cSubCuenta,40,1) = 4 --FUENTE FINANCIAMIENTO
+				AND SUBSTRING(cSubCuenta,32,1) <> 1 --CAPITULO
+			GROUP BY SUBSTRING(ORG.cSubCuenta,57,3), SUBSTRING(cSubCuenta,27,4)
+			)sub
+			PIVOT(
+				SUM(OriginalIP)
+			FOR Programa IN ([E014])
+			)AS PivotORG) ORG_IP ON CU.cUnidadEjecutora = ORG_IP.Unidad AND ORG_IP.Unidad = CU.cUnidadEjecutora --UNIDAD EJECUTORA
+		LEFT JOIN (SELECT Unidad, ISNULL(E014,0) E014_MODIP
+			FROM
+			(SELECT SUBSTRING(MODI.cSubCuenta,57,3) AS Unidad
+				, SUBSTRING(MODI.cSubCuenta,27,4) AS Programa
+				, SUM(ModEnero) + SUM(ModFebrero) + SUM(ModMarzo) + SUM(ModAbril) + SUM(ModMayo) + SUM(ModJunio) + 
+				  SUM(ModJulio) + SUM(ModAgosto) + SUM(ModSeptiembre) + SUM(ModOctubre) + SUM(ModNoviembre) + SUM(ModDiciembre) AS ModificadoIP
+			FROM tModificadoSAI MODI
+			WHERE SUBSTRING(MODI.cSubCuenta,27,4) IN ('E014') --PROGRAMA PRESUPUESTARIO			
+				AND SUBSTRING(MODI.cSubCuenta,40,1) = 4 --FUENTE FINANCIAMIENTO
+				AND SUBSTRING(MODI.cSubCuenta,32,1) <> 1 --CAPITULO	
+				AND nMes = $P!{mes}
+			GROUP BY SUBSTRING(MODI.cSubCuenta,57,3), SUBSTRING(MODI.cSubCuenta,27,4)
+			)sub
+			PIVOT(
+				SUM(ModificadoIP)
+			FOR Programa IN ([E014])
+			)AS PivotMODIF) MOD_IP ON  CU.cUnidadEjecutora = MOD_IP.Unidad AND MOD_IP.Unidad = CU.cUnidadEjecutora --UNIDAD EJECUTORA
+		WHERE 1 = 1
+		 $P!{whereUE}
+		 GROUP BY cUnidadEjecutora, CASE WHEN SUBSTRING(CU.Descripcion,1,33) = 'PROMOTORIA DE DESARROLLO FORESTAL' THEN 'PROMOTORIAS DE DESARROLLO FORESTAL' ELSE CU.Descripcion END, Adscripcion
+END]]>
+	</queryString>
+	<field name="cUnidadEjecutora" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cUnidadEjecutora"/>
+		<property name="com.jaspersoft.studio.field.label" value="cUnidadEjecutora"/>
+	</field>
+	<field name="Descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Descripcion"/>
+		<property name="com.jaspersoft.studio.field.label" value="Descripcion"/>
+	</field>
+	<field name="Adscripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Adscripcion"/>
+		<property name="com.jaspersoft.studio.field.label" value="Adscripcion"/>
+	</field>
+	<field name="E014_ORGIP" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="E014_ORGIP"/>
+		<property name="com.jaspersoft.studio.field.label" value="E014_ORGIP"/>
+	</field>
+	<field name="E014_MODIP" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="E014_MODIP"/>
+		<property name="com.jaspersoft.studio.field.label" value="E014_MODIP"/>
+	</field>
+	<field name="E014_VAR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="E014_VAR"/>
+		<property name="com.jaspersoft.studio.field.label" value="E014_VAR"/>
+	</field>
+	<variable name="E014_ORGIP_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{E014_ORGIP}]]></variableExpression>
+	</variable>
+	<variable name="E014_MODIP_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{E014_MODIP}]]></variableExpression>
+	</variable>
+	<variable name="E014_VAR_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{E014_VAR}]]></variableExpression>
+	</variable>
+	<columnHeader>
+		<band height="47" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="112" y="10" width="118" height="34" forecolor="#595959" backcolor="#D9D9D9" uuid="f91bd184-c9db-4576-a2b4-904893f6459e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidad Responsable]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="10" width="194" height="11" forecolor="#595959" backcolor="#D9D9D9" uuid="6e996580-bdc6-455f-8020-0f937d2c7f9e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Presupuesto Ingresos Propios (*)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="21" width="194" height="11" forecolor="#595959" backcolor="#D9D9D9" uuid="bacae938-8962-49f8-a8d3-3122a2e61625"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E014]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="32" width="65" height="12" forecolor="#595959" backcolor="#D9D9D9" uuid="2687f324-3bbc-419d-a640-a8da96e8ab98">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Original]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="295" y="32" width="65" height="12" forecolor="#595959" backcolor="#D9D9D9" uuid="8aca2871-f87f-4a3b-a731-92202bd3ef58">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modificado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="359" y="32" width="65" height="12" forecolor="#595959" backcolor="#D9D9D9" uuid="2eef4693-874a-4c92-9192-cbe390436cca">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Variación]]></text>
+			</staticText>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="112" y="0" width="312" height="10" forecolor="#595959" backcolor="#D9D9D9" uuid="5c5ea7fa-cd70-4511-9907-67db5d42adb3"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Adscripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField textAdjust="StretchHeight">
+				<reportElement isPrintRepeatedValues="false" x="120" y="4" width="104" height="12" forecolor="#595959" uuid="4535cbf7-251a-4ffb-b0cd-ba04a1fb5ce4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="84c3750b-87c7-4dfa-95dc-ecb26b545eab"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Descripcion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement positionType="Float" x="235" y="4" width="56" height="12" isPrintWhenDetailOverflows="true" forecolor="#595959" uuid="986843ea-cd42-4782-baab-d77c25ff8072">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d78026c6-e6a3-4bac-a5a4-e85b4b783faa"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{E014_ORGIP}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement positionType="Float" x="299" y="4" width="56" height="12" isPrintWhenDetailOverflows="true" forecolor="#595959" uuid="6e8151b0-6c1c-4d09-afae-b885e458796f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c9270566-3512-461e-aa4f-92df76fed12d"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{E014_MODIP}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement x="363" y="4" width="56" height="12" forecolor="#595959" uuid="c8e4f70d-9cbb-4d1a-b5dc-65866a21a296">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="02076881-2673-4607-aa99-ec6588f98969"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{E014_VAR}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="112" y="-3" width="1" height="24" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="566cc81b-e5bd-4d1c-9167-711404a3a31f"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="230" y="-3" width="1" height="25" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="94cec16b-9fd3-41ed-b04b-628dd8d18e74"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="294" y="-3" width="1" height="24" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="0a6891f8-d353-4d6b-bb34-01eb6866b5f2"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="359" y="-3" width="1" height="25" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="ea8bc256-e0fb-4a1a-9bea-66e1fb64f839"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="423" y="-4" width="1" height="25" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="7ff7e21c-4404-482e-bf42-eec8fd895f13"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="112" y="21" width="311" height="1" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="004af2f9-5883-4050-9b07-ea9c4d1e5847"/>
+			</line>
+		</band>
+	</detail>
+	<summary>
+		<band height="29">
+			<staticText>
+				<reportElement x="112" y="20" width="105" height="9" forecolor="#595959" uuid="6b03d5b6-3426-4625-a4db-516407165c70"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Montserrat" size="7"/>
+				</textElement>
+				<text><![CDATA[*No incluye Servicios Personales.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="112" y="-2" width="118" height="21" forecolor="#595959" backcolor="#B5B3B3" uuid="241c6e8f-28dd-4f74-9eba-51b4a2efb0da"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Totales]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="112" y="19" width="312" height="1" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="10ccd603-171e-45a7-b2a8-63c7b1cd714f"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="112" y="-2" width="1" height="22" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="b40edbc0-df6d-41a5-9db7-9d70300804e6"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="230" y="-3" width="1" height="22" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="d0ed7c61-344a-4bc9-a6c0-b0bd6af9e918"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="294" y="-2" width="1" height="22" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="a654ce8b-fa6c-49e9-9305-68e36afa46c6"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="359" y="-3" width="1" height="22" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="b57ed070-15c2-4a8c-b415-908b967b0f10"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="423" y="-3" width="1" height="22" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="5e05f7e0-703c-4e94-a037-78e61c906f55"/>
+			</line>
+			<textField pattern="#,##0.00#">
+				<reportElement x="235" y="4" width="56" height="10" forecolor="#595959" uuid="7ed1179d-8e2a-48d8-a6f0-356993dc9fdf"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{E014_ORGIP_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement x="300" y="4" width="54" height="10" forecolor="#595959" uuid="e5a576dc-ecc0-4e3b-837f-fb9f65e80038"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{E014_MODIP_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement x="364" y="3" width="54" height="10" forecolor="#595959" uuid="dbab2e81-9463-4976-9abc-51a4161bdbc1">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{E014_VAR_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

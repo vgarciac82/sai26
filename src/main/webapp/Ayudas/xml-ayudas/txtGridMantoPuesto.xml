@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Ayuda Catálogo de Puestos</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_CAT_PUESTOS</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="PTO_NOMBRE"	control="txtGridMantoPuesto"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Nombre"	ancho="100"	maxlen="200"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="ID_PUESTO"	control="txtGridMantoIDPuesto"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Clave"	ancho="6"	maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+	</grid>  
+</Ayuda>

@@ -26,7 +26,7 @@ public class DriveRepository implements DriveRepositoryInterface {
             querySelect.append(DRIVE_FIELDS).append(" FROM drive WHERE drive = ?");
             log.trace("Object: {}", "Ejecutando: " + querySelect);
             Drive d = runner.query(connection, querySelect.toString(), resultHandler, drive);
-            log.debug("Object: {}", "Encontrado: " + d);
+            log.debug("Object: " + String.valueOf("Encontrado: " + d));
             return d;
         } finally {
             querySelect = null;
@@ -41,7 +41,7 @@ public class DriveRepository implements DriveRepositoryInterface {
             querySelect.append(DRIVE_FIELDS).append(" FROM drive WHERE drive_status = '1'");
             log.trace("Object: {}", "Ejecutando: " + querySelect);
             Drive d = runner.query(connection, querySelect.toString(), resultHandler);
-            log.debug("Object: {}", "Encontrado: " + d);
+            log.debug("Object: " + String.valueOf("Encontrado: " + d));
             return d;
         } finally {
             querySelect = null;

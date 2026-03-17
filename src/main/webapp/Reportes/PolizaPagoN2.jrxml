@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PolizaPago" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="1ada012d-45e1-4b7b-92ba-b4410a49acd3">
+	<property name="ireport.zoom" value="1.5026296018031553"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SAI Produccion"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="whereFolio" class="java.lang.String">
+		<defaultValueExpression><![CDATA["  CR.canocontrarrecibo='29CP2021100016'"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[DECLARE @laPoliza varchar(10)
+	DECLARE @cUnidadResponsable varchar(10)
+	DECLARE @cTipopoliza varchar(10)
+	DECLARE @canocontrarrecibo varchar(19)
+	DECLARE @cuantos smallint
+	DECLARE @cTipoObra varchar(10)
+	DECLARE @noFolio INT
+	DECLARE @ctaBanc VARCHAR(100)
+	DECLARE @laPolizaCancelacion varchar(10)
+	DECLARE @estatus varchar(10)
+	DECLARE @cTipoSuplencia varchar(20)
+	--SET @cTipopoliza='EG'
+	--SET @cUnidadResponsable ='10'
+	--SET @laPoliza=2900
+	--SET @canocontrarrecibo='10CP2012000589'
+
+	DECLARE @nFolioPago INT
+	DECLARE @cTipoPago VARCHAR(64)
+	DECLARE @sFirmanteDelegatorio VARCHAR(250)
+	DECLARE @sPuestoFirmanteDelegatorio VARCHAR(70)
+	DECLARE @sFirmanteAut VARCHAR(250)
+	DECLARE @sLeyenda VARCHAR(500)
+	DECLARE @sOficio VARCHAR(128)
+	DECLARE @sFechaOficio VARCHAR(20)
+	declare @fiel varchar(1)
+
+	DECLARE @cInformeActividad VARCHAR(600)
+	DECLARE @cInformeComision VARCHAR(600)
+	DECLARE @cLugarFecha VARCHAR(240)
+	DECLARE @ID_DESTINO_GASTO VARCHAR(10)
+	DECLARE @nIdComision INT
+	DECLARE @nFolioCaja INT
+	DECLARE @nEsAlimentacionBrigadistas INT
+
+
+
+	SET	@sFirmanteDelegatorio = ''
+	SET @sPuestoFirmanteDelegatorio = ''
+
+	SET @sFirmanteAut = ''
+	SET @sLeyenda = ''
+	SET @sOficio = ''
+	SET @sFechaOficio = ''
+	set @fiel = ''
+	DECLARE @cObservaciones VARCHAR(102)
+
+
+	SET @cObservaciones = ''
+
+	select @laPoliza= nFolioPoliza, @cUnidadResponsable = cIDEntidadContable, @cTipopoliza = cTipoPoliza, @cTipoObra = tipoObra, @noFolio = nFolioPagoDirecto, @ctaBanc = CR.CTAB, @laPolizaCancelacion = nFolioPolizaCancelacion, @estatus=cDocumentoHaplicado, @cTipoPago = cTipoDePago, @cObservaciones = cObservaciones, @fiel = cEsFirmaElectronica, @cInformeComision = cinformecomision
+			from (
+	select nFolioPagoDirecto,nFolioPoliza, cconcepto, canocontrarrecibo,'DIRECTO' tipoObra, cUnidadResponsable, cast('' as varchar(5)) cnoEstimacion, '' Periodo, cIdEntidadContable,cTipoPoliza,e.CTAB,e.nFolioPolizaCancelacion,e.cDocumentoHaplicado, 'PAGODIRECTO' as cTipoDePago, '' AS cObservaciones, cEsFirmaElectronica, '' cInformeComision
+				from tpagodirectoencabezado e with(NOLOCK)
+			union select nFolioNOMINA,nFolioPoliza, cconcepto, canocontrarrecibo,'NOMINA' tipoObra, cUnidadResponsable, cast('' as varchar(5)) cnoEstimacion, '' Periodo, ccentrocontable cIdEntidadContable,cTipoPoliza,'',e.nFolioPolizaCancelacion,e.cDocumentoHaplicado, 'NOMINA' as cTipoDePago, '' AS cObservaciones , 'N' cEsFirmaElectronica, '' cInformeComision
+				from tnominaencabezado e with(NOLOCK)
+			union select nFolioPAGODIVERSO,nFolioPoliza, cconcepto, canocontrarrecibo,'DIVERSO' tipoObra, cUnidadResponsable,  cNoEstimacion, '' Periodo,cCentroContable cIdEntidadContable,cTipoPoliza, CASE WHEN cPagoReferenciado = 'S' THEN (e.CTAB + '-' + ISNULL(E.cReferenciaBancaria, '') ) ELSE e.CTAB END AS CTAB,e.nFolioPolizaCancelacion,e.cDocumentoHaplicado, 'PAGODIVERSO' as cTipoDePago, cObservaciones, cEsFirmaElectronica, '' cInformeComision
+			 from tPAGODIVERSOEncabezado e with(NOLOCK)
+			union select nFolioRELACIONGASTOS,nFolioPoliza, cconcepto, canocontrarrecibo,'RELGASTO' tipoObra, cUnidadResponsable, cast('' as varchar(5)) cnoEstimacion, '' Periodo, cCentroContable cIdEntidadContable,cTipoPoliza, CASE WHEN cPagoReferenciado = 'S' THEN (e.CTAB + '-' + ISNULL(E.cReferenciaBancaria, '') ) ELSE e.CTAB END AS CTAB,e.nFolioPolizaCancelacion,e.cDocumentoHaplicado, 'RELACIONGASTOS' as cTipoDePago, '' AS cObservaciones, cEsFirmaElectronica, cinformecomision
+			   from trelaciongastosencabezado e with(NOLOCK)
+			union select nFolioPAGOOBRA,nFolioPoliza, cconcepto, canocontrarrecibo,'OBRA' tipoObra, cUnidadResponsable, cnoEstimacion, 'Del ' + case when fperiodode is null then '' else convert(varchar(10), fperiodode, 103) end + ' al ' + case when fperiodohasta is null then '' else convert(varchar(10), fperiodohasta, 103) end Periodo
+			, cCentroContable cIdEntidadContable,cTipoPoliza,CTAB,e.nFolioPolizaCancelacion,e.cDocumentoHaplicado, 'PAGOOBRA' as cTipoDePago, '' AS cObservaciones, cEsFirmaElectronica, '' cInformeComision
+			   from tPAGOOBRAEncabezado e with(NOLOCK)
+			union select nFolioPAGOFEDERALIZADO,nFolioPoliza, cconcepto, canocontrarrecibo,'FEDERALIZADO' tipoObra, cUnidadResponsable, cnoEstimacion, 'Del ' + case when fperiodode is null then '' else convert(varchar(10), fperiodode, 103) end + ' al ' + case when fperiodohasta is null then '' else convert(varchar(10), fperiodohasta, 103) end Periodo
+			, cCentroContable cIdEntidadContable,cTipoPoliza,e.CTAB,e.nFolioPolizaCancelacion,e.cDocumentoHaplicado, 'PAGOFEDERALIZADO' as cTipoDePago, '' AS cObservaciones, cEsFirmaElectronica, '' cInformeComision
+			   from tPAGOFEDERALIZADOEncabezado e with(NOLOCK)
+				) CR where
+	--		   canocontrarrecibo =@canocontrarrecibo
+	    $P!{whereFolio}
+	--las de mayor
+	IF (SELECT OBJECT_ID('tempdb..#tmp_detalle')) IS NOT NULL	DROP TABLE #tmp_detalle
+	IF (SELECT OBJECT_ID('tempdb..#tmp_polizapagos')) IS NOT NULL	DROP TABLE #tmp_polizapagos
+	IF (SELECT OBJECT_ID('tempdb..#tmp_detalle2')) IS NOT NULL	DROP TABLE #tmp_detalle2
+	SET @nFolioPago = @noFolio
+
+	select * into #tmp_detalle from (
+
+
+	select ep, count(DISTINCT ep) numReg from tPAGODIVERSODetalle with(NOLOCK) where nFolioPAGODIVERSO in (select nFolioPAGODIVERSO from tPAGODIVERSOEncabezado  cr with(NOLOCK) where
+	-- canocontrarrecibo =@canocontrarrecibo
+	   $P!{whereFolio}
+	) group by ep
+	union
+	select ep, count(DISTINCT ep) numReg from tpagodirectodetalle with(NOLOCK) where nfoliopagodirecto in (select nfoliopagodirecto from tpagodirectoencabezado cr with(NOLOCK) where
+	-- CR.canocontrarrecibo =@canocontrarrecibo
+	   $P!{whereFolio}
+	) group by ep
+	union
+	select ep, count(DISTINCT ep) numReg  from trelaciongastosdetalle with(NOLOCK) where nfoliorelaciongastos in (select nfoliorelaciongastos from trelaciongastosencabezado cr with(NOLOCK) where
+	 --CR.canocontrarrecibo =@canocontrarrecibo
+	   $P!{whereFolio}
+	) group by ep
+
+	union
+	select ep, count(DISTINCT ep) numReg  from tNOMINADetalle with(NOLOCK) where nFolioNOMINA in (select nFolioNOMINA from tNOMINAEncabezado cr with(NOLOCK) where
+	 --CR.canocontrarrecibo =@canocontrarrecibo
+	   $P!{whereFolio}
+	) group by ep
+
+	union
+	select ep, count(DISTINCT ep) numReg  from tPAGOOBRADetalle with(NOLOCK) where nFolioPAGOOBRA in (select nFolioPAGOOBRA from tPAGOOBRAEncabezado cr with(NOLOCK) where
+	--CR.canocontrarrecibo =@canocontrarrecibo
+	   $P!{whereFolio}
+	) group by ep
+
+	union
+	select ep, count(DISTINCT ep) numReg  from tPAGOFEDERALIZADODetalle with(NOLOCK) where nFolioPAGOFEDERALIZADO in (select nFolioPAGOFEDERALIZADO from tPAGOFEDERALIZADOEncabezado cr with(NOLOCK) where
+	--CR.canocontrarrecibo =@canocontrarrecibo
+	   $P!{whereFolio}
+	) group by ep
+
+
+	) m
+
+	select * into #tmp_polizapagos from (select substring(m.nCuenta, 1,5) Cuenta,'' subCuenta,'' subSubCuenta
+	,calmacen, dCuenta cnombre
+	,dCuenta descripcion
+	,dCuenta, m.ctipomovimiento, m.nCuenta/*,  m.**/, sum(mMovimiento) mMovimiento2
+	   from tcuentas c with(NOLOCK), tmovimiento m with(NOLOCK)
+	   left join cat_almacen a on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+	   --left join v_pcatalogorfc rfc on cidrfc=nsubcuenta
+	   where /*m.ncuenta = c.ncuenta */ substring(m.ncuenta,1,5)+'-00000-00000-00000'= c.ncuenta  and nFolioPoliza = @laPoliza AND m.cCentroContable = @cUnidadResponsable and cTipopoliza =@cTipopoliza and mmovimiento != 0 AND not(c.TipoBalance='P' and c.TipoCuenta='P')
+	group by substring(m.nCuenta, 1,5) ,calmacen, dCuenta
+	,dCuenta
+	,dCuenta, m.ctipomovimiento, m.nCuenta
+	--order by m.ncuenta, ctipomovimiento desc
+	union
+	--2o nivel
+	select '' Cuenta,substring(m.nCuenta, 7,5)  subCuenta,'' subSubCuenta
+	,calmacen, dcuenta cnombre
+	,'  ' + dCuenta descripcion
+	,dCuenta, m.ctipomovimiento, m.nCuenta/*, m.**/, 0 mMovimiento2
+	   from tcuentas c with(NOLOCK), tmovimiento m with(NOLOCK)
+	   left join cat_almacen a on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+	   --left join v_pcatalogorfc rfc on cidrfc=nsubcuenta
+	   where /*m.ncuenta*/  substring(m.ncuenta,1,11)+'-00000-00000'= c.ncuenta and nFolioPoliza = @laPoliza AND m.cCentroContable = @cUnidadResponsable and cTipoPoliza =@cTipopoliza and mmovimiento != 0 and substring(m.nCuenta, 7,5) != '00000' AND not(c.TipoBalance='P' and c.TipoCuenta='P')
+	group by substring(m.nCuenta, 7,5)
+	,calmacen, dcuenta
+	,'  ' + dCuenta
+	,dCuenta, m.ctipomovimiento, m.nCuenta
+	--order by m.ncuenta, ctipomovimiento desc
+	union
+	--3er nivel
+	select '' Cuenta,''  subCuenta,substring(m.nCuenta, 13,5) subSubCuenta
+	,calmacen, dCuenta cnombre
+	,'    ' + dCuenta descripcion
+	,dCuenta, m.ctipomovimiento, m.nCuenta/*, m.**/, 0 mMovimiento2
+	   from tcuentas c with(NOLOCK), tmovimiento m with(NOLOCK)
+	   left join cat_almacen a on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+	  -- left join v_pcatalogorfc rfc on cidrfc=nsubcuenta
+	   where /*m.ncuenta*/  substring(m.ncuenta,1,17)+'-00000'= c.ncuenta and nFolioPoliza = @laPoliza AND m.cCentroContable = @cUnidadResponsable and cTipoPoliza=@cTipopoliza and mmovimiento != 0 and substring(m.nCuenta, 13,5) != '00000' AND not(c.TipoBalance='P' and c.TipoCuenta='P')
+	group by substring(m.nCuenta, 13,5)
+	,calmacen, dCuenta
+	,'    ' + dCuenta
+	,dCuenta, m.ctipomovimiento, m.nCuenta
+	--order by m.ncuenta, ctipomovimiento desc
+	union
+	select '' Cuenta, ''subCuenta, case when nSubCuenta = ''
+	then substring(m.nCuenta, 13,5) else case when cnombre is null then calmacen else nSubCuenta end end subSubCuenta
+	,calmacen, cnombre
+	,'      ' + case when nSubCuenta = ''
+	then substring(m.nCuenta, 13,5) else case when cnombre is null then calmacen else '[' + nSubCuenta+']'+cNombre end end descripcion
+	,dCuenta, m.ctipomovimiento, m.nCuenta/*, m.**/, 0 mMovimiento2
+	   from tcuentas c,  tmovimiento m
+	   left join cat_almacen a on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+	   left join v_pcatalogorfc rfc on cidrfc=nsubcuenta
+	   where m.nSubcuenta != '' and m.ncuenta = c.ncuenta and nFolioPoliza = @laPoliza AND m.cCentroContable = @cUnidadResponsable and cTipoPoliza =@cTipopoliza and mmovimiento != 0 AND not(c.TipoBalance='P' and c.TipoCuenta='P')
+	group by case when nSubCuenta = ''
+	then substring(m.nCuenta, 13,5) else case when cnombre is null then calmacen else nSubCuenta end end
+	,calmacen, cnombre
+	,'      ' + case when nSubCuenta = ''
+	then substring(m.nCuenta, 13,5) else case when cnombre is null then calmacen else '[' + nSubCuenta+']'+cNombre end end
+	,dCuenta, m.ctipomovimiento, m.nCuenta
+
+	   )kk
+	--order by m.ncuenta, cuenta desc, subcuenta desc, subsubcuenta, ctipomovimiento desc
+	order by ncuenta, cuenta desc, subcuenta desc, subsubcuenta, ctipomovimiento desc
+
+	set @cuantos = 0
+	select @cuantos = Count(*) from #tmp_polizapagos
+
+	if @cuantos = 0
+	begin
+	insert into #tmp_polizapagos
+	select * from (select substring(m.nCuenta, 1,5) Cuenta,'' subCuenta,'' subSubCuenta
+	,calmacen, dCuenta cnombre
+	,dCuenta descripcion
+	,dCuenta, m.ctipomovimiento, m.nCuenta/*,  m.**/, sum(mMovimiento) mMovimiento2
+	   from tcuentas c with(NOLOCK), tmovimiento m with(NOLOCK)
+	   left join cat_almacen a on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+	   --left join v_pcatalogorfc rfc on cidrfc=nsubcuenta
+	   where /*m.ncuenta = c.ncuenta */ substring(m.ncuenta,1,5)+'-00000-00000-00000'= c.ncuenta  and nFolioPoliza = @laPoliza AND m.cCentroContable = @cUnidadResponsable and cTipopoliza =@cTipopoliza and mmovimiento != 0  AND (c.TipoBalance='P' and c.TipoCuenta='P')
+	group by substring(m.nCuenta, 1,5) ,calmacen, dCuenta
+	,dCuenta
+	,dCuenta, m.ctipomovimiento, m.nCuenta
+	--order by m.ncuenta, ctipomovimiento desc
+	union
+	--2o nivel
+	select '' Cuenta,substring(m.nCuenta, 7,5)  subCuenta,'' subSubCuenta
+	,calmacen, dcuenta cnombre
+	,'  ' + dCuenta descripcion
+	,dCuenta, m.ctipomovimiento, m.nCuenta/*, m.**/, 0 mMovimiento2
+	   from tcuentas c with(NOLOCK), tmovimiento m with(NOLOCK)
+	   left join cat_almacen a on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+	   --left join v_pcatalogorfc rfc on cidrfc=nsubcuenta
+	   where /*m.ncuenta*/  substring(m.ncuenta,1,11)+'-00000-00000'= c.ncuenta and nFolioPoliza = @laPoliza AND m.cCentroContable = @cUnidadResponsable and cTipoPoliza =@cTipopoliza and mmovimiento != 0 and substring(m.nCuenta, 7,5) != '00000' AND (c.TipoBalance='P' and c.TipoCuenta='P')
+	group by substring(m.nCuenta, 7,5)
+	,calmacen, dcuenta
+	,'  ' + dCuenta
+	,dCuenta, m.ctipomovimiento, m.nCuenta
+	--order by m.ncuenta, ctipomovimiento desc
+	union
+	--3er nivel
+	select '' Cuenta,''  subCuenta,substring(m.nCuenta, 13,5) subSubCuenta
+	,calmacen, dCuenta cnombre
+	,'    ' + dCuenta descripcion
+	,dCuenta, m.ctipomovimiento, m.nCuenta/*, m.**/, 0 mMovimiento2
+	   from tcuentas c with(NOLOCK), tmovimiento m with(NOLOCK)
+	   left join cat_almacen a on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+	  -- left join v_pcatalogorfc rfc on cidrfc=nsubcuenta
+	   where /*m.ncuenta*/  substring(m.ncuenta,1,17)+'-00000'= c.ncuenta and nFolioPoliza = @laPoliza AND m.cCentroContable = @cUnidadResponsable and cTipoPoliza=@cTipopoliza and mmovimiento != 0 and substring(m.nCuenta, 13,5) != '00000' AND (c.TipoBalance='P' and c.TipoCuenta='P')
+	group by substring(m.nCuenta, 13,5)
+	,calmacen, dCuenta
+	,'    ' + dCuenta
+	,dCuenta, m.ctipomovimiento, m.nCuenta
+	--order by m.ncuenta, ctipomovimiento desc
+	union
+	select '' Cuenta, ''subCuenta, case when nSubCuenta = ''
+	then substring(m.nCuenta, 13,5) else case when cnombre is null then calmacen else nSubCuenta end end subSubCuenta
+	,calmacen, cnombre
+	,'      ' + case when nSubCuenta = ''
+	then substring(m.nCuenta, 13,5) else case when cnombre is null then calmacen else '[' + nSubCuenta+']'+cNombre end end descripcion
+	,dCuenta, m.ctipomovimiento, m.nCuenta/*, m.**/, 0 mMovimiento2
+	   from tcuentas c,  tmovimiento m
+	   left join cat_almacen a on cast(a.nidalmacen as varchar(10))=nsubcuenta and a.ccentrocontable = m.ccentrocontable
+	   left join v_pcatalogorfc rfc on cidrfc=nsubcuenta
+	   where m.nSubcuenta != '' and m.ncuenta = c.ncuenta and nFolioPoliza = @laPoliza AND m.cCentroContable = @cUnidadResponsable and cTipoPoliza =@cTipopoliza and mmovimiento != 0 AND (c.TipoBalance='P' and c.TipoCuenta='P')
+	group by case when nSubCuenta = ''
+	then substring(m.nCuenta, 13,5) else case when cnombre is null then calmacen else nSubCuenta end end
+	,calmacen, cnombre
+	,'      ' + case when nSubCuenta = ''
+	then substring(m.nCuenta, 13,5) else case when cnombre is null then calmacen else '[' + nSubCuenta+']'+cNombre end end
+	,dCuenta, m.ctipomovimiento, m.nCuenta
+
+	   )kk
+	order by ncuenta, cuenta desc, subcuenta desc, subsubcuenta, ctipomovimiento desc
+	end
+
+	select
+	CASE WHEN ( CR.cIdRFC = 'CRM6702109K6' AND @cTipoObra = 'NOMINA') THEN 'CRUZ ROJA MEXICANA IAP' ELSE rfc.CNOMBRE END AS CNOMBRE2,
+	----rfc.CNOMBRE CNOMBRE2,
+	 CR.aEjercicioFiscal, CR.cIdEntidadContable, CR.caNoContrarrecibo, m.cIdDocumento, CR.cIdTipoDocumento
+	, CR.cIdTipoOperacion,  CR.cIdRFC, CR.cIdTipoMoneda, CR.nTipoCambio, cast(CR.mImporteBruto as decimal(17,2)) mImporteBruto ,
+	cast(CR.mImporteSancion  as decimal(17,2)) mImporteSancion ,
+	cast(CR.mImporteDevolucion as decimal(17,2)) mImporteDevolucion ,
+	((cast(mAmortizacionAnticipo as decimal(17,2)))) as mAmortizacionAnticipo,
+	cast(CR.mImporteIVA as decimal(17,2)) mImporteIVA ,
+	cast(CR.mImporteRetencion as decimal(17,2)) mImporteRetencion ,
+	cast(CR.mImportePenalizacion as decimal(17,2)) mImportePenalizacion ,
+	cast(CR.mImporteNeto as decimal(17,2)) mImporteNeto , convert(varchar(10),CR.fProgramadaPago,103) fProgramadaPago, m.cconcepto
+	, ctd.cTipoDocumento, TIPO_OPERACION, cc.cDescripcion, m.cUnidadResponsable, cnoEstimacion, periodo
+	, pp.*, case when cTipoMovimiento = 'C' then mMovimiento2 else 0 end Debe, case when cTipoMovimiento = 'A' then mMovimiento2 else 0 end Haber
+	, cast(nPorcIva as decimal(10,2)) nPorcIva
+	, (SELECT min(EP) FROM #tmp_detalle with(NOLOCK)) laEP
+	, (SELECT sum(numReg) FROM #tmp_detalle with(NOLOCK)) numReg
+	,dbo.fnCantidadLetra(CR.mImporteNeto) cantLetras, ID_DESTINO_GASTO
+	, m.sFirmanteVoBo, m.sPuestoVoBo, m.sFirmanteAut, m.sPuestoAut
+	, m.sFirmanteEla, m.sPuestoEla
+	,ISNULL(cr.mOtrosImpuestos,0)mOtrosImpuestos
+	into #tmp_detalle2
+	from  vContrarrecibo2 CR with(NOLOCK)
+			left join pCatalogoTipoDocumento ctd on ctd.cIdTipoDocumento = cr.cIdTipoDocumento
+			left join cat_tipo_operacion o on o.id_tipo_oper  = cr.cidtipooperacion
+			left join tCatalogoCentroContable cc on cc.cCentrocontable = cr.cIdEntidadContable
+			, v_PCATALOGORFC RFC, (
+
+	 			select cIdDocumento cIdDocumento, nPorcIva,mImporteRetencion , CASE WHEN cxp IS NOT NULL THEN e.cconcepto + ' Ver póliza manual modificatoria con el número: ' + CONVERT(VARCHAR(10),d.nFolioPoliza) + ' de Diario.' ELSE e.cConcepto END cconcepto, canocontrarrecibo,'DIRECTO' tipoObra, e.cUnidadResponsable, cast('' as varchar(5)) cnoEstimacion, '' Periodo, ID_DESTINO_GASTO, sFirmanteVoBo, sPuestoVoBo, e.sFirmanteAut, e.sPuestoAut, sFirmanteEla, sPuestoEla
+				from tpagodirectoencabezado e
+				LEFT JOIN dbo.tDocPolizaEncabezado d ON caNoContrarrecibo = cxp
+				WHERE caNoContrarrecibo <> ''
+			union
+				select cIdRelacion cIdDocumento ,0.0 nPorcIva,0 mImporteRetencion , CASE WHEN cxp IS NOT NULL THEN e.cconcepto + ' Ver póliza manual modificatoria con el número: ' + CONVERT(VARCHAR(10),d.nFolioPoliza) + ' de Diario.' ELSE e.cConcepto END cconcepto, canocontrarrecibo, 'NOMINA' tipoObra, e.cUnidadResponsable, cast('' as varchar(5)) cnoEstimacion, '' Periodo, ID_DESTINO_GASTO, e.sFirmanteRev, e.sPuestoRev, e.sFirmanteAut, e.sPuestoAut, sFirmanteEla, sPuestoEla
+				from tnominaencabezado e
+				LEFT JOIN dbo.tDocPolizaEncabezado d ON caNoContrarrecibo = cxp
+			union
+				select cFolioPAGODIVERSO cIdDocumento, mImporteIVA nPorcIva,mImporteRetencion ,CASE WHEN cxp IS NOT NULL THEN e.cconcepto + ' Ver póliza manual modificatoria con el número: ' + CONVERT(VARCHAR(10),d.nFolioPoliza) + ' de Diario.' ELSE e.cConcepto END cconcepto, canocontrarrecibo,'DIVERSO' tipoObra, e.cUnidadResponsable,  cnoEstimacion, '' Periodo, ID_DESTINO_GASTO, sFirmanteVoBo, sPuestoVoBo, e.sFirmanteAut, e.sPuestoAut, sFirmanteEla, sPuestoEla
+				from tPAGODIVERSOEncabezado e
+				LEFT JOIN dbo.tDocPolizaEncabezado d ON caNoContrarrecibo = cxp
+			union
+				select cIdRelacion cIdDocumento, 0 nPorcIva,0 mImporteRetencion, CASE WHEN cxp IS NOT NULL THEN e.cconcepto + ' Ver póliza manual modificatoria con el número: ' + CONVERT(VARCHAR(10),d.nFolioPoliza) + ' de Diario.' ELSE e.cConcepto END cconcepto, canocontrarrecibo,'RELGASTO' tipoObra, e.cUnidadResponsable, cast('' as varchar(5)) cnoEstimacion, '' Periodo, ID_DESTINO_GASTO, sFirmanteVoBo, sPuestoVoBo, e.sFirmanteAut, e.sPuestoAut, sFirmanteEla, sPuestoEla
+				from trelaciongastosencabezado e
+				LEFT JOIN dbo.tDocPolizaEncabezado d ON caNoContrarrecibo = cxp
+			union
+				select cFolioContratoObra  cIdDocumento, mImporteIVA nPorcIva, mImporteRetencion, CASE WHEN cxp IS NOT NULL THEN e.cconcepto + ' Ver póliza manual modificatoria con el número: ' + CONVERT(VARCHAR(10),d.nFolioPoliza) + ' de Diario.' ELSE e.cConcepto END cconcepto, canocontrarrecibo,'OBRA' tipoObra, e.cUnidadResponsable,cnoEstimacion, 'Del ' + case when fperiodode is null then '' else convert(varchar(10), fperiodode, 103) end + ' al ' + case when fperiodohasta is null then '' else convert(varchar(10), fperiodohasta, 103) end Periodo, ID_DESTINO_GASTO, sFirmanteVoBo, sPuestoVoBo,  e.sFirmanteAut, e.sPuestoAut, sFirmanteEla, sPuestoEla
+				from tPAGOOBRAEncabezado e
+				LEFT JOIN dbo.tDocPolizaEncabezado d ON caNoContrarrecibo = cxp
+			union
+				select cFolioContratoObra  cIdDocumento, mImporteIVA nPorcIva, mImporteRetencion, CASE WHEN cxp IS NOT NULL THEN e.cconcepto + ' Ver póliza manual modificatoria con el número: ' + CONVERT(VARCHAR(10),d.nFolioPoliza) + ' de Diario.' ELSE e.cConcepto END cconcepto, canocontrarrecibo,'FEDERALIZADO' tipoObra, e.cUnidadResponsable,cnoEstimacion, 'Del ' + case when fperiodode is null then '' else convert(varchar(10), fperiodode, 103) end + ' al ' + case when fperiodohasta is null then '' else convert(varchar(10), fperiodohasta, 103) end Periodo, ID_DESTINO_GASTO, sFirmanteVoBo, sPuestoVoBo, e.sFirmanteAut, e.sPuestoAut, sFirmanteEla, sPuestoEla
+				from tPAGOFEDERALIZADOEncabezado e
+				LEFT JOIN dbo.tDocPolizaEncabezado d ON caNoContrarrecibo = cxp
+
+	) m, #tmp_polizapagos pp WHERE o.to_tipo_docto = tipoObra and LTRIM(RTRIM(RFC.cIdRFC)) = LTRIM(RTRIM(CR.cIdRFC))
+			and m.canocontrarrecibo = cr.canocontrarrecibo
+	-- and CR.canocontrarrecibo =@canocontrarrecibo
+	  AND   $P!{whereFolio}
+
+	DECLARE @strFacturas VARCHAR(500) = ''
+	DECLARE @fact VARCHAR(50)
+	DECLARE @imp VARCHAR(500)
+	DECLARE facturas CURSOR FOR SELECT cfactura,mImporteBruto FROM tPagoFactura WHERE cTipoPago LIKE '%'+@cTipoObra+'%' AND nFolioPago=@noFolio
+	OPEN facturas
+		FETCH NEXT FROM facturas INTO @fact,@imp
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+			SET @strFacturas +=@fact+' $'+@imp+ '   '
+			FETCH NEXT FROM facturas INTO @fact,@imp
+		END
+	CLOSE facturas
+	DEALLOCATE facturas
+
+	select v.* Into #tmp_TablaFinal from(
+	select MAX(CNOMBRE2) CNOMBRE2, aEjercicioFiscal, cIdEntidadContable, caNoContrarrecibo, cIdDocumento, cIdTipoDocumento,  cIdTipoOperacion,  @laPoliza nPolizaAP, cIdRFC, cIdTipoMoneda, nTipoCambio, mImporteBruto,
+	 mImporteSancion, mImporteDevolucion,
+	(mAmortizacionAnticipo / (1 + ( max(nPorcIva) *.01))) mAmortizacionAnticipo,
+	 Convert(decimal(10,3), ( (mAmortizacionAnticipo / (1 + ( max(nPorcIva) *.01)) ) / ( CASE WHEN ( mImporteBruto - mImporteSancion + mImporteDevolucion ) = 0 THEN 1 ELSE ( mImporteBruto - mImporteSancion + mImporteDevolucion ) END ) ) * 100.00) nPorcAmort,
+	 mImporteIVA, mImporteRetencion,
+	 mImportePenalizacion,
+	 mImporteNeto, fProgramadaPago, cconcepto, cTipoDocumento, TIPO_OPERACION, cDescripcion, (select cUnidadEjecutora + ' - '+D_DESCRIPCION from tCatUnidadEjecutora where cUnidadEjecutora=cUnidadResponsable)cUnidadResponsable, cnoEstimacion, periodo
+	,laEP
+	, Cuenta
+	, subCuenta
+	, isnull(subSubCuenta, '') subSubCuenta
+	, ctipomovimiento
+	, calmacen
+	, dCuenta
+	, nCuenta
+	, max(ISNULL(cnombre,'')) CNOMBRE
+	, max(isnull(descripcion, '')) descripcion
+	, max(mMovimiento2) mMovimiento2
+	, max(Debe) Debe
+	, max(Haber) Haber
+	, max(nPorcIva) nPorcIva
+	, max(numReg) numReg
+	, max(cantLetras) cantLetras
+	, CAT_DESTINO_GASTO.ID_DESTINO_GASTO, DESTINO_GASTO, @cTipoPoliza AS cTipoPoliza
+	, isnull(sFirmanteVoBo,'-') sFirmanteVoBo, isnull(sPuestoVoBo,'-') sPuestoVoBo, isnull(sFirmanteAut,'-') sFirmanteAut, isnull(sPuestoAut,'-') sPuestoAut, isnull(sFirmanteEla,'-') sFirmanteEla, isnull(sPuestoEla,'-') sPuestoEla,
+	 @strFacturas Facturas
+	, @ctaBanc CtaBanc
+	,ISNULL((SELECT TOP 1 dBanco FROM dbo.tBeneficiarioCuentasBancarias WHERE subCuentaBancaria = @ctaBanc),'') Banco
+	,@cTipoObra cTipoObra
+	,@noFolio noFolio
+	,mOtrosImpuestos
+	,(select dbo.fn_tipoConceptoPago(@cTipoObra,@noFolio))tipoConcepto
+	,CASE WHEN (select dbo.fn_tipoConceptoPago(@cTipoObra,@noFolio))='NOMINA' THEN 'NOMINA' ELSE (SELECT TIPO_CONCEPTO FROM dbo.CAT_TIPO_CONCEPTO WHERE ID_TIPO_CONCEPTO =(select dbo.fn_tipoConceptoPago(@cTipoObra,@noFolio))) END conceptoDescripcion
+	,CASE WHEN ISNULL(@laPolizaCancelacion,'')<>'' THEN 'Cancelada con la poliza #'+@laPolizaCancelacion ELSE '' END polizaCancelacion
+	,CASE WHEN @estatus IS NULL OR @estatus = '' THEN 'SIN APLICAR' WHEN @estatus IN ('C','N') THEN 'CANCELADA' ELSE '' END estatus
+	 from #tmp_detalle2 with(NOLOCK), CAT_DESTINO_GASTO
+	WHERE #tmp_detalle2.ID_DESTINO_GASTO = CAT_DESTINO_GASTO.ID_DESTINO_GASTO
+	 group by aEjercicioFiscal, cIdEntidadContable, caNoContrarrecibo, cIdDocumento, cIdTipoDocumento,  cIdTipoOperacion,   cIdRFC, cIdTipoMoneda, nTipoCambio, mImporteBruto,
+	 mImporteSancion, mImporteDevolucion, mAmortizacionAnticipo, mImportePenalizacion, mImporteIVA, mImporteRetencion,
+	 mImporteNeto, fProgramadaPago,
+	 cconcepto, cTipoDocumento, TIPO_OPERACION, cDescripcion, cUnidadResponsable, cnoEstimacion, periodo
+	 ,laEP	, Cuenta	, subCuenta	, subSubCuenta	, ctipomovimiento
+	 ,calmacen	, dCuenta	, nCuenta	, CAT_DESTINO_GASTO.ID_DESTINO_GASTO, DESTINO_GASTO
+	, sFirmanteVoBo, sPuestoVoBo, sFirmanteAut, sPuestoAut, sFirmanteEla, sPuestoEla, mOtrosImpuestos
+	HAVING SUM(debe)<>0 OR SUM(haber)<>0 OR MAX(ISNULL(cnombre,''))<>'' OR MAX(ISNULL(descripcion, ''))<>''
+	) as v
+
+	LEFT join tCuentaOrden odn WITH ( NOLOCK ) on v.nCuenta like odn.CUENTA+'%' AND v.cTipoMovimiento=odn.MOVIMIENTO AND
+
+	odn.DOCUMENTO=(
+	case
+	when v.cTipoDocumento='OPERACIONES AJENAS' OR v.cTipoDocumento='RELACION DE GASTOS' OR v.cTipoDocumento='PAGO DIRECTO'
+	  OR v.cTipoDocumento='RECURSOS FEDERALIZADOS' OR v.cTipoDocumento='CONTRATO DE DIVERSOS' OR v.cTipoDocumento='CONTRATO DE OBRA'
+	THEN 'DEVENGADO'
+	ELSE v.cTipoDocumento
+	END
+	)
+	ORDER BY ORDEN,nCuenta,v.cuenta desc,subcuenta desc, subsubcuenta,cTipoMovimiento desc
+
+	IF (SELECT COUNT(*) FROM tPagoFirmanteDelagatorio WITH (NOLOCK) WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolioPago) > 0
+			BEGIN
+
+				SELECT TOP 1 @sFirmanteAut = sFirmanteAut FROM #tmp_TablaFinal tablafinal WITH (NOLOCK)
+
+				SELECT	@sFirmanteDelegatorio = ISNULL((cNombreTitular + ' ' + cApellidoPaternoTitular + ' ' + cApellidoMaternoTitular)
+														, (NOMBREN + ' ' + NOMBREP + ' ' +  NOMBREM))
+				, @sPuestoFirmanteDelegatorio = ISNULL(cPuestoTitular, CARGO)
+				, @sOficio = cFolioOficio
+				, @sFechaOficio = CONVERT(varchar(10), CONVERT(date, dFechaOficio, 106), 103)
+				, @cTipoSuplencia = cTipoSuplencia
+				FROM tPagoFirmanteDelagatorio pago WITH (NOLOCK)
+				INNER JOIN tCatTipoSuplencia WITH (NOLOCK)
+					ON pago.ntipoSuplencia = tCatTipoSuplencia.ntiposuplencia
+				LEFT JOIN v_empleados_giro WITH (NOLOCK)
+						ON clave = cNumeroEmpleado
+				WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolioPago
+
+				SET @sLeyenda = 'Firma ' + @cTipoSuplencia + ' de: '  + @sFirmanteAut + ', con fundamento en el oficio: ' + @sOficio + ', de fecha: ' + @sFechaOficio
+			END
+
+	DECLARE @sFirmanteDeleVoBo VARCHAR(250)
+	DECLARE @sPuestoFirmanteDeleVoBo VARCHAR(70)
+	DECLARE @sFirmanteVoBo VARCHAR(250)
+	DECLARE @sLeyendaVoBo VARCHAR(500)
+	DECLARE @sOficioVoBo VARCHAR(128)
+	DECLARE @sFechaOficioVoBo VARCHAR(20)
+
+	SET @sFirmanteDeleVoBo = ''
+	SET @sPuestoFirmanteDeleVoBo = ''
+	SET @sFirmanteVoBo = ''
+	SET @sLeyendaVoBo = ''
+	SET @sOficioVoBo = ''
+	SET @sFechaOficioVoBo = ''
+
+	IF (SELECT COUNT(*) FROM tPagoFirmanteDelegatorioVoBo WITH (NOLOCK) WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolioPago) > 0
+			BEGIN
+
+			SELECT TOP 1 @sFirmanteVoBo = sFirmanteVoBo FROM #tmp_TablaFinal tablafinal WITH (NOLOCK)
+
+			SELECT	@sFirmanteDeleVoBo = ISNULL((cNombreTitular + ' ' + cApellidoPaternoTitular + ' ' + cApellidoMaternoTitular)
+														, (NOMBREN + ' ' + NOMBREP + ' ' +  NOMBREM))
+			, @sPuestoFirmanteDeleVoBo = ISNULL(cPuestoTitular, CARGO)
+			, @sOficioVoBo = cFolioOficio
+			, @sFechaOficioVoBo = CONVERT(varchar(10)
+			, CONVERT(date, dFechaOficio, 106), 103)
+			, @cTipoSuplencia = cTipoSuplencia
+				FROM tPagoFirmanteDelegatorioVoBo pagovobo WITH (NOLOCK)
+				INNER JOIN tCatTipoSuplencia WITH (NOLOCK)
+					ON pagovobo.ntipoSuplencia = tCatTipoSuplencia.ntiposuplencia
+				LEFT JOIN v_empleados_giro WITH (NOLOCK)
+						ON clave = cNumeroEmpleado
+				WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolioPago
+
+				SET @sLeyendaVoBo = 'Firma ' + @cTipoSuplencia + ' de: '  + @sFirmanteVoBo + ', con fundamento en el oficio: ' + @sOficioVoBo + ', de fecha: ' + @sFechaOficioVoBo
+			END
+
+	SET @cInformeComision = ''
+	SET @cLugarFecha = ''
+	SET @ID_DESTINO_GASTO = ''
+	SET	@nIdComision = 0
+	SET @nEsAlimentacionBrigadistas = 0
+
+	IF ((SELECT TOP 1 cTipoObra FROM #tmp_TablaFinal WITH (NOLOCK) ) = 'RELGASTO')
+		BEGIN
+			SELECT @cInformeComision = (CASE WHEN cInformeComision = '' THEN '' ELSE 'Objeto e Informe: ' + cInformeComision END) FROM tRELACIONGASTOSEncabezado WITH (NOLOCK) 			WHERE nFolioRELACIONGASTOS = @nFolioPago
+
+			SET @ID_DESTINO_GASTO = (SELECT TOP 1 ID_DESTINO_GASTO FROM #tmp_TablaFinal WITH (NOLOCK) )
+			SET	@nEsAlimentacionBrigadistas = (SELECT nEsAlimentacionBrigadistas FROM tRELACIONGASTOSEncabezado WITH (NOLOCK) WHERE nFolioRELACIONGASTOS = @nFolioPago )
+
+			IF( @ID_DESTINO_GASTO = 'CERE')
+				BEGIN
+					SET	@nIdComision = (SELECT nIdComision FROM tRELACIONGASTOSEncabezado WITH (NOLOCK) WHERE nFolioRELACIONGASTOS = @nFolioPago )
+				END
+			ELSE IF (@ID_DESTINO_GASTO = 'GCRE')
+				BEGIN
+					SET @nFolioCaja = (SELECT nFoliocaja FROM tRELACIONGASTOSEncabezado WITH (NOLOCK) WHERE nFolioRELACIONGASTOS = @nFolioPago)
+
+					IF EXISTS (SELECT * FROM tRelacionComprobacionComisiones WITH (NOLOCK) WHERE nFolioTramite = @nFolioCaja AND cTipoTramite = 'CAJA')
+						BEGIN
+							SET	@nIdComision = (SELECT nIdComision FROM tRelacionComprobacionComisiones WITH (NOLOCK) WHERE nFolioTramite = @nFolioCaja AND cTipoTramite = 'CAJA' )
+						END
+				END
+
+			IF (@nIdComision > 0)
+				BEGIN
+					SET @cLugarFecha =
+							(
+								SELECT DISTINCT 'Lugar y periodo de la comisión: ' + ISNULL(MPO_NOMBRE + ', ' + EDO_NOMBRE + ', '+ UPPER(cPais)
+								+ ' DEL ' +CONVERT( VARCHAR(12),fInicio,103)+ ' AL '
+								+ CONVERT(VARCHAR(12), fFin ,103 ),'')
+								FROM dbo.tViaticosComisiones COMISION
+								INNER JOIN dbo.tCatalogoPaises PAIS
+									ON COMISION.nIdPais = PAIS.nIdPais
+								INNER JOIN CAT_ESTADOS ESTADO
+									ON ESTADO.ID_ESTADO = COMISION.ID_ESTADO
+								INNER JOIN dbo.CAT_MUNICIPIO MPIO
+									ON COMISION.ID_MUNICIPIO = MPIO.ID_MUNICIPIO
+								WHERE COMISION.nIdComision = @nIdComision
+							)
+				END
+			ELSE IF (@nEsAlimentacionBrigadistas = 1)
+				BEGIN
+					SET @cLugarFecha = 'Lugar y periodo de la comisión: Observar Objeto e Informe.'
+				END
+		END
+
+	DECLARE @cTipoDePagoSol VARCHAR(20)
+
+		SET @cTipoDePagoSol = ''
+		SET @cTipoDePagoSol = (SELECT TOP 1 cTipoObra FROM #tmp_TablaFinal WITH (NOLOCK) )
+
+		IF (@cTipoDePagoSol = 'RELGASTO' OR @cTipoDePagoSol = 'DIRECTO' OR @cTipoDePagoSol = 'DIVERSO')
+			BEGIN
+				SET @cInformeComision = @cInformeComision + ' ' + ISNULL((SELECT CASE WHEN COUNT(*) > 0 THEN cconcepto ELSE '' END  			FROM #tmp_TablaFinal WITH (NOLOCK) WHERE SUBSTRING(laEP, 32, 5) = '38501'
+					GROUP BY cconcepto ), '')
+			END
+
+	SET @cInformeComision = LTRIM(RTRIM(@cInformeComision))
+
+
+	SELECT *,  (mimporteBruto - mimporteSancion) mSubtotal,
+		CASE WHEN (cTipoDocumento = 'RECURSOS FEDERALIZADOS' AND cIdRFC = 'BMN930209927')
+			THEN ISNULL((	SELECT CASE WHEN pagofederalizado.nidprograma IS NOT NULL THEN 'Programa: ' + pagofederalizado.nidprograma + ' - ' + fideicomiso.cprograma ELSE '' END AS Programa
+					FROM tPAGOFEDERALIZADOEncabezado pagofederalizado WITH (NOLOCK)
+					INNER JOIN tfideicomiso fideicomiso WITH (NOLOCK) ON (fideicomiso.id = pagofederalizado.nidprograma AND fideicomiso.nidprograma = pagofederalizado.cUnidadResponsable)
+					WHERE pagofederalizado.nFolioPAGOFEDERALIZADO = noFolio), '')
+			ELSE '' END AS Programa,
+		CASE WHEN (cTipoDocumento = 'RECURSOS FEDERALIZADOS' AND cIdRFC = 'BMN930209927')
+			THEN ISNULL((	SELECT CASE WHEN pagofederalizado.cSubPrograma IS NOT NULL THEN 'SubPrograma: ' + pagofederalizado.cSubPrograma + ' - ' + programafideicomiso.cdescsubprograma ELSE '' END AS SubPrograma
+					FROM tPAGOFEDERALIZADOEncabezado pagofederalizado WITH (NOLOCK)
+					INNER JOIN tprogramafideicomiso programafideicomiso WITH (NOLOCK)
+						ON ( programafideicomiso.id = pagofederalizado.nidprograma AND programafideicomiso.csubprograma = pagofederalizado.cSubPrograma)
+					WHERE pagofederalizado.nFolioPAGOFEDERALIZADO = noFolio), '')
+			ELSE '' END AS SubPrograma,
+		@sFirmanteDelegatorio AS sFirmanteDelegatorio, @sPuestoFirmanteDelegatorio AS sPuestoFirmanteDelegatorio, @sLeyenda AS Leyenda, @cObservaciones AS cObservaciones, @cInformeActividad AS cInformeActividad
+	, @sFirmanteDeleVoBo AS sFirmanteDeleVoBo, @sPuestoFirmanteDeleVoBo AS sPuestoFirmanteDeleVoBo, @sLeyendaVoBo AS LeyendaVoBo
+	, @cLugarFecha AS cLugarFecha, @fiel as cEsFirmaElectronica, @cInformeComision as cInformeComision
+		FROM #tmp_TablaFinal tablafinal WITH (NOLOCK)
+		ORDER BY tablafinal.nCuenta, tablafinal.cuenta desc, tablafinal.subcuenta desc, tablafinal.subsubcuenta, tablafinal.cTipoMovimiento desc
+
+
+	IF (SELECT OBJECT_ID('tempdb..#tmp_detalle')) IS NOT NULL	DROP TABLE #tmp_detalle
+	IF (SELECT OBJECT_ID('tempdb..#tmp_polizapagos')) IS NOT NULL	DROP TABLE #tmp_polizapagos
+	IF (SELECT OBJECT_ID('tempdb..#tmp_detalle2')) IS NOT NULL	DROP TABLE #tmp_detalle2
+	IF (SELECT OBJECT_ID('tempdb..#tmp_TablaFinal')) IS NOT NULL	DROP TABLE #tmp_TablaFinal]]>
+	</queryString>
+	<field name="CNOMBRE2" class="java.lang.String"/>
+	<field name="aEjercicioFiscal" class="java.lang.String"/>
+	<field name="cIdEntidadContable" class="java.lang.String"/>
+	<field name="caNoContrarrecibo" class="java.lang.String"/>
+	<field name="cIdDocumento" class="java.lang.String"/>
+	<field name="cIdTipoDocumento" class="java.lang.String"/>
+	<field name="cIdTipoOperacion" class="java.lang.String"/>
+	<field name="cIdRFC" class="java.lang.String"/>
+	<field name="cIdTipoMoneda" class="java.lang.String"/>
+	<field name="nTipoCambio" class="java.math.BigDecimal"/>
+	<field name="mImporteBruto" class="java.math.BigDecimal"/>
+	<field name="mImporteSancion" class="java.math.BigDecimal"/>
+	<field name="mImporteDevolucion" class="java.math.BigDecimal"/>
+	<field name="mAmortizacionAnticipo" class="java.math.BigDecimal"/>
+	<field name="nPorcAmort" class="java.math.BigDecimal"/>
+	<field name="mImporteIVA" class="java.math.BigDecimal"/>
+	<field name="mImporteRetencion" class="java.math.BigDecimal"/>
+	<field name="mImportePenalizacion" class="java.math.BigDecimal"/>
+	<field name="mImporteNeto" class="java.math.BigDecimal"/>
+	<field name="fProgramadaPago" class="java.lang.String"/>
+	<field name="nPolizaAP" class="java.lang.String"/>
+	<field name="cconcepto" class="java.lang.String"/>
+	<field name="cTipoDocumento" class="java.lang.String"/>
+	<field name="TIPO_OPERACION" class="java.lang.String"/>
+	<field name="cDescripcion" class="java.lang.String"/>
+	<field name="cUnidadResponsable" class="java.lang.String"/>
+	<field name="cnoEstimacion" class="java.lang.String"/>
+	<field name="periodo" class="java.lang.String"/>
+	<field name="laEP" class="java.lang.String"/>
+	<field name="Cuenta" class="java.lang.String"/>
+	<field name="subCuenta" class="java.lang.String"/>
+	<field name="subSubCuenta" class="java.lang.String"/>
+	<field name="ctipomovimiento" class="java.lang.String"/>
+	<field name="calmacen" class="java.lang.String"/>
+	<field name="dCuenta" class="java.lang.String"/>
+	<field name="nCuenta" class="java.lang.String"/>
+	<field name="CNOMBRE" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="mMovimiento2" class="java.math.BigDecimal"/>
+	<field name="Debe" class="java.math.BigDecimal"/>
+	<field name="Haber" class="java.math.BigDecimal"/>
+	<field name="nPorcIva" class="java.math.BigDecimal"/>
+	<field name="numReg" class="java.lang.Integer"/>
+	<field name="cantLetras" class="java.lang.String"/>
+	<field name="ID_DESTINO_GASTO" class="java.lang.String"/>
+	<field name="DESTINO_GASTO" class="java.lang.String"/>
+	<field name="cTipoPoliza" class="java.lang.String"/>
+	<field name="sFirmanteVoBo" class="java.lang.String"/>
+	<field name="sPuestoVoBo" class="java.lang.String"/>
+	<field name="sFirmanteAut" class="java.lang.String"/>
+	<field name="sPuestoAut" class="java.lang.String"/>
+	<field name="sFirmanteEla" class="java.lang.String"/>
+	<field name="sPuestoEla" class="java.lang.String"/>
+	<field name="Facturas" class="java.lang.String"/>
+	<field name="CtaBanc" class="java.lang.String"/>
+	<field name="Banco" class="java.lang.String"/>
+	<field name="cTipoObra" class="java.lang.String"/>
+	<field name="noFolio" class="java.lang.Integer"/>
+	<field name="mOtrosImpuestos" class="java.math.BigDecimal"/>
+	<field name="tipoConcepto" class="java.lang.String"/>
+	<field name="conceptoDescripcion" class="java.lang.String"/>
+	<field name="polizaCancelacion" class="java.lang.String"/>
+	<field name="estatus" class="java.lang.String"/>
+	<field name="mSubtotal" class="java.math.BigDecimal"/>
+	<field name="Programa" class="java.lang.String"/>
+	<field name="SubPrograma" class="java.lang.String"/>
+	<field name="sFirmanteDelegatorio" class="java.lang.String"/>
+	<field name="sPuestoFirmanteDelegatorio" class="java.lang.String"/>
+	<field name="Leyenda" class="java.lang.String"/>
+	<field name="cObservaciones" class="java.lang.String"/>
+	<field name="cInformeActividad" class="java.lang.String"/>
+	<field name="sFirmanteDeleVoBo" class="java.lang.String"/>
+	<field name="sPuestoFirmanteDeleVoBo" class="java.lang.String"/>
+	<field name="LeyendaVoBo" class="java.lang.String"/>
+	<field name="cLugarFecha" class="java.lang.String"/>
+	<field name="cEsFirmaElectronica" class="java.lang.String"/>
+	<field name="cInformeComision" class="java.lang.String"/>
+	<variable name="nPorcIva" class="java.lang.String">
+		<initialValueExpression><![CDATA["IVA (" + $F{nPorcIva}.toString() +  "%)"]]></initialValueExpression>
+	</variable>
+	<variable name="laEP" class="java.lang.String">
+		<initialValueExpression><![CDATA["VARIAS"]]></initialValueExpression>
+	</variable>
+	<variable name="noPoliza" class="java.lang.String">
+		<initialValueExpression><![CDATA[$F{cTipoPoliza} + "-" + $F{nPolizaAP}.toString()]]></initialValueExpression>
+	</variable>
+	<variable name="mImporteRetencion" class="java.lang.String"/>
+	<variable name="cnoEstimacion" class="java.lang.String"/>
+	<variable name="FirmanteAutoriza" class="java.lang.String"/>
+	<variable name="PuestoFirmanteAutoriza" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="202" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="8" width="550" height="53" uuid="190d4c72-fadf-4e73-b684-953bb47972b2">
+					<printWhenExpression><![CDATA[$F{cInformeComision}.equals( "" ) ? false : true]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="61" width="550" height="31" uuid="e2fc7bef-f0fb-45c3-bf7b-72ba85d685d7"/>
+			</rectangle>
+			<textField>
+				<reportElement x="185" y="153" width="179" height="13" uuid="b05ad88d-48e6-4ba0-a051-7dac3bbd6f17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $F{LeyendaVoBo}.equals( "" )) ? $F{sFirmanteVoBo} : $F{sFirmanteDeleVoBo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText" x="4" y="61" width="543" height="31" uuid="3b24963d-255a-46bf-8fb4-4e2b1aa96bcd"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Con fundamento en el art. 66 del RLFPRH, y de conformidad a las políticas SEGUNDA y CUARTA de las POBALINES, presento la siguiente solicitud de pago y facturas que la amparan, manifestando que se recibió el bien/servicio a entera satisfacción, por lo que autorizo se realice el pago correspondiente bajo mi responsabilidad, toda vez que se ha cumplido con la normatividad aplicable en materia de contrataciones y de seguimiento de contratos.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="95" width="180" height="94" uuid="dad8d1e8-d72c-4e66-997c-b92cac971369"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[   Responsable de la recepción del bien o servicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="95" width="180" height="94" uuid="55a4fcab-fc0a-4fd0-9dc6-9c5f3b3d0396"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[   Autorizó]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="370" y="153" width="179" height="13" uuid="181a3413-cd56-48ac-9275-5b2e89a31d02"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $F{Leyenda}.equals( "" )) ? $F{sFirmanteAut} : $F{sFirmanteDelegatorio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="369" y="163" width="179" height="24" uuid="7526cd06-b9f4-41ac-84fa-72a76f7b73e6"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{Leyenda}.equals( "" )) ? $F{sPuestoAut} : $F{sPuestoFirmanteDelegatorio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="95" width="180" height="94" uuid="8a0e2b5c-6e29-464b-a7dd-c159108926d7"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Elaboró]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="153" width="180" height="13" uuid="75bac6ce-80ff-4803-8356-dd4d231e64ea"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sFirmanteEla}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="165" width="180" height="23" uuid="61bb2554-93fc-4cea-8660-6284b45907f6"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sPuestoEla}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="185" y="163" width="179" height="23" isPrintWhenDetailOverflows="true" uuid="bae230e8-6090-4eff-8893-8ff703842c39"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{LeyendaVoBo}.equals( "" )) ? $F{sPuestoVoBo} : $F{sPuestoFirmanteDeleVoBo}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="3" y="20" width="543" height="41" uuid="8c31ea7c-223b-42c5-83fe-c14d5364b9a8"/>
+				<textElement textAlignment="Justified">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cInformeComision}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4" y="10" width="547" height="9" uuid="46f020ad-41f8-43c8-b521-7db4bbaeecdb"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cLugarFecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

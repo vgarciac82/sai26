@@ -85,7 +85,7 @@ public class SuficienciaPagoDirectoRetencionServlet extends HttpServlet {
             logic.deleteByFolio(folio, idRetencion);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("{\"mensaje\":\"Eliminadas correctamente\"}".toPath());
+            response.getWriter().write("{\"mensaje\":\"Eliminadas correctamente\"}");
         } catch (Exception ex) {
             log.error("Error al eliminar Retenciones", ex);
             enviarError(response, "Error al eliminar Retenciones.");
@@ -110,6 +110,6 @@ public class SuficienciaPagoDirectoRetencionServlet extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"error\": \"" + mensaje + "\"}".toPath());
+        response.getWriter().write("{\"error\": \"" + mensaje + "\"}");
     }
 }

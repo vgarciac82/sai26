@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Contratos Diversos</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>50</altoAreaCaptura>
+	<tabla>PCONTRATODIVERSOE</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cIDContratoExcepcion"	control="cIDContratoExcepcion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="No. Contrato"	ancho="40"	maxlen="40"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cIdRFC"					control="cIdRFC"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Persona Fisica o Moral"	ancho="40"	maxlen="40"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cobjetocontrato"		control="cobjetocontrato"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Descripcion"	ancho="40"	maxlen="40"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="nPorcIVAAplicable"		control="nPorcIVAAplicable"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Iva"	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="mTotal"					control="mTotal"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Total"	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+	    <columna campo="Descrip_Concepto"		control="Descrip_Concepto"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Desc"	ancho="20"	maxlen="20"		tipo="string"	visible="No"	clase=""/>
+	    <columna campo="mImporteBruto"			control="mImporteBruto"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Desc"	ancho="20"	maxlen="20"		tipo="string"	visible="No"	clase=""/>
+	    <columna campo="mImporteAnticipoIVA"	control="mImporteAnticipoIVA"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Total"	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+	    <columna campo="nFolioCompromiso"		control="nFolioCompromiso"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="folio" rowCol="8,1" 	ancho="10"	maxlen=""		tipo="string"	visible="No"	clase=""/>
+	    <columna campo="lHaySaldoAnticipo"		control="lHaySaldoAnticipo"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Anticipo" rowCol="8,1" 	ancho="10"	maxlen=""		tipo="string"	visible="No"	clase=""/>
+	    <columna campo="IEsPasivo"				control="IEsPasivo"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="IEsPasivo" rowCol="8,1" 	ancho="10"	maxlen=""		tipo="string"	visible="No"	clase=""/>
+   </grid>  
+</Ayuda>

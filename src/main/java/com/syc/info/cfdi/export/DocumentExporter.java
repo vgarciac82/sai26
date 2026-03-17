@@ -104,7 +104,7 @@ public class DocumentExporter {
             fw = new FileWriter(pathExport);
             bw = new BufferedWriter(fw);
             for (Iterator<String> i = exportLog.iterator(); i.hasNext(); ) {
-                bw.write(i.next() + "\n".toPath());
+                bw.write(i.next() + "\n");
             }
             bw.flush();
             bw.close();

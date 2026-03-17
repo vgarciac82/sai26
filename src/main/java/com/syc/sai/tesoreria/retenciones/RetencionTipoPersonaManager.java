@@ -22,7 +22,7 @@ public class RetencionTipoPersonaManager {
         String tipoPersona = "";
         String query = "SELECT cIdTipoPersonaRFC FROM tBeneficiario WITH (NOLOCK) WHERE dRFC = ?";
         try {
-            log.debug("Object: {}", "Buscando tipo persona para el RFC " + cRFC);
+            log.debug("Object: " + String.valueOf("Buscando tipo persona para el RFC " + cRFC));
             log.trace("Object: {}", "Query: " + query);
             pStatement = conn.prepareStatement(query);
             pStatement.setString(1, cRFC);
@@ -45,7 +45,7 @@ public class RetencionTipoPersonaManager {
         PreparedStatement psInsert = null;
         String queryInsert = "INSERT INTO tPagoDirectoRetencion " + "	SELECT YEAR(GETDATE()), ?, ?, ?";
         try {
-            log.debug("Object: {}", "Buscando retenciones " + tipoPersona + " en la partida " + partidas);
+            log.debug("Object: " + String.valueOf("Buscando retenciones " + tipoPersona + " en la partida " + partidas));
             log.trace("Object: {}", "Query: " + query);
             pStatement = conn.prepareStatement(query);
             pStatement.setString(1, partidas);

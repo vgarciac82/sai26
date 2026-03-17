@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Ayuda Municipios - desde la pantalla de Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Firmantes</titulo>
+	<anchoWin>1000</anchoWin>
+	<altoWin>900</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>	
+	<tabla>M_MCATALOGOFIRMANTES_CC</tabla>
+	<maxRegistros>250</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+ 	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	 
+	<grid>
+		<columna campo="cUnidadResponsable"	control="txtGridcIdUnidadEjecutora"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	  header="Unidad Ejecutora"	rowCol="1,1" 	ancho="3"		maxlen="80"		tipo="string"	visible="Si"	clase=""/>
+   		<columna campo="D_DESCRIPCION"		control="D_DESCRIPCION"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	  header="Nombre"				rowCol="2,1" 	ancho="130"		maxlen="80"		tipo="string"	visible="Si"	clase=""/>   		   		   		
+	</grid> 
+
+</Ayuda>

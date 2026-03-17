@@ -69,7 +69,7 @@ public class ComparaSaiSicopManager {
         String ep = "";
         int compPs = 15;
         ep = renglonInfo[2] + "." + renglonInfo[0] + "." + renglonInfo[1] + "." + renglonInfo[3] + "." + renglonInfo[4] + "." + ((renglonInfo[5].length() == 1 ? ("0" + renglonInfo[5]) : renglonInfo[5])) + "." + ((renglonInfo[6].length() == 1 ? ("0" + renglonInfo[6]) : renglonInfo[6])) + "." + ((renglonInfo[7].length() == 1 ? ("00" + renglonInfo[7]) : renglonInfo[7])) + "." + renglonInfo[8] + "." + renglonInfo[9] + renglonInfo[10] + renglonInfo[11] + (renglonInfo[12].length() == 1 ? ("0" + renglonInfo[12]) : renglonInfo[12]) + "." + renglonInfo[13] + "." + renglonInfo[14] + "." + (renglonInfo[15].length() == 1 ? ("0" + renglonInfo[15]) : renglonInfo[15]) + "." + (renglonInfo[16].equals("0") ? ("0000000000" + renglonInfo[16]) : renglonInfo[16]) + "." + (renglonInfo[17].substring(7)) + "." + ((renglonInfo[18]).equals("RE") ? ("0" + renglonInfo[18]) : (renglonInfo[18].length() == 1 ? ("B0" + renglonInfo[18]) : "B" + renglonInfo[18]));
-        log.debug("Object: {}", "EP: " + ep);
+        log.debug("Object: " + String.valueOf("EP: " + ep));
         List<PosicionArchivoSICOP> momentos = PosicionArchivoSICOPManager.cargaMomentos(conn);
         int insertados = 0;
         for (int c = 0; c < momentos.size(); c++) {

@@ -1,0 +1,37 @@
+.tdNoPad {
+	padding: 0px;
+}
+
+.ctaBloqCargo {
+	width: 15px;
+	height: 15px;
+	background-color: red;
+}
+
+.tdBloqCargo {
+	background-color: red;
+	text-align: center;
+	color: white;
+}
+
+.ctaBloqAbono {
+	width: 15px;
+	height: 15px;
+	background-color: purple;
+}
+
+.tdBloqAbono {
+	background-color: purple;
+	text-align: center;
+	color: purple;
+}
+
+.enc {
+	font-weight: bold;
+}
+
+.tdNormal {
+	background-color: white;
+	text-align: center;
+	color: black;
+}

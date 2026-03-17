@@ -71,7 +71,7 @@ public class EjercidoPagadoBusinessLogic extends DataSourceManager {
             log.trace("Iterando lista de pagos.");
             for (Iterator<Pago> i = pagosProcesar.iterator(); i.hasNext(); ) {
                 Pago pago = i.next();
-                log.debug("Object: {}", String.format("Procesando pago. Tipo [%s] Folio [%d] Estatus Ejercido [%s] Estatus Pagado [%s] Monto[%f]", pago.getTipoPago(), pago.getFolioPagado(), pago.getEstatusEjercido(), pago.getEstatusPagado(), pago.getImporteNeto().floatValue()));
+                log.debug("Object: " + String.valueOf(String.format("Procesando pago. Tipo [%s] Folio [%d] Estatus Ejercido [%s] Estatus Pagado [%s] Monto[%f]", pago.getTipoPago(), pago.getFolioPagado(), pago.getEstatusEjercido(), pago.getEstatusPagado(), pago.getImporteNeto().floatValue())));
                 /*
 				 * Las solicitudes de laudos devengadas seran aplicadas
 				 * manualmente.
@@ -169,7 +169,7 @@ public class EjercidoPagadoBusinessLogic extends DataSourceManager {
             log.trace("Iterando lista de pagos.");
             for (Iterator<Pago> i = pagosProcesar.iterator(); i.hasNext(); ) {
                 Pago pago = i.next();
-                log.debug("Object: {}", String.format("Procesando pago. Tipo [%s] Folio [%d] Estatus Ejercido [%s] Estatus Pagado [%s] Monto[%f]", pago.getTipoPago(), pago.getFolioPagado(), pago.getEstatusEjercido(), pago.getEstatusPagado(), pago.getImporteNeto().floatValue()));
+                log.debug("Object: " + String.valueOf(String.format("Procesando pago. Tipo [%s] Folio [%d] Estatus Ejercido [%s] Estatus Pagado [%s] Monto[%f]", pago.getTipoPago(), pago.getFolioPagado(), pago.getEstatusEjercido(), pago.getEstatusPagado(), pago.getImporteNeto().floatValue())));
                 if (EjercidoPagadoBusinessLogic.EJERCIDO.equalsIgnoreCase(pago.getEstatusEjercido())) {
                     /* Inicio de la aplicacion del ejercido. */
                     /*

@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ComplementoManualSCG" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="58dc5d3b-5a15-471b-a78f-0a2179fc9325">
+	<property name="ireport.zoom" value="1.464100000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="194"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idVersion" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="final" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="consulta" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipoManual" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[EXEC dbo.sp_complementoManual @idVersion = $P{idVersion}, -- int
+	    @final = $P{final}, -- int
+	    @consulta = $P{consulta}, -- int
+	    @tipoManual = $P{tipoManual} -- int]]>
+	</queryString>
+	<field name="cParrafo1" class="java.lang.String"/>
+	<field name="cParrafo2" class="java.lang.String"/>
+	<field name="cParrafo3" class="java.lang.String"/>
+	<field name="cParrafo4" class="java.lang.String"/>
+	<field name="cParrafo5" class="java.lang.String"/>
+	<field name="cParrafo6" class="java.lang.String"/>
+	<field name="cParrafo7" class="java.lang.String"/>
+	<field name="cParrafo8" class="java.lang.String"/>
+	<field name="cParrafo9" class="java.lang.String"/>
+	<field name="cParrafo10" class="java.lang.String"/>
+	<field name="cParrafo11" class="java.lang.String"/>
+	<field name="cParrafo12" class="java.lang.String"/>
+	<field name="cParrafo13" class="java.lang.String"/>
+	<field name="cParrafo14" class="java.lang.String"/>
+	<field name="cParrafo15" class="java.lang.String"/>
+	<field name="cParrafo16" class="java.lang.String"/>
+	<field name="cParrafo17" class="java.lang.String"/>
+	<field name="cParrafo18" class="java.lang.String"/>
+	<field name="cParrafo19" class="java.lang.String"/>
+	<field name="cParrafo20" class="java.lang.String"/>
+	<field name="cParrafo21" class="java.lang.String"/>
+	<field name="aEjercicioFiscal" class="java.lang.String"/>
+	<field name="idVersion" class="java.lang.String"/>
+	<field name="fAplicacion" class="java.lang.String"/>
+	<pageHeader>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="10" y="4" width="141" height="50" uuid="07c03f37-224d-4bce-98ea-3578eb6fedae"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="163" y="16" width="230" height="39" uuid="ac15ed76-112d-45cd-8da5-8b642acf673a"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Arial" size="14" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[COMISION NACIONAL FORESTAL
+MANUAL DE CONTABILIDAD GUBERNAMENTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="401" y="61" width="100" height="12" uuid="b76ae9c0-2c8c-405a-8094-9f0b1bb12237">
+					<printWhenExpression><![CDATA[!$F{idVersion}.equals( "0" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idVersion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="39" y="61" width="124" height="12" uuid="1e281376-d8a5-45af-9301-3df22b1a0dc6">
+					<printWhenExpression><![CDATA[!$F{fAplicacion}.equals( "" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fAplicacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="108" y="6" width="345" height="21" uuid="a0e17b34-ffa1-4f41-b36b-b0559d90102b"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EL SISTEMA DE CONTABILIDAD GUBERNAMENTAL (SCG)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="78" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="38" y="7" width="397" height="13" uuid="b8fad9ac-460b-4dbb-89d5-89e14fe82451"/>
+				<textElement markup="styled">
+					<font fontName="Arial" isBold="true" isStrikeThrough="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[B.1 ANTECEDENTES SOBRE LA CONTABILIDAD GUBERNAMENTAL]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="37" y="31" width="484" height="14" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="d70be50d-d824-459d-96a9-d09d80aa0258"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo1}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="62" y="56" width="459" height="16" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="178e93ff-4885-4518-933a-24532b5619bd"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="html">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo2}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="54">
+			<staticText>
+				<reportElement positionType="Float" x="37" y="7" width="397" height="13" uuid="1d04401b-d5b4-47d8-bd5a-9f54a14498f9"/>
+				<textElement markup="styled">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[B.2 FUNDAMENTO LEGAL DE LA CONTABILIDAD GUBERNAMENTAL EN MÉXICO]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="37" y="31" width="484" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="9ad9d75c-0937-4964-b332-1a57568f1214"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="html">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo3}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="53">
+			<staticText>
+				<reportElement positionType="Float" x="37" y="7" width="397" height="13" uuid="2b244a26-4388-42d3-ba74-02f6b647dae1"/>
+				<textElement markup="styled">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[B.3 CONCEPTO DEL SISTEMA DE CONTABILIDAD GUBERNAMENTAL]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="37" y="31" width="484" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="d2728ea3-f6c2-4619-9e27-7c8e34627963"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="html">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo4}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="52">
+			<staticText>
+				<reportElement positionType="Float" x="37" y="7" width="397" height="13" uuid="e48318eb-8f0f-4fb2-bddb-418f00fa8917"/>
+				<textElement markup="styled">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[B.    4 LA CONTABILIDAD GUBERNAMENTAL Y LOS ENTES PÚBLICOS]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="37" y="31" width="484" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="1d13c311-bc91-4bac-84a4-56fcc66f054f"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="html">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo5}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="109">
+			<staticText>
+				<reportElement positionType="Float" x="38" y="7" width="397" height="13" uuid="8e4b6d31-4ffa-4f9f-9939-f39254502c8d"/>
+				<textElement markup="styled">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[B.    5 OBJETIVOS DEL SISTEMA DE CONTABILIDAD GUBERNAMENTAL (SCG)]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="62" y="46" width="459" height="14" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="a1bf84f6-f576-4c5a-918b-43f2a07897fc"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="html">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo6}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="62" y="87" width="459" height="14" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="58eea521-6387-439d-b15a-d74d44d86960"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="html">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo7}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="38" y="27" width="397" height="13" uuid="30c9d02b-6eda-4b6a-abe7-c1d53feaf741"/>
+				<textElement markup="styled">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[El SCG deberà:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="38" y="66" width="483" height="13" uuid="52fe245c-ddd1-46ff-976d-4c7ef8a17922"/>
+				<textElement markup="styled">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A los que, siguiendo con los criterios establecidos, correspondería agregar los siguientes:]]></text>
+			</staticText>
+		</band>
+		<band height="41">
+			<staticText>
+				<reportElement positionType="Float" x="37" y="5" width="484" height="13" uuid="c4251ac7-5876-42ad-addd-3277a40765ca"/>
+				<textElement markup="styled">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desagregando dichos objetivos corresponde al ente público:]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="62" y="24" width="459" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="571f9453-f2df-4a63-9d2b-5ada5550b22c"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo8}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="75">
+			<staticText>
+				<reportElement positionType="Float" x="37" y="7" width="462" height="13" uuid="85882977-22fd-428e-a0a2-58d3f412f2ac"/>
+				<textElement markup="styled">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[B.    6 PRODUCTOS A GENERAR POR EL SISTEMA DE CONTABILIDAD GUBERNAMENTAL (SCG)]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="63" y="56" width="458" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="ff9aea8f-ace9-4f72-a9f5-d3fc2d5f5b19"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo10}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="37" y="31" width="484" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="1241c6f4-6c31-49bb-b47c-1c7055de49b1"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="html">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo9}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="76">
+			<staticText>
+				<reportElement positionType="Float" x="37" y="7" width="397" height="26" uuid="12e6e18e-b458-4ffc-81db-48de46b20071"/>
+				<textElement markup="styled">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[B.    7 PRINCIPALES USUARIOS DE LA INFORMACIÓN GENERADA POR LOS ENTES PÚBLICOS DEL SECTOR PARAESTATAL FEDERAL]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="63" y="58" width="458" height="14" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="d5d54ff4-5c6a-4399-b907-25d15508edc5"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="html">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo11}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="37" y="40" width="484" height="13" uuid="bf6959a1-1eba-43d4-8f43-6205aa8b824d"/>
+				<textElement markup="styled">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Entre los principales usuarios de la información que se produce, se identifican los siguientes:]]></text>
+			</staticText>
+		</band>
+		<band height="67">
+			<staticText>
+				<reportElement x="37" y="7" width="397" height="15" uuid="bce268dd-67c0-4da4-9f24-c2abc912afbd"/>
+				<textElement markup="html">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[B.    8 MARCO CONCEPTUAL DE LA CONTABILIDAD GUBERNAMENTAL (MCCG)]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="80" y="50" width="441" height="14" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="bcd03fac-6004-44f5-9445-fbd3e093f5e6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo13}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="38" y="30" width="483" height="14" isRemoveLineWhenBlank="true" uuid="e41d4323-0621-4862-9069-3e804d432926">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo12}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="66">
+			<staticText>
+				<reportElement positionType="Float" x="38" y="6" width="461" height="33" uuid="66693779-6f96-48bc-b201-f13232338217"/>
+				<textElement markup="styled">
+					<font fontName="Arial" isBold="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[En virtud de lo anterior, la importancia del MCCG para el usuario general de los estados financieros radica en lo siguiente:]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="81" y="46" width="440" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="333fcbb8-9d1f-49ec-b6a2-39d80e282543"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="html">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo14}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="66">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="81" y="24" width="440" height="14" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="7c7689db-c998-426f-9b9e-0b94618a58e0"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo15}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="40" y="4" width="300" height="14" uuid="f60f08a7-1d3d-430d-8927-1b0ce36cefb9"/>
+				<textElement markup="styled">
+					<font fontName="Arial" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Por lo tanto, el MCCG tiene como propósitos:]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="37" y="45" width="484" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="c2a7929f-6cdc-4177-8087-f7952857810d"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo16}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="75">
+			<staticText>
+				<reportElement positionType="Float" x="37" y="7" width="397" height="15" uuid="79f44ea4-da64-4dfa-b147-9fd5ec30a06b"/>
+				<textElement markup="styled">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[B.    9 POSTULADOS BÁSICOS DE LA CONTABILIDAD GUBERNAMENTAL (PBCG)]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="39" y="28" width="482" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="b0697f3e-20a8-426c-ac8c-f29129ac3df5"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo17}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="38" y="48" width="483" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="cc16e065-f7d0-4667-97a2-d60b47b0c4df"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo18}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="18">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="39" y="0" width="482" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="8ab30c10-75f9-44d7-8411-44fc736e57ca">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo19}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="71">
+			<staticText>
+				<reportElement positionType="Float" x="37" y="7" width="462" height="15" uuid="f9c78eff-02be-4314-9365-7f6a357bc1ac"/>
+				<textElement markup="styled">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[B.    10 CARACTERISTICAS TÉCNICAS DEL SISTEMA DE CONTABILIDAD GUBERNAMENTAL (SCG)]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="38" y="29" width="483" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="8cb30b89-19c0-4c45-8641-26e258826d57"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo20}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="80" y="49" width="441" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="071c2eac-8af5-4766-8654-3b24bb0831c7"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="html">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo21}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="28">
+			<textField>
+				<reportElement x="267" y="10" width="55" height="11" uuid="59d67eb3-b9f2-42af-9f86-8785517d6ca8"/>
+				<textElement markup="styled">
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aEjercicioFiscal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="234" y="9" width="32" height="12" uuid="4d5820cf-32ec-47a2-9a2c-fa2240531aa3"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[Vigencia]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="521" y="9" width="18" height="13" uuid="42638228-9b30-41b8-9a3e-74133a3260ee"/>
+				<textElement markup="styled">
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

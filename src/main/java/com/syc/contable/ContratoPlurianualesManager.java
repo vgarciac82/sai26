@@ -273,7 +273,7 @@ public class ContratoPlurianualesManager {
             String sql = "";
             log.debug("insercion de renglon en funcion InsertContratoPlurianualApartado");
             sql = "INSERT INTO tContratoPlurianualApartado(nFolioContratoPlurianual, nDocRenglon, EP, Anio, cEvento, mImporte, mImporteNegativo, cCentroContable, cMes, mSaldoModificado, fRegistro)VALUES(" + sFolio + "," + String.valueOf(iConsecutivo) + ",'" + sEp + "'," + sAnio + ",'" + sEvento + "'," + sImporte + "," + sImporteNeg + "," + sCC + "," + sMes + "," + cMod + " , GETDATE() )";
-            log.debug("Object: {}", sql.toString());
+            log.debug("Object: " + String.valueOf(sql.toString()));
             pstm = conn.prepareStatement(sql);
             pstm.execute();
             res = pstm.getUpdateCount() != 0 ? true : false;

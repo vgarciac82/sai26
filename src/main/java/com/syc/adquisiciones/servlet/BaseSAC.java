@@ -55,7 +55,7 @@ public class BaseSAC extends HttpServlet {
         }
         usuario = (Usuario) session.getAttribute(GestionInterface.ATT_USER);
         int tipoProceso = (request.getParameter("tipoProceso") == null || "".equalsIgnoreCase(request.getParameter("tipoProceso")) ? -1 : Integer.parseInt(request.getParameter("tipoProceso")));
-        log.debug("Object: {}", "Proceso: " + tipoProceso);
+        log.debug("Object: " + String.valueOf("Proceso: " + tipoProceso));
         switch(tipoProceso) {
             case //Nuevo Procedimiento
             1:

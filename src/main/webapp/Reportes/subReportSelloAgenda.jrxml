@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subReportAgenda" language="javascript" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="9c1e64c1-42df-40ac-99e9-597b2a35f7a8">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sai_2024"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="whereFolio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT nIdComision, AGENDA.nidAgenda, convert(varchar(12),fInicio ,103) fInicio,  convert(varchar(12),ffin ,103 ) fFin,  cPais, dbo.fn_mayusc_formato(EDO_NOMBRE) EDO_NOMBRE, 
+dbo.fn_mayusc_formato(MPO_NOMBRE) MPO_NOMBRE, cLocalidad, cMotivoComision, cActividades, ROW_NUMBER () OVER (ORDER BY DATEPART(MONTH, finicio),  DATEPART(day, finicio)) consecutivo
+FROM tAgenda AGENDA
+INNER JOIN tViaticos VIAT WITH (NOLOCK)ON AGENDA.nidAgenda = VIAT.nidAgenda
+INNER JOIN CAT_ESTADOS estado WITH (NOLOCK) ON (estado.ID_ESTADO = AGENDA.nidEstado)
+INNER JOIN CAT_MUNICIPIO municipio WITH (NOLOCK) ON (municipio.ID_ESTADO = AGENDA.nidEstado AND municipio.ID_MUNICIPIO = AGENDA.nidMunicipio)
+INNER JOIN tCatalogoPaises paises WITH (NOLOCK) ON (paises.nIdPais = AGENDA.nIdPais)
+WHERE nIdComision =  $P{whereFolio}
+AND VIAT.cTienePaquete = 1 AND VIAT.nIdPaquete IN (SELECT nIdPaquete FROM tCatPaquetesComision WITH (NOLOCK) WHERE cNombre LIKE '%CERTIF%')
+ORDER BY DATEPART(MONTH, finicio),  DATEPART(day, finicio)]]>
+	</queryString>
+	<field name="nIdComision" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="nIdComision"/>
+		<property name="com.jaspersoft.studio.field.label" value="nIdComision"/>
+	</field>
+	<field name="nidAgenda" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="nidAgenda"/>
+		<property name="com.jaspersoft.studio.field.label" value="nidAgenda"/>
+	</field>
+	<field name="fInicio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fInicio"/>
+		<property name="com.jaspersoft.studio.field.label" value="fInicio"/>
+	</field>
+	<field name="fFin" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fFin"/>
+		<property name="com.jaspersoft.studio.field.label" value="fFin"/>
+	</field>
+	<field name="cPais" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cPais"/>
+		<property name="com.jaspersoft.studio.field.label" value="cPais"/>
+	</field>
+	<field name="EDO_NOMBRE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EDO_NOMBRE"/>
+		<property name="com.jaspersoft.studio.field.label" value="EDO_NOMBRE"/>
+	</field>
+	<field name="MPO_NOMBRE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="MPO_NOMBRE"/>
+		<property name="com.jaspersoft.studio.field.label" value="MPO_NOMBRE"/>
+	</field>
+	<field name="cLocalidad" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cLocalidad"/>
+		<property name="com.jaspersoft.studio.field.label" value="cLocalidad"/>
+	</field>
+	<field name="cMotivoComision" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cMotivoComision"/>
+		<property name="com.jaspersoft.studio.field.label" value="cMotivoComision"/>
+	</field>
+	<field name="cActividades" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cActividades"/>
+		<property name="com.jaspersoft.studio.field.label" value="cActividades"/>
+	</field>
+	<field name="consecutivo" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="consecutivo"/>
+		<property name="com.jaspersoft.studio.field.label" value="consecutivo"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<rectangle>
+				<reportElement x="3" y="0" width="529" height="16" backcolor="#CCCCCC" uuid="6dd6bf1a-c76b-4019-893c-398d97f56e7b"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="0" width="257" height="15" uuid="d30e6f7c-292d-4df4-9208-859e7d9c6b9a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7e0164b2-edb3-4df4-8e60-0269ecfe74b2"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist"/>
+				</textElement>
+				<text><![CDATA[Sello]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="0" width="267" height="15" uuid="f581a4b5-0d8c-448c-a53f-3acf5d6f3a7d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6ab7be8b-dbc4-4813-bae9-ba70096d469a"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist"/>
+				</textElement>
+				<text><![CDATA[Nombre, Cargo y Firma de la autoridad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="82" splitType="Stretch">
+			<rectangle>
+				<reportElement x="3" y="-1" width="529" height="82" uuid="c15e3cc4-9b78-4db4-af19-56699397c7d2"/>
+			</rectangle>
+			<textField>
+				<reportElement x="3" y="1" width="21" height="14" uuid="77eb5026-e638-4206-92a6-a627318c5fb6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dc8b4b3b-3477-43cc-be52-164743b04d44"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{consecutivo}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="260" y="-16" width="1" height="97" uuid="17f4899c-6b33-4aeb-90b4-f10157f3bd22"/>
+			</line>
+			<staticText>
+				<reportElement stretchType="ElementGroupHeight" x="263" y="65" width="265" height="16" uuid="4f7ec66d-1da3-4add-9e9f-0c53c86d312f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist"/>
+				</textElement>
+				<text><![CDATA[Nombre, Cargo y Firma Autoridad *]]></text>
+			</staticText>
+			<line>
+				<reportElement x="293" y="65" width="210" height="1" uuid="62f1530e-ec82-476e-ba99-e76839132c00"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

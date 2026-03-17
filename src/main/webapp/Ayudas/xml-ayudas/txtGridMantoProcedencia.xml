@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- Ayuda Procedencias - desde la pantalla de Remitente Externo -->
+<Ayuda>
+	<titulo>Ayuda Procedencias</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>160</altoAreaCaptura>
+	<tabla>CAT_PROCEDENCIA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+ 	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	 
+	<grid>
+		<columna campo="PRO_DESCRIPCION"		control="txtGridMantoProcedencia"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Procedencia"			ancho="100"	maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="PRO_ABREVIATURA"		control=""							dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Abreviatura"			ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="TP_DESCRIPCION"			control="txtGridCol3"				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Tipo Procedencia"		ancho="100"	maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="ID_PROCEDENCIA"			control="txtGridCol9"				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Clave Procedencia"		ancho="6"	maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+		<columna campo="P.ID_TIPO_PROCEDENCIA"	control="txtGridCol10"				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Clave Tipo Procedencia"	ancho="30"	maxlen="30"		tipo="string"	visible="No"	clase=""/>
+	</grid> 
+	
+</Ayuda>
+

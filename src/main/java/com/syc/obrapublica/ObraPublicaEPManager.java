@@ -109,7 +109,7 @@ public class ObraPublicaEPManager {
                 }
                 condicion = " AND (" + claves + ")";
                 query += condicion;
-                log.debug("Object: {}", query.toString());
+                log.debug("Object: " + String.valueOf(query.toString()));
                 ps = conn.prepareStatement(query);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -133,7 +133,7 @@ public class ObraPublicaEPManager {
         ResultSet rsEPS = null;
         String query = "SELECT ep AS epID " + "FROM   vsaldosanuales WITH(nolock) " + "WHERE  ncuentap = '82106' " + "       AND cpartida IN (SELECT cpartida " + "                        FROM   dbo.toppartidasinoli partidas WITH( nolock ) " + "                               INNER JOIN dbo.tvistasur vistas WITH( nolock ) " + "                                       ON partidas.cunidadejecutora = vistas.ur " + "                        WHERE  vistas.modulo = 'OBRAPUBLICA' " + "                               AND vistas.usuario = ?) " + "       AND cunidadejecutora IN (SELECT ur " + "                                FROM   dbo.tvistasur " + "                                WHERE  modulo = 'OBRAPUBLICA' " + "                                       AND usuario = ?) ";
         try {
-            log.debug("Object: {}", query.toString());
+            log.debug("Object: " + String.valueOf(query.toString()));
             ps = conn.prepareStatement(query);
             ps.setString(1, usuario);
             ps.setString(2, usuario);
@@ -168,7 +168,7 @@ public class ObraPublicaEPManager {
                 }
                 condicion = " AND (" + claves + ")";
                 query += condicion;
-                log.debug("Object: {}", query.toString());
+                log.debug("Object: " + String.valueOf(query.toString()));
                 ps = conn.prepareStatement(query);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -198,7 +198,7 @@ public class ObraPublicaEPManager {
             claves += tokenClaves + " ep LIKE '" + ef + ".%" + cartera + "%.%'";
             condicion = " AND (" + claves + ")";
             query += condicion;
-            log.debug("Object: {}", query.toString());
+            log.debug("Object: " + String.valueOf(query.toString()));
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {

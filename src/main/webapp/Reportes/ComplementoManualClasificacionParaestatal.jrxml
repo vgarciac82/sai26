@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ComplementoManualClasificacionParaestatal" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="41205d57-fcc2-49d0-8ec6-a2005debe3d1">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="4"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="localhost"/>
+	<parameter name="idVersion" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="final" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="consulta" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipoManual" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[EXEC dbo.sp_complementoManual @idVersion = $P{idVersion}, -- int
+	    @final = $P{final}, -- int
+	    @consulta = $P{consulta}, -- int
+	    @tipoManual = $P{tipoManual} -- int]]>
+	</queryString>
+	<field name="cParrafo1" class="java.lang.String"/>
+	<field name="cParrafo2" class="java.lang.String"/>
+	<field name="cParrafo3" class="java.lang.String"/>
+	<field name="cParrafo4" class="java.lang.String"/>
+	<field name="cParrafo5" class="java.lang.String"/>
+	<field name="cParrafo6" class="java.lang.String"/>
+	<field name="cParrafo7" class="java.lang.String"/>
+	<field name="aEjercicioFiscal" class="java.lang.String"/>
+	<field name="idVersion" class="java.lang.String"/>
+	<field name="fAplicacion" class="java.lang.String"/>
+	<pageHeader>
+		<band height="74" splitType="Stretch">
+			<image>
+				<reportElement x="10" y="5" width="141" height="50" uuid="312db73d-22d5-4619-9f18-a6e51d188067"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="163" y="12" width="230" height="39" uuid="1bea1403-14e2-40d5-bff3-3e6b679ab7fd"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISION NACIONAL FORESTAL
+MANUAL DE CONTABILIDAD GUBERNAMENTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="408" y="57" width="100" height="12" uuid="47e966f2-5959-4964-91ea-9f479a1d89a4">
+					<printWhenExpression><![CDATA[!$F{idVersion}.equals( "0" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idVersion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="57" width="100" height="12" uuid="c0c13596-24f0-439b-80ee-d6710a36be36">
+					<printWhenExpression><![CDATA[!$F{fAplicacion}.equals( "" )]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fAplicacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="109" y="7" width="345" height="21" uuid="f65d97b3-55c1-4d41-9abb-b1cb5155ba56"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLASIFICACIÓN DEL SECTOR PARAESTATAL FEDERAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="133" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="50" y="34" width="345" height="15" isRemoveLineWhenBlank="true" uuid="1c9aa697-0b95-40a6-b678-49e857b6f350"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORGANIZACIÓN DESDE EL PUNTO DE VISTA LEGAL]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="50" y="11" width="458" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="bdd7d54a-24fa-4b00-afca-cf672fb9f61b"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo1}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="80" y="61" width="428" height="14" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="94fc399f-f693-4035-a832-519a0a5c793f"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="50" y="86" width="345" height="15" isRemoveLineWhenBlank="true" uuid="f43d3ca4-82e2-4cd0-ac88-989b118765a8"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORGANIZACION PRESUPUESTARIA]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="50" y="111" width="458" height="14" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="13ae9aab-c84f-4074-9e78-44d8fa75d40e"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo3}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="99">
+			<staticText>
+				<reportElement positionType="Float" x="109" y="11" width="345" height="32" uuid="8b193dfb-05ae-46fc-a62f-e09695a5f6a7"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLASIFICACIÓN DE LA COMISION NACIONAL FORESTAL COMO SECTOR PARAESTATAL FEDERAL]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="48" y="55" width="460" height="32" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="719ead21-219e-4630-ad04-f1631fc196a4"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo4}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="82">
+			<staticText>
+				<reportElement positionType="Float" x="49" y="11" width="345" height="15" isRemoveLineWhenBlank="true" uuid="23320e1b-f7a7-4f41-b14d-1ae963bcb3ba"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLASIFICACIÓN ADMINISTRATIVA DE ENTIDADES]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="49" y="30" width="458" height="17" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="96e23b50-8006-4c27-a0d2-35ea508358cf"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" markup="html">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo5}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="51" y="55" width="457" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="44e91f64-023b-4fbe-8a41-17d53f4ba8aa"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo6}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="69">
+			<staticText>
+				<reportElement positionType="Float" x="53" y="11" width="457" height="25" isRemoveLineWhenBlank="true" uuid="5aeee972-3936-4d40-af7c-175edefd90cc"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARÁMETROS PARA CLASIFICAR LAS ENTIDADES PARAESTATALES NO FINANCIERAS Y NO EMPRESARIALES]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="85" y="43" width="392" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="7fd70483-d3e7-4a40-a183-3068bb81c6f3"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo7}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="27">
+			<textField>
+				<reportElement x="523" y="11" width="19" height="10" uuid="7bd4e34f-530f-492c-99a0-40fd9bb37d5f"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="232" y="10" width="32" height="12" uuid="a8a453c1-b4a4-4a35-8f17-75c769bdb281"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Vigencia]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="265" y="11" width="55" height="11" uuid="cff57d3d-18ca-47dc-a0b9-22f2b3400cb3"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aEjercicioFiscal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

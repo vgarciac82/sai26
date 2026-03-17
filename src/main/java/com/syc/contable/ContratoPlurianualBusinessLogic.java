@@ -336,7 +336,7 @@ public class ContratoPlurianualBusinessLogic extends DataSourceManager {
                         MatrizAnual[iExiste][4] = MatrizAnual[iExiste][4] + dSuper;
                     }
                     if (errores.size() == 0) {
-                        log.debug("Object: {}", "Procesando renglon " + String.valueOf(renglon++) + " Año:" + String.valueOf((int) cel_CICLO.getNumericCellValue()));
+                        log.debug("Object: " + String.valueOf("Procesando renglon " + String.valueOf(renglon++) + " Año:" + String.valueOf((int) cel_CICLO.getNumericCellValue())));
                         ContratoPlurianualesManager.insertaRenglon(conn, epMap, "tContratoPlurianual_EP");
                     }
                 }

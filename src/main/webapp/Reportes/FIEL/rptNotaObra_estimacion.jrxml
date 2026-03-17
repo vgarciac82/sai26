@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptNotaMateriales_recepcion" pageWidth="572" pageHeight="752" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="5b778285-ce8f-414d-8fe3-782e7eec010b">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="desa"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="nEstimacion" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cIdContrato" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select 
+ ccvecontrato contrato
+ ,case when noestimacion='0' then 'Anticipo' else noestimacion end noestimacion
+ ,1 nCantidad ,convert(varchar,mmontoestimacion,103 )mmontoestimacion 
+ ,convert(varchar,mMontoEstimacionIva,103 ) mMontoEstimacionIva
+ ,convert(varchar,mMontoEstimacionMasIva,103 ) mMontoEstimacionMasIva 
+ ,convert(varchar,mMontoEstimacionAmortizado,103 ) mMontoEstimacionAmortizado
+ ,convert(varchar,mMontoEstimacionRetencion,103 ) mMontoEstimacionRetencion
+ from tobrapublicaavancefisico with(Nolock)
+ where ccvecontrato=$P{cIdContrato} and noestimacion=$P{nEstimacion}]]>
+	</queryString>
+	<field name="contrato" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="contrato"/>
+		<property name="com.jaspersoft.studio.field.label" value="contrato"/>
+	</field>
+	<field name="noestimacion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="noestimacion"/>
+		<property name="com.jaspersoft.studio.field.label" value="noestimacion"/>
+	</field>
+	<field name="nCantidad" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="nCantidad"/>
+		<property name="com.jaspersoft.studio.field.label" value="nCantidad"/>
+	</field>
+	<field name="mmontoestimacion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="mmontoestimacion"/>
+		<property name="com.jaspersoft.studio.field.label" value="mmontoestimacion"/>
+	</field>
+	<field name="mMontoEstimacionIva" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="mMontoEstimacionIva"/>
+		<property name="com.jaspersoft.studio.field.label" value="mMontoEstimacionIva"/>
+	</field>
+	<field name="mMontoEstimacionMasIva" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="mMontoEstimacionMasIva"/>
+		<property name="com.jaspersoft.studio.field.label" value="mMontoEstimacionMasIva"/>
+	</field>
+	<field name="mMontoEstimacionAmortizado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="mMontoEstimacionAmortizado"/>
+		<property name="com.jaspersoft.studio.field.label" value="mMontoEstimacionAmortizado"/>
+	</field>
+	<field name="mMontoEstimacionRetencion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="mMontoEstimacionRetencion"/>
+		<property name="com.jaspersoft.studio.field.label" value="mMontoEstimacionRetencion"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="17" splitType="Stretch">
+			<rectangle>
+				<reportElement x="13" y="0" width="512" height="12" uuid="62ad3314-ef40-44b8-9f36-a9866dfe5a65"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="69" y="0" width="48" height="12" uuid="4689d244-bb96-4e31-8164-8ba1a9b4e85a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="118" y="0" width="90" height="12" uuid="969df154-fe21-47a0-8ab9-ccd9d790b427"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Importe Bruto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="0" width="58" height="12" uuid="f9468728-c6f9-4c8e-8f34-8b05f1de526d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Impuestos]]></text>
+			</staticText>
+			<line>
+				<reportElement x="66" y="0" width="1" height="12" uuid="9104472f-8c02-42c2-9ad6-3b949ee6d9a3"/>
+			</line>
+			<line>
+				<reportElement x="117" y="0" width="1" height="12" uuid="17111dc6-efbe-4b62-9e06-e97e0adb7c0c"/>
+			</line>
+			<line>
+				<reportElement x="208" y="0" width="1" height="12" uuid="fbedd30f-14cf-4188-a2fb-c3b080c8664f"/>
+			</line>
+			<staticText>
+				<reportElement x="268" y="0" width="82" height="12" uuid="cb4d6320-cb08-440e-87b1-aa817c3c9bef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Monto Amortizado]]></text>
+			</staticText>
+			<line>
+				<reportElement x="267" y="-1" width="1" height="12" uuid="336a56c7-aea1-4c5a-b559-27d6e744d989"/>
+			</line>
+			<line>
+				<reportElement x="350" y="1" width="1" height="12" uuid="e183f83c-45b4-4672-9cdd-88d1f023c7f7"/>
+			</line>
+			<staticText>
+				<reportElement x="351" y="0" width="84" height="12" uuid="d7f6516f-e0ad-4420-9eed-e26f15621304"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Monto Retención]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="-1" width="50" height="12" uuid="f5948395-f14c-498b-86b6-a92b0801e528"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Estimación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="436" y="0" width="88" height="12" uuid="85463e30-2a5a-4f18-b734-c30dba8fb0e9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="11" splitType="Stretch">
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="13" y="-4" width="512" height="12" isPrintWhenDetailOverflows="true" uuid="95b2bf23-c27b-4ce9-9856-a2987a2ee0a5"/>
+			</rectangle>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" x="66" y="-4" width="1" height="12" isPrintWhenDetailOverflows="true" uuid="f68ff3cb-01ea-45eb-88db-0932304c3a3c"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" x="117" y="-4" width="1" height="12" isPrintWhenDetailOverflows="true" uuid="11a45f12-73d4-4037-8d3b-87ea563f89bc"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" x="208" y="-4" width="1" height="12" isPrintWhenDetailOverflows="true" uuid="a5224c88-f8cd-4d05-a2f1-c742bb7c7344"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" x="267" y="-4" width="1" height="12" isPrintWhenDetailOverflows="true" uuid="82199ff8-b5c1-45b7-ba7d-3d2e0f9a912a"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" x="350" y="-4" width="1" height="12" isPrintWhenDetailOverflows="true" uuid="bbe698d3-7af9-4031-a944-34faa3192d60"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="15" y="-4" width="50" height="12" uuid="0201a816-ed96-44e6-906e-6cc317c366cb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8a4b9ff3-d2e2-4087-a145-6a8f54c9337b"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{noestimacion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="69" y="-4" width="48" height="12" uuid="2a61f5ef-1524-4651-a354-02a46b3068be">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b176a849-2666-4b30-a093-0b118a8d8022"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nCantidad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="118" y="-4" width="90" height="12" uuid="37fe29d0-7b83-4c6d-8f71-7049b0ae9385">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2bed89ee-9d3e-4b6e-9ad1-43baba860d20"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mmontoestimacion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="210" y="-4" width="56" height="12" uuid="2e71336e-9ef5-4cb8-af42-fcc320b413c3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="efe16d9e-f9e6-4d5a-8137-14eefdbc508e"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mMontoEstimacionIva}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="436" y="-4" width="88" height="12" uuid="dd4759d0-fe4f-4d16-b7a2-1e91b1434092">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fb4bc7f4-f875-4c64-a26d-51efbefe0ad9"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mMontoEstimacionMasIva}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="268" y="-4" width="82" height="12" uuid="5e5da788-1f46-4ba2-a2fe-63fdfc8effe1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="db1f1ad6-1d6e-423e-9b46-1ea83edfc965"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mMontoEstimacionAmortizado}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="435" y="-17" width="1" height="12" uuid="8f8af532-b5ad-4a6f-8bf0-e42d7246f91b"/>
+			</line>
+			<line>
+				<reportElement x="435" y="-5" width="1" height="12" uuid="4a01170b-2144-4579-93fc-78bdb1e43709"/>
+			</line>
+			<textField>
+				<reportElement x="351" y="-4" width="84" height="12" uuid="b68aaf56-1d43-4a3f-bf0f-1dd72e8743ec">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1ed3634a-b21f-4516-a625-2e7aba96cd99"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mMontoEstimacionRetencion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

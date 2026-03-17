@@ -97,6 +97,6 @@ public class ConvenioColaboracionServlet extends HttpServlet implements GestionI
             jniName = "jdbc/gestion";
             log.info("Object: {}", "Environment Entry \"dataSourceRefName\" no definida usando default \"" + jniName + "\"");
         }
-        log.debug("Object: {}", "Environment Entry \"dataSourceRefName\" \"" + jniName + "\"");
+        log.debug("Object: " + String.valueOf("Environment Entry \"dataSourceRefName\" \"" + jniName + "\""));
     }
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--  -->
+<Ayuda>
+	<titulo>Mantenimiento Evento Partida</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_TEVENTOPARTIDA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	
+	<grid>	
+		<columna campo="cEvento"	control="cEvento"	dependencia="No"	limpiaOnKeypress=""		header="cEvento"	 ancho="50"	maxlen="50" tipo="string"	visible="Si"	clase=""/>		
+		<columna campo="cPartida"	control="cPartida"	dependencia="No"	limpiaOnKeypress=""		header="cPartida"	 ancho="50"	maxlen="50" tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="cEvento" control="txtGridcEvento"	llave="Si"	identity="No" requerido=""	requeridoFocus="txtGridcEvento"	tipo="string" />
+		<campo field="cPartida" control="txtGridcPartida"	llave="No"	identity="No"	requerido="El Nombre del cPartida es un dato requerido."	requeridoFocus=""	tipo="string" />				
+	</insertaRegistro>
+	
+</Ayuda>

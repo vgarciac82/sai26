@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="clavesComplementariasAnexo"  pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cIdPedido" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cEjercicio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cIdTipoPedido" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cIdUnidadEjecutora" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nIdConsecutivo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="razonSocial" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="representanteLegal" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cNombre1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cNombre2" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cNombre3" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cPuesto1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cPuesto2" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cPuesto3" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[declare @cIdPedido varchar(40), @cEjercicio varchar(4);
+
+set @cIdPedido = $P{cIdTipoPedido}+'-'+ $P{cIdUnidadEjecutora}+'-'+ $P{nIdConsecutivo};
+set @cEjercicio = $P{cEjercicio};
+
+SELECT
+	tCD.EP,
+	mper.cPeriodo,
+	'$' + ISNULL(CONVERT(varchar,CONVERT(MONEY,tCD.mImporte), 1), '0.00') AS mImporte,
+	'$' + (SELECT ISNULL(CONVERT(varchar,CONVERT(MONEY,SUM(tCD.mImporte)), 1), '0.00') AS mTotal
+		FROM mPedido mp WITH(NOLOCK)
+			inner join pContratoDiverso pCD WITH(NOLOCK) ON
+			mp.cIdPedidoDefinitivo = pCD.cIdContrato
+			INNER JOIN tpreCompromisoEncabezado tCE WITH(NOLOCK) ON
+			pCD.cIdContrato = tCE.cIdContrato
+			INNER JOIN tpreCompromisoDetalle tCD WITH(NOLOCK) ON
+			tCE.nFoliopreCompromiso = tCD.nFolioPreCompromiso
+			WHERE mp.cIdPedido = @cIdPedido and tce.C_FOLIO_COMP is not null
+			AND mp.cEjercicio = @cEjercicio
+			GROUP BY mp.cIdPedido)
+		AS mTotal,
+		substring(tCD.EP,len(tCD.EP) - charindex('.', reverse(tCD.EP))+2,3 )as ue,
+		mp.cIdUnidadEjecutora+' '+v.D_DESCRIPCION as _Unidad_RM,
+		mp.cIdPedido
+FROM mPedido mp WITH(NOLOCK)
+	INNER JOIN pContratoDiverso pCD WITH(NOLOCK) ON
+	mp.cIdPedidoDefinitivo = pCD.cIdContrato
+	INNER JOIN tpreCompromisoEncabezado tCE WITH(NOLOCK) ON
+	pCD.cIdContrato = tCE.cIdContrato
+	INNER JOIN tPreCompromisoDetalle tCD WITH(NOLOCK) ON
+	tCE.nFoliopreCompromiso = tCD.nFoliopreCompromiso
+	INNER JOIN mCatalogoPeriodo mPer WITH(NOLOCK) ON
+	tCD.cMes = mPer.nIdPeriodo
+	inner join v_unidadEjecutoraPadre as v  WITH(NOLOCK) on
+	v.cUnidadResponsable=mp.cIdUnidadEjecutora
+WHERE mp.cIdPedido = @cIdPedido and tce.C_FOLIO_COMP is not null
+AND mp.cEjercicio = @cEjercicio
+AND tcd.cEvento not in ('APTDDISP')
+group by tCD.EP,mper.cPeriodo,tCD.mImporte,mPer.nIdPeriodo,mp.cIdUnidadEjecutora,v.D_DESCRIPCION,mp.cIdPedido
+order by ue,nIdPeriodo]]>
+	</queryString>
+	<field name="EP" class="java.lang.String"/>
+	<field name="cPeriodo" class="java.lang.String"/>
+	<field name="mImporte" class="java.lang.String"/>
+	<field name="mTotal" class="java.lang.String"/>
+	<field name="ue" class="java.lang.String"/>
+	<field name="_Unidad_RM" class="java.lang.String"/>
+	<field name="cIdPedido" class="java.lang.String"/>
+	<columnHeader>
+		<band height="8">
+			<staticText>
+				<reportElement x="62" y="-2" width="449" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Clave]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="-2" width="57" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="521" y="-2" width="50" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="5" y="2" width="54" height="10" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cPeriodo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="64" y="2" width="447" height="10" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{EP}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="519" y="2" width="65" height="10" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mImporte}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="12" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="519" y="0" width="65" height="11" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

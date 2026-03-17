@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo relación entre partida y programa presupuestario </titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>700</altoWin>
+	<altoAreaCaptura>120</altoAreaCaptura>
+	<tabla>M_TCATALOGOPARTIDAVALIDAPP</tabla>
+	<maxRegistros></maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	<grid>
+		<columna campo="nConsecutivo"				control="nConsecutivo"				dependencia="No"		ctrlsDependientes=""			limpiaOnKeypress=""			header="* Consecutivo" 				rowCol="1,2" 	ancho="15"		maxlen="5"	  	tipo="string"		visible="Si"	clase="Protegido"/>
+		<columna campo="cRamo"						control="cRamo"						dependencia="No"		ctrlsDependientes=""			limpiaOnKeypress=""			header="* Ramo"						rowCol="1,3" 	ancho="15"		maxlen="3"	  	tipo="string"		visible="Si"	clase=""/>
+		<columna campo="cPartida"					control="cPartida"					dependencia="No"		ctrlsDependientes=""			limpiaOnKeypress=""			header="* Partida"					rowCol="2,1" 	ancho="15"		maxlen="5"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cModalidad"					control="cModalidad"				dependencia="No"		ctrlsDependientes=""			limpiaOnKeypress=""			header="* Modalidad"				rowCol="2,2" 	ancho="15"		maxlen="1"	  	tipo="string"		visible="Si"	clase=""/>
+		<columna campo="cPrograma"					control="cPrograma"					dependencia="No"		ctrlsDependientes=""			limpiaOnKeypress=""			header="* Programa"					rowCol="2,3" 	ancho="15"		maxlen="3"	  	tipo="string"		visible="Si"	clase=""/>
+		<columna campo="cProgramaPresupuestario"	control="cProgramaPresupuestario"	dependencia="No"		ctrlsDependientes=""			limpiaOnKeypress=""			header="* Programa Presupuestario"	rowCol="2,4" 	ancho="15"		maxlen="4"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="aEjercicioFiscal"			control="aEjercicioFiscal"			dependencia="No"		ctrlsDependientes=""			limpiaOnKeypress=""			header="* Ejercicio Fiscal"			rowCol="1,1" 	ancho="15"		maxlen="4"	  	tipo="String"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+	</grid>
+
+	<insertaRegistro>
+		<campo field="nConsecutivo"				control="txtGridnConsecutivo"				llave="Si"	identity="Si" 	requerido=""											requeridoFocus=""								tipo="string" />
+		<campo field="cRamo"					control="txtGridcRamo"						llave="Si"	identity="No" 	requerido="El Ramo es requerido"						requeridoFocus="txtGridcRamo"					tipo="string" />
+		<campo field="cPartida"					control="txtGridcPartida"					llave="No"	identity="No" 	requerido="La Partida es requerida"						requeridoFocus="txtGridcPartida"				tipo="string" />
+		<campo field="cModalidad"				control="txtGridcModalidad"					llave="No"	identity="No" 	requerido="La Modalidad es requerida"					requeridoFocus="txtGridcModalidad"				tipo="string" />
+		<campo field="cPrograma"				control="txtGridcPrograma"					llave="No"	identity="No"	requerido="El Programa es requerido"					requeridoFocus="txtGridcPrograma"				tipo="string" />
+		<campo field="cProgramaPresupuestario"	control="txtGridcProgramaPresupuestario"	llave="No"	identity="No" 	requerido="El Programa presupuestario es requerido"		requeridoFocus="txtGridcProgramaPresupuestario"	tipo="string" />
+		<campo field="aEjercicioFiscal"			control="txtGridaEjercicioFiscal"			llave="Si"	identity="No"	requerido="El Ejercicio Fiscal es requerido"			requeridoFocus="txtGridaEjercicioFiscal"		tipo="string" />	</insertaRegistro>
+	  
+</Ayuda>

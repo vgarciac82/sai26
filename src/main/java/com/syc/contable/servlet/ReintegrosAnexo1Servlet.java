@@ -403,7 +403,7 @@ public class ReintegrosAnexo1Servlet extends HttpServlet {
             celda = fila.createCell(6);
             celda.setCellValue(valuesCXP[i].trim());
         }
-        wb.write(response.getOutputStream().toPath());
+        wb.write(response.getOutputStream());
         wb.close();
     }
 
@@ -508,7 +508,7 @@ public class ReintegrosAnexo1Servlet extends HttpServlet {
             if ("3".equals(tipoTramite))
                 celda.setCellValue(valuesTipoMovimiento[i].trim());
         }
-        wb.write(response.getOutputStream().toPath());
+        wb.write(response.getOutputStream());
         wb.close();
     }
 

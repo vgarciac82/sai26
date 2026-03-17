@@ -1,0 +1,809 @@
+
+
+	<body>
+		<div class="container mt-5">
+			<h2>Captura de CFDI</h2>
+
+			<!-- Navegación de pestañas -->
+			<ul class="nav nav-tabs" id="cfdiTabs" role="tablist">
+				<li class="nav-item" role="presentation">
+					<button
+						class="nav-link active"
+						id="general-tab"
+						data-bs-toggle="tab"
+						data-bs-target="#general"
+						type="button"
+						role="tab"
+						aria-controls="general"
+						aria-selected="true">
+						General
+					</button>
+				</li>
+				<li class="nav-item" role="presentation" style="display: none;" id="tab-Detalle">
+					<button
+						class="nav-link"
+						id="detalle-tab"
+						data-bs-toggle="tab"
+						data-bs-target="#detalle"
+						type="button"
+						role="tab"
+						aria-controls="detalle"
+						aria-selected="false">
+						Detalle
+					</button>
+				</li>
+			</ul>
+
+			<!-- Contenido de las pestañas -->
+			<div class="tab-content mt-3" id="cfdiTabContent">
+				<div
+					class="tab-pane fade show active"
+					id="general"
+					role="tabpanel"
+					aria-labelledby="general-tab">
+					<div class="card-group">
+						<div class="card">
+							<div class="card-header bg-transparent border-success">
+								Cliente
+							</div>
+
+							<div class="card-body">
+								<div class="row m-3">
+									<label for="clienteId" class="col-2 col-form-label">ID</label>
+									<div class="col-4">
+										<div class="input-group">
+											<input
+												type="text"
+												class="form-control fw-bold"
+												id="clienteId" />
+											<button
+												class="btn btn-outline-secondary"
+												type="button"
+												role="button"
+												id="btn-search-client"
+												data-bs-toggle="modal"
+												data-bs-target="#searchClientModal">
+												<i class="fa-solid fa-magnifying-glass"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+
+								<div class="row m-3">
+									<label for="rfcClient" class="col-2 col-form-label">RFC</label>
+									<div class="col-4">
+										<div class="input-group">
+											<input
+												type="text"
+												readonly
+												class="form-control-plaintext fw-bold"
+												id="rfcClient"
+												value />
+										</div>
+									</div>
+								</div>
+
+								<div class="row m-3">
+									<label for="razonSocialClient" class="col-2 col-form-label">Razón
+										Social</label>
+									<div class="col-10">
+										<div class="input-group">
+											<input
+												type="text"
+												readonly
+												class="form-control-plaintext fw-bold"
+												id="razonSocialClient"
+												value />
+										</div>
+									</div>
+								</div>
+
+								<div class="row m-3">
+									<label for="regimenFiscalCliente" class="col-2 col-form-label">Régimen
+										Fiscal</label>
+									<div class="col-4">
+										<div class="input-group">
+											<input
+												type="text"
+												readonly
+												class="form-control-plaintext fw-bold"
+												id="regimenFiscalCliente"
+												value />
+										</div>
+									</div>
+								</div>
+
+								<div class="row m-3">
+									<label for="codigoPostalCliente"
+										class="col-2 col-form-label">C.P.</label>
+									<div class="col-4">
+										<div class="input-group">
+											<input
+												type="text"
+												readonly
+												class="form-control-plaintext fw-bold"
+												id="codigoPostalCliente"
+												value />
+										</div>
+									</div>
+								</div>
+
+								<div class="row m-3">
+									<label for="emailCliente" class="col-2 col-form-label">Correo</label>
+									<div class="col-8">
+										<div class="input-group">
+											<input
+												type="text"
+												readonly
+												class="form-control-plaintext fw-bold"
+												id="emailCliente"
+												value />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="card">
+							<div class="card-header bg-transparent border-success">
+								Serie y Moneda
+							</div>
+							<div class="card-body">
+								<div class="row mb-3">
+									<div class="col-2">
+										<label for="serie" class="form-label">Serie:</label>
+									</div>
+									<div class="col-6">
+										<select class="form-select" id="serie"></select>
+									</div>
+								</div>
+
+								<div class="row mb-3">
+									<div class="col-2">
+										<label for="moneda" class="form-label">Moneda:</label>
+									</div>
+									<div class="col-5">
+										<select class="form-select" id="moneda"></select>
+									</div>
+									<div class="col-3">
+										<label for="tipoCambio" class="form-label">Tipo de Cambio:</label>
+									</div>
+									<div class="col-2">
+										<input
+											type="text"
+											class="form-control"
+											id="tipoCambio"
+											value="1.000" />
+									</div>
+								</div>
+
+								<div class="row mb-3">
+									<div class="col-2">
+										<label for="factorIVA" class="form-label">Factor IVA:</label>
+									</div>
+									<div class="col-2">
+										<input
+											type="text"
+											class="form-control"
+											id="factorIVA"
+											placeholder="0 / 0" />
+									</div>
+									<div class="col-1">
+										<input
+											type="checkbox"
+											class="form-check-input"
+											id="factorIVAEnabled" />
+									</div>
+
+									<div class="col-3">
+										<label for="retencionISR" class="form-label">% Retención ISR:</label>
+									</div>
+									<div class="col-2">
+										<input
+											type="text"
+											class="form-control"
+											id="retencionISR"
+											value="0.00" />
+									</div>
+								</div>
+
+								<div class="row mb-3">
+									<div class="col-2">
+										<label for="retencionIVA" class="form-label">% Retención IVA:</label>
+									</div>
+									<div class="col-2">
+										<input
+											type="text"
+											class="form-control"
+											id="retencionIVA"
+											value="0.0000" />
+									</div>
+									<div class="col-1">
+										<input
+											type="checkbox"
+											class="form-check-input"
+											id="retencionIVAEnabled" />
+									</div>
+								</div>
+
+								<div class="row mb-3">
+									<div class="col-2">
+										<label class="form-label">Versión:</label>
+									</div>
+									<div class="col-2">
+										<p class="form-control-plaintext">4.0</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row row-cols-12 mt-3">
+						<div class="col">
+							<div class="card">
+								<div class="card-header bg-transparent border-success">
+									Datos Facturacion
+								</div>
+								<div class="card-body">
+									<div class="row">
+										<!-- Columna izquierda -->
+										<div class="col-md-6">
+											<div class="mb-3 row">
+												<label for="fecha" class="col-sm-3 col-form-label">Fecha:</label>
+												<div class="col-sm-9 d-flex align-items-center">
+													<input
+														type="date"
+														class="form-control"
+														id="fecha"
+														name="fecha"
+														style="max-width: 50%" />
+													<select
+														id="hora"
+														name="hora"
+														class="form-select mx-1"
+														style="max-width: 20%">
+														<option value="00">00</option>
+														<option value="01">01</option>
+														<option value="02">02</option>
+														<option value="03">03</option>
+														<option value="04">04</option>
+														<option value="05">05</option>
+														<option value="06">06</option>
+														<option value="07">07</option>
+														<option value="00">08</option>
+														<option value="01">09</option>
+														<option value="02">10</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+														<option value="13">13</option>
+														<option value="14">14</option>
+														<option value="15">15</option>
+														<option value="16">16</option>
+														<option value="17">17</option>
+														<option value="18">18</option>
+														<option value="19">19</option>
+														<option value="20">20</option>
+														<option value="21">21</option>
+														<option value="22">22</option>
+														<option value="23">23</option>
+													</select>
+													<select
+														id="minutos"
+														name="minutos"
+														class="form-select mx-1"
+														style="max-width: 20%">
+														<option value="00">00</option>
+														<option value="01">01</option>
+														<option value="02">02</option>
+														<option value="03">03</option>
+														<option value="04">04</option>
+														<option value="05">05</option>
+														<option value="06">06</option>
+														<option value="07">07</option>
+														<option value="08">08</option>
+														<option value="09">09</option>
+														<option value="10">10</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+														<option value="13">13</option>
+														<option value="14">14</option>
+														<option value="15">15</option>
+														<option value="16">16</option>
+														<option value="17">17</option>
+														<option value="18">18</option>
+														<option value="19">19</option>
+														<option value="20">20</option>
+														<option value="21">21</option>
+														<option value="22">22</option>
+														<option value="23">23</option>
+														<option value="24">24</option>
+														<option value="25">25</option>
+														<option value="26">26</option>
+														<option value="27">27</option>
+														<option value="28">28</option>
+														<option value="29">29</option>
+														<option value="30">30</option>
+														<option value="31">31</option>
+														<option value="32">32</option>
+														<option value="33">33</option>
+														<option value="34">34</option>
+														<option value="35">35</option>
+														<option value="36">36</option>
+														<option value="37">37</option>
+														<option value="38">38</option>
+														<option value="39">39</option>
+														<option value="40">40</option>
+														<option value="41">41</option>
+														<option value="42">42</option>
+														<option value="43">43</option>
+														<option value="44">44</option>
+														<option value="45">45</option>
+														<option value="46">46</option>
+														<option value="47">47</option>
+														<option value="48">48</option>
+														<option value="49">49</option>
+														<option value="50">50</option>
+														<option value="51">51</option>
+														<option value="52">52</option>
+														<option value="53">53</option>
+														<option value="54">54</option>
+														<option value="55">55</option>
+														<option value="56">56</option>
+														<option value="57">57</option>
+														<option value="58">58</option>
+														<option value="59">59</option>
+													</select>
+												</div>
+											</div>
+											<div class="mb-3 row">
+												<label for="formaPago" class="col-sm-3 col-form-label">Forma de
+													Pago:</label>
+												<div class="col-sm-9">
+													<select
+														id="formaPago"
+														name="formaPago"
+														class="form-select"></select>
+												</div>
+											</div>
+											<div class="mb-3 row">
+												<label for="metodoPago" class="col-sm-3 col-form-label">Método de
+													Pago:</label>
+												<div class="col-sm-9">
+													<select
+														id="metodoPago"
+														name="metodoPago"
+														class="form-select"></select>
+												</div>
+											</div>
+											<div class="mb-3 row">
+												<label for="cuentaPago" class="col-sm-3 col-form-label">Número de
+													Cuenta de Pago:</label>
+												<div class="col-sm-9">
+													<select
+														id="cuentaPago"
+														name="cuentaPago"
+														class="form-select">
+														<option value>
+															-- Seleccione una cuenta --
+														</option>
+														<!-- Opciones adicionales -->
+													</select>
+												</div>
+											</div>
+											<div class="mb-3 row">
+												<label class="col-sm-3 col-form-label">Relacionar CFDI:</label>
+												<div class="col-sm-9 d-flex align-items-center">
+													<input
+														type="checkbox"
+														id="relacionarCfdi"
+														name="relacionarCfdi"
+														class="form-check-input" />
+												</div>
+											</div>
+										</div>
+
+										<!-- Columna derecha -->
+										<div class="col-md-6">
+											<div class="mb-3 row">
+												<label
+													for="tipoComprobante"
+													class="col-sm-3 col-form-label">Tipo Comprobante:</label>
+												<div class="col-sm-9">
+													<select
+														id="tipoComprobante"
+														name="tipoComprobante"
+														class="form-select"></select>
+												</div>
+											</div>
+											<div class="mb-3 row">
+												<label
+													for="condicionesPago"
+													class="col-sm-3 col-form-label">Condiciones de Pago:</label>
+												<div class="col-sm-9">
+													<select
+														id="condicionesPago"
+														name="condicionesPago"
+														class="form-select"></select>
+												</div>
+											</div>
+											<div class="mb-3 row">
+												<label
+													for="lugarExpedicion"
+													class="col-sm-3 col-form-label">Lugar de Expedición:</label>
+												<div class="col-sm-9">
+													<input
+														type="text"
+														class="form-control"
+														id="lugarExpedicion"
+														name="lugarExpedicion"
+														value="45019" />
+												</div>
+											</div>
+											<div class="mb-3 row">
+												<label for="usoCfdi" class="col-sm-3 col-form-label">Uso de
+													CFDI:</label>
+												<div class="col-sm-9">
+													<select
+														id="usoCfdi"
+														name="usoCfdi"
+														class="form-select"></select>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card mt-4">
+								<div class="card-header bg-transparent border-success">
+									Datos Facturacion
+								</div>
+								<div class="card-body text-center">
+									<button
+										type="button"
+										class="btn btn-success me-2"
+										id="guardarBtn">
+										Guardar
+									</button>
+									<button
+										type="button"
+										class="btn btn-primary me-2"
+										id="enviarBtn"
+										style="display: none;"
+										>
+										Enviar
+									</button>
+									<button type="button" class="btn btn-danger" id="eliminarBtn">
+										Eliminar
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div
+					class="tab-pane fade"
+					id="detalle"
+					role="tabpanel"
+					aria-labelledby="detalle-tab" style="display: none;">
+					<div class="card">
+						<div class="card-header">Captura de Detalles</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-12">
+									<button
+										class="btn btn-primary"
+										type="button"
+										role="button"
+										id="btn-add-detail"
+										data-bs-toggle="modal"
+										data-bs-target="#detailModal">
+										<i class="fa-solid fa-plus"></i>
+									</button>
+									<hr />
+								</div>
+							</div>
+
+							<div class="table-responsive" id="detalleTable">
+								<table id="example" class="table table-striped">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Clave Prod/Serv</th>
+											<th>Cantidad</th>
+											<th>Clave Unidad</th>
+											<th>Descripción </th>
+											<th>Valor Unitario</th>
+											<th>Importe</th>
+											<th>% Desc</th>
+											<th>Ret.</th>
+											<th>IVA 0%</th>
+											<th>Excento</th>
+											<th>Acciones</th>
+										</tr>
+									</thead>
+									<tbody>
+										 
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal Detalle -->
+		<div
+			class="modal fade"
+			id="detailModal"
+			data-bs-backdrop="static"
+			data-bs-keyboard="false"
+			tabindex="-1"
+			aria-labelledby="detailModelTitleLabel"
+			aria-hidden="true">
+			<div class="modal-dialog modal-dialog-scrollable">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="detailModelTitleLabel">
+							Agregar Detalle
+						</h1>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Cerrar"></button>
+					</div>
+
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div class="row">
+								<label
+									for="cantidad"
+									class="offset-md-2 col-sm-3 col-form-label">Cantidad:</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="cantidad" value="1"/>
+								</div>
+							</div>
+
+							<div class="row">
+								<label
+									for="unitMeasurement"
+									class="offset-md-2 col-sm-3 col-form-label">Unidad:</label>
+								<div class="col-sm-7">
+									<select class="form-select" id="unitMeasurement">
+										<option value>Seleccione unidad</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="row">
+								<label for="idSAT"
+									class="offset-md-2 col-sm-3 col-form-label">ID</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" id="idSAT" />
+								</div>
+							</div>
+
+							<div class="row">
+								<label for="descSAT" class="offset-md-2 col-sm-3 col-form-label">Desc.
+									SAT</label>
+								<div class="col-sm-7">
+									<select class="form-select" id="descSAT">
+										<option value>Descripcion</option>
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<label for="desc" class="offset-md-2 col-sm-3 col-form-label">Detalles</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" id="desc" />
+								</div>
+							</div>
+
+							 
+							<div class="row">
+								<label
+									for="precioUnit"
+									class="offset-md-2 col-sm-3 col-form-label">Precio Unit.</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="precioUnit" />
+								</div>
+							</div>
+
+							<div class="row">
+								<label
+									for="descuento"
+									class="offset-md-2 col-sm-3 col-form-label" >% Desc.</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="descuento" value="0"/>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="offset-md-2 col-sm-3">
+									<input
+										class="form-check-input"
+										type="checkbox"
+										name="ret"
+										id="ret" />
+									<label class="form-check-label" for="ret">Ret.</label>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="offset-md-2 col-sm-10">
+									<input
+										class="form-check-input"
+										type="checkbox"
+										name="iva0"
+										id="iva0" />
+									<label class="form-check-label" for="iva0">IVA 0</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="offset-md-2 col-sm-10">
+									<input
+										class="form-check-input"
+										type="checkbox"
+										name="ivaExcento"
+										id="ivaExcento" />
+									<label class="form-check-label" for="ivaExcento">IVA Excento</label>
+								</div>
+							</div>
+
+							<div class="row">
+								<label for="importe"
+									class="offset-md-2 col-sm-3 col-form-label">Importe</label>
+								<div class="col-sm-4">
+									<input
+										type="text"
+										readonly
+										class="form-control-plaintext"
+										id="importe" />
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<div class="spinner-border text-primary" role="status" id="spinSaveDetail" style="display: none;">
+							<span class="visually-hidden">Loading...</span>
+						</div>
+						<button type="button" class="btn btn-primary" id="btn-agregar-detalle">
+							Guardar
+						</button>
+						<button
+							id="cancelaAddDetail"
+							type="button"
+							class="btn btn-warning"
+							data-bs-dismiss="modal">
+							Cancelar
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal Clientes -->
+		<div
+			class="modal fade"
+			id="searchClientModal"
+			data-bs-backdrop="static"
+			data-bs-keyboard="false"
+			tabindex="-1"
+			aria-labelledby="staticBackdropLabel"
+			aria-hidden="true">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="staticBackdropLabel">
+							Buscar Cliente
+						</h1>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="container">
+							<div class="card">
+								<div class="card-header">Filtros</div>
+								<div class="card-body">
+									<form class="form-horizontal">
+										<div class="form-group row mb-3">
+											<label for="rfc" class="col-sm-2 col-form-label">RFC</label>
+											<div class="col-sm-4">
+												<input
+													type="text"
+													class="form-control filter"
+													id="rfc"
+													placeholder="RFC" />
+											</div>
+										</div>
+										<div class="form-group row mb-3">
+											<label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
+											<div class="col-sm-8">
+												<input
+													type="text"
+													class="form-control filter"
+													id="nombre"
+													placeholder="Nombre" />
+											</div>
+										</div>
+										<div class="form-group row mb-3">
+											<div class="col-sm-10 offset-sm-2">
+												<button
+													type="button"
+													role="button"
+													id="searchBtn"
+													class="btn btn-primary">
+													Buscar
+												</button>
+												<button
+													type="button"
+													role="button"
+													id="clearBtn"
+													class="btn btn-secondary">
+													Limpiar
+												</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+
+							<div class="card mt-4">
+								<div class="card-header">Resultados</div>
+								<div class="card-body">
+									<table class="table display" id="resultTable">
+										<thead>
+											<tr>
+												<th scope="col">#Cliente</th>
+												<th scope="col">RFC</th>
+												<th scope="col">Nombre</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td colspan="3" class="text-center">Sin resultados</td>
+											</tr>
+										</tbody>
+									</table>
+									<button
+										type="button"
+										class="btn btn-primary"
+										id="selectRFCBtn">
+										Seleccionar
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script
+			src="https://code.jquery.com/jquery-3.6.1.js"
+			integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+			crossorigin="anonymous"></script>
+		<script src="../Generador/js/crud.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+			crossorigin="anonymous"></script>
+
+		<script src="https://cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
+
+			<script src="../Generador/js/jquery.blockUI-2.70.0.js"></script>
+		<script src="js/capturaFactura.js"></script>
+	</body>
+

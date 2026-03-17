@@ -97,7 +97,7 @@ public class LayoutPagosDiversosRGServlet extends HttpServlet {
                 archivoPago.append(arrListPago.get(i));
             }
             String outTextPago = archivoPago.toString();
-            out.write(outTextPago.toPath());
+            out.write(outTextPago);
             // fin de guarda pago
             out.close();
             // Guarda el documento
@@ -107,7 +107,7 @@ public class LayoutPagosDiversosRGServlet extends HttpServlet {
                 archivoDocu.append(arrListDocu.get(i));
             }
             String outTextDocu = archivoDocu.toString();
-            outDocu.write(outTextDocu.toPath());
+            outDocu.write(outTextDocu);
             // fin de guarda documento
             outDocu.close();
             // These are the files to include in the ZIP file

@@ -194,7 +194,7 @@ public class ReporteEjercicioAnteriorBussinessLogic extends DataSourceManager {
                 fila = hs.createRow(++valorMaximo);
             }
         }
-        wb.write(response.getOutputStream().toPath());
+        wb.write(response.getOutputStream());
         wb.close();
     }
 }

@@ -65,7 +65,7 @@ public class Main {
         // FirmaElectronicaBusinessLogic febl = new
         // FirmaElectronicaBusinessLogic(filePathCert, filePathKey, "Conaf1llave");
         // certificate = febl.getCertificado();
-        // privateKey = febl.getPrivateKey();
+        // privateKey = febl;
         String filePath = "C:\\Users\\vicente.garcia\\Documents\\fiel\\CNF010405EG1.pfx";
         File filePFX = new File(filePath);
         certificate = getCertificate(filePFX);

@@ -19,7 +19,7 @@ public class ProductRepository {
 
     public ProyectoProducto insertProduct(Connection conn, ProductDTO dto) throws SQLException {
         String sql = "INSERT INTO sisecop_serviciosproductos (servicioId, productoId, servicioproductoDescripcion) VALUES (?, ?, ?)";
-        log.debug("Object: {}", "Executing: " + sql);
+        log.debug("Object: " + String.valueOf("Executing: " + sql));
         try (PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, dto.getServicioId());
             stmt.setInt(2, dto.getProductoId());
@@ -91,7 +91,7 @@ public class ProductRepository {
 
     public void deleteProduct(Connection connection, int servicioProductoId) throws SQLException {
         String sql = "DELETE FROM sisecop_serviciosproductos WHERE servicioproductoId = ?";
-        log.debug("Object: {}", "Executing: " + sql);
+        log.debug("Object: " + String.valueOf("Executing: " + sql));
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, servicioProductoId);
             int affectedRows = stmt.executeUpdate();

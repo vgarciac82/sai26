@@ -100,7 +100,7 @@ public class AdjuntaArchivoMasivoServlet extends HttpServlet implements GestionI
                 log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                 Util.copiaArchivo(archivoCargaStream, nombreDestino);
                 item.delete();
-                log.debug("Object: {}", "Procesando archivo:" + nombreArchivo);
+                log.debug("Object: " + String.valueOf("Procesando archivo:" + nombreArchivo));
                 AdjuntaArchivoMasivoBusinessLogic aambl = new AdjuntaArchivoMasivoBusinessLogic(jniName);
                 if ("POLIZA".equalsIgnoreCase(tituloAplicacion)) {
                     String[] cadenacoma = secPoliza.split(",");
@@ -125,7 +125,7 @@ public class AdjuntaArchivoMasivoServlet extends HttpServlet implements GestionI
                 } else {
                     adjuntados = aambl.adjuntaMasivo(tituloAplicacion, Integer.parseInt(carpeta), Integer.parseInt(nombreDocumento), cCentroContable, aEjercicioFiscal, desde, hasta, nombreDestino);
                 }
-                log.debug("Object: {}", "Se inserto el documento en " + adjuntados + " expedientes");
+                log.debug("Object: " + String.valueOf("Se inserto el documento en " + adjuntados + " expedientes"));
                 String msg = "Se inserto el documento en " + adjuntados + " expedientes";
                 session.setAttribute("msg", msg);
                 resp.sendRedirect("Generador/AdjuntaDocumentoMasivo.jsp");

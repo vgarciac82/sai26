@@ -154,7 +154,7 @@ public class LayoutAnteProyectoServlet extends HttpServlet {
         response.setContentType("application/vnd.ms-excel");
         response.addHeader("Content-Disposition", "inline; filename=\"AnteProyecto_" + file_name + ".xls\"; charset=UTF-8\" pageEncoding=\"utf-8\"");
         // crear archivo
-        String cFileExcel = upload.getRepositoryPath() + "/plantillaAnteProyecto.xls";
+        String cFileExcel = getServletContext().getRealPath("/upload") + "/plantillaAnteProyecto.xls";
         InputStream inp = new FileInputStream(cFileExcel);
         //selecciona la primer hoja del excel
         Workbook wb = new HSSFWorkbook(inp);
@@ -266,7 +266,7 @@ public class LayoutAnteProyectoServlet extends HttpServlet {
                 celdaiRechazoSai.setCellValue(String.valueOf(cRechazo));
             }
         }
-        wb.write(response.getOutputStream().toPath());
+        wb.write(response.getOutputStream());
         wb.close();
         antProy.marcaAutoImport(c);
     }

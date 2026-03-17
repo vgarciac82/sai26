@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Juntas Juridicas</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>500</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_TCATJUNTASCONCILIACIONARBITRAJE</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>1</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>		
+		<columna campo="cNombreJunta"	control="txtGridcNombreJunta"	dependencia="No"	limpiaOnKeypress=""		header="Junta Juridica"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>		
+		<campo field="cNombreJunta"		control="txtGridcNombreJunta"	llave="No"	identity="No"	requerido="El Nombre es un dato requerido."	requeridoFocus="txtGridcNombreJunta"	tipo="string" />		
+	</insertaRegistro>
+	
+</Ayuda>

@@ -42,7 +42,7 @@ public class ReporteDetalleDIOTManager {
         String fileName = "";
         try {
             ps = conn.prepareStatement(query);
-            log.debug("Object: {}", query.toString());
+            log.debug("Object: " + String.valueOf(query.toString()));
             ps.setInt(1, mes);
             rs = ps.executeQuery();
             fileName = generaReporte(rs, plantillas.get("DetalleDIOT"));
@@ -81,7 +81,7 @@ public class ReporteDetalleDIOTManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         workbook.close();
         /* Cierra Flujos */
         bos.flush();

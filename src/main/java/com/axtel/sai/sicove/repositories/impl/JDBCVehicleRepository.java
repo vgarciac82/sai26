@@ -48,7 +48,7 @@ public class JDBCVehicleRepository implements VehicleRepository {
         Vehicle vehicle;
         try {
             vehicle = runner.query(conn, query.toString(), vehicleHandler, inventoryId);
-            log.debug("Object: {}", "Found: " + vehicle);
+            log.debug("Object: " + String.valueOf("Found: " + vehicle));
             return vehicle;
         } catch (SQLException e) {
             throw new SicoveException(e);

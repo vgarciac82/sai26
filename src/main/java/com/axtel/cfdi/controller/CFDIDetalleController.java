@@ -43,7 +43,7 @@ public class CFDIDetalleController extends HttpServlet {
         log.trace("Inicio de procesamiento del método doPost para guardar detalle CFDI.");
         try {
             String json = ControllerUtils.readJsonFromRequest(request);
-            log.debug("Object: {}", "JSON recibido en la solicitud: " + json);
+            log.debug("Object: " + String.valueOf("JSON recibido en la solicitud: " + json));
             log.trace("Convirtiendo JSON a objeto CFDIDetalle.");
             CFDIDetalle detalle = gson.fromJson(json, CFDIDetalle.class);
             log.trace("Insertando el detalle CFDI en la base de datos.");
@@ -52,15 +52,15 @@ public class CFDIDetalleController extends HttpServlet {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             String jsonResponse = gson.toJson(detalle);
-            log.debug("Object: {}", "JSON de respuesta generado: " + jsonResponse);
-            response.getWriter().write(jsonResponse.toPath());
+            log.debug("Object: " + String.valueOf("JSON de respuesta generado: " + jsonResponse));
+            response.getWriter().write(jsonResponse);
             log.info("Object: {}", "Detalle CFDI guardado y respuesta enviada correctamente." + detalle);
         } catch (Exception e) {
             log.error("Error al guardar el detalle del CFDI: " + e.getMessage(), e);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             String errorResponse = "{\"error\": \"Error al guardar el detalle del CFDI. Intente nuevamente.\"}";
             log.debug("Error occurred", "Enviando respuesta de error: " + errorResponse);
-            response.getWriter().write(errorResponse.toPath());
+            response.getWriter().write(errorResponse);
         }
         log.info("Fin del método doPost para guardar detalle CFDI.");
     }

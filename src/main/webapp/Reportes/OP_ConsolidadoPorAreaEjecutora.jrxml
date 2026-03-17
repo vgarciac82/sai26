@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportePoArea"  pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.210000000000001"/>
+	<property name="ireport.x" value="240"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select  UniEjec,uEjecutora,tipoArea,UniNormativa,uNormativa,Original,Modificado,montoContratado,montoContratado/1000 as por_Contratado,montoEjecutado, montoEjecutado/1000 as por_Ejecutado,montoEstimado, montoEstimado/1000 as Porc_Estimado
+from vConsolidadoporAreaEjecutora
+group by  UniEjec,uEjecutora,tipoArea,UniNormativa,uNormativa,Original,Modificado,montoContratado,montoEjecutado,montoEstimado
+order by uEjecutora,tipoArea,uNormativa]]>
+	</queryString>
+	<field name="UniEjec" class="java.lang.String"/>
+	<field name="uEjecutora" class="java.lang.String"/>
+	<field name="tipoArea" class="java.lang.String"/>
+	<field name="UniNormativa" class="java.lang.String"/>
+	<field name="uNormativa" class="java.lang.String"/>
+	<field name="Original" class="java.math.BigDecimal"/>
+	<field name="Modificado" class="java.math.BigDecimal"/>
+	<field name="montoContratado" class="java.math.BigDecimal"/>
+	<field name="por_Contratado" class="java.math.BigDecimal"/>
+	<field name="montoEjecutado" class="java.math.BigDecimal"/>
+	<field name="por_Ejecutado" class="java.math.BigDecimal"/>
+	<field name="montoEstimado" class="java.math.BigDecimal"/>
+	<field name="Porc_Estimado" class="java.math.BigDecimal"/>
+	<variable name="por_Contratado_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoArea" calculation="Sum">
+		<variableExpression><![CDATA[$F{por_Contratado}]]></variableExpression>
+	</variable>
+	<variable name="por_Contratado_2" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoArea" calculation="Sum">
+		<variableExpression><![CDATA[$F{por_Contratado}]]></variableExpression>
+	</variable>
+	<variable name="Modificado_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoArea" calculation="Sum">
+		<variableExpression><![CDATA[$F{Modificado}]]></variableExpression>
+	</variable>
+	<variable name="montoContratado_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoArea" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoContratado}]]></variableExpression>
+	</variable>
+	<variable name="montoEjecutado_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoArea" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoEjecutado}]]></variableExpression>
+	</variable>
+	<variable name="por_Ejecutado_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoArea" calculation="Sum">
+		<variableExpression><![CDATA[$F{por_Ejecutado}]]></variableExpression>
+	</variable>
+	<variable name="montoEstimado_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoArea" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoEstimado}]]></variableExpression>
+	</variable>
+	<variable name="Porc_Estimado_1" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoArea" calculation="Sum">
+		<variableExpression><![CDATA[$F{Porc_Estimado}]]></variableExpression>
+	</variable>
+	<variable name="Modificado_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grupo_Ejecutora" calculation="Sum">
+		<variableExpression><![CDATA[$F{Modificado}]]></variableExpression>
+	</variable>
+	<variable name="montoContratado_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grupo_Ejecutora" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoContratado}]]></variableExpression>
+	</variable>
+	<variable name="por_Contratado_3" class="java.math.BigDecimal" resetType="Group" resetGroup="grupo_Ejecutora" calculation="Sum">
+		<variableExpression><![CDATA[$F{por_Contratado}]]></variableExpression>
+	</variable>
+	<variable name="montoEjecutado_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grupo_Ejecutora" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoEjecutado}]]></variableExpression>
+	</variable>
+	<variable name="por_Ejecutado_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grupo_Ejecutora" calculation="Sum">
+		<variableExpression><![CDATA[$F{por_Ejecutado}]]></variableExpression>
+	</variable>
+	<variable name="montoEstimado_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grupo_Ejecutora" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoEstimado}]]></variableExpression>
+	</variable>
+	<variable name="Porc_Estimado_2" class="java.math.BigDecimal" resetType="Group" resetGroup="grupo_Ejecutora" calculation="Sum">
+		<variableExpression><![CDATA[$F{Porc_Estimado}]]></variableExpression>
+	</variable>
+	<variable name="montoEjecutado_3" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoArea" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoEjecutado}]]></variableExpression>
+	</variable>
+	<group name="grupo_Ejecutora" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{uEjecutora}]]></groupExpression>
+		<groupHeader>
+			<band height="104">
+				<textField>
+					<reportElement isPrintRepeatedValues="false" x="437" y="2" width="315" height="13"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{uEjecutora}]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="0" y="13" width="259" height="78"/>
+					<imageExpression class="java.lang.String"><![CDATA["..\\imagenes\\logotipo-usuario.png"]]></imageExpression>
+				</image>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="64">
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="208" y="14" width="95" height="11"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{Modificado_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="303" y="14" width="98" height="11"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{montoContratado_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="401" y="14" width="53" height="11"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{por_Contratado_3}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="454" y="14" width="101" height="11"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{montoEjecutado_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="555" y="14" width="51" height="11"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{por_Ejecutado_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="606" y="14" width="94" height="11"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{montoEstimado_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="701" y="14" width="51" height="11"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{Porc_Estimado_2}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="14" width="208" height="11"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total Por Area Ejecutora]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="GrupoArea">
+		<groupExpression><![CDATA[$F{tipoArea}]]></groupExpression>
+		<groupHeader>
+			<band height="43">
+				<staticText>
+					<reportElement x="437" y="-89" width="315" height="89"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<text><![CDATA[COMISIÓN NACIONAL FORESTAL
+
+Gerencia de Programación y Presupuesto
+Presupuesto Consolidado por Area Ejecutora (100% CNF)
+SUBDIRECCIÓN NACIONAL DE ADMINISTRACIÓN DEL AGUA
+miles de pesos
+Patida 4306 (Transferencias para el apoyo de Obras Públicas)
+]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="0" y="29" width="207" height="14"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font isBold="true" isUnderline="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{tipoArea}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="207" y="10" width="95" height="19"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[Modificado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="454" y="10" width="102" height="19"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[Ejecutado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="555" y="10" width="52" height="19"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[%]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="303" y="10" width="98" height="19"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[Contratado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="702" y="10" width="50" height="19"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[%]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="10" width="207" height="19"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Arial" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[AREA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="607" y="10" width="95" height="19"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[Estimado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="402" y="10" width="52" height="19"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[%]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="12">
+				<staticText>
+					<reportElement x="0" y="0" width="207" height="11"/>
+					<box>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total ]]></text>
+				</staticText>
+				<textField pattern="#,##0.00">
+					<reportElement x="401" y="0" width="53" height="11"/>
+					<box>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{por_Contratado_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement isPrintRepeatedValues="false" x="207" y="0" width="96" height="11"/>
+					<box>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{Modificado_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement isPrintRepeatedValues="false" x="303" y="0" width="98" height="11"/>
+					<box>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{montoContratado_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="555" y="0" width="52" height="11"/>
+					<box>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{por_Ejecutado_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement isPrintRepeatedValues="false" x="607" y="0" width="94" height="11"/>
+					<box>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{montoEstimado_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="701" y="0" width="51" height="11"/>
+					<box>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{Porc_Estimado_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="454" y="0" width="101" height="11"/>
+					<box>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{montoEjecutado_3}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="11" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement x="401" y="0" width="53" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{por_Contratado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="454" y="0" width="101" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{montoEjecutado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="207" y="0" width="95" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{Modificado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="555" y="0" width="52" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{por_Ejecutado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="607" y="0" width="94" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{montoEstimado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="303" y="0" width="98" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{montoContratado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="701" y="0" width="51" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{Porc_Estimado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement isPrintRepeatedValues="false" x="0" y="0" width="207" height="11"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="8" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{uNormativa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="21" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="622" y="27" width="80" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Pagina "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="706" y="27" width="40" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["  de" + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

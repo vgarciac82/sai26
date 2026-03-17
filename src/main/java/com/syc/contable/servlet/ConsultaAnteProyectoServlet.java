@@ -73,7 +73,7 @@ public class ConsultaAnteProyectoServlet extends HttpServlet implements GestionI
         } catch (Exception e) {
             e.printStackTrace();
         }
-        log.debug("Object: {}", "Redirect: " + strRedirect);
+        log.debug("Object: " + String.valueOf("Redirect: " + strRedirect));
         resp.sendRedirect(strRedirect);
         log.debug("SALE  DE LA CONSULTA");
     }
@@ -127,7 +127,7 @@ public class ConsultaAnteProyectoServlet extends HttpServlet implements GestionI
         response.addHeader("Content-Disposition", "inline; filename=\"" + file_name + "\"; ");
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         bos.flush();
         bos.close();

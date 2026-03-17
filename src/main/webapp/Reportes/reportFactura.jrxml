@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportFactura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c56321a0-d61f-4275-a1bb-8d7e679e59d8">
+	<property name="ireport.zoom" value="1.2100000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SAI Produccion"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="UUID" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT nIdFactura, cUUID, cNoCertificado, cLugarExp, cFecha, isnull(cTipoComprob, '')cTipoComprob
+, isnull(cFolioSerie,'') cFolioSerie
+, isnull(cRegimen, '') cRegimen
+, cNombreEmisor, cRFCReceptor, cNombreReceptor
+, isnull(cMoneda, '') cMoneda , isnull(cFormaPago, '') cFormaPago
+, isnull(cMetodoPago, '') cMetodoPago, mSubtotal
+, isnull(mImpustosTras, 0) mImpustosTras
+, isnull(mDescuento, 0) mDescuento
+, isnull(mImpuestosRet, 0) mImpuestosRet, 
+mTotal AS  mTotal, cSelloCFD, cSelloSAT, cNoCertificadoSAT, cFechaCertificado
+, isnull(cFolio,0) cFolio , '||' + cVersion + '|' + cUUID + '|' + cFechaCertificado + '|' + cSelloCFD + '|' + cNoCertificadoSAT + '||'  CadenaOriginal
+FROM dbo.tFacturasCFDIEncabezado
+ WHERE nIdFactura = $P{UUID}]]>
+	</queryString>
+	<field name="nIdFactura" class="java.lang.Integer"/>
+	<field name="cUUID" class="java.lang.String"/>
+	<field name="cNoCertificado" class="java.lang.String"/>
+	<field name="cLugarExp" class="java.lang.String"/>
+	<field name="cFecha" class="java.lang.String"/>
+	<field name="cTipoComprob" class="java.lang.String"/>
+	<field name="cFolioSerie" class="java.lang.String"/>
+	<field name="cRegimen" class="java.lang.String"/>
+	<field name="cNombreEmisor" class="java.lang.String"/>
+	<field name="cRFCReceptor" class="java.lang.String"/>
+	<field name="cNombreReceptor" class="java.lang.String"/>
+	<field name="cMoneda" class="java.lang.String"/>
+	<field name="cFormaPago" class="java.lang.String"/>
+	<field name="cMetodoPago" class="java.lang.String"/>
+	<field name="mSubtotal" class="java.math.BigDecimal"/>
+	<field name="mImpustosTras" class="java.math.BigDecimal"/>
+	<field name="mImpuestosRet" class="java.math.BigDecimal"/>
+	<field name="mTotal" class="java.math.BigDecimal"/>
+	<field name="cSelloCFD" class="java.lang.String"/>
+	<field name="cSelloSAT" class="java.lang.String"/>
+	<field name="cNoCertificadoSAT" class="java.lang.String"/>
+	<field name="cFechaCertificado" class="java.lang.String"/>
+	<field name="cFolio" class="java.lang.String"/>
+	<field name="CadenaOriginal" class="java.lang.String"/>
+	<field name="mDescuento" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="46" splitType="Stretch">
+			<rectangle>
+				<reportElement key="" x="354" y="4" width="203" height="15" backcolor="#E3E1E1" uuid="51ca4685-a669-415c-906c-5ae5c72e2955">
+					<property name="com.jaspersoft.studio.element.name" value="Info cliente"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="9" y="4" width="356" height="38" isPrintWhenDetailOverflows="true" uuid="c0183216-9754-47fd-9a93-c976bc541e8a"/>
+				<textElement>
+					<font fontName="Geomanist" size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cNombreEmisor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="359" y="6" width="80" height="12" uuid="0a806e8c-fcbd-4b5b-ba63-c9b3061c3acd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[Folio Fiscal:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="355" y="20" width="202" height="12" uuid="ff4bf0b3-c43b-4be7-b789-09f20a739d92">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cUUID}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="11" y="37" width="340" height="1" uuid="ade0b924-e051-4889-b012-a0bda8ed9da2">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="11" y="35" width="340" height="1" uuid="e7409d9e-229b-4e81-8165-45f8218dd75d"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="92" splitType="Stretch">
+			<textField>
+				<reportElement x="354" y="56" width="201" height="20" uuid="d9578074-f8b5-4e15-8785-b69c26d0fda4"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cFolioSerie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="22" width="185" height="20" uuid="c1731ff8-1f7e-4e27-8dd1-93c5c9e46453"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cNombreReceptor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="39" width="108" height="20" uuid="e69b8bb4-2ac8-41f3-b055-1e399e1b210d"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cRFCReceptor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="354" y="22" width="201" height="20" uuid="7a3b7e01-5761-4285-96ae-8d8ce95e3772"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cNoCertificado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="354" y="39" width="101" height="20" uuid="9816ff02-caf9-4613-9421-c6acd6d293d5"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cLugarExp}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="291" y="22" width="64" height="20" uuid="e916e352-5f78-4b12-a93f-5d78247ee985"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[No Certificado:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="39" width="64" height="20" uuid="3e541cd2-3c7d-4470-b79c-d26971801fc7"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[Lugar y Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="56" width="64" height="20" uuid="c913e4a5-1b4c-4272-92b4-84e45f658b77"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[Folio y Serie:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="39" width="100" height="20" uuid="7c5b2b9a-4873-487b-b8e8-641121f23bb0"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cFecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="89" y="56" width="178" height="20" uuid="95efc641-9505-4eb2-a2fd-f977fe2838d5"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cRegimen}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="17" y="56" width="64" height="20" uuid="b1e77f2a-2330-4a16-93c6-bd7cf1a60a1b"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[Regimen fiscal:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="22" width="65" height="20" uuid="65b1e638-866f-4c52-952a-bcee9e07a701"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[Nombre Receptor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="39" width="100" height="20" uuid="314227ec-d66b-4566-81f1-41ac77d30d4d"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[RFC Receptor]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="368" y="72" width="100" height="12" uuid="985e2ee0-209d-407d-96e5-9f8259091af7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cTipoComprob}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="290" y="72" width="100" height="12" uuid="7f61fa44-bd8e-484a-80a2-e81aa225d09a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[Efecto Comprobante:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="56" width="100" height="20" uuid="4ddea6ce-798b-41a0-9444-b3117560764e"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cFolio}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement key="" x="6" y="-7" width="549" height="23" backcolor="#E3E1E1" uuid="11c40a83-0683-42e9-96d7-603bf62acc76">
+					<property name="com.jaspersoft.studio.element.name" value="Info cliente"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" x="7" y="0" width="184" height="30" uuid="e6fe69e5-5469-43a0-b97e-6293fdf89687"/>
+				<subreportParameter name="nIdFactura">
+					<subreportParameterExpression><![CDATA[$F{nIdFactura}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportFactura_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="101" splitType="Immediate">
+			<rectangle>
+				<reportElement key="" x="7" y="77" width="548" height="23" backcolor="#E3E1E1" uuid="90d93c91-8135-4852-878d-ce6dc30751a3">
+					<property name="com.jaspersoft.studio.element.name" value="Info cliente"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="95" y="35" width="100" height="20" uuid="a8f375d6-6417-4600-8ee3-b225e292ae69"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cFormaPago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="55" width="100" height="20" uuid="d3350313-4c5c-4dd5-bd13-644a3c7b8de4"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cMetodoPago}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤#,##0.00;¤-#,##0.00">
+				<reportElement x="453" y="-1" width="80" height="20" uuid="4a58f557-dd99-4e5a-8a6b-248c64820ca5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mSubtotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤#,##0.00;¤-#,##0.00">
+				<reportElement x="453" y="34" width="80" height="20" uuid="cb49715c-24ac-4f1c-8816-f70c177e04d3"/>
+				<textElement textAlignment="Right">
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mImpustosTras}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤#,##0.00;¤-#,##0.00">
+				<reportElement x="453" y="56" width="80" height="20" uuid="8f6980ed-e449-4d7b-832c-64ed27e15db6"/>
+				<textElement textAlignment="Right">
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mImpuestosRet}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤#,##0.00;¤-#,##0.00">
+				<reportElement x="447" y="78" width="86" height="20" uuid="48faf604-af80-414a-84ab-a304d40fcad0"/>
+				<textElement textAlignment="Right">
+					<font fontName="Geomanist" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="15" width="100" height="20" uuid="49900f35-463b-448a-a660-63b92deac7ed"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cMoneda}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="15" width="100" height="20" uuid="fd47406b-b076-43fd-be6f-1f32f013c3e0"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[Moneda:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="1" width="100" height="18" uuid="653aeacc-5add-45fc-8a7a-693b0a35b0d3"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[Subtotal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="78" width="100" height="20" uuid="9b979c5e-1115-4dd0-bc71-e7bfcea8f660"/>
+				<textElement>
+					<font fontName="Geomanist" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="56" width="100" height="20" uuid="2adf2e73-5d3c-46dc-9d2a-3afe96b3b6b4"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[Impuestos Retenidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="38" width="100" height="20" uuid="978eb1a4-d1cb-4d7b-a3b2-3b9671242d23"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[Impuestos Trasladados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="34" width="100" height="20" uuid="c126cb89-1514-4e19-8625-cc8d76d115ae"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[Forma de pago:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="54" width="100" height="20" uuid="892ca976-edfd-4072-8b8f-cfbcb3f90988"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[Método de pago:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="9" y="75" width="545" height="1" uuid="8d4c3fe7-6624-4d71-92f0-0d550b8050b8"/>
+			</line>
+			<staticText>
+				<reportElement x="339" y="19" width="100" height="18" uuid="c2ef62b5-7d96-4709-8589-845fa0c92eca"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[Descuento]]></text>
+			</staticText>
+			<textField pattern="¤#,##0.00;¤-#,##0.00">
+				<reportElement x="453" y="17" width="80" height="20" uuid="c2eccda3-94c5-473f-8d32-ae6b1ef36ebf"/>
+				<textElement textAlignment="Right">
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mDescuento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<lastPageFooter>
+		<band height="86">
+			<staticText>
+				<reportElement x="17" y="19" width="88" height="20" uuid="6614ca31-85b3-41f0-8923-649550c22ea9"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[Sello digital del CFDI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="19" width="88" height="20" uuid="4894c48f-5684-4adf-8066-d3076b847fce"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[Sello digital del SAT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="39" width="187" height="20" uuid="79a23487-1cac-4645-9b8c-5c376d9490f7"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[No Serie del Certificado del SAT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="60" width="172" height="11" uuid="68f9ba4d-fcd7-49c1-b3d5-cefcc896a28c"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha y hora de certificación]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="60" width="109" height="11" uuid="b192a3db-826c-45a4-bed1-38fd1f9d7f9e"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cFechaCertificado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="17" y="39" width="260" height="20" uuid="1885694d-2df5-43c7-8f0f-d843148a54f3"/>
+				<textElement>
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[Cadena Original del complemento de certificación digital del SAT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="72" width="287" height="13" uuid="f55b7d83-a1a1-41cc-86c7-c0d36e0b50b7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" size="8"/>
+				</textElement>
+				<text><![CDATA[Este documento es una representación impresa de un CFDI]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+</jasperReport>

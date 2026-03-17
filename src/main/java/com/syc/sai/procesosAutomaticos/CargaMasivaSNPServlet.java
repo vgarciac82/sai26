@@ -46,8 +46,8 @@ public class CargaMasivaSNPServlet extends HttpServlet implements GestionInterfa
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest
-	 * , javax.servlet.http.HttpServletResponse)
+	 * jakarta.servlet.http.HttpServlet#doGet(jakarta.servlet.http.HttpServletRequest
+	 * , jakarta.servlet.http.HttpServletResponse)
 	 */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -141,7 +141,7 @@ public class CargaMasivaSNPServlet extends HttpServlet implements GestionInterfa
                 log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                 Util.copiaArchivo(archivoCargaStream, nombreDestino);
                 item.delete();
-                log.debug("Object: {}", "Procesando archivo:" + nombreArchivo);
+                log.debug("Object: " + String.valueOf("Procesando archivo:" + nombreArchivo));
                 mensajeRetorno = "Archivo cargado exitosamente";
                 break;
             }

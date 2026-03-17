@@ -98,7 +98,7 @@ public class ProyectoExcepcionService extends ProyectoServicioGeneral {
             getProjectActivityRepository().insertProyectoServicioActividad(conn, dto);
             log.trace("Object: {}", "Actividad [" + actividad + "] clonada exitosamente");
         }
-        log.debug("Object: {}", "Clonando actividades del proyecto ID: " + proyecto.getServicioId() + " Terminado");
+        log.debug("Object: " + String.valueOf("Clonando actividades del proyecto ID: " + proyecto.getServicioId() + " Terminado"));
     }
 
     private void clonarServicioPagos(Connection conn, ProyectoServicio proyecto) throws SQLException {
@@ -114,7 +114,7 @@ public class ProyectoExcepcionService extends ProyectoServicioGeneral {
             getProjectPaymentRepository().create(conn, dto);
             log.trace("Object: {}", "Pago [" + pago + "] clonado exitosamente");
         }
-        log.debug("Object: {}", "Clonación de pagos del proyecto ID: " + proyecto.getServicioId() + " terminada");
+        log.debug("Object: " + String.valueOf("Clonación de pagos del proyecto ID: " + proyecto.getServicioId() + " terminada"));
     }
 
     private void clonarServicioProductos(Connection conn, ProyectoServicio proyecto) throws SQLException {
@@ -129,7 +129,7 @@ public class ProyectoExcepcionService extends ProyectoServicioGeneral {
             getProductRepository().insertProduct(conn, dto);
             log.trace("Object: {}", "Producto [" + producto + "] clonado exitosamente");
         }
-        log.debug("Object: {}", "Clonación de productos del proyecto ID: " + proyecto.getServicioId() + " terminada");
+        log.debug("Object: " + String.valueOf("Clonación de productos del proyecto ID: " + proyecto.getServicioId() + " terminada"));
     }
 
     private void clonarServicioClaves(Connection conn, ProyectoServicio proyecto) throws SQLException {
@@ -146,7 +146,7 @@ public class ProyectoExcepcionService extends ProyectoServicioGeneral {
             getBudgetRepository().create(conn, dto);
             log.trace("Object: {}", "Clave presupuestaria [" + clave + "] clonada exitosamente");
         }
-        log.debug("Object: {}", "Clonación de claves presupuestarias del proyecto ID: " + proyecto.getServicioId() + " terminada");
+        log.debug("Object: " + String.valueOf("Clonación de claves presupuestarias del proyecto ID: " + proyecto.getServicioId() + " terminada"));
     }
 
     private void clonarServicioTDR(Connection conn, ProyectoServicio proyecto) throws SQLException, FortimaxException {
@@ -162,7 +162,7 @@ public class ProyectoExcepcionService extends ProyectoServicioGeneral {
             getTdrRepositorio().createServicioTermino(conn, proyecto.getServicioId(), tdr);
             log.trace("Object: {}", "TDR [" + tdr + "] clonado exitosamente");
         }
-        log.debug("Object: {}", "Clonación de TDRs del proyecto ID: " + proyecto.getServicioId() + " terminada");
+        log.debug("Object: " + String.valueOf("Clonación de TDRs del proyecto ID: " + proyecto.getServicioId() + " terminada"));
     }
 
     private void clonarServicioTerritorios(Connection conn, ProyectoServicio proyecto) throws SQLException {
@@ -178,7 +178,7 @@ public class ProyectoExcepcionService extends ProyectoServicioGeneral {
             getTerritorioRepositorio().create(conn, dto);
             log.trace("Object: {}", "Territorio [" + territorio + "] clonado exitosamente");
         }
-        log.debug("Object: {}", "Clonación de territorios del proyecto ID: " + proyecto.getServicioId() + " terminada");
+        log.debug("Object: " + String.valueOf("Clonación de territorios del proyecto ID: " + proyecto.getServicioId() + " terminada"));
     }
 
     public ProyectoExcepcion createProyectoExcepcion(ProyectoExcepcion proyectoExcepcion) throws SQLException {

@@ -118,7 +118,7 @@ public class RelacionGastosServlet extends HttpServlet implements GestionInterfa
         }
         //Obtiene la operación que se manda como parámetro en la llamada GET
         int tipoOperacion = Integer.parseInt(request.getParameter("operacion"));
-        log.debug("Object: {}", "operacion: " + tipoOperacion);
+        log.debug("Object: " + String.valueOf("operacion: " + tipoOperacion));
         String strParam = request.getParameter("Param");
         //String tipoPago = "";
         switch(tipoOperacion) {
@@ -168,7 +168,7 @@ public class RelacionGastosServlet extends HttpServlet implements GestionInterfa
             cCentroContable = usuario.getPropiedad("CCENTROCONTABLE").getValor();
         if (cCentroContable.isEmpty() || cCentroContable.equals(""))
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion Contable, Consulte a su administrador.";
-        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis())));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         String prefixPath = getServletContext().getRealPath("/WEB-INF/mail-bodies/") + File.separator;
         try {
@@ -187,8 +187,8 @@ public class RelacionGastosServlet extends HttpServlet implements GestionInterfa
                 c = CasoManager.select(conn, sc);
                 // Una vez que ha hecho la aplicación contable avanza el caso A CONSULTA PAGOS
                 avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-                log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
-                log.debug("Object: {}", "Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+                log.debug("Object: " + String.valueOf(c.getCasoDato("APLICADO_CONT").getValor()));
+                log.debug("Object: " + String.valueOf("Termina Aplicacion contable " + new Timestamp(System.currentTimeMillis())));
                 mensaje = "DOCUMENTO DE PRECOMPROMISO APLICADO CONTABLEMENTE.";
                 pstm1 = conn.prepareStatement("delete from CG_CASO_OPERACION where ID_CASO=(select ID_CASO from CG_CASO with(nolock) where  C_FOLIO=? ) and (CO_RESPONSABLE='VENTANILLA_RELACIONGASTOS' or CO_RESPONSABLE='CONSULTA_RELACIONGASTOS') and (ID_OPER=1 OR ID_OPER=3)");
                 pstm1.setString(1, c.getFolio());
@@ -274,7 +274,7 @@ public class RelacionGastosServlet extends HttpServlet implements GestionInterfa
         if (cCentroContable.isEmpty() || cCentroContable.equals("")) {
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion Contable, Consulte a su administrador.";
         }
-        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis())));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         String prefixPath = getServletContext().getRealPath("/WEB-INF/mail-bodies/") + File.separator;
         try {

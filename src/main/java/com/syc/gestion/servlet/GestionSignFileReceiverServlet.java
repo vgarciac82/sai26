@@ -24,7 +24,7 @@ import org.apache.commons.fileupload2.core.DiskFileItem;
 import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
 import org.apache.commons.fileupload2.core.FileItem;
 import org.apache.commons.fileupload2.core.FileUploadException;
-import org.apache.commons.ssl.PKCS8Key;
+// // import org.apache.commons.ssl.PKCS8Key;
 import com.jenkov.prizetags.tree.itf.ITree;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfSignatureAppearance;
@@ -143,7 +143,7 @@ public class GestionSignFileReceiverServlet extends HttpServlet implements Gesti
                     System.out.println(item.getName());
                     isKey = item.getInputStream();
                     keyPath = item.getName();
-                    FileOutputStream fos = new FileOutputStream(req.getRealPath("/upload/" + session.getId() + "firmado.key"));
+                    FileOutputStream fos = new FileOutputStream(getServletContext().getRealPath("/upload/" + session.getId() + "firmado.key"));
                     diskey = new DataInputStream(item.getInputStream());
                     int length = 0;
                     byte[] buffer = new byte[4 * 1024];
@@ -167,23 +167,23 @@ public class GestionSignFileReceiverServlet extends HttpServlet implements Gesti
         try {
             if (!"".equals(keyPath) && keyPath != null) {
                 //En caso de que no venga la llave no intenta firmarlo
-                File keyFile = new File(req.getRealPath("/upload/" + session.getId() + "firmado.key"));
+                File keyFile = new File(getServletContext().getRealPath("/upload/" + session.getId() + "firmado.key"));
                 FileInputStream in = new FileInputStream(keyFile);
-                PKCS8Key pkcs = null;
+                PrivateKey pkcs = null;
                 byte[] fileBytes = new byte[(int) keyFile.length()];
                 in.read(fileBytes);
                 char[] pass = uPassword.toCharArray();
                 try {
-                    pkcs = new PKCS8Key(fileBytes, pass);
+                    pkcs = null; // new PKCS8Key(fileBytes, pass);
                 } catch (Exception e) {
                     throw new Exception("El Password de la llave privada es incorrecto");
                 }
-                PrivateKey privateKey = pkcs.getPrivateKey();
+                PrivateKey privateKey = pkcs;
                 CertificateFactory cf = CertificateFactory.getInstance("X.509");
                 X509Certificate fact = (X509Certificate) cf.generateCertificate(isCer);
                 Certificate[] chain = { fact };
                 PdfReader reader = new PdfReader(insArchivoAFirmar);
-                File outputFile = new File(req.getRealPath("/upload/" + session.getId() + "firmado.pdf"));
+                File outputFile = new File(getServletContext().getRealPath("/upload/" + session.getId() + "firmado.pdf"));
                 PdfStamper pdfStamper;
                 pdfStamper = PdfStamper.createSignature(reader, null, '\0', outputFile);
                 PdfSignatureAppearance sap = pdfStamper.getSignatureAppearance();

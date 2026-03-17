@@ -109,7 +109,7 @@ public final class OCRIndex extends Thread {
             try {
                 tempProc.waitFor();
             } catch (InterruptedException ie) {
-                myLogFileWriter.write("[" + new Date() + "] INTERRUPTEDEXCEPTION: Error esperando al thread... " + printLuceneData() + "\n".toPath());
+                myLogFileWriter.write("[" + new Date() + "] INTERRUPTEDEXCEPTION: Error esperando al thread... " + printLuceneData() + "\n");
                 tempProc.destroy();
                 tempProc = null;
                 //ie.printStackTrace();
@@ -121,11 +121,11 @@ public final class OCRIndex extends Thread {
                     execString.append(OCRExecParams[i]);
                     execString.append(" ");
                 }
-                myLogFileWriter.write("[" + new Date() + "] OCR ERROR: retVal=[" + retVal + "], " + printLuceneData() + ", execString=[" + execString.toString() + "]\n".toPath());
+                myLogFileWriter.write("[" + new Date() + "] OCR ERROR: retVal=[" + retVal + "], " + printLuceneData() + ", execString=[" + execString.toString() + "]\n");
             }
         } catch (IOException ioe) {
             try {
-                myLogFileWriter.write("[" + new Date() + "] I/O EXCEPTION: retVal=[" + retVal + "], " + printLuceneData() + "\n".toPath());
+                myLogFileWriter.write("[" + new Date() + "] I/O EXCEPTION: retVal=[" + retVal + "], " + printLuceneData() + "\n");
             } catch (IOException ioe2) {
                 //ignore
             }
@@ -142,7 +142,7 @@ public final class OCRIndex extends Thread {
             myDoc = this.createDocument(txtFile);
         } catch (FileNotFoundException fnf) {
             try {
-                myLogFileWriter.write("[" + new Date() + "] FILENOTFOUNDEXCEPTION: No encontro el archivo=[" + txtFile.getPath() + "]\n".toPath());
+                myLogFileWriter.write("[" + new Date() + "] FILENOTFOUNDEXCEPTION: No encontro el archivo=[" + txtFile.getPath() + "]\n");
             } catch (IOException ioe) {
                 //ignore
             }
@@ -154,19 +154,19 @@ public final class OCRIndex extends Thread {
                 retVal = 0;
             } catch (CorruptIndexException cie) {
                 try {
-                    myLogFileWriter.write("[" + new Date() + "] CorruptIndexException: Al procesar el archivo=[" + txtFile.getPath() + "]\n".toPath());
+                    myLogFileWriter.write("[" + new Date() + "] CorruptIndexException: Al procesar el archivo=[" + txtFile.getPath() + "]\n");
                 } catch (IOException ioe) {
                     //ignore
                 }
             } catch (IOException ioe) {
                 try {
-                    myLogFileWriter.write("[" + new Date() + "] IOException: Al procesar el archivo=[" + txtFile.getPath() + "]\n".toPath());
+                    myLogFileWriter.write("[" + new Date() + "] IOException: Al procesar el archivo=[" + txtFile.getPath() + "]\n");
                 } catch (IOException ioe2) {
                     //ignore
                 }
             } catch (NullPointerException npe) {
                 try {
-                    myLogFileWriter.write("Se pachequeo con el docto=[" + numDocto + "]\n".toPath());
+                    myLogFileWriter.write("Se pachequeo con el docto=[" + numDocto + "]\n");
                 } catch (IOException ioe) {
                     //ignore
                 }
@@ -195,7 +195,7 @@ public final class OCRIndex extends Thread {
             }
         } catch (SQLException sqle) {
             try {
-                myLogFileWriter.write("[" + new Date() + "] SQLException: Al ejecutar el query=[" + query + "]\n".toPath());
+                myLogFileWriter.write("[" + new Date() + "] SQLException: Al ejecutar el query=[" + query + "]\n");
             } catch (IOException ioe) {
                 //ignore
             }

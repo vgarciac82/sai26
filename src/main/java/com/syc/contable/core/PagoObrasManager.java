@@ -179,7 +179,7 @@ public class PagoObrasManager {
         String Sql = " SELECT nFolioPAGOOBRA,  'H' H,  cRamo,  'RHQ',  '' SOL_PAGO,  '3',  caNoContrarrecibo FOLIO_INTERNO,  caNoContrarrecibo COMODIN  FROM tPAGOOBRAEncabezado  WHERE nFolioPAGOOBRA in (" + listaIds + ") ";
         try {
             pstmntH = conn.prepareStatement(Sql);
-            log.debug("Object: {}", Sql.toString());
+            log.debug("Object: " + String.valueOf(Sql.toString()));
             rs = pstmntH.executeQuery();
             String Sql2 = "select distinct PDE.cRamo, 'POBR-' + CAST(PDE.nFolioPAGOOBRA AS VARCHAR(7)), CONVERT(nvarchar(10), PDE.fAplicacion,103),  " + "			CONVERT(nvarchar(10), PDE.fAplicacion,103) + ' 12:00:00 a.m.',  " + "			ISNULL(BB.CBEN, '') cben, case when BB.cExtranjero = 1 then '05' else '04' end 'TipoBen',  " + "			'85', CASE WHEN CONVERT(int,PDE.mImporteIVA) = 0 THEN '05' else  '07' END  TIVA,  " + "			CONVERT(decimal(17,2), 0),  " + "			CONVERT(decimal(17,2), PDE.mImporteBruto) BRUTO,   " + "			CONVERT(decimal(17,2), PDE.mImporteIVA) IVA_DES, " + "			CONVERT(decimal(17,2), DCD.DCD_IVA) IVA,  " + "			CONVERT(decimal(17,2), DCD.DCD_ISR) ISR, " + "			CONVERT(decimal(17,2), DCD.DCD_MIL5) MIL5, " + "			CONVERT(decimal(17,2), DCD.DCD_MIL2) MIL2, " + "			CONVERT(decimal(17,2), DCD.DCD_OTRAS_RET) OTRASRET," + "			CONVERT(decimal(17,2), DCD.DCD_PENALIZACION) PEN," + "			CONVERT(decimal(17,2), DCD.DCD_CONTRIBUCION) CONT," + "			0,  REPLACE(REPLACE(pde.cConcepto,',',''),'\\',''), PDE.nFolioPAGOOBRA" + "		from dbo.tPAGOOBRAEncabezado PDE WITH (NOLOCK) " + "		inner join v_DCD_PAGO_OBRA DCD WITH (NOLOCK)  on pde.nFolioPAGOOBRA = dcd.nFolioPAGOOBRA " + "		LEFT JOIN pContratoOBRASesion sd WITH (NOLOCK)  ON PDE.cFolioContratoObra = sd.cIdContrato and bActivo = 1 AND sd.fSesionVigencia = (select convert(date, isnull(min(pcs.fSesionVigencia), '1900-01-01')) from pContratoObraSesion pcs where pcs.cIdContrato = sd.cIdContrato and bActivo = 1 and pcs.fSesionVigencia >= convert(date, GETDATE())) " + "		LEFT JOIN tBeneficiario BB WITH (NOLOCK) ON BB.dRFC = PDE.RFC " + " where PDE.nFolioPAGOOBRA =  ? ORDER BY PDE.nFolioPAGOOBRA";
             pstmntD = conn.prepareStatement(Sql2);
@@ -189,7 +189,7 @@ public class PagoObrasManager {
                 encabezado = encabezado + "\r\n";
                 arrListaComp.add(encabezado);
                 pstmntD.setString(1, nFolioCompromiso);
-                log.debug("Object: {}", Sql2.toString());
+                log.debug("Object: " + String.valueOf(Sql2.toString()));
                 rs2 = pstmntD.executeQuery();
                 while (rs2.next()) {
                     String token = new String();
@@ -489,7 +489,7 @@ public class PagoObrasManager {
             SqlLayoutGrabado.append(" LEFT JOIN pCatalogoTipoDocumento CTD (NOLOCK) ON tCE.cIdTipoDocumento =	CTD.cIdTipoDocumento ");
             SqlLayoutGrabado.append(" LEFT JOIN v_pagosDocComprobatoria DC (NOLOCK) ON DC.caNoContrarrecibo =tCE.caNoContrarrecibo AND DC.cTipoPago = 'OBRA' ");
             SqlLayoutGrabado.append(" WHERE tCE.nFolioPAGOOBRA in (" + listaIds + ") ");
-            log.debug("Object: {}", SqlLayoutGrabado.toString());
+            log.debug("Object: " + String.valueOf(SqlLayoutGrabado.toString()));
             pstmntHLayout = conn.prepareStatement(SqlLayoutGrabado.toString());
             pstmntHLayout.executeUpdate();
         } finally {
@@ -575,7 +575,7 @@ public class PagoObrasManager {
         sql.append(" ORDER BY tCE.nFolioPAGOOBRA ");
         try {
             pstmntH = conn.prepareStatement(sql.toString());
-            log.debug("Object: {}", sql.toString());
+            log.debug("Object: " + String.valueOf(sql.toString()));
             rs = pstmntH.executeQuery();
         } finally {
         }

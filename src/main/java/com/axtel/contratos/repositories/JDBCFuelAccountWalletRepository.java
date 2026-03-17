@@ -67,7 +67,7 @@ public class JDBCFuelAccountWalletRepository implements FuelAccountWalletReposit
         } catch (SQLException e) {
             throw new ContratoException(e);
         }
-        log.debug("Object: {}", "Se encontro: " + accountWallet);
+        log.debug("Object: " + String.valueOf("Se encontro: " + accountWallet));
         return accountWallet;
     }
 

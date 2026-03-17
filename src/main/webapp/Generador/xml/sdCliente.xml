@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!--  Catálogo de Clientes  --> 
+<SyCData>
+	<titulo>Catálogo de Clientes</titulo> 
+	<select>SELECT cCliente, dCliente FROM tCliente</select> 
+	<estilo>tabular</estilo> 
+	<update>no</update> 
+		
+	<columna>
+		<nombre>cCliente</nombre> 
+		<tipoCol>string</tipoCol> 
+		<descripcion>Clave</descripcion> 
+		<top>0</top> 
+		<left>0</left> 
+		<ancho>10</ancho> 
+		<maxlen>5</maxlen> 
+		<sort>no</sort> 
+		<requerido>La Clave es un dato requerido.</requerido> 
+		<visible>si</visible>
+		<enabled>si</enabled>
+		<origen></origen>
+		<validacionExpresion></validacionExpresion>
+		<validacionMensaje></validacionMensaje>
+	</columna>
+	<columna>
+		<nombre>dCliente</nombre> 
+		<tipoCol>string</tipoCol> 
+		<descripcion>Nombre</descripcion> 
+		<top>0</top> 
+		<left>0</left> 
+		<ancho>50</ancho> 
+		<maxlen>50</maxlen> 
+		<sort>no</sort> 
+		<requerido>El Nombre es un dato requerido.</requerido> 
+		<visible>si</visible>
+		<enabled>si</enabled>
+		<origen></origen>
+		<validacionExpresion></validacionExpresion>
+		<validacionMensaje></validacionMensaje>
+	</columna>
+</SyCData>
+

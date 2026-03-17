@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="clausulado"  columnCount="2" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="386" leftMargin="10" rightMargin="10" topMargin="2" bottomMargin="2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cPedidoDefinitivo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Lupita\\Workspaces\\MyEclipse 8.6\\gestion_conagua_sif\\WebContent\\Reportes"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cIdRFC" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[declare @IdPedido varchar(40)
+set @IdPedido=$P{cPedidoDefinitivo}
+declare @numEP int;
+select @numEP=dbo.fn_mEP(@IdPedido)
+if (@numEP>0)
+begin
+select distinct cast(convert(date,fFormalizacion,103) as varchar(15)) as fFormalizacion, pr.cIdpedido,pr.cRepresentanteLegal,cCargoRepresentante,cActaConstitutiva,cNoEscritura,cTelefono,cAutorizacion, cFechaAutorizacion,
+case when dbo.fn_mEP(@IdPedido)>1 then 'Ver anexo' else EP end  as EP from    tPreCompromisoDetalle a  inner join tPreCompromisoEncabezado b on a.nFolioPreCompromiso=b.nFolioPreCompromiso inner join mpedido mp
+on mp.cIdPedidoDefinitivo=b.cIdContrato
+inner join mPedidoRepresentante pr on pr.cIdPedido=mp.cIdPedidoDefinitivo where pr.cIdPedido=@IdPedido
+end
+else
+begin
+select distinct cast(convert(date,fFormalizacion,103) as varchar(15)) as fFormalizacion, pr.cIdpedido,pr.cRepresentanteLegal,cCargoRepresentante,cActaConstitutiva,cNoEscritura,cTelefono,cAutorizacion, cFechaAutorizacion,' ' as EP
+from mpedido mp
+inner join mPedidoRepresentante pr on pr.cIdPedido=mp.cIdPedidoDefinitivo where pr.cIdPedido=@IdPedido
+end]]>
+	</queryString>
+	<field name="fFormalizacion" class="java.lang.String"/>
+	<field name="cIdpedido" class="java.lang.String"/>
+	<field name="cRepresentanteLegal" class="java.lang.String"/>
+	<field name="cCargoRepresentante" class="java.lang.String"/>
+	<field name="cActaConstitutiva" class="java.lang.String"/>
+	<field name="cNoEscritura" class="java.lang.String"/>
+	<field name="cTelefono" class="java.lang.String"/>
+	<field name="cAutorizacion" class="java.lang.String"/>
+	<field name="cFechaAutorizacion" class="java.lang.String"/>
+	<field name="EP" class="java.lang.String"/>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<subreport>
+				<reportElement x="392" y="0" width="380" height="50"/>
+				<subreportParameter name="idPedidoDefinitivo">
+					<subreportParameterExpression><![CDATA[$P{cPedidoDefinitivo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="cIdRFC">
+					<subreportParameterExpression><![CDATA[$P{cIdRFC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"\\representantes.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="462">
+			<subreport>
+				<reportElement isPrintRepeatedValues="false" x="392" y="8" width="380" height="40"/>
+				<subreportParameter name="cIdRFC">
+					<subreportParameterExpression><![CDATA[$P{cIdRFC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idPedidoDefinitivo">
+					<subreportParameterExpression><![CDATA[$P{cPedidoDefinitivo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"\\representantes.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="0" width="385" height="456"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="cPedidoDefinitivo">
+					<subreportParameterExpression><![CDATA[$P{cPedidoDefinitivo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"\\clausulas_descripcion.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement isPrintRepeatedValues="false" x="392" y="190" width="380" height="253"/>
+				<subreportParameter name="cIdPedido">
+					<subreportParameterExpression><![CDATA[$P{cPedidoDefinitivo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"\\fundamentos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

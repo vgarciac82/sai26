@@ -250,7 +250,7 @@ public class PagosDiversosBussinessLogic extends DataSourceManager {
             response.setHeader("Content-Type", "application/vnd.ms-excel");
             response.addHeader("Content-Disposition", "inline; filename=\"layout.xls\"");
             ServletOutputStream out = response.getOutputStream();
-            workbook.write(out.toPath());
+            workbook.write(out);
             out.flush();
             out.close();
             workbook.close();
@@ -449,7 +449,7 @@ public class PagosDiversosBussinessLogic extends DataSourceManager {
                     FirmaElectronicaManager.avanzaEstatusSICOP(conn, solicitudPagoPrinter, SolicitudFirmaElectronica.VO_BO_SICOP);
                 }
                 avanzaCasoConsulta(conn, c, u);
-                log.debug("Object: {}", "Se inserto: " + insertados + " en encabeazado;");
+                log.debug("Object: " + String.valueOf("Se inserto: " + insertados + " en encabeazado;"));
                 pagosProcesados++;
             }
         } catch (SQLException | GestionException | EgresoException | AccountingEngineException e) {

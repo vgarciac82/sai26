@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OficioMetas" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2cdde1b2-92a5-45ba-b331-21a92beefc13">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="194"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="whereUE" class="java.lang.String">
+		<defaultValueExpression><![CDATA["AND CU.cCoordinacion = 'P00'"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="mes" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[3]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nOficio" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[82]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nombre1" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Tania A. Limón Magaña"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="puesto1" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Gerente de Programación y Presupuesto"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="coordinacion" class="java.lang.String">
+		<defaultValueExpression><![CDATA["A01"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 'No. de oficio GPP-' + LTRIM(RTRIM(CONVERT(CHAR(5), nOficio))) + '/' + CONVERT(CHAR,YEAR(fAplicacion)) AS Oficio
+		, 'Zapopan Jalisco; a ' + LTRIM(RTRIM(CONVERT(CHAR, DAY(fAplicacion)))) + ' de ' + DATENAME (MONTH, DATEADD(MONTH, MONTH(fAplicacion) - 1, '1900-01-01')) + ' de ' + CONVERT(CHAR,YEAR(fAplicacion)) AS Fecha
+		, Adscripcion AS Coordinacion
+		, Nombre AS Titular
+		, 'Me refiero al artículo 92 del Reglamento de la Ley Federal de Presupuesto y Responsabilidad Hacendaria, en el cual se establece lo siguiente:  “En caso de que las adecuaciones presupuestarias impliquen variaciones a las metas aprobadas, la dependencia o entidad deberá informar sobre dichas variaciones a través de los sistemas que para el efecto determine la Secretaría…”.' AS parrafo1
+		, 'Por lo anterior y a fin de que los programas con Matriz de Indicadores para Resultados (MIR)  y metas del Programa Anual de Trabajo (PAT)  estén en posibilidad de evaluar y, en su caso, modificar sus metas en el Sistema de Evaluación de Desempeño (SED) del Portal Aplicativo de la Secretaría de Hacienda y Crédito Público (PASH) y  en el Sistema de Planeación (SIPLAN), se informan las variaciones presupuestarias al cierre del '
+		+ CASE nMesModificado 
+			   WHEN 3 THEN 'primer trimestre:'
+			   WHEN 6 THEN 'segundo trimestre:'
+			   WHEN 9 THEN 'tercer trimestre:'
+			   WHEN 12 THEN 'cuarto trimestre:'
+		END AS parrafo2
+	FROM tOficiosSIPLAN O
+	JOIN v_coordinacionesTitular C ON O.cCoordinacion = Unidad
+WHERE nOficio =  $P{nOficio}]]>
+	</queryString>
+	<field name="Oficio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Oficio"/>
+		<property name="com.jaspersoft.studio.field.label" value="Oficio"/>
+	</field>
+	<field name="Fecha" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Fecha"/>
+		<property name="com.jaspersoft.studio.field.label" value="Fecha"/>
+	</field>
+	<field name="Coordinacion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Coordinacion"/>
+		<property name="com.jaspersoft.studio.field.label" value="Coordinacion"/>
+	</field>
+	<field name="Titular" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Titular"/>
+		<property name="com.jaspersoft.studio.field.label" value="Titular"/>
+	</field>
+	<field name="parrafo1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="parrafo1"/>
+		<property name="com.jaspersoft.studio.field.label" value="parrafo1"/>
+	</field>
+	<field name="parrafo2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="parrafo2"/>
+		<property name="com.jaspersoft.studio.field.label" value="parrafo2"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="78">
+			<image>
+				<reportElement x="26" y="0" width="352" height="50" uuid="8bcba201-ab49-4038-be80-2b6e290f1274"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "MEDIO AMBIENTE - CONAFOR.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="392" y="5" width="134" height="46" uuid="eb767c06-3ae9-46e3-8389-bdca38758f8f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidad de Administración y Finanzas
+Gerencia de Programación y Presupuesto
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="260" y="53" width="266" height="10" forecolor="#595959" uuid="85b5b823-db19-485b-87e5-94433fba5e48">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Montserrat" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Oficio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="63" width="266" height="10" forecolor="#595959" uuid="3c399263-65a4-4722-80b2-6e374448c813">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Montserrat" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="50">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} > 1]]></printWhenExpression>
+			<image>
+				<reportElement x="28" y="0" width="352" height="50" uuid="b537f3a0-f3c5-42d8-9b47-63e2f30dc6e6">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER} > 1]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "MEDIO AMBIENTE - CONAFOR.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="148">
+			<staticText>
+				<reportElement x="26" y="45" width="100" height="14" forecolor="#595959" uuid="ad7fdae1-0c93-449c-a900-36ac019e8c63"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Montserrat" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Presente]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="26" y="17" width="394" height="14" forecolor="#595959" uuid="22427509-45b8-462c-bf79-0bb44a219a19">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Montserrat" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Titular}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="26" y="31" width="394" height="14" forecolor="#595959" uuid="d9b4603f-ec43-4dd3-b72c-a73190d5d058">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Montserrat" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Coordinacion}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement isPrintRepeatedValues="false" x="30" y="72" width="498" height="30" forecolor="#595959" uuid="88370cc6-6ae1-4b68-a53d-bb92524c6243"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Montserrat"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parrafo1}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="30" y="111" width="498" height="30" forecolor="#595959" uuid="2488d12f-e19b-40f7-9632-364389804c8c"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Montserrat"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parrafo2}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="40">
+			<subreport>
+				<reportElement x="7" y="0" width="549" height="39" uuid="5f19d64d-7a77-4a37-bbad-2b0ecf6ed754">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<subreportParameter name="whereUE">
+					<subreportParameterExpression><![CDATA[$P{whereUE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="mes">
+					<subreportParameterExpression><![CDATA[$P{mes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "OficioMetasFiscalK.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="39">
+			<subreport>
+				<reportElement x="7" y="0" width="549" height="39" uuid="ec450ec4-43a3-48e8-bb5a-b298ba1da73a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<subreportParameter name="whereUE">
+					<subreportParameterExpression><![CDATA[$P{whereUE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="mes">
+					<subreportParameterExpression><![CDATA[$P{mes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "OficioMetasPropio.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="245">
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="26" y="8" width="502" height="62" forecolor="#595959" uuid="7aa9cd84-f97c-4af6-a898-f9746d55f147"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Montserrat" size="9"/>
+				</textElement>
+				<text><![CDATA[El detalle del presupuesto y las variaciones aquí plasmadas están disponibles para su consulta en el Sistema de Administración Integral (SAI).
+
+Agradezco de antemano su atención y le envío un cordial saludo.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="182" y="87" width="198" height="20" forecolor="#595959" uuid="6f2d677b-f222-4482-a31e-c439f4eacc7f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Atentamente]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="160" y="157" width="239" height="12" forecolor="#595959" uuid="9f9e0433-20a3-4d4e-b8ef-78ff494d417d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombre1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="172" width="238" height="12" forecolor="#595959" uuid="98a5e3c9-1743-4c26-8652-f74e93dd1b1c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{puesto1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="60" splitType="Stretch">
+			<image>
+				<reportElement mode="Transparent" x="26" y="1" width="523" height="59" uuid="c650af79-d62a-48d9-b484-34b9348e0dac"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "PiePaginaOficio.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="36" y="0" width="332" height="20" forecolor="#C4944D" backcolor="#FFFFFF" uuid="7f81aabb-63ec-40a4-b587-c2d4b74e2f9d"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement markup="none">
+					<font fontName="Montserrat" size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Periférico Poniente No. 5360, Col. San Juan de Ocotán, CP. 45019, Zapopan, Jal.
+Tel: (33) 37 77 70 00 www.gob.mx/conafor
+]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="105">
+			<image>
+				<reportElement mode="Transparent" x="26" y="45" width="521" height="59" uuid="637315cf-3b89-4700-a84a-e43fe859480f"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "PiePaginaOficio.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="36" y="45" width="332" height="20" forecolor="#C4944D" backcolor="#FFFFFF" uuid="1da02282-de78-4293-b23b-b2ca8435db33"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement markup="none">
+					<font fontName="Montserrat" size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Periférico Poniente No. 5360, Col. San Juan de Ocotán, CP. 45019, Zapopan, Jal.
+Tel: (33) 37 77 70 00 www.gob.mx/conafor
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="26" y="3" width="502" height="40" uuid="d0e5baf9-f226-407f-b4a4-7dfdb24c1cf6"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Montserrat" size="7"/>
+				</textElement>
+				<text><![CDATA[C.c.p.	Alma Guadalupe Godoy Ramos Titular de la Unidad de Administración y Finanzas de la  CONAFOR.-Presente
+C.c.p.	Guillermo Muñoz Galindo Gerente de Planeación y Evaluación de la  CONAFOR.-Presente
+
+TLM/lmms]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="41"/>
+	</summary>
+</jasperReport>

@@ -58,7 +58,7 @@ public class JDBCFuelAccountWalletRefundRepository implements FuelAccountWalletR
 
     @Override
     public FuelAccountWalletRefund read(Connection conn, Integer idRefund) throws SicoveException {
-        log.debug("Object: {}", "Looking for FuelAccountWalletRefund with id " + idRefund);
+        log.debug("Object: " + String.valueOf("Looking for FuelAccountWalletRefund with id " + idRefund));
         log.trace("Object: {}", "Executing: \n" + querySelect + "\n[" + idRefund + "]");
         try {
             FuelAccountWalletRefund fuelAccountWalletRefund = runner.query(conn, querySelect.toString(), resultHandler, idRefund);

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Catálogo Evento Relacion</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>CG_CAT_TEVENTORELACION</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cEventoRelacion"	control="txtGridcEventoRelacion"	dependencia="No"	limpiaOnKeypress=""		header="cEventoRelacion"	 ancho="3"	maxlen="3" tipo="string"	visible="Si"	clase=""	rowCol="1,1"/>		
+		<columna campo="nIdGrupoEvento"	control="txtGridnIdGrupoEvento"	dependencia="No"	limpiaOnKeypress=""		header="nIdGrupoEvento"	 ancho="3"	maxlen="3" tipo="string"	visible="Si"	clase=""	rowCol="1,2"/>		
+		<columna campo="nIdSubGrupoEvento"	control="txtGridnIdSubGrupoEvento"	dependencia="No"	limpiaOnKeypress=""		header="nIdSubGrupoEvento"	 ancho="3"	maxlen="3" tipo="string"	visible="Si"	clase=""	rowCol="1,3"/>		
+		<columna campo="dEvento"	control="txtGriddEvento"	dependencia="No"	limpiaOnKeypress=""		header="dEvento"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""	rowCol="2,1"/>
+	</grid>  
+</Ayuda>

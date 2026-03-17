@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Fuente de Financiamiento</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_TCATALOGOFUENTEFINANCIAMIENTOCONAC</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cFuenteFinanciamiento"	control="cFuenteFinanciamiento"	dependencia="No"	limpiaOnKeypress=""		header="Fuente Financiamiento"	rowCol="1,1"	ancho="10"	maxlen="5" 		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cClave"					control="cClave"				dependencia="No"	limpiaOnKeypress=""		header="Clave"					rowCol="1,2"	ancho="10"	maxlen="5" 		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cSubclave"				control="cSubclave"				dependencia="No"	limpiaOnKeypress=""		header="Subclave"				rowCol="2,1"	ancho="10"	maxlen="5" 		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="dFuenteFinanciamiento"	control="dFuenteFinanciamiento"	dependencia="No"	limpiaOnKeypress=""		header="Descripción"	 		rowCol="2,2"	ancho="100"	maxlen="100" 	tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="cFuenteFinanciamiento"	control="txtGridcFuenteFinanciamiento"	llave="No"	identity="No"	requerido="Fuente Financiamiento es un dato requerido."	requeridoFocus="txtGridcFuenteFinanciamiento"	tipo="string" />
+		<campo field="cClave"					control="txtGridcClave"				llave="No"	identity="No"	requerido="Clave de Fuente Financiamiento"	requeridoFocus="txtGridcClave"	tipo="string" />
+		<campo field="cSubclave"				control="txtGridcSubclave"			llave="No"	identity="No"	requerido="Sub clave de Fuente Financiamiento"	requeridoFocus="txtGridcSubclave"	tipo="string" />
+		<campo field="dFuenteFinanciamiento"	control="txtGriddFuenteFinanciamiento"	llave="No"	identity="No"	requerido="Descripción es un dato requerido."						requeridoFocus="txtGriddFuenteFinanciamiento"	tipo="string" />		
+	</insertaRegistro>
+	
+</Ayuda>

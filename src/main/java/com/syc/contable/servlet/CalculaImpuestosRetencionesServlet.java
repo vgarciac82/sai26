@@ -58,7 +58,7 @@ public class CalculaImpuestosRetencionesServlet extends HttpServlet implements G
             String folio = c.getFolio();
             String tipoPago = c.getTipoCaso().getGavetaAsociada();
             int nFolioPago = Integer.parseInt(folio.substring(9));
-            log.debug("Object: {}", "Parámetros de recálculo: tipoPago=" + tipoPago + ", nFolioPago=" + nFolioPago + ", folioCompleto=" + folio);
+            log.debug("Object: " + String.valueOf("Parámetros de recálculo: tipoPago=" + tipoPago + ", nFolioPago=" + nFolioPago + ", folioCompleto=" + folio));
             CalculaImpuestosRetencionesBusinessLogic cirBL = new CalculaImpuestosRetencionesBusinessLogic(jniName);
             log.trace("Invocando recalculaMontoImpuestos()");
             int afectados = cirBL.recalculaMontoImpuestos(tipoPago, nFolioPago);

@@ -85,7 +85,7 @@ public class TDRDocumentationController extends HttpServlet {
             log.trace("Object: {}", "Temp File created successfully: " + file.getAbsolutePath());
             log.trace("Moving to temp file");
             FileUtils.copyInputStreamToFile(filePart.getInputStream(), file);
-            log.debug("Object: {}", "File: " + fileName + " readed successfully");
+            log.debug("Object: " + String.valueOf("File: " + fileName + " readed successfully"));
             log.trace("Traying to save TDR Info");
             ProyectoServicioTDR projectTDR = projectTDRService.addProjectTDR(idProcess, servicioId, tdrDescription, folderName, file, user.getLogin());
             log.info("Object: {}", "TDR Saved!!!: " + projectTDR);

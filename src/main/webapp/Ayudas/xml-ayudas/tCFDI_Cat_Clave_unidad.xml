@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento de Clave Unidad para CFDI</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>tCFDI_Cat_Clave_unidad</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cClaveUnidad"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Clave"	 	 ancho="3"		maxlen="3"  tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cNombreUnidad"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Nombre Unidad"	 ancho="128"	maxlen="128" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cDescripción"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Descripcion Unidad"	 ancho="576"	maxlen="576" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="fFechaInicioVigencia"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Fecha Inicio"	 ancho="15"	maxlen="15" tipo="date"	visible="Si"	clase=""/>
+		<columna campo="fFechaFinVigencia"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Fecha Fin"	 ancho="15"	maxlen="15" tipo="date"	visible="Si"	clase=""/>
+		<columna campo="cSimbolo"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Simbolo"	 ancho="32"	maxlen="32" tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+	
+
+	
+</Ayuda>

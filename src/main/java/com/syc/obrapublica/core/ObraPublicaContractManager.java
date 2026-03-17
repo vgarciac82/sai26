@@ -1628,7 +1628,7 @@ public class ObraPublicaContractManager {
      * @throws SQLException
      */
     public static Caso cargaCasoContrato(Connection conn, String folioContrato) throws SQLException {
-        log.debug("Object: {}", "Intentando encontrar caso para el contrato: " + folioContrato);
+        log.debug("Object: " + String.valueOf("Intentando encontrar caso para el contrato: " + folioContrato));
         PreparedStatement psFolio = null;
         ResultSet rs = null;
         StringBuilder query = new StringBuilder();
@@ -1642,7 +1642,7 @@ public class ObraPublicaContractManager {
             rs = psFolio.executeQuery();
             if (rs.next()) {
                 String folioSAI = rs.getString(1);
-                log.debug("Object: {}", "Se encontro folio: " + folioSAI + " para el contrato:  " + folioContrato);
+                log.debug("Object: " + String.valueOf("Se encontro folio: " + folioSAI + " para el contrato:  " + folioContrato));
                 Caso c = new Caso();
                 c.setFolio(folioSAI);
                 return CasoManager.select(conn, c);

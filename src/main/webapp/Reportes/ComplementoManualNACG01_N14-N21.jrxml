@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ComplementoManualNACG01_P14-P21" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="14e90fec-c87b-4866-ae30-7e31986e8c11">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="localhost"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="325"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="668"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="idVersion" class="java.lang.Integer"/>
+	<parameter name="final" class="java.lang.Integer"/>
+	<parameter name="consulta" class="java.lang.Integer"/>
+	<parameter name="tipoManual" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[DECLARE @idVersion INT = $P{idVersion}
+DECLARE @final INT = $P{final}
+DECLARE @consulta INT = $P{consulta}
+DECLARE @tipoManual INT = $P{tipoManual}
+
+IF @final = 0 AND @consulta = 0 --TEMPORAL
+BEGIN
+	SELECT RTRIM(LTRIM(cParrafo19)) AS cParrafo19
+			, RTRIM(LTRIM(cParrafo20)) AS cParrafo20
+			, RTRIM(LTRIM(cParrafo21)) AS cParrafo21
+			, RTRIM(LTRIM(cParrafo22)) AS cParrafo22
+			, RTRIM(LTRIM(cParrafo23)) AS cParrafo23
+			, RTRIM(LTRIM(cParrafo24)) AS cParrafo24
+		FROM tComplementoManualContable
+		WHERE idComplemento = @tipoManual
+END
+
+ELSE IF @final = 1 AND @consulta = 1 --CUANDO SE CONULTA UNA VERSION
+BEGIN
+	SELECT RTRIM(LTRIM(cParrafo19)) AS cParrafo19
+			, RTRIM(LTRIM(cParrafo20)) AS cParrafo20
+			, RTRIM(LTRIM(cParrafo21)) AS cParrafo21
+			, RTRIM(LTRIM(cParrafo22)) AS cParrafo22
+			, RTRIM(LTRIM(cParrafo23)) AS cParrafo23
+			, RTRIM(LTRIM(cParrafo24)) AS cParrafo24
+		FROM tComplementoManualContableVersion
+		WHERE idComplemento = @tipoManual
+		AND idVersion = @idVersion
+END]]>
+	</queryString>
+	<field name="cParrafo19" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo19"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo19"/>
+	</field>
+	<field name="cParrafo20" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo20"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo20"/>
+	</field>
+	<field name="cParrafo21" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo21"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo21"/>
+	</field>
+	<field name="cParrafo22" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo22"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo22"/>
+	</field>
+	<field name="cParrafo23" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo23"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo23"/>
+	</field>
+	<field name="cParrafo24" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cParrafo24"/>
+		<property name="com.jaspersoft.studio.field.label" value="cParrafo24"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="3" y="4" width="20" height="13" isRemoveLineWhenBlank="true" uuid="ecc48ff0-8294-4575-a115-9f7b3b75575a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[14]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" x="23" y="4" width="436" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="5b5b95e2-b5c5-4ef4-8529-d73d1fb4a5da">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo19}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="22">
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" x="23" y="4" width="436" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="b74f3ef5-82b7-47d0-b037-be365a368b8c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo20}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="3" y="4" width="20" height="13" isRemoveLineWhenBlank="true" uuid="fef4c9fd-0fb9-4b65-8ccd-e41c6ad4ab01"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[15]]></text>
+			</staticText>
+		</band>
+		<band height="25">
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" x="23" y="5" width="436" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="bf2f38a3-b4c3-41c6-a727-7def379aaf9c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo21}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="3" y="5" width="20" height="13" isRemoveLineWhenBlank="true" uuid="69b436bb-0d96-4232-9e89-8fe24fd65bd3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[16]]></text>
+			</staticText>
+		</band>
+		<band height="69">
+			<staticText>
+				<reportElement positionType="Float" x="3" y="5" width="20" height="13" uuid="035b4808-4b41-45d7-a36c-f59a61c54e5d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[17]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="5" width="436" height="41" uuid="f07beb6b-2008-4041-b39e-8e507e71cce5">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Una vez recibida la autorización por la UCG para la baja de archivo contable gubernamental, el solicitante deberá obtener de la instancia correspondiente, Dictamen y Acta de Baja Documental, o documentos equivalentes.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="3" y="50" width="20" height="13" uuid="6df84f62-1369-4df4-961b-35d8409d5067"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[18]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" x="23" y="50" width="436" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="c18c2d8c-b5f2-490c-819f-4749a280e65d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo22}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="65">
+			<staticText>
+				<reportElement x="24" y="6" width="436" height="34" uuid="fa1f3986-7a8f-4e67-8c18-48495ee59620">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[El ente responsable deberá elaborar “Acta Circunstanciada” conforme al formato anexo a esta Norma.]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" x="24" y="46" width="436" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="11e7a657-3eb8-49dc-8699-3df0941590de">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo23}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="4" y="6" width="20" height="13" uuid="a761fb0c-f02b-4b63-8740-1efad60261e0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[19]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="4" y="46" width="20" height="13" uuid="edb0dc85-b029-402e-8d00-2bb34edbd178"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[20]]></text>
+			</staticText>
+		</band>
+		<band height="24">
+			<staticText>
+				<reportElement positionType="Float" x="4" y="6" width="20" height="13" uuid="2f33f960-4851-491f-84d9-336eb8e71037"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[21]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" x="24" y="6" width="436" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="7d89345f-9a59-4195-9fe4-eb761558cd89">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cParrafo24}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -81,7 +81,7 @@ public class CalculaImpuestosRetencionesBusinessLogic extends DataSourceManager 
         String tablaEncabezado = "t" + tipoPago + "encabezado";
         String tablaDetalle = "t" + tipoPago + "detalle";
         String nombreCampo = "nFolio" + tipoPago;
-        log.debug("Object: {}", "Tablas generadas -> Encabezado: " + tablaEncabezado + ", Detalle: " + tablaDetalle + ", Campo de enlace: " + nombreCampo + ", Folio: " + nFolioPago);
+        log.debug("Object: " + String.valueOf("Tablas generadas -> Encabezado: " + tablaEncabezado + ", Detalle: " + tablaDetalle + ", Campo de enlace: " + nombreCampo + ", Folio: " + nFolioPago));
         log.trace("Invocando recalculo estándar de impuestos con tablas dinámicas...");
         int resultado = recalculaMontoImpuestos(tablaEncabezado, tablaDetalle, nombreCampo, nFolioPago);
         log.info("Object: {}", "Recalculo estándar completado. Registros afectados=" + resultado);
@@ -98,10 +98,10 @@ public class CalculaImpuestosRetencionesBusinessLogic extends DataSourceManager 
         log.trace("recalculaMontoImpuestos(encabezado, detalle, campo, folio): inicio");
         Connection conn = null;
         try {
-            log.debug("Object: {}", "Parámetros -> tablaPagoEncabezado=" + tablaPagoEncabezado + ", tablaPagoDetalle=" + tablaPagoDetalle + ", nombreCampo=" + nombreCampo + ", nFolioPago=" + nFolioPago);
+            log.debug("Object: " + String.valueOf("Parámetros -> tablaPagoEncabezado=" + tablaPagoEncabezado + ", tablaPagoDetalle=" + tablaPagoDetalle + ", nombreCampo=" + nombreCampo + ", nFolioPago=" + nFolioPago));
             log.trace("Obteniendo conexión...");
             conn = getConnection();
-            log.debug("Object: {}", "Conexión obtenida: " + (conn != null ? conn.hashCode() : "null"));
+            log.debug("Object: " + String.valueOf("Conexión obtenida: " + (conn != null ? conn.hashCode() : "null")));
             log.trace("Invocando CalculaImpuestosRetencionesManager.recalculaMontoImpuestos(...)");
             int resultado = CalculaImpuestosRetencionesManager.recalculaMontoImpuestos(conn, tablaPagoEncabezado, tablaPagoDetalle, nombreCampo, nFolioPago);
             log.info("Object: {}", "Recalculo de montos de impuestos completado. Registros afectados=" + resultado);

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento de impuestos CFDI</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>tCFDI_Cat_Impuestos</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+	<columna campo="cImpuesto"			control=""	dependencia="No"	limpiaOnKeypress=""		header="Impuesto"	 	 ancho="3"		maxlen="3"  tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cDescripcion"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Descripcion"	 ancho="4"	maxlen="4" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cRetencion"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Retencion"	 ancho="2"	maxlen="2" tipo="date"	visible="Si"	clase=""/>
+		<columna campo="cTraslado"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Traslado"	 ancho="2"	maxlen="2" tipo="date"	visible="Si"	clase=""/>
+		<columna campo="cLocalFederal"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Local Federal"	 ancho="7"	maxlen="7" tipo="integer"	visible="Si"	clase=""/>
+		<columna campo="cEntidadAplica"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Entidad"	 ancho="22"	maxlen="22" tipo="integer"	visible="Si"	clase=""/>
+		
+	</grid>  
+	
+</Ayuda>

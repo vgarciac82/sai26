@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Cuentas Bancarias</titulo>
+	<anchoWin>800</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>TBANCOSRDB</tabla>
+	<maxRegistros>150</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="dBancoAbreviado"	control="tBancosRDB"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Nombre Corto Banco"		ancho="50"	maxlen="15"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="dBanco"				control="dBanco"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Nombre Completo Banco"	ancho="65"	maxlen="15"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cBanco"				control="cBanco"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="cBanco"	ancho="65"	maxlen="15"		tipo="string"	visible="No"	clase=""/>
+	</grid>
+</Ayuda>

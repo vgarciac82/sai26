@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Activities" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="a78d6a8d-67ce-4ff8-9d39-c31f6ad8d1b1">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SISECOVE"/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<parameter name="REPORT_DIR" class="java.lang.String" evaluationTime="Early">
+		<parameterDescription><![CDATA[Directorio de Reportes y Subreportes]]></parameterDescription>
+	</parameter>
+	<queryString language="JSON">
+		<![CDATA[actividades]]>
+	</queryString>
+	<field name="servicioactividadId" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="servicioactividadId"/>
+		<fieldDescription><![CDATA[servicioactividadId]]></fieldDescription>
+	</field>
+	<field name="servicioactividadAnio" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="servicioactividadAnio"/>
+		<fieldDescription><![CDATA[servicioactividadAnio]]></fieldDescription>
+	</field>
+	<field name="mesNombre" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="sisecopMes.mesNombre"/>
+		<fieldDescription><![CDATA[sisecopMes.mesNombre]]></fieldDescription>
+	</field>
+	<field name="servicioactividadDescripcion" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="servicioactividadDescripcion"/>
+		<fieldDescription><![CDATA[servicioactividadDescripcion]]></fieldDescription>
+	</field>
+	<columnHeader>
+		<band height="51" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<rectangle>
+				<reportElement x="0" y="0" width="750" height="30" backcolor="#235B4E" uuid="997c51bb-baf2-4448-afa6-2602816bd108">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="9" width="205" height="20" forecolor="#FFFFFF" uuid="499bbc74-ff63-4a30-aac5-1c032bdc6a7c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[6. PRINCIPALES ACTIVIDADES]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="30" width="750" height="20" backcolor="#F0F0F0" uuid="2de686cc-03fa-4e54-990a-a62439d03ff4">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="4" y="32" width="41" height="14" uuid="b56af5c9-7adb-4a89-8f6d-7c8dbc6df317"/>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AÑO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="61" y="32" width="40" height="14" uuid="df4134ce-be82-48dc-b759-cfa06b82d71a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="122" y="32" width="100" height="14" uuid="8c91c9ef-6e9f-465b-995e-f18a095bdafc"/>
+				<textElement>
+					<font fontName="Geomanist" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ACTIVIDAD]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<rectangle>
+				<reportElement stretchType="ContainerHeight" mode="Opaque" x="0" y="-1" width="750" height="26" isPrintWhenDetailOverflows="true" uuid="108c7ac3-a635-4608-b6b5-fecdd4f86c56">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</rectangle>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="2" y="3" width="46" height="19" uuid="4be68ad3-acd9-4878-a17c-0fb337c2faef">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2556b274-3773-484f-9561-7fe1ecdf8722"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{servicioactividadAnio}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="48" y="3" width="69" height="19" uuid="60ad3eb0-7a34-40f4-be9f-c3997b74f765">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a43c0e0b-2139-4faa-a411-6069381f63b0"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mesNombre}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="122" y="3" width="629" height="19" isPrintWhenDetailOverflows="true" uuid="10c879f3-e204-4af2-b6c6-efc859bb1e60"/>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{servicioactividadDescripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

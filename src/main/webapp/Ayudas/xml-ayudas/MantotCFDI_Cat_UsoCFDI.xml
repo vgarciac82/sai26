@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento de uso de CFDI para el CFDI</titulo>
+	<anchoWin>900</anchoWin>
+	<altoWin>800</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_tCFDI_Cat_UsoCFDI</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cUsoCFDI"				control=""	dependencia="No"	limpiaOnKeypress=""		header="Uso CFDI"			rowCol="1,1" 	ancho="5"	maxlen="5"	 tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cDescripcion"			control=""	dependencia="No"	limpiaOnKeypress=""		header="Descripción"		rowCol="1,2" 	ancho="100"	maxlen="100" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cAplicaPersonaFisica"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Persona Fisica"		rowCol="1,3" 	ancho="5"	maxlen="5"	 tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cAplicaPersonaMoral"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Persona Moral"		rowCol="2,1" 	ancho="5"	maxlen="5"	 tipo="string"	visible="Si"	clase=""/>
+		<columna campo="fFechaInicioVigencia"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Inicio Vigencia"	rowCol="2,2" 	ancho="15"	maxlen="15"	 tipo="date"	visible="Si"	clase=""/>
+		<columna campo="fFechaFinVigencia"		control=""	dependencia="No"	limpiaOnKeypress=""		header="Fin Vigencia"		rowCol="2,3" 	ancho="15"	maxlen="15"	 tipo="date"	visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="cUsoCFDI"				control="txtGridCol0"	llave="Si"	identity="No"	requerido="Clave de la Cartera es un dato requerido."	requeridoFocus="txtGridCol0"	tipo="string" />
+		<campo field="cDescripcion"			control="txtGridCol1"	llave="No"	identity="No"	requerido="Descripción es un dato requerido."			requeridoFocus="txtGridCol1"	tipo="string" />
+		<campo field="cAplicaPersonaFisica"	control="txtGridCol2"	llave="No"	identity="No"	requerido="Aplica pesona fisica es un dato requerido."	requeridoFocus="txtGridCol2"	tipo="string" />
+		<campo field="cAplicaPersonaMoral"	control="txtGridCol3"	llave="No"	identity="No"	requerido="Aplica pesona moral es un dato requerido."	requeridoFocus="txtGridCol3"	tipo="string" />
+		<campo field="fFechaInicioVigencia"	control="txtGridCol4"	llave="No"	identity="No"	requerido="Inicio de vigencia es un dato requerido."	requeridoFocus="txtGridCol4"	tipo="date" />
+		<campo field="fFechaFinVigencia"	control="txtGridCol5"	llave="No"	identity="No"	requerido=""											requeridoFocus="txtGridCol5"	tipo="date" />		
+	</insertaRegistro>
+	
+</Ayuda>

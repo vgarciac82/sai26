@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento de codigo postal CFDI</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>tCFDI_Cat_CodigoPostal</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cCodigoPostal"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Usuario"	 	 ancho="5"		maxlen="5"  tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cEstado"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Estado"	 ancho="3"	maxlen="3" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cMunicipio"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Municipio"	 ancho="3"	maxlen="3" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cLocalidad"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Localidad"	 ancho="3"	maxlen="3" tipo="string"	visible="Si"	clase=""/>
+	
+	</grid>  
+	
+	
+</Ayuda>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Para Beneficiaros</titulo>
+	<anchoWin>600</anchoWin>
+	<altoWin>300</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>PCATALOGOCLASECONTRATOOBRA</tabla>
+	<maxRegistros>10</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cIDClaseContratoObra"	control="cIDClaseContratoObra"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Tipo de Contrato"	ancho="10"	maxlen="10"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cClaseContratoObra"	control="cClaseContratoObra"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Razón social"	ancho="50"	maxlen="50"		tipo="string"	visible="Si"	clase=""/>
+		
+   </grid>  
+</Ayuda>

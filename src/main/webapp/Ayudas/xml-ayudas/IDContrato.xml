@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Seleccion de Contrato.</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>PCONTRATOS</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+	
+		<columna campo="cIDContrato"		control="IDContrato"		dependencia="No"	ctrlsDependientes=""				limpiaOnKeypress=""		header="No. de Contrato:"		ancho="40"		maxlen="40"		tipo="string"	visible="Si"	clase=""	rowCol="1,1"/>
+		<columna campo="cIdRFC"				control="cIdRFC"			dependencia="No"	ctrlsDependientes=""				limpiaOnKeypress=""		header="RFC:"					ancho="15"		maxlen="15"		tipo="string"	visible="Si"	clase=""	rowCol="1,2"/>
+		<columna campo="cobjetocontrato"	control="cobjetocontrato"	dependencia="No"	ctrlsDependientes=""				limpiaOnKeypress=""		header="Nombre/Razon Social:"	ancho="40"		maxlen="120"	tipo="string"	visible="Si"	clase="" 	rowCol="2,1"/>
+		<columna campo="mImporteTotal"		control="mImporteTotal"		dependencia="No"	ctrlsDependientes=""				limpiaOnKeypress=""		header="Total Contrato:"		ancho="20"		maxlen="20"		tipo="string"	visible="Si"	clase=""	rowCol="2,2"/>
+	    <columna campo="cIdTipoContrato"	control="tipoContrato"		dependencia="Si"	ctrlsDependientes="TipoContrato"	limpiaOnKeypress=""		header="Tipo Contrato:" 		ancho="2"		maxlen="2"		tipo="string"	visible="No"	clase=""	rowCol="3,1"/>
+	    	 
+	 </grid>  
+</Ayuda>

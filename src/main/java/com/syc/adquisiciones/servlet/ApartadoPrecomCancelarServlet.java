@@ -506,7 +506,7 @@ public class ApartadoPrecomCancelarServlet extends HttpServlet {
             csmt.registerOutParameter(3, Types.INTEGER);
             csmt.execute();
             outputVal = csmt.getInt(3);
-            log.debug("Object: {}", outputVal);
+            log.debug("Object: " + String.valueOf(outputVal));
             if (outputVal == 0) {
                 log.info("Object: {}", " EL PEDIDO O CONTRATO " + documento + " SE DEVOLVIO EL ESTATUS CON FOLIO " + nFolioPrecom + "  ");
                 result = true;

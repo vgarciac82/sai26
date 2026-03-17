@@ -104,7 +104,7 @@ public class ContratoCap4Servlet extends HttpServlet {
             jsonObj = new JSONObject();
             out = response.getWriter();
             int tipoOperacion = Integer.parseInt(request.getParameter("operacion"));
-            log.debug("Object: {}", "operacion: " + tipoOperacion);
+            log.debug("Object: " + String.valueOf("operacion: " + tipoOperacion));
             String prefixPath = getServletContext().getRealPath("/WEB-INF/mail-bodies/") + File.separator;
             switch(tipoOperacion) {
                 case //Nuevo

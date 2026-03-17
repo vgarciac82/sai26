@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Buscador Beneficiarios</titulo>
+	<anchoWin>700</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>BUSCA_BENEFICIARIO</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="drfc"	          control="hbuscabeneficiario"   dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="RFC"	 ancho="20"	   maxlen="20"     tipo="string"	visible="Si"	clase=""/>
+	    <columna campo="dnombre"	      control=""	                 dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Razon Social"	 ancho="100"   maxlen="100"	   tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+</Ayuda>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de EP's</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>700</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>M_TCATALOGOEP</tabla>
+	<maxRegistros></maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>1</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="aEjercicioFiscal"			control="txtGridaEjercicioFiscal"			dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridaEjercicioFiscal"			header="* Ejercicio Fiscal"				rowCol="1,1" 	ancho="4"		maxlen="10"		tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="nClaveCNA"					control="txtGridnClaveCNA"					dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress=""									header="* Clave CNA"					rowCol="3,1" 	ancho="70"		maxlen="80"		tipo="string"		visible="Si"	clase="Protegido"/> <!-- los campos nClaveCNA,EP,ClaveSIAFF,ClaveInterna y cRamoEP se ponen como protegidos --> 
+		<columna campo="EP"							control="txtGridEP"							dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress=""									header="* EP"							rowCol="2,2" 	ancho="70"		maxlen="80"	  	tipo="string"		visible="Si"	clase="Protegido"/> <!-- ya que no se capturan en pantalla se generan con el resto de los campos capturados -->
+		<columna campo="ClaveSIAFF"					control="txtGridClaveSIAFF"					dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress=""									header="* Clave SIAFF"					rowCol="3,1" 	ancho="70"		maxlen="80"		tipo="string"		visible="Si"	clase="Protegido"/> <!-- solo se presentan en el grid -->
+		<columna campo="ClaveInterna"				control="txtGridClaveInterna"				dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress=""									header="* Clave Interna"				rowCol="3,2" 	ancho="20"		maxlen="30"		tipo="string"		visible="Si"	clase="Protegido"/>
+		<columna campo="cRamoEP"					control="txtGridcRamoEP"					dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress=""									header="* Ramo EP"						rowCol="4,1" 	ancho="2"		maxlen="10"	  	tipo="string"		visible="Si"	clase="Protegido"/> 
+		<columna campo="cUnidadResponsableEP"		control="txtGridcUnidadResponsableEP"		dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcUnidadResponsableEP"		header="* Unidad Responsable EP"		rowCol="1,3" 	ancho="3"		maxlen="10"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cGrupoFuncional"			control="txtGridcGrupoFuncional"			dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcGrupoFuncional"			header="* Finalidad"					rowCol="1,4" 	ancho="1"		maxlen="2"		tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cFuncion"					control="txtGridcFuncion"					dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcFuncion"					header="* Función"						rowCol="2,1" 	ancho="1"		maxlen="2"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cSubFuncion"				control="txtGridcSubFuncion"				dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcSubFuncion"				header="* Sub-Función"					rowCol="2,2" 	ancho="2"		maxlen="3"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cProgramaGeneral"			control="txtGridcProgramaGeneral"			dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcProgramaGeneral"			header="* Programa General"				rowCol="2,3" 	ancho="3"		maxlen="4"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cActividadInstitucional"	control="txtGridcActividadInstitucional"	dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcActividadInstitucional" 	header="* Actividad Institucional"		rowCol="2,4" 	ancho="4"		maxlen="10"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cProgramaPresupuestario"	control="txtGridcProgramaPresupuestario"	dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcProgramaPresupuestario"	header="* Programa Presupuestario"		rowCol="3,1" 	ancho="4"		maxlen="10"		tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cPartida"					control="txtGridcPartida"					dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcPartida"					header="* Objeto del Gasto"				rowCol="3,2" 	ancho="5"		maxlen="10"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cTipoGasto"					control="txtGridcTipoGasto"					dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcTipoGasto"				header="* Tipo de Gasto"				rowCol="3,3" 	ancho="2"		maxlen="3"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cFuenteFinanciamiento"		control="txtGridcFuenteFinanciamiento"		dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcFuenteFinanciamiento"		header="* Fuente de Financiamiento"		rowCol="3,4" 	ancho="2"		maxlen="3"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cEntidadFederativa"			control="txtGridcEntidadFederativa"			dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcEntidadFederativa"		header="* Entidad Federativa"			rowCol="4,1" 	ancho="2"		maxlen="3"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cCartera"					control="txtGridcCartera"					dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcCartera"					header="* Cartera"						rowCol="4,2" 	ancho="11"		maxlen="20"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cUnidadEjecutora"			control="txtGridcUnidadEjecutora"			dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcUnidadEjecutora"			header="* Unidad Ejecutora"				rowCol="4,3" 	ancho="3"		maxlen="5"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cUnidadNorativa"			control="txtGridcUnidadNorativa"			dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcUnidadNorativa"			header="* Unidad Normativa"				rowCol="4,4" 	ancho="3"		maxlen="5"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cRamo"						control="txtGridcRamo"						dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress=""									header="* Clave del Ramo"				rowCol="1,2" 	ancho="3"		maxlen="10"	  	tipo="string"		visible="Si"	clase=""/>
+	</grid>
+
+	<insertaRegistro>
+		<campo field="aEjercicioFiscal"			control="txtGridaEjercicioFiscal"		llave="No"	identity="No" 	requerido="El ejercicio Fiscal es requerido"							requeridoFocus="txtGridaEjercicioFiscal"		tipo="string" />
+		<!-- <campo field="nClaveCNA"			control="txtGridnClaveCNA"				llave="No"	identity="No" 	requerido=""		visible="No"					requeridoFocus=""		tipo="string" />
+		<campo field="EP"						control="txtGridEP"						llave="No"	identity="No"	requerido=""		visible="No"					requeridoFocus=""		tipo="string" /> 
+		<campo field="ClaveSIAFF"				control="txtGridClaveSIAFF"				llave="No"	identity="No" 	requerido=""		visible="No"					requeridoFocus=""		tipo="string" /> 
+		<campo field="ClaveInterna"				control="txtGridClaveInterna"			llave="No"	identity="No" 	requerido=""		visible="No"					requeridoFocus=""		tipo="string" /> se comentan estas lineas ya que estos campos 
+		<campo field="cRamoEP"					control="txtGridcRamoEP"				llave="No"	identity="No" 	requerido=""		visible="No"					requeridoFocus=""		tipo="string" /> se arman con los datos capturados por el usuario en la pantalla-->  
+		<campo field="cUnidadResponsableEP"		control="txtGridcUnidadResponsableEP"	llave="No"	identity="No"	requerido="Unidad responsable EP es requerida"					requeridoFocus="txtGridcUnidadResponsableEP"		tipo="string" />
+		<campo field="cGrupoFuncional"			control="txtGridcGrupoFuncional"		llave="No"	identity="No" 	requerido="El Grupo Funcional es requerido"						requeridoFocus="txtGridcGrupoFuncional"				tipo="string" />
+		<campo field="cFuncion"					control="txtGridcFuncion"				llave="No"	identity="No" 	requerido="La función es requerida"								requeridoFocus="txtGridcFuncion"					tipo="string" />
+		<campo field="cSubFuncion"				control="txtGridcSubFuncion"			llave="No"	identity="No"	requerido="La SubFunción es requerida"							requeridoFocus="txtGridcSubFuncion"					tipo="string" />
+		<campo field="cProgramaGeneral"			control="txtGridcProgramaGeneral"		llave="No"	identity="No" 	requerido="El Programa General es requerido"					requeridoFocus="txtGridcProgramaGeneral"			tipo="string" />
+		<campo field="cActividadInstitucional"	control="txtGridcActividadInstitucional"	llave="No"	identity="No"	requerido="La Actividad Institucional es requerida"			requeridoFocus="txtGridcActividadInstitucional"		tipo="string" />
+		<campo field="cProgramaPresupuestario"	control="txtGridcProgramaPresupuestario"	llave="No"	identity="No" 	requerido="El Programa Presupuestario es requerido"			requeridoFocus="txtGridcProgramaPresupuestario"		tipo="string" />
+		<campo field="cPartida"					control="txtGridcPartida"				llave="No"	identity="No"	requerido="La Partida es requerida"								requeridoFocus="txtGridcPartida"					tipo="string" />
+		<campo field="cTipoGasto"				control="txtGridcTipoGasto"				llave="No"	identity="No" 	requerido="El tipo de Gasto es requerido"						requeridoFocus="txtGridcTipoGasto"					tipo="string" />
+		<campo field="cFuenteFinanciamiento"	control="txtGridcFuenteFinanciamiento"	llave="No"	identity="No"	requerido="La Fuente de Financiamiento es requerida"			requeridoFocus="txtGridcFuenteFinanciamiento"		tipo="string" />
+		<campo field="cEntidadFederativa"		control="txtGridcEntidadFederativa"		llave="No"	identity="No" 	requerido="La Entidad Federativa es requerida"					requeridoFocus="txtGridcEntidadFederativa"			tipo="string" />
+		<campo field="cCartera"					control="txtGridcCartera"				llave="No"	identity="No"	requerido="La Cartera es requerida"								requeridoFocus="txtGridcCartera"					tipo="string" />
+		<campo field="cUnidadEjecutora"			control="txtGridcUnidadEjecutora"		llave="No"	identity="No" 	requerido="La Unidad Ejecutora es requerida"					requeridoFocus="txtGridcUnidadEjecutora"			tipo="string" />
+		<campo field="cUnidadNorativa"			control="txtGridcUnidadNorativa"		llave="No"	identity="No"	requerido="La Unidad Normativa es requerida"					requeridoFocus="txtGridcUnidadNorativa"				tipo="string" />
+		<campo field="cRamo"					control="txtGridcRamo"					llave="No"	identity="No"	requerido="El Ramo es requerido"								requeridoFocus="txtGridcRamo"		tipo="string" />
+	</insertaRegistro>
+	  
+</Ayuda>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!-- Mantenimiento Periles de Usuario -->
+<Ayuda>
+	<titulo>Mantenimiento de Opciones por Perfil</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>500</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>M_CAT_OPERFIL</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>
+		<columna campo="RO.R_NOMBRE"			control="MantoPerfil"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="MantoIdOpcion,MantoOpcion"	header="Perfil"		ancho="20"		maxlen="32"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="RO.ID_OPCION"			control="MantoIdOpcion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave"		ancho="6"		maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+		<columna campo="O.O_DESCRIPCION"		control="MantoOpcion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Opcion"		ancho="30"		maxlen="60"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+	</grid>
+
+	<insertaRegistro>
+		<campo field="R_NOMBRE"		control="txtGridMantoPerfil"	llave="Si"	identity="No"	requerido="El perfil de usuario es un dato requerido."	requeridoFocus="txtGridMantoPerfil"		tipo="string" />
+		<campo field="ID_OPCION"	control="txtGridMantoIdOpcion" 	llave="Si"	identity="No"	requerido="La opción de menú es un dato requerido."		requeridoFocus="txtGridMantoIdOpcion"	tipo="numero" />
+	</insertaRegistro>
+	  
+</Ayuda>

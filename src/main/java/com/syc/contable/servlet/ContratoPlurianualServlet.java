@@ -124,7 +124,7 @@ public class ContratoPlurianualServlet extends HttpServlet implements GestionInt
                 log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                 Util.copiaArchivo(archivoCargaStream, nombreDestino);
                 item.delete();
-                log.debug("Object: {}", "Procesando archivo:" + nombreArchivo);
+                log.debug("Object: " + String.valueOf("Procesando archivo:" + nombreArchivo));
                 ContratoPlurianualBusinessLogic cpbl = new ContratoPlurianualBusinessLogic(u.getLogin());
                 String nModificacion = req.getParameter("nmod");
                 if ("".equals(nModificacion) || nModificacion == null) {
@@ -147,7 +147,7 @@ public class ContratoPlurianualServlet extends HttpServlet implements GestionInt
                         mensajeRetorno = "ok";
                     }
                 }
-                log.debug("Object: {}", mensajeRetorno);
+                log.debug("Object: " + String.valueOf(mensajeRetorno));
                 /*
 				 * Solo se espera un archivo por carga, por lo que al leerlo no
 				 * es necesario continuar con el ciclo.

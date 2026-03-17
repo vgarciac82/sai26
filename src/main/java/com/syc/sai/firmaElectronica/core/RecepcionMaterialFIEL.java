@@ -204,7 +204,7 @@ public class RecepcionMaterialFIEL extends SolicitudFirmaElectronica {
 		 */
         parametrosReales = new StringBuilder("?");
         parametrosReales.append("fortimax=").append(fortimaxNode);
-        log.debug("Object: {}", "Cadena generada: " + parametrosReales.toString());
+        log.debug("Object: " + String.valueOf("Cadena generada: " + parametrosReales.toString()));
         return parametrosReales.toString();
     }
 

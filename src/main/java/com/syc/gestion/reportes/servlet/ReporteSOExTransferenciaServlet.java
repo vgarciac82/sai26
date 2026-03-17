@@ -136,7 +136,7 @@ public class ReporteSOExTransferenciaServlet extends HttpServlet {
     public void datosPlantilla(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException, ParseException {
         DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
         JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
-        cFileExcel = upload.getRepositoryPath() + "\\" + "ReporteSOExTransferencia.xls";
+        cFileExcel = getServletContext().getRealPath("/upload") + "\\" + "ReporteSOExTransferencia.xls";
         String soe = request.getParameter("ParamRep");
         //procedimiento para la consulta a base de datos
         query_sp = "execute sp_ReporteSOExTransferencia '" + soe + "'";

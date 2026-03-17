@@ -56,8 +56,8 @@ public class RectificacionPresupuestariaServlet extends HttpServlet {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest
-	 * , javax.servlet.http.HttpServletResponse)
+	 * jakarta.servlet.http.HttpServlet#doPost(jakarta.servlet.http.HttpServletRequest
+	 * , jakarta.servlet.http.HttpServletResponse)
 	 */
     @SuppressWarnings("unchecked")
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -297,7 +297,7 @@ public class RectificacionPresupuestariaServlet extends HttpServlet {
 			 * System.out.println("");
 			 */
         }
-        wb.write(response.getOutputStream().toPath());
+        wb.write(response.getOutputStream());
     }
 
     public void creaExcelRectificacionCargaMil(String folio, HttpServletResponse response, HttpServletRequest request) throws IOException, SQLException {
@@ -451,6 +451,6 @@ public class RectificacionPresupuestariaServlet extends HttpServlet {
             celda = fila.createCell(6);
             celda.setCellValue("N/A");
         }
-        wb.write(response.getOutputStream().toPath());
+        wb.write(response.getOutputStream());
     }
 }

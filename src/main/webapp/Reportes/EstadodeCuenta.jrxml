@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EstadodeCuenta" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="762" leftMargin="15" rightMargin="15" topMargin="10" bottomMargin="10">
+	<property name="ireport.zoom" value="1.8150000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="134"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="whereFolio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[" cIdContrato = 'CNA-CGPEAAPSVM-OP-008/2011-AD-PASIVO' and cIdEntidadContable = '10' and cDocumentoHaplicado = 'S'"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from vPDFEdoCta
+where $P!{whereFolio}]]>
+	</queryString>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="cIdContrato" class="java.lang.String"/>
+	<field name="cIdEntidadContable" class="java.lang.String"/>
+	<field name="cDocumentoHaplicado" class="java.lang.String"/>
+	<field name="cIdRFC" class="java.lang.String"/>
+	<field name="cNombre" class="java.lang.String"/>
+	<field name="d_descripcion" class="java.lang.String"/>
+	<field name="cTipoContratoDiverso" class="java.lang.String"/>
+	<field name="cTipoAdjudicacion" class="java.lang.String"/>
+	<field name="cTCont" class="java.lang.String"/>
+	<field name="mImporteTotal" class="java.math.BigDecimal"/>
+	<field name="col11" class="java.math.BigDecimal"/>
+	<field name="col12" class="java.math.BigDecimal"/>
+	<field name="col13" class="java.math.BigDecimal"/>
+	<field name="col14" class="java.math.BigDecimal"/>
+	<field name="col15" class="java.math.BigDecimal"/>
+	<field name="col17" class="java.math.BigDecimal"/>
+	<field name="col18" class="java.math.BigDecimal"/>
+	<field name="cConceptoContrato" class="java.lang.String"/>
+	<field name="folio" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="estatus" class="java.lang.String"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<variable name="letras" class="java.lang.String"/>
+	<variable name="cTCont_1" class="java.lang.Integer" resetType="Group" resetGroup="tipo" calculation="Count">
+		<variableExpression><![CDATA[$F{cTCont}]]></variableExpression>
+	</variable>
+	<variable name="mImporteTotal_1" class="java.math.BigDecimal" resetType="Group" resetGroup="tipo" calculation="Sum">
+		<variableExpression><![CDATA[$F{mImporteTotal}]]></variableExpression>
+	</variable>
+	<variable name="col11_1" class="java.math.BigDecimal" resetType="Group" resetGroup="tipo" calculation="Sum">
+		<variableExpression><![CDATA[$F{col11}]]></variableExpression>
+	</variable>
+	<variable name="col12_1" class="java.math.BigDecimal" resetType="Group" resetGroup="tipo" calculation="Sum">
+		<variableExpression><![CDATA[$F{col12}]]></variableExpression>
+	</variable>
+	<variable name="col13_1" class="java.math.BigDecimal" resetType="Group" resetGroup="tipo" calculation="Sum">
+		<variableExpression><![CDATA[$F{col13}]]></variableExpression>
+	</variable>
+	<variable name="col14_1" class="java.math.BigDecimal" resetType="Group" resetGroup="tipo" calculation="Sum">
+		<variableExpression><![CDATA[$F{col14}]]></variableExpression>
+	</variable>
+	<variable name="col15_1" class="java.math.BigDecimal" resetType="Group" resetGroup="tipo" calculation="Sum">
+		<variableExpression><![CDATA[$F{col15}]]></variableExpression>
+	</variable>
+	<variable name="col17_1" class="java.math.BigDecimal" resetType="Group" resetGroup="tipo" calculation="Sum">
+		<variableExpression><![CDATA[$F{col17}]]></variableExpression>
+	</variable>
+	<variable name="col18_1" class="java.math.BigDecimal" resetType="Group" resetGroup="tipo" calculation="Sum">
+		<variableExpression><![CDATA[$F{col18}]]></variableExpression>
+	</variable>
+	<variable name="total_1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<group name="tipo">
+		<groupExpression><![CDATA[$F{tipo}]]></groupExpression>
+		<groupHeader>
+			<band height="18">
+				<printWhenExpression><![CDATA[!$F{tipo}.equals( " Contrato" )]]></printWhenExpression>
+				<textField>
+					<reportElement x="1" y="0" width="52" height="16"/>
+					<textElement verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[( $F{tipo}.equals( "Compromiso" ) ? "Compromiso" : "ContraRecibo" )]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="54" y="1" width="192" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[( $F{tipo}.equals( "Compromiso" ) ? "Clave Presupuestal" : "" )]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="56" y="1" width="28" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[( $F{tipo}.equals( "Compromiso" ) ? "" : "Folio" )]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="103" y="1" width="48" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[( $F{tipo}.equals( "Compromiso" ) ? "" : "Fecha Apl." )]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="177" y="2" width="69" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[( $F{tipo}.equals( "Compromiso" ) ? "" : "Estatus" )]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="299" y="2" width="62" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[( $F{tipo}.equals( "Compromiso" ) ? "Tipo" : "Sanciones" )]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="246" y="2" width="52" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[( $F{tipo}.equals( "Compromiso" ) ? "Importe" : "Importe Bruto" )]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="361" y="2" width="54" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[( $F{tipo}.equals( "Compromiso" ) ? "#Compromiso SICOP" : "Devoluciones" )]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="415" y="2" width="48" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[( $F{tipo}.equals( "Compromiso" ) ? "#Proceso SICOP" : "Amortización" )]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="463" y="2" width="51" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[( $F{tipo}.equals( "Compromiso" ) ? "#Folio SICOP" : "Penalización" )]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="516" y="2" width="51" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[( $F{tipo}.equals( "Compromiso" ) ? "" : "Retenciones" )]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="621" y="2" width="51" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[( $F{tipo}.equals( "Compromiso" ) ? "" : "Importe Neto" )]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="568" y="2" width="51" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[( $F{tipo}.equals( "Compromiso" ) ? "" : "I.V.A." )]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="17">
+				<printWhenExpression><![CDATA[!$F{tipo}.equals( " Contrato" )]]></printWhenExpression>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="247" y="4" width="51" height="11"/>
+					<textElement textAlignment="Right">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{mImporteTotal_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="299" y="4" width="62" height="11">
+						<printWhenExpression><![CDATA[$F{tipo}.equals( "Pagos" )]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{col11_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="360" y="4" width="52" height="11">
+						<printWhenExpression><![CDATA[$F{tipo}.equals( "Pagos" )]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{col12_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="415" y="4" width="48" height="11">
+						<printWhenExpression><![CDATA[$F{tipo}.equals( "Pagos" )]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{col13_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="473" y="4" width="41" height="11">
+						<printWhenExpression><![CDATA[$F{tipo}.equals( "Pagos" )]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{col14_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="516" y="4" width="44" height="11">
+						<printWhenExpression><![CDATA[$F{tipo}.equals( "Pagos" )]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{col15_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="571" y="4" width="45" height="11">
+						<printWhenExpression><![CDATA[$F{tipo}.equals( "Pagos" )]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{col17_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="621" y="4" width="44" height="11">
+						<printWhenExpression><![CDATA[$F{tipo}.equals( "Pagos" )]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{col18_1}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="179" y="3" width="500" height="1"/>
+				</line>
+				<textField>
+					<reportElement x="177" y="2" width="69" height="11"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[( $F{tipo}.equals( "Compromiso" ) ? "Total Compromisos:" : "Total Facturas:" )]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="1" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="129" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-24" positionType="Float" x="151" y="3" width="296" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-5" positionType="Float" x="151" y="16" width="296" height="39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true" />
+				</textElement>
+				<text><![CDATA[COORDINACIÓN GENERAL DE ADMINISTRACIÓN
+GERENCIA DE RECURSOS FINANCIEROS
+SUBGERENCIA DE OPERACIÓN FINANCIERA]]></text>
+			</staticText>
+			<image>
+				<reportElement x="1" y="3" width="150" height="42"/>
+				<imageExpression class="java.lang.String"><![CDATA["report\\images\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="70" y="57" width="239" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cIdContrato}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="73" width="56" height="10"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cIdRFC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="73" width="317" height="10"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cNombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="86" width="318" height="10"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{d_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="447" y="58" width="100" height="9"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cTipoAdjudicacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="97" width="446" height="32"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cConceptoContrato}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="342" y="57" width="31" height="12"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cTCont}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="58" width="69" height="12"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contrato:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="73" width="69" height="10"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Beneficiario:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="86" width="69" height="9"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidad Responsable:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="97" width="69" height="10"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Concepto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="57" width="21" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="395" y="59" width="52" height="8"/>
+				<textElement textAlignment="Right">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Adjudicación:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="396" y="86" width="52" height="8"/>
+				<textElement textAlignment="Right">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Importe Total:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="461" y="86" width="65" height="10"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mImporteTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<printWhenExpression><![CDATA[!$F{tipo}.equals( " Contrato" )]]></printWhenExpression>
+			<textField>
+				<reportElement x="1" y="1" width="52" height="10">
+					<printWhenExpression><![CDATA[!$F{tipo}.equals( "Contrato" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cIdRFC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="54" y="1" width="192" height="10">
+					<printWhenExpression><![CDATA[$F{tipo}.equals( "Compromiso" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cNombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="299" y="1" width="62" height="10">
+					<printWhenExpression><![CDATA[$F{tipo}.equals( "Compromiso" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{d_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="473" y="1" width="41" height="10"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cTCont}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="391" y="1" width="24" height="8"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cTipoContratoDiverso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="299" y="1" width="62" height="10">
+					<printWhenExpression><![CDATA[$F{tipo}.equals( "Pagos" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{col11}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="361" y="2" width="51" height="9">
+					<printWhenExpression><![CDATA[$F{tipo}.equals( "Pagos" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{col12}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="419" y="2" width="44" height="10">
+					<printWhenExpression><![CDATA[$F{tipo}.equals( "Pagos" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{col13}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="463" y="1" width="49" height="10">
+					<printWhenExpression><![CDATA[$F{tipo}.equals( "Pagos" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{col14}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="248" y="1" width="50" height="10"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mImporteTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="0" width="43" height="8"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cTipoAdjudicacion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="516" y="2" width="44" height="10">
+					<printWhenExpression><![CDATA[$F{tipo}.equals( "Pagos" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{col15}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="621" y="2" width="44" height="10">
+					<printWhenExpression><![CDATA[$F{tipo}.equals( "Pagos" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{col18}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="54" y="1" width="30" height="10">
+					<printWhenExpression><![CDATA[$F{tipo}.equals( "Pagos" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{folio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="103" y="1" width="48" height="10">
+					<printWhenExpression><![CDATA[$F{tipo}.equals( "Pagos" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="177" y="1" width="36" height="10">
+					<printWhenExpression><![CDATA[$F{tipo}.equals( "Pagos" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{estatus}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="571" y="2" width="45" height="10">
+					<printWhenExpression><![CDATA[$F{tipo}.equals( "Pagos" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{col17}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="581" y="10" width="110" height="8"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Pág. "+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<summary>
+		<band height="30" splitType="Stretch">
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="526" y="10" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{total_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="447" y="10" width="79" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Saldo Contrato:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

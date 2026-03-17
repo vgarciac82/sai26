@@ -43,8 +43,8 @@ public class PolizaCierreManager {
             if (rsEF.next()) {
                 ejercicioFiscal = rsEF.getString(1);
             }
-            log.debug("Object: {}", "Ejecutando [" + queryEF + "]");
-            log.debug("Object: {}", "Ejercicio Fiscal: " + ejercicioFiscal);
+            log.debug("Object: " + String.valueOf("Ejecutando [" + queryEF + "]"));
+            log.debug("Object: " + String.valueOf("Ejercicio Fiscal: " + ejercicioFiscal));
             cs1 = conn.prepareCall(query1);
             cs1.setString(1, ejercicioFiscal);
             cs1.setInt(2, id_documento);
@@ -52,19 +52,19 @@ public class PolizaCierreManager {
             cs1.setString(4, ur);
             cs1.setString(5, cc);
             rs1 = cs1.executeQuery();
-            log.debug("Object: {}", query1.toString());
-            log.debug("Object: {}", "Ejercicio Fiscal: " + ejercicioFiscal);
-            log.debug("Object: {}", "Id poliza de cierre: " + id_documento);
-            log.debug("Object: {}", "Usuario en sesion: " + usuario);
-            log.debug("Object: {}", "Unidad Responsable: " + ur);
-            log.debug("Object: {}", "Centro Contable: " + cc);
+            log.debug("Object: " + String.valueOf(query1.toString()));
+            log.debug("Object: " + String.valueOf("Ejercicio Fiscal: " + ejercicioFiscal));
+            log.debug("Object: " + String.valueOf("Id poliza de cierre: " + id_documento));
+            log.debug("Object: " + String.valueOf("Usuario en sesion: " + usuario));
+            log.debug("Object: " + String.valueOf("Unidad Responsable: " + ur));
+            log.debug("Object: " + String.valueOf("Centro Contable: " + cc));
             psC = conn.prepareStatement(queryC);
             psC.setInt(1, id_documento);
             rsC = psC.executeQuery();
             while (rsC.next()) {
                 dif = (rsC.getFloat(1));
             }
-            log.debug("Object: {}", "Ejecutando [" + queryC + "]");
+            log.debug("Object: " + String.valueOf("Ejecutando [" + queryC + "]"));
             log.info("Object: {}", "Diferencia entre cargos y abonos es: " + dif);
             return dif;
         } finally {
@@ -95,8 +95,8 @@ public class PolizaCierreManager {
             String query = "{call sp_polizaCierre_Consulta (?)}";
             cs = conn.prepareCall(query);
             cs.setString(1, ejercicioFiscal);
-            log.debug("Object: {}", "Ejecutando[" + query + "]");
-            log.debug("Object: {}", "Ejercicio Fiscal: " + ejercicioFiscal);
+            log.debug("Object: " + String.valueOf("Ejecutando[" + query + "]"));
+            log.debug("Object: " + String.valueOf("Ejercicio Fiscal: " + ejercicioFiscal));
             rs = cs.executeQuery();
             long stopQueries = System.currentTimeMillis();
             log.info("Object: {}", String.format("Ejecucion de consultas terminado en [%2d] segundos", (stopQueries - startQueries) / 1000));
@@ -129,7 +129,7 @@ public class PolizaCierreManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -149,8 +149,8 @@ public class PolizaCierreManager {
             if (rsV.next()) {
                 idVersion_sig = rsV.getInt(1);
             }
-            log.debug("Object: {}", queryV.toString());
-            log.debug("Object: {}", "Id poliza de cierre " + idVersion_sig);
+            log.debug("Object: " + String.valueOf(queryV.toString()));
+            log.debug("Object: " + String.valueOf("Id poliza de cierre " + idVersion_sig));
             return idVersion_sig;
         } finally {
             CloseObject.closeObject(rsV, false);

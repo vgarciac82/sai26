@@ -58,7 +58,7 @@ public class ComparaSaiSicopBusinessLogic extends DataSourceManager {
                     continue;
                 }
                 if ("RHQ".equalsIgnoreCase(renglonInfo[1])) {
-                    log.debug("Object: {}", "renglon leido " + renglon);
+                    log.debug("Object: " + String.valueOf("renglon leido " + renglon));
                     ComparaSaiSicopManager.obtieneDatosEP(conn, renglonInfo, psInsertaMomento);
                 }
                 renglon++;

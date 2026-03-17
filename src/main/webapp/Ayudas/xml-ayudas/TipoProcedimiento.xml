@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<Ayuda>
+	<titulo>Mantenimiento Catalogo de Tipo de Procedimiento</titulo>
+	<anchoWin>530</anchoWin>
+	<altoWin>543</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>mCatalogoTipoProcedimiento</tabla>
+	<maxRegistros>50</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cIdTipoProcedimiento"	control=""	dependencia="No"	limpiaOnKeypress=""	header="Tipo de Procedimiento "	ancho="20"	maxlen="20"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cTipoProcedimiento" control=""	dependencia="No"	limpiaOnKeypress=""	header="Descripcion"			ancho="100"	maxlen="100"		tipo="string"	visible="Si"	clase=""/>
+	</grid> 
+	
+	
+</Ayuda>

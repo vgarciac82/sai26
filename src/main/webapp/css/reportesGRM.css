@@ -1,0 +1,41 @@
+fieldset {
+	min-width: inherit !important;
+    margin-inline-start: 1px;
+    margin-inline-end: 1px;
+    padding-block-start: 0.35em !important;
+    padding-inline-start: 0.75em !important;
+    padding-inline-end: 0.75em !important;
+    padding-block-end: 0.625em !important;
+    min-inline-size: min-content;
+    border-width: 1px;
+    border-style: solid;
+    border-color: lightgrey;
+    border-image: initial;
+    width: 98%;
+}
+
+fieldset legend{
+	font-size: 14px !important;
+}
+
+legend {
+	font-size: 1.2em;
+	color: #1A69A9;
+}
+input[readonly].transpInput {
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+}
+.backgrid th,
+.backgrid td {
+  display: table-cell;
+  position: relative; 
+  overflow: visible;
+} 
+.input-group-text {
+	overflow: visible;
+}
+.custom-file-input ~ .custom-file-label::after {
+    content: "Adjuntar";
+}

@@ -132,7 +132,7 @@ public class Download extends RequestBase {
             File f = Util.generateVolFile(conn, "CFDI_", ".zip");
             byte[] fileBytes = Base64.getDecoder().decode(doc.getElementsByTagName("Paquete").item(0).getTextContent().getBytes());
             OutputStream os = new FileOutputStream(f);
-            os.write(fileBytes.toPath());
+            os.write(fileBytes);
             os.flush();
             os.close();
             getRequestOrigen().setRutaDescarga(f);

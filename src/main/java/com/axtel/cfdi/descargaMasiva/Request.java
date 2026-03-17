@@ -203,7 +203,7 @@ public class Request extends RequestBase {
 
     @Override
     protected String getResult(String xmlResponse) throws Exception {
-        log.debug("Object: {}", "Respuesta recibida: " + xmlResponse);
+        log.debug("Object: " + String.valueOf("Respuesta recibida: " + xmlResponse));
         Document doc = convertStringToXMLDocument(xmlResponse);
         if (doc != null) {
             String codStatus = doc.getElementsByTagName("SolicitaDescargaResult").item(0).getAttributes().getNamedItem("CodEstatus").getTextContent();

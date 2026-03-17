@@ -203,7 +203,7 @@ public class ReporteAcreedoresDeudoresManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -229,11 +229,11 @@ public class ReporteAcreedoresDeudoresManager {
             cs.setString(1, fechaInicio);
             cs.setString(2, fechaFin);
             cs.setString(3, centroContable);
-            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S, %S, %S", fechaInicio, fechaFin, centroContable));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query + "]%S, %S, %S", fechaInicio, fechaFin, centroContable)));
             rs = cs.executeQuery();
             ps = conn.prepareStatement(query2);
             ps.setString(1, centroContable);
-            log.debug("Object: {}", String.format("Ejecutando[%S] %S", query2, centroContable));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[%S] %S", query2, centroContable)));
             rs2 = ps.executeQuery();
             if (rs2.next()) {
                 mensaje = rs2.getString("cDescripcion");
@@ -305,7 +305,7 @@ public class ReporteAcreedoresDeudoresManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -382,11 +382,11 @@ public class ReporteAcreedoresDeudoresManager {
             cs.setString(1, fechaInicio);
             cs.setString(2, fechaFin);
             cs.setString(3, centroContable);
-            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S, %S, %S", fechaInicio, fechaFin, centroContable));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query + "]%S, %S, %S", fechaInicio, fechaFin, centroContable)));
             rs = cs.executeQuery();
             ps = conn.prepareStatement(query2);
             ps.setString(1, centroContable);
-            log.debug("Object: {}", String.format("Ejecutando[%S] %S", query2, centroContable));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[%S] %S", query2, centroContable)));
             rs2 = ps.executeQuery();
             if (rs2.next()) {
                 mensaje = rs2.getString("cDescripcion");
@@ -447,7 +447,7 @@ public class ReporteAcreedoresDeudoresManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -542,7 +542,7 @@ public class ReporteAcreedoresDeudoresManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -569,11 +569,11 @@ public class ReporteAcreedoresDeudoresManager {
             cs.setString(1, fechaInicio);
             cs.setString(2, fechaFin);
             cs.setString(3, centroContable);
-            log.debug("Object: {}", String.format("Ejecutando[" + query + "]%S, %S, %S", fechaInicio, fechaFin, centroContable));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[" + query + "]%S, %S, %S", fechaInicio, fechaFin, centroContable)));
             rs = cs.executeQuery();
             ps = conn.prepareStatement(query2);
             ps.setString(1, centroContable);
-            log.debug("Object: {}", String.format("Ejecutando[%S] %S", query2, centroContable));
+            log.debug("Object: " + String.valueOf(String.format("Ejecutando[%S] %S", query2, centroContable)));
             rs2 = ps.executeQuery();
             if (rs2.next()) {
                 mensaje = rs2.getString("cDescripcion");
@@ -688,7 +688,7 @@ public class ReporteAcreedoresDeudoresManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         bos.flush();
         bos.close();

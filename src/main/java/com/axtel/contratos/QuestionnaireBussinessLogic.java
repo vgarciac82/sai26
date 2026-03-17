@@ -239,7 +239,7 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
 		 */
         parametrosReales = new StringBuilder("?");
         parametrosReales.append("fortimax=").append(fortimaxNode);
-        log.debug("Object: {}", "Cadena generada: " + parametrosReales.toString());
+        log.debug("Object: " + String.valueOf("Cadena generada: " + parametrosReales.toString()));
         return parametrosReales.toString();
     }
 
@@ -380,7 +380,7 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
         mailBody.append("	</form> ");
         mailBody.append("</body> ");
         mailBody.append("</html> ");
-        log.debug("Object: {}", mailBody);
+        log.debug("Object: " + String.valueOf(mailBody));
         return mailBody.toString();
     }
 
@@ -551,7 +551,7 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
         mailBody.append("	</form>");
         mailBody.append("</body>");
         mailBody.append("</html>");
-        log.debug("Object: {}", mailBody);
+        log.debug("Object: " + String.valueOf(mailBody));
         AlarmaManager.procesaAlarmaCNF(conn, "", null, null, subject.toString(), correo, mailBody.toString());
     }
 
@@ -657,7 +657,7 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
             mailBody.append("	</form> ");
             mailBody.append("</body> ");
             mailBody.append("</html> ");
-            log.debug("Object: {}", mailBody);
+            log.debug("Object: " + String.valueOf(mailBody));
             AlarmaManager.procesaAlarmaCNF(conn, "", null, null, subject.toString(), u.getU_email(), emailsGRM.toString(), "", mailBody.toString(), false);
         } catch (AutRecepcionMaterialException e) {
             throw e;
@@ -882,7 +882,7 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
             ae.setValidaInsuficienciaDeSaldo(true);
             RequisitionManager.insertApartado(conn, getContractRequisition(), getUsuario());
             Caso c = CasoManager.findByFolioLike(conn, "APARTADO", String.valueOf(getContractRequisition().getConsecutivoApartado()));
-            log.debug("Object: {}", "Inicia aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Inicia aplicacion presupuestal " + new Timestamp(System.currentTimeMillis())));
             Map<String, String> m = Util.readValuesCasoDato(c.getCasoDato());
             ae.makeAccountingApplication(conn, "APARTADO", String.valueOf(getContractRequisition().getConsecutivoApartado()), "tApartadoEncabezado", "tApartadoDetalle", "nFolioApartado");
             cmst = conn.prepareCall("{?= call pa_validaAplicacionContable (?,?,?,?,?)}");
@@ -906,9 +906,9 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
                 cbl.avanzaCaso(conn, c, getUsuario().getLogin(), "", new String[] { "CONSULTA_APARTADO" }, new String[] { "CONSULTA_APTD" }, m, null);
                 // Bitacora
                 com.syc.adquisiciones.util.Util.bitacoraMovimientos(getContractRequisition().getIdSolicitud(), "Apartado Aplicado", getUsuario().getLogin(), conn);
-                log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+                log.debug("Object: " + String.valueOf(c.getCasoDato("APLICADO_CONT").getValor()));
                 result = "DOCUMENTO DE APARTADO APLICADO PRESUPUESTALMENTE.";
-                log.debug("Object: {}", "Termina la autorización del apartado. " + new Timestamp(System.currentTimeMillis()));
+                log.debug("Object: " + String.valueOf("Termina la autorización del apartado. " + new Timestamp(System.currentTimeMillis())));
             } else {
                 switch(outputValue) {
                     case 1:
@@ -956,7 +956,7 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
             // RequisitionManager.insertApartado(conn, getContractRequisition(),
             // getUsuario());
             Caso c = CasoManager.findByFolioLike(conn, "APARTADO", String.valueOf(getContractRequisition().getConsecutivoApartado()));
-            log.debug("Object: {}", "Inicia aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Inicia aplicacion presupuestal " + new Timestamp(System.currentTimeMillis())));
             Map<String, String> m = Util.readValuesCasoDato(c.getCasoDato());
             ae.cancelAccountingApplication(conn, "APARTADO", String.valueOf(getContractRequisition().getConsecutivoApartado()), "tApartadoEncabezado", "tApartadoDetalle", "nFolioApartado");
             cmst = conn.prepareCall("{?= call pa_validaAplicacionContable (?,?,?,?,?)}");
@@ -973,9 +973,9 @@ public class QuestionnaireBussinessLogic extends SolicitudFirmaElectronica {
                 cbl.avanzaCaso(conn, c, getUsuario().getLogin(), "", new String[] { "CONSULTA_APARTADO" }, new String[] { "CONSULTA_APTD" }, m, null);
                 // Bitacora
                 com.syc.adquisiciones.util.Util.bitacoraMovimientos(getContractRequisition().getIdSolicitud(), "Apartado Cancelado", getUsuario().getLogin(), conn);
-                log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+                log.debug("Object: " + String.valueOf(c.getCasoDato("APLICADO_CONT").getValor()));
                 result = "DOCUMENTO DE APARTADO APLICADO PRESUPUESTALMENTE.";
-                log.debug("Object: {}", "Termina la autorización del apartado. " + new Timestamp(System.currentTimeMillis()));
+                log.debug("Object: " + String.valueOf("Termina la autorización del apartado. " + new Timestamp(System.currentTimeMillis())));
             } else {
                 switch(outputValue) {
                     case 1:

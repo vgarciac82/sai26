@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda EPs Pagos</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>ConsultaSaldos2012</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+	    
+		<columna campo="nClaveCNA"	control="nClaveCNA1"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Código SAI"  rowCol="1,1" 	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="EP"	control="EP"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave Externa" rowCol="1,2" 	ancho="100"	maxlen="100"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cInterna"	control="cInterna"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave Interna" rowCol="1,3" 	ancho="20"	maxlen="20"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="montoanual"	control="montoanual"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Anual" rowCol="2,1" 	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="MontoEnero"	control="MontoEnero"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Enero" rowCol="2,2" 	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="MontoFebrero"	control="MontoFebrero"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Febrero" rowCol="2,3" 	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="MontoMarzo"	control="MontoMarzo"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Marzo" rowCol="3,1" 	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="MontoAbril"	control="MontoAbril"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Abril" rowCol="3,2" 	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="MontoMayo"	control="MontoMayo"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Mayo" rowCol="3,3" 	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="MontoJunio"	control="MontoJunio"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Junio" rowCol="4,1" 	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="MontoJulio"	control="MontoJulio"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Julio" rowCol="4,2" 	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="MontoAgosto"	control="MontoAgosto"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Agosto" rowCol="4,3" 	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="MontoSeptiembre"	control="MontoSeptiembre"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Septiembre" rowCol="5,1" 	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="MontoOctubre"	control="MontoOctubre"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Octubre" rowCol="5,2" 	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="MontoNoviembre"	control="MontoNoviembre"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Noviembre" rowCol="5,3" 	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="MontoDiciembre"	control="MontoDiciembre"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Diciembre" rowCol="6,1" 	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+ 		<columna campo="TIPO_CONCEPTO"	control="TIPO_CONCEPTO"	dependencia="Si"	ctrlsDependientes="TIPO_CONCEPTO"	limpiaOnKeypress=""	header="Tipo de movimiento" rowCol="6,2" 	ancho="20"	maxlen=""		tipo="string"	visible="Si"	clase=""/>-->
+ 		<columna campo="cUnidadEjecutora"	control="cUnidadEjecutora"	dependencia="Si"	ctrlsDependientes="cUnidadEjecutora"	limpiaOnKeypress=""	header="Unidad Ejecutora" rowCol="6,3" 	ancho="20"	maxlen=""		tipo="string"	visible="Si"	clase=""/>-->
+<!-- 		<columna campo="cUnidadResponsable"	control="cUnidadResponsable2"	dependencia="Si"	ctrlsDependientes="cUnidadResponsable2"	limpiaOnKeypress=""	header="Contrato" rowCol="6,3" 	ancho="20"	maxlen=""		tipo="string"	visible="No"	clase=""/>-->
+   </grid>  
+</Ayuda>

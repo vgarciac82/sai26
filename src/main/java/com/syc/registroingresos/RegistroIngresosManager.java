@@ -54,7 +54,7 @@ public class RegistroIngresosManager {
         PreparedStatement pstm = null;
         RegistrosIngresosEncabezado rie = null;
         pstm = conn.prepareStatement("SELECT * FROM tRegistroIngresoEncabezado WITH (NOLOCK) WHERE nFolioRegistroIngreso = ?");
-        log.debug("Object: {}", "Leyendo tRegistroIngresoEncabezado del Folio: " + folio);
+        log.debug("Object: " + String.valueOf("Leyendo tRegistroIngresoEncabezado del Folio: " + folio));
         pstm.setInt(1, folio);
         res = pstm.executeQuery();
         if (res.next()) {
@@ -138,7 +138,7 @@ public class RegistroIngresosManager {
             psInsertEncabezado.setString(17, regInEnc.getcTipoPoliza());
             psInsertEncabezado.setString(18, DescPol);
             psInsertEncabezado.execute();
-            log.debug("Object: {}", psInsertEncabezado.toString());
+            log.debug("Object: " + String.valueOf(psInsertEncabezado.toString()));
             psInsertDetalle = conn.prepareStatement("INSERT INTO tRegistroIngresoDetalle(nFolioRegistroIngreso, nDocRenglon, cEvento, EP, mImporte, mImporteNegativo, nMes, cCentroContable, mSaldo, CTAB, mImporteMod)VALUES(?,?,?,?,?,?,?,?,?,?,?)");
             for (Iterator<RegistrosIngresosDetalle> i = regInDetalles.iterator(); i.hasNext(); ) {
                 RegistrosIngresosDetalle rd = i.next();
@@ -176,7 +176,7 @@ public class RegistroIngresosManager {
                 psInsertDetalle.setString(10, rd.getCTAB());
                 psInsertDetalle.setDouble(11, 0.00);
                 psInsertDetalle.addBatch();
-                log.debug("Object: {}", psInsertDetalle.toString());
+                log.debug("Object: " + String.valueOf(psInsertDetalle.toString()));
             }
             psInsertDetalle.executeBatch();
             conn.commit();
@@ -211,7 +211,7 @@ public class RegistroIngresosManager {
                 psInsertEncabezadoapartado.setInt(14, 0);
                 psInsertEncabezadoapartado.setString(15, folioCompleto);
                 psInsertEncabezadoapartado.execute();
-                log.debug("Object: {}", psInsertEncabezadoapartado.toString());
+                log.debug("Object: " + String.valueOf(psInsertEncabezadoapartado.toString()));
                 psInsertDetalleApartado = conn.prepareStatement("INSERT INTO dbo.tApartadoDetalle( nFolioApartado ,nDocRenglon ,EP ,cEvento ,mImporte ,mImporteNegativo ,cMes ,cCentroContable)VALUES(?,?,?,?,?,?,?,?)");
                 for (Iterator<RegistrosIngresosDetalle> i = regInDetalles.iterator(); i.hasNext(); ) {
                     RegistrosIngresosDetalle rd = i.next();
@@ -225,7 +225,7 @@ public class RegistroIngresosManager {
                     psInsertDetalleApartado.setInt(7, rd.getnMes());
                     psInsertDetalleApartado.setString(8, rd.getcCentroContable());
                     psInsertDetalleApartado.addBatch();
-                    log.debug("Object: {}", psInsertDetalleApartado.toString());
+                    log.debug("Object: " + String.valueOf(psInsertDetalleApartado.toString()));
                 }
                 psInsertDetalleApartado.executeBatch();
                 conn.commit();
@@ -235,7 +235,7 @@ public class RegistroIngresosManager {
             psUpdateEncabezadoIF.setInt(1, regInEnc.getnFolioApartado());
             psUpdateEncabezadoIF.setInt(2, regInEnc.getnFolioRegistroIngreso());
             psUpdateEncabezadoIF.execute();
-            log.debug("Object: {}", psUpdateEncabezadoIF.toString());
+            log.debug("Object: " + String.valueOf(psUpdateEncabezadoIF.toString()));
             conn.commit();
         } catch (Exception e) {
             log.warn(e.getMessage(), e);
@@ -262,9 +262,9 @@ public class RegistroIngresosManager {
         try {
             String sSQL = "SELECT cTipoConcepto, ID_DESTINO FROM tCatProgramasProyectos WITH (NOLOCK) WHERE nIdPrograma = ? ";
             pstmnt = conn.prepareStatement(sSQL);
-            log.debug("Object: {}", sSQL);
+            log.debug("Object: " + String.valueOf(sSQL));
             pstmnt.setInt(1, idprograma);
-            log.debug("Object: {}", "Programa: " + idprograma);
+            log.debug("Object: " + String.valueOf("Programa: " + idprograma));
             rs = pstmnt.executeQuery();
             if (rs.next()) {
                 retval = rs.getString(1) + "_" + rs.getString(2);
@@ -286,14 +286,14 @@ public class RegistroIngresosManager {
             CasoBusinessLogic cbl = new CasoBusinessLogic(GestionInterface.ATT_CONEXION);
             conn = cbl.getConnection();
             ContableInterface conInt = new AplicacionContable();
-            log.debug("Object: {}", "Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Inicia Autorización aplicacion contable " + new Timestamp(System.currentTimeMillis())));
             AplicarContableReturn acr;
             if (!"2012".equals(sEjercicioFiscal))
                 acr = conInt.aplicarContableNuevo(conn, c, "tRegistroIngresoEncabezado", "tRegistroIngresoDetalle", "nFolioRegistroIngreso", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REGISTROINGRESO", m, prefixPath, uLogin, "");
             else
                 acr = conInt.aplicarContableNuevo(conn, c, "tRegistroIngresoEncabezado", "tRegistroIngresoDetalle", "nFolioRegistroIngreso", new Integer(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1)).intValue(), "REGISTROINGRESO", m, prefixPath, uLogin, "SI");
             arrLResult = (ArrayList<String>) acr.getMessageList();
-            log.debug("Object: {}", "Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis()));
+            log.debug("Object: " + String.valueOf("Termina Autorización Aplicacion contable " + new Timestamp(System.currentTimeMillis())));
             Caso cReloaded = new Caso();
             cReloaded.setIdCaso(c.getIdCaso());
             cReloaded = CasoManager.select(conn, cReloaded);
@@ -338,9 +338,9 @@ public class RegistroIngresosManager {
         boolean retval = false;
         try {
             String sSQL = " UPDATE tRegistroIngresoEncabezado SET cDocumentoHaplicado = 'S' WHERE nFolioRegistroIngreso = ? ";
-            log.debug("Object: {}", sSQL);
+            log.debug("Object: " + String.valueOf(sSQL));
             pstmntUp = conn.prepareStatement(sSQL);
-            log.debug("Object: {}", folio);
+            log.debug("Object: " + String.valueOf(folio));
             pstmntUp.setInt(1, folio);
             pstmntUp.execute();
             retval = true;
@@ -423,9 +423,9 @@ public class RegistroIngresosManager {
         boolean retval = false;
         try {
             String sSQL = " UPDATE tApartadoEncabezado SET cDocumentoHaplicado = 'S' WHERE nFolioApartado = ? ";
-            log.debug("Object: {}", sSQL);
+            log.debug("Object: " + String.valueOf(sSQL));
             pstmntUp = conn.prepareStatement(sSQL);
-            log.debug("Object: {}", folio);
+            log.debug("Object: " + String.valueOf(folio));
             pstmntUp.setInt(1, folio);
             pstmntUp.execute();
             retval = true;
@@ -489,11 +489,11 @@ public class RegistroIngresosManager {
             //SE ARMA EL "SP" ENCABEZADO
             String Sql = " SELECT TOP 1 " + "	SUBSTRING('" + sREFERENCIA1_107 + "',LEN('" + sREFERENCIA1_107 + "')-7,LEN('" + sREFERENCIA1_107 + "'))," + "	'H' AS Header," + "	CONVERT(nvarchar(10), GETDATE(),103)," + "	CONVERT(nvarchar(10), GETDATE(),103)," + "	tCE.cRamo," + "	tCE.cRamo," + "	tCE.cRamo," + "	'RHQ' UnidadResponsable," + "	'RHQ' UnidadResponsable," + "	'RHQ' UnidadResponsable," + "	'N' ID_TIPO_MOVIMIENTO," + "	'1' AS OrigenPpto," + "	'3' AS TipoSol," + "	'MXN' TipoMoneda," + "	'1' TipoCambio," + "	'1' TIPO_PAGO," + "	'PENDIENTE' AS CveLeyenda," + "	'S04929' CBEN," + "	'" + arrCuentasBancarias[0].trim() + "' CUENTA_BANCARIA," + "	'16RHQ'," + "	'FAC'," + "	'' FechaReferencia," + "	'' Referencia1," + "	'' Referencia2," + " 	'Integracion de RIF " + sREFERENCIA1_107 + "' Concepto," + "	'' NotasReverso," + "	'' AMF," + "	'" + sREFERENCIA1_107 + "' NO_ACMI," + "	'" + sREFERENCIA1_107 + "' AuxiliarComodin," + "	'' CTR," + "	'' FolioDC," + "	CONVERT(DECIMAL(17, 2), 0) DCD_ISR, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_IVADES, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_MIL5, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_MIL2, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_OTRAS_RET, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_PENALIZACION, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_CONTRIBUCION, " + "	CONVERT(DECIMAL(17, 2), 0) DCD_IVA, " + "	CONVERT(DECIMAL(17, 2), 0) IVAANT, " + "	'NA' ID_DESTINO_GASTO " + "FROM tRegistroIngresoEncabezado tCE " + "WHERE tCE.nFolioRegistroIngreso IN (" + listaIds + ") " + "GROUP BY cRamo";
             pstmntH = conn.prepareStatement(Sql);
-            log.debug("Object: {}", Sql.toString());
+            log.debug("Object: " + String.valueOf(Sql.toString()));
             rs = pstmntH.executeQuery();
             while (rs.next()) {
                 //inserta encabezado
-                log.debug("Object: {}", "Procesando folio[" + arrFolios[0].trim() + "]");
+                log.debug("Object: " + String.valueOf("Procesando folio[" + arrFolios[0].trim() + "]"));
                 //String nFolio, nFolioCompromiso = rs.getString(1);
                 String encabezado = rs.getString(2) + "," + arrFechas[0].trim() + "," + rs.getString(4).trim() + "," + rs.getString(5).trim() + "," + rs.getString(6).trim() + "," + rs.getString(7).trim() + "," + rs.getString(8).trim() + "," + rs.getString(9).trim() + "," + rs.getString(10).trim() + "," + rs.getString(11).trim() + "," + rs.getString(12).trim() + "," + rs.getString(13).trim() + "," + rs.getString(14).trim() + "," + rs.getString(15).trim() + "," + rs.getString(16).trim() + "," + arrLeyendas[0].trim().trim() + "," + rs.getString(18).trim() + "," + rs.getString(19).trim() + "," + rs.getString(20).trim() + "," + rs.getString(21).trim() + "," + rs.getString(22).trim() + "," + rs.getString(23).trim() + "," + rs.getString(24).trim() + "," + rs.getString(25).trim().replaceAll("[\r\n]{2,}", " ") + "," + rs.getString(26).trim() + "," + rs.getString(27).trim() + "," + rs.getString(28).trim() + "," + rs.getString(29).trim() + "," + rs.getString(30).trim() + "," + rs.getString(31).trim() + "," + rs.getString(32).trim() + "," + rs.getString(33).trim() + "," + rs.getString(34).trim() + "," + rs.getString(35).trim() + "," + rs.getString(36).trim() + "," + rs.getString(37).trim() + "," + rs.getString(38).trim() + "," + rs.getString(39).trim() + "," + rs.getString(40).trim() + "," + rs.getString(41);
                 encabezado = encabezado + "\r\n";
@@ -573,8 +573,8 @@ public class RegistroIngresosManager {
         try {
             Caso c = PagosDiversosRGManager.generaCaso(conn, sUsuario, folioGenerator);
             nFolioConsolidacion = Integer.parseInt(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1), 10);
-            log.debug("Object: {}", "Query Insert Encabezado[" + sqlInsertConsolidacion + "]");
-            log.debug("Object: {}", "Query Insert Detalle[" + sqlInsertConsolidacionDetalle + "]");
+            log.debug("Object: " + String.valueOf("Query Insert Encabezado[" + sqlInsertConsolidacion + "]"));
+            log.debug("Object: " + String.valueOf("Query Insert Detalle[" + sqlInsertConsolidacionDetalle + "]"));
             psInsertaEncabezado = conn.prepareStatement(sqlInsertConsolidacion, Statement.RETURN_GENERATED_KEYS);
             psInsertaDetalle = conn.prepareStatement(sqlInsertConsolidacionDetalle);
             psInsertaEncabezado.setInt(1, nFolioConsolidacion);
@@ -583,11 +583,11 @@ public class RegistroIngresosManager {
             psInsertaEncabezado.setString(4, "");
             psInsertaEncabezado.setString(5, ejercicioFiscal);
             insertados += psInsertaEncabezado.executeUpdate();
-            log.debug("Object: {}", "Insertados en encabezado: " + insertados + " registros ");
+            log.debug("Object: " + String.valueOf("Insertados en encabezado: " + insertados + " registros "));
             rsFolioConsolidacion = psInsertaEncabezado.getGeneratedKeys();
             psInsertaDetalle.setInt(1, nFolioConsolidacion);
             insertados += psInsertaDetalle.executeUpdate();
-            log.debug("Object: {}", "Insertados en detalle: " + insertados + " registros ");
+            log.debug("Object: " + String.valueOf("Insertados en detalle: " + insertados + " registros "));
             return nFolioConsolidacion;
         } finally {
             CloseObject.closeObject(rsFolioConsolidacion, false);
@@ -675,7 +675,7 @@ public class RegistroIngresosManager {
         PreparedStatement pstm = null;
         RegistrosIngresosDetalle rid = null;
         pstm = conn.prepareStatement("SELECT * FROM tRegistroIngresoDetalle WITH (NOLOCK) WHERE nFolioRegistroIngreso = ? AND nDocRenglon = 1");
-        log.debug("Object: {}", "Leyendo tRegistroIngresoEncabezado del Folio: " + nFolio);
+        log.debug("Object: " + String.valueOf("Leyendo tRegistroIngresoEncabezado del Folio: " + nFolio));
         pstm.setInt(1, nFolio);
         res = pstm.executeQuery();
         if (res.next()) {
@@ -711,7 +711,7 @@ public class RegistroIngresosManager {
             psInsertRazonSocialIP.setString(9, rzip.getcComprobanteFiscal());
             psInsertRazonSocialIP.setString(10, u.getLogin());
             psInsertRazonSocialIP.execute();
-            log.debug("Object: {}", psInsertRazonSocialIP.toString());
+            log.debug("Object: " + String.valueOf(psInsertRazonSocialIP.toString()));
             actualizaCRI(conn, rzip.getnFolioRegistroIngreso(), cClaveCRI, rzip.getcClave());
             conn.commit();
             mensaje = "insercion";
@@ -740,9 +740,9 @@ public class RegistroIngresosManager {
         try {
             String sSQL = "SELECT cClaveCRI \r\n" + "FROM tCatProgramasProyectos WITH (NOLOCK) \r\n" + "JOIN tCatalogoCRI_v2 WITH (NOLOCK) ON SUBSTRING(cCuenta,1,11) = SUBSTRING(cCuentaIngreso,1,11) \r\n" + "WHERE nIdPrograma = ? ";
             pstmnt = conn.prepareStatement(sSQL);
-            log.debug("Object: {}", sSQL);
+            log.debug("Object: " + String.valueOf(sSQL));
             pstmnt.setInt(1, idprograma);
-            log.debug("Object: {}", "Programa: " + idprograma);
+            log.debug("Object: " + String.valueOf("Programa: " + idprograma));
             rs = pstmnt.executeQuery();
             if (rs.next()) {
                 cClaveCRI = rs.getString(1);
@@ -779,7 +779,7 @@ public class RegistroIngresosManager {
         PreparedStatement pstm = null;
         RegistroIngresoRazonSocial rirs = null;
         pstm = conn.prepareStatement("SELECT * FROM tRegistroIngresoRazonSocial WITH (NOLOCK) WHERE nFolioRegistroIngreso = ?");
-        log.debug("Object: {}", "Leyendo tRegistroIngresoRazonSocial del Folio: " + nFolio);
+        log.debug("Object: " + String.valueOf("Leyendo tRegistroIngresoRazonSocial del Folio: " + nFolio));
         pstm.setInt(1, nFolio);
         res = pstm.executeQuery();
         if (res.next()) {
@@ -807,7 +807,7 @@ public class RegistroIngresosManager {
         String aplicaCorreo = "";
         try {
             pstm = conn.prepareStatement("SELECT CASE WHEN COUNT(*) = 0 THEN 'SI' ELSE 'NO' END aplicaCorreo FROM tRegistroIngresoDetalle DET\r\n" + "JOIN tRegistroIngresoEventosSinCorreo EC ON DET.cEvento = EC.cEvento\r\n" + "WHERE nFolioRegistroIngreso = ?");
-            log.debug("Object: {}", "Leyendo tRegistroIngresoRazonSocial del Folio: " + nFolio);
+            log.debug("Object: " + String.valueOf("Leyendo tRegistroIngresoRazonSocial del Folio: " + nFolio));
             pstm.setInt(1, nFolio);
             res = pstm.executeQuery();
             if (res.next()) {
@@ -1082,8 +1082,8 @@ public class RegistroIngresosManager {
         PreparedStatement psInsertaDetalle = null;
         ResultSet rsFolioConsolidacion = null;
         try {
-            log.debug("Object: {}", "Query Insert Encabezado[" + sqlInsertCompromisoEnc + "]");
-            log.debug("Object: {}", "Query Insert Detalle[" + sqlInsertCompromisoDet + "]");
+            log.debug("Object: " + String.valueOf("Query Insert Encabezado[" + sqlInsertCompromisoEnc + "]"));
+            log.debug("Object: " + String.valueOf("Query Insert Detalle[" + sqlInsertCompromisoDet + "]"));
             pstmntE = conn.prepareStatement(sqlInsertCompromisoEnc.toString());
             pstmntD = conn.prepareStatement(sqlInsertCompromisoDet.toString());
             pstmntE.setInt(1, strFolioCompromiso);
@@ -1091,11 +1091,11 @@ public class RegistroIngresosManager {
             pstmntE.setString(3, contrarecibo);
             pstmntE.setInt(4, nFolioConsolidacion);
             insertados += pstmntE.executeUpdate();
-            log.debug("Object: {}", "Insertados en encabezado: " + insertados + " registros ");
+            log.debug("Object: " + String.valueOf("Insertados en encabezado: " + insertados + " registros "));
             pstmntD.setInt(1, strFolioCompromiso);
             pstmntD.setInt(2, nFolioConsolidacion);
             insertados += pstmntD.executeUpdate();
-            log.debug("Object: {}", "Insertados en detalle: " + insertados + " registros ");
+            log.debug("Object: " + String.valueOf("Insertados en detalle: " + insertados + " registros "));
             return insertados;
         } finally {
             CloseObject.closeObject(rsFolioConsolidacion, false);

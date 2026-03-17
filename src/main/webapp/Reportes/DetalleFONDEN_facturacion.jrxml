@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DetalleFONDEN_facturacion"  pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.771561000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cIdFonden" class="java.lang.Integer"/>
+	<parameter name="nIdFondenMovimiento" class="java.lang.Integer"/>
+	<parameter name="netoPedido" class="java.math.BigDecimal"/>
+	<queryString>
+		<![CDATA[SELECT
+     tFondenFacturacion."cIdFonden" AS tFondenFacturacion_cIdFonden,
+     tFondenFacturacion."nIdFondenMovimiento" AS tFondenFacturacion_nIdFondenMovimiento,
+     tFondenFacturacion."nIdFondenFacturacion" AS tFondenFacturacion_nIdFondenFacturacion,
+     tFondenFacturacion."cNumero" AS tFondenFacturacion_cNumero,
+     tFondenFacturacion."nCantidad" AS tFondenFacturacion_nCantidad,
+     tFondenFacturacion."nImporteFactura" AS tFondenFacturacion_nImporteFactura,
+     tFondenFacturacion."nTipoCambio" AS tFondenFacturacion_nTipoCambio,
+     tFondenFacturacion."nIdTipoPago" AS tFondenFacturacion_nIdTipoPago,
+     tFondenFacturacion."nIdTipoFactura" AS tFondenFacturacion_nIdTipoFactura,
+     tFondenFacturacion."cDescripcionFactura" AS tFondenFacturacion_cDescripcionFactura,
+     tFondenTipoFactura."nIdTipoFactura" AS tFondenTipoFactura_nIdTipoFactura,
+     tFondenTipoFactura."cDescripcion" AS tFondenTipoFactura_cDescripcion,
+     tFondenTipoPago."nIdTipoPago" AS tFondenTipoPago_nIdTipoPago,
+     tFondenTipoPago."cDescripcion" AS tFondenTipoPago_cDescripcion,
+     tFondenMovimiento."cIdFonden" AS tFondenMovimiento_cIdFonden,
+     tFondenMovimiento."nIdFondenMovimiento" AS tFondenMovimiento_nIdFondenMovimiento,
+     tFondenMovimiento."cConcepto" AS tFondenMovimiento_cConcepto,
+     tFondenMovimiento."nPrecioUnitario" AS tFondenMovimiento_nPrecioUnitario,
+     tFondenMovimiento."nCantidad" AS tFondenMovimiento_nCantidad,
+     tFondenMovimiento."nImporte" AS tFondenMovimiento_nImporte,
+     tFondenMovimiento."cRFC" AS tFondenMovimiento_cRFC,
+     tFondenMovimiento."cNumPedido" AS tFondenMovimiento_cNumPedido,
+     tFondenMovimiento."nNetoPedido" AS tFondenMovimiento_nNetoPedido,
+     tFondenMovimiento."nPrecio" AS tFondenMovimiento_nPrecio,
+     tFondenMovimiento."nTotal" AS tFondenMovimiento_nTotal,
+     tFondenMovimiento."cProveedor" AS tFondenMovimiento_cProveedor,
+     tFondenMovimiento."ACTIVO" AS tFondenMovimiento_ACTIVO,
+     tFondenMovimiento."ID_GABINETE" AS tFondenMovimiento_ID_GABINETE,
+     tFondenMovimiento."cFolio" AS tFondenMovimiento_cFolio,
+     tFondenMovimiento."cCentroContable" AS tFondenMovimiento_cCentroContable,
+     tFondenMovimiento."cUnidadResponsable" AS tFondenMovimiento_cUnidadResponsable,
+     tFondenMovimiento."nNumCaso" AS tFondenMovimiento_nNumCaso,
+     tFondenMovimiento."nCantidadTotal" AS tFondenMovimiento_nCantidadTotal,
+     tFondenMovimiento."nTechoDef" AS tFondenMovimiento_nTechoDef,
+     tFondenMovimiento."cIdMoneda" AS tFondenMovimiento_cIdMoneda,
+     tFondenMovimiento."nTipoCambio" AS tFondenMovimiento_nTipoCambio,
+     tFondenMovimiento."nIdFondenMovEstatus" AS tFondenMovimiento_nIdFondenMovEstatus
+FROM
+     "dbo"."tFondenTipoFactura" tFondenTipoFactura INNER JOIN "dbo"."tFondenFacturacion" tFondenFacturacion ON tFondenTipoFactura."nIdTipoFactura" = tFondenFacturacion."nIdTipoFactura"
+     INNER JOIN "dbo"."tFondenTipoPago" tFondenTipoPago ON tFondenFacturacion."nIdTipoPago" = tFondenTipoPago."nIdTipoPago"
+     INNER JOIN "dbo"."tFondenMovimiento" tFondenMovimiento ON tFondenFacturacion."cIdFonden" = tFondenMovimiento."cIdFonden"
+     AND tFondenMovimiento."nIdFondenMovimiento" = tFondenFacturacion."nIdFondenMovimiento"
+
+WHERE
+	 tFondenFacturacion."cIdFonden" = $P{cIdFonden} AND
+	 tFondenFacturacion."nIdFondenMovimiento" = $P{nIdFondenMovimiento}]]>
+	</queryString>
+	<field name="tFondenFacturacion_cIdFonden" class="java.lang.Integer"/>
+	<field name="tFondenFacturacion_nIdFondenMovimiento" class="java.lang.Integer"/>
+	<field name="tFondenFacturacion_nIdFondenFacturacion" class="java.lang.Integer"/>
+	<field name="tFondenFacturacion_cNumero" class="java.lang.String"/>
+	<field name="tFondenFacturacion_nCantidad" class="java.math.BigDecimal"/>
+	<field name="tFondenFacturacion_nImporteFactura" class="java.math.BigDecimal"/>
+	<field name="tFondenFacturacion_nTipoCambio" class="java.math.BigDecimal"/>
+	<field name="tFondenFacturacion_nIdTipoPago" class="java.lang.Integer"/>
+	<field name="tFondenFacturacion_nIdTipoFactura" class="java.lang.Integer"/>
+	<field name="tFondenFacturacion_cDescripcionFactura" class="java.lang.String"/>
+	<field name="tFondenTipoFactura_nIdTipoFactura" class="java.lang.Integer"/>
+	<field name="tFondenTipoFactura_cDescripcion" class="java.lang.String"/>
+	<field name="tFondenTipoPago_nIdTipoPago" class="java.lang.Integer"/>
+	<field name="tFondenTipoPago_cDescripcion" class="java.lang.String"/>
+	<field name="tFondenMovimiento_cIdFonden" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_nIdFondenMovimiento" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_cConcepto" class="java.lang.String"/>
+	<field name="tFondenMovimiento_nPrecioUnitario" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_nCantidad" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_nImporte" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_cRFC" class="java.lang.String"/>
+	<field name="tFondenMovimiento_cNumPedido" class="java.lang.String"/>
+	<field name="tFondenMovimiento_nNetoPedido" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_nPrecio" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_nTotal" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_cProveedor" class="java.lang.String"/>
+	<field name="tFondenMovimiento_ACTIVO" class="java.lang.String"/>
+	<field name="tFondenMovimiento_ID_GABINETE" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_cFolio" class="java.lang.String"/>
+	<field name="tFondenMovimiento_cCentroContable" class="java.lang.String"/>
+	<field name="tFondenMovimiento_cUnidadResponsable" class="java.lang.String"/>
+	<field name="tFondenMovimiento_nNumCaso" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_nCantidadTotal" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_nTechoDef" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_cIdMoneda" class="java.lang.String"/>
+	<field name="tFondenMovimiento_nTipoCambio" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_nIdFondenMovEstatus" class="java.lang.Integer"/>
+	<variable name="SALDO_PEDIDO" class="java.math.BigDecimal" resetType="None">
+		<variableExpression><![CDATA[$F{tFondenMovimiento_nNetoPedido}.doubleValue() - $V{ACUMULADO_SALDO}.doubleValue()]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_IMPORTE_FACTURA" class="java.lang.Double" resetType="Group" resetGroup="MOVIMIENTO" calculation="Sum">
+		<variableExpression><![CDATA[$F{tFondenFacturacion_nImporteFactura}.multiply( $F{tFondenMovimiento_nTipoCambio} )]]></variableExpression>
+	</variable>
+	<variable name="SUM_BIENES" class="java.lang.Integer" resetType="Group" resetGroup="MOVIMIENTO" calculation="Sum">
+		<variableExpression><![CDATA[$F{tFondenFacturacion_nCantidad}]]></variableExpression>
+	</variable>
+	<variable name="ACUMULADO_SALDO" class="java.math.BigDecimal" resetType="Group" resetGroup="MOVIMIENTO" calculation="Sum">
+		<variableExpression><![CDATA[$F{tFondenFacturacion_nImporteFactura}.multiply( $F{tFondenMovimiento_nTipoCambio} )]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{tFondenFacturacion_nImporteFactura}]]></initialValueExpression>
+	</variable>
+	<variable name="SUM_IMPORTE_FACTURA" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{tFondenFacturacion_nImporteFactura}.multiply( $F{tFondenMovimiento_nTipoCambio} )]]></variableExpression>
+	</variable>
+	<group name="tFondenFacturacion_nIdFondenMovimiento">
+		<groupExpression><![CDATA[$F{tFondenFacturacion_nIdFondenMovimiento}]]></groupExpression>
+	</group>
+	<group name="MOVIMIENTO">
+		<groupExpression><![CDATA[$F{tFondenFacturacion_nIdFondenMovimiento}]]></groupExpression>
+		<groupFooter>
+			<band height="12">
+				<staticText>
+					<reportElement x="0" y="0" width="63" height="12"/>
+					<box>
+						<leftPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="5"/>
+					</textElement>
+					<text><![CDATA[Total de bienes]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="192" y="0" width="66" height="12"/>
+					<box>
+						<leftPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="116" y="0" width="76" height="12"/>
+					<box>
+						<leftPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="5"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{TOTAL_IMPORTE_FACTURA}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="63" y="0" width="53" height="12"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="5"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{SUM_BIENES}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="116" y="0" width="142" height="1"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20">
+			<textField evaluationTime="Group" evaluationGroup="MOVIMIENTO">
+				<reportElement x="0" y="0" width="63" height="20"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tFondenFacturacion_cNumero}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="MOVIMIENTO">
+				<reportElement x="63" y="0" width="53" height="20"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tFondenFacturacion_nCantidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="192" y="0" width="66" height="20"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{SALDO_PEDIDO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="116" y="0" width="76" height="20"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{tFondenFacturacion_nImporteFactura}.multiply( $F{tFondenMovimiento_nTipoCambio} )]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

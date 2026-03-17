@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Centros Contables</titulo>
+	<anchoWin>300</anchoWin>
+	<altoWin>350</altoWin>
+	<altoAreaCaptura>120</altoAreaCaptura>
+	<tabla>ID_CENTRO_CONTABLE</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+
+	<grid>
+		<columna campo="idCCentroContable" control="idCCentroContable"
+			dependencia="No" ctrlsDependientes="" limpiaOnKeypress="" header="Clave"
+			ancho="3" maxlen="3" tipo="string" visible="Si" clase="" />
+		<columna campo="idCDescripcion" control="idCDescripcion"
+			dependencia="No" ctrlsDependientes="" limpiaOnKeypress=""
+			header="Centro Contable" ancho="35" maxlen="35" tipo="string"
+			visible="Si" clase="" />
+	</grid>
+
+</Ayuda>

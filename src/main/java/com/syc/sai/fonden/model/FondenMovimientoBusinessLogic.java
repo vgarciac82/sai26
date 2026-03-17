@@ -169,7 +169,7 @@ public class FondenMovimientoBusinessLogic extends DataSourceManager {
                 archivoCSV.append("\n");
             }
             String outTextPago = archivoCSV.toString();
-            out.write(outTextPago.toPath());
+            out.write(outTextPago);
             out.close();
             byte[] bufPag = new byte[2048];
             try {

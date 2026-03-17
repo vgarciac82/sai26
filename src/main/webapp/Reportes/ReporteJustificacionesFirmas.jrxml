@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteJustificaciones" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="86527ea0-8035-4411-893e-f1665e15706e">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sai_pruebas"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="where2" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select just.*, cUnidadResponsable
+, COALESCE( (SELECT nombreCompleto from v_empleados where nEmpleado = nnumEmpleadoVobo) , rg.sFirmanteVoBo) sFirmanteVoBo 
+, COALESCE( (SELECT cargo from v_empleados where nEmpleado = nnumEmpleadoVobo) , rg.sPuestoVoBo) sPuestoVoBo
+, COALESCE( (SELECT nombreCompleto from v_empleados where nEmpleado = nnumEmpleadoAut) , rg.sFirmanteAut) sFirmanteAut 
+, COALESCE( (SELECT cargo from v_empleados where nEmpleado = nnumEmpleadoAut) , rg.sPuestoAut) sPuestoAut
+, COALESCE( (SELECT nombreCompleto from v_empleados where nEmpleado = nnumEmpleadoElab) , rg.sFirmanteEla) sFirmanteEla
+, COALESCE( (SELECT cargo from v_empleados where nEmpleado = nNumEmpleadoElab) , rg.sPuestoEla) sPuestoEla
+, (select nombreCompleto from v_empleados where nEmpleado = dele.cnumeroEmpleado) sFirmanteDelegatorio
+, dele.cPuestoTitular sPuestoFirmanteDelegatorio
+, isnull( 'Firma ' + Sup.cTipoSuplencia + ' de: ' + (select nombreCompleto from v_empleados where nEmpleado = dele.cnumeroEmpleado) + ', con fundamento en el oficio: ' + dele.cFolioOficio + ', de fecha: ' + CAST(dele.dFechaOficio AS VARCHAR(10)),'') Leyenda
+, (select nombrecompleto from v_empleados where nEmpleado = DeleVb.cnumeroEmpleado) sFirmanteDeleVoBo
+, delevb.cPuestoTitular  sPuestoFirmanteDeleVoBo
+, isnull('Firma ' + SupVb.cTipoSuplencia +' de: ' + (select nombrecompleto from v_empleados where nEmpleado = DeleVb.cnumeroEmpleado) + ', con fundamento en el oficio: ' + delevb.cFolioOficio + ', de fecha: ' + CAST(delevb.dFechaOficio AS VARCHAR(10)), '') LeyendaVoBo
+from tJustificacionRG just WITH (NOLOCK)
+INNER  JOIN tRELACIONGASTOSEncabezado RG WITH (NOLOCK)
+ON RG.nFolioRELACIONGASTOS = just.nFolioRELACIONGASTOS
+LEFT JOIN dbo.v_empleados_giro emp with (nolock)
+ON emp.RFC  = rg.RFC COLLATE SQL_Latin1_General_CP1_CI_AS
+LEFT JOIN dbo.tPagoFirmanteDelagatorio Dele with (nolock)
+ON dele.nFolioPago = rg.nFolioRELACIONGASTOS AND  cTipoPago = 'RELACIONGASTOS'
+LEFT JOIN dbo.tPagoFirmanteDelegatorioVoBo DeleVb with (nolock)
+ON delevb.nFolioPago = rg.nFolioRELACIONGASTOS AND  DeleVb.cTipoPago = 'RELACIONGASTOS'
+left JOIN tCatTipoSuplencia Sup WITH (NOLOCK)
+				ON Dele.nTipoSuplencia = Sup.ntiposuplencia
+LEFT JOIN tCatTipoSuplencia SupVb WITH (NOLOCK)
+				ON DeleVb.nTipoSuplencia = Supvb.ntiposuplencia
+WHERE just.nFolioRELACIONGASTOS =  $P{where2}]]>
+	</queryString>
+	<field name="nFolioRELACIONGASTOS" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="nFolioRELACIONGASTOS"/>
+		<property name="com.jaspersoft.studio.field.label" value="nFolioRELACIONGASTOS"/>
+	</field>
+	<field name="cJustificaBoletos" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cJustificaBoletos"/>
+		<property name="com.jaspersoft.studio.field.label" value="cJustificaBoletos"/>
+	</field>
+	<field name="cJustificaTicket" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cJustificaTicket"/>
+		<property name="com.jaspersoft.studio.field.label" value="cJustificaTicket"/>
+	</field>
+	<field name="cTieneAdjuntoBoletos" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cTieneAdjuntoBoletos"/>
+		<property name="com.jaspersoft.studio.field.label" value="cTieneAdjuntoBoletos"/>
+	</field>
+	<field name="cTieneAdjuntoTicket" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cTieneAdjuntoTicket"/>
+		<property name="com.jaspersoft.studio.field.label" value="cTieneAdjuntoTicket"/>
+	</field>
+	<field name="cOtraJustificacion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cOtraJustificacion"/>
+		<property name="com.jaspersoft.studio.field.label" value="cOtraJustificacion"/>
+	</field>
+	<field name="cJustificacionFacturas" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cJustificacionFacturas"/>
+		<property name="com.jaspersoft.studio.field.label" value="cJustificacionFacturas"/>
+	</field>
+	<field name="cJustificacionFacturasCierre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cJustificacionFacturasCierre"/>
+		<property name="com.jaspersoft.studio.field.label" value="cJustificacionFacturasCierre"/>
+	</field>
+	<field name="cJustificacionGasolina" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cJustificacionGasolina"/>
+		<property name="com.jaspersoft.studio.field.label" value="cJustificacionGasolina"/>
+	</field>
+	<field name="mKmInicial" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="mKmInicial"/>
+		<property name="com.jaspersoft.studio.field.label" value="mKmInicial"/>
+	</field>
+	<field name="mKmFinal" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="mKmFinal"/>
+		<property name="com.jaspersoft.studio.field.label" value="mKmFinal"/>
+	</field>
+	<field name="mLitros" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mLitros"/>
+		<property name="com.jaspersoft.studio.field.label" value="mLitros"/>
+	</field>
+	<field name="mRendimiento" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mRendimiento"/>
+		<property name="com.jaspersoft.studio.field.label" value="mRendimiento"/>
+	</field>
+	<field name="cUnidadResponsable" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cUnidadResponsable"/>
+		<property name="com.jaspersoft.studio.field.label" value="cUnidadResponsable"/>
+	</field>
+	<field name="sFirmanteVoBo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sFirmanteVoBo"/>
+		<property name="com.jaspersoft.studio.field.label" value="sFirmanteVoBo"/>
+	</field>
+	<field name="sPuestoVoBo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sPuestoVoBo"/>
+		<property name="com.jaspersoft.studio.field.label" value="sPuestoVoBo"/>
+	</field>
+	<field name="sFirmanteAut" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sFirmanteAut"/>
+		<property name="com.jaspersoft.studio.field.label" value="sFirmanteAut"/>
+	</field>
+	<field name="sPuestoAut" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sPuestoAut"/>
+		<property name="com.jaspersoft.studio.field.label" value="sPuestoAut"/>
+	</field>
+	<field name="sFirmanteEla" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sFirmanteEla"/>
+		<property name="com.jaspersoft.studio.field.label" value="sFirmanteEla"/>
+	</field>
+	<field name="sPuestoEla" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sPuestoEla"/>
+		<property name="com.jaspersoft.studio.field.label" value="sPuestoEla"/>
+	</field>
+	<field name="sFirmanteDelegatorio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sFirmanteDelegatorio"/>
+		<property name="com.jaspersoft.studio.field.label" value="sFirmanteDelegatorio"/>
+	</field>
+	<field name="sPuestoFirmanteDelegatorio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sPuestoFirmanteDelegatorio"/>
+		<property name="com.jaspersoft.studio.field.label" value="sPuestoFirmanteDelegatorio"/>
+	</field>
+	<field name="Leyenda" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Leyenda"/>
+		<property name="com.jaspersoft.studio.field.label" value="Leyenda"/>
+	</field>
+	<field name="sFirmanteDeleVoBo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sFirmanteDeleVoBo"/>
+		<property name="com.jaspersoft.studio.field.label" value="sFirmanteDeleVoBo"/>
+	</field>
+	<field name="sPuestoFirmanteDeleVoBo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sPuestoFirmanteDeleVoBo"/>
+		<property name="com.jaspersoft.studio.field.label" value="sPuestoFirmanteDeleVoBo"/>
+	</field>
+	<field name="LeyendaVoBo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LeyendaVoBo"/>
+		<property name="com.jaspersoft.studio.field.label" value="LeyendaVoBo"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="111" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="34" width="551" height="39" backcolor="#CCCCCC" uuid="7e6d7664-dd2e-4625-8b04-63ead4ec267b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL
+Justificaciones anexas a la solicitud de Viáticos]]></text>
+			</staticText>
+			<image>
+				<reportElement x="2" y="0" width="160" height="61" uuid="9438b02b-c759-4793-9229-19e9e0d1e1d4"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\nuevo_logoconafor.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="4" y="80" width="535" height="31" uuid="e0cda941-50e8-4c69-b894-7455eb6b6b33"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Bajo protesta de decir verdad le informo a usted que la información contenida en este documento fue validada por el comisionado y aceptada por los firmantes.]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch">
+			<printWhenExpression><![CDATA[!$F{cJustificaBoletos}.isEmpty()]]></printWhenExpression>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="60" splitType="Stretch">
+			<printWhenExpression><![CDATA[!$F{cJustificaBoletos}.isEmpty()]]></printWhenExpression>
+			<textField>
+				<reportElement x="7" y="16" width="535" height="25" isPrintWhenDetailOverflows="true" uuid="df8eb28c-2edd-4dad-946d-e4a314ad5900">
+					<printWhenExpression><![CDATA[$F{cTieneAdjuntoBoletos}.equals( "1" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cJustificaBoletos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="0" width="377" height="14" uuid="ae8fa9b2-a500-4bc2-8707-3a961d36e4e9"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Justificación por Boletos de Avión ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="6" y="30" width="547" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="f5dd8a15-fdb2-4a07-afba-705736ade5b4">
+					<printWhenExpression><![CDATA[$F{cTieneAdjuntoBoletos}.equals( "0" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cJustificaBoletos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="18" width="525" height="16" uuid="0832c835-df28-438a-a3b8-5016b623d46c">
+					<printWhenExpression><![CDATA[$F{cTieneAdjuntoBoletos}.equals( "0" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[No se adjuntaron los pases de abordar debido a la siguiente justificación: ]]></text>
+			</staticText>
+		</band>
+		<band height="75" splitType="Stretch">
+			<printWhenExpression><![CDATA[!$F{cJustificaTicket}.isEmpty()]]></printWhenExpression>
+			<subreport isUsingCache="true">
+				<reportElement x="2" y="0" width="551" height="70" uuid="95b7ca1e-33a8-4764-9035-4f3c85ceaebb">
+					<printWhenExpression><![CDATA[!$F{cJustificaTicket}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sWhere">
+					<subreportParameterExpression><![CDATA[$P{where2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+ "\\SubReporteJustFacturas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="109" splitType="Stretch">
+			<printWhenExpression><![CDATA[!$F{cOtraJustificacion}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement x="5" y="-1" width="377" height="14" isPrintWhenDetailOverflows="true" uuid="3d466bfb-c01a-4727-9df9-f8bbefbf97df"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Otra Justificación]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="ContainerHeight" isPrintRepeatedValues="false" x="5" y="15" width="548" height="94" isPrintWhenDetailOverflows="true" uuid="96657562-be45-4d65-889b-37afc7c5c635"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cOtraJustificacion}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="202">
+			<printWhenExpression><![CDATA[!$F{cJustificacionFacturasCierre}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement x="5" y="20" width="549" height="90" uuid="a135be6e-318c-4bea-be10-5961989d63fa"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[En base al artículo 39 del Reglamento del Código Fiscal de la Federación que señala lo siguiente: 
+
+“Para los efectos del artículo 29, segundo párrafo, fracción IV del Código, los contribuyentes deberán remitir al Servicio de Administración Tributaria o al proveedor de certificación de comprobantes fiscales digitales por Internet autorizados por dicho órgano desconcentrado, según sea el caso, el comprobante fiscal digital por Internet, a más tardar dentro de las veinticuatro horas siguientes a que haya tenido lugar la operación, acto o actividad de la que derivó la obligación de expedirlo.”
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="2" width="427" height="22" uuid="d5570835-403e-4ab7-a150-57b320db5dab"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Justificación por gastos sin factura por cierre de mes]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="4" y="105" width="549" height="96" isPrintWhenDetailOverflows="true" uuid="32e4bc26-d73d-4578-bd2a-fd57616213d5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fa5884e7-55e2-47f5-8ba1-735f8832e657"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cJustificacionFacturasCierre}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="197">
+			<printWhenExpression><![CDATA[!$F{cJustificacionFacturas}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement x="3" y="2" width="427" height="22" uuid="69dfa12e-522a-4a9b-9658-6476fbcfa5af"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Justificación por gastos sin facturación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="20" width="548" height="80" uuid="9badb6af-b908-413e-ba72-09e2de0a6295"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[En base al Artículo 29-A Requisitos de los comprobantes fiscales del CFF., que señala lo siguiente:
+
+“Las cantidades que estén amparadas en los comprobantes fiscales que no reúnan algún requisito de los establecidos en esta disposición o en el artículo 29 de este Código, según sea el caso, o cuando los datos contenidos en los mismos se plasmen en forma distinta a lo señalado por las disposiciones fiscales, no podrán deducirse o acreditarse fiscalmente”.
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="4" y="85" width="549" height="112" isPrintWhenDetailOverflows="true" uuid="ae409569-e76b-4b4e-8e6b-f74d167cc09b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fa5884e7-55e2-47f5-8ba1-735f8832e657"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cJustificacionFacturas}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="104">
+			<printWhenExpression><![CDATA[!$F{cJustificacionGasolina}.isEmpty()]]></printWhenExpression>
+			<staticText>
+				<reportElement x="3" y="2" width="427" height="18" uuid="041b2e09-e7fc-4428-9d30-39b3e983528d"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Justificación por gastos de Gasolina]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="4" y="33" width="536" height="68" isPrintWhenDetailOverflows="true" uuid="bdfed6f0-943b-4022-a235-1a7cc1c8a485">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fa5884e7-55e2-47f5-8ba1-735f8832e657"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cJustificacionGasolina}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###;(#,##0.###)">
+				<reportElement x="60" y="18" width="50" height="14" uuid="d5f1f057-ae0f-4698-a797-ecd168d6aff8">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mKmInicial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="18" width="55" height="14" uuid="aefc9d47-fef1-4dfe-8f1f-3e7bc9ce0ccd"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Km Inicial:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="18" width="60" height="14" uuid="0fbe6603-9254-4d7b-a679-522c219a2ac2"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Km Final:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="18" width="45" height="14" uuid="1afe6f44-eea0-4e01-9766-11cc076ec642"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Litros:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="18" width="65" height="14" uuid="19e82ca5-d521-42b5-a9c4-51dd690b1510"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rendimiento:]]></text>
+			</staticText>
+			<textField pattern="#,##0.###;(#,##0.###)">
+				<reportElement x="169" y="18" width="50" height="14" uuid="ed48347a-9baa-453e-8513-9702f7b0a5fd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mKmFinal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;(#,##0.00#)">
+				<reportElement x="270" y="18" width="50" height="14" uuid="1d0d68b5-b76b-4d44-b6fc-8532baff2a70">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mLitros}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;(#,##0.00#)">
+				<reportElement x="408" y="18" width="50" height="14" uuid="994ea903-bc27-4e8b-b997-346425257c25">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mRendimiento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="108" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="185" y="68" width="179" height="13" uuid="97afacd3-d5e4-45ab-b097-dcec976ab7bf">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $F{LeyendaVoBo}.equals( "" )) ? $F{sFirmanteVoBo} : $F{sFirmanteDeleVoBo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="185" y="81" width="179" height="23" isPrintWhenDetailOverflows="true" uuid="224cd457-845c-4eba-a064-32a9e321bb07">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{LeyendaVoBo}.equals( "" )) ? $F{sPuestoVoBo} : $F{sPuestoFirmanteDeleVoBo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="185" y="0" width="180" height="100" uuid="18821843-835c-49da-94b0-1693692a3027"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[   Responsable de la recepción del bien o servicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="0" width="180" height="100" uuid="d716b23e-3cee-4124-8f99-fabc472b8aa9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[   Autorizó]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="370" y="68" width="179" height="13" uuid="8e7021ec-3c10-4bab-8ba2-5b61dc460cb1">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $F{Leyenda}.equals( "" )) ? $F{sFirmanteAut} : $F{sFirmanteDelegatorio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="81" width="179" height="24" uuid="a8a517b9-8663-421a-83ca-865ac534f951">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{Leyenda}.equals( "" )) ? $F{sPuestoAut} : $F{sPuestoFirmanteDelegatorio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="40" width="179" height="27" uuid="da12bb2d-e42c-4c64-87b3-52324b68f79d"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Leyenda}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="180" height="100" uuid="42881c6a-2698-427e-a991-618802fce3c1"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Elaboró]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="68" width="180" height="13" uuid="291a489c-a6be-43eb-a8cb-d281c5ff50a5">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sFirmanteEla}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="81" width="180" height="23" uuid="7461524e-cb1c-40d1-82d7-3a38f9582ce6">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sPuestoEla}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="186" y="41" width="179" height="27" uuid="e744e46b-9ec9-4a99-947d-ae7c63fd2674">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LeyendaVoBo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText" x="373" y="41" width="173" height="27" uuid="b8803b10-4d90-426c-8b5e-50fdadd6c249">
+					<printWhenExpression><![CDATA[$F{sFirmanteAut}.equals( "DAVID CABRERA HERMOSILLO" ) && $F{Leyenda}.equals( "" ) && $F{cUnidadResponsable}.startsWith( "D03" ) == false]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[En suplencia por ausencia del Director General, con fundamento en el artículo 25, párrafo segundo de Estatuto Orgánico de la CONAFOR]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

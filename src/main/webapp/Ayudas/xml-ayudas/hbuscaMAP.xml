@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Buscador de Números MAP</titulo>
+	<anchoWin>500</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>BUSCA_MAP</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="nNumMAP"	control="hbuscaMAP"   dependencia="No"	ctrlsDependientes=""	            limpiaOnKeypress=""	header="Número MAP"	  ancho="70"    maxlen="80"   tipo="string"	visible="si"	clase=""/>
+	    <columna campo="cCentroContable"	control="hcCentroContable"      dependencia="Si"	ctrlsDependientes="cCentroContable"	limpiaOnKeypress=""	header="cCentroContable"  ancho="10"	maxlen="10"   tipo="string"	visible="No"	clase=""/>
+	</grid>  
+</Ayuda>

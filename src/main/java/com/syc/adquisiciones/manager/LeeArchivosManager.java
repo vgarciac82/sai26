@@ -43,6 +43,9 @@ import jcifs.smb.SmbFileOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
+import jcifs.CIFSContext;
+import jcifs.context.SingletonContext;
+import jcifs.smb.NtlmPasswordAuthenticator;
 
 public class LeeArchivosManager {
 
@@ -270,7 +273,7 @@ public class LeeArchivosManager {
         usuarioRemoto = ConfiguraAplicativoManager.obtenUsuarioRemotoFurrt(conn);
         passwordRemoto = ConfiguraAplicativoManager.obtenPasswordRemoto(conn);
         rutaRemoto = ConfiguraAplicativoManager.obtenRutaRemoto(conn);
-        NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication(dominio, usuarioRemoto, passwordRemoto);
+        CIFSContext auth = SingletonContext.getInstance().withCredentials(new NtlmPasswordAuthenticator(dominio, usuarioRemoto, passwordRemoto));
         String sharepath = rutaRemoto + nameFile;
         SmbFile sFile = new SmbFile(sharepath, auth);
         SmbFileOutputStream out = new SmbFileOutputStream(sFile, true);

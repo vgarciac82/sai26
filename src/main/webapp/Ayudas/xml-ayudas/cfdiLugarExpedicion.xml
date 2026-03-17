@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Seleccion de Lugar de Expedicion</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>vCFDI_Cat_CodigoPostal</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+
+
+	<grid>
+		<columna	campo="cEstado"	control="cEstado"	dependencia="No"	limpiaOnKeypress=""	header="Estado"	ancho="40"	maxlen="40"	tipo="string"	visible="Si"	clase="AyudaSyC,PROTEGIDO"	rowCol="1,1"  />
+		
+	</grid>
+
+</Ayuda>

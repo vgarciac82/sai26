@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Beneficiarios</titulo>
+	<anchoWin>500</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>TBENEFICIARIO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cIDRFC"	control="cIDRFCSesion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave"	rowCol="1,1" ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cnombre"	control="NombreSesion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Descripcion"	rowCol="1,2" ancho="50"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+</Ayuda>

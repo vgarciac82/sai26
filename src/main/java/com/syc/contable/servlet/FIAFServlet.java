@@ -640,7 +640,7 @@ public class FIAFServlet extends HttpServlet {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -807,7 +807,7 @@ public class FIAFServlet extends HttpServlet {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -851,7 +851,7 @@ public class FIAFServlet extends HttpServlet {
         Date date = new java.util.Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String fecha = sdf.format(date);
-        String cFileExcel = upload.getRepositoryPath() + "/plantillaFAP01.xls";
+        String cFileExcel = getServletContext().getRealPath("/upload") + "/plantillaFAP01.xls";
         InputStream inp = new FileInputStream(cFileExcel);
         AdecuacionCalendario ac = adecua.adecuacionCalendarioFIAF(folio);
         Workbook wb = new HSSFWorkbook(inp);
@@ -904,7 +904,7 @@ public class FIAFServlet extends HttpServlet {
         numfilas = imprimeSaldos(sheet, saldoA, sumaA, numfilas, 'A', numfilas - 24, estiloBordeDerecho);
         imprimeSumas(sheet, numfilas + 3, sumaA, estiloBordeDerecho);
         imprimeResponsable(sheet, numfilas + 8, responsable, area);
-        wb.write(response.getOutputStream().toPath());
+        wb.write(response.getOutputStream());
     }
 
     public int imprimeSaldos(Sheet sheet, ArrayList<Saldo> saldo, double[] suma, int numfila, char tipo, int secuencia, CellStyle estiloBordeDerecho) {

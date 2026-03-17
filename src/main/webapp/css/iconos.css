@@ -1,0 +1,68 @@
+/* CSS Document */
+.i_inicio{
+	overflow:hidden;
+	background: url(../imagenes/iconos/inicio.png) no-repeat;
+}
+.o_cerrar-sesion {
+	background-repeat:no-repeat;
+	background-image:url(../imagenes/cerrar-sesion.png);
+	overflow:hidden;
+}
+.o_maximizar {
+	background-repeat:no-repeat;
+	background-image:url(../imagenes/maximizar.png);
+	overflow:hidden;
+}
+.i_asunto-nuevo{
+	overflow:hidden;
+	background: url(../imagenes/iconos/asunto-nuevo.png) no-repeat;
+}
+.i_recibidos{
+	overflow:hidden;
+	background: url(../imagenes/iconos/bandeja-recibidos.png) no-repeat;
+}
+.i_turnados{
+	overflow:hidden;
+	background: url(../imagenes/iconos/bandeja-turnados.png) no-repeat;
+}
+.i_pendientes-enviar{
+	overflow:hidden;
+	background: url(../imagenes/iconos/pendiente-enviar.png) no-repeat;
+}
+.i_respuestas{
+	overflow:hidden;
+	background: url(../imagenes/iconos/respuestas.png) no-repeat;
+}
+.i_consultados{
+	overflow:hidden;
+	background: url(../imagenes/iconos/consultados.png) no-repeat;
+}
+
+.i_seguimiento{
+	overflow:hidden;
+	background: url(../imagenes/iconos/seguimiento.png) no-repeat;
+}
+.i_reportes{
+	overflow:hidden;
+	background: url(../imagenes/iconos/reportes.png) no-repeat;
+}
+.i_sin-respuesta{
+	overflow:hidden;
+	background: url(../imagenes/iconos/sin-respuesta.png) no-repeat;
+}
+.i_prorrogas{
+	overflow:hidden;
+	background: url(../imagenes/iconos/recur.png) no-repeat;
+}
+.i_buscarCasos{
+	overflow:hidden;
+	background: url(../imagenes/iconos/boton-find2.jpg) no-repeat;
+}
+.i_catalogos{
+	overflow:hidden;
+	background: url(../imagenes/recepcion.png) no-repeat;
+}
+.i_CerrarSesion{
+	overflow:hidden;
+	background: url(../imagenes/salir.png) no-repeat;
+}

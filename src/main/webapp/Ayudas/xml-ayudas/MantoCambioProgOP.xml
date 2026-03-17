@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Cambios de Programa Obra Pública</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>700</altoWin>
+	<altoAreaCaptura>110</altoAreaCaptura>
+	<tabla>M_OPMAPEOCAMBIOPROGRAMA</tabla>
+	<maxRegistros></maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>1</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="aEjercicioFiscal"			control="txtGridaEjercicioFiscal"			dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridaEjercicioFiscal"			header="* Ejercicio Fiscal"				rowCol="1,1" 	ancho="35"		maxlen="4"		tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cProgramaAnterior"	control="txtGridcProgramaPresupuestario"	dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcProgramaPresupuestario"	header="* Programa Presupuestario"		rowCol="1,2" 	ancho="35"		maxlen="10"		tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cProgramaNuevo"	control="hProgramaPresupuestarioOP"	dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="hProgramaPresupuestarioOP"	header="* Programa Presupuestario"		rowCol="2,1" 	ancho="35"		maxlen="10"		tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+	</grid>
+
+	<insertaRegistro>
+		<campo field="aEjercicioFiscal"			control="txtGridaEjercicioFiscal"		llave="Si"	identity="No" 	requerido="El ejercicio Fiscal es requerido"							requeridoFocus="txtGridaEjercicioFiscal"		tipo="string" />
+		<campo field="cProgramaAnterior"	control="txtGridcProgramaPresupuestario"	llave="Si"	identity="No" 	requerido="El Programa Presupuestario anterior es requerido"			requeridoFocus="txtGridcProgramaPresupuestario"		tipo="string" />
+		<campo field="cProgramaNuevo"	control="txtGridhProgramaPresupuestarioOP"	llave="Si"	identity="No" 	requerido="El Programa Presupuestario actual es requerido"			requeridoFocus="hProgramaPresupuestarioOP"		tipo="string" />
+	</insertaRegistro>
+	  
+</Ayuda>

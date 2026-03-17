@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteInformeBoletos" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.33100000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="326"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="whereFolio" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT DISTINCT CAST(nFolioComision AS VARCHAR(9)) nFolioComision, CONVERT(VARCHAR(12), fInforme,103) fInforme, cInformeComision
+, COM.RFC, rTRIM(emp.NOMBREN) + ' ' + RTRIM(emp.NOMBREP) + ' ' + RTRIM(emp.NOMBREM) Beneficiario
+, com.cConcepto_Comision, CONVERT(VARCHAR(12),com.fInicio,103) fInicio, CONVERT(VARCHAR(12),com.fFin,103) fFin
+, mImporteNeto, cPais, EDO_NOMBRE, MPO_NOMBRE, cLocalidad, Ubicacion
+, DESCRIPCION_PUESTO, emp.CARGO, UNIDAD
+,dbo.fnCantidadLetra(mImporteNeto) cantLetras
+,com.sFirmanteVoBo, com.sPuestoVoBo, com.sFirmanteAut, sPuestoAut
+, sFirmanteElabora, sPuestoElabora
+, dele.cNombreTitular + ' ' + dele.cApellidoPaternoTitular+ ' ' +  dele.cApellidoMaternoTitular NombreTitular
+, dele.cPuestoTitular
+, isnull( 'Firma ' + Sup.cTipoSuplencia + ' de: ' + sFirmanteAut + ', con fundamento en el oficio: ' + dele.cFolioOficio + ', de fecha: ' + CAST(dele.dFechaOficio AS VARCHAR(10)),'') Leyenda
+, delevb.cNombreTitular + ' ' + delevb.cApellidoPaternoTitular+ ' ' +  delevb.cApellidoMaternoTitular NombreTitularvb
+, delevb.cPuestoTitular PuestoTitularvb
+, isnull('Firma ' + SupVb.cTipoSuplencia +' de: ' + sFirmanteAut + ', con fundamento en el oficio: ' + delevb.cFolioOficio + ', de fecha: ' + CAST(delevb.dFechaOficio AS VARCHAR(10)), '') LeyendaVb
+FROM dbo.vw_ComisionesSinComprobacion com
+INNER JOIN dbo.v_ViaticosComisiones via
+ON com.nIdComision = via.nIdComision
+LEFT JOIN dbo.v_empleados_giro emp
+ON emp.RFC  = com.RFC COLLATE SQL_Latin1_General_CP1_CI_AS
+LEFT JOIN dbo.tPagoFirmanteDelagatorio Dele WITH (NOLOCK)
+ON dele.nFolioPago = com.nFolioComision AND  cTipoPago = 'COMSINVIATICOS'
+LEFT JOIN dbo.tPagoFirmanteDelegatorioVoBo DeleVb  WITH (NOLOCK)
+ON delevb.nFolioPago = com.nFolioComision AND  DeleVb.cTipoPago = 'COMSINVIATICOS'
+left JOIN tCatTipoSuplencia Sup WITH (NOLOCK)
+				ON Dele.nTipoSuplencia = Sup.ntiposuplencia
+LEFT JOIN tCatTipoSuplencia SupVb WITH (NOLOCK)
+				ON DeleVb.nTipoSuplencia = Supvb.ntiposuplencia
+where nFolioComision = $P{whereFolio} AND 1 = 1]]>
+	</queryString>
+	<field name="nFolioComision" class="java.lang.String"/>
+	<field name="fInforme" class="java.lang.String"/>
+	<field name="cInformeComision" class="java.lang.String"/>
+	<field name="RFC" class="java.lang.String"/>
+	<field name="Beneficiario" class="java.lang.String"/>
+	<field name="cConcepto_Comision" class="java.lang.String"/>
+	<field name="fInicio" class="java.lang.String"/>
+	<field name="fFin" class="java.lang.String"/>
+	<field name="mImporteNeto" class="java.math.BigDecimal"/>
+	<field name="cPais" class="java.lang.String"/>
+	<field name="EDO_NOMBRE" class="java.lang.String"/>
+	<field name="MPO_NOMBRE" class="java.lang.String"/>
+	<field name="cLocalidad" class="java.lang.String"/>
+	<field name="Ubicacion" class="java.lang.String"/>
+	<field name="DESCRIPCION_PUESTO" class="java.lang.String"/>
+	<field name="CARGO" class="java.lang.String"/>
+	<field name="UNIDAD" class="java.lang.String"/>
+	<field name="cantLetras" class="java.lang.String"/>
+	<field name="sFirmanteVoBo" class="java.lang.String"/>
+	<field name="sPuestoVoBo" class="java.lang.String"/>
+	<field name="sFirmanteAut" class="java.lang.String"/>
+	<field name="sPuestoAut" class="java.lang.String"/>
+	<field name="sFirmanteElabora" class="java.lang.String"/>
+	<field name="sPuestoElabora" class="java.lang.String"/>
+	<field name="NombreTitular" class="java.lang.String"/>
+	<field name="cPuestoTitular" class="java.lang.String"/>
+	<field name="Leyenda" class="java.lang.String"/>
+	<field name="NombreTitularvb" class="java.lang.String"/>
+	<field name="PuestoTitularvb" class="java.lang.String"/>
+	<field name="LeyendaVb" class="java.lang.String"/>
+	<variable name="laEP" class="java.lang.String">
+		<initialValueExpression><![CDATA["VARIAS"]]></initialValueExpression>
+	</variable>
+	<variable name="mImporteRetencion" class="java.lang.String"/>
+	<group name="caNoContrarrecibo">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="422" splitType="Stretch">
+				<staticText>
+					<reportElement key="staticText" x="6" y="230" width="139" height="14"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[CONCEPTO DE LA COMISIÓN]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line" x="281" y="331" width="270" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line" x="282" y="313" width="270" height="1"/>
+				</line>
+				<staticText>
+					<reportElement key="staticText" x="286" y="233" width="100" height="16"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Importe a Pagar:]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement key="rectangle" x="0" y="100" width="551" height="263"/>
+				</rectangle>
+				<textField>
+					<reportElement x="68" y="121" width="231" height="16"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{CARGO}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line" x="281" y="271" width="270" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line" x="0" y="239" width="281" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line" x="0" y="195" width="551" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line" x="281" y="239" width="1" height="105"/>
+				</line>
+				<staticText>
+					<reportElement key="staticText" x="6" y="198" width="112" height="14"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[MOTIVO DE LA COMISIÓN:]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line" x="0" y="174" width="551" height="1"/>
+				</line>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement key="textField" x="5" y="212" width="539" height="23"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cConcepto_Comision}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false">
+					<reportElement key="textField" x="415" y="279" width="131" height="18"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mImporteNeto}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement key="rectangle" x="298" y="35" width="128" height="50"/>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="425" y="35" width="126" height="50"/>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="172" y="35" width="127" height="50"/>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="172" y="2" width="379" height="36"/>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText" x="171" y="42" width="128" height="16"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[No. documento]]></text>
+				</staticText>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField" x="425" y="67" width="128" height="16"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fInforme}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement key="rectangle" x="0" y="84" width="551" height="16" backcolor="#CCCCCC"/>
+				</rectangle>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField" x="285" y="301" width="261" height="40"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cantLetras}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField" x="68" y="105" width="261" height="16"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Beneficiario}]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement key="image" x="1" y="1" width="165" height="68"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"\\logotipo-usuario.png"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement key="staticText" x="172" y="3" width="381" height="33"/>
+					<textElement textAlignment="Center">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[COMISION NACIONAL FORESTAL
+INFORME DE COMISIÓN SIN VIÁTICOS]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="363" y="121" width="183" height="16"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{UNIDAD}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement key="rectangle" x="0" y="138" width="551" height="16" backcolor="#CCCCCC"/>
+				</rectangle>
+				<textField isBlankWhenNull="true">
+					<reportElement x="175" y="69" width="126" height="14"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{nFolioComision}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText" x="1" y="142" width="551" height="14"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DATOS DEL VIAJE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="5" y="105" width="63" height="16"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[NOMBRE:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="5" y="121" width="63" height="16"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[CARGO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="301" y="121" width="63" height="16"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[UNIDAD:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="5" y="158" width="25" height="14"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[PAÍS:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="0" y="88" width="551" height="14"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DATOS DEL COMISIONADO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="298" y="42" width="128" height="16"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Tipo de documento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="425" y="42" width="128" height="16"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Fecha de Captura]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="286" y="279" width="124" height="18"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Importe Neto de Pasajes Aéreos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="120" y="158" width="37" height="14"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[ESTADO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="305" y="158" width="59" height="14"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[MUNICIPIO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="6" y="178" width="59" height="14"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[LOCALIDAD:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="307" y="178" width="56" height="14"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[UBICACIÓN:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="32" y="158" width="88" height="14"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cPais}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="159" y="158" width="140" height="14"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{EDO_NOMBRE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="66" y="178" width="232" height="14"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cLocalidad}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="360" y="178" width="185" height="14"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Ubicacion}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="359" y="158" width="187" height="14"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{MPO_NOMBRE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText" x="6" y="241" width="112" height="14"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[INFORME DE LA COMISIÓN:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField" x="6" y="257" width="263" height="86"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cInformeComision}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line" x="301" y="154" width="1" height="41"/>
+				</line>
+				<line>
+					<reportElement key="line" x="117" y="154" width="1" height="20"/>
+				</line>
+				<textField>
+					<reportElement x="326" y="255" width="84" height="14"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fInicio}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText" x="289" y="255" width="46" height="14"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[SALIDA:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="462" y="255" width="84" height="14"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fFin}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText" x="415" y="255" width="46" height="14"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[REGRESO:]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement x="281" y="239" width="270" height="13" backcolor="#CCCCCC"/>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText" x="282" y="239" width="269" height="14"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[FECHAS]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement key="rectangle" x="0" y="344" width="551" height="19" backcolor="#CCCCCC"/>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText" x="5" y="350" width="540" height="11"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[BOLETOS DE AVIÓN]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line" x="412" y="252" width="1" height="19"/>
+				</line>
+				<subreport>
+					<reportElement stretchType="RelativeToTallestObject" x="-1" y="363" width="551" height="58" isPrintWhenDetailOverflows="true"/>
+					<subreportParameter name="swhere">
+						<subreportParameterExpression><![CDATA[$P{whereFolio}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "SubReporteBoletos.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement key="staticText" x="299" y="67" width="128" height="16"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[INFORME DE COMISIÓN]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<pageFooter>
+		<band height="128" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="1" width="549" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="0" width="542" height="21"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Declaro por medio del presente documento una comisión oficial sin viaticos y pasajes terrestres. Autorizo pagar el importe neto al proveedor de
+boletaje aereo]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

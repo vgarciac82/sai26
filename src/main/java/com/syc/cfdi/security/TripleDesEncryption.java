@@ -23,11 +23,11 @@ public class TripleDesEncryption {
     static {
         try {
             Cipher.getInstance("DESede");
-        } catch (NoSuchAlgorithmException nsaex) {
-            log.error(nsaex.getMessage(), nsaex);
+        } catch (NoSuchAlgorithmException ex) {
+            log.error(ex.getMessage(), ex);
             log.error("Instalando proveedor SunJCE.");
-        } catch (NoSuchPaddingException nspex) {
-            log.error(nspex.getMessage(), nspex);
+        } catch (NoSuchPaddingException ex) {
+            log.error(ex.getMessage(), ex);
             log.error("Instalando proveedor SunJCE.");
         }
     }

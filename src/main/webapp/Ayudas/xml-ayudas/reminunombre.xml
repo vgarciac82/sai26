@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Interno -->
+<Ayuda>
+	<titulo>Remitentes Internos</titulo>
+	<anchoWin>587</anchoWin>
+	<altoWin>543</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>REMINTERNO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="U.U_LOGIN"			control="rem_in_u_login"		dependencia="No"		ctrlsDependientes=""					limpiaOnKeypress=""							header="Clave"	ancho="32"	maxlen="32"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="E.NOMBRECOMPL"		control="reminunombre"		dependencia="No"		ctrlsDependientes="rem_in_u_login,rem_in_pto_nombre,rem_in_d_descripcion"				
+		                                                                                                                                    limpiaOnKeypress="txtGridrem_in_u_login,txtGridrem_in_pto_nombre,txtGridrem_in_d_descripcion"	
+		                                                                                                                                                                                header="Nombre"	ancho="80"	maxlen="80"	    tipo="string"	visible="Si"	clase=""/>
+		<columna campo="P.PTO_NOMBRE"		control="rem_in_pto_nombre"		dependencia="No"		ctrlsDependientes=""					limpiaOnKeypress="txtGridrem_in_u_login"	header="Puesto"	ancho="80"	maxlen="200"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="A.D_DESCRIPCION"	control="rem_in_d_descripcion"	dependencia="No"		ctrlsDependientes=""					limpiaOnKeypress="txtGridrem_in_u_login"	header="Area"	ancho="80"	maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+	</grid> 
+		
+</Ayuda>

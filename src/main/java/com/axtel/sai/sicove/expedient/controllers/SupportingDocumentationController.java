@@ -77,7 +77,7 @@ public class SupportingDocumentationController extends HttpServlet {
         try {
             log.trace("Object: {}", "Testing if login is present: [" + request.getParameter("login") + "]");
             String login = request.getParameter("login");
-            log.debug("Object: {}", "Recibed login: " + login);
+            log.debug("Object: " + String.valueOf("Recibed login: " + login));
             if (StringUtils.isEmpty(login)) {
                 log.trace("Testing for session and user");
                 HttpSession session = request.getSession(false);
@@ -133,7 +133,7 @@ public class SupportingDocumentationController extends HttpServlet {
             if ("updateVerificationDetail".equals(action)) {
                 WalletFuelRequestVerificationDetail detail = mapper.readValue(request.getInputStream(), WalletFuelRequestVerificationDetail.class);
                 WalletFuelRequestVerificationDetail verificationDetail = verificationService.readFuelingVerificationDetail(detail.getIdDetail());
-                log.debug("Object: {}", "Before updating: " + verificationDetail);
+                log.debug("Object: " + String.valueOf("Before updating: " + verificationDetail));
                 verificationDetail.setAcepted(detail.isAcepted());
                 verificationDetail.setTicketObservations(detail.getTicketObservations());
                 verificationDetail = verificationService.updateFuelingVerificationDetail(verificationDetail);

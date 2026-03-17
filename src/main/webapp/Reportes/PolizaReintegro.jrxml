@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Poliza_Reint_Rect" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="cb5cde43-a8ac-4b3d-8521-f63fb450b9ac">
+	<property name="ireport.zoom" value="1.9487171000000243"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="472"/>
+	<parameter name="whereFolio" class="java.lang.String">
+		<defaultValueExpression><![CDATA["1"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="whereTipo" class="java.lang.String">
+		<defaultValueExpression><![CDATA["1"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[DECLARE @cTipoObra VARCHAR(50)
+DECLARE @nFolioReintegro VARCHAR(20)
+
+SET @cTipoObra = $P!{whereTipo}
+SET @nFolioReintegro = $P!{whereFolio}
+
+DECLARE @nFolioPago INT
+DECLARE @cTipoPago VARCHAR(64)
+DECLARE @sFirmanteDelegatorio VARCHAR(250)
+DECLARE @sPuestoFirmanteDelegatorio VARCHAR(70)
+DECLARE @sFirmanteAut VARCHAR(250)
+DECLARE @sLeyenda VARCHAR(500)
+DECLARE @sOficio VARCHAR(128)
+DECLARE @sFechaOficio VARCHAR(20)
+
+SET @nFolioPago = @nFolioReintegro
+SET @cTipoPago = ''
+SET @sFirmanteDelegatorio = ''
+SET @sPuestoFirmanteDelegatorio = ''
+SET @sFirmanteAut = ''
+SET @sLeyenda = ''
+SET @sOficio = ''
+SET @sFechaOficio = ''
+
+DECLARE @sFirmanteDeleVoBo VARCHAR(250)
+DECLARE @sPuestoFirmanteDeleVoBo VARCHAR(70)
+DECLARE @sFirmanteVoBo VARCHAR(250)
+DECLARE @sLeyendaVoBo VARCHAR(500)
+DECLARE @sOficioVoBo VARCHAR(128)
+DECLARE @sFechaOficioVoBo VARCHAR(20)
+
+SET @sFirmanteDeleVoBo = ''
+SET @sPuestoFirmanteDeleVoBo = ''
+SET @sFirmanteVoBo = ''
+SET @sLeyendaVoBo = ''
+SET @sOficioVoBo = ''
+SET @sFechaOficioVoBo = ''
+
+IF @cTipoObra = 'REINTEGROAUT' OR @cTipoObra = 'REINTEGROCONT'
+BEGIN
+	SET @cTipoPago = 'REINTEGRO'
+END
+
+IF (SELECT COUNT(*) FROM dbo.tReintegroEncabezado WITH (NOLOCK) WHERE nFolioReintegro = @nFolioPago) > 0
+BEGIN
+	IF (SELECT COUNT(*) FROM tPagoFirmanteDelagatorio WITH (NOLOCK) WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolioPago) > 0
+		BEGIN
+
+			SELECT TOP 1 @sFirmanteAut = sFirmanteAut FROM dbo.tReintegroEncabezado WITH (NOLOCK) WHERE nFolioReintegro = @nFolioPago
+
+			SELECT	@sFirmanteDelegatorio = (SELECT NOMBREN + ' ' + NOMBREP + ' ' + NOMBREM FROM v_empleados_giro WHERE CLAVE = cNumeroEmpleado),
+			@sPuestoFirmanteDelegatorio = (SELECT DESCRIPCION_PUESTO FROM v_empleados_giro WHERE CLAVE = cNumeroEmpleado)
+			, @sOficio = cFolioOficio, @sFechaOficio = CONVERT(varchar(10), CONVERT(date, dFechaOficio, 106), 103)
+			FROM tPagoFirmanteDelagatorio WITH (NOLOCK)
+			WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolioPago
+
+			SET @sLeyenda = 'Firma en suplencia de: ' + @sFirmanteAut + ', con fundamento en el oficio: ' + @sOficio + ', de fecha: ' + @sFechaOficio
+		END
+
+
+	IF (SELECT COUNT(*) FROM tPagoFirmanteDelegatorioVoBo WITH (NOLOCK) WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolioPago) > 0
+		BEGIN
+
+			SELECT TOP 1 @sFirmanteVoBo = sFirmanteRev FROM dbo.tReintegroEncabezado WITH (NOLOCK) WHERE nFolioReintegro = @nFolioPago
+
+			SELECT	@sFirmanteDeleVoBo = (SELECT NOMBREN + ' ' + NOMBREP + ' ' + NOMBREM FROM v_empleados_giro WHERE CLAVE = cNumeroEmpleado),
+			@sPuestoFirmanteDeleVoBo = (SELECT DESCRIPCION_PUESTO FROM v_empleados_giro WHERE CLAVE = cNumeroEmpleado)
+			, @sOficioVoBo = cFolioOficio, @sFechaOficioVoBo = CONVERT(varchar(10), CONVERT(date, dFechaOficio, 106), 103)
+			FROM tPagoFirmanteDelegatorioVoBo WITH (NOLOCK)
+			WHERE cTipoPago = @cTipoPago AND nFolioPago = @nFolioPago
+
+			SET @sLeyendaVoBo = 'Firma en suplencia de: ' + @sFirmanteVoBo + ', con fundamento en el oficio: ' + @sOficioVoBo + ', de fecha: ' + @sFechaOficioVoBo
+		END
+END
+
+SELECT  *
+, CASE WHEN nidprograma > 0 THEN 'Programa: ' + CAST(nidprograma AS VARCHAR(6)) + (SELECT ' ' + cprograma FROM tfideicomiso WITH (NOLOCK) WHERE id = CR.nidprograma AND nidprograma = CR.cUnidadResponsable ) ELSE '' END AS Programa
+, CASE WHEN cSubPrograma > 0 THEN 'SubPrograma: ' + (SELECT cdescsubprograma FROM tprogramafideicomiso WITH (NOLOCK) WHERE id = CR.nidprograma AND csubprograma = CR.cSubPrograma ) ELSE '' END AS SubPrograma
+FROM    ( SELECT    e.nFolioReintegro nFolioReintegro ,
+		(SELECT C_FOLIO FROM dbo.CG_CASO WHERE ID_TC=15 AND C_FOLIO LIKE '%-'+CAST(e.nFolioReintegro AS NVARCHAR(10)))C_FOLIO,
+                    ISNULL((SELECT CASE WHEN ISNULL(nFolioPoliza,0) = 0 THEN 'N/A' ELSE cTipoPoliza+' - ' +CAST(nFolioPoliza AS VARCHAR(10)) END  FROM tReintegroAutEncabezado WITH(NOLOCK) WHERE nFolioReintegroaut=e.nFolioReintegro),'N/A')nFolioPoliza ,
+                    (SELECT cTipoPoliza FROM tReintegroAutEncabezado WITH(NOLOCK) WHERE nFolioReintegroaut=e.nFolioReintegro)cTipoPoliza ,
+                    concepto ,
+                    observaciones ,
+                    'REINTEGROAUT' tipoObra ,
+                    e.cUnidadResponsable ,
+                    cDescripcion,
+                    fSolicitud as fAplicacion ,
+                    (SELECT dCausaAviso FROM dbo.tCatalogoCausaAviso WHERE aCausaAviso=e.tipoAviso AND cCausaAviso=e.causaAviso)causaAviso,
+                    (SELECT dTipoCausaAviso FROM dbo.tCatalogoTipoCausaAviso WHERE cTipoCausaAviso=e.tipoAviso)tipoAviso,
+		importeLC,
+		dbo.CantidadConLetra(importeLC)cantLetras,
+                    nDocRenglon,
+                    noCLC,
+                    EP,
+                    mImporte,
+                    d.cCentroContable,
+                    nCapitulo,
+                    cxp,
+                    RFC,
+                    CTAB,
+                    ISNULL(sFirmanteRev,' - ')sFirmanteRev,
+                    ISNULL(sPuestoRev,' - ')sPuestoRev,
+                    ISNULL(sFirmanteAut,' - ')sFirmanteAut,
+                    ISNULL(sPuestoAut,' - ')sPuestoAut,
+	          CASE WHEN nidprograma > 0 THEN nidprograma ELSE 0 END AS nidprograma,
+                    CASE WHEN cSubPrograma > 0 THEN cSubPrograma ELSE 0 END AS cSubPrograma,
+	@sFirmanteDelegatorio AS sFirmanteDelegatorio, @sPuestoFirmanteDelegatorio AS sPuestoFirmanteDelegatorio, 	@sLeyenda AS Leyenda, @sFirmanteDeleVoBo AS sFirmanteDeleVoBo, @sPuestoFirmanteDeleVoBo AS 			sPuestoFirmanteDeleVoBo, @sLeyendaVoBo AS LeyendaVoBo
+          FROM      dbo.tReintegroEncabezado e WITH (NOLOCK)
+          INNER JOIN dbo.tReintegroDetalle d WITH (NOLOCK) ON e.nFolioReintegro = d.nFolioReintegro
+          INNER JOIN (SELECT cc.cCentroContable,cUnidadResponsable,cDescripcion
+					FROM dbo.tCatalogoURCC ur WITH (NOLOCK)
+					INNER JOIN tCatalogoCentroContable cc WITH (NOLOCK)
+					ON ur.cCentroContable = cc.cCentroContable)cc
+		  ON e.cUnidadResponsable=cc.cUnidadResponsable
+          UNION
+          SELECT    e.nFolioReintegroMil nFolioReintegro,
+		(SELECT C_FOLIO FROM dbo.CG_CASO WHERE ID_TC=26 AND C_FOLIO LIKE '%-'+CAST(e.nFolioReintegroMil AS NVARCHAR(10)))C_FOLIO,
+                    CASE WHEN ISNULL(nFolioPoliza,0) = 0 THEN 'N/A' ELSE cTipoPoliza+' - ' +CAST(nFolioPoliza AS VARCHAR(10)) END  nFolioPoliza ,
+                    cTipoPoliza ,
+                    concepto ,
+                    observaciones ,
+                    'REINTEGROAUTMIL',
+                    e.cUnidadResponsable ,
+                    cDescripcion,
+                    fAplicacion ,
+                    (SELECT dCausaAviso FROM dbo.tCatalogoCausaAviso WHERE aCausaAviso=e.tipoAviso AND cCausaAviso=e.causaAviso)causaAviso,
+                    (SELECT dTipoCausaAviso FROM dbo.tCatalogoTipoCausaAviso WHERE cTipoCausaAviso=e.tipoAviso)tipoAviso,
+		importeLC,
+		dbo.CantidadConLetra(importeLC)cantLetras,
+		nDocRenglon,
+                    noCLC,
+                    EP,
+                    mImporte,
+                    d.cCentroContable,
+                    nCapitulo,
+                    cxp,
+                    RFC,
+                    d.CTAB,
+                    ISNULL(sFirmanteRev,' - ')sFirmanteRev,
+                    ISNULL(sPuestoRev,' - ')sPuestoRev,
+                    ISNULL(sFirmanteAut,' - ')sFirmanteAut,
+                    ISNULL(sPuestoAut,' - ')sPuestoAut,
+                    0 AS nidprograma,
+                    0 AS cSubPrograma,
+	@sFirmanteDelegatorio AS sFirmanteDelegatorio, @sPuestoFirmanteDelegatorio AS sPuestoFirmanteDelegatorio, 	@sLeyenda AS Leyenda, @sFirmanteDeleVoBo AS sFirmanteDeleVoBo, @sPuestoFirmanteDeleVoBo AS 			sPuestoFirmanteDeleVoBo, @sLeyendaVoBo AS LeyendaVoBo
+          FROM      dbo.tReintegroEncabezadoMil e WITH (NOLOCK)
+          INNER JOIN dbo.tReintegroDetalleMil d WITH (NOLOCK)
+          ON e.nFolioReintegroMil=d.nFolioReintegroMil
+           INNER JOIN (SELECT cc.cCentroContable,cUnidadResponsable,cDescripcion
+		 FROM dbo.tCatalogoURCC ur WITH (NOLOCK)
+		 INNER JOIN tCatalogoCentroContable cc WITH (NOLOCK)
+		 ON ur.cCentroContable = cc.cCentroContable)cc
+		 ON e.cUnidadResponsable=cc.cUnidadResponsable
+UNION
+          SELECT    e.nFolioReintegroAnexo1 nFolioReintegro,
+		(SELECT C_FOLIO FROM dbo.CG_CASO WHERE ID_TC=50 AND C_FOLIO LIKE '%-'+CAST(e.nFolioReintegroAnexo1 AS NVARCHAR(10)))C_FOLIO,
+                    CASE WHEN ISNULL(nFolioPoliza,0) = 0 THEN 'N/A' ELSE cTipoPoliza+' - ' +CAST(nFolioPoliza AS VARCHAR(10)) END  nFolioPoliza ,
+                    cTipoPoliza ,
+                    concepto ,
+                    observaciones ,
+                    'REINTEGROANEXO1' ,
+                    e.cUnidadResponsable ,
+                    cDescripcion,
+		ISNULL(fAplicacion,fSolicitud) ,
+                    (SELECT dCausaAviso FROM dbo.tCatalogoCausaAviso WHERE aCausaAviso=e.tipoAviso AND cCausaAviso=e.causaAviso)causaAviso,
+                    (SELECT dTipoCausaAviso FROM dbo.tCatalogoTipoCausaAviso WHERE cTipoCausaAviso=e.tipoAviso)tipoAviso,
+		importeLC,
+		dbo.CantidadConLetra(importeLC)cantLetras,
+		nDocRenglon,
+                    noCLC,
+                    EP,
+                    mImporte,
+                    d.cCentroContable,
+                    nCapitulo,
+                    cxp,
+                    CASE WHEN RFC<>'' THEN RFC ELSE 'TESOFE' END RFC,
+                    d.CTAB,
+                    ISNULL(sFirmanteRev,' - ')sFirmanteRev,
+                    ISNULL(sPuestoRev,' - ')sPuestoRev,
+                    ISNULL(sFirmanteAut,' - ')sFirmanteAut,
+                    ISNULL(sPuestoAut,' - ')sPuestoAut,
+                    0 AS nidprograma,
+                    0 AS cSubPrograma,
+	@sFirmanteDelegatorio AS sFirmanteDelegatorio, @sPuestoFirmanteDelegatorio AS sPuestoFirmanteDelegatorio, 	@sLeyenda AS Leyenda, @sFirmanteDeleVoBo AS sFirmanteDeleVoBo, @sPuestoFirmanteDeleVoBo AS 			sPuestoFirmanteDeleVoBo, @sLeyendaVoBo AS LeyendaVoBo
+          FROM      dbo.tReintegroAnexo1Encabezado e WITH (NOLOCK)
+          INNER JOIN dbo.tReintegroAnexo1Detalle d WITH (NOLOCK)
+          ON e.nFolioReintegroAnexo1=d.nFolioReintegroAnexo1
+           INNER JOIN (SELECT cc.cCentroContable,cUnidadResponsable,cDescripcion
+		 FROM dbo.tCatalogoURCC ur WITH (NOLOCK)
+		 INNER JOIN tCatalogoCentroContable cc WITH (NOLOCK)
+		 ON ur.cCentroContable = cc.cCentroContable)cc
+		 ON e.cUnidadResponsable=cc.cUnidadResponsable
+UNION
+		SELECT    e.nFolioReintegro nFolioReintegro,
+		(SELECT C_FOLIO FROM dbo.CG_CASO WHERE ID_TC=52 AND C_FOLIO LIKE '%-'+CAST(e.nFolioReintegro AS NVARCHAR(10)))C_FOLIO,
+                    ISNULL((SELECT CASE WHEN ISNULL(nFolioPoliza,0) = 0 THEN 'N/A' ELSE cTipoPoliza+' - ' +CAST(nFolioPoliza AS VARCHAR(10)) END
+							FROM tReintegroAutEncabezado WITH(NOLOCK) WHERE nFolioReintegroaut=e.nFolioReintegro),'N/A')nFolioPoliza ,
+                    (SELECT cTipoPoliza FROM tReintegroAutEncabezado WITH(NOLOCK) WHERE nFolioReintegroaut=e.nFolioReintegro)cTipoPoliza ,
+                    concepto ,
+                    observaciones ,
+                    'REINTEGROCONT' ,
+                    e.cUnidadResponsable ,
+                    cDescripcion,
+                    fAplicacion ,
+                    (SELECT dCausaAviso FROM dbo.tCatalogoCausaAviso WHERE aCausaAviso=e.tipoAviso AND cCausaAviso=e.causaAviso)causaAviso,
+                    (SELECT dTipoCausaAviso FROM dbo.tCatalogoTipoCausaAviso WHERE cTipoCausaAviso=e.tipoAviso)tipoAviso,
+		importeLC,
+		dbo.CantidadConLetra(importeLC)cantLetras,
+		nDocRenglon,
+                    noCLC,
+                    EP,
+                    mImporte,
+                    d.cCentroContable,
+                    nCapitulo,
+                    cxp,
+                    RFC,
+                    d.CTAB,
+                    ISNULL(sFirmanteRev,' - ')sFirmanteRev,
+                    ISNULL(sPuestoRev,' - ')sPuestoRev,
+                    ISNULL(sFirmanteAut,' - ')sFirmanteAut,
+                    ISNULL(sPuestoAut,' - ')sPuestoAut,
+                    CASE WHEN RFC = 'BMN930209927' THEN nidprograma ELSE 0 END AS nidprograma,
+                    CASE WHEN RFC = 'BMN930209927' THEN cSubPrograma ELSE 0 END AS cSubPrograma,
+	@sFirmanteDelegatorio AS sFirmanteDelegatorio, @sPuestoFirmanteDelegatorio AS sPuestoFirmanteDelegatorio, 	@sLeyenda AS Leyenda, @sFirmanteDeleVoBo AS sFirmanteDeleVoBo, @sPuestoFirmanteDeleVoBo AS 			sPuestoFirmanteDeleVoBo, @sLeyendaVoBo AS LeyendaVoBo
+          FROM      dbo.tReintegroEncabezado e WITH (NOLOCK)
+          INNER JOIN dbo.tReintegroDetalle d WITH (NOLOCK)
+          ON e.nFolioReintegro=d.nFolioReintegro
+           INNER JOIN (SELECT cc.cCentroContable,cUnidadResponsable,cDescripcion
+		 FROM dbo.tCatalogoURCC ur WITH (NOLOCK)
+		 INNER JOIN tCatalogoCentroContable cc WITH (NOLOCK)
+		 ON ur.cCentroContable = cc.cCentroContable)cc
+		 ON e.cUnidadResponsable=cc.cUnidadResponsable
+
+UNION
+		SELECT    e.nFolioReintegroIngreso nFolioReintegro,
+		(SELECT C_FOLIO FROM dbo.CG_CASO WHERE ID_TC=59 AND C_FOLIO LIKE '%-'+CAST(e.nFolioReintegroIngreso AS NVARCHAR(10)))C_FOLIO,
+                     CASE WHEN ISNULL(nFolioPoliza,0) = 0 THEN 'N/A' ELSE cTipoPoliza+' - ' +CAST(nFolioPoliza AS VARCHAR(10)) END nFolioPoliza,
+                    cTipoPoliza ,
+                    concepto ,
+                    observaciones ,
+                    'REINTEGROINGRESO' ,
+                    e.cUnidadResponsable  ,
+                    cDescripcion,
+                    CASE WHEN ISNULL(cDocumentoHaplicado, '') = '' THEN GETDATE() ELSE fAplicacion END AS fAplicacion ,
+                    (SELECT dCausaAviso FROM dbo.tCatalogoCausaAviso WHERE aCausaAviso=e.tipoAviso AND cCausaAviso=e.causaAviso)causaAviso,
+                    (SELECT dTipoCausaAviso FROM dbo.tCatalogoTipoCausaAviso WHERE cTipoCausaAviso=e.tipoAviso)tipoAviso,
+		importeLC,
+		dbo.CantidadConLetra(importeLC)cantLetras,
+		nDocRenglon,
+                    noCLC,
+                    EP,
+                    mImporte,
+                    d.cCentroContable,
+                    nCapitulo,
+                    cxp,
+                    RFC,
+                    d.CTAB,
+                    ISNULL(sFirmanteRev,' - ')sFirmanteRev,
+                    ISNULL(sPuestoRev,' - ')sPuestoRev,
+                    ISNULL(sFirmanteAut,' - ')sFirmanteAut,
+                    ISNULL(sPuestoAut,' - ')sPuestoAut,
+                    0 AS nidprograma,
+                    0 AS cSubPrograma,
+	@sFirmanteDelegatorio AS sFirmanteDelegatorio, @sPuestoFirmanteDelegatorio AS sPuestoFirmanteDelegatorio, 	@sLeyenda AS Leyenda, @sFirmanteDeleVoBo AS sFirmanteDeleVoBo, @sPuestoFirmanteDeleVoBo AS 			sPuestoFirmanteDeleVoBo, @sLeyendaVoBo AS LeyendaVoBo
+          FROM      dbo.tReintegroIngresoEncabezado e WITH (NOLOCK)
+          INNER JOIN dbo.tReintegroIngresoDetalle d WITH (NOLOCK)
+          ON e.nFolioReintegroIngreso=d.nFolioReintegroIngreso
+           INNER JOIN (SELECT cc.cCentroContable,cUnidadResponsable,cDescripcion
+		 FROM dbo.tCatalogoURCC ur WITH (NOLOCK)
+		 INNER JOIN tCatalogoCentroContable cc WITH (NOLOCK)
+		 ON ur.cCentroContable = cc.cCentroContable)cc
+		 ON e.cUnidadResponsable=cc.cUnidadResponsable
+
+        ) CR
+WHERE nFolioReintegro = @nFolioPago
+AND tipoObra = @cTipoObra]]>
+	</queryString>
+	<field name="nFolioReintegro" class="java.lang.Integer"/>
+	<field name="C_FOLIO" class="java.lang.String"/>
+	<field name="nFolioPoliza" class="java.lang.String"/>
+	<field name="cTipoPoliza" class="java.lang.String"/>
+	<field name="concepto" class="java.lang.String"/>
+	<field name="observaciones" class="java.lang.String"/>
+	<field name="tipoObra" class="java.lang.String"/>
+	<field name="cUnidadResponsable" class="java.lang.String"/>
+	<field name="cDescripcion" class="java.lang.String"/>
+	<field name="fAplicacion" class="java.sql.Timestamp"/>
+	<field name="causaAviso" class="java.lang.String"/>
+	<field name="tipoAviso" class="java.lang.String"/>
+	<field name="importeLC" class="java.math.BigDecimal"/>
+	<field name="cantLetras" class="java.lang.String"/>
+	<field name="nDocRenglon" class="java.lang.Integer"/>
+	<field name="noCLC" class="java.lang.Integer"/>
+	<field name="EP" class="java.lang.String"/>
+	<field name="mImporte" class="java.math.BigDecimal"/>
+	<field name="cCentroContable" class="java.lang.String"/>
+	<field name="nCapitulo" class="java.lang.String"/>
+	<field name="cxp" class="java.lang.String"/>
+	<field name="RFC" class="java.lang.String"/>
+	<field name="CTAB" class="java.lang.String"/>
+	<field name="sFirmanteRev" class="java.lang.String"/>
+	<field name="sPuestoRev" class="java.lang.String"/>
+	<field name="sFirmanteAut" class="java.lang.String"/>
+	<field name="sPuestoAut" class="java.lang.String"/>
+	<field name="nidprograma" class="java.lang.Integer"/>
+	<field name="cSubPrograma" class="java.lang.Integer"/>
+	<field name="sFirmanteDelegatorio" class="java.lang.String"/>
+	<field name="sPuestoFirmanteDelegatorio" class="java.lang.String"/>
+	<field name="Leyenda" class="java.lang.String"/>
+	<field name="sFirmanteDeleVoBo" class="java.lang.String"/>
+	<field name="sPuestoFirmanteDeleVoBo" class="java.lang.String"/>
+	<field name="LeyendaVoBo" class="java.lang.String"/>
+	<field name="Programa" class="java.lang.String"/>
+	<field name="SubPrograma" class="java.lang.String"/>
+	<group name="caNoContrarrecibo">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="235">
+				<rectangle>
+					<reportElement key="rectangle" x="0" y="83" width="551" height="152" uuid="3b85c28c-c8af-491a-a2d4-abd60652eab7"/>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText" x="284" y="107" width="69" height="12" uuid="757476b7-ceff-4a22-973f-084ff47ab168"/>
+					<textElement verticalAlignment="Top">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Importe a Pagar:]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line" x="281" y="104" width="1" height="58" uuid="b3edffe5-9944-475a-a7e1-f67eb391b598"/>
+				</line>
+				<line>
+					<reportElement key="line" x="0" y="162" width="551" height="1" uuid="7617fb1a-fcfd-43ac-a0a3-218b1fec39a7"/>
+				</line>
+				<rectangle>
+					<reportElement key="rectangle" x="171" y="1" width="380" height="50" uuid="5c1d340d-d3e6-4a4b-b85b-9e90a336b99c"/>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText" x="298" y="1" width="127" height="16" uuid="19ad23e6-b515-43ef-9816-5f8bd77a6a28"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Tipo de documento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="424" y="1" width="127" height="16" uuid="ff22a148-d963-489d-9292-467c27413af6"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Fecha de Aplicacion]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement key="rectangle" x="171" y="47" width="190" height="36" uuid="9be0c366-3ce5-49a8-8d7f-f7f8f1c6c179"/>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText" x="171" y="50" width="190" height="11" uuid="af5ef296-f3ff-4a3c-a5d1-62af01d79d94"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Causa Aviso]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement key="rectangle" x="361" y="47" width="190" height="36" uuid="db4e029b-ad46-41d3-b51a-0e4ed805301f"/>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText" x="34" y="69" width="115" height="14" uuid="5ef78219-5c5b-438c-beed-6f8c5f76e8fa"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[CUENTA POR PAGAR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="172" y="1" width="127" height="16" uuid="f1fc9f7f-8c30-4083-97a6-abad8db08dd8"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[No. documento]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement key="rectangle" x="0" y="83" width="551" height="21" uuid="0a045c82-a899-45b7-8061-77858084c14b"/>
+				</rectangle>
+				<rectangle>
+					<reportElement key="rectangle" x="361" y="83" width="190" height="21" uuid="347d7d32-39c6-4cc7-a28e-a5f70075d3e7"/>
+				</rectangle>
+				<staticText>
+					<reportElement key="staticText" x="6" y="164" width="81" height="11" uuid="4e233ac2-f9bc-4e01-a8d1-709ca7f71424"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Concepto:]]></text>
+				</staticText>
+				<line>
+					<reportElement x="424" y="1" width="1" height="45" uuid="6f644255-8937-45b6-9f4c-2c95df7d96de"/>
+				</line>
+				<line>
+					<reportElement x="297" y="1" width="1" height="45" uuid="3a1e0a37-ad01-440b-9608-d9a67a9e29b0"/>
+				</line>
+				<staticText>
+					<reportElement key="staticText" x="361" y="83" width="189" height="11" uuid="e8abd25c-c18d-4a5d-8782-1836b60ae4af"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Poliza]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="6" y="83" width="75" height="21" uuid="48e95c24-5891-41a3-97a8-f61a0de2284e"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cUnidadResponsable}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="299" y="17" width="126" height="29" uuid="c86a81f2-f87f-49a3-b0ef-7dc7a73bb744"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tipoObra}.equals( "REINTEGROAUT" ) ? "REINTEGRO"
+: $F{tipoObra}.equals( "REINTEGROANEXO1" ) ? "REINTEGRO SOL X PAGAR"
+: $F{tipoObra}.equals( "REINTEGROCONT" ) ? "LIBERACION SOLICITUD PARA NUEVO REGISTRO"
+: $F{tipoObra}.equals( "REINTEGROINGRESO" ) ? "REINTEGRO INGRESO"
+: "REINTEGRO MIL"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="353" y="107" width="198" height="12" uuid="8219ff6a-ae3d-4067-a842-69f9b97fff35"/>
+					<textElement verticalAlignment="Top">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{importeLC}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="284" y="120" width="268" height="42" uuid="f2be3b14-f4d3-4cf6-93fe-98b4e2389d94"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cantLetras}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="85" y="83" width="276" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="c425a0d6-38a5-4946-9526-0ee074a228e2"/>
+					<textElement verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cDescripcion}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="425" y="17" width="127" height="29" forecolor="#000000" backcolor="#FFFFFF" uuid="73f2bc4e-174c-4043-be93-0543e4af2c34"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fAplicacion}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText" x="361" y="50" width="189" height="11" uuid="24a810bf-5982-4446-a32f-003f73077cde"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Tipo Aviso]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="171" y="61" width="190" height="22" uuid="9ff0f668-cde3-4312-8861-35d10bdc5d15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{causaAviso}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="361" y="61" width="189" height="22" uuid="ac7da6c3-9d6f-4505-9d79-c50da31c5c0f"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tipoAviso}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="6" y="175" width="544" height="46" uuid="0784271a-df3c-4ba4-bc3b-e369773c5528"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{concepto}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="361" y="94" width="190" height="10" uuid="2181fd25-4cf1-4830-9803-0360b8ae216e"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nFolioPoliza}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="172" y="17" width="126" height="27" uuid="d4b75737-c024-4ba2-a72b-36d44e93c2c4"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{C_FOLIO}]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement key="image" x="0" y="0" width="171" height="65" uuid="bcd2cb15-1ab9-41d8-a3b2-80113abfbe24"/>
+					<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"\\logotipo-usuario.png"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement key="staticText" x="274" y="221" width="68" height="14" uuid="f7a346bd-dcce-4417-8fd4-d4cda14b5b3b"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Importe]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="342" y="221" width="104" height="14" uuid="82104184-71ab-41d0-b80d-9f10ccec3df9"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[CXP]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" x="445" y="221" width="105" height="14" uuid="a6319b85-b78c-4280-afe0-dee1ee12ed7e"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[RFC]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line" x="0" y="221" width="551" height="1" uuid="76377286-35db-4d91-b2ee-d5a7ee3bd4e3"/>
+				</line>
+				<staticText>
+					<reportElement key="staticText" x="1" y="221" width="273" height="14" uuid="f5382043-5360-439f-b0fe-32ba9f6d477d"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Clave presupuestaria]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line" x="342" y="222" width="1" height="13" uuid="bb2905a1-786f-4a42-8144-3fd9d602fa98"/>
+				</line>
+				<line>
+					<reportElement key="line" x="446" y="222" width="1" height="13" uuid="c1295437-690b-4ae5-ad91-af32c2d7bc37"/>
+				</line>
+				<line>
+					<reportElement key="line" x="274" y="222" width="1" height="13" uuid="95b5b29b-b5a2-462e-8c22-8c4433c30147"/>
+				</line>
+				<textField>
+					<reportElement x="1" y="135" width="280" height="12" uuid="d20c0a43-6df6-4701-83b3-c2e9369860f6"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Programa}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="1" y="148" width="280" height="12" uuid="e3be3a22-68b0-4033-ac14-8bca768676fe"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{SubPrograma}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="1" y="121" width="280" height="12" uuid="73cb0a27-cba9-4eee-8ff3-42e13a7ba1ae"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tipoObra}.equals( "REINTEGROINGRESO" ) ? "  COMISION NACIONAL FORESTAL"
+: "  TESORERIA DE LA FEDERACION"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="1" y="107" width="280" height="12" uuid="b8fd1ab3-4c4f-49b4-84bc-6b97b91d3497"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tipoObra}.equals( "REINTEGROINGRESO" ) ? "  A favor de:   CNF010405EG1"
+: "  A favor de:   TESOFE"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="2">
+				<line>
+					<reportElement key="line" x="0" y="0" width="552" height="1" uuid="7879d81c-c00e-403e-a18b-6cc7617f5274"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<detail>
+		<band height="11" splitType="Stretch">
+			<line>
+				<reportElement key="line" x="274" y="0" width="1" height="11" uuid="edb3b170-ed56-4d05-af4e-7a2f2a5fb3a0"/>
+			</line>
+			<line>
+				<reportElement key="line" x="342" y="0" width="1" height="11" uuid="80039035-b76c-4349-9c98-aeee593440ed"/>
+			</line>
+			<line>
+				<reportElement key="line" x="551" y="0" width="1" height="11" uuid="5a51ad9e-6c8c-4526-bcb5-8e30f55c9df1"/>
+			</line>
+			<line>
+				<reportElement key="line" x="0" y="0" width="1" height="11" uuid="9c1b410d-5a8f-4c30-a8e9-47dcca7abc8c"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="0" width="275" height="11" uuid="422ec820-9d39-4178-bb8f-b50ff5deeceb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EP}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="274" y="0" width="65" height="11" uuid="1514ee96-9717-4d07-8352-0e9884109383"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mImporte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="343" y="0" width="103" height="11" uuid="6db170a9-f83a-4840-99f2-92d2e0ededbb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cxp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="446" y="0" width="105" height="11" uuid="4ff27faa-df0b-4fb2-862d-d78bbb3dfa07"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RFC}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line" x="446" y="0" width="1" height="11" uuid="7ae31762-4eb8-404b-ab8c-ba3e1bddcb08"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="110" splitType="Stretch">
+			<staticText>
+				<reportElement x="24" y="2" width="223" height="108" uuid="fdad3150-6811-4318-b562-3efea6f6d787"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[   Responsable de la recepción del bien o servicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="304" y="2" width="223" height="108" uuid="3e5a7b07-9251-45bf-818e-abd60eef108d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[   Autorizó]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="304" y="77" width="223" height="12" uuid="c2d4b295-2c22-40d8-b5d8-7250788b8781"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $F{Leyenda}.equals( "" )) ? $F{sFirmanteAut} : $F{sFirmanteDelegatorio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="304" y="89" width="223" height="19" uuid="b3d16d9b-3f6d-472f-97e1-b0de0ad948a3"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{Leyenda}.equals( "" )) ? $F{sPuestoAut} : $F{sPuestoFirmanteDelegatorio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="24" y="77" width="223" height="12" uuid="869903a2-e3da-4872-851e-383667e85917"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $F{LeyendaVoBo}.equals( "" )) ? $F{sFirmanteRev} : $F{sFirmanteDeleVoBo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="24" y="89" width="223" height="19" uuid="9b912ff9-2348-4a01-aabb-e2569d0c4596"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{LeyendaVoBo}.equals( "" )) ? $F{sPuestoRev} : $F{sPuestoFirmanteDeleVoBo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="304" y="47" width="223" height="30" uuid="c0fa1c89-8731-4af1-8769-9474e675ac38"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Leyenda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="24" y="47" width="223" height="30" uuid="09f6e014-04e7-4eda-8e3e-c46447efbbb1"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LeyendaVoBo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

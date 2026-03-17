@@ -232,7 +232,7 @@ public class SaldoManager {
                 String cuentaSaldo = rs.getString("nCuenta").substring(0, 5);
                 int mes = Integer.parseInt(rs.getString("nCuenta").substring(6, 11));
                 BigDecimal montoMes = rs.getBigDecimal("mSaldoArrastre");
-                log.debug("Object: {}", "Cuenta: " + cuentaSaldo + " Mes: " + mes + " Monto: " + Util.formatNumber(montoMes));
+                log.debug("Object: " + String.valueOf("Cuenta: " + cuentaSaldo + " Mes: " + mes + " Monto: " + Util.formatNumber(montoMes)));
                 calendario.set(mes - 1, new SaldoMensual(cuentaSaldo, montoMes, mes));
             }
         } finally {

@@ -686,7 +686,7 @@ public class ProcessAgreementManager {
             fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
         } finally {
             if (fos != null) {

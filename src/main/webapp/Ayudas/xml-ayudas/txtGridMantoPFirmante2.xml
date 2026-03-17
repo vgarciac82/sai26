@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Catálogo de Areas</titulo>
+	<anchoWin>700</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>VIMX_AREAS</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>1</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="ID_AREA"		control="txtGridCol3"				dependencia="No"	ctrlsDependientes=""				limpiaOnKeypress=""				header="ID Area"	ancho="20"		maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="D_DESCRIPCION"	control="txtGridMantoPFirmante2"	dependencia="No"	ctrlsDependientes="txtGridCol3"		limpiaOnKeypress=""				header="Area"		ancho="100"		maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+	</grid>
+
+</Ayuda>

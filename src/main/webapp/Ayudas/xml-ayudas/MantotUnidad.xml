@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Unidades Responsables</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>130</altoAreaCaptura>
+	<tabla>M_TCATALOGOUNIDADRESPONSABLE</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cUnidadResponsable"	control="cUnidadResponsable"		dependencia="No"			limpiaOnKeypress=""	 					ctrlsDependientes=""				 rowCol="1,1"	header="Unidad"	 ancho="10"		maxlen="3" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="ID_AREA"			control="MantoIDArea" 					dependencia="No"			limpiaOnKeypress=""	 					ctrlsDependientes=""				 rowCol="2,1"	header="Clave"	 ancho="10"		maxlen="38"  tipo="int" 	visible="Si"	clase="Protegido"/>
+		<columna campo="D_DESCRIPCION"		control="MantoAreaListado"				dependencia="No"			limpiaOnKeypress="txtGridMantoIDArea"	ctrlsDependientes="MantoIDArea"      rowCol="2,2"	header="Area"	 ancho="100"	maxlen="100" tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="cUnidadResponsable"	control="txtGridcUnidadResponsable"	llave="Si"			identity="No"	requerido="Unidad es un dato requerido."					requeridoFocus="txtGridcUnidadResponsable"	tipo="string" />
+		<campo field="ID_AREA"				control="txtGridMantoIDArea"		llave="No"			identity="No"	requerido="Area es un dato requerido."						requeridoFocus="txtGridMantoIDArea"			tipo="int" />
+		<!-- <campo field="D_DESCRIPCION"		control="txtGridMantoAreaListado"	llave="No"			identity="No"	requerido="La descripción del Area es un dato requerido."	requeridoFocus="txtGridMantoAreaListado"	tipo="int" /> -->		
+	</insertaRegistro>
+	
+</Ayuda>
+

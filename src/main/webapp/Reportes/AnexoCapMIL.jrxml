@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OperAjenas" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="25799b2c-a3a0-42b4-bc2a-9af5aa41d55d">
+	<property name="ireport.zoom" value="1.2100000000000009"/>
+	<property name="ireport.x" value="221"/>
+	<property name="ireport.y" value="19"/>
+	<parameter name="nFolioOperAjenas" class="java.lang.String">
+		<defaultValueExpression><![CDATA[11]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT TOAE.caNoContrarreciboCLC AS caNoContrarreciboEnb,
+	TOAE.cIDRFC,
+   	sbeneficiario nombreOA,
+	d.caNoContrarrecibo,
+	d.ep,
+	d.ID_TIPO_CONCEPTO,
+	d.ID_TIPO_MOVIMIENTO,
+	convert(decimal(14, 2), d.mImporteNeto) ImportesTotal,
+	isnull(cConcepto, 'NOMINA CLC 2013') cNombre
+FROM tNOMINACLCEncabezado TOAE, tNOMINACLCDetalle D, tBeneficiarioCapituloMil B
+WHERE TOAE.nFolioNOMINACLC = d.nFolioNOMINACLC AND
+      TOAE.cIDRFC = B.sCodigoEntidad and
+      TOAE.nFolioNOMINACLC = $P{nFolioOperAjenas}
+order by d.ID_TIPO_CONCEPTO,
+	d.ID_TIPO_MOVIMIENTO]]>
+	</queryString>
+	<field name="caNoContrarreciboEnb" class="java.lang.String"/>
+	<field name="cIDRFC" class="java.lang.String"/>
+	<field name="nombreOA" class="java.lang.String"/>
+	<field name="caNoContrarrecibo" class="java.lang.String"/>
+	<field name="ep" class="java.lang.String"/>
+	<field name="ID_TIPO_CONCEPTO" class="java.lang.String"/>
+	<field name="ID_TIPO_MOVIMIENTO" class="java.lang.String"/>
+	<field name="ImportesTotal" class="java.math.BigDecimal"/>
+	<field name="cNombre" class="java.lang.String"/>
+	<variable name="caNoContrarrecibo" class="java.lang.String"/>
+	<variable name="RFC" class="java.lang.String"/>
+	<variable name="cFolioPAGODIVERSO" class="java.lang.String"/>
+	<variable name="Retencion" class="java.lang.String"/>
+	<variable name="ImportesTotal" class="java.lang.Number" calculation="Sum"/>
+	<variable name="variable1" class="java.lang.String"/>
+	<variable name="ep" class="java.lang.String"/>
+	<variable name="ImportesTotal_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ImportesTotal}]]></variableExpression>
+	</variable>
+	<variable name="cNombre" class="java.lang.String"/>
+	<variable name="caNoContrarreciboEnb" class="java.lang.String"/>
+	<variable name="cbeneficiario" class="java.lang.String"/>
+	<variable name="variable2" class="java.lang.String"/>
+	<variable name="ImportesTotal_2" class="java.math.BigDecimal" resetType="Group" resetGroup="Concepto" calculation="Sum">
+		<variableExpression><![CDATA[$F{ImportesTotal}]]></variableExpression>
+	</variable>
+	<group name="Concepto">
+		<groupExpression><![CDATA[$F{ID_TIPO_CONCEPTO} + $F{ID_TIPO_MOVIMIENTO}]]></groupExpression>
+		<groupFooter>
+			<band height="27">
+				<textField pattern="¤ #,##0.00" isBlankWhenNull="false">
+					<reportElement x="645" y="5" width="100" height="11" uuid="e7b995af-ec90-40ed-94e4-373509e16160"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{ImportesTotal_2}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="472" y="5" width="164" height="13" uuid="3b1168e1-b9e7-4829-ae13-824fe0c737ab"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Total:" + $F{ID_TIPO_CONCEPTO}.toString() + " - " + $F{ID_TIPO_MOVIMIENTO}.toString()]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement key="image" x="2" y="2" width="131" height="36" uuid="95e85d76-0e16-4d0f-81f2-4eb3b60cbd30"/>
+				<imageExpression><![CDATA["report\\images\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement key="staticText-5" x="246" y="12" width="292" height="66" uuid="f25177a7-ae25-4403-aacd-de952d9dc627"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISTEMA DE ADMINISTRACION INTEGRAL (SAI)
+ANEXO DE CUENTAS POR PAGAR DE CAPITULO MIL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-24" x="246" y="-1" width="292" height="13" uuid="a56d8700-d9b9-4b4e-b359-5970a9fef1d3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText" x="10" y="21" width="96" height="16" uuid="adc30278-b084-4f80-a03c-15cabf1dd140"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Beneficiario :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="10" y="2" width="96" height="16" uuid="368d004e-c57c-4f0f-a6b8-f7327537ed7d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[No. documento :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="498" y="2" width="96" height="16" uuid="f6c2a642-2646-493d-915b-c7c4d285255d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Cuenta por Pagar :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="37" width="800" height="1" uuid="11710383-966f-495a-8894-63d016fa5a51"/>
+			</line>
+			<textField>
+				<reportElement x="107" y="2" width="100" height="16" uuid="f9d8a0a4-b2bd-488f-b917-c2417344209c"/>
+				<textFieldExpression><![CDATA[$F{cNombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="595" y="1" width="100" height="17" uuid="9f39f126-7c9b-4bc3-bf98-e25a0b97cb92"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{caNoContrarreciboEnb}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="211" y="21" width="327" height="18" uuid="9e645b2f-d23e-4396-8bd6-f00f06f1038a"/>
+				<textFieldExpression><![CDATA[$F{nombreOA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="109" y="21" width="100" height="18" uuid="228a615d-0bb6-4f02-9b3d-fd29566462e3"/>
+				<textFieldExpression><![CDATA[$F{cIDRFC}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText" x="24" y="8" width="85" height="16" uuid="674c20b1-55a3-4393-940d-a128da524438"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Cuenta por Pagar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="165" y="8" width="153" height="16" uuid="d7b41d56-81b3-4dd2-821a-069e4948d01b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[E.P. :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="424" y="7" width="96" height="16" uuid="89fc8df3-b426-4724-92f6-041275ca0f02"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Concepto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="656" y="0" width="86" height="33" uuid="bd6c06f9-2884-4267-ab01-3199ed6e8c00"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Importe:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="4" y="33" width="800" height="1" uuid="ffc9ba11-3ba2-414a-89a9-cf41c1dea636"/>
+			</line>
+			<staticText>
+				<reportElement x="531" y="7" width="100" height="17" uuid="34a67bb8-f7af-4158-9761-684c50bbfeaf"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Movimiento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="25" y="1" width="84" height="14" uuid="65caf429-9a91-4039-bf68-6e326f71b086"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caNoContrarrecibo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="126" y="1" width="263" height="14" uuid="291b356d-03e6-49fb-aeb9-89f75f0f3048"/>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ep}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="642" y="1" width="100" height="14" uuid="7fcceb49-f72a-4b9e-af82-1a5fecf03b3a"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ImportesTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="443" y="1" width="56" height="14" uuid="fa317c8d-111e-45e2-a4b1-7d929278e6cb"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ID_TIPO_CONCEPTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="531" y="1" width="100" height="14" uuid="d601917a-0b05-4743-a7c6-81176c6705df"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ID_TIPO_MOVIMIENTO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="17" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="577" y="11" width="100" height="20" uuid="f795a021-1c65-44b4-8a47-997d9d00bac8"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Total General:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="677" y="11" width="123" height="20" uuid="51d6f9dd-6661-475f-ac2f-bf0c52433d53"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{ImportesTotal_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

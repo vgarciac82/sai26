@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!-- Ayuda UNIDAD MEDIDA -->
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Unidad de Medida</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>M_MCATALOGOUNIDADMEDIDA</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cIdUnidadMedida"			control="cIdUnidadMedida"		dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""											header="*Unidad Medida"				rowCol="1,1" 	ancho="50"		maxlen="50"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cUnidadMedida"				control="cUnidadMedida"			dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""											header="*Descripción"				rowCol="2,1" 	ancho="50"		maxlen="100"	tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cIdClave"					control="cIdClave"				dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""											header="Clave"						rowCol="3,1" 	ancho="5"		maxlen="3"		tipo="string"	visible="Si"	clase=""/>		
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="cIdUnidadMedida"	control="txtGridcIdUnidadMedida"	llave="Si"	identity="No" 	requerido="El campo Unidad Medida es requerido."	requeridoFocus="txtGridcIdUnidadMedida"	tipo="string" />
+		<campo field="cUnidadMedida"	control="txtGridcUnidadMedida"		llave="No"	identity="No"	requerido="El campo Descripción es requerido."	requeridoFocus="txtGridcUnidadMedida"	tipo="string" />
+		<campo field="cIdClave"			control="txtGridcIdClave"			llave="No"	identity="No"	requerido=""	requeridoFocus=""	tipo="string" />		
+	</insertaRegistro>
+	
+</Ayuda>
+

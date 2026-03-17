@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento de Aduanas para el CFDI</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>tCFDI_Cat_Aduana</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cAduana"	control=""		dependencia="No"	limpiaOnKeypress=""		header="Aduana"	 	 ancho="32"		maxlen="32"  tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cNombreAduana"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Nombre Aduana"	 ancho="100"	maxlen="100" tipo="string"	visible="Si"	clase=""/>
+
+	</grid>  
+	
+	
+</Ayuda>

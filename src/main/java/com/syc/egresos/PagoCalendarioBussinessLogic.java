@@ -53,7 +53,7 @@ public class PagoCalendarioBussinessLogic extends DataSourceManager {
         mesInicio = mesActual;
         BigDecimal montoPorCubrir = detallePago.getImporteBruto();
         boolean continuar = true;
-        log.debug("Object: {}", "Parámetros: ep=" + detallePago.getEp() + ", folioPago=" + detallePago.getFolioPago() + ", tipoPago=" + detallePago.getTipoPago() + ", idTipoConcepto=" + detallePago.getIdTipoConcepto() + ", idTipoMovimiento=" + detallePago.getIdTipoMovimiento() + ", importeBruto=" + detallePago.getImporteBruto() + ", importeRetencion=" + detallePago.getImporteRetencion() + ", mesActual=" + mesActual + ", tope=" + tope + ", montoPorCubrir=" + montoPorCubrir);
+        log.debug("Object: " + String.valueOf("Parámetros: ep=" + detallePago.getEp() + ", folioPago=" + detallePago.getFolioPago() + ", tipoPago=" + detallePago.getTipoPago() + ", idTipoConcepto=" + detallePago.getIdTipoConcepto() + ", idTipoMovimiento=" + detallePago.getIdTipoMovimiento() + ", importeBruto=" + detallePago.getImporteBruto() + ", importeRetencion=" + detallePago.getImporteRetencion() + ", mesActual=" + mesActual + ", tope=" + tope + ", montoPorCubrir=" + montoPorCubrir));
         CalendarioPago calendario = new CalendarioPago();
         calendario.setTipoPago(detallePago.getTipoPago());
         calendario.setFolioPago(detallePago.getFolioPago());
@@ -72,7 +72,7 @@ public class PagoCalendarioBussinessLogic extends DataSourceManager {
                     log.trace("Caso: saldo del mes cubre el monto restante.");
                     calendario.setImporteBrutoMes(montoPorCubrir);
                     saldoMes.setMontoSaldo(montoSaldoMes.subtract(montoPorCubrir));
-                    log.debug("Object: {}", "Actualización saldo mes " + mesInicio + ": nuevoSaldo=" + saldoMes.getMontoSaldo());
+                    log.debug("Object: " + String.valueOf("Actualización saldo mes " + mesInicio + ": nuevoSaldo=" + saldoMes.getMontoSaldo()));
                     montoPorCubrir = BigDecimal.ZERO;
                     continuar = false;
                 } else {
@@ -80,7 +80,7 @@ public class PagoCalendarioBussinessLogic extends DataSourceManager {
                     calendario.setImporteBrutoMes(montoSaldoMes);
                     montoPorCubrir = montoPorCubrir.subtract(montoSaldoMes);
                     saldoMes.setMontoSaldo(BigDecimal.ZERO);
-                    log.debug("Object: {}", "Actualización saldo mes " + mesInicio + ": nuevoSaldo=0.00, montoPorCubrir=" + montoPorCubrir);
+                    log.debug("Object: " + String.valueOf("Actualización saldo mes " + mesInicio + ": nuevoSaldo=0.00, montoPorCubrir=" + montoPorCubrir));
                 }
                 int filas = PagoCalendarioManager.insertaCalendario(conn, calendario);
                 insertados += filas;

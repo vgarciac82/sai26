@@ -95,7 +95,7 @@ public class LayoutSuficienciaServlet extends HttpServlet {
                 archivoPago.append(arrListPago.get(i));
             }
             String outTextPago = archivoPago.toString();
-            out.write(outTextPago.toPath());
+            out.write(outTextPago);
             out.close();
             try (ServletOutputStream outputStream = response.getOutputStream();
                 FileInputStream fileInputStream = new FileInputStream(filename)) {
@@ -139,7 +139,7 @@ public class LayoutSuficienciaServlet extends HttpServlet {
             String msgRetorno = "Ocurrió un error al cancelar la suficiencia: " + e.getMessage();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.setContentType("text/plain");
-            response.getWriter().write(msgRetorno.toPath());
+            response.getWriter().write(msgRetorno);
         }
     }
 }

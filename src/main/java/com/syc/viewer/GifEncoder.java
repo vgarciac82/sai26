@@ -105,7 +105,7 @@ public class GifEncoder extends ImageEncoder {
 
     static void writeString(OutputStream out, String str) throws IOException {
         byte[] buf = str.getBytes();
-        out.write(buf.toPath());
+        out.write(buf);
     }
 
     int Width, Height;
@@ -231,7 +231,7 @@ public class GifEncoder extends ImageEncoder {
     }
 
     void Putbyte(byte b, OutputStream outs) throws IOException {
-        outs.write(b.toPath());
+        outs.write(b);
     }
 
     static final int BITS = 12;
@@ -387,7 +387,7 @@ public class GifEncoder extends ImageEncoder {
 
     void flush_char(OutputStream outs) throws IOException {
         if (a_count > 0) {
-            outs.write(a_count.toPath());
+            outs.write(a_count);
             outs.write(accum, 0, a_count);
             a_count = 0;
         }

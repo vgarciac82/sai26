@@ -37,7 +37,7 @@ public class AgendaDAO {
             ps.setString(cnt++, agenda.getLocalidad());
             ps.setString(cnt++, agenda.getMotivoComision());
             ps.setString(cnt++, agenda.getActividades());
-            log.debug("Object: {}", queryInsert.toString() + " con el folio" + agenda.getIdAgenda());
+            log.debug("Object: " + String.valueOf(queryInsert.toString() + " con el folio" + agenda.getIdAgenda()));
             insertados = ps.executeUpdate();
             return insertados;
         } finally {
@@ -143,7 +143,7 @@ public class AgendaDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Agenda agenda = new Agenda();
-        log.debug("Object: {}", "Consultando agenda del empleado: " + agenda.getIdAgenda());
+        log.debug("Object: " + String.valueOf("Consultando agenda del empleado: " + agenda.getIdAgenda()));
         try {
             ps = conn.prepareStatement(query.toString());
             ps.setInt(1, folio);

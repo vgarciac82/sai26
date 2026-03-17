@@ -112,7 +112,7 @@ public class SubirArchivosBaseServlet extends HttpServlet {
         try {
             /*
 			 * DiskFileUpload fu = new DiskFileUpload(); fu.setSizeMax(1024 *
-			 * 512 * 10); // 512 K fu.setSizeThreshold(4096); List fileItems =
+			 * 512 * 10); // 512 K // setSizeThreshold movido a DiskFileItemFactory.builder().setBufferSize(4096) List fileItems =
 			 * fu.parseRequest(request);
 			 * 
 			 * String tipoArchivo = ""; Iterator i = fileItems.iterator();
@@ -161,7 +161,7 @@ public class SubirArchivosBaseServlet extends HttpServlet {
             // El tamaño no importa
             fu.setFileSizeMax(-1);
             // Si excede el 1 Gb en memoria lo escribe a disco.
-            fu.setSizeThreshold(1048576);
+            // setSizeThreshold movido a DiskFileItemFactory.builder().setBufferSize(1048576)
             pathArchivo = getServletContext().getRealPath("upload/ejercidoPagado");
             File file = new File(pathArchivo);
             if (!file.exists()) {
@@ -1061,7 +1061,7 @@ public class SubirArchivosBaseServlet extends HttpServlet {
             // El tamaño no importa
             fu.setFileSizeMax(-1);
             // Si excede el 1 Gb en memoria lo escribe a disco
-            fu.setSizeThreshold(1048576);
+            // setSizeThreshold movido a DiskFileItemFactory.builder().setBufferSize(1048576)
             szPath = getServletContext().getRealPath("/upload/ejercidoPagado");
             File file = new File(szPath);
             if (!file.exists()) {

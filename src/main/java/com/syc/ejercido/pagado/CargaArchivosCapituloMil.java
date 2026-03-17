@@ -682,7 +682,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                 rfc = "";
                 valorCTAB = "";
                 // Log de la línea completa (para rastrear layout)
-                log.debug("Object: {}", "validarInformacion - linea[" + nLinea + "]: " + sCadena);
+                log.debug("Object: " + String.valueOf("validarInformacion - linea[" + nLinea + "]: " + sCadena));
                 String[] celdas = sCadena.split(",");
                 if (celdas.length > 0) {
                     celdas[0] = celdas[0].replace("\uFEFF", "").trim();
@@ -696,30 +696,30 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                     importeTotal = new BigDecimal(0.00f).setScale(2, RoundingMode.HALF_UP);
                     // Lee campos (con logs por columna)
                     cIRelacion = (celdas.length > 1 ? celdas[1].trim() : "");
-                    log.debug("Object: {}", "H linea[" + nLinea + "] col[2] Relacion=[" + cIRelacion + "]");
+                    log.debug("Object: " + String.valueOf("H linea[" + nLinea + "] col[2] Relacion=[" + cIRelacion + "]"));
                     rfc = (celdas.length > 2 ? celdas[2].trim() : "");
-                    log.debug("Object: {}", "H linea[" + nLinea + "] col[3] RFC=[" + rfc + "]");
+                    log.debug("Object: " + String.valueOf("H linea[" + nLinea + "] col[3] RFC=[" + rfc + "]"));
                     concepto = (celdas.length > 3 ? celdas[3].trim() : "");
-                    log.debug("Object: {}", "H linea[" + nLinea + "] col[4] Concepto=[" + concepto + "]");
+                    log.debug("Object: " + String.valueOf("H linea[" + nLinea + "] col[4] Concepto=[" + concepto + "]"));
                     String mImporteNetoEnct = (celdas.length > 4 ? celdas[4].trim() : "");
-                    log.debug("Object: {}", "H linea[" + nLinea + "] col[5] ImporteEnc=[" + mImporteNetoEnct + "]");
+                    log.debug("Object: " + String.valueOf("H linea[" + nLinea + "] col[5] ImporteEnc=[" + mImporteNetoEnct + "]"));
                     destinoGasto = (celdas.length > 5 ? celdas[5].trim() : "");
-                    log.debug("Object: {}", "H linea[" + nLinea + "] col[6] Destino=[" + destinoGasto + "]");
+                    log.debug("Object: " + String.valueOf("H linea[" + nLinea + "] col[6] Destino=[" + destinoGasto + "]"));
                     estatus = (celdas.length > 6 ? celdas[6].trim() : "") + " : ";
-                    log.debug("Object: {}", "H linea[" + nLinea + "] col[7] EstatusBase=[" + (celdas.length > 6 ? celdas[6].trim() : "") + "]");
+                    log.debug("Object: " + String.valueOf("H linea[" + nLinea + "] col[7] EstatusBase=[" + (celdas.length > 6 ? celdas[6].trim() : "") + "]"));
                     CTAB = (celdas.length > 7 ? celdas[7].trim() : "");
-                    log.debug("Object: {}", "H linea[" + nLinea + "] col[8] CTAB=[" + CTAB + "]");
+                    log.debug("Object: " + String.valueOf("H linea[" + nLinea + "] col[8] CTAB=[" + CTAB + "]"));
                     // Valida RFC
                     valorRfc = validaRfc(conn, ps, rs, rfc);
-                    log.debug("Object: {}", "H linea[" + nLinea + "] validaRfc RFC=[" + rfc + "] => [" + valorRfc + "]");
+                    log.debug("Object: " + String.valueOf("H linea[" + nLinea + "] validaRfc RFC=[" + rfc + "] => [" + valorRfc + "]"));
                     // Valida CTAB (con log y mensaje con datos)
                     if ("LAUD000000000".equals(rfc)) {
                         valorCTAB = "existe";
-                        log.debug("Object: {}", "H linea[" + nLinea + "] RFC es LAUD000000000 => CTAB se marca existe (col[8])");
+                        log.debug("Object: " + String.valueOf("H linea[" + nLinea + "] RFC es LAUD000000000 => CTAB se marca existe (col[8])"));
                     } else {
-                        log.debug("Object: {}", "H linea[" + nLinea + "] validaCTAB buscando RFC=[" + rfc + "] CTAB=[" + CTAB + "] (col[3], col[8])");
+                        log.debug("Object: " + String.valueOf("H linea[" + nLinea + "] validaCTAB buscando RFC=[" + rfc + "] CTAB=[" + CTAB + "] (col[3], col[8])"));
                         valorCTAB = validaCTAB(conn, ps, rs, rfc, CTAB);
-                        log.debug("Object: {}", "H linea[" + nLinea + "] validaCTAB RFC=[" + rfc + "] CTAB=[" + CTAB + "] => [" + valorCTAB + "]");
+                        log.debug("Object: " + String.valueOf("H linea[" + nLinea + "] validaCTAB RFC=[" + rfc + "] CTAB=[" + CTAB + "] => [" + valorCTAB + "]"));
                     }
                     // Validaciones de campos vacíos con columna
                     if ("".equals(cIRelacion)) {
@@ -740,13 +740,13 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                     if ("3".equals(sTipoCarga)) {
                         sIdComision = (celdas.length > 8 ? celdas[8].trim() : "");
                         valorComision = (celdas.length > 9 ? celdas[9].trim() : "");
-                        log.debug("Object: {}", "H linea[" + nLinea + "] col[9] IdComision=[" + sIdComision + "], col[10] InformeComision=[" + valorComision + "]");
+                        log.debug("Object: " + String.valueOf("H linea[" + nLinea + "] col[9] IdComision=[" + sIdComision + "], col[10] InformeComision=[" + valorComision + "]"));
                         if ("".equals(sIdComision)) {
                             estatus = estatus + " Campo Comision[COL 9] esta vacio - ";
                             descripcion = "Detalle";
                         } else {
                             String tmp = validaComision(conn, ps, rs, sIdComision);
-                            log.debug("Object: {}", "H linea[" + nLinea + "] validaComision nIdComision=[" + sIdComision + "] => [" + tmp + "]");
+                            log.debug("Object: " + String.valueOf("H linea[" + nLinea + "] validaComision nIdComision=[" + sIdComision + "] => [" + tmp + "]"));
                             sIdComision = tmp;
                         }
                         if ("".equals(valorComision)) {
@@ -756,7 +756,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                     } else if (RelacionGastosManager.CARGA_MASIVA_LAUDOS.equals(sTipoCarga)) {
                         // Folio caja col 9
                         String rawFolioCaja = (celdas.length > 8 ? StringUtils.trimToEmpty(celdas[8]) : "");
-                        log.debug("Object: {}", "H linea[" + nLinea + "] col[9] FolioCaja(raw)=[" + rawFolioCaja + "]");
+                        log.debug("Object: " + String.valueOf("H linea[" + nLinea + "] col[9] FolioCaja(raw)=[" + rawFolioCaja + "]"));
                         try {
                             nFolioCaja = Integer.parseInt(rawFolioCaja);
                         } catch (Exception e) {
@@ -765,7 +765,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                         }
                         if (!"CECE".equals(destinoGasto)) {
                             String rawRet = (celdas.length > 9 ? StringUtils.trimToEmpty(celdas[9]) : "");
-                            log.debug("Object: {}", "H linea[" + nLinea + "] col[10] Retenciones(raw)=[" + rawRet + "]");
+                            log.debug("Object: " + String.valueOf("H linea[" + nLinea + "] col[10] Retenciones(raw)=[" + rawRet + "]"));
                             try {
                                 importeRetenciones = new BigDecimal(rawRet).setScale(2, RoundingMode.HALF_UP);
                             } catch (Exception e) {
@@ -775,7 +775,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                         }
                     } else if ("6".equals(sTipoCarga) && !"CSGE".equals(destinoGasto)) {
                         String rawRet = (celdas.length > 9 ? StringUtils.trimToEmpty(celdas[9]) : "");
-                        log.debug("Object: {}", "H linea[" + nLinea + "] col[10] Retenciones(raw)=[" + rawRet + "]");
+                        log.debug("Object: " + String.valueOf("H linea[" + nLinea + "] col[10] Retenciones(raw)=[" + rawRet + "]"));
                         try {
                             importeRetenciones = new BigDecimal(rawRet).setScale(2, RoundingMode.HALF_UP);
                         } catch (Exception e) {
@@ -833,16 +833,16 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                     // =========================
                     int l = celdas.length;
                     ep = (l > 0 ? celdas[0].trim() : "");
-                    log.debug("Object: {}", "D linea[" + nLinea + "] col[1] EP=[" + ep + "]");
+                    log.debug("Object: " + String.valueOf("D linea[" + nLinea + "] col[1] EP=[" + ep + "]"));
                     String rawImporteDet = (l > 1 ? celdas[1].trim() : "");
-                    log.debug("Object: {}", "D linea[" + nLinea + "] col[2] ImporteDet=[" + rawImporteDet + "]");
+                    log.debug("Object: " + String.valueOf("D linea[" + nLinea + "] col[2] ImporteDet=[" + rawImporteDet + "]"));
                     tipoMovimiento = (l > 2 ? celdas[2].trim() : "");
-                    log.debug("Object: {}", "D linea[" + nLinea + "] col[3] TipoMovimiento=[" + tipoMovimiento + "]");
+                    log.debug("Object: " + String.valueOf("D linea[" + nLinea + "] col[3] TipoMovimiento=[" + tipoMovimiento + "]"));
                     tipoConcepto = (l > 3 ? celdas[3].trim() : "");
-                    log.debug("Object: {}", "D linea[" + nLinea + "] col[4] TipoConcepto=[" + tipoConcepto + "]");
+                    log.debug("Object: " + String.valueOf("D linea[" + nLinea + "] col[4] TipoConcepto=[" + tipoConcepto + "]"));
                     String nFolioSolicitudRadicado = (l > 4 ? celdas[4].trim() : "");
                     if (StringUtils.isNotBlank(nFolioSolicitudRadicado)) {
-                        log.debug("Object: {}", "D linea[" + nLinea + "] col[5] FolioRadicado=[" + nFolioSolicitudRadicado + "]");
+                        log.debug("Object: " + String.valueOf("D linea[" + nLinea + "] col[5] FolioRadicado=[" + nFolioSolicitudRadicado + "]"));
                     }
                     // ISR / Retenciones
                     importeRetenciones = new BigDecimal(0.00f).setScale(2, RoundingMode.HALF_UP);
@@ -851,7 +851,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                         String rawIsr = (l > 5 ? celdas[5].trim() : "");
                         String rawRet = (l > 6 ? celdas[6].trim() : "");
                         if (StringUtils.isNotBlank(rawIsr)) {
-                            log.debug("Object: {}", "D linea[" + nLinea + "] col[6] ISR/Otros=[" + rawIsr + "]");
+                            log.debug("Object: " + String.valueOf("D linea[" + nLinea + "] col[6] ISR/Otros=[" + rawIsr + "]"));
                             try {
                                 importeISROtros = new BigDecimal(rawIsr).setScale(2, RoundingMode.HALF_UP);
                             } catch (Exception ex) {
@@ -859,7 +859,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                                 descripcion = "Detalle";
                             }
                         } else if (StringUtils.isNotBlank(rawRet)) {
-                            log.debug("Object: {}", "D linea[" + nLinea + "] col[7] Retenciones=[" + rawRet + "]");
+                            log.debug("Object: " + String.valueOf("D linea[" + nLinea + "] col[7] Retenciones=[" + rawRet + "]"));
                             try {
                                 importeRetenciones = new BigDecimal(rawRet).setScale(2, RoundingMode.HALF_UP);
                             } catch (Exception ex) {
@@ -885,7 +885,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                     }
                     // Validar EP (con log)
                     validaEP = validarEP(conn, psE, rsE, ep);
-                    log.debug("Object: {}", "D linea[" + nLinea + "] validarEP EP=[" + ep + "] => [" + validaEP + "]");
+                    log.debug("Object: " + String.valueOf("D linea[" + nLinea + "] validarEP EP=[" + ep + "] => [" + validaEP + "]"));
                     if ("noExiste".equals(validaEP)) {
                         estatus = estatus + " No Existe EP[" + ep + "] - (COL 1) - ";
                         descripcion = "Detalle";
@@ -893,7 +893,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                         // validaEPPG
                         String[] parts = ep.split(separador);
                         String PG = (parts.length > 6 ? parts[6] : "");
-                        log.debug("Object: {}", "D linea[" + nLinea + "] validaEPPG PG=[" + PG + "] (derivado de EP col[1])");
+                        log.debug("Object: " + String.valueOf("D linea[" + nLinea + "] validaEPPG PG=[" + PG + "] (derivado de EP col[1])"));
                         if (!"04".equals(PG)) {
                             validaEPPG = "noExiste";
                             estatus = estatus + "La EP[" + ep + "] no contiene Programa Generar 04 (PG=[" + PG + "]) - (COL 1) - ";
@@ -901,9 +901,9 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                         }
                     }
                     // Buscar evento: log + mensaje con datos buscados
-                    log.debug("Object: {}", "D linea[" + nLinea + "] validaEvento buscando Destino=[" + destinoGasto + "](col H6) Concepto=[" + tipoConcepto + "](col D4) EP=[" + ep + "](col D1) OBGT=[" + obgt + "] CTGA(substring38,1)=[" + ep.substring(37, 38) + "] FF(substring40,1)=[" + ep.substring(39, 40) + "]");
+                    log.debug("Object: " + String.valueOf("D linea[" + nLinea + "] validaEvento buscando Destino=[" + destinoGasto + "](col H6) Concepto=[" + tipoConcepto + "](col D4) EP=[" + ep + "](col D1) OBGT=[" + obgt + "] CTGA(substring38,1)=[" + ep.substring(37, 38) + "] FF(substring40,1)=[" + ep.substring(39, 40) + "]"));
                     String validaEvento = validaEvento(conn, psEv, rsEv, tipoConcepto, destinoGasto, ep);
-                    log.debug("Object: {}", "D linea[" + nLinea + "] validaEvento => [" + validaEvento + "]");
+                    log.debug("Object: " + String.valueOf("D linea[" + nLinea + "] validaEvento => [" + validaEvento + "]"));
                     if ("noExiste".equals(validaEvento)) {
                         estatus = estatus + " No Existe Evento (Destino[" + destinoGasto + "] Concepto[" + tipoConcepto + "] EP[" + ep + "]) - (COL H6, D4, D1) - ";
                         descripcion = "Detalle";
@@ -1117,7 +1117,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, ep);
-            log.debug("Object: {}", query + "[" + ep + "]");
+            log.debug("Object: " + String.valueOf(query + "[" + ep + "]"));
             rs = ps.executeQuery();
             while (rs.next()) {
                 int mes = rs.getInt("Mes");
@@ -1139,8 +1139,8 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
             ps.setInt(1, nFolioSolicitud);
             ps.setString(2, ep);
             ps.setString(3, mes);
-            log.debug("Object: {}", ps.toString());
-            log.debug("Object: {}", "[" + nFolioSolicitud + "," + ep + "," + mes + "]");
+            log.debug("Object: " + String.valueOf(ps.toString()));
+            log.debug("Object: " + String.valueOf("[" + nFolioSolicitud + "," + ep + "," + mes + "]"));
             rs = ps.executeQuery();
             if (rs.next())
                 saldoEPMes = rs.getDouble(1);
@@ -1156,15 +1156,15 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
         try {
             ps = conn.prepareStatement("UPDATE tRELACIONGASTOSEncabezado_temp " + "SET    cRadicado = 'S'  " + "WHERE  folioTempGral = ?  ");
             ps.setInt(1, fTempGral);
-            log.debug("Object: {}", ps.toString());
-            log.debug("Object: {}", "[" + fTempGral + "]");
+            log.debug("Object: " + String.valueOf(ps.toString()));
+            log.debug("Object: " + String.valueOf("[" + fTempGral + "]"));
             ps.executeUpdate();
             ps = conn.prepareStatement("UPDATE tRELACIONGASTOSDetalle_temp " + "SET    nFolioSolicitud = ? " + "WHERE  folioTempGral = ? " + "       AND nMes = ? " + "       AND EP =?");
             ps.setInt(1, nFolioSolicitud);
             ps.setInt(2, fTempGral);
             ps.setString(3, mes);
             ps.setString(4, ep);
-            log.debug("Object: {}", ps.executeUpdate());
+            log.debug("Object: " + String.valueOf(ps.executeUpdate()));
         } finally {
             CloseObject.closeObject(ps);
         }
@@ -1196,8 +1196,8 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
             ps.setInt(1, nFolioSolicitud);
             ps.setString(2, mes);
             ps.setString(3, ep);
-            log.debug("Object: {}", ps.toString());
-            log.debug("Object: {}", "[" + nFolioSolicitud + "," + ep + "," + mes + "]");
+            log.debug("Object: " + String.valueOf(ps.toString()));
+            log.debug("Object: " + String.valueOf("[" + nFolioSolicitud + "," + ep + "," + mes + "]"));
             rs = ps.executeQuery();
             if (rs.next())
                 nmes = rs.getString(1);
@@ -1333,7 +1333,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
             psEnc.setInt(cnt++, fTempGral);
             psEnc.setBigDecimal(cnt++, mimporteISROtros);
             psEnc.setBigDecimal(cnt++, mimporteISRLaudos);
-            log.debug("Object: {}", String.format(query + "[%d],[%d],[%d],[%s],[%s],[%s],[%s],[%s],[%s],[%s],[%s],[%s],[%d],[%s],[%s],[%s],[%s],[%d],[%s],[%d],[%s],[%s]", fTemp, nDocRenglon, mes, cEjercicioFiscal, cIdRelacion, EP, sumImporteNetoDet, tipoMovimiento, tipoConcepto, cEvento, cEjercicioFiscal, cContable, mes, rfc, Util.formatNumber(importeNetoDet), Util.formatNumber(sumImporteNetoDet), Util.formatNumber(sumImporteNetoDet), nCapitulo, obgt, fTempGral, Util.formatNumber(mimporteISROtros), Util.formatNumber(mimporteISRLaudos)));
+            log.debug("Object: " + String.valueOf(String.format(query + "[%d],[%d],[%d],[%s],[%s],[%s],[%s],[%s],[%s],[%s],[%s],[%s],[%d],[%s],[%s],[%s],[%s],[%d],[%s],[%d],[%s],[%s]", fTemp, nDocRenglon, mes, cEjercicioFiscal, cIdRelacion, EP, sumImporteNetoDet, tipoMovimiento, tipoConcepto, cEvento, cEjercicioFiscal, cContable, mes, rfc, Util.formatNumber(importeNetoDet), Util.formatNumber(sumImporteNetoDet), Util.formatNumber(sumImporteNetoDet), nCapitulo, obgt, fTempGral, Util.formatNumber(mimporteISROtros), Util.formatNumber(mimporteISRLaudos))));
             psEnc.executeUpdate();
             valor = "guardado";
         } catch (Exception e) {
@@ -1362,7 +1362,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
         double mImporteCompromiso = 0.00;
         double mImporteRemanente = 0.00;
         try {
-            log.debug("Object: {}", "Comienza a validar remanente del compromiso " + compromisoAmpliado + " a reducir.");
+            log.debug("Object: " + String.valueOf("Comienza a validar remanente del compromiso " + compromisoAmpliado + " a reducir."));
             psCompromiso = conn.prepareStatement("SELECT EP, mImporte, cMes FROM tCompromisoNominaDetalle WITH(NOLOCK) WHERE nFolioCompromisoNomina = ?");
             psCompromiso.setString(1, nFolioCompromisoNomina);
             rsCompromiso = psCompromiso.executeQuery();
@@ -1380,7 +1380,7 @@ public class CargaArchivosCapituloMil extends DataSourceManager {
                     valorReturn = "No hay suficiente remanente en la ep " + ep + "; " + mImporteRemanente + " - " + mImporteCompromiso;
             }
             if (!"aplicado".equals(valorReturn))
-                log.debug("Object: {}", valorReturn);
+                log.debug("Object: " + String.valueOf(valorReturn));
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Error occurred", "Error al validar la reduccion al compromiso " + compromisoAmpliado + ". " + e);

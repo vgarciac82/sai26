@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptRequisicionesEP"  pageWidth="776" pageHeight="572" orientation="Landscape" columnWidth="776" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0000000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cIdSolicitud" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT ClaveSIAFF + '.' + ClaveInterna EP,
+	'$'+convert(varchar,cast(Monto as money),1) as mImporte,
+	convert(int, right(Meses,2)) cMes
+	,cIdSolicitud
+	FROM (
+		SELECT cIdSolicitud, ClaveSIAFF, ClaveInterna,
+		MontoEnero as mes01, MontoFebrero as mes02, MontoMarzo as mes03,
+		MontoAbril as mes04, MontoMayo as mes05, MontoJunio as mes06,
+		MontoJulio as mes07, MontoAgosto as mes08, MontoSeptiembre as mes09,
+		MontoOctubre as mes10, MontoNoviembre as mes11, MontoDiciembre as mes12
+		FROM vPresupuestoSolicitudEP
+		--WHERE cEjercicio = @cEjercicio AND cIdUnidadEjecutora = @cIdUnidadEjecutora AND cIdSolicitud = @cIdSolicitud
+		)
+	Main UNPIVOT (Monto FOR Meses IN (mes01, mes02, mes03, mes04, mes05, mes06,
+	mes07, mes08, mes09, mes10, mes11, mes12) ) Mes	WHERE Monto > 0 and cIdSolicitud=$P{cIdSolicitud}]]>
+	</queryString>
+	<field name="EP" class="java.lang.String"/>
+	<field name="mImporte" class="java.lang.String"/>
+	<field name="cMes" class="java.lang.Integer"/>
+	<field name="cIdSolicitud" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="531" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{EP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="542" y="0" width="100" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{cMes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="668" y="0" width="100" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mImporte}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

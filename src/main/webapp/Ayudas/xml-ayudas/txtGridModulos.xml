@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Modulos</titulo>
+	<anchoWin>600</anchoWin>
+	<altoWin>300</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>modulos</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="Modulo"	control="txtGridModulos"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""		header="Modulo"	ancho="200"	maxlen="20"	tipo="string"	visible="Si"	clase=""/>
+	</grid>
+</Ayuda>

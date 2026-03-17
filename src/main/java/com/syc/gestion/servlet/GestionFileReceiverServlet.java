@@ -73,7 +73,7 @@ public class GestionFileReceiverServlet extends HttpServlet implements GestionIn
         boolean updToAlbum = "true".equalsIgnoreCase(req.getParameter("upd"));
         boolean closeWin = "true".equalsIgnoreCase(req.getParameter("close"));
         boolean current = "true".equalsIgnoreCase(req.getParameter("current"));
-        if ((!FileUpload.isMultipartContent(req)) && (!updToAlbum)) {
+        if ((!JakartaServletFileUpload.isMultipartContent(req)) && (!updToAlbum)) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "No es una peticion multipart/form-data");
             return;
         }

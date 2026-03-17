@@ -383,7 +383,7 @@ public class AdjuntaArchivoMasivoManager {
             for (int i = 0; i < procesar.size(); i++) {
                 try {
                     String cxp = Util.getFileWithoutExtencion(procesar.get(i).getName());
-                    log.debug("Object: {}", "Contrarecibo generado [" + cxp + "]");
+                    log.debug("Object: " + String.valueOf("Contrarecibo generado [" + cxp + "]"));
                     psDocumento.setString(1, cxp);
                     rsDocumento = psDocumento.executeQuery();
                     if (rsDocumento.next()) {
@@ -541,7 +541,7 @@ public class AdjuntaArchivoMasivoManager {
             for (int i = 0; i < procesar.size(); i++) {
                 try {
                     String cxp = Util.getFileWithoutExtencion(procesar.get(i).getName());
-                    log.debug("Object: {}", "Contrarecibo generado [" + cxp + "]");
+                    log.debug("Object: " + String.valueOf("Contrarecibo generado [" + cxp + "]"));
                     psDocumento.setString(1, cxp);
                     rsDocumento = psDocumento.executeQuery();
                     if (rsDocumento.next()) {

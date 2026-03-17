@@ -225,7 +225,7 @@ public class IAnteproyectoServlet extends HttpServlet implements GestionInterfac
                         log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                         Util.copiaArchivo(archivoCargaStream, nombreDestino);
                         item.delete();
-                        log.debug("Object: {}", "Procesando archivo:" + nombreArchivo);
+                        log.debug("Object: " + String.valueOf("Procesando archivo:" + nombreArchivo));
                         IAnteProyectoBusinessLogic iapbl = new IAnteProyectoBusinessLogic(u.getLogin());
                         mensajeRetorno = "Error de carga: ";
                         int i;

@@ -88,13 +88,13 @@ public class VolumenService implements VolumenServiceInterface {
             Volumen volumen = getVolumen(conn);
             StringBuilder fileName = nexFileName();
             File f = new File(volumen.getPath(), fileName.toString() + "." + FileManagment.DEFAULT_EXTENSION);
-            log.debug("Object: {}", "Se genero la ruta de archivo definitivo: " + f.getAbsolutePath());
+            log.debug("Object: " + String.valueOf("Se genero la ruta de archivo definitivo: " + f.getAbsolutePath()));
             log.trace("Validando que la ruta generada no exista, de ser asi se lanza excepcion ya que no fue capaz de generar una ruta unica");
             log.trace("Object: {}", "Existe? " + f.exists());
             if (f.exists())
                 throw new FileManagmentException("Se genero nombre de archivo que colisionaria con uno existente.");
             Path path = f.toPath();
-            log.debug("Object: {}", "Se genero PATH: " + path);
+            log.debug("Object: " + String.valueOf("Se genero PATH: " + path));
             log.info("Object: {}", "Generada ubicacion de archivo " + fileName + " en [" + volumen + "]");
             VirtualFile vFile = new VirtualFile();
             vFile.setVolumen(volumen.getVolumen());

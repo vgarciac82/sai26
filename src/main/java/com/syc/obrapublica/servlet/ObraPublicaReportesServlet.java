@@ -88,14 +88,14 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                     reportBody = CuentaPublicaCuerpoReportes.getReportBody("OPFormato10Encabezado", getReportStream("OPFormato10Encabezado"));
                 DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
                 JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
-                String cFileExcel = upload.getRepositoryPath() + "\\" + "formato10.xls";
+                String cFileExcel = getServletContext().getRealPath("/upload") + "\\" + "formato10.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
                 Workbook wb = new HSSFWorkbook(inp);
                 String strReport = oprbl.generaReporteFormato10(cCentroContable, fechaI, fechaF, idunidadresponsable, generarVacio, reportBody, wb, reportType);
                 resp.setContentType("application/vnd.ms-excel");
                 String postFijo = "";
                 resp.addHeader("Content-Disposition", "inline; filename=\"" + System.currentTimeMillis() + "formato10.xls" + postFijo + "\"; charset=UTF-8\" pageEncoding=\"utf-8\"");
-                wb.write(resp.getOutputStream().toPath());
+                wb.write(resp.getOutputStream());
                 /*String report = "<table>" + reportTitulo + strReport + "</table>";
 				sendExcel(resp, report, "OPFormato10", null);*/
             } catch (Exception e) {
@@ -112,7 +112,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
                 DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
                 JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
-                String cFileExcel = upload.getRepositoryPath() + "\\" + "OPConsolidaNacionalTotal.xls";
+                String cFileExcel = getServletContext().getRealPath("/upload") + "\\" + "OPConsolidaNacionalTotal.xls";
                 System.out.println(cFileExcel);
                 InputStream inp = new FileInputStream(cFileExcel);
                 Workbook wb = new HSSFWorkbook(inp);
@@ -122,7 +122,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 resp.setContentType("application/vnd.ms-excel");
                 String postFijo = "";
                 resp.addHeader("Content-Disposition", "inline; filename=\"" + System.currentTimeMillis() + "CONSOLI_NAL.xls" + postFijo + "\"; charset=UTF-8\" pageEncoding=\"utf-8\"");
-                wb.write(resp.getOutputStream().toPath());
+                wb.write(resp.getOutputStream());
                 /*String report = "<table>" + reportTitulo + strReport + "</table>";
 				sendExcel(resp, report, "OPFormato10", null);*/
             } catch (Exception e) {
@@ -139,14 +139,14 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
                 DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
                 JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
-                String cFileExcel = upload.getRepositoryPath() + "\\" + "OPConsolidaAreaResponsable.xls";
+                String cFileExcel = getServletContext().getRealPath("/upload") + "\\" + "OPConsolidaAreaResponsable.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
                 Workbook wb = new HSSFWorkbook(inp);
                 oprbl.generaReporteFormato10(cCentroContable, fechaI, fechaF, idunidadresponsable, generarVacio, "", wb, reportType);
                 resp.setContentType("application/vnd.ms-excel");
                 String postFijo = "";
                 resp.addHeader("Content-Disposition", "inline; filename=\"" + System.currentTimeMillis() + "CONSOLI_AREA_RESP.xls" + postFijo + "\"; charset=UTF-8\" pageEncoding=\"utf-8\"");
-                wb.write(resp.getOutputStream().toPath());
+                wb.write(resp.getOutputStream());
                 /*String report = "<table>" + reportTitulo + strReport + "</table>";
 				sendExcel(resp, report, "OPFormato10", null);*/
             } catch (Exception e) {
@@ -163,14 +163,14 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
                 DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
                 JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
-                String cFileExcel = upload.getRepositoryPath() + "\\" + "OPConsolidaXProyecto.xls";
+                String cFileExcel = getServletContext().getRealPath("/upload") + "\\" + "OPConsolidaXProyecto.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
                 Workbook wb = new HSSFWorkbook(inp);
                 oprbl.generaReporteFormato10(cCentroContable, fechaI, fechaF, idunidadresponsable, generarVacio, "", wb, reportType);
                 resp.setContentType("application/vnd.ms-excel");
                 String postFijo = "";
                 resp.addHeader("Content-Disposition", "inline; filename=\"" + System.currentTimeMillis() + "CONSOLI_AREA_RESP.xls" + postFijo + "\"; charset=UTF-8\" pageEncoding=\"utf-8\"");
-                wb.write(resp.getOutputStream().toPath());
+                wb.write(resp.getOutputStream());
                 /*String report = "<table>" + reportTitulo + strReport + "</table>";
 				sendExcel(resp, report, "OPFormato10", null);*/
             } catch (Exception e) {
@@ -187,7 +187,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
                 DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
                 JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
-                String cFileExcel = upload.getRepositoryPath() + "\\" + "MultiReporteObra.xls";
+                String cFileExcel = getServletContext().getRealPath("/upload") + "\\" + "MultiReporteObra.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
                 Workbook wb = new HSSFWorkbook(inp);
                 String strCondMultiR = "";
@@ -451,7 +451,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 resp.setContentType("application/vnd.ms-excel");
                 String postFijo = "";
                 resp.addHeader("Content-Disposition", "inline; filename=\"" + System.currentTimeMillis() + "CONSOLI_AREA_RESP.xls" + postFijo + "\"; charset=UTF-8\" pageEncoding=\"utf-8\"");
-                wb.write(resp.getOutputStream().toPath());
+                wb.write(resp.getOutputStream());
                 /*String report = "<table>" + reportTitulo + strReport + "</table>";
 				sendExcel(resp, report, "OPFormato10", null);*/
             } catch (Exception e) {
@@ -465,7 +465,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
                 DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
                 JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
-                String cFileExcel = upload.getRepositoryPath() + "\\" + "exportaPAOPCaptura.xls";
+                String cFileExcel = getServletContext().getRealPath("/upload") + "\\" + "exportaPAOPCaptura.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
                 Workbook wb = new HSSFWorkbook(inp);
                 //Exportación desde captura PAOP
@@ -473,7 +473,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 resp.setContentType("application/vnd.ms-excel");
                 String postFijo = "";
                 resp.addHeader("Content-Disposition", "inline; filename=\"" + System.currentTimeMillis() + "CONSOLI_AREA_RESP.xls" + postFijo + "\"; charset=UTF-8\" pageEncoding=\"utf-8\"");
-                wb.write(resp.getOutputStream().toPath());
+                wb.write(resp.getOutputStream());
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
                 sendError(resp, e.toString());
@@ -488,14 +488,14 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
                 DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
                 JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
-                String cFileExcel = upload.getRepositoryPath() + "\\" + "OPConsolidaXProyectoXRegion.xls";
+                String cFileExcel = getServletContext().getRealPath("/upload") + "\\" + "OPConsolidaXProyectoXRegion.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
                 Workbook wb = new HSSFWorkbook(inp);
                 oprbl.generaReporteFormato10(cCentroContable, fechaI, fechaF, idunidadresponsable, generarVacio, "", wb, reportType);
                 resp.setContentType("application/vnd.ms-excel");
                 String postFijo = "";
                 resp.addHeader("Content-Disposition", "inline; filename=\"" + System.currentTimeMillis() + "CONSOLI_AREA_RESP.xls" + postFijo + "\"; charset=UTF-8\" pageEncoding=\"utf-8\"");
-                wb.write(resp.getOutputStream().toPath());
+                wb.write(resp.getOutputStream());
                 /*String report = "<table>" + reportTitulo + strReport + "</table>";
 				sendExcel(resp, report, "OPFormato10", null);*/
             } catch (Exception e) {
@@ -567,7 +567,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
                 DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
                 JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
-                String cFileExcel = upload.getRepositoryPath() + "\\" + "OPConsolidoPorAreaEjecutora.xls";
+                String cFileExcel = getServletContext().getRealPath("/upload") + "\\" + "OPConsolidoPorAreaEjecutora.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
                 System.out.println(cFileExcel);
                 Workbook wb = new HSSFWorkbook(inp);
@@ -575,7 +575,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 resp.setContentType("application/vnd.ms-excel");
                 String postFijo = "";
                 resp.addHeader("Content-Disposition", "inline; filename=\"" + System.currentTimeMillis() + "ConsolidoPorAreaEjecutora.xls" + postFijo + "\"; charset=UTF-8\" pageEncoding=\"utf-8\"");
-                wb.write(resp.getOutputStream().toPath());
+                wb.write(resp.getOutputStream());
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
                 sendError(resp, e.toString());
@@ -590,14 +590,14 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
                 ObraPublicaReportesBusinessLogic oprbl = new ObraPublicaReportesBusinessLogic();
                 DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
                 JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
-                String cFileExcel = upload.getRepositoryPath() + "\\" + "OPConsolidoPorAreaEjecutorayProyecto.xls";
+                String cFileExcel = getServletContext().getRealPath("/upload") + "\\" + "OPConsolidoPorAreaEjecutorayProyecto.xls";
                 InputStream inp = new FileInputStream(cFileExcel);
                 Workbook wb = new HSSFWorkbook(inp);
                 oprbl.generaReporteFormato10(cCentroContable, fechaI, fechaF, idunidadresponsable, generarVacio, "", wb, reportType);
                 resp.setContentType("application/vnd.ms-excel");
                 String postFijo = "";
                 resp.addHeader("Content-Disposition", "inline; filename=\"" + System.currentTimeMillis() + "Cons_AreaEjecutoraXProuecto.xls" + postFijo + "\"; charset=UTF-8\" pageEncoding=\"utf-8\"");
-                wb.write(resp.getOutputStream().toPath());
+                wb.write(resp.getOutputStream());
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
                 sendError(resp, e.toString());
@@ -626,9 +626,9 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
         String reportSrcName = null;
         try {
             reportSrcName = REPORTS_BODY_ROOT + File.separator + reportType + ".bdy";
-            log.debug("Object: {}", "Report Name -> " + reportSrcName);
+            log.debug("Object: " + String.valueOf("Report Name -> " + reportSrcName));
             String reportPath = getServletContext().getRealPath(reportSrcName);
-            log.debug("Object: {}", "Report Path-> " + reportPath);
+            log.debug("Object: " + String.valueOf("Report Path-> " + reportPath));
             if (reportPath != null) {
                 is = new FileInputStream(reportPath);
             } else {
@@ -715,11 +715,11 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
         }
         String cFileExcel = "";
         if (request.getParameter("laPlant") == null) {
-            cFileExcel = upload.getRepositoryPath() + "\\" + "MultiReporteObra.xls";
+            cFileExcel = getServletContext().getRealPath("/upload") + "\\" + "MultiReporteObra.xls";
             if (tipoReporte.equals("61"))
-                cFileExcel = upload.getRepositoryPath() + "\\" + "exportaPAOPCaptura.xls";
+                cFileExcel = getServletContext().getRealPath("/upload") + "\\" + "exportaPAOPCaptura.xls";
         } else
-            cFileExcel = upload.getRepositoryPath() + "\\" + request.getParameter("laPlant");
+            cFileExcel = getServletContext().getRealPath("/upload") + "\\" + request.getParameter("laPlant");
         InputStream inp = new FileInputStream(cFileExcel);
         Workbook wb = new HSSFWorkbook(inp);
         ArrayList arrDetalle = new ArrayList();
@@ -792,7 +792,7 @@ public class ObraPublicaReportesServlet extends HttpServlet implements GestionIn
         if (request.getParameter("laPlant") != null)
             strPlantilla = request.getParameter("laPlant");
         response.addHeader("Content-Disposition", "inline; filename=\"" + strPlantilla + postFijo + "\"; charset=UTF-8\" pageEncoding=\"utf-8\"");
-        wb.write(response.getOutputStream().toPath());
+        wb.write(response.getOutputStream());
     }
 
     private void generaXLS(HttpServletRequest request, HttpServletResponse response, String tipoReporte, Workbook wb, ArrayList arrDetalle, ArrayList arrHeader, String url, int numHoja, HSSFFont font) throws Exception {

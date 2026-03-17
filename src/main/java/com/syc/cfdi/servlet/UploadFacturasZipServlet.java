@@ -4,6 +4,7 @@
  * NOTA IMPORTANTE seria ideal que las NC se guardaran en una carpeta especial y no en la comun de CFDI dentro de la estructura de carpetas.
  */
 package com.syc.cfdi.servlet;
+import java.nio.charset.StandardCharsets;
 
 import java.io.DataInputStream;
 import java.io.File;
@@ -112,7 +113,7 @@ public class UploadFacturasZipServlet extends HttpServlet implements GestionInte
                         if ("tipo_pago".equals(item.getFieldName()))
                             tipoPago = item.getString();
                         if ("cIdRFC".equals(item.getFieldName()))
-                            rfc = item.getString("UTF-8");
+                            rfc = item.getString(java.nio.charset.StandardCharsets.UTF_8);
                         if ("seleccionTipo".equals(item.getFieldName()))
                             tipoFactura = item.getString();
                         if ("tipo_modulo".equals(item.getFieldName()))

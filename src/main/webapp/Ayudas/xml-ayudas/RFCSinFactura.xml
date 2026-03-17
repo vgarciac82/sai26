@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- RFC de beneficiarios a quienes se les puede realizar pago sin facturas. -->
+<Ayuda>
+	<titulo>Excepcion Beneficiarios RG sin CFDI</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>RFCPagoSinFacturaPermitido</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>1</ColSort>
+	
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cRFC"				control="cRFC"				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="RFC"				ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cTipoPago"			control="cTipoPago"			dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Tramite"			ancho="100"	maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="lImpuestoForzoso"	control="lImpuestoForzoso"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Impuesto Forzoso"	ancho="3"	maxlen="3"		tipo="numero"	visible="Si"	clase=""/>
+	</grid>
+	
+	<insertaRegistro>
+		<campo field="cRFC"					control="txtGridcRFC"				llave="Si"	identity="No"	requerido="El RFC del proveedor es un dato requerido"				requeridoFocus="txtGridcRFC"				tipo="string" />
+		<campo field="cTipoPago"			control="txtGridcTipoPago"			llave="Si"	identity="No" 	requerido="El Tipo de pago es un dato requerido"					requeridoFocus="txtGridcTipoPago"			tipo="string" />
+		<campo field="lImpuestoForzoso"		control="txtGridlImpuestoForzoso"	llave="No"	identity="No" 	requerido="La bandera de forzoso es un dato requerido"				requeridoFocus="txtGridlImpuestoForzoso"	tipo="numero" />
+	</insertaRegistro> 
+</Ayuda>

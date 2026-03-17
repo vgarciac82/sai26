@@ -496,7 +496,7 @@ public class GestionPoliza extends HttpServlet {
         PrintWriter out = null;
         response.setCharacterEncoding("UTF-8");
         out = response.getWriter();
-        out.write(ESTATUS + "//" + mensaje.toPath());
+        out.write(ESTATUS + "//" + mensaje);
         out.flush();
         out.close();
         System.out.println("Mensaje del sistema: " + mensaje);

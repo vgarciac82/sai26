@@ -96,7 +96,7 @@ public class ReportePolizasManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -113,7 +113,7 @@ public class ReportePolizasManager {
         try {
             pst = conn.prepareStatement(query);
             rs = pst.executeQuery();
-            log.debug("Object: {}", query.toString());
+            log.debug("Object: " + String.valueOf(query.toString()));
             fileName = generaReporteREPExcel(rs, plantillas.get("EXTLISTADO"), unidad);
             return fileName;
         } finally {
@@ -153,7 +153,7 @@ public class ReportePolizasManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -170,7 +170,7 @@ public class ReportePolizasManager {
         try {
             pst = conn.prepareStatement(query);
             rs = pst.executeQuery();
-            log.debug("Object: {}", query.toString());
+            log.debug("Object: " + String.valueOf(query.toString()));
             fileName = generaReporteBoletosExcel(rs, plantillas.get("EXTBOLETOSCOMP"));
             return fileName;
         } finally {
@@ -187,7 +187,7 @@ public class ReportePolizasManager {
         try {
             pst = conn.prepareStatement(query);
             rs = pst.executeQuery();
-            log.debug("Object: {}", query.toString());
+            log.debug("Object: " + String.valueOf(query.toString()));
             fileName = generaReporteBoletosExcel(rs, plantillas.get("EXTBOLETOS"));
             return fileName;
         } finally {
@@ -234,7 +234,7 @@ public class ReportePolizasManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -307,7 +307,7 @@ public class ReportePolizasManager {
                     sql2.append(valor + ",");
                 }
                 ps.addBatch();
-                log.debug("Object: {}", "Agregando el CFDI:" + sql2.toString());
+                log.debug("Object: " + String.valueOf("Agregando el CFDI:" + sql2.toString()));
                 if (++count % batchSize == 0) {
                     ps.executeBatch();
                     conn.commit();

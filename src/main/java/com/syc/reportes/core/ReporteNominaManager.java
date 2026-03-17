@@ -52,7 +52,7 @@ public class ReporteNominaManager {
         try {
             String query = str.toString();
             ps = conn.prepareStatement(query);
-            log.debug("Object: {}", query.toString());
+            log.debug("Object: " + String.valueOf(query.toString()));
             rs = ps.executeQuery();
             fileName = generaReporteNomina(rs, plantillas.get("REPNOMINA"), fechaFin, fechaFin);
             return fileName;
@@ -104,7 +104,7 @@ public class ReporteNominaManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         workbook.close();
         /* Cierra Flujos */
         bos.flush();
@@ -161,7 +161,7 @@ public class ReporteNominaManager {
         try {
             String query = str.toString();
             ps = conn.prepareStatement(query);
-            log.debug("Object: {}", query.toString());
+            log.debug("Object: " + String.valueOf(query.toString()));
             rs = ps.executeQuery();
             fileName = generaReporteSCOMPMIL(rs, plantillas.get("SALDOCOMPROMISOMIL"));
             return fileName;
@@ -199,7 +199,7 @@ public class ReporteNominaManager {
         File fsalida = new File(file_name);
         FileOutputStream fos = new FileOutputStream(fsalida);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        workbook.write(bos.toPath());
+        workbook.write(bos);
         workbook.close();
         /* Cierra Flujos */
         bos.flush();

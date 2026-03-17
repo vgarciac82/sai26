@@ -38,9 +38,9 @@ public class ContrareciboManager {
         int consecutivo = seqManager.nextVal(key);
         log.info("Object: {}", "Sequencia generada: " + key);
         String cadPostfijo = generaCadenaPostfijo(consecutivo);
-        log.debug("Object: {}", "Se genero el postfijo: " + cadPostfijo);
+        log.debug("Object: " + String.valueOf("Se genero el postfijo: " + cadPostfijo));
         String ejercicioFiscal = EjercicioFiscalManager.getEjercicioFiscalActivo(conn).getaEjercicioFiscal();
-        log.debug("Object: {}", "Ejercicio Fiscal: " + cadPostfijo);
+        log.debug("Object: " + String.valueOf("Ejercicio Fiscal: " + cadPostfijo));
         String cxp = StringUtils.trim(centroContable + cxpPrefijo + ejercicioFiscal + "1" + cadPostfijo);
         log.info("Object: {}", "Se genero contrarecibo: " + cxp);
         return cxp;

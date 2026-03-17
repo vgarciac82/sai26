@@ -176,7 +176,7 @@ public class FirmanteManager {
         log.trace("Object: {}", "Insertando informacion de firmantes.\n Tabla: " + table + "\nllave:" + llave + "\ncampo:" + campo);
         StringBuilder query = new StringBuilder();
         query.append(" UPDATE ").append(table).append(" SET ").append(campo).append(" = ? ").append(" WHERE ").append(llave).append(" = ?");
-        log.debug("Object: {}", "Se ejecutara: " + query);
+        log.debug("Object: " + String.valueOf("Se ejecutara: " + query));
         PreparedStatement ps = null;
         try {
             int i = 1;

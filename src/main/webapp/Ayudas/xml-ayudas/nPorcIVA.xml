@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda I.V.A.</titulo>
+	<anchoWin>415</anchoWin>
+	<altoWin>400</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>PPORCENTAJEIVA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+
+	<grid>
+		<columna campo="nPorcIVA"	control="nPorcIVA"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave"	ancho="4"	maxlen="4"		tipo="string"	visible="Si"	clase=""/>
+	
+   </grid>  
+</Ayuda>

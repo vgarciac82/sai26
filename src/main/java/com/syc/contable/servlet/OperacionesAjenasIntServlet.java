@@ -98,7 +98,7 @@ public class OperacionesAjenasIntServlet extends HttpServlet implements GestionI
                             archivoPago.append(arrListDocu.get(i));
                         }
                         String outTextPago = archivoPago.toString();
-                        out.write(outTextPago.toPath());
+                        out.write(outTextPago);
                         // fin de guarda pago
                         out.close();
                         // Guarda el pago Nuevo
@@ -108,7 +108,7 @@ public class OperacionesAjenasIntServlet extends HttpServlet implements GestionI
                             archivoPagoNuevo.append(arrListDocuNuevo.get(i));
                         }
                         String outTextPagoNuevo = archivoPagoNuevo.toString();
-                        outNuevo.write(outTextPagoNuevo.toPath());
+                        outNuevo.write(outTextPagoNuevo);
                         // fin de guarda pago Nuevo
                         outNuevo.close();
                         // Guarda el pago
@@ -118,7 +118,7 @@ public class OperacionesAjenasIntServlet extends HttpServlet implements GestionI
                             archivoPago2.append(arrListDocuSaldo.get(i));
                         }
                         String outTextPago2 = archivoPago2.toString();
-                        out2.write(outTextPago2.toPath());
+                        out2.write(outTextPago2);
                         // fin de guarda pago Saldo
                         out2.close();
                         File[] filenames = new File[] { layoutDoc, layoutDocu, layoutDocuSaldo };

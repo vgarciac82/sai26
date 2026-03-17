@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportAMF"  pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="0.7697371773460598"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="NumeroFolio" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT  cmc.sMotivoCancelacion, tvd.DescripcionRechazo DescripcionDevolucion ,tvd.folioRechazo  as folioDevolucion, tvd.NumeroFolio, tvd.FechaRegistro, tvd.Documento, tvd.noContrarrecibo, tvd.RFC, tvd.nomRFC, tvd.fAplicacion, tvd.importeNeto
+FROM tVolante_Rechazo tvd, CAT_MOTIVO_CANCELACION cmc
+where cmc.idMotivo = tvd.MotivoRechazo and
+      tvd.NumeroFolio = $P{NumeroFolio} and
+      tvd.folioRechazo = (select MAX(folioRechazo) from tVolante_Rechazo where NumeroFolio =  $P{NumeroFolio})]]>
+	</queryString>
+	<field name="sMotivoCancelacion" class="java.lang.String"/>
+	<field name="DescripcionDevolucion" class="java.lang.String"/>
+	<field name="folioDevolucion" class="java.lang.String"/>
+	<field name="NumeroFolio" class="java.lang.String"/>
+	<field name="FechaRegistro" class="java.lang.String"/>
+	<field name="Documento" class="java.lang.String"/>
+	<field name="noContrarrecibo" class="java.lang.String"/>
+	<field name="RFC" class="java.lang.String"/>
+	<field name="nomRFC" class="java.lang.String"/>
+	<field name="fAplicacion" class="java.lang.String"/>
+	<field name="importeNeto" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="1" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="732" splitType="Stretch">
+			<rectangle>
+				<reportElement key="rectangle" x="238" y="28" width="315" height="21"/>
+			</rectangle>
+			<image>
+				<reportElement key="image" x="17" y="5" width="210" height="44"/>
+				<imageExpression class="java.lang.String"><![CDATA["report\\images\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement key="rectangle" x="2" y="53" width="551" height="21"/>
+			</rectangle>
+			<rectangle>
+				<reportElement key="rectangle" x="2" y="96" width="551" height="262"/>
+			</rectangle>
+			<rectangle>
+				<reportElement key="rectangle" x="238" y="4" width="315" height="24"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="284" y="8" width="244" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="245" y="31" width="146" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VOLANTE DE RECHAZO No.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="76" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRESENTE
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="363" y="75" width="31" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="97" width="108" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. de Contrarecibo
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="379" y="97" width="42" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Importe
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="114" width="74" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Razon social:
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="394" y="131" width="156" height="40"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ES REQUISITO LA PRESENTACIÓN DE ESTE VOLANTE, PARA REINGRESO DE LA DOCUMENTACIÓN EN VENTANILLA.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="556" width="147" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[MOTIVO DE LA DEVOLUCIÓN:
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="247" y="300" width="67" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Atentamente
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="243" y="336" width="75" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre y firma
+]]></text>
+			</staticText>
+			<line>
+				<reportElement x="194" y="342" width="169" height="1"/>
+			</line>
+			<textField pattern="">
+				<reportElement x="397" y="75" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{FechaRegistro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="97" width="122" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{noContrarrecibo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="15" y="130" width="323" height="14"/>
+				<textElement/>
+				<text><![CDATA[Anexo al presente se devuelve la documentación original ingresada
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="94" y="114" width="456" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nomRFC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="5" y="181" width="545" height="119"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DescripcionDevolucion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="434" y="97" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$F{importeNeto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="379" y="464" width="42" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Importe
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="18" y="600" width="496" height="36"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DescripcionDevolucion}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement key="rectangle" x="2" y="419" width="551" height="21"/>
+			</rectangle>
+			<textField>
+				<reportElement x="112" y="488" width="219" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nomRFC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="19" y="464" width="108" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. de Contrarecibo
+]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement key="rectangle" x="2" y="461" width="551" height="260"/>
+			</rectangle>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="434" y="461" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$F{importeNeto}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement key="image" x="17" y="371" width="210" height="44"/>
+				<imageExpression class="java.lang.String"><![CDATA["report\\images\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="20" y="479" width="74" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Razon social:
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="245" y="397" width="146" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VOLANTE DE DEVOLUCIÓN No.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="247" y="661" width="67" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Atentamente
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="391" y="496" width="159" height="40"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ES REQUISITO LA PRESENTACIÓN DE ESTE VOLANTE, PARA REINGRESO DE LA DOCUMENTACIÓN EN VENTANILLA.
+
+
+
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="496" width="323" height="20"/>
+				<textElement/>
+				<text><![CDATA[Anexo al presente se devuelve la documentación original ingresada
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="441" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRESENTE
+]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement key="rectangle" x="238" y="370" width="315" height="24"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="363" y="441" width="31" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="418" y="397" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{folioDevolucion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="397" y="441" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{FechaRegistro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="462" width="122" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{noContrarrecibo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="243" y="699" width="75" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre y firma
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="284" y="374" width="244" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<line>
+				<reportElement x="194" y="707" width="169" height="1"/>
+			</line>
+			<rectangle>
+				<reportElement key="rectangle" x="238" y="394" width="315" height="21"/>
+			</rectangle>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="5" y="545" width="545" height="116"/>
+				<textElement textAlignment="Left" rotation="None">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DescripcionDevolucion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="376" y="462" width="48" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Importe
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="462" width="108" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. de Contrarecibo
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="94" y="479" width="456" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nomRFC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="521" width="147" height="15"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MOTIVO DEL RECHAZO:
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="155" width="147" height="16"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MOTIVO DEL RECHAZO:
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="245" y="395" width="146" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VOLANTE DE RECHAZO No.
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="401" y="32" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{folioDevolucion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="401" y="396" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{folioDevolucion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="17" y="166" width="495" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sMotivoCancelacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="534" width="495" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sMotivoCancelacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

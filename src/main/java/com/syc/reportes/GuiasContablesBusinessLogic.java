@@ -157,7 +157,7 @@ public class GuiasContablesBusinessLogic extends DataSourceManager {
             OutputStream responseOutputStream = resp.getOutputStream();
             int bytes;
             while ((bytes = fileInputStream.read()) != -1) {
-                responseOutputStream.write(bytes.toPath());
+                responseOutputStream.write(bytes);
             }
         } finally {
             CloseObject.closeObject(conn, false);

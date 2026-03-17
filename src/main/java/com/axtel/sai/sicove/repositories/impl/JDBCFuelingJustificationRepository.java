@@ -58,7 +58,7 @@ public class JDBCFuelingJustificationRepository implements FuelingJustificationR
         FuelingJustification fuelingJustification;
         try {
             fuelingJustification = runner.query(conn, query.toString(), fuelingJustificationRepositoryHandler, id);
-            log.debug("Object: {}", "Se encontro: " + fuelingJustification);
+            log.debug("Object: " + String.valueOf("Se encontro: " + fuelingJustification));
             return fuelingJustification;
         } catch (SQLException e) {
             throw new SicoveException(e);

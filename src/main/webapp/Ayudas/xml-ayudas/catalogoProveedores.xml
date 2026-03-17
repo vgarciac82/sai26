@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Catalogo de Proveedores</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>CATALOGOPROVEEDOR</tabla>
+	<maxRegistros>250</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="cIdRFC"	control="catalogoProveedores"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="RFC"	ancho="40"	maxlen="20"		tipo="string"	visible="si"	clase=""/>
+		<columna campo="cRazonSocial"	control="cRazonSocial"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Razón Social"	ancho="40"	maxlen="15"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cgiro"	control="cgiro"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Giro"	ancho="60"	maxlen="60"		tipo="string"	visible="Si"	clase=""/>
+        <columna campo ="cRepresentanteLegal" control="cRepresentanteLegal"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Representante Legal"	ancho="40"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+       
+   </grid>  
+</Ayuda>

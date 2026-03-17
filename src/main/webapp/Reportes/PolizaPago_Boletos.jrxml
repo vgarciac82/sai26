@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PolizaPago_Boletos"  pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nFolioRelacionGastos" class="java.lang.Integer" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[
+
+/*PolizaPago_Boletos.jasper*/
+
+SELECT nFolioRelacionGastos,
+       cNumeroBoleto,
+       mImporteBoleto,
+       (
+              SELECT Count(nFolioRelacionGastos)
+              FROM   tInfoBoleto bol WITH(NOLOCK)
+              WHERE  bol.nFolioRelacionGastos = info.nFolioRelacionGastos) cantBoletos
+FROM   tInfoBoleto info  WITH(NOLOCK)
+WHERE  nFolioRelacionGastos = $P{nFolioRelacionGastos}
+
+		]]>
+	</queryString>
+	<field name="nFolioRelacionGastos" class="java.lang.Integer"/>
+	<field name="cNumeroBoleto" class="java.lang.String"/>
+	<field name="mImporteBoleto" class="java.math.BigDecimal"/>
+	<field name="cantBoletos" class="java.lang.Integer"/>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="11" splitType="Stretch">
+			<textField>
+				<reportElement x="93" y="0" width="74" height="11" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{cantBoletos}< 4]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cNumeroBoleto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="200" y="0" width="73" height="11" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{cantBoletos}< 4]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{mImporteBoleto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="2" y="0" width="93" height="11">
+					<printWhenExpression><![CDATA[$F{cantBoletos}< 4]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[No. Boleto/Reservacion:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="167" y="0" width="25" height="11">
+					<printWhenExpression><![CDATA[$F{cantBoletos}< 4]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Monto:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement isPrintRepeatedValues="false" x="2" y="0" width="271" height="11" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Justified">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cantBoletos}> 3 ?  "LA AUTORIZACION DE PAGO DE ESTE DOCUMENTO SE DETALLA EN EL ANEXO DE LA CUENTA POR PAGAR, QUE INCLUYE LAS CLAVES PRESUPUESTALES, LISTADO DE FACTURAS Y/O BOLETOS DE AVION." : ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

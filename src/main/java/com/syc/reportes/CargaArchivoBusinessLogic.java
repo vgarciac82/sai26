@@ -43,7 +43,7 @@ public class CargaArchivoBusinessLogic extends DataSourceManager {
         for (String[] renglon : renglonesArchivo) {
             try {
                 conn = getConnection();
-                log.debug("Object: {}", " Operando el renglon " + nRenglon + " : " + renglon[2]);
+                log.debug("Object: " + String.valueOf(" Operando el renglon " + nRenglon + " : " + renglon[2]));
                 int columna = 3;
                 String fAp = renglon[0];
                 String fExp = renglon[1];
@@ -79,7 +79,7 @@ public class CargaArchivoBusinessLogic extends DataSourceManager {
                                 conn.commit();
                             } catch (Exception e2) {
                                 String errorMsg = "Error mientras se aplicaba el ejercido " + folio + ". Causa: " + e2.toString();
-                                log.warn(errorMsg.getMessage(), errorMsg);
+                                log.warn(errorMsg, errorMsg);
                                 throw new Exception(errorMsg, e2);
                             }
                             // Inserta pagado
@@ -92,7 +92,7 @@ public class CargaArchivoBusinessLogic extends DataSourceManager {
                                 conn.commit();
                             } catch (Exception e4) {
                                 String errorMsg = "Error mientras se aplicaba el pagado " + folio + ". Causa: " + e4.toString();
-                                log.warn(errorMsg.getMessage(), errorMsg);
+                                log.warn(errorMsg, errorMsg);
                                 throw new Exception(errorMsg, e4);
                             }
                         } else {
@@ -107,7 +107,7 @@ public class CargaArchivoBusinessLogic extends DataSourceManager {
                                     conn.commit();
                                 } catch (Exception e4) {
                                     String errorMsg = "Error mientras se aplicaba el pagado " + folio + ". Causa: " + e4.toString();
-                                    log.warn(errorMsg.getMessage(), errorMsg);
+                                    log.warn(errorMsg, errorMsg);
                                     throw new Exception(errorMsg, e4);
                                 }
                             }

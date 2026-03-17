@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Programa Presupuestario</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>CLAVECNA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+<!--	<ColSort>0</ColSort>-->
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="id"	control="ClaveCNA"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="id"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+<!--		<columna campo="descripcion"	control="hClaveCNA"	dependencia="No"	ctrlsDependientes="ClaveCNA, hep, hUnidadResponsableEP, hProgramaPresupuestario, hPartida, hUnidadNormativa, hcUnidadEjecutora" limpiaOnKeypress=""		header="Descripción"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>-->
+		<columna campo="descripcion"	control="hClaveCNA"	dependencia="No"	ctrlsDependientes="ClaveCNA" limpiaOnKeypress=""		header="Descripción"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="hep"	control="hep"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="hep"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+		<columna campo="ep"	control="ep"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="ep"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+<!--		<columna campo="EjercicioFiscal"	control="hEjercicioFiscal"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="id"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>-->
+<!--		<columna campo="Ramo"	control="hRamo"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="id"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>-->
+		<columna campo="UnidadResponsable"	control="hUnidadResponsableEP"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="UnidadResponsable"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+<!--		<columna campo="GrupoFuncional"	control="hGrupoFuncional"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="id"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>-->
+<!--		<columna campo="Funcion"	control="hFuncion"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="id"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>-->
+<!--		<columna campo="SubFuncion"	control="hSubFuncion"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="id"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>-->
+<!--		<columna campo="ProgramaGeneral"	control="hProgramaGeneral"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="id"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>-->
+<!--		<columna campo="ActividadInstitucional"	control="hActividadInstitucional"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="id"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>-->
+		<columna campo="ProgramaPresupuestario"	control="hProgramaPresupuestario"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="ProgramaPresupuestario"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+		<columna campo="Partida"	control="hPartida"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="Partida"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+<!--		<columna campo="TipoGasto"	control="hTipoGasto"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="id"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>-->
+<!--		<columna campo="FuenteFinanciamiento"	control="hFuenteFinanciamiento"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="id"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>-->
+<!--		<columna campo="EntidadFederativa"	control="hEntidadFederativa"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="id"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>-->
+		<columna campo="Cartera"	control="hCartera"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="id"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+		<columna campo="UnidadNormativa"	control="hUnidadNormativa"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="UnidadNormativa"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+		<columna campo="UnidadEjecutora"	control="hcUnidadEjecutora"	dependencia="No"	ctrlsDependientes="" limpiaOnKeypress=""		header="UnidadEjecutora"	 ancho="100"	maxlen="200" tipo="string"	visible="No"	clase=""/>
+	</grid>  
+
+</Ayuda>

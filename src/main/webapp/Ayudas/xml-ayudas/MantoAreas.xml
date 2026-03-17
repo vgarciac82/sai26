@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Areas</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>M_CG_CAT_AREAS</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	<grid>
+		<columna campo="A.D_DESCRIPCION"	control=""				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""						header="Area"				rowCol="1,1"		ancho="80"		maxlen="100"	tipo="string"	visible="Si"	clase=""/>				
+		<columna campo="A.ID_AREA"			control=""				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""						header="ID Area"			rowCol="1,2"		ancho="20"		maxlen="20"		tipo="numero"	visible="Si"	clase="Protegido"/>
+		<columna campo="P.D_DESCRIPCION"	control="MantoPArea"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridCol3"			header="Area Padre"			rowCol="2,1"		ancho="80"		maxlen="100"	tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="P.ID_AREA"			control=""				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress="txtGridMantoPArea"	header="ID Area Padre"		rowCol="2,2"		ancho="20"		maxlen="20"		tipo="string"	visible="Si"	clase="Protegido"/>
+		<columna campo="A.PREFIJO_FOLIO"	control=""				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""						header="Prefijo Folio"		rowCol="3,1"		ancho="40"		maxlen="40"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="A.FOLIO_INICIAL"	control=""				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""						header="Folio Inicial"		rowCol="3,2"		ancho="10"		maxlen="10"		tipo="numero"	visible="Si"	clase=""/>
+
+		
+	</grid>
+		
+	<insertaRegistro>
+		<campo field="ID_AREA"			control="txtGridCol1"	llave="Si"	identity="Si"	requerido=""										requeridoFocus="txtGridCol2"	tipo="numero" />
+		<campo field="D_DESCRIPCION"	control="txtGridCol0"	llave="No"	identity="No"	requerido="La Descripcion es un dato requerido."	requeridoFocus="txtGridCol3"	tipo="string" />
+		<campo field="PREFIJO_FOLIO" 	control="txtGridCol4"	llave="No"	identity="No" 	requerido="El Prefijo es un dato requerido."		requeridoFocus="txtGridCol4"	tipo="string" />
+		<campo field="ID_AREA_PADRE"	control="txtGridCol3"	llave="No"	identity="No" 	requerido=""										requeridoFocus=""				tipo="string" />
+		<campo field="FOLIO_INICIAL"	control="txtGridCol5"	llave="No"	identity="No" 	requerido=""										requeridoFocus=""				tipo="numero" />
+	</insertaRegistro>
+
+</Ayuda>

@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MatrizConversionCONAC"  pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.4641000000000013"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1219"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<parameter name="tipoDevEg" class="java.lang.String"/>
+	<parameter name="tipoDevRecIn" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT RTRIM(LTRIM(cParrafo1)) AS cParrafo1
+	, RTRIM(LTRIM(cParrafo2)) AS cParrafo2
+	, RTRIM(LTRIM(cParrafo3)) AS cParrafo3
+	, RTRIM(LTRIM(cParrafo4)) AS cParrafo4
+	, RTRIM(LTRIM(cParrafo5)) AS cParrafo5
+	, RTRIM(LTRIM(cParrafo6)) AS cParrafo6
+	, RTRIM(LTRIM(cParrafo7)) AS cParrafo7
+	, RTRIM(LTRIM(cParrafo8)) AS cParrafo8
+	, RTRIM(LTRIM(cParrafo9)) AS cParrafo9
+	, RTRIM(LTRIM(cParrafo10)) AS cParrafo10
+	, RTRIM(LTRIM(cParrafo11)) AS cParrafo11
+	, RTRIM(LTRIM(cParrafo12)) AS cParrafo12
+	, RTRIM(LTRIM(cParrafo13)) AS cParrafo13
+	, RTRIM(LTRIM(cParrafo14)) AS cParrafo14
+	, RTRIM(LTRIM(cParrafo15)) AS cParrafo15
+FROM tComplementoManualContable
+WHERE idComplemento = 7]]>
+	</queryString>
+	<field name="cParrafo1" class="java.lang.String"/>
+	<field name="cParrafo2" class="java.lang.String"/>
+	<field name="cParrafo3" class="java.lang.String"/>
+	<field name="cParrafo4" class="java.lang.String"/>
+	<field name="cParrafo5" class="java.lang.String"/>
+	<field name="cParrafo6" class="java.lang.String"/>
+	<field name="cParrafo7" class="java.lang.String"/>
+	<field name="cParrafo8" class="java.lang.String"/>
+	<field name="cParrafo9" class="java.lang.String"/>
+	<field name="cParrafo10" class="java.lang.String"/>
+	<field name="cParrafo11" class="java.lang.String"/>
+	<field name="cParrafo12" class="java.lang.String"/>
+	<field name="cParrafo13" class="java.lang.String"/>
+	<field name="cParrafo14" class="java.lang.String"/>
+	<field name="cParrafo15" class="java.lang.String"/>
+	<pageHeader>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="23" y="8" width="122" height="52"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="276" y="8" width="221" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="35" width="221" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MATRICES DE CONVERSION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="251" y="60" width="276" height="18"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ANEXO I MATRICES DE CONVERSIÓN]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="128" splitType="Stretch">
+			<staticText>
+				<reportElement x="278" y="10" width="221" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ÍNDICE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="37" width="221" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• ASPECTOS GENERALES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="54" width="306" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• DESCRIPCIÓN Y ESTRUCTURA DE DATOS DE LAS MATRICES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="70" width="306" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• 1 MATRIZ DEVENGADO DE GASTOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="86" width="306" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• 2 MATRIZ PAGADO DE GASTOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="102" width="368" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• 3 MATRIZ DE INGRESOS DEVENGADOS Y RECAUDADOS SIMULTÁNEOS]]></text>
+			</staticText>
+		</band>
+		<band height="145">
+			<staticText>
+				<reportElement x="280" y="11" width="221" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ASPECTOS GENERALES]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="72" y="35" width="650" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cParrafo1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="72" y="72" width="650" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cParrafo2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="72" y="108" width="650" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cParrafo3}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="236">
+			<staticText>
+				<reportElement x="247" y="11" width="289" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIPCIÓN Y ESTRUCTURA DE DATOS DE MATRICES]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="72" y="35" width="650" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cParrafo4}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="72" y="68" width="650" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cParrafo5}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="72" y="101" width="650" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cParrafo6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="72" y="134" width="650" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cParrafo7}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="72" y="168" width="650" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cParrafo8}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="72" y="201" width="650" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cParrafo9}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="253">
+			<staticText>
+				<reportElement x="239" y="11" width="289" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MODELOS DE LAS MATRICES DE CONVERSIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="33" width="289" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[1 MATRIZ DEVENGADO DE GASTO]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="72" y="60" width="650" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cParrafo10}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="72" y="91" width="650" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cParrafo11}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="72" y="123" width="650" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cParrafo12}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="239" y="153" width="289" height="15" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[2 MATRIZ DE PAGADO DE GASTOS]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="73" y="178" width="649" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cParrafo13}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="101" y="210" width="621" height="30" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[•   Si se trata de pago por Bancos, mediante cheque o transferencia bancaria, la cuenta surgirá de relacionar el medio de pago con la moneda. ]]></text>
+			</staticText>
+		</band>
+		<band height="99">
+			<staticText>
+				<reportElement positionType="Float" x="199" y="10" width="375" height="15" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[3 MATRIZ DE INGRESOS DEVENGADOS Y RECAUDADOS SIMULTÁNEOS]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="72" y="33" width="650" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cParrafo14}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="72" y="65" width="650" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cParrafo15}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="58">
+			<subreport>
+				<reportElement x="0" y="15" width="789" height="43"/>
+				<subreportParameter name="tipo">
+					<subreportParameterExpression><![CDATA[$P{tipoDevEg}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "MatrizConversionDevengado.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="58">
+			<subreport>
+				<reportElement x="0" y="15" width="789" height="43"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "MatrizConversionPagado.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="58">
+			<subreport>
+				<reportElement x="0" y="14" width="789" height="43"/>
+				<subreportParameter name="tipo">
+					<subreportParameterExpression><![CDATA[$P{tipoDevRecIn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "MatrizConversionIngreso.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="737" y="6" width="32" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="23">
+			<textField>
+				<reportElement x="737" y="5" width="32" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

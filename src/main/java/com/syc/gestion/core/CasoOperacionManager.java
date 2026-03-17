@@ -285,7 +285,7 @@ public class CasoOperacionManager {
             Usuario u = new Usuario();
             u.setLogin(u_login);
             u = UsuarioManager.select(conn, u);
-            log.debug("Object: {}", qry + "[" + u.getNombre() + ", " + cCentroContable + ", " + UR + "]");
+            log.debug("Object: " + String.valueOf(qry + "[" + u.getNombre() + ", " + cCentroContable + ", " + UR + "]"));
             cstmnt = conn.prepareCall(qry);
             cstmnt.setString(1, u.getNombre());
             cstmnt.setString(2, cCentroContable);

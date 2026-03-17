@@ -143,6 +143,9 @@ import org.slf4j.LoggerFactory;
 import java.util.Base64;
 import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 import java.nio.file.Paths;
+import jcifs.CIFSContext;
+import jcifs.context.SingletonContext;
+import jcifs.smb.NtlmPasswordAuthenticator;
 
 public class Util {
 
@@ -193,14 +196,14 @@ public class Util {
             return ALRM_UNKNOW;
         }
         if (str.startsWith("end")) {
-            log.debug("Object: {}", str);
+            log.debug("Object: " + String.valueOf(str));
             return ALRM_END;
         }
         if (str.startsWith("mail")) {
-            log.debug("Object: {}", str);
+            log.debug("Object: " + String.valueOf(str));
             return ALRM_MAIL;
         }
-        log.debug("Object: {}", "No implementado: " + str);
+        log.debug("Object: " + String.valueOf("No implementado: " + str));
         return ALRM_UNKNOW;
     }
 
@@ -256,7 +259,7 @@ public class Util {
                 log.error("Object: {}", "Tipo de Archivo desconocido (" + id_tca + ")");
                 throw new RuntimeException("Tipo de Archivo desconocido (" + id_tca + ")");
         }
-        log.debug("Object: {}", id_tca + " = " + s);
+        log.debug("Object: " + String.valueOf(id_tca + " = " + s));
         return s;
     }
 
@@ -288,7 +291,7 @@ public class Util {
                 log.error("Object: {}", "Tipo de Dato desconocido (" + tcv_tipo + ")");
                 throw new RuntimeException("Tipo de Dato desconocido (" + tcv_tipo + ")");
         }
-        log.debug("Object: {}", tcv_tipo + " = " + s);
+        log.debug("Object: " + String.valueOf(tcv_tipo + " = " + s));
         return s;
     }
 
@@ -391,7 +394,7 @@ public class Util {
             log.error(e.getMessage(), e);
         } catch (UnsupportedEncodingException e) {
             log.error(e.getMessage(), e);
-        } catch (IOException e) {
+        } catch (IllegalArgumentException e) {
             log.error(e.getMessage(), e);
         }
         return null;
@@ -413,7 +416,7 @@ public class Util {
     public static SecretKey stringToSecretKey(String str) {
         try {
             return new SecretKeySpec(Base64.getDecoder().decode(str), algorithm);
-        } catch (IOException e) {
+        } catch (IllegalArgumentException e) {
             log.error(e.getMessage(), e);
         }
         return null;
@@ -517,13 +520,13 @@ public class Util {
         byte[] buffer = new byte[1024 * 1024 * 2];
         int length;
         long fSize = 0l;
-        log.debug("Object: {}", "Copiando archivo  desde stream: " + archivoCargaStream + " a " + nombreArchivoDestino);
+        log.debug("Object: " + String.valueOf("Copiando archivo  desde stream: " + archivoCargaStream + " a " + nombreArchivoDestino));
         while ((length = archivoCargaStream.read(buffer)) > 0) {
             log.trace("Object: {}", "Escribiendo buffer " + length);
             outStream.write(buffer, 0, length);
             fSize = fSize + length;
         }
-        log.debug("Object: {}", "Se copiaron: " + fSize + " Kbytes");
+        log.debug("Object: " + String.valueOf("Se copiaron: " + fSize + " Kbytes"));
         outStream.flush();
         outStream.close();
         return true;
@@ -722,7 +725,7 @@ public class Util {
             f.createNewFile();
         FileOutputStream fos = new FileOutputStream(f);
         BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
-        wb.write(bos.toPath());
+        wb.write(bos);
         /* Cierra Flujos */
         bos.flush();
         bos.close();
@@ -947,7 +950,7 @@ public class Util {
             linea = linea + token + rsmd.getColumnName(i + 1);
             token = ",";
         }
-        fw.write(linea + "\n".toPath());
+        fw.write(linea + "\n");
         linea = "";
         token = "";
         /* Ingresa las columnas como resultado */
@@ -956,7 +959,7 @@ public class Util {
                 linea = linea + token + rs.getString(encabezados[i]);
                 token = ",";
             }
-            fw.write(linea + "\n".toPath());
+            fw.write(linea + "\n");
             token = "";
             linea = "";
         }
@@ -1512,7 +1515,7 @@ public class Util {
         usuarioRemoto = cabl.obtenUsuarioRemoto();
         passwordRemoto = cabl.obtenPasswordRemoto();
         rutaRemoto = cabl.obtenRutaRemoto();
-        NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication(dominio, usuarioRemoto, passwordRemoto);
+        CIFSContext auth = SingletonContext.getInstance().withCredentials(new NtlmPasswordAuthenticator(dominio, usuarioRemoto, passwordRemoto));
         String sharepath = rutaRemoto + nameFile;
         File file = new File(pathFile);
         FileInputStream fis = new FileInputStream(file);
@@ -1636,7 +1639,7 @@ public class Util {
         usuarioRemoto = cabl.obtenUsuarioRemoto();
         passwordRemoto = cabl.obtenPasswordRemoto();
         rutaRemoto = cabl.obtenRutaRemoto();
-        NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication(dominio, usuarioRemoto, passwordRemoto);
+        CIFSContext auth = SingletonContext.getInstance().withCredentials(new NtlmPasswordAuthenticator(dominio, usuarioRemoto, passwordRemoto));
         String sharepath = rutaRemoto + Util.getFileName(nameFile);
         SmbFile sFile = new SmbFile(sharepath, auth);
         SmbFileOutputStream out = new SmbFileOutputStream(sFile, true);
@@ -1669,7 +1672,7 @@ public class Util {
         usuarioRemoto = ConfiguraAplicativoManager.obtenUsuarioRemotoFurrt(conn);
         passwordRemoto = ConfiguraAplicativoManager.obtenPasswordRemoto(conn);
         rutaRemoto = ConfiguraAplicativoManager.obtenRutaRemoto(conn);
-        NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication(dominio, usuarioRemoto, passwordRemoto);
+        CIFSContext auth = SingletonContext.getInstance().withCredentials(new NtlmPasswordAuthenticator(dominio, usuarioRemoto, passwordRemoto));
         String sharepath = rutaRemoto + nameFile;
         SmbFile sFile = new SmbFile(sharepath, auth);
         SmbFileOutputStream out = new SmbFileOutputStream(sFile, true);
@@ -1693,7 +1696,7 @@ public class Util {
         usuarioRemoto = cabl.obtenUsuarioRemoto();
         passwordRemoto = cabl.obtenPasswordRemoto();
         rutaRemoto = cabl.obtenRutaRemoto();
-        NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication(dominio, usuarioRemoto, passwordRemoto);
+        CIFSContext auth = SingletonContext.getInstance().withCredentials(new NtlmPasswordAuthenticator(dominio, usuarioRemoto, passwordRemoto));
         String sharepath = rutaRemoto + remoteNameFile;
         SmbFile sFile = new SmbFile(sharepath, auth);
         if (sFile.exists())
@@ -1808,7 +1811,7 @@ public class Util {
             linea = linea + token + encabezados.get(i);
             token = ",";
         }
-        fw.write(linea + "\n".toPath());
+        fw.write(linea + "\n");
         token = "";
         linea = "";
         /* Ingresa las columnas como resultado */
@@ -1816,7 +1819,7 @@ public class Util {
             linea = linea + token + (datos.get(i) == null ? "" : datos.get(i).replaceAll("[,]", "").replaceAll("\r\n", " ").replaceAll("\n\r", " ").replaceAll("\n", " ").replaceAll("\r", " ").trim());
             token = ",";
             if ((i + 1) % cambioLinea == 0) {
-                fw.write(linea + "\n".toPath());
+                fw.write(linea + "\n");
                 token = "";
                 linea = "";
             }
@@ -1975,7 +1978,7 @@ public class Util {
             linea = linea + token + rsmd.getColumnName(i + 1);
             token = "|";
         }
-        fw.write(linea + "\n".toPath());
+        fw.write(linea + "\n");
         linea = "";
         token = "";
         // }
@@ -1996,7 +1999,7 @@ public class Util {
                     token = "|";
                 }
             }
-            fw.write(linea + "\n".toPath());
+            fw.write(linea + "\n");
             token = "";
             linea = "";
         }
@@ -2165,7 +2168,7 @@ public class Util {
             }
         }
         if (incluirEncabezado) {
-            fw.write(linea + "\n".toPath());
+            fw.write(linea + "\n");
             linea = "";
             token = "";
         }
@@ -2187,7 +2190,7 @@ public class Util {
                     token = "|";
                 }
             }
-            fw.write(linea + "\n".toPath());
+            fw.write(linea + "\n");
             token = "";
             linea = "";
         }
@@ -2522,7 +2525,7 @@ public class Util {
         BufferedWriter writer = null;
         try {
             writer = new BufferedWriter(new FileWriter(file));
-            writer.write(stringBuilder.toString().toPath());
+            writer.write(stringBuilder.toString());
         } finally {
             if (writer != null)
                 writer.close();
@@ -2773,7 +2776,7 @@ public class Util {
                 textBuilder.append((char) c);
             }
             return textBuilder.toString();
-        } catch (IOException e) {
+        } catch (IllegalArgumentException | IOException e) {
             log.error(e.getMessage(), e);
             throw new RuntimeException(e.toString());
         }
@@ -2789,7 +2792,7 @@ public class Util {
     public static void writToFile(String fileName, List<String> lines) throws IOException {
         FileWriter writer = new FileWriter(fileName);
         for (String str : lines) {
-            writer.write(str + System.lineSeparator().toPath());
+            writer.write(str + System.lineSeparator());
         }
         writer.flush();
         writer.close();
@@ -2800,14 +2803,14 @@ public class Util {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        resp.getWriter().write(errorJson.toPath());
+        resp.getWriter().write(errorJson);
     }
 
     public static void sendJSON(HttpServletResponse resp, Object obj) throws IOException {
         String jsonString = mapper.writeValueAsString(obj);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
-        resp.getWriter().write(jsonString.toPath());
+        resp.getWriter().write(jsonString);
     }
 
     public static String getTodayWithTime() {

@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
 
-public class CatalogoServlet extends javax.servlet.http.HttpServlet {
+public class CatalogoServlet extends jakarta.servlet.http.HttpServlet {
 
     private static final long serialVersionUID = 1L;
 

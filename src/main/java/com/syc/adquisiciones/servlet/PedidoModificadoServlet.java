@@ -136,7 +136,7 @@ public class PedidoModificadoServlet extends HttpServlet implements GestionInter
         }
         //Obtiene la operación que se manda como parámetro en la llamada GET
         int tipoOperacion = Integer.parseInt(request.getParameter("operacion"));
-        log.debug("Object: {}", "operacion: " + tipoOperacion);
+        log.debug("Object: " + String.valueOf("operacion: " + tipoOperacion));
         String strParam = request.getParameter("Param");
         switch(tipoOperacion) {
             case 0:
@@ -534,7 +534,7 @@ public class PedidoModificadoServlet extends HttpServlet implements GestionInter
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion Contable, Consulte a su administrador.";
         }
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis())));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         Connection conn = null;
         AplicarContableReturn acr = null;
@@ -555,7 +555,7 @@ public class PedidoModificadoServlet extends HttpServlet implements GestionInter
             c = CasoManager.select(conn, sc);
             // Una vez que ha hecho la aplicación contable avanza el caso
             avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-            log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+            log.debug("Object: " + String.valueOf(c.getCasoDato("APLICADO_CONT").getValor()));
         } catch (Exception e) {
             log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
         } finally {
@@ -567,7 +567,7 @@ public class PedidoModificadoServlet extends HttpServlet implements GestionInter
             }
             conn = null;
         }
-        log.debug("Object: {}", "Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis())));
         try {
             //Regresa el mensaje de la aplicación contable para que sea mostrado en el JSP
             mensaje = !"".equals(mensaje) ? mensaje : arrLResult.get(0);
@@ -600,7 +600,7 @@ public class PedidoModificadoServlet extends HttpServlet implements GestionInter
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion Contable, Consulte a su administrador.";
         }
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis())));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         Connection conn = null;
         AplicarContableReturn acr = null;
@@ -627,7 +627,7 @@ public class PedidoModificadoServlet extends HttpServlet implements GestionInter
             sc.setIdCaso(c.getIdCaso());
             c = CasoManager.select(conn, sc);
             avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-            log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+            log.debug("Object: " + String.valueOf(c.getCasoDato("APLICADO_CONT").getValor()));
         } catch (Exception e) {
             log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
         } finally {
@@ -639,7 +639,7 @@ public class PedidoModificadoServlet extends HttpServlet implements GestionInter
             }
             conn = null;
         }
-        log.debug("Object: {}", "Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis())));
         //if ("true".equals(c.getCasoDato("APLICADO_CONT").getValor())||mensaje.contains("APLICADO"))
         try {
             mensaje = !"".equals(mensaje) ? mensaje : arrLResult.get(0);
@@ -664,7 +664,7 @@ public class PedidoModificadoServlet extends HttpServlet implements GestionInter
         }
         String mensaje = "";
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis())));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         Connection conncbl = null;
         AplicarContableReturn acr = null;
@@ -697,7 +697,7 @@ public class PedidoModificadoServlet extends HttpServlet implements GestionInter
                     sc.setIdCaso(c.getIdCaso());
                     c = CasoManager.select(conncbl, sc);
                     avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-                    log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: " + String.valueOf(c.getCasoDato("APLICADO_CONT").getValor()));
                 }
             }
         } catch (Exception e) {
@@ -717,7 +717,7 @@ public class PedidoModificadoServlet extends HttpServlet implements GestionInter
             stmt = null;
             rs = null;
         }
-        log.debug("Object: {}", "Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis())));
         //if ("true".equals(c.getCasoDato("APLICADO_CONT").getValor())||mensaje.contains("APLICADO"))
         try {
             mensaje = !"".equals(mensaje) ? mensaje : arrLResult.get(0);
@@ -742,7 +742,7 @@ public class PedidoModificadoServlet extends HttpServlet implements GestionInter
         }
         String mensaje = "";
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Object: {}", "Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Inicia aplicacion contable" + new Timestamp(System.currentTimeMillis())));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         Connection conncbl = null;
         AplicarContableReturn acr = null;
@@ -774,7 +774,7 @@ public class PedidoModificadoServlet extends HttpServlet implements GestionInter
                 sc.setIdCaso(c.getIdCaso());
                 c = CasoManager.select(conncbl, sc);
                 avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
-                log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+                log.debug("Object: " + String.valueOf(c.getCasoDato("APLICADO_CONT").getValor()));
             }
         } catch (Exception e) {
             log.error("Error occurred", "Error en Aplicacion contable:" + e.getMessage());
@@ -787,7 +787,7 @@ public class PedidoModificadoServlet extends HttpServlet implements GestionInter
             }
             conn = null;
         }
-        log.debug("Object: {}", "Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Termina Aplicacion contable" + new Timestamp(System.currentTimeMillis())));
         //if ("true".equals(c.getCasoDato("APLICADO_CONT").getValor())||mensaje.contains("APLICADO"))
         try {
             mensaje = !"".equals(mensaje) ? mensaje : arrLResult.get(0);

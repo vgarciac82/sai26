@@ -101,7 +101,7 @@ public class CFDIEncabezadoManager {
             ps.setString(i++, encabezado.getRfcProvCertif());
             ps.setBigDecimal(i++, encabezado.getTipoCambio());
             ps.setInt(i++, encabezado.getCfdiId());
-            log.debug("Object: {}", "Ejecutando actualización del CFDI encabezado con ID: " + encabezado.getCfdiId());
+            log.debug("Object: " + String.valueOf("Ejecutando actualización del CFDI encabezado con ID: " + encabezado.getCfdiId()));
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
                 log.error("Object: {}", "No se pudo actualizar el encabezado del CFDI con ID: " + encabezado.getCfdiId());

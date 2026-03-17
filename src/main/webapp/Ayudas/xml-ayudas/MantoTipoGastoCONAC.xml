@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Tipo Gasto</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>M_TCATALOGOTIPOGASTO_CONAC</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="cTipoGasto"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Tipo Gasto"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cClave"	    control=""	dependencia="No"	limpiaOnKeypress=""		header="Clave"	     ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+		<columna campo="dTipoGasto"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Descripción"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="cTipoGasto"	control="txtGridCol0"	llave="Si"			identity="No"	requerido="Tipo Gasto es un dato requerido."	        requeridoFocus="txtGridCol0"	tipo="string" />
+		<campo field="cClave"	    control="txtGridCol1"	llave="No"			identity="No"	requerido="Clave de Tipo Gasto es un dato requerido."	requeridoFocus="txtGridCol1"	tipo="string" />
+		<campo field="dTipoGasto"	control="txtGridCol2"	llave="No"	        identity="No"	requerido="Descripción es un dato requerido."			requeridoFocus="txtGridCol2"	tipo="string" />		
+	</insertaRegistro>
+	
+</Ayuda>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Metas</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>700</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>M_TCATALOGOMETAS</tabla>
+	<maxRegistros></maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>1</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>		
+		<columna campo="cMeta"						control="txtGridcMeta"						dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress=""									header="* Clave Meta"					rowCol="1,1" 	ancho="7"		maxlen="7"		tipo="string"		visible="Si"	clase=""/>  
+		<columna campo="dMeta"						control="txtGriddMeta"						dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress=""									header="* Descripcion Meta"				rowCol="1,2" 	ancho="80"		maxlen="500"	tipo="string"		visible="Si"	clase=""/>		
+		<columna campo="cProgramaPresupuestario"	control="txtGridcProgramaPresupuestario"	dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcProgramaPresupuestario"	header="* Programa Presupuestario"		rowCol="2,1" 	ancho="4"		maxlen="10"		tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cCartera"					control="txtGridcCartera"					dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcCartera"					header="* Cartera"						rowCol="2,2" 	ancho="11"		maxlen="20"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cUnidadEjecutora"			control="txtGridcUnidadEjecutora"			dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcUnidadEjecutora"			header="* Unidad Ejecutora"				rowCol="3,1" 	ancho="3"		maxlen="5"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cUnidadNorativa"			control="txtGridcUnidadNorativa"			dependencia="No"		ctrlsDependientes=""	limpiaOnKeypress="txtGridcUnidadNorativa"			header="* Unidad Normativa"				rowCol="3,2" 	ancho="3"		maxlen="5"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>		
+	</grid>
+
+	<insertaRegistro>		
+		<campo field="cMeta"					control="txtGridcMeta"						llave="Si"	identity="No" 	requerido="La clave de la Meta es requerida"							requeridoFocus=""									tipo="string" />
+		<campo field="dMeta"					control="txtGriddMeta"						llave="No"	identity="No"	requerido="El descripcion es requerida"									requeridoFocus="txtGridcRamo"						tipo="string" />  
+		<campo field="cProgramaPresupuestario"	control="txtGridcProgramaPresupuestario"	llave="No"	identity="No" 	requerido="El Programa Presupuestario es requerido"						requeridoFocus="txtGridcProgramaPresupuestario"		tipo="string" />
+        <campo field="cCartera"					control="txtGridcCartera"					llave="No"	identity="No"	requerido="La Cartera es requerida"										requeridoFocus="txtGridcCartera"					tipo="string" />
+		<campo field="cUnidadEjecutora"			control="txtGridcUnidadEjecutora"			llave="No"	identity="No" 	requerido="La Unidad Ejecutora es requerida"							requeridoFocus="txtGridcUnidadEjecutora"			tipo="string" />
+		<campo field="cUnidadNorativa"			control="txtGridcUnidadNorativa"			llave="No"	identity="No"	requerido="La Unidad Normativa es requerida"							requeridoFocus="txtGridcUnidadNorativa"				tipo="string" />		     	
+	</insertaRegistro>
+	  
+</Ayuda>

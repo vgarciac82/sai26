@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteConvenioMod"  pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<parameter name="where" class="java.lang.String"/>
+	<parameter name="formato" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+ROW_NUMBER()OVER(ORDER BY cmp.nIdLineaConsolidado) AS Row,
+'['+cmp.cIdUnidadEjecutora+'] '+cue.D_DESCRIPCION as ueDescripcion
+,cm.cIdContratoDefinitivo,'RESUMEN DEL CONVENIO: '+cm.cContratoDefinitivo AS cContratoDefinitivo
+,'Convenio CNET: '+cNoConvenio as cNoConvenio,isnull(cm.cObjetoConvenio,'No hay descripción del convenio') as cObjetoConvenio
+,'Fecha de Modificación: '+convert(varchar,cm.fMod) FechaMod,cm.mTotalAnterior
+,'Total Anterior: $'+convert(varchar,cm.mTotalAnterior,1)cTotalAnterior
+,cm.mTotalModificacion,'Monto Modificado: $'+convert(varchar,cm.mTotalModificacion,1)cTotalModificacion
+,cm.mTotalNuevo,'Total Nuevo: $'+convert(varchar,cm.mTotalNuevo,1) cTotalNuevo
+,cec.cEstado,cmp.nIdLineaConsolidado
+,cmp.cIdSolicitud
+,cmp.cDescripcion,sl.cDescripcionAdicional,cmp.nCantidad as nCantidadLinea
+,cmp.mPrecioUnitario,cmp.mMontoNeto as montoNetoLinea
+from mContratoModificado as cm with(nolock)
+inner join mCatalogoEstadoContrato cec with(nolock) on cec.nIdEstado=cm.nEstado
+inner join mContratoModificadoPartida as cmp with(nolock) on cmp.cIdContratoDefinitivo=cm.cIdContratoDefinitivo
+and cmp.nConsecutivoModificacion=cm.nConsecutivoModificacion
+inner join mSolicitudLineas as sl with(Nolock) on sl.cIdSolicitud=cmp.cIdSolicitud and cmp.cIdLineaSolicitud=sl.nIdLineaSolicitud
+inner join tCatUnidadEjecutora as cue with(Nolock) on cue.cUnidadEjecutora=cmp.cIdUnidadEjecutora
+where 1=1 $P!{where}
+order by cmp.nIdLineaConsolidado]]>
+	</queryString>
+	<field name="Row" class="java.lang.Long"/>
+	<field name="ueDescripcion" class="java.lang.String"/>
+	<field name="cIdContratoDefinitivo" class="java.lang.String"/>
+	<field name="cContratoDefinitivo" class="java.lang.String"/>
+	<field name="cNoConvenio" class="java.lang.String"/>
+	<field name="cObjetoConvenio" class="java.lang.String"/>
+	<field name="FechaMod" class="java.lang.String"/>
+	<field name="mTotalAnterior" class="java.math.BigDecimal"/>
+	<field name="cTotalAnterior" class="java.lang.String"/>
+	<field name="mTotalModificacion" class="java.math.BigDecimal"/>
+	<field name="cTotalModificacion" class="java.lang.String"/>
+	<field name="mTotalNuevo" class="java.math.BigDecimal"/>
+	<field name="cTotalNuevo" class="java.lang.String"/>
+	<field name="cEstado" class="java.lang.String"/>
+	<field name="nIdLineaConsolidado" class="java.lang.Integer"/>
+	<field name="cIdSolicitud" class="java.lang.String"/>
+	<field name="cDescripcion" class="java.lang.String"/>
+	<field name="cDescripcionAdicional" class="java.lang.String"/>
+	<field name="nCantidadLinea" class="java.lang.Integer"/>
+	<field name="mPrecioUnitario" class="java.math.BigDecimal"/>
+	<field name="montoNetoLinea" class="java.math.BigDecimal"/>
+	<group name="group">
+		<groupExpression><![CDATA[$F{cNoConvenio}]]></groupExpression>
+		<groupFooter>
+			<band height="17">
+				<line>
+					<reportElement x="0" y="1" width="750" height="1"/>
+				</line>
+				<staticText>
+					<reportElement x="564" y="3" width="114" height="14"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="¤ #,##0.00" isBlankWhenNull="true">
+					<reportElement x="678" y="3" width="74" height="14" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mTotalModificacion}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<pageHeader>
+		<band height="97" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="15" width="195" height="41"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"\\CONAFOR_NvoLogoDic2013_HD_Horizontal.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="0" width="752" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="195" y="16" width="350" height="14"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ueDescripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="31" width="350" height="14"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cNoConvenio}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="68" width="752" height="12" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cContratoDefinitivo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="80" width="752" height="12" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cObjetoConvenio}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="94" width="750" height="1"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="17" width="33" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Núm.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="17" width="100" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Partidas del Contrato]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="133" y="17" width="200" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="17" width="186" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Descripción Adicional]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="519" y="17" width="45" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="564" y="17" width="88" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[    Precio Unitario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="652" y="17" width="100" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[             Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="0" width="133" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{FechaMod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="133" y="0" width="200" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cTotalAnterior}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="0" width="186" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cTotalModificacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="519" y="0" width="133" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cTotalNuevo}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="31" width="750" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="33" height="14" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{Row}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="33" y="0" width="100" height="14" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{nIdLineaConsolidado}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="133" y="0" width="200" height="14" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cDescripcion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="333" y="0" width="186" height="14" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cDescripcionAdicional}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="519" y="0" width="45" height="14" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{nCantidadLinea}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="564" y="0" width="88" height="14" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{mPrecioUnitario}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="652" y="0" width="98" height="14" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{montoNetoLinea}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="16" splitType="Stretch">
+			<staticText>
+				<reportElement x="263" y="0" width="301" height="14"/>
+				<textElement/>
+				<text><![CDATA[SISTEMA DE ADMINISTRACIÓN INTEGRAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="564" y="0" width="142" height="14"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="706" y="0" width="40" height="14"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="0" y="0" width="133" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

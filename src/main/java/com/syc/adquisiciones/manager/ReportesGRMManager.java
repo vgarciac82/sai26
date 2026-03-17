@@ -1715,7 +1715,7 @@ public class ReportesGRMManager {
             rw = (firstSheet.getRow(3) == null ? firstSheet.createRow(3) : firstSheet.getRow(3));
             XSSFCell celdarsad = (rw.getCell(2) == null ? rw.createCell(2) : rw.getCell(2));
             celdarsad.setCellValue(Encabezado);
-            log.debug("Object: {}", query.toString());
+            log.debug("Object: " + String.valueOf(query.toString()));
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             rsMetadata = rs.getMetaData();

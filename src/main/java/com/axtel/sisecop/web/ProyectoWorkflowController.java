@@ -54,7 +54,7 @@ public class ProyectoWorkflowController extends HttpServlet {
                 proyectoOriginal.setObservaciones(proyectoServicio.getObservaciones());
             HttpSession session = request.getSession(false);
             Usuario user = (Usuario) session.getAttribute(GestionInterface.ATT_USER);
-            log.debug("Object: {}", "Sending project to step : " + proyectoOriginal.getEstatus().getEstatusId());
+            log.debug("Object: " + String.valueOf("Sending project to step : " + proyectoOriginal.getEstatus().getEstatusId()));
             proyectoOriginal = proyectoService.nextStep(proyectoOriginal, user);
             log.info("Object: {}", "Project avanced to next step: " + proyectoOriginal);
             Util.sendJSONResponse(response, proyectoOriginal);

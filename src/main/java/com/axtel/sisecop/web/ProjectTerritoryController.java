@@ -47,7 +47,7 @@ public class ProjectTerritoryController extends HttpServlet {
         TerritoryDTO territory = readProjectTerritory(request);
         log.trace("Object: {}", "JSON recibido correctamente y mapeado a objeto TerritoryDTO. " + territory);
         try {
-            log.debug("Object: {}", "Saving territory: " + territory);
+            log.debug("Object: " + String.valueOf("Saving territory: " + territory));
             ProyectoServicioTerritorio projectTerritory = proyectoService.createTerritory(territory);
             log.info("Object: {}", "Territory saved: " + projectTerritory);
             Util.sendJSONResponse(response, projectTerritory);

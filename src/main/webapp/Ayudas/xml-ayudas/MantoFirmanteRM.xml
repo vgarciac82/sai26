@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!-- Ayuda Firmante - desde la pantalla de Firmante -->
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Firmantes</titulo>
+	<anchoWin>1100</anchoWin>
+	<altoWin>880</altoWin>
+	<altoAreaCaptura>170</altoAreaCaptura>	
+	<tabla>M_MCATALOGOFIRMANTES</tabla>
+	<maxRegistros>250</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+ 	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	 
+	<grid>
+		<columna campo="f.cIdUnidadEjecutora"	control="cIdUnidadEjecutora"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	  header="*Unidad Ejecutora"	rowCol="1,1" 	ancho="3"		maxlen="3"		tipo="string"	visible="Si"	clase="AyudaSyC"/>
+   		<columna campo="f.cNombre"				control="cNombre"				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	  header="*Nombre"				rowCol="1,2" 	ancho="50"		maxlen="50"		tipo="string"	visible="Si"	clase=""/>
+   		<columna campo="f.cPaterno"				control="cPaterno"				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	  header="*Apellido Paterno"	rowCol="2,1" 	ancho="50"		maxlen="50"		tipo="string"	visible="Si"	clase=""/>
+   		<columna campo="f.cMaterno"				control="cMaterno"				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	  header="*Apellido Materno"	rowCol="2,2" 	ancho="50"		maxlen="50"		tipo="string"	visible="Si"	clase=""/>
+   		<columna campo="f.cPuesto"				control="cPuesto"				dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	  header="*Puesto"				rowCol="3,1" 	ancho="100"		maxlen="100"	tipo="string"	visible="Si"	clase="AyudaSyC"/>
+   		<columna campo="f.lHabilitado"			control="lHabilitado"			dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	  header="*Habilitado (1 ó 0)"	rowCol="3,2" 	ancho="1"		maxlen="1"		tipo="string"	visible="Si"	clase=""/>		   		   		   	
+   		<columna campo="f.nIdFirmante"			control="nIdFirmante"			dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	  header="Clave"				rowCol="3,3" 	ancho="3"		maxlen="80"		tipo="string"	visible="Si"	clase=""/>
+   		<columna campo="f.nNumeroEmpleado"		control="nNumeroEmpleado"		dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	  header="*Número Empleado"		rowCol="4,1" 	ancho="5"		maxlen="10"		tipo="string"	visible="Si"	clase=""/>
+	</grid> 
+
+	<insertaRegistro>
+		<campo field="cIdUnidadEjecutora"	control="txtGridcIdUnidadEjecutora"	llave="Si"	identity="No"	requerido="El campo Unidad Ejecutora es requerido."	requeridoFocus="txtGridcIdUnidadEjecutora"	tipo="string"/>		
+		<campo field="cNombre"				control="txtGridcNombre"			llave="No"	identity="No"	requerido="El campo Nombre es requerido."			requeridoFocus="txtGridcNombre"				tipo="string" />
+		<campo field="cPaterno"				control="txtGridcPaterno"			llave="No"	identity="No"	requerido="El campo Apellido Paterno es requerido."	requeridoFocus="txtGridcPaterno"			tipo="string" />
+		<campo field="cMaterno"				control="txtGridcMaterno"			llave="No"	identity="No"	requerido="El campo Apellido Materno es requerido."	requeridoFocus="txtGridcMaterno"			tipo="string" />
+		<campo field="cPuesto"				control="txtGridcPuesto"			llave="No"	identity="No"	requerido="El campo Puesto es requerido."			requeridoFocus="txtGridcPuesto"				tipo="string" />
+		<campo field="lHabilitado"			control="txtGridlHabilitado"		llave="No"	identity="No"	requerido="El campo Habilitado es requerido."		requeridoFocus="txtGridlHabilitado"			tipo="string" />
+		<campo field="nIdFirmante"			control="txtGridnIdFirmante"		llave="Si"	identity="No"	requerido=""										requeridoFocus=""							tipo="string"/>	
+		<campo field="nNumeroEmpleado"		control="txtGridnNumeroEmpleado"	llave="No"	identity="No"	requerido="El Número de empleado es requerido."		requeridoFocus="txtGridnNumeroEmpleado"		tipo="string" />			
+	</insertaRegistro>
+	
+</Ayuda>

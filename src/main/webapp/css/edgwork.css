@@ -1,0 +1,23 @@
+.dlabelEditText {
+	height: 25;
+	font-size: 18px;
+	font-weight: bold;
+	font-family: arial;
+	background: #ffcc33
+}
+
+.dlabelPlainText {
+	height: 35;
+	font-size: 22px;
+	font-weight: bold;
+	font-family: arial;
+	background: #ffffff
+}
+
+.dlabelPlainTextHighlight {
+	height: 35;
+	font-size: 22px;
+	font-weight: bold;
+	font-family: arial;
+	background: #ffcc33
+}

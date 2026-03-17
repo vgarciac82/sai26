@@ -78,7 +78,7 @@ public class ReProcesaCFDI extends ProcesoSAI {
             Carpeta cfdi = FacturaManager.obtenCarpetaDestino(conn, getTituloAplicacion(), getIdGabinete(conn), "CFDI", getLogin());
             for (Iterator<String> i = facturas.keySet().iterator(); i.hasNext(); ) {
                 String facturaNombre = i.next();
-                log.debug("Object: {}", "Insertando factura [" + facturaNombre + "] ");
+                log.debug("Object: " + String.valueOf("Insertando factura [" + facturaNombre + "] "));
                 ComponentesFactura cf = facturas.get(facturaNombre);
                 FacturaManager.insertaArchivosFactura(conn, facturaNombre, cf, cfdi, getLogin());
             }

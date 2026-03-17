@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Remitente Externo</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>CAT_REM_EXTERNO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	
+	<grid>
+		<columna campo="R.ID_REM_EXTERNO"		control="idRemitente"		dependencia="Si"	ctrlsDependientes=""																					limpiaOnKeypress=""											header="Clave firmante"				ancho="6"		maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+		<columna campo="R.RE_NOMBRE"			control="Remitente"			dependencia="Si"	ctrlsDependientes="idRemitente,Cargo,Procedencia,tipoProcedencia,Direccion,Estado,Municipio,Localidad"	limpiaOnKeypress="txtGrididRemitente"						header="Nombre del firmante"		ancho="100"		maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="R.RE_CARGO"				control="Cargo"				dependencia="No"	ctrlsDependientes=""																					limpiaOnKeypress=""											header="Cargo"						ancho="100"		maxlen="200"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="P.ID_PROCEDENCIA"		control=""					dependencia="No"	ctrlsDependientes=""																					limpiaOnKeypress=""											header="Clave Procedencia"			ancho="6"		maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+		<columna campo="P.PRO_DESCRIPCION"		control="Procedencia"		dependencia="No"	ctrlsDependientes=""																					limpiaOnKeypress="txtGridCol3,txtGridtipoProcedencia"		header="Procedencia"				ancho="100"		maxlen="100"	tipo="string"	visible="Si"	clase="AyudaSyC"/>
+		<columna campo="P.ID_TIPO_PROCEDENCIA" 	control="tipoProcedencia"	dependencia="No"	ctrlsDependientes=""																					limpiaOnKeypress=""											header="Tipo Procedencia"			ancho="30"		maxlen="30"		tipo="string"	visible="No"	clase="Protegido"/>
+		<columna campo="R.RE_DIRECCION"			control="Direccion"			dependencia="No"	ctrlsDependientes=""																					limpiaOnKeypress=""											header="Dirección"					ancho="100"		maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="E.ID_ESTADO"			control=""					dependencia="No"	ctrlsDependientes=""																					limpiaOnKeypress=""											header="Clave Estado"				ancho="6"		maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+		<columna campo="E.EDO_NOMBRE"			control="Estado"			dependencia="No"	ctrlsDependientes=""																					limpiaOnKeypress="txtGridCol7,txtGridCol9,txtGridMunicipio"	header="Estado"						ancho="50"		maxlen="50"		tipo="string"	visible="Si"	clase="AyudaSyC"/>
+		<columna campo="M.ID_MUNICIPIO"			control=""					dependencia="No"	ctrlsDependientes=""																					limpiaOnKeypress=""											header="Clave Municipio"			ancho="6"		maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+		<columna campo="M.MPO_NOMBRE"			control="Municipio"			dependencia="No"	ctrlsDependientes=""																					limpiaOnKeypress="txtGridCol9"								header="Municipio"					ancho="100"		maxlen="100"	tipo="string"	visible="Si"	clase="AyudaSyC"/>
+		<columna campo="R.RE_LOCALIDAD"			control="Localidad"			dependencia="No"	ctrlsDependientes=""																					limpiaOnKeypress=""											header="Localidad"					ancho="100"		maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="P.ID_PROCEDENCIA"	control="txtGridCol3"		llave="Si"	identity="Si1"	requerido="La Procedencia es un dato requerido."			requeridoFocus="txtGridre_procedencia"	tipo="numero" />
+		<campo field="E.ID_ESTADO"		control="txtGridCol7"		llave="No"	identity="No"	requerido="El Estado es un dato requerido."					requeridoFocus="txtGridEstado"		tipo="numero" />
+		<campo field="M.ID_MUNICIPIO"	control="txtGridCol9"		llave="No"	identity="No"	requerido="El Municipio es un dato requerido."				requeridoFocus="txtGridMunicipio"	tipo="numero" />
+		<campo field="R.RE_NOMBRE"		control="txtGridRemitente"	llave="No"	identity="No"	requerido="El Nombre del firmante es un dato requerido."	requeridoFocus="txtGridRemitente"	tipo="string" />
+		<campo field="R.RE_CARGO"		control="txtGridre_cargo"	llave="No"	identity="No"	requerido="El Cargo es un dato requerido."					requeridoFocus="txtGridre_cargo"		tipo="string" />
+		<campo field="R.RE_DIRECCION"	control="txtGridDireccion"	llave="No"	identity="No"	requerido=""												requeridoFocus="txtGridDireccion"	tipo="string" />
+		<campo field="R.RE_LOCALIDAD"	control="txtGridLocalidad"	llave="No"	identity="No"	requerido="La Localidad es un dato requerido."				requeridoFocus="txtGridLocalidad"	tipo="string" />
+	</insertaRegistro>
+</Ayuda>

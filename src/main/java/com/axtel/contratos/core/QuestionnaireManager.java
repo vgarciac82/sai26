@@ -42,7 +42,7 @@ public class QuestionnaireManager {
         query.append("  FROM vquestionnairepayments ");
         query.append(" WHERE ctipopago = ? ");
         query.append("   AND nfoliopago = ?   ");
-        log.debug("Object: {}", "Buscando respuestas al cuestionario: " + header.getTipoPago() + ", " + header.getFolioPago());
+        log.debug("Object: " + String.valueOf("Buscando respuestas al cuestionario: " + header.getTipoPago() + ", " + header.getFolioPago()));
         QueryRunner run = new QueryRunner();
         ResultSetHandler<List<QuestionnaireAnswer>> h = new BeanListHandler<QuestionnaireAnswer>(QuestionnaireAnswer.class);
         List<QuestionnaireAnswer> answers = run.query(conn, query.toString(), h, header.getTipoPago(), header.getFolioPago());

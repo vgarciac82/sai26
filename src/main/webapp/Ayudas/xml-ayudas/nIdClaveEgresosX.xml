@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Claves Presupuestales</titulo>
+	<anchoWin>1300</anchoWin>
+	<altoWin>700</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>VSALDOSANUALESDIVERSOS</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="nClaveCNA"	control="nIdClaveEgresosX"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave SAI"	ancho="5"	maxlen="5"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="ClaveSIAFF"	control=""	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave SHCP"	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cUnidadNorativa"	control=""	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="UNorm"	ancho="3"	maxlen="3"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cUnidadEjecutora"	control=""	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="UEjec"	ancho="3"	maxlen="3"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="enero"	control=""	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Enero"	ancho="12"	maxlen="12"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="febrero"	control=""	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Febrero"	ancho="12"	maxlen="12"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="marzo"	control=""	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Marzo"	ancho="12"	maxlen="12"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="abril"	control=""	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Abril"	ancho="12"	maxlen="12"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="mayo"	control=""	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Mayo"	ancho="12"	maxlen="12"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="junio"	control=""	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Junio"	ancho="12"	maxlen="12"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="julio"	control=""	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Julio"	ancho="12"	maxlen="12"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="agosto"	control=""	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Agosto"	ancho="12"	maxlen="12"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="septiembre"	control=""	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Septiembre"	ancho="12"	maxlen="12"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="octubre"	control=""	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Octubre"	ancho="12"	maxlen="12"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="noviembre"	control=""	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Noviembre"	ancho="12"	maxlen="12"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="diciembre"	control=""	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Diciembre"	ancho="12"	maxlen="12"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="mAnual"	control="mMovimiento"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Anual"	ancho="12"	maxlen="12"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cSubCuenta"	control="EPX"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave SHCP"	ancho="20"	maxlen="20"		tipo="string"	visible="No"	clase=""/>
+, 
+
+   </grid>  
+</Ayuda>

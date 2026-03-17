@@ -65,7 +65,7 @@ public class ReportesGRM extends HttpServlet {
         }
         // Obtiene el tipo de reporte
         int tipoOperacion = Integer.parseInt(request.getParameter("operacion"));
-        log.debug("Object: {}", "operacion: " + tipoOperacion);
+        log.debug("Object: " + String.valueOf("operacion: " + tipoOperacion));
         switch(tipoOperacion) {
             case 0:
                 reportesSIIWEB(request, response);
@@ -583,7 +583,7 @@ public class ReportesGRM extends HttpServlet {
         }
         FileOutputStream fileOut = new FileOutputStream(excelFileName);
         // write this workbook to an Outputstream.
-        wb.write(fileOut.toPath());
+        wb.write(fileOut);
         if (wb != null) {
             wb.close();
         }

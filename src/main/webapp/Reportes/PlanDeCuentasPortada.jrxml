@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlanDeCuentasPortada"  pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="0.6209213230591554"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT 1 AS ID]]>
+	</queryString>
+	<field name="ID" class="java.lang.Integer"/>
+	<columnHeader>
+		<band height="692">
+			<rectangle>
+				<reportElement x="5" y="16" width="542" height="668"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="22" y="277" width="504" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[PLAN DE CUENTAS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+</jasperReport>

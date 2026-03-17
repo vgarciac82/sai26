@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Mantenimiento Catálogo numeral </titulo>
+	<anchoWin>500</anchoWin>
+	<altoWin>500</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<tabla>M_TCATALOGONUMERAL</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>1</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>		
+		<columna campo="iNumeralID"				control="txtGridiNumeralID"		dependencia="No"	limpiaOnKeypress=""		header="Id"						rowCol="1,1"	ancho="5"	maxlen="5" 		tipo="int"		visible="Si"	clase=""/>
+		<columna campo="cNumeralDescripcion"	control="cNumeralDescripcion"	dependencia="No"	limpiaOnKeypress=""		header="Descripción Numeral"	rowCol="1,2"	ancho="100"	maxlen="255"	tipo="string"	visible="Si"	clase=""/>
+	</grid>  
+
+</Ayuda>

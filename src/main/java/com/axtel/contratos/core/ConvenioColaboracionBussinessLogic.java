@@ -195,7 +195,7 @@ public class ConvenioColaboracionBussinessLogic extends DataSourceManager {
     private int insertaCompromiso(Connection conn, Usuario u, FolioGeneratorInterface fg, ConvenioColaboracion convenio) throws NumberFormatException, Exception {
         log.trace("Generando caso");
         Caso c = CompromisoManager.generaCasoCompromiso(conn, u, fg, "VENTANILLA_COMPROMISO");
-        log.debug("Object: {}", "Caso generado: " + c);
+        log.debug("Object: " + String.valueOf("Caso generado: " + c));
         log.trace("Generando compromiso");
         CompromisoEncabezado compromisoEncabezado = CompromisoEncabezado.instanceFrom(conn, convenio);
         List<CompromisoDetalle> compromisoDetalle = CompromisoDetalle.instanceFrom(conn, convenio);
@@ -203,7 +203,7 @@ public class ConvenioColaboracionBussinessLogic extends DataSourceManager {
         compromiso.setEncabezado(compromisoEncabezado);
         compromiso.setDetalle(compromisoDetalle);
         compromiso.setFolioCompromiso(Util.folio(c));
-        log.debug("Object: {}", "Compromiso generado: " + compromiso);
+        log.debug("Object: " + String.valueOf("Compromiso generado: " + compromiso));
         int registros = CompromisoManager.insertaCompromiso(conn, compromiso);
         log.trace("Object: {}", "Se afectaron: " + registros + " al insertar compromiso.");
         return Util.folio(c);

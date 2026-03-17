@@ -79,7 +79,7 @@ public class CatalogoEPAnteproyectoPlurianualesServlet extends HttpServlet imple
                     log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                     Util.copiaArchivo(archivoCargaStream, nombreDestino);
                     item.delete();
-                    log.debug("Object: {}", "Procesando archivo:" + nombreArchivo);
+                    log.debug("Object: " + String.valueOf("Procesando archivo:" + nombreArchivo));
                     CatalogoEPAnteproyectoPlurianualesBusinessLogic ceppbl = new CatalogoEPAnteproyectoPlurianualesBusinessLogic(u.getLogin());
                     List<String> mensajes = ceppbl.CatalogoEPAnteproyectoPlurianuales(nombreDestino);
                     if (mensajes.size() > 0) {
@@ -127,7 +127,7 @@ public class CatalogoEPAnteproyectoPlurianualesServlet extends HttpServlet imple
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            log.debug("Object: {}", "Redirect: " + strRedirect);
+            log.debug("Object: " + String.valueOf("Redirect: " + strRedirect));
             resp.sendRedirect(strRedirect);
             log.debug("SALE  DE LA CapturaManual");
         }

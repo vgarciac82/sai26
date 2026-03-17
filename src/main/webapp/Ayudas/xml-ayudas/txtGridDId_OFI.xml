@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- Ayuda Estados - desde la pantalla de Remitente Externo -->
+
+<Ayuda>
+	<titulo>Organismo Financiero Internacional</titulo>
+	<anchoWin>437</anchoWin>
+	<altoWin>500</altoWin>
+	<altoAreaCaptura>110</altoAreaCaptura>
+	<tabla>D_HELPCATOFI</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>
+		<columna campo="Id_OFI"		control="txtGridDId_OFI"		dependencia="Si"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave"	ancho="5"	maxlen="50"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="OFICorto"	control="OFICorto"	dependencia="No"	ctrlsDependientes=""    limpiaOnKeypress=""	header="OFI"		ancho="50"	maxlen="50"	tipo="string"	visible="Si"	clase=""/>
+	</grid>
+  
+</Ayuda>

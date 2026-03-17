@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteConsolidado" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e8c2c02e-b66a-4eda-8acd-7b09e40673c4">
+	<property name="ireport.zoom" value="1.366026910730141"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="14"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<parameter name="cIdConsolidado" class="java.lang.String"/>
+	<parameter name="formato" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select *from [fn_mReporteConsolidado]($P{cIdConsolidado})]]>
+	</queryString>
+	<field name="cIdSolicitud" class="java.lang.String"/>
+	<field name="nIdLineaSolicitud" class="java.lang.Integer"/>
+	<field name="nIdLineaConsolidado" class="java.lang.Integer"/>
+	<field name="DescripcionSolicitud" class="java.lang.String"/>
+	<field name="DescripcionConsolidado" class="java.lang.String"/>
+	<field name="cIdCABM" class="java.lang.String"/>
+	<field name="cIdSubPartida" class="java.lang.String"/>
+	<field name="nCantidadLineasConsolidado" class="java.lang.Integer"/>
+	<field name="CantidadSolicitudes" class="java.lang.Integer"/>
+	<field name="mPrecioUnitario" class="java.math.BigDecimal"/>
+	<field name="nPorcentajeIVA" class="java.lang.Integer"/>
+	<field name="mSubTotalNetoSolicitudes" class="java.math.BigDecimal"/>
+	<field name="mMontoLineaConsolidado" class="java.math.BigDecimal"/>
+	<field name="mMontoLineaConsolidadoIVA" class="java.math.BigDecimal"/>
+	<field name="DescricionUE" class="java.lang.String"/>
+	<field name="_Unidad_RM" class="java.lang.String"/>
+	<field name="DescripcionCorta" class="java.lang.String"/>
+	<field name="cIdUnidadMedida" class="java.lang.String"/>
+	<field name="MontoTotalBrutoConsolidado" class="java.math.BigDecimal"/>
+	<field name="MontoTotalNetoConsolidado" class="java.math.BigDecimal"/>
+	<field name="IdConsolidado" class="java.lang.String"/>
+	<variable name="CantidadSolicitudes_1" class="java.lang.Integer" resetType="Group" resetGroup="Linea" calculation="Sum">
+		<variableExpression><![CDATA[$F{CantidadSolicitudes}]]></variableExpression>
+	</variable>
+	<variable name="mMontoLineaConsolidado_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{mMontoLineaConsolidado}]]></variableExpression>
+	</variable>
+	<variable name="mMontoLineaConsolidadoIVA_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{mMontoLineaConsolidadoIVA}]]></variableExpression>
+	</variable>
+	<group name="Linea">
+		<groupExpression><![CDATA[$F{nIdLineaConsolidado}]]></groupExpression>
+		<groupHeader>
+			<band height="58">
+				<staticText>
+					<reportElement x="0" y="0" width="25" height="12" uuid="d99eea29-2890-4054-bd8c-44854476e61e"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Línea: ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="25" y="0" width="32" height="12" uuid="1b0d1f6d-3b3e-4490-97e7-9e9f74a45efd"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nIdLineaConsolidado}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="57" y="0" width="38" height="12" uuid="f2331c20-27b1-4f05-ba5f-132d9286f1ce"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[CUCOP:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="95" y="0" width="62" height="12" uuid="1cc1cf5e-711d-43bc-acbc-d5cf85d8b0c3"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cIdCABM}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="42" width="56" height="12" uuid="e40d164d-86a7-4f6e-98bd-0afdd5e73de1"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Solicitud]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="57" y="42" width="38" height="12" uuid="e60cb3ca-76ba-48e7-bbec-8a29b858c76e"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Línea]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="95" y="42" width="62" height="12" uuid="d44b294b-7a86-41ab-9956-9379d2108e34"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Partida]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="157" y="42" width="314" height="12" uuid="04fb750d-ef98-49c0-8995-2e79013f6ec5"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Descripción]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="471" y="42" width="47" height="12" uuid="44ce835b-3058-4db4-ad98-f76316166e4e"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Cantidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="565" y="42" width="56" height="12" uuid="22f87c78-0e8b-4c0a-8201-5c90ecbc77be"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Precio Unitario]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="621" y="42" width="28" height="12" uuid="78d7352f-62a3-4464-a963-c83754c99956"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[IVA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="649" y="42" width="103" height="12" uuid="a554c28e-0aa1-4312-941a-6c9815620bca"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Monto Neto]]></text>
+				</staticText>
+				<line>
+					<reportElement x="1" y="39" width="751" height="1" uuid="739aa894-b9a0-4648-8085-93e245f58f4d"/>
+				</line>
+				<staticText>
+					<reportElement x="1" y="19" width="56" height="12" uuid="da1020bf-fc4c-467f-a426-da9d82a364ed"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Descripción: ]]></text>
+				</staticText>
+				<textField textAdjust="StretchHeight">
+					<reportElement x="57" y="19" width="695" height="12" uuid="1c2757f3-5557-4814-81c5-5cee30b1de4a"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DescripcionConsolidado}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="1" y="56" width="751" height="1" uuid="9bfb03ef-a818-4851-8e2c-0b8fd84305b4"/>
+				</line>
+				<staticText>
+					<reportElement x="518" y="42" width="47" height="12" uuid="8cae8701-0a63-4231-b6ba-9fd516755e17"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[U.M]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="38">
+				<staticText>
+					<reportElement x="548" y="1" width="101" height="12" uuid="cbde6407-554b-4feb-864c-8ae7d7fe6773"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Monto Sin IVA de la Línea]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="548" y="17" width="101" height="12" uuid="fa79f911-1c7f-4e2d-a69e-466ce92d44f4"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Monto Con IVA de la Línea]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="401" y="1" width="100" height="12" uuid="1060a6ca-20a8-4906-bb30-4b63a506102d"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Cantidad de la Línea]]></text>
+				</staticText>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="649" y="1" width="103" height="12" uuid="b2531843-32ae-4bf9-8594-eaf08cf1d1e0"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{mMontoLineaConsolidado}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="649" y="17" width="103" height="12" uuid="625a9e23-a504-4283-a192-8930df879275"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{mMontoLineaConsolidadoIVA}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="502" y="0" width="46" height="13" uuid="0db68a23-6a10-4487-bc07-5c32247887cc"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{CantidadSolicitudes_1}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="1" y="30" width="751" height="1" uuid="5750829b-261d-48fa-963a-e21943adfa5b"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="2" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="61" splitType="Stretch">
+			<printWhenExpression><![CDATA[($P{formato}.equals("csv"))?new Integer($V{PAGE_NUMBER})==1  : ($P{formato}.equals("xls"))? new Integer($V{PAGE_NUMBER})==1 :  $V{PAGE_NUMBER}]]></printWhenExpression>
+			<staticText>
+				<reportElement x="673" y="26" width="18" height="12" uuid="3e76bd3f-f693-4c12-aba4-93cdc0ec3ba8"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[de ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="126" y="3" width="403" height="13" uuid="eb501c99-50c6-4b93-b44c-66a0b74f4dad"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="537" y="26" width="100" height="12" uuid="2341e482-4fdc-4b4c-a3db-af3aa076b29e"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Página]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="645" y="26" width="17" height="12" uuid="643ba2c0-362d-4f29-95a8-6c9a176a9b70"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="703" y="26" width="49" height="12" uuid="9d034978-8d11-4cc2-b2a6-c3e19922b52d"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="1" y="0" width="125" height="57" uuid="43a2ba37-322b-4113-b3d4-2505f7d36081"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"\\CONAFOR_NvoLogoDic2013_HD_Horizontal.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="126" y="16" width="403" height="13" uuid="d93c0d39-534b-486e-bb1a-b4cb0a5c1c5b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DescricionUE}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="126" y="42" width="403" height="13" uuid="a0a35091-fac3-42a8-9171-da14135d9d61"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DescripcionCorta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="126" y="29" width="403" height="13" uuid="efb92194-0b53-4c44-931a-234492eefdce"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IdConsolidado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="6" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="56" height="12" uuid="04ae465b-3750-401a-81fa-3bcbd143a329"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cIdSolicitud}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="57" y="0" width="38" height="12" uuid="194ee9ea-ef11-4b0f-8d3f-9003fca2d66d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nIdLineaSolicitud}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="0" width="62" height="12" uuid="96f22d4f-a247-4322-a20c-d2a1dd3ed4b5"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cIdSubPartida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="471" y="0" width="46" height="12" uuid="a31c6d38-3fdb-4fb6-bd5e-f17e12dc8134"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CantidadSolicitudes}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="565" y="0" width="56" height="12" uuid="4856ce6a-bd99-40af-9737-c6473f395582"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mPrecioUnitario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="621" y="0" width="28" height="12" uuid="5aafe3c9-bb08-494d-ab5d-d43e99296dab"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nPorcentajeIVA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="649" y="0" width="103" height="12" uuid="b9a6e893-f86c-41b7-83b3-c681c833652c"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mSubTotalNetoSolicitudes}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="157" y="0" width="314" height="12" uuid="8c34a3d6-8da0-464d-9b07-86868e23ef93"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DescripcionSolicitud}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="518" y="0" width="47" height="12" uuid="82e195a1-6af2-439e-afbb-73ea7184023f"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cIdUnidadMedida}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="2" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="3" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="1" width="751" height="1" uuid="c3696e77-1c20-4a2e-a88e-133f8682208f"/>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="502" y="20" width="147" height="12" uuid="3cce259b-5024-473d-a2f2-d2789c7c5f94"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Monto Neto del Consolidado  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="502" y="3" width="147" height="12" uuid="c8a53655-57dc-406e-a1c5-fe8eca540e38"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Monto Bruto del Consolidado  ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="35" width="751" height="1" uuid="6fb85efc-234d-4e9a-ba5c-fb5045b542cd"/>
+			</line>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="649" y="3" width="103" height="12" uuid="fa9d45be-44a1-41a8-b9ea-c33154dce98c"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MontoTotalBrutoConsolidado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="649" y="20" width="104" height="12" uuid="a369e95f-4cfa-4757-b9ff-1c1a1c738108"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MontoTotalNetoConsolidado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

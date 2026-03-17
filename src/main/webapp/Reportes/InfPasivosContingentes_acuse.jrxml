@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InfPasivosContingentes" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d0ef410c-aeda-4282-878a-b0a729416b2b">
+	<property name="ireport.zoom" value="2.000000000000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="350"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="mes" class="java.lang.Integer"/>
+	<parameter name="anio" class="java.lang.Integer"/>
+	<parameter name="miles" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="centroContable" class="java.lang.String"/>
+	<parameter name="nfirmas" class="java.lang.Integer"/>
+	<parameter name="nombre1" class="java.lang.String"/>
+	<parameter name="puesto1" class="java.lang.String"/>
+	<parameter name="nombre2" class="java.lang.String"/>
+	<parameter name="puesto2" class="java.lang.String"/>
+	<parameter name="nombre3" class="java.lang.String"/>
+	<parameter name="puesto3" class="java.lang.String"/>
+	<parameter name="nombre4" class="java.lang.String"/>
+	<parameter name="puesto4" class="java.lang.String"/>
+	<parameter name="comentarios" class="java.lang.String"/>
+	<parameter name="caracteristicas" class="java.lang.String"/>
+	<parameter name="nombreCentro" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT '1' AS '1']]>
+	</queryString>
+	<field name="1" class="java.lang.String"/>
+	<group name="Group COMENTARIOS">
+		<groupExpression><![CDATA[$V{PAGE_NUMBER}]]></groupExpression>
+		<groupFooter>
+			<band height="135">
+				<textField>
+					<reportElement x="0" y="3" width="340" height="13" uuid="1462c1db-5a21-4c4f-bb07-0ce959dbfeb1"/>
+					<textElement>
+						<font fontName="Arial" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($P{miles}==1 ? "*La suma de los parciales puede no coincidir con los totales debido al redondeo de las cifras." : " " )]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="555" height="1" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="499ad26f-4a3b-4f43-9087-5cfab814a804"/>
+				</line>
+				<staticText>
+					<reportElement x="1" y="12" width="469" height="8" uuid="c27507bb-d071-4941-9203-8bdb16a57601"/>
+					<textElement>
+						<font fontName="Arial" size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Bajo protesta de decir verdad declaramos que los Estados Financieros y sus notas, son razonablemente correctos y son responsabilidad del emisor.]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<pageHeader>
+		<band height="109" splitType="Stretch">
+			<image>
+				<reportElement x="1" y="1" width="121" height="57" uuid="d1f6f6ea-a6fc-4e74-a4f9-e9e4ac8638c0"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="0" y="58" width="554" height="51" backcolor="#CCCCCC" uuid="a153bfbf-e90c-4a02-af8e-8d39563419d5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="162" y="58" width="249" height="23" uuid="a2c01f27-b1df-4212-b4fd-6cb73748b279"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Comisión Nacional Forestal
+Informe sobre Pasivos Contingentes]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="162" y="81" width="249" height="15" uuid="a0bd8d58-f0d9-43ac-8bdd-2ae898d7be89"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(
+    $P{mes}==1 ? "Enero de " +$P{anio}.toString():
+    $P{mes}==2 ? "Febrero de " +$P{anio}.toString():
+    $P{mes}==3 ? "Marzo de " +$P{anio}.toString():
+    $P{mes}==4 ? "Abril de " +$P{anio}.toString():
+    $P{mes}==5 ? "Mayo de " +$P{anio}.toString():
+    $P{mes}==6 ? "Junio de " +$P{anio}.toString():
+    $P{mes}==7 ? "Julio de " +$P{anio}.toString():
+    $P{mes}==8 ? "Agosto de " +$P{anio}.toString():
+    $P{mes}==9 ? "Septiembre de " +$P{anio}.toString():
+    $P{mes}==10 ? "Octubre de " +$P{anio}.toString():
+    $P{mes}==11 ? "Noviembre de " +$P{anio}.toString():
+    $P{mes}==12 ? "Diciembre de " +$P{anio}.toString():
+    ""
+)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="162" y="46" width="249" height="13" uuid="93bc8362-60dd-4dad-bbcd-5b900836e9d1"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $P{nombreCentro}.equals( " " ) ? "" : $P{nombreCentro} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="162" y="96" width="249" height="13" uuid="a9a45956-743f-49ab-a17f-b4f31f18178d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{miles}==1 ? "(miles de pesos)" : "(en pesos)" )]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="14" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="1" width="554" height="13" backcolor="#CCCCCC" uuid="98531f6e-abf4-45e5-8859-2d5e029aa280"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="1" y="0" width="59" height="14" uuid="9b19eb61-373d-4928-8e37-a6659821f593"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[CUENTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="0" width="175" height="14" uuid="411cbb41-ef45-4ea9-876a-3f589dc828be"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[DESCRIPCIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="235" y="0" width="131" height="14" uuid="8a85836c-beaa-4393-b9bc-0c8c53cd0022"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[IMPORTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="366" y="0" width="188" height="14" uuid="0b06e478-fd9d-4e6c-b9fd-4000961730c5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[CARACTERISTICAS]]></text>
+			</staticText>
+			<line>
+				<reportElement x="59" y="1" width="1" height="13" uuid="ad2bf85d-24dd-4e77-860c-8d1755dff944"/>
+			</line>
+			<line>
+				<reportElement x="234" y="1" width="1" height="13" uuid="95456896-0cfb-4652-9f7b-8b3a1a78140b"/>
+			</line>
+			<line>
+				<reportElement x="366" y="1" width="1" height="13" isPrintWhenDetailOverflows="true" uuid="4d7dec30-4b72-4dec-b380-de975eb345ce"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15">
+			<subreport>
+				<reportElement x="6" y="2" width="355" height="12" uuid="37003667-8edc-4e01-99b4-fdd2b31edc45"/>
+				<subreportParameter name="anio">
+					<subreportParameterExpression><![CDATA[$P{anio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="mes">
+					<subreportParameterExpression><![CDATA[$P{mes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="miles">
+					<subreportParameterExpression><![CDATA[$P{miles}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CentroContable">
+					<subreportParameterExpression><![CDATA[$P{centroContable}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\InfPasivosDetalle.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="369" y="2" width="170" height="12" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="972a9c7f-046e-4cc6-8e11-3095198f0229"/>
+				<subreportParameter name="caracteristicas">
+					<subreportParameterExpression><![CDATA[$P{caracteristicas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\InfPasivosCaracteristicas.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="234" y="0" width="1" height="15" isPrintWhenDetailOverflows="true" uuid="b80762c7-cdfe-49fc-b23f-d1de96914f18"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="366" y="1" width="1" height="14" isPrintWhenDetailOverflows="true" uuid="b7064563-6710-4133-9d61-5a41e3d61460"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="554" y="1" width="1" height="14" isPrintWhenDetailOverflows="true" uuid="11a2afa8-c825-4783-93a9-b112b1dfbac0"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="59" y="0" width="1" height="15" isPrintWhenDetailOverflows="true" uuid="d15cd27d-c4fc-4dcf-9cd9-fbd6881d34f0"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="15" isPrintWhenDetailOverflows="true" uuid="768fb660-7bb4-4ae3-8749-1186223eb299"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="98" splitType="Stretch">
+			<textField>
+				<reportElement x="434" y="84" width="80" height="14" uuid="515f5d89-665a-48e3-82f2-df6991894ee0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="514" y="84" width="40" height="14" uuid="c4b5dd84-8cf2-49f7-b7b2-744d3bd173ac"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="1" y="2" width="552" height="82" uuid="bc5d7db2-b314-469e-adbd-62b40aa78524"/>
+				<subreportParameter name="anio">
+					<subreportParameterExpression><![CDATA[$P{anio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nfirmas">
+					<subreportParameterExpression><![CDATA[$P{nfirmas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\firmasEdosFinVFiel.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageFooter>
+</jasperReport>

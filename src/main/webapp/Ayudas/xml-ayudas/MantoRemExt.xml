@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Remitentes Externos</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>270</altoAreaCaptura>
+	<tabla>M_CAT_REM_EXTERNO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	<grid>
+		<columna campo="R.RE_NOMBRE"			control=""					dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""											header="Nombre"				rowCol="1,1" 	ancho="70"		maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="R.RE_CARGO"				control=""					dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""											header="Cargo"				rowCol="1,2" 	ancho="70"		maxlen="200"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="P.PRO_DESCRIPCION"		control="MantoProcedencia"	dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress="txtGridCol3,txtGridCol5,"					header="Procedencia"		rowCol="2,1" 	ancho="70"		maxlen="100"	tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="TP.TP_DESCRIPCION"		control=""					dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""											header="Tipo Procedencia"	rowCol="2,2" 	ancho="70"		maxlen="100"	tipo="string"	visible="Si"	clase="Protegido"/>
+		<columna campo="E.EDO_NOMBRE"			control="MantoEdo"			dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress="txtGridCol11,txtGridCol12,txtGridMantoMun,"	header="Estado"				rowCol="3,1" 	ancho="70"		maxlen="50"		tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="M.MPO_NOMBRE"			control="MantoMun"			dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress="txtGridCol12,"								header="Municipio"			rowCol="3,2" 	ancho="70"		maxlen="100"	tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="R.RE_LOCALIDAD"			control=""					dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""											header="Localidad"			rowCol="4,1" 	ancho="100"		maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="R.RE_DIRECCION"			control=""					dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""											header="Dirección"			rowCol="5,1" 	ancho="100"		maxlen="100"	tipo="string"	visible="Si"	clase=""/>
+
+		<columna campo="R.ID_REM_EXTERNO"		control=""					dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""											header="Clave"				rowCol="6,1" 	ancho="6"		maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+		<columna campo="P.ID_PROCEDENCIA"		control=""					dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""											header="Clave Procedencia"	rowCol="6,2" 	ancho="6"		maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+		<columna campo="P.ID_TIPO_PROCEDENCIA" 	control=""					dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""											header="Tipo Procedencia"	rowCol="6,3" 	ancho="30"		maxlen="30"		tipo="string"	visible="No"	clase="Protegido"/>
+		<columna campo="E.ID_ESTADO"			control=""					dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""											header="Clave Estado"		rowCol="6,4" 	ancho="6"		maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+		<columna campo="M.ID_MUNICIPIO"			control=""					dependencia="No"	ctrlsDependientes=""							limpiaOnKeypress=""											header="Clave Municipio"	rowCol="6,5" 	ancho="6"		maxlen="6"		tipo="numero"	visible="No"	clase=""/>
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="RE_NOMBRE"			control="txtGridCol0"			llave="No"	identity="No" 	requerido="El Nombre del Remitente es un dato requerido."	requeridoFocus="txtGridCol0"				tipo="string" />
+		<campo field="ID_REM_EXTERNO"		control="txtGridCol8"			llave="Si"	identity="Si"	requerido=""												requeridoFocus=""	 						tipo="numero" />
+		<campo field="ID_PROCEDENCIA"		control="txtGridCol9"			llave="No"	identity="No"	requerido="La Procedencia es un dato requerido."			requeridoFocus="txtGridMantoProcedencia"	tipo="numero" />
+		<campo field="ID_ESTADO"			control="txtGridCol11"			llave="No"	identity="No" 	requerido=""												requeridoFocus=""							tipo="numero" />
+		<campo field="ID_MUNICIPIO" 		control="txtGridCol12"			llave="No"	identity="No" 	requerido=""												requeridoFocus=""							tipo="numero" />
+		<campo field="RE_CARGO"				control="txtGridCol1"			llave="No"	identity="No" 	requerido=""												requeridoFocus=""							tipo="string" />
+		<campo field="RE_DIRECCION"			control="txtGridCol7"			llave="No"	identity="No" 	requerido=""												requeridoFocus=""							tipo="string" />
+		<campo field="RE_LOCALIDAD"			control="txtGridCol6"			llave="No"	identity="No" 	requerido=""												requeridoFocus=""							tipo="string" />
+	</insertaRegistro>
+	
+</Ayuda>
+

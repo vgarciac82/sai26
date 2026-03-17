@@ -42,8 +42,8 @@ public class RectificacionAnexo1Servlet extends HttpServlet {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest
-	 * , javax.servlet.http.HttpServletResponse)
+	 * jakarta.servlet.http.HttpServlet#doPost(jakarta.servlet.http.HttpServletRequest
+	 * , jakarta.servlet.http.HttpServletResponse)
 	 */
     @SuppressWarnings("unchecked")
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -178,7 +178,7 @@ public class RectificacionAnexo1Servlet extends HttpServlet {
             celda = fila.createCell(4);
             celda.setCellValue(valuesImporte[i]);
         }
-        wb.write(response.getOutputStream().toPath());
+        wb.write(response.getOutputStream());
         wb.close();
     }
 }

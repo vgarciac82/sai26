@@ -106,7 +106,7 @@ public class LayoutPagosCLCServlet extends HttpServlet {
                 archivoPago.append(arrListDocu.get(i));
             }
             String outTextPago = archivoPago.toString();
-            out.write(outTextPago.toPath());
+            out.write(outTextPago);
             // fin de guarda pago
             out.close();
             // Guarda el Doc Zip

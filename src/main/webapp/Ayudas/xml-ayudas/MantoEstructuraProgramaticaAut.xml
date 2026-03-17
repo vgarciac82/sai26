@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!-- Estructura Programática Programada -->
+<Ayuda>
+	<titulo>Mantenimiento Catálogo Estructura Programática Autorizada</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>700</altoWin>
+	<altoAreaCaptura>120</altoAreaCaptura>
+	<tabla>M_TCATALOGOESTPROGAUT</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>1</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	<grid>
+		<columna campo="aEjercicioFiscal"					control="aEjercicioFiscal"			dependencia="No"		ctrlsDependientes=""			limpiaOnKeypress=""						header="* Ejercicio Fiscal"					rowCol="1,1" 	ancho="8"		maxlen="4"	  	tipo="String"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cRamo"								control="cRamo"						dependencia="No"		ctrlsDependientes=""			limpiaOnKeypress=""						header="* Ramo"								rowCol="1,2" 	ancho="8"		maxlen="3"	  	tipo="String"		visible="Si"	clase=""/>
+		<columna campo="nConsecutivo"						control="nConsecutivo"				dependencia="No"		ctrlsDependientes=""			limpiaOnKeypress=""						header="* Consecutivo" 						rowCol="1,3" 	ancho="8"		maxlen="5"	  	tipo="string"		visible="Si"	clase="Protegido"/>
+		<columna campo="cUnidadResponsable"					control="cUnidadResponsable"		dependencia="No"		ctrlsDependientes=""			limpiaOnKeypress=""						header="* Unidad Responsable"				rowCol="1,4" 	ancho="8"		maxlen="3"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cGrupoFuncional"					control="cGrupoFuncional"			dependencia="No"		ctrlsDependientes=""			limpiaOnKeypress=""						header="* Grupo Funcional"					rowCol="1,5" 	ancho="8"		maxlen="1"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cFuncion"							control="cFuncion"					dependencia="No"		ctrlsDependientes=""			limpiaOnKeypress=""						header="* Función"							rowCol="1,6" 	ancho="8"		maxlen="1"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cSubFuncion"						control="cSubFuncion"				dependencia="No"		ctrlsDependientes=""			limpiaOnKeypress=""						header="* SubFunción"						rowCol="2,1" 	ancho="8"		maxlen="2"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cProgramaGeneral"					control="cProgramaGeneral"			dependencia="No"		ctrlsDependientes=""			limpiaOnKeypress=""						header="* Programa General"					rowCol="2,2" 	ancho="8"		maxlen="2"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cActividadInstitucional"			control="cActividadInstitucional"	dependencia="No"		ctrlsDependientes=""			limpiaOnKeypress=""						header="* Actividad Funcional"				rowCol="2,3" 	ancho="8"		maxlen="3"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cProgramaPresupuestario"			control="cProgramaPresupuestario"	dependencia="No"		ctrlsDependientes=""			limpiaOnKeypress=""						header="* Programa Presupuestario"			rowCol="2,4" 	ancho="8"		maxlen="4"	  	tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="cModalidad"							control="cModalidad"				dependencia="No"		ctrlsDependientes=""			limpiaOnKeypress=""						header="* Modalidad"						rowCol="2,5" 	ancho="8"		maxlen="1"	  	tipo="string"		visible="Si"	clase=""/>
+		<columna campo="cPrograma"							control="cPrograma"					dependencia="No"		ctrlsDependientes=""			limpiaOnKeypress=""						header="* Programa"							rowCol="2,6" 	ancho="8"		maxlen="3"	  	tipo="string"		visible="Si"	clase=""/>
+
+	</grid>
+
+	<insertaRegistro>
+		<campo field="aEjercicioFiscal"					control="txtGridaEjercicioFiscal"				llave="Si"	identity="No"	requerido="El Ejercicio Fiscal es requerido"			requeridoFocus="txtGridaEjercicioFiscal"		tipo="string" />
+		<campo field="cRamo"							control="txtGridcRamo"							llave="Si"	identity="No" 	requerido="El ramo es requerido"						requeridoFocus="txtGridcRamo"					tipo="string" />
+		<campo field="nConsecutivo"						control="txtGridnConsecutivo"					llave="Si"	identity="Si" 	requerido=""											requeridoFocus=""								tipo="string" />
+		<campo field="cUnidadResponsable"				control="txtGridcUnidadResponsable"				llave="No"	identity="No" 	requerido="La unidad responsable es requerida"			requeridoFocus="txtGridcUnidadResponsable"		tipo="string" />
+		<campo field="cGrupoFuncional"					control="txtGridcGrupoFuncional"				llave="No"	identity="No"	requerido="El Grupo funcional es requerido"				requeridoFocus="txtGridcGrupoFuncional"			tipo="string" />
+		<campo field="cFuncion"							control="txtGridcFuncion"						llave="No"	identity="No" 	requerido="La Función es requerida"						requeridoFocus="txtGridcFuncion"				tipo="string" />
+		<campo field="cSubFuncion"						control="txtGridcSubFuncion"					llave="No"	identity="No" 	requerido="La SubFunción es requerida "					requeridoFocus="txtGridcSubFuncion"				tipo="string" />
+		<campo field="cProgramaGeneral"					control="txtGridcProgramaGeneral"				llave="No"	identity="No"	requerido="El Programa General es requerido"			requeridoFocus="txtGridcProgramaGeneral"		tipo="string" />
+		<campo field="cActividadInstitucional"			control="txtGridcActividadInstitucional"		llave="No"	identity="No" 	requerido="La Actividad Funcional es requerida"			requeridoFocus="txtGridcActividadInstitucional"	tipo="string" />
+		<campo field="cProgramaPresupuestario"			control="txtGridcProgramaPresupuestario"		llave="No"	identity="No" 	requerido="El Programa Presupuestario es requerido "	requeridoFocus="txtGridcProgramaPresupuestario"	tipo="string" />
+		<campo field="cModalidad"						control="txtGridcModalidad"						llave="No"	identity="No" 	requerido="La Modalidad es requerido"					requeridoFocus="txtGridcModalidad"				tipo="string" />
+		<campo field="cPrograma"						control="txtGridcPrograma"						llave="No"	identity="No" 	requerido="El Programa es requerido"					requeridoFocus="txtGridcPrograma"				tipo="string" />
+	</insertaRegistro>
+	  
+</Ayuda>

@@ -218,7 +218,7 @@ public class ZipManager {
         log.trace("Validando archivo");
         if (!archivoZip.exists())
             throw new ZipException("No existe el archivo [" + archivoZip + "]");
-        log.debug("Object: {}", "Abriendo archivo [" + archivoZip.getAbsolutePath() + "]");
+        log.debug("Object: " + String.valueOf("Abriendo archivo [" + archivoZip.getAbsolutePath() + "]"));
         zipFile = new ZipFile(archivoZip);
         long finish = System.currentTimeMillis();
         log.trace("Object: {}", "Terminando apertura de archivo en " + ((finish - start) / 1000) + " s.");

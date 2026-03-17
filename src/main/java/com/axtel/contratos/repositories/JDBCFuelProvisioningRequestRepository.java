@@ -73,7 +73,7 @@ public class JDBCFuelProvisioningRequestRepository implements FuelProvisioningRe
         FuelProvisioningRequest fuelProvisioningRequest;
         try {
             fuelProvisioningRequest = runner.query(conn, querySelect.toString(), fuelProvisioningRequestHandler, id);
-            log.debug("Object: {}", "Se encontro: " + fuelProvisioningRequest);
+            log.debug("Object: " + String.valueOf("Se encontro: " + fuelProvisioningRequest));
             return fuelProvisioningRequest;
         } catch (SQLException e) {
             throw new ContratoException(e);

@@ -370,7 +370,7 @@ public class AdecuacionServlet extends HttpServlet {
         fila = hs.getRow(1);
         celda = fila.createCell(5);
         celda.setCellValue(total);
-        wb.write(response.getOutputStream().toPath());
+        wb.write(response.getOutputStream());
         wb.close();
     }
 }

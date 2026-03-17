@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PolizaConagua" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="2.0000000000000036"/>
+	<property name="ireport.x" value="235"/>
+	<property name="ireport.y" value="370"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="condiciones" class="java.lang.String">
+		<defaultValueExpression><![CDATA[new String("")]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[------
+declare
+@Salida varchar(100);
+EXECUTE sp_PolizaConagua @Salida OUTPUT,   $P!{condiciones}   ;
+print (@Salida);]]>
+	</queryString>
+	<field name="nFolioPoliza" class="java.lang.Integer"/>
+	<field name="nDocRenglon" class="java.lang.Integer"/>
+	<field name="fCreacion" class="java.lang.String"/>
+	<field name="cDescripcionPoliza" class="java.lang.String"/>
+	<field name="mTotalCargo" class="java.lang.String"/>
+	<field name="mTotalAbono" class="java.lang.String"/>
+	<field name="nMes" class="java.lang.Integer"/>
+	<field name="nCuenta" class="java.lang.String"/>
+	<field name="cuenta" class="java.lang.String"/>
+	<field name="subcuenta" class="java.lang.String"/>
+	<field name="subscuenta" class="java.lang.String"/>
+	<field name="nomCuenta" class="java.lang.String"/>
+	<field name="nomSubCuenta" class="java.lang.String"/>
+	<field name="nomSubSCuenta" class="java.lang.String"/>
+	<field name="fAplicacion" class="java.lang.String"/>
+	<field name="nPolizaAutomatica" class="java.lang.Integer"/>
+	<field name="cCentroContable" class="java.lang.String"/>
+	<field name="cDescripcion" class="java.lang.String"/>
+	<field name="aEjercicioFiscal" class="java.lang.String"/>
+	<field name="cTipoPoliza" class="java.lang.String"/>
+	<field name="cDescripcionTipoPoliza" class="java.lang.String"/>
+	<field name="cTipoDocumento" class="java.lang.String"/>
+	<field name="nFolioDocumento" class="java.lang.String"/>
+	<field name="DocHAplicado" class="java.lang.String"/>
+	<field name="cUsuarioAutorizo" class="java.lang.String"/>
+	<field name="nSubCuenta" class="java.lang.String"/>
+	<field name="cTipoMovimiento" class="java.lang.String"/>
+	<field name="mMovimientoC" class="java.math.BigDecimal"/>
+	<field name="mMovimientoA" class="java.math.BigDecimal"/>
+	<field name="cDescripcionMovPol" class="java.lang.String"/>
+	<field name="cRamo" class="java.lang.String"/>
+	<field name="fOperacionMovimiento" class="java.lang.String"/>
+	<field name="cFolioDocumentoMovimiento" class="java.lang.String"/>
+	<field name="cCancelaMovimiento" class="java.lang.String"/>
+	<field name="fMovimiento" class="java.lang.String"/>
+	<field name="dConceptoMovimiento" class="java.lang.String"/>
+	<field name="cMoneda" class="java.lang.String"/>
+	<field name="cUnidadResponsable" class="java.lang.String"/>
+	<field name="D_DESCRIPCION" class="java.lang.String"/>
+	<field name="cConcepto" class="java.lang.String"/>
+	<field name="cIdUsuarioAprobacion" class="java.lang.String"/>
+	<field name="cIdUsuarioCaptura" class="java.lang.String"/>
+	<field name="cIdUsuarioRevision" class="java.lang.String"/>
+	<field name="nParciales" class="java.lang.Integer"/>
+	<field name="Num" class="java.lang.Long"/>
+	<field name="tMovimientoC" class="java.lang.String"/>
+	<field name="tMovimientoA" class="java.lang.String"/>
+	<field name="altaAlmacen" class="java.lang.String"/>
+	<field name="ORDEN" class="java.lang.String"/>
+	<field name="sPuestoCap" class="java.lang.String"/>
+	<field name="sPuestoRev" class="java.lang.String"/>
+	<field name="sPuestoAut" class="java.lang.String"/>
+	<variable name="PAGINA_FOLIO" class="java.lang.Integer" resetType="Page" incrementType="Page" calculation="Count"/>
+	<variable name="SUMA_DEBE" class="java.lang.Double" resetType="Group" resetGroup="FolioPoliza" calculation="Sum">
+		<variableExpression><![CDATA[$F{mMovimientoC}.doubleValue()]]></variableExpression>
+	</variable>
+	<variable name="SUMA_HABER" class="java.lang.Double" resetType="Group" resetGroup="FolioPoliza" calculation="Sum">
+		<variableExpression><![CDATA[$F{mMovimientoA}.doubleValue()]]></variableExpression>
+	</variable>
+	<variable name="nParciales" class="java.lang.Integer" resetType="None">
+		<variableExpression><![CDATA[$F{nParciales} == (new Integer(0)) ? $V{nParciales} : $F{nParciales}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{nParciales}]]></initialValueExpression>
+	</variable>
+	<variable name="cDescripcionPoliza" class="java.lang.String">
+		<variableExpression><![CDATA[$F{cDescripcionPoliza}]]></variableExpression>
+	</variable>
+	<group name="FolioPoliza" isStartNewPage="true" isResetPageNumber="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{nFolioPoliza}+$F{cTipoPoliza}+$F{cCentroContable}]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<group name="cCentroContable" isStartNewPage="true" isResetPageNumber="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{nFolioPoliza}+$F{cTipoPoliza}+$F{cCentroContable}]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<group name="TipoPoliza" isStartNewPage="true" isResetPageNumber="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{nFolioPoliza}+$F{cTipoPoliza}+$F{cCentroContable}]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band height="752" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="114" width="551" height="449"/>
+			</rectangle>
+			<line>
+				<reportElement key="line-30" mode="Transparent" x="485" y="115" width="1" height="448" isRemoveLineWhenBlank="true"/>
+			</line>
+			<line>
+				<reportElement key="line-31" mode="Transparent" x="420" y="115" width="1" height="448" isRemoveLineWhenBlank="true"/>
+			</line>
+			<line>
+				<reportElement key="line-33" mode="Transparent" x="170" y="115" width="1" height="448" isRemoveLineWhenBlank="true"/>
+			</line>
+			<line>
+				<reportElement key="line-34" mode="Transparent" x="117" y="115" width="1" height="448" isRemoveLineWhenBlank="true"/>
+			</line>
+			<line>
+				<reportElement key="line-35" mode="Transparent" x="60" y="115" width="1" height="448" isRemoveLineWhenBlank="true"/>
+			</line>
+		</band>
+	</background>
+	<title>
+		<band splitType="Stretch">
+			<textField evaluationTime="Page" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-1" x="312" y="-459" width="34" height="18"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-17" x="279" y="-459" width="34" height="19"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Página:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-2" x="366" y="-459" width="99" height="17"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-18" x="346" y="-459" width="20" height="19"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[de]]></text>
+			</staticText>
+			<textField evaluationTime="Page" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-3" x="312" y="-459" width="34" height="18"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-19" x="279" y="-459" width="34" height="19"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Página:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-4" x="366" y="-459" width="99" height="17"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-20" x="346" y="-459" width="20" height="19"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[de]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="94" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-12" mode="Transparent" x="175" y="6" width="222" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true" />
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-13" mode="Transparent" x="120" y="75" width="100" height="11"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="9" isBold="false" />
+				</textElement>
+				<text><![CDATA[CENTRO CONTABLE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-14" mode="Transparent" x="175" y="21" width="222" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true" />
+				</textElement>
+				<text><![CDATA[GERENCIA DE RECURSOS FINANCIEROS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-16" mode="Transparent" x="175" y="37" width="222" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true" />
+				</textElement>
+				<text><![CDATA[SUBGERENCIA DE CONTABILIDAD]]></text>
+			</staticText>
+			<image>
+				<reportElement key="image-2" mode="Transparent" x="40" y="35" width="0" height="0"/>
+				<imageExpression class="java.lang.String"><![CDATA[]]></imageExpression>
+			</image>
+			<image>
+				<reportElement key="image-3" mode="Transparent" x="40" y="35" width="0" height="0"/>
+				<imageExpression class="java.lang.String"><![CDATA[]]></imageExpression>
+			</image>
+			<textField evaluationTime="Group" evaluationGroup="FolioPoliza" isBlankWhenNull="false">
+				<reportElement key="textField" mode="Transparent" x="220" y="75" width="146" height="11"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cDescripcion}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement key="rectangle-1" mode="Transparent" x="0" y="74" width="551" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement key="staticText-4" mode="Transparent" x="6" y="75" width="54" height="16"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[POLIZA DE ]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-3" mode="Transparent" x="372" y="75" width="1" height="18"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-5" mode="Transparent" x="375" y="73" width="39" height="11"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-4" mode="Transparent" x="464" y="74" width="1" height="20"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-3" mode="Transparent" x="467" y="73" width="38" height="11"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[POLIZA:]]></text>
+			</staticText>
+			<textField evaluationTime="Group" evaluationGroup="FolioPoliza" isBlankWhenNull="false">
+				<reportElement key="textField" mode="Transparent" x="503" y="74" width="43" height="10"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{nFolioPoliza}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="FolioPoliza" isBlankWhenNull="false">
+				<reportElement key="textField" mode="Transparent" x="411" y="74" width="51" height="10"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fAplicacion}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="FolioPoliza" isBlankWhenNull="false">
+				<reportElement key="textField" mode="Transparent" x="63" y="74" width="54" height="10"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cDescripcionTipoPoliza}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement key="image-4" x="3" y="4" width="168" height="63"/>
+				<imageExpression class="java.lang.String"><![CDATA["report\\images\\logotipo-usuario.png"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement key="line-3" mode="Transparent" x="116" y="74" width="1" height="20"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Prevent">
+			<rectangle>
+				<reportElement key="rectangle-4" mode="Transparent" x="0" y="0" width="551" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement key="staticText" mode="Transparent" x="430" y="3" width="44" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[DEBE]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-5" mode="Transparent" x="420" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement key="line-6" mode="Transparent" x="485" y="0" width="1" height="20"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText" mode="Transparent" x="179" y="3" width="170" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" mode="Transparent" x="66" y="3" width="47" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[SUB-CTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" mode="Transparent" x="7" y="2" width="44" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[CUENTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" mode="Transparent" x="492" y="3" width="52" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[HABER]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-8" mode="Transparent" x="60" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement key="line-14" mode="Transparent" x="117" y="0" width="1" height="20"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-30" mode="Transparent" x="120" y="3" width="47" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[SUB-SCTA]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-26" mode="Transparent" x="170" y="1" width="1" height="20"/>
+			</line>
+			<staticText>
+				<reportElement x="188" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField" x="176" y="0" width="241" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nomCuenta}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="61" y="15" width="50" height="10" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{subcuenta}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="180" y="15" width="240" height="10" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nomSubCuenta}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="119" y="25" width="50" height="10" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{subscuenta}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" isPrintRepeatedValues="false" x="180" y="25" width="237" height="10" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nomSubSCuenta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="423" y="5" width="59" height="10"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{mMovimientoC}.doubleValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="490" y="5" width="58" height="10"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{mMovimientoA}.doubleValue()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="3" y="0" width="50" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cuenta}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="22">
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="180" y="0" width="170" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dConceptoMovimiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="179" y="13" width="172" height="9"/>
+				<textElement>
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nSubCuenta}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="13">
+			<printWhenExpression><![CDATA[!$F{cDescripcionMovPol}.equals("")]]></printWhenExpression>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="180" y="3" width="170" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cDescripcionMovPol}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="15">
+			<printWhenExpression><![CDATA[!$F{altaAlmacen}.equals("")]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField" x="181" y="3" width="170" height="10" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{altaAlmacen}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Prevent"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="190" splitType="Prevent">
+			<staticText>
+				<reportElement key="staticText-23" mode="Transparent" x="329" y="1" width="88" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[SUMAS IGUALES:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-24" mode="Transparent" x="1" y="20" width="93" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true" />
+				</textElement>
+				<text><![CDATA[CONCEPTO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement key="rectangle-6" mode="Transparent" x="0" y="32" width="552" height="66"/>
+			</rectangle>
+			<rectangle>
+				<reportElement key="rectangle-7" mode="Transparent" x="0" y="98" width="552" height="61"/>
+			</rectangle>
+			<line>
+				<reportElement key="line-22" mode="Transparent" x="188" y="98" width="1" height="61"/>
+			</line>
+			<line>
+				<reportElement key="line-23" mode="Transparent" x="378" y="98" width="1" height="61"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-26" mode="Transparent" x="3" y="98" width="186" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Elaboró.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-27" mode="Transparent" x="236" y="98" width="88" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Revisó.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-28" mode="Transparent" x="427" y="98" width="76" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Autorizó.]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-7" x="379" y="134" width="173" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cIdUsuarioAprobacion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="3" y="36" width="537" height="48"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{cDescripcionPoliza}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="FolioPoliza" pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="490" y="6" width="58" height="10"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{SUMA_HABER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="FolioPoliza" pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="427" y="6" width="55" height="10"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{SUMA_DEBE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-7" x="189" y="134" width="189" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cIdUsuarioRevision}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-7" x="1" y="134" width="187" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cIdUsuarioCaptura}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-20" mode="Transparent" x="485" y="0" width="1" height="21"/>
+			</line>
+			<elementGroup>
+				<rectangle>
+					<reportElement key="rectangle-5" mode="Transparent" x="421" y="1" width="130" height="20"/>
+				</rectangle>
+			</elementGroup>
+			<textField pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="true">
+				<reportElement key="textField" x="444" y="180" width="100" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Page" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-5" mode="Transparent" x="467" y="163" width="30" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-21" mode="Transparent" x="430" y="163" width="37" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Página:]]></text>
+			</staticText>
+			<textField evaluationTime="Group" evaluationGroup="FolioPoliza" isBlankWhenNull="false">
+				<reportElement key="textField-6" mode="Transparent" x="517" y="163" width="31" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-22" mode="Transparent" x="497" y="163" width="20" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[de]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="3" y="144" width="185" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sPuestoCap}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="144" width="189" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sPuestoRev}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="144" width="172" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sPuestoAut}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

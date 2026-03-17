@@ -75,7 +75,7 @@ public class CargaMasivaPagosDiversosServlet extends HttpServlet implements Gest
                 log.info("Object: {}", "Copiando archivo :" + nombreArchivo);
                 Util.copiaArchivo(archivoCargaStream, nombreDestino);
                 item.delete();
-                log.debug("Object: {}", "Procesando archivo:" + nombreArchivo);
+                log.debug("Object: " + String.valueOf("Procesando archivo:" + nombreArchivo));
             }
             String accion = req.getRequestURI().substring(req.getRequestURI().lastIndexOf("/") + 1);
             if ("CargaMasivaCompromisosDiversos".equals(accion)) {

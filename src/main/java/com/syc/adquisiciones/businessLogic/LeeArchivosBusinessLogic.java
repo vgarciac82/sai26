@@ -162,7 +162,7 @@ public class LeeArchivosBusinessLogic extends DataSourceManager {
             fsalida = new File(file_name);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
         } finally {
             if (fos != null) {
@@ -645,7 +645,7 @@ public class LeeArchivosBusinessLogic extends DataSourceManager {
                                         if (null != c) {
                                             // Inicia aplicacion contable
                                             conInt = new AplicacionContable();
-                                            log.debug("Object: {}", "Inicia aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
+                                            log.debug("Object: " + String.valueOf("Inicia aplicacion presupuestal " + new Timestamp(System.currentTimeMillis())));
                                             m = CasoDatoManager.readValuesCasoDato(request, c.getCasoDato(), true);
                                             acr = conInt.aplicarContableNuevo(connApCont, c, "", "", "", 0, "", m, datosArchivo.getcPrefixPath(), usuario.getLogin(), "");
                                             if (acr.isSuccess()) {
@@ -662,8 +662,8 @@ public class LeeArchivosBusinessLogic extends DataSourceManager {
                                                 // Avanza el caso
                                                 cbl = new CasoBusinessLogic(datosArchivo.getJniName());
                                                 cbl.avanzaCaso(c, usuario.getLogin(), "", new String[] { "CONSULTA_APARTADO" }, new String[] { "CONSULTA_APTD" }, m, datosArchivo.getcPrefixPath());
-                                                log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
-                                                log.debug("Object: {}", "Termina Aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
+                                                log.debug("Object: " + String.valueOf(c.getCasoDato("APLICADO_CONT").getValor()));
+                                                log.debug("Object: " + String.valueOf("Termina Aplicacion presupuestal " + new Timestamp(System.currentTimeMillis())));
                                                 msg = msg + token + "La integrada " + folio + " con n\u00famero de requisici\u00f3n " + arrayObj.getJSONObject(i).getString("cIdSolicitud") + " \"APARTADO APLICADO PRESUPUESTALMENTE\".";
                                             } else {
                                                 throw new SQLException("La integrada " + folio + " con n\u00famero de requisici\u00f3n " + arrayObj.getJSONObject(i).getString("cIdSolicitud") + " " + acr.getMessageList().get(0));
@@ -968,7 +968,7 @@ public class LeeArchivosBusinessLogic extends DataSourceManager {
             fsalida = new File(fileName);
             fos = new FileOutputStream(fsalida);
             bos = new BufferedOutputStream(fos, 1024);
-            workbook.write(bos.toPath());
+            workbook.write(bos);
             bos.flush();
             body = "<B>Atenci\u00f3n.</b></br>" + "Se notifica que fue cargado el layout de contrataciones del CAAS en el sistema SAI.<br><br>" + "Por lo anterior es necesario que se revisen las observaciones de cada registro del layout. <br><br>" + "Gracias y reciban un cordial saludo.<br> ";
             AlarmaManager.procesaAlarmaAttachmentCNF(conn, "", null, null, "Observaciones layout CAAS", usuario.getU_email() + ";" + cEmailJefeAdq + ";" + cEmailSubAdqCont + ";", body, fsalida, true);

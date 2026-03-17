@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Contratos Diversos</titulo>
+	<anchoWin>815</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>100</altoAreaCaptura>
+	<anchoAreaCaptura>1000</anchoAreaCaptura>
+	<tabla>TCATALOGOEPDIVERSO</tabla>
+	<maxRegistros>10</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="nClaveCNA"	control="nClaveCNA"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Ejercicio"  rowCol="1,1" 	ancho="5"	maxlen="5"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="EP"	control="EP"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave Presupuestaria" rowCol="1,2" 	ancho="66"	maxlen="66"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="Anual"	control="Anual"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Anual" rowCol="2,1" 	ancho="10"	maxlen=""		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="enero"	control="febrero"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Enero" rowCol="2,2" 	ancho="10"	maxlen=""		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="febrero"	control="febrero"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Febrero" rowCol="3,1" 	ancho="10"	maxlen=""		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="marzo"	control="marzo"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="marzo" rowCol="3,2" 	ancho="10"	maxlen=""		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="abril"	control="abril"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="abril" rowCol="4,1" 	ancho="10"	maxlen=""		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="mayo"	control="mayo"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="mayo" rowCol="4,2" 	ancho="10"	maxlen=""		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="junio"	control="junio"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="junio" rowCol="5,1" 	ancho="10"	maxlen=""		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="julio"	control="julio"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="julio" rowCol="5,2" 	ancho="10"	maxlen=""		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="agosto"	control="agosto"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="agosto" rowCol="6,1" 	ancho="10"	maxlen=""		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="septiembre"	control="septiembre"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="septiembre" rowCol="6,2" 	ancho="10"	maxlen=""		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="octubre"	control="octubre"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="octubre" rowCol="7,1" 	ancho="10"	maxlen=""		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="noviembre"	control="noviembre"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="noviembre" rowCol="7,2" 	ancho="10"	maxlen=""		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="diciembre"	control="diciembre"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="diciembre" rowCol="8,1" 	ancho="10"	maxlen=""		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cIDContrato"	control="cIDContrato"	dependencia="Si"	ctrlsDependientes="cIDContrato"	limpiaOnKeypress=""	header="Contrato" rowCol="8,2" 	ancho="20"	maxlen=""		tipo="string"	visible="No"	clase=""/>
+   </grid>  
+</Ayuda>

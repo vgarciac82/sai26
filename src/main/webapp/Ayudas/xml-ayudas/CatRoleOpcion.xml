@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Catálogo de Roles y Opciones</titulo>
+	<anchoWin>900</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>150</altoAreaCaptura>
+	<tabla>M_TCATALOGOROLEOPCION</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>				
+		<columna campo="ro.r_nombre"	control="txtGridMantoRNombre"	dependencia="No"	limpiaOnKeypress=""								header="nombre"	 	ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="id_opcion"	 	control="MantoIdOpcion"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Clave"		ancho="6"		maxlen="6"		tipo="numero"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+	</grid>  	
+	
+	<insertaRegistro>
+		<campo field="ro.r_nombre"			control="txtGridMantoRNombre"			llave="Si"	identity="No" 	requerido="El nombre es un dato requerido"					requeridoFocus="aRoleOpcion"			tipo="string" />
+		<campo field="id_opcion"			control="txtGridMantoIdOpcion" 	llave="Si"	identity="No"	requerido="La opción de menú es un dato requerido."		requeridoFocus="txtGridMantoIdOpcion"	tipo="numero" />
+	</insertaRegistro>
+</Ayuda>

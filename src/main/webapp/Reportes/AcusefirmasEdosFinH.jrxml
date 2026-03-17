@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="firmasEdosFin"  pageWidth="707" pageHeight="612" orientation="Landscape" columnWidth="707" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.1000000000000054"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nfirmas" class="java.lang.Integer"/>
+	<parameter name="anio" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT '1' AS '1']]>
+	</queryString>
+	<field name="1" class="java.lang.String"/>
+	<detail>
+		<band height="85">
+			<printWhenExpression><![CDATA[$P{nfirmas}==4]]></printWhenExpression>
+			<rectangle>
+				<reportElement mode="Transparent" x="1" y="0" width="235" height="85"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="236" y="0" width="235" height="85"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="471" y="0" width="235" height="85"/>
+			</rectangle>
+		</band>
+		<band height="85">
+			<printWhenExpression><![CDATA[$P{nfirmas}==3]]></printWhenExpression>
+			<rectangle>
+				<reportElement mode="Transparent" x="1" y="0" width="352" height="85"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="353" y="0" width="352" height="85"/>
+			</rectangle>
+		</band>
+	</detail>
+</jasperReport>

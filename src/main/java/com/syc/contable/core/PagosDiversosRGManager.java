@@ -112,10 +112,10 @@ public class PagosDiversosRGManager {
             Sql.append("WHERE tCE.nFolioPAGODIVERSO IN (" + listaIds + ") ");
             Sql.append("GROUP BY cRamo/*, nFolioPAGODIVERSO, fAplicacion,  cConcepto*/");
             pstmntH = conn.prepareStatement(Sql.toString());
-            log.debug("Object: {}", Sql.toString());
+            log.debug("Object: " + String.valueOf(Sql.toString()));
             rs = pstmntH.executeQuery();
             while (rs.next()) {
-                log.debug("Object: {}", "Procesando folio[" + arrFolios[0].trim() + "]");
+                log.debug("Object: " + String.valueOf("Procesando folio[" + arrFolios[0].trim() + "]"));
                 String nFolio, nFolioCompromiso = rs.getString(1);
                 String encabezado = rs.getString(2) + "," + arrFechas[0].trim() + "," + rs.getString(4).trim() + "," + rs.getString(5).trim() + "," + rs.getString(6).trim() + "," + rs.getString(7).trim() + "," + rs.getString(8).trim() + "," + rs.getString(9).trim() + "," + rs.getString(10).trim() + "," + rs.getString(11).trim() + "," + rs.getString(12).trim() + "," + rs.getString(13).trim() + "," + rs.getString(14).trim() + "," + rs.getString(15).trim() + "," + rs.getString(16).trim() + "," + arrLeyendas[0].trim().trim() + "," + rs.getString(18).trim() + "," + rs.getString(19).trim() + "," + rs.getString(20).trim() + "," + rs.getString(21).trim() + "," + rs.getString(22).trim() + "," + rs.getString(23).trim() + "," + rs.getString(24).trim() + "," + rs.getString(25).trim().replaceAll("[\r\n]{2,}", " ") + "," + rs.getString(26).trim() + "," + rs.getString(27).trim() + "," + rs.getString(28).trim() + "," + rs.getString(29).trim() + "," + rs.getString(30).trim() + "," + rs.getString(31).trim() + "," + rs.getString(32).trim() + "," + rs.getString(33).trim() + "," + rs.getString(34).trim() + "," + rs.getString(35).trim() + "," + rs.getString(36).trim() + "," + rs.getString(37).trim() + "," + rs.getString(38).trim() + "," + rs.getString(39).trim() + "," + rs.getString(40).trim() + "," + rs.getString(41);
                 encabezado = encabezado + "\r\n";
@@ -372,8 +372,8 @@ public class PagosDiversosRGManager {
         try {
             Caso c = PagosDiversosRGManager.generaCaso(conn, sUsuario, folioGenerator);
             nFolioConsolidacion = Integer.parseInt(c.getFolio().substring(c.getFolio().lastIndexOf('-') + 1), 10);
-            log.debug("Object: {}", "Query Insert Encabezado[" + sqlInsertConsolidacion + "]");
-            log.debug("Object: {}", "Query Insert Detalle[" + sqlInsertConsolidacionDetalle + "]");
+            log.debug("Object: " + String.valueOf("Query Insert Encabezado[" + sqlInsertConsolidacion + "]"));
+            log.debug("Object: " + String.valueOf("Query Insert Detalle[" + sqlInsertConsolidacionDetalle + "]"));
             psInsertaEncabezado = conn.prepareStatement(sqlInsertConsolidacion, Statement.RETURN_GENERATED_KEYS);
             psInsertaDetalle = conn.prepareStatement(sqlInsertConsolidacionDetalle);
             psInsertaEncabezado.setInt(1, nFolioConsolidacion);
@@ -382,11 +382,11 @@ public class PagosDiversosRGManager {
             psInsertaEncabezado.setString(4, "");
             psInsertaEncabezado.setString(5, ejercicioFiscal);
             insertados += psInsertaEncabezado.executeUpdate();
-            log.debug("Object: {}", "Insertados en encabezado: " + insertados + " registros ");
+            log.debug("Object: " + String.valueOf("Insertados en encabezado: " + insertados + " registros "));
             rsFolioConsolidacion = psInsertaEncabezado.getGeneratedKeys();
             psInsertaDetalle.setInt(1, nFolioConsolidacion);
             insertados += psInsertaDetalle.executeUpdate();
-            log.debug("Object: {}", "Insertados en detalle: " + insertados + " registros ");
+            log.debug("Object: " + String.valueOf("Insertados en detalle: " + insertados + " registros "));
             return insertados;
         } finally {
             CloseObject.closeObject(rsFolioConsolidacion, false);

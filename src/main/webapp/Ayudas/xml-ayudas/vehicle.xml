@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Parque Vehicular CONAFOR</titulo>
+	<anchoWin>1024</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>vVehicles</tabla>
+	<maxRegistros>10</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>				
+		<columna campo="id"				control=""				dependencia="No"	limpiaOnKeypress=""		header="ID Vehiculo"			rowCol="1,1" 	ancho="4"	maxlen="4"		tipo="int"		visible="Si"	clase=""/>
+		<columna campo="inventory_code"	control="inventoryCode"	dependencia="No"	limpiaOnKeypress=""		header="Código de Inventario"	rowCol="1,2" 	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="description"	control="description"	dependencia="No"	limpiaOnKeypress=""		header="Descripcion"			rowCol="2,1" 	ancho="50"	maxlen="120"	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="brand"			control="brand"			dependencia="No"	limpiaOnKeypress=""		header="Marca"					rowCol="2,2" 	ancho="20"	maxlen="60" 	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="sub_brand"		control="subBrand"		dependencia="No"	limpiaOnKeypress=""		header="Modelo"					rowCol="3,1" 	ancho="30"	maxlen="60" 	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="model"			control="model"			dependencia="No"	limpiaOnKeypress=""		header="Año"					rowCol="3,2"	ancho="5"	maxlen="5"		tipo="int"		visible="Si"	clase=""/>
+		<columna campo="liscence_plate"	control="liscencePlate"	dependencia="No"	limpiaOnKeypress=""		header="Placas"					rowCol="4,1" 	ancho="10"	maxlen="15"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="id_inventory"	control="vehicle"		dependencia="No"	limpiaOnKeypress=""		header="ID Inventario"			rowCol="4,2" 	ancho="15"	maxlen="50"		tipo="int"		visible="Si"	clase=""/>
+	</grid>  	
+</Ayuda>

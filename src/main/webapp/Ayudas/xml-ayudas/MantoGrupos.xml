@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!-- Ayuda Remitente Externo -->
+<Ayuda>
+	<titulo>Mantenimiento Catálogo de Grupos</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>M_CG_GRUPO</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>No</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>Si</borraRegistro>
+	<CambiaRegistro>Si</CambiaRegistro>
+	
+	
+	<grid>		
+		<columna campo="G_NOMBRE"	control="MantoGrupo"	dependencia="No"	limpiaOnKeypress=""		header="Nombre"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase="AyudaSyC autoCompletaSyC"/>
+		<columna campo="G_DESCRIPCION"	control=""	dependencia="No"	limpiaOnKeypress=""		header="Descripcion"	 ancho="100"	maxlen="200" tipo="string"	visible="Si"	clase=""/>
+	
+		<columna campo="EFISCAL" control="aEjercicioFiscal" dependencia="No" ctrlsDependientes=""	limpiaOnKeypress="txtGridaEjercicioFiscal"	header="* Ejercicio Fiscal"		rowCol="11,1" 	ancho="15"		maxlen="12"		tipo="string"		visible="Si"	clase="AyudaSyC autoCompletaSyC" defaultValue="" anioDinamic="1"/>
+	
+	</grid>  
+	
+	<insertaRegistro>
+		<campo field="G_NOMBRE"	control="txtGridMantoGrupo"	llave="Si"			identity="No"	requerido="El Nombre es un dato requerido."	requeridoFocus="txtGridMantoGrupo"	tipo="string" />
+		<campo field="G_DESCRIPCION"	control="txtGridCol1"	llave="No"	identity="No"	requerido="El Puesto es un dato requerido."	requeridoFocus="txtGridCol1"	tipo="string" />		
+	<campo field="EFISCAL"				control="txtGridaEjercicioFiscal"			llave="Si"	identity="No"	requerido="El Ejercicio Fiscal es Requerido"			requeridoFocus="txtGridaEjercicioFiscal"	tipo="string" />
+	
+	
+	</insertaRegistro>
+	
+</Ayuda>

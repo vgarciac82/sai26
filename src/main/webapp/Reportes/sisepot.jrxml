@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SampleJSONFromRoot" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true" uuid="5041e37f-bd8d-4e5c-87b8-bb992642bf6a">
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SISECOVE"/>
+	<parameter name="REPORT_DIR" class="java.lang.String" evaluationTime="Early">
+		<parameterDescription><![CDATA[Directorio de Reportes y Subreportes]]></parameterDescription>
+	</parameter>
+	<queryString language="json">
+		<![CDATA[]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.json.field.expression" value="servicioFolioNum"/>
+		<fieldDescription><![CDATA[ID]]></fieldDescription>
+	</field>
+	<field name="servicioTitulo" class="java.lang.String">
+		<property name="servicioTitulo" value="servicioTitulo"/>
+		<fieldDescription><![CDATA[servicioTitulo]]></fieldDescription>
+	</field>
+	<field name="servicioFolioNum" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="servicioFolioNum"/>
+		<fieldDescription><![CDATA[servicioFolioNum]]></fieldDescription>
+	</field>
+	<field name="servicioFolioPre" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="servicioFolioPre"/>
+		<fieldDescription><![CDATA[servicioFolioPre]]></fieldDescription>
+	</field>
+	<field name="servicioFolioAnio" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="servicioFolioAnio"/>
+		<fieldDescription><![CDATA[servicioFolioAnio]]></fieldDescription>
+	</field>
+	<field name="tipoProyectoId" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="proyectoTipo.tipoProyectoId"/>
+		<fieldDescription><![CDATA[proyectoTipo.tipoProyectoId]]></fieldDescription>
+	</field>
+	<field name="servicioObjetivos" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="servicioObjetivos"/>
+		<fieldDescription><![CDATA[servicioObjetivos]]></fieldDescription>
+	</field>
+	<field name="confidencialidadId" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="confidencialidad.confidencialidadId"/>
+		<fieldDescription><![CDATA[confidencialidad.confidencialidadId]]></fieldDescription>
+	</field>
+	<field name="servicioDuracion" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="servicioDuracion"/>
+		<fieldDescription><![CDATA[servicioDuracion]]></fieldDescription>
+	</field>
+	<field name="servicioVinculacion" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="servicioVinculacion"/>
+		<fieldDescription><![CDATA[servicioVinculacion]]></fieldDescription>
+	</field>
+	<field name="servicioCoordinacion" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="servicioCoordinacion"/>
+		<fieldDescription><![CDATA[servicioCoordinacion]]></fieldDescription>
+	</field>
+	<field name="servicioGerencia" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="servicioGerencia"/>
+		<fieldDescription><![CDATA[servicioGerencia]]></fieldDescription>
+	</field>
+	<field name="servicioDuracionDias" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="servicioDuracionDias"/>
+		<fieldDescription><![CDATA[servicioDuracionDias]]></fieldDescription>
+	</field>
+	<field name="gerenciaNombre" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="gerenciaNombre"/>
+		<fieldDescription><![CDATA[gerenciaNombre]]></fieldDescription>
+	</field>
+	<field name="coordinacionNombre" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="coordinacionNombre"/>
+		<fieldDescription><![CDATA[coordinacionNombre]]></fieldDescription>
+	</field>
+	<variable name="FolioCompleto" class="java.lang.String">
+		<variableExpression><![CDATA[$F{servicioFolioPre} + "/" + $F{servicioFolioAnio}  + "/" + $F{servicioFolioNum}]]></variableExpression>
+	</variable>
+	<pageHeader>
+		<band height="100">
+			<image scaleImage="FillFrame" hAlign="Right" vAlign="Middle">
+				<reportElement x="195" y="5" width="401" height="53" uuid="5b3a61db-8933-4510-9987-cea64964e513">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{REPORT_DIR}.concat( "images\\logocompleto.png" )]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="195" y="54" width="400" height="44" uuid="37bf44b6-30d9-4ae8-a96d-64e358e8b3ad">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ANEXO 2
+Comision Nacional Forestal
+Sistema de Seguimiento y Control de Proyectos]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="175" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="550" height="58" uuid="183cc22a-59f5-4886-b7e2-8c822914aae5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="550" height="29" backcolor="#235B4E" uuid="08d6fd14-3f1a-41b3-a154-48076438ad31">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="7" width="516" height="16" forecolor="#FFFFFF" uuid="a821967e-b3fd-40fd-b05c-ef8e3943e1eb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="Geomanist" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1. CLAVE Y DENOMINACION DE UNIDAD REQUIRENTE]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="563" y="0" width="187" height="58" uuid="704fa862-8fae-44a2-849f-aba4979fd91f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="563" y="0" width="187" height="29" backcolor="#235B4E" uuid="7be7fa36-2fff-4d96-82f7-fa6bc8aba21d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="569" y="7" width="160" height="16" forecolor="#FFFFFF" uuid="01c09828-ca6a-45fa-a641-4642e380b6c1">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="Geomanist" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[2. NUMERO DE FOLIO / ESTUDIO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="63" width="750" height="108" uuid="f32cfc98-13cc-4744-9501-cf776c67ee1a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="63" width="750" height="30" backcolor="#235B4E" uuid="58f4d2de-ae02-4b72-a2ed-9250f222d2d7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="68" width="80" height="20" forecolor="#FFFFFF" uuid="d21dfeb7-456b-4e86-84d0-3c833f9e441e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[3. TITULO]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="4" y="95" width="737" height="38" isPrintWhenDetailOverflows="true" uuid="fe239b0d-e32d-4fcb-9edd-37fb32ce9682"/>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{servicioTitulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="569" y="32" width="160" height="23" uuid="36b5b0c5-0417-44ad-bd99-19f31f2d456f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{FolioCompleto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="138" width="55" height="14" uuid="88166a70-b3a7-4f83-b23a-3332306f9a99"/>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<text><![CDATA[Especifica:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="153" width="75" height="14" uuid="b67891c7-ab60-4c80-b2f4-188763e2a1f1"/>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<text><![CDATA[Asesoria:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="143" y="153" width="75" height="14" uuid="a5850381-15ae-4fe8-a569-fb776ec8fc73"/>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<text><![CDATA[Estudio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="282" y="153" width="75" height="14" uuid="17775c57-04c6-460e-8655-7acc31a431fd"/>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<text><![CDATA[Consultoría:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="153" width="86" height="14" uuid="9148fca3-039e-4acc-875e-342b298461da"/>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<text><![CDATA[Investigaciones:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="367" y="148" width="20" height="20" uuid="4a5149b6-4521-42be-b014-98f3eddcc8d5">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="228" y="148" width="20" height="20" uuid="c19f3878-52d8-4af8-862e-d7e82777cc03">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="89" y="148" width="20" height="20" uuid="8f7c50ff-32e3-4e9c-837f-c03282c9f60a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="84" y="153" width="30" height="15" uuid="721993e9-c9c4-4357-a975-74c027a59d2c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$F{tipoProyectoId}.equals( "2" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<text><![CDATA[X]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="153" width="30" height="15" uuid="8daceeff-b171-4877-8197-801dc55af007">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$F{tipoProyectoId}.equals( "3" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<text><![CDATA[X]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="362" y="153" width="30" height="15" uuid="d45a4fa6-7d97-40a5-9708-90dc3cd27233">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$F{tipoProyectoId}.equals( "1" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<text><![CDATA[X]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="528" y="148" width="20" height="20" uuid="057de929-06a1-4b05-aba9-83226f5807ef">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="523" y="153" width="30" height="15" uuid="38bbdfac-b2ce-4e8b-80a0-e50d73565ebe">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$F{tipoProyectoId}.equals( "4" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<text><![CDATA[X]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="3" y="32" width="544" height="31" isPrintWhenDetailOverflows="true" uuid="bfaf3176-fe9d-4878-a181-b3c16533edd9"/>
+				<textElement>
+					<font fontName="Geomanist" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gerenciaNombre}.concat( " - " ).concat($F{coordinacionNombre})]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="87" splitType="Stretch">
+			<rectangle>
+				<reportElement stretchType="ContainerHeight" x="0" y="2" width="750" height="81" isPrintWhenDetailOverflows="true" uuid="b238df64-531d-4a56-8950-0c9874d65f40">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="750" height="30" backcolor="#235B4E" uuid="b1646e87-bb87-4974-bb40-060c52fa1f07">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="5" width="80" height="20" forecolor="#FFFFFF" uuid="1306db2d-70e9-44c4-a53e-73a720196b74">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[4. OBJETIVO]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="3" y="33" width="737" height="45" isPrintWhenDetailOverflows="true" uuid="938edff8-2a4a-4de4-8ac3-5a3b0f4cded0"/>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{servicioObjetivos}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="42" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<subreport>
+				<reportElement x="2" y="2" width="746" height="38" isPrintWhenDetailOverflows="true" uuid="6cb25726-3d7a-4004-95e8-2ef0305975d6">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="REPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{REPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("territorios")]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{REPORT_DIR} + "SubreportTerritory.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="54" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<subreport>
+				<reportElement stretchType="ElementGroupHeight" x="1" y="5" width="745" height="48" isPrintWhenDetailOverflows="true" uuid="87a531be-6091-491a-87f9-405898985928">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<subreportParameter name="REPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{REPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("actividades")]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{REPORT_DIR} + "SubreportActivities.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="48">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<subreport>
+				<reportElement stretchType="ElementGroupHeight" x="0" y="2" width="745" height="38" isPrintWhenDetailOverflows="true" uuid="65d19c3f-02fc-4655-ac46-6ad2652358bf">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<subreportParameter name="REPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{REPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("productos")]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{REPORT_DIR} + "SubreportProducts.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="140">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<rectangle>
+				<reportElement stretchType="ContainerHeight" x="0" y="3" width="750" height="76" isPrintWhenDetailOverflows="true" uuid="2565363f-791a-4f6b-a1a3-9fbdf05fca4a">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="750" height="30" backcolor="#235B4E" uuid="56e92e65-2ae3-4692-b8be-d939c725b753">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="8" width="513" height="20" forecolor="#FFFFFF" uuid="19dea8be-878e-4486-8524-c1b77b2d2103">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[8. NIVEL DE CONFIDENCIALIDAD DEL ESTUDIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="32" width="735" height="20" uuid="2c36b343-46d1-4933-aeed-41e976ff69ee"/>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<text><![CDATA[El nivel de confidencialidad permite que el solicitante indique si el estudio puede ser o no publicable en Internet.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="106" y="56" width="20" height="20" uuid="511289fe-7e08-4b73-b517-d452b34f755d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="245" y="56" width="20" height="20" uuid="ef609fee-e786-4871-9c62-aaf1a849819a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="406" y="56" width="20" height="20" uuid="84cef008-2d88-46dc-aabb-cb7e75e03c82">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="21" y="59" width="75" height="14" uuid="a1aafa29-91f8-4bd7-b136-4658944a6c30"/>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<text><![CDATA[a) Reservada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="101" y="59" width="30" height="15" uuid="e60c211c-f1a6-48f2-9275-a1acf767230a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$F{confidencialidadId}.equals( "1" )]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<text><![CDATA[X]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="59" width="75" height="14" uuid="5503133c-0988-43d5-8419-acdf8d8c0944"/>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<text><![CDATA[b) Confidencial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="59" width="30" height="15" uuid="9a2d7c6f-1f4d-44df-b1db-b744ccc7c731">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$F{confidencialidadId}.equals( "2" )]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<text><![CDATA[X]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="305" y="59" width="86" height="14" uuid="e5c3821d-8428-404d-b7f2-a23bbcb5bd9f"/>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<text><![CDATA[c) Pública]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="401" y="59" width="30" height="15" uuid="9f887ed0-bbc0-4440-95ba-2271cbe6b40e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$F{confidencialidadId}.equals( "3" )]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<text><![CDATA[X]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="84" width="750" height="30" backcolor="#235B4E" uuid="a447e55f-74df-4f07-a48f-3404d69b6902">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="7" y="92" width="513" height="14" forecolor="#FFFFFF" uuid="0136d1e5-e894-4ae6-a127-f25e70134187">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[9. ANEXAR TÉRMINOS DE REFERENCIA RUBRICADOS EN FORMATO PDF.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement stretchType="ContainerHeight" x="0" y="114" width="750" height="22" isPrintWhenDetailOverflows="true" uuid="b775ea21-fb92-4cb3-a236-735d74751406">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="8" y="117" width="602" height="16" uuid="e66a98b3-af76-45d0-9a05-6f313e77abe5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<text><![CDATA[Se anexa una copia en este documento rubricada por el área requirente.]]></text>
+			</staticText>
+		</band>
+		<band height="42">
+			<subreport>
+				<reportElement stretchType="ElementGroupHeight" x="0" y="2" width="745" height="38" isPrintWhenDetailOverflows="true" uuid="57f4a71c-d64d-448f-8377-9a4c1300db8f">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<subreportParameter name="REPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{REPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("servicioClaves")]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{REPORT_DIR} + "subreportPresupuesto.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="57">
+			<rectangle>
+				<reportElement x="0" y="0" width="362" height="30" backcolor="#235B4E" uuid="57c5ad7e-c814-4be1-8bd4-9099a1b2d8e3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="30" width="362" height="22" uuid="f8256424-599d-4fbc-95fc-5e15190e33de">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="7" y="8" width="258" height="14" forecolor="#FFFFFF" uuid="48fc47d5-6135-485b-807d-e75f0e013fb5">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[11. DURACION DEL PROYECTO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="8" y="34" width="100" height="14" uuid="6a4c8af4-874c-4a63-a6fa-a957824e7432">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{servicioDuracion} .concat( " meses " )  + $F{servicioDuracionDias} .concat(" dias.")]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement stretchType="ElementGroupHeight" x="371" y="0" width="374" height="38" isPrintWhenDetailOverflows="true" uuid="d0031bdb-1e3d-4df2-9f7f-23384cab5033">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<subreportParameter name="REPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{REPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("pagos")]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{REPORT_DIR} + "subreportCalendar.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band/>
+		<band height="55">
+			<rectangle>
+				<reportElement x="1" y="-2" width="750" height="30" backcolor="#235B4E" uuid="9256ae4a-448f-4684-8ac1-ca685f886a0b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="8" y="6" width="513" height="14" forecolor="#FFFFFF" uuid="94b9bdb9-a3af-4859-a56a-be3e3a9c0e7a">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[13. VINCULACIÓN CON METAS DEL PROGRAMA ANUAL DE TRABAJO Y/O PRESUPUESTO DE EGRESOS]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement stretchType="ContainerHeight" x="1" y="28" width="750" height="22" isPrintWhenDetailOverflows="true" uuid="ffae038d-582d-46b9-887a-0c8d4614c8db">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</rectangle>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="ElementGroupHeight" x="9" y="32" width="736" height="14" uuid="640bcb35-e5d1-4233-b1a3-df7e29c77dfe">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{servicioVinculacion}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="100">
+			<rectangle>
+				<reportElement x="380" y="1" width="256" height="17" backcolor="#235B4E" uuid="144902e7-c35c-4c6b-8eaf-c6d789f475ff">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="102" y="1" width="256" height="17" backcolor="#235B4E" uuid="c17fed04-8ca6-4c31-8759-55c93e7c65f1">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="102" y="3" width="256" height="14" forecolor="#FFFFFF" uuid="59daa2e4-da03-470d-be6f-61f9caeab024">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[14. RESPONSABLE O ADMINISTRADOR DEL PROYECTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="381" y="4" width="240" height="14" forecolor="#FFFFFF" uuid="8381f987-ed6a-4155-b2eb-ced89452877b">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[15. RESPONSABLE DE LA UNIDAD ADMINISTRATIVA]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="102" y="18" width="256" height="77" uuid="df9139cb-fede-4694-a4f5-fb42be01c441"/>
+			</rectangle>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="ElementGroupHeight" x="104" y="18" width="250" height="22" uuid="c785dfbd-48bb-45de-b8d7-f5507ad1ab0e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{servicioGerencia}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="380" y="18" width="256" height="77" uuid="e5be29dd-6475-42d9-8156-b06dc6eb7327"/>
+			</rectangle>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="ElementGroupHeight" x="382" y="18" width="252" height="22" uuid="ff2f3ff3-d1e8-4476-bf97-ef09a7a0d91c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{servicioCoordinacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="6" width="750" height="16" uuid="fa5ce75c-f20c-4384-8104-dba7f228159f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" size="9"/>
+				</textElement>
+				<text><![CDATA[Periférico Poniente 5360, Col. San Juan de Ocotán, C.P. 45019, Zapopan, Jalisco.       Tel: (33) 3777 7000       www.gob.mx/conafor]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -69,7 +69,7 @@ public class JDBCFuelingRequestRepository implements FuelingRequestRepository {
         try {
             log.trace("Object: {}", "Executing Query: \n" + query + "\n[" + id + "]");
             vehicleFuelRequest = runner.query(conn, query.toString(), vehicleFuelRequestHandler, id);
-            log.debug("Object: {}", "Founded: " + vehicleFuelRequest);
+            log.debug("Object: " + String.valueOf("Founded: " + vehicleFuelRequest));
             return vehicleFuelRequest;
         } catch (SQLException e) {
             throw new SicoveException(e);
@@ -198,7 +198,7 @@ public class JDBCFuelingRequestRepository implements FuelingRequestRepository {
         try {
             log.trace("Object: {}", "Executing Query: \n" + query + "\n[" + id + "]");
             vehicleFuelRequest = runner.query(conn, query.toString(), fullVehicleFuelRequestHandler, id);
-            log.debug("Object: {}", "Founded: " + vehicleFuelRequest);
+            log.debug("Object: " + String.valueOf("Founded: " + vehicleFuelRequest));
             return vehicleFuelRequest;
         } catch (SQLException e) {
             throw new SicoveException(e);

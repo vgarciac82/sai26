@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Cuentas Bancarias de SNP</titulo>
+	<anchoWin>900</anchoWin>
+	<altoWin>700</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>CTABAN_SNP</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="idCuenta"				control="idCuenta"			    dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="ID"				    ancho="55"	maxlen="15"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="clabe"					control="CTABAN_SNP"			    dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="CLABE"				ancho="55"	maxlen="15"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="beneficiario"			control=""					    dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Beneficiario"		ancho="55"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="rfc"					control=""					    dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="RFC"				ancho="55"	maxlen="8"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="ue"						control="UnidadEjecutora"	    dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Unidad Ejecutora"	ancho="55"	maxlen="15"		tipo="string"	visible="No"	clase=""/>
+		<columna campo="ccentrocontable"		control="cCentroContable"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Centro Contable"				ancho="10"	maxlen="10"		tipo="string"	visible="No"	clase=""/>
+   </grid>
+	     
+</Ayuda>

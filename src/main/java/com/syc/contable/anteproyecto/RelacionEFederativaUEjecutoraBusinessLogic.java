@@ -89,14 +89,14 @@ public class RelacionEFederativaUEjecutoraBusinessLogic extends DataSourceManage
                 Cell CellcEntidadFederativa = row.getCell(0);
                 Cell CellcUnidadEjecutora = row.getCell(1);
                 if (CellcEntidadFederativa != null) {
-                    log.debug("Object: {}", "Procesando renglon " + (renglon));
+                    log.debug("Object: " + String.valueOf("Procesando renglon " + (renglon)));
                     try {
                         String cEntidadFederativa = CellcEntidadFederativa.getStringCellValue();
                         String cUnidadEjecutora = CellcUnidadEjecutora.getStringCellValue();
                         renglonMap = new HashMap<String, String>();
                         renglonMap.put("cEntidadFederativa", cEntidadFederativa);
                         renglonMap.put("cUnidadEjecutora", cUnidadEjecutora);
-                        log.debug("Object: {}", "cEntidadFederativa[" + cEntidadFederativa + "] cUnidadEjecutora[" + cUnidadEjecutora);
+                        log.debug("Object: " + String.valueOf("cEntidadFederativa[" + cEntidadFederativa + "] cUnidadEjecutora[" + cUnidadEjecutora));
                         RelacionEFederativaUEjecutoraManager.insertaRenglonEFederativaCartera(conn, renglonMap);
                     } catch (Exception e) {
                         renglonInsertada = false;

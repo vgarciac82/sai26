@@ -60,7 +60,7 @@ public class JDBCMonthlyAssinationService extends DataSourceManager implements M
             monthlyAssinationRepository.getMonthlyFuellingSheet(conn, workBook.getSheetAt(1), account, month);
             monthlyAssinationRepository.getMonthlyVerificationSheet(conn, workBook.getSheetAt(2), account, month);
             monthlyAssinationRepository.getMonthlySummarySheet(conn, workBook.getSheetAt(3), account, month);
-            workBook.write(workBookSource.toPath());
+            workBook.write(workBookSource);
         } catch (Exception e) {
             throw new SicoveException(e);
         } finally {

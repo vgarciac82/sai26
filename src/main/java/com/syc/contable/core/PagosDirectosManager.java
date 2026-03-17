@@ -61,24 +61,24 @@ public class PagosDirectosManager {
             int intIndice = -1;
             //Query para insertar en la tabla de tLayoutsCreadosHeader
             StringBuilder sqlInsertaLayoutGrabado = PagosDirectosManager.generaQueryInsertaLayout();
-            log.debug("Object: {}", "Query para insertar layouts: " + sqlInsertaLayoutGrabado);
+            log.debug("Object: " + String.valueOf("Query para insertar layouts: " + sqlInsertaLayoutGrabado));
             pstmntHLayout = conn.prepareStatement(sqlInsertaLayoutGrabado.toString());
             //Query para generar el detalle del layouts de solicitudes de pago
             StringBuilder queryPagosDet = generaQueryPagosDet();
-            log.debug("Object: {}", "Query SP Detalle: " + sqlInsertaLayoutGrabado);
+            log.debug("Object: " + String.valueOf("Query SP Detalle: " + sqlInsertaLayoutGrabado));
             pstmntPagosDet = conn.prepareStatement(queryPagosDet.toString());
             //Query para Insertar en el detalle de tLayoutsCreadosDetalle
             StringBuilder sqlLayoutInsertaDet = generaQueryInsertDetalleLayout();
-            log.debug("Object: {}", "Query inserta Detalle Layout: " + sqlLayoutInsertaDet);
+            log.debug("Object: " + String.valueOf("Query inserta Detalle Layout: " + sqlLayoutInsertaDet));
             pstmntHLayoutDet = conn.prepareStatement(sqlLayoutInsertaDet.toString());
             //Query para genera el encabezado del layout de la solicitud de pago
             StringBuilder querySelectPagos = genQueryPagosSICOP(listaIds);
-            log.debug("Object: {}", "Ejecutando query SP Encabezado: " + querySelectPagos.toString());
+            log.debug("Object: " + String.valueOf("Ejecutando query SP Encabezado: " + querySelectPagos.toString()));
             pstmntPagos = conn.prepareStatement(querySelectPagos.toString());
             rs = pstmntPagos.executeQuery();
             log.trace("Consulta ejecutada. Iterando resultados");
             while (rs.next()) {
-                log.debug("Object: {}", "Procesando pago: " + rs.getString(1));
+                log.debug("Object: " + String.valueOf("Procesando pago: " + rs.getString(1)));
                 String nFolio = "";
                 String nFolioCompromiso = rs.getString(1);
                 for (int i = 0; i < arrFolios.length; i++) {
@@ -203,7 +203,7 @@ public class PagosDirectosManager {
                 pstmntHLayout.setString(4, sUsuario);
                 pstmntHLayout.setString(5, rs.getString(1));
                 insertados = pstmntHLayout.executeUpdate();
-                log.debug("Object: {}", "Se insertaron " + insertados + " registros");
+                log.debug("Object: " + String.valueOf("Se insertaron " + insertados + " registros"));
                 //Genera el detalle para layout de Solicitud de Pago SICOP
                 pstmntPagosDet.setString(1, rs.getString(1));
                 log.trace("Object: {}", "Ejecutando \n[" + queryPagosDet + "]\n[" + rs.getString(1) + "]");
@@ -240,7 +240,7 @@ public class PagosDirectosManager {
                 pstmntHLayoutDet.setString(1, nFolioCompromiso);
                 log.trace("Object: {}", "Ejecutando \n[" + sqlLayoutInsertaDet + "]" + "[" + nFolioCompromiso + "]" + "[" + rs.getString(1) + "]");
                 insertados = pstmntHLayoutDet.executeUpdate();
-                log.debug("Object: {}", "Se insertaron " + insertados + " registros en tLayoutsCreadosDetalle ");
+                log.debug("Object: " + String.valueOf("Se insertaron " + insertados + " registros en tLayoutsCreadosDetalle "));
             }
             //Valida que el total del Layout sea igual a los pagos
             validarTotalLayout(conn, total, listaIds);
@@ -536,7 +536,7 @@ public class PagosDirectosManager {
         ResultSet rs2 = null;
         try {
             StringBuilder queryDet = PagosDirectosManager.generaQueryDCDet();
-            log.debug("Object: {}", "Query DC Detalle [" + queryDet + "]");
+            log.debug("Object: " + String.valueOf("Query DC Detalle [" + queryDet + "]"));
             pstmntD = conn.prepareStatement(queryDet.toString());
             StringBuilder query = new StringBuilder();
             query.append("SELECT ");
@@ -1052,7 +1052,7 @@ public class PagosDirectosManager {
         PreparedStatement psHeader = null;
         ResultSet rsHeader = null;
         try {
-            log.debug("Object: {}", queryEncabezadoLayout.toString());
+            log.debug("Object: " + String.valueOf(queryEncabezadoLayout.toString()));
             psHeader = conn.prepareStatement(queryEncabezadoLayout.toString());
             psHeader.setInt(1, folioRelacionGastosCompromiso);
             rsHeader = psHeader.executeQuery();
@@ -1410,7 +1410,7 @@ public class PagosDirectosManager {
         PreparedStatement psHeader = null;
         ResultSet rsHeader = null;
         try {
-            log.debug("Object: {}", queryEncabezadoLayout.toString());
+            log.debug("Object: " + String.valueOf(queryEncabezadoLayout.toString()));
             psHeader = conn.prepareStatement(queryEncabezadoLayout);
             psHeader.setString(1, Integradora.trim());
             rsHeader = psHeader.executeQuery();
@@ -1466,12 +1466,12 @@ public class PagosDirectosManager {
         PreparedStatement psLayoutDetalle = null;
         ResultSet rsLayoutDetalle = null;
         try {
-            log.debug("Object: {}", "Generando Detalle Integracion (LAYOUT) Query: " + queryLayoutDetalle);
+            log.debug("Object: " + String.valueOf("Generando Detalle Integracion (LAYOUT) Query: " + queryLayoutDetalle));
             psLayoutDetalle = conn.prepareStatement(queryLayoutDetalle.toString());
             rsLayoutDetalle = psLayoutDetalle.executeQuery();
             if (rsLayoutDetalle.next()) {
                 String detalle = Util.resultSetToConcatenateString(rsLayoutDetalle, ",", 0);
-                log.debug("Object: {}", "Detalle para DC de la integracion " + Integradora + "\n" + detalle);
+                log.debug("Object: " + String.valueOf("Detalle para DC de la integracion " + Integradora + "\n" + detalle));
                 return detalle;
             } else
                 throw new Exception("No se encontro informacion para armar el detalle con folio de compromiso :" + Integradora);
@@ -1500,7 +1500,7 @@ public class PagosDirectosManager {
                 psHeader = generaEncabezadoLayoutCompPD(conn, folioActual.trim());
                 rs = psHeader.executeQuery();
                 while (rs.next()) {
-                    log.debug("Object: {}", "Procesando pago: " + rs.getString(1));
+                    log.debug("Object: " + String.valueOf("Procesando pago: " + rs.getString(1)));
                     String token = new String("");
                     StringBuilder encabezado = new StringBuilder();
                     for (int i = 2; i <= 42; i++) {
@@ -1509,7 +1509,7 @@ public class PagosDirectosManager {
                     }
                     token = "";
                     encabezado.append("\r\n");
-                    log.debug("Object: {}", "Encabezado: " + encabezado.toString());
+                    log.debug("Object: " + String.valueOf("Encabezado: " + encabezado.toString()));
                     arrListaComp.add(encabezado);
                     psDetail = generaDetalleLayoutCompPD(conn, folioActual.trim());
                     rs2 = psDetail.executeQuery();
@@ -1565,14 +1565,14 @@ public class PagosDirectosManager {
                         token = "";
                         detalle.append("\r\n");
                         arrListaComp.add(detalle);
-                        log.debug("Object: {}", "Detalle: " + detalle.toString());
+                        log.debug("Object: " + String.valueOf("Detalle: " + detalle.toString()));
                     }
                     boolean layoutPrevioCreado = existeLayout(conn, folioActual.trim());
                     if (!layoutPrevioCreado) {
                         // Query para insertar en la tabla de
                         // tLayoutsCreadosHeader
                         StringBuilder sqlInsertaLayoutGrabado = PagosDirectosManager.generaQueryInsertaLayout();
-                        log.debug("Object: {}", "Query para insertar layouts: " + sqlInsertaLayoutGrabado);
+                        log.debug("Object: " + String.valueOf("Query para insertar layouts: " + sqlInsertaLayoutGrabado));
                         pstmntHLayout = conn.prepareStatement(sqlInsertaLayoutGrabado.toString());
                         pstmntHLayout.setString(1, fecha);
                         pstmntHLayout.setString(2, leyenda);
@@ -1583,7 +1583,7 @@ public class PagosDirectosManager {
                         // Query para Insertar en el detalle de
                         // tLayoutsCreadosDetalle
                         StringBuilder sqlLayoutInsertaDet = generaQueryInsertDetalleLayout();
-                        log.debug("Object: {}", "Query inserta Detalle Layout: " + sqlLayoutInsertaDet);
+                        log.debug("Object: " + String.valueOf("Query inserta Detalle Layout: " + sqlLayoutInsertaDet));
                         pstmntHLayoutDet = conn.prepareStatement(sqlLayoutInsertaDet.toString());
                         pstmntHLayoutDet.setString(1, folioActual.trim());
                         pstmntHLayoutDet.executeUpdate();

@@ -3,9 +3,9 @@ package com.syc.gestion.core;
 import java.io.File;
 import java.sql.Connection;
 import java.util.Properties;
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.activation.FileDataSource;
 import jakarta.mail.Authenticator;
 import jakarta.mail.BodyPart;
 import jakarta.mail.Message;
@@ -50,7 +50,7 @@ public class AlarmaManager {
         String from = cabl.getSystemSetting("MAIL;FROM");
         boolean esAmbienteDesarrollo = "TRUE".equalsIgnoreCase(cabl.getSystemSetting("AMBIENTE_DESARROLLO"));
         String correosDesarrollo = cabl.getSystemSetting("CORREO_ALERTAS_DESARROLLO");
-        log.debug("Object: {}", "Cofiguracion de alerta: PROTOCOL[" + protocol + "] HOST[" + host + "] PORT[" + port + "] LOCALHOST[" + localhost + "] FROM[" + from + "]");
+        log.debug("Object: " + String.valueOf("Cofiguracion de alerta: PROTOCOL[" + protocol + "] HOST[" + host + "] PORT[" + port + "] LOCALHOST[" + localhost + "] FROM[" + from + "]"));
         try {
             if (esAmbienteDesarrollo) {
                 to = correosDesarrollo;
@@ -169,7 +169,7 @@ public class AlarmaManager {
             cc = "";
             bcc = "";
         }
-        log.debug("Object: {}", "Cofiguracion de alerta: PROTOCOL[" + protocol + "] HOST[" + host + "] PORT[" + port + "] LOCALHOST[" + localhost + "] FROM[" + from + "]");
+        log.debug("Object: " + String.valueOf("Cofiguracion de alerta: PROTOCOL[" + protocol + "] HOST[" + host + "] PORT[" + port + "] LOCALHOST[" + localhost + "] FROM[" + from + "]"));
         Session session;
         String errorMsg = "";
         boolean correoEnviado = false;

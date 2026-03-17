@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ConsolidadoComsoc"  pageWidth="1006" pageHeight="623" orientation="Landscape" columnWidth="966" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="0.8264462809917354"/>
+	<property name="ireport.x" value="57"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="UNormtiva" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nPartida" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="anio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="mes" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="mes_ant" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nMedio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from fn_ReporteConsolidadoComsocxMediodifucion($P{nPartida},$P{UNormtiva},$P{anio},$P{mes},$P{mes_ant},$P{nMedio})]]>
+	</queryString>
+	<field name="partida" class="java.lang.String"/>
+	<field name="difusion" class="java.lang.String"/>
+	<field name="PRES_ORIGINAL_ANUAL" class="java.math.BigDecimal"/>
+	<field name="AMPLIACIONES" class="java.math.BigDecimal"/>
+	<field name="MODIFICADO_ANUAL" class="java.math.BigDecimal"/>
+	<field name="MESATUAL" class="java.math.BigDecimal"/>
+	<field name="MESANTERIOR" class="java.math.BigDecimal"/>
+	<field name="EJERCIDOACUMULADO" class="java.math.BigDecimal"/>
+	<variable name="PRES_ORIGINAL_ANUAL_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{PRES_ORIGINAL_ANUAL}]]></variableExpression>
+	</variable>
+	<variable name="MODIFICADO_ANUAL_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{MODIFICADO_ANUAL}]]></variableExpression>
+	</variable>
+	<variable name="AMPLIACIONES_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{AMPLIACIONES}]]></variableExpression>
+	</variable>
+	<variable name="MESATUAL_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{MESATUAL}]]></variableExpression>
+	</variable>
+	<variable name="MESANTERIOR_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{MESANTERIOR}]]></variableExpression>
+	</variable>
+	<variable name="EJERCIDOACUMULADO_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{EJERCIDOACUMULADO}]]></variableExpression>
+	</variable>
+	<variable name="difusion_1" class="java.lang.Integer" resetType="Group" resetGroup="GrupoMedios" calculation="Count">
+		<variableExpression><![CDATA[$F{difusion}]]></variableExpression>
+	</variable>
+	<variable name="MODIFICADO_ANUAL_2" class="java.math.BigDecimal" resetType="Group" resetGroup="partida" calculation="Sum">
+		<variableExpression><![CDATA[$F{MODIFICADO_ANUAL}]]></variableExpression>
+	</variable>
+	<variable name="MESATUAL_2" class="java.math.BigDecimal" resetType="Group" resetGroup="partida" calculation="Sum">
+		<variableExpression><![CDATA[$F{MESATUAL}]]></variableExpression>
+	</variable>
+	<variable name="EJERCIDOACUMULADO_2" class="java.math.BigDecimal" resetType="Group" resetGroup="partida" calculation="Sum">
+		<variableExpression><![CDATA[$F{EJERCIDOACUMULADO}]]></variableExpression>
+	</variable>
+	<variable name="MESANTERIOR_2" class="java.math.BigDecimal" resetType="Group" resetGroup="partida" calculation="Sum">
+		<variableExpression><![CDATA[$F{MESANTERIOR}]]></variableExpression>
+	</variable>
+	<variable name="PRES_ORIGINAL_ANUAL_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{PRES_ORIGINAL_ANUAL}]]></variableExpression>
+	</variable>
+	<variable name="AMPLIACIONES_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{AMPLIACIONES}]]></variableExpression>
+	</variable>
+	<variable name="MODIFICADO_ANUAL_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{MODIFICADO_ANUAL}]]></variableExpression>
+	</variable>
+	<variable name="MESATUAL_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{MESATUAL}]]></variableExpression>
+	</variable>
+	<variable name="MESANTERIOR_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{MESANTERIOR}]]></variableExpression>
+	</variable>
+	<variable name="EJERCIDOACUMULADO_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{EJERCIDOACUMULADO}]]></variableExpression>
+	</variable>
+	<group name="partida">
+		<groupExpression><![CDATA[$F{partida}]]></groupExpression>
+		<groupHeader>
+			<band height="2"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="23">
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="65" y="2" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{partida}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="507" y="2" width="109" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{MESATUAL_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="732" y="2" width="131" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{EJERCIDOACUMULADO_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="165" y="2" width="100" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{PRES_ORIGINAL_ANUAL}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="265" y="2" width="116" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{AMPLIACIONES}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="381" y="2" width="126" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{MODIFICADO_ANUAL}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="616" y="2" width="115" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{MESANTERIOR_2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="GrupoMedios">
+		<groupExpression><![CDATA[$F{difusion}]]></groupExpression>
+		<groupHeader>
+			<band height="22">
+				<textField>
+					<reportElement x="65" y="1" width="442" height="20"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{difusion}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="1"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="65" y="0" width="798" height="57"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SEGUIMIENTO Y CONTOL DE LOS RECURSOS DESTINADOS A LA PUBLICIDAD Y DIFUSIÓN Y EN GENERAL A LAS ACTIVIDADES DE COMUNICACIÓN SOCIAL, REPORTE CONSOLIDADO DEL EJERCICIO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="419" y="57" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{anio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="53" splitType="Stretch">
+			<staticText>
+				<reportElement x="265" y="3" width="116" height="48"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Ampliaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="507" y="3" width="109" height="48"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Ejercido del Mes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="616" y="3" width="115" height="48"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Ejercido del Mes Anteriror]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="731" y="3" width="132" height="48"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Ejercicio Acumulado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="65" y="3" width="100" height="48"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[No. Partida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="165" y="3" width="100" height="48"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Presupuesto Original Anual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="381" y="3" width="126" height="48"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Presupuesto ModificadoAnual]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="65" y="2" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{partida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="165" y="2" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{PRES_ORIGINAL_ANUAL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="381" y="2" width="126" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{MODIFICADO_ANUAL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="507" y="2" width="109" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{MESATUAL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="616" y="2" width="115" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{MESANTERIOR}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="731" y="2" width="132" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{EJERCIDOACUMULADO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="265" y="2" width="116" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{AMPLIACIONES}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="152">
+			<staticText>
+				<reportElement x="554" y="94" width="309" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[LIC.JOSE ANGUEL GUILLEN JARDINES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="554" y="47" width="309" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[ENCARGADO  DEL ORGANISMO INTERNO DE CONTROL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="64" y="45" width="345" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[TITULAR DE LA UNIDAD DE COMUNICACION SOCIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="554" y="31" width="309" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Vo. Bo.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="94" width="345" height="14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[LIC. ADRIANA CUEVAS ARGUMEDO]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

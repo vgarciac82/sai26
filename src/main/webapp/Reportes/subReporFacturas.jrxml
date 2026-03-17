@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="firmasEdosFin" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="69868ee8-1023-4973-aabb-4a1eca0ccf27">
+	<property name="ireport.zoom" value="1.6105100000000152"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sai_2024"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="nFolioPago" class="java.lang.Integer"/>
+	<parameter name="tipoPago" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[/*subReportFacturas.jasper*/
+
+DECLARE @tipoPago NVARCHAR(50)=''
+
+SELECT @tipoPago =
+       CASE $P{tipoPago}
+              WHEN 'DIRECTO' THEN 'PAGODIRECTO'
+                     --WHEN 'NOMINA' THEN ''
+              WHEN 'DIVERSO' THEN 'PAGODIVERSO'
+              WHEN 'RELGASTO' THEN 'RELACIONGASTOS'
+              WHEN 'OBRA' THEN 'PAGOOBRA'
+              WHEN 'FEDERALIZA' THEN 'PAGOFEDERALIZADO'
+       END
+       SELECT cfactura ,
+       CONVERT(VARCHAR, mimporteconiva, 1) AS mImporteBruto ,
+       CONVERT ( date, dFechaFactura, 113) dFechaFactura,
+       (
+              SELECT Count(*)
+              FROM   dbo.tPagoFactura  with(nolock)
+              WHERE  cTipoPago=@tipoPago
+              AND    nFolioPago=$P{nFolioPago})totalFacturas
+FROM   dbo.tPagoFactura with(nolock)
+WHERE  cTipoPago=@tipoPago
+AND    nFolioPago=$P{nFolioPago}]]>
+	</queryString>
+	<field name="cfactura" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cfactura"/>
+		<property name="com.jaspersoft.studio.field.label" value="cfactura"/>
+	</field>
+	<field name="mImporteBruto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="mImporteBruto"/>
+		<property name="com.jaspersoft.studio.field.label" value="mImporteBruto"/>
+	</field>
+	<field name="dFechaFactura" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dFechaFactura"/>
+		<property name="com.jaspersoft.studio.field.label" value="dFechaFactura"/>
+	</field>
+	<field name="totalFacturas" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="totalFacturas"/>
+		<property name="com.jaspersoft.studio.field.label" value="totalFacturas"/>
+	</field>
+	<columnHeader>
+		<band height="75">
+			<printWhenExpression><![CDATA[$F{totalFacturas}>7]]></printWhenExpression>
+			<staticText>
+				<reportElement x="1" y="0" width="152" height="75" uuid="2ab8164b-13b7-488f-82f2-6f051a32d0bf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[LA AUTORIZACION DE PAGO DE ESTE DOCUMENTO SE DETALLA EN EL ANEXO DE LA CUENTA POR PAGAR, QUE INCLUYE LAS CLAVES PRESUPUESTALES, LISTADO DE FACTURAS Y/O BOLETOS DE AVION.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="10">
+			<printWhenExpression><![CDATA[$F{totalFacturas}<8]]></printWhenExpression>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="2" y="0" width="150" height="10" forecolor="#000000" uuid="142a3f05-441a-4ea1-8f19-5db5ff2da649"/>
+				<box>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cfactura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="0" width="50" height="10" forecolor="#000000" uuid="401a9d58-1838-47d2-8ca8-57811cdbb03d"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mImporteBruto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="40" height="10" uuid="1ac9eac3-3202-4616-af08-5f20bc33a5eb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="616dc166-a05f-4a83-ad42-513c975ff30b"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dFechaFactura}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

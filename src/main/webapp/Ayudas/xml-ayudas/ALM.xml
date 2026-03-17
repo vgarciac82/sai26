@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ayuda>
+	<titulo>Ayuda Cuentas</titulo>
+	<anchoWin>615</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>50</altoAreaCaptura>
+	<tabla>ALMPOLIZA</tabla>
+	<maxRegistros>100</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="ALM"	control="ALM"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Almacen"	ancho="20"	maxlen="20"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cAlmacen"			control="cAlmacen"					dependencia="No"		ctrlsDependientes=""						limpiaOnKeypress=""							header="almacén"				rowCol="2,1" 	ancho="40"		maxlen="30"	  	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cCentroContable"	control="cCentroContable"			dependencia="Si"		ctrlsDependientes=""						limpiaOnKeypress=""							header="Centro Contable"		rowCol="1,1" 	ancho="5"		maxlen="2"	  	tipo="string"	visible="Si"	clase=""/>
+	<!-- 	<columna campo="dCuenta"	control="dCuenta"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Descripción"	ancho="70"	maxlen="70"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="nSubCuenta"	control="nSubCuenta"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="SubCuenta"	ancho="40"	maxlen="40"		tipo="string"	visible="No"	clase=""/>
+		 -->
+	   </grid>
+	     
+</Ayuda>

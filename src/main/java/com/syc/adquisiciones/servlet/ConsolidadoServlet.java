@@ -184,7 +184,7 @@ public class ConsolidadoServlet extends HttpServlet implements GestionInterface 
                 consecutivo = Integer.parseInt((String) session.getAttribute(GestionInterface.ATT_ConConsecutivo));
                 PreparedStatement pstm = null;
                 Caso c = null;
-                log.debug("Object: {}", "folio " + request.getParameter("nFolioAmpliacion"));
+                log.debug("Object: " + String.valueOf("folio " + request.getParameter("nFolioAmpliacion")));
                 if (request.getParameter("nFolioAmpliacion") != "") {
                     c = cbl.getCaso(Integer.parseInt(request.getParameter("nFolioAmpliacion")));
                 } else {
@@ -195,8 +195,8 @@ public class ConsolidadoServlet extends HttpServlet implements GestionInterface 
                     try {
                         jsonObj.put("Folio1", "" + folio);
                         jsonObj.put("Folio2", "" + folioCaso);
-                        log.debug("Object: {}", "Folio+++++++++++++++++++" + folio + "++++++++++++++++++++++++++++");
-                        log.debug("Object: {}", "Folio+++++++++++++++++++" + folioCaso + "++++++++++++++++++++++++++++");
+                        log.debug("Object: " + String.valueOf("Folio+++++++++++++++++++" + folio + "++++++++++++++++++++++++++++"));
+                        log.debug("Object: " + String.valueOf("Folio+++++++++++++++++++" + folioCaso + "++++++++++++++++++++++++++++"));
                         String destino = arrayObj.put(jsonObj).toString();
                         Map<String, String> datos = new HashMap<String, String>();
                         //Argumentos para llenar la tabla de CG_CASO_DATO y que se muestren en el inbox
@@ -277,7 +277,7 @@ public class ConsolidadoServlet extends HttpServlet implements GestionInterface 
         }
         //Obtiene la operación que se manda como parámetro en la llamada GET
         int tipoOperacion = Integer.parseInt(request.getParameter("operacion"));
-        log.debug("Object: {}", "operacion: " + tipoOperacion);
+        log.debug("Object: " + String.valueOf("operacion: " + tipoOperacion));
         String strParam = request.getParameter("Param");
         switch(tipoOperacion) {
             case 1:
@@ -373,8 +373,8 @@ public class ConsolidadoServlet extends HttpServlet implements GestionInterface 
             try {
                 jsonObj.put("Folio1", "" + folio);
                 jsonObj.put("Folio2", "" + folioCaso);
-                log.debug("Object: {}", "Folio+++++++++++++++++++" + folio + "++++++++++++++++++++++++++++");
-                log.debug("Object: {}", "Folio+++++++++++++++++++" + folioCaso + "++++++++++++++++++++++++++++");
+                log.debug("Object: " + String.valueOf("Folio+++++++++++++++++++" + folio + "++++++++++++++++++++++++++++"));
+                log.debug("Object: " + String.valueOf("Folio+++++++++++++++++++" + folioCaso + "++++++++++++++++++++++++++++"));
                 String destino = arrayObj.put(jsonObj).toString();
                 Map<String, String> datos = new HashMap<String, String>();
                 //Argumentos para llenar la tabla de CG_CASO_DATO y que se muestren en el inbox
@@ -509,7 +509,7 @@ public class ConsolidadoServlet extends HttpServlet implements GestionInterface 
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion Contable, Consulte a su administrador.";
         }
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Object: {}", "Inicia aplicacion presupuestal" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Inicia aplicacion presupuestal" + new Timestamp(System.currentTimeMillis())));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         AplicarContableReturn acr = null;
         String prefixPath = getServletContext().getRealPath("/WEB-INF/mail-bodies/") + File.separator;
@@ -531,7 +531,7 @@ public class ConsolidadoServlet extends HttpServlet implements GestionInterface 
             acr = conInt.aplicarContableNuevo(conn, c, "", "", "", 0, "", m, prefixPath, usuario.getLogin(), validaSaldo);
             arrLResult = (ArrayList) acr.getMessageList();
             if (acr.isSuccess()) {
-                log.debug("Object: {}", request.getParameter("nFolioPrecompromiso"));
+                log.debug("Object: " + String.valueOf(request.getParameter("nFolioPrecompromiso")));
                 cmst = conn.prepareCall("{?= call pa_validaAplicacionContable (?,?,?,?,?)}");
                 cmst.registerOutParameter(1, Types.INTEGER);
                 cmst.setInt(2, Integer.parseInt(request.getParameter("nFolioPrecompromiso")));
@@ -544,8 +544,8 @@ public class ConsolidadoServlet extends HttpServlet implements GestionInterface 
                 if (outputValue == 0) {
                     jsonObj.put("Aplica", "1");
                     pstm = conn.prepareStatement("UPDATE mConsolidado SET nIdEstado = 2 , ConsecutivoPRECOMP = ?, C_FOLIO_PRE = ? " + " WHERE cIdTipoConsolidado = ? " + " and cIdUnidadEjecutora = ?" + " and nIdConsecutivo = ?" + " and cEjercicio=?");
-                    log.debug("Object: {}", "folio " + request.getParameter("nFolioPrecompromiso"));
-                    log.debug("Object: {}", "folio " + request.getParameter("folioCasoPreCompromiso"));
+                    log.debug("Object: " + String.valueOf("folio " + request.getParameter("nFolioPrecompromiso")));
+                    log.debug("Object: " + String.valueOf("folio " + request.getParameter("folioCasoPreCompromiso")));
                     pstm.setString(1, request.getParameter("nFolioPrecompromiso"));
                     pstm.setString(2, request.getParameter("folioCasoPreCompromiso"));
                     pstm.setString(3, tipo);
@@ -563,7 +563,7 @@ public class ConsolidadoServlet extends HttpServlet implements GestionInterface 
                     cmst1.execute();
                     //inserta en las tablas de mPartidasPrecompromiso
                     if (partidas == 1) {
-                        log.debug("Object: {}", "cidconsolidado " + cIdConsolidado);
+                        log.debug("Object: " + String.valueOf("cidconsolidado " + cIdConsolidado));
                         cmst2 = conn.prepareCall("{call sp_mPartidasPrecompromiso (?)}");
                         cmst2.setString(1, cIdConsolidado);
                         cmst2.execute();
@@ -576,8 +576,8 @@ public class ConsolidadoServlet extends HttpServlet implements GestionInterface 
                     //////////////////////////////////////////
                     avanzaCaso(request, c, usuario, prefixPath, responsable, nombre);
                     //////////////////////////////////////////
-                    log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
-                    log.debug("Object: {}", "Termina Aplicacion presupuestal " + new Timestamp(System.currentTimeMillis()));
+                    log.debug("Object: " + String.valueOf(c.getCasoDato("APLICADO_CONT").getValor()));
+                    log.debug("Object: " + String.valueOf("Termina Aplicacion presupuestal " + new Timestamp(System.currentTimeMillis())));
                     mensaje = "DOCUMENTO DE PRECOMPROMISO APLICADO PRESUPUESTALMENTE.";
                     conn.commit();
                 } else {
@@ -697,7 +697,7 @@ public class ConsolidadoServlet extends HttpServlet implements GestionInterface 
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion Presupuestal, Consulte a su administrador.";
         }
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Object: {}", "Inicia aplicacion presupuestal" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Inicia aplicacion presupuestal" + new Timestamp(System.currentTimeMillis())));
         CompromisoBussinessLogic cbl = new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         String prefixPath = getServletContext().getRealPath("/WEB-INF/mail-bodies/") + File.separator;
         try {
@@ -714,8 +714,8 @@ public class ConsolidadoServlet extends HttpServlet implements GestionInterface 
             acr = conInt.cancelarAppContableNueva(conn, c, "", "", "", 0, "", m, prefixPath, usuario.getLogin(), "");
             arrLResult = (ArrayList) acr.getMessageList();
             if (acr.isSuccess()) {
-                log.debug("Object: {}", "ejercicio " + request.getParameter("cEjercicio"));
-                log.debug("Object: {}", "folio " + request.getParameter("nFolioPrecompromiso"));
+                log.debug("Object: " + String.valueOf("ejercicio " + request.getParameter("cEjercicio")));
+                log.debug("Object: " + String.valueOf("folio " + request.getParameter("nFolioPrecompromiso")));
                 cmst = conn.prepareCall("{?= call pa_validaAplicacionContable (?,?,?,?,?)}");
                 cmst.registerOutParameter(1, Types.INTEGER);
                 cmst.setInt(2, Integer.parseInt(request.getParameter("nFolioPrecompromiso")));
@@ -728,7 +728,7 @@ public class ConsolidadoServlet extends HttpServlet implements GestionInterface 
                 if (outputValue == 0) {
                     jsonObj.put("Devuelve", "0");
                     int estado;
-                    log.debug("Object: {}", partidas);
+                    log.debug("Object: " + String.valueOf(partidas));
                     if (partidas == 0) {
                         // no devuelve a capturado, solo elimina folios, el precompromiso viene de disponible
                         estado = 2;
@@ -754,9 +754,9 @@ public class ConsolidadoServlet extends HttpServlet implements GestionInterface 
                         pstm3.setString(1, idConsolidado);
                         pstm3.executeUpdate();
                     }
-                    log.debug("Object: {}", "Termina Aplicacion Presupuestal " + new Timestamp(System.currentTimeMillis()));
+                    log.debug("Object: " + String.valueOf("Termina Aplicacion Presupuestal " + new Timestamp(System.currentTimeMillis())));
                     mensaje = "DOCUMENTO DE PRECOMPROMISO CANCELADO PRESUPUESTALMENTE";
-                    log.debug("Object: {}", "Termina Aplicacion presupuestal" + new Timestamp(System.currentTimeMillis()));
+                    log.debug("Object: " + String.valueOf("Termina Aplicacion presupuestal" + new Timestamp(System.currentTimeMillis())));
                     conn.commit();
                 } else {
                     conn.rollback();
@@ -863,7 +863,7 @@ public class ConsolidadoServlet extends HttpServlet implements GestionInterface 
             rs = pstmt.executeQuery();
             if (rs.next()) {
                 String idCaso = rs.getString("ID_CASO");
-                log.debug("Object: {}", "idCaso " + idCaso);
+                log.debug("Object: " + String.valueOf("idCaso " + idCaso));
                 if (idCaso == null) {
                     log.error("Llamada invalida, sin identificador de caso");
                     throw new GestionException("Llamada inválida, sin identificador de caso");
@@ -945,7 +945,7 @@ public class ConsolidadoServlet extends HttpServlet implements GestionInterface 
             mensaje = "Error: El Usuario no tiene Centro Contable asignado y no podra realizar aplicacion Presupuestal, Consulte a su administrador.";
         }
         ContableInterface conInt = new AplicacionContable();
-        log.debug("Object: {}", "Inicia aplicacion presupuestal" + new Timestamp(System.currentTimeMillis()));
+        log.debug("Object: " + String.valueOf("Inicia aplicacion presupuestal" + new Timestamp(System.currentTimeMillis())));
         //	CompromisoBussinessLogic cbl =new CompromisoBussinessLogic(GestionInterface.ATT_CONEXION);
         try {
             conn = cbl.getConnection();
@@ -959,9 +959,9 @@ public class ConsolidadoServlet extends HttpServlet implements GestionInterface 
                 return;
             }
             try {
-                log.debug("Object: {}", "fecha " + c.getCasoDato("FECHA_DOCUMENTO").getValor());
-                log.debug("Object: {}", "fecha " + request.getParameter("nuevaFecha"));
-                log.debug("Object: {}", "folio " + request.getParameter("nFolioPrecompromiso"));
+                log.debug("Object: " + String.valueOf("fecha " + c.getCasoDato("FECHA_DOCUMENTO").getValor()));
+                log.debug("Object: " + String.valueOf("fecha " + request.getParameter("nuevaFecha")));
+                log.debug("Object: " + String.valueOf("folio " + request.getParameter("nFolioPrecompromiso")));
                 cmst = conn.prepareCall("{?= call pa_ampliacionVigenciaPrecompromiso (?,?)}");
                 cmst.registerOutParameter(1, Types.INTEGER);
                 cmst.setString(2, request.getParameter("nFolioPrecompromiso"));

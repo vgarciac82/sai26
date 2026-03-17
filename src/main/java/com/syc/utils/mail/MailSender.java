@@ -112,7 +112,7 @@ public class MailSender {
             String port = cabl.getSystemSetting("MAIL;PORT");
             String localhost = cabl.getSystemSetting("MAIL;LOCALHOST");
             String from = cabl.getSystemSetting("MAIL;FROM");
-            log.debug("Object: {}", "Cofiguracion de alerta: PROTOCOL[" + protocol + "] HOST[" + host + "] PORT[" + port + "] LOCALHOST[" + localhost + "] FROM[" + from + "]");
+            log.debug("Object: " + String.valueOf("Cofiguracion de alerta: PROTOCOL[" + protocol + "] HOST[" + host + "] PORT[" + port + "] LOCALHOST[" + localhost + "] FROM[" + from + "]"));
             Properties props = new Properties();
             props.put("mail.transport.protocol", protocol);
             props.put("mail.smtp.host", host);
@@ -196,7 +196,7 @@ public class MailSender {
             String port = cabl.getSystemSetting("MAIL;PORT");
             String localhost = cabl.getSystemSetting("MAIL;LOCALHOST");
             String from = cabl.getSystemSetting("MAIL;FROM");
-            log.debug("Object: {}", "Cofiguracion de alerta: PROTOCOL[" + protocol + "] HOST[" + host + "] PORT[" + port + "] LOCALHOST[" + localhost + "] FROM[" + from + "]");
+            log.debug("Object: " + String.valueOf("Cofiguracion de alerta: PROTOCOL[" + protocol + "] HOST[" + host + "] PORT[" + port + "] LOCALHOST[" + localhost + "] FROM[" + from + "]"));
             Properties props = new Properties();
             props.put("mail.transport.protocol", protocol);
             props.put("mail.smtp.host", host);

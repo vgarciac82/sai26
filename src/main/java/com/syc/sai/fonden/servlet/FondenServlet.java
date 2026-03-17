@@ -77,7 +77,7 @@ public class FondenServlet extends HttpServlet {
             token = ",";
         }
         arr = "[" + arr + "]";
-        log.debug("Object: {}", arr);
+        log.debug("Object: " + String.valueOf(arr));
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);
@@ -106,7 +106,7 @@ public class FondenServlet extends HttpServlet {
             json = String.format(json, "0", e.getMessage());
             arr = "[" + json + "]";
         }
-        log.debug("Object: {}", arr);
+        log.debug("Object: " + String.valueOf(arr));
         o.print(arr);
         o.flush();
         o.close();
@@ -147,7 +147,7 @@ public class FondenServlet extends HttpServlet {
             e.printStackTrace();
             json = String.format(json, "0", e.getMessage());
         }
-        log.debug("Object: {}", arr);
+        log.debug("Object: " + String.valueOf(arr));
         o.print(arr);
         o.flush();
         o.close();
@@ -166,7 +166,7 @@ public class FondenServlet extends HttpServlet {
             json = String.format(json, numRows, "Hubo un error al guardar");
         }
         arr = "[" + json + "]";
-        log.debug("Object: {}", arr);
+        log.debug("Object: " + String.valueOf(arr));
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);
@@ -187,7 +187,7 @@ public class FondenServlet extends HttpServlet {
             json = String.format(json, success, "El monto total es mayor al Importe anual FONDEN");
         }
         arr = "[" + json + "]";
-        log.debug("Object: {}", arr);
+        log.debug("Object: " + String.valueOf(arr));
         resp.setContentType("text/html");
         PrintWriter o = resp.getWriter();
         o.print(arr);

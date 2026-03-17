@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="polizaCertificadoTransito" pageWidth="612" pageHeight="792" columnWidth="552" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="541b6173-8940-41f2-ba47-09232b5742f6">
+	<property name="ireport.zoom" value="1.6500000000000088"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="192"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sai_2024"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["\\Axtel\\Clientes\\CONAFOR\\Workspaces\\sai\\WebContent\\Reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="whereFolio" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 'Se crea el presente documento para la comisión con folio:  ' +  cast(comision.nIdComision  as varchar(8)) + ' titulada  "' + cNombreComision + '" para el C. ' +  dbo.fn_mayusc_formato(nombreCompleto ) + ' servidor publico adscrito a la institucion' concepto,
+'La comisión es ordenada por la Unidad Administrativa ' + dbo.fn_mayusc_formato(UR.D_DESCRIPCION) 
++ ' y fue autorizada por toda la cadena de mando correspondiente, bajo el siguiente itinerario:' concepto2,
+dbo.fn_mayusc_formato(nombreCompleto ) nombreCompleto, cFolioCertificado,
+'A ' + cast(day(comision.fAplicacion) as varchar(2)) + ' de ' +  dbo.fn_NombreMeses(month(comision.fAplicacion)) + ' de ' + cast(year(comision.fAplicacion) as varchar(4)) fecha
+, dbo.fn_mayusc_formato(UR.D_DESCRIPCION)  UR
+, comision.nIdComision, cNombreComision
+FROM tComision comision
+INNER JOIN v_Empleados EMP
+ON emp.nEmpleado = comision.nidEmpleado
+INNER JOIN tCatUnidadResponsable UR
+ON UR.cUnidadResponsable = comision.cUnidadResponsable
+WHERE nIdComision =  $P{whereFolio}]]>
+	</queryString>
+	<field name="concepto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="concepto"/>
+		<property name="com.jaspersoft.studio.field.label" value="concepto"/>
+	</field>
+	<field name="concepto2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="concepto2"/>
+		<property name="com.jaspersoft.studio.field.label" value="concepto2"/>
+	</field>
+	<field name="nombreCompleto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombreCompleto"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombreCompleto"/>
+	</field>
+	<field name="cFolioCertificado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cFolioCertificado"/>
+		<property name="com.jaspersoft.studio.field.label" value="cFolioCertificado"/>
+	</field>
+	<field name="fecha" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fecha"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha"/>
+	</field>
+	<field name="UR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="UR"/>
+		<property name="com.jaspersoft.studio.field.label" value="UR"/>
+	</field>
+	<field name="nIdComision" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="nIdComision"/>
+		<property name="com.jaspersoft.studio.field.label" value="nIdComision"/>
+	</field>
+	<field name="cNombreComision" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cNombreComision"/>
+		<property name="com.jaspersoft.studio.field.label" value="cNombreComision"/>
+	</field>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{concepto}]]></groupExpression>
+		<groupHeader>
+			<band height="65">
+				<textField>
+					<reportElement x="390" y="2" width="150" height="20" uuid="159e4b11-27f5-49c2-9436-1570e9333db4"/>
+					<textElement textAlignment="Right">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="127" y="17" width="413" height="18" uuid="8f36a234-55c4-4ed1-aec8-2f2532e9ea41"/>
+					<textElement>
+						<font fontName="Geomanist" size="10" isBold="true" isItalic="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombreCompleto}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="11" y="18" width="129" height="13" uuid="fc7de9a6-6535-4059-af73-83d0b1bfa946">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement>
+						<font fontName="Geomanist"/>
+					</textElement>
+					<text><![CDATA[Nombre del comisionado:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="11" y="50" width="139" height="13" uuid="9fce1c30-e375-498d-8854-cf12c61f2d09"/>
+					<textElement>
+						<font fontName="Geomanist"/>
+					</textElement>
+					<text><![CDATA[Folio y nombre de la comisión:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="184" y="50" width="291" height="13" uuid="efb41a4f-4b44-43e2-96bc-3c79c66f141d"/>
+					<textElement>
+						<font fontName="Geomanist"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cNombreComision}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="148" y="50" width="40" height="13" uuid="d8e2e52e-f4a4-4823-8e0e-259663e60241"/>
+					<textElement textAlignment="Left">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nIdComision}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="11" y="34" width="100" height="13" uuid="8007d80e-4fcb-484c-8680-62a6cb2b1630"/>
+					<textElement>
+						<font fontName="Geomanist"/>
+					</textElement>
+					<text><![CDATA[Área de adscripción:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="128" y="34" width="413" height="17" uuid="48e52d06-4dd6-4981-8d07-63d5899e408d"/>
+					<textElement>
+						<font fontName="Geomanist"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{UR}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="345">
+				<rectangle>
+					<reportElement x="10" y="19" width="531" height="180" uuid="3e8e9a27-2e71-43b5-9215-383d03954e19"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="10" y="196" width="531" height="119" uuid="352f548c-acb0-4aff-8fc5-93615b4f287d"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="10" y="19" width="530" height="32" uuid="54106218-800d-471b-b151-7972f2e6ea71"/>
+					<textElement textAlignment="Center">
+						<font fontName="Geomanist" size="9"/>
+					</textElement>
+					<text><![CDATA[Detalles del nuevo itinerario (Llenar manualmente solo en caso de cambios al itinerario original)]]></text>
+				</staticText>
+				<line>
+					<reportElement x="274" y="196" width="1" height="119" uuid="792c377a-024b-413f-92f0-cc62b5dd7e37"/>
+				</line>
+				<staticText>
+					<reportElement stretchType="ElementGroupHeight" x="9" y="299" width="265" height="16" uuid="56d938d7-defa-4eeb-862a-ba61269ebde6"/>
+					<textElement textAlignment="Center">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<text><![CDATA[ Firma comisionado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="ElementGroupHeight" x="275" y="196" width="265" height="16" uuid="0dac7180-3417-4904-ac4c-b66dba15fe4e"/>
+					<textElement textAlignment="Center">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<text><![CDATA[Certifico]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="ElementGroupHeight" x="279" y="298" width="265" height="16" uuid="cc34c71a-0403-40c4-b861-1957deba3cd1"/>
+					<textElement textAlignment="Center">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<text><![CDATA[Nombre, Cargo, Sello y Firma Autoridad *]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="10" y="2" width="531" height="16" uuid="5a4bf92a-8934-4891-89bc-fcb0f735cda4"/>
+					<textElement textAlignment="Center">
+						<font fontName="Geomanist" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Modificaciones al itinerario]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="10" y="284" width="264" height="20" uuid="4aa7c3f1-d2d5-402f-b310-a5739bd7769e"/>
+					<textElement textAlignment="Center">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombreCompleto}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="309" y="298" width="210" height="1" uuid="dd03cf43-eb1e-4bb1-9512-0a99c4881de3"/>
+				</line>
+				<line>
+					<reportElement x="42" y="298" width="210" height="1" uuid="a7c1fdca-26d5-4133-883e-38896aa84117"/>
+				</line>
+				<staticText>
+					<reportElement stretchType="ElementGroupHeight" x="10" y="196" width="265" height="16" uuid="c120ff8d-0ba9-46c3-a7a9-16e46ec2d9fc"/>
+					<textElement textAlignment="Center">
+						<font fontName="Geomanist"/>
+					</textElement>
+					<text><![CDATA[Comisionado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="9" y="318" width="530" height="27" isPrintWhenDetailOverflows="true" uuid="9e981434-72a0-44cf-8573-0eaade48f373">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left">
+						<font fontName="Geomanist" size="9"/>
+					</textElement>
+					<text><![CDATA[* Firmas de autorización: Presidente municipal, protección civil, autoridades ejidales, comunales o municipales o una coordinación general de la CONAFOR]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="104" splitType="Stretch">
+			<image>
+				<reportElement key="image" x="1" y="-3" width="423" height="83" uuid="06d2fd0e-c2ce-4f93-8c98-516a09712647"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"\\logo_CNF_SEMARNAT.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="424" y="46" width="121" height="15" uuid="22de83db-ea75-4d76-bfc3-30990e2d7cfb"/>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist"/>
+				</textElement>
+				<text><![CDATA[No de Documento]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="422" y="61" width="123" height="30" uuid="0fc91615-0dd7-4d10-bb7a-33a33bf5f3cc"/>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cFolioCertificado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="1" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText" x="2" y="-18" width="549" height="19" uuid="9b1deb8a-6e04-43af-8f91-5e5e99977098"/>
+				<textElement textAlignment="Center">
+					<font fontName="Geomanist" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CERTIFICADO DE TRÁNSITO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="56" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<subreport>
+				<reportElement stretchType="ElementGroupHeight" x="10" y="3" width="532" height="47" isPrintWhenDetailOverflows="true" uuid="e07f55a1-a182-4c7c-9574-1626d4eeff8e"/>
+				<subreportParameter name="whereFolio">
+					<subreportParameterExpression><![CDATA[$P{whereFolio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+ "\\subReportAgenda.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="69">
+			<subreport>
+				<reportElement stretchType="ElementGroupHeight" x="10" y="2" width="532" height="65" isPrintWhenDetailOverflows="true" uuid="5bf2b882-df51-4425-8e9d-7b49f8c1a7f1"/>
+				<subreportParameter name="whereFolio">
+					<subreportParameterExpression><![CDATA[$P{whereFolio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+ "\\subReportSelloAgenda.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

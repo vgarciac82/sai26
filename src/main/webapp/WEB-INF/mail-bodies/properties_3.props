@@ -1,0 +1,6 @@
+smtphost=mail.syc.com.mx
+smtpuser=vicente.garcia@syc.com.mx
+smtppasswd=F4B10la11
+smtpport=587
+smtpauth=true
+smtpfrom=notificacionessai@conafor.gob.mx

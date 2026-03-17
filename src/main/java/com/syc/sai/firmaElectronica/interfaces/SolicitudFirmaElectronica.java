@@ -284,7 +284,7 @@ public abstract class SolicitudFirmaElectronica {
         parametrosReales.append("d=").append(String.valueOf(document));
         parametrosReales.append("&");
         parametrosReales.append("f=").append(StringUtils.reverse(String.valueOf(folio)));
-        log.debug("Object: {}", "Cadena generada: " + parametrosReales);
+        log.debug("Object: " + String.valueOf("Cadena generada: " + parametrosReales));
         return parametrosReales.toString();
     }
 

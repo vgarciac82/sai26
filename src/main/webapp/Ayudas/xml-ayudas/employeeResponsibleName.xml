@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Ayuda>
+	<titulo>Unidad Administrativa CONAFOR</titulo>
+	<anchoWin>900</anchoWin>
+	<altoWin>600</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>vEmployees</tabla>
+	<maxRegistros>10</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+	<ColSort>0</ColSort>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+		
+	<grid>				
+		<columna campo="Clave"						control="employeeNumber"			dependencia="No"	limpiaOnKeypress=""		header="Numero de Empleado"	rowCol="1,1" 	ancho="6"	maxlen="6"		tipo="int"		visible="Si"	clase=""/>
+		<columna campo="NombreN"					control=""							dependencia="No"	limpiaOnKeypress=""		header="Nombre"				rowCol="1,2" 	ancho="30"	maxlen="6"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="nombrep"					control=""							dependencia="No"	limpiaOnKeypress=""		header="Apellido Paterno"	rowCol="2,1" 	ancho="30"	maxlen="6"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="nombrem"					control=""							dependencia="No"	limpiaOnKeypress=""		header="Apellido Materno"	rowCol="2,2" 	ancho="30"	maxlen="60" 	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cargo"						control="position"					dependencia="No"	limpiaOnKeypress=""		header="Cargo"				rowCol="3,1" 	ancho="50"	maxlen="60" 	tipo="string"	visible="Si"	clase=""/>
+		<columna campo="cUejecutora"				control="executiveUnit"				dependencia="Si"	limpiaOnKeypress=""		header="Unidad"				rowCol="3,2"	ancho="5"	maxlen="5"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="employeeResponsibleName"	control="employeeResponsibleName"	dependencia="No"	limpiaOnKeypress=""		header=""					rowCol="4,1" 	ancho="25"	maxlen="120"	tipo="string"	visible="No"	clase=""/>
+	</grid>  	
+</Ayuda>

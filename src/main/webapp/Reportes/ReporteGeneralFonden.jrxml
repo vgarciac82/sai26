@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteGeneralFonden" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6f2ac0dc-26a8-47fc-9b84-c715e90587b9">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="13"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SAI_2021_produccion"/>
+	<parameter name="cIdFonden" class="java.lang.String"/>
+	<parameter name="crfc" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     tFondenMovimiento."cIdFonden" AS tFondenMovimiento_cIdFonden,
+     tFondenMovimiento."nIdFondenMovimiento" AS tFondenMovimiento_nIdFondenMovimiento,
+     tFondenMovimiento."cConcepto" AS tFondenMovimiento_cConcepto,
+     tFondenMovimiento."nPrecioUnitario" AS tFondenMovimiento_nPrecioUnitario,
+     tFondenMovimiento."nCantidad" AS tFondenMovimiento_nCantidad,
+     tFondenMovimiento."nImporte" AS tFondenMovimiento_nImporte,
+     tFondenMovimiento."cRFC" AS tFondenMovimiento_cRFC,
+     tFondenMovimiento."cNumPedido" AS tFondenMovimiento_cNumPedido,
+     tFondenMovimiento."nNetoPedido" AS tFondenMovimiento_nNetoPedido,
+     tFondenMovimiento."nPrecio" AS tFondenMovimiento_nPrecio,
+     tFondenMovimiento."nTotal" AS tFondenMovimiento_nTotal,
+     tFondenMovimiento."cProveedor" AS tFondenMovimiento_cProveedor,
+     tFondenMovimiento."ACTIVO" AS tFondenMovimiento_ACTIVO,
+     tFondenMovimiento."ID_GABINETE" AS tFondenMovimiento_ID_GABINETE,
+     tFondenMovimiento."cFolio" AS tFondenMovimiento_cFolio,
+     tFondenMovimiento."cCentroContable" AS tFondenMovimiento_cCentroContable,
+     tFondenMovimiento."cUnidadResponsable" AS tFondenMovimiento_cUnidadResponsable,
+     tFondenMovimiento."nNumCaso" AS tFondenMovimiento_nNumCaso,
+     tFondenMovimiento."nCantidadTotal" AS tFondenMovimiento_nCantidadTotal,
+     tFondenMovimiento."nTechoDef" AS tFondenMovimiento_nTechoDef,
+     tFondenMovimiento."cIdMoneda" AS tFondenMovimiento_cIdMoneda,
+     tFondenMovimiento."nTipoCambio" AS tFondenMovimiento_nTipoCambio,
+     tFondenMovimiento."nIdFondenMovEstatus" AS tFondenMovimiento_nIdFondenMovEstatus,
+     tFondenMovEstatus."nIdFondenMovEstatus" AS tFondenMovEstatus_nIdFondenMovEstatus,
+     tFondenMovEstatus."cDescripcion" AS tFondenMovEstatus_cDescripcion,
+     tFondenMoneda."cIdMoneda" AS tFondenMoneda_cIdMoneda,
+     tFondenMoneda."cDescripcion" AS tFondenMoneda_cDescripcion,
+     tFondenMoneda."nTipoCambio" AS tFondenMoneda_nTipoCambio,
+     tFonden."cIdFonden" AS tFonden_cIdFonden,
+     tFonden."cUsuarioCreador" AS tFonden_cUsuarioCreador,
+     tFonden."dFechaCaptura" AS tFonden_dFechaCaptura,
+     tFonden."cDescripcion" AS tFonden_cDescripcion,
+     tFonden."nImporteAnual" AS tFonden_nImporteAnual
+FROM
+     "dbo"."tFondenMovEstatus" tFondenMovEstatus INNER JOIN "dbo"."tFondenMovimiento" tFondenMovimiento ON tFondenMovEstatus."nIdFondenMovEstatus" = tFondenMovimiento."nIdFondenMovEstatus"
+     INNER JOIN "dbo"."tFondenMoneda" tFondenMoneda ON tFondenMovimiento."cIdMoneda" = tFondenMoneda."cIdMoneda"
+     INNER JOIN "dbo"."tFonden" tFonden ON tFondenMovimiento."cIdFonden" = tFonden."cIdFonden"
+
+where tFondenMovimiento."cIdFonden" = $P{cIdFonden} AND  tFondenMovimiento."cRFC" = $P{crfc}]]>
+	</queryString>
+	<field name="tFondenMovimiento_cIdFonden" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_nIdFondenMovimiento" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_cConcepto" class="java.lang.String"/>
+	<field name="tFondenMovimiento_nPrecioUnitario" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_nCantidad" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_nImporte" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_cRFC" class="java.lang.String"/>
+	<field name="tFondenMovimiento_cNumPedido" class="java.lang.String"/>
+	<field name="tFondenMovimiento_nNetoPedido" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_nPrecio" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_nTotal" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_cProveedor" class="java.lang.String"/>
+	<field name="tFondenMovimiento_ACTIVO" class="java.lang.String"/>
+	<field name="tFondenMovimiento_ID_GABINETE" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_cFolio" class="java.lang.String"/>
+	<field name="tFondenMovimiento_cCentroContable" class="java.lang.String"/>
+	<field name="tFondenMovimiento_cUnidadResponsable" class="java.lang.String"/>
+	<field name="tFondenMovimiento_nNumCaso" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_nCantidadTotal" class="java.lang.Integer"/>
+	<field name="tFondenMovimiento_nTechoDef" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_cIdMoneda" class="java.lang.String"/>
+	<field name="tFondenMovimiento_nTipoCambio" class="java.math.BigDecimal"/>
+	<field name="tFondenMovimiento_nIdFondenMovEstatus" class="java.lang.Integer"/>
+	<field name="tFondenMovEstatus_nIdFondenMovEstatus" class="java.lang.Integer"/>
+	<field name="tFondenMovEstatus_cDescripcion" class="java.lang.String"/>
+	<field name="tFondenMoneda_cIdMoneda" class="java.lang.String"/>
+	<field name="tFondenMoneda_cDescripcion" class="java.lang.String"/>
+	<field name="tFondenMoneda_nTipoCambio" class="java.math.BigDecimal"/>
+	<field name="tFonden_cIdFonden" class="java.lang.Integer"/>
+	<field name="tFonden_cUsuarioCreador" class="java.lang.String"/>
+	<field name="tFonden_dFechaCaptura" class="java.sql.Timestamp"/>
+	<field name="tFonden_cDescripcion" class="java.lang.String"/>
+	<field name="tFonden_nImporteAnual" class="java.math.BigDecimal"/>
+	<title>
+		<band height="123" splitType="Stretch">
+			<staticText>
+				<reportElement x="15" y="52" width="319" height="21" uuid="93186010-fe42-423d-8a46-223b676a6623"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[SUBGERENCIA DE TESORERÍA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="103" width="802" height="20" uuid="430fa6a2-0cdb-4532-a022-1e043b459b92"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DEL FIDEICOMISO "+$F{tFonden_cDescripcion}+" FONDEN POR "+new java.text.DecimalFormat("\\$ #,##0.00").format($F{tFonden_nImporteAnual})+" PARA EL EJERCICIO "+$F{tFonden_cIdFonden}+" (REGISTRO DE FACTURAS AL "+(new SimpleDateFormat("dd/MMM/yyyy").format(new Date())).toUpperCase()+")"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="15" y="31" width="319" height="21" uuid="3af7415f-6682-4031-ba28-15500243e66b"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[GERENCIA DE RECURSOS FINANCIEROS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="10" width="319" height="21" uuid="17a10a76-b36b-4a35-8c45-1c0c15f60010"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="83" width="802" height="20" uuid="55d5cf2e-73d1-413d-b5a3-81ae39dd49c8"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[REPORTE GENERAL DE MOVIMIENTOS FONDEN]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="29" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="34" height="20" uuid="3a77ba9a-1991-447a-9330-f908148332c7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Num Caso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="34" y="0" width="96" height="20" uuid="363351c3-7fe6-4574-b1e9-80515b1ade9e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Precio Unitario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="0" width="58" height="20" uuid="ddae981d-2f77-44ca-859e-725e8b6f86e0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="188" y="0" width="96" height="20" uuid="36719511-065f-4025-a9f8-575fc984d0e2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Importe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="284" y="0" width="112" height="20" uuid="8645981d-8484-4a80-a3d0-2d9b62036553"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Proveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="396" y="0" width="58" height="20" uuid="9aae8b82-019f-4764-b419-844da8ef460a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Num Pedido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="454" y="0" width="96" height="20" uuid="17e9c015-39c4-4a7b-813c-03926e6c7560"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Neto pedido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="550" y="0" width="96" height="20" uuid="6d00cd77-c03a-47e8-bfae-1bdb402d4bb0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Precio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="646" y="0" width="58" height="20" uuid="83cf4a2d-411d-427b-863c-4eed1afec3e0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Cantidad total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="704" y="0" width="96" height="20" uuid="209ed4e3-0c26-48da-8854-f2b2ba73ecef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="34" height="20" uuid="fb892479-e3a1-40d0-9da7-c8b04e80e867"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nNumCaso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="34" y="0" width="96" height="20" uuid="5c4711bd-89fc-442b-ba59-b398caa7a7cd"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nPrecioUnitario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="0" width="58" height="20" uuid="e7a9683b-b506-4150-92c4-9b95ee0a3489"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nCantidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="188" y="0" width="96" height="20" uuid="1b1dd4c5-9bee-47ec-8f36-7145c3d777cd"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nImporte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="284" y="0" width="112" height="20" uuid="a874503b-6988-48b8-965f-a6833c0e5850"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_cProveedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="396" y="0" width="58" height="20" uuid="b7894814-a763-422f-8362-e78250ad60c3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_cNumPedido}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="454" y="0" width="96" height="20" uuid="2950a4e2-b5cd-46e1-858f-5a61d9c8468d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nNetoPedido}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="550" y="0" width="96" height="20" uuid="0d46b605-f403-4ce7-9909-20410fe1b113"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nPrecio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="646" y="0" width="58" height="20" uuid="f10af69a-e5ec-4580-bccb-b019d436370b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nCantidadTotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="704" y="0" width="96" height="20" uuid="a3e119d1-dff8-4ba6-8299-4ac0263db697"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFondenMovimiento_nTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

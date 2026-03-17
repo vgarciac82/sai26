@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ContratoOBRA"  pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true">
+	<property name="ireport.zoom" value="1.6500000000000017"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="cEjercicio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\SyC\\Clientes\\CONAFOR\\Desarrollo\\Workspace\\sai_conafor\\WebContent\\Reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cidContrato" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from vReporteObra where
+     1 = 1 and cidcontrato = $P{cidContrato} and cEjercicio= $P{cEjercicio}]]>
+	</queryString>
+	<field name="cEjercicio" class="java.lang.String"/>
+	<field name="cUnidadEjecutora" class="java.lang.String"/>
+	<field name="ccveconcurso" class="java.lang.String"/>
+	<field name="cidContrato" class="java.lang.String"/>
+	<field name="cConceptoContrato" class="java.lang.String"/>
+	<field name="cCveCartera" class="java.lang.String"/>
+	<field name="cCveOLI" class="java.lang.String"/>
+	<field name="ctipoObra" class="java.lang.String"/>
+	<field name="ctipoRecursos" class="java.lang.String"/>
+	<field name="fConvoca" class="java.lang.String"/>
+	<field name="fJuntAcla" class="java.lang.String"/>
+	<field name="fFechaRecProp" class="java.lang.String"/>
+	<field name="fFechaFallo" class="java.lang.String"/>
+	<field name="fFechaIniContr" class="java.lang.String"/>
+	<field name="fFechaFinContr" class="java.lang.String"/>
+	<field name="cRazonSocial" class="java.lang.String"/>
+	<field name="FundamentoLeg" class="java.lang.String"/>
+	<field name="mMonto" class="java.lang.String"/>
+	<field name="nPorceIVA" class="java.math.BigDecimal"/>
+	<field name="mMontoConIVA" class="java.lang.String"/>
+	<field name="cAnticipo" class="java.lang.String"/>
+	<field name="mMontoAnticipo" class="java.lang.String"/>
+	<field name="mMontoIVAAnticipo" class="java.lang.String"/>
+	<field name="mMontoNetoAnticipo" class="java.lang.String"/>
+	<field name="importeSubtotal" class="java.lang.String"/>
+	<field name="importeIVA" class="java.lang.String"/>
+	<field name="total" class="java.lang.String"/>
+	<field name="cConvenio" class="java.lang.String"/>
+	<field name="mMontoConIVAConv" class="java.lang.String"/>
+	<field name="fInicio" class="java.lang.String"/>
+	<field name="fTermino" class="java.lang.String"/>
+	<field name="subtotalMod" class="java.lang.String"/>
+	<field name="IVAMod" class="java.lang.String"/>
+	<field name="totalMod" class="java.lang.String"/>
+	<variable name="cIdUnidadEjecutora_1" class="java.lang.Integer" resetType="Group" resetGroup="uni" calculation="Count">
+		<variableExpression><![CDATA[$F{cUnidadEjecutora}]]></variableExpression>
+	</variable>
+	<group name="uni">
+		<groupExpression><![CDATA[$F{cUnidadEjecutora}]]></groupExpression>
+		<groupHeader>
+			<band height="100">
+				<line>
+					<reportElement x="10" y="92" width="777" height="1"/>
+					<graphicElement>
+						<pen lineStyle="Double"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="88" y="80" width="318" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Descripción]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="636" y="81" width="101" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Monto Total Comprometido]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="217" y="7" width="156" height="10"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fConvoca}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="393" y="20" width="156" height="11"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fFechaFallo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="393" y="7" width="162" height="10" isPrintWhenDetailOverflows="true"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fFechaRecProp}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="49" y="38" width="722" height="14"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cRazonSocial}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="49" y="55" width="722" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{FundamentoLeg}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="217" y="20" width="162" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fJuntAcla}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="574" y="7" width="162" height="10" isPrintWhenDetailOverflows="true"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fFechaIniContr}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="574" y="20" width="162" height="11" isPrintWhenDetailOverflows="true"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fFechaFinContr}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="49" y="20" width="156" height="14"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{ctipoRecursos}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="49" y="7" width="156" height="10"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{ctipoObra}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="567" y="81" width="49" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[% IVA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="453" y="80" width="89" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Monto Comprometido]]></text>
+				</staticText>
+				<line>
+					<reportElement x="10" y="79" width="777" height="1"/>
+					<graphicElement>
+						<pen lineStyle="Double"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="231">
+				<textField>
+					<reportElement x="453" y="19" width="74" height="14"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{mMontoAnticipo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="88" y="19" width="206" height="14" isPrintWhenDetailOverflows="true"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cAnticipo}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="567" y="19" width="91" height="14"/>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{mMontoIVAAnticipo}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="636" y="19" width="102" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{mMontoNetoAnticipo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="88" y="113" width="318" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Convenios]]></text>
+				</staticText>
+				<line>
+					<reportElement x="10" y="125" width="777" height="1"/>
+					<graphicElement>
+						<pen lineStyle="Double"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="636" y="114" width="101" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Monto Total Convenio]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="558" y="114" width="58" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Fecha Termino]]></text>
+				</staticText>
+				<line>
+					<reportElement x="10" y="112" width="777" height="1"/>
+					<graphicElement>
+						<pen lineStyle="Double"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="453" y="113" width="89" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Fecha Inicio]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="558" y="134" width="70" height="14"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fTermino}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="88" y="134" width="346" height="14" isPrintWhenDetailOverflows="true"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{cConvenio}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="453" y="134" width="100" height="14"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fInicio}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="636" y="134" width="100" height="14"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{mMontoConIVAConv}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="658" y="58" width="105" height="13"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{importeSubtotal}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="574" y="58" width="79" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SUBTOTAL:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="658" y="71" width="105" height="13"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{importeIVA}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="574" y="71" width="79" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[IVA:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="658" y="86" width="105" height="13"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{total}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="574" y="86" width="79" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="574" y="40" width="189" height="13"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Contrato Original]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="574" y="211" width="79" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="658" y="211" width="105" height="13"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{totalMod}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="658" y="196" width="105" height="13"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{IVAMod}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="574" y="196" width="79" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[IVA:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="574" y="183" width="79" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SUBTOTAL:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="574" y="165" width="189" height="13"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Contrato Modificado]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="658" y="183" width="105" height="13"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{subtotalMod}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="557" y="1" width="21" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[IVA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="626" y="1" width="63" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Anticipo Neto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="443" y="1" width="74" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Importe de Anticipo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="78" y="1" width="318" height="13"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Anticipos]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="0" width="777" height="1"/>
+					<graphicElement>
+						<pen lineStyle="Double"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="0" y="13" width="777" height="1"/>
+					<graphicElement>
+						<pen lineStyle="Double"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="2" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="57" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="763" y="9" width="28" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="682" y="9" width="37" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Página]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="187" y="15" width="449" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cUnidadEjecutora}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="740" y="9" width="18" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[de ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="187" y="2" width="449" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL FORESTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="719" y="9" width="17" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="682" y="29" width="72" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Ejercicio: "+$F{cEjercicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="187" y="29" width="449" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Concurso : "+$F{ccveconcurso}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="10" y="2" width="152" height="47"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+ "\\nuevo_logoconafor.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="50" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="18" y="14" width="762" height="19" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cConceptoContrato}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="10" y="46" width="777" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="18" y="4" width="762" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Contrato de Obra: "+ $F{cidContrato}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="18" y="34" width="156" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cCveCartera}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="187" y="34" width="156" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cCveOLI}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="88" y="3" width="346" height="14" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cConceptoContrato}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="636" y="3" width="100" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mMontoConIVA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="558" y="3" width="70" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nPorceIVA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="453" y="3" width="100" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mMonto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="13" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="1" y="0" width="801" height="12" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="21" splitType="Stretch"/>
+	</summary>
+</jasperReport>

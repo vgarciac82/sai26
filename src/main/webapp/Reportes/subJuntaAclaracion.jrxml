@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subJuntaAclaracion"  pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.3579476910000023"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cIdProcedimiento" class="java.lang.String"/>
+	<parameter name="cRazonSocial" class="java.lang.String"/>
+	<parameter name="cIdRFC" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT 'Pregunta '+CONVERT(VARCHAR, pp.ConsecutivoPreg)+' : '+(CASE WHEN pp.Pregunta IS NULL THEN '' ELSE pp.Pregunta END) AS Pregunta, 'Respuesta : '+(CASE WHEN pp.Respuesta IS NULL THEN '' ELSE pp.Respuesta END) AS Respuesta
+FROM mProcedimientoPreguntas pp WITH(NOLOCK)
+WHERE pp.cIdProcedimiento=$P{cIdProcedimiento} AND pp.cIdRFC=$P{cIdRFC}
+ORDER BY pp.ConsecutivoPreg]]>
+	</queryString>
+	<field name="Pregunta" class="java.lang.String"/>
+	<field name="Respuesta" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="35">
+			<textField>
+				<reportElement x="143" y="0" width="425" height="25"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{cRazonSocial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="0" width="140" height="16"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre o Razón Social:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="38" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="3" y="1" width="565" height="20"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Pregunta}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="35">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="3" y="0" width="565" height="20"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Respuesta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -69,10 +69,10 @@ public class ReceptorSearchController extends HttpServlet {
             String json = gson.toJson(receptores);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(json.toPath());
+            response.getWriter().write(json);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("{\"error\": \"Error al buscar los receptores\"}".toPath());
+            response.getWriter().write("{\"error\": \"Error al buscar los receptores\"}");
         }
     }
 }

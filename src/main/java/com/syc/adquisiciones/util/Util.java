@@ -632,7 +632,7 @@ public class Util {
                     // avanzaCaso(request, c, usuario, prefixPath, responsable,
                     // nombre);
                     Util.avanzaCaso(request, c, usuario, prefixPath, responsable, nombre, jndiName);
-                    log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: " + String.valueOf(c.getCasoDato("APLICADO_CONT").getValor()));
                 }
             }
             resp = true;
@@ -722,7 +722,7 @@ public class Util {
                     // Una vez que ha hecho la aplicación contable avanza el
                     // caso
                     avanzaCaso(request, c, usuario, prefixPath, new String[] { "CONSULTA_PAGOS" }, new String[] { "consulta_compromiso" }, jndiName);
-                    log.debug("Object: {}", c.getCasoDato("APLICADO_CONT").getValor());
+                    log.debug("Object: " + String.valueOf(c.getCasoDato("APLICADO_CONT").getValor()));
                 }
             }
             if (listFoliosComp.size() > 1) {
@@ -1197,7 +1197,7 @@ public class Util {
         parametrosReales.append("d=").append(String.valueOf(document));
         parametrosReales.append("&");
         parametrosReales.append("f=").append(StringUtils.reverse(String.valueOf(folio)));
-        log.debug("Object: {}", "Cadena generada: " + parametrosReales);
+        log.debug("Object: " + String.valueOf("Cadena generada: " + parametrosReales));
         return parametrosReales.toString();
     }
 

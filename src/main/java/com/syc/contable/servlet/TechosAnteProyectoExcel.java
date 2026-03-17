@@ -112,7 +112,7 @@ public class TechosAnteProyectoExcel extends HttpServlet {
             String sufijo = fecha.format(date);
             // String path = req.getRealPath("/upload/"+
             // req.getSession().getAttribute(empleado.getClaveUsuario()));
-            path = request.getRealPath("/upload/");
+            path = getServletContext().getRealPath("/upload/");
             File file = new File(path);
             if (!file.exists()) {
                 file.mkdirs();
@@ -138,7 +138,7 @@ public class TechosAnteProyectoExcel extends HttpServlet {
                 while (i.hasNext()) {
                     actual = (FileItem) i.next();
                     String fileName = "TechosAnteProyecto.xls";
-                    File archivo = new File(fu.getRepositoryPath() + "\\" + fileName);
+                    File archivo = new File(path + "\\" + fileName);
                     actual.write(archivo.toPath());
                 }
             } catch (Exception e) {
@@ -355,9 +355,8 @@ public class TechosAnteProyectoExcel extends HttpServlet {
     }
 
     public ArrayList<String> cargaExcel(String archivo, String tipo) throws SQLException {
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
-        JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
-        String cFileExcel = upload.getRepositoryPath() + "/TechosAnteProyecto.xls";
+        String uploadDir = getServletContext().getRealPath("/upload/");
+        String cFileExcel = uploadDir + "/TechosAnteProyecto.xls";
         ArrayList<String> un = new ArrayList<String>();
         AnteProyectoBusinessLogic apBL = new AnteProyectoBusinessLogic("");
         try {
@@ -627,7 +626,7 @@ public class TechosAnteProyectoExcel extends HttpServlet {
             // El tamaño no importa
             fu.setFileSizeMax(-1);
             // Si excede el 1 Gb en memoria lo
-            fu.setSizeThreshold(1048576);
+            // setSizeThreshold movido a DiskFileItemFactory.builder().setBufferSize(1048576)
             // escribe a disco
             szPath = getServletContext().getRealPath("/upload/ante");
             File file = new File(szPath);

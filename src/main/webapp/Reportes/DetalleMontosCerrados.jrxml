@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DetalleMontos" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="a9d1e2f9-4682-499c-be60-049cc3793b74">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FolioPlu" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+    CD."nFolioContratoPlurianual" AS folio,
+     CD."aEjercicioFiscal" AS Anio,
+     CE."cDescripcion" as concepto,
+     CE."lAbierto" AS tipo,
+      CD."nMonto" AS monto,
+     CD."nMontoMinimo" AS montoMinimo,
+     CD."nMontoMaximo" AS montoMaximo,
+     isnull(CD.nAvance,0) AS AvanceFisico
+FROM
+     "tContratoPlurianualDetalle" CD,
+     "tContratoPlurianualEncabezado" CE
+WHERE
+     CE.nFolioContratoPlurianual = CD.nFolioContratoPlurianual
+      and CD.nFolioContratoPlurianual = $P{FolioPlu}
+
+ORDER BY
+     CD.nFolioContratoPlurianual ASC,
+     cd.nConsecutivo ASC]]>
+	</queryString>
+	<field name="folio" class="java.lang.String"/>
+	<field name="Anio" class="java.lang.String"/>
+	<field name="concepto" class="java.lang.String"/>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="monto" class="java.math.BigDecimal"/>
+	<field name="montoMinimo" class="java.math.BigDecimal"/>
+	<field name="montoMaximo" class="java.math.BigDecimal"/>
+	<field name="AvanceFisico" class="java.lang.Integer"/>
+	<variable name="montoMaximo_1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoMaximo}]]></variableExpression>
+	</variable>
+	<variable name="montoMinimo_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoMinimo}]]></variableExpression>
+	</variable>
+	<variable name="monto_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{monto}]]></variableExpression>
+	</variable>
+	<variable name="AvanceFisico_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{AvanceFisico}]]></variableExpression>
+	</variable>
+	<variable name="Anio_1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{Anio}]]></variableExpression>
+	</variable>
+	<variable name="EtAvance" class="java.lang.String">
+		<variableExpression><![CDATA[($F{AvanceFisico} ==0 ? "  No Aplica" :$F{AvanceFisico})]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="Avance_Total" class="java.lang.String">
+		<variableExpression><![CDATA[($V{AvanceFisico_1} ==0 ? "  No Aplica" :$V{AvanceFisico_1})]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="124" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="95" width="93" height="28" uuid="2a8cbe31-0c3f-43f1-97c5-ace88f9a3776"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Año]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="93" y="95" width="165" height="28" uuid="85e91736-2cb4-42dd-b33a-15cad8f5d253">
+					<printWhenExpression><![CDATA[$F{monto}.compareTo( new BigDecimal( "0" )  ) != 0]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="258" y="95" width="120" height="28" uuid="208eebf4-c7dd-44e9-b5cd-0861c5a428e5"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Avance Físico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="68" width="377" height="27" uuid="e729e0c3-6af1-4b7a-a0f1-146801d48683"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECURSOS A EJERCER EN MILES DE PESOS]]></text>
+			</staticText>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="93" y="3" width="285" height="59" uuid="7e6de13a-df58-4ee5-b573-594f7c368fb3"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{concepto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="3" width="92" height="59" uuid="382fba6b-db76-4e10-8c0a-0c24ee5160e2"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripción del Proyecto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="92" height="20" uuid="62e949d4-194b-4baf-bf74-90cbd0a3c560"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Anio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="258" y="0" width="120" height="20" uuid="9cd1697a-7f84-4909-b73a-3b28ee1c65cd"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{EtAvance}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="118" splitType="Stretch">
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="93" y="0" width="165" height="20" backcolor="#CCCCFF" uuid="18f69be7-b6f8-4653-89a4-b22787d5812a"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{monto_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="0" width="92" height="20" backcolor="#CCCCFF" uuid="0c96ccb4-556a-479e-a5f2-93579c7c1558"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Costo Total]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="false">
+				<reportElement x="93" y="-21" width="165" height="20" uuid="498f3ff3-61e5-4722-b92f-ee537424883d"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="258" y="0" width="120" height="20" uuid="a37e8874-fbff-4063-abb4-fb45a380f9a6"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{Avance_Total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

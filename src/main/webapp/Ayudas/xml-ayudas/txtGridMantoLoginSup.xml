@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mantenimiento Usuarios -->
+<Ayuda>
+	<titulo>Ayuda Catalogo de Login</titulo>
+	<anchoWin>715</anchoWin>
+	<altoWin>700</altoWin>
+	<altoAreaCaptura>200</altoAreaCaptura>
+	<tabla>USRUSRSA</tabla>
+	<maxRegistros>1000</maxRegistros>
+	<regresaDatos>Si</regresaDatos>
+
+	<borraRegistro>No</borraRegistro>
+	<CambiaRegistro>No</CambiaRegistro>
+	
+	<grid>
+		<columna campo="u.u_login"			control="txtGridMantoLoginSup"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Login"				ancho="10"		maxlen="32"		tipo="string"	visible="Si"	clase=""/>
+		<columna campo="e.nombrecompl"		control="txtGridNombreCompl1"	dependencia="No"	ctrlsDependientes=""	limpiaOnKeypress=""	header="Nombre"				ancho="100"		maxlen="200"	tipo="string"	visible="Si"	clase=""/>
+
+	</grid>	  
+</Ayuda>

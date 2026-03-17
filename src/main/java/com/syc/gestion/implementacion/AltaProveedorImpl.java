@@ -158,8 +158,8 @@ public class AltaProveedorImpl implements TipoCasoInterface {
                 return ConfiguraAplicativoManager.getSystemSetting(conn, "CORREO_ALERTAS_DESARROLLO");
             ps = conn.prepareStatement(query);
             ps.setString(1, folio);
-            log.debug("Object: {}", ps.toString());
-            log.debug("Object: {}", folio);
+            log.debug("Object: " + String.valueOf(ps.toString()));
+            log.debug("Object: " + String.valueOf(folio));
             rs = ps.executeQuery();
             if (rs.next())
                 val = rs.getString(1);
@@ -178,8 +178,8 @@ public class AltaProveedorImpl implements TipoCasoInterface {
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, folio);
-            log.debug("Object: {}", ps.toString());
-            log.debug("Object: {}", folio);
+            log.debug("Object: " + String.valueOf(ps.toString()));
+            log.debug("Object: " + String.valueOf(folio));
             rs = ps.executeQuery();
             if (rs.next())
                 val = rs.getString(1);
@@ -198,8 +198,8 @@ public class AltaProveedorImpl implements TipoCasoInterface {
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, folio);
-            log.debug("Object: {}", ps.toString());
-            log.debug("Object: {}", folio);
+            log.debug("Object: " + String.valueOf(ps.toString()));
+            log.debug("Object: " + String.valueOf(folio));
             rs = ps.executeQuery();
             if (rs.next())
                 val = rs.getString(1);
@@ -218,8 +218,8 @@ public class AltaProveedorImpl implements TipoCasoInterface {
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, folio);
-            log.debug("Object: {}", ps.toString());
-            log.debug("Object: {}", folio);
+            log.debug("Object: " + String.valueOf(ps.toString()));
+            log.debug("Object: " + String.valueOf(folio));
             rs = ps.executeQuery();
             if (rs.next())
                 val = 1;
@@ -240,8 +240,8 @@ public class AltaProveedorImpl implements TipoCasoInterface {
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, folio);
-            log.debug("Object: {}", ps.toString());
-            log.debug("Object: {}", folio);
+            log.debug("Object: " + String.valueOf(ps.toString()));
+            log.debug("Object: " + String.valueOf(folio));
             rs = ps.executeQuery();
             if (rs.next())
                 val = rs.getString(1);

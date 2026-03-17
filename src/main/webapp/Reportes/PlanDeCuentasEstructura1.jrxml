@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlanDeCuentasEstructura1"  pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.7715610000000053"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="908"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT 1 AS ID]]>
+	</queryString>
+	<field name="ID" class="java.lang.Integer"/>
+	<detail>
+		<band height="692" splitType="Stretch">
+			<staticText>
+				<reportElement x="170" y="49" width="229" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[ESTRUCTURA DEL PLAN DE CUENTAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="138" width="77" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Género]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="201" y="138" width="75" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grupo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="366" y="138" width="75" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rubro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="292" width="167" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[3  Bienes Inmuebles, Infraestructura y Construcciones en Proceso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="450" width="89" height="10"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[1   Pasivo Circulante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="281" width="167" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[1  Inversiones Financieras a Largo Plazo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="313" width="89" height="10"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[2   Activo No Circulante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="335" width="167" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[6  Depreciación, Deterioro y Amortización Acumulada de Bienes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="547" width="167" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[5  Fondos y Bienes de Terseros en Garantía y/o Administración a Largo Plazo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="432" width="167" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[1  Cuentas por Pagar a Corto Plazo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="556" width="89" height="10"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[2   Pasivo No Circulante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="172" width="130" height="10"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[1   Efectivo y Equivalentes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="313" width="167" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[4  Bienes Muebles]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="194" width="167" height="10"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[3   Derechos a Recibir Bienes o Servicios]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="205" width="167" height="10"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[4   Inventarios]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="52" y="498" width="50" height="20"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[2 PASIVO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="52" y="250" width="50" height="20"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1 ACTIVO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="203" width="89" height="10"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[1   Activo Circulante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="356" width="167" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[7  Activos Diferidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="227" width="167" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[6   Estimaciones por Pérdida o Deterioro de     Activos Circulantes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="457" width="167" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[6  Fondos y Bienes de Terceros en Garantia y/o Administracion a Corto Plazo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="216" width="167" height="10"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[5   Almacenes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="183" width="167" height="10"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[2   Derechos a Recibir Efectivo o Equivalentes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="325" width="167" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[5  Activos Intangibles]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="444" width="167" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[5  Pasivos Diferidos a Corto Plazo]]></text>
+			</staticText>
+			<image>
+				<reportElement x="130" y="183" width="40" height="172"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\llaveizq.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="312" y="166" width="21" height="94"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\llaveizq.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="312" y="273" width="21" height="104"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\llaveizq.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="312" y="422" width="21" height="65"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\llaveizq.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="312" y="535" width="21" height="43"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\llaveizq.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="149" y="444" width="21" height="134"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "\\llaveizq.png"]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>
